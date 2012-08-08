@@ -1,3 +1,16 @@
+CHANGES IN VERSION 0.3.02 (2012-06-20)
+
+  o calculate.stability function added
+  o added L2->species option to levelmap function
+  o estimate.diversity function updated. Detection thresholds applied with
+    richness and evenness
+  o estimate.min.threshold mode detection improved
+  o cross.correlate function added
+
+CHANGES IN VERSION 0.3.01 (2012-06-19)
+
+  o draft version for GitHub
+
 CHANGES IN VERSION 0.2.04 (2012-06-15)
   o RMySQL removed from explicit dependencies
 

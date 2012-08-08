@@ -373,20 +373,27 @@ levelmap <- function (phylotypes, level.from, level.to, oligomap) {
   }	 
 
   if (level.from == lev2 && level.to == lev1) {
-    sl <- level2TOlevel1(phylotypes, oligomap)
+    sl <- level2TOlevel1(phylotypes, oligomap)[,2]
+  }	 
+
+  if (level.from == lev2 && level.to == "species") {
+    sl <- list()
+    for (pt in phylotypes) {
+      sl[[pt]] <- as.character(unique(oligomap[oligomap[[lev2]] == phylotypes, "species"]))
+    }
   }	 
 
   if (level.from == lev1 && level.to == lev2) {
     sl <- oligomap[oligomap[[lev1]] == phylotypes, c(lev1, lev2)]
-    sl <- sl[!duplicated(sl),]
+    sl <- sl[!duplicated(sl),2]
   }	 
 
   if (level.from == lev1 && level.to == lev3) {
     sl <- oligomap[oligomap[[lev1]] == phylotypes, c(lev1, lev3)]
-    sl <- sl[!duplicated(sl),]
+    sl <- sl[!duplicated(sl),2]
   }	 
 
-  sl[,2]
+  sl
 
 }
 
@@ -445,7 +452,7 @@ remove.background <- function (dat) {
 #' Description: determine threshold for bg correction
 #'
 #' Arguments:
-#'   @param dat data matrix
+#'   @param dat data matrix (in approximately normal scale ie. logged)
 #'
 #' Returns:
 #'   @return threshold value
@@ -459,7 +466,7 @@ estimate.min.threshold <- function (dat) {
   #estimate min threshold 
   DD <- density(as.numeric(unlist(dat)))
   #find mode
-  noise_mode <- DD$x[which(diff(DD$y)<0)[1]]
+  noise_mode <- DD$x[[which.max(DD$y)]] # DD$x[which(diff(DD$y)<0)[1]]
   #compute sd of noise
   noise_sd <- sd(dat[dat < noise_mode])
   #threshold

@@ -1077,3 +1077,27 @@ phylotype.rm.list <- function (chip) {
   rm.phylotypes
 
 }
+
+
+
+
+#' Description: Stability analysis. Calculates average Pearson '
+#  correlation between samples in the input data and picks the lower '
+#  triangular matrix to avoid duplicating the correlations. Returns 
+#  correlations and stability estimate (average of the correlations).
+#'
+#' Arguments:
+#'   @param dat data matrix phylotypes vs. samples
+#'
+#' Returns:
+#'   @return List with correlations and astability estimate
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+calculate.stability <- function (dat) {
+  cors <- lower.triangle(cor(dat))
+  list(correlations = cors, stability = mean(cors))
+}

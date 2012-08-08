@@ -1,8 +1,8 @@
 Package: microbiome
 Type: Package
 Title: microbiome
-Version: 0.3.01
-Date: 2012-06-19
+Version: 0.3.02
+Date: 2012-06-20
 Author: Leo Lahti and Jarkko Salojarvi
 Maintainer: microbiome developer team <leo.lahti@iki.fi>
 Description: R package for microbiome studies
@@ -47,7 +47,6 @@ Collate:
     'atlas.R'
     'hitchip.R'
     'diversity.R'
-    'annotations.R'
     'visualization.R'
     'brew.R'
     'phyloarray.R'

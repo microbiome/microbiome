@@ -1,0 +1,27 @@
+\name{level2TOlevel1}
+\alias{level2TOlevel1}
+\title{Description: level2-level1 mappings}
+\usage{
+  level2TOlevel1(l2, oligomap)
+}
+\arguments{
+  \item{l2}{level2 phylotypes}
+
+  \item{oligomap}{oligomap
+
+  Returns:}
+}
+\value{
+  mappings
+}
+\description{
+  Arguments:
+}
+\author{
+  Contact: Leo Lahti \email{leo.lahti@iki.fi}
+}
+\references{
+  See citation("microbiome")
+}
+\keyword{utilities}
+

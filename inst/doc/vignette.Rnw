@@ -271,6 +271,20 @@ f.phylodist <- "Sebastian_HITChip.dismat.gz"
 pd <- hitchip.phylodistance("level 2", f.phylomap, f.phylodist)
 @
 
+
+\section{Tools}
+
+\subsection{Stability analysis}
+
+Give input data 'dat' as phylotypes vs. samples matrix and calculate
+stability as average Pearson correlation between the samples:
+
+<<atlas,results=hide,eval=FALSE>>=
+stability <- calculate.stability(dat)$stability
+@
+
+
+
 \section{HITChip atlas}
 
 To fetch and preprocess HITChip atlas on one go, use the following

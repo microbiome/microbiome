@@ -1,4 +1,5 @@
 #' Description: Estimate diversities for each sample (column)
+#' Aliases: get.diversity.estimates. Also replaces the function ST: diversity.indices
 #'
 #' Arguments:
 #'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
@@ -18,27 +19,33 @@ estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL)
   veganT <- require(vegan)
   if(!veganT) { install.packages("vegan") }
 
-  # Was: get.diversity.estimates. Also replaces the function ST: diversity.indices
-
-  # Specify detection threshold  
+  # Specify detection threshold if not provided
   if (is.null(det.th)) {
     dat <- impute(dat) # impute the very few (3) missing values
     det.th <- 10^estimate.min.threshold(log10(dat))
     warning(paste("Applying detection threshold: ", det.th))
   }
 
-  # Set observations below detection threshold to zero
-  # and shift other values to start from zero
-  dat.th <- dat - det.th
-  dat.th[dat.th <= 0] <- 0
+  # Apply detection threshold
+  dat <- dat - det.th
+  dat[dat < 0] <- 0
 
-  # Species diversity
+  # Species diversity - only for species that exceeded the thresholding above
   H <- diversity(dat, index = diversity.index, MARGIN = 2)
   
-  ## Species richness 
-  # count phylotypes that exceed detection threshold
-  S <- colSums(dat > det.th)
+  # Species richness - count phylotypes that exceed detection threshold
+  S <- colSums(dat > 0)
   
+  # Pielou's evenness (J) 
+  H.shannon <- diversity(dat, index = "shannon", MARGIN = 2)
+  J <- H.shannon/log(S)
+  
+  names(J) <- names(S) <- names(H) <- colnames(dat)
+
+  data.frame(list(evenness = J, richness = S, diversity = H, det.th = det.th))
+	
+}
+
   # Compare to ACE estimate with different discretization bins
   # -> no clear way to discretize, will affect the results quite much
   # -> skip so far
@@ -55,16 +62,7 @@ estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL)
     #ChaoLee1992(ab, t=10, method="ACE")$Nhat
   #}))
 
-  # Pielou's evenness (J):
-  # Diversity using thresholding, user to calculate Pielous evenness
-  Hth <- diversity(dat.th, index = diversity.index, MARGIN = 2)
-  J <- Hth/log(S)
-  
-  names(J) <- names(S) <- names(H) <- colnames(dat)
 
-  data.frame(list(evenness = J, richness = S, diversity = H, det.th = det.th))
-	
-}
 
 
 #' Description: Calculate abundancies
