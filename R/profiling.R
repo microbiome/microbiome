@@ -321,138 +321,6 @@ ReadParameters <- function (con) {
 }
 
 
-
-
-#' Description: Write log file
-#'
-#' Arguments:
-#'   @param naHybs hybridisation that were removed due to NAs  
-#'   @param params parameters
-#'
-#' Returns:
-#'   @return List of scaling methods
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-WriteLog <- function (naHybs, params) {
-
-  scaling <- list.scaling.methods()
-  scriptVersion <- sessionInfo()$otherPkgs$microbiome$Version # microbiome package number
-
-  ## Write log of parameters used in profiling in to the file
-  tmpTime <- strsplit(as.character(Sys.time()), split=" ")[[1]]
-  tmpDate <- tmpTime[1]
-  tmpTime <- paste(strsplit(tmpTime[2], split=":")[[1]], collapse=".")
-  profTime <- paste(tmpDate,tmpTime,sep="_")
-  logfilename <- paste(params$wdir,"/",profTime,"_profiling_log.txt", sep="")
-
-  cat("Log of profiling script\n", "\n", file=logfilename)
-  cat("profiling date: ",profTime, "\n", file=logfilename, append=T)
-  cat("script version: ", scriptVersion,  "\n",file=logfilename, append=T)
-  cat("data retrieved from db: ",params$useDB,  "\n", file=logfilename, append=T)
-  cat("project IDs: ",params$prj$projectID,  "\n", file=logfilename, append=T)
-  cat("sample IDs: ",params$samples$sampleID,  "\n", file=logfilename, append=T)
-  cat("excluded oligos: ",params$rm.phylotypes$oligos,  "\n", file=logfilename, append=T)
-  cat("excluded species: ",params$rm.phylotypes[["species"]], "\n", file=logfilename, append=T)
-  cat("excluded level 1: ",params$rm.phylotypes[["level 1"]], "\n", file=logfilename, append=T)
-  cat("excluded level 2: ",params$rm.phylotypes[["level 2"]], "\n", file=logfilename, append=T)
-  cat("excluded hybridisations: ",naHybs,  "\n", file=logfilename, append=T)
-  cat("remove non-specific oligos: ",params$remove.nonspecific.oligos, "\n",file=logfilename, append=T)
-  cat("phylogeny: ",params$phylogeny,  "\n", file=logfilename, append=T)
-  cat("scaling: ",params$scal,  "\n", file=logfilename, append=T)
-  cat("data in directory: ",params$wdir, "\n",file=logfilename, append=T)
-
-  # Now graphics are outside of this function
-  # cat("clustering tree in: ",params$clusterGraphFile,  "\n", file=logfilename, append=T)
-  # cat("tree ratio: ",params$figureratio, "\n",file=logfilename, append=T)
-  # cat("clustering metric: ",params$clmet, "\n",file=logfilename, append=T)
-  # cat("phylogeny level in figure: ",params$lev, "\n",file=logfilename, append=T)
-  # cat("figure coloring: ", params$pal, "\n",file=logfilename, append=T)
-  # cat("figure fontsize: ", params$fontsize, "\n",file=logfilename, append=T)
-  # cat("data saved: ", save.data, "\n",file=logfilename, append=T)
-
-  ## Save profiling parameters 
-  paramfilename <- paste(params$wdir,"/",profTime,"_profiling_params.Rdata", sep="")
-  save(logfilename, profTime, scriptVersion, params, naHybs, file = paramfilename)  
-
-  list(log.file = logfilename, parameter.file = paramfilename)
-  
-}
-
-
-
-#' Description: List scaling methods
-#'
-#' Arguments:
-#'
-#' Returns:
-#'   @return List of scaling methods
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-list.scaling.methods <- function () {
-
-  list('none'='none',
-                #'minimum/median'='minmed',
-                'minimum/maximum'='minmax',
-                'minmax'='minmax',
-                #'median'='med',
-                'quantile'='quant'
-                #'normExp+MedianFC'='normExpMedianFC',
-                #'normExp+quantile'='normExpQuant'
-   )
-
-}
-
-
-#' Description: List clustering metrics
-#'
-#' Arguments:
-#'
-#' Returns:
-#'   @return list of clustering metrics
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-list.clustering.metrics <- function () {
-
-  list('Pearsons correlation coefficient'='correlation',
-                 'euclidian'='euclidian')
-}
-
-
-
-#' Description: List color scales
-#'
-#' Arguments:
-#'
-#' Returns:
-#'   @return list of color scales
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-list.color.scales <- function () {
-  ## Different colour scales
-  list('white/blue'=colorRampPalette(c("white","darkblue"),interpolate='linear')(100),
-       'white/black'=colorRampPalette(c("white","black"),interpolate='linear')(100),
-       'black/yellow/white'=colorRampPalette(c("black","yellow","white"),bias=0.5,interpolate='linear')(100))
-
-}
-
-
-
 #' Description: Fetch data from the database
 #'
 #' Arguments:
@@ -618,7 +486,6 @@ FetchData <- function (params, con, scriptVersion, save.data, scaling, cmetrics)
 }
 
 
-
 #' Description: List probes for each probeset
 #'
 #' Arguments:
@@ -641,7 +508,6 @@ retrieve.probesets <- function (phylo, level = "species") {
 
   probesets
 }
-
 
 
 #' Description: Calculate species summaries and possibly update d.oligo2
@@ -771,30 +637,7 @@ get.sampleid <- function (d.oligo) {
    sampleID
 }
 
-#' Description: Load/install necessary packages and check OS
-#'
-#' Arguments:
-#'
-#' Returns:
-#'   @return operating system string
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
 
-
-check.dependencies <- function () {
-
-  ## determine if using windows or mac/linux, based on the path style
-  if(strsplit(Sys.getenv()["R_HOME"],split="")[[1]][1]=="/"){
-    os <- "unix"
-  } else {
-    os <- "win"
-  }
-
-  os
-}
 
 #' Description: Between-arrays normalization 
 #'
@@ -897,6 +740,7 @@ scaling.minmax <- function (r, quantile.points, robust = FALSE) {
     maxq <- quantile(xz, max(quantile.points), na.rm = TRUE);   
     # Determine the scaling factor such that the max quantiles will match between arrays
     k <- maxabs/maxq;
+
     # Scale the data to match max quantiles
     xs <- k * xz + min(rc, na.rm = TRUE);
     xs})
@@ -908,8 +752,35 @@ scaling.minmax <- function (r, quantile.points, robust = FALSE) {
 
 
 
+#' Description: determine threshold for bg correction
+#'
+#' Arguments:
+#'   @param dat data matrix (in approximately normal scale ie. logged)
+#'
+#' Returns:
+#'   @return threshold value
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
 
+estimate.min.threshold <- function (dat) {
 
+  #estimate min threshold 
+  DD <- density(as.numeric(unlist(dat)))
+
+  #find mode
+  noise_mode <- DD$x[[which.max(DD$y)]] # DD$x[which(diff(DD$y)<0)[1]]
+
+  #compute sd of noise
+  noise_sd <- sd(dat[dat < noise_mode])
+
+  #threshold
+  low.thresh <- noise_mode + 6*noise_sd
+
+  low.thresh
+}
 
 #' Description: determine detection threshold for the data
 #'
@@ -928,12 +799,12 @@ scaling.minmax <- function (r, quantile.points, robust = FALSE) {
 threshold.data <- function(dat, sd.times = 6){
 
   thr <- apply(dat, 2, function(x){
-      DD <- density(as.numeric(x),adjust=1.2,na.rm=T);
+      DD <- density(as.numeric(x), adjust = 1.2, na.rm = T);
       noise_mode <- DD$x[which(DD$y==max(DD$y))[1]];
-      noise_sd   <- sd(x[x < noise_mode],na.rm=T);
+      noise_sd   <- sd(x[x < noise_mode], na.rm = T);
       low.thresh <- noise_mode + sd.times*noise_sd;
       low.thresh 
-      })
+    })
 
   # Subtract background from signal intensities in each sample
   data.mat<-t(apply(dat, 1, function(Tr){ Tr-thr })) 
@@ -941,112 +812,263 @@ threshold.data <- function(dat, sd.times = 6){
 }
 
 
-
-#' Description: get background parameters
-#'
+#' Description: Probeset summarization with various methods.
+#' 
 #' Arguments:
-#'
+#'   @param oligo.map oligo - phylotype matching data.frame
+#'   @param oligo.data preprocessed probes x samples data matrix in log10 domain
+#'   @param method summarization method
+#'   @param level summarization level
+#'   @param verbose print intermediate messages
+#'   @param rm.phylotypes Phylotypes to exclude (a list with fields species, level 1, level 2)
+#'   @param rm.oligos Oligos to remove
 #' Returns:
-#'   @return TBA
+#'   @return summarized data matrix
 #'
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
 #' @keywords utilities
 
-get.bkg.params <- function(){
-  tt <- tktoplevel()
-  tkwm.title(tt,"Background Subtraction")
+summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose = TRUE, rm.phylotypes = NULL, rm.oligos = NULL) {
 
-  frm <- populate.radiobuttons(tt,title="Background Subtraction Method",var.names=c("min. 500 oligos","2*sd bkg intensity","6*sd bkg intensity","none"),var.values=c("min. 500 oligos","2*sd bkg intensity","6*sd bkg intensity","none"),var.init=tclVar("2*sd bkg intensity"))
+  #level <- gsub(".", " ", level) # "level.1" -> "level 1"
 
-  frm2 <- tkframe(tt)
-
-  frm2.up <- populate.radiobuttons(frm2,title="Handling of negatives in ave data",var.names=c("Keep negative values","Set negatives to zero"),var.values=c("TRUE","FALSE"),var.init=tclVar("FALSE"))
-
-  frm2.down <- tkframe(frm2)
-  button.OK <- tkbutton(frm2.down, text="OK", command=function(){
-    tkdestroy(tt)
-  })
-
-  tkpack(frm2.down, button.OK)
-  tkpack(frm2.up$frame,frm2.down,side="top",pady=5) 
-  tkpack(frm2,frm$frame,side="left",padx=5) 
-  tkpack(frm2)
-  tkwait.window(tt) 
-  return(list(method=tclvalue(frm$var),keep.neg=as.logical(tclvalue(frm2.up$var))))
-}
-
-
-
-
-
-#' Description: Default list of removed phylotypes and oligos
-#'
-#' Arguments:
-#'  @param chip Chip name (HIT/MIT/PIT/Chick)Chip
-#' Returns:
-#'   @return List of removed oligos and phylotypes
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-phylotype.rm.list <- function (chip) {
-
-  rm.phylotypes <- list()
-
-  if (chip == "HITChip") {
-    
-    rm.phylotypes[["oligos"]] <- c("UNI 515", "HIT 5658", "HIT 1503", "HIT 1505", "HIT 1506")
-    rm.phylotypes[["species"]] <- c("Victivallis vadensis")
-    rm.phylotypes[["level 1"]] <- c("Lentisphaerae")
-    rm.phylotypes[["level 2"]] <- c("Victivallis")
-
-  } else if (chip == "MITChip") {
-
-    rm.phylotypes[["oligos"]] <- c("Bacteria", "DHC_1", "DHC_2", "DHC_3", "DHC_4", "DHC_5", "DHC_6", "Univ_1492")
-    rm.phylotypes[["species"]] <- c()
-    rm.phylotypes[["level 1"]] <- c()
-    rm.phylotypes[["level 2"]] <- c()
-
-  } else if (chip == "PITChip") {
-
-    rm.phylotypes[["oligos"]] <- c("Bacteria", "DHC_1", "DHC_2", "DHC_3", "DHC_4", "DHC_5", "DHC_6", "Univ_1492")
-    rm.phylotypes[["species"]] <- c()
-    rm.phylotypes[["level 1"]] <- c()
-    rm.phylotypes[["level 2"]] <- c()
-
-  } else if (chip == "ChickChip") {
-    warning("No universal probes excluded from ChichChip yet!")
+  if ("level.0" %in% colnames(oligo.map)) {
+    level0 <- "level.0"
+  } else if ("level 0" %in% colnames(oligo.map)) {
+    level0 <- "level 0"
+  } else {
+    level0 <- NULL
   }
 
-  rm.phylotypes
+  if ("level.1" %in% colnames(oligo.map)) {
+    level1 <- "level.1"
+  } else if ("level 1" %in% colnames(oligo.map)) {
+    level1 <- "level 1"
+  } else {
+    level1 <- NULL
+  }
+
+  if ("level.2" %in% colnames(oligo.map)) {
+    level2 <- "level.2"
+  } else if ("level 2" %in% colnames(oligo.map)) {
+    level2 <- "level 2"
+  } else {
+    level2 <- NULL
+  }
+
+  # Start by summarizing into species level
+  rm.species <- unique(c(unique(oligo.map[oligo.map[[level1]] %in% rm.phylotypes[[level1]], "species"]), 
+  	     		 unique(oligo.map[oligo.map[[level2]] %in% rm.phylotypes[[level2]], "species"]),
+			 rm.phylotypes$species))
+			 
+  # Ensure that all L2 groups below specified L1 are removed as well
+  rm.phylotypes[[level2]] <- unique(c(unique(oligo.map[oligo.map[[level1]] %in% rm.phylotypes[[level1]], level2]), 
+			 rm.phylotypes[[level2]]))
+			 	
+  # Remove specified oligos
+  if (!is.null(rm.oligos)) { oligo.data <- oligo.data[setdiff(rownames(oligo.data), rm.oligos), ]}
+  oligo.map <- oligo.map[!oligo.map$oligoID %in% rm.oligos, ]
+
+  # Get species matrix in original scale
+  species.matrix <- 10^summarize.probesets.species(oligo.map, oligo.data, method, verbose, rm.species)
+   
+  if (level == "species") {
+
+    summarized.matrix <- species.matrix
+
+  } else if (level %in% c(level0, level1, level2)) {
+
+    phylogroups <- level.species(level, oligo.map)
+    
+    # Remove the specified phylogroups
+    phylogroups <- phylogroups[setdiff(names(phylogroups), rm.phylotypes[[level]])]
+
+    summarized.matrix <- matrix(NA, nrow = length(phylogroups), ncol = ncol(oligo.data))
+    rownames(summarized.matrix) <- names(phylogroups)
+    colnames(summarized.matrix) <- colnames(oligo.data)
+
+    for (pg in names(phylogroups)) {
+      specs <- unique(phylogroups[[pg]])
+      mat <- matrix(species.matrix[specs,], nrow = length(specs))
+      if (method == "ave") { vec <- colMeans(mat) }
+      if (method == "sum") { vec <- colSums(mat)  } 
+      if (method == "rpa") { vec <- colSums(mat)  } # For RPA, use the sum for L1/L2
+      summarized.matrix[pg, ] <- vec
+    }
+  } else {
+
+    message(level)
+    message(nchar(level))
+    message(colnames(oligo.map))
+    stop("Provide proper level!")
+
+  }
+
+  # Return in the original log10 domain    
+  log10(summarized.matrix)
 
 }
 
-
-
-
-#' Description: Stability analysis. Calculates average Pearson '
-#  correlation between samples in the input data and picks the lower '
-#  triangular matrix to avoid duplicating the correlations. Returns 
-#  correlations and stability estimate (average of the correlations).
-#'
+#' Description: Probeset summarization with various methods.
+#' 
 #' Arguments:
-#'   @param dat data matrix phylotypes vs. samples
-#'
+#'   @param oligo.map oligo - phylotype matching data.frame
+#'   @param oligo.data preprocessed probes x samples data matrix in log10 domain
+#'   @param method summarization method
+#'   @param verbose print intermediate messages
+#'   @param rm.species Species to exclude
 #' Returns:
-#'   @return List with correlations and astability estimate
+#'   @return summarized data matrix in log10 scale
 #'
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
 #' @keywords utilities
 
-calculate.stability <- function (dat) {
-  cors <- lower.triangle(cor(dat))
-  list(correlations = cors, stability = mean(cors))
+summarize.probesets.species <- function (oligo.map, oligo.data, method, verbose = TRUE, rm.species = c("Victivallis vadensis")) {
+
+  level <- "species"			    
+
+  probesets <- retrieve.probesets(oligo.map, level = level)
+  probesets <- probesets[setdiff(names(probesets), rm.species)]
+  
+  nPhylotypesPerOligo <- n.phylotypes.per.oligo(oligo.map, level) 
+
+  # initialize
+  summarized.matrix <- array(NA, dim = c(length(probesets), ncol(oligo.data)), 
+  		    	      dimnames = list(names(probesets), colnames(oligo.data))) 
+
+  for (set in names(probesets)) {
+
+    if (verbose) { message(set) }
+
+    # Pick expression for particular probes
+    probes <- probesets[[set]]
+
+    # Pick probe data for the probeset: probes x samples
+    # oligo.data assumed to be already in log10
+    dat <- matrix(oligo.data[probes,], length(probes)) 
+    rownames(dat) <- probes
+    colnames(dat) <- colnames(oligo.data)
+
+    if (method == "rpa") {
+
+      # RPA is calculated in log domain
+      # Downweigh non-specific probes with priors with 10% of virtual data and
+      # variances set according to number of matching probes
+      # This will provide slight emphasis to downweigh potentially
+      # cross-hybridizing probes
+      vec <- rpa.fit(dat, sigma2.method = "robust", alpha = 1 + 0.1*ncol(oligo.data)/2, beta = 1 + 0.1*ncol(oligo.data)*nPhylotypesPerOligo[probes]^2)$mu
+
+    } else if (method == "ave") {
+
+      vec <- log10(colMeans((10^dat), na.rm = T))
+
+    } else if (method == "sum") {
+
+      # Weight each probe by the inverse of the number of matching phylotypes
+      # Then calculate sum -> less specific probes are downweighted
+      # However, set the minimum signal to 0 in log10 scale (1 in original scale)!
+      dat2 <- (10^dat) / nPhylotypesPerOligo[rownames(dat)]
+      dat2[dat2 < 1] <- 1
+      vec <- log10(colSums(dat2, na.rm = T))
+
+    }
+    
+    summarized.matrix[set, ] <- vec 
+
+  }
+
+  summarized.matrix
+  
+}
+
+#' Description: RPA for HITChip
+#' 
+#' Arguments:
+#'   @param level level
+#'   @param phylo phylo
+#'   @param oligo.data oligo.data
+#'
+#' Returns:
+#'   @return RPA preprocessed data
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+calculate.rpa <- function (level, phylo, oligo.data) {
+
+  # List entities (e.g. species)
+  phylo.list <- split(phylo, phylo[[level]])
+  entities <- names(phylo.list)
+
+  # initialize
+  summarized.matrix <- array(NA, dim = c(length(entities), ncol(oligo.data)), dimnames = list(entities, colnames(oligo.data)))
+  noise.list <- list() 
+
+  for (entity in names(phylo.list)) {
+    message(entity)
+
+    # Pick expression for particular probes
+    probes <- unique(phylo.list[[entity]][, "oligoID"])
+
+    # oligo.data is already in log10
+    dat <- matrix(oligo.data[probes,], length(probes)) 
+
+    # dat: probes x samples
+    if (nrow(dat) < 2) {
+      vec <- as.vector(dat) # NOTE: circumvent RPA if there are no replicates 
+      noise <- NA
+    } else {
+      res <- rpa.fit(dat)
+      vec <- res$mu
+      noise <- sqrt(res$sigma2)
+      names(noise) <- probes
+    }
+
+    noise.list[[entity]] <- noise
+    summarized.matrix[entity, ] <- vec #, epsilon, alpha, beta, sigma2.method, d.method)
+
+  }
+
+  list(emat = summarized.matrix, noise = noise.list)
+  
+}
+
+
+#' Description: get probeset data matrix
+#' 
+#' Arguments:
+#'   @param name name
+#'   @param level level
+#'   @param phylo phylo
+#'   @param data data
+#'   @param log10 Logical. Log or no log?
+#'
+#' Returns:
+#'   @return probeset data matrix
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+get.probeset <- function (name, level, phylo, data, log10 = TRUE) {
+
+  # Pick probes for this entity
+  probes <- list.probes(name, level, phylo)
+  
+  # Pick expression for particular probes
+  dat <- data$probes[probes,]
+
+  # Log?
+  if ( log10 ) { dat <- log10(dat) } 
+  
+  # Return
+  dat
 }
 

@@ -845,3 +845,736 @@ sampleReproducibility <- function(con, sampleID) {
       
    }
 }
+
+#' Description: transparent color
+#'
+#' Arguments:
+#'   @param color color
+#'   @param tr transparency level
+#'
+#' Returns:
+#'   @return TBA
+#'
+#' @export
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+trans <- function(color, tr = 150){
+  trCol <- rgb(col2rgb(color)[1],
+               col2rgb(color)[2],
+               col2rgb(color)[3],tr, maxColorValue=255)
+}
+
+
+#' Description: plot scatter
+#'
+#' Arguments:
+#'   @param sampleA TBA
+#'   @param sampleB TBA
+#'   @param d TBA
+#'   @param cex TBA
+#'
+#' Returns:
+#'   @return scatterplot 
+#'
+#' @export 
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+plotScatter <- function(sampleA, sampleB, d, cex=1){
+  x11()
+  plot(d[,sampleA],
+       d[,sampleB], pch=".",
+       xlab=sampleA, ylab=sampleB,
+       main=paste("Between sample similarity, Pearson: ",
+         round(cor(d[,sampleA],d[,sampleB]),2)))
+  points(d[,sampleA],
+         d[,sampleB], cex=cex, pch=".")
+}
+
+
+#' Description: TBA
+#' 
+#' Arguments:
+#'   @param d.hitchip hitchip data matrix: phylogroups x samples
+#'   @param annot annotations for samples, containing my.class, subjectID, sampleID, and perhaps time
+#'   @param my.class specify the inspected class; 
+#'   @param time if time is additionally used in modeling then annot needs to contain field named time
+#'
+#' Returns:
+#'   @return TBA
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+hitchip.sig.lme <- function(d.hitchip, annot, my.class, time = NULL){
+ 
+  # Define the class to be used in the analyses
+  annot.tmp <- annot
+  names(annot.tmp)[[which(names(annot.tmp) == my.class)]] <- "my.class"
+  annot.tmp$my.class <- factor(annot.tmp$my.class)
+
+  annot.tmp <- annot.tmp[which(annot.tmp$sampleID %in% colnames(d.hitchip)),]
+
+  annot.tmp <- annot.tmp[apply(annot.tmp,1,function(z) sum(is.na(z)))==0,]
+
+  coef.name <- "coefficients.1"
+
+  d.hc <- d.hitchip[,annot.tmp$sampleID]
+
+  if (length(levels(annot.tmp[[my.class]]))>1){
+    if (length(levels(annot.tmp$time))>1){
+
+      # Fit model for each phylogroup
+      lme.list <- apply(d.hc, 1, function(y) { 
+        annot.tmp$y <- y;
+        M <- try( lme( y ~ time*my.class, random = ~1 | subjectID, data = annot.tmp), silent = T);
+
+        if ( class(M)=="try-error" )
+        M <- try( lme( y ~ time*my.class, random = ~1 | subjectID, data = annot.tmp, method = "ML"), silent = T);
+         return(M)
+        })
+
+       retval <- lapply(lme.list, 
+                   function(z){ 
+                     if (class(z)!="try-error")
+		       # FIXME: use package::glht to remove warnings in package build
+                       p <- unlist(summary(glht(z,linfct=t(c(0,0,1,1))))$"test"[c("pvalues","coefficients")])
+                     else
+                       p <- NULL
+                     return(p)})
+
+
+        coef.name <- paste("+",names(coef(lme.list[[1]]))[c(3,4)],collapse="",sep="")
+
+        retval <- lapply(retval,function(z){ names(z)[2]=coef.name; return(z)})
+
+       } else { # No time information given
+
+          lme.list <- apply(d.hc,1,function(y){annot.tmp$y=y; M=try(lm(y~my.class, data=annot.tmp),silent=T); return(M)})
+
+          retval <- lapply(lme.list, function(z){ if (class(z)!="try-error")
+	       # FIXME: use package::mcp to remove warnings in package build
+               p=summary(glht(z,linfct=mcp(my.class ="Tukey")))$"test"[c("pvalues","coefficients")]
+             else
+               p=NA
+             return(p)})
+          coef.name="coefficients"
+       }
+
+    } else { # only a single class available
+       lme.list <- apply(d.hc,1,function(y){annot.tmp$y=y; M=try(lme(y~time, random= ~1 | subjectID,data=annot.tmp),silent=T);
+        if(class(M)=="try-error")
+           M=try(lme(y~time, random= ~1 | subjectID, data=annot.tmp, method="ML"),silent=T);
+        return(M)})
+       retval=lapply(lme.list, function(z){ if (class(z)!="try-error")
+            p=data.frame(pvalues=anova(z)["time",4], coefficients=coef(z)[1,2]) 
+          else
+            p=NULL
+          return(p)})
+          coef.name="coefficients"
+    }
+
+    # Models have been fitted, process:
+
+    sig.res <- list(p.val=as.data.frame(lapply(retval,function(z) return(z["pvalues"]))),
+     coef=as.data.frame(lapply(retval,function(z) return(z[coef.name]))))
+    colnames(sig.res$coef)=rownames(d.hc)
+
+    require(qvalue)
+    if(min(dim(sig.res$p.val))==1){
+       Q=try(qvalue(sig.res$p.val)$qvalue,silent=T)
+       if(class(Q)=="try-error")
+         Q=p.adjust(unlist(sig.res$p.val),method="BH")
+       sig.res$q.val=Q
+    } else { 
+      sig.res$q.val=apply(sig.res$p.val,2,function(z){ Q=try(qvalue(z)$qvalue,silent=T)  
+
+        if(class(Q)=="try-error"){
+          Q <- p.adjust(z,method="BH")} 
+          return(Q)
+        })
+    }
+  
+  return(sig.res)
+
+}
+
+
+#' Description: PCA function
+#'
+#' Arguments:
+#'   @param d TBA
+#'   @param level TBA 
+#'   @param c1 TBA
+#'   @param c2 TBA
+#'   @param data.labels Optional
+#'   @param write.dir Output directory path
+#'   @param group.by Optional
+#'   @param ... Other parameters to be passed to the function
+#'
+#' Returns:
+#'   @return A list.
+#'
+#' @export
+#'
+#' @references
+#' See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+runPCA <- function(d, level, c1, c2, data.labels = NULL, write.dir, group.by = NULL, ...){
+
+  y <- as.matrix(d[[level]])
+  mm <- prcomp(t(y),retx=T)
+  mm.propVars <- round(mm$sdev^2/sum(mm$sdev^2)*100,digits=2)
+
+  #screeplot
+  plot(mm,main="Eigenvalues")
+
+  pdf(paste(write.dir,"PCA_scree.pdf",sep=""))
+  plot(mm,main="Eigenvalues")
+  dev.off()
+  if (is.null(group.by))
+     col.vec="black"
+  else{
+     col.vec=as.numeric(as.factor(group.by))
+     col.vec=colorRampPalette(c("Red", "Green","Blue"),space="rgb")(max(col.vec))[col.vec]
+  }
+  dev.new()
+  
+  plot(mm$x[,c1],mm$x[,c2],type="n", main="PCA",
+       xlab=paste("PC ",c1," (",mm.propVars[c1],"% of variance)",sep=""),
+       ylab=paste("PC ",c2," (",mm.propVars[c2],"% of variance)",sep=""),...)
+
+  if (is.null(data.labels))
+    points(mm$x[,c1],mm$x[,c2], cex=0.7,pch=20,col=col.vec)
+  else
+    text(mm$x[,c1],mm$x[,c2]-0.02*max(mm$x[,c2]),col=col.vec,labels=data.labels, cex=0.7,...)
+
+  pdf(paste(write.dir,"PCA_12",sub(".","",level,fixed=T),".pdf",sep=""))
+  plot(mm$x[,c1],mm$x[,c2],type="n", main="PCA",
+       xlab=paste("PC ",c1," (",mm.propVars[c1],"% of variance)",sep=""),
+       ylab=paste("PC ",c2," (",mm.propVars[c2],"% of variance)",sep=""),...)
+  if (is.null(data.labels))
+    points(mm$x[,c1],mm$x[,c2], cex=0.7,pch=20,col=col.vec)
+  else
+    text(mm$x[,c1],mm$x[,c2]-0.02*max(mm$x[,c2]),col=col.vec,labels=data.labels, cex=0.7,...)
+  dev.off()
+
+}
+
+
+#' Description: phylogenetic distance matrix for HITChip
+#'
+#' Arguments:
+#'   @param level phylogeny level
+#'   @param f.phylomap phylogenetic map with a column for each level, and one column for the ID which matches with the sequence similarity matrix in f. phylodist file
+#'   @param f.phylodist probe sequence similarity matrix 
+#'
+#' Returns:
+#'   @return list
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Jarkko Salojarvi \email{jarkko.salojarvi@@helsinki.fi}
+#' @keywords utilities
+
+hitchip.phylodistance <- function (level, f.phylomap, f.phylodist) {
+  		     
+  phylogeny <- read.csv(f.phylomap, sep = "\t", header = TRUE)
+  tab <- read.csv(f.phylodist, sep = "\t", header = TRUE, row.names = 1)
+  tab <- tab[colnames(tab), colnames(tab)]
+
+  # Get all distances for each phylotype at given level
+  pts <- unique(phylogeny[[gsub(" ", "", level)]])
+  pd <- array(NA, dim = c(length(pts), length(pts)))
+  rownames(pd) <- colnames(pd) <- pts
+  for (pt1 in pts) {
+    ids1 <- as.character(phylogeny$reference[which(phylogeny[[gsub(" ", "", level)]] == pt1)])
+    for (pt2 in pts) {
+      ids2 <- as.character(phylogeny$reference[which(phylogeny[[gsub(" ", "", level)]] == pt2)])
+      # Use mean of pairwise phylogenies as the summary distance
+      # for this level to the other levels
+      if (length(ids1)>0 && length(ids2)>0) {
+        mat <- as.matrix(tab[ids1, ids2], nrow = length(ids1))
+        pd[pt1, pt2] <- 1 - mean(mat)
+        pd[pt2, pt1] <- pd[pt1, pt2]
+      }
+    }
+  }
+
+  pd
+}
+
+#' fetch.extractions
+#' Fetch extractions from the phyloarray database.
+#'
+#' The function fetches complete records from the \emph{extractions}
+#' table, including some fields from the array and hybridisation
+#' tables. If \code{condition=NULL} it will fetch all records and if
+#' \code{condition} is defined it will fetch only those records that
+#' comply with the condition.  Condition must be a list of lists, each
+#' having at least the fields \emph{field} and \emph{value}.  The
+#' \emph{field} field must be a character vector of length 1 and
+#' \emph{value} must be a vector.  Each of the values will be evaluated
+#' as a optional value for the \emph{field} field.  This is an example:
+#' "\code{list(list(field='projectName',value=c(A,B)))}" that will be
+#' evaluated to the SQL condition "\code{WHERE (projectName='A' OR
+#' projectName='B')}".
+#'
+#' @param con MySQL connection
+#' @param condition list of lists with field-value pairs
+#' @return An \code{extractionList} object consisting of a list with one entry called "extractions" which is a dataframe consisting of the records obtained from the database. 
+#'
+#' @export 
+#' @references See citation("microbiome")
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @examples # TBA
+#' @keywords utilities
+
+
+fetch.extractions <- function (con, condition = NULL) {
+   if (phyloarrayConnection(con)) {
+      stm <- paste("SELECT arrayID, barcode, array, sampleID, dye, isDiscarded,",
+                   "featureExtraction.* FROM array JOIN hybridisation USING",
+                   "(arrayID) JOIN featureExtraction USING (hybridisationID)")
+      stm <- paste(stm, expandCondition(condition), sep='')
+      rs <- dbSendQuery(con, stm)
+      extrs <- fetch(rs, n=-1)
+      return(new("extractionList",list(extractions=extrs))) 
+   }
+}
+
+
+
+#' Description: Load/install necessary packages and check OS
+#'
+#' Arguments:
+#'
+#' Returns:
+#'   @return operating system string
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+
+check.dependencies <- function () {
+
+  ## determine if using windows or mac/linux, based on the path style
+  if(strsplit(Sys.getenv()["R_HOME"],split="")[[1]][1]=="/"){
+    os <- "unix"
+  } else {
+    os <- "win"
+  }
+
+  os
+}
+
+
+
+#' Description: simple background correction
+#'
+#' Arguments:
+#'   @param dat data matrix
+#'
+#' Returns:
+#'   @return background corrected data matrix
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+remove.background <- function (dat) {
+  
+  det.th <- estimate.min.threshold(dat)
+
+  # Set observations below detection threshold to zero and shift other 
+  # values to start from zero
+  dat <- dat - det.th
+  dat[dat<0] <- 0
+
+  dat
+} 
+
+#' Description: heatmap function for complete linkage clustering
+#'
+#' Arguments:
+#'   @param x data matrix
+#'
+#' Returns:
+#'   @return hclust object
+#'
+#' @export
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+completeClust <- function (x) {
+  hclust(x, method = "complete")
+}
+
+#' Description: wardClust is for heatmap function for Ward-clustering
+#'
+#' Arguments:
+#'   @param x data matrix
+#'
+#' Returns:
+#'   @return hclust object
+#'
+#' @export
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+wardClust <- function(x){
+  hclust(x, method = "ward")
+}
+
+
+#' Description: list corresponding entities
+#' 
+#' Arguments:
+#'   @param level level
+#'   @param phylo phylo
+#'
+#' Returns:
+#'   @return entities
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+list.entities <- function (level, phylo) {
+
+  as.character(unique(phylo[[level]]))
+
+}
+
+#' Description: Returns the difference between the mean log10 signals of specific
+#'              and unspecific probes per species
+#'
+#' Arguments:
+#'   @param data TBA
+#'   @param pi TBA
+#'
+#' Returns:
+#'   @return TBA
+#'
+#' @export
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+estimateSpeciesPresence <- function(data, pi){
+  
+  pi.species <- split(pi, pi$species)
+
+  est <- sapply(pi.species, function(x){
+    spec <- x$nSpeciesPerOligo==1
+
+    speciesd <- data[x$oligoID,]
+    specid <- x$nSpeciesPerOligo==1
+    uspecid <- x$nSpeciesPerOligo>1
+    nSpecP <- sum(specid)
+    nUspecP <- sum(uspecid)
+
+    if(nSpecP>0 & nUspecP>0){
+      statistic <- apply(speciesd,2,function(y){
+        return(mean(log10(y[specid]), na.rm=T) - mean(log10(y[uspecid]), na.rm=T))
+      })
+    }else{
+      if(nSpecP>0)
+        statistic <- rep(5, dim(speciesd)[2])
+      else
+        statistic <- rep(-5, dim(speciesd)[2])
+    }
+    return(c(statistic, nSpecP = nSpecP, nUspecP = nUspecP))
+  })
+
+  return(est)
+}
+
+#' Description: get background parameters
+#'
+#' Arguments:
+#'
+#' Returns:
+#'   @return TBA
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+get.bkg.params <- function(){
+  tt <- tktoplevel()
+  tkwm.title(tt, "Background Subtraction")
+
+  frm <- populate.radiobuttons(tt,title="Background Subtraction Method",var.names=c("min. 500 oligos","2*sd bkg intensity","6*sd bkg intensity","none"),var.values=c("min. 500 oligos","2*sd bkg intensity","6*sd bkg intensity","none"),var.init=tclVar("2*sd bkg intensity"))
+
+  frm2 <- tkframe(tt)
+
+  frm2.up <- populate.radiobuttons(frm2,title="Handling of negatives in ave data",var.names=c("Keep negative values","Set negatives to zero"),var.values=c("TRUE","FALSE"),var.init=tclVar("FALSE"))
+
+  frm2.down <- tkframe(frm2)
+  button.OK <- tkbutton(frm2.down, text="OK", command=function(){
+    tkdestroy(tt)
+  })
+
+  tkpack(frm2.down, button.OK)
+  tkpack(frm2.up$frame,frm2.down,side="top",pady=5) 
+  tkpack(frm2,frm$frame,side="left",padx=5) 
+  tkpack(frm2)
+  tkwait.window(tt) 
+  return(list(method=tclvalue(frm$var),keep.neg=as.logical(tclvalue(frm2.up$var))))
+}
+
+
+
+
+#' 2D Spatial normalisation of microarrays
+#' @param data dataframe with positional and signal information
+#' @param x name of the x column in the dataframe
+#' @param y name of the y column in the dataframe
+#' @param signal name of the signal column in the dataframe
+#' @param method method name, currently only "loess" is supported
+#' @param span span
+#' @param degree degree
+#' @param family family
+#' @param subset logical expression indicating rows to use for normalisation
+#'
+#' @return TBA
+#' @export 
+#' @references See citation("microbiome")
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @examples # TBA
+#' @keywords utilities
+
+spatnorm <- function(data, x="x", y="y", signal="signal", method=c("loess"), span=0.03, degree=2, family="symmetric", subset=1==1) {
+   method <- match.arg(method)
+   # data integrity testing
+   data <- as.data.frame(data)
+   if (!is.data.frame(data)) {
+      stop("Input should be a matrix or dataframe")
+   }
+   if (!(length(setdiff(c(x,y,signal),names(data)))==0)) {
+    stop(paste("Missing columns in data:",paste(setdiff(c(x,y,signal),names(data)),collapse=" and ")))
+   }
+   # calculation
+   fit <- loess(as.formula(paste(signal,"~",x,"*",y)),data,span=span,degree=degree,normalize=FALSE,family=family,control=loess.control(iterations=8,cell=0.07),subset=subset)
+   pr.signal <- predict(fit,data)
+   corr.signal <- data[[signal]] - pr.signal + min(pr.signal)
+   corr.signal[corr.signal<0.1]=0.1
+   outp <- list(fit=fit,pr.signal=pr.signal,corr.signal=corr.signal)
+   invisible(outp)
+}
+
+
+#' Fetch measurements associated with one or more extractions from a phyloarray database
+#' 
+#' The function fetches records from the \emph{featureMeasurements}
+#' table, including some fields from the array, hybridisation and
+#' featureExtraction tables.
+#' The \code{which.data} argument indicates which data to fetch from the
+#' database, where \code{raw} will fetch the raw data (\code{FGsignal}),
+#' \code{rawBGcor} will fetch the raw background corrected data
+#' (\code{FGsignal-BGsignal}), \code{spatnorm} will fetch the spatially
+#' normalized data and \code{qnorm} will fetch the sample-quantile
+#' normalized data.
+#' The \code{transformation} argument indicates which transformation to
+#' apply to the data indicated by the \code{which.data} argument. Only
+#' one type of transformation is allowed, where "\code{none}" will not
+#' apply a transformation, "\code{avg}" will take the values averaged
+#' over oligo's and featureExtractions including standard deviation,
+#' "\code{log}" will take the 10-base logarithm of te data and
+#' "\code{avglog}" will return the oligo and featureExtraction averaged
+#' values of the logarithm of the data, including standard deviation.
+#'
+#' @param con MySQL connection
+#' @param extrList An extractionList object obtained from fetch.extractions
+#' @param which.data One or more of raw, rawBGcor, spatnorm and qnorm
+#' @param transformation One of none, avg, log or avglog
+#'
+#' @return A dataframe with the selected measurements
+#' @export 
+#' @references See citation("microbiome")
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @examples # TBA
+#' @keywords utilities
+
+fetch.measurements <- function (con, extrList, 
+		   which.data = c("raw","rawBGcor","spatnorm","qnorm"), 
+		   transformation = "none") {
+
+   if (phyloarrayConnection(con)) {
+
+      # Only one type of tranformation allowed
+      tr <- match.arg(transformation,c("none","avg","log","avglog"),several.ok=FALSE)
+      which.data <- match.arg(which.data, several.ok = TRUE)
+      what <- list(none=list(id=c("af.featureID","oligoID","fm.isOutlier"),
+                              raw="FGsignal AS raw",
+                              rawBGcor="(FGsignal-BGsignal) AS rawBGcor",
+                              spatnorm="spatNormSignal",
+                              qnorm="normSignal"),
+
+                   avg = list("id"="oligoID",
+                              raw="avg(FGsignal) AS avgSignal, std(FGsignal) AS stdevSignal",
+                             "rawBGcor"="avg(FGsignal-BGsignal) AS avgSignalBGcor, std(FGsignal-BGsignal) AS stdevSignalBGcor",
+                             "spatnorm"="avg(spatNormSignal) AS avgSpatNormSignal, std(spatNormSignal) AS stdevSpatNormSignal",
+                             "qnorm"="avg(normSignal) AS avgNormSignal, std(normSignal) AS stdevNormSignal"),
+
+                  log = list("id"=c("af.featureID","oligoID","fm.isOutlier"),
+                             "raw"="log(FGsignal) AS lgRaw",
+                             "rawBGcor"="log(FGsignal-BGsignal) AS lgRawBGcor",
+                             "spatnorm"="log(spatNormSignal) AS lgSpatNormSignal",
+                             "qnorm"="log(normSignal) AS lgNormSignal"),
+
+                  avglog = list("id"="oligoID",
+                                "raw"="avg(log(FGsignal)) AS avgLgSignal, std(log(FGsignal)) AS stdevLgSignal",
+                                "rawBGcor"="avg(log(FGsignal-BGsignal)) AS avgLgSignalBGcor, std(log(FGsignal-BGsignal)) AS stdevLgSignalBGcor",
+                                "spatnorm"="avg(log(spatNormSignal)) AS avgLgSpatNormSignal, std(log(spatNormSignal)) AS stdevLgSpatNormSignal",
+                                "qnorm"="avg(log(normSignal)) AS avgLgNormSignal, std(log(normSignal)) AS stdevLgNormSignal")          
+                  )
+
+      fields <- paste(c(c("sampleID","fe.extractionID"),
+                       what[[tr]]$id,unlist(what[[tr]][which.data])), 
+		       collapse=", ")
+
+      grouping <- ifelse((tr=="avg" | tr=="avglog"),"GROUP BY oligoID, extractionID","")
+
+      condition <- expandCondition(list(list(field='extractionID',value=extrList$extractions$extractionID)))
+
+      stm <- paste("SELECT",fields,"FROM hybridisation h ",
+                   "JOIN featureExtraction fe USING (hybridisationID)",
+                   "JOIN featureMeasurement fm USING (extractionID)",
+                   "JOIN arrayFeature af USING (featureID)",
+                   "JOIN probe p USING (probeID)",condition, grouping)
+
+      rs <- dbSendQuery(con, stm)
+      data <- fetch(rs, n=-1)
+      return(data) 
+
+   }   
+}
+
+#' header part
+#' 
+#' @param file filename
+#' @param title title
+#'
+#' @return TBA
+#' @export 
+#' @references See citation("microbiome")
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @examples # TBA
+#' @keywords utilities
+
+HTMLReportBegin <- function (file="report.html",title="Report Title") {
+   cat(paste("<html><head><title>",
+   title, "</title></head>",
+   "<body>",
+   sep = ""), file=file, append=TRUE)
+}
+
+#' generic report part
+#' 
+#' @param x TBA
+#' @param file TBA
+#' @param CSSfile TBA
+#'
+#' @return TBA
+#' @export 
+#' @references See citation("microbiome")
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @examples # TBA
+#' @keywords utilities
+
+HTMLReport <- function (x, file=paste(file.path(x$directory,x$filename),'html',sep='.'), CSSfile='R2HTML.css') {
+   HTMLReportBegin(file)
+   file.copy(file.path(system.file(package='R2HTML'),'output','R2HTML.css'),file.path(x$directory,'R2HTML.css'))
+   HTMLCSS(file=file, CSSfile=CSSfile)
+   HTML(x,file=file)
+   HTMLReportEnd(file)
+   return(file)
+}
+
+#' End html report part
+#' 
+#' @param file filename
+#'
+#' @return TBA
+#' @export 
+#' @references See citation("microbiome")
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @examples # TBA
+#' @keywords utilities
+
+HTMLReportEnd <- function (file="report.html") {
+   cat("<hr size=1></body></html>",
+       file=file, append=TRUE)
+}
+
+#' Relative standard deviation using paired measurements
+#'
+#'  Calculates an unbiased estimate of the the relative squared
+#'  difference of x.  Although most RSD calculations use the following
+#'  formula: mean(abs(x_i-y_i)/(x_i+y_i)) we here use:
+#'  mean(sqrt(pi)*abs(x_i-y_i)/(x_i+y_i)) The latter is an unbiased
+#'  estimate of the relative standard deviation (sigma/mu) when data are
+#'  normal distributed.
+#'
+#' @param x dataframe, matrix or vector
+#' @param y dataframe, matrix or vector compatible with x
+#'
+#' @return Returns a matrix of rsd values.
+#' @export 
+#' @references See citation("microbiome")
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @examples # TBA
+#' @keywords utilities
+
+rsd <- function(x, y = NULL) {
+   if (is.data.frame(y)) {
+      y <- as.matrix(y)
+   } else {
+      stopifnot(is.atomic(y))
+   }
+   if (is.data.frame(x)) {
+      x <- as.matrix(x)
+   } else {
+      stopifnot(is.atomic(x))
+      if (!is.matrix(x)) {
+         if (is.null(y))
+            stop("Supply both 'x' and 'y' or a matrix-like 'x'")
+         x <- as.vector(x)
+      }
+   }
+   if (!is.null(y)) {
+      x <- cbind(x,y)
+   }
+   RSD <- matrix(,nrow=dim(x)[2],ncol=dim(x)[2],dimnames=list(colnames(x),colnames(x)))
+   for (i in 1:dim(x)[2]) {
+      for (j in 1:dim(x)[2]) {
+         RSD[i,j]=mean(sqrt(pi)*abs(x[,i]-x[,j])/abs(x[,i]+x[,j]),na.rm=TRUE)
+      }
+   }
+   #if (dim(x)[2]==2) {
+   #   RSD <- RSD[1,2]
+   #}
+   return(RSD)
+}
+

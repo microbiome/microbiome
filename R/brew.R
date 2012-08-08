@@ -37,7 +37,6 @@ include.fig <- function (fname, captiontext, width = "5cm", height="5cm", rotate
 }
 
 
-
 #' Description: brew embedded documentation helper function to include 
 #' multiple figures
 #'
@@ -84,6 +83,3 @@ include.figs <- function (fnames, captiontext, width = "5cm", height="5cm", rota
     cat("\n\\end{center}\\end{figure}\n\n\n")
     
 }
-
-
-

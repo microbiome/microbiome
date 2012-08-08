@@ -98,54 +98,6 @@ make.abundancy.table <- function (dat, det.th, discretization.resolution = 1) {
 }
 
 
-#' Description: Returns the difference between the mean log10 signals of specific
-#'              and unspecific probes per species
-#'
-#' Arguments:
-#'   @param data TBA
-#'   @param pi TBA
-#'
-#' Returns:
-#'   @return TBA
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-estimateSpeciesPresence <- function(data, pi){
-  
-  pi.species <- split(pi, pi$species)
-
-  est <- sapply(pi.species, function(x){
-    spec <- x$nSpeciesPerOligo==1
-
-    speciesd <- data[x$oligoID,]
-    specid <- x$nSpeciesPerOligo==1
-    uspecid <- x$nSpeciesPerOligo>1
-    nSpecP <- sum(specid)
-    nUspecP <- sum(uspecid)
-
-    if(nSpecP>0 & nUspecP>0){
-      statistic <- apply(speciesd,2,function(y){
-        return(mean(log10(y[specid]), na.rm=T) - mean(log10(y[uspecid]), na.rm=T))
-      })
-    }else{
-      if(nSpecP>0)
-        statistic <- rep(5, dim(speciesd)[2])
-      else
-        statistic <- rep(-5, dim(speciesd)[2])
-    }
-    return(c(statistic, nSpecP=nSpecP, nUspecP=nUspecP))
-  })
-
-  return(est)
-}
-
-
-
-
 #' Description: Plot and save diversity indices
 #' Based on ST 01-03-2011
 #'
@@ -172,7 +124,7 @@ PlotDiversity <- function (dat, diversity.index, filename = NULL) {
 
   # Set the amount of groups you want to make
   groups <- c(1:4)	# Change the '4' into a higher number if you need/want more groups!
-  G <- tk_select.list(groups, multiple=F, title="Number of groups over which to divide your samples?")
+  G <- tk_select.list(groups, multiple = F, title = "Number of groups over which to divide your samples?")
 
   # Fill the groups with samples and give names
   ###### name all groups through user input
@@ -201,7 +153,7 @@ PlotDiversity <- function (dat, diversity.index, filename = NULL) {
 	OK.but <- tkbutton(tt,text="   OK   ",command=onOK)
 	tkgrid(OK.but)
 	tkwait.window(tt)
-	if(i==1){gr.list<-list(tempname=Gtemp)} else { gr.list<-c(gr.list,list(tempname=Gtemp)) }
+	if(i==1){gr.list<-list(tempname = Gtemp)} else { gr.list <- c(gr.list,list(tempname=Gtemp)) }
 	eval(parse(text=paste("names(gr.list)[i]<-tempname")))
 
 	# Group colour selection (Not basic stuff here!)

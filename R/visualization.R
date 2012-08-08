@@ -251,60 +251,7 @@ PlotPhylochipHeatmap <- function (data,
 
 }
 
-#' Description: transparent color
-#'
-#' Arguments:
-#'   @param color color
-#'   @param tr transparency level
-#'
-#' Returns:
-#'   @return TBA
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-trans <- function(color, tr = 150){
-  trCol <- rgb(col2rgb(color)[1],
-               col2rgb(color)[2],
-               col2rgb(color)[3],tr, maxColorValue=255)
-}
- 
-
-
-
-
-#' Description: plot scatter
-#'
-#' Arguments:
-#'   @param sampleA TBA
-#'   @param sampleB TBA
-#'   @param d TBA
-#'   @param cex TBA
-#'
-#' Returns:
-#'   @return scatterplot 
-#'
-#' @export 
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-plotScatter <- function(sampleA, sampleB, d, cex=1){
-  x11()
-  plot(d[,sampleA],
-       d[,sampleB], pch=".",
-       xlab=sampleA, ylab=sampleB,
-       main=paste("Between sample similarity, Pearson: ",
-         round(cor(d[,sampleA],d[,sampleB]),2)))
-  points(d[,sampleA],
-         d[,sampleB], cex=cex, pch=".")
-}
-
-
+# -----------------------------------------------------------------------
 
 #' Description: Project high-dimensional data on two-dimensional plane by various methods
 #' 
@@ -318,7 +265,6 @@ plotScatter <- function(sampleA, sampleB, d, cex=1){
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
 #' @keywords utilities
-
 
 project.data <- function (amat, type = "PCA") {
 

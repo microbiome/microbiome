@@ -83,6 +83,65 @@ read.profiling <- function(level, method, data.dir, log10 = FALSE){
 
 }
 
+#' Description: Write log file
+#'
+#' Arguments:
+#'   @param naHybs hybridisation that were removed due to NAs  
+#'   @param params parameters
+#'
+#' Returns:
+#'   @return List of scaling methods
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+WriteLog <- function (naHybs, params) {
+
+  scaling <- list.scaling.methods()
+  scriptVersion <- sessionInfo()$otherPkgs$microbiome$Version # microbiome package number
+
+  ## Write log of parameters used in profiling in to the file
+  tmpTime <- strsplit(as.character(Sys.time()), split=" ")[[1]]
+  tmpDate <- tmpTime[1]
+  tmpTime <- paste(strsplit(tmpTime[2], split=":")[[1]], collapse=".")
+  profTime <- paste(tmpDate,tmpTime,sep="_")
+  logfilename <- paste(params$wdir,"/",profTime,"_profiling_log.txt", sep="")
+
+  cat("Log of profiling script\n", "\n", file=logfilename)
+  cat("profiling date: ",profTime, "\n", file=logfilename, append=T)
+  cat("script version: ", scriptVersion,  "\n",file=logfilename, append=T)
+  cat("data retrieved from db: ",params$useDB,  "\n", file=logfilename, append=T)
+  cat("project IDs: ",params$prj$projectID,  "\n", file=logfilename, append=T)
+  cat("sample IDs: ",params$samples$sampleID,  "\n", file=logfilename, append=T)
+  cat("excluded oligos: ",params$rm.phylotypes$oligos,  "\n", file=logfilename, append=T)
+  cat("excluded species: ",params$rm.phylotypes[["species"]], "\n", file=logfilename, append=T)
+  cat("excluded level 1: ",params$rm.phylotypes[["level 1"]], "\n", file=logfilename, append=T)
+  cat("excluded level 2: ",params$rm.phylotypes[["level 2"]], "\n", file=logfilename, append=T)
+  cat("excluded hybridisations: ",naHybs,  "\n", file=logfilename, append=T)
+  cat("remove non-specific oligos: ",params$remove.nonspecific.oligos, "\n",file=logfilename, append=T)
+  cat("phylogeny: ",params$phylogeny,  "\n", file=logfilename, append=T)
+  cat("scaling: ",params$scal,  "\n", file=logfilename, append=T)
+  cat("data in directory: ",params$wdir, "\n",file=logfilename, append=T)
+
+  # Now graphics are outside of this function
+  # cat("clustering tree in: ",params$clusterGraphFile,  "\n", file=logfilename, append=T)
+  # cat("tree ratio: ",params$figureratio, "\n",file=logfilename, append=T)
+  # cat("clustering metric: ",params$clmet, "\n",file=logfilename, append=T)
+  # cat("phylogeny level in figure: ",params$lev, "\n",file=logfilename, append=T)
+  # cat("figure coloring: ", params$pal, "\n",file=logfilename, append=T)
+  # cat("figure fontsize: ", params$fontsize, "\n",file=logfilename, append=T)
+  # cat("data saved: ", save.data, "\n",file=logfilename, append=T)
+
+  ## Save profiling parameters 
+  paramfilename <- paste(params$wdir,"/",profTime,"_profiling_params.Rdata", sep="")
+  save(logfilename, profTime, scriptVersion, params, naHybs, file = paramfilename)  
+
+  list(log.file = logfilename, parameter.file = paramfilename)
+  
+}
+
 
 #' Description: read hitchip 
 #'

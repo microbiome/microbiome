@@ -11,382 +11,6 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-#' Description: PCA function
-#'
-#' Arguments:
-#'   @param d TBA
-#'   @param level TBA 
-#'   @param c1 TBA
-#'   @param c2 TBA
-#'   @param data.labels Optional
-#'   @param write.dir Output directory path
-#'   @param group.by Optional
-#'   @param ... Other parameters to be passed to the function
-#'
-#' Returns:
-#'   @return A list.
-#'
-#' @export
-#'
-#' @references
-#' See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-runPCA <- function(d, level, c1, c2, data.labels = NULL, write.dir, group.by = NULL, ...){
-
-  y <- as.matrix(d[[level]])
-  mm <- prcomp(t(y),retx=T)
-  mm.propVars <- round(mm$sdev^2/sum(mm$sdev^2)*100,digits=2)
-
-  #screeplot
-  plot(mm,main="Eigenvalues")
-
-  pdf(paste(write.dir,"PCA_scree.pdf",sep=""))
-  plot(mm,main="Eigenvalues")
-  dev.off()
-  if (is.null(group.by))
-     col.vec="black"
-  else{
-     col.vec=as.numeric(as.factor(group.by))
-     col.vec=colorRampPalette(c("Red", "Green","Blue"),space="rgb")(max(col.vec))[col.vec]
-  }
-  dev.new()
-  
-  plot(mm$x[,c1],mm$x[,c2],type="n", main="PCA",
-       xlab=paste("PC ",c1," (",mm.propVars[c1],"% of variance)",sep=""),
-       ylab=paste("PC ",c2," (",mm.propVars[c2],"% of variance)",sep=""),...)
-
-  if (is.null(data.labels))
-    points(mm$x[,c1],mm$x[,c2], cex=0.7,pch=20,col=col.vec)
-  else
-    text(mm$x[,c1],mm$x[,c2]-0.02*max(mm$x[,c2]),col=col.vec,labels=data.labels, cex=0.7,...)
-
-  pdf(paste(write.dir,"PCA_12",sub(".","",level,fixed=T),".pdf",sep=""))
-  plot(mm$x[,c1],mm$x[,c2],type="n", main="PCA",
-       xlab=paste("PC ",c1," (",mm.propVars[c1],"% of variance)",sep=""),
-       ylab=paste("PC ",c2," (",mm.propVars[c2],"% of variance)",sep=""),...)
-  if (is.null(data.labels))
-    points(mm$x[,c1],mm$x[,c2], cex=0.7,pch=20,col=col.vec)
-  else
-    text(mm$x[,c1],mm$x[,c2]-0.02*max(mm$x[,c2]),col=col.vec,labels=data.labels, cex=0.7,...)
-  dev.off()
-
-}
-
-
-
-
-#' Description: Computes the given lme model for each variable (row) in the given data frame
-#'      Designed for HITchip matrices, but is applicable to any other matrix also.
-#'      NOTE: does not take log automatically!
-#'
-#' Arguments:
-#'   @param fixed TBA
-#'   @param vars TBA
-#'   @param d.matrix TBA
-#'   @param d.info TBA
-#'   @param random TBA
-#'   @param correlation TBA
-#'   @param weights TBA
-#'   @param subset TBA
-#'   @param method REML or ML
-#'   @param na.action TBA
-#'   @param control TBA
-#'   @param contrasts TBA
-#'   @param keep.data TBA
-#'
-#' Returns:
-#'   @return lmeMatrixRes
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-lmeMatrix <- function(fixed, vars, d.matrix, d.info, random,
-                        correlation = NULL, weights = NULL, subset, 
-			method = c("REML", "ML"),                                                                      
-                        na.action = na.fail, control = list(), contrasts = NULL,
-                        keep.data = TRUE) {
-
-  ## initialize
-  vars <- rownames(d.matrix)
-  lmeMatrixRes <- list()
-
-  message("Computing lm for the following variables and data:\n")
-  print(vars)
-  print(str(d.info))
-  print(str(t(d.matrix)))
-  
-  for(v in vars){
-    print(v)
-    data <- d.info
-    data$y <- t(d.matrix[v,])
-
-    lmeMatrixRes$lme[[v]] <- try(lme(fixed, data, random, correlation, weights, subset,
-                         method, na.action, control, contrasts, keep.data))
-    lmeMatrixRes$anova[[v]] <- try(anova(lmeMatrixRes$lme[[v]]))
-    lmeMatrixRes$summary[[v]] <- try(summary(lmeMatrixRes$lme[[v]]))
-    tmp <- try(intervals(lmeMatrixRes$lme[[v]]))
-
-    lmeMatrixRes$intervals[[v]] <- as.list(tmp)
-    
-  }
-  lmeMatrixRes
-}
-
-
-
-#' Description:  Computes the given lm model for each variable (row) in the 
-#'               given matrix/data frame. Designed for HITchip matrices, 
-#' 		 but is applicable to any other matrix also.
-#'  		 NOTE: does not take log! 
-#'
-#' FIXME: merge with lm.matrix2
-#'
-#' Arguments:
-#'   @param formula formula
-#'   @param d.matrix data matrix
-#'   @param d.info information 
-#'   @param type information to return
-#'
-#' Returns:
-#'   @return matrix
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-lm.matrix <- function(formula, d.matrix, d.info, type = "coef") {
-
-  require(limma)
-
-  lm.res <- NULL
-
-  for (v in colnames(d.matrix)) {
-
-      df <- data.frame(list(d.info, y = as.vector(d.matrix[,v])))
-      lmfit <- lm(formula, df)
-      if (type == "coef") {
-        lm.res <- rbind(lm.res, lmfit$coefficients)
-      } else if (type == "qval") {
-        lm.res <- c(lm.res, anova(lmfit)[["Pr(>F)"]][[1]])
-      }
-  }
-
-  if (type == "coef") {
-    rownames(lm.res) <- colnames(d.matrix)
-  } else if (type == "qval") {
-    names(lm.res) <- colnames(d.matrix)
-    require(qvalue)
-    lm.res[is.na(lm.res)] <- 1 # pvalue = 1 for missing vals
-    lm.res <- qvalue(lm.res, pi0.method = "bootstrap")$qvalue
-  }
-
-  lm.res
-
-}
-
-
-#' Description:  Computes the given lm model for each variable (row) in the given matrix/data frame
-#'  		 Designed for HITchip matrices, but is applicable to any other matrix also.
-#'  		 NOTE: does not take log automatically!
-#'
-#' Arguments:
-#'   @param formula formula
-#'   @param d.matrix data matrix
-#'   @param d.info information 
-#'   @param contr TBA
-#'   @param Cvar TBA
-#'   @param fit.contrast 
-#'
-#' Returns:
-#'   @return lmMatrixRes
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-lm.matrix2 <- function(formula, d.matrix, d.info, contr = NULL, Cvar = NULL, fit.contrast = NULL){ # na.action = na.fail)
-  
-  require(limma)
-
-  vars <- rownames(d.matrix)
-  lmMatrixRes <- list()
-
-  cat("Computing lm for the following variables and data:\n")
-  print(vars)
-  str(d.info)
-  str(t(d.matrix))
-  
-  for(v in vars){
-    data <- d.info
-    data$y <- as.vector(t(d.matrix[v,]))
-
-    lmMatrixRes$lm[[v]] <- lm(formula, data)#, na.action)
-    lmMatrixRes$anova[[v]] <- try(anova(lmMatrixRes$lm[[v]]))
-    lmMatrixRes$summary[[v]] <- try(summary(lmMatrixRes$lm[[v]]))
-    if (!is.null(Cvar)){
-      lmMatrixRes$contrast[[v]] <- fit.contrast(lm(formula, data), Cvar, contr)
-    }
-  }
-  lmMatrixRes
-}
-
-
-#' Description: Get Pvals From Lm Matrix
-#'
-#' Arguments:
-#'   @param lmMatrix TBA
-#'
-#' Returns:
-#'   @return anova.pvals
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-getPvalsFromLmMatrix <- function(lmMatrix){
-  getP <- function(x){
-    if(!is.element("p-value",names(x))) {
-      tmp <- t(x['Pr(>F)'])
-      tmp <- tmp[1:(length(tmp)-1)]
-      names(tmp) <- rownames(x)[1:length(tmp)]
-      return(tmp)
-    } else {
-      if(is.element("p-value",names(x))) {
-        tmp <- t(x['p-value'])
-        tmp <- tmp[2:length(tmp)]
-        names(tmp) <- rownames(x)[2:(length(tmp)+1)]
-        return(tmp)
-      } else {
-        print("Class of supposed lm/lme-object not known!")
-      }
-    }
-  }
-  anova.pvals <- sapply(lmMatrix[["anova"]], getP)
-  ##rownames(anova.pvals) <- rownames(lmMatrix[[2]][[1]]['Pr(>F)'])
-  return(anova.pvals)
-}
-
-
-
-#' Description: TBA
-#' 
-#' Arguments:
-#'   @param d.hitchip hitchip data matrix: phylogroups x samples
-#'   @param annot annotations for samples, containing my.class, subjectID, sampleID, and perhaps time
-#'   @param my.class specify the inspected class; 
-#'   @param time if time is additionally used in modeling then annot needs to contain field named time
-#'
-#' Returns:
-#'   @return TBA
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-hitchip.sig.lme <- function(d.hitchip, annot, my.class, time = NULL){
- 
-  # Define the class to be used in the analyses
-  annot.tmp <- annot
-  names(annot.tmp)[[which(names(annot.tmp) == my.class)]] <- "my.class"
-  annot.tmp$my.class <- factor(annot.tmp$my.class)
-
-  annot.tmp <- annot.tmp[which(annot.tmp$sampleID %in% colnames(d.hitchip)),]
-
-  annot.tmp <- annot.tmp[apply(annot.tmp,1,function(z) sum(is.na(z)))==0,]
-
-  coef.name <- "coefficients.1"
-
-  d.hc <- d.hitchip[,annot.tmp$sampleID]
-
-  if (length(levels(annot.tmp[[my.class]]))>1){
-    if (length(levels(annot.tmp$time))>1){
-
-      # Fit model for each phylogroup
-      lme.list <- apply(d.hc, 1, function(y) { 
-        annot.tmp$y <- y;
-        M <- try( lme( y ~ time*my.class, random = ~1 | subjectID, data = annot.tmp), silent = T);
-
-        if ( class(M)=="try-error" )
-        M <- try( lme( y ~ time*my.class, random = ~1 | subjectID, data = annot.tmp, method = "ML"), silent = T);
-         return(M)
-        })
-
-       retval <- lapply(lme.list, 
-                   function(z){ 
-                     if (class(z)!="try-error")
-		       # FIXME: use package::glht to remove warnings in package build
-                       p <- unlist(summary(glht(z,linfct=t(c(0,0,1,1))))$"test"[c("pvalues","coefficients")])
-                     else
-                       p <- NULL
-                     return(p)})
-
-
-        coef.name <- paste("+",names(coef(lme.list[[1]]))[c(3,4)],collapse="",sep="")
-
-        retval <- lapply(retval,function(z){ names(z)[2]=coef.name; return(z)})
-
-       } else { # No time information given
-
-          lme.list <- apply(d.hc,1,function(y){annot.tmp$y=y; M=try(lm(y~my.class, data=annot.tmp),silent=T); return(M)})
-
-          retval <- lapply(lme.list, function(z){ if (class(z)!="try-error")
-	       # FIXME: use package::mcp to remove warnings in package build
-               p=summary(glht(z,linfct=mcp(my.class ="Tukey")))$"test"[c("pvalues","coefficients")]
-             else
-               p=NA
-             return(p)})
-          coef.name="coefficients"
-       }
-
-    } else { # only a single class available
-       lme.list <- apply(d.hc,1,function(y){annot.tmp$y=y; M=try(lme(y~time, random= ~1 | subjectID,data=annot.tmp),silent=T);
-        if(class(M)=="try-error")
-           M=try(lme(y~time, random= ~1 | subjectID, data=annot.tmp, method="ML"),silent=T);
-        return(M)})
-       retval=lapply(lme.list, function(z){ if (class(z)!="try-error")
-            p=data.frame(pvalues=anova(z)["time",4], coefficients=coef(z)[1,2]) 
-          else
-            p=NULL
-          return(p)})
-          coef.name="coefficients"
-    }
-
-    # Models have been fitted, process:
-
-    sig.res <- list(p.val=as.data.frame(lapply(retval,function(z) return(z["pvalues"]))),
-     coef=as.data.frame(lapply(retval,function(z) return(z[coef.name]))))
-    colnames(sig.res$coef)=rownames(d.hc)
-
-    require(qvalue)
-    if(min(dim(sig.res$p.val))==1){
-       Q=try(qvalue(sig.res$p.val)$qvalue,silent=T)
-       if(class(Q)=="try-error")
-         Q=p.adjust(unlist(sig.res$p.val),method="BH")
-       sig.res$q.val=Q
-    } else { 
-      sig.res$q.val=apply(sig.res$p.val,2,function(z){ Q=try(qvalue(z)$qvalue,silent=T)  
-
-        if(class(Q)=="try-error"){
-          Q <- p.adjust(z,method="BH")} 
-          return(Q)
-        })
-    }
-  
-  return(sig.res)
-
-}
 
 #' Description: Correlation distance. Computes the correlation 
 #' distance between the _columns_ of the given matrix
@@ -408,41 +32,7 @@ corDist <- function(x){
 }
 
 
-#' Description: wardClust is for heatmap function for Ward-clustering
-#'
-#' Arguments:
-#'   @param x data matrix
-#'
-#' Returns:
-#'   @return hclust object
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-wardClust <- function(x){hclust(x,method = "ward")}
-
-#' Description: heatmap function for complete linkage clustering
-#'
-#' Arguments:
-#'   @param x data matrix
-#'
-#' Returns:
-#'   @return hclust object
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-completeClust <- function (x) {
-  hclust(x, method = "complete")
-}
-
-#' Description: Perform pairwise comparison between factor levels
+#' Description: pairwise comparison between factor levels
 #'              
 #' Arguments:
 #'   @param x data matrix: samples x features
@@ -536,7 +126,6 @@ pairwise.comparisons <- function (x, y, qth = 0.05, resdir = NULL) {
   list(qval = top.findings.qvals, top = top.findings)
 
 }
-
 
 
 check.wilcoxon <- function () {
@@ -809,5 +398,24 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
    }
 }
 
+#' Description: Stability analysis. Calculates average Pearson '
+#  correlation between samples in the input data and picks the lower '
+#  triangular matrix to avoid duplicating the correlations. Returns 
+#  correlations and stability estimate (average of the correlations).
+#'
+#' Arguments:
+#'   @param dat data matrix phylotypes vs. samples
+#'
+#' Returns:
+#'   @return List with correlations and astability estimate
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
 
+calculate.stability <- function (dat) {
+  cors <- lower.triangle(cor(dat))
+  list(correlations = cors, stability = mean(cors))
+}
 

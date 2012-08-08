@@ -309,6 +309,10 @@ install.packages("microbiome_x.y.z.tar.gz")
 @
 
 
+\section{Functionality}
+
+
+
 \section{Citing the package}
 
 TBA

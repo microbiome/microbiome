@@ -1,0 +1,176 @@
+
+#' Description: List projects in MySQL database
+#'
+#' Arguments:
+#'   @param dbuser MySQL user
+#'   @param dbpwd MySQL password
+#'   @param dbname MySqL database name
+#' Returns:
+#'   @return project names vector
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+list.mysql.projects <- function (dbuser, dbpwd, dbname) { 
+
+  require(RMySQL)
+  drv <- dbDriver("MySQL")
+  con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
+
+  # Fetch all data from the database
+   rs <- dbSendQuery(con, paste("SELECT p.projectName FROM project p"))
+
+  project.info <- fetch(rs, n = -1) 
+
+  unique(project.info$projectName)
+
+}
+
+
+#' Description: Get phylogeny
+#' 
+#' Arguments:
+#'   @param phylogeny phylogeny
+#'   @param rmoligos oligos to exclude
+#'   @param dbuser MySQL user
+#'   @param dbpwd MySQL password
+#'   @param dbname MySqL database name
+#'   @param verbose verbose
+#'   @param remove.nonspecific.oligos Logical. Remove oligos with multiple targets.
+#'   @param chip chip type
+#' Returns:
+#'   @return oligo.map
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+get.phylogeny <- function (phylogeny, rmoligos = NULL, dbuser, dbpwd, dbname, verbose = TRUE, remove.nonspecific.oligos = FALSE, chip = "HITChip") {   
+
+  if (verbose) { message("Load phylogeny info") }
+
+  require(RMySQL)
+  drv <- dbDriver("MySQL")
+  con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
+
+  ## Collect the full phylogenetic information for oligos
+  message("Collect the full phylogeny")
+  excloligos <- ifelse(length(rmoligos>0),
+                       paste('AND NOT (', paste("o.oligoID='",rmoligos,"'",sep="",collapse=" OR "), ') ', sep=''), '')
+                       
+
+  if (chip == "MITChip") {
+
+    # Also get level0
+
+    full16Squery <- paste("SELECT 		   		 
+   		   		 l0.name AS 'level 0', 
+   		                 l1.name AS 'level 1', ", "                        	 
+   		                 l2.name AS 'level 2', ", "                        	 
+				 species.name AS 'species', 
+				 specimen.name AS 'specimen', 
+				 ot.oligoID AS 'oligoID', ","
+                        	 o.pmTm, 
+				 ot.Tm, 
+				 ot.mismatch, 
+				 ot.complement ",
+
+                        "FROM phylogeny ph ",
+
+                        "JOIN taxon l0 USING (phylogenyID) ",
+                        "JOIN taxtotax tt0 ON (tt0.parentID=l0.taxonID) ",
+
+                        "JOIN taxon l1 ON (tt0.childID=l1.taxonID) ",
+                        "JOIN taxtotax tt1 ON (tt1.parentID=l1.taxonID) ",
+
+                        "JOIN taxon l2 ON (tt1.childID=l2.taxonID) ",
+                        "JOIN taxtotax tt2 ON (tt2.parentID=l2.taxonID) ",
+
+                        "JOIN taxon species ON (tt2.childID=species.taxonID) ",
+                        "JOIN taxtotax tt3 ON (tt3.parentID=species.taxonID) ",
+                        "JOIN taxon specimen ON (tt3.childID=specimen.taxonID) ",
+                        "JOIN oligotargetpair ot ON (ot.targetID=specimen.targetID) ",
+                        "JOIN oligo o ON (ot.oligoID=o.oligoID) ",
+
+                        "AND l0.taxonLevel='level 0' ",
+
+                        "AND tt0.nodeDistance=1 ",
+                        "AND tt1.nodeDistance=1 ",
+                        "AND tt2.nodeDistance=1 ",
+                        "AND tt3.nodeDistance=1 ",
+
+                        excloligos,
+                        "ORDER BY l0.name, l1.name, l2.name, species.name, specimen.name, o.oligoID;", sep="")
+  } else {
+
+    # get levels 1-3
+    full16Squery <- paste("SELECT l1.name AS 'level 1', l2.name AS 'level 2', ", 
+                        "species.name AS 'species', specimen.name AS 'specimen', ot.oligoID AS 'oligoID', ",
+                        "o.pmTm, ot.Tm, ot.mismatch, ot.complement ",
+                        "FROM phylogeny ph ",
+                        "JOIN taxon l1 USING (phylogenyID) ",
+                        "JOIN taxtotax tt1 ON (tt1.parentID=l1.taxonID) ",
+                        "JOIN taxon l2 ON (tt1.childID=l2.taxonID) ",
+                        "JOIN taxtotax tt2 ON (tt2.parentID=l2.taxonID) ",
+                        "JOIN taxon species ON (tt2.childID=species.taxonID) ",
+                        "JOIN taxtotax tt3 ON (tt3.parentID=species.taxonID) ",
+                        "JOIN taxon specimen ON (tt3.childID=specimen.taxonID) ",
+                        "JOIN oligotargetpair ot ON (ot.targetID=specimen.targetID) ",
+                        "JOIN oligo o ON (ot.oligoID=o.oligoID) ",
+                        "AND l1.taxonLevel='level 1' ",
+                        "AND tt1.nodeDistance=1 ",
+                        "AND tt2.nodeDistance=1 ",
+                        excloligos,
+                        "ORDER BY l1.name, l2.name, species.name, specimen.name, o.oligoID;", sep="")
+
+  }
+
+  rs <- dbSendQuery(con, full16Squery)
+  full16S <- fetch(rs, n = -1)
+  
+  # Close MySQL connection
+  dbDisconnect(con)
+
+  # Apply the standard filters
+  if (verbose) {
+    message("Hybridisation temperature: Tm >= pmTm - 2.5\n")
+    message("Number of mismatches: 0\n")
+    message("Must be a complement sequence\n")
+    message("No requirement for a full-length hybridisation\n\n")
+  }
+
+  pruned16S <- prune16S(full16S, pmTm.margin = 2.5, complement = 1, mismatch = 0)
+
+  rmoligos2 <- rmoligos
+  if (remove.nonspecific.oligos) {
+    if (verbose) {message("Removing oligos with multiple targets")}
+    nPhylotypesPerOligo <- n.phylotypes.per.oligo(pruned16S, "level 2") 
+    nonspecific.oligos <- setdiff(pruned16S$oligoID, names(which(nPhylotypesPerOligo == 1)))
+    rmoligos2 <- c(rmoligos, nonspecific.oligos)
+  } 
+
+  pruned16S <- pruned16S[!pruned16S$oligoID %in% rmoligos2, ]
+
+  pruned16S        
+
+}
+
+#' Description: Format string vector to mysql query format
+#' 
+#' Arguments:
+#'   @param s string vector
+#'
+#' Returns:
+#'   @return mysql query version
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+mysql.format <- function (s) {
+  paste("('",paste(as.character(s),collapse="','",sep="'"),"')",sep="")
+}
