@@ -174,3 +174,69 @@ get.phylogeny <- function (phylogeny, rmoligos = NULL, dbuser, dbpwd, dbname, ve
 mysql.format <- function (s) {
   paste("('",paste(as.character(s),collapse="','",sep="'"),"')",sep="")
 }
+
+
+#' Fetch projects from the phyloarray database
+#' @param con MySQL connection
+#' @param condition list of lists with field-value pairs
+#'
+#' Fetch complete records from the \emph{projects}
+#' table. If \code{condition=NULL}; will fetch all records and if
+#' \code{condition} is defined it will fetch only those records that
+#' comply with the condition.  Condition must be a list of lists, each
+#' having at least the fields \emph{field} and \emph{value}.  The
+#' \emph{field} field must be a character vector of length 1 and
+#' \emph{value} must be a vector.  Each of the values will be evaluated
+#' as a optional value for the \emph{field} field.  This is an example:
+#' "\code{list(list(field='projectName',value=c(A,B)))}" that will be
+#' evaluated to the SQL condition "\code{WHERE (projectName='A' OR
+#' projectName='B')}".  
+#' @return A dataframe with the selected records from the projects table
+#' @export 
+#' @references See citation("microbiome")
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @examples # TBA
+#' @keywords utilities
+
+fetch.projects <- function (con, condition = NULL) {
+   if (phyloarrayConnection(con)) {
+      stm <- paste("SELECT * FROM project", expandCondition(condition), sep='')
+      rs <- dbSendQuery(con, stm)
+      prjs <- fetch(rs, n=-1)
+      return(prjs)
+   }
+}
+
+
+#' Fetch samples from a phyloarray database
+#'
+#' The function fetches complete records from the \emph{samples}
+#' table. If \code{condition=NULL} it will fetch all records and if
+#' \code{condition} is defined it will fetch only those records that
+#' comply with the condition.  Condition must be a list of lists, each
+#' having at least the fields \emph{field} and \emph{value}.  The
+#' \emph{field} field must be a character vector of length 1 and
+#' \emph{value} must be a vector.  Each of the values will be evaluated
+#' as a optional value for the \emph{field} field.  This is an example:
+#' "\code{list(list(field='projectName',value=c(A,B)))}" that will be
+#' evaluated to the SQL condition "\code{WHERE (projectName='A' OR
+#' projectName='B')}".
+#'
+#' @param con MySQL connection
+#' @param condition list of lists with field-value pairs
+#'
+#' @return A dataframe with the selected records from the samples table
+#' @export 
+#' @references See citation("microbiome")
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @examples # TBA
+#' @keywords utilities
+
+fetch.samples <- function (con, condition = NULL) {
+   if (phyloarrayConnection(con)) {
+      stm <- paste("SELECT * FROM sample", expandCondition(condition), sep='')
+      rs <- dbSendQuery(con, stm)
+      smps <- fetch(rs, n=-1)
+      return(smps)
+   }
+}

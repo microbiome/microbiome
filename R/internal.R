@@ -145,3 +145,70 @@ populate.radiobuttons <- function(tt, title, var.names, var.values, var.init) {
 }
 
 
+
+#' Description: Select projects to analyze
+#' 
+#' Arguments:
+#'   @param con valid MySQL connection
+#'   @param multi enable selection of multiple options
+#'   @param condition TBA
+#' Returns:
+#'   @return vector of project names 
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+choose.projects <- function (con, multi = TRUE, condition = NULL) {
+   prjs <- fetch.projects(con, condition = condition)
+   projects <- select.list(sort(prjs$projectName), multiple = multi, title = "Select studies:")
+   prjs <- fetch.projects(con, condition = list(list(field = 'projectName', value = projects)))
+   return(prjs)
+}
+
+
+#' choose.samples
+#'
+#' @param con MySQL connection
+#' @param multi multiple selections allowed
+#' @param title title
+#' @param condition TBA
+#' 
+#' @return TBA
+#' @export 
+#' @references See citation("microbiome")
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @examples # TBA
+#' @keywords utilities
+
+choose.samples <- function (con, multi=TRUE, title='Select samples:', condition=NULL) {
+   smps <- fetch.samples(con, condition=condition)
+   samples <- select.list(smps$sampleID, multiple=multi, title=title)
+   smps <- fetch.samples(con, condition=list(list(field='sampleID',value=samples)))
+   return(smps)
+}
+
+#' Choosing (and creating) a directory
+#' 
+#' @param ... parameters to pass
+#'
+#' @return TBA
+#' @export 
+#' @references See citation("microbiome")
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @examples # TBA
+#' @keywords utilities
+
+chooseDir <- function (...) {
+  choice <- ''
+  while (choice == '') {
+    choice <- guiDlgDir(dir = '', ...)
+  }
+  # create if not exist
+  if (!file.exists(choice)) {
+    dir.create(choice, recursive = TRUE)
+  }
+  return(choice)
+}
+

@@ -1308,6 +1308,63 @@ estimateSpeciesPresence <- function(data, pi){
   return(est)
 }
 
+
+#' Description: read hitchip 
+#'
+#' Arguments:
+#'   @param path Source path
+#'   @param dataID data ID
+#'
+#' Returns:
+#'   @return d
+#'
+#' @export
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+read.hitchip <- function(path = "../data/", dataID = ""){
+  d <- list()
+  d$o <- read.table(paste(path,dataID,"oligoprofile.tab", sep=""),
+                    sep="\t",header=T, row.names=1)
+
+  d$l1.log10.sum <- read.table(paste(path,dataID,"level 1_log10_sum.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$l2.log10.sum <- read.table(paste(path,dataID,"level 2_log10_sum.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$species.log10.sum <- read.table(paste(path,dataID,"species_log10_sum.tab", sep=""),
+                                  sep="\t",header=T, row.names=1)
+
+  d$l1.log10.ave <- read.table(paste(path,dataID,"level 1_log10_ave.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$l2.log10.ave <- read.table(paste(path,dataID,"level 2_log10_ave.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$species.log10.ave <- read.table(paste(path,dataID,"species_log10_ave.tab", sep=""),
+                                  sep="\t",header=T, row.names=1)
+
+  d$l1.sum <- read.table(paste(path,dataID,"level 1_sum.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$l2.sum <- read.table(paste(path,dataID,"level 2_sum.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$species.sum <- read.table(paste(path,dataID,"species_sum.tab", sep=""),
+                                  sep="\t",header=T, row.names=1)
+
+  d$l1.ave <- read.table(paste(path,dataID,"level 1_ave.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$l2.ave <- read.table(paste(path,dataID,"level 2_ave.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$species.ave <- read.table(paste(path,dataID,"species_ave.tab", sep=""),
+                                  sep="\t",header=T, row.names=1)
+
+  try(d$o.divs <- read.table(paste(path,dataID,"oligodiversities.tab", sep=""),
+                                  sep="\t",header=T, row.names=1))
+  try(d$s.divs <- read.table(paste(path,dataID,"speciesdiversities.tab", sep=""),
+                                  sep="\t",header=T, row.names=1))
+  return(d)
+  }
+
+
 #' Description: get background parameters
 #'
 #' Arguments:
@@ -1576,5 +1633,28 @@ rsd <- function(x, y = NULL) {
    #   RSD <- RSD[1,2]
    #}
    return(RSD)
+}
+
+
+
+#' Statistical test for outliers in a vector
+#'
+#' Function for determining the significances (p-values) of outliers in vector.
+#' Uses chisq.out.test from the package 'outliers'.
+#'
+#' Arguments:
+#'  @param x numerical vector
+#'  @param avgvar the estimated variance of the distribution
+#' Returns:
+#'  @return Returns the p-value of the outlier test
+#' @export 
+#' @references See citation("microbiome")
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @examples # TBA
+#' @keywords utilities
+
+outlierPvalue <- function (x, avgvar) {
+   test <- chisq.out.test(x, variance = avgvar)
+   return(test$p.value)
 }
 
