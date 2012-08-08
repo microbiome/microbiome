@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2012 Leo Lahti 
 # Contact: <leo.lahti@iki.fi>. All rights reserved.
 
 # This file is a part of the microbiome R package

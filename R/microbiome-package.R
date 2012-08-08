@@ -19,7 +19,7 @@
 #' @author Leo Lahti and Jarkko Salojarvi (UH/WUR). Contact: \email{leo.lahti@@iki.fi}
 #' @references
 #' See citation("microbiome")
-#' \url{http://TBA}
+#' \url{http://microbiome.github.com}
 #' @examples library(microbiome)
 #' @keywords package
 NULL

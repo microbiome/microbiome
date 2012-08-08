@@ -167,13 +167,48 @@ list2ascii <- function(x,file=paste(deparse(substitute(x)),".txt",sep=""), appen
 #' @keywords utilities
 lower.triangle <- function (mat) {
 
-        elements<-c()
-        nr=dim(mat)[[1]]
-        nc=dim(mat)[[2]]
-        for (i in 2:nr) {
-                for (j in 1:(i-1)) {
-                        elements<-c(elements,mat[i,j])
-                }
-        }       
-        elements
+  elements <- c()
+  nr <- dim(mat)[[1]]
+  nc <- dim(mat)[[2]]
+
+  for (i in 2:nr) {
+    for (j in 1:(i-1)) {
+      elements<-c(elements,mat[i,j])
+    }
+  }       
+  elements
 }
+
+
+#' Description: Split the data in training and test samples
+#'
+#' Arguments:
+#'   @param x x
+#'   @param y y
+#'   @param spec species
+#'
+#' Returns:
+#'   @return splitted data
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+SplitTrainTest <- function (x, y, spec) {
+
+  rsample <- sample(nrow(spec), floor(nrow(spec)/2))
+
+  x.train <- x[rsample,]
+  y.train <- y[rsample]
+  x.test <- x[-rsample,]
+  y.test <- y[-rsample]
+
+  test.samples <- rownames(x)[-rsample]
+  train.samples <- rownames(x)[rsample]
+
+  list(x.train = x.train, y.train = y.train, x.test = x.test, y.test = y.test, test.samples = test.samples, train.samples = train.samples)  
+ 
+} 
+
+

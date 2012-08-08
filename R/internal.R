@@ -93,12 +93,10 @@ expandElement <- function (elm) {
 expandCondition <- function (condition) {
    if (is.null(condition)) {
       return(NULL)
-   }
-   else {
+   } else {
       if (is.list(condition)) {
          return(paste(" WHERE",paste(lapply(condition, expandElement),collapse=' AND ')))
-      }
-      else {
+      } else {
          stop("Argument 'condition' must be a list of lists with 'field' and 'value' pairs")
       }
    }  

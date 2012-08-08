@@ -15,7 +15,6 @@
 #' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
 #' @keywords utilities
 
-
 include.fig <- function (fname, captiontext, width = "5cm", height="5cm", rotate = NULL, include.figname = TRUE) {    
   
     cat("\\begin{figure}[h!]\\begin{center}\n")

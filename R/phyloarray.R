@@ -1,4 +1,5 @@
-# Copyright (C) 2006-2012 Douwe Molenaar, Janne Nikkilä, Leo Lahti, and Jarkko Salojarvi 
+# Copyright (C) 2006-2012 Douwe Molenaar, Janne Nikkilä, Leo Lahti, and 
+# Jarkko Salojarvi 
 #
 # Contact: <leo.lahti@@iki.fi>. All rights reserved.
 #
@@ -260,68 +261,6 @@ choose.samples <- function (con, multi=TRUE, title='Select samples:', condition=
    return(smps)
 }
 
-#' Generic method for submission of calculated data to the database 
-#' @param x TBA
-#'
-#' @return TBA
-#' @export 
-#' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples # TBA
-#' @keywords utilities
-
-
-submitDB <- function(x) {
-   if (!is.list(x)) {
-      stop("Argument 'x' must be a list")
-   }
-   if (!is.null(x$dbcon)) {
-      dbSendQuery(x$dbcon,'DROP TABLE IF EXISTS rinput')
-   }
-   else {
-      stop("Missing 'dbcon' field in argument 'x'")
-   }
-   UseMethod("submitDB")
-}
-
-#' Delete previous outlier detection results for these samples. Also set
-#' the reproducibility-check flag to 0 for all featureextractions belonging
-#' to these samples.
-#'
-#' @param x TBA
-#'
-#' @return TBA
-#' @export 
-#' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples # TBA
-#' @keywords utilities
-
-submitDB.sampleOutliers <- function( x ) {
-
-   statement <- paste(
-      "UPDATE featuremeasurement fm, featureextraction fe, hybridisation h ",
-      "SET fm.isOutlier=0, fe.hasReproCheck=0 WHERE h.sampleID='", x$sampleID,"' ",
-      "AND fm.extractionID=fe.extractionID ",
-      "AND fe.hybridisationID=h.hybridisationID",
-      sep='')
-
-   rs <- dbSendQuery(x$dbcon, statement)
-
-   # Put the outliers in a temporary table and transfer 
-   # the data to the permanent tables
-  if (nrow(x$spots) > 0) {
-      dbWriteTable(x$dbcon,'Rinput',row.names=FALSE,x$spots,append=TRUE)
-       dbSendQuery(x$dbcon,'ALTER TABLE rinput ADD INDEX (featureID)')
-       dbSendQuery(x$dbcon,'ALTER TABLE rinput ADD INDEX (extractionID)')
-       dbSendQuery(x$dbcon,'UPDATE featuremeasurement f, rinput r SET f.isOutlier=1 WHERE f.featureID=r.featureID and f.extractionID=r.extractionID')
-  }
-  
-  NULL
-
-}
-
-
 
 #' Choosing (and creating) a directory
 #' 
@@ -344,38 +283,6 @@ chooseDir <- function (...) {
     dir.create(choice,recursive=TRUE)
   }
   return(choice)
-}
-
-#' panel.stability
-#' @param x TBA
-#' @param y TBA
-#' @param scale TBA
-#' @param ... parameters to pass
-#'
-#' @return TBA
-#' @export 
-#' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples # TBA
-#' @keywords utilities
-
-
-panel.stability <- function (x, y, scale=c("linear","logarithmic"), ...) {
-   scale <- match.arg(scale)
-   usr <- par("usr"); on.exit(par(usr))
-   par(usr = c(0, 1, 0, 1))
-   ## our x and y are already logarithms of signals
-   if (scale=="logarithmic") {
-      r <- abs(cor(x, y))
-      m <- rsd(x, y)*100
-   }
-   if (scale=="linear") {
-      r <- abs(cor(exp(x), exp(y)))
-      m <- rsd(exp(x), exp(y))*100
-   }
-   txt <- paste('Pearson=',format(c(r, 0.123456789), digits=5)[1],sep='')
-   txt <- paste(txt,paste('RSD=',format(c(m,0.123456789), digits=2)[1],'%',sep=''),sep="\n")
-   text(0.5, 0.5, txt, cex=1.5)
 }
 
 
@@ -437,8 +344,6 @@ HTMLReportEnd <- function (file="report.html") {
 }
 
 
-
-
 #' Statistical test for outliers in a vector
 #'
 #' Function for determining the significances (p-values) of outliers in vector.
@@ -482,7 +387,7 @@ outlierPvalue <- function (x, avgvar) {
 #' @keywords utilities
 
 
-rsd <- function(x,y=NULL) {
+rsd <- function(x, y = NULL) {
    if (is.data.frame(y)) {
       y <- as.matrix(y)
    } else {
@@ -513,98 +418,8 @@ rsd <- function(x,y=NULL) {
    return(RSD)
 }
 
-#' Outlier detection based on replicate measurements of a sample
-#'
-#' This function takes all arrays on which a sample was analysed and
-#' calculates, based on replicates of oligo's within and between arrays
-#' which spots on which arrays are likely to be outliers.  The isOutlier
-#' flag of the spot is set in the database if the spot is likely to be an
-#' outlier.  The routine needs normalized data. If these are unavailable
-#' for an array on which the sample was hybridised then the calculation
-#' is skipped and a warning is issued in the R console.
-#'
-#' Note: sampleOutliers only considers probes in the class 'ssRNA', and
-#' does not take into account hybridisations of which the 'isDiscarded'
-#' flag is set, or featureExtractions of which the 'noReproCheck' is set.
-#'
-#'
-#' @param con MySQL connection
-#' @param sampleID sampleID
-#' @param significance significance
-#'
-#' @return A sampleOutliers object which is a list containing a
-#'           'spots' dataframe, a 'dbcon' connection to the phyloarray
-#'           database from which the sample data were taken and a
-#'           'sampleID' length 1 character vector containing the
-#'           sampleID.
-#'
-#' @export 
-#' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples # TBA
-#' @keywords utilities
-
-# FIXME: to be removed?
-sampleOutliers <- function (con, sampleID, significance=0.001) {
-   if (phyloarrayConnection(con)) {
-      if ((!(is.vector(sampleID) & length(sampleID)==1)) | (!is.character(sampleID))) {
-         stop("Argument 'sampleID' must be a character vector of length 1")
-      }
-      out.extractionIDs <- c()
-      out.featureIDs <- c()
-      # Only ssRNA probes are selected, not control probes etc.
-      statement <- paste(
-         "SELECT o.oligoID, fm.extractionID, fm.featureID, log(spatNormSignal) AS signal ",
-         "FROM hybridisation h, featureextraction fe, featuremeasurement fm, arrayfeature af, probe p, oligo o ",
-         "WHERE h.sampleID='",sampleID,"' AND NOT h.isDiscarded ",
-         "AND fe.hybridisationID=h.hybridisationID AND NOT fe.noReproCheck ",
-         "AND fm.extractionID=fe.extractionID AND fm.featureID=af.featureID ",
-         "AND af.probeID=p.probeID AND p.oligoID=o.oligoID AND o.class='ssRNA' ",
-         "ORDER BY fm.extractionID, fm.featureID",
-         sep='')
-      rs <- dbSendQuery(con,statement)
-      sig <- fetch(rs, n=-1)
-
-      #sig <- quantnorm(sig) # in the original phyloarray
-      sig <- ScaleProfile(sig, method = 'quant') # using R package function
-
-      avgvar<-mean(tapply(sig$signal,sig$oligoID,var))
-      haveoutlier <- tapply(sig$signal,sig$oligoID,outlierPvalue,avgvar)
-      haveoutlier <- haveoutlier[haveoutlier<significance]
-      if (length(haveoutlier)>0) {
-         for (j in names(haveoutlier)) {
-            #out.row <- sig[sig$oligoID==j,][minmax(sig[sig$oligoID==j,]$signal),]
-            out.row <- sig[sig$oligoID==j,][ScaleProfile(sig[sig$oligoID==j,]$signal, method = 'minmax'),]
-            out.extractionIDs <- c(out.extractionIDs,out.row$extractionID)
-            out.featureIDs <- c(out.featureIDs,out.row$featureID)
-         }
-      }
-      return(new("sampleOutliers",list(spots=data.frame(extractionID=out.extractionIDs,featureID=out.featureIDs), dbcon=con, sampleID=sampleID)))
-   }
-}
 
 
-#' sampleReproducibility function
-#' @param con MySQL connection
-#' @param sampleID sampleID
-#'
-#' @return TBA
-#' @export 
-#' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples # TBA
-#' @keywords utilities
-
-sampleReproducibility <- function(con, sampleID) {
-   if (phyloarrayConnection(con)) {
-      if ((!(is.vector(sampleID) & length(sampleID)==1)) | (!is.character(sampleID))) {
-         stop("Argument 'sampleID' must be a character vector of length 1")
-      }
-      extr <- fetch.extractions(con,condition=list(list(field='sampleID',value=sampleID)))
-      extr <- extr[extr$isDiscarded==0 & extr$noReproCheck==0 & extr$noSampleNormalisation==0,]
-      
-   }
-}
 
 #' 2D Spatial normalisation of microarrays
 #' @param data dataframe with positional and signal information
@@ -641,104 +456,6 @@ spatnorm <- function(data, x="x", y="y", signal="signal", method=c("loess"), spa
    corr.signal[corr.signal<0.1]=0.1
    outp <- list(fit=fit,pr.signal=pr.signal,corr.signal=corr.signal)
    invisible(outp)
-}
-
-
-
-
-#' Description: Import Project From Phyloarray To R. This function imports a 
-#' project's ln(data) from probeLevel from phyloarray mysql-database to R. 
-#' Modified from avgSignalPerTaxon.sql Query 2 by JN
-#' NOTE!!: Must be modified to average over the identical probes!! 
-#' The desired projectName is given as an argument
-#' as well as the algorithm versions.
-#'
-#' Arguments:
-#'   @param projectName Project to import
-#'   @param spatNormAlgv Spatial normalization algorithm version
-#'   @param normAlgv Normalization algorithm version
-#'   @param dbuser mysql database username
-#'   @param dbpwd  mysql database password
-#'   @param dbname mysql database name
-#'
-#' Returns:
-#'   @return data
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-importProjectFromPhyloarrayToR <- function(projectName = 'ProvasI', 
-			       spatNormAlgv = '1.1', normAlgv = '1.1', 
-			       dbuser = NULL, dbpwd = NULL, dbname = NULL){
-
-  # Intialize database connection
-  drv <- dbDriver("MySQL")
-  con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
-
-  # Get the projectID of the project
-  projectID <- fetch(dbSendQuery(con,paste("SELECT p.projectID FROM project p WHERE p.projectName=\'",
-                                         projectName,"\'",sep="")), n=-1)$projectID
-
-  # Get all the sampleIDs from the given project
-  statement <- paste(
-                   "SELECT s.sampleID FROM sample s, hybridisation h, featureextraction f",
-                   "WHERE s.sampleID=h.sampleID AND h.hybridisationID=f.hybridisationID",
-                   "AND NOT h.isDiscarded AND NOT f.noReproCheck AND NOT f.noSampleNormalisation",
-                   "AND s.projectID=\'",projectID,"\' AND spatNormAlgVersion>=",spatNormAlgv,
-                   "GROUP BY sampleID HAVING COUNT(f.extractionID)>1")
-
-  rs <- dbSendQuery(con,statement)
-  fe <- fetch(rs, n = -1)
-  print(length(fe))
-
-  # Query and fetch quantile normalised data
-  importRes <- c()
-  if (length(fe)>0) {
-    samples <- fe$sampleID
-    for (i in samples) {
-      message('Retrieving normalised sample "',i,'"\n')
-      statement <- paste(
-                         "SELECT probeName, p.oligoID, signal ",
-                         "FROM probe p JOIN (",
-                         " SELECT oligoID, avg(spatNormSignal) AS signal ",
-                         " FROM project JOIN sample USING (projectID) ",
-                         " JOIN hybridisation USING (sampleID) ",
-                         " JOIN featureExtraction USING (hybridisationID) ",
-                         " JOIN featureMeasurement USING (extractionID) ",
-                         " JOIN arrayFeature USING (featureID) ",
-                         " JOIN probe USING (probeID) ",
-                         " WHERE projectName=\'",projectName,"\'",
-                         " AND sampleID=\'",i,"\'",
-                         " AND normalisationFinished ",
-                         " AND NOT oligoID IS NULL ",
-                         " AND NOT isDiscarded ",
-                         " AND NOT noSampleNormalisation ",
-                         " AND NOT isOutlier ",
-                         " GROUP BY oligoID ",
-                         ") AS os USING (oligoID) ",
-                         "ORDER BY probeName; ", sep="")
-                         
-      rs <- dbSendQuery(con,statement)
-      sig <- fetch(rs, n=-1)
-      
-      if (length(importRes)==0){
-        importRes <- sig
-        importRes$signal <- log(importRes$signal)
-        names(importRes)[3] <- paste(as.character(i),sep="")
-       } 
-      else{
-        importRes <- cbind(importRes,signal=log(sig$signal))
-        names(importRes)[length(names(importRes))] <- paste(as.character(i),sep="")
-      }
-    }
-  }
-
-  dbDisconnect(con)
-
-  return(importRes)
 }
 
 

@@ -1,7 +1,6 @@
 # Copyright (C) 2006-2012 Leo Lahti, and Jarkko Salojarvi, Janne
-# Nikkila, and Douwe Molenaar
-
-# Contact: <leo.lahti@iki.fi>. All rights reserved.
+# Nikkila, and Douwe Molenaar. All rights reserved.
+# Contact: <leo.lahti@iki.fi>
 
 # This file is a part of the microbiome R package
 #
@@ -786,19 +785,6 @@ get.sampleid <- function (d.oligo) {
 
 
 check.dependencies <- function () {
-  #affyT <- require(affy)
-  #preprocessCoreT <- require(preprocessCore)
-  #if(!affyT | !preprocessCoreT){ 
-  #  # if neither of the packages installed, try to install them
-  #  cat("Apparently Bioconductor packages affy and/or preprocessCore are not installed.\n")
-  #  cat("Trying to install them now, since, depending on your R version, either of them is needed,\n
-  #     but only for quantile, normalExponential+quantile,\n
-  #     and normalExponential + medianFoldChange scalings...\n")
-    #try(source("http://bioconductor.org/biocLite.R"))
-    #try(biocLite("affy"))
-    #try(biocLite("affyio"))
-    #try(biocLite("preprocessCore"))
-  #}
 
   ## determine if using windows or mac/linux, based on the path style
   if(strsplit(Sys.getenv()["R_HOME"],split="")[[1]][1]=="/"){
@@ -941,10 +927,10 @@ scaling.minmax <- function (r, quantile.points, robust = FALSE) {
 
 threshold.data <- function(dat, sd.times = 6){
 
-  thr<-apply(dat, 2, function(x){
+  thr <- apply(dat, 2, function(x){
       DD <- density(as.numeric(x),adjust=1.2,na.rm=T);
-      noise_mode=DD$x[which(DD$y==max(DD$y))[1]];
-      noise_sd <- sd(x[x < noise_mode],na.rm=T);
+      noise_mode <- DD$x[which(DD$y==max(DD$y))[1]];
+      noise_sd   <- sd(x[x < noise_mode],na.rm=T);
       low.thresh <- noise_mode + sd.times*noise_sd;
       low.thresh 
       })
@@ -952,43 +938,6 @@ threshold.data <- function(dat, sd.times = 6){
   # Subtract background from signal intensities in each sample
   data.mat<-t(apply(dat, 1, function(Tr){ Tr-thr })) 
   return(data.mat)
-}
-
-#' Description: populate radiobuttons
-#'
-#' Arguments:
-#'   @param tt TBA
-#'   @param title TBA
-#'   @param var.names TBA
-#'   @param var.values TBA
-#'   @param var.init TBA
-#'
-#' Returns:
-#'   @return TBA
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-populate.radiobuttons.profiling <- function(tt, title, var.names, var.values, var.init){
-
- title.font <- tkfont.create(weight="bold",size=10)
-
- frm <- tkframe(tt,relief="groove",borderwidth=2)
-
- label.widget <- tklabel(frm, text=title,font=title.font)
-
- tkpack(label.widget,side="top")
-
- for (i in 1:length(var.values)){
-   button.widget <- tkradiobutton(frm, text=var.names[i],variable=var.init,value=var.values[i])
-   tkpack(button.widget,side="top")
- }
-
- tkpack(frm, side = "top")
-
- return( list(frame = frm, var = var.init) )
-
 }
 
 
@@ -1009,15 +958,14 @@ get.bkg.params <- function(){
   tt <- tktoplevel()
   tkwm.title(tt,"Background Subtraction")
 
-  frm <- populate.radiobuttons.profiling(tt,title="Background Subtraction Method",var.names=c("min. 500 oligos","2*sd bkg intensity","6*sd bkg intensity","none"),var.values=c("min. 500 oligos","2*sd bkg intensity","6*sd bkg intensity","none"),var.init=tclVar("2*sd bkg intensity"))
+  frm <- populate.radiobuttons(tt,title="Background Subtraction Method",var.names=c("min. 500 oligos","2*sd bkg intensity","6*sd bkg intensity","none"),var.values=c("min. 500 oligos","2*sd bkg intensity","6*sd bkg intensity","none"),var.init=tclVar("2*sd bkg intensity"))
 
-  frm2=tkframe(tt)
+  frm2 <- tkframe(tt)
 
-  frm2.up=populate.radiobuttons.profiling(frm2,title="Handling of negatives in ave data",var.names=c("Keep negative values","Set negatives to zero"),var.values=c("TRUE","FALSE"),var.init=tclVar("FALSE"))
+  frm2.up <- populate.radiobuttons(frm2,title="Handling of negatives in ave data",var.names=c("Keep negative values","Set negatives to zero"),var.values=c("TRUE","FALSE"),var.init=tclVar("FALSE"))
 
-  frm2.down=tkframe(frm2)
-  button.OK <- tkbutton(frm2.down, text="OK",
-                          command=function(){
+  frm2.down <- tkframe(frm2)
+  button.OK <- tkbutton(frm2.down, text="OK", command=function(){
     tkdestroy(tt)
   })
 
@@ -1101,3 +1049,4 @@ calculate.stability <- function (dat) {
   cors <- lower.triangle(cor(dat))
   list(correlations = cors, stability = mean(cors))
 }
+

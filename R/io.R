@@ -12,7 +12,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-
 #' Description: Function to read run.profiling.script output into R
 #'
 #' Arguments:
@@ -85,6 +84,65 @@ read.profiling <- function(level, method, data.dir, log10 = FALSE){
 }
 
 
+#' Description: read hitchip 
+#'
+#' Arguments:
+#'   @param path Source path
+#'   @param dataID data ID
+#'
+#' Returns:
+#'   @return d
+#'
+#' @export
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+read.hitchip <- function(path = "../data/", dataID = ""){
+  d <- list()
+  d$o <- read.table(paste(path,dataID,"oligoprofile.tab", sep=""),
+                    sep="\t",header=T, row.names=1)
+
+  d$l1.log10.sum <- read.table(paste(path,dataID,"level 1_log10_sum.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$l2.log10.sum <- read.table(paste(path,dataID,"level 2_log10_sum.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$species.log10.sum <- read.table(paste(path,dataID,"species_log10_sum.tab", sep=""),
+                                  sep="\t",header=T, row.names=1)
+
+  d$l1.log10.ave <- read.table(paste(path,dataID,"level 1_log10_ave.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$l2.log10.ave <- read.table(paste(path,dataID,"level 2_log10_ave.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$species.log10.ave <- read.table(paste(path,dataID,"species_log10_ave.tab", sep=""),
+                                  sep="\t",header=T, row.names=1)
+
+  d$l1.sum <- read.table(paste(path,dataID,"level 1_sum.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$l2.sum <- read.table(paste(path,dataID,"level 2_sum.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$species.sum <- read.table(paste(path,dataID,"species_sum.tab", sep=""),
+                                  sep="\t",header=T, row.names=1)
+
+  d$l1.ave <- read.table(paste(path,dataID,"level 1_ave.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$l2.ave <- read.table(paste(path,dataID,"level 2_ave.tab", sep=""),
+                             sep="\t",header=T, row.names=1)
+  d$species.ave <- read.table(paste(path,dataID,"species_ave.tab", sep=""),
+                                  sep="\t",header=T, row.names=1)
+
+  try(d$o.divs <- read.table(paste(path,dataID,"oligodiversities.tab", sep=""),
+                                  sep="\t",header=T, row.names=1))
+  try(d$s.divs <- read.table(paste(path,dataID,"speciesdiversities.tab", sep=""),
+                                  sep="\t",header=T, row.names=1))
+  return(d)
+  }
+
+
+
+
+
 #' Description: Write preprocessed data into the output directory
 #'
 #' Arguments:
@@ -131,38 +189,6 @@ WriteChipData <- function (finaldata, output.dir, phylogeny, verbose = TRUE) {
   output.dir
  
 }
-
-
-
-
-
-
-#' Description: Read data
-#'
-#' Arguments:
-#'   @param ... No input by default
-#'
-#' Returns:
-#'   @return Used for side effects
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-
-read.in.data <- function(...) {
-   tclvalue(rdir) <- paste(tclvalue(tkchooseDirectory(
-                       title = "Read hitchip files from directory:")), "/",  sep="")
-   tclvalue(wdir) <- paste(tclvalue(tkchooseDirectory(
-                       title = "Save all the files produced by the script into directory:")), 
-		         "/", sep = "")
-   tclvalue(hitchip.info) <- tk_choose.files(
-                               caption = "Select HITChip annotation file", 
-			       multi = FALSE)
-}
-
 
 
 #' Description: Write matrix in tab file

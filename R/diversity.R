@@ -257,5 +257,3 @@ PlotDiversity <- function (dat, diversity.index, filename = NULL) {
 
 }
 
-
-

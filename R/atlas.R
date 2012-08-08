@@ -884,5 +884,3 @@ list.entities <- function (level, phylo) {
 
 }
 
-
-

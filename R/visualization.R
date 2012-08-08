@@ -1,4 +1,5 @@
-#' Description: Calculate and plot hierarchical clustering for profiling script output
+#' Description: Calculate and plot hierarchical clustering for profiling 
+#' script output
 #'
 #' Arguments:
 #'   @param dat oligoprofile data in original (non-log) domain
@@ -53,7 +54,6 @@ add.hclust.plots <- function (dat, data.dir, phylogeny) {
   list(ppcm = ppcm, hclust.method = hclust.method, pal = pal, lev = lev, clmet = clmet, tree.display = tree.display, figureratio = figureratio, fontsize = fontsize)
 
 }
-
 
 
 
@@ -271,143 +271,9 @@ trans <- function(color, tr = 150){
                col2rgb(color)[2],
                col2rgb(color)[3],tr, maxColorValue=255)
 }
-
-
-#' Description: Plot PCA with labels and explained variances
-#'
-#' Arguments:
-#'   @param dPCA TBA
-#'   @param main TBA
-#'   @param xPC TBA
-#'   @param yPC TBA
-#'   @param showLabels TBA
-#'   @param type TBA
-#'   @param ... further parameters to be passed
-#'
-#' Returns:
-#'   @return TBA
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-plotPCA <- function(dPCA, main="PCA plot", xPC = 1, yPC = 2, showLabels = T, type = "n", ...){
-   x11(width=11, height=11)
-   dPCA.propVars <- round(dPCA$sdev^2/sum(dPCA$sdev^2)*100,digits=2)
-   plot(dPCA$x[,xPC],dPCA$x[,yPC],type=type, main=main,
-        xlab=paste("PC ",xPC," (",dPCA.propVars[xPC],"% of variance)",sep=""),
-        ylab=paste("PC ",yPC," (",dPCA.propVars[yPC],"% of variance)",sep=""),...)
-   if(showLabels)
-     text(dPCA$x[,xPC],dPCA$x[,yPC]-0.02*max(dPCA$x[,yPC]),
-          labels=rownames(dPCA$x), cex=0.7,...)
-}
-
-#' Description: 
-#'
-#' Arguments:
-#'   @param dPCA TBA
-#'   @param groups TBA
-#'   @param main TBA
-#'   @param xPC TBA
-#'   @param yPC TBA
-#'   @param type TBA
-#'   @param legLoc TBA
-#'   @param w TBA
-#'   @param h TBA
-#'   @param ... further parameters to be passed
-#'
-#' Returns:
-#'   @return plot
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-plotGroupPCA <- function(dPCA,groups,main="PCA plot",xPC=1, yPC=2,type="n",
-                         legLoc="topright",w=11,h=11,...){
-   x11(width=w, height=h)
-   dPCA.propVars <- round(dPCA$sdev^2/sum(dPCA$sdev^2)*100,digits=2)
-   plot(dPCA$x[,xPC],dPCA$x[,yPC],type=type, main=main,
-        xlab=paste("PC ",xPC," (",dPCA.propVars[xPC],"% of variance)",sep=""),
-        ylab=paste("PC ",yPC," (",dPCA.propVars[yPC],"% of variance)",sep=""),...)
-   ##text(dPCA$x[,xPC],dPCA$x[,yPC]-0.02*max(dPCA$x[,yPC]),
-   ##    labels=rownames(dPCA$x), cex=0.7,...)
-   uGroups <- unique(groups)
-   nG <- length(uGroups)
-   gCols <- rainbow(nG)
-   for(g in 1:nG){
-     gFilter <- groups==uGroups[g]
-     points(dPCA$x[gFilter,xPC],dPCA$x[gFilter,yPC],col=gCols[g], pch=19) 
-   }
-   legend(legLoc,legend=uGroups, fill=gCols)
- }
- 
  
 
-#' Description: Plot oligoprofile figures without data retrieval from the db
-#'
-#' Arguments:
-#'   @param d data
-#'   @param tax.level Taxonomic level
-#'   @param metric metrics
-#'   @param include.tree TBA
-#'   @param fontsize font size
-#'   @param figureratio figure ratio
-#'   @param oligomap oligomap
-#'   @param width width
-#'   @param height height
-#'   @param oligomapJN TBA
-#'   @param plot.profile TBA
-#'
-#' Returns:
-#'   @return plot
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
 
-plotOligoP <- function(d, tax.level='level1',
-                        metric='correlation', include.tree=T,
-                        fontsize=11, figureratio=15, oligomap=oligomapJN,
-                        width=12, height=20, oligomapJN = NULL, 
-			plot.profile = NULL){
- 
-   par(mar=c(0.1,0.1,0.1,0.1))
-   x11(width=width, height=height)
-   plot.profile(data=log(d), metric=metric,
-                oligomap=oligomap, tax.level=tax.level,
-                fontsize=fontsize, include.tree=include.tree,
-                figureratio=figureratio)
-}
-
-
-#' Description: Plot Mean Profile 
-#'
-#' Arguments:
-#'   @param data TBA
-#'
-#' Returns:
-#'   @return barplot
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-plotMeanProfile <- function(data){
-  require(gplots)
-  data.mean <- apply(data,1, mean)
-  data.sd <- apply(data, 1, sd)
-  barplot2(data.mean, horiz=T,
-           plot.ci=T, ci.u=data.mean+data.sd, ci.l=data.mean-data.sd)
-}
 
 
 #' Description: plot scatter
@@ -645,4 +511,220 @@ PlotMatrix <- function (mat, type = "twoway", midpoint = 0,
   return(list(colors = colors, breaks = col.breaks + midpoint, palette.function = my.palette))
       	  
 }
+
+
+#' Description: Barplot of top findings from pairwise.comparisons function
+#'              
+#' Arguments:
+#'   @param top.findings Ouput from pairwise.comparisons function
+#'   @param topN number of top findings to plot
+#'   @param annot annotation matrix    
+#'   @param smat species abundancy matrix
+#' Returns:
+#'   @return List with top findings from pairwise comparisons and their q-values
+#'
+#' @export
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+top.barplots <- function (top.findings, topN = 5, annot, smat) {
+
+  # Investigate top findings
+  specs <- unique(unlist(sapply(top.findings, rownames)))[1:topN] # phylotypes
+
+  if (length(specs)>0) {
+    specs.shortnames <- sapply(specs, function(x) {ss <- strsplit(x, " "); if (length(ss[[1]]) > 1) { paste(paste(substr(ss[[1]][[1]], 1, 1), ".", sep = ""), paste(ss[[1]][-1], collapse = " "), sep = " ")} else {ss[[1]][[1]]}})
+    names(specs.shortnames) <- specs
+    s <- rownames(smat) # samples
+    df <- cbind(smat[s, specs], annot[s,])
+    means <- reshape::melt(aggregate(df[specs], by=list(varname = df[[varname]]), FUN=mean))
+    stds <- reshape::melt(aggregate(df[specs], by=list(varname = df[[varname]]), FUN=sd))
+    Nsqrt <- sqrt(as.numeric(reshape::melt(aggregate(df[specs], by = list(varname = df$varname), FUN = length))$value))
+    dfm <- cbind(means, mean = means$value, sd = stds$value, sd.of.mean = as.numeric(stds$value) / Nsqrt)
+    dfm$shortnames <- as.factor(specs.shortnames[dfm$variable])
+
+    # Create the barplot component
+    p <- ggplot2::ggplot(dfm, aes(x = shortnames, y = value, fill = varname)) 
+    dodge <- position_dodge(width = 0.9)
+    p <- p + geom_bar(position="dodge") 
+    p <- p + geom_errorbar(aes(x = shortnames, ymax = mean + 1.96*sd.of.mean, ymin = mean - 1.96*sd.of.mean), position = dodge, width=0.25)
+    p <- p + scale_fill_grey() + theme_bw() + ylab("Signal") + xlab("") 
+    p <- p + opts(axis.text.x=theme_text(angle=-20)) 
+
+    } else {
+      warning("No features available.")
+      p <- NULL  
+    }
+
+}
+
+
+
+#' Description: Visualization of top findings from pairwise.comparisons function
+#'              
+#' Arguments:
+#'   @param x data matrix
+#'   @param y annotaction factor
+#'   @param oligo.map mapping between features
+#'   @param color.level feature level to color
+#'   @param bar.level feature level for bars
+#'   @param top.findings output from pairwise.comparisons function
+#'   @param top.findings.qvals output from pairwise.comparisons function
+#'   @param qth q-value threshold
+#'   @param qth.star q-value threshold for stars
+#'   @param mode barplot / heatmap
+#' Returns:
+#'   @return List with top findings from pairwise comparisons and their q-values
+#'
+#' @export
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+PlotTopComparisons <- function (x, y, oligo.map, color.level, bar.level, top.findings, top.findings.qvals, qth = 0.05, qth.star = 0.01, mode = "barplot") {
+
+  # x <- smat; color.level = "level 1"; bar.level = "level 2"; qth <- 0.05; mode = "heatmap"
+
+  flevels <- as.character(unique(y))
+
+  map <- oligo.map[[color.level]]
+  names(map) <- as.character(oligo.map[[bar.level]])
+
+  # Pick the most significant findings only
+  nams <- unique(unlist(sapply(top.findings, function(tab){unlist(rownames(subset(tab, qvalue < qth)))})))
+
+  x <- x[, nams]  
+
+  fc <- aggregate(x, by = list(varname = y), mean) # Mean for each group
+
+  # Compare each group to other group
+  comparisons <- list()
+
+  for (i in 1:(length(flevels)-1)) {
+    for (j in (i+1):length(flevels)) {
+      di <- flevels[[i]]
+      dj <- flevels[[j]]
+      nam <- paste(di, dj, sep = "-")
+      comparisons[[nam]] <- as.numeric(subset(fc, varname == di)[-1]) - as.numeric(subset(fc, varname == dj)[-1])
+    }
+  }
+
+  nams <- names(comparisons)
+  df <- data.frame(comparisons)
+  colnames(df) <- nams
+  rownames(df) <- colnames(x)
+  df$bar.level <- colnames(x)
+  df$color.level <- factor(map[as.character(df$bar.level)]) # Check L2 for the phylotype species
+
+  if (mode == "barplot") {
+
+    specs.shortnames <- sapply(as.character(df$bar.level), function(x) {ss <- strsplit(x, " "); if (length(ss[[1]]) > 1) { paste(paste(substr(ss[[1]][[1]], 1, 1), ".", sep = ""), paste(ss[[1]][-1], collapse = " "), sep = " ")} else {ss[[1]][[1]]}})
+    names(specs.shortnames) <- as.character(df$bar.level)
+    df$shortnames <- factor(specs.shortnames[df$bar.level])
+    dfm <- reshape::melt(df)
+
+    p <- ggplot2::ggplot(dfm) 
+    dodge <- position_dodge(width = 0.9) # define the width of the dodge
+    p <- p + geom_bar(position = "dodge", width = 0.4, aes(x = shortnames, y = value, fill = color.level))
+    p <- p + facet_grid(.~variable, scales = "free", space = "free")
+    p <- p + coord_flip()
+    p <- p + theme_bw() + ylab("") + xlab("Fold Change")
+    p <- p + opts(axis.text.x = theme_text(size = 7))
+    # p <- p + opts(legend.position = c(0.15,.15))
+
+  } else if (mode == "heatmap") {
+
+    ncomp <- ncol(df) - 2 # number of comparisons
+
+    dfm <- reshape::melt(df[, 1:(ncomp + 1)], variable = "comparison") # reshape::melt matrix
+    keep <- !is.na(dfm$value)
+    dfm <- dfm[keep, ]
+    dfm$comparison <- droplevels(dfm$comparison)
+    #flevels <- levels(dfm$comparison)
+
+    qmat <- NULL; nams <- c()
+    if (length(flevels)>1) {
+      for (i in 1:(length(flevels)-1)) {
+        for (j in (i+1):(length(flevels))) {
+  
+          ai <- flevels[[i]]
+          aj <- flevels[[j]]
+          nam <- paste(ai, aj, sep = "-")
+
+          qmat <- cbind(qmat, unlist(top.findings.qvals[[ai]][[aj]])[df[[bar.level]]])
+          nams <- c(nams, nam)
+        }
+      }
+    } else {
+
+          nam <- flevels[[1]]
+          qmat <- top.findings.qvals[[1]][[1]][df$bar.level]
+	  qmat <- matrix(qmat, length(qmat))
+	  rownames(qmat) <- df$bar.level
+          nams <- c(nams, nam)
+
+    }
+
+    if (nrow(qmat) > 0) {
+
+      qmat <- data.frame(qmat)
+      colnames(qmat) <- nams
+ 
+      qmat[["phylotype"]] <- rownames(qmat)
+      dfm.qval <- reshape::melt(qmat)
+      names(dfm.qval) <- "value"
+
+      cex.xlab = 7; cex.ylab = 12
+
+      p <- ggplot2::ggplot(dfm, aes(x = comparison, y = bar.level, fill = value))
+      p <- p + geom_tile() 
+      limit <- ceiling(max(abs(na.omit(dfm$value))))
+      p <- p + scale_fill_gradientn("Fold Change", breaks=seq(from=limit, to=-limit, by=-0.2), colours=c("darkblue", "blue", "white", "red", "darkred"), limits=c(-limit,limit)) 
+      p <- p + theme_bw() 
+      p <- p + opts(axis.text.x=theme_text(angle = 0, size = cex.xlab)) 
+      p <- p + opts(axis.text.y=theme_text(size = cex.ylab))
+
+      # Merkkaa merkitsevat tahdella
+      p <- p + geom_text(data=subset(dfm.qval, value < qth.star), aes(x = variable, y = value, label = "+"), col = "white", size = 3)
+      p <- p + xlab("") + ylab("")
+    }
+  }
+
+  p
+
+}
+
+#' Description: ggplot2::ggplot2 theme
+#'              
+#' Arguments:
+#'   @param colour colour
+#'   @param size size
+#'   @param linetype linetype
+#' Returns:
+#'   @return set theme
+#'
+#' @export
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
+  # use with e.g.: ggplot2::ggplot(...) + opts( panel.border=theme_bottom_border() ) + ...
+  structure(
+    function(x = 0, y = 0, width = 1, height = 1, ...) {
+      polylineGrob(
+        x=c(x, x+width), y=c(y,y), ..., default.units = "npc",
+        gp=gpar(lwd=size, col=colour, lty=linetype),
+      )
+    },
+    class = "theme",
+    type = "box",
+    call = match.call()
+  )
+}
+
 
