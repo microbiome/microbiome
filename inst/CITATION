@@ -1,0 +1,16 @@
+citHeader("Please cite the package as follows:")
+
+citEntry(entry="misc",
+         title = "microbiome R package",
+         author = personList(
+	 	person(given ="Leo", family="Lahti", email = "leo.lahti@iki.fi"),
+	 	person(given ="Jarkko", family="Salojarvi")
+	 	  ),
+	 journal = "",
+	 year = "2012",
+         textVersion =
+         paste("Leo Lahti and Jarkko Salojarvi (University of Helsinki / Wageningen University 2012).",
+               "microbiome R package",
+               sep=" ")
+         )
+

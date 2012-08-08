@@ -1,0 +1,57 @@
+Package: microbiome
+Type: Package
+Title: microbiome
+Version: 0.3.01
+Date: 2012-06-19
+Author: Leo Lahti and Jarkko Salojarvi
+Maintainer: microbiome developer team <leo.lahti@iki.fi>
+Description: R package for microbiome studies
+License: FreeBSD
+Depends:
+    R (>= 2.12.1),
+    affy,
+    brew,
+    DBI,
+    fields,
+    ggplot2,
+    gplots,
+    limma,
+    MASS,
+    methods,
+    mixOmics,
+    nlme,
+    NMF,
+    outliers,
+    plyr,
+    preprocessCore,
+    qvalue,
+    reshape,
+    R2HTML,
+    RPA,
+    svDialogs,
+    tcltk,
+    vegan
+URL: TBA
+LazyLoad: yes
+Collate:
+    'AllGenerics.R'
+    'analysis.R'
+    'data.documentation.R'
+    'firstlib.R'
+    'GUI.R'
+    'io.R'
+    'microbiome-package.R'
+    'show-methods.R'
+    'utils.R'
+    'profiling.R'
+    'atlas.R'
+    'hitchip.R'
+    'diversity.R'
+    'annotations.R'
+    'visualization.R'
+    'brew.R'
+    'phyloarray.R'
+    'ggplot2.R'
+    'AllClasses.R'
+    'internal.R'
+Packaged: 2012-01-12 14:19:39 UTC; lei

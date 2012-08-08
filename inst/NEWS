@@ -1,0 +1,110 @@
+CHANGES IN VERSION 0.2.04 (2012-06-15)
+  o RMySQL removed from explicit dependencies
+
+CHANGES IN VERSION 0.2.03 (2012-06-06)
+
+  o hitchip.phylodistance added 
+  o cross-hyb control functions added
+
+CHANGES IN VERSION 0.2.02 (2012-06-03)
+
+  o annotation functions added
+
+CHANGES IN VERSION 0.2.01 (2012-05-31)
+
+  o removed absolute scale matrices from run.profiling.script
+    output. The idea is that just one log10 file for each phylogenetic
+    level is outputted, and the user can then use other reading/analysis
+    routines to read the data, convert to original non-log domain if
+    necessary, etc. This is to provide a unique output format to avoid mistakes.
+  o save.data and tree.display removed from run.profiling.script arguments
+  o combined get.phylogeny and get.phylogeny.MITChip
+  o moved plotting functions from run.profiling.script into a separate
+    function profiling.hclust; 
+  o removed the option to read profiling parameters from R file in ReadParameters function
+  o output file name phylogenyinfo.tab changed into phylogenyinfo-nspecies.tab 
+  o made run.profiling.script modular with respect to preprocessing, plotting, data storage, and logging
+  o added instructions in the vignette on reading the final data
+
+CHANGES IN VERSION 0.12.14 (2012-05-10)
+
+  o added pitchipdb in PITChip array name list in profiling.R
+
+CHANGES IN VERSION 0.12.12 (2012-05-02)
+
+  o added MITChip level 0
+  o added separate get.phylogeny.MITChip function to include level 0 for MITChip
+
+CHANGES IN VERSION 0.12.10 (2012-04-17)
+
+  o automatized the levels and methods output within run.profiling.script
+  o now providing also non-logarithmized data matrices in the run.profiling.script output
+  o added in run.profiling.script save.image(paste(params$wdir,
+    "/tmp.RData", sep = "")) to enable the use of data from the current
+    workspace during a session
+  o multcomp replaced by parallel in dependencies
+  o Removed "Use existing data from the workspace" (useDB) option. Problems when called from within a function. More clear and modular when
+    the run.profiling.script is used for preprocessing, and any new plots are performed as separate steps based on the profiling output files if needed.
+  o Moved run.profiling.script plots to their own functions and added usage examples to vignette.
+
+CHANGES IN VERSION 0.12.08 (2012-04-05)
+
+  o detailed protocol added to the vignette 
+  o hierarchical clustering method moved from complete to ward in profiling script
+    as it was in some of the previous versions
+  o 'level 0' added in MITChip profiling
+  o removed featureprofile from output files to save disk space, typically not needed
+  o added remove.nonspecific.oligos option to run.profiling.script and FetchHITChipAtlas functions (through get.phylogeny)
+  o summarize.probesets modified to include levels both in the form of "level.1" and "level 1" 
+
+CHANGES IN VERSION 0.12.06 (2012-04-04)
+
+  o fixed PITChip-specific issues
+  o removed parallel from dependencies to allow compatibility with R-2.12.2
+
+CHANGES IN VERSION 0.12.05 (2012-03-29)
+
+  o removed background correction from profiling script (run.profiling.script)
+  o kept standard normalizations: none, minmax, quantile - others removed
+  o now using 16S phylogeny in profiling script. Other option removed
+  o polishing of the functions
+  o merged funcions from the phyloarray package
+  o removed minmax, quantnorm from profiling.R functions
+    
+CHANGES IN VERSION 0.12.04 (2012-03-28)
+
+  o removed the additional background correction step which resulted in
+    considerable information loss based on external validations
+
+CHANGES IN VERSION 0.12.01 (2012-03-23)
+
+  o PlotMatrix updates
+
+CHANGES IN VERSION 0.0.12 (2012-03-15)
+
+  o multicore removed from dependencies
+  o vignette updated
+  o R-2.12.1 required 
+
+CHANGES IN VERSION 0.0.10 (2012-03-06)
+
+  o standard profiling script included
+  o added selected.samples in fetch.sample.info
+
+CHANGES IN VERSION 0.0.08 (2012-02-25)
+  
+  o Atlas preprocessing finalized. For usage examples, see vignette.
+
+CHANGES IN VERSION 0.0.05 (2012-02-22)
+
+  o atlas functions added and polished
+
+CHANGES IN VERSION 0.0.02 (2012-02-06)
+
+  o profiling_010.r script functions and dependencies added
+
+CHANGES IN VERSION 0.0.01 (2012-01-12)
+
+  o First version based on profiling script version 010
+
+
