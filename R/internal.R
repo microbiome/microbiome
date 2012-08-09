@@ -1,4 +1,4 @@
-# database utilities for package-internal use only
+# Database utilities for package-internal use only
 
 #' Tests whether the database connection is a phyloarray connection.
 #' Expands one element (one "field", "value" pair list) from a list 
@@ -39,6 +39,7 @@ phyloarrayConnection <- function (con) {
    }
    return(TRUE)
 }
+
 
 
 #' Expands one element (one "field", "value" pair list) from a list of "field", "value" pair lists
@@ -115,8 +116,6 @@ expandCondition <- function (condition) {
 #' Returns:
 #'   @return A list.
 #'
-#' @export
-#'
 #' @references
 #' See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
@@ -189,12 +188,505 @@ choose.samples <- function (con, multi=TRUE, title='Select samples:', condition=
    return(smps)
 }
 
+
+#' Description: Detect the chip type (H/M/PITChip) from database name
+#'
+#' Arguments:
+#'   @param dbname MySQL database name
+#' 
+#' Returns:
+#'   @return chip name
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+detect.chip <- function (dbname) {
+
+  if (dbname %in% c("PhyloArray_MIT", "phyloarray_mit", "Phyloarray_MIT")) {
+    chip <- "MITChip"
+  } else if (dbname %in% c("PhyloArray_PIT", "phyloarray_pit", "Phyloarray_PIT", "pitchipdb")) {
+    chip <- "PITChip"
+  } else if (dbname %in% c("PhyloArray_HIT", "phyloarray_hit", "Phyloarray_HIT", "Phyloarray")) {
+    chip <- "HITChip"
+  } else {
+    stop("Check database name (dbname)!")
+  }
+
+  chip
+
+}
+
+#' Description: Define parameters in select box
+#'
+#' Arguments:
+#'   @param con Output from dbConnect(dbDriver("MySQL"), username = dbuser, password = dbpwd, dbname = 'PhyloArray')
+#' 
+#' Returns:
+#'   @return list with defined parameters
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+ReadParameters <- function (con) {
+
+  scaling <- list.scaling.methods()	       
+
+  ## Determine the working directory
+  wdir <- tclvalue(tkchooseDirectory(title = "Save output files into directory:")) 
+        
+  ## Choose samples to display
+  prj <- microbiome::choose.projects(con, multi = TRUE, condition = NULL)
+
+  if(nrow(prj) < 1) { stop("Choose at least 1 project") }
+  samples <- choose.samples(con, multi=TRUE, title='Select samples', 
+  	       			   condition=list(list(field='projectID', value=prj$projectID)))
+  if(nrow(samples) < 2) { stop("Choose at least 2 samples") }
+
+  defaults <- list(phylogeny = "16S", remove.nonspecific.oligos = FALSE, normalization = "minmax")
+  s <- NULL; for (nam in names(defaults)) {s <- paste(s, paste(nam, ":", defaults[[nam]], sep = ""), "; ", sep = "")}
+
+  use.default.parameters <- tk_select.list(c(paste("Yes, use the defaults:", s), "No, proceed to parameter selection"), preselect = paste("Yes, use the defaults:", s), multiple = FALSE, title = paste('Use default parameters?'))
+
+  rs <- dbSendQuery(con, "SELECT phylogenyID, name FROM phylogeny WHERE NOT name='ROOT'")
+  phylogenies <- fetch(rs, n = -1)
+  phylogenies <- unique(phylogenies$name)
+  defaults$phylogeny <- phylogenies[grep(defaults$phylogeny, phylogenies)][[1]] 
+
+  if (substr(use.default.parameters, 1, 2) == "No") {    
+
+    ## Choose the phylogeny and the (lowest) summary taxonomic level to use
+    if (length(phylogenies) > 1) {
+      phylogeny <- tk_select.list(phylogenies, preselect = defaults$phylogeny, multiple = FALSE, title = 'Select phylogeny for profiling')
+    } else {
+      phylogeny <- phylogenies[[1]]
+    }
+
+    # Exclude non-specific oligos?
+    remove.nonspecific.oligos <- tk_select.list(c("Yes", "No"), multiple = FALSE, preselect = defaults$remove.nonspecific.oligos, title = "Remove non-specific oligos?")
+    if (remove.nonspecific.oligos == "Yes") {remove.nonspecific.oligos <- TRUE}
+    if (remove.nonspecific.oligos == "No") {remove.nonspecific.oligos <- FALSE}
+   
+    ## Normalization method
+    scal <- tk_select.list(names(scaling), preselect = defaults$normalization, multiple = FALSE, title = "Select normalization method")
+
+  } else {
+
+    phylogeny <- defaults$phylogeny
+    remove.nonspecific.oligos <- defaults$remove.nonspecific.oligos
+    scal <- defaults$normalization
+
+  }
+
+  # LL and JS decided to remove default BG correction 29.3.2012
+  # based on various validation tests.
+  # bgc.method <- select.list(c("2*sd bkg intensity", "6*sd bkg intensity"), multiple = FALSE, preselect = "6*sd bkg intensity", title = "Select background correction method:")
+  bgc.method <- NULL # Intentional
+
+  list(wdir = wdir, prj = prj, samples = samples, phylogeny = phylogeny, normalization = scal, bgc.method = bgc.method, remove.nonspecific.oligos = remove.nonspecific.oligos)
+
+}
+
+#' Description: Calculate d.oligo2
+#'
+#' Arguments:
+#'   @param featuretab featuretab
+#'   @param d.scaled d.scaled
+#'   @param oligo.ids oligo.ids
+#' Returns:
+#'   @return d.oligo2
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+get.doligo2 <- function (featuretab, d.scaled, oligo.ids) {
+
+  d.oSplit <- split(cbind(featuretab[,1:3],d.scaled), featuretab$oligoID)
+  d.oSplit.pruned <- d.oSplit[oligo.ids]
+  d.oligo <- t(sapply(d.oSplit, function(x) apply((x[,4:dim(x)[2]]), 2, mean, na.rm=T))) # hybs separate
+  sampleID <- get.sampleid(d.oligo)
+
+  d.oligo2 <- t(sapply(d.oSplit,
+                     function(x){
+                       temp <- apply((x[,4:dim(x)[2]]), 2, mean, na.rm=T)
+                       temp2 <- sapply(split(temp, sampleID), mean, na.rm=T)
+                       return(temp2)
+                     }
+                     ))# hybs averaged
+  
+  d.oligo2
+}
+
+
+#' Description: Compress normalized raw data matrix into final probe-level matrix:
+#'              summarize oligos into probes and hybridisations into samples
+#'
+#' Arguments:
+#'   @param fdat normalized raw data matrix oligos x hybridisations
+#'   @param fdat.hybinfo hybridization info table
+#'   @param fdat.oligoinfo oligo info table
+#'   @param oligo.ids oligo.ids
+#' Returns:
+#'   @return probes x samples matrix
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+summarize.rawdata <- function (fdat, fdat.hybinfo, fdat.oligoinfo, oligo.ids) {
+
+  # List rows for each oligo (each oligo has multiple features which will be averaged)
+  d.oSplit <- split(1:nrow(fdat), fdat.oligoinfo$oligoID)[oligo.ids] 
+
+  # probes x hybs: oligo summary as means of log feature signals per oligo, hybs separate
+  message("probe summary as means of log feature signals per oligo, hybs separate")
+  oligo.data  <- t(sapply(d.oSplit, function(x) colMeans(fdat[x,], na.rm = TRUE)))
+
+  ## Average over all hybridisations/extractions associated with this sample
+  # List hybridisations associated with the same sample
+  indlist <- split(1:ncol(oligo.data), fdat.hybinfo$sampleID)
+
+  # Keep only cases with multiple (typically 2) hybs per sample 
+  # (see table(sapply(indlist, length)))
+  message("Removing samples with only one hybridisation")
+  indlist <- indlist[sapply(indlist, length) > 1]
+
+  message("Forming probes x samples matrix (average over hybridisations for each sample)")
+  oligo.data <- sapply(indlist, function(inds) { rowMeans(oligo.data[, inds]) } )
+
+  oligo.data
+}
+
+#' Description: Pick sampleIDs from d.oligo column names
+#'
+#' Arguments:
+#'   @param d.oligo d.oligo matrix
+#' Returns:
+#'   @return sampleID vector
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+get.sampleid <- function (d.oligo) {
+
+  sampleID <- sapply(colnames(d.oligo), function(z) { # edit by S.Tims
+    # allows samples with "." in the samplename
+    s <- strsplit(z, split="\\.")[[1]] 
+    if(length(s) > 4){
+       s <- head(s,-3)
+       s <- paste(s, collapse = ".")
+    } else { s <- s[1] }
+   return(s)})
+
+   sampleID
+}
+
+
+
+#' Description: Minmax scaling. 
+#'
+#' Arguments:
+#'   @param r data matrix in log10 scale
+#'   @param quantile.points quantiles for minmax
+#'   @param robust Select minmax version. 
+#' 
+#' Returns:
+#'   @return normalized data matrix
+#'
+#' @note With robust = FALSE, the standard minmax is carried out. This
+#'   shifts and scales each array such that their min and max values are
+#'   identical across arrays. The robust = TRUE will perform the scaling
+#'   such that the upper quantiles and minimum values of the data match 
+#'   (instead of maximum values).
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+scaling.minmax <- function (r, quantile.points, robust = FALSE) {
+
+  # return original scale 
+  rc <- 10^r 
+
+  maxabs <- mean(apply(rc, 2, quantile, max(quantile.points), na.rm = TRUE))
+  minabs <- mean(apply(rc, 2, quantile, min(quantile.points), na.rm = TRUE))
+
+  if (!robust) {
+
+    r <- apply(rc, 2, function (x) { 
+                 x = (((x - min(x, na.rm = T))/(max(x, na.rm = T) - min(x, na.rm = T)))*(maxabs - minabs)) + minabs;
+       return(x)})
+
+  } else {
+    
+    r <- apply(rc, 2, function (x) {
+
+    # Shift data to start from zero
+    xz <- x - min(x, na.rm = T);
+
+    # Check the quantile points
+    maxq <- quantile(xz, max(quantile.points), na.rm = TRUE);   
+
+    # Determine the scaling factor such that the max quantiles will 
+    # match between arrays
+    k <- maxabs/maxq;
+
+    # Scale the data to match max quantiles
+    xs <- k * xz + min(rc, na.rm = TRUE);
+    xs})
+  }
+
+  # Return to the input scale (log10)
+  log10(r)
+}
+
+
+
+#' Description: filter 16S data
+#' 
+#' Arguments:
+#'   @param full16S full16S
+#'   @param pmTm.margin default 2.5
+#'   @param complement logical
+#'   @param mismatch logical
+#'
+#' Returns:
+#'   @return filtered 16S data
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+prune16S <- function (full16S, pmTm.margin = 2.5, complement = 1, mismatch = 0) {
+ 
+  keep <- full16S$Tm >= full16S$pmTm-pmTm.margin &
+          full16S$complement == complement &
+          full16S$mismatch == mismatch
+
+  pruned16S <- full16S[keep, ]
+
+  pruned16S
+}
+
+#' Description: Get probedata
+#' 
+#' Arguments:
+#'   @param hybridization.ids Specify the hybridizations to retrieve
+#'   @param rmoligos oligos to exclude
+#'   @param dbuser MySQL user
+#'   @param dbpwd  MySQL password
+#'   @param dbname MySqL database name
+#'   @param mc.cores Number of cores for multicore computing
+#' Returns:
+#'   @return list with data (features x hybridizations matrix) and info (features x info) fields 
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+get.probedata <- function (hybridization.ids, rmoligos, dbuser, dbpwd, dbname, mc.cores = 1) {
+
+  # List unique hybridisations for the selected samples
+  hids <- mysql.format(hybridization.ids)
+                      
+  require(RMySQL)
+  drv <- dbDriver("MySQL")
+  con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
+
+  rs <- dbSendQuery(con, statement = paste("SELECT featureID,extractionID,fe.hybridisationID,spatNormSignal,isOutlier
+      		FROM featuremeasurement 
+		JOIN featureextraction fe USING (extractionID)
+		JOIN hybridisation h USING (hybridisationID)
+                JOIN arrayfeature af USE INDEX (PRIMARY) USING (featureID)
+		WHERE fe.hybridisationID IN", hids))
+  rawdata <- fetch(rs, n = -1)
+
+  ## Check if there is any data
+  rawdataDim <- dim(rawdata)
+  if(rawdataDim[1]==0) {
+    stop("No data found for these samples (perhaps they are not normalized yet?).\n\n")
+  }
+
+  message("Remove outliers")
+  rawdata$spatNormSignal[as.logical(rawdata$isOutlier)] <- NA
+
+  message("Split data into arrays")
+  rawdata.esplit <- split(rawdata, rawdata$hybridisationID)
+
+  message("Remove NAs")
+  na.inds <- sapply(rawdata.esplit, function (x) all(is.na(x$spatNormSignal)))
+  rawdata.esplit <- rawdata.esplit[!na.inds]
+
+  # Get probeID - featureID - oligoID mappings
+  rs <- dbSendQuery(con, "SELECT fe.featureID,p.probeID,p.oligoID,fe.arrayCol,fe.arrayRow FROM arrayfeature fe JOIN probe p USING (probeID)")
+  probes <- fetch(rs, n = -1) 
+  
+  # Remove specified oligos
+  probes <- probes[!probes$oligoID %in% rmoligos,]
+
+  ftab.info <- data.frame(list(featureID = unique(rawdata$featureID)))
+  ftab.info[["probeID"]] <- probes$probeID[match(ftab.info$featureID, probes$featureID)]
+  ftab.info[["oligoID"]] <- probes$oligoID[match(ftab.info$probeID, probes$probeID)]
+
+  message("Remove NA oligos")
+  keep <- !is.na(ftab.info$oligoID)
+  ftab.info <- ftab.info[keep, ]
+  rownames(ftab.info) <- ftab.info$featureID
+
+  # LL 4.4.2012. With HITChip atlas we encountered some cases where the arrays had different number of entries
+  # due to duplicates on some arrays. Now added automated handling here to avoid problems with other array types
+  # that may have different natural number of elements on the array.
+  if (length(table(sapply(rawdata.esplit, nrow))) == 2) {
+    ntmp <- max(sapply(rawdata.esplit, nrow))
+    message(paste("Remove elements containing duplicated entries (", round(100*mean(!sapply(rawdata.esplit, nrow) == ntmp), 2), "%)", sep = ""))
+    
+
+    # ntmp == !10799 encountered with HITChip atlas, not yet elsewhere
+    rawdata.esplit <- rawdata.esplit[!sapply(rawdata.esplit, nrow) == ntmp]
+  } else if (length(table(sapply(rawdata.esplit, nrow))) > 2) {
+    stop("Error 10799. Arrays are not comparable. Contact R package admins.")
+  }
+
+  # Form features x hybridizations matrix 
+  inds <- match(rownames(ftab.info), rawdata.esplit[[1]]$featureID)
+  ftab <- matrix(NA, nrow = nrow(ftab.info), ncol = length(rawdata.esplit))
+  rownames(ftab) <- rownames(ftab.info)
+  colnames(ftab) <- names(rawdata.esplit)
+  for (hid in names(rawdata.esplit)) { ftab[, hid] <- I(rawdata.esplit[[hid]][inds, "spatNormSignal"]) }
+
+  # Close MySQL connection
+  dbDisconnect(con)
+
+  # Clean up memory
+  gc()
+
+  list(data = ftab, info = ftab.info)
+}
+
+#' Description: Write log file
+#'
+#' Arguments:
+#'   @param naHybs hybridisation that were removed due to NAs  
+#'   @param params parameters
+#'
+#' Returns:
+#'   @return List of scaling methods
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+WriteLog <- function (naHybs, params) {
+
+  scaling <- list.scaling.methods()
+  scriptVersion <- sessionInfo()$otherPkgs$microbiome$Version # microbiome package number
+
+  ## Write log of parameters used in profiling in to the file
+  tmpTime <- strsplit(as.character(Sys.time()), split=" ")[[1]]
+  tmpDate <- tmpTime[1]
+  tmpTime <- paste(strsplit(tmpTime[2], split=":")[[1]], collapse=".")
+  profTime <- paste(tmpDate,tmpTime,sep="_")
+  logfilename <- paste(params$wdir,"/",profTime,"_profiling_log.txt", sep="")
+
+  cat("Log of profiling script\n", "\n", file=logfilename)
+  cat("profiling date: ",profTime, "\n", file=logfilename, append=T)
+  cat("script version: ", scriptVersion,  "\n",file=logfilename, append=T)
+  cat("data retrieved from db: ",params$useDB,  "\n", file=logfilename, append=T)
+  cat("project IDs: ",params$prj$projectID,  "\n", file=logfilename, append=T)
+  cat("sample IDs: ",params$samples$sampleID,  "\n", file=logfilename, append=T)
+  cat("excluded oligos: ",params$rm.phylotypes$oligos,  "\n", file=logfilename, append=T)
+  cat("excluded species: ",params$rm.phylotypes[["species"]], "\n", file=logfilename, append=T)
+  cat("excluded level 1: ",params$rm.phylotypes[["level 1"]], "\n", file=logfilename, append=T)
+  cat("excluded level 2: ",params$rm.phylotypes[["level 2"]], "\n", file=logfilename, append=T)
+  cat("excluded hybridisations: ",naHybs,  "\n", file=logfilename, append=T)
+  cat("remove non-specific oligos: ",params$remove.nonspecific.oligos, "\n",file=logfilename, append=T)
+  cat("phylogeny: ",params$phylogeny,  "\n", file=logfilename, append=T)
+  cat("scaling: ",params$scal,  "\n", file=logfilename, append=T)
+  cat("data in directory: ",params$wdir, "\n",file=logfilename, append=T)
+
+  # Now graphics are outside of this function
+  # cat("clustering tree in: ",params$clusterGraphFile,  "\n", file=logfilename, append=T)
+  # cat("tree ratio: ",params$figureratio, "\n",file=logfilename, append=T)
+  # cat("clustering metric: ",params$clmet, "\n",file=logfilename, append=T)
+  # cat("phylogeny level in figure: ",params$lev, "\n",file=logfilename, append=T)
+  # cat("figure coloring: ", params$pal, "\n",file=logfilename, append=T)
+  # cat("figure fontsize: ", params$fontsize, "\n",file=logfilename, append=T)
+  # cat("data saved: ", save.data, "\n",file=logfilename, append=T)
+
+  ## Save profiling parameters 
+  paramfilename <- paste(params$wdir,"/",profTime,"_profiling_params.Rdata", sep="")
+  save(logfilename, profTime, scriptVersion, params, naHybs, file = paramfilename)  
+
+  list(log.file = logfilename, parameter.file = paramfilename)
+  
+}
+
+
+#' Description: Write preprocessed data into the output directory
+#'
+#' Arguments:
+#'   @param finaldata preprocessed data matrices in absolute scale (from the preprocess.chipdata function)
+#'   @param output.dir output directory
+#'   @param phylogeny phylogeny
+#'   @param verbose verbose
+#'
+#' Returns:
+#'   @return Preprocessed data in absolute scale, phylogeny, and parameters
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+WriteChipData <- function (finaldata, output.dir, phylogeny, verbose = TRUE) {
+
+  ## featurelevel data
+  ## WriteMatrix(cbind(fdat.oligoinfo, d.scaled), paste("featureprofile_", scriptVersion, ".tab", sep = ""), params)
+
+  ## Write oligoprofile in original (non-log) domain
+  fname <- paste(output.dir, "/oligoprofile.tab", sep = "")
+  mydat <- finaldata[["oligo"]]
+  WriteMatrix(cbind(rownames(mydat), mydat), fname, verbose)
+    
+  ## Write the other levels in log domain
+  for (level in setdiff(names(finaldata), "oligo")) {
+    for (method in names(finaldata[[level]])) {
+      
+      fname <- paste(output.dir, "/", level, "-", method, ".tab", sep = "")
+      mydat <- finaldata[[level]][[method]]
+      WriteMatrix(cbind(rownames(mydat), mydat), fname, verbose)
+
+    }
+  }
+
+  ## Write oligo specificity at species level (the number of species for the oligo targets)
+  fname <- paste(output.dir, "/phylogenyinfo.tab", sep = "")
+  nSpeciesPerOligo <- sapply(split(phylogeny, phylogeny$oligoID), function(x) length(unique(x$species)))
+  WriteMatrix(cbind(phylogeny, nSpeciesPerOligo = nSpeciesPerOligo[phylogeny$oligoID]), fname, verbose)
+
+  # Return path to the output directory 
+  output.dir
+ 
+}
+
+
 #' Choosing (and creating) a directory
 #' 
 #' @param ... parameters to pass
 #'
-#' @return TBA
-#' @export 
+#' @return choice
+#'
 #' @references See citation("microbiome")
 #' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples # TBA
@@ -211,4 +703,910 @@ chooseDir <- function (...) {
   }
   return(choice)
 }
+
+
+
+
+#' Description: Default list of removed phylotypes and oligos
+#'
+#' Arguments:
+#'  @param chip Chip name (HIT/MIT/PIT/Chick)Chip
+#' Returns:
+#'   @return List of removed oligos and phylotypes
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+phylotype.rm.list <- function (chip) {
+
+  rm.phylotypes <- list()
+
+  if (chip == "HITChip") {
+    
+    rm.phylotypes[["oligos"]] <- c("UNI 515", "HIT 5658", "HIT 1503", "HIT 1505", "HIT 1506")
+    rm.phylotypes[["species"]] <- c("Victivallis vadensis")
+    rm.phylotypes[["level 1"]] <- c("Lentisphaerae")
+    rm.phylotypes[["level 2"]] <- c("Victivallis")
+
+  } else if (chip == "MITChip") {
+
+    rm.phylotypes[["oligos"]] <- c("Bacteria", "DHC_1", "DHC_2", "DHC_3", "DHC_4", "DHC_5", "DHC_6", "Univ_1492")
+    rm.phylotypes[["species"]] <- c()
+    rm.phylotypes[["level 1"]] <- c()
+    rm.phylotypes[["level 2"]] <- c()
+
+  } else if (chip == "PITChip") {
+
+    rm.phylotypes[["oligos"]] <- c("Bacteria", "DHC_1", "DHC_2", "DHC_3", "DHC_4", "DHC_5", "DHC_6", "Univ_1492")
+    rm.phylotypes[["species"]] <- c()
+    rm.phylotypes[["level 1"]] <- c()
+    rm.phylotypes[["level 2"]] <- c()
+
+  } else if (chip == "ChickChip") {
+    warning("No universal probes excluded from ChichChip yet!")
+  }
+
+  rm.phylotypes
+
+}
+
+
+
+
+
+#' Description: List scaling methods
+#'
+#' Arguments:
+#'
+#' Returns:
+#'   @return List of scaling methods
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+list.scaling.methods <- function () {
+
+  list('none'='none',
+                #'minimum/median'='minmed',
+                'minimum/maximum'='minmax',
+                'minmax'='minmax',
+                #'median'='med',
+                'quantile'='quant'
+                #'normExp+MedianFC'='normExpMedianFC',
+                #'normExp+quantile'='normExpQuant'
+   )
+
+}
+
+
+#' Description: List clustering metrics
+#'
+#' Arguments:
+#'
+#' Returns:
+#'   @return list of clustering metrics
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+list.clustering.metrics <- function () {
+
+  list('Pearsons correlation coefficient'='correlation',
+                 'euclidian'='euclidian')
+}
+
+
+
+#' Description: List color scales
+#'
+#' Arguments:
+#'
+#' Returns:
+#'   @return list of color scales
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+list.color.scales <- function () {
+  ## Different colour scales
+  list('white/blue'=colorRampPalette(c("white","darkblue"),interpolate='linear')(100),
+       'white/black'=colorRampPalette(c("white","black"),interpolate='linear')(100),
+       'black/yellow/white'=colorRampPalette(c("black","yellow","white"),bias=0.5,interpolate='linear')(100))
+
+}
+
+
+
+#' Description: Format string vector to mysql query format
+#' 
+#' Arguments:
+#'   @param s string vector
+#'
+#' Returns:
+#'   @return mysql query version
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+mysql.format <- function (s) {
+  paste("('",paste(as.character(s),collapse="','",sep="'"),"')",sep="")
+}
+
+
+
+#' Description: Fetch data from the database
+#'
+#' Arguments:
+#'   @param params params 
+#'   @param con con
+#'   @param scriptVersion scriptVersion
+#'   @param save.data save.data
+#'   @param scaling scaling
+#'   @param cmetrics cmetrics
+#'
+#' Returns:
+#'   @return data 
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+FetchData <- function (params, con, scriptVersion, save.data, scaling, cmetrics) {
+
+  ## COLLECTING DATA FROM THE DATABASE
+  message("Collecting data from the database\n")
+
+  ## Collecting data for ALL probes (used to be: oligo's) JN09032011
+  inclsamples <- paste("sampleID='", params$samples$sampleID, "'", sep = "", collapse = " OR ")
+
+  rs <- dbSendQuery(con,"DROP TABLE IF EXISTS tmp1")
+  query <- paste("CREATE TEMPORARY TABLE tmp1 ",
+                 "SELECT s.sampleID, s.projectID, h.hybridisationID, fe.extractionID, h.dye, p.oligoID, p.probeID, af.featureID, ",
+                 " fm.isOutlier, spatNormSignal AS featureSignal ",
+                 "FROM sample s USE INDEX (PRIMARY) ",
+                 "JOIN hybridisation h USING (sampleID) ",
+                 "JOIN featureextraction fe USING (hybridisationID) ",
+                 "JOIN featuremeasurement fm USING (extractionID) ",
+                 "JOIN arrayfeature af USE INDEX (PRIMARY) USING (featureID) ",
+                 "JOIN probe p USING (probeID) ",
+                 "WHERE (",inclsamples,") ",
+                 "AND normalisationFinished ",
+                 "AND NOT (oligoID IS NULL) ",
+                 "AND NOT isDiscarded ",
+                 "AND NOT noSampleNormalisation ",
+                 "ORDER BY s.sampleID, h.hybridisationID,  p.probeID, af.featureID",
+                 sep ="")
+
+  rs <- dbSendQuery(con, query)
+  rs <- dbSendQuery(con, "ALTER TABLE tmp1 ADD INDEX (featureID)")
+  rs <- dbSendQuery(con, 'SELECT * FROM tmp1')
+
+  rawdata <- fetch(rs, n = -1)
+  rawdataDim <- dim(rawdata)
+
+  ## Check if there is any data
+  if(rawdataDim[1]==0)
+    stop("No data found for these samples (perhaps they are not normalized yet?).\n\n")
+
+  ## Create the data matrix (featuretab) for clustering based on all array features, 
+  ## each hybridisation having one column in this table and each feature having one row. 
+  ## The first column contains the oligoID's
+  message("Create the FULL data matrix (featuretab) for clustering.\n")
+
+  ## Change outlier values to NAs
+  rawdata$featureSignal[as.logical(rawdata$isOutlier)] <- NA
+
+  ## Get the hybIDs and initialize featuretab with the first hyb
+  hybIDs <- unique(rawdata$hybridisationID)
+  featuretab <- rawdata[rawdata$hybridisationID==hybIDs[1], c("oligoID","probeID","featureID", "featureSignal")]
+
+  ## Name the column with sampleID, hybID, and dye
+  samplename <- unique(rawdata[rawdata$hybridisationID==hybIDs[1],"sampleID"])
+  dye <- unique(rawdata[rawdata$hybridisationID==hybIDs[1],"dye"])
+  projectname <- unique(rawdata[rawdata$hybridisationID==hybIDs[1],"projectID"])
+  columnnames <- paste(samplename, hybIDs[1], dye, projectname, sep=".")
+
+  message(str(featuretab))
+  if (length(hybIDs)>1) {
+    for (i in hybIDs[2:length(hybIDs)]) {
+      addcol <- rawdata[rawdata$hybridisationID==i,"featureSignal"]
+      featuretab <- cbind(featuretab, addcol)
+
+      ## Name the columns with sampleID, hybID, and dye
+      samplename <- unique(rawdata[rawdata$hybridisationID==i,"sampleID"])
+      dye <- unique(rawdata[rawdata$hybridisationID==i,"dye"])
+      projectname <- unique(rawdata[rawdata$hybridisationID==i,"projectID"])
+      columnnames <- c(columnnames, paste(samplename, i, dye, projectname, sep="."))
+    }
+  }
+
+  colnames(featuretab) = c("oligoID","probeID","featureID", columnnames)
+  rownames(featuretab) <- featuretab$featureID 
+
+  ## Discard the hybs contains only NAs
+  onlyNA <- colSums(is.na(featuretab))==dim(featuretab)[1]
+  naHybs <- names(onlyNA)[onlyNA]
+  if(sum(onlyNA)>0){
+    cat("Removing the following hybs, because they contain only NAs:\n")
+    cat(naHybs,"\n\n")
+    featuretab <- featuretab[,!onlyNA]
+  }
+
+  # Remove rmoligos
+  featuretab <- featuretab[!featuretab$oligoID %in% params$rm.phylotypes$oligos, ]
+
+  ## Write log of parameters used in profiling in to the file
+  tmpTime <- strsplit(as.character(Sys.time()), split=" ")[[1]]
+  tmpDate <- tmpTime[1]
+  tmpTime <- paste(strsplit(tmpTime[2], split=":")[[1]], collapse=".")
+  profTime <- paste(tmpDate,tmpTime,sep="_")
+  logfilename <- paste(params$wdir,"/",profTime,"_profiling_log.txt", sep="")
+
+  cat("Log of profiling script\n", "\n", file=logfilename)
+  cat("profiling date: ",profTime, "\n", file=logfilename, append=T)
+  cat("script version: ",scriptVersion,  "\n",file=logfilename, append=T)
+  cat("data retrieved from db: ",params$useDB,  "\n", file=logfilename, append=T)
+  cat("project IDs: ",params$prj$projectID,  "\n", file=logfilename, append=T)
+  cat("sample IDs: ",params$samples$sampleID,  "\n", file=logfilename, append=T)
+  cat("excluded oligos: ",params$rmoligos,  "\n", file=logfilename, append=T)
+  cat("excluded hybridisations: ",naHybs,  "\n", file=logfilename, append=T)
+  cat("phylogeny: ",params$phylogeny,  "\n", file=logfilename, append=T)
+  cat("scaling: ",params$scal,  "\n", file=logfilename, append=T)
+  cat("clustering tree in: ",params$clusterGraphFile,  "\n", file=logfilename, append=T)
+  cat("tree ratio: ",params$figureratio, "\n",file=logfilename, append=T)
+  cat("clustering metric: ",params$clmet, "\n",file=logfilename, append=T)
+  cat("phylogeny level in figure: ",params$lev, "\n",file=logfilename, append=T)
+  cat("figure coloring: ", params$pal, "\n",file=logfilename, append=T)
+  cat("figure fontsize: ", params$fontsize, "\n",file=logfilename, append=T)
+  cat("data saved: ", save.data, "\n",file=logfilename, append=T)
+  cat("data in directory: ",params$wdir, "\n",file=logfilename, append=T)
+
+  ## Write parameters used in profiling to the file
+  paramfilename <- paste(params$wdir,"/",profTime,"_profiling_params.Rdata", sep="")
+
+  save(logfilename, profTime, scriptVersion, params, naHybs, scaling, cmetrics, save.data, file=paramfilename)
+  
+  ## Collect the full phylogenetic information for oligos  
+  cat("Collect the full 16S phylogeny\n")
+
+  full16Squery <- paste("SELECT l1.name AS 'level 1', l2.name AS 'level 2', ", 
+                        "species.name AS 'species', specimen.name AS 'specimen', ot.oligoID AS 'oligoID', ",
+                        "o.pmTm, ot.Tm, ot.mismatch, ot.complement ",
+                        "FROM phylogeny ph ",
+                        "JOIN taxon l1 USING (phylogenyID) ",
+                        "JOIN taxtotax tt1 ON (tt1.parentID=l1.taxonID) ",
+                        "JOIN taxon l2 ON (tt1.childID=l2.taxonID) ",
+                        "JOIN taxtotax tt2 ON (tt2.parentID=l2.taxonID) ",
+                        "JOIN taxon species ON (tt2.childID=species.taxonID) ",
+                        "JOIN taxtotax tt3 ON (tt3.parentID=species.taxonID) ",
+                        "JOIN taxon specimen ON (tt3.childID=specimen.taxonID) ",
+                        "JOIN oligotargetpair ot ON (ot.targetID=specimen.targetID) ",
+                        "JOIN oligo o ON (ot.oligoID=o.oligoID) ",
+                        "WHERE ph.name='",params$phylogeny,"' ",
+                        "AND l1.taxonLevel='level 1' ",
+                        "AND tt1.nodeDistance=1 ",
+                        "AND tt2.nodeDistance=1 ",
+                        "ORDER BY l1.name, l2.name, species.name, specimen.name, o.oligoID;", sep="")
+  rs <- dbSendQuery(con, full16Squery)
+  full16S <- fetch(rs, n = -1)
+  full16S <- full16S[full16S$oligoID %in% params$rm.phylotypes$oligos,]          
+	  
+  message("FINISHED COLLECTING THE DATA\n")
+
+  list(full16S = full16S, featuretab = featuretab, logfilename = logfilename)
+
+}
+
+
+#' Description: Calculate species summaries and possibly update d.oligo2
+#'
+#' Arguments:
+#'   @param d.oligo2 d.oligo2
+#'   @param bgc.method background correction method
+#' Returns:
+#'   @return Background-corrected data matrix
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+oligo.bg.correction <- function (d.oligo2, bgc.method) {
+
+  if ( bgc.method == "6*sd bkg intensity" ){ bgth <- 6 }
+
+  d.oligo2 <- threshold.data(d.oligo2, bgth)
+  d.oligo2 <- apply(d.oligo2, c(1,2), function(x) max(0, x))
+  
+  d.oligo2
+
+}
+
+#' Description: Between-arrays normalization 
+#'
+#' Arguments:
+#'   @param r.feature data matrix in logarithmic scale
+#'   @param method normalization method
+#'   @param bg.adjust background adjustment 
+#'   @param minmax.quantiles quantiles for minmax
+#' Returns:
+#'   @return Normalized data matrix
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+ScaleProfile <- function (r.feature, method = 'minmax', bg.adjust = NULL, minmax.quantiles = c(0.005, 0.995)) {
+
+  method <- list.scaling.methods()[[method]]
+
+  message(paste("Normalizing with", method))
+            
+  ## Table r.feature is a copy of featuretab containing 
+  ## logarithms of the values in 
+  ## featuretab
+
+  if (sd(na.omit(r.feature[,1])) > 100) {
+    warning("Please check that the input matrix to ScaleProfile is in logarithmic scale")
+  }
+
+  r <- r.feature
+
+    if (method=='minmax') {
+      r <- scaling.minmax(r.feature, quantile.points = minmax.quantiles, robust = FALSE)
+    } else if (method=='minmax.robust') {
+      r <- scaling.minmax(r.feature, quantile.points = minmax.quantiles, robust = TRUE)
+    } else if (method=='quant') {
+      dn <- dimnames(r)
+      r <- normalize.quantiles(r)
+      dimnames(r) <- dn
+    } else if (method=='normExpQuant') {
+            ## Impute NA's with sample medians
+            na.inds <- which(is.na(r), arr.ind=T)
+            r <- apply(r,2,function(x){x[is.na(x)] <- median(x, na.rm=T); return(x)})
+            rc <- apply(10^(r), 2, bg.adjust)
+            dn <- dimnames(r)
+            r <- normalize.quantiles(log10(rc+1))
+            dimnames(r) <- dn
+            r[na.inds] <- NA
+     } else {
+       stop("No between-array normalization recognized!!")
+     }
+ 
+  return(r)
+}
+
+#' Description: Read parameters for PROFILE PLOT FUNCTION
+#'
+#' Arguments:
+#'   @param dat data matrix
+#'   @param data.dir data directory
+#'   @param ppcm plotting parameter
+#'   @param hclust.method hierarchical clustering method
+#'   @param pal color palette
+#'   @param lev phylogeny level
+#'   @param clmet clustering metrics
+#'   @param tree.display tree.display
+#'   @param figureratio figureratio
+#'   @param fontsize fontsize
+#'
+#' Returns:
+#'   @return plots the profile
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+ReadHclustParameters <- function (dat, data.dir, ppcm = 150, hclust.method = "complete", pal = "white/blue", lev = "level 2", clmet = "Pearsons correlation coefficient", tree.display = "yes", figureratio = 12, fontsize = 12) {
+
+  cmetrics <- list.clustering.metrics()
+  cscales  <- list.color.scales()
+  include.tree <- TRUE
+
+  ## Plotting parameters
+  defParams <- tk_select.list(c("Yes", "No"), preselect="Yes", multiple = FALSE,
+                              title = "Use default plotting parameters?")
+
+   if(defParams=="No"){
+
+     pal <- tk_select.list(names(cscales),preselect=names(cscales)[1],
+                         multiple=FALSE,title="Select colour scale")
+
+     lev <- tk_select.list(names(dat), preselect = names(dat)[[1]],
+                         multiple = FALSE, title = "Select taxonomic level for the graph")
+   
+     clmet <- tk_select.list(names(cmetrics),preselect=names(cmetrics)[1],
+                           multiple=FALSE,title="Select clustering metrics")
+
+     hclust.method <- tk_select.list(c("complete", "ward"),preselect = "complete",
+                           multiple=FALSE,title="Select clustering method")
+
+     tree.display <- tk_select.list(c("yes","no"),preselect=c("yes"),
+                                  multiple=FALSE,title="Display tree in graph?")
+
+     figureratio <- NA
+     if (tree.display == "yes") {
+       figureratio <- tk_select.list(c(15,12,10,8,6,4),
+					preselect = 12,
+                                   	multiple = FALSE,
+				   	title = "Percentage of tree height to total figure")
+     }
+
+     fontsize <- tk_select.list(c(8:12, seq(14, 40, 2)),preselect = '9',multiple = FALSE, title = "Font size")
+
+   } 
+
+  # Graph to be saved into 
+  clusterGraphFile <- paste(data.dir,"/", gsub(" ", "", lev), "-oligoprofileClustering.png",sep="")
+
+  ## make the figure width as a function of the number of the samples
+  if(ncol(dat) < 3 ) { tree.display <- 'no' }
+
+  list(file = clusterGraphFile, ppcm = ppcm, clmet = clmet, lev = lev, include.tree = include.tree, palette = pal, fontsize = fontsize, figureratio = figureratio, hclust.method = hclust.method, tree.display = tree.display)
+
+}
+
+#' Description: Check number of matching phylotypes for each probe
+#' 
+#' Arguments:
+#'   @param oligo.map oligo - phylotype matching data.frame
+#'   @param level phylotype level
+#'
+#' Returns:
+#'   @return number of matching phylotypes for each probe
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+n.phylotypes.per.oligo <- function (oligo.map, level) {
+  sapply(split(oligo.map[, c("oligoID", level)], oligo.map$oligoID), function(x) length(unique(x[[level]])))
+}
+
+#' Description: Write matrix in tab file
+#'
+#' Arguments:
+#'   @param dat data matrix
+#'   @param filename output file
+#'   @param verbose verbose
+#' Returns:
+#'   @return output file location
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+WriteMatrix <- function (dat, filename, verbose = FALSE) { 
+
+  if (verbose) { message(paste("Writing output in ", filename)) }
+  write.table(dat, file = filename, quote = FALSE, sep = "\t", row.names = FALSE)
+  filename
+
+}
+
+
+#' Description: Profiling preprocessing script
+#'
+#' Arguments:
+#'   @param dbuser MySQL username
+#'   @param dbpwd  MySQL password
+#'   @param dbname MySQL database name
+#'   @param mc.cores Optional. Number of cores if parallelization is used.
+#'   @param verbose monitor processing through intermediate messages
+#'
+#' Returns:
+#'   @return Preprocessed data and parameters
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = TRUE) {
+
+  # for Phyloarray database version 0.8 or 0.9
+
+  ## ask parameters or read from R-file
+  con <- dbConnect(dbDriver("MySQL"), username = dbuser, password = dbpwd, dbname = dbname)
+
+  params <- ReadParameters(con)  
+  params$chip <- detect.chip(dbname)
+  params$rm.phylotypes <- phylotype.rm.list(params$chip) # List oligos and phylotypes to remove by default
+
+  # Get sample information matrix for the selected projects	
+  project.info <- fetch.sample.info(params$prj$projectName, chiptype = NULL, 
+  	       	  		    dbuser, dbpwd, dbname, 
+  	       	  		    selected.samples = params$samples$sampleID)
+
+  message("Get probe-level data for the selected hybridisations")
+  tmp <- get.probedata(unique(project.info[["hybridisationID"]]), params$rm.phylotypes$oligos, dbuser, dbpwd, dbname, mc.cores = mc.cores)
+  fdat.orig <- tmp$data       # features x hybs, original non-log scale
+  fdat.oligoinfo <- tmp$info  # oligoinfo
+
+  # Annotations for selected hybridisations
+  fdat.hybinfo <- project.info[match(colnames(fdat.orig), project.info$hybridisationID), ]
+  rownames(fdat.hybinfo) <- colnames(fdat.orig)
+
+  ## Discard the hybs that contain only NAs
+  onlyNA <- colMeans(is.na(fdat.orig)) == 1
+  naHybs <- colnames(fdat.orig)[onlyNA]
+  if(sum(onlyNA) > 0){
+    message("Removing the following hybs, because they contain only NAs:\n")
+    message(naHybs,"\n\n")
+    fdat.orig <- fdat.orig[, !onlyNA]
+    fdat.hybinfo <- fdat.hybinfo[, !onlyNA]
+  }
+  
+  ##################################
+  ## GET OLIGO-PHYLOTYPE MAPPINGS
+  ##################################
+
+  # This handles also pmTm, complement and mismatch filtering
+  pruned16S <- get.phylogeny(params$phylogeny, 
+    	       		     rmoligos = params$rm.phylotypes$oligos, 
+	    		     dbuser, dbpwd, dbname, verbose = verbose, 
+			     remove.nonspecific.oligos = params$remove.nonspecific.oligos, 
+			     chip = params$chip)
+
+  ##################
+  ## COMPUTE SCALING
+  ##################
+
+  # selected scaling for featurelevel data
+  # Background correction after this step, if any. 
+  # Order of normalization / bg correction was validated empirically.
+  # bg.adjust intentionally set to NULL here. 
+  # bg correction done _after_ oligo summarization, if any (see next steps)
+  d.scaled <- ScaleProfile(log10(fdat.orig), params$normalization, bg.adjust = NULL) 
+
+  ####################
+  ## COMPUTE SUMMARIES
+  ####################
+
+  # Summarize probes into oligos and hybridisations into samples
+  d.oligo2 <- summarize.rawdata(d.scaled, 
+  	      			fdat.hybinfo, 
+				fdat.oligoinfo = fdat.oligoinfo, 
+				oligo.ids = sort(unique(pruned16S$oligoID)))
+
+  # Then apply background correction if required:
+  # if (!is.null(params$bgc.method)) { d.oligo2 <- oligo.bg.correction(d.oligo2, bgc.method = params$bgc.method) }
+  # d.oligo2 <- oligo.bg.correction(d.oligo2, bgc.method = NULL)
+
+  oligo.log10 <- d.oligo2
+  # Return to the original scale
+  oligo.abs <- matrix(10^d.oligo2, nrow = nrow(d.oligo2)) # - 1  
+  rownames( oligo.abs ) <- rownames( d.oligo2 )
+  colnames( oligo.abs ) <- colnames( d.oligo2 )
+
+  # Oligo summarization
+  finaldata <- list()
+  finaldata[["oligo"]] <- oligo.abs
+  levels <- c("species", "level 2", "level 1")
+  if (params$chip == "MITChip") {levels <- c(levels, "level 0")}
+  for (level in levels) {
+    finaldata[[level]] <- list()
+    for (method in c("sum", "rpa", "ave")) {
+
+    	summarized.log10 <- summarize.probesets(pruned16S, oligo.log10, 
+      			       	          method = method, level = level, 	
+					  rm.phylotypes = params$rm.phylotypes,
+					  rm.oligos = params$rm.phylotypes$oligos)
+
+        # Store the data in absolute scale					  
+        finaldata[[level]][[method]] <- 10^summarized.log10
+
+    }
+  }
+
+  list(data = finaldata, phylogeny = pruned16S, naHybs = naHybs, params = params)
+
+}
+
+
+#' Description: determine threshold for bg correction
+#'
+#' Arguments:
+#'   @param dat data matrix (in approximately normal scale ie. logged)
+#'
+#' Returns:
+#'   @return threshold value
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+estimate.min.threshold <- function (dat) {
+
+  #estimate min threshold 
+  DD <- density(as.numeric(unlist(dat)))
+
+  #find mode
+  noise_mode <- DD$x[[which.max(DD$y)]] # DD$x[which(diff(DD$y)<0)[1]]
+
+  #compute sd of noise
+  noise_sd <- sd(dat[dat < noise_mode])
+
+  #threshold
+  low.thresh <- noise_mode + 6*noise_sd
+
+  low.thresh
+}
+
+
+#' Description: determine detection threshold for the data
+#'
+#' Arguments:
+#'   @param dat data
+#'   @param sd.times standard deviation threshold
+#'
+#' Returns:
+#'   @return thresholded data matrix
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+threshold.data <- function(dat, sd.times = 6){
+
+  thr <- apply(dat, 2, function(x){
+      DD <- density(as.numeric(x), adjust = 1.2, na.rm = T);
+      noise_mode <- DD$x[which(DD$y==max(DD$y))[1]];
+      noise_sd   <- sd(x[x < noise_mode], na.rm = T);
+      low.thresh <- noise_mode + sd.times*noise_sd;
+      low.thresh 
+    })
+
+  # Subtract background from signal intensities in each sample
+  data.mat<-t(apply(dat, 1, function(Tr){ Tr-thr })) 
+  return(data.mat)
+}
+
+
+
+#' Description: Probeset summarization with various methods.
+#' 
+#' Arguments:
+#'   @param oligo.map oligo - phylotype matching data.frame
+#'   @param oligo.data preprocessed probes x samples data matrix in log10 domain
+#'   @param method summarization method
+#'   @param level summarization level
+#'   @param verbose print intermediate messages
+#'   @param rm.phylotypes Phylotypes to exclude (a list with fields species, level 1, level 2)
+#'   @param rm.oligos Oligos to remove
+#' Returns:
+#'   @return summarized data matrix
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose = TRUE, rm.phylotypes = NULL, rm.oligos = NULL) {
+
+  #level <- gsub(".", " ", level) # "level.1" -> "level 1"
+
+  if ("level.0" %in% colnames(oligo.map)) {
+    level0 <- "level.0"
+  } else if ("level 0" %in% colnames(oligo.map)) {
+    level0 <- "level 0"
+  } else {
+    level0 <- NULL
+  }
+
+  if ("level.1" %in% colnames(oligo.map)) {
+    level1 <- "level.1"
+  } else if ("level 1" %in% colnames(oligo.map)) {
+    level1 <- "level 1"
+  } else {
+    level1 <- NULL
+  }
+
+  if ("level.2" %in% colnames(oligo.map)) {
+    level2 <- "level.2"
+  } else if ("level 2" %in% colnames(oligo.map)) {
+    level2 <- "level 2"
+  } else {
+    level2 <- NULL
+  }
+
+  # Start by summarizing into species level
+  rm.species <- unique(c(unique(oligo.map[oligo.map[[level1]] %in% rm.phylotypes[[level1]], "species"]), 
+  	     		 unique(oligo.map[oligo.map[[level2]] %in% rm.phylotypes[[level2]], "species"]),
+			 rm.phylotypes$species))
+			 
+  # Ensure that all L2 groups below specified L1 are removed as well
+  rm.phylotypes[[level2]] <- unique(c(unique(oligo.map[oligo.map[[level1]] %in% rm.phylotypes[[level1]], level2]), 
+			 rm.phylotypes[[level2]]))
+			 	
+  # Remove specified oligos
+  if (!is.null(rm.oligos)) { oligo.data <- oligo.data[setdiff(rownames(oligo.data), rm.oligos), ]}
+  oligo.map <- oligo.map[!oligo.map$oligoID %in% rm.oligos, ]
+
+  # Get species matrix in original scale
+  species.matrix <- 10^summarize.probesets.species(oligo.map, oligo.data, method, verbose, rm.species)
+   
+  if (level == "species") {
+
+    summarized.matrix <- species.matrix
+
+  } else if (level %in% c(level0, level1, level2)) {
+
+    phylogroups <- level.species(level, oligo.map)
+    
+    # Remove the specified phylogroups
+    phylogroups <- phylogroups[setdiff(names(phylogroups), rm.phylotypes[[level]])]
+
+    summarized.matrix <- matrix(NA, nrow = length(phylogroups), ncol = ncol(oligo.data))
+    rownames(summarized.matrix) <- names(phylogroups)
+    colnames(summarized.matrix) <- colnames(oligo.data)
+
+    for (pg in names(phylogroups)) {
+      specs <- unique(phylogroups[[pg]])
+      mat <- matrix(species.matrix[specs,], nrow = length(specs))
+      if (method == "ave") { vec <- colMeans(mat) }
+      if (method == "sum") { vec <- colSums(mat)  } 
+      if (method == "rpa") { vec <- colSums(mat)  } # For RPA, use the sum for L1/L2
+      summarized.matrix[pg, ] <- vec
+    }
+  } else {
+
+    message(level)
+    message(nchar(level))
+    message(colnames(oligo.map))
+    stop("Provide proper level!")
+
+  }
+
+  # Return in the original log10 domain    
+  log10(summarized.matrix)
+
+}
+
+#' Description: Probeset summarization with various methods.
+#' 
+#' Arguments:
+#'   @param oligo.map oligo - phylotype matching data.frame
+#'   @param oligo.data preprocessed probes x samples data matrix in log10 domain
+#'   @param method summarization method
+#'   @param verbose print intermediate messages
+#'   @param rm.species Species to exclude
+#' Returns:
+#'   @return summarized data matrix in log10 scale
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+summarize.probesets.species <- function (oligo.map, oligo.data, method, verbose = TRUE, rm.species = c("Victivallis vadensis")) {
+
+  level <- "species"			    
+
+  probesets <- retrieve.probesets(oligo.map, level = level)
+  probesets <- probesets[setdiff(names(probesets), rm.species)]
+  
+  nPhylotypesPerOligo <- n.phylotypes.per.oligo(oligo.map, level) 
+
+  # initialize
+  summarized.matrix <- array(NA, dim = c(length(probesets), ncol(oligo.data)), 
+  		    	      dimnames = list(names(probesets), colnames(oligo.data))) 
+
+  for (set in names(probesets)) {
+
+    if (verbose) { message(set) }
+
+    # Pick expression for particular probes
+    probes <- probesets[[set]]
+
+    # Pick probe data for the probeset: probes x samples
+    # oligo.data assumed to be already in log10
+    dat <- matrix(oligo.data[probes,], length(probes)) 
+    rownames(dat) <- probes
+    colnames(dat) <- colnames(oligo.data)
+
+    if (method == "rpa") {
+
+      # RPA is calculated in log domain
+      # Downweigh non-specific probes with priors with 10% of virtual data and
+      # variances set according to number of matching probes
+      # This will provide slight emphasis to downweigh potentially
+      # cross-hybridizing probes
+      vec <- rpa.fit(dat, sigma2.method = "robust", alpha = 1 + 0.1*ncol(oligo.data)/2, beta = 1 + 0.1*ncol(oligo.data)*nPhylotypesPerOligo[probes]^2)$mu
+
+    } else if (method == "ave") {
+
+      vec <- log10(colMeans((10^dat), na.rm = T))
+
+    } else if (method == "sum") {
+
+      # Weight each probe by the inverse of the number of matching phylotypes
+      # Then calculate sum -> less specific probes are downweighted
+      # However, set the minimum signal to 0 in log10 scale (1 in original scale)!
+      dat2 <- (10^dat) / nPhylotypesPerOligo[rownames(dat)]
+      dat2[dat2 < 1] <- 1
+      vec <- log10(colSums(dat2, na.rm = T))
+
+    }
+    
+    summarized.matrix[set, ] <- vec 
+
+  }
+
+  summarized.matrix
+  
+}
+
+#' Description: RPA for HITChip
+#' 
+#' Arguments:
+#'   @param level level
+#'   @param phylo phylo
+#'   @param oligo.data oligo.data
+#'
+#' Returns:
+#'   @return RPA preprocessed data
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+calculate.rpa <- function (level, phylo, oligo.data) {
+
+  # List entities (e.g. species)
+  phylo.list <- split(phylo, phylo[[level]])
+  entities <- names(phylo.list)
+
+  # initialize
+  summarized.matrix <- array(NA, dim = c(length(entities), ncol(oligo.data)), dimnames = list(entities, colnames(oligo.data)))
+  noise.list <- list() 
+
+  for (entity in names(phylo.list)) {
+    message(entity)
+
+    # Pick expression for particular probes
+    probes <- unique(phylo.list[[entity]][, "oligoID"])
+
+    # oligo.data is already in log10
+    dat <- matrix(oligo.data[probes,], length(probes)) 
+
+    # dat: probes x samples
+    if (nrow(dat) < 2) {
+      vec <- as.vector(dat) # NOTE: circumvent RPA if there are no replicates 
+      noise <- NA
+    } else {
+      res <- rpa.fit(dat)
+      vec <- res$mu
+      noise <- sqrt(res$sigma2)
+      names(noise) <- probes
+    }
+
+    noise.list[[entity]] <- noise
+    summarized.matrix[entity, ] <- vec #, epsilon, alpha, beta, sigma2.method, d.method)
+
+  }
+
+  list(emat = summarized.matrix, noise = noise.list)
+  
+}
+
+
 

@@ -1,4 +1,6 @@
 
+#' list.mysql.projects
+#' 
 #' Description: List projects in MySQL database
 #'
 #' Arguments:
@@ -20,7 +22,7 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
   con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
 
   # Fetch all data from the database
-   rs <- dbSendQuery(con, paste("SELECT p.projectName FROM project p"))
+  rs <- dbSendQuery(con, paste("SELECT p.projectName FROM project p"))
 
   project.info <- fetch(rs, n = -1) 
 
@@ -29,6 +31,9 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 }
 
 
+
+#' get.phylogeny
+#' 
 #' Description: Get phylogeny
 #' 
 #' Arguments:
@@ -40,6 +45,7 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 #'   @param verbose verbose
 #'   @param remove.nonspecific.oligos Logical. Remove oligos with multiple targets.
 #'   @param chip chip type
+#'
 #' Returns:
 #'   @return oligo.map
 #'
@@ -158,24 +164,10 @@ get.phylogeny <- function (phylogeny, rmoligos = NULL, dbuser, dbpwd, dbname, ve
 
 }
 
-#' Description: Format string vector to mysql query format
+
+
+#' fetch.projects
 #' 
-#' Arguments:
-#'   @param s string vector
-#'
-#' Returns:
-#'   @return mysql query version
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-mysql.format <- function (s) {
-  paste("('",paste(as.character(s),collapse="','",sep="'"),"')",sep="")
-}
-
-
 #' Fetch projects from the phyloarray database
 #' @param con MySQL connection
 #' @param condition list of lists with field-value pairs
@@ -206,6 +198,9 @@ fetch.projects <- function (con, condition = NULL) {
       return(prjs)
    }
 }
+
+
+
 
 
 #' Fetch samples from a phyloarray database

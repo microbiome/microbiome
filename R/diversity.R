@@ -1,3 +1,5 @@
+#' estimate.diversity
+#'
 #' Description: Estimate diversities for each sample (column)
 #' Aliases: get.diversity.estimates. Also replaces the function ST: diversity.indices
 #'
@@ -64,7 +66,8 @@ estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL)
 
 
 
-
+#' make.abundancy.table
+#'
 #' Description: Calculate abundancies
 #' Discretize Hitchip matrix to form abundancy table
 #' of form j, nj where j is number of counts and nj is number
@@ -97,7 +100,8 @@ make.abundancy.table <- function (dat, det.th, discretization.resolution = 1) {
   ab
 }
 
-
+#' PlotDiversity
+#'
 #' Description: Plot and save diversity indices
 #' Based on ST 01-03-2011
 #'

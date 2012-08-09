@@ -38,6 +38,7 @@ impute <- function (X) {
 }
 
 
+
 #' Strip string i.e. remove spaces from the beginning and end
 #' @param s string or character vector
 #'
@@ -73,7 +74,6 @@ Strip <- function (s) {
 
 
 
-
 #' Description: Sort data frame dd by columns like: esort(dd, -z, b)
 #'
 #' Arguments:
@@ -97,55 +97,6 @@ esort <- function(x, sortvar, ...) {
   detach(x)
 }
 
-
-#' Description: This feature for dendrograms took like an hour to find out
-#'               because of unadequate documentation...
-#'
-#' Arguments:
-#'   @param dd TBA
-#'
-#' Returns:
-#'   @return dd
-#'
-#' @export 
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-get.dd.order <- function(dd){
-  unlist(dd)
-}
-
-#' Description: R or S function to write an R list to an ASCII file.
-#'   This can be used to create files for those who want to use
-#'   a spreadsheet or other program on the data.
-#'
-#' Arguments:
-#'   @param x TBA
-#'   @param file TBA
-#'   @param append TBA
-#'
-#' Returns:
-#'   @return TBA
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @note Modified from version MHP July 7, 2004. 
-#' @keywords utilities
-
-list2ascii <- function(x,file=paste(deparse(substitute(x)),".txt",sep=""), append = F) {
-
-   tmp.wid = getOption("width")  # save current width
-   options(width=10000)          # increase output width
-   sink(file, append=append)     # redirect output to file
-   print(x)                      # print the object
-   sink()                        # cancel redirection
-   options(width=tmp.wid)        # restore linewidth
-   return(invisible(NULL))       # return (nothing) from function
-}
 
 
 
@@ -178,37 +129,5 @@ lower.triangle <- function (mat) {
   }       
   elements
 }
-
-
-#' Description: Split the data in training and test samples
-#'
-#' Arguments:
-#'   @param x x
-#'   @param y y
-#'   @param spec species
-#'
-#' Returns:
-#'   @return splitted data
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-SplitTrainTest <- function (x, y, spec) {
-
-  rsample <- sample(nrow(spec), floor(nrow(spec)/2))
-
-  x.train <- x[rsample,]
-  y.train <- y[rsample]
-  x.test <- x[-rsample,]
-  y.test <- y[-rsample]
-
-  test.samples <- rownames(x)[-rsample]
-  train.samples <- rownames(x)[rsample]
-
-  list(x.train = x.train, y.train = y.train, x.test = x.test, y.test = y.test, test.samples = test.samples, train.samples = train.samples)  
- 
-} 
 
 

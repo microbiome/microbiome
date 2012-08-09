@@ -12,11 +12,14 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-#' Description: Correlation distance. Computes the correlation 
-#' distance between the _columns_ of the given matrix
+#' Description: Calculate distance matrix between the _columns_ of the 
+#' input matrix. Can prduce correlation-based distance matrices, otherwise
+#' uses the standard 'dist' function.
 #'
 #' Arguments:
 #'   @param x data matrix
+#'   @param method distance method
+#'   @param ... other arguments to be passed
 #'
 #' Returns:
 #'   @return distance object
@@ -27,8 +30,13 @@
 #' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
 #' @keywords utilities
 
-corDist <- function(x){
-  as.dist((1-cor(x, use = "pairwise.complete")))
+distance.matrix <- function (x, method = "pearson", ...) {
+  if (method %in% c("pearson", "spearman")) {
+    cmat <- as.dist((1-cor(x, use = "pairwise.complete", method = method)))
+  } else {
+    cmat <- dist(x, method = method, ...) 
+  }
+  cmat
 }
 
 
@@ -128,7 +136,22 @@ pairwise.comparisons <- function (x, y, qth = 0.05, resdir = NULL) {
 }
 
 
-check.wilcoxon <- function () {
+
+#' Description: TBA
+#'              
+#' Arguments:
+#'   @param ... TBA
+#'
+#' Returns:
+#'   @return TBA
+#'
+#' @export
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+check.wilcoxon <- function (...) {
 
   require(svDialogs)
 
@@ -418,4 +441,6 @@ calculate.stability <- function (dat) {
   cors <- lower.triangle(cor(dat))
   list(correlations = cors, stability = mean(cors))
 }
+
+
 

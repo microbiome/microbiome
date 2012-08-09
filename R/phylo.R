@@ -1,4 +1,6 @@
-#' Description: map phylotypes to upper hierarchy level
+#' levelmap
+#' 
+#' Description: map phylotypes between hierarchy levels
 #'
 #' Arguments:
 #'   @param phylotypes phylotypes
@@ -63,7 +65,8 @@ levelmap <- function (phylotypes, level.from, level.to, oligomap) {
 
 
 
-
+#' Phylogeneticenrichments
+#'
 #' Description: Computes the dependence of the higher phylogenetic
 #' level groups of the given list x, which can be a vector/data frame of either
 #' oligos, species, or level2 groups. Computes only the enrichments
@@ -165,7 +168,10 @@ Phylogeneticenrichments <- function(x, oligomap, origlevel = colnames(oligomap)[
     list(pvalues=1, tables=NULL, tests=NULL, phyloMap=phyloM) 
 }
 
-
+#' list.probes
+#' 
+#' FIXME: merge with retrieve probesets
+#' 
 #' Description: list probes corresponding to a given phylogenetic level
 #' 
 #' Arguments:
@@ -185,4 +191,30 @@ list.probes <- function (name, level, phylo) {
 
   as.character(unique(phylo[which(phylo[[level]] == name), "oligoID"]))
   
+}
+
+#' retrieve.probesets
+#' 
+#' Description: List probes for each probeset
+#'
+#' Arguments:
+#'   @param phylo data.frame with oligo - phylotype mapping information
+#'   @param level phylotype level for probesets
+#' Returns:
+#'   @return A list. Probes for each phylotype.
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+retrieve.probesets <- function (phylo, level = "species") {
+
+  # phylo <- pruned16S
+  phylo.list <- split(phylo, phylo[[level]])
+  probesets <- lapply(phylo.list, function(x) {unique(x$oligoID)})	     
+  names(probesets) <- names(phylo.list)
+
+  probesets
+
 }

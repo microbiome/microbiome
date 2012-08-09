@@ -1,132 +1,5 @@
-#' Description: Calculate and plot hierarchical clustering for profiling 
-#' script output
-#'
-#' Arguments:
-#'   @param dat oligoprofile data in original (non-log) domain
-#'   @param data.dir data directory
-#'   @param phylogeny phylogeny
-#' Returns:
-#'   @return hclust object
-#'
-#' @export
-#' @examples # dat <- read.profiling(params$wdir, "species", "rpa"); hc <- add.hclust.plots(dat)
-#' @references See citation("microbiome")
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-add.hclust.plots <- function (dat, data.dir, phylogeny) {
-
-  # Read heatmap plotting parameters		 
-  hc.params <- ReadHclustParameters(dat, data.dir)
-
-  # Plot and save into output file
-  message(paste("Storing hclust image in", hc.params$file))  
-  plotdev <- png(filename = hc.params[["file"]], width = max(trunc(hc.params[["ppcm"]]*21), trunc(hc.params[["ppcm"]]*21*ncol(dat)/70)), height=trunc(hc.params[["ppcm"]]*29.7)) 
-  try(PlotPhylochipHeatmap(data = dat,
-                phylogeny = phylogeny,
-                metric = hc.params[["clmet"]],
-                tax.level = hc.params[["lev"]],
-                include.tree = ifelse(hc.params[["tree.display"]] == 'yes', TRUE, FALSE),
-                palette = hc.params[["pal"]],
-                fontsize = hc.params[["fontsize"]],
-                figureratio = hc.params[["figureratio"]], 
-		hclust.method = hc.params[["hclust.method"]])) 
-  dev.off()
 
 
-  # Plot CLUSTER TREE TO A GRAPHICS WINDOW
-  if(ncol(dat) > 2){
-  
-    hc <- calculate.hclust(log10(dat + 1), hclust.method = hc.params[["hclust.method"]], metric = list.clustering.metrics()[[hc.params[["clmet"]]]])
-
-    x11() 
-    plot(hc$log10, hang=-1, main="Hierarchical clustering, oligolevel, log10")
-
-    x11() 
-    plot(hc$raw, hang=-1, main="Hierarchical clustering, oligolevel, raw")
-
-  } else {
-
-    warning("Clustering skipped because there are too few samples.\n")
-
-  }
-
-  list(ppcm = ppcm, hclust.method = hclust.method, pal = pal, lev = lev, clmet = clmet, tree.display = tree.display, figureratio = figureratio, fontsize = fontsize)
-
-}
-
-
-
-#' Description: Read parameters for PROFILE PLOT FUNCTION
-#'
-#' Arguments:
-#'   @param dat data matrix
-#'   @param data.dir data directory
-#'   @param ppcm plotting parameter
-#'   @param hclust.method hierarchical clustering method
-#'   @param pal color palette
-#'   @param lev phylogeny level
-#'   @param clmet clustering metrics
-#'   @param tree.display tree.display
-#'   @param figureratio figureratio
-#'   @param fontsize fontsize
-#'
-#' Returns:
-#'   @return plots the profile
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-ReadHclustParameters <- function (dat, data.dir, ppcm = 150, hclust.method = "complete", pal = "white/blue", lev = "level 2", clmet = "Pearsons correlation coefficient", tree.display = "yes", figureratio = 12, fontsize = 12) {
-
-  cmetrics <- list.clustering.metrics()
-  cscales  <- list.color.scales()
-  include.tree <- TRUE
-
-  ## Plotting parameters
-  defParams <- tk_select.list(c("Yes", "No"), preselect="Yes", multiple = FALSE,
-                              title = "Use default plotting parameters?")
-
-   if(defParams=="No"){
-
-     pal <- tk_select.list(names(cscales),preselect=names(cscales)[1],
-                         multiple=FALSE,title="Select colour scale")
-
-     lev <- tk_select.list(names(dat), preselect = names(dat)[[1]],
-                         multiple = FALSE, title = "Select taxonomic level for the graph")
-   
-     clmet <- tk_select.list(names(cmetrics),preselect=names(cmetrics)[1],
-                           multiple=FALSE,title="Select clustering metrics")
-
-     hclust.method <- tk_select.list(c("complete", "ward"),preselect = "complete",
-                           multiple=FALSE,title="Select clustering method")
-
-     tree.display <- tk_select.list(c("yes","no"),preselect=c("yes"),
-                                  multiple=FALSE,title="Display tree in graph?")
-
-     figureratio <- NA
-     if (tree.display == "yes") {
-       figureratio <- tk_select.list(c(15,12,10,8,6,4),
-					preselect = 12,
-                                   	multiple = FALSE,
-				   	title = "Percentage of tree height to total figure")
-     }
-
-     fontsize <- tk_select.list(c(8:12, seq(14, 40, 2)),preselect = '9',multiple = FALSE, title = "Font size")
-
-   } 
-
-  # Graph to be saved into 
-  clusterGraphFile <- paste(data.dir,"/", gsub(" ", "", lev), "-oligoprofileClustering.png",sep="")
-
-  ## make the figure width as a function of the number of the samples
-  if(ncol(dat) < 3 ) { tree.display <- 'no' }
-
-  list(file = clusterGraphFile, ppcm = ppcm, clmet = clmet, lev = lev, include.tree = include.tree, palette = pal, fontsize = fontsize, figureratio = figureratio, hclust.method = hclust.method, tree.display = tree.display)
-
-}
 
 #' PlotPhylochipHeatmap
 #'
@@ -253,6 +126,7 @@ PlotPhylochipHeatmap <- function (data,
 
 # -----------------------------------------------------------------------
 
+
 #' Description: Project high-dimensional data on two-dimensional plane by various methods
 #' 
 #' Arguments:
@@ -368,6 +242,8 @@ project.data <- function (amat, type = "PCA") {
 #' @examples # mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2)); PlotMatrix(mat, "twoway", midpoint = 3) 
 #' @keywords utilities
 
+
+
 PlotMatrix <- function (mat, type = "twoway", midpoint = 0, 
 	      	        palette = NULL, colors = NULL, col.breaks = NULL, interval = .1, 
 			plot.axes = "both",
@@ -459,6 +335,7 @@ PlotMatrix <- function (mat, type = "twoway", midpoint = 0,
 }
 
 
+
 #' Description: Barplot of top findings from pairwise.comparisons function
 #'              
 #' Arguments:
@@ -508,8 +385,11 @@ top.barplots <- function (top.findings, topN = 5, annot, smat) {
 
 
 
-#' Description: Visualization of top findings from pairwise.comparisons function
-#'              
+
+#' Description: Visualize top findings from pairwise.comparisons 
+#'          
+#' FIXME: merge with top.barplots?
+#'     
 #' Arguments:
 #'   @param x data matrix
 #'   @param y annotaction factor
@@ -628,13 +508,13 @@ PlotTopComparisons <- function (x, y, oligo.map, color.level, bar.level, top.fin
       p <- ggplot2::ggplot(dfm, aes(x = comparison, y = bar.level, fill = value))
       p <- p + geom_tile() 
       limit <- ceiling(max(abs(na.omit(dfm$value))))
-      p <- p + scale_fill_gradientn("Fold Change", breaks=seq(from=limit, to=-limit, by=-0.2), colours=c("darkblue", "blue", "white", "red", "darkred"), limits=c(-limit,limit)) 
+      p <- p + scale_fill_gradientn("Fold Change", breaks=seq(from=limit, to=-limit, by=-0.2), colours = c("darkblue", "blue", "white", "red", "darkred"), limits=c(-limit,limit)) 
       p <- p + theme_bw() 
       p <- p + opts(axis.text.x=theme_text(angle = 0, size = cex.xlab)) 
       p <- p + opts(axis.text.y=theme_text(size = cex.ylab))
 
       # Merkkaa merkitsevat tahdella
-      p <- p + geom_text(data=subset(dfm.qval, value < qth.star), aes(x = variable, y = value, label = "+"), col = "white", size = 3)
+      p <- p + geom_text(data = subset(dfm.qval, value < qth.star), aes(x = variable, y = value, label = "+"), col = "white", size = 3)
       p <- p + xlab("") + ylab("")
     }
   }
@@ -642,6 +522,8 @@ PlotTopComparisons <- function (x, y, oligo.map, color.level, bar.level, top.fin
   p
 
 }
+
+
 
 #' Description: ggplot2::ggplot2 theme
 #'              
@@ -673,4 +555,64 @@ theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
   )
 }
 
+
+
+
+#' Description: Calculate and plot hierarchical clustering for profiling 
+#' script output
+#'
+#' Arguments:
+#'   @param dat oligoprofile data in original (non-log) domain
+#'   @param data.dir data directory
+#'   @param phylogeny phylogeny
+#'
+#' Returns:
+#'   @return hclust object
+#'
+#' @export
+#' @examples # dat <- read.profiling(params$wdir, "species", "rpa"); hc <- add.hclust.plots(dat)
+#' @references See citation("microbiome")
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+add.hclust.plots <- function (dat, data.dir, phylogeny) {
+
+  # Read heatmap plotting parameters		 
+  hc.params <- ReadHclustParameters(dat, data.dir)
+
+  # Plot and save into output file
+  message(paste("Storing hclust image in", hc.params$file))  
+  plotdev <- png(filename = hc.params[["file"]], width = max(trunc(hc.params[["ppcm"]]*21), trunc(hc.params[["ppcm"]]*21*ncol(dat)/70)), height=trunc(hc.params[["ppcm"]]*29.7)) 
+  try(PlotPhylochipHeatmap(data = dat,
+                phylogeny = phylogeny,
+                metric = hc.params[["clmet"]],
+                tax.level = hc.params[["lev"]],
+                include.tree = ifelse(hc.params[["tree.display"]] == 'yes', TRUE, FALSE),
+                palette = hc.params[["pal"]],
+                fontsize = hc.params[["fontsize"]],
+                figureratio = hc.params[["figureratio"]], 
+		hclust.method = hc.params[["hclust.method"]])) 
+  dev.off()
+
+
+  # Plot CLUSTER TREE TO A GRAPHICS WINDOW
+  if(ncol(dat) > 2){
+  
+    hc <- calculate.hclust(log10(dat + 1), hclust.method = hc.params[["hclust.method"]], metric = list.clustering.metrics()[[hc.params[["clmet"]]]])
+
+    x11() 
+    plot(hc$log10, hang = -1, main = "Hierarchical clustering, oligolevel, log10")
+
+    x11() 
+    plot(hc$raw, hang = -1, main = "Hierarchical clustering, oligolevel, raw")
+
+  } else {
+
+    warning("Clustering skipped because there are too few samples.\n")
+
+  }
+
+  list(ppcm = ppcm, hclust.method = hclust.method, pal = pal, lev = lev, clmet = clmet, tree.display = tree.display, figureratio = figureratio, fontsize = fontsize)
+
+}
 

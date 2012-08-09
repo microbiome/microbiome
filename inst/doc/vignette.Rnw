@@ -311,6 +311,110 @@ install.packages("microbiome_x.y.z.tar.gz")
 
 \section{Functionality}
 
+Documentation coming soon. The visible functions include:
+
+\subsubsection*{Data preprocessing and I/O}
+
+\begin{itemize}
+
+\item FetchHITChipAtlas: Preprocessing pipeline for the HITChip atlas with default parameters
+
+\item pick.training.samples: Split data set into training and test samples
+
+\item run.profiling.script: Profiling main script
+
+\item read.profiling: read run.profiling.script output into R
+
+\item list.mysql.projects: List projects in MySQL database
+
+\item fetch.projects: Fetch projects from the phyloarray database
+
+\item fetch.samples: Fetch samples from the phyloarray database
+
+\item fetch.sample.info: Fetch sample information from HITChip atlas
+
+\end{itemize}
+
+
+\subsubsection*{Analysis}
+
+\begin{itemize}
+
+\item distance.matrix: correlation-based distance matrix
+
+\item pairwise.comparisons: pairwise comparison between factor levels
+
+\item check.wilcoxon: check.wilcoxon
+
+\item cross.correlate: Cross-correlate input variables
+
+\item calculate.stability: calculate.stability
+
+\item estimate.diversity: Estimate diversities for each sample (column)
+
+\item make.abundancy.table: Calculate abundancies
+
+\item nmf.R, lm.R: JSa
+
+\item Phylogeneticenrichments: higher phylogenetic level enrichments
+
+\item calculate.hclust: Calculate hierarchical clustering for standard selections in profiling script
+
+\item project.data: Project high-dimensional data on two-dimensional plane by various methods
+
+\end{itemize}
+
+
+\subsubsection*{Utilities}
+
+\begin{itemize}
+
+\item include.fig; include.figs: brew help functions
+
+\item get.phylogeny: from the MySQL db
+
+\item levelmap: map phylotypes between hierarchy levels
+
+\item list.probes: list probes corresponding to a given phylogenetic level
+
+\item retrieve.probesets: Description: List probes for each probeset
+
+\item get.probeset:  Description: get probeset data matrix
+
+\item impute; Impute missing values from a Gaussian. 
+
+\item Strip: Strip string i.e. remove spaces from the beginning and end
+
+\item esort: Sort data frame dd by columns like: esort(dd, -z, b)
+
+\item lower.triangle: Get lower triangle of a square matrix as a vector
+
+\end{itemize}
+
+
+\subsubsection*{Visualization}
+
+\item PlotMatrix: matrix visualizations
+
+\item PlotDiversity: Plot and save diversity indices
+
+\item PlotPhylochipHeatmap: Plots heatmap of the oligo profiles together with phylotype grouping and sample clustering
+
+\item theme_bottom_border: ggplot2 theme
+
+\end{itemize}
+
+
+
+\subsubsection*{Experimental}
+
+\begin{itemize}
+
+\item top.barplots: Barplot of top findings from pairwise.comparisons function
+
+\item PlotTopComparisons: Visualize top findings from pairwise.comparisons 
+
+\end{itemize}
 
 
 \section{Citing the package}
