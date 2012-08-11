@@ -1,4 +1,5 @@
 microbiome
 ==========
 
-microbiome R package
+microbiome R package - preliminary beta release
+
