@@ -48,7 +48,9 @@ R routines for preprocessing, analysis and visualization of microbiota
 profiling data. The package is jointly developed by researchers from
 the Molecular Ecology group, Laboratory of Microbiology, Wageningen
 University, Netherlands, and Gut Group, Department of Veterinary
-Bioscience, University of Helsinki, Finland.
+Bioscience, University of Helsinki, Finland. 
+
+{\bf Contact:} microbiome-admin@googlegroups.com
 
 
 \section{Profiling script}
