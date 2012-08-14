@@ -67,6 +67,8 @@ core.which <- function(data, intTr, prevalenceTr){
 #' Returns:
 #'   @return TBA
 #'
+#' @examples # data("toydata-hitchip"); core <- createCore(phylum.matrix) 
+#'
 #' @export 
 #' 
 #' @references See citation("microbiome") 
@@ -181,13 +183,17 @@ Core2D <- function(coreMat, fname, writedir, colnum = NULL){
 #' Returns:
 #'   @return TBA
 #'
+#' @examples # data("toydata-hitchip"); bootstrap.microbes(phylum.matrix)
+#'
 #' @export 
 #' 
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-bootstrap.microbes <- function(D, Nsample, minPrev, Nboot = 10000, I.thr = 1.8, ncore = 22){
+bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 100, I.thr = 1.8, ncore = 1){
+
+   if (is.null(Nsample)) {Nsample <- ncol(D)}
 
    require(multicore)
 
@@ -226,13 +232,18 @@ bootstrap.microbes <- function(D, Nsample, minPrev, Nboot = 10000, I.thr = 1.8, 
 #' Returns:
 #'   @return TBA
 #'
+#' @examples # data("toydata-hitchip"); bootstrap.microbecount(phylum.matrix)
+#'
 #' @export 
 #' 
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-bootstrap.microbecount <- function(D, Nsample, minprev = 1, Nboot = 10000, I.thr = 1.8, ncore = 22){
+bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1, Nboot = 100, I.thr = 1.8, ncore = 1){
+
+  if (is.null(Nsample)) {Nsample <- ncol(D)}
+
 
    require(multicore)
 
@@ -278,13 +289,15 @@ bootstrap.microbecount <- function(D, Nsample, minprev = 1, Nboot = 10000, I.thr
 #' Returns:
 #'   @return TBA
 #'
+#' @examples # data("toydata-hitchip"); bs <- bootstrap.microbes(phylum.matrix); plot_cumulative(bs, writedir = "./", "tmp-", phylogeny = phylogeny)
+#'
 #' @export 
 #' 
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-plot_cumulative <- function(d.sub, writedir, fname, i.set = NULL, type = "cumulative", ylim = NULL, phylogeny = NULL){
+plot_cumulative <- function(d.sub, writedir, fname, i.set = NULL, type = "cumulative", ylim = NULL, phylogeny){
 
    PH.i <- unique(phylogeny[,1:3])
    PH.i <- PH.i[order(PH.i[,3]),]
