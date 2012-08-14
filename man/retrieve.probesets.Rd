@@ -1,6 +1,6 @@
 \name{retrieve.probesets}
 \alias{retrieve.probesets}
-\title{Description: List probes for each probeset}
+\title{retrieve.probesets}
 \usage{
   retrieve.probesets(phylo, level = "species")
 }
@@ -14,6 +14,9 @@
   A list. Probes for each phylotype.
 }
 \description{
+  Description: List probes for each probeset
+}
+\details{
   Arguments:
 }
 \author{

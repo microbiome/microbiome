@@ -1,7 +1,6 @@
 \name{FetchHITChipAtlas}
 \alias{FetchHITChipAtlas}
-\title{Description: Complete preprocessing pipeline for the HITChip atlas
-with default parameters}
+\title{FetchHITChipAtlas}
 \usage{
   FetchHITChipAtlas(allowed.projects, dbuser, dbpwd,
     dbname, result.path, my.scaling = "minmax",
@@ -43,6 +42,10 @@ with default parameters}
   parameters: input parameters and R session information
 }
 \description{
+  Description: Complete preprocessing pipeline for the
+  HITChip atlas with default parameters
+}
+\details{
   Arguments:
 }
 \author{

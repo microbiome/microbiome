@@ -1,3 +1,7 @@
+setClass("exampleClass",
+   representation("list")
+)
+
 #setClass("sampleOutliers",
 #   representation("list")
 #)

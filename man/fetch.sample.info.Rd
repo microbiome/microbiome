@@ -1,6 +1,6 @@
 \name{fetch.sample.info}
 \alias{fetch.sample.info}
-\title{Description: Fetch sample information from HITChip atlas}
+\title{fetch.sample.info}
 \usage{
   fetch.sample.info(allowed.projects, chiptype = NULL,
     dbuser, dbpwd, dbname, selected.samples = NULL)
@@ -24,6 +24,9 @@
   project.info data.frame
 }
 \description{
+  Description: Fetch sample information from HITChip atlas
+}
+\details{
   Arguments:
 }
 \author{

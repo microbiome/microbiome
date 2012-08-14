@@ -1,6 +1,6 @@
 \name{run.profiling.script}
 \alias{run.profiling.script}
-\title{Description: Profiling main script}
+\title{run.profiling.script}
 \usage{
   run.profiling.script(dbuser, dbpwd, dbname,
     verbose = TRUE)
@@ -21,6 +21,9 @@
   user-specified directory.
 }
 \description{
+  Description: Profiling main script
+}
+\details{
   Arguments:
 }
 \author{

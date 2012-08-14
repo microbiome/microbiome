@@ -1,6 +1,6 @@
 \name{list.probes}
 \alias{list.probes}
-\title{Description: list corresponding probes}
+\title{list.probes}
 \usage{
   list.probes(name, level, phylo)
 }
@@ -17,6 +17,12 @@
   probes
 }
 \description{
+  FIXME: merge with retrieve probesets
+}
+\details{
+  Description: list probes corresponding to a given
+  phylogenetic level
+
   Arguments:
 }
 \author{

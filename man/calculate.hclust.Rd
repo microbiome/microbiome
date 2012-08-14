@@ -1,6 +1,6 @@
 \name{calculate.hclust}
 \alias{calculate.hclust}
-\title{Description: Calculate hierarchical clustering for standard selections in profiling script}
+\title{calculate.hclust}
 \usage{
   calculate.hclust(dat, hclust.method = "ward",
     metric = "correlation")
@@ -18,6 +18,10 @@
   hclust object for log10 and for absolute scale data
 }
 \description{
+  Description: Calculate hierarchical clustering for
+  standard selections in profiling script
+}
+\details{
   Arguments:
 }
 \examples{

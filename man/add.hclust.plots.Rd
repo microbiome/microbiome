@@ -1,6 +1,7 @@
 \name{add.hclust.plots}
 \alias{add.hclust.plots}
-\title{Description: Calculate and plot hierarchical clustering for profiling script output}
+\title{Description: Calculate and plot hierarchical clustering for profiling
+script output}
 \usage{
   add.hclust.plots(dat, data.dir, phylogeny)
 }
@@ -10,7 +11,9 @@
 
   \item{data.dir}{data directory}
 
-  \item{phylogeny}{phylogeny Returns:}
+  \item{phylogeny}{phylogeny
+
+  Returns:}
 }
 \value{
   hclust object

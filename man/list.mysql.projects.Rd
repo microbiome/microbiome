@@ -1,6 +1,6 @@
 \name{list.mysql.projects}
 \alias{list.mysql.projects}
-\title{Description: List projects in MySQL database}
+\title{list.mysql.projects}
 \usage{
   list.mysql.projects(dbuser, dbpwd, dbname)
 }
@@ -15,6 +15,9 @@
   project names vector
 }
 \description{
+  Description: List projects in MySQL database
+}
+\details{
   Arguments:
 }
 \author{

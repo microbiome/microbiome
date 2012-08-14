@@ -1,6 +1,6 @@
 \name{pick.training.samples}
 \alias{pick.training.samples}
-\title{Description: Split data set into training and test samples}
+\title{pick.training.samples}
 \usage{
   pick.training.samples(sample.info,
     training.fraction = 0.8, rseed = 1463)
@@ -18,6 +18,10 @@
   corresponding sample sets.
 }
 \description{
+  DescriptioN: Split data set into training and test
+  samples
+}
+\details{
   Arguments:
 }
 \author{

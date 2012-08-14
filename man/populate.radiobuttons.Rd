@@ -1,6 +1,6 @@
 \name{populate.radiobuttons}
 \alias{populate.radiobuttons}
-\title{Description: low.level functions required by GUI}
+\title{Description: populate radiobuttons}
 \usage{
   populate.radiobuttons(tt, title, var.names, var.values,
     var.init)

@@ -1,6 +1,6 @@
 \name{ReadParameters}
 \alias{ReadParameters}
-\title{Description: Define parameters in select box, or bring from earlier session}
+\title{Description: Define parameters in select box}
 \usage{
   ReadParameters(con)
 }

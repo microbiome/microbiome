@@ -1,7 +1,6 @@
 \name{estimate.diversity}
 \alias{estimate.diversity}
-\title{Description: Estimate diversities for each sample (column)
-Aliases: get.diversity.estimates. Also replaces the function ST: diversity.indices}
+\title{estimate.diversity}
 \usage{
   estimate.diversity(dat, diversity.index = "shannon",
     det.th = NULL)
@@ -21,6 +20,11 @@ Aliases: get.diversity.estimates. Also replaces the function ST: diversity.indic
   diversity indicators
 }
 \description{
+  Description: Estimate diversities for each sample
+  (column) Aliases: get.diversity.estimates. Also replaces
+  the function ST: diversity.indices
+}
+\details{
   Arguments:
 }
 \author{

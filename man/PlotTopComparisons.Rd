@@ -1,6 +1,6 @@
 \name{PlotTopComparisons}
 \alias{PlotTopComparisons}
-\title{Description: Visualization of top findings from pairwise.comparisons function}
+\title{Description: Visualize top findings from pairwise.comparisons}
 \usage{
   PlotTopComparisons(x, y, oligo.map, color.level,
     bar.level, top.findings, top.findings.qvals,
@@ -34,6 +34,9 @@
   their q-values
 }
 \description{
+  FIXME: merge with top.barplots?
+}
+\details{
   Arguments:
 }
 \author{

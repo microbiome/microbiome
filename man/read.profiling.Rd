@@ -1,6 +1,6 @@
 \name{read.profiling}
 \alias{read.profiling}
-\title{Description: Function to read run.profiling.script output into R}
+\title{read.profiling}
 \usage{
   read.profiling(level, method, data.dir, log10 = FALSE)
 }
@@ -24,6 +24,9 @@
   data matrix (phylo x samples)
 }
 \description{
+  Description: read run.profiling.script output into R
+}
+\details{
   Arguments:
 }
 \examples{

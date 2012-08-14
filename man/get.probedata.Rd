@@ -1,6 +1,6 @@
 \name{get.probedata}
 \alias{get.probedata}
-\title{Description: Get phylogeny}
+\title{Description: Get probedata}
 \usage{
   get.probedata(hybridization.ids, rmoligos, dbuser, dbpwd,
     dbname, mc.cores = 1)

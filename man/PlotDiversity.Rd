@@ -1,7 +1,6 @@
 \name{PlotDiversity}
 \alias{PlotDiversity}
-\title{Description: Plot and save diversity indices
-Based on ST 01-03-2011}
+\title{PlotDiversity}
 \usage{
   PlotDiversity(dat, diversity.index, filename = NULL)
 }
@@ -21,6 +20,10 @@ Based on ST 01-03-2011}
   diversity
 }
 \description{
+  Description: Plot and save diversity indices Based on ST
+  01-03-2011
+}
+\details{
   Arguments:
 }
 \author{

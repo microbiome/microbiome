@@ -22,7 +22,8 @@ library(microbiome)
   \email{leo.lahti@iki.fi}
 }
 \references{
-  See citation("microbiome") \url{http://TBA}
+  See citation("microbiome")
+  \url{http://microbiome.github.com}
 }
 \keyword{package}
 

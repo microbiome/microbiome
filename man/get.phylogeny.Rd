@@ -1,6 +1,6 @@
 \name{get.phylogeny}
 \alias{get.phylogeny}
-\title{Description: Get phylogeny}
+\title{get.phylogeny}
 \usage{
   get.phylogeny(phylogeny, rmoligos = NULL, dbuser, dbpwd,
     dbname, verbose = TRUE,
@@ -22,12 +22,17 @@
   \item{remove.nonspecific.oligos}{Logical. Remove oligos
   with multiple targets.}
 
-  \item{chip}{chip type Returns:}
+  \item{chip}{chip type
+
+  Returns:}
 }
 \value{
   oligo.map
 }
 \description{
+  Description: Get phylogeny
+}
+\details{
   Arguments:
 }
 \author{

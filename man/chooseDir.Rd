@@ -8,7 +8,7 @@
   \item{...}{parameters to pass}
 }
 \value{
-  TBA
+  choice
 }
 \description{
   Choosing (and creating) a directory

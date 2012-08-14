@@ -1,6 +1,6 @@
 \name{pairwise.comparisons}
 \alias{pairwise.comparisons}
-\title{Description: Perform pairwise comparison between factor levels}
+\title{Description: pairwise comparison between factor levels}
 \usage{
   pairwise.comparisons(x, y, qth = 0.05, resdir = NULL)
 }

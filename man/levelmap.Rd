@@ -1,6 +1,6 @@
 \name{levelmap}
 \alias{levelmap}
-\title{Description: map phylotypes to upper hierarchy level}
+\title{levelmap}
 \usage{
   levelmap(phylotypes, level.from, level.to, oligomap)
 }
@@ -19,6 +19,9 @@
   mappings
 }
 \description{
+  Description: map phylotypes between hierarchy levels
+}
+\details{
   Arguments:
 }
 \author{
