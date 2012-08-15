@@ -30,6 +30,7 @@
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
 #' @keywords utilities
+
 read.profiling <- function(level, method, data.dir, log10 = FALSE){
 
   svDialogsT <- require(svDialogs)
@@ -84,4 +85,3 @@ read.profiling <- function(level, method, data.dir, log10 = FALSE){
   tab    
 
 }
-

@@ -1071,47 +1071,7 @@ runPCA <- function(d, level, c1, c2, data.labels = NULL, write.dir, group.by = N
 }
 
 
-#' Description: phylogenetic distance matrix for HITChip
-#'
-#' Arguments:
-#'   @param level phylogeny level
-#'   @param f.phylomap phylogenetic map with a column for each level, and one column for the ID which matches with the sequence similarity matrix in f. phylodist file
-#'   @param f.phylodist probe sequence similarity matrix 
-#'
-#' Returns:
-#'   @return list
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Jarkko Salojarvi \email{jarkko.salojarvi@@helsinki.fi}
-#' @keywords utilities
 
-hitchip.phylodistance <- function (level, f.phylomap, f.phylodist) {
-  		     
-  phylogeny <- read.csv(f.phylomap, sep = "\t", header = TRUE)
-  tab <- read.csv(f.phylodist, sep = "\t", header = TRUE, row.names = 1)
-  tab <- tab[colnames(tab), colnames(tab)]
-
-  # Get all distances for each phylotype at given level
-  pts <- unique(phylogeny[[gsub(" ", "", level)]])
-  pd <- array(NA, dim = c(length(pts), length(pts)))
-  rownames(pd) <- colnames(pd) <- pts
-  for (pt1 in pts) {
-    ids1 <- as.character(phylogeny$reference[which(phylogeny[[gsub(" ", "", level)]] == pt1)])
-    for (pt2 in pts) {
-      ids2 <- as.character(phylogeny$reference[which(phylogeny[[gsub(" ", "", level)]] == pt2)])
-      # Use mean of pairwise phylogenies as the summary distance
-      # for this level to the other levels
-      if (length(ids1)>0 && length(ids2)>0) {
-        mat <- as.matrix(tab[ids1, ids2], nrow = length(ids1))
-        pd[pt1, pt2] <- 1 - mean(mat)
-        pd[pt2, pt1] <- pd[pt1, pt2]
-      }
-    }
-  }
-
-  pd
-}
 
 #' fetch.extractions
 #' Fetch extractions from the phyloarray database.
