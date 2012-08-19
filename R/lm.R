@@ -113,53 +113,6 @@ lm.matrix <- function(formula, d.matrix, d.info, type = "coef") {
 }
 
 
-#' Description:  Computes the given lm model for each variable (row) in the given matrix/data frame
-#'  		 Designed for HITchip matrices, but is applicable to any other matrix also.
-#'  		 NOTE: does not take log automatically!
-#'
-#' Arguments:
-#'   @param formula formula
-#'   @param d.matrix data matrix
-#'   @param d.info information 
-#'   @param contr TBA
-#'   @param Cvar TBA
-#'   @param fit.contrast 
-#'
-#' Returns:
-#'   @return lmMatrixRes
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-lm.matrix2 <- function(formula, d.matrix, d.info, contr = NULL, Cvar = NULL, fit.contrast = NULL){ # na.action = na.fail)
-  
-  require(limma)
-
-  vars <- rownames(d.matrix)
-  lmMatrixRes <- list()
-
-  cat("Computing lm for the following variables and data:\n")
-  print(vars)
-  str(d.info)
-  str(t(d.matrix))
-  
-  for(v in vars){
-    data <- d.info
-    data$y <- as.vector(t(d.matrix[v,]))
-
-    lmMatrixRes$lm[[v]] <- lm(formula, data)#, na.action)
-    lmMatrixRes$anova[[v]] <- try(anova(lmMatrixRes$lm[[v]]))
-    lmMatrixRes$summary[[v]] <- try(summary(lmMatrixRes$lm[[v]]))
-    if (!is.null(Cvar)){
-      lmMatrixRes$contrast[[v]] <- fit.contrast(lm(formula, data), Cvar, contr)
-    }
-  }
-  lmMatrixRes
-}
-
 
 #' Description: Get Pvals From Lm Matrix
 #'
