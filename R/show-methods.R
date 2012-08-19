@@ -2,6 +2,7 @@
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
+# http://microbiome.github.com/
 
 # This program is open source software; you can redistribute it and/or
 # modify it under the terms of the FreeBSD License (keep this notice):

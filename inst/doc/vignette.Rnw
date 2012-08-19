@@ -48,9 +48,13 @@ the Molecular Ecology group, Laboratory of Microbiology, Wageningen
 University, Netherlands, and Gut Group, Department of Veterinary
 Bioscience, University of Helsinki, Finland. 
 
-The current version is a preliminary alpha release. The features and documentation are unstable and under development.
+% Many people have contributed to the project, 
+% including Leo Lahti, Jarkko Salojärvi, Douwe Molenaar, Janne Nikkilä, Jonna Jalanka-Tuovinen, 
+% Susana Fuentes, Sebastian Tims, Hauke Smidt, and Willem M de Vos.
 
-{\bf Contact} microbiome-admin@googlegroups.com
+The current version is in beta. The features and documentation are unstable and under development. For 
+further information, check the website: http://microbiome.github.com or contact the admins 
+through microbiome-admin@googlegroups.com
 
 For installation instructions and other documentation, see
 https://github.com/microbiome/microbiome/wiki/
