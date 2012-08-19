@@ -25,7 +25,6 @@
 #' Returns:
 #'   @return TBA
 #'
-#' @export
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -61,7 +60,6 @@ plotPCA <- function(dPCA, main="PCA plot", xPC = 1, yPC = 2, showLabels = T, typ
 #' Returns:
 #'   @return plot
 #'
-#' @export
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -104,7 +102,6 @@ plotGroupPCA <- function(dPCA,groups,main="PCA plot",xPC=1, yPC=2,type="n",
 #' Returns:
 #'   @return plot
 #'
-#' @export
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -132,7 +129,6 @@ plotOligoP <- function(d, tax.level='level1',
 #' Returns:
 #'   @return barplot
 #'
-#' @export
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -155,7 +151,7 @@ plotMeanProfile <- function(data){
 #' Returns:
 #'   @return Used for side effects
 #'
-#' @export
+
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -174,8 +170,7 @@ read.in.data <- function(...) {
 #' Generic method for submission of calculated data to the database 
 #' @param x TBA
 #'
-#' @return TBA
-#' @export 
+#' @return TBA 
 #' @references See citation("microbiome")
 #' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
@@ -201,8 +196,7 @@ submitDB <- function(x) {
 #'
 #' @param x TBA
 #'
-#' @return TBA
-#' @export 
+#' @return TBA 
 #' @references See citation("microbiome")
 #' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
@@ -238,8 +232,7 @@ submitDB.sampleOutliers <- function( x ) {
 #' @param scale TBA
 #' @param ... parameters to pass
 #'
-#' @return TBA
-#' @export 
+#' @return TBA 
 #' @references See citation("microbiome")
 #' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
@@ -287,8 +280,7 @@ panel.stability <- function (x, y, scale=c("linear","logarithmic"), ...) {
 #'           database from which the sample data were taken and a
 #'           'sampleID' length 1 character vector containing the
 #'           sampleID.
-#'
-#' @export 
+#' 
 #' @references See citation("microbiome")
 #' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
@@ -342,7 +334,6 @@ sampleOutliers <- function (con, sampleID, significance=0.001) {
 #' Returns:
 #'   @return matrix
 #'
-#' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -365,103 +356,6 @@ read.hitchip2 <- function (hitchip.file) {
 }
 
 
-#' Description: level2-level1 mappings
-#'
-#' Arguments:
-#'   @param l2 level2 phylotypes
-#'   @param oligomap oligomap
-#'
-#' Returns:
-#'   @return mappings
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-level2TOlevel1 <- function (l2, oligomap) {
-
-   # Check which L1/L2 id type used	       
-   lev1 <- intersect(c("level 1", "level.1", "L1"), colnames(oligomap))
-   lev2 <- intersect(c("level 2", "level.2", "L2"), colnames(oligomap))
-
-   omap <- oligomap[match(as.character(l2), oligomap[[lev2]]), c(lev2, lev1)]
-   omap[[lev2]] <- factor(omap[[lev2]])
-   omap[[lev1]] <- factor(omap[[lev1]])
-
-   omap
-}
-
-#' Description: L2-species mappings
-#'
-#' Arguments:
-#'   @param l2 l2
-#'   @param oligomap oligomap
-#'
-#' Returns:
-#'   @return L2-species mappings
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-L2.species <- function(l2, oligomap) {
-  unique(as.character(oligomap$species[oligomap$level.2 == l2]))
-}
-
-#' Description: L2/L1-species mappings. For L1/L2 groups, list corresponding species.
-#'
-#' Arguments:
-#'   @param level level
-#'   @param oligomap oligomap
-#'   @param groups return selected groups only
-#'
-#' Returns:
-#'   @return level-species mappings
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-level.species <- function(level, oligomap, groups = NULL) {
-  res <- split(oligomap$species, oligomap[[level]])	      
-  res <- lapply(res, unique)
-  if (is.null(groups)) { groups <- names(res) }
-  res[groups]
-}
-
-
-
-
-#' Description: species-levels mappings
-#'
-#' Arguments:
-#'   @param spec species
-#'   @param oligomap oligomap
-#'
-#' Returns:
-#'   @return species-levels mappings
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-species2levels <- function (spec, oligomap) {
-   # Check which L1/L2 id type used	       
-   lev1 <- intersect(c("level 1", "level.1", "L1"), colnames(oligomap))
-   lev2 <- intersect(c("level 2", "level.2", "L2"), colnames(oligomap))
-	       
-   omap <- oligomap[match(as.character(spec), oligomap$species), c("species", lev2, lev1)]
-   omap[["species"]] <- factor(omap[["species"]])
-   omap[[lev1]] <- factor(omap[[lev1]])
-   omap[[lev2]] <- factor(omap[[lev2]])
-
-   omap
-}
-
 #' Description: read hitchip prof 008 v3.4
 #'
 #' Arguments:
@@ -471,7 +365,6 @@ species2levels <- function (spec, oligomap) {
 #' Returns:
 #'   @return d
 #'
-#' @export
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -528,7 +421,7 @@ read.hitchip.prof008v3.4 <- function(path="../data/", dataID=""){
 #' Returns:
 #'   @return d
 #'
-#' @export
+
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -580,7 +473,6 @@ read.hitchip.prof010 <- function(path="../data/", dataID = ""){
 #' Returns:
 #'   @return x
 #'
-#' @export
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -621,7 +513,6 @@ preproc.Hitchip <- function (x) {
 #' Returns:
 #'   @return tkpack
 #'
-#' @export
 #'
 #' @references
 #' See citation("microbiome") 
@@ -711,7 +602,6 @@ PCA.dialogue <- function(d, d.i, write.dir) {
 #' Returns:
 #'   @return A list.
 #'
-#' @export
 #'
 #' @references
 #' See citation("microbiome") 
@@ -760,7 +650,6 @@ populate.checkboxes <- function(tt, title, var.names, var.init){
 #' Returns:
 #'   @return data
 #'
-#' @export
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -837,48 +726,7 @@ importProjectFromPhyloarrayToR <- function(projectName = 'ProvasI',
   return(importRes)
 }
 
-#' sampleReproducibility function
-#' @param con MySQL connection
-#' @param sampleID sampleID
-#'
-#' @return TBA
-#' @export 
-#' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples # TBA
-#' @keywords utilities
 
-sampleReproducibility <- function(con, sampleID) {
-   if (phyloarrayConnection(con)) {
-      if ((!(is.vector(sampleID) & length(sampleID)==1)) | (!is.character(sampleID))) {
-         stop("Argument 'sampleID' must be a character vector of length 1")
-      }
-      extr <- fetch.extractions(con,condition=list(list(field='sampleID',value=sampleID)))
-      extr <- extr[extr$isDiscarded==0 & extr$noReproCheck==0 & extr$noSampleNormalisation==0,]
-      
-   }
-}
-
-#' Description: transparent color
-#'
-#' Arguments:
-#'   @param color color
-#'   @param tr transparency level
-#'
-#' Returns:
-#'   @return TBA
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-trans <- function(color, tr = 150){
-  trCol <- rgb(col2rgb(color)[1],
-               col2rgb(color)[2],
-               col2rgb(color)[3],tr, maxColorValue=255)
-}
 
 
 #' Description: plot scatter
@@ -891,8 +739,7 @@ trans <- function(color, tr = 150){
 #'
 #' Returns:
 #'   @return scatterplot 
-#'
-#' @export 
+#' 
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -921,7 +768,6 @@ plotScatter <- function(sampleA, sampleB, d, cex=1){
 #' Returns:
 #'   @return TBA
 #'
-#' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -1035,7 +881,6 @@ hitchip.sig.lme <- function(d.hitchip, annot, my.class, time = NULL){
 #' Returns:
 #'   @return A list.
 #'
-#' @export
 #'
 #' @references
 #' See citation("microbiome") 
@@ -1086,47 +931,6 @@ runPCA <- function(d, level, c1, c2, data.labels = NULL, write.dir, group.by = N
 
 
 
-#' fetch.extractions
-#' Fetch extractions from the phyloarray database.
-#'
-#' The function fetches complete records from the \emph{extractions}
-#' table, including some fields from the array and hybridisation
-#' tables. If \code{condition=NULL} it will fetch all records and if
-#' \code{condition} is defined it will fetch only those records that
-#' comply with the condition.  Condition must be a list of lists, each
-#' having at least the fields \emph{field} and \emph{value}.  The
-#' \emph{field} field must be a character vector of length 1 and
-#' \emph{value} must be a vector.  Each of the values will be evaluated
-#' as a optional value for the \emph{field} field.  This is an example:
-#' "\code{list(list(field='projectName',value=c(A,B)))}" that will be
-#' evaluated to the SQL condition "\code{WHERE (projectName='A' OR
-#' projectName='B')}".
-#'
-#' @param con MySQL connection
-#' @param condition list of lists with field-value pairs
-#' @return An \code{extractionList} object consisting of a list with one entry called "extractions" which is a dataframe consisting of the records obtained from the database. 
-#'
-#' @export 
-#' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples # TBA
-#' @keywords utilities
-
-
-fetch.extractions <- function (con, condition = NULL) {
-   if (phyloarrayConnection(con)) {
-      stm <- paste("SELECT arrayID, barcode, array, sampleID, dye, isDiscarded,",
-                   "featureExtraction.* FROM array JOIN hybridisation USING",
-                   "(arrayID) JOIN featureExtraction USING (hybridisationID)")
-      stm <- paste(stm, expandCondition(condition), sep='')
-      rs <- dbSendQuery(con, stm)
-      extrs <- fetch(rs, n=-1)
-      return(new("extractionList",list(extractions=extrs))) 
-   }
-}
-
-
-
 #' Description: Load/install necessary packages and check OS
 #'
 #' Arguments:
@@ -1134,7 +938,6 @@ fetch.extractions <- function (con, condition = NULL) {
 #' Returns:
 #'   @return operating system string
 #'
-#' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -1162,7 +965,6 @@ check.dependencies <- function () {
 #' Returns:
 #'   @return background corrected data matrix
 #'
-#' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -1179,42 +981,6 @@ remove.background <- function (dat) {
   dat
 } 
 
-#' Description: heatmap function for complete linkage clustering
-#'
-#' Arguments:
-#'   @param x data matrix
-#'
-#' Returns:
-#'   @return hclust object
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-completeClust <- function (x) {
-  hclust(x, method = "complete")
-}
-
-#' Description: wardClust is for heatmap function for Ward-clustering
-#'
-#' Arguments:
-#'   @param x data matrix
-#'
-#' Returns:
-#'   @return hclust object
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-wardClust <- function(x){
-  hclust(x, method = "ward")
-}
-
 
 #' Description: list corresponding entities
 #' 
@@ -1225,7 +991,6 @@ wardClust <- function(x){
 #' Returns:
 #'   @return entities
 #'
-#' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -1246,7 +1011,6 @@ list.entities <- function (level, phylo) {
 #' Returns:
 #'   @return TBA
 #'
-#' @export
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -1291,7 +1055,6 @@ estimateSpeciesPresence <- function(data, pi){
 #' Returns:
 #'   @return d
 #'
-#' @export
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -1345,7 +1108,6 @@ read.hitchip <- function(path = "../data/", dataID = ""){
 #' Returns:
 #'   @return TBA
 #'
-#' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -1388,7 +1150,6 @@ get.bkg.params <- function(){
 #' @param subset logical expression indicating rows to use for normalisation
 #'
 #' @return TBA
-#' @export 
 #' @references See citation("microbiome")
 #' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
@@ -1439,8 +1200,7 @@ spatnorm <- function(data, x="x", y="y", signal="signal", method=c("loess"), spa
 #' @param which.data One or more of raw, rawBGcor, spatnorm and qnorm
 #' @param transformation One of none, avg, log or avglog
 #'
-#' @return A dataframe with the selected measurements
-#' @export 
+#' @return A dataframe with the selected measurements 
 #' @references See citation("microbiome")
 #' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
@@ -1501,62 +1261,6 @@ fetch.measurements <- function (con, extrList,
    }   
 }
 
-#' header part
-#' 
-#' @param file filename
-#' @param title title
-#'
-#' @return TBA
-#' @export 
-#' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples # TBA
-#' @keywords utilities
-
-HTMLReportBegin <- function (file="report.html",title="Report Title") {
-   cat(paste("<html><head><title>",
-   title, "</title></head>",
-   "<body>",
-   sep = ""), file=file, append=TRUE)
-}
-
-#' generic report part
-#' 
-#' @param x TBA
-#' @param file TBA
-#' @param CSSfile TBA
-#'
-#' @return TBA
-#' @export 
-#' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples # TBA
-#' @keywords utilities
-
-HTMLReport <- function (x, file=paste(file.path(x$directory,x$filename),'html',sep='.'), CSSfile='R2HTML.css') {
-   HTMLReportBegin(file)
-   file.copy(file.path(system.file(package='R2HTML'),'output','R2HTML.css'),file.path(x$directory,'R2HTML.css'))
-   HTMLCSS(file=file, CSSfile=CSSfile)
-   HTML(x,file=file)
-   HTMLReportEnd(file)
-   return(file)
-}
-
-#' End html report part
-#' 
-#' @param file filename
-#'
-#' @return TBA
-#' @export 
-#' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples # TBA
-#' @keywords utilities
-
-HTMLReportEnd <- function (file="report.html") {
-   cat("<hr size=1></body></html>",
-       file=file, append=TRUE)
-}
 
 #' Relative standard deviation using paired measurements
 #'
@@ -1570,8 +1274,7 @@ HTMLReportEnd <- function (file="report.html") {
 #' @param x dataframe, matrix or vector
 #' @param y dataframe, matrix or vector compatible with x
 #'
-#' @return Returns a matrix of rsd values.
-#' @export 
+#' @return Returns a matrix of rsd values. 
 #' @references See citation("microbiome")
 #' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
@@ -1619,8 +1322,7 @@ rsd <- function(x, y = NULL) {
 #'  @param x numerical vector
 #'  @param avgvar the estimated variance of the distribution
 #' Returns:
-#'  @return Returns the p-value of the outlier test
-#' @export 
+#'  @return Returns the p-value of the outlier test 
 #' @references See citation("microbiome")
 #' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
@@ -1632,84 +1334,3 @@ outlierPvalue <- function (x, avgvar) {
 }
 
 
-#' Description: This feature for dendrograms took like an hour to find out
-#'               because of unadequate documentation...
-#'
-#' Arguments:
-#'   @param dd TBA
-#'
-#' Returns:
-#'   @return dd
-#'
-#' @export 
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-get.dd.order <- function(dd){
-  unlist(dd)
-}
-
-
-#' Description: Split the data in training and test samples
-#'
-#' Arguments:
-#'   @param x x
-#'   @param y y
-#'   @param spec species
-#'
-#' Returns:
-#'   @return splitted data
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-SplitTrainTest <- function (x, y, spec) {
-
-  rsample <- sample(nrow(spec), floor(nrow(spec)/2))
-
-  x.train <- x[rsample,]
-  y.train <- y[rsample]
-  x.test <- x[-rsample,]
-  y.test <- y[-rsample]
-
-  test.samples <- rownames(x)[-rsample]
-  train.samples <- rownames(x)[rsample]
-
-  list(x.train = x.train, y.train = y.train, x.test = x.test, y.test = y.test, test.samples = test.samples, train.samples = train.samples)  
- 
-} 
-
-
-#' Description: R or S function to write an R list to an ASCII file.
-#'   This can be used to create files for those who want to use
-#'   a spreadsheet or other program on the data.
-#'
-#' Arguments:
-#'   @param x TBA
-#'   @param file TBA
-#'   @param append TBA
-#'
-#' Returns:
-#'   @return TBA
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @note Modified from version MHP July 7, 2004. 
-#' @keywords utilities
-
-list2ascii <- function(x,file=paste(deparse(substitute(x)),".txt",sep=""), append = F) {
-
-   tmp.wid = getOption("width")  # save current width
-   options(width=10000)          # increase output width
-   sink(file, append=append)     # redirect output to file
-   print(x)                      # print the object
-   sink()                        # cancel redirection
-   options(width=tmp.wid)        # restore linewidth
-   return(invisible(NULL))       # return (nothing) from function
-}
