@@ -1,3 +1,15 @@
+# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
+
+# This file is a part of the microbiome R package
+
+# This program is open source software; you can redistribute it and/or
+# modify it under the terms of the FreeBSD License (keep this notice):
+# http://en.wikipedia.org/wiki/BSD_licenses
+
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 #' list.mysql.projects
 #' 
@@ -12,7 +24,7 @@
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 list.mysql.projects <- function (dbuser, dbpwd, dbname) { 
@@ -51,7 +63,7 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 get.phylogeny <- function (phylogeny, rmoligos = NULL, dbuser, dbpwd, dbname, verbose = TRUE, remove.nonspecific.oligos = FALSE, chip = "HITChip") {   
@@ -186,7 +198,7 @@ get.phylogeny <- function (phylogeny, rmoligos = NULL, dbuser, dbpwd, dbname, ve
 #' @return A dataframe with the selected records from the projects table
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
@@ -223,7 +235,7 @@ fetch.projects <- function (con, condition = NULL) {
 #' @return A dataframe with the selected records from the samples table
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 

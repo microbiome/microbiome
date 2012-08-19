@@ -1,9 +1,8 @@
-# Copyright (C) 2006-2012 Leo Lahti, and Jarkko Salojarvi, Janne
-# Nikkila, and Douwe Molenaar. All rights reserved.
-# Contact: <leo.lahti@iki.fi>
+# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
-#
+
 # This program is open source software; you can redistribute it and/or
 # modify it under the terms of the FreeBSD License (keep this notice):
 # http://en.wikipedia.org/wiki/BSD_licenses
@@ -11,6 +10,7 @@
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
 
 #' run.profiling.script
 #' 
@@ -27,7 +27,7 @@
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 run.profiling.script <- function (dbuser, dbpwd, dbname, verbose = TRUE) {
@@ -73,7 +73,7 @@ run.profiling.script <- function (dbuser, dbpwd, dbname, verbose = TRUE) {
 #' @export
 #' @examples # TBA
 #' @references See citation("microbiome")
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 calculate.hclust <- function (dat, hclust.method = "ward", metric = "correlation") {
@@ -113,7 +113,7 @@ calculate.hclust <- function (dat, hclust.method = "ward", metric = "correlation
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 get.probeset <- function (name, level, phylo, data, log10 = TRUE) {

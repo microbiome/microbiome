@@ -1,3 +1,17 @@
+# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
+
+# This file is a part of the microbiome R package
+
+# This program is open source software; you can redistribute it and/or
+# modify it under the terms of the FreeBSD License (keep this notice):
+# http://en.wikipedia.org/wiki/BSD_licenses
+
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
 #' Description: Computes the given lme model for each variable (row) in the given data frame
 #'      Designed for HITchip matrices, but is applicable to any other matrix also.
 #'      NOTE: does not take log automatically!
@@ -23,7 +37,7 @@
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 lmeMatrix <- function(fixed, vars, d.matrix, d.info, random,
@@ -60,59 +74,6 @@ lmeMatrix <- function(fixed, vars, d.matrix, d.info, random,
 
 
 
-#' Description:  Computes the given lm model for each variable (row) in the 
-#'               given matrix/data frame. Designed for HITchip matrices, 
-#' 		 but is applicable to any other matrix also.
-#'  		 NOTE: does not take log! 
-#'
-#' FIXME: merge with lm.matrix2
-#'
-#' Arguments:
-#'   @param formula formula
-#'   @param d.matrix data matrix
-#'   @param d.info information 
-#'   @param type information to return
-#'
-#' Returns:
-#'   @return matrix
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
-#' @keywords utilities
-
-lm.matrix <- function(formula, d.matrix, d.info, type = "coef") {
-
-  require(limma)
-
-  lm.res <- NULL
-
-  for (v in colnames(d.matrix)) {
-
-      df <- data.frame(list(d.info, y = as.vector(d.matrix[,v])))
-      lmfit <- lm(formula, df)
-      if (type == "coef") {
-        lm.res <- rbind(lm.res, lmfit$coefficients)
-      } else if (type == "qval") {
-        lm.res <- c(lm.res, anova(lmfit)[["Pr(>F)"]][[1]])
-      }
-  }
-
-  if (type == "coef") {
-    rownames(lm.res) <- colnames(d.matrix)
-  } else if (type == "qval") {
-    names(lm.res) <- colnames(d.matrix)
-    require(qvalue)
-    lm.res[is.na(lm.res)] <- 1 # pvalue = 1 for missing vals
-    lm.res <- qvalue(lm.res, pi0.method = "bootstrap")$qvalue
-  }
-
-  lm.res
-
-}
-
-
 
 #' Description: Get Pvals From Lm Matrix
 #'
@@ -125,7 +86,7 @@ lm.matrix <- function(formula, d.matrix, d.info, type = "coef") {
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 getPvalsFromLmMatrix <- function(lmMatrix){

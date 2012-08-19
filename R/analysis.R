@@ -1,5 +1,5 @@
 # Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
-# Contact: <leo.lahti@iki.fi>. All rights reserved.
+# Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
 
@@ -23,7 +23,7 @@
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Jarkko Salojarvi \email{jarkko.salojarvi@@helsinki.fi}
+#' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 hitchip.phylodistance <- function (level, f.phylomap, f.phylodist) {
@@ -69,7 +69,7 @@ hitchip.phylodistance <- function (level, f.phylomap, f.phylodist) {
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 distance.matrix <- function (x, method = "pearson", ...) {
@@ -96,7 +96,7 @@ distance.matrix <- function (x, method = "pearson", ...) {
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 pairwise.comparisons <- function (x, y, qth = 0.05, resdir = NULL) {
@@ -190,7 +190,7 @@ pairwise.comparisons <- function (x, y, qth = 0.05, resdir = NULL) {
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 check.wilcoxon <- function (...) {
@@ -258,7 +258,7 @@ check.wilcoxon <- function (...) {
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NULL, order = FALSE, n.signif = 0, verbose = TRUE, mode = "list"){
@@ -476,7 +476,7 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 calculate.stability <- function (dat) {

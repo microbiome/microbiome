@@ -1,3 +1,16 @@
+# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
+
+# This file is a part of the microbiome R package
+
+# This program is open source software; you can redistribute it and/or
+# modify it under the terms of the FreeBSD License (keep this notice):
+# http://en.wikipedia.org/wiki/BSD_licenses
+
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
 #' Description: Plot PCA with labels and explained variances
 #'
 #' Arguments:
@@ -15,7 +28,7 @@
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 plotPCA <- function(dPCA, main="PCA plot", xPC = 1, yPC = 2, showLabels = T, type = "n", ...){
@@ -51,7 +64,7 @@ plotPCA <- function(dPCA, main="PCA plot", xPC = 1, yPC = 2, showLabels = T, typ
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 plotGroupPCA <- function(dPCA,groups,main="PCA plot",xPC=1, yPC=2,type="n",
@@ -94,7 +107,7 @@ plotGroupPCA <- function(dPCA,groups,main="PCA plot",xPC=1, yPC=2,type="n",
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 plotOligoP <- function(d, tax.level='level1',
@@ -122,7 +135,7 @@ plotOligoP <- function(d, tax.level='level1',
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 plotMeanProfile <- function(data){
@@ -145,7 +158,7 @@ plotMeanProfile <- function(data){
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 read.in.data <- function(...) {
    tclvalue(rdir) <- paste(tclvalue(tkchooseDirectory(
@@ -164,7 +177,7 @@ read.in.data <- function(...) {
 #' @return TBA
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
@@ -191,7 +204,7 @@ submitDB <- function(x) {
 #' @return TBA
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
@@ -228,7 +241,7 @@ submitDB.sampleOutliers <- function( x ) {
 #' @return TBA
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
@@ -277,7 +290,7 @@ panel.stability <- function (x, y, scale=c("linear","logarithmic"), ...) {
 #'
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
@@ -331,7 +344,7 @@ sampleOutliers <- function (con, sampleID, significance=0.001) {
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 read.hitchip2 <- function (hitchip.file) {
@@ -363,7 +376,7 @@ read.hitchip2 <- function (hitchip.file) {
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 level2TOlevel1 <- function (l2, oligomap) {
@@ -390,7 +403,7 @@ level2TOlevel1 <- function (l2, oligomap) {
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 L2.species <- function(l2, oligomap) {
@@ -409,7 +422,7 @@ L2.species <- function(l2, oligomap) {
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 level.species <- function(level, oligomap, groups = NULL) {
@@ -433,7 +446,7 @@ level.species <- function(level, oligomap, groups = NULL) {
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 species2levels <- function (spec, oligomap) {
@@ -461,7 +474,7 @@ species2levels <- function (spec, oligomap) {
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 read.hitchip.prof008v3.4 <- function(path="../data/", dataID=""){
@@ -518,7 +531,7 @@ read.hitchip.prof008v3.4 <- function(path="../data/", dataID=""){
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' @examples # usage example:
 #' # d = read.hitchip.prof010("my.file.path")
@@ -570,7 +583,7 @@ read.hitchip.prof010 <- function(path="../data/", dataID = ""){
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 preproc.Hitchip <- function (x) {
@@ -612,7 +625,7 @@ preproc.Hitchip <- function (x) {
 #'
 #' @references
 #' See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 PCA.dialogue <- function(d, d.i, write.dir) {
@@ -702,7 +715,7 @@ PCA.dialogue <- function(d, d.i, write.dir) {
 #'
 #' @references
 #' See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 populate.checkboxes <- function(tt, title, var.names, var.init){
@@ -750,7 +763,7 @@ populate.checkboxes <- function(tt, title, var.names, var.init){
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 importProjectFromPhyloarrayToR <- function(projectName = 'ProvasI', 
@@ -831,7 +844,7 @@ importProjectFromPhyloarrayToR <- function(projectName = 'ProvasI',
 #' @return TBA
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
@@ -858,7 +871,7 @@ sampleReproducibility <- function(con, sampleID) {
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 trans <- function(color, tr = 150){
@@ -882,7 +895,7 @@ trans <- function(color, tr = 150){
 #' @export 
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 plotScatter <- function(sampleA, sampleB, d, cex=1){
@@ -910,7 +923,7 @@ plotScatter <- function(sampleA, sampleB, d, cex=1){
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 hitchip.sig.lme <- function(d.hitchip, annot, my.class, time = NULL){
@@ -1026,7 +1039,7 @@ hitchip.sig.lme <- function(d.hitchip, annot, my.class, time = NULL){
 #'
 #' @references
 #' See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 runPCA <- function(d, level, c1, c2, data.labels = NULL, write.dir, group.by = NULL, ...){
@@ -1095,7 +1108,7 @@ runPCA <- function(d, level, c1, c2, data.labels = NULL, write.dir, group.by = N
 #'
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
@@ -1123,7 +1136,7 @@ fetch.extractions <- function (con, condition = NULL) {
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 
@@ -1151,7 +1164,7 @@ check.dependencies <- function () {
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 remove.background <- function (dat) {
@@ -1177,7 +1190,7 @@ remove.background <- function (dat) {
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 completeClust <- function (x) {
@@ -1195,7 +1208,7 @@ completeClust <- function (x) {
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 wardClust <- function(x){
@@ -1214,7 +1227,7 @@ wardClust <- function(x){
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 list.entities <- function (level, phylo) {
@@ -1236,7 +1249,7 @@ list.entities <- function (level, phylo) {
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 estimateSpeciesPresence <- function(data, pi){
@@ -1281,7 +1294,7 @@ estimateSpeciesPresence <- function(data, pi){
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 read.hitchip <- function(path = "../data/", dataID = ""){
@@ -1334,7 +1347,7 @@ read.hitchip <- function(path = "../data/", dataID = ""){
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 get.bkg.params <- function(){
@@ -1377,7 +1390,7 @@ get.bkg.params <- function(){
 #' @return TBA
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
@@ -1429,7 +1442,7 @@ spatnorm <- function(data, x="x", y="y", signal="signal", method=c("loess"), spa
 #' @return A dataframe with the selected measurements
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
@@ -1496,7 +1509,7 @@ fetch.measurements <- function (con, extrList,
 #' @return TBA
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
@@ -1516,7 +1529,7 @@ HTMLReportBegin <- function (file="report.html",title="Report Title") {
 #' @return TBA
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
@@ -1536,7 +1549,7 @@ HTMLReport <- function (x, file=paste(file.path(x$directory,x$filename),'html',s
 #' @return TBA
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
@@ -1560,7 +1573,7 @@ HTMLReportEnd <- function (file="report.html") {
 #' @return Returns a matrix of rsd values.
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
@@ -1609,7 +1622,7 @@ rsd <- function(x, y = NULL) {
 #'  @return Returns the p-value of the outlier test
 #' @export 
 #' @references See citation("microbiome")
-#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
@@ -1631,7 +1644,7 @@ outlierPvalue <- function (x, avgvar) {
 #' @export 
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 get.dd.order <- function(dd){
@@ -1651,7 +1664,7 @@ get.dd.order <- function(dd){
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 SplitTrainTest <- function (x, y, spec) {
@@ -1686,7 +1699,7 @@ SplitTrainTest <- function (x, y, spec) {
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @note Modified from version MHP July 7, 2004. 
 #' @keywords utilities
 

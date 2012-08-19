@@ -1,5 +1,5 @@
 # Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
-# Contact: <leo.lahti@iki.fi>. All rights reserved.
+# Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
 
@@ -28,7 +28,7 @@
 #' @export
 #' @examples # params <- run.profiling.script(...); dat <- read.profiling.data(params$wdir, "level1", "rpa")
 #' @references See citation("microbiome")
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 read.profiling <- function(level, method, data.dir, log10 = FALSE){

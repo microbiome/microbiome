@@ -1,4 +1,15 @@
+# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
+# This file is a part of the microbiome R package
+
+# This program is open source software; you can redistribute it and/or
+# modify it under the terms of the FreeBSD License (keep this notice):
+# http://en.wikipedia.org/wiki/BSD_licenses
+
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
 #' PlotPhylochipHeatmap
@@ -21,7 +32,7 @@
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 PlotPhylochipHeatmap <- function (data,
@@ -137,7 +148,7 @@ PlotPhylochipHeatmap <- function (data,
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 project.data <- function (amat, type = "PCA") {
@@ -238,7 +249,7 @@ project.data <- function (amat, type = "PCA") {
 #' @return A list with the color palette (colors), color breakpoints (breaks), and palette function (palette.function)
 #' @export
 #' @references See citation("microbiome") 
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2)); PlotMatrix(mat, "twoway", midpoint = 3) 
 #' @keywords utilities
 
@@ -349,7 +360,7 @@ PlotMatrix <- function (mat, type = "twoway", midpoint = 0,
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 top.barplots <- function (top.findings, topN = 5, annot, smat) {
@@ -407,7 +418,7 @@ top.barplots <- function (top.findings, topN = 5, annot, smat) {
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 PlotTopComparisons <- function (x, y, oligo.map, color.level, bar.level, top.findings, top.findings.qvals, qth = 0.05, qth.star = 0.01, mode = "barplot") {
@@ -537,7 +548,7 @@ PlotTopComparisons <- function (x, y, oligo.map, color.level, bar.level, top.fin
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
@@ -572,7 +583,7 @@ theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
 #' @export
 #' @examples # dat <- read.profiling(params$wdir, "species", "rpa"); hc <- add.hclust.plots(dat)
 #' @references See citation("microbiome")
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 add.hclust.plots <- function (dat, data.dir, phylogeny) {

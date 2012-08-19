@@ -1,10 +1,8 @@
-# Copyright (C) 2006-2012 Douwe Molenaar, Janne Nikkila, 
-# Leo Lahti, and Jarkko Salojarvi 
-#
-# Contact: <leo.lahti@iki.fi>. All rights reserved.
-#
+# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
+
 # This file is a part of the microbiome R package
-#
+
 # This program is open source software; you can redistribute it and/or
 # modify it under the terms of the FreeBSD License (keep this notice):
 # http://en.wikipedia.org/wiki/BSD_licenses
@@ -12,6 +10,8 @@
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
 
 #' Impute missing values from a Gaussian. 
 #' 
@@ -21,7 +21,7 @@
 #' @export 
 #' @references
 #' See citation("microbiome")
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples #X2 <- impute(X) 
 #' @keywords utilities
 
@@ -46,7 +46,7 @@ impute <- function (X) {
 #' @export 
 #' @references
 #' See citation("microbiome")
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples 
 #' #s2 <- Strip(s) 
 #' @keywords utilities
@@ -86,7 +86,7 @@ Strip <- function (s) {
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 esort <- function(x, sortvar, ...) {
@@ -114,7 +114,7 @@ esort <- function(x, sortvar, ...) {
 #' @export
 #'
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 lower.triangle <- function (mat) {
 
