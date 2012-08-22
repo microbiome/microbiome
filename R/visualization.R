@@ -172,21 +172,24 @@ project.data <- function (amat, type = "PCA") {
   } else if (type == "Sammon") {
     library(MASS)
     d <- as.dist(1-cor(t(amat)))
-    fit <- sammon(d, k = 2) # This gave the clearest visualization. Tuning magic parameter could still improve. Try for instance magic = 0.05.
+    # This gave the clearest visualization. 
+    # Tuning magic parameter could still improve. 
+    # Try for instance magic = 0.05.
+    fit <- sammon(d, k = 2) 
     # Plot solution 
     tab <- data.frame(list(Comp.1 = fit$points[,1], Comp.2 = fit$points[,2]))
     rownames(tab) <- rownames(amat)
-  } 
+  } else if (type == "MDS.classical") {
+    d <- as.dist(1-cor(t(amat)))
+    fit <- cmdscale(d, eig=TRUE, k=2) # classical MDS
+    tab <- data.frame(list(Comp.1 = fit$points[,1], Comp.2 = fit$points[,2]))    
+  } else if (type == "MDS.nonmetric") {
+    d <- as.dist(1-cor(t(amat)))
+    fit <- isoMDS(d, k=2)             # nonmetric MDS
+    tab <- data.frame(list(Comp.1 = fit$points[,1], Comp.2 = fit$points[,2]))    
+  }  
 
-  # TODO MDS
-  #fit <- cmdscale(d, eig=TRUE, k=2) # classical MDS
-  #fit <- isoMDS(d, k=2)             # nonmetric MDS
 
-#library(MASS)
-#d <- as.dist(1-cor(t(amat)))
-#fit <- cmdscale(d, eig=TRUE, k=2) # classical MDS
-#fit <- isoMDS(d, k=2)             # nonmetric MDS
-#fit <- sammon(d, k = 2) # This gave the clearest visualization. Tuning magic parameter could still improve. Try for instance magic = 0.05.
 # Plot solution 
 #x <- fit$points[,1]
 #y <- fit$points[,2]
