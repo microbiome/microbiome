@@ -20,6 +20,9 @@
 \details{
   Arguments:
 }
+\examples{
+# data("toydata-hitchip"); core <- createCore(phylum.matrix)
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

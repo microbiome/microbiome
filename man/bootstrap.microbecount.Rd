@@ -2,8 +2,8 @@
 \alias{bootstrap.microbecount}
 \title{bootstrap.microbecount}
 \usage{
-  bootstrap.microbecount(D, Nsample, minprev = 1,
-    Nboot = 10000, I.thr = 1.8, ncore = 22)
+  bootstrap.microbecount(D, Nsample = NULL, minprev = 1,
+    Nboot = 100, I.thr = 1.8, ncore = 1)
 }
 \arguments{
   \item{D}{data}
@@ -28,6 +28,9 @@
 }
 \details{
   Arguments:
+}
+\examples{
+# data("toydata-hitchip"); bootstrap.microbecount(phylum.matrix)
 }
 \author{
   Contact: Leo Lahti

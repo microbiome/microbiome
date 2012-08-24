@@ -35,7 +35,7 @@
 }
 \author{
   Douwe Molenaar. Maintainer: Leo Lahti
-  \email{leo.lahti@iki.fi}
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
   See citation("microbiome")

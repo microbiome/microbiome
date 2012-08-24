@@ -19,7 +19,7 @@ library(microbiome)
 }
 \author{
   Leo Lahti and Jarkko Salojarvi (UH/WUR). Contact:
-  \email{leo.lahti@iki.fi}
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
   See citation("microbiome")

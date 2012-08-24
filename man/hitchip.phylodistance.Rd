@@ -23,7 +23,7 @@
 }
 \author{
   Contact: Jarkko Salojarvi
-  \email{jarkko.salojarvi@helsinki.fi}
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
   See citation("microbiome")

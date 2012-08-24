@@ -26,7 +26,8 @@ multiple figures}
   Arguments:
 }
 \author{
-  Contact: Leo Lahti \email{leo.lahti@iki.fi}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
   See citation("microbiome")

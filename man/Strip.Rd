@@ -18,7 +18,7 @@
 #s2 <- Strip(s)
 }
 \author{
-  Leo Lahti \email{leo.lahti@iki.fi}
+  Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
   See citation("microbiome")

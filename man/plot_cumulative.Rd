@@ -3,7 +3,7 @@
 \title{plot_cunulative}
 \usage{
   plot_cumulative(d.sub, writedir, fname, i.set = NULL,
-    type = "cumulative", ylim = NULL, phylogeny = NULL)
+    type = "cumulative", ylim = NULL, phylogeny)
 }
 \arguments{
   \item{d.sub}{d.sub}
@@ -30,6 +30,9 @@
 }
 \details{
   Arguments:
+}
+\examples{
+# data("toydata-hitchip"); bs <- bootstrap.microbes(phylum.matrix); plot_cumulative(bs, writedir = "./", "tmp-", phylogeny = phylogeny)
 }
 \author{
   Contact: Leo Lahti
