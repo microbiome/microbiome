@@ -641,21 +641,38 @@ plot.htrees <- function (dat) {
 add.heatmap <- function (dat, data.dir, phylogeny) {
 
   # Read heatmap plotting parameters		 
-  hc.params <- GetHclustParameters(dat, data.dir)
+  # hc.params <- GetHclustParameters(dat, data.dir)
+
+  # Provide just a single set of defaults in the profiling pipeline
+  # If users really have a need to tweak the parameters
+  # it has to be done explicitly and afterwards
+  hc.params <- c(ppcm = 150, 
+  	         hclust.method = "complete",
+		 palette = "white/blue",
+  		 level = "level 2",
+		 clmet = "Pearsons correlation coefficient",
+		 tree.display = "yes",
+  		 figureratio = 12,
+  		 fontsize = 12,
+  		 include.tree = TRUE, 
+		 output.file = paste(data.dir,"/", gsub(" ", "", level), "-oligoprofileClustering.png",sep=""))
+
+  if(ncol(dat) < 3 ) { hc.params$tree.display <- 'no' }
+  cmetrics <- list.clustering.metrics()
+  cscales  <- list.color.scales()
 
   # HEATMAP
-  # Plot and save into output file
+  message(paste("Storing oligo heatmap in", hc.params[["output.file"]]))  
 
-  message(paste("Storing oligo heatmap in", hc.params$file))  
-
-  plotdev <- png(filename = hc.params[["file"]], 
+  # figure width as a function of the number of the samples
+  plotdev <- png(filename = hc.params[["output.file"]], 
   	    width = max(trunc(hc.params[["ppcm"]]*21), trunc(hc.params[["ppcm"]]*21*ncol(dat)/70)), 
 	    height = trunc(hc.params[["ppcm"]]*29.7)) 
 
   try(PlotPhylochipHeatmap(data = dat,
                 phylogeny = phylogeny,
                 metric = hc.params[["clmet"]],
-                tax.level = hc.params[["lev"]],
+                tax.level = hc.params[["level"]],
                 include.tree = ifelse(hc.params[["tree.display"]] == 'yes', TRUE, FALSE),
                 palette = hc.params[["pal"]],
                 fontsize = hc.params[["fontsize"]],
