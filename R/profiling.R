@@ -44,7 +44,7 @@ run.profiling.script <- function (dbuser, dbpwd, dbname, verbose = TRUE) {
 
   # Add oligo heatmap into output directory
   # Provide oligodata in the _original (non-log) domain_
-  hc.params <- add.heatmap(finaldata[["oligo"]], params$wdir, phylogeny)
+  hc.params <- add.heatmap(finaldata[["oligo"]], output.dir = params$wdir, phylogeny = phylogeny)
 
   # Plot hclust trees on screen
   tmp <- plot.htrees(finaldata[["oligo"]])

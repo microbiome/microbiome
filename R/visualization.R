@@ -13,131 +13,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-#' PlotPhylochipHeatmap
-#'
-#' Description: Plots heatmap of the oligo profiles together with phylotype grouping and sample clustering
-#'
-#' Arguments:
-#'   @param data oligoprofile data in original (non-log) domain
-#'   @param phylogeny oligo-phylotype mappings
-#'   @param metric clustering metric
-#'   @param tax.level taxonomic level to show
-#'   @param include.tree include.tree
-#'   @param palette color palette
-#'   @param fontsize font size
-#'   @param figureratio figure ratio
-#'   @param hclust.method hierarchical clustering method
-#'
-#' Returns:
-#'   @return plots the profile
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-PlotPhylochipHeatmap <- function (data,
-                         phylogeny,
-                         metric = "euclidean", 
-                         tax.level = "level 2", 
-                         include.tree = FALSE, 
-                         palette = "black/yellow/white",
-                         fontsize = 12, 
-                         figureratio = 12, 
-			 hclust.method = "ward") {
-
-  # metric = "euclidean"; tax.level = "level 2"; include.tree = FALSE; palette = "black/yellow/white"; fontsize = 12; figureratio = 12; hclust.method = "ward"
-			 
-  metric <- list.clustering.metrics()[[metric]]
-
-  if (is.character(palette)) {
-    palette  <- list.color.scales()[[palette]]
-    # colorRampPalette(c("black","yellow","white"), bias=0.5, interpolate = "linear")(100)
-   }
-              
-   par(ps = fontsize, xpd = NA)
-   paper <- par("din")
-
-   if (tax.level == "oligo") {tax.level <- "oligoID"}
-   tax.order <- order(phylogeny[[tax.level]], na.last=FALSE)
-
-   nainds <- is.na(phylogeny[,tax.level])
-   if (sum(nainds) > 0) {
-     phylogeny[nainds,tax.level] <- '-'  # replace empty maps
-   }
-
-   levs <- unlist(lapply(split(phylogeny[[tax.level]], as.factor(phylogeny[[tax.level]])), length))
-   # order the rows in phylogeny by tax.level
-   phylogeny <- phylogeny[tax.order,]
-
-   annwidth = max(strwidth(names(levs),units="inch"))*2.54*1.2
-   profilewidth = max(strheight(names(levs),units="inch"))*2.54*dim(data)[2]*1.6
-   figureheight = paper[2]*2.54*0.9
-
-   # prevent outliers from determining the ends of the colour scale
-   limits = quantile(data, c(0.001,0.999),na.rm=TRUE)
-   limits = limits*c(0.98,1.02)
-
-   # calculate clustering based on oligoprofile
-   if (metric == 'euclidean') {
-    hc <- hclust(dist(t(data)), method=hclust.method)
-   } else {
-    hc <- hclust(as.dist(1-cor(data,use="pairwise.complete.obs")), method=hclust.method)
-   }
-
-   data[data<limits[1]]=limits[1]
-   data[data>limits[2]]=limits[2]
-   if (!is.na(figureratio)) {
-      heights = c(figureratio/100, (100-figureratio)/100)
-   } else {
-      if (include.tree) {
-         heights = c(15/100, 85/100)
-      } else {
-         heights = c(6/100, 94/100)
-      }
-   }
-
-   if (include.tree) {
-
-      data <- data[,hc$order] 
-      layout(matrix(c(3,0,1,2),ncol=2,byrow=TRUE),widths=lcm(c(profilewidth,annwidth)),heights=lcm(figureheight*heights))
-
-   } else {    
-
-      layout(matrix(c(3,0,1,2),ncol=2,byrow=TRUE),widths=lcm(c(profilewidth,annwidth)),heights=lcm(figureheight*heights))
-
-   }
-
-   par(mar=c(1,1,0,0),oma=c(0,0,0,0))
-   img <- as.matrix(rev(as.data.frame(t(data[phylogeny$oligoID,]))))
-   image(z=img, col=palette, axes=FALSE, frame.plot=TRUE, zlim=limits)
-   plot.new()
-   par(mar=c(1,0,0,1),usr=c(0,1,0,1),xaxs='i',yaxs='i')
-
-   rect(xleft = rep(0,length(levs)),
-        ybottom = c(0,cumsum(rev(levs))[1:length(levs)-1])/sum(levs),
-        xright = rep(1,length(levs)),ytop=cumsum(rev(levs))/sum(levs), border = 'grey')
-
-   text(x = c(0.03), y = (cumsum(rev(levs))-rev(levs/2))/sum(levs), labels = (names(rev(levs))), pos = 4)
-
-   if (include.tree) {
-
-      par(mar=c(0.2,1.5,1,0.5),usr=c(0,1,0,1))
-      plot(hc, axes = FALSE, ann = FALSE, hang = -1)
-
-   } else {
-
-      plot.new()
-      par(mar=c(0,1,1,0),usr=c(0,1,0,1),xaxs='i',yaxs='i')
-      text(x=0.5/length(colnames(data))+(seq(along.with=colnames(data))-1)/length(colnames(data)),
-      y = c(0.15), labels = colnames(data), pos = 3, cex = 0.8, srt = 90)
-
-   }
-
-}
-
-# -----------------------------------------------------------------------
-
 
 #' Description: Project high-dimensional data on two-dimensional plane by various methods
 #' 
@@ -190,35 +65,19 @@ project.data <- function (amat, type = "PCA") {
   }  
 
 
-# Plot solution 
-#x <- fit$points[,1]
-#y <- fit$points[,2]
-#s <- rownames(amat)
-#s <- c(ns,rs)
-#par(mar = c(5,5,1,1))
-#plot(x[s], y[s], xlab="Coordinate 1", ylab="Coordinate 2", type="n", cex.lab = 1.8, las = 1, cex.axis = 1.3)
-#lab <- gsub("FLN","",gsub("_","",annot[s,]$sampleID))
-#char <- "W"; lab <- sapply(strsplit(lab, char), function (x) {if (length(x)>1) {gsub(" ","",paste(x[[1]], char, collapse = ""))} else {x}})
-#char <- "R"; lab <- sapply(strsplit(lab, char), function (x) {if (length(x)>1) {gsub(" ","",paste(x[[1]], char, collapse = ""))} else {x}})
-#char <- "S"; lab <- sapply(strsplit(lab, char), function (x) {if (length(x)>1) {gsub(" ","",paste(x[[1]], char, collapse = ""))} else {x}})
-#char <- "M"; lab <- sapply(strsplit(lab, char), function (x) {if (length(x)>1) {gsub(" ","",paste(x[[1]], char, collapse = ""))} else {x}})
-#char <- "N"; lab <- sapply(strsplit(lab, char), function (x) {if (length(x)>1) {gsub(" ","",paste(x[[1]], char, collapse = ""))} else {x}})
-#cols <- c("purple","green","royalblue","darkorange","darkgreen","red","black","magenta","brown","forestgreen","darkblue","blue")
-#text(x[s], y[s], labels = lab, cex=1.3, col = cols[as.numeric(annot[s,]$Donor)])
-
-# TODO Kernel-PCA
-#library(kernlab)
-#kpc <- kpca(~., data=as.data.frame(x.train), kernel="rbfdot", features = 2)
-#Print the principal component vectors
-#pcv(kpc)
-#Plot the data projection on the components
-#par(mfrow=c(2,2))
-#plot(rotated(kpc), col = as.integer(as.factor(ann[rownames(x.train),"time"])), xlab="1st Principal Component", ylab="2nd Principal Component")
-#plot(rotated(kpc), col = as.integer(as.factor(ann[rownames(x.train),"lipids.group"])), xlab="1st Principal Component", ylab="2nd Principal Component")
-#embed remaining points 
-#emb <- predict(kpc, x.test)
-#plot(rotated(kpc), col = as.integer(as.factor(ann[rownames(x.train),"lipids.group"])), xlab="1st Principal Component", ylab="2nd Principal Component")
-#points(emb, col = as.integer(as.factor(ann[rownames(x.train),"lipids.group"])))
+  # TODO Kernel-PCA
+  #library(kernlab)
+  #kpc <- kpca(~., data=as.data.frame(x.train), kernel="rbfdot", features = 2)
+  #Print the principal component vectors
+  #pcv(kpc)
+  #Plot the data projection on the components
+  #par(mfrow=c(2,2))
+  #plot(rotated(kpc), col = as.integer(as.factor(ann[rownames(x.train),"time"])), xlab="1st Principal Component", ylab="2nd Principal Comp  onent")
+  #plot(rotated(kpc), col = as.integer(as.factor(ann[rownames(x.train),"lipids.group"])), xlab="1st Principal Component", ylab="2nd Principal Component")
+  #embed remaining points 
+  #emb <- predict(kpc, x.test)
+  #plot(rotated(kpc), col = as.integer(as.factor(ann[rownames(x.train),"lipids.group"])), xlab="1st Principal Component", ylab="2nd Principal Component")
+  #points(emb, col = as.integer(as.factor(ann[rownames(x.train),"lipids.group"])))
     
   colnames(tab) <- c("Comp.1","Comp.2")
 
@@ -256,8 +115,6 @@ project.data <- function (amat, type = "PCA") {
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2)); PlotMatrix(mat, "twoway", midpoint = 3) 
 #' @keywords utilities
-
-
 
 PlotMatrix <- function (mat, type = "twoway", midpoint = 0, 
 	      	        palette = NULL, colors = NULL, col.breaks = NULL, interval = .1, 
@@ -399,8 +256,6 @@ top.barplots <- function (top.findings, topN = 5, annot, smat) {
 }
 
 
-
-
 #' Description: Visualize top findings from pairwise.comparisons 
 #'          
 #' FIXME: merge with top.barplots?
@@ -538,8 +393,6 @@ PlotTopComparisons <- function (x, y, oligo.map, color.level, bar.level, top.fin
 
 }
 
-
-
 #' Description: ggplot2::ggplot2 theme
 #'              
 #' Arguments:
@@ -626,61 +479,187 @@ plot.htrees <- function (dat) {
 #'
 #' Arguments:
 #'   @param dat oligoprofile data in original (non-log) domain
-#'   @param data.dir output data directory
-#'   @param phylogeny phylogeny
+#'   @param output.dir output data directory
+#'   @param output.dir output file name
+#'   @param phylogeny oligo-phylotype mappings
+#'   @param ppcm figure size
+#'   @param hclust.method hierarchical clustering method
+#'   @param palette color palette
+#'   @param level taxonomic level to show
+#'   @param metric clustering metric
+#'   @param figureratio figure ratio
+#'   @param fontsize font size
+#'   @param include.tree include.tree
 #'
 #' Returns:
 #'   @return Plotting parameters
 #'
 #' @export
-#' @examples # dat <- read.profiling(params$wdir, "species", "rpa"); hc <- add.hclust.plots(dat)
+#' @examples # dat <- read.profiling(params$wdir, "species", "rpa"); hc <- add.heatmap(dat)
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-add.heatmap <- function (dat, data.dir, phylogeny) {
+add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny, ppcm = 150, 
+	         hclust.method = "complete", palette = "white/blue", level = "level 2", metric = "pearson", 
+  		 figureratio = 12, fontsize = 12, include.tree = TRUE) {
 
-  # Read heatmap plotting parameters		 
-  # hc.params <- GetHclustParameters(dat, data.dir)
+  if (is.null(output.file)) {
+    output.file <- paste(output.dir,"/", gsub(" ", "", level), "-oligoprofileClustering.png",sep="")
+  }		 
 
-  # Provide just a single set of defaults in the profiling pipeline
-  # If users really have a need to tweak the parameters
-  # it has to be done explicitly and afterwards
-  hc.params <- c(ppcm = 150, 
-  	         hclust.method = "complete",
-		 palette = "white/blue",
-  		 level = "level 2",
-		 clmet = "Pearsons correlation coefficient",
-		 tree.display = "yes",
-  		 figureratio = 12,
-  		 fontsize = 12,
-  		 include.tree = TRUE, 
-		 output.file = paste(data.dir,"/", gsub(" ", "", level), "-oligoprofileClustering.png",sep=""))
+  hc.params <- list()
+  if( ncol(dat) >= 3 ) {
 
-  if(ncol(dat) < 3 ) { hc.params$tree.display <- 'no' }
-  cmetrics <- list.clustering.metrics()
-  cscales  <- list.color.scales()
-
-  # HEATMAP
-  message(paste("Storing oligo heatmap in", hc.params[["output.file"]]))  
-
-  # figure width as a function of the number of the samples
-  plotdev <- png(filename = hc.params[["output.file"]], 
-  	    width = max(trunc(hc.params[["ppcm"]]*21), trunc(hc.params[["ppcm"]]*21*ncol(dat)/70)), 
-	    height = trunc(hc.params[["ppcm"]]*29.7)) 
-
-  try(PlotPhylochipHeatmap(data = dat,
+    message(paste("Storing oligo heatmap in", output.file))  
+    # PLOT THE HEATMAP
+    # figure width as a function of the number of the samples
+    plotdev <- png(filename = hc.params[["output.file"]], 
+  	    width = max(trunc(ppcm*21), trunc(ppcm*21*ncol(dat)/70)), 
+	    height = trunc(ppcm*29.7)) 
+    try(hc.params <- PlotPhylochipHeatmap(data = dat,
                 phylogeny = phylogeny,
-                metric = hc.params[["clmet"]],
-                tax.level = hc.params[["level"]],
-                include.tree = ifelse(hc.params[["tree.display"]] == 'yes', TRUE, FALSE),
-                palette = hc.params[["pal"]],
-                fontsize = hc.params[["fontsize"]],
-                figureratio = hc.params[["figureratio"]], 
-		hclust.method = hc.params[["hclust.method"]])) 
-  dev.off()
+                metric = metric,
+                tax.level = level,
+                include.tree = ifelse(tree.display == 'yes', TRUE, FALSE),
+                palette = palette,
+                fontsize = fontsize,
+                figureratio = figureratio, 
+		hclust.method = hclust.method)) 
+    hc.params$ppcm <- ppcm
+    hc.params$output.file <- output.file
+
+    dev.off()
+  }
 
   hc.params
+
+}
+
+
+#' PlotPhylochipHeatmap
+#'
+#' Description: Plots heatmap of the oligo profiles together with phylotype grouping and sample clustering
+#'
+#' Arguments:
+#'   @param data oligoprofile data in original (non-log) domain
+#'   @param phylogeny oligo-phylotype mappings
+#'   @param metric clustering metric
+#'   @param tax.level taxonomic level to show
+#'   @param include.tree include.tree
+#'   @param palette color palette
+#'   @param fontsize font size
+#'   @param figureratio figure ratio
+#'   @param hclust.method hierarchical clustering method
+#'
+#' Returns:
+#'   @return parameters
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+PlotPhylochipHeatmap <- function (data,
+                         phylogeny,
+                         metric = "pearson", 
+                         tax.level = "level 2", 
+                         include.tree = TRUE, 
+                         palette = "white/blue", #"black/yellow/white",
+                         fontsize = 12, 
+                         figureratio = 12, 
+			 hclust.method = "complete") {
+
+  # metric = "euclidean"; tax.level = "level 2"; include.tree = FALSE; palette = "black/yellow/white"; fontsize = 12; figureratio = 12; hclust.method = "ward"
+
+  params <- c(metric = metric, tax.level = tax.level, include.tree = include.tree, palette = palette, 
+  	      fontsize = fontsize, figureratio = figureratio, hclust.method = hclust.method)
+			 
+  if (is.character(palette)) {
+    palette  <- list.color.scales()[[palette]]
+    # colorRampPalette(c("black","yellow","white"), bias=0.5, interpolate = "linear")(100)
+   }
+              
+   par(ps = fontsize, xpd = NA)
+   paper <- par("din")
+
+   if (tax.level == "oligo") {tax.level <- "oligoID"}
+   tax.order <- order(phylogeny[[tax.level]], na.last=FALSE)
+
+   nainds <- is.na(phylogeny[,tax.level])
+   if (sum(nainds) > 0) {
+     phylogeny[nainds,tax.level] <- '-'  # replace empty maps
+   }
+
+   levs <- unlist(lapply(split(phylogeny[[tax.level]], as.factor(phylogeny[[tax.level]])), length))
+   # order the rows in phylogeny by tax.level
+   phylogeny <- phylogeny[tax.order,]
+
+   annwidth = max(strwidth(names(levs),units="inch"))*2.54*1.2
+   profilewidth = max(strheight(names(levs),units="inch"))*2.54*dim(data)[2]*1.6
+   figureheight = paper[2]*2.54*0.9
+
+   # prevent outliers from determining the ends of the colour scale
+   limits = quantile(data, c(0.001,0.999),na.rm=TRUE)
+   limits = limits*c(0.98,1.02)
+
+   # calculate clustering based on oligoprofile
+   if (metric == "euclidean") {
+    hc <- hclust(dist(t(data)), method = hclust.method)
+   } else if (metric == "pearson") {
+    hc <- hclust(as.dist(1-cor(data,use="pairwise.complete.obs")), method = hclust.method)
+   }
+
+   data[data<limits[1]] <- limits[1]
+   data[data>limits[2]] <- limits[2]
+   if (!is.na(figureratio)) {
+      heights = c(figureratio/100, (100-figureratio)/100)
+   } else {
+      if (include.tree) {
+         heights = c(15/100, 85/100)
+      } else {
+         heights = c(6/100, 94/100)
+      }
+   }
+
+   if (include.tree) {
+
+      data <- data[,hc$order] 
+      layout(matrix(c(3,0,1,2),ncol=2,byrow=TRUE),widths=lcm(c(profilewidth,annwidth)),heights=lcm(figureheight*heights))
+
+   } else {    
+
+      layout(matrix(c(3,0,1,2),ncol=2,byrow=TRUE),widths=lcm(c(profilewidth,annwidth)),heights=lcm(figureheight*heights))
+
+   }
+
+   par(mar=c(1,1,0,0),oma=c(0,0,0,0))
+   img <- as.matrix(rev(as.data.frame(t(data[phylogeny$oligoID,]))))
+   image(z=img, col=palette, axes=FALSE, frame.plot=TRUE, zlim=limits)
+   plot.new()
+   par(mar=c(1,0,0,1),usr=c(0,1,0,1),xaxs='i',yaxs='i')
+
+   rect(xleft = rep(0,length(levs)),
+        ybottom = c(0,cumsum(rev(levs))[1:length(levs)-1])/sum(levs),
+        xright = rep(1,length(levs)),ytop=cumsum(rev(levs))/sum(levs), border = 'grey')
+
+   text(x = c(0.03), y = (cumsum(rev(levs))-rev(levs/2))/sum(levs), labels = (names(rev(levs))), pos = 4)
+
+   if (include.tree) {
+
+      par(mar=c(0.2,1.5,1,0.5),usr=c(0,1,0,1))
+      plot(hc, axes = FALSE, ann = FALSE, hang = -1)
+
+   } else {
+
+      plot.new()
+      par(mar=c(0,1,1,0),usr=c(0,1,0,1),xaxs='i',yaxs='i')
+      text(x=0.5/length(colnames(data))+(seq(along.with=colnames(data))-1)/length(colnames(data)),
+      y = c(0.15), labels = colnames(data), pos = 3, cex = 0.8, srt = 90)
+
+   }
+
+  params
 
 }
 
