@@ -1326,8 +1326,6 @@ threshold.data <- function(dat, sd.times = 6){
 
 summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose = TRUE, rm.phylotypes = NULL) {
 
-  #level <- gsub(".", " ", level) # "level.1" -> "level 1"
-
   if ("level.0" %in% colnames(oligo.map)) {
     level0 <- "level.0"
   } else if ("level 0" %in% colnames(oligo.map)) {
@@ -1362,7 +1360,7 @@ summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose =
 			 rm.phylotypes[[level2]]))
 			 	
   # Remove specified oligos
-  rm.oligos <- rm.phylotypes$oligo
+  rm.oligos <- rm.phylotypes$oligos
   if (!is.null(rm.oligos)) { oligo.data <- oligo.data[setdiff(rownames(oligo.data), rm.oligos), ]}
   oligo.map <- oligo.map[!oligo.map$oligoID %in% rm.oligos, ]
 
@@ -1375,7 +1373,7 @@ summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose =
 
   } else if (level %in% c(level0, level1, level2)) {
 
-    phylogroups <- level.species(level, oligo.map)
+    phylogroups <- levelmap(phylotypes = NULL, level.from = level, level.to = "species", oligo.map)
     
     # Remove the specified phylogroups
     phylogroups <- phylogroups[setdiff(names(phylogroups), rm.phylotypes[[level]])]

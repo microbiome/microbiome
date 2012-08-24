@@ -18,7 +18,7 @@
 #' Description: map phylotypes between hierarchy levels
 #'
 #' Arguments:
-#'   @param phylotypes phylotypes
+#'   @param phylotypes phylotypes to convert; if NULL then considering all phylotypes in the oligomap
 #'   @param level.from level.from
 #'   @param level.to level.to
 #'   @param oligomap oligomap
@@ -31,7 +31,11 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-levelmap <- function (phylotypes, level.from, level.to, oligomap) {
+levelmap <- function (phylotypes = NULL, level.from, level.to, oligomap) {
+
+  if (is.null(phylotypes)) {
+    phylotypes <- as.character(unique(oligomap[[level]]))
+  }
 
   levs3 <- c("species")	   
   levs2 <- c("level 2", "level.2", "L2")
@@ -227,7 +231,7 @@ retrieve.probesets <- function (phylo, level = "species") {
 
   # phylo <- pruned16S
   phylo.list <- split(phylo, phylo[[level]])
-  probesets <- lapply(phylo.list, function(x) {unique(x$oligoID)})	     
+  probesets <- lapply(phylo.list, function(x) {as.character(unique(x$oligoID))})	     
   names(probesets) <- names(phylo.list)
 
   probesets

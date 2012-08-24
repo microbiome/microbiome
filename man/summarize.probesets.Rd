@@ -3,7 +3,7 @@
 \title{Description: Probeset summarization with various methods.}
 \usage{
   summarize.probesets(oligo.map, oligo.data, method, level,
-    verbose = TRUE, rm.phylotypes = NULL, rm.oligos = NULL)
+    verbose = TRUE, rm.phylotypes = NULL)
 }
 \arguments{
   \item{oligo.map}{oligo - phylotype matching data.frame}
@@ -18,9 +18,7 @@
   \item{verbose}{print intermediate messages}
 
   \item{rm.phylotypes}{Phylotypes to exclude (a list with
-  fields species, level 1, level 2)}
-
-  \item{rm.oligos}{Oligos to remove Returns:}
+  fields species, level 1, level 2) Returns:}
 }
 \value{
   summarized data matrix

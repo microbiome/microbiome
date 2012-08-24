@@ -2,10 +2,12 @@
 \alias{levelmap}
 \title{levelmap}
 \usage{
-  levelmap(phylotypes, level.from, level.to, oligomap)
+  levelmap(phylotypes = NULL, level.from, level.to,
+    oligomap)
 }
 \arguments{
-  \item{phylotypes}{phylotypes}
+  \item{phylotypes}{phylotypes to convert; if NULL then
+  considering all phylotypes in the oligomap}
 
   \item{level.from}{level.from}
 
