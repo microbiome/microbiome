@@ -42,11 +42,14 @@ run.profiling.script <- function (dbuser, dbpwd, dbname, verbose = TRUE) {
   ## Write preprocessed data in tab delimited file
   outd <- WriteChipData(finaldata, params$wdir, phylogeny, verbose = verbose)
 
-  # Make basic plots
-  # feed in here oligodata in _original (non-log) domain_
-  plot.params <- add.hclust.plots(finaldata[["oligo"]], data.dir = params$wdir) 
+  # Add oligo heatmap into output directory
+  # Provide oligodata in the _original (non-log) domain_
+  hc.params <- add.heatmap(finaldata[["oligo"]], params$wdir, phylogeny)
 
-  # Write log file
+  # Plot hclust trees on screen
+  tmp <- plot.htrees(finaldata[["oligo"]])
+
+  # Write parameters into log file
   tmp <- WriteLog(chipdata$naHybs, params)
   params$logfilename <- tmp$log.file
   params$paramfilename <- tmp$parameter.file
@@ -64,38 +67,30 @@ run.profiling.script <- function (dbuser, dbpwd, dbname, verbose = TRUE) {
 #' Description: Calculate hierarchical clustering for standard selections in profiling script
 #'
 #' Arguments:
-#'   @param dat data matrix for clustering in log10 domain
-#'   @param hclust.method clustering method
-#'   @param metric clustering metrics
+#'   @param dat data matrix 
+#'   @param method hierarchical clustering method (see ?hclust)
+#'   @param metric clustering metrics (euclidean / correlation)
 #'
 #' Returns:
 #'   @return hclust object for log10 and for absolute scale data
 #'
 #' @export
-#' @examples # TBA
+#' @examples # hc <- calculate.hclust(dat, "ward", "correlation") 
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-calculate.hclust <- function (dat, hclust.method = "ward", metric = "correlation") {
+calculate.hclust <- function (dat, method = "ward", metric = "correlation") {
 
-  if (metric == 'euclidian') {
-
-    hclog <- hclust(dist(t(dat)),          method = hclust.method)
-    hcraw <- hclust(dist(t(10^(dat) - 1)), method = hclust.method)
-
+  if (metric == 'euclidean') {
+    hc <- hclust(dist(t(dat)), method = method)
   } else if (metric == 'correlation') {
-
-    hclog <- hclust(as.dist(1 - cor(dat, use = "complete.obs")),          method = hclust.method)
-    hcraw <- hclust(as.dist(1 - cor(10^(dat) - 1, use = "complete.obs")), method = hclust.method)
-
-  } else {
-  
-    stop("Provide proper metric for calculate.hclust!")
-
+    hc <- hclust(as.dist(1 - cor(dat, use = "complete.obs")), method = method)
+  } else {  
+    stop("Provide proper metric calculate.hclust!")
   }
 
-  list(log10 = hclog, raw = hcraw)
+  hc
 
 }
 

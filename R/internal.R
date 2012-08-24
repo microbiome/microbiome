@@ -812,7 +812,7 @@ list.scaling.methods <- function () {
 list.clustering.metrics <- function () {
 
   list('Pearsons correlation coefficient'='correlation',
-                 'euclidian'='euclidian')
+                 'euclidean'='euclidean')
 }
 
 
@@ -1102,6 +1102,8 @@ ScaleProfile <- function (r.feature, method = 'minmax', bg.adjust = NULL, minmax
   return(r)
 }
 
+#' GetHclustParameters
+#'
 #' Description: Read parameters for PROFILE PLOT FUNCTION
 #'
 #' Arguments:
@@ -1124,7 +1126,7 @@ ScaleProfile <- function (r.feature, method = 'minmax', bg.adjust = NULL, minmax
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-ReadHclustParameters <- function (dat, data.dir, ppcm = 150, hclust.method = "complete", pal = "white/blue", lev = "level 2", clmet = "Pearsons correlation coefficient", tree.display = "yes", figureratio = 12, fontsize = 12) {
+GetHclustParameters <- function (dat, data.dir, ppcm = 150, hclust.method = "complete", pal = "white/blue", lev = "level 2", clmet = "Pearsons correlation coefficient", tree.display = "yes", figureratio = 12, fontsize = 12) {
 
   cmetrics <- list.clustering.metrics()
   cscales  <- list.color.scales()

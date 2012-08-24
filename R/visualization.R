@@ -38,7 +38,7 @@
 
 PlotPhylochipHeatmap <- function (data,
                          phylogeny,
-                         metric = "euclidian", 
+                         metric = "euclidean", 
                          tax.level = "level 2", 
                          include.tree = FALSE, 
                          palette = "black/yellow/white",
@@ -46,7 +46,7 @@ PlotPhylochipHeatmap <- function (data,
                          figureratio = 12, 
 			 hclust.method = "ward") {
 
-  # metric = "euclidian"; tax.level = "level 2"; include.tree = FALSE; palette = "black/yellow/white"; fontsize = 12; figureratio = 12; hclust.method = "ward"
+  # metric = "euclidean"; tax.level = "level 2"; include.tree = FALSE; palette = "black/yellow/white"; fontsize = 12; figureratio = 12; hclust.method = "ward"
 			 
   metric <- list.clustering.metrics()[[metric]]
 
@@ -79,7 +79,7 @@ PlotPhylochipHeatmap <- function (data,
    limits = limits*c(0.98,1.02)
 
    # calculate clustering based on oligoprofile
-   if (metric == 'euclidian') {
+   if (metric == 'euclidean') {
     hc <- hclust(dist(t(data)), method=hclust.method)
    } else {
     hc <- hclust(as.dist(1-cor(data,use="pairwise.complete.obs")), method=hclust.method)
@@ -143,7 +143,7 @@ PlotPhylochipHeatmap <- function (data,
 #' 
 #' Arguments:
 #'   @param amat data matrix (samples x features)
-#'   @param type projection type
+#'   @param type projection type (options: PCA, MDS.classical, MDS.nonmetric, Sammon)
 #' Returns:
 #'   @return projected data matrix
 #'
@@ -572,17 +572,65 @@ theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
 
 
 
-
-#' Description: Calculate and plot hierarchical clustering for profiling 
-#' script output
+#' plot.htrees
+#' Description: Plot hierarchical clustering for the input data in absolute
+#' and log10 scale using euclidean and pearson correlation similarities. 
+#' Intended for internal use in the run.profiling.script function. 
 #'
 #' Arguments:
 #'   @param dat oligoprofile data in original (non-log) domain
-#'   @param data.dir data directory
+#'
+#' Returns:
+#'   @return NULL
+#'
+#' @export
+#' @examples # dat <- read.profiling(params$wdir, "species", "rpa"); tmp <- plot.htrees(dat)
+#' @references See citation("microbiome")
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+plot.htrees <- function (dat) {
+
+  # Plot CLUSTER TREES TO A GRAPHICS WINDOW
+  # Euclidean & Correlation / Raw & Log10
+
+  if(ncol(dat) > 2){
+
+    # Metric: Euclidean
+    hc.raw.eu <- hclust(dist(t(dat)), method = method)
+    hc.log10.eu <- hclust(dist(t(log10(dat + 1))), method = method)
+
+    # 'Metric': Correlation
+    hc.raw.cor <- hclust(as.dist(1 - cor(dat, use = "complete.obs")), method = method)
+    hc.log10.cor <- hclust(as.dist(1 - cor(log10(dat + 1), use = "complete.obs")), method = method)
+
+    # Plot all hclust trees in a single figure
+    x11() 
+    par(mfrow=c(2,2))
+    plot(hc.log10.eu, hang = -1, main = "hclust/euclid/oligo/log10")
+    plot(hc.raw.eu, hang = -1, main = "hclust/euclid/oligo/raw")
+    plot(hc.log10.cor, hang = -1, main = "hclust/pearson/oligo/log10")
+    plot(hc.raw.cor, hang = -1, main = "hclust/pearson/oligo/raw")
+
+  } else {
+    warning("Three or more samples required for clustering - skipped.\n")
+  }
+
+  return(NULL)
+
+}
+
+
+#' add.heatmap
+#' Description: Add oligprofile heatmap into output directory
+#'
+#' Arguments:
+#'   @param dat oligoprofile data in original (non-log) domain
+#'   @param data.dir output data directory
 #'   @param phylogeny phylogeny
 #'
 #' Returns:
-#'   @return hclust object
+#'   @return Plotting parameters
 #'
 #' @export
 #' @examples # dat <- read.profiling(params$wdir, "species", "rpa"); hc <- add.hclust.plots(dat)
@@ -590,14 +638,20 @@ theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-add.hclust.plots <- function (dat, data.dir, phylogeny) {
+add.heatmap <- function (dat, data.dir, phylogeny) {
 
   # Read heatmap plotting parameters		 
-  hc.params <- ReadHclustParameters(dat, data.dir)
+  hc.params <- GetHclustParameters(dat, data.dir)
 
+  # HEATMAP
   # Plot and save into output file
-  message(paste("Storing hclust image in", hc.params$file))  
-  plotdev <- png(filename = hc.params[["file"]], width = max(trunc(hc.params[["ppcm"]]*21), trunc(hc.params[["ppcm"]]*21*ncol(dat)/70)), height=trunc(hc.params[["ppcm"]]*29.7)) 
+
+  message(paste("Storing oligo heatmap in", hc.params$file))  
+
+  plotdev <- png(filename = hc.params[["file"]], 
+  	    width = max(trunc(hc.params[["ppcm"]]*21), trunc(hc.params[["ppcm"]]*21*ncol(dat)/70)), 
+	    height = trunc(hc.params[["ppcm"]]*29.7)) 
+
   try(PlotPhylochipHeatmap(data = dat,
                 phylogeny = phylogeny,
                 metric = hc.params[["clmet"]],
@@ -609,25 +663,8 @@ add.hclust.plots <- function (dat, data.dir, phylogeny) {
 		hclust.method = hc.params[["hclust.method"]])) 
   dev.off()
 
-
-  # Plot CLUSTER TREE TO A GRAPHICS WINDOW
-  if(ncol(dat) > 2){
-  
-    hc <- calculate.hclust(log10(dat + 1), hclust.method = hc.params[["hclust.method"]], metric = list.clustering.metrics()[[hc.params[["clmet"]]]])
-
-    x11() 
-    plot(hc$log10, hang = -1, main = "Hierarchical clustering, oligolevel, log10")
-
-    x11() 
-    plot(hc$raw, hang = -1, main = "Hierarchical clustering, oligolevel, raw")
-
-  } else {
-
-    warning("Clustering skipped because there are too few samples.\n")
-
-  }
-
-  list(ppcm = ppcm, hclust.method = hclust.method, pal = pal, lev = lev, clmet = clmet, tree.display = tree.display, figureratio = figureratio, fontsize = fontsize)
+  hc.params
 
 }
+
 
