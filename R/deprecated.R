@@ -85,7 +85,23 @@ GetHclustParameters <- function (dat, data.dir, ppcm = 150, hclust.method = "com
 
 }
 
+#' Description: List clustering metrics
+#'
+#' Arguments:
+#'
+#' Returns:
+#'   @return list of clustering metrics
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
 
+list.clustering.metrics <- function () {
+
+  list('Pearsons correlation coefficient'='correlation',
+                 'euclidean'='euclidean')
+}
 
 #' Description: Plot PCA with labels and explained variances
 #'

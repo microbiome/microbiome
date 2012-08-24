@@ -797,23 +797,7 @@ list.scaling.methods <- function () {
 }
 
 
-#' Description: List clustering metrics
-#'
-#' Arguments:
-#'
-#' Returns:
-#'   @return list of clustering metrics
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
 
-list.clustering.metrics <- function () {
-
-  list('Pearsons correlation coefficient'='correlation',
-                 'euclidean'='euclidean')
-}
 
 
 
