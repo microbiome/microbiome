@@ -2,11 +2,10 @@
 \alias{PlotPhylochipHeatmap}
 \title{PlotPhylochipHeatmap}
 \usage{
-  PlotPhylochipHeatmap(data, phylogeny,
-    metric = "euclidian", tax.level = "level 2",
-    include.tree = FALSE, palette = "black/yellow/white",
-    fontsize = 12, figureratio = 12,
-    hclust.method = "ward")
+  PlotPhylochipHeatmap(data, phylogeny, metric = "pearson",
+    tax.level = "level 2", include.tree = TRUE,
+    palette = "white/blue", fontsize = 12,
+    figureratio = 12, hclust.method = "complete")
 }
 \arguments{
   \item{data}{oligoprofile data in original (non-log)
@@ -31,7 +30,7 @@
   Returns:}
 }
 \value{
-  plots the profile
+  parameters
 }
 \description{
   Description: Plots heatmap of the oligo profiles together

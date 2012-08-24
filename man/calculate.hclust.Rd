@@ -2,15 +2,17 @@
 \alias{calculate.hclust}
 \title{calculate.hclust}
 \usage{
-  calculate.hclust(dat, hclust.method = "ward",
+  calculate.hclust(dat, method = "ward",
     metric = "correlation")
 }
 \arguments{
-  \item{dat}{data matrix for clustering in log10 domain}
+  \item{dat}{data matrix}
 
-  \item{hclust.method}{clustering method}
+  \item{method}{hierarchical clustering method (see
+  ?hclust)}
 
-  \item{metric}{clustering metrics
+  \item{metric}{clustering metrics (euclidean /
+  correlation)
 
   Returns:}
 }
@@ -25,7 +27,7 @@
   Arguments:
 }
 \examples{
-# TBA
+# hc <- calculate.hclust(dat, "ward", "correlation")
 }
 \author{
   Contact: Leo Lahti

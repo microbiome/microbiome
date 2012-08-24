@@ -38,7 +38,7 @@
 
 GetHclustParameters <- function (dat, data.dir, ppcm = 150, hclust.method = "complete", pal = "white/blue", lev = "level 2", clmet = "Pearsons correlation coefficient", tree.display = "yes", figureratio = 12, fontsize = 12) {
 
-0  cmetrics <- list.clustering.metrics()
+  cmetrics <- list.clustering.metrics()
   cscales  <- list.color.scales()
   include.tree <- TRUE
 

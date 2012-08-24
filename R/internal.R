@@ -1232,8 +1232,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
 
     	summarized.log10 <- summarize.probesets(pruned16S, oligo.log10, 
       			       	          method = method, level = level, 	
-					  rm.phylotypes = params$rm.phylotypes,
-					  rm.oligos = params$rm.phylotypes$oligos)
+					  rm.phylotypes = params$rm.phylotypes)
 
         # Store the data in absolute scale					  
         finaldata[[level]][[method]] <- 10^summarized.log10
@@ -1317,7 +1316,6 @@ threshold.data <- function(dat, sd.times = 6){
 #'   @param level summarization level
 #'   @param verbose print intermediate messages
 #'   @param rm.phylotypes Phylotypes to exclude (a list with fields species, level 1, level 2)
-#'   @param rm.oligos Oligos to remove
 #' Returns:
 #'   @return summarized data matrix
 #'
@@ -1326,7 +1324,7 @@ threshold.data <- function(dat, sd.times = 6){
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose = TRUE, rm.phylotypes = NULL, rm.oligos = NULL) {
+summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose = TRUE, rm.phylotypes = NULL) {
 
   #level <- gsub(".", " ", level) # "level.1" -> "level 1"
 
@@ -1364,6 +1362,7 @@ summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose =
 			 rm.phylotypes[[level2]]))
 			 	
   # Remove specified oligos
+  rm.oligos <- rm.phylotypes$oligo
   if (!is.null(rm.oligos)) { oligo.data <- oligo.data[setdiff(rownames(oligo.data), rm.oligos), ]}
   oligo.map <- oligo.map[!oligo.map$oligoID %in% rm.oligos, ]
 

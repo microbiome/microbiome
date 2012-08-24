@@ -7,7 +7,8 @@
 \arguments{
   \item{amat}{data matrix (samples x features)}
 
-  \item{type}{projection type Returns:}
+  \item{type}{projection type (options: PCA, MDS.classical,
+  MDS.nonmetric, Sammon) Returns:}
 }
 \value{
   projected data matrix
