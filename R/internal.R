@@ -1374,7 +1374,7 @@ summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose =
   } else if (level %in% c(level0, level1, level2)) {
 
     phylogroups <- levelmap(phylotypes = NULL, level.from = level, level.to = "species", oligo.map)
-    
+
     # Remove the specified phylogroups
     phylogroups <- phylogroups[setdiff(names(phylogroups), rm.phylotypes[[level]])]
 

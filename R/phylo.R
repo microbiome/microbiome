@@ -33,10 +33,6 @@
 
 levelmap <- function (phylotypes = NULL, level.from, level.to, oligomap) {
 
-  if (is.null(phylotypes)) {
-    phylotypes <- as.character(unique(oligomap[[level]]))
-  }
-
   levs3 <- c("species")	   
   levs2 <- c("level 2", "level.2", "L2")
   levs1 <- c("level 1", "level.1", "L1")
@@ -48,6 +44,10 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, oligomap) {
   if (level.from %in% levs2) {level.from <- lev2}
   if (level.to %in% levs2) {level.to <- lev2}
   if (level.to %in% levs1) {level.to <- lev1}
+
+  if (is.null(phylotypes)) {
+    phylotypes <- as.character(unique(oligomap[[level.from]]))
+  }
 
   if (level.from == "species" && level.to == lev2) {
     sl <- species2levels(phylotypes, oligomap)[c("species", lev2)]
