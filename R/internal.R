@@ -12,6 +12,61 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+
+
+#' Description: species-levels mappings
+#'
+#' Arguments:
+#'   @param spec species
+#'   @param oligomap oligomap
+#'
+#' Returns:
+#'   @return species-levels mappings
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+species2levels <- function (spec, oligomap) {
+   # Check which L1/L2 id type used	       
+   lev1 <- intersect(c("level 1", "level.1", "L1"), colnames(oligomap))
+   lev2 <- intersect(c("level 2", "level.2", "L2"), colnames(oligomap))
+	       
+   omap <- oligomap[match(as.character(spec), oligomap$species), c("species", lev2, lev1)]
+   omap[["species"]] <- factor(omap[["species"]])
+   omap[[lev1]] <- factor(omap[[lev1]])
+   omap[[lev2]] <- factor(omap[[lev2]])
+
+   omap
+}
+
+#' Description: level2-level1 mappings
+#'
+#' Arguments:
+#'   @param l2 level2 phylotypes
+#'   @param oligomap oligomap
+#'
+#' Returns:
+#'   @return mappings
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+level2TOlevel1 <- function (l2, oligomap) {
+
+   # Check which L1/L2 id type used	       
+   lev1 <- intersect(c("level 1", "level.1", "L1"), colnames(oligomap))
+   lev2 <- intersect(c("level 2", "level.2", "L2"), colnames(oligomap))
+
+   omap <- oligomap[match(as.character(l2), oligomap[[lev2]]), c(lev2, lev1)]
+   omap[[lev2]] <- factor(omap[[lev2]])
+   omap[[lev1]] <- factor(omap[[lev1]])
+
+   omap
+}
+
+
 # Database utilities for package-internal use only
 
 #' Tests whether the database connection is a phyloarray connection.
@@ -1365,7 +1420,7 @@ summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose =
   oligo.map <- oligo.map[!oligo.map$oligoID %in% rm.oligos, ]
 
   # Get species matrix in original scale
-  species.matrix <- 10^summarize.probesets.species(oligo.map, oligo.data, method, verbose, rm.species)
+  species.matrix <- 10^summarize.probesets.species(oligo.map, oligo.data, method, verbose = FALSE, rm.species)
    
   if (level == "species") {
 

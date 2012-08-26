@@ -64,7 +64,6 @@ project.data <- function (amat, type = "PCA") {
     tab <- data.frame(list(Comp.1 = fit$points[,1], Comp.2 = fit$points[,2]))    
   }  
 
-
   # TODO Kernel-PCA
   #library(kernlab)
   #kpc <- kpca(~., data=as.data.frame(x.train), kernel="rbfdot", features = 2)
@@ -563,14 +562,23 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny, ppcm = 
 PlotPhylochipHeatmap <- function (data,
                          phylogeny,
                          metric = "pearson", 
-                         tax.level = "level 2", 
+                         tax.level = "level.2", 
                          include.tree = TRUE, 
                          palette = "white/blue", #"black/yellow/white",
                          fontsize = 12, 
                          figureratio = 12, 
 			 hclust.method = "complete") {
 
-  # metric = "euclidean"; tax.level = "level 2"; include.tree = FALSE; palette = "black/yellow/white"; fontsize = 12; figureratio = 12; hclust.method = "ward"
+  # metric = "pearson"; tax.level = "level 2"; include.tree = TRUE; palette = "white/blue"; fontsize = 12; figureratio = 12; hclust.method = "complete"
+
+  # Ensure tax.level in the same format as in standard phylogeny matrix
+  levs3 <- c("species")	   
+  levs2 <- c("level 2", "level.2", "L2")
+  levs1 <- c("level 1", "level.1", "L1")
+
+  if (tax.level %in% levs1) {tax.level <- "level.1"}
+  if (tax.level %in% levs2) {tax.level <- "level.2"}
+  if (tax.level %in% levs3) {tax.level <- "level.3"}
 
   params <- c(metric = metric, tax.level = tax.level, include.tree = include.tree, palette = palette, 
   	      fontsize = fontsize, figureratio = figureratio, hclust.method = hclust.method)
@@ -583,35 +591,36 @@ PlotPhylochipHeatmap <- function (data,
    par(ps = fontsize, xpd = NA)
    paper <- par("din")
 
-   if (tax.level == "oligo") {tax.level <- "oligoID"}
-   tax.order <- order(phylogeny[[tax.level]], na.last=FALSE)
+   if (tax.level == "oligo") { tax.level <- "oligoID" }
+   tax.order <- order(as.character(phylogeny[[tax.level]]), na.last = FALSE)
 
-   nainds <- is.na(phylogeny[,tax.level])
+   nainds <- is.na(phylogeny[, tax.level])
    if (sum(nainds) > 0) {
-     phylogeny[nainds,tax.level] <- '-'  # replace empty maps
+     phylogeny[nainds, tax.level] <- '-'  # replace empty maps
    }
 
    levs <- unlist(lapply(split(phylogeny[[tax.level]], as.factor(phylogeny[[tax.level]])), length))
    # order the rows in phylogeny by tax.level
    phylogeny <- phylogeny[tax.order,]
+   phylogeny <- phylogeny[phylogeny$oligoID %in% rownames(data), ]
 
-   annwidth = max(strwidth(names(levs),units="inch"))*2.54*1.2
-   profilewidth = max(strheight(names(levs),units="inch"))*2.54*dim(data)[2]*1.6
-   figureheight = paper[2]*2.54*0.9
+   annwidth <- max(strwidth(names(levs),units="inch"))*2.54*1.2
+   profilewidth <- max(strheight(names(levs),units="inch"))*2.54*dim(data)[2]*1.6
+   figureheight <- paper[2]*2.54*0.9
 
    # prevent outliers from determining the ends of the colour scale
-   limits = quantile(data, c(0.001,0.999),na.rm=TRUE)
-   limits = limits*c(0.98,1.02)
+   limits <- quantile(data, c(0.001,0.999), na.rm = TRUE)
+   limits <- limits*c(0.98, 1.02)
 
    # calculate clustering based on oligoprofile
    if (metric == "euclidean") {
     hc <- hclust(dist(t(data)), method = hclust.method)
    } else if (metric == "pearson") {
-    hc <- hclust(as.dist(1-cor(data,use="pairwise.complete.obs")), method = hclust.method)
+    hc <- hclust(as.dist(1 - cor(data, use = "pairwise.complete.obs")), method = hclust.method)
    }
 
-   data[data<limits[1]] <- limits[1]
-   data[data>limits[2]] <- limits[2]
+   data[data < limits[1]] <- limits[1]
+   data[data > limits[2]] <- limits[2]
    if (!is.na(figureratio)) {
       heights = c(figureratio/100, (100-figureratio)/100)
    } else {
@@ -633,8 +642,9 @@ PlotPhylochipHeatmap <- function (data,
 
    }
 
-   par(mar=c(1,1,0,0),oma=c(0,0,0,0))
-   img <- as.matrix(rev(as.data.frame(t(data[phylogeny$oligoID,]))))
+   par(mar = c(1,1,0,0), oma = c(0,0,0,0))
+   
+   img <- as.matrix(rev(as.data.frame(t(data[as.character(phylogeny$oligoID),]))))
    image(z=img, col=palette, axes=FALSE, frame.plot=TRUE, zlim=limits)
    plot.new()
    par(mar=c(1,0,0,1),usr=c(0,1,0,1),xaxs='i',yaxs='i')
