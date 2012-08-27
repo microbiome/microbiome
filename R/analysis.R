@@ -43,16 +43,17 @@ distance.matrix <- function (x, method = "pearson", ...) {
 }
 
 
-#' Description: pairwise comparison between factor levels
-#'              
+
+
+#' Description: Calculate Wilcoxon test for the specified sample groups. Either provide the input data as matrix, file path, or select the file through GUI.
+#'             
 #' Arguments:
-#'   @param x data matrix: samples x features
-#'   @param y factor levels for the samples
-#'   @param qth q-value threshold for included features 
-#'   @param resdir Optional. If given, output files will be written in the result directory
+#'   @param dat data matrix (features x samples)
+#'   @param file data file (if data matrix not provided) 
+#'   @param p.adjust.method p-value correction method for p.adjust function (default "BH")
 #'
 #' Returns:
-#'   @return List with top findings from pairwise comparisons and their q-values
+#'   @return (Corrected) p-values for two-group comparison.
 #'
 #' @export
 #'
@@ -60,142 +61,53 @@ distance.matrix <- function (x, method = "pearson", ...) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-pairwise.comparisons <- function (x, y, qth = 0.05, resdir = NULL) {
-
-  y <- factor(y)
-
-  library(limma)
-
-  # Remove categories with NA annotations and very small sample size
-  keep <- !is.na(y) & (y %in% names(which(table(y) > 2)))
-  y <- y[keep]
-  x <- x[keep, ]
-
-  top.findings <- list()
-  top.findings.qvals <- list()
-
-  # Compare each group to other groups
-  for (i in 1:(length(unique(y))-1)) {
-
-    qval.list <- list()
-
-    for (j in (i+1):(length(unique(y)))) {
-   
-      ai <- as.character(unique(y)[[i]])
-      aj <- as.character(unique(y)[[j]])
-
-      inds1 <- which(y == ai)
-      inds2 <- which(y == aj)
-
-      lab <- factor(y[c(inds1, inds2)])
-      ann <- data.frame(list(varname = lab))
-      dat <- x[c(inds1, inds2),]
-
-      # Here y refers to internal lm.matrix response variable(!)
-      qvals <- lm.matrix(y ~ varname,  dat, ann, type = "qval")
-      coefs <- lm.matrix(y ~ varname - 1,  dat, ann, type = "coef") # remove intercept
-
-      nams <- names(sort(qvals))
-      
-      fc <- colMeans(x[inds1, nams]) - colMeans(x[inds2, nams])
-    
-      tab <- cbind(nams, coefs[nams, paste("varname", ai, sep = "")], coefs[nams, paste("varname", aj, sep = "")])
-      colnames(tab) <- c("phylotype", ai, aj)
-      tab <- as.data.frame(tab)
-      tab$fold.change <- fc[nams]
-      tab$qvalue <- qvals[nams]
-
-      top.findings[[paste(ai, aj, sep = "-")]] <- subset(tab, qvalue < qth)
-      qval.list[[aj]] <- qvals
-      top.findings.qvals[[ai]] <- qval.list
-
-      if (!is.null(resdir)) {
-
-        resfile <- paste(resdir,"/limma-", ai, "-", aj, "-results.tab", sep = "")
-        message(paste("Writing comparison statistics in: ",  resfile))
-        write.table(tab, file = resfile, sep = "\t", quote = FALSE, row.names = FALSE)
-
-      if (nrow(tab) > 0) {
-    
-        df <- as.data.frame(t(rbind(group = as.character(lab), t(dat)[rownames(tab)[1:min(nrow(tab), 9)],])))
-        df$group <- factor(df$group)
-        dfm <- reshape::melt.data.frame(df, id.vars = c("group"))
-        dfm$value <- as.numeric(as.character(dfm$value))
-        dfm$title <- apply(cbind(as.character(dfm$variable), round(as.numeric(as.character(tab$qvalue[match(dfm$variable, names(tab$qvalue))])),3)),1,function(x){paste(x, collapse = "/ qval: ")})
-        p <- ggplot(dfm, aes(group, value)) + geom_boxplot() + facet_wrap(~title) + opts(title = "Top hits")
-        pdfname <- paste(resdir,"/limma-", ai, "-", aj, "-tophit.boxplots.pdf", sep = "")
-        print(pdfname)
-        pdf(pdfname)
-        print(p)
-        dev.off()
-  
-      }
-     }
-    }
-  }
-
-  list(qval = top.findings.qvals, top = top.findings)
-
-}
-
-
-
-#' Description: TBA
-#'              
-#' Arguments:
-#'   @param ... TBA
-#'
-#' Returns:
-#'   @return TBA
-#'
-#' @export
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-check.wilcoxon <- function (...) {
+check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sort = FALSE) {
 
   require(svDialogs)
 
-  ## Open your tab file, Level 1&2 Sum_BGsub_Rel.contribution
+  ## Open your tab fnam, Level 1&2 Sum_BGsub_Rel.contribution
 
-  file <- choose.files(multi=F)
-  oligo <- read.table(file,sep="\t", header=T, row.names=1)
-  samples <- colnames(oligo)
+  if (is.null(dat) && is.null(fnam)) { fnam <- choose.files(multi = F) }
+  if (is.null(dat)) {
+    dat <- read.table(fnam, sep = "\t", header = T, row.names = 1)
+  } 
+
+  samples <- colnames(dat)
+  levels <- rownames(dat)
 
   ## To select samples you can do that in 2 ways: select G1 and those samples not in G1 are G2, for which you would use:
   ## G2 <- samples[!(samples %in% G1)]
   ## or select G1 and select G2 (this is useful when you have multiple groups) (standard below)
 
-  G1 <- tk_select.list(samples, multiple=T, title="Select samples for 1st group")
-  G2 <- tk_select.list(samples, multiple=T, title="Select samples for 2nd group")
+  G1 <- tk_select.list(samples, multiple = T, title = "Select samples for 1st group")
+  G2 <- tk_select.list(samples, multiple = T, title = "Select samples for 2nd group")
 
-  levels <- rownames(oligo)
-
-  M <- matrix(data=NA,length(levels),1)
+  M <- matrix(data = NA, length(levels), 1)
   rownames(M) <- levels
 
   for (i in 1:length(levels)) {
 	
-	lvl <- levels[i]
-	l.g1 <- oligo[lvl,G1]
-	l.g2 <- oligo[lvl,G2]
+    lvl  <- levels[i]
+    l.g1 <- dat[lvl,G1]
+    l.g2 <- dat[lvl,G2]
 	
-	p<-wilcox.test(as.numeric(l.g1),as.numeric(l.g2))$p.value
+    p <- wilcox.test(as.numeric(l.g1), as.numeric(l.g2))$p.value
 
-	
+    message(lvl, " p-value: ", p, "\n")
 
-	cat(lvl," p-value: ",p, "\n")
+    M[i, 1] <- p
 
-	M[i,1]<-p
-	}
-
-  M
+  }
 
   ## To Adjust P-values for Multiple Comparisons with Benjamini & Hochberg (1995) ("BH" or its alias "fdr")
-  cor.p <- p.adjust(M,method="BH") # Other methods can be applied here
+  cor.p <- p.adjust(M, method = p.adjust.method) 
+  names(cor.p) <- rownames(M)
+
+  # Sort the values
+  if (sort) {cor.p <- sort(cor.p)}
+
   cor.p
+
 }
 
 

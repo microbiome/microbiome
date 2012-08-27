@@ -2,11 +2,12 @@
 \alias{retrieve.probesets}
 \title{retrieve.probesets}
 \usage{
-  retrieve.probesets(phylo, level = "species")
+  retrieve.probesets(phylogeny, level = "species",
+    name = NULL)
 }
 \arguments{
-  \item{phylo}{data.frame with oligo - phylotype mapping
-  information}
+  \item{phylogeny}{data.frame with oligo - phylotype
+  mapping information}
 
   \item{level}{phylotype level for probesets Returns:}
 }

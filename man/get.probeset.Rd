@@ -2,16 +2,18 @@
 \alias{get.probeset}
 \title{Description: get probeset data matrix}
 \usage{
-  get.probeset(name, level, phylo, data, log10 = TRUE)
+  get.probeset(name, level, phylogeny, oligo.matrix,
+    log10 = TRUE)
 }
 \arguments{
   \item{name}{name}
 
   \item{level}{level}
 
-  \item{phylo}{phylo}
+  \item{phylogeny}{phylogeny}
 
-  \item{data}{data}
+  \item{oligo.matrix}{oligos vs. samples preprocessed data
+  matrix; absolute scale}
 
   \item{log10}{Logical. Log or no log?
 

@@ -18,8 +18,8 @@
 #' Description: read run.profiling.script output into R
 #'
 #' Arguments:
-#'   @param level phylogenetic level ("oligo" / "species" / "level1" / "level2" / "level0") or "phylogeny"
-#'   @param method ("rpa" / "sum")
+#'   @param level phylogenetic level ("oligo" / "species" / "L1" / "L2" / "L0") or "phylogeny"
+#'   @param method ("rpa" / "sum" / "ave" / "nmf")
 #'   @param data.dir Profiling script output directory for reading the data. If not given, GUI will ask to specify the file and overruns the possible level / method arguments in the function call.
 #'   @param log10 Logical. Logarithmize the data TRUE/FALSE. By default, the data is in original non-log scale.
 #'
@@ -32,7 +32,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-read.profiling <- function(level, method, data.dir, log10 = FALSE){
+read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE){
 
   svDialogsT <- require(svDialogs)
   if(!svDialogsT) { install.packages("svDialogs") }

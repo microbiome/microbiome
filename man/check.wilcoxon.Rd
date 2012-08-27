@@ -1,16 +1,22 @@
 \name{check.wilcoxon}
 \alias{check.wilcoxon}
-\title{Description: TBA}
+\title{Description: Calculate Wilcoxon test for the specified sample groups. Either provide the input data as matrix, file path, or select the file through GUI.}
 \usage{
-  check.wilcoxon(...)
+  check.wilcoxon(dat = NULL, fnam = NULL,
+    p.adjust.method = "BH", sort = FALSE)
 }
 \arguments{
-  \item{...}{TBA
+  \item{dat}{data matrix (features x samples)}
+
+  \item{file}{data file (if data matrix not provided)}
+
+  \item{p.adjust.method}{p-value correction method for
+  p.adjust function (default "BH")
 
   Returns:}
 }
 \value{
-  TBA
+  (Corrected) p-values for two-group comparison.
 }
 \description{
   Arguments:

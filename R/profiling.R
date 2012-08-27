@@ -80,7 +80,7 @@ run.profiling.script <- function (dbuser, dbpwd, dbname, verbose = TRUE) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-calculate.hclust <- function (dat, method = "ward", metric = "correlation") {
+calculate.hclust <- function (dat, method = "complete", metric = "correlation") {
 
   if (metric == 'euclidean') {
     hc <- hclust(dist(t(dat)), method = method)
@@ -145,7 +145,4 @@ get.probeset <- function (name, level, phylogeny, oligo.matrix, log10 = TRUE) {
   sets
 
 }
-
-
-
 

@@ -1201,8 +1201,6 @@ WriteMatrix <- function (dat, filename, verbose = FALSE) {
 
 preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = TRUE) {
 
-  # for Phyloarray database version 0.8 or 0.9
-
   ## ask parameters or read from R-file
   con <- dbConnect(dbDriver("MySQL"), username = dbuser, password = dbpwd, dbname = dbname)
 
@@ -1283,13 +1281,18 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   if (params$chip == "MITChip") {levels <- c(levels, "level 0")}
   for (level in levels) {
     finaldata[[level]] <- list()
-    for (method in c("sum", "rpa", "ave")) {
+    for (method in c("sum", "rpa", "ave", "nmf")) {
 
     	summarized.log10 <- summarize.probesets(pruned16S, oligo.log10, 
       			       	          method = method, level = level, 	
 					  rm.phylotypes = params$rm.phylotypes)
 
-        # Store the data in absolute scale					  
+        # Use L0/L1/L2 for consistency
+	colnames(summarized.log10)[[which(colnames(summarized.log10) == "level 0")]] <- L0
+	colnames(summarized.log10)[[which(colnames(summarized.log10) == "level 1")]] <- L1
+	colnames(summarized.log10)[[which(colnames(summarized.log10) == "level 2")]] <- L2
+
+        # Store the data in absolute scale					
         finaldata[[level]][[method]] <- 10^summarized.log10
 
     }
