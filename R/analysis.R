@@ -12,47 +12,7 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-#' Description: phylogenetic distance matrix for HITChip
-#'
-#' Arguments:
-#'   @param level phylogeny level
-#'   @param f.phylomap phylogenetic map with a column for each level, and one column for the ID which matches with the sequence similarity matrix in f. phylodist file
-#'   @param f.phylodist probe sequence similarity matrix 
-#'
-#' Returns:
-#'   @return list
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
 
-hitchip.phylodistance <- function (level, f.phylomap, f.phylodist) {
-  		     
-  phylogeny <- read.csv(f.phylomap, sep = "\t", header = TRUE)
-  tab <- read.csv(f.phylodist, sep = "\t", header = TRUE, row.names = 1)
-  tab <- tab[colnames(tab), colnames(tab)]
-
-  # Get all distances for each phylotype at given level
-  pts <- unique(phylogeny[[gsub(" ", "", level)]])
-  pd <- array(NA, dim = c(length(pts), length(pts)))
-  rownames(pd) <- colnames(pd) <- pts
-  for (pt1 in pts) {
-    ids1 <- as.character(phylogeny$reference[which(phylogeny[[gsub(" ", "", level)]] == pt1)])
-    for (pt2 in pts) {
-      ids2 <- as.character(phylogeny$reference[which(phylogeny[[gsub(" ", "", level)]] == pt2)])
-      # Use mean of pairwise phylogenies as the summary distance
-      # for this level to the other levels
-      if (length(ids1)>0 && length(ids2)>0) {
-        mat <- as.matrix(tab[ids1, ids2], nrow = length(ids1))
-        pd[pt1, pt2] <- 1 - mean(mat)
-        pd[pt2, pt1] <- pd[pt1, pt2]
-      }
-    }
-  }
-
-  pd
-}
 
 
 #' Description: Calculate distance matrix between the _columns_ of the 
@@ -264,6 +224,8 @@ check.wilcoxon <- function (...) {
 
 cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NULL, order = FALSE, n.signif = 0, verbose = TRUE, mode = "list"){
 
+  # annot <- metadata.df; dat <- t(genus.matrix); method = "pearson"; qth = NULL; cth = NULL; order = FALSE; n.signif = 0; verbose = TRUE; mode = "list"
+
   x <- annot # numeric or discrete
   y <- dat # numeric
 
@@ -273,7 +235,26 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
   ynames <- colnames(y)
   qv <- nmat <- NULL
 
+  numeric.methods <- c("spearman", "pearson", "bicor", "mi")
+  categorical.methods <- c("categorical")
+
   # Rows paired.
+
+  if (method %in% numeric.methods) {
+    inds <- sapply(x, is.numeric) 
+    if (any(!inds)) {
+      warning("Considering only numeric annotations for pearson/spearman/bicor/mi")
+    }
+  } else if (method %in% categorical.methods) {
+    inds <- sapply(x, is.factor) 
+    if (any(!inds)) {
+      warning("Considering only categorical annotations for factors")
+    }
+  }
+
+  xnames <- xnames[inds]
+  x <- as.matrix(x[inds], ncol = sum(inds))
+  colnames(x) <- xnames
 
   Pc <- matrix(NA, ncol(x), ncol(y))
   Cc <- matrix(NA, ncol(x), ncol(y))
@@ -282,46 +263,27 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
   rownames(Pc) <- colnames(x)
   colnames(Pc) <- colnames(y)
 
-
-  # Ensure the correct formats
-
-  if (ncol(x) == 1) {
-    x <- matrix(t(apply(x, 1, as.numeric)), nrow = length(x))
-  } else {
-    if (!method == "categorical") {
-      x <- matrix(t(apply(x, 1, as.numeric)), nrow(x))
-    } else {
-      x <- matrix(t(apply(x, 1, as.factor)), nrow(x))
-    }
-  }
-  colnames(x) <- xnames
-
-  if (ncol(y) == 1) {
-    y <- matrix(t(apply(y, 1, as.numeric)), nrow = length(y))
-  } else {
-      y <- matrix(t(apply(y, 1, as.numeric)), nrow(y))
-  }
-  colnames(y) <- ynames
-  
   # ----------------------------------------------------------------
 
-  if (method %in% c("pearson","spearman")) {
+  if (method %in% c("pearson", "spearman")) {
 
     for (j in 1:ncol(y)){
-      if (verbose) {print(j/ncol(y))}
-      jc <- apply(x, 2, function (xi) {res <- cor.test(xi, y[, j], method = method, use = "pairwise.complete.obs"); c(res$estimate, res$p.value)})
-
-      Pc[,j] <- jc[2,]        
+      if (verbose) {message(j/ncol(y))}
+      jc <- apply(x, 2, function (xi) { res <- cor.test(xi, y[, j], method = method, use = "pairwise.complete.obs"); c(res$estimate, res$p.value) })
+  
       Cc[,j] <- jc[1,]        
+      Pc[,j] <- jc[2,]        
 
     } 
 
   } else if (method == "bicor") {
+
     require(WGCNA)
     t1 <- bicorAndPvalue(x, y, use = "pairwise.complete.obs")
     Pc <- t1$p
     Cc <- t1$bicor
-   } else if (method == "categorical") {  
+
+  } else if (method == "categorical") {  
 
       Cc <- matrix(NA, nrow = ncol(x), ncol = ncol(y))
       rownames(Cc) <- colnames(x)
@@ -365,14 +327,10 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
      # Corrected p-values
      require(qvalue)
      if (prod(dim(Pc)) >= 100) {
-       qv <- qvalue(Pc)
-       if (length(qv) == 1) { 
-         qv <- NULL 
-       } else {
-         qv <- qv$qvalue
-         rownames(qv) <- xnames
-         colnames(qv) <- ynames
-       }
+       qv <- qvalue(Pc)$qvalue
+       rownames(qv) <- xnames
+       colnames(qv) <- ynames
+
      } else {
        cat("Too few p-values available, q-value calculation skipped-")
        qv <- NULL

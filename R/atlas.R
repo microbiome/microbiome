@@ -240,10 +240,10 @@ fetch.sample.info <- function (allowed.projects, chiptype = NULL,
 
 #' pick.training.samples
 #'
-#' DescriptioN: Split data set into training and test samples
+#' Description: Split data set into training and test samples
 #' 
 #' Arguments:
-#'   @param sample.info Sample information table
+#'   @param sample.info Sample metadata data frame. Include the fields 'sampleID' and 'projectName', specifying the sample identifier and project name for each sample. 
 #'   @param training.fraction Specify the fraction of the data to go into training set
 #'   @param rseed random seed
 #' Returns:
@@ -256,12 +256,22 @@ fetch.sample.info <- function (allowed.projects, chiptype = NULL,
 
 pick.training.samples <- function (sample.info, training.fraction = 0.80, rseed = 1463) {
 
+  if (!"sampleID" %in% colnames(sample.info)) {
+    warning("sampleID field missing - using row names as identifiers")
+    sample.info$sampleID <- rownames(sample.info)
+  }
+
+  if (!"projectName" %in% colnames(sample.info)) {
+    warning("projectName field missing - all samples classified in MyProject")
+    sample.info$projectName <- rep("MyProject", nrow(sample.info))
+  }
+
   # Split data into training and test sets
   if (sum(duplicated(sample.info$sampleID)) == 0) {
     set.seed(rseed)
     project.names <- unique(sample.info$projectName)
     training.inds <- sapply(table(sample.info$projectName), function (n) {sample(n, round(training.fraction*n))})
-    training.samples <- lapply(project.names, function (pn) {sample.info[sample.info$projectName == pn, "sampleID"][training.inds[[pn]]]})
+    training.samples <- lapply(project.names, function (pn) {sample.info[sample.info$projectName == pn, "sampleID"][training.inds[, pn]]})
   } else {
     stop("Duplicate sampleIDs. Handle before splitting into training and test sets.")
   }

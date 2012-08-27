@@ -100,8 +100,8 @@ calculate.hclust <- function (dat, method = "ward", metric = "correlation") {
 #' Arguments:
 #'   @param name name
 #'   @param level level
-#'   @param phylo phylo
-#'   @param data data
+#'   @param phylogeny phylogeny
+#'   @param oligo.matrix oligos vs. samples preprocessed data matrix; absolute scale
 #'   @param log10 Logical. Log or no log?
 #'
 #' Returns:
@@ -112,19 +112,38 @@ calculate.hclust <- function (dat, method = "ward", metric = "correlation") {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-get.probeset <- function (name, level, phylo, data, log10 = TRUE) {
+get.probeset <- function (name, level, phylogeny, oligo.matrix, log10 = TRUE) {
 
   # Pick probes for this entity
-  probes <- list.probes(name, level, phylo)
-  
-  # Pick expression for particular probes
-  dat <- data$probes[probes,]
+  probes <- retrieve.probesets(phylogeny, level, name)
 
-  # Log?
-  if ( log10 ) { dat <- log10(dat) } 
+  sets <- vector(length = length(probes), mode = "list")
+  names(sets) <- names(probes)
+
+  for (nam in names(probes)) {
+
+    # Pick expression for particular probes (absolute scale)
+    p <- intersect(probes[[nam]], rownames(oligo.matrix))
+    dat <- NULL
+    if (length(p) > 0) {
+      dat <- oligo.matrix[p, ]
   
+      dat <- matrix(dat, nrow = length(probes[[nam]]))
+      rownames(dat) <- probes[[nam]]
+      colnames(dat) <- colnames(oligo.matrix)
+
+      # Logarithmize probeset?
+      if ( log10 ) { dat <- log10(dat) } 
+    } 
+    sets[[nam]] <- dat
+
+  }
+  
+  if (length(sets) == 1) {sets <- sets[[1]]}
+
   # Return
-  dat
+  sets
+
 }
 
 

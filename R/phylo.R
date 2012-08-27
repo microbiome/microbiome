@@ -191,37 +191,12 @@ Phylogeneticenrichments <- function(x, oligomap, origlevel = colnames(oligomap)[
     list(pvalues=1, tables=NULL, tests=NULL, phyloMap=phyloM) 
 }
 
-#' list.probes
-#' 
-#' FIXME: merge with retrieve probesets
-#' 
-#' Description: list probes corresponding to a given phylogenetic level
-#' 
-#' Arguments:
-#'   @param name name
-#'   @param level level
-#'   @param phylo phylo
-#'
-#' Returns:
-#'   @return probes
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-list.probes <- function (name, level, phylo) {
-
-  as.character(unique(phylo[which(phylo[[level]] == name), "oligoID"]))
-  
-}
-
 #' retrieve.probesets
 #' 
 #' Description: List probes for each probeset
 #'
 #' Arguments:
-#'   @param phylo data.frame with oligo - phylotype mapping information
+#'   @param phylogeny data.frame with oligo - phylotype mapping information
 #'   @param level phylotype level for probesets
 #' Returns:
 #'   @return A list. Probes for each phylotype.
@@ -231,11 +206,15 @@ list.probes <- function (name, level, phylo) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-retrieve.probesets <- function (phylo, level = "species") {
+retrieve.probesets <- function (phylogeny, level = "species", name = NULL) {
 
-  # phylo <- pruned16S
+  if (is.null(name)) { name <- as.character(phylogeny[[level]]) }
+
+  phylo <- phylogeny[phylogeny[[level]] %in% name,]
+  phylo[[level]] <- droplevels(phylo[[level]])
+
   phylo.list <- split(phylo, phylo[[level]])
-  probesets <- lapply(phylo.list, function(x) {as.character(unique(x$oligoID))})	     
+  probesets <- lapply(phylo.list, function(x) {as.character(unique(x$oligoID))})
   names(probesets) <- names(phylo.list)
 
   probesets

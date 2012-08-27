@@ -6,7 +6,9 @@
     training.fraction = 0.8, rseed = 1463)
 }
 \arguments{
-  \item{sample.info}{Sample information table}
+  \item{sample.info}{Sample metadata data frame. Include
+  the fields 'sampleID' and 'projectName', specifying the
+  sample identifier and project name for each sample.}
 
   \item{training.fraction}{Specify the fraction of the data
   to go into training set}
@@ -18,7 +20,7 @@
   corresponding sample sets.
 }
 \description{
-  DescriptioN: Split data set into training and test
+  Description: Split data set into training and test
   samples
 }
 \details{
