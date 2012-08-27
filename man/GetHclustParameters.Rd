@@ -4,8 +4,7 @@
 \usage{
   GetHclustParameters(dat, data.dir, ppcm = 150,
     hclust.method = "complete", pal = "white/blue",
-    lev = "level 2",
-    clmet = "Pearsons correlation coefficient",
+    lev = "L2", clmet = "Pearsons correlation coefficient",
     tree.display = "yes", figureratio = 12, fontsize = 12)
 }
 \arguments{

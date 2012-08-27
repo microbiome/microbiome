@@ -18,7 +18,7 @@
   \item{verbose}{print intermediate messages}
 
   \item{rm.phylotypes}{Phylotypes to exclude (a list with
-  fields species, level 1, level 2) Returns:}
+  fields species, L1, L2) Returns:}
 }
 \value{
   summarized data matrix

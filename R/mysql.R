@@ -18,7 +18,7 @@
 #'
 #' Arguments:
 #'   @param dbuser MySQL user
-#'   @param dbpwd MySQL password
+#'   @param dbpwd  MySQL password
 #'   @param dbname MySqL database name
 #' Returns:
 #'   @return project names vector

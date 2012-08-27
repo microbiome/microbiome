@@ -99,7 +99,7 @@ calculate.hclust <- function (dat, method = "complete", metric = "correlation") 
 #' 
 #' Arguments:
 #'   @param name name
-#'   @param level level
+#'   @param level taxonomic level
 #'   @param phylogeny phylogeny
 #'   @param oligo.matrix oligos vs. samples preprocessed data matrix; absolute scale
 #'   @param log10 Logical. Log or no log?

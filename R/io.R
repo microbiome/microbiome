@@ -27,7 +27,7 @@
 #'   @return data matrix (phylo x samples)
 #'
 #' @export
-#' @examples # params <- run.profiling.script(...); dat <- read.profiling.data(params$wdir, "level1", "rpa")
+#' @examples # params <- run.profiling.script(...); dat <- read.profiling.data(params$wdir, "L1", "rpa")
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -41,7 +41,7 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE)
   if (is.null(data.dir)) {
     f <- choose.files(multi=F)
   } else {
-    if (level %in% c("level0", "level1", "level2", "species")) {
+    if (level %in% c("L0", "L1", "L2", "species")) {
       f <- paste(data.dir, "/", level, "_log10_", method, ".tab", sep = "")
     } else if (level == "oligo") {
       f <- paste(data.dir, "/oligoprofile.tab", sep = "")
@@ -54,15 +54,16 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE)
   level <- NULL; method <- NULL
   if (grep("oligo", f)) { level <- "oligo"}
   if (grep("species", f)) { level <- "species"}
-  if (grep("level0", f)) { level <- "level0"}
-  if (grep("level1", f)) { level <- "level1"}
-  if (grep("level2", f)) { level <- "level2"}
+  if (grep("L0", f)) { level <- "L0"}
+  if (grep("L1", f)) { level <- "L1"}
+  if (grep("L2", f)) { level <- "L2"}
   if (grep("phylogeny", f)) { level <- "phylogeny"}
   if (grep("rpa", f)) { method <- "rpa"}
   if (grep("sum", f)) { method <- "sum"}
   if (grep("ave", f)) { method <- "ave"}
+  if (grep("nmf", f)) { method <- "nmf"}
 
-  if (level %in% c("level0", "level1", "level2", "species")) {
+  if (level %in% c("L0", "L1", "L2", "species")) {
 
     tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1)
 
@@ -78,7 +79,7 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE)
 
   }
 
-  if (log10 && (level %in% c("oligo", "species", "level0", "level1", "level2"))) {
+  if (log10 && (level %in% c("oligo", "species", "L0", "L1", "L2"))) {
     message("Logarithmizing the data")
     tab <- log10(tab)        
   }

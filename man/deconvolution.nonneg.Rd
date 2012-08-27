@@ -10,7 +10,7 @@
 
   \item{oligo.map}{oligo.map}
 
-  \item{level}{phylogenetic level}
+  \item{level}{taxonomic level}
 
   \item{block.solution}{block.solution
 

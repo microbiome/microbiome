@@ -2,7 +2,7 @@
 \alias{calculate.hclust}
 \title{calculate.hclust}
 \usage{
-  calculate.hclust(dat, method = "ward",
+  calculate.hclust(dat, method = "complete",
     metric = "correlation")
 }
 \arguments{

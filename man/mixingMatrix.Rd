@@ -7,7 +7,7 @@
 \arguments{
   \item{oligo.map}{oligo.map}
 
-  \item{level}{phylogenetic level
+  \item{level}{taxonomic level
 
   Returns:}
 }

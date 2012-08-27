@@ -13,7 +13,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-
 #' Description: Project high-dimensional data on two-dimensional plane by various methods
 #' 
 #' Arguments:
@@ -316,7 +315,7 @@ plot.htrees <- function (dat) {
 #' @keywords utilities
 
 add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny, ppcm = 150, 
-	         hclust.method = "complete", palette = "white/blue", level = "level 2", metric = "pearson", 
+	         hclust.method = "complete", palette = "white/blue", level = "L2", metric = "pearson", 
   		 figureratio = 12, fontsize = 12, include.tree = TRUE) {
 
   if (is.null(output.file)) {
@@ -378,14 +377,14 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny, ppcm = 
 PlotPhylochipHeatmap <- function (data,
                          phylogeny,
                          metric = "pearson", 
-                         tax.level = "level.2", 
+                         tax.level = "L2", 
                          include.tree = TRUE, 
                          palette = "white/blue", #"black/yellow/white",
                          fontsize = 12, 
                          figureratio = 12, 
 			 hclust.method = "complete") {
 
-  # metric = "pearson"; tax.level = "level 2"; include.tree = TRUE; palette = "white/blue"; fontsize = 12; figureratio = 12; hclust.method = "complete"
+  # metric = "pearson"; tax.level = "L2"; include.tree = TRUE; palette = "white/blue"; fontsize = 12; figureratio = 12; hclust.method = "complete"
 
   # Ensure tax.level in the same format as in standard phylogeny matrix
   levs3 <- c("species")	   

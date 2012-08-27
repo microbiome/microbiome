@@ -2,13 +2,14 @@
 \alias{read.profiling}
 \title{read.profiling}
 \usage{
-  read.profiling(level, method, data.dir, log10 = FALSE)
+  read.profiling(level, method = "sum", data.dir = NULL,
+    log10 = TRUE)
 }
 \arguments{
   \item{level}{phylogenetic level ("oligo" / "species" /
-  "level1" / "level2" / "level0") or "phylogeny"}
+  "L1" / "L2" / "L0") or "phylogeny"}
 
-  \item{method}{("rpa" / "sum")}
+  \item{method}{("rpa" / "sum" / "ave" / "nmf")}
 
   \item{data.dir}{Profiling script output directory for
   reading the data. If not given, GUI will ask to specify
@@ -30,7 +31,7 @@
   Arguments:
 }
 \examples{
-# params <- run.profiling.script(...); dat <- read.profiling.data(params$wdir, "level1", "rpa")
+# params <- run.profiling.script(...); dat <- read.profiling.data(params$wdir, "L1", "rpa")
 }
 \author{
   Contact: Leo Lahti

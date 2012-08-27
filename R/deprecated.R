@@ -38,7 +38,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-GetHclustParameters <- function (dat, data.dir, ppcm = 150, hclust.method = "complete", pal = "white/blue", lev = "level 2", clmet = "Pearsons correlation coefficient", tree.display = "yes", figureratio = 12, fontsize = 12) {
+GetHclustParameters <- function (dat, data.dir, ppcm = 150, hclust.method = "complete", pal = "white/blue", lev = "L2", clmet = "Pearsons correlation coefficient", tree.display = "yes", figureratio = 12, fontsize = 12) {
 
   cmetrics <- list.clustering.metrics()
   cscales  <- list.color.scales()
@@ -201,7 +201,7 @@ plotGroupPCA <- function(dPCA,groups,main="PCA plot",xPC=1, yPC=2,type="n",
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-plotOligoP <- function(d, tax.level='level1',
+plotOligoP <- function(d, tax.level='L1',
                         metric='correlation', include.tree=T,
                         fontsize=11, figureratio=15, oligomap=oligomapJN,
                         width=12, height=20, oligomapJN = NULL, 

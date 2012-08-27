@@ -8,7 +8,7 @@
 \arguments{
   \item{name}{name}
 
-  \item{level}{level}
+  \item{level}{taxonomic level}
 
   \item{phylogeny}{phylogeny}
 

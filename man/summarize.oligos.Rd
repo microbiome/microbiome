@@ -1,15 +1,15 @@
 \name{summarize.oligos}
 \alias{summarize.oligos}
-\title{Description: summarize.oligos}
+\title{Description: summarize.oligos EXPERIMENTAL}
 \usage{
-  summarize.oligos(Data, PH.i, level = "level.2")
+  summarize.oligos(oligo.matrix, oligomap, level = "L2")
 }
 \arguments{
   \item{Data}{Data}
 
   \item{PH.i}{PH.i}
 
-  \item{level}{phylogenetic level
+  \item{level}{taxonomic level
 
   Returns:}
 }

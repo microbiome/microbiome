@@ -98,8 +98,8 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 
   # First produce full preprocessed data matrices
   data.matrices.full <- list(oligo = oligo.data)
-  for (level in c("species", "level 1", "level 2")) {
-    for (method in c("ave", "sum", "rpa")) {
+  for (level in c("species", "L1", "L2")) {
+    for (method in c("ave", "sum", "rpa")) { # NMF?
       data.matrices.full[[level]][[method]] <- summarize.probesets(oligo.map, oligo.data, method, level, rm.phylotypes = rm.phylotypes)
     }
   }

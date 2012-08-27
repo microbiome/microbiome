@@ -676,8 +676,8 @@ WriteLog <- function (naHybs, params) {
   cat("sample IDs: ",params$samples$sampleID,  "\n", file=logfilename, append=T)
   cat("excluded oligos: ",params$rm.phylotypes$oligos,  "\n", file=logfilename, append=T)
   cat("excluded species: ",params$rm.phylotypes[["species"]], "\n", file=logfilename, append=T)
-  cat("excluded level 1: ",params$rm.phylotypes[["level 1"]], "\n", file=logfilename, append=T)
-  cat("excluded level 2: ",params$rm.phylotypes[["level 2"]], "\n", file=logfilename, append=T)
+  cat("excluded level 1: ",params$rm.phylotypes[["L1"]], "\n", file=logfilename, append=T)
+  cat("excluded level 2: ",params$rm.phylotypes[["L2"]], "\n", file=logfilename, append=T)
   cat("excluded hybridisations: ",naHybs,  "\n", file=logfilename, append=T)
   cat("remove non-specific oligos: ",params$remove.nonspecific.oligos, "\n",file=logfilename, append=T)
   cat("phylogeny: ",params$phylogeny,  "\n", file=logfilename, append=T)
@@ -796,22 +796,22 @@ phylotype.rm.list <- function (chip) {
     
     rm.phylotypes[["oligos"]] <- c("UNI 515", "HIT 5658", "HIT 1503", "HIT 1505", "HIT 1506")
     rm.phylotypes[["species"]] <- c("Victivallis vadensis")
-    rm.phylotypes[["level 1"]] <- c("Lentisphaerae")
-    rm.phylotypes[["level 2"]] <- c("Victivallis")
+    rm.phylotypes[["L1"]] <- c("Lentisphaerae")
+    rm.phylotypes[["L2"]] <- c("Victivallis")
 
   } else if (chip == "MITChip") {
 
     rm.phylotypes[["oligos"]] <- c("Bacteria", "DHC_1", "DHC_2", "DHC_3", "DHC_4", "DHC_5", "DHC_6", "Univ_1492")
     rm.phylotypes[["species"]] <- c()
-    rm.phylotypes[["level 1"]] <- c()
-    rm.phylotypes[["level 2"]] <- c()
+    rm.phylotypes[["L1"]] <- c()
+    rm.phylotypes[["L2"]] <- c()
 
   } else if (chip == "PITChip") {
 
     rm.phylotypes[["oligos"]] <- c("Bacteria", "DHC_1", "DHC_2", "DHC_3", "DHC_4", "DHC_5", "DHC_6", "Univ_1492")
     rm.phylotypes[["species"]] <- c()
-    rm.phylotypes[["level 1"]] <- c()
-    rm.phylotypes[["level 2"]] <- c()
+    rm.phylotypes[["L1"]] <- c()
+    rm.phylotypes[["L2"]] <- c()
 
   } else if (chip == "ChickChip") {
     warning("No universal probes excluded from ChichChip yet!")
@@ -1277,8 +1277,8 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   # Oligo summarization
   finaldata <- list()
   finaldata[["oligo"]] <- oligo.abs
-  levels <- c("species", "level 2", "level 1")
-  if (params$chip == "MITChip") {levels <- c(levels, "level 0")}
+  levels <- c("species", "L2", "L1")
+  if (params$chip == "MITChip") {levels <- c(levels, "L0")}
   for (level in levels) {
     finaldata[[level]] <- list()
     for (method in c("sum", "rpa", "ave", "nmf")) {
@@ -1286,11 +1286,6 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
     	summarized.log10 <- summarize.probesets(pruned16S, oligo.log10, 
       			       	          method = method, level = level, 	
 					  rm.phylotypes = params$rm.phylotypes)
-
-        # Use L0/L1/L2 for consistency
-	colnames(summarized.log10)[[which(colnames(summarized.log10) == "level 0")]] <- L0
-	colnames(summarized.log10)[[which(colnames(summarized.log10) == "level 1")]] <- L1
-	colnames(summarized.log10)[[which(colnames(summarized.log10) == "level 2")]] <- L2
 
         # Store the data in absolute scale					
         finaldata[[level]][[method]] <- 10^summarized.log10
@@ -1373,7 +1368,7 @@ threshold.data <- function(dat, sd.times = 6){
 #'   @param method summarization method
 #'   @param level summarization level
 #'   @param verbose print intermediate messages
-#'   @param rm.phylotypes Phylotypes to exclude (a list with fields species, level 1, level 2)
+#'   @param rm.phylotypes Phylotypes to exclude (a list with fields species, L1, L2)
 #' Returns:
 #'   @return summarized data matrix
 #'
@@ -1410,7 +1405,7 @@ summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose =
 
   # Start by summarizing into species level
   rm.species <- unique(c(unique(oligo.map[oligo.map[[level1]] %in% rm.phylotypes[[level1]], "species"]), 
-  	     		 unique(oligo.map[oligo.map[[level2]] %in% rm.phylotypes[[level2]], "species"]),
+  	                 unique(oligo.map[oligo.map[[level2]] %in% rm.phylotypes[[level2]], "species"]),
 			 rm.phylotypes$species))
 			 
   # Ensure that all L2 groups below specified L1 are removed as well
@@ -1443,6 +1438,9 @@ summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose =
     for (pg in names(phylogroups)) {
       specs <- unique(phylogroups[[pg]])
       mat <- matrix(species.matrix[specs,], nrow = length(specs))
+
+
+      if (method == "nmf") { warning("NMF method in construction."); vec <- NULL}
       if (method == "ave") { vec <- colMeans(mat) }
       if (method == "sum") { vec <- colSums(mat)  } 
       if (method == "rpa") { vec <- colSums(mat)  } # For RPA, use the sum for L1/L2

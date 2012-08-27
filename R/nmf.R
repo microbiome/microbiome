@@ -40,7 +40,7 @@ count <- function(d){
 #' Arguments:
 #'   @param PH.i oligomap
 #'   @param Ns Ns
-#'   @param level phylogenetic level
+#'   @param level taxonomic level
 #'   @param N N
 #'
 #' Returns:
@@ -51,7 +51,7 @@ count <- function(d){
 #' @author Contact: Jarkko Salojarvi \email{jarkko.salojarvi@@helsinki.fi}
 #' @keywords utilities
 
-simulate.hitchip <- function(PH.i, Ns, level = "level 2", N = 5000){
+simulate.hitchip <- function(PH.i, Ns, level = "L2", N = 5000){
 
   oligo <- split(PH.i$oligoID,PH.i[, level])
   oligo <- lapply(oligo,function(x) unique(as.character(x)))
@@ -70,14 +70,14 @@ simulate.hitchip <- function(PH.i, Ns, level = "level 2", N = 5000){
 }
 
 
-#' Description: summarize.oligos
+#' Description: summarize.oligos EXPERIMENTAL
 #'
 #' For cross-hyb control
 #'
 #' Arguments:
 #'   @param Data Data
 #'   @param PH.i PH.i
-#'   @param level phylogenetic level
+#'   @param level taxonomic level
 #'
 #' Returns:
 #'   @return list
@@ -87,14 +87,20 @@ simulate.hitchip <- function(PH.i, Ns, level = "level 2", N = 5000){
 #' @author Contact: Jarkko Salojarvi \email{jarkko.salojarvi@@helsinki.fi}
 #' @keywords utilities
 
-summarize.oligos <- function(Data, PH.i, level = "level.2"){
-  oligo <- split(PH.i$oligoID,PH.i[,level])
+summarize.oligos <- function(oligo.matrix, oligomap, level = "L2"){
+
+  # Follow current conventions in oligomaps		     
+  if (level %in% c("level 2", "level.2", "L2")) {level <- "level.2"}
+  if (level %in% c("level 1", "level.1", "L1")) {level <- "level.1"}
+
+  oligo <- split(oligomap$oligoID,oligomap[,level])
   oligo <- lapply(oligo,function(x) unique(as.character(x)))
+
   Sim <- sapply(oligo,function(x){  
     if (length(x)>1)
-      return(colSums(Data[x,]))
+      return(colSums(oligo.matrix[x,]))
     else
-      return(Data[x,])
+      return(oligo.matrix[x,])
   })
   t(Sim)
 }
@@ -106,7 +112,7 @@ summarize.oligos <- function(Data, PH.i, level = "level.2"){
 #'
 #' Arguments:
 #'   @param oligo.map oligo.map
-#'   @param level phylogenetic level
+#'   @param level taxonomic level
 #'
 #' Returns:
 #'   @return oligos x phylotypes mixing matrix
@@ -116,7 +122,7 @@ summarize.oligos <- function(Data, PH.i, level = "level.2"){
 #' @author Contact: Jarkko Salojarvi \email{jarkko.salojarvi@@helsinki.fi}
 #' @keywords utilities
 
-mixingMatrix <- function(oligo.map,level){
+mixingMatrix <- function(oligo.map, level){
 
   M <- matrix(0,length(unique(oligo.map$oligoID)),length(unique(oligo.map[,level])),dimnames=list(sort(as.character(unique(oligo.map$oligoID))),sort(as.character(unique(oligo.map[,level])))))
 
@@ -138,7 +144,7 @@ mixingMatrix <- function(oligo.map,level){
 #' Arguments:
 #'   @param oligo.data oligo.data
 #'   @param oligo.map oligo.map
-#'   @param level phylogenetic level
+#'   @param level taxonomic level
 #'   @param block.solution block.solution
 #'
 #' Returns:
