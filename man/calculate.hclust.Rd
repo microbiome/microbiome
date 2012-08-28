@@ -27,7 +27,7 @@
   Arguments:
 }
 \examples{
-# hc <- calculate.hclust(dat, "ward", "correlation")
+# hc <- calculate.hclust(dat, "complete", "correlation")
 }
 \author{
   Contact: Leo Lahti

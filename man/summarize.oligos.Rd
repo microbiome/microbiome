@@ -1,13 +1,13 @@
 \name{summarize.oligos}
 \alias{summarize.oligos}
-\title{Description: summarize.oligos EXPERIMENTAL}
+\title{Description: summarize.oligos}
 \usage{
   summarize.oligos(oligo.matrix, oligomap, level = "L2")
 }
 \arguments{
-  \item{Data}{Data}
+  \item{oligo.matrix}{oligo.matrix}
 
-  \item{PH.i}{PH.i}
+  \item{oligomap}{oligomap}
 
   \item{level}{taxonomic level
 
@@ -17,14 +17,11 @@
   list
 }
 \description{
-  For cross-hyb control
-}
-\details{
   Arguments:
 }
 \author{
   Contact: Jarkko Salojarvi
-  \email{jarkko.salojarvi@helsinki.fi}
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
   See citation("microbiome")

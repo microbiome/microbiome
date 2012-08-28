@@ -1214,6 +1214,10 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   params$chip <- detect.chip(dbname)
   params$rm.phylotypes <- phylotype.rm.list(params$chip) # List oligos and phylotypes to remove by default
 
+  # Minmax parameters hard-coded to standardize normalization;
+  # Using the parameters from HITChip atlas with 3200 samples
+  params$minmax.points <- c(38.43174, 37645.73718)
+
   # Get sample information matrix for the selected projects	
   project.info <- fetch.sample.info(params$prj$projectName, chiptype = NULL, 
   	       	  		    dbuser, dbpwd, dbname, 
@@ -1247,9 +1251,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   # Order of normalization / bg correction was validated empirically.
   # bg.adjust intentionally set to NULL here. 
   # bg correction done _after_ oligo summarization, if any (see next steps)
-  # Minmax parameters hard-coded to standardize normalization;
-  # Using the parameters from HITChip atlas with 3200 samples
-  d.scaled <- ScaleProfile(log10(fdat.orig), params$normalization, bg.adjust = NULL, minmax.points = c(38.43174, 37645.73718)) 
+  d.scaled <- ScaleProfile(log10(fdat.orig), params$normalization, bg.adjust = NULL, minmax.points = params$minmax.points) 
 
   ##################################
   ## GET OLIGO-PHYLOTYPE MAPPINGS
@@ -1472,7 +1474,7 @@ summarize.probesets.species <- function (oligomap, oligo.data, method, verbose =
 
   level <- "species"			    
 
-  if (method == "nmf) {warning("nmf oligo summarization method not implemented for species level"); return(NULL)}
+  if (method == "nmf") {warning("nmf oligo summarization method not implemented at species level"); return(NULL)}
   
   probesets <- retrieve.probesets(oligomap, level = level)
   probesets <- probesets[setdiff(names(probesets), rm.species)]

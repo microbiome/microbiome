@@ -4,7 +4,7 @@
 Description: Add oligprofile heatmap into output directory}
 \usage{
   add.heatmap(dat, output.dir, output.file = NULL,
-    phylogeny, ppcm = 150, hclust.method = "complete",
+    oligomap, ppcm = 150, hclust.method = "complete",
     palette = "white/blue", level = "L2",
     metric = "pearson", figureratio = 12, fontsize = 12,
     include.tree = TRUE)
@@ -17,7 +17,7 @@ Description: Add oligprofile heatmap into output directory}
 
   \item{output.dir}{output file name}
 
-  \item{phylogeny}{oligo-phylotype mappings}
+  \item{oligomap}{oligo-phylotype mappings}
 
   \item{ppcm}{figure size}
 

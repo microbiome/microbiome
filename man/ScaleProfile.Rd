@@ -3,7 +3,8 @@
 \title{Description: Between-arrays normalization}
 \usage{
   ScaleProfile(r.feature, method = "minmax",
-    bg.adjust = NULL, minmax.quantiles = c(0.005, 0.995))
+    bg.adjust = NULL, minmax.quantiles = c(0.005, 0.995),
+    minmax.points = NULL)
 }
 \arguments{
   \item{r.feature}{data matrix in logarithmic scale}

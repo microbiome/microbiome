@@ -2,7 +2,7 @@
 \alias{get.probeset}
 \title{Description: get probeset data matrix}
 \usage{
-  get.probeset(name, level, phylogeny, oligo.matrix,
+  get.probeset(name, level, oligomap, oligo.matrix,
     log10 = TRUE)
 }
 \arguments{
@@ -10,7 +10,7 @@
 
   \item{level}{taxonomic level}
 
-  \item{phylogeny}{phylogeny}
+  \item{oligomap}{oligomap}
 
   \item{oligo.matrix}{oligos vs. samples preprocessed data
   matrix; absolute scale}

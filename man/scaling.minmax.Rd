@@ -2,12 +2,16 @@
 \alias{scaling.minmax}
 \title{Description: Minmax scaling.}
 \usage{
-  scaling.minmax(r, quantile.points, robust = FALSE)
+  scaling.minmax(r, quantile.points = NULL,
+    minmax.points = NULL, robust = FALSE)
 }
 \arguments{
   \item{r}{data matrix in log10 scale}
 
   \item{quantile.points}{quantiles for minmax}
+
+  \item{minmax.points}{pre-calculated quantiles for minmax;
+  overrides quantile.points argument}
 
   \item{robust}{Select minmax version.
 

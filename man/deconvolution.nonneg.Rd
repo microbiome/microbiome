@@ -1,14 +1,14 @@
 \name{deconvolution.nonneg}
 \alias{deconvolution.nonneg}
-\title{Description: mixingMatrix}
+\title{Description: Deconvolution}
 \usage{
-  deconvolution.nonneg(oligo.data, oligo.map, level,
-    block.solution = T)
+  deconvolution.nonneg(oligo.data, oligomap, level,
+    block.solution = T, verbose = FALSE)
 }
 \arguments{
-  \item{oligo.data}{oligo.data}
+  \item{oligo.data}{oligo.data in absolute domain}
 
-  \item{oligo.map}{oligo.map}
+  \item{oligomap}{oligo - phylotype mapping data frame}
 
   \item{level}{taxonomic level}
 
@@ -27,7 +27,7 @@
 }
 \author{
   Contact: Jarkko Salojarvi
-  \email{jarkko.salojarvi@helsinki.fi}
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
   See citation("microbiome")

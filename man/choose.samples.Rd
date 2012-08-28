@@ -15,7 +15,7 @@
   \item{condition}{TBA}
 }
 \value{
-  TBA
+  sample vector
 }
 \description{
   choose.samples

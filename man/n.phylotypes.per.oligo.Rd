@@ -2,10 +2,10 @@
 \alias{n.phylotypes.per.oligo}
 \title{Description: Check number of matching phylotypes for each probe}
 \usage{
-  n.phylotypes.per.oligo(oligo.map, level)
+  n.phylotypes.per.oligo(oligomap, level)
 }
 \arguments{
-  \item{oligo.map}{oligo - phylotype matching data.frame}
+  \item{oligomap}{oligo - phylotype matching data.frame}
 
   \item{level}{phylotype level
 

@@ -2,10 +2,10 @@
 \alias{mixingMatrix}
 \title{Description: mixingMatrix}
 \usage{
-  mixingMatrix(oligo.map, level)
+  mixingMatrix(oligomap, level)
 }
 \arguments{
-  \item{oligo.map}{oligo.map}
+  \item{oligomap}{oligomap}
 
   \item{level}{taxonomic level
 
@@ -22,7 +22,7 @@
 }
 \author{
   Contact: Jarkko Salojarvi
-  \email{jarkko.salojarvi@helsinki.fi}
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
   See citation("microbiome")

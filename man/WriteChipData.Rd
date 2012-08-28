@@ -2,7 +2,7 @@
 \alias{WriteChipData}
 \title{Description: Write preprocessed data into the output directory}
 \usage{
-  WriteChipData(finaldata, output.dir, phylogeny,
+  WriteChipData(finaldata, output.dir, oligomap,
     verbose = TRUE)
 }
 \arguments{
@@ -11,14 +11,14 @@
 
   \item{output.dir}{output directory}
 
-  \item{phylogeny}{phylogeny}
+  \item{oligomap}{oligomap}
 
   \item{verbose}{verbose
 
   Returns:}
 }
 \value{
-  Preprocessed data in absolute scale, phylogeny, and
+  Preprocessed data in absolute scale, oligomap, and
   parameters
 }
 \description{

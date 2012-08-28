@@ -2,8 +2,8 @@
 \alias{PlotPhylochipHeatmap}
 \title{PlotPhylochipHeatmap}
 \usage{
-  PlotPhylochipHeatmap(data, phylogeny, metric = "pearson",
-    tax.level = "L2", include.tree = TRUE,
+  PlotPhylochipHeatmap(data, oligomap, metric = "pearson",
+    level = "L2", include.tree = TRUE,
     palette = "white/blue", fontsize = 12,
     figureratio = 12, hclust.method = "complete")
 }
@@ -11,11 +11,12 @@
   \item{data}{oligoprofile data in original (non-log)
   domain}
 
-  \item{phylogeny}{oligo-phylotype mappings}
+  \item{oligomap}{oligo-phylotype mappings}
 
   \item{metric}{clustering metric}
 
-  \item{tax.level}{taxonomic level to show}
+  \item{level}{taxonomic level to show (L0 / L1 / L2 /
+  species)}
 
   \item{include.tree}{include.tree}
 
