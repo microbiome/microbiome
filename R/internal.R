@@ -349,8 +349,8 @@ ReadParameters <- function (con) {
 
   }
 
-  # LL and JS decided to remove default BG correction 29.3.2012
-  # based on various validation tests.
+  # LL + JS decided to remove default BG correction 29.3.2012
+  # based on empirical validations
   # bgc.method <- select.list(c("2*sd bkg intensity", "6*sd bkg intensity"), multiple = FALSE, preselect = "6*sd bkg intensity", title = "Select background correction method:")
   bgc.method <- NULL # Intentional
 
@@ -463,6 +463,7 @@ get.sampleid <- function (d.oligo) {
 #' Arguments:
 #'   @param r data matrix in log10 scale
 #'   @param quantile.points quantiles for minmax
+#'   @param minmax.points pre-calculated quantiles for minmax; overrides quantile.points argument
 #'   @param robust Select minmax version. 
 #' 
 #' Returns:
@@ -479,13 +480,19 @@ get.sampleid <- function (d.oligo) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-scaling.minmax <- function (r, quantile.points, robust = FALSE) {
+scaling.minmax <- function (r, quantile.points = NULL, minmax.points = NULL, robust = FALSE) {
 
   # return original scale 
   rc <- 10^r 
 
-  maxabs <- mean(apply(rc, 2, quantile, max(quantile.points), na.rm = TRUE))
-  minabs <- mean(apply(rc, 2, quantile, min(quantile.points), na.rm = TRUE))
+  if (!is.null(minmax.points)) {
+    maxabs <- mean(apply(rc, 2, quantile, max(quantile.points), na.rm = TRUE))
+    minabs <- mean(apply(rc, 2, quantile, min(quantile.points), na.rm = TRUE))
+  } else {
+    maxabs <- max(minmax.points)
+    minabs <- min(minmax.points)
+  }
+
 
   if (!robust) {
 
@@ -1100,7 +1107,7 @@ oligo.bg.correction <- function (d.oligo2, bgc.method) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-ScaleProfile <- function (r.feature, method = 'minmax', bg.adjust = NULL, minmax.quantiles = c(0.005, 0.995)) {
+ScaleProfile <- function (r.feature, method = 'minmax', bg.adjust = NULL, minmax.quantiles = c(0.005, 0.995), minmax.points = NULL) {
 
   method <- list.scaling.methods()[[method]]
 
@@ -1231,6 +1238,19 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
     fdat.hybinfo <- fdat.hybinfo[, !onlyNA]
   }
   
+  ##############################
+  ## Between-array normalization
+  ##############################
+
+  # selected scaling for featurelevel data
+  # Background correction after this step, if any. 
+  # Order of normalization / bg correction was validated empirically.
+  # bg.adjust intentionally set to NULL here. 
+  # bg correction done _after_ oligo summarization, if any (see next steps)
+  # Minmax parameters hard-coded to standardize normalization;
+  # Using the parameters from HITChip atlas with 3200 samples
+  d.scaled <- ScaleProfile(log10(fdat.orig), params$normalization, bg.adjust = NULL, minmax.points = c(38.43174, 37645.73718)) 
+
   ##################################
   ## GET OLIGO-PHYLOTYPE MAPPINGS
   ##################################
@@ -1242,16 +1262,6 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
 			     remove.nonspecific.oligos = params$remove.nonspecific.oligos, 
 			     chip = params$chip)
 
-  ##################
-  ## COMPUTE SCALING
-  ##################
-
-  # selected scaling for featurelevel data
-  # Background correction after this step, if any. 
-  # Order of normalization / bg correction was validated empirically.
-  # bg.adjust intentionally set to NULL here. 
-  # bg correction done _after_ oligo summarization, if any (see next steps)
-  d.scaled <- ScaleProfile(log10(fdat.orig), params$normalization, bg.adjust = NULL) 
 
   ####################
   ## COMPUTE SUMMARIES

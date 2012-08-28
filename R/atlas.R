@@ -83,9 +83,13 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   	       	                     project.info$hybridisationID), ]
   rownames(fdat.hybinfo) <- colnames(fdat.orig)
 
+  # calculate quantile points in original scale 
+  maxabs <- mean(apply(fdat.orig, 2, quantile, max(quantile.points), na.rm = TRUE))
+  minabs <- mean(apply(fdat.orig, 2, quantile, min(quantile.points), na.rm = TRUE))  
+  minmax.points <- c(minabs, maxabs)
+
   # Normalize (input required in log-scale)
-  fdat <- ScaleProfile(log10(fdat.orig), method = my.scaling, 
-       	  		minmax.quantiles = minmax.quantiles)
+  fdat <- ScaleProfile(log10(fdat.orig), method = my.scaling, minmax.points = minmax.points)
  			
   # Summarize probes into oligos and hybridisations into samples
   oligo.data <- summarize.rawdata(fdat, fdat.hybinfo, fdat.oligoinfo, 
@@ -155,7 +159,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 		 allowed.projects = allowed.projects, 
 		 rm.oligos = rm.phylotypes$oligos, rm.phylotypes = rm.phylotypes, 
 		 files = list(full.data.file, training.data.file, test.data.file, parameter.data.file),
-		 session.info = session.info)
+		 session.info = session.info, minmax.points = minmax.points, date = date())
 
   # Save version info
   save(oligomap, params, file = parameter.data.file, compress = "xz")
