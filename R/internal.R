@@ -28,14 +28,13 @@
 #' @keywords utilities
 
 species2levels <- function (spec, oligomap) {
-   # Check which L1/L2 id type used	       
-   lev1 <- intersect(c("level 1", "level.1", "L1"), colnames(oligomap))
-   lev2 <- intersect(c("level 2", "level.2", "L2"), colnames(oligomap))
+
+   oligomap <- polish.oligomap(oligomap)
 	       
-   omap <- oligomap[match(as.character(spec), oligomap$species), c("species", lev2, lev1)]
+   omap <- oligomap[match(as.character(spec), oligomap$species), c("species", "L2", "L1")]
    omap[["species"]] <- factor(omap[["species"]])
-   omap[[lev1]] <- factor(omap[[lev1]])
-   omap[[lev2]] <- factor(omap[[lev2]])
+   omap[["L1"]] <- factor(omap[["L1"]])
+   omap[["L2"]] <- factor(omap[["L2"]])
 
    omap
 }
@@ -55,13 +54,11 @@ species2levels <- function (spec, oligomap) {
 
 level2TOlevel1 <- function (l2, oligomap) {
 
-   # Check which L1/L2 id type used	       
-   lev1 <- intersect(c("level 1", "level.1", "L1"), colnames(oligomap))
-   lev2 <- intersect(c("level 2", "level.2", "L2"), colnames(oligomap))
+   oligomap <- polish.oligomap(oligomap)
 
-   omap <- oligomap[match(as.character(l2), oligomap[[lev2]]), c(lev2, lev1)]
-   omap[[lev2]] <- factor(omap[[lev2]])
-   omap[[lev1]] <- factor(omap[[lev1]])
+   omap <- oligomap[match(as.character(l2), oligomap[["L2"]]), c("L2", "L1")]
+   omap[["L2"]] <- factor(omap[["L2"]])
+   omap[["L1"]] <- factor(omap[["L1"]])
 
    omap
 }
@@ -1379,30 +1376,6 @@ threshold.data <- function(dat, sd.times = 6){
 
 summarize.probesets <- function (oligomap, oligo.data, method, level, verbose = TRUE, rm.phylotypes = NULL) {
 
-  if ("level.0" %in% colnames(oligomap)) {
-    level0 <- "level.0"
-  } else if ("level 0" %in% colnames(oligomap)) {
-    level0 <- "level 0"
-  } else {
-    level0 <- NULL
-  }
-
-  if ("level.1" %in% colnames(oligomap)) {
-    level1 <- "level.1"
-  } else if ("level 1" %in% colnames(oligomap)) {
-    level1 <- "level 1"
-  } else {
-    level1 <- NULL
-  }
-
-  if ("level.2" %in% colnames(oligomap)) {
-    level2 <- "level.2"
-  } else if ("level 2" %in% colnames(oligomap)) {
-    level2 <- "level 2"
-  } else {
-    level2 <- NULL
-  }
-
   # Start by summarizing into species level
   rm.species <- unique(c(unique(oligomap[oligomap[[level1]] %in% rm.phylotypes[[level1]], "species"]), 
   	                 unique(oligomap[oligomap[[level2]] %in% rm.phylotypes[[level2]], "species"]),
@@ -1426,25 +1399,33 @@ summarize.probesets <- function (oligomap, oligo.data, method, level, verbose = 
 
   } else if (level %in% c(level0, level1, level2)) {
 
-    phylogroups <- levelmap(phylotypes = NULL, level.from = level, level.to = "species", oligomap)
+    if (method %in% c("rpa", "ave", "sum")) {
 
-    # Remove the specified phylogroups
-    phylogroups <- phylogroups[setdiff(names(phylogroups), rm.phylotypes[[level]])]
+      # List all species for the given level (L0/L1/L2)
+      phylogroups <- levelmap(phylotypes = NULL, level.from = level, level.to = "species", oligomap)
 
-    summarized.matrix <- matrix(NA, nrow = length(phylogroups), ncol = ncol(oligo.data))
-    rownames(summarized.matrix) <- names(phylogroups)
-    colnames(summarized.matrix) <- colnames(oligo.data)
+      # Remove specified phylogroups
+      phylogroups <- phylogroups[setdiff(names(phylogroups), rm.phylotypes[[level]])]
 
-    for (pg in names(phylogroups)) {
-      specs <- unique(phylogroups[[pg]])
-      mat <- matrix(species.matrix[specs,], nrow = length(specs))
+      summarized.matrix <- matrix(NA, nrow = length(phylogroups), ncol = ncol(oligo.data))
+      rownames(summarized.matrix) <- names(phylogroups)
+      colnames(summarized.matrix) <- colnames(oligo.data)
 
-      if (method == "nmf") { warning("NMF method in construction."); vec <- NULL }
-      if (method == "ave") { vec <- colMeans(mat) }
-      if (method == "sum") { vec <- colSums(mat)  } 
-      if (method == "rpa") { vec <- colSums(mat)  } # For RPA, use the sum for L1/L2
-      summarized.matrix[pg, ] <- vec
+      for (pg in names(phylogroups)) {
+        specs <- unique(phylogroups[[pg]])
+        mat <- matrix(species.matrix[specs,], nrow = length(specs))
+        if (method == "ave") { vec <- colMeans(mat) }
+        if (method == "sum") { vec <- colSums(mat)  } 
+        if (method == "rpa") { vec <- colSums(mat)  } # For RPA, use the sum for L1/L2
+        summarized.matrix[pg, ] <- vec
+      }
+
+    } else if (method == "nmf") {
+
+      summarized.matrix <- deconvolution.nonneg(10^oligo.data, oligomap, level)
+
     }
+
   } else {
 
     message(level)
@@ -1479,6 +1460,8 @@ summarize.probesets.species <- function (oligomap, oligo.data, method, verbose =
 
   level <- "species"			    
 
+  if (method == "nmf) {warning("nmf oligo summarization method not implemented for species level"); return(NULL)}
+  
   probesets <- retrieve.probesets(oligomap, level = level)
   probesets <- probesets[setdiff(names(probesets), rm.species)]
   

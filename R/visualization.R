@@ -334,7 +334,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, oligomap, ppcm = 1
     try(hc.params <- PlotPhylochipHeatmap(data = dat,
                 oligomap = oligomap,
                 metric = metric,
-                tax.level = level,
+                level = level,
                 include.tree = ifelse(tree.display == 'yes', TRUE, FALSE),
                 palette = palette,
                 fontsize = fontsize,
@@ -359,7 +359,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, oligomap, ppcm = 1
 #'   @param data oligoprofile data in original (non-log) domain
 #'   @param oligomap oligo-phylotype mappings
 #'   @param metric clustering metric
-#'   @param tax.level taxonomic level to show
+#'   @param level taxonomic level to show (L0 / L1 / L2 / species)
 #'   @param include.tree include.tree
 #'   @param palette color palette
 #'   @param fontsize font size
@@ -377,25 +377,16 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, oligomap, ppcm = 1
 PlotPhylochipHeatmap <- function (data,
                          oligomap,
                          metric = "pearson", 
-                         tax.level = "L2", 
+                         level = "L2", 
                          include.tree = TRUE, 
                          palette = "white/blue", #"black/yellow/white",
                          fontsize = 12, 
                          figureratio = 12, 
 			 hclust.method = "complete") {
 
-  # metric = "pearson"; tax.level = "L2"; include.tree = TRUE; palette = "white/blue"; fontsize = 12; figureratio = 12; hclust.method = "complete"
+  # metric = "pearson"; level = "L2"; include.tree = TRUE; palette = "white/blue"; fontsize = 12; figureratio = 12; hclust.method = "complete"
 
-  # Ensure tax.level in the same format as in standard oligomap matrix
-  levs3 <- c("species")	   
-  levs2 <- c("level 2", "level.2", "L2")
-  levs1 <- c("level 1", "level.1", "L1")
-
-  if (tax.level %in% levs1) {tax.level <- "level.1"}
-  if (tax.level %in% levs2) {tax.level <- "level.2"}
-  if (tax.level %in% levs3) {tax.level <- "level.3"}
-
-  params <- c(metric = metric, tax.level = tax.level, include.tree = include.tree, palette = palette, 
+  params <- c(metric = metric, level = level, include.tree = include.tree, palette = palette, 
   	      fontsize = fontsize, figureratio = figureratio, hclust.method = hclust.method)
 			 
   if (is.character(palette)) {
@@ -406,16 +397,16 @@ PlotPhylochipHeatmap <- function (data,
    par(ps = fontsize, xpd = NA)
    paper <- par("din")
 
-   if (tax.level == "oligo") { tax.level <- "oligoID" }
-   tax.order <- order(as.character(oligomap[[tax.level]]), na.last = FALSE)
+   if (level == "oligo") { level <- "oligoID" }
+   tax.order <- order(as.character(oligomap[[level]]), na.last = FALSE)
 
-   nainds <- is.na(oligomap[, tax.level])
+   nainds <- is.na(oligomap[, level])
    if (sum(nainds) > 0) {
-     oligomap[nainds, tax.level] <- '-'  # replace empty maps
+     oligomap[nainds, level] <- '-'  # replace empty maps
    }
 
-   levs <- unlist(lapply(split(oligomap[[tax.level]], as.factor(oligomap[[tax.level]])), length))
-   # order the rows in oligomap by tax.level
+   levs <- unlist(lapply(split(oligomap[[level]], as.factor(oligomap[[level]])), length))
+   # order the rows in oligomap by level
    oligomap <- oligomap[tax.order,]
    oligomap <- oligomap[oligomap$oligoID %in% rownames(data), ]
 

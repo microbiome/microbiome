@@ -12,6 +12,33 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+#' polish.oligomap
+#'
+#' Ensure oligomap is in correct format
+#' 
+#' @param oligomap oligomap data frame
+#'
+#' @return polished oligomap
+#' @export 
+#' @references
+#' See citation("microbiome")
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @examples #polished.oligomap <- impute(oligomap) 
+#' @keywords utilities
+
+polish.oligomap <- function (oligomap) {
+
+  colnames(oligomap)[which(colnames(oligomap) == "level.0")] <- "L0"
+  colnames(oligomap)[which(colnames(oligomap) == "level.1")] <- "L1"
+  colnames(oligomap)[which(colnames(oligomap) == "level.2")] <- "L2"
+
+  colnames(oligomap)[which(colnames(oligomap) == "level 0")] <- "L0"
+  colnames(oligomap)[which(colnames(oligomap) == "level 1")] <- "L1"
+  colnames(oligomap)[which(colnames(oligomap) == "level 2")] <- "L2"
+
+  oligomap
+
+}
 
 
 #' Impute missing values from a Gaussian. 

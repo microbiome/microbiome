@@ -12,7 +12,6 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-
 #' run.profiling.script
 #' 
 #' Description: Profiling main script
@@ -75,7 +74,7 @@ run.profiling.script <- function (dbuser, dbpwd, dbname, verbose = TRUE) {
 #'   @return hclust object for log10 and for absolute scale data
 #'
 #' @export
-#' @examples # hc <- calculate.hclust(dat, "ward", "correlation") 
+#' @examples # hc <- calculate.hclust(dat, "complete", "correlation") 
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -87,7 +86,7 @@ calculate.hclust <- function (dat, method = "complete", metric = "correlation") 
   } else if (metric == 'correlation') {
     hc <- hclust(as.dist(1 - cor(dat, use = "complete.obs")), method = method)
   } else {  
-    stop("Provide proper metric calculate.hclust!")
+    stop("Provide proper metric for calculate.hclust!")
   }
 
   hc

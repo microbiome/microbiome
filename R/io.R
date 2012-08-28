@@ -74,8 +74,7 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE)
   } else if (level == "oligomap") {
 
     tab <- read.csv(f, header = TRUE, sep = "\t")
-    colnames(tab)[[which(colnames(tab) == "level.1")]] <- "level 1"
-    colnames(tab)[[which(colnames(tab) == "level.2")]] <- "level 2"
+    tab <- polish.oligomap(tab)
 
   }
 

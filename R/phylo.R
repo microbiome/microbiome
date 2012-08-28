@@ -33,52 +33,42 @@
 
 levelmap <- function (phylotypes = NULL, level.from, level.to, oligomap) {
 
-  levs3 <- c("species")	   
-  levs2 <- c("level 2", "level.2", "L2")
-  levs1 <- c("level 1", "level.1", "L1")
-
-  lev3 <- intersect(levs3, colnames(oligomap))
-  lev2 <- intersect(levs2, colnames(oligomap))
-  lev1 <- intersect(levs1, colnames(oligomap))
-
-  if (level.from %in% levs2) {level.from <- lev2}
-  if (level.to %in% levs2) {level.to <- lev2}
-  if (level.to %in% levs1) {level.to <- lev1}
+  oligomap <- polish.oligomap(oligomap)
 
   if (is.null(phylotypes)) {
     phylotypes <- as.character(unique(oligomap[[level.from]]))
   }
 
-  if (level.from == "species" && level.to == lev2) {
-    sl <- species2levels(phylotypes, oligomap)[c("species", lev2)]
+  if (level.from == "species" && level.to == "L2") {
+    sl <- species2levels(phylotypes, oligomap)[c("species", "L2")]
   }	 
 
-  if (level.from == "species" && level.to == lev1) {
-    sl <- species2levels(phylotypes, oligomap)[c("species", lev1)]
+  if (level.from == "species" && level.to == "L1") {
+    sl <- species2levels(phylotypes, oligomap)[c("species", "L1")]
   }	 
 
-  if (level.from == lev2 && level.to == lev1) {
+  if (level.from == "L2" && level.to == "L1") {
     sl <- level2TOlevel1(phylotypes, oligomap)[,2]
   }	 
 
-  if (level.from == lev2 && level.to == lev3) {
+  if (level.from == "L2" && level.to == lev3) {
     sl <- list()
     for (pt in phylotypes) {
-      sl[[pt]] <- as.character(unique(oligomap[oligomap[[lev2]] == pt, lev3]))
+      sl[[pt]] <- as.character(unique(oligomap[oligomap[["L2"]] == pt, lev3]))
     }
   }	 
 
-  if (level.from == lev1 && level.to == lev2) {
+  if (level.from == "L1" && level.to == "L2") {
     sl <- list()
     for (pt in phylotypes) {
-      sl[[pt]] <- as.character(unique(oligomap[oligomap[[lev1]] == pt, lev2]))
+      sl[[pt]] <- as.character(unique(oligomap[oligomap[["L1"]] == pt, "L2"]))
     }
   }	 
 
-  if (level.from == lev1 && level.to == lev3) {
+  if (level.from == "L1" && level.to == lev3) {
     sl <- list()
     for (pt in phylotypes) {
-      sl[[pt]] <- as.character(unique(oligomap[oligomap[[lev1]] == pt, lev3]))
+      sl[[pt]] <- as.character(unique(oligomap[oligomap[["L1"]] == pt, lev3]))
     }
   }	 
 

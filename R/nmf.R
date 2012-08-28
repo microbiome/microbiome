@@ -87,10 +87,8 @@ simulate.hitchip <- function(PH.i, Ns, level = "L2", N = 5000){
 
 summarize.oligos <- function(oligo.matrix, oligomap, level = "L2"){
 
-  # Follow current conventions in oligomaps		     
-  if (level %in% c("level 2", "level.2", "L2")) {level <- "level.2"}
-  if (level %in% c("level 1", "level.1", "L1")) {level <- "level.1"}
-
+  oligomap <- polish.oligomap(oligomap)
+		 
   oligo <- split(oligomap$oligoID,oligomap[,level])
   oligo <- lapply(oligo, function(x) unique(as.character(x)))
 
@@ -140,8 +138,8 @@ mixingMatrix <- function(oligomap, level){
 #' For cross-hyb control
 #'
 #' Arguments:
-#'   @param oligo.data oligo.data
-#'   @param oligomap oligomap
+#'   @param oligo.data oligo.data in absolute domain
+#'   @param oligomap oligo - phylotype mapping data frame
 #'   @param level taxonomic level
 #'   @param block.solution block.solution
 #'
