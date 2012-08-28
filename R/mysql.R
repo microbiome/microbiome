@@ -45,7 +45,7 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 
 
 
-#' get.phylogeny
+#' get.oligomap
 #' 
 #' Description: Get phylogeny
 #' 
@@ -67,7 +67,7 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-get.phylogeny <- function (oligomap, rmoligos = NULL, dbuser, dbpwd, dbname, verbose = TRUE, remove.nonspecific.oligos = FALSE, chip = "HITChip") {   
+get.oligomap <- function (oligomap, rmoligos = NULL, dbuser, dbpwd, dbname, verbose = TRUE, remove.nonspecific.oligos = FALSE, chip = "HITChip") {   
 
   if (verbose) { message("Load oligomap info") }
 
@@ -161,19 +161,19 @@ get.phylogeny <- function (oligomap, rmoligos = NULL, dbuser, dbpwd, dbname, ver
     message("No requirement for a full-length hybridisation\n\n")
   }
 
-  pruned16S <- prune16S(full16S, pmTm.margin = 2.5, complement = 1, mismatch = 0)
+  oligomap <- prune16S(full16S, pmTm.margin = 2.5, complement = 1, mismatch = 0)
 
   rmoligos2 <- rmoligos
   if (remove.nonspecific.oligos) {
-    if (verbose) {message("Removing oligos with multiple targets")}
-    nPhylotypesPerOligo <- n.phylotypes.per.oligo(pruned16S, "L2") 
-    nonspecific.oligos <- setdiff(pruned16S$oligoID, names(which(nPhylotypesPerOligo == 1)))
+    if (verbose) {message("Removing oligos that have multiple targets at L2 level")}
+    nPhylotypesPerOligo <- n.phylotypes.per.oligo(oligomap, "L2") 
+    nonspecific.oligos <- setdiff(oligomap$oligoID, names(which(nPhylotypesPerOligo == 1)))
     rmoligos2 <- c(rmoligos, nonspecific.oligos)
   } 
 
-  pruned16S <- pruned16S[!pruned16S$oligoID %in% rmoligos2, ]
+  oligomap <- oligomap[!oligomap$oligoID %in% rmoligos2, ]
 
-  pruned16S        
+  oligomap        
 
 }
 

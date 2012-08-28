@@ -70,7 +70,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   message("Extract sample information from the HITChip database")
   project.info <- fetch.sample.info(allowed.projects, chiptype, dbuser, dbpwd, dbname)
 
-  oligomap <- get.phylogeny(phylogeny = "16S", rm.phylotypes$oligos, dbuser, dbpwd, dbname, remove.nonspecific.oligos = remove.nonspecific.oligos)
+  oligomap <- get.oligomap(phylogeny = "16S", rm.phylotypes$oligos, dbuser, dbpwd, dbname, remove.nonspecific.oligos = remove.nonspecific.oligos)
 
   message("Get probe-level data for the selected hybridisations")
   tmp <- get.probedata(unique(project.info[["hybridisationID"]]), 

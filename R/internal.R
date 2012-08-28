@@ -240,18 +240,20 @@ choose.projects <- function (con, multi = TRUE, condition = NULL) {
 #' @param title title
 #' @param condition TBA
 #' 
-#' @return TBA
+#' @return sample vector
 #' @export 
 #' @references See citation("microbiome")
 #' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples # TBA
 #' @keywords utilities
 
-choose.samples <- function (con, multi=TRUE, title='Select samples:', condition=NULL) {
-   smps <- fetch.samples(con, condition=condition)
-   samples <- select.list(smps$sampleID, multiple=multi, title=title)
-   smps <- fetch.samples(con, condition=list(list(field='sampleID',value=samples)))
+choose.samples <- function (con, multi = TRUE, title = 'Select samples:', condition = NULL) {
+
+   smps <- fetch.samples(con, condition = condition)
+   samples <- select.list(smps$sampleID, multiple = multi, title = title)
+   smps <- fetch.samples(con, condition = list(list(field = 'sampleID', value = samples)))
    return(smps)
+
 }
 
 
@@ -538,9 +540,9 @@ prune16S <- function (full16S, pmTm.margin = 2.5, complement = 1, mismatch = 0) 
           full16S$complement == complement &
           full16S$mismatch == mismatch
 
-  pruned16S <- full16S[keep, ]
+  oligomap <- full16S[keep, ]
 
-  pruned16S
+  oligomap
 }
 
 #' Description: Get probedata
@@ -1234,7 +1236,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   ##################################
 
   # This handles also pmTm, complement and mismatch filtering
-  pruned16S <- get.phylogeny(params$phylogeny, 
+  oligomap <- get.oligomap(params$phylogeny, 
     	       		     rmoligos = params$rm.phylotypes$oligos, 
 	    		     dbuser, dbpwd, dbname, verbose = verbose, 
 			     remove.nonspecific.oligos = params$remove.nonspecific.oligos, 
@@ -1259,13 +1261,13 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   d.oligo2 <- summarize.rawdata(d.scaled, 
   	      			fdat.hybinfo, 
 				fdat.oligoinfo = fdat.oligoinfo, 
-				oligo.ids = sort(unique(pruned16S$oligoID)))
+				oligo.ids = sort(unique(oligomap$oligoID)))
 
   # Then apply background correction if required:
   # if (!is.null(params$bgc.method)) { d.oligo2 <- oligo.bg.correction(d.oligo2, bgc.method = params$bgc.method) }
   # d.oligo2 <- oligo.bg.correction(d.oligo2, bgc.method = NULL)
-
   oligo.log10 <- d.oligo2
+
   # Return to the original scale
   oligo.abs <- matrix(10^d.oligo2, nrow = nrow(d.oligo2)) # - 1  
   rownames( oligo.abs ) <- rownames( d.oligo2 )
@@ -1280,7 +1282,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
     finaldata[[level]] <- list()
     for (method in c("sum", "rpa", "ave", "nmf")) {
 
-    	summarized.log10 <- summarize.probesets(pruned16S, oligo.log10, 
+    	summarized.log10 <- summarize.probesets(oligomap, oligo.log10, 
       			       	          method = method, level = level, 	
 					  rm.phylotypes = params$rm.phylotypes)
 
@@ -1290,7 +1292,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
     }
   }
 
-  list(data = finaldata, oligomap = pruned16S, naHybs = naHybs, params = params)
+  list(data = finaldata, oligomap = oligomap0, naHybs = naHybs, params = params)
 
 }
 
