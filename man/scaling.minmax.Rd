@@ -2,23 +2,23 @@
 \alias{scaling.minmax}
 \title{Description: Minmax scaling.}
 \usage{
-  scaling.minmax(r, quantile.points = NULL,
+  scaling.minmax(dat, quantile.points = NULL,
     minmax.points = NULL, robust = FALSE)
 }
 \arguments{
-  \item{r}{data matrix in log10 scale}
+  \item{dat}{data matrix in original absolute scale}
 
   \item{quantile.points}{quantiles for minmax}
 
-  \item{minmax.points}{pre-calculated quantiles for minmax;
-  overrides quantile.points argument}
+  \item{minmax.points}{pre-calculated quantiles for minmax
+  in log10 scale; overrides quantile.points argument}
 
   \item{robust}{Select minmax version.
 
   Returns:}
 }
 \value{
-  normalized data matrix
+  normalized data matrix in absolute scale
 }
 \description{
   Arguments:

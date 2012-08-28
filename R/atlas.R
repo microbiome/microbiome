@@ -102,12 +102,16 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   }
 
   # calculate quantile points in original scale 
-  maxabs <- mean(apply(fdat.orig, 2, quantile, max(minmax.quantiles), na.rm = TRUE))
-  minabs <- mean(apply(fdat.orig, 2, quantile, min(minmax.quantiles), na.rm = TRUE))  
-  minmax.points <- c(minabs, maxabs)
+  #maxabs <- mean(apply(fdat.orig, 2, quantile, max(minmax.quantiles), na.rm = TRUE))
+  #minabs <- mean(apply(fdat.orig, 2, quantile, min(minmax.quantiles), na.rm = TRUE))  
+  #minmax.points <- c(minabs, maxabs)
+  # hard-code to unify all analyses; these values were calculated manually from the HITChip atlas with 3200 samples, 
+  # and rounded to 3 significant digits
+  minmax.points <- c(30, 133000) 
 
   # Normalize (input required in log-scale)
-  fdat <- ScaleProfile(fdat.orig, method = my.scaling, minmax.quantiles = c(0.005, 0.995))
+  #fdat <- ScaleProfile(fdat.orig, method = my.scaling, minmax.quantiles = c(0.005, 0.995))
+  fdat <- ScaleProfile(fdat.orig, method = my.scaling, minmax.points = minmax.points)
 
   # Summarize probes into oligos and hybridisations into samples
   oligo.data <- summarize.rawdata(log10(fdat), fdat.hybinfo, fdat.oligoinfo, 
@@ -149,7 +153,11 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
     data.matrices[[sample.set]] <- list(oligo = oligo.data[, samples])
     for (level in names(data.matrices.full)) {
       for (method in names(data.matrices.full[[level]])) {
-        data.matrices[[sample.set]][[level]][[method]] <- data.matrices.full[[level]][[method]][, samples]
+        if (!(level == "species" && method == "nmf")) {
+          data.matrices[[sample.set]][[level]][[method]] <- data.matrices.full[[level]][[method]][, samples]
+        } else {
+          data.matrices[[sample.set]][[level]][[method]] <- NULL
+        }
       }
     }
   }
@@ -294,7 +302,7 @@ pick.training.samples <- function (sample.info, training.fraction = 0.80, rseed 
     set.seed(rseed)
     project.names <- unique(sample.info$projectName)
     training.inds <- sapply(table(sample.info$projectName), function (n) {sample(n, round(training.fraction*n))})
-    training.samples <- lapply(project.names, function (pn) {sample.info[sample.info$projectName == pn, "sampleID"][training.inds[, pn]]})
+    training.samples <- lapply(project.names, function (pn) {sample.info[sample.info$projectName == pn, "sampleID"][training.inds[[pn]]]})
   } else {
     stop("Duplicate sampleIDs. Handle before splitting into training and test sets.")
   }

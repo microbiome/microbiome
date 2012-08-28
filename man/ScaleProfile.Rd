@@ -2,12 +2,12 @@
 \alias{ScaleProfile}
 \title{Description: Between-arrays normalization}
 \usage{
-  ScaleProfile(r.feature, method = "minmax",
-    bg.adjust = NULL, minmax.quantiles = c(0.005, 0.995),
+  ScaleProfile(dat, method = "minmax", bg.adjust = NULL,
+    minmax.quantiles = c(0.005, 0.995),
     minmax.points = NULL)
 }
 \arguments{
-  \item{r.feature}{data matrix in logarithmic scale}
+  \item{dat}{data matrix in original absolute scale}
 
   \item{method}{normalization method}
 
@@ -16,7 +16,7 @@
   \item{minmax.quantiles}{quantiles for minmax Returns:}
 }
 \value{
-  Normalized data matrix
+  Normalized data matrix in absolute scale
 }
 \description{
   Arguments:

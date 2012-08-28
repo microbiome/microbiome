@@ -400,7 +400,7 @@ get.doligo2 <- function (featuretab, d.scaled, oligo.ids) {
 #'   @param fdat.oligoinfo oligo info table
 #'   @param oligo.ids oligo.ids
 #' Returns:
-#'   @return probes x samples matrix
+#'   @return probes x samples matrix in log10 scale
 #'
 #' @export
 #' @references See citation("microbiome") 
@@ -410,7 +410,7 @@ get.doligo2 <- function (featuretab, d.scaled, oligo.ids) {
 summarize.rawdata <- function (fdat.log10, fdat.hybinfo, fdat.oligoinfo, oligo.ids) {
 
   # List rows for each oligo (each oligo has multiple features which will be averaged)
-  d.oSplit <- split(1:nrow(fdat.log10), fdat.log10.oligoinfo$oligoID)[oligo.ids] 
+  d.oSplit <- split(1:nrow(fdat.log10), fdat.oligoinfo$oligoID)[oligo.ids] 
 
   # probes x hybs: oligo summary as means of log feature signals per oligo, hybs separate
   message("probe summary as means of log feature signals per oligo, hybs separate")
@@ -1206,7 +1206,8 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
 
   # Minmax parameters hard-coded to standardize normalization;
   # Using the parameters from HITChip atlas with 3200 samples
-  params$minmax.points <- c(30.02459, 132616.91371)
+  #params$minmax.points <- c(30.02459, 132616.91371)
+  params$minmax.points <- c(30, 133000) 
 
   # Get sample information matrix for the selected projects	
   project.info <- fetch.sample.info(params$prj$projectName, chiptype = NULL, 
@@ -1392,7 +1393,7 @@ summarize.probesets <- function (oligomap, oligo.data, method, level, verbose = 
 			 rm.phylotypes$species))
 			 
   # Ensure that all L2 groups below specified L1 are removed as well
-  rm.phylotypes[[level2]] <- unique(c(unique(oligomap[oligomap$L1 %in% rm.phylotypes$L1, "L2"]), 
+  rm.phylotypes$L2 <- unique(c(unique(oligomap[oligomap$L1 %in% rm.phylotypes$L1, "L2"]), 
 			 rm.phylotypes$L2))
 			 	
   # Remove specified oligos

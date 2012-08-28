@@ -51,10 +51,10 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, oligomap) {
     sl <- level2TOlevel1(phylotypes, oligomap)[,2]
   }	 
 
-  if (level.from == "L2" && level.to == lev3) {
+  if (level.from == "L2" && level.to == "species") {
     sl <- list()
     for (pt in phylotypes) {
-      sl[[pt]] <- as.character(unique(oligomap[oligomap[["L2"]] == pt, lev3]))
+      sl[[pt]] <- as.character(unique(oligomap[oligomap[["L2"]] == pt, "species"]))
     }
   }	 
 
@@ -65,10 +65,10 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, oligomap) {
     }
   }	 
 
-  if (level.from == "L1" && level.to == lev3) {
+  if (level.from == "L1" && level.to == "species") {
     sl <- list()
     for (pt in phylotypes) {
-      sl[[pt]] <- as.character(unique(oligomap[oligomap[["L1"]] == pt, lev3]))
+      sl[[pt]] <- as.character(unique(oligomap[oligomap[["L1"]] == pt, "species"]))
     }
   }	 
 
