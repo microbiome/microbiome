@@ -571,6 +571,8 @@ prune16S <- function (full16S, pmTm.margin = 2.5, complement = 1, mismatch = 0) 
 
 get.probedata <- function (hybridization.ids, rmoligos, dbuser, dbpwd, dbname, mc.cores = 1) {
 
+  # hybridization.ids <- unique(project.info[["hybridisationID"]]); rmoligos <- rm.phylotypes$oligos; mc.cores = 1
+
   # List unique hybridisations for the selected samples
   hids <- mysql.format(hybridization.ids)
                       
@@ -587,8 +589,7 @@ get.probedata <- function (hybridization.ids, rmoligos, dbuser, dbpwd, dbname, m
   rawdata <- fetch(rs, n = -1)
 
   ## Check if there is any data
-  rawdataDim <- dim(rawdata)
-  if(rawdataDim[1]==0) {
+  if(nrow(rawdata) == 0) {
     stop("No data found for these samples (perhaps they are not normalized yet?).\n\n")
   }
 
@@ -625,7 +626,6 @@ get.probedata <- function (hybridization.ids, rmoligos, dbuser, dbpwd, dbname, m
     ntmp <- max(sapply(rawdata.esplit, nrow))
     message(paste("Remove elements containing duplicated entries (", round(100*mean(!sapply(rawdata.esplit, nrow) == ntmp), 2), "%)", sep = ""))
     
-
     # ntmp == !10799 encountered with HITChip atlas, not yet elsewhere
     rawdata.esplit <- rawdata.esplit[!sapply(rawdata.esplit, nrow) == ntmp]
   } else if (length(table(sapply(rawdata.esplit, nrow))) > 2) {
@@ -638,6 +638,10 @@ get.probedata <- function (hybridization.ids, rmoligos, dbuser, dbpwd, dbname, m
   rownames(ftab) <- rownames(ftab.info)
   colnames(ftab) <- names(rawdata.esplit)
   for (hid in names(rawdata.esplit)) { ftab[, hid] <- I(rawdata.esplit[[hid]][inds, "spatNormSignal"]) }
+
+  # Impute
+  warning(100*mean(is.na(ftab)), "% of ftab is NAs; imputing")
+  ftab <- t(10^impute(t(log10(ftab))))
 
   # Close MySQL connection
   dbDisconnect(con)
@@ -1216,7 +1220,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
 
   # Minmax parameters hard-coded to standardize normalization;
   # Using the parameters from HITChip atlas with 3200 samples
-  params$minmax.points <- c(38.43174, 37645.73718)
+  params$minmax.points <- c(29.22195, 131413.88146)
 
   # Get sample information matrix for the selected projects	
   project.info <- fetch.sample.info(params$prj$projectName, chiptype = NULL, 

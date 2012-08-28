@@ -50,6 +50,8 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 			       remove.nonspecific.oligos = FALSE) 
 {
 
+  # library(microbiome); source("~/scripts/R/HITchip/atlas.R"); allowed.projects <- ListAtlasProjects()[1:2]; dbuser = 'lmlahti'; dbpwd = 'passu'; dbname = 'Phyloarray'; result.path <- "~/data/HITChip/Atlas/20120828/"; my.scaling = "minmax"; minmax.quantiles = c(0.005, 0.995); bgc.method = NULL; mc.cores = 3; remove.nonspecific.oligos = FALSE
+
   # Install new MySQL dump of the database with: 
   # mysql -u"dbuser" -p"dbpwd" dbname < dump.sql
   require(parallel)
@@ -75,8 +77,9 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   message("Get probe-level data for the selected hybridisations")
   tmp <- get.probedata(unique(project.info[["hybridisationID"]]), 
       	 		rm.phylotypes$oligos, dbuser, dbpwd, dbname, mc.cores = mc.cores)  
-  fdat.orig <- tmp$data       # features x hybs, original non-log scale
-  fdat.oligoinfo <- tmp$info  # oligoinfo
+
+  fdat.orig <- 1 + tmp$data       # features x hybs, original non-log scale
+  fdat.oligoinfo <- tmp$info      # oligoinfo
 
   # Annotations for selected hybridisations
   fdat.hybinfo <- project.info[match(colnames(fdat.orig), 
@@ -84,13 +87,13 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   rownames(fdat.hybinfo) <- colnames(fdat.orig)
 
   # calculate quantile points in original scale 
-  maxabs <- mean(apply(fdat.orig, 2, quantile, max(quantile.points), na.rm = TRUE))
-  minabs <- mean(apply(fdat.orig, 2, quantile, min(quantile.points), na.rm = TRUE))  
+  maxabs <- mean(apply(fdat.orig, 2, quantile, max(minmax.quantiles), na.rm = TRUE))
+  minabs <- mean(apply(fdat.orig, 2, quantile, min(minmax.quantiles), na.rm = TRUE))  
   minmax.points <- c(minabs, maxabs)
 
   # Normalize (input required in log-scale)
   fdat <- ScaleProfile(log10(fdat.orig), method = my.scaling, minmax.points = minmax.points)
- 			
+
   # Summarize probes into oligos and hybridisations into samples
   oligo.data <- summarize.rawdata(fdat, fdat.hybinfo, fdat.oligoinfo, 
   	     		oligo.ids = sort(unique(oligomap$oligoID)))

@@ -50,7 +50,7 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 #' Description: Get phylogeny
 #' 
 #' Arguments:
-#'   @param oligomap oligomap
+#'   @param phylogeny phylogeny (default: 16S)
 #'   @param rmoligos oligos to exclude
 #'   @param dbuser MySQL user
 #'   @param dbpwd MySQL password
@@ -67,7 +67,7 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-get.oligomap <- function (oligomap, rmoligos = NULL, dbuser, dbpwd, dbname, verbose = TRUE, remove.nonspecific.oligos = FALSE, chip = "HITChip") {   
+get.oligomap <- function (phylogeny = "16S", rmoligos = NULL, dbuser, dbpwd, dbname, verbose = TRUE, remove.nonspecific.oligos = FALSE, chip = "HITChip") {   
 
   if (verbose) { message("Load oligomap info") }
 
