@@ -86,9 +86,9 @@ get.phylogeny <- function (oligomap, rmoligos = NULL, dbuser, dbpwd, dbname, ver
     # Also get level0
 
     full16Squery <- paste("SELECT 		   		 
-   		   		 l0.name AS 'level 0', 
-   		                 l1.name AS 'level 1', ", "                        	 
-   		                 l2.name AS 'level 2', ", "                        	 
+   		   		 l0.name AS 'L0', 
+   		                 l1.name AS 'L1', ", "                        	 
+   		                 l2.name AS 'L2', ", "                        	 
 				 species.name AS 'species', 
 				 specimen.name AS 'specimen', 
 				 ot.oligoID AS 'oligoID', ","
@@ -126,7 +126,7 @@ get.phylogeny <- function (oligomap, rmoligos = NULL, dbuser, dbpwd, dbname, ver
   } else {
 
     # get levels 1-3
-    full16Squery <- paste("SELECT l1.name AS 'level 1', l2.name AS 'level 2', ", 
+    full16Squery <- paste("SELECT l1.name AS 'L1', l2.name AS 'L2', ", 
                         "species.name AS 'species', specimen.name AS 'specimen', ot.oligoID AS 'oligoID', ",
                         "o.pmTm, ot.Tm, ot.mismatch, ot.complement ",
                         "FROM phylogeny ph ",
@@ -166,7 +166,7 @@ get.phylogeny <- function (oligomap, rmoligos = NULL, dbuser, dbpwd, dbname, ver
   rmoligos2 <- rmoligos
   if (remove.nonspecific.oligos) {
     if (verbose) {message("Removing oligos with multiple targets")}
-    nPhylotypesPerOligo <- n.phylotypes.per.oligo(pruned16S, "level 2") 
+    nPhylotypesPerOligo <- n.phylotypes.per.oligo(pruned16S, "L2") 
     nonspecific.oligos <- setdiff(pruned16S$oligoID, names(which(nPhylotypesPerOligo == 1)))
     rmoligos2 <- c(rmoligos, nonspecific.oligos)
   } 
