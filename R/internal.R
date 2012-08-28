@@ -395,7 +395,7 @@ get.doligo2 <- function (featuretab, d.scaled, oligo.ids) {
 #'              summarize oligos into probes and hybridisations into samples
 #'
 #' Arguments:
-#'   @param fdat normalized raw data matrix oligos x hybridisations
+#'   @param fdat.log10 normalized raw data matrix oligos x hybridisations in log10 scale
 #'   @param fdat.hybinfo hybridization info table
 #'   @param fdat.oligoinfo oligo info table
 #'   @param oligo.ids oligo.ids
@@ -407,14 +407,14 @@ get.doligo2 <- function (featuretab, d.scaled, oligo.ids) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-summarize.rawdata <- function (fdat, fdat.hybinfo, fdat.oligoinfo, oligo.ids) {
+summarize.rawdata <- function (fdat.log10, fdat.hybinfo, fdat.oligoinfo, oligo.ids) {
 
   # List rows for each oligo (each oligo has multiple features which will be averaged)
-  d.oSplit <- split(1:nrow(fdat), fdat.oligoinfo$oligoID)[oligo.ids] 
+  d.oSplit <- split(1:nrow(fdat.log10), fdat.log10.oligoinfo$oligoID)[oligo.ids] 
 
   # probes x hybs: oligo summary as means of log feature signals per oligo, hybs separate
   message("probe summary as means of log feature signals per oligo, hybs separate")
-  oligo.data  <- t(sapply(d.oSplit, function(x) colMeans(fdat[x,], na.rm = TRUE)))
+  oligo.data  <- t(sapply(d.oSplit, function(x) colMeans(fdat.log10[x,], na.rm = TRUE)))
 
   ## Average over all hybridisations/extractions associated with this sample
   # List hybridisations associated with the same sample
@@ -461,13 +461,13 @@ get.sampleid <- function (d.oligo) {
 #' Description: Minmax scaling. 
 #'
 #' Arguments:
-#'   @param r data matrix in original absolute scale
+#'   @param dat data matrix in original absolute scale
 #'   @param quantile.points quantiles for minmax
 #'   @param minmax.points pre-calculated quantiles for minmax in log10 scale; overrides quantile.points argument
 #'   @param robust Select minmax version. 
 #' 
 #' Returns:
-#'   @return normalized data matrix
+#'   @return normalized data matrix in absolute scale
 #'
 #' @note With robust = FALSE, the standard minmax is carried out. This
 #'   shifts and scales each array such that their min and max values are
@@ -480,29 +480,29 @@ get.sampleid <- function (d.oligo) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-scaling.minmax <- function (r, quantile.points = NULL, minmax.points = NULL, robust = FALSE) {
+scaling.minmax <- function (dat, quantile.points = NULL, minmax.points = NULL, robust = FALSE) {
 
   if ( is.null(minmax.points) ) {
 
-    maxabs <- mean(apply(rc, 2, quantile, max(quantile.points), na.rm = TRUE))
-    minabs <- mean(apply(rc, 2, quantile, min(quantile.points), na.rm = TRUE))
+    maxabs <- mean(apply(dat, 2, quantile, max(quantile.points), na.rm = TRUE))
+    minabs <- mean(apply(dat, 2, quantile, min(quantile.points), na.rm = TRUE))
 
   } else {
 
-    maxabs <- max(10^minmax.points)
-    minabs <- min(10^minmax.points)
+    maxabs <- max(minmax.points)
+    minabs <- min(minmax.points)
 
   }
 
   if (!robust) {
 
-    r <- apply(rc, 2, function (x) { 
+    r <- apply(dat, 2, function (x) { 
       x = (((x - min(x, na.rm = T))/(max(x, na.rm = T) - min(x, na.rm = T)))*(maxabs - minabs)) + minabs;
     return(x)})
 
   } else {
     
-    r <- apply(rc, 2, function (x) {
+    r <- apply(dat, 2, function (x) {
 
     # Shift data to start from zero
     xz <- x - min(x, na.rm = T);
@@ -515,12 +515,11 @@ scaling.minmax <- function (r, quantile.points = NULL, minmax.points = NULL, rob
     k <- maxabs/maxq;
 
     # Scale the data to match max quantiles
-    xs <- k * xz + min(rc, na.rm = TRUE);
+    xs <- k * xz + min(dat, na.rm = TRUE);
     xs})
   }
 
-  # Return to the input scale (log10)
-  log10(r)
+  r
 }
 
 
@@ -543,9 +542,7 @@ scaling.minmax <- function (r, quantile.points = NULL, minmax.points = NULL, rob
 
 prune16S <- function (full16S, pmTm.margin = 2.5, complement = 1, mismatch = 0) {
  
-  keep <- full16S$Tm >= full16S$pmTm-pmTm.margin &
-          full16S$complement == complement &
-          full16S$mismatch == mismatch
+  keep <- ((full16S$Tm >= (full16S$pmTm-pmTm.margin)) & (full16S$complement == complement)) & (full16S$mismatch == mismatch)
 
   oligomap <- full16S[keep, ]
 
@@ -638,12 +635,6 @@ get.probedata <- function (hybridization.ids, rmoligos, dbuser, dbpwd, dbname, m
   rownames(ftab) <- rownames(ftab.info)
   colnames(ftab) <- names(rawdata.esplit)
   for (hid in names(rawdata.esplit)) { ftab[, hid] <- I(rawdata.esplit[[hid]][inds, "spatNormSignal"]) }
-
-  # Impute
-  if (any(is.na(ftab))) {
-    warning(round(100*mean(is.na(ftab)), 3), "% of ftab is NAs; imputing")
-    ftab <- t(10^impute(t(log10(ftab))))
-  }
 
   # Close MySQL connection
   dbDisconnect(con)
@@ -1106,7 +1097,7 @@ oligo.bg.correction <- function (d.oligo2, bgc.method) {
 #'   @param bg.adjust background adjustment 
 #'   @param minmax.quantiles quantiles for minmax
 #' Returns:
-#'   @return Normalized data matrix
+#'   @return Normalized data matrix in absolute scale
 #'
 #' @export
 #' @references See citation("microbiome") 
@@ -1215,7 +1206,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
 
   # Minmax parameters hard-coded to standardize normalization;
   # Using the parameters from HITChip atlas with 3200 samples
-  params$minmax.points <- c(29.22195, 131413.88146)
+  params$minmax.points <- c(30.02459, 132616.91371)
 
   # Get sample information matrix for the selected projects	
   project.info <- fetch.sample.info(params$prj$projectName, chiptype = NULL, 
@@ -1241,6 +1232,12 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
     fdat.hybinfo <- fdat.hybinfo[, !onlyNA]
   }
   
+  # Impute
+  if (any(is.na(fdat.orig))) {
+    warning(round(100*mean(is.na(fdat.orig)), 3), "% of polished fdat.orig is NAs; imputing")
+    fdat.orig <- t(10^impute(t(log10(fdat.orig))))
+  }
+
   ##############################
   ## Between-array normalization
   ##############################
@@ -1250,7 +1247,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   # Order of normalization / bg correction was validated empirically.
   # bg.adjust intentionally set to NULL here. 
   # bg correction done _after_ oligo summarization, if any (see next steps)
-  d.scaled <- ScaleProfile(log10(fdat.orig), params$normalization, bg.adjust = NULL, minmax.points = params$minmax.points) 
+  d.scaled <- ScaleProfile(fdat.orig, params$normalization, bg.adjust = NULL, minmax.points = params$minmax.points) 
 
   ##################################
   ## GET OLIGO-PHYLOTYPE MAPPINGS
@@ -1390,13 +1387,13 @@ threshold.data <- function(dat, sd.times = 6){
 summarize.probesets <- function (oligomap, oligo.data, method, level, verbose = TRUE, rm.phylotypes = NULL) {
 
   # Start by summarizing into species level
-  rm.species <- unique(c(unique(oligomap[oligomap[[level1]] %in% rm.phylotypes[[level1]], "species"]), 
-  	                 unique(oligomap[oligomap[[level2]] %in% rm.phylotypes[[level2]], "species"]),
+  rm.species <- unique(c(unique(oligomap[oligomap$L1 %in% rm.phylotypes$L1, "species"]), 
+  	                 unique(oligomap[oligomap$L2 %in% rm.phylotypes$L2, "species"]),
 			 rm.phylotypes$species))
 			 
   # Ensure that all L2 groups below specified L1 are removed as well
-  rm.phylotypes[[level2]] <- unique(c(unique(oligomap[oligomap[[level1]] %in% rm.phylotypes[[level1]], level2]), 
-			 rm.phylotypes[[level2]]))
+  rm.phylotypes[[level2]] <- unique(c(unique(oligomap[oligomap$L1 %in% rm.phylotypes$L1, "L2"]), 
+			 rm.phylotypes$L2))
 			 	
   # Remove specified oligos
   rm.oligos <- rm.phylotypes$oligos
@@ -1410,7 +1407,7 @@ summarize.probesets <- function (oligomap, oligo.data, method, level, verbose = 
 
     summarized.matrix <- species.matrix
 
-  } else if (level %in% c(level0, level1, level2)) {
+  } else if (level %in% c("L0", "L1", "L2")) {
 
     if (method %in% c("rpa", "ave", "sum")) {
 

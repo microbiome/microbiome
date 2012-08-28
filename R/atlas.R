@@ -85,6 +85,22 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   fdat.hybinfo <- project.info[match(colnames(fdat.orig), project.info$hybridisationID), ]  	       	                    
   rownames(fdat.hybinfo) <- colnames(fdat.orig)
 
+  ## Discard the hybs that contain only NAs
+  onlyNA <- colMeans(is.na(fdat.orig)) == 1
+  naHybs <- colnames(fdat.orig)[onlyNA]
+  if(sum(onlyNA) > 0){
+    message("Removing the following hybs, because they contain only NAs:\n")
+    message(naHybs,"\n\n")
+    fdat.orig <- fdat.orig[, !onlyNA]
+    fdat.hybinfo <- fdat.hybinfo[, !onlyNA]
+  }
+ 
+  # Impute
+  if (any(is.na(fdat.orig))) {
+    warning(round(100*mean(is.na(fdat.orig)), 3), "% of polished fdat.orig is NAs; imputing")
+    fdat.orig <- t(10^impute(t(log10(fdat.orig))))
+  }
+
   # calculate quantile points in original scale 
   maxabs <- mean(apply(fdat.orig, 2, quantile, max(minmax.quantiles), na.rm = TRUE))
   minabs <- mean(apply(fdat.orig, 2, quantile, min(minmax.quantiles), na.rm = TRUE))  
@@ -94,7 +110,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   fdat <- ScaleProfile(fdat.orig, method = my.scaling, minmax.quantiles = c(0.005, 0.995))
 
   # Summarize probes into oligos and hybridisations into samples
-  oligo.data <- summarize.rawdata(fdat, fdat.hybinfo, fdat.oligoinfo, 
+  oligo.data <- summarize.rawdata(log10(fdat), fdat.hybinfo, fdat.oligoinfo, 
   	     		oligo.ids = sort(unique(oligomap$oligoID)))
 	 			
   # Background correction
@@ -106,6 +122,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   data.matrices.full <- list(oligo = oligo.data)
   for (level in c("species", "L1", "L2")) {
     for (method in c("ave", "sum", "rpa", "nmf")) { 
+      message(paste(level, method))
       data.matrices.full[[level]][[method]] <- summarize.probesets(oligomap, oligo.data, method, level, rm.phylotypes = rm.phylotypes)
     }
   }

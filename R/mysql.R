@@ -69,6 +69,8 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 
 get.oligomap <- function (phylogeny = "16S", rmoligos = NULL, dbuser, dbpwd, dbname, verbose = TRUE, remove.nonspecific.oligos = FALSE, chip = "HITChip") {   
 
+  # phylogeny = "16S"; rmoligos = NULL; verbose = TRUE; remove.nonspecific.oligos = FALSE; chip = "HITChip"
+
   if (verbose) { message("Load oligomap info") }
 
   require(RMySQL)

@@ -198,10 +198,14 @@ Phylogeneticenrichments <- function(x, oligomap, origlevel = colnames(oligomap)[
 
 retrieve.probesets <- function (oligomap, level = "species", name = NULL) {
 
-  if (is.null(name)) { name <- as.character(oligomap[[level]]) }
+  # If name not given, pick all
+  if (is.null(name)) { name <- unique(as.character(oligomap[[level]])) }
 
   phylo <- oligomap[oligomap[[level]] %in% name,]
-  phylo[[level]] <- droplevels(phylo[[level]])
+
+  if (is.factor(phylo[[level]])) {
+    phylo[[level]] <- droplevels(phylo[[level]])
+  }
 
   phylo.list <- split(phylo, phylo[[level]])
   probesets <- lapply(phylo.list, function(x) {as.character(unique(x$oligoID))})
