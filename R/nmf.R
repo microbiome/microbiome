@@ -25,7 +25,7 @@
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Jarkko Salojarvi \email{jarkko.salojarvi@@helsinki.fi}
+#' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 count <- function(d){
@@ -48,7 +48,7 @@ count <- function(d){
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Jarkko Salojarvi \email{jarkko.salojarvi@@helsinki.fi}
+#' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 simulate.hitchip <- function(PH.i, Ns, level = "L2", N = 5000){
@@ -70,13 +70,11 @@ simulate.hitchip <- function(PH.i, Ns, level = "L2", N = 5000){
 }
 
 
-#' Description: summarize.oligos EXPERIMENTAL
-#'
-#' For cross-hyb control
+#' Description: summarize.oligos 
 #'
 #' Arguments:
-#'   @param Data Data
-#'   @param PH.i PH.i
+#'   @param oligo.matrix oligo.matrix
+#'   @param oligomap oligomap
 #'   @param level taxonomic level
 #'
 #' Returns:
@@ -84,7 +82,7 @@ simulate.hitchip <- function(PH.i, Ns, level = "L2", N = 5000){
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Jarkko Salojarvi \email{jarkko.salojarvi@@helsinki.fi}
+#' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 summarize.oligos <- function(oligo.matrix, oligomap, level = "L2"){
@@ -94,13 +92,13 @@ summarize.oligos <- function(oligo.matrix, oligomap, level = "L2"){
   if (level %in% c("level 1", "level.1", "L1")) {level <- "level.1"}
 
   oligo <- split(oligomap$oligoID,oligomap[,level])
-  oligo <- lapply(oligo,function(x) unique(as.character(x)))
+  oligo <- lapply(oligo, function(x) unique(as.character(x)))
 
   Sim <- sapply(oligo,function(x){  
-    if (length(x)>1)
-      return(colSums(oligo.matrix[x,]))
+    if (length(x) > 1)
+      return(colSums(oligo.matrix[x, ]))
     else
-      return(oligo.matrix[x,])
+      return(oligo.matrix[x, ])
   })
   t(Sim)
 }
@@ -111,7 +109,7 @@ summarize.oligos <- function(oligo.matrix, oligomap, level = "L2"){
 #' For cross-hyb control
 #'
 #' Arguments:
-#'   @param oligo.map oligo.map
+#'   @param oligomap oligomap
 #'   @param level taxonomic level
 #'
 #' Returns:
@@ -119,15 +117,15 @@ summarize.oligos <- function(oligo.matrix, oligomap, level = "L2"){
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Jarkko Salojarvi \email{jarkko.salojarvi@@helsinki.fi}
+#' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-mixingMatrix <- function(oligo.map, level){
+mixingMatrix <- function(oligomap, level){
 
-  M <- matrix(0,length(unique(oligo.map$oligoID)),length(unique(oligo.map[,level])),dimnames=list(sort(as.character(unique(oligo.map$oligoID))),sort(as.character(unique(oligo.map[,level])))))
+  M <- matrix(0,length(unique(oligomap$oligoID)),length(unique(oligomap[,level])),dimnames=list(sort(as.character(unique(oligomap$oligoID))),sort(as.character(unique(oligomap[,level])))))
 
-  for (i in 1:nrow(oligo.map))
-    M[as.character(oligo.map$oligoID[i]),as.character(oligo.map[i,level])]=1
+  for (i in 1:nrow(oligomap))
+    M[as.character(oligomap$oligoID[i]),as.character(oligomap[i,level])]=1
 
   M <- apply(M, 2, function(x) x/sum(x))
 
@@ -137,13 +135,13 @@ mixingMatrix <- function(oligo.map, level){
 
 
 
-#' Description: mixingMatrix
+#' Description: Deconvolution
 #'
 #' For cross-hyb control
 #'
 #' Arguments:
 #'   @param oligo.data oligo.data
-#'   @param oligo.map oligo.map
+#'   @param oligomap oligomap
 #'   @param level taxonomic level
 #'   @param block.solution block.solution
 #'
@@ -152,38 +150,41 @@ mixingMatrix <- function(oligo.map, level){
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Contact: Jarkko Salojarvi \email{jarkko.salojarvi@@helsinki.fi}
+#' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-deconvolution.nonneg <- function(oligo.data, oligo.map, level, block.solution = T){
+deconvolution.nonneg <- function(oligo.data, oligomap, level, block.solution = T, verbose = FALSE){
 
    require(NMF)
 
    # oligos x phylotypes mixing matrix for the given level
-   M <- mixingMatrix(oligo.map, level)
+   M <- mixingMatrix(oligomap, level)
    M <- M[rownames(oligo.data), ]
 
-   #least squares solution, may contain negative values.
-   #H=solve(t(M) %*% M, t(M) %*% dd$Simulated)
-   #this is a faster version. (but not much)
-   #H.nonneg=NMF:::.fcnnls(t(M) %*% M,t(M) %*% oligo.data,pseudo=TRUE)
+   # least squares solution, may contain negative values.
+   # H=solve(t(M) %*% M, t(M) %*% dd$Simulated)
+   # this is a faster version. (but not much)
+   # H.nonneg=NMF:::.fcnnls(t(M) %*% M,t(M) %*% oligo.data,pseudo=TRUE)
 
    if (block.solution){
 
      require(ggm)
      A <- t(M) %*% M
      B <- t(M) %*% oligo.data
-     H.nonneg <- matrix(0,ncol(M),ncol(oligo.data))
+     H.nonneg <- matrix(0, ncol(M), ncol(oligo.data))
 
      # non-connected ones
-     t1 <- which(rowSums(A>0)==1)
-     H.nonneg[t1,] <- t(M[,t1]>0) %*% oligo.data
+     t1 <- which(rowSums(A>0) == 1)
+     H.nonneg[t1,] <- t(M[, t1] > 0) %*% oligo.data
 
      # connected: divide into subsets
-     t2 <- setdiff(1:nrow(A),t1)
+     t2 <- setdiff(1:nrow(A), t1)
 
-     cmp.ndx <- conComp(A[t2,t2])
+     cmp.ndx <- conComp(A[t2, t2])
 
      for (i in 1:max(cmp.ndx)){
+     
+       if (verbose) {message(i/max(cmp.ndx))}
+
        i1 <- which(cmp.ndx == i)
 
        if (length(i1)>1)
@@ -202,4 +203,3 @@ deconvolution.nonneg <- function(oligo.data, oligo.map, level, block.solution = 
    return(H.nonneg)
 
 }
-

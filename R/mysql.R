@@ -50,7 +50,7 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 #' Description: Get phylogeny
 #' 
 #' Arguments:
-#'   @param phylogeny phylogeny
+#'   @param oligomap oligomap
 #'   @param rmoligos oligos to exclude
 #'   @param dbuser MySQL user
 #'   @param dbpwd MySQL password
@@ -60,16 +60,16 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 #'   @param chip chip type
 #'
 #' Returns:
-#'   @return oligo.map
+#'   @return oligomap
 #'
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-get.phylogeny <- function (phylogeny, rmoligos = NULL, dbuser, dbpwd, dbname, verbose = TRUE, remove.nonspecific.oligos = FALSE, chip = "HITChip") {   
+get.phylogeny <- function (oligomap, rmoligos = NULL, dbuser, dbpwd, dbname, verbose = TRUE, remove.nonspecific.oligos = FALSE, chip = "HITChip") {   
 
-  if (verbose) { message("Load phylogeny info") }
+  if (verbose) { message("Load oligomap info") }
 
   require(RMySQL)
   drv <- dbDriver("MySQL")

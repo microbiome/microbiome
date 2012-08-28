@@ -295,7 +295,7 @@ plot.htrees <- function (dat) {
 #'   @param dat oligoprofile data in original (non-log) domain
 #'   @param output.dir output data directory
 #'   @param output.dir output file name
-#'   @param phylogeny oligo-phylotype mappings
+#'   @param oligomap oligo-phylotype mappings
 #'   @param ppcm figure size
 #'   @param hclust.method hierarchical clustering method
 #'   @param palette color palette
@@ -314,7 +314,7 @@ plot.htrees <- function (dat) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny, ppcm = 150, 
+add.heatmap <- function (dat, output.dir, output.file = NULL, oligomap, ppcm = 150, 
 	         hclust.method = "complete", palette = "white/blue", level = "L2", metric = "pearson", 
   		 figureratio = 12, fontsize = 12, include.tree = TRUE) {
 
@@ -332,7 +332,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny, ppcm = 
   	    width = max(trunc(ppcm*21), trunc(ppcm*21*ncol(dat)/70)), 
 	    height = trunc(ppcm*29.7)) 
     try(hc.params <- PlotPhylochipHeatmap(data = dat,
-                phylogeny = phylogeny,
+                oligomap = oligomap,
                 metric = metric,
                 tax.level = level,
                 include.tree = ifelse(tree.display == 'yes', TRUE, FALSE),
@@ -357,7 +357,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny, ppcm = 
 #'
 #' Arguments:
 #'   @param data oligoprofile data in original (non-log) domain
-#'   @param phylogeny oligo-phylotype mappings
+#'   @param oligomap oligo-phylotype mappings
 #'   @param metric clustering metric
 #'   @param tax.level taxonomic level to show
 #'   @param include.tree include.tree
@@ -375,7 +375,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny, ppcm = 
 #' @keywords utilities
 
 PlotPhylochipHeatmap <- function (data,
-                         phylogeny,
+                         oligomap,
                          metric = "pearson", 
                          tax.level = "L2", 
                          include.tree = TRUE, 
@@ -386,7 +386,7 @@ PlotPhylochipHeatmap <- function (data,
 
   # metric = "pearson"; tax.level = "L2"; include.tree = TRUE; palette = "white/blue"; fontsize = 12; figureratio = 12; hclust.method = "complete"
 
-  # Ensure tax.level in the same format as in standard phylogeny matrix
+  # Ensure tax.level in the same format as in standard oligomap matrix
   levs3 <- c("species")	   
   levs2 <- c("level 2", "level.2", "L2")
   levs1 <- c("level 1", "level.1", "L1")
@@ -407,17 +407,17 @@ PlotPhylochipHeatmap <- function (data,
    paper <- par("din")
 
    if (tax.level == "oligo") { tax.level <- "oligoID" }
-   tax.order <- order(as.character(phylogeny[[tax.level]]), na.last = FALSE)
+   tax.order <- order(as.character(oligomap[[tax.level]]), na.last = FALSE)
 
-   nainds <- is.na(phylogeny[, tax.level])
+   nainds <- is.na(oligomap[, tax.level])
    if (sum(nainds) > 0) {
-     phylogeny[nainds, tax.level] <- '-'  # replace empty maps
+     oligomap[nainds, tax.level] <- '-'  # replace empty maps
    }
 
-   levs <- unlist(lapply(split(phylogeny[[tax.level]], as.factor(phylogeny[[tax.level]])), length))
-   # order the rows in phylogeny by tax.level
-   phylogeny <- phylogeny[tax.order,]
-   phylogeny <- phylogeny[phylogeny$oligoID %in% rownames(data), ]
+   levs <- unlist(lapply(split(oligomap[[tax.level]], as.factor(oligomap[[tax.level]])), length))
+   # order the rows in oligomap by tax.level
+   oligomap <- oligomap[tax.order,]
+   oligomap <- oligomap[oligomap$oligoID %in% rownames(data), ]
 
    annwidth <- max(strwidth(names(levs),units="inch"))*2.54*1.2
    profilewidth <- max(strheight(names(levs),units="inch"))*2.54*dim(data)[2]*1.6
@@ -459,7 +459,7 @@ PlotPhylochipHeatmap <- function (data,
 
    par(mar = c(1,1,0,0), oma = c(0,0,0,0))
    
-   img <- as.matrix(rev(as.data.frame(t(data[as.character(phylogeny$oligoID),]))))
+   img <- as.matrix(rev(as.data.frame(t(data[as.character(oligomap$oligoID),]))))
    image(z=img, col=palette, axes=FALSE, frame.plot=TRUE, zlim=limits)
    plot.new()
    par(mar=c(1,0,0,1),usr=c(0,1,0,1),xaxs='i',yaxs='i')

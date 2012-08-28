@@ -70,7 +70,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   message("Extract sample information from the HITChip database")
   project.info <- fetch.sample.info(allowed.projects, chiptype, dbuser, dbpwd, dbname)
 
-  oligo.map <- get.phylogeny(phylogeny = "16S", rm.phylotypes$oligos, dbuser, dbpwd, dbname, remove.nonspecific.oligos = remove.nonspecific.oligos)
+  oligomap <- get.phylogeny(phylogeny = "16S", rm.phylotypes$oligos, dbuser, dbpwd, dbname, remove.nonspecific.oligos = remove.nonspecific.oligos)
 
   message("Get probe-level data for the selected hybridisations")
   tmp <- get.probedata(unique(project.info[["hybridisationID"]]), 
@@ -85,11 +85,11 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 
   # Normalize (input required in log-scale)
   fdat <- ScaleProfile(log10(fdat.orig), method = my.scaling, 
-       	  				 minmax.quantiles = minmax.quantiles)
+       	  		minmax.quantiles = minmax.quantiles)
  			
   # Summarize probes into oligos and hybridisations into samples
   oligo.data <- summarize.rawdata(fdat, fdat.hybinfo, fdat.oligoinfo, 
-  	     			oligo.ids = sort(unique(oligo.map$oligoID)))
+  	     		oligo.ids = sort(unique(oligomap$oligoID)))
 	 			
   # Background correction
   if (!is.null(bgc.method)) { 
@@ -99,8 +99,8 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   # First produce full preprocessed data matrices
   data.matrices.full <- list(oligo = oligo.data)
   for (level in c("species", "L1", "L2")) {
-    for (method in c("ave", "sum", "rpa")) { # NMF?
-      data.matrices.full[[level]][[method]] <- summarize.probesets(oligo.map, oligo.data, method, level, rm.phylotypes = rm.phylotypes)
+    for (method in c("ave", "sum", "rpa", "nmf")) { 
+      data.matrices.full[[level]][[method]] <- summarize.probesets(oligomap, oligo.data, method, level, rm.phylotypes = rm.phylotypes)
     }
   }
 
@@ -158,13 +158,13 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 		 session.info = session.info)
 
   # Save version info
-  save(oligo.map, params, file = parameter.data.file, compress = "xz")
+  save(oligomap, params, file = parameter.data.file, compress = "xz")
 
   list(training.data = data.matrices[["training"]], 
        test.data = data.matrices[["test"]], 
        full.data = data.matrices.full, 
        sampleinfo = sample.info.full, 
-       oligomap = oligo.map, 
+       oligomap = oligomap, 
        parameters = params)
 
 }

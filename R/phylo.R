@@ -196,7 +196,7 @@ Phylogeneticenrichments <- function(x, oligomap, origlevel = colnames(oligomap)[
 #' Description: List probes for each probeset
 #'
 #' Arguments:
-#'   @param phylogeny data.frame with oligo - phylotype mapping information
+#'   @param oligomap data.frame with oligo - phylotype mapping information
 #'   @param level phylotype level for probesets
 #' Returns:
 #'   @return A list. Probes for each phylotype.
@@ -206,11 +206,11 @@ Phylogeneticenrichments <- function(x, oligomap, origlevel = colnames(oligomap)[
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-retrieve.probesets <- function (phylogeny, level = "species", name = NULL) {
+retrieve.probesets <- function (oligomap, level = "species", name = NULL) {
 
-  if (is.null(name)) { name <- as.character(phylogeny[[level]]) }
+  if (is.null(name)) { name <- as.character(oligomap[[level]]) }
 
-  phylo <- phylogeny[phylogeny[[level]] %in% name,]
+  phylo <- oligomap[oligomap[[level]] %in% name,]
   phylo[[level]] <- droplevels(phylo[[level]])
 
   phylo.list <- split(phylo, phylo[[level]])

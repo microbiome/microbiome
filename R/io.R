@@ -18,7 +18,7 @@
 #' Description: read run.profiling.script output into R
 #'
 #' Arguments:
-#'   @param level phylogenetic level ("oligo" / "species" / "L1" / "L2" / "L0") or "phylogeny"
+#'   @param level phylogenetic level ("oligo" / "species" / "L1" / "L2" / "L0") or "oligomap"
 #'   @param method ("rpa" / "sum" / "ave" / "nmf")
 #'   @param data.dir Profiling script output directory for reading the data. If not given, GUI will ask to specify the file and overruns the possible level / method arguments in the function call.
 #'   @param log10 Logical. Logarithmize the data TRUE/FALSE. By default, the data is in original non-log scale.
@@ -39,13 +39,13 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE)
 
   ##  Select file
   if (is.null(data.dir)) {
-    f <- choose.files(multi=F)
+    f <- choose.files(multi = F)
   } else {
     if (level %in% c("L0", "L1", "L2", "species")) {
       f <- paste(data.dir, "/", level, "_log10_", method, ".tab", sep = "")
     } else if (level == "oligo") {
       f <- paste(data.dir, "/oligoprofile.tab", sep = "")
-    } else if (level == "phylogeny") {
+    } else if (level == "oligomap") {
       f <- paste(data.dir, "/phylogenyinfo.tab", sep = "")
     }
   }
@@ -57,7 +57,7 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE)
   if (grep("L0", f)) { level <- "L0"}
   if (grep("L1", f)) { level <- "L1"}
   if (grep("L2", f)) { level <- "L2"}
-  if (grep("phylogeny", f)) { level <- "phylogeny"}
+  if (grep("phylogeny", f)) { level <- "oligomap"}
   if (grep("rpa", f)) { method <- "rpa"}
   if (grep("sum", f)) { method <- "sum"}
   if (grep("ave", f)) { method <- "ave"}
@@ -71,7 +71,7 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE)
 
     tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1)
 
-  } else if (level == "phylogeny") {
+  } else if (level == "oligomap") {
 
     tab <- read.csv(f, header = TRUE, sep = "\t")
     colnames(tab)[[which(colnames(tab) == "level.1")]] <- "level 1"

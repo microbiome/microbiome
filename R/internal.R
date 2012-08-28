@@ -707,18 +707,18 @@ WriteLog <- function (naHybs, params) {
 #' Arguments:
 #'   @param finaldata preprocessed data matrices in absolute scale (from the preprocess.chipdata function)
 #'   @param output.dir output directory
-#'   @param phylogeny phylogeny
+#'   @param oligomap oligomap
 #'   @param verbose verbose
 #'
 #' Returns:
-#'   @return Preprocessed data in absolute scale, phylogeny, and parameters
+#'   @return Preprocessed data in absolute scale, oligomap, and parameters
 #'
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-WriteChipData <- function (finaldata, output.dir, phylogeny, verbose = TRUE) {
+WriteChipData <- function (finaldata, output.dir, oligomap, verbose = TRUE) {
 
   ## featurelevel data
   ## WriteMatrix(cbind(fdat.oligoinfo, d.scaled), paste("featureprofile_", scriptVersion, ".tab", sep = ""), params)
@@ -741,8 +741,8 @@ WriteChipData <- function (finaldata, output.dir, phylogeny, verbose = TRUE) {
 
   ## Write oligo specificity at species level (the number of species for the oligo targets)
   fname <- paste(output.dir, "/phylogenyinfo.tab", sep = "")
-  nSpeciesPerOligo <- sapply(split(phylogeny, phylogeny$oligoID), function(x) length(unique(x$species)))
-  WriteMatrix(cbind(phylogeny, nSpeciesPerOligo = nSpeciesPerOligo[phylogeny$oligoID]), fname, verbose)
+  nSpeciesPerOligo <- sapply(split(oligomap, oligomap$oligoID), function(x) length(unique(x$species)))
+  WriteMatrix(cbind(oligomap, nSpeciesPerOligo = nSpeciesPerOligo[oligomap$oligoID]), fname, verbose)
 
   # Return path to the output directory 
   output.dir
@@ -1031,7 +1031,7 @@ FetchData <- function (params, con, scriptVersion, save.data, scaling, cmetrics)
   save(logfilename, profTime, scriptVersion, params, naHybs, scaling, cmetrics, save.data, file=paramfilename)
   
   ## Collect the full phylogenetic information for oligos  
-  cat("Collect the full 16S phylogeny\n")
+  message("Collect the full 16S phylogeny\n")
 
   full16Squery <- paste("SELECT l1.name AS 'level 1', l2.name AS 'level 2', ", 
                         "species.name AS 'species', specimen.name AS 'specimen', ot.oligoID AS 'oligoID', ",
@@ -1144,7 +1144,7 @@ ScaleProfile <- function (r.feature, method = 'minmax', bg.adjust = NULL, minmax
 #' Description: Check number of matching phylotypes for each probe
 #' 
 #' Arguments:
-#'   @param oligo.map oligo - phylotype matching data.frame
+#'   @param oligomap oligo - phylotype matching data.frame
 #'   @param level phylotype level
 #'
 #' Returns:
@@ -1155,8 +1155,8 @@ ScaleProfile <- function (r.feature, method = 'minmax', bg.adjust = NULL, minmax
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-n.phylotypes.per.oligo <- function (oligo.map, level) {
-  sapply(split(oligo.map[, c("oligoID", level)], oligo.map$oligoID), function(x) length(unique(x[[level]])))
+n.phylotypes.per.oligo <- function (oligomap, level) {
+  sapply(split(oligomap[, c("oligoID", level)], oligomap$oligoID), function(x) length(unique(x[[level]])))
 }
 
 #' Description: Write matrix in tab file
@@ -1293,7 +1293,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
     }
   }
 
-  list(data = finaldata, phylogeny = pruned16S, naHybs = naHybs, params = params)
+  list(data = finaldata, oligomap = pruned16S, naHybs = naHybs, params = params)
 
 }
 
@@ -1354,7 +1354,7 @@ threshold.data <- function(dat, sd.times = 6){
     })
 
   # Subtract background from signal intensities in each sample
-  data.mat<-t(apply(dat, 1, function(Tr){ Tr-thr })) 
+  data.mat <- t(apply(dat, 1, function(Tr){ Tr-thr })) 
   return(data.mat)
 }
 
@@ -1363,7 +1363,7 @@ threshold.data <- function(dat, sd.times = 6){
 #' Description: Probeset summarization with various methods.
 #' 
 #' Arguments:
-#'   @param oligo.map oligo - phylotype matching data.frame
+#'   @param oligomap oligo - phylotype matching data.frame
 #'   @param oligo.data preprocessed probes x samples data matrix in log10 domain
 #'   @param method summarization method
 #'   @param level summarization level
@@ -1377,48 +1377,48 @@ threshold.data <- function(dat, sd.times = 6){
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose = TRUE, rm.phylotypes = NULL) {
+summarize.probesets <- function (oligomap, oligo.data, method, level, verbose = TRUE, rm.phylotypes = NULL) {
 
-  if ("level.0" %in% colnames(oligo.map)) {
+  if ("level.0" %in% colnames(oligomap)) {
     level0 <- "level.0"
-  } else if ("level 0" %in% colnames(oligo.map)) {
+  } else if ("level 0" %in% colnames(oligomap)) {
     level0 <- "level 0"
   } else {
     level0 <- NULL
   }
 
-  if ("level.1" %in% colnames(oligo.map)) {
+  if ("level.1" %in% colnames(oligomap)) {
     level1 <- "level.1"
-  } else if ("level 1" %in% colnames(oligo.map)) {
+  } else if ("level 1" %in% colnames(oligomap)) {
     level1 <- "level 1"
   } else {
     level1 <- NULL
   }
 
-  if ("level.2" %in% colnames(oligo.map)) {
+  if ("level.2" %in% colnames(oligomap)) {
     level2 <- "level.2"
-  } else if ("level 2" %in% colnames(oligo.map)) {
+  } else if ("level 2" %in% colnames(oligomap)) {
     level2 <- "level 2"
   } else {
     level2 <- NULL
   }
 
   # Start by summarizing into species level
-  rm.species <- unique(c(unique(oligo.map[oligo.map[[level1]] %in% rm.phylotypes[[level1]], "species"]), 
-  	                 unique(oligo.map[oligo.map[[level2]] %in% rm.phylotypes[[level2]], "species"]),
+  rm.species <- unique(c(unique(oligomap[oligomap[[level1]] %in% rm.phylotypes[[level1]], "species"]), 
+  	                 unique(oligomap[oligomap[[level2]] %in% rm.phylotypes[[level2]], "species"]),
 			 rm.phylotypes$species))
 			 
   # Ensure that all L2 groups below specified L1 are removed as well
-  rm.phylotypes[[level2]] <- unique(c(unique(oligo.map[oligo.map[[level1]] %in% rm.phylotypes[[level1]], level2]), 
+  rm.phylotypes[[level2]] <- unique(c(unique(oligomap[oligomap[[level1]] %in% rm.phylotypes[[level1]], level2]), 
 			 rm.phylotypes[[level2]]))
 			 	
   # Remove specified oligos
   rm.oligos <- rm.phylotypes$oligos
   if (!is.null(rm.oligos)) { oligo.data <- oligo.data[setdiff(rownames(oligo.data), rm.oligos), ]}
-  oligo.map <- oligo.map[!oligo.map$oligoID %in% rm.oligos, ]
+  oligomap <- oligomap[!oligomap$oligoID %in% rm.oligos, ]
 
   # Get species matrix in original scale
-  species.matrix <- 10^summarize.probesets.species(oligo.map, oligo.data, method, verbose = FALSE, rm.species)
+  species.matrix <- 10^summarize.probesets.species(oligomap, oligo.data, method, verbose = FALSE, rm.species)
    
   if (level == "species") {
 
@@ -1426,7 +1426,7 @@ summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose =
 
   } else if (level %in% c(level0, level1, level2)) {
 
-    phylogroups <- levelmap(phylotypes = NULL, level.from = level, level.to = "species", oligo.map)
+    phylogroups <- levelmap(phylotypes = NULL, level.from = level, level.to = "species", oligomap)
 
     # Remove the specified phylogroups
     phylogroups <- phylogroups[setdiff(names(phylogroups), rm.phylotypes[[level]])]
@@ -1439,8 +1439,7 @@ summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose =
       specs <- unique(phylogroups[[pg]])
       mat <- matrix(species.matrix[specs,], nrow = length(specs))
 
-
-      if (method == "nmf") { warning("NMF method in construction."); vec <- NULL}
+      if (method == "nmf") { warning("NMF method in construction."); vec <- NULL }
       if (method == "ave") { vec <- colMeans(mat) }
       if (method == "sum") { vec <- colSums(mat)  } 
       if (method == "rpa") { vec <- colSums(mat)  } # For RPA, use the sum for L1/L2
@@ -1450,7 +1449,7 @@ summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose =
 
     message(level)
     message(nchar(level))
-    message(colnames(oligo.map))
+    message(colnames(oligomap))
     stop("Provide proper level!")
 
   }
@@ -1463,7 +1462,7 @@ summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose =
 #' Description: Probeset summarization with various methods.
 #' 
 #' Arguments:
-#'   @param oligo.map oligo - phylotype matching data.frame
+#'   @param oligomap oligo - phylotype matching data.frame
 #'   @param oligo.data preprocessed probes x samples data matrix in log10 domain
 #'   @param method summarization method
 #'   @param verbose print intermediate messages
@@ -1476,14 +1475,14 @@ summarize.probesets <- function (oligo.map, oligo.data, method, level, verbose =
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-summarize.probesets.species <- function (oligo.map, oligo.data, method, verbose = TRUE, rm.species = c("Victivallis vadensis")) {
+summarize.probesets.species <- function (oligomap, oligo.data, method, verbose = TRUE, rm.species = c("Victivallis vadensis")) {
 
   level <- "species"			    
 
-  probesets <- retrieve.probesets(oligo.map, level = level)
+  probesets <- retrieve.probesets(oligomap, level = level)
   probesets <- probesets[setdiff(names(probesets), rm.species)]
   
-  nPhylotypesPerOligo <- n.phylotypes.per.oligo(oligo.map, level) 
+  nPhylotypesPerOligo <- n.phylotypes.per.oligo(oligomap, level) 
 
   # initialize
   summarized.matrix <- array(NA, dim = c(length(probesets), ncol(oligo.data)), 
