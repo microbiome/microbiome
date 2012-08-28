@@ -78,12 +78,11 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   tmp <- get.probedata(unique(project.info[["hybridisationID"]]), 
       	 		rm.phylotypes$oligos, dbuser, dbpwd, dbname, mc.cores = mc.cores)  
 
-  fdat.orig <- 1 + tmp$data       # features x hybs, original non-log scale
+  fdat.orig <- 1 + tmp$data       # features x hybs, original non-log scale; ensure smallest value is 1
   fdat.oligoinfo <- tmp$info      # oligoinfo
 
   # Annotations for selected hybridisations
-  fdat.hybinfo <- project.info[match(colnames(fdat.orig), 
-  	       	                     project.info$hybridisationID), ]
+  fdat.hybinfo <- project.info[match(colnames(fdat.orig), project.info$hybridisationID), ]  	       	                    
   rownames(fdat.hybinfo) <- colnames(fdat.orig)
 
   # calculate quantile points in original scale 
@@ -92,7 +91,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   minmax.points <- c(minabs, maxabs)
 
   # Normalize (input required in log-scale)
-  fdat <- ScaleProfile(log10(fdat.orig), method = my.scaling, minmax.points = minmax.points)
+  fdat <- ScaleProfile(fdat.orig, method = my.scaling, minmax.quantiles = c(0.005, 0.995))
 
   # Summarize probes into oligos and hybridisations into samples
   oligo.data <- summarize.rawdata(fdat, fdat.hybinfo, fdat.oligoinfo, 

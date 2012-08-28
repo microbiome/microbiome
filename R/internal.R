@@ -461,9 +461,9 @@ get.sampleid <- function (d.oligo) {
 #' Description: Minmax scaling. 
 #'
 #' Arguments:
-#'   @param r data matrix in log10 scale
+#'   @param r data matrix in original absolute scale
 #'   @param quantile.points quantiles for minmax
-#'   @param minmax.points pre-calculated quantiles for minmax; overrides quantile.points argument
+#'   @param minmax.points pre-calculated quantiles for minmax in log10 scale; overrides quantile.points argument
 #'   @param robust Select minmax version. 
 #' 
 #' Returns:
@@ -482,23 +482,23 @@ get.sampleid <- function (d.oligo) {
 
 scaling.minmax <- function (r, quantile.points = NULL, minmax.points = NULL, robust = FALSE) {
 
-  # return original scale 
-  rc <- 10^r 
+  if ( is.null(minmax.points) ) {
 
-  if (!is.null(minmax.points)) {
     maxabs <- mean(apply(rc, 2, quantile, max(quantile.points), na.rm = TRUE))
     minabs <- mean(apply(rc, 2, quantile, min(quantile.points), na.rm = TRUE))
-  } else {
-    maxabs <- max(minmax.points)
-    minabs <- min(minmax.points)
-  }
 
+  } else {
+
+    maxabs <- max(10^minmax.points)
+    minabs <- min(10^minmax.points)
+
+  }
 
   if (!robust) {
 
     r <- apply(rc, 2, function (x) { 
-                 x = (((x - min(x, na.rm = T))/(max(x, na.rm = T) - min(x, na.rm = T)))*(maxabs - minabs)) + minabs;
-       return(x)})
+      x = (((x - min(x, na.rm = T))/(max(x, na.rm = T) - min(x, na.rm = T)))*(maxabs - minabs)) + minabs;
+    return(x)})
 
   } else {
     
@@ -640,8 +640,10 @@ get.probedata <- function (hybridization.ids, rmoligos, dbuser, dbpwd, dbname, m
   for (hid in names(rawdata.esplit)) { ftab[, hid] <- I(rawdata.esplit[[hid]][inds, "spatNormSignal"]) }
 
   # Impute
-  warning(100*mean(is.na(ftab)), "% of ftab is NAs; imputing")
-  ftab <- t(10^impute(t(log10(ftab))))
+  if (any(is.na(ftab))) {
+    warning(round(100*mean(is.na(ftab)), 3), "% of ftab is NAs; imputing")
+    ftab <- t(10^impute(t(log10(ftab))))
+  }
 
   # Close MySQL connection
   dbDisconnect(con)
@@ -1099,7 +1101,7 @@ oligo.bg.correction <- function (d.oligo2, bgc.method) {
 #' Description: Between-arrays normalization 
 #'
 #' Arguments:
-#'   @param r.feature data matrix in logarithmic scale
+#'   @param dat data matrix in original absolute scale
 #'   @param method normalization method
 #'   @param bg.adjust background adjustment 
 #'   @param minmax.quantiles quantiles for minmax
@@ -1111,42 +1113,35 @@ oligo.bg.correction <- function (d.oligo2, bgc.method) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-ScaleProfile <- function (r.feature, method = 'minmax', bg.adjust = NULL, minmax.quantiles = c(0.005, 0.995), minmax.points = NULL) {
+ScaleProfile <- function (dat, method = 'minmax', bg.adjust = NULL, minmax.quantiles = c(0.005, 0.995), minmax.points = NULL) {
 
   method <- list.scaling.methods()[[method]]
-
   message(paste("Normalizing with", method))
-            
-  ## Table r.feature is a copy of featuretab containing 
+  
+  ## Table dat is a copy of featuretab containing 
   ## logarithms of the values in 
   ## featuretab
 
-  if (sd(na.omit(r.feature[,1])) > 100) {
-    warning("Please check that the input matrix to ScaleProfile is in logarithmic scale")
+  if (method=='minmax') {
+    r <- scaling.minmax(dat, quantile.points = minmax.quantiles, minmax.points = minmax.points, robust = FALSE)
+  } else if (method=='minmax.robust') {
+    r <- scaling.minmax(dat, quantile.points = minmax.quantiles, minmax.points = minmax.points, robust = TRUE)
+  } else if (method=='quant') {
+    dn <- dimnames(r)
+    r <- normalize.quantiles(r)
+    dimnames(r) <- dn
+  } else if (method=='normExpQuant') {
+    ## Impute NA's with sample medians
+    na.inds <- which(is.na(r), arr.ind=T)
+    r <- apply(r,2,function(x){x[is.na(x)] <- median(x, na.rm=T); return(x)})
+    rc <- apply(10^(r), 2, bg.adjust)
+    dn <- dimnames(r)
+    r <- normalize.quantiles(log10(rc+1))
+    dimnames(r) <- dn
+    r[na.inds] <- NA
+  } else {
+    stop("No between-array normalization recognized!!")
   }
-
-  r <- r.feature
-
-    if (method=='minmax') {
-      r <- scaling.minmax(r.feature, quantile.points = minmax.quantiles, robust = FALSE)
-    } else if (method=='minmax.robust') {
-      r <- scaling.minmax(r.feature, quantile.points = minmax.quantiles, robust = TRUE)
-    } else if (method=='quant') {
-      dn <- dimnames(r)
-      r <- normalize.quantiles(r)
-      dimnames(r) <- dn
-    } else if (method=='normExpQuant') {
-            ## Impute NA's with sample medians
-            na.inds <- which(is.na(r), arr.ind=T)
-            r <- apply(r,2,function(x){x[is.na(x)] <- median(x, na.rm=T); return(x)})
-            rc <- apply(10^(r), 2, bg.adjust)
-            dn <- dimnames(r)
-            r <- normalize.quantiles(log10(rc+1))
-            dimnames(r) <- dn
-            r[na.inds] <- NA
-     } else {
-       stop("No between-array normalization recognized!!")
-     }
  
   return(r)
 }
