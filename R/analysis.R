@@ -45,7 +45,7 @@ distance.matrix <- function (x, method = "pearson", ...) {
 
 
 
-#' Description: Calculate Wilcoxon test for the specified sample groups. Either provide the input data as matrix, file path, or select the file through GUI.
+#' Description: Calculate Wilcoxon test (unpaired; BH correction) for the specified sample groups. Either provide the input data as matrix, file path, or select the file through GUI.
 #'             
 #' Arguments:
 #'   @param dat data matrix (features x samples)
