@@ -1,3 +1,6 @@
+CHANGES IN VERSION 0.3.13 (2012-08-30)
+  o standardized the pipeline; output validated against previous atlas version
+
 CHANGES IN VERSION 0.3.05 (2012-08-22)
   o added MDS.classical and MDS.isometric to project.data
 

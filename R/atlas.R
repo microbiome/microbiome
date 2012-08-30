@@ -24,8 +24,6 @@
 #'   @param dbname MySQL database name
 #'   @param result.path Directory for storing the results.
 #'   @param my.scaling Normalization method. Default "minmax".
-#'   @param minmax.quantiles Quantiles for minmax normalization. Default c(0.005, 0.995).
-#'   @param bgc.method Optional. Background correction method. By default no background correction.
 #'   @param mc.cores Number of cores for parallel computation
 #'   @param remove.nonspecific.oligos Optional logical set to remove nonspecific oligos (TRUE). By default keeping the non-specific oligos (FALSE)
 #' Returns:
@@ -44,13 +42,11 @@
 FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname, 
 		     	       result.path,
 		     	       my.scaling = "minmax", 
-			       minmax.quantiles = c(0.005, 0.995), 
-			       bgc.method = NULL, 
 			       mc.cores = 3, 
 			       remove.nonspecific.oligos = FALSE) 
 {
 
-  # library(microbiome); source("~/scripts/R/HITchip/atlas.R"); allowed.projects <- ListAtlasProjects()[1:2]; dbuser = 'lmlahti'; dbpwd = 'passu'; dbname = 'Phyloarray'; result.path <- "~/data/HITChip/Atlas/20120828/"; my.scaling = "minmax"; minmax.quantiles = c(0.005, 0.995); bgc.method = NULL; mc.cores = 3; remove.nonspecific.oligos = FALSE
+  # source("~/scripts/R/HITchip/atlas.R"); library(microbiome); fs <- list.files("~/Rpackages/microbiome/microbiome/R/", full.names = T); for (f in fs) {source(f)}; allowed.projects <- ListAtlasProjects()[1:2]; dbuser = 'lmlahti'; dbpwd = 'passu'; dbname = 'Phyloarray'; result.path <- "~/data/HITChip/Atlas/20120828/"; my.scaling = "minmax"; minmax.quantiles = c(0.005, 0.995); bgc.method = NULL; mc.cores = 3; remove.nonspecific.oligos = FALSE
 
   # Install new MySQL dump of the database with: 
   # mysql -u"dbuser" -p"dbpwd" dbname < dump.sql
@@ -78,7 +74,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   tmp <- get.probedata(unique(project.info[["hybridisationID"]]), 
       	 		rm.phylotypes$oligos, dbuser, dbpwd, dbname, mc.cores = mc.cores)  
 
-  fdat.orig <- 1 + tmp$data       # features x hybs, original non-log scale; ensure smallest value is 1
+  fdat.orig <- tmp$data       # features x hybs, original non-log scale
   fdat.oligoinfo <- tmp$info      # oligoinfo
 
   # Annotations for selected hybridisations
@@ -96,10 +92,10 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   }
  
   # Impute
-  if (any(is.na(fdat.orig))) {
-    warning(round(100*mean(is.na(fdat.orig)), 3), "% of polished fdat.orig is NAs; imputing")
-    fdat.orig <- t(10^impute(t(log10(fdat.orig))))
-  }
+  #if (any(is.na(fdat.orig))) {
+  #  warning(round(100*mean(is.na(fdat.orig)), 3), "% of polished fdat.orig is NAs; imputing")
+  #  fdat.orig <- t(10^impute(t(log10(fdat.orig))))
+  #}
 
   # calculate quantile points in original scale 
   #maxabs <- mean(apply(fdat.orig, 2, quantile, max(minmax.quantiles), na.rm = TRUE))
@@ -118,9 +114,9 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   	     		oligo.ids = sort(unique(oligomap$oligoID)))
 	 			
   # Background correction
-  if (!is.null(bgc.method)) { 
-    oligo.data <- oligo.bg.correction(oligo.data, bgc.method)
-  }
+  #if (!is.null(bgc.method)) { 
+  #  oligo.data <- oligo.bg.correction(oligo.data, bgc.method)
+  #}
 
   # First produce full preprocessed data matrices
   data.matrices.full <- list(oligo = oligo.data)
@@ -180,8 +176,8 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   # Save parameters
   session.info <- sessionInfo()
   params <- list(dbuser = dbuser, dbpwd = NA, dbname = dbname, 
-  	         my.scaling = my.scaling, minmax.quantiles = minmax.quantiles, 
-		 bgc.method = bgc.method, 
+  	         my.scaling = my.scaling, # minmax.quantiles = minmax.quantiles, 
+		 minmax.points = minmax.points, 
 		 result.path = result.path, 
 		 allowed.projects = allowed.projects, 
 		 rm.oligos = rm.phylotypes$oligos, rm.phylotypes = rm.phylotypes, 

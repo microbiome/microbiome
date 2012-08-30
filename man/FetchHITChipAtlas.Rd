@@ -4,7 +4,6 @@
 \usage{
   FetchHITChipAtlas(allowed.projects, dbuser, dbpwd,
     dbname, result.path, my.scaling = "minmax",
-    minmax.quantiles = c(0.005, 0.995), bgc.method = NULL,
     mc.cores = 3, remove.nonspecific.oligos = FALSE)
 }
 \arguments{
@@ -21,12 +20,6 @@
 
   \item{my.scaling}{Normalization method. Default
   "minmax".}
-
-  \item{minmax.quantiles}{Quantiles for minmax
-  normalization. Default c(0.005, 0.995).}
-
-  \item{bgc.method}{Optional. Background correction method.
-  By default no background correction.}
 
   \item{mc.cores}{Number of cores for parallel computation}
 

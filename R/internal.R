@@ -1387,6 +1387,8 @@ threshold.data <- function(dat, sd.times = 6){
 
 summarize.probesets <- function (oligomap, oligo.data, method, level, verbose = TRUE, rm.phylotypes = NULL) {
 
+  # oligomap; oligo.data; method; level; rm.phylotypes = rm.phylotypes; verbose = TRUE
+
   # Start by summarizing into species level
   rm.species <- unique(c(unique(oligomap[oligomap$L1 %in% rm.phylotypes$L1, "species"]), 
   	                 unique(oligomap[oligomap$L2 %in% rm.phylotypes$L2, "species"]),
@@ -1419,7 +1421,7 @@ summarize.probesets <- function (oligomap, oligo.data, method, level, verbose = 
       phylogroups <- phylogroups[setdiff(names(phylogroups), rm.phylotypes[[level]])]
 
       summarized.matrix <- matrix(NA, nrow = length(phylogroups), ncol = ncol(oligo.data))
-      rownames(summarized.matrix) <- names(phylogroups)
+      rownames(summarized.matrix) <- sort(names(phylogroups))
       colnames(summarized.matrix) <- colnames(oligo.data)
 
       for (pg in names(phylogroups)) {
