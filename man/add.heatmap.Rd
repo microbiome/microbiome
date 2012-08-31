@@ -5,8 +5,8 @@ Description: Add oligprofile heatmap into output directory}
 \usage{
   add.heatmap(dat, output.dir, output.file = NULL,
     oligomap, ppcm = 150, hclust.method = "complete",
-    palette = "white/blue", level = "L2",
-    metric = "pearson", figureratio = 12, fontsize = 12,
+    palette = "white/black", level = "L2",
+    metric = "pearson", figureratio = 10, fontsize = 40,
     tree.display = TRUE)
 }
 \arguments{
@@ -23,7 +23,8 @@ Description: Add oligprofile heatmap into output directory}
 
   \item{hclust.method}{hierarchical clustering method}
 
-  \item{palette}{color palette}
+  \item{palette}{color palette ("white/black" /
+  "white/blue" / "black/yellow/white")}
 
   \item{level}{taxonomic level to show}
 

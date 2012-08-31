@@ -4,8 +4,8 @@
 \usage{
   PlotPhylochipHeatmap(data, oligomap, metric = "pearson",
     level = "L2", tree.display = TRUE,
-    palette = "white/blue", fontsize = 12,
-    figureratio = 12, hclust.method = "complete")
+    palette = "white/black", fontsize = 40,
+    figureratio = 10, hclust.method = "complete")
 }
 \arguments{
   \item{data}{oligoprofile data in original (non-log)
@@ -20,7 +20,8 @@
 
   \item{tree.display}{tree.display}
 
-  \item{palette}{color palette}
+  \item{palette}{color palette ("white/black" /
+  "white/blue" / "black/yellow/white")}
 
   \item{fontsize}{font size}
 

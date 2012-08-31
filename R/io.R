@@ -32,7 +32,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE){
+read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE, impute = TRUE){
 
   # level <- "oligo"; method = "sum"; data.dir = "test/"; log10 = TRUE
 
@@ -81,11 +81,6 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE)
 
   }
 
-  if (log10 && (level %in% c("oligo", "species", "L0", "L1", "L2"))) {
-    message("Logarithmizing the data")
-    tab <- log10(tab)        
-  }
-
   # Convert to numeric
   if (level %in% c("oligo", "species", "L0", "L1", "L2")) {
   
@@ -96,6 +91,17 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE)
     colnames(tab) <- cnams
 
   }
+
+  if (impute && any(is.na(tab))) {
+    warning(paste("The matrix has ", sum(is.na(tab)), " missing values - imputing."))
+    tab <- 10^t(impute(t(log10(tab))))
+  }
+
+  if (log10 && (level %in% c("oligo", "species", "L0", "L1", "L2"))) {
+    message("Logarithmizing the data")
+    tab <- log10(tab)        
+  }
+
 
   tab    
 

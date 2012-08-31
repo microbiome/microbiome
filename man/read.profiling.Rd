@@ -3,7 +3,7 @@
 \title{read.profiling}
 \usage{
   read.profiling(level, method = "sum", data.dir = NULL,
-    log10 = TRUE)
+    log10 = TRUE, impute = TRUE)
 }
 \arguments{
   \item{level}{phylogenetic level ("oligo" / "species" /
