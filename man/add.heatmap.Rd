@@ -7,7 +7,7 @@ Description: Add oligprofile heatmap into output directory}
     oligomap, ppcm = 150, hclust.method = "complete",
     palette = "white/blue", level = "L2",
     metric = "pearson", figureratio = 12, fontsize = 12,
-    include.tree = TRUE)
+    tree.display = TRUE)
 }
 \arguments{
   \item{dat}{oligoprofile data in original (non-log)
@@ -33,7 +33,7 @@ Description: Add oligprofile heatmap into output directory}
 
   \item{fontsize}{font size}
 
-  \item{include.tree}{include.tree
+  \item{tree.display}{tree.display
 
   Returns:}
 }

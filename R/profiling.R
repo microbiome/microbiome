@@ -32,6 +32,8 @@
 
 run.profiling.script <- function (dbuser, dbpwd, dbname, verbose = TRUE) {
 
+  # dbuser = "lmlahti"; dbpwd = "passu"; dbname = "Phyloarray"; verbose = TRUE
+
   # Fetch and preprocess the data		     
   chipdata  <- preprocess.chipdata(dbuser, dbpwd, dbname)
   finaldata <- chipdata$data

@@ -3,7 +3,7 @@
 \title{PlotPhylochipHeatmap}
 \usage{
   PlotPhylochipHeatmap(data, oligomap, metric = "pearson",
-    level = "L2", include.tree = TRUE,
+    level = "L2", tree.display = TRUE,
     palette = "white/blue", fontsize = 12,
     figureratio = 12, hclust.method = "complete")
 }
@@ -18,7 +18,7 @@
   \item{level}{taxonomic level to show (L0 / L1 / L2 /
   species)}
 
-  \item{include.tree}{include.tree}
+  \item{tree.display}{tree.display}
 
   \item{palette}{color palette}
 

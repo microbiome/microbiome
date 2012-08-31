@@ -46,7 +46,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 			       remove.nonspecific.oligos = FALSE) 
 {
 
-  # source("~/scripts/R/HITchip/atlas.R"); library(microbiome); fs <- list.files("~/Rpackages/microbiome/microbiome/R/", full.names = T); for (f in fs) {source(f)}; allowed.projects <- ListAtlasProjects()[1:2]; dbuser = 'lmlahti'; dbpwd = 'passu'; dbname = 'Phyloarray'; result.path <- "~/data/HITChip/Atlas/20120828/"; my.scaling = "minmax"; minmax.quantiles = c(0.005, 0.995); bgc.method = NULL; mc.cores = 3; remove.nonspecific.oligos = FALSE
+  # source("~/scripts/R/HITchip/atlas.R"); library(microbiome); fs <- list.files("~/Rpackages/microbiome/microbiome/R/", full.names = T); for (f in fs) {source(f)}; allowed.projects <- ListAtlasProjects(); dbuser = 'lmlahti'; dbpwd = 'passu'; dbname = 'Phyloarray'; result.path <- "~/tmp/"; my.scaling = "minmax"; mc.cores = 3; remove.nonspecific.oligos = FALSE
 
   # Install new MySQL dump of the database with: 
   # mysql -u"dbuser" -p"dbpwd" dbname < dump.sql
@@ -90,12 +90,6 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
     fdat.orig <- fdat.orig[, !onlyNA]
     fdat.hybinfo <- fdat.hybinfo[, !onlyNA]
   }
- 
-  # Impute
-  #if (any(is.na(fdat.orig))) {
-  #  warning(round(100*mean(is.na(fdat.orig)), 3), "% of polished fdat.orig is NAs; imputing")
-  #  fdat.orig <- t(10^impute(t(log10(fdat.orig))))
-  #}
 
   # calculate quantile points in original scale 
   #maxabs <- mean(apply(fdat.orig, 2, quantile, max(minmax.quantiles), na.rm = TRUE))
@@ -110,25 +104,32 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   fdat <- ScaleProfile(fdat.orig, method = my.scaling, minmax.points = minmax.points)
 
   # Summarize probes into oligos and hybridisations into samples
-  oligo.data <- summarize.rawdata(log10(fdat), fdat.hybinfo, fdat.oligoinfo, 
+  oligo.log10 <- summarize.rawdata(log10(fdat), fdat.hybinfo, fdat.oligoinfo, 
   	     		oligo.ids = sort(unique(oligomap$oligoID)))
-	 			
+	 
+
+  # Impute
+  #if (any(is.na(oligo.log10))) {
+  #  warning(round(100*mean(is.na(oligo.log10)), 3), "% of polished oligo.log10 is NAs; imputing")
+  #  oligo.log10 <- t(impute(t(oligo.log10)))
+  #}
+			
   # Background correction
   #if (!is.null(bgc.method)) { 
-  #  oligo.data <- oligo.bg.correction(oligo.data, bgc.method)
+  #  oligo.log10 <- oligo.bg.correction(oligo.log10, bgc.method)
   #}
 
   # First produce full preprocessed data matrices
-  data.matrices.full <- list(oligo = oligo.data)
+  data.matrices.full <- list(oligo = oligo.log10)
   for (level in c("species", "L1", "L2")) {
     for (method in c("ave", "sum", "rpa", "nmf")) { 
       message(paste(level, method))
-      data.matrices.full[[level]][[method]] <- summarize.probesets(oligomap, oligo.data, method, level, rm.phylotypes = rm.phylotypes)
+      data.matrices.full[[level]][[method]] <- summarize.probesets(oligomap, oligo.log10, method, level, rm.phylotypes = rm.phylotypes)
     }
   }
 
   # Sample annotation matrix
-  sample.info.full <- fdat.hybinfo[match(colnames(oligo.data), 
+  sample.info.full <- fdat.hybinfo[match(colnames(oligo.log10), 
   		                         fdat.hybinfo$sampleID),]
   rownames(sample.info.full) <- as.character(sample.info.full$sampleID)
 
@@ -146,7 +147,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
     samples <- splitted[[sample.set]]
     sample.info[[sample.set]] <- sample.info.full[samples,]
 
-    data.matrices[[sample.set]] <- list(oligo = oligo.data[, samples])
+    data.matrices[[sample.set]] <- list(oligo = oligo.log10[, samples])
     for (level in names(data.matrices.full)) {
       for (method in names(data.matrices.full[[level]])) {
         if (!(level == "species" && method == "nmf")) {

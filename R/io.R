@@ -34,34 +34,37 @@
 
 read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE){
 
+  # level <- "oligo"; method = "sum"; data.dir = "test/"; log10 = TRUE
+
   svDialogsT <- require(svDialogs)
   if(!svDialogsT) { install.packages("svDialogs") }
 
   ##  Select file
   if (is.null(data.dir)) {
-    f <- choose.files(multi = F)
+    f <- tk_choose.files(multi = F)
+
+    # Recognize level and method from the file name 
+    level <- NULL; method <- NULL
+    if (!length(grep("oligo", f))==0) { level <- "oligo"}
+    if (!length(grep("species", f)) == 0) { level <- "species"}
+    if (!length(grep("L0", f)) == 0) { level <- "L0"}
+    if (!length(grep("L1", f)) == 0) { level <- "L1"}
+    if (!length(grep("L2", f)) == 0) { level <- "L2"}
+    if (!length(grep("phylogeny", f)) == 0) { level <- "oligomap"}
+    if (!length(grep("rpa", f)) == 0) { level <- "rpa"}
+    if (!length(grep("sum", f)) == 0) { level <- "sum"}
+    if (!length(grep("ave", f)) == 0) { level <- "ave"}
+    if (!length(grep("nmf", f)) == 0) { level <- "nmf"}
+
   } else {
     if (level %in% c("L0", "L1", "L2", "species")) {
-      f <- paste(data.dir, "/", level, "_log10_", method, ".tab", sep = "")
+      f <- paste(data.dir, "/", level, "-", method, ".tab", sep = "")
     } else if (level == "oligo") {
       f <- paste(data.dir, "/oligoprofile.tab", sep = "")
     } else if (level == "oligomap") {
       f <- paste(data.dir, "/phylogenyinfo.tab", sep = "")
     }
   }
-
-  # Recognize level and method from the file name
-  level <- NULL; method <- NULL
-  if (grep("oligo", f)) { level <- "oligo"}
-  if (grep("species", f)) { level <- "species"}
-  if (grep("L0", f)) { level <- "L0"}
-  if (grep("L1", f)) { level <- "L1"}
-  if (grep("L2", f)) { level <- "L2"}
-  if (grep("phylogeny", f)) { level <- "oligomap"}
-  if (grep("rpa", f)) { method <- "rpa"}
-  if (grep("sum", f)) { method <- "sum"}
-  if (grep("ave", f)) { method <- "ave"}
-  if (grep("nmf", f)) { method <- "nmf"}
 
   if (level %in% c("L0", "L1", "L2", "species")) {
 
@@ -81,6 +84,17 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE)
   if (log10 && (level %in% c("oligo", "species", "L0", "L1", "L2"))) {
     message("Logarithmizing the data")
     tab <- log10(tab)        
+  }
+
+  # Convert to numeric
+  if (level %in% c("oligo", "species", "L0", "L1", "L2")) {
+  
+    rnams <- rownames(tab)
+    cnams <- colnames(tab)
+    tab <- apply(tab, 2, as.numeric)
+    rownames(tab) <- rnams
+    colnames(tab) <- cnams
+
   }
 
   tab    

@@ -1,6 +1,6 @@
 \name{check.wilcoxon}
 \alias{check.wilcoxon}
-\title{Description: Calculate Wilcoxon test for the specified sample groups. Either provide the input data as matrix, file path, or select the file through GUI.}
+\title{Description: Calculate Wilcoxon test (unpaired; BH correction) for the specified sample groups. Either provide the input data as matrix, file path, or select the file through GUI.}
 \usage{
   check.wilcoxon(dat = NULL, fnam = NULL,
     p.adjust.method = "BH", sort = FALSE)

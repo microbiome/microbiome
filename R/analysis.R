@@ -67,7 +67,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
 
   ## Open your tab fnam, Level 1&2 Sum_BGsub_Rel.contribution
 
-  if (is.null(dat) && is.null(fnam)) { fnam <- choose.files(multi = F) }
+  if (is.null(dat) && is.null(fnam)) { fnam <- tk_choose.files(multi = F) }
   if (is.null(dat)) {
     dat <- read.table(fnam, sep = "\t", header = T, row.names = 1)
   } 

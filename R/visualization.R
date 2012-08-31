@@ -246,7 +246,7 @@ theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
 #'
 #' Arguments:
 #'   @param dat oligoprofile data in original (non-log) domain
-#'
+#'   @param method hierarchical clustering method
 #' Returns:
 #'   @return NULL
 #'
@@ -256,7 +256,7 @@ theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-plot.htrees <- function (dat) {
+plot.htrees <- function (dat, method = "complete") {
 
   # Plot CLUSTER TREES TO A GRAPHICS WINDOW
   # Euclidean & Correlation / Raw & Log10
@@ -274,10 +274,10 @@ plot.htrees <- function (dat) {
     # Plot all hclust trees in a single figure
     x11() 
     par(mfrow=c(2,2))
-    plot(hc.log10.eu, hang = -1, main = "hclust/euclid/oligo/log10")
-    plot(hc.raw.eu, hang = -1, main = "hclust/euclid/oligo/raw")
-    plot(hc.log10.cor, hang = -1, main = "hclust/pearson/oligo/log10")
-    plot(hc.raw.cor, hang = -1, main = "hclust/pearson/oligo/raw")
+    plot(hc.log10.eu, hang = -1, main = "hclust/euclid/oligo/log10", xlab = "Samples")
+    plot(hc.raw.eu, hang = -1, main = "hclust/euclid/oligo/raw", xlab = "Samples")
+    plot(hc.log10.cor, hang = -1, main = "hclust/pearson/oligo/log10", xlab = "Samples")
+    plot(hc.raw.cor, hang = -1, main = "hclust/pearson/oligo/raw", xlab = "Samples")
 
   } else {
     warning("Three or more samples required for clustering - skipped.\n")
@@ -303,7 +303,7 @@ plot.htrees <- function (dat) {
 #'   @param metric clustering metric
 #'   @param figureratio figure ratio
 #'   @param fontsize font size
-#'   @param include.tree include.tree
+#'   @param tree.display tree.display
 #'
 #' Returns:
 #'   @return Plotting parameters
@@ -316,7 +316,11 @@ plot.htrees <- function (dat) {
 
 add.heatmap <- function (dat, output.dir, output.file = NULL, oligomap, ppcm = 150, 
 	         hclust.method = "complete", palette = "white/blue", level = "L2", metric = "pearson", 
-  		 figureratio = 12, fontsize = 12, include.tree = TRUE) {
+  		 figureratio = 12, fontsize = 12, tree.display = TRUE) {
+
+  # dat <- finaldata[["oligo"]]; output.dir = params$wdir;  output.file = NULL; oligomap = oligomap; ppcm = 150; 
+	         hclust.method = "complete"; palette = "white/blue"; level = "L2"; metric = "pearson"; 
+  		 figureratio = 12; fontsize = 12; tree.display = TRUE
 
   if (is.null(output.file)) {
     output.file <- paste(output.dir,"/", gsub(" ", "", level), "-oligoprofileClustering.png",sep="")
@@ -326,22 +330,23 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, oligomap, ppcm = 1
   if( ncol(dat) >= 3 ) {
 
     message(paste("Storing oligo heatmap in", output.file))  
+    hc.params$ppcm <- ppcm
+    hc.params$output.file <- output.file
+
     # PLOT THE HEATMAP
     # figure width as a function of the number of the samples
-    plotdev <- png(filename = hc.params[["output.file"]], 
+    plotdev <- png(filename = output.file, 
   	    width = max(trunc(ppcm*21), trunc(ppcm*21*ncol(dat)/70)), 
 	    height = trunc(ppcm*29.7)) 
     try(hc.params <- PlotPhylochipHeatmap(data = dat,
                 oligomap = oligomap,
                 metric = metric,
                 level = level,
-                include.tree = ifelse(tree.display == 'yes', TRUE, FALSE),
+                tree.display = tree.display,
                 palette = palette,
                 fontsize = fontsize,
                 figureratio = figureratio, 
 		hclust.method = hclust.method)) 
-    hc.params$ppcm <- ppcm
-    hc.params$output.file <- output.file
 
     dev.off()
   }
@@ -360,7 +365,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, oligomap, ppcm = 1
 #'   @param oligomap oligo-phylotype mappings
 #'   @param metric clustering metric
 #'   @param level taxonomic level to show (L0 / L1 / L2 / species)
-#'   @param include.tree include.tree
+#'   @param tree.display tree.display
 #'   @param palette color palette
 #'   @param fontsize font size
 #'   @param figureratio figure ratio
@@ -378,15 +383,15 @@ PlotPhylochipHeatmap <- function (data,
                          oligomap,
                          metric = "pearson", 
                          level = "L2", 
-                         include.tree = TRUE, 
+                         tree.display = TRUE, 
                          palette = "white/blue", #"black/yellow/white",
                          fontsize = 12, 
                          figureratio = 12, 
 			 hclust.method = "complete") {
 
-  # metric = "pearson"; level = "L2"; include.tree = TRUE; palette = "white/blue"; fontsize = 12; figureratio = 12; hclust.method = "complete"
+  # data = dat; metric = "pearson"; level = "L2"; tree.display = TRUE; palette = "white/blue"; fontsize = 12; figureratio = 12; hclust.method = "complete"
 
-  params <- c(metric = metric, level = level, include.tree = include.tree, palette = palette, 
+  params <- c(metric = metric, level = level, tree.display = tree.display, palette = palette, 
   	      fontsize = fontsize, figureratio = figureratio, hclust.method = hclust.method)
 			 
   if (is.character(palette)) {
@@ -430,14 +435,14 @@ PlotPhylochipHeatmap <- function (data,
    if (!is.na(figureratio)) {
       heights = c(figureratio/100, (100-figureratio)/100)
    } else {
-      if (include.tree) {
+      if (tree.display) {
          heights = c(15/100, 85/100)
       } else {
          heights = c(6/100, 94/100)
       }
    }
 
-   if (include.tree) {
+   if (tree.display) {
 
       data <- data[,hc$order] 
       layout(matrix(c(3,0,1,2),ncol=2,byrow=TRUE),widths=lcm(c(profilewidth,annwidth)),heights=lcm(figureheight*heights))
@@ -461,7 +466,7 @@ PlotPhylochipHeatmap <- function (data,
 
    text(x = c(0.03), y = (cumsum(rev(levs))-rev(levs/2))/sum(levs), labels = (names(rev(levs))), pos = 4)
 
-   if (include.tree) {
+   if (tree.display) {
 
       par(mar=c(0.2,1.5,1,0.5),usr=c(0,1,0,1))
       plot(hc, axes = FALSE, ann = FALSE, hang = -1)

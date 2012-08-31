@@ -1196,6 +1196,8 @@ WriteMatrix <- function (dat, filename, verbose = FALSE) {
 
 preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = TRUE) {
 
+  # library(microbiome); fs <- list.files("~/Rpackages/microbiome/microbiome/R/", full.names = T); for (f in fs) {source(f)}; dbuser = "lmlahti"; dbpwd = "passu"; dbname = "Phyloarray"; verbose = TRUE; mc.cores = 1
+
   ## ask parameters or read from R-file
   con <- dbConnect(dbDriver("MySQL"), username = dbuser, password = dbpwd, dbname = dbname)
 
@@ -1232,12 +1234,6 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
     fdat.hybinfo <- fdat.hybinfo[, !onlyNA]
   }
   
-  # Impute
-  if (any(is.na(fdat.orig))) {
-    warning(round(100*mean(is.na(fdat.orig)), 3), "% of polished fdat.orig is NAs; imputing")
-    fdat.orig <- t(10^impute(t(log10(fdat.orig))))
-  }
-
   ##############################
   ## Between-array normalization
   ##############################
@@ -1245,7 +1241,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   # selected scaling for featurelevel data
   # Background correction after this step, if any. 
   # Order of normalization / bg correction was validated empirically.
-  # bg.adjust intentionally set to NULL here. 
+  # bg.adjust intentionally set to NULL 
   # bg correction done _after_ oligo summarization, if any (see next steps)
   d.scaled <- ScaleProfile(fdat.orig, params$normalization, bg.adjust = NULL, minmax.points = params$minmax.points) 
 
@@ -1266,7 +1262,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   ####################
 
   # Summarize probes into oligos and hybridisations into samples
-  d.oligo2 <- summarize.rawdata(d.scaled, 
+  d.oligo2 <- summarize.rawdata(log10(d.scaled), 
   	      			fdat.hybinfo, 
 				fdat.oligoinfo = fdat.oligoinfo, 
 				oligo.ids = sort(unique(oligomap$oligoID)))
@@ -1276,10 +1272,16 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   # d.oligo2 <- oligo.bg.correction(d.oligo2, bgc.method = NULL)
   oligo.log10 <- d.oligo2
 
+  # Impute
+  #if (any(is.na(oligo.log10))) {
+  #  warning(round(100*mean(is.na(oligo.log10)), 3), "% of polished oligo.log10 is NAs; imputing")
+  #  oligo.log10 <- t(impute(t(oligo.log10)))
+  #}
+
   # Return to the original scale
-  oligo.abs <- matrix(10^d.oligo2, nrow = nrow(d.oligo2)) # - 1  
-  rownames( oligo.abs ) <- rownames( d.oligo2 )
-  colnames( oligo.abs ) <- colnames( d.oligo2 )
+  oligo.abs <- matrix(10^oligo.log10, nrow = nrow(oligo.log10)) # - 1  
+  rownames( oligo.abs ) <- rownames( oligo.log10 )
+  colnames( oligo.abs ) <- colnames( oligo.log10 )
 
   # Oligo summarization
   finaldata <- list()
@@ -1300,7 +1302,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
     }
   }
 
-  list(data = finaldata, oligomap = oligomap0, naHybs = naHybs, params = params)
+  list(data = finaldata, oligomap = oligomap, naHybs = naHybs, params = params)
 
 }
 
