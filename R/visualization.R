@@ -298,7 +298,7 @@ plot.htrees <- function (dat, method = "complete") {
 #'   @param oligomap oligo-phylotype mappings
 #'   @param ppcm figure size
 #'   @param hclust.method hierarchical clustering method
-#'   @param palette color palette
+#'   @param palette color palette ("white/black" / "white/blue" / "black/yellow/white")
 #'   @param level taxonomic level to show
 #'   @param metric clustering metric
 #'   @param figureratio figure ratio
@@ -315,8 +315,8 @@ plot.htrees <- function (dat, method = "complete") {
 #' @keywords utilities
 
 add.heatmap <- function (dat, output.dir, output.file = NULL, oligomap, ppcm = 150, 
-	         hclust.method = "complete", palette = "white/blue", level = "L2", metric = "pearson", 
-  		 figureratio = 12, fontsize = 12, tree.display = TRUE) {
+	         hclust.method = "complete", palette = "white/black", level = "L2", metric = "pearson", 
+  		 figureratio = 10, fontsize = 40, tree.display = TRUE) {
 
   # dat <- finaldata[["oligo"]]; output.dir = params$wdir;  output.file = NULL; oligomap = oligomap; ppcm = 150; 
 	         hclust.method = "complete"; palette = "white/blue"; level = "L2"; metric = "pearson"; 
@@ -366,7 +366,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, oligomap, ppcm = 1
 #'   @param metric clustering metric
 #'   @param level taxonomic level to show (L0 / L1 / L2 / species)
 #'   @param tree.display tree.display
-#'   @param palette color palette
+#'   @param palette color palette ("white/black" / "white/blue" / "black/yellow/white")
 #'   @param fontsize font size
 #'   @param figureratio figure ratio
 #'   @param hclust.method hierarchical clustering method
@@ -384,19 +384,18 @@ PlotPhylochipHeatmap <- function (data,
                          metric = "pearson", 
                          level = "L2", 
                          tree.display = TRUE, 
-                         palette = "white/blue", #"black/yellow/white",
-                         fontsize = 12, 
-                         figureratio = 12, 
+                         palette = "white/black", 
+                         fontsize = 40, 
+                         figureratio = 10, 
 			 hclust.method = "complete") {
 
-  # data = dat; metric = "pearson"; level = "L2"; tree.display = TRUE; palette = "white/blue"; fontsize = 12; figureratio = 12; hclust.method = "complete"
+  # data = dat; metric = "pearson"; level = "L2"; tree.display = TRUE; palette = "white/black"; fontsize = 40; figureratio = 10; hclust.method = "complete"
 
   params <- c(metric = metric, level = level, tree.display = tree.display, palette = palette, 
   	      fontsize = fontsize, figureratio = figureratio, hclust.method = hclust.method)
 			 
   if (is.character(palette)) {
     palette  <- list.color.scales()[[palette]]
-    # colorRampPalette(c("black","yellow","white"), bias=0.5, interpolate = "linear")(100)
    }
               
    par(ps = fontsize, xpd = NA)
