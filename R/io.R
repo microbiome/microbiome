@@ -41,6 +41,7 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE,
 
   ##  Select file
   if (is.null(data.dir)) {
+
     f <- tk_choose.files(multi = F)
 
     # Recognize level and method from the file name 
@@ -55,6 +56,8 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE,
     if (!length(grep("sum", f)) == 0) { level <- "sum"}
     if (!length(grep("ave", f)) == 0) { level <- "ave"}
     if (!length(grep("nmf", f)) == 0) { level <- "nmf"}
+
+    tclServiceMode(FALSE)
 
   } else {
     if (level %in% c("L0", "L1", "L2", "species")) {
@@ -101,7 +104,6 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE,
     message("Logarithmizing the data")
     tab <- log10(tab)        
   }
-
 
   tab    
 

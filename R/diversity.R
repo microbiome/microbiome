@@ -135,7 +135,7 @@ make.abundancy.table <- function (dat, det.th, discretization.resolution = 1) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-diversity.boxplot <- function (div.table, diversity.index = "invsimpson", title = NULL, n.groups = 8) { 
+diversity.boxplot <- function (div.table, diversity.index = "invsimpson", title = NULL, col.list, sample.groups) { 
 
   if (diversity.index %in% c("shannon", "invsimpson", "diversity")) {
     div <- div.table[["diversity"]]
@@ -146,79 +146,15 @@ diversity.boxplot <- function (div.table, diversity.index = "invsimpson", title 
   }
   names(div) <- rownames(div.table)
 
-  ## Grouping:
-  # Select samples
-  samples <- rownames(div.table)
-
-  # Set the amount of groups you want to make
-  groups <- c(1:n.groups)
-  G <- tk_select.list(groups, multiple = F, title = "Into how many groups you wish to divide the samples?")
-
-  # Fill the groups with samples and give names
-  ###### This for loop has very difficult commands when one has just
-  ###### started with R. Basically it just names all groups through use input
-  ###### and allows the user to select the boxplot colours
-  temp.color.new <- "" # needed later...
-
-
-  for (i in 1:G) {
-	# Group selecting
-	title.g <- paste("Select samples belonging to group ",i,sep="")
-	Gtemp <- tk_select.list(samples, multiple=T, title=title.g)
-
-	# Group naming (Not basic stuff here!)
-	tt <- tktoplevel()
-	name.g <- paste("Type the name of group ",i,sep="")
-	tkwm.title(tt,name.g)
-	textEntryVarTcl <- tclVar("group x")
-	textEntryWidget <- tkentry(tt,width=40,textvariable=textEntryVarTcl)
-	tkgrid(tklabel(tt,text="       "))
-	tkgrid(tklabel(tt,text="Name:   "),textEntryWidget)
-	tkgrid(tklabel(tt,text="       "))
-	onOK <- function()
-		{
-		tempname <<- tclvalue(textEntryVarTcl)
-		#cat("\nTemp: ",tempname,"\n"); flush.console()
-		tkdestroy(tt)
-		}
-	OK.but <- tkbutton(tt,text="   OK   ",command=onOK)
-	tkgrid(OK.but)
-	tkwait.window(tt)
-	if(i==1){gr.list<-list(tempname=Gtemp)} else { gr.list<-c(gr.list,list(tempname=Gtemp)) }
-	eval(parse(text=paste("names(gr.list)[i]<-tempname")))
-
-	# Group colour selection (Not basic stuff here!)
-	tc <- tktoplevel()
-	tkwm.title(tc,paste("Color Selection for ",tempname,sep=""))
-	color <- "blue"
-	temp.color.new <<- color
-	canvas <- tkcanvas(tc,width="80",height="25",bg=color)
-	ChangeColor <- function() {
-   		color <- tclvalue(tcl("tk_chooseColor",initialcolor=color,title="Choose a color"))
-  		if (nchar(color)>0)
-    		tkconfigure(canvas,bg=color)
-		temp.color.new <<- color
-		}
-	ChangeColor.button <- tkbutton(tc,text="Change Color",command=ChangeColor)
-	onOK2 <- function() {
-		tkdestroy(tc)
-		}
-	Ok.button <- tkbutton(tc,text="Ok, use this colour!",command=onOK2)
-	tkgrid(canvas,ChangeColor.button,Ok.button)
-	tkwait.window(tc)
-	if(i==1){col.list<-list(tempname=temp.color.new)} else { col.list<-c(col.list,list(tempname=temp.color.new)) }
-	eval(parse(text=paste("names(col.list)[i]<-tempname")))
-  }  
-
   ## "Box-plotting":
   # Diversity index
-  boxplot(div[gr.list[[1]]], ylab = diversity.index, col=col.list[[1]], ylim=c(min(div),max(div)),xlim=c(0,length(gr.list))+0.5, main = title)
-  axis(1,labels=names(gr.list),at=c(1:length(gr.list)))
-  for (i in 2:length(gr.list)) {
-	boxplot(div[gr.list[[i]]],col=col.list[[i]],names=names(gr.list)[i],add=T,at=i)
+  boxplot(div[sample.groups[[1]]], ylab = diversity.index, col=col.list[[1]], ylim=c(min(div),max(div)),xlim=c(0,length(sample.groups))+0.5, main = title)
+  axis(1,labels=names(sample.groups),at=c(1:length(sample.groups)))
+  for (i in 2:length(sample.groups)) {
+	boxplot(div[sample.groups[[i]]],col=col.list[[i]],names=names(sample.groups)[i],add=T,at=i)
   }
 
-  gr.list
+  sample.groups
 
 }
 
