@@ -45,13 +45,14 @@ distance.matrix <- function (x, method = "pearson", ...) {
 
 
 
-#' Description: Calculate Wilcoxon test (unpaired; BH correction) for the specified sample groups. Either provide the input data as matrix, file path, or select the file through GUI.
+#' Description: Calculate Wilcoxon test (unpaired; BH correction) for the specified sample groups. 
+#' Either provide the input data as matrix, file path, or select the file through GUI.
 #'             
 #' Arguments:
 #'   @param dat data matrix (features x samples)
-#'   @param file data file (if data matrix not provided) 
+#'   @param file data file  (if data matrix not provided) 
 #'   @param p.adjust.method p-value correction method for p.adjust function (default "BH")
-#'
+#'   @param sort sort the results
 #' Returns:
 #'   @return (Corrected) p-values for two-group comparison.
 #'
@@ -65,7 +66,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
 
   require(svDialogs)
 
-  ## Open your tab fnam, Level 1&2 Sum_BGsub_Rel.contribution
+  ## Open your tab fnam, Level 1 & 2 Sum_BGsub_Rel.contribution
 
   if (is.null(dat) && is.null(fnam)) { fnam <- tk_choose.files(multi = F) }
   if (is.null(dat)) {
@@ -117,16 +118,16 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
 #'              
 #' Arguments:
 #'   @param annot annotation matrix: samples x features
-#'   @param dat data matrix: samples x features
+#'   @param dat numeric data matrix: samples x features
 #'   @param method association method (pearson, spearman for continuous; categorical for discrete
 #'   @param qth q-value threshold for included features 
 #'   @param cth correlation threshold
 #'   @param order order the results
 #'   @param n.signif mininum number of significant correlations for each element
-#'   @param verbose verbose
+#'   @param mode Specify the output format ("table" or "matrix")
 #'
 #' Returns:
-#'   @return List with cor, pval, qval, N
+#'   @return List with cor, pval, qval
 #'
 #' @export
 #'
@@ -134,18 +135,18 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NULL, order = FALSE, n.signif = 0, verbose = TRUE, mode = "list"){
+cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NULL, order = FALSE, n.signif = 0, mode = "table"){
 
-  # annot <- metadata.df; dat <- t(genus.matrix); method = "pearson"; qth = NULL; cth = NULL; order = FALSE; n.signif = 0; verbose = TRUE; mode = "list"
+  # annot <- metadata.df; dat <- t(genus.matrix); method = "pearson"; qth = NULL; cth = NULL; order = FALSE; n.signif = 0; verbose = TRUE; mode = "matrix"
 
-  x <- annot # numeric or discrete
+  x <- as.data.frame(annot) # numeric or discrete
   y <- dat # numeric
 
   if (is.null(colnames(y))) {colnames(y) <- paste("column-", 1:ncol(y), sep = "")}
 
   xnames <- colnames(x)
   ynames <- colnames(y)
-  qv <- nmat <- NULL
+  qv <- NULL
 
   numeric.methods <- c("spearman", "pearson", "bicor", "mi")
   categorical.methods <- c("categorical")
@@ -180,7 +181,6 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
   if (method %in% c("pearson", "spearman")) {
 
     for (j in 1:ncol(y)){
-      if (verbose) {message(j/ncol(y))}
       jc <- apply(x, 2, function (xi) { res <- cor.test(xi, y[, j], method = method, use = "pairwise.complete.obs"); c(res$estimate, res$p.value) })
   
       Cc[,j] <- jc[1,]        
@@ -200,7 +200,6 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
       Cc <- matrix(NA, nrow = ncol(x), ncol = ncol(y))
       rownames(Cc) <- colnames(x)
       colnames(Cc) <- colnames(y)
-      nmat <- Pc <- Cc
 
       for (varname in colnames(x)) {
 
@@ -224,7 +223,6 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
       Cc <- matrix(NA, nrow = ncol(x), ncol = ncol(y))
       rownames(Cc) <- colnames(x)
       colnames(Cc) <- colnames(y)
-      nmat <- Pc <- Cc
 
       for (i in 1:ncol(x)) {
         for (j in 1:ncol(y)) {
@@ -316,14 +314,14 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
        }
 
      } else {
-       cat("No significant correlations with the given criteria\n")
+       message("No significant correlations with the given criteria\n")
        Cc <- Pc <- qv <- NULL
     }
    }
 
-   res <- list(cor = Cc, pval = Pc, qval = qv, N = nmat)
+   res <- list(cor = Cc, pval = Pc, qval = qv)
 
-   if (mode == "list") {
+   if (mode == "matrix") {
      return(res)     
    } else if (mode == "table") {
      ctab <- cbind(melt(res$cor), melt(res$qval)$value)

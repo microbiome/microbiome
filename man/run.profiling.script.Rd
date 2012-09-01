@@ -10,7 +10,9 @@
 
   \item{dbpwd}{MySQL password}
 
-  \item{dbname}{MySQL database name}
+  \item{dbname}{MySQL database name (HITChip: "Phyloarray";
+  MITChip: "Phyloarray_MIT"; PITChip old: "Phyloarray_PIT";
+  PITChip new: "pitchipdb")}
 
   \item{verbose}{verbose
 

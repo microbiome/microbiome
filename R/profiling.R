@@ -19,7 +19,7 @@
 #' Arguments:
 #'   @param dbuser MySQL username
 #'   @param dbpwd  MySQL password
-#'   @param dbname MySQL database name
+#'   @param dbname MySQL database name (HITChip: "Phyloarray"; MITChip: "Phyloarray_MIT"; PITChip old: "Phyloarray_PIT"; PITChip new: "pitchipdb")
 #'   @param verbose verbose
 #'
 #' Returns:
@@ -31,8 +31,6 @@
 #' @keywords utilities
 
 run.profiling.script <- function (dbuser, dbpwd, dbname, verbose = TRUE) {
-
-  # dbuser = "lmlahti"; dbpwd = "passu"; dbname = "Phyloarray"; verbose = TRUE
 
   # Fetch and preprocess the data		     
   chipdata  <- preprocess.chipdata(dbuser, dbpwd, dbname)

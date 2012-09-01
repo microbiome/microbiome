@@ -686,15 +686,6 @@ WriteLog <- function (naHybs, params) {
   cat("scaling: ",params$scal,  "\n", file=logfilename, append=T)
   cat("data in directory: ",params$wdir, "\n",file=logfilename, append=T)
 
-  # Now graphics are outside of this function
-  # cat("clustering tree in: ",params$clusterGraphFile,  "\n", file=logfilename, append=T)
-  # cat("tree ratio: ",params$figureratio, "\n",file=logfilename, append=T)
-  # cat("clustering metric: ",params$clmet, "\n",file=logfilename, append=T)
-  # cat("phylogeny level in figure: ",params$lev, "\n",file=logfilename, append=T)
-  # cat("figure coloring: ", params$pal, "\n",file=logfilename, append=T)
-  # cat("figure fontsize: ", params$fontsize, "\n",file=logfilename, append=T)
-  # cat("data saved: ", save.data, "\n",file=logfilename, append=T)
-
   ## Save profiling parameters 
   paramfilename <- paste(params$wdir,"/",profTime,"_profiling_params.Rdata", sep="")
   save(logfilename, profTime, scriptVersion, params, naHybs, file = paramfilename)  
@@ -842,13 +833,8 @@ phylotype.rm.list <- function (chip) {
 list.scaling.methods <- function () {
 
   list('none'='none',
-                #'minimum/median'='minmed',
-                'minimum/maximum'='minmax',
-                'minmax'='minmax',
-                #'median'='med',
-                'quantile'='quant'
-                #'normExp+MedianFC'='normExpMedianFC',
-                #'normExp+quantile'='normExpQuant'
+       'minmax'='minmax',
+       'quantile'='quant'
    )
 
 }

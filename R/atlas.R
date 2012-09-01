@@ -299,7 +299,7 @@ pick.training.samples <- function (sample.info, training.fraction = 0.80, rseed 
     set.seed(rseed)
     project.names <- unique(sample.info$projectName)
     training.inds <- sapply(table(sample.info$projectName), function (n) {sample(n, round(training.fraction*n))})
-    training.samples <- lapply(project.names, function (pn) {sample.info[sample.info$projectName == pn, "sampleID"][training.inds[[pn]]]})
+    training.samples <- lapply(project.names, function (pn) {sample.info[sample.info$projectName == pn, "sampleID"][training.inds[,pn]]})
   } else {
     stop("Duplicate sampleIDs. Handle before splitting into training and test sets.")
   }

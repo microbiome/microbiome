@@ -318,9 +318,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, oligomap, ppcm = 1
 	         hclust.method = "complete", palette = "white/black", level = "L2", metric = "pearson", 
   		 figureratio = 10, fontsize = 40, tree.display = TRUE) {
 
-  # dat <- finaldata[["oligo"]]; output.dir = params$wdir;  output.file = NULL; oligomap = oligomap; ppcm = 150; 
-	         hclust.method = "complete"; palette = "white/blue"; level = "L2"; metric = "pearson"; 
-  		 figureratio = 12; fontsize = 12; tree.display = TRUE
+  # dat <- finaldata[["oligo"]]; output.dir = params$wdir;  output.file = NULL; oligomap = oligomap; ppcm = 150; hclust.method = "complete"; palette = "white/blue"; level = "L2"; metric = "pearson"; figureratio = 12; fontsize = 12; tree.display = TRUE
 
   if (is.null(output.file)) {
     output.file <- paste(output.dir,"/", gsub(" ", "", level), "-oligoprofileClustering.png",sep="")
@@ -396,7 +394,7 @@ PlotPhylochipHeatmap <- function (data,
 			 
   if (is.character(palette)) {
     palette  <- list.color.scales()[[palette]]
-   }
+  }
               
    par(ps = fontsize, xpd = NA)
    paper <- par("din")
@@ -457,7 +455,7 @@ PlotPhylochipHeatmap <- function (data,
    img <- as.matrix(rev(as.data.frame(t(data[as.character(oligomap$oligoID),]))))
    image(z=img, col=palette, axes=FALSE, frame.plot=TRUE, zlim=limits)
    plot.new()
-   par(mar=c(1,0,0,1),usr=c(0,1,0,1),xaxs='i',yaxs='i')
+   par(mar = c(1, 0, 0, 1), usr = c(0, 1, 0, 1), xaxs = 'i', yaxs = 'i')
 
    rect(xleft = rep(0,length(levs)),
         ybottom = c(0,cumsum(rev(levs))[1:length(levs)-1])/sum(levs),

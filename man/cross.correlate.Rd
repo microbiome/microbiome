@@ -4,12 +4,12 @@
 \usage{
   cross.correlate(annot, dat, method = "pearson",
     qth = NULL, cth = NULL, order = FALSE, n.signif = 0,
-    verbose = TRUE, mode = "list")
+    mode = "table")
 }
 \arguments{
   \item{annot}{annotation matrix: samples x features}
 
-  \item{dat}{data matrix: samples x features}
+  \item{dat}{numeric data matrix: samples x features}
 
   \item{method}{association method (pearson, spearman for
   continuous; categorical for discrete}
@@ -23,12 +23,13 @@
   \item{n.signif}{mininum number of significant
   correlations for each element}
 
-  \item{verbose}{verbose
+  \item{mode}{Specify the output format ("table" or
+  "matrix")
 
   Returns:}
 }
 \value{
-  List with cor, pval, qval, N
+  List with cor, pval, qval
 }
 \description{
   Arguments:
