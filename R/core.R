@@ -116,20 +116,13 @@ createCore <- function(data, I.thr = 1.8) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-
 Core3D <- function(coreMat, fname, writedir){
 
-  ##Renaming the components for the figure
-  coreSize <- coreMat
   MinimumPrevalence <- as.numeric(colnames(coreMat))
   MinimumLogIntensity <- as.numeric(rownames(coreMat))
+  tmp <- persp(MinimumLogIntensity, MinimumPrevalence, coreMat, theta=60, phi=5, main=paste("Abundance core:",fname), col="light blue", axes=T, ticktype="detailed", nticks=9, shade = 0.58,cex.axis=0.5)
 
-  ##creating the figure
-  fnam <- paste(writedir,"Core3D_",fname,".pdf",sep="")
-  print(fnam)
-  pdf(fnam)
-  persp(MinimumLogIntensity, MinimumPrevalence, coreSize, theta=60, phi=5, main=paste("Abundance core:",fname), col="light blue", axes=T, ticktype="detailed", nticks=9, shade = 0.58,cex.axis=0.5)
-  dev.off()
+  return(NULL)
 
 }
 
