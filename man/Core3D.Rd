@@ -2,19 +2,17 @@
 \alias{Core3D}
 \title{Core3D}
 \usage{
-  Core3D(coreMat, fname, writedir)
+  Core3D(coreMat, title = "Abundance core")
 }
 \arguments{
   \item{coreMat}{core matrix}
 
-  \item{fname}{output file id}
-
-  \item{writedir}{output directory
+  \item{title}{title
 
   Returns:}
 }
 \value{
-  TBA
+  Used for its side effects
 }
 \description{
   Description: Core visualization 3D

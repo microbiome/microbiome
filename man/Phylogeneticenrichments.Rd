@@ -3,9 +3,8 @@
 \title{Phylogeneticenrichments}
 \usage{
   Phylogeneticenrichments(x, oligomap,
-    origlevel = colnames(oligomap)[3],
-    maplevel = colnames(oligomap)[1], onlyEnriched = T,
-    p.th = 0.05)
+    origlevel = colnames(oligomap)[3], maplevel = "L1",
+    onlyEnriched = T, p.th = 0.05)
 }
 \arguments{
   \item{x}{x}

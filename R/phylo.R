@@ -115,7 +115,7 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, oligomap) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-Phylogeneticenrichments <- function(x, oligomap, origlevel = colnames(oligomap)[3], maplevel = colnames(oligomap)[1], onlyEnriched = T, p.th = 0.05)
+Phylogeneticenrichments <- function(x, oligomap, origlevel = colnames(oligomap)[3], maplevel = "L1", onlyEnriched = T, p.th = 0.05)
 {
   
   ## Convert to character vector
@@ -148,6 +148,7 @@ Phylogeneticenrichments <- function(x, oligomap, origlevel = colnames(oligomap)[
     estimates <- c()
     tables <- list()
     maplevel.ugroups <- as.character(unique(phyloM[[maplevel]]))
+
     for(g in maplevel.ugroups){
 
       ## compute in which maplevel groups the given item occurs
@@ -160,25 +161,33 @@ Phylogeneticenrichments <- function(x, oligomap, origlevel = colnames(oligomap)[
           tmp <- try(fisher.test(inX, inMaplevelGroup, alternative="g"))
         else
           tmp <- try(fisher.test(inX, inMaplevelGroup, alternative="t"))
-        if(tmp$p.value<p.th){
+
           e[g] <- list(tmp)
           pvals[g] <- tmp$p.value          
           tables[g] <- list(table(inX,inMaplevelGroup))
           estimates[g] <- tmp$estimate
-        }
+
       }
+
+      pvals.adjusted <- p.adjust(pvals, method = "BH")
+      inds <- (pvals.adjusted < p.th)
+      e <- e[inds]
+      pvals <- pvals.adjusted[inds]
+      tables <- tables[inds]
+      estimates <- estimates[inds]
+
     }
 
-    ##Return enrichments i.e. Fisher's exact tests in table form
+    ## Return enrichments i.e. Fisher's exact tests in table form
 
     if (length(pvals)>0)
-       list(pvalues=t(rbind(pvals,estimates)), ##qvalues=t(t(qvalue(pvals))),
-           tables=tables, tests=e, phyloMap=phyloM) 
+       list(pval.adj=t(rbind(pvals,estimates)), 
+           tables=tables, tests=e, oligomap=phyloM) 
     else
-       list(pvalues=pvals, tables=tables, tests=e, phyloMap=phyloM) 
+       list(pvalues=pvals, tables=tables, tests=e, oligomap=phyloM) 
 
   } else
-    list(pvalues=1, tables=NULL, tests=NULL, phyloMap=phyloM) 
+    list(pvalues=1, tables=NULL, tests=NULL, oligomap=phyloM) 
 }
 
 #' retrieve.probesets

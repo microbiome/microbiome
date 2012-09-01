@@ -2,21 +2,19 @@
 \alias{Core2D}
 \title{Core2D}
 \usage{
-  Core2D(coreMat, fname, writedir, colnum = NULL)
+  Core2D(coreMat, colnum = NULL, title = "Common core")
 }
 \arguments{
   \item{coreMat}{core matrix}
 
-  \item{fname}{output file id}
+  \item{colnum}{colnum}
 
-  \item{writedir}{output directory}
-
-  \item{colnum}{colnum
+  \item{title}{title
 
   Returns:}
 }
 \value{
-  TBA
+  Used for its side effects
 }
 \description{
   Description: Core visualization 2D
