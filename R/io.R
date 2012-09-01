@@ -65,7 +65,7 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE,
     } else if (level == "oligo") {
       f <- paste(data.dir, "/oligoprofile.tab", sep = "")
     } else if (level == "oligomap") {
-      f <- paste(data.dir, "/phylogenyinfo.tab", sep = "")
+      f <- paste(data.dir, "/oligomap.tab", sep = "")
     }
   }
 
