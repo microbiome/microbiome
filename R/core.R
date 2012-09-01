@@ -103,12 +103,11 @@ createCore <- function(data, I.thr = 1.8) {
 #' Description: Core visualization 3D
 #'
 #' Arguments:
-#'   @param coreMat core matrix
-#'   @param fname output file id
-#'   @param writedir output directory
+#'  @param coreMat core matrix
+#'  @param title title
 #'
 #' Returns:
-#'   @return TBA
+#'  @return Used for its side effects
 #'
 #' @export 
 #' 
@@ -116,11 +115,11 @@ createCore <- function(data, I.thr = 1.8) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-Core3D <- function(coreMat, fname, writedir){
+Core3D <- function(coreMat, title = "Abundance core"){
 
   MinimumPrevalence <- as.numeric(colnames(coreMat))
   MinimumLogIntensity <- as.numeric(rownames(coreMat))
-  tmp <- persp(MinimumLogIntensity, MinimumPrevalence, coreMat, theta=60, phi=5, main=paste("Abundance core:",fname), col="light blue", axes=T, ticktype="detailed", nticks=9, shade = 0.58,cex.axis=0.5)
+  tmp <- persp(MinimumLogIntensity, MinimumPrevalence, coreMat, theta=60, phi=5, main=title, col="light blue", axes=T, ticktype="detailed", nticks=9, shade = 0.58,cex.axis=0.5)
 
   return(NULL)
 
@@ -133,12 +132,11 @@ Core3D <- function(coreMat, fname, writedir){
 #'
 #' Arguments:
 #'   @param coreMat core matrix
-#'   @param fname output file id
-#'   @param writedir output directory
 #'   @param colnum colnum
+#'   @param title title
 #'
 #' Returns:
-#'   @return TBA
+#'   @return Used for its side effects
 #'
 #' @export 
 #' 
@@ -146,18 +144,17 @@ Core3D <- function(coreMat, fname, writedir){
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-Core2D <- function(coreMat, fname, writedir, colnum = NULL){
+Core2D <- function(coreMat, colnum = NULL, title = "Common core"){
 
-  i.seq <- as.numeric(rownames(coreMat))
   if (is.null(colnum)) {
     colnum <- ncol(coreMat)
   }
 
-  fnam <- paste(writedir,"Core2D_",fname,".pdf",sep="")
-  print(fnam)
-  pdf(fnam)
-  plot(i.seq, coreMat[,colnum], main=paste("Common core: ",fname," (",colnum," subjects)",sep=""),  xlab="log intensity", ylab="number of Species", type="o", pch=16, cex.axis=1.5, cex.main=1.5, cex=1.5)
-  dev.off()
+  title <- paste(title, " (with ",colnum," subjects)", sep = "")
+
+  plot(as.numeric(rownames(coreMat)), coreMat[,colnum], main = title,  xlab="log intensity", ylab="number of Species", type="o", pch=16, cex.axis=1.5, cex.main=1.5, cex=1.5)
+
+  return(NULL)
 
 }
 
