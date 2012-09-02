@@ -30,7 +30,11 @@
 
 list.mysql.projects <- function (dbuser, dbpwd, dbname) { 
 
-  require(RMySQL)
+  if (!require(RMySQL)) {
+    install.packages("RMySQL")
+    require(RMySQL)
+  }
+
   drv <- dbDriver("MySQL")
   con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
 
@@ -70,6 +74,11 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 get.phylogeny.info <- function (phylogeny = "16S", rmoligos = NULL, dbuser, dbpwd, dbname, verbose = TRUE, remove.nonspecific.oligos = FALSE, chip = "HITChip") {   
 
   # phylogeny = "16S"; rmoligos = NULL; verbose = TRUE; remove.nonspecific.oligos = FALSE; chip = "HITChip"
+
+  if (!require(RMySQL)) {
+    install.packages("RMySQL")
+    require(RMySQL)
+  }
 
   if (verbose) { message("Load phylogeny.info info") }
 
@@ -206,11 +215,20 @@ get.phylogeny.info <- function (phylogeny = "16S", rmoligos = NULL, dbuser, dbpw
 #' @keywords utilities
 
 fetch.projects <- function (con, condition = NULL) {
+
    if (phyloarrayConnection(con)) {
+
+    if (!require(RMySQL)) {
+      install.packages("RMySQL")
+      require(RMySQL)
+    }
+
       stm <- paste("SELECT * FROM project", expandCondition(condition), sep='')
       rs <- dbSendQuery(con, stm)
       prjs <- fetch(rs, n=-1)
       return(prjs)
+   } else {
+     stop("Provide proper connection for fetch.projects")
    }
 }
 
@@ -244,9 +262,17 @@ fetch.projects <- function (con, condition = NULL) {
 
 fetch.samples <- function (con, condition = NULL) {
    if (phyloarrayConnection(con)) {
+
+      if (!require(RMySQL)) {
+        install.packages("RMySQL")
+        require(RMySQL)
+      }
+
       stm <- paste("SELECT * FROM sample", expandCondition(condition), sep='')
       rs <- dbSendQuery(con, stm)
       smps <- fetch(rs, n=-1)
       return(smps)
+   } else {
+     stop("Provide proper connection for fetch.samples")
    }
 }

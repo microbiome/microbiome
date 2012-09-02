@@ -77,6 +77,12 @@ level2TOlevel1 <- function (l2, phylogeny.info) {
 #' @keywords utilities
 
 phyloarrayConnection <- function (con) {
+
+  if (!require(RMySQL)) {
+    install.packages("RMySQL")
+    require(RMySQL)
+  }
+
    if (!(class(con)=='MySQLConnection')) {
       stop('Input must be a DBI connection to a phyloarray database')
    }
@@ -299,6 +305,11 @@ detect.chip <- function (dbname) {
 #' @keywords utilities
 
 ReadParameters <- function (con) {
+
+  if (!require(RMySQL)) {
+    install.packages("RMySQL")
+    require(RMySQL)
+  }
 
   scaling <- list.scaling.methods()	       
 
@@ -566,6 +577,11 @@ prune16S <- function (full16S, pmTm.margin = 2.5, complement = 1, mismatch = 0) 
 #' @keywords utilities
 
 get.probedata <- function (hybridization.ids, rmoligos, dbuser, dbpwd, dbname, mc.cores = 1) {
+
+  if (!require(RMySQL)) {
+    install.packages("RMySQL")
+    require(RMySQL)
+  }
 
   # hybridization.ids <- unique(project.info[["hybridisationID"]]); rmoligos <- rm.phylotypes$oligos; mc.cores = 1
 
@@ -905,6 +921,11 @@ mysql.format <- function (s) {
 
 FetchData <- function (params, con, scriptVersion, save.data, scaling, cmetrics) {
 
+  if (!require(RMySQL)) {
+    install.packages("RMySQL")
+    require(RMySQL)
+  }
+
   ## COLLECTING DATA FROM THE DATABASE
   message("Collecting data from the database\n")
 
@@ -1181,6 +1202,11 @@ WriteMatrix <- function (dat, filename, verbose = FALSE) {
 #' @keywords utilities
 
 preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = TRUE) {
+
+  if (!require(RMySQL)) {
+    install.packages("RMySQL")
+    require(RMySQL)
+  }
 
   # library(microbiome); fs <- list.files("~/Rpackages/microbiome/microbiome/R/", full.names = T); for (f in fs) {source(f)}; dbuser = "lmlahti"; dbpwd = "passu"; dbname = "Phyloarray"; verbose = TRUE; mc.cores = 1
 

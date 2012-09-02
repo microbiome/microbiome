@@ -52,6 +52,11 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   # mysql -u"dbuser" -p"dbpwd" dbname < dump.sql
   require(parallel)
 
+  if (!require(RMySQL)) {
+    install.packages("RMySQL")
+    require(RMySQL)
+  }
+
   # Probes and species to exclude
   rm.phylotypes <- phylotype.rm.list("HITChip")
 
@@ -222,7 +227,11 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 fetch.sample.info <- function (allowed.projects, chiptype = NULL, 
 		  dbuser, dbpwd, dbname, selected.samples = NULL) { 
 
-  require(RMySQL)
+  if (!require(RMySQL)) {
+    install.packages("RMySQL")
+    require(RMySQL)
+  }
+
   drv <- dbDriver("MySQL")
   con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
 

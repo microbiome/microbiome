@@ -27,7 +27,6 @@ Depends:
     qvalue,
     reshape,
     R2HTML,
-    RMySQL,
     RPA,
     svDialogs,
     tcltk,
