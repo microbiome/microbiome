@@ -2,12 +2,12 @@
 \alias{species2levels}
 \title{Description: species-levels mappings}
 \usage{
-  species2levels(spec, oligomap)
+  species2levels(spec, phylogeny.info)
 }
 \arguments{
   \item{spec}{species}
 
-  \item{oligomap}{oligomap
+  \item{phylogeny.info}{phylogeny.info
 
   Returns:}
 }

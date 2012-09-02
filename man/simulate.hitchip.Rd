@@ -5,7 +5,7 @@
   simulate.hitchip(PH.i, Ns, level = "L2", N = 5000)
 }
 \arguments{
-  \item{PH.i}{oligomap}
+  \item{PH.i}{phylogeny.info}
 
   \item{Ns}{Ns}
 

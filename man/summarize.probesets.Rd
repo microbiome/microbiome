@@ -2,11 +2,12 @@
 \alias{summarize.probesets}
 \title{Description: Probeset summarization with various methods.}
 \usage{
-  summarize.probesets(oligomap, oligo.data, method, level,
-    verbose = TRUE, rm.phylotypes = NULL)
+  summarize.probesets(phylogeny.info, oligo.data, method,
+    level, verbose = TRUE, rm.phylotypes = NULL)
 }
 \arguments{
-  \item{oligomap}{oligo - phylotype matching data.frame}
+  \item{phylogeny.info}{oligo - phylotype matching
+  data.frame}
 
   \item{oligo.data}{preprocessed probes x samples data
   matrix in log10 domain}

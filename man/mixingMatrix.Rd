@@ -2,10 +2,10 @@
 \alias{mixingMatrix}
 \title{Description: mixingMatrix}
 \usage{
-  mixingMatrix(oligomap, level)
+  mixingMatrix(phylogeny.info, level)
 }
 \arguments{
-  \item{oligomap}{oligomap}
+  \item{phylogeny.info}{phylogeny.info}
 
   \item{level}{taxonomic level
 

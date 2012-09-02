@@ -3,17 +3,17 @@
 \title{levelmap}
 \usage{
   levelmap(phylotypes = NULL, level.from, level.to,
-    oligomap)
+    phylogeny.info)
 }
 \arguments{
   \item{phylotypes}{phylotypes to convert; if NULL then
-  considering all phylotypes in the oligomap}
+  considering all phylotypes in the phylogeny.info}
 
   \item{level.from}{level.from}
 
   \item{level.to}{level.to}
 
-  \item{oligomap}{oligomap
+  \item{phylogeny.info}{phylogeny.info
 
   Returns:}
 }

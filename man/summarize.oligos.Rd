@@ -2,12 +2,13 @@
 \alias{summarize.oligos}
 \title{Description: summarize.oligos}
 \usage{
-  summarize.oligos(oligo.matrix, oligomap, level = "L2")
+  summarize.oligos(oligo.matrix, phylogeny.info,
+    level = "L2")
 }
 \arguments{
   \item{oligo.matrix}{oligo.matrix}
 
-  \item{oligomap}{oligomap}
+  \item{phylogeny.info}{phylogeny.info}
 
   \item{level}{taxonomic level
 

@@ -3,7 +3,7 @@
 \title{plot_cunulative}
 \usage{
   plot_cumulative(d.sub, writedir, fname, i.set = NULL,
-    type = "cumulative", ylim = NULL, oligomap)
+    type = "cumulative", ylim = NULL, phylogeny.info)
 }
 \arguments{
   \item{d.sub}{d.sub}
@@ -18,7 +18,7 @@
 
   \item{ylim}{y axis limits}
 
-  \item{oligomap}{oligomap matrix
+  \item{phylogeny.info}{phylogeny.info matrix
 
   Returns:}
 }
@@ -32,7 +32,7 @@
   Arguments:
 }
 \examples{
-# data("toydata-hitchip"); bs <- bootstrap.microbes(phylum.matrix); plot_cumulative(bs, writedir = "./", "tmp-", oligomap = oligomap)
+# data("toydata-hitchip"); bs <- bootstrap.microbes(phylum.matrix); plot_cumulative(bs, writedir = "./", "tmp-", phylogeny.info = phylogeny.info)
 }
 \author{
   Contact: Leo Lahti

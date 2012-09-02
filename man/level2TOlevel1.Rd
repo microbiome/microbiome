@@ -2,12 +2,12 @@
 \alias{level2TOlevel1}
 \title{Description: level2-level1 mappings}
 \usage{
-  level2TOlevel1(l2, oligomap)
+  level2TOlevel1(l2, phylogeny.info)
 }
 \arguments{
   \item{l2}{level2 phylotypes}
 
-  \item{oligomap}{oligomap
+  \item{phylogeny.info}{phylogeny.info
 
   Returns:}
 }

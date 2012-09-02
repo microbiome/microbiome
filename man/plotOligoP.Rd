@@ -4,8 +4,9 @@
 \usage{
   plotOligoP(d, tax.level = "L1", metric = "correlation",
     include.tree = T, fontsize = 11, figureratio = 15,
-    oligomap = oligomapJN, width = 12, height = 20,
-    oligomapJN = NULL, plot.profile = NULL)
+    phylogeny.info = phylogeny.infoJN, width = 12,
+    height = 20, phylogeny.infoJN = NULL,
+    plot.profile = NULL)
 }
 \arguments{
   \item{d}{data}
@@ -20,13 +21,13 @@
 
   \item{figureratio}{figure ratio}
 
-  \item{oligomap}{oligomap}
+  \item{phylogeny.info}{phylogeny.info}
 
   \item{width}{width}
 
   \item{height}{height}
 
-  \item{oligomapJN}{TBA}
+  \item{phylogeny.infoJN}{TBA}
 
   \item{plot.profile}{TBA
 

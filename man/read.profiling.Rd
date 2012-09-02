@@ -7,7 +7,7 @@
 }
 \arguments{
   \item{level}{phylogenetic level ("oligo" / "species" /
-  "L1" / "L2" / "L0") or "oligomap"}
+  "L1" / "L2" / "L0") or "phylogeny.info"}
 
   \item{method}{("rpa" / "sum" / "ave" / "nmf")}
 

@@ -2,11 +2,13 @@
 \alias{summarize.probesets.species}
 \title{Description: Probeset summarization with various methods.}
 \usage{
-  summarize.probesets.species(oligomap, oligo.data, method,
-    verbose = TRUE, rm.species = c("Victivallis vadensis"))
+  summarize.probesets.species(phylogeny.info, oligo.data,
+    method, verbose = TRUE,
+    rm.species = c("Victivallis vadensis"))
 }
 \arguments{
-  \item{oligomap}{oligo - phylotype matching data.frame}
+  \item{phylogeny.info}{oligo - phylotype matching
+  data.frame}
 
   \item{oligo.data}{preprocessed probes x samples data
   matrix in log10 domain}

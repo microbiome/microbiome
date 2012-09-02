@@ -2,14 +2,14 @@
 \alias{Phylogeneticenrichments}
 \title{Phylogeneticenrichments}
 \usage{
-  Phylogeneticenrichments(x, oligomap,
-    origlevel = colnames(oligomap)[3], maplevel = "L1",
-    onlyEnriched = T, p.th = 0.05)
+  Phylogeneticenrichments(x, phylogeny.info,
+    origlevel = colnames(phylogeny.info)[3],
+    maplevel = "L1", onlyEnriched = T, p.th = 0.05)
 }
 \arguments{
   \item{x}{x}
 
-  \item{oligomap}{oligomap}
+  \item{phylogeny.info}{phylogeny.info}
 
   \item{origlevel}{origlevel}
 
@@ -32,7 +32,7 @@
   onlyEnrich=T (neglects the unexpected disappearences of
   the groups in the given list). Outputs only the
   enrichments below the given p-value threshold p.th.
-  Requires oligomap=the first 4 columns from
+  Requires phylogeny.info=the first 4 columns from
   phylogenyprofile, origlevel=the level from which the list
   is, and maplevel= the level to which the mapping should
   be made and the enrichments of which computed. Outputs a
