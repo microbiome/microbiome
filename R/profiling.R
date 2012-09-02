@@ -36,14 +36,14 @@ run.profiling.script <- function (dbuser, dbpwd, dbname, verbose = TRUE) {
   chipdata  <- preprocess.chipdata(dbuser, dbpwd, dbname)
   finaldata <- chipdata$data
   params    <- chipdata$params
-  oligomap <- chipdata$oligomap
+  phylogeny.info <- chipdata$phylogeny.info
 
   ## Write preprocessed data in tab delimited file
-  outd <- WriteChipData(finaldata, params$wdir, oligomap, verbose = verbose)
+  outd <- WriteChipData(finaldata, params$wdir, phylogeny.info, verbose = verbose)
 
   # Add oligo heatmap into output directory
   # Provide oligodata in the _original (non-log) domain_
-  hc.params <- add.heatmap(finaldata[["oligo"]], output.dir = params$wdir, oligomap = oligomap)
+  hc.params <- add.heatmap(finaldata[["oligo"]], output.dir = params$wdir, phylogeny.info = phylogeny.info)
 
   # Plot hclust trees on screen
   tmp <- plot.htrees(finaldata[["oligo"]])
@@ -54,7 +54,7 @@ run.profiling.script <- function (dbuser, dbpwd, dbname, verbose = TRUE) {
   params$paramfilename <- tmp$parameter.file
 
   ## featurelevel data: fdat.orig, fdat.hybinfo, fdat.oligoinfo, 
-  # save(finaldata, oligomap, params, file = paste(params$wdir, "/sourcefiles.RData", sep = ""), compress = "xz")
+  # save(finaldata, phylogeny.info, params, file = paste(params$wdir, "/sourcefiles.RData", sep = ""), compress = "xz")
 
   params
 
@@ -99,7 +99,7 @@ calculate.hclust <- function (dat, method = "complete", metric = "correlation") 
 #' Arguments:
 #'   @param name name
 #'   @param level taxonomic level
-#'   @param oligomap oligomap
+#'   @param phylogeny.info phylogeny.info
 #'   @param oligo.matrix oligos vs. samples preprocessed data matrix; absolute scale
 #'   @param log10 Logical. Log or no log?
 #'
@@ -111,10 +111,10 @@ calculate.hclust <- function (dat, method = "complete", metric = "correlation") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-get.probeset <- function (name, level, oligomap, oligo.matrix, log10 = TRUE) {
+get.probeset <- function (name, level, phylogeny.info, oligo.matrix, log10 = TRUE) {
 
   # Pick probes for this entity
-  probes <- retrieve.probesets(oligomap, level, name)
+  probes <- retrieve.probesets(phylogeny.info, level, name)
 
   sets <- vector(length = length(probes), mode = "list")
   names(sets) <- names(probes)

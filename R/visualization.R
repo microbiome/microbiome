@@ -295,7 +295,7 @@ plot.htrees <- function (dat, method = "complete") {
 #'   @param dat oligoprofile data in original (non-log) domain
 #'   @param output.dir output data directory
 #'   @param output.dir output file name
-#'   @param oligomap oligo-phylotype mappings
+#'   @param phylogeny.info oligo-phylotype mappings
 #'   @param ppcm figure size
 #'   @param hclust.method hierarchical clustering method
 #'   @param palette color palette ("white/black" / "white/blue" / "black/yellow/white")
@@ -314,11 +314,11 @@ plot.htrees <- function (dat, method = "complete") {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-add.heatmap <- function (dat, output.dir, output.file = NULL, oligomap, ppcm = 150, 
+add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny.info, ppcm = 150, 
 	         hclust.method = "complete", palette = "white/black", level = "L2", metric = "pearson", 
   		 figureratio = 10, fontsize = 40, tree.display = TRUE) {
 
-  # dat <- finaldata[["oligo"]]; output.dir = params$wdir;  output.file = NULL; oligomap = oligomap; ppcm = 150; hclust.method = "complete"; palette = "white/blue"; level = "L2"; metric = "pearson"; figureratio = 12; fontsize = 12; tree.display = TRUE
+  # dat <- finaldata[["oligo"]]; output.dir = params$wdir;  output.file = NULL; phylogeny.info = phylogeny.info; ppcm = 150; hclust.method = "complete"; palette = "white/blue"; level = "L2"; metric = "pearson"; figureratio = 12; fontsize = 12; tree.display = TRUE
 
   if (is.null(output.file)) {
     output.file <- paste(output.dir,"/", gsub(" ", "", level), "-oligoprofileClustering.png",sep="")
@@ -337,7 +337,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, oligomap, ppcm = 1
   	    width = max(trunc(ppcm*21), trunc(ppcm*21*ncol(dat)/70)), 
 	    height = trunc(ppcm*29.7)) 
     try(hc.params <- PlotPhylochipHeatmap(data = dat,
-                oligomap = oligomap,
+                phylogeny.info = phylogeny.info,
                 metric = metric,
                 level = level,
                 tree.display = tree.display,
@@ -360,7 +360,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, oligomap, ppcm = 1
 #'
 #' Arguments:
 #'   @param data oligoprofile data in original (non-log) domain
-#'   @param oligomap oligo-phylotype mappings
+#'   @param phylogeny.info oligo-phylotype mappings
 #'   @param metric clustering metric
 #'   @param level taxonomic level to show (L0 / L1 / L2 / species)
 #'   @param tree.display tree.display
@@ -378,7 +378,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, oligomap, ppcm = 1
 #' @keywords utilities
 
 PlotPhylochipHeatmap <- function (data,
-                         oligomap,
+                         phylogeny.info,
                          metric = "pearson", 
                          level = "L2", 
                          tree.display = TRUE, 
@@ -400,17 +400,17 @@ PlotPhylochipHeatmap <- function (data,
    paper <- par("din")
 
    if (level == "oligo") { level <- "oligoID" }
-   tax.order <- order(as.character(oligomap[[level]]), na.last = FALSE)
+   tax.order <- order(as.character(phylogeny.info[[level]]), na.last = FALSE)
 
-   nainds <- is.na(oligomap[, level])
+   nainds <- is.na(phylogeny.info[, level])
    if (sum(nainds) > 0) {
-     oligomap[nainds, level] <- '-'  # replace empty maps
+     phylogeny.info[nainds, level] <- '-'  # replace empty maps
    }
 
-   levs <- unlist(lapply(split(oligomap[[level]], as.factor(oligomap[[level]])), length))
-   # order the rows in oligomap by level
-   oligomap <- oligomap[tax.order,]
-   oligomap <- oligomap[oligomap$oligoID %in% rownames(data), ]
+   levs <- unlist(lapply(split(phylogeny.info[[level]], as.factor(phylogeny.info[[level]])), length))
+   # order the rows in phylogeny.info by level
+   phylogeny.info <- phylogeny.info[tax.order,]
+   phylogeny.info <- phylogeny.info[phylogeny.info$oligoID %in% rownames(data), ]
 
    annwidth <- max(strwidth(names(levs),units="inch"))*2.54*1.2
    profilewidth <- max(strheight(names(levs),units="inch"))*2.54*dim(data)[2]*1.6
@@ -452,7 +452,7 @@ PlotPhylochipHeatmap <- function (data,
 
    par(mar = c(1,1,0,0), oma = c(0,0,0,0))
    
-   img <- as.matrix(rev(as.data.frame(t(data[as.character(oligomap$oligoID),]))))
+   img <- as.matrix(rev(as.data.frame(t(data[as.character(phylogeny.info$oligoID),]))))
    image(z=img, col=palette, axes=FALSE, frame.plot=TRUE, zlim=limits)
    plot.new()
    par(mar = c(1, 0, 0, 1), usr = c(0, 1, 0, 1), xaxs = 'i', yaxs = 'i')

@@ -275,12 +275,12 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1, Nboot = 100, 
 #'   @param i.set i.set
 #'   @param type plot type 
 #'   @param ylim y axis limits
-#'   @param oligomap oligomap matrix
+#'   @param phylogeny.info phylogeny.info matrix
 #'
 #' Returns:
 #'   @return TBA
 #'
-#' @examples # data("toydata-hitchip"); bs <- bootstrap.microbes(phylum.matrix); plot_cumulative(bs, writedir = "./", "tmp-", oligomap = oligomap)
+#' @examples # data("toydata-hitchip"); bs <- bootstrap.microbes(phylum.matrix); plot_cumulative(bs, writedir = "./", "tmp-", phylogeny.info = phylogeny.info)
 #'
 #' @export 
 #' 
@@ -288,9 +288,9 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1, Nboot = 100, 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-plot_cumulative <- function(d.sub, writedir, fname, i.set = NULL, type = "cumulative", ylim = NULL, oligomap){
+plot_cumulative <- function(d.sub, writedir, fname, i.set = NULL, type = "cumulative", ylim = NULL, phylogeny.info){
 
-   PH.i <- unique(oligomap[,1:3])
+   PH.i <- unique(phylogeny.info[,1:3])
    PH.i <- PH.i[order(PH.i[,3]),]
    d.sub$Microbe <- PH.i[,1]
    d.sub <- d.sub[order(d.sub[,2], decreasing = T),]

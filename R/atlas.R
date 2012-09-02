@@ -68,7 +68,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   message("Extract sample information from the HITChip database")
   project.info <- fetch.sample.info(allowed.projects, chiptype, dbuser, dbpwd, dbname)
 
-  oligomap <- get.oligomap(phylogeny = "16S", rm.phylotypes$oligos, dbuser, dbpwd, dbname, remove.nonspecific.oligos = remove.nonspecific.oligos)
+  phylogeny.info <- get.phylogeny.info(phylogeny = "16S", rm.phylotypes$oligos, dbuser, dbpwd, dbname, remove.nonspecific.oligos = remove.nonspecific.oligos)
 
   message("Get probe-level data for the selected hybridisations")
   tmp <- get.probedata(unique(project.info[["hybridisationID"]]), 
@@ -105,7 +105,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 
   # Summarize probes into oligos and hybridisations into samples
   oligo.log10 <- summarize.rawdata(log10(fdat), fdat.hybinfo, fdat.oligoinfo, 
-  	     		oligo.ids = sort(unique(oligomap$oligoID)))
+  	     		oligo.ids = sort(unique(phylogeny.info$oligoID)))
 	 
 
   # Impute
@@ -124,7 +124,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   for (level in c("species", "L1", "L2")) {
     for (method in c("ave", "sum", "rpa", "nmf")) { 
       message(paste(level, method))
-      data.matrices.full[[level]][[method]] <- summarize.probesets(oligomap, oligo.log10, method, level, rm.phylotypes = rm.phylotypes)
+      data.matrices.full[[level]][[method]] <- summarize.probesets(phylogeny.info, oligo.log10, method, level, rm.phylotypes = rm.phylotypes)
     }
   }
 
@@ -186,13 +186,13 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 		 session.info = session.info, minmax.points = minmax.points, date = date())
 
   # Save version info
-  save(oligomap, params, file = parameter.data.file, compress = "xz")
+  save(phylogeny.info, params, file = parameter.data.file, compress = "xz")
 
   list(training.data = data.matrices[["training"]], 
        test.data = data.matrices[["test"]], 
        full.data = data.matrices.full, 
        sampleinfo = sample.info.full, 
-       oligomap = oligomap, 
+       phylogeny.info = phylogeny.info, 
        parameters = params)
 
 }

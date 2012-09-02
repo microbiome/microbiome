@@ -18,7 +18,7 @@
 #' Description: read run.profiling.script output into R
 #'
 #' Arguments:
-#'   @param level phylogenetic level ("oligo" / "species" / "L1" / "L2" / "L0") or "oligomap"
+#'   @param level phylogenetic level ("oligo" / "species" / "L1" / "L2" / "L0") or "phylogeny.info"
 #'   @param method ("rpa" / "sum" / "ave" / "nmf")
 #'   @param data.dir Profiling script output directory for reading the data. If not given, GUI will ask to specify the file and overruns the possible level / method arguments in the function call.
 #'   @param log10 Logical. Logarithmize the data TRUE/FALSE. By default, the data is in original non-log scale.
@@ -51,7 +51,7 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE,
     if (!length(grep("L0", f)) == 0) { level <- "L0"}
     if (!length(grep("L1", f)) == 0) { level <- "L1"}
     if (!length(grep("L2", f)) == 0) { level <- "L2"}
-    if (!length(grep("phylogeny", f)) == 0) { level <- "oligomap"}
+    if (!length(grep("phylogeny", f)) == 0) { level <- "phylogeny.info"}
     if (!length(grep("rpa", f)) == 0) { level <- "rpa"}
     if (!length(grep("sum", f)) == 0) { level <- "sum"}
     if (!length(grep("ave", f)) == 0) { level <- "ave"}
@@ -64,8 +64,8 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE,
       f <- paste(data.dir, "/", level, "-", method, ".tab", sep = "")
     } else if (level == "oligo") {
       f <- paste(data.dir, "/oligoprofile.tab", sep = "")
-    } else if (level == "oligomap") {
-      f <- paste(data.dir, "/oligomap.tab", sep = "")
+    } else if (level == "phylogeny.info") {
+      f <- paste(data.dir, "/phylogeny.info.tab", sep = "")
     }
   }
 
@@ -77,10 +77,10 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE,
 
     tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1)
 
-  } else if (level == "oligomap") {
+  } else if (level == "phylogeny.info") {
 
     tab <- read.csv(f, header = TRUE, sep = "\t")
-    tab <- polish.oligomap(tab)
+    tab <- polish.phylogeny.info(tab)
 
   }
 

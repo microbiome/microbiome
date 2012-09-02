@@ -45,7 +45,7 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 
 
 
-#' get.oligomap
+#' get.phylogeny.info
 #' 
 #' Description: Get phylogeny
 #' 
@@ -60,18 +60,18 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 #'   @param chip chip type
 #'
 #' Returns:
-#'   @return oligomap
+#'   @return phylogeny.info
 #'
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-get.oligomap <- function (phylogeny = "16S", rmoligos = NULL, dbuser, dbpwd, dbname, verbose = TRUE, remove.nonspecific.oligos = FALSE, chip = "HITChip") {   
+get.phylogeny.info <- function (phylogeny = "16S", rmoligos = NULL, dbuser, dbpwd, dbname, verbose = TRUE, remove.nonspecific.oligos = FALSE, chip = "HITChip") {   
 
   # phylogeny = "16S"; rmoligos = NULL; verbose = TRUE; remove.nonspecific.oligos = FALSE; chip = "HITChip"
 
-  if (verbose) { message("Load oligomap info") }
+  if (verbose) { message("Load phylogeny.info info") }
 
   require(RMySQL)
   drv <- dbDriver("MySQL")
@@ -163,19 +163,19 @@ get.oligomap <- function (phylogeny = "16S", rmoligos = NULL, dbuser, dbpwd, dbn
     message("No requirement for a full-length hybridisation\n\n")
   }
 
-  oligomap <- prune16S(full16S, pmTm.margin = 2.5, complement = 1, mismatch = 0)
+  phylogeny.info <- prune16S(full16S, pmTm.margin = 2.5, complement = 1, mismatch = 0)
 
   rmoligos2 <- rmoligos
   if (remove.nonspecific.oligos) {
     if (verbose) {message("Removing oligos that have multiple targets at L2 level")}
-    nPhylotypesPerOligo <- n.phylotypes.per.oligo(oligomap, "L2") 
-    nonspecific.oligos <- setdiff(oligomap$oligoID, names(which(nPhylotypesPerOligo == 1)))
+    nPhylotypesPerOligo <- n.phylotypes.per.oligo(phylogeny.info, "L2") 
+    nonspecific.oligos <- setdiff(phylogeny.info$oligoID, names(which(nPhylotypesPerOligo == 1)))
     rmoligos2 <- c(rmoligos, nonspecific.oligos)
   } 
 
-  oligomap <- oligomap[!oligomap$oligoID %in% rmoligos2, ]
+  phylogeny.info <- phylogeny.info[!phylogeny.info$oligoID %in% rmoligos2, ]
 
-  oligomap        
+  phylogeny.info        
 
 }
 

@@ -18,10 +18,10 @@
 #' Description: map phylotypes between hierarchy levels
 #'
 #' Arguments:
-#'   @param phylotypes phylotypes to convert; if NULL then considering all phylotypes in the oligomap
+#'   @param phylotypes phylotypes to convert; if NULL then considering all phylotypes in the phylogeny.info
 #'   @param level.from level.from
 #'   @param level.to level.to
-#'   @param oligomap oligomap
+#'   @param phylogeny.info phylogeny.info
 #'
 #' Returns:
 #'   @return mappings
@@ -31,44 +31,44 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-levelmap <- function (phylotypes = NULL, level.from, level.to, oligomap) {
+levelmap <- function (phylotypes = NULL, level.from, level.to, phylogeny.info) {
 
-  oligomap <- polish.oligomap(oligomap)
+  phylogeny.info <- polish.phylogeny.info(phylogeny.info)
 
   if (is.null(phylotypes)) {
-    phylotypes <- as.character(unique(oligomap[[level.from]]))
+    phylotypes <- as.character(unique(phylogeny.info[[level.from]]))
   }
 
   if (level.from == "species" && level.to == "L2") {
-    sl <- species2levels(phylotypes, oligomap)[c("species", "L2")]
+    sl <- species2levels(phylotypes, phylogeny.info)[c("species", "L2")]
   }	 
 
   if (level.from == "species" && level.to == "L1") {
-    sl <- species2levels(phylotypes, oligomap)[c("species", "L1")]
+    sl <- species2levels(phylotypes, phylogeny.info)[c("species", "L1")]
   }	 
 
   if (level.from == "L2" && level.to == "L1") {
-    sl <- level2TOlevel1(phylotypes, oligomap)[,2]
+    sl <- level2TOlevel1(phylotypes, phylogeny.info)[,2]
   }	 
 
   if (level.from == "L2" && level.to == "species") {
     sl <- list()
     for (pt in phylotypes) {
-      sl[[pt]] <- as.character(unique(oligomap[oligomap[["L2"]] == pt, "species"]))
+      sl[[pt]] <- as.character(unique(phylogeny.info[phylogeny.info[["L2"]] == pt, "species"]))
     }
   }	 
 
   if (level.from == "L1" && level.to == "L2") {
     sl <- list()
     for (pt in phylotypes) {
-      sl[[pt]] <- as.character(unique(oligomap[oligomap[["L1"]] == pt, "L2"]))
+      sl[[pt]] <- as.character(unique(phylogeny.info[phylogeny.info[["L1"]] == pt, "L2"]))
     }
   }	 
 
   if (level.from == "L1" && level.to == "species") {
     sl <- list()
     for (pt in phylotypes) {
-      sl[[pt]] <- as.character(unique(oligomap[oligomap[["L1"]] == pt, "species"]))
+      sl[[pt]] <- as.character(unique(phylogeny.info[phylogeny.info[["L1"]] == pt, "species"]))
     }
   }	 
 
@@ -86,7 +86,7 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, oligomap) {
 #' if onlyEnrich=T (neglects the unexpected disappearences of the
 #' groups in the given list). Outputs only the enrichments below the
 #' given p-value threshold p.th.
-#' Requires oligomap=the first 4 columns from phylogenyprofile,
+#' Requires phylogeny.info=the first 4 columns from phylogenyprofile,
 #' origlevel=the level from which the list is, and maplevel= the
 #' level to which the mapping should be made and the enrichments of
 #' which computed.
@@ -101,7 +101,7 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, oligomap) {
 #'
 #' Arguments:
 #'   @param x x
-#'   @param oligomap oligomap
+#'   @param phylogeny.info phylogeny.info
 #'   @param origlevel origlevel
 #'   @param maplevel maplevel 
 #'   @param onlyEnriched onlyEnriched
@@ -115,18 +115,18 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, oligomap) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-Phylogeneticenrichments <- function(x, oligomap, origlevel = colnames(oligomap)[3], maplevel = "L1", onlyEnriched = T, p.th = 0.05)
+Phylogeneticenrichments <- function(x, phylogeny.info, origlevel = colnames(phylogeny.info)[3], maplevel = "L1", onlyEnriched = T, p.th = 0.05)
 {
   
   ## Convert to character vector
   x <- as.character(x)
     
   ## collect origlevel groups for all x items
-  origlevel.split <- split(oligomap,oligomap[[origlevel]])
+  origlevel.split <- split(phylogeny.info,phylogeny.info[[origlevel]])
   x.origlevelGroups <- origlevel.split[x]
   
   ## vector (inX and inXind) showing which items from the origlevel of
-  ## oligomap are in the x list
+  ## phylogeny.info are in the x list
   origlevel.ugroups <- names(origlevel.split)
   inXind <- match(x, origlevel.ugroups)
   inX <- rep(F,length(origlevel.ugroups))
@@ -182,12 +182,12 @@ Phylogeneticenrichments <- function(x, oligomap, origlevel = colnames(oligomap)[
 
     if (length(pvals)>0)
        list(pval.adj=t(rbind(pvals,estimates)), 
-           tables=tables, tests=e, oligomap=phyloM) 
+           tables=tables, tests=e, phylogeny.info=phyloM) 
     else
-       list(pvalues=pvals, tables=tables, tests=e, oligomap=phyloM) 
+       list(pvalues=pvals, tables=tables, tests=e, phylogeny.info=phyloM) 
 
   } else
-    list(pvalues=1, tables=NULL, tests=NULL, oligomap=phyloM) 
+    list(pvalues=1, tables=NULL, tests=NULL, phylogeny.info=phyloM) 
 }
 
 #' retrieve.probesets
@@ -195,7 +195,7 @@ Phylogeneticenrichments <- function(x, oligomap, origlevel = colnames(oligomap)[
 #' Description: List probes for each probeset
 #'
 #' Arguments:
-#'   @param oligomap data.frame with oligo - phylotype mapping information
+#'   @param phylogeny.info data.frame with oligo - phylotype mapping information
 #'   @param level phylotype level for probesets
 #' Returns:
 #'   @return A list. Probes for each phylotype.
@@ -205,12 +205,12 @@ Phylogeneticenrichments <- function(x, oligomap, origlevel = colnames(oligomap)[
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-retrieve.probesets <- function (oligomap, level = "species", name = NULL) {
+retrieve.probesets <- function (phylogeny.info, level = "species", name = NULL) {
 
   # If name not given, pick all
-  if (is.null(name)) { name <- unique(as.character(oligomap[[level]])) }
+  if (is.null(name)) { name <- unique(as.character(phylogeny.info[[level]])) }
 
-  phylo <- oligomap[oligomap[[level]] %in% name,]
+  phylo <- phylogeny.info[phylogeny.info[[level]] %in% name,]
 
   if (is.factor(phylo[[level]])) {
     phylo[[level]] <- droplevels(phylo[[level]])

@@ -38,7 +38,7 @@ count <- function(d){
 #' For cross-hyb control
 #'
 #' Arguments:
-#'   @param PH.i oligomap
+#'   @param PH.i phylogeny.info
 #'   @param Ns Ns
 #'   @param level taxonomic level
 #'   @param N N
@@ -74,7 +74,7 @@ simulate.hitchip <- function(PH.i, Ns, level = "L2", N = 5000){
 #'
 #' Arguments:
 #'   @param oligo.matrix oligo.matrix
-#'   @param oligomap oligomap
+#'   @param phylogeny.info phylogeny.info
 #'   @param level taxonomic level
 #'
 #' Returns:
@@ -85,11 +85,11 @@ simulate.hitchip <- function(PH.i, Ns, level = "L2", N = 5000){
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-summarize.oligos <- function(oligo.matrix, oligomap, level = "L2"){
+summarize.oligos <- function(oligo.matrix, phylogeny.info, level = "L2"){
 
-  oligomap <- polish.oligomap(oligomap)
+  phylogeny.info <- polish.phylogeny.info(phylogeny.info)
 		 
-  oligo <- split(oligomap$oligoID,oligomap[,level])
+  oligo <- split(phylogeny.info$oligoID,phylogeny.info[,level])
   oligo <- lapply(oligo, function(x) unique(as.character(x)))
 
   Sim <- sapply(oligo,function(x){  
@@ -107,7 +107,7 @@ summarize.oligos <- function(oligo.matrix, oligomap, level = "L2"){
 #' For cross-hyb control
 #'
 #' Arguments:
-#'   @param oligomap oligomap
+#'   @param phylogeny.info phylogeny.info
 #'   @param level taxonomic level
 #'
 #' Returns:
@@ -118,12 +118,12 @@ summarize.oligos <- function(oligo.matrix, oligomap, level = "L2"){
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-mixingMatrix <- function(oligomap, level){
+mixingMatrix <- function(phylogeny.info, level){
 
-  M <- matrix(0,length(unique(oligomap$oligoID)),length(unique(oligomap[,level])),dimnames=list(sort(as.character(unique(oligomap$oligoID))),sort(as.character(unique(oligomap[,level])))))
+  M <- matrix(0,length(unique(phylogeny.info$oligoID)),length(unique(phylogeny.info[,level])),dimnames=list(sort(as.character(unique(phylogeny.info$oligoID))),sort(as.character(unique(phylogeny.info[,level])))))
 
-  for (i in 1:nrow(oligomap))
-    M[as.character(oligomap$oligoID[i]),as.character(oligomap[i,level])]=1
+  for (i in 1:nrow(phylogeny.info))
+    M[as.character(phylogeny.info$oligoID[i]),as.character(phylogeny.info[i,level])]=1
 
   M <- apply(M, 2, function(x) x/sum(x))
 
@@ -139,7 +139,7 @@ mixingMatrix <- function(oligomap, level){
 #'
 #' Arguments:
 #'   @param oligo.data oligo.data in absolute domain
-#'   @param oligomap oligo - phylotype mapping data frame
+#'   @param phylogeny.info oligo - phylotype mapping data frame
 #'   @param level taxonomic level
 #'   @param block.solution block.solution
 #'
@@ -150,12 +150,12 @@ mixingMatrix <- function(oligomap, level){
 #' @references See citation("microbiome") 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-deconvolution.nonneg <- function(oligo.data, oligomap, level, block.solution = T, verbose = FALSE){
+deconvolution.nonneg <- function(oligo.data, phylogeny.info, level, block.solution = T, verbose = FALSE){
 
    require(NMF)
 
    # oligos x phylotypes mixing matrix for the given level
-   M <- mixingMatrix(oligomap, level)
+   M <- mixingMatrix(phylogeny.info, level)
    M <- M[rownames(oligo.data), ]
 
    # least squares solution, may contain negative values.

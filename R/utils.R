@@ -12,31 +12,31 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-#' polish.oligomap
+#' polish.phylogeny.info
 #'
-#' Ensure oligomap is in correct format
+#' Ensure phylogeny.info is in correct format
 #' 
-#' @param oligomap oligomap data frame
+#' @param phylogeny.info phylogeny.info data frame
 #'
-#' @return polished oligomap
+#' @return polished phylogeny.info
 #' @export 
 #' @references
 #' See citation("microbiome")
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples #polished.oligomap <- impute(oligomap) 
+#' @examples #polished.phylogeny.info <- impute(phylogeny.info) 
 #' @keywords utilities
 
-polish.oligomap <- function (oligomap) {
+polish.phylogeny.info <- function (phylogeny.info) {
 
-  colnames(oligomap)[which(colnames(oligomap) == "level.0")] <- "L0"
-  colnames(oligomap)[which(colnames(oligomap) == "level.1")] <- "L1"
-  colnames(oligomap)[which(colnames(oligomap) == "level.2")] <- "L2"
+  colnames(phylogeny.info)[which(colnames(phylogeny.info) == "level.0")] <- "L0"
+  colnames(phylogeny.info)[which(colnames(phylogeny.info) == "level.1")] <- "L1"
+  colnames(phylogeny.info)[which(colnames(phylogeny.info) == "level.2")] <- "L2"
 
-  colnames(oligomap)[which(colnames(oligomap) == "level 0")] <- "L0"
-  colnames(oligomap)[which(colnames(oligomap) == "level 1")] <- "L1"
-  colnames(oligomap)[which(colnames(oligomap) == "level 2")] <- "L2"
+  colnames(phylogeny.info)[which(colnames(phylogeny.info) == "level 0")] <- "L0"
+  colnames(phylogeny.info)[which(colnames(phylogeny.info) == "level 1")] <- "L1"
+  colnames(phylogeny.info)[which(colnames(phylogeny.info) == "level 2")] <- "L2"
 
-  oligomap
+  phylogeny.info
 
 }
 

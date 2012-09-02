@@ -187,10 +187,10 @@ plotGroupPCA <- function(dPCA,groups,main="PCA plot",xPC=1, yPC=2,type="n",
 #'   @param include.tree TBA
 #'   @param fontsize font size
 #'   @param figureratio figure ratio
-#'   @param oligomap oligomap
+#'   @param phylogeny.info phylogeny.info
 #'   @param width width
 #'   @param height height
-#'   @param oligomapJN TBA
+#'   @param phylogeny.infoJN TBA
 #'   @param plot.profile TBA
 #'
 #' Returns:
@@ -203,14 +203,14 @@ plotGroupPCA <- function(dPCA,groups,main="PCA plot",xPC=1, yPC=2,type="n",
 
 plotOligoP <- function(d, tax.level='L1',
                         metric='correlation', include.tree=T,
-                        fontsize=11, figureratio=15, oligomap=oligomapJN,
-                        width=12, height=20, oligomapJN = NULL, 
+                        fontsize=11, figureratio=15, phylogeny.info=phylogeny.infoJN,
+                        width=12, height=20, phylogeny.infoJN = NULL, 
 			plot.profile = NULL){
  
    par(mar=c(0.1,0.1,0.1,0.1))
    x11(width=width, height=height)
    plot.profile(data=log(d), metric=metric,
-                oligomap=oligomap, tax.level=tax.level,
+                phylogeny.info=phylogeny.info, tax.level=tax.level,
                 fontsize=fontsize, include.tree=include.tree,
                 figureratio=figureratio)
 }
