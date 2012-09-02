@@ -311,8 +311,6 @@ ReadParameters <- function (con) {
     require(RMySQL)
   }
 
-  scaling <- list.scaling.methods()	       
-
   ## Determine the working directory
   wdir <- tclvalue(tkchooseDirectory(title = "Save output files into directory:")) 
         
@@ -349,7 +347,7 @@ ReadParameters <- function (con) {
     if (remove.nonspecific.oligos == "No") {remove.nonspecific.oligos <- FALSE}
    
     ## Normalization method
-    scal <- tk_select.list(names(scaling), preselect = defaults$normalization, multiple = FALSE, title = "Select normalization method")
+    scal <- tk_select.list(c("none", "minmax", "quantile"), preselect = defaults$normalization, multiple = FALSE, title = "Select normalization method")
 
   } else {
 
@@ -676,7 +674,6 @@ get.probedata <- function (hybridization.ids, rmoligos, dbuser, dbpwd, dbname, m
 
 WriteLog <- function (naHybs, params) {
 
-  scaling <- list.scaling.methods()
   scriptVersion <- sessionInfo()$otherPkgs$microbiome$Version # microbiome package number
 
   ## Write log of parameters used in profiling in to the file
@@ -1015,7 +1012,7 @@ FetchData <- function (params, con, scriptVersion, save.data, scaling, cmetrics)
   ## Write parameters used in profiling to the file
   paramfilename <- paste(params$wdir,"/",profTime,"_profiling_params.Rdata", sep="")
 
-  save(logfilename, profTime, scriptVersion, params, naHybs, scaling, cmetrics, save.data, file=paramfilename)
+  save(logfilename, profTime, scriptVersion, params, naHybs, cmetrics, save.data, file=paramfilename)
   
   ## Collect the full phylogenetic information for oligos  
   message("Collect the full 16S phylogeny\n")
@@ -1090,7 +1087,6 @@ oligo.bg.correction <- function (d.oligo2, bgc.method) {
 
 ScaleProfile <- function (dat, method = 'minmax', bg.adjust = NULL, minmax.quantiles = c(0.005, 0.995), minmax.points = NULL) {
 
-  method <- list.scaling.methods()[[method]]
   message(paste("Normalizing with", method))
   
   ## Table dat is a copy of featuretab containing 
