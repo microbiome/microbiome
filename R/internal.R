@@ -733,7 +733,7 @@ WriteChipData <- function (finaldata, output.dir, phylogeny.info, verbose = TRUE
   }
 
   ## Write oligo specificity at species level (the number of species for the oligo targets)
-  fname <- paste(output.dir, "/phylogeny.info.tab", sep = "")
+  fname <- paste(output.dir, "/phylogeny.tab", sep = "")
   nSpeciesPerOligo <- sapply(split(phylogeny.info, phylogeny.info$oligoID), function(x) length(unique(x$species)))
   WriteMatrix(cbind(phylogeny.info, nSpeciesPerOligo = nSpeciesPerOligo[phylogeny.info$oligoID]), fname, verbose)
 
