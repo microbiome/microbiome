@@ -37,10 +37,12 @@ estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL)
   if(!veganT) { install.packages("vegan") }
 
   # Specify detection threshold if not provided
+  # Use the 80% quantile as this has proven robust across methodologies
   if (is.null(det.th)) {
     dat <- 10^t(impute(t(log10(dat)))) # impute missing values
-    det.th <- 10^estimate.min.threshold(log10(dat))
-    warning(paste("Applying detection threshold: ", det.th))
+    #det.th <- 10^estimate.min.threshold(log10(dat))
+    det.th <- quantile(dat, 0.8)
+    warning(paste("Applying detection threshold at 0.8 quantile: ", det.th))
   }
 
   # Apply detection threshold
