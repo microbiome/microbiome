@@ -834,28 +834,6 @@ phylotype.rm.list <- function (chip) {
 
 
 
-#' Description: List scaling methods
-#'
-#' Arguments:
-#'
-#' Returns:
-#'   @return List of scaling methods
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-list.scaling.methods <- function () {
-
-  list('none'='none',
-       'minmax'='minmax',
-       'quantile'='quant'
-   )
-
-}
-
-
 
 
 
