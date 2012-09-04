@@ -1277,7 +1277,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   if (params$chip == "MITChip") {levels <- c(levels, "L0")}
   for (level in levels) {
     finaldata[[level]] <- list()
-    for (method in c("sum", "rpa", "ave", "nmf")) {
+    for (method in c("sum", "rpa", "nmf")) {
 
     	summarized.log10 <- summarize.probesets(phylogeny.info, oligo.log10, 
       			       	          method = method, level = level, 	
