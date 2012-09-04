@@ -5,7 +5,7 @@ Description: Add oligprofile heatmap into output directory}
 \usage{
   add.heatmap(dat, output.dir, output.file = NULL,
     phylogeny.info, ppcm = 150, hclust.method = "complete",
-    palette = "white/black", level = "L2",
+    palette = "white/black", level = "L1",
     metric = "pearson", figureratio = 10, fontsize = 40,
     tree.display = TRUE)
 }

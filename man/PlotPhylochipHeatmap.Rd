@@ -3,7 +3,7 @@
 \title{PlotPhylochipHeatmap}
 \usage{
   PlotPhylochipHeatmap(data, phylogeny.info,
-    metric = "pearson", level = "L2", tree.display = TRUE,
+    metric = "pearson", level = "L1", tree.display = TRUE,
     palette = "white/black", fontsize = 40,
     figureratio = 10, hclust.method = "complete")
 }
