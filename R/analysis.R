@@ -330,7 +330,7 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
      #o <- order(ctab$qvalue)
      #ctab <- ctab[o, ]
 
-     ctab <- esort(cc, qvalue, -abs(correlation))
+     ctab <- esort(ctab, qvalue, -abs(correlation))
 
      return(ctab)
    }
