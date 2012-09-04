@@ -326,8 +326,12 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
    } else if (mode == "table") {
      ctab <- cbind(melt(res$cor), melt(res$qval)$value)
      colnames(ctab) <- c("X1", "X2", "correlation", "qvalue")
-     o <- order(ctab$qvalue)
-     ctab <- ctab[o, ]
+
+     #o <- order(ctab$qvalue)
+     #ctab <- ctab[o, ]
+
+     ctab <- esort(cc, qvalue, -abs(correlation))
+
      return(ctab)
    }
 }
