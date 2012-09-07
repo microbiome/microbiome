@@ -159,9 +159,9 @@ deconvolution.nonneg <- function(oligo.data, phylogeny.info, level, block.soluti
    M <- M[rownames(oligo.data), ]
 
    # least squares solution, may contain negative values.
-   # H=solve(t(M) %*% M, t(M) %*% dd$Simulated)
+   # H = solve(t(M) %*% M, t(M) %*% dd$Simulated)
    # this is a faster version. (but not much)
-   # H.nonneg=NMF:::.fcnnls(t(M) %*% M,t(M) %*% oligo.data,pseudo=TRUE)
+   # H.nonneg = NMF:::.fcnnls(t(M) %*% M,t(M) %*% oligo.data,pseudo=TRUE)
 
    if (block.solution){
 

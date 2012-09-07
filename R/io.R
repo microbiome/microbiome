@@ -102,7 +102,6 @@ read.profiling <- function(level = NULL, method = "rpa", data.dir = NULL, log10 
 
   if (log10 && (level %in% c("oligo", "species", "L0", "L1", "L2"))) {
     message("Logarithmizing the data")
-    if (method == "nmf") {tab <- 1 + tab} # to avoid taking log10 from 0 as NMF contains zeros
     tab <- log10(tab)        
   }
 

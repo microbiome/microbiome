@@ -1422,22 +1422,37 @@ summarize.probesets <- function (phylogeny.info, oligo.data, method, level, verb
 
   # phylogeny.info; oligo.data; method; level; rm.phylotypes = rm.phylotypes; verbose = TRUE
 
-  # Start by summarizing into species level
-  rm.species <- unique(c(unique(phylogeny.info[phylogeny.info$L1 %in% rm.phylotypes$L1, "species"]), 
-  	                 unique(phylogeny.info[phylogeny.info$L2 %in% rm.phylotypes$L2, "species"]),
-			 rm.phylotypes$species))
-			 
-  # Ensure that all L2 groups below specified L1 are removed as well
-  rm.phylotypes$L2 <- unique(c(unique(phylogeny.info[phylogeny.info$L1 %in% rm.phylotypes$L1, "L2"]), 
-			 rm.phylotypes$L2))
-			 	
-  # Remove specified oligos
+  # If remove L0 is not NULL, then add L1 groups under this group to removal list
+  if (!is.null(rm.phylotypes$L0)) {
+    rm.phylotypes$L1 <- c(rm.phylotypes$L1,
+  						unlist(levelmap(phylotypes = rm.phylotypes$L0, level.from = "L0", level.to = "L1", phylogeny.info = phylogeny.info)))
+
+    rm.phylotypes$L1 <- unique(rm.phylotypes$L1)
+  }
+
+  # If remove L1 is not NULL, then add L2 groups under this group to removal list
+  if (!is.null(rm.phylotypes$L1)) {
+    rm.phylotypes$L2 <- c(rm.phylotypes$L2,
+  						unlist(levelmap(phylotypes = rm.phylotypes$L1, level.from = "L1", level.to = "L2", phylogeny.info = phylogeny.info)))
+
+    rm.phylotypes$L2 <- unique(rm.phylotypes$L2)
+  }
+
+  # If remove L2 is not NULL, then add species groups under this group to removal list
+  if (!is.null(rm.phylotypes$L2)) {
+    rm.phylotypes$species <- c(rm.phylotypes$species,
+  						unlist(levelmap(phylotypes = rm.phylotypes$L2, level.from = "L2", level.to = "species", phylogeny.info = phylogeny.info)))
+
+    rm.phylotypes$species <- unique(rm.phylotypes$species)
+  }
+
+  # print("Remove specified oligos")
   rm.oligos <- rm.phylotypes$oligos
   if (!is.null(rm.oligos)) { oligo.data <- oligo.data[setdiff(rownames(oligo.data), rm.oligos), ]}
   phylogeny.info <- phylogeny.info[!phylogeny.info$oligoID %in% rm.oligos, ]
 
-  # Get species matrix in original scale
-  species.matrix <- 10^summarize.probesets.species(phylogeny.info, oligo.data, method, verbose = FALSE, rm.species)
+  # print("Get species matrix in original scale")
+  species.matrix <- 10^summarize.probesets.species(phylogeny.info, oligo.data, method, verbose = FALSE, rm.phylotypes$species)
    
   if (level == "species") {
 
@@ -1447,7 +1462,7 @@ summarize.probesets <- function (phylogeny.info, oligo.data, method, level, verb
 
     if (method %in% c("rpa", "ave", "sum")) {
 
-      # List all species for the given level (L0/L1/L2)
+      # List all species for the given level (L0 / L1 / L2)")
       phylogroups <- levelmap(phylotypes = NULL, level.from = level, level.to = "species", phylogeny.info)
 
       # Remove specified phylogroups
@@ -1460,6 +1475,7 @@ summarize.probesets <- function (phylogeny.info, oligo.data, method, level, verb
       for (pg in names(phylogroups)) {
         specs <- unique(phylogroups[[pg]])
         mat <- matrix(species.matrix[specs,], nrow = length(specs))
+
         if (method == "ave") { vec <- colMeans(mat) }
         if (method == "sum") { vec <- colSums(mat)  } 
         if (method == "rpa") { vec <- colSums(mat)  } # For RPA, use the sum for L1/L2
@@ -1468,7 +1484,8 @@ summarize.probesets <- function (phylogeny.info, oligo.data, method, level, verb
 
     } else if (method == "nmf") {
 
-      summarized.matrix <- deconvolution.nonneg(10^oligo.data, phylogeny.info, level)
+      # Add +1 to avoid taking log10 for 0
+      summarized.matrix <- 1 + deconvolution.nonneg(10^oligo.data, phylogeny.info, level)
 
     }
 
@@ -1507,10 +1524,8 @@ summarize.probesets.species <- function (phylogeny.info, oligo.data, method, ver
   level <- "species"			    
 
   if (method == "nmf") {warning("nmf oligo summarization method not implemented at species level"); return(NULL)}
-  
   probesets <- retrieve.probesets(phylogeny.info, level = level)
   probesets <- probesets[setdiff(names(probesets), rm.species)]
-  
   nPhylotypesPerOligo <- n.phylotypes.per.oligo(phylogeny.info, level) 
 
   # initialize

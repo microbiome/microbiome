@@ -48,6 +48,9 @@ run.profiling.script <- function (dbuser, dbpwd, dbname, verbose = TRUE) {
   # Plot hierachical clustering trees into the output directory
   if (ncol(finaldata[["oligo"]])>2) { 
 
+    method <- "complete"
+    dat <- finaldata[["oligo"]]
+	print(head(dat))
     png(paste(params$wdir, "hclust_oligo_euclidean_log10.png", sep = ""))
     hc <- hclust(dist(t(log10(dat + 1))), method = method)
     plot(hc, hang = -1, main = "hclust/euclid/oligo/log10", xlab = "Samples")
