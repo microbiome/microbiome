@@ -817,7 +817,7 @@ WriteChipData <- function (finaldata, output.dir, phylogeny.info, verbose = TRUE
 #'
 #' @references See citation("microbiome")
 #' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples # TBA
+#' @examples # mydir <- chooseDir()
 #' @keywords utilities
 
 chooseDir <- function (...) {
@@ -1325,7 +1325,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   finaldata <- list()
   finaldata[["oligo"]] <- oligo.abs
   levels <- c("species", "L2", "L1")
-  if (params$chip == "MITChip") {levels <- c(levels, "L0")}
+  if (params$chip == "MITChip" || params$chip == "PITChip") {levels <- c(levels, "L0")}
   for (level in levels) {
     finaldata[[level]] <- list()
     for (method in c("sum", "rpa", "nmf")) {
