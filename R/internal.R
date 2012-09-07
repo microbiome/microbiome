@@ -1310,12 +1310,6 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   # d.oligo2 <- oligo.bg.correction(d.oligo2, bgc.method = NULL)
   oligo.log10 <- d.oligo2
 
-  # Impute
-  #if (any(is.na(oligo.log10))) {
-  #  warning(round(100*mean(is.na(oligo.log10)), 3), "% of polished oligo.log10 is NAs; imputing")
-  #  oligo.log10 <- t(impute(t(oligo.log10)))
-  #}
-
   # Return to the original scale
   oligo.abs <- matrix(10^oligo.log10, nrow = nrow(oligo.log10)) # - 1  
   rownames( oligo.abs ) <- rownames( oligo.log10 )
@@ -1329,7 +1323,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   for (level in levels) {
     finaldata[[level]] <- list()
     for (method in c("sum", "rpa", "nmf")) {
-
+        message(paste(level, method))
     	summarized.log10 <- summarize.probesets(phylogeny.info, oligo.log10, 
       			       	          method = method, level = level, 	
 					  rm.phylotypes = params$rm.phylotypes)
