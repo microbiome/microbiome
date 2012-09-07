@@ -39,6 +39,7 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, phylogeny.info) {
     phylotypes <- as.character(unique(phylogeny.info[[level.from]]))
   }
 
+
   if (level.from == "species" && level.to == "L2") {
     sl <- species2levels(phylotypes, phylogeny.info)[c("species", "L2")]
   }	 
@@ -47,8 +48,16 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, phylogeny.info) {
     sl <- species2levels(phylotypes, phylogeny.info)[c("species", "L1")]
   }	 
 
+  if (level.from == "species" && level.to == "L0") {
+    sl <- species2levels(phylotypes, phylogeny.info)[c("species", "L0")]
+  }	 
+
   if (level.from == "L2" && level.to == "L1") {
     sl <- level2TOlevel1(phylotypes, phylogeny.info)[,2]
+  }	 
+
+  if (level.from == "L2" && level.to == "L0") {
+    sl <- level2TOlevel0(phylotypes, phylogeny.info)[,2]
   }	 
 
   if (level.from == "L2" && level.to == "species") {
@@ -58,6 +67,11 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, phylogeny.info) {
     }
   }	 
 
+  if (level.from == "L1" && level.to == "L0") {
+    sl <- level1TOlevel0(phylotypes, phylogeny.info)[,2]
+  }	 
+
+
   if (level.from == "L1" && level.to == "L2") {
     sl <- list()
     for (pt in phylotypes) {
@@ -65,10 +79,31 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, phylogeny.info) {
     }
   }	 
 
+  if (level.from == "L0" && level.to == "L2") {
+    sl <- list()
+    for (pt in phylotypes) {
+      sl[[pt]] <- as.character(unique(phylogeny.info[phylogeny.info[["L0"]] == pt, "L2"]))
+    }
+  } 	
+
+  if (level.from == "L0" && level.to == "L1") {
+    sl <- list()
+    for (pt in phylotypes) {
+      sl[[pt]] <- as.character(unique(phylogeny.info[phylogeny.info[["L0"]] == pt, "L1"]))
+    }
+  } 	
+
   if (level.from == "L1" && level.to == "species") {
     sl <- list()
     for (pt in phylotypes) {
       sl[[pt]] <- as.character(unique(phylogeny.info[phylogeny.info[["L1"]] == pt, "species"]))
+    }
+  }	 
+
+  if (level.from == "L1" && level.to == "L0") {
+    sl <- list()
+    for (pt in phylotypes) {
+      sl[[pt]] <- as.character(unique(phylogeny.info[phylogeny.info[["L1"]] == pt, "L0"]))
     }
   }	 
 

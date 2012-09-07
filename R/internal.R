@@ -63,6 +63,58 @@ level2TOlevel1 <- function (l2, phylogeny.info) {
 }
 
 
+
+#' Description: L2-L0 mappings
+#'
+#' Arguments:
+#'   @param l2 level2 phylotypes
+#'   @param phylogeny.info phylogeny.info
+#'
+#' Returns:
+#'   @return mappings
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+level2TOlevel0 <- function (l2, phylogeny.info) {
+
+   phylogeny.info <- polish.phylogeny.info(phylogeny.info)
+
+   omap <- phylogeny.info[match(as.character(l2), phylogeny.info[["L2"]]), c("L2", "L0")]
+   omap[["L2"]] <- factor(omap[["L2"]])
+   omap[["L0"]] <- factor(omap[["L0"]])
+
+   omap
+}
+
+
+#' Description: L1-L0 mappings
+#'
+#' Arguments:
+#'   @param l1 level1 phylotypes
+#'   @param phylogeny.info phylogeny.info
+#'
+#' Returns:
+#'   @return mappings
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+level1TOlevel0 <- function (l1, phylogeny.info) {
+
+   phylogeny.info <- polish.phylogeny.info(phylogeny.info)
+
+   omap <- phylogeny.info[match(as.character(l1), phylogeny.info[["L1"]]), c("L1", "L0")]
+   omap[["L1"]] <- factor(omap[["L1"]])
+   omap[["L0"]] <- factor(omap[["L0"]])
+
+   omap
+}
+
+
+
 # Database utilities for package-internal use only
 
 #' Tests whether the database connection is a phyloarray connection.
