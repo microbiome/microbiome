@@ -100,6 +100,13 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, phylogeny.info) {
     }
   }	 
 
+  if (level.from == "L0" && level.to == "species") {
+    sl <- list()
+    for (pt in phylotypes) {
+      sl[[pt]] <- as.character(unique(phylogeny.info[phylogeny.info[["L0"]] == pt, "species"]))
+    }
+  } 	
+
   if (level.from == "L1" && level.to == "L0") {
     sl <- list()
     for (pt in phylotypes) {

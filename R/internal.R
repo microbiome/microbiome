@@ -1294,8 +1294,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
 	    		     dbuser, dbpwd, dbname, verbose = verbose, 
 			     remove.nonspecific.oligos = params$remove.nonspecific.oligos, 
 			     chip = params$chip)
-
-
+			     
   ####################
   ## COMPUTE SUMMARIES
   ####################
