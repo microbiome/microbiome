@@ -32,7 +32,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE, impute = TRUE){
+read.profiling <- function(level = NULL, method = "rpa", data.dir = NULL, log10 = TRUE, impute = TRUE){
 
   # level <- "oligo"; method = "sum"; data.dir = "test/"; log10 = TRUE
 
@@ -52,10 +52,10 @@ read.profiling <- function(level, method = "sum", data.dir = NULL, log10 = TRUE,
     if (!length(grep("L1", f)) == 0) { level <- "L1"}
     if (!length(grep("L2", f)) == 0) { level <- "L2"}
     if (!length(grep("phylogeny", f)) == 0) { level <- "phylogeny.info"}
-    if (!length(grep("rpa", f)) == 0) { level <- "rpa"}
-    if (!length(grep("sum", f)) == 0) { level <- "sum"}
-    if (!length(grep("ave", f)) == 0) { level <- "ave"}
-    if (!length(grep("nmf", f)) == 0) { level <- "nmf"}
+    if (!length(grep("rpa", f)) == 0) { method <- "rpa"}
+    if (!length(grep("sum", f)) == 0) { method <- "sum"}
+    if (!length(grep("ave", f)) == 0) { method <- "ave"}
+    if (!length(grep("nmf", f)) == 0) { method <- "nmf"}
 
     tclServiceMode(FALSE)
 

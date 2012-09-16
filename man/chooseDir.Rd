@@ -14,7 +14,7 @@
   Choosing (and creating) a directory
 }
 \examples{
-# TBA
+# mydir <- chooseDir()
 }
 \author{
   Douwe Molenaar. Maintainer: Leo Lahti

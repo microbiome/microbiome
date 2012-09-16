@@ -63,6 +63,58 @@ level2TOlevel1 <- function (l2, phylogeny.info) {
 }
 
 
+
+#' Description: L2-L0 mappings
+#'
+#' Arguments:
+#'   @param l2 level2 phylotypes
+#'   @param phylogeny.info phylogeny.info
+#'
+#' Returns:
+#'   @return mappings
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+level2TOlevel0 <- function (l2, phylogeny.info) {
+
+   phylogeny.info <- polish.phylogeny.info(phylogeny.info)
+
+   omap <- phylogeny.info[match(as.character(l2), phylogeny.info[["L2"]]), c("L2", "L0")]
+   omap[["L2"]] <- factor(omap[["L2"]])
+   omap[["L0"]] <- factor(omap[["L0"]])
+
+   omap
+}
+
+
+#' Description: L1-L0 mappings
+#'
+#' Arguments:
+#'   @param l1 level1 phylotypes
+#'   @param phylogeny.info phylogeny.info
+#'
+#' Returns:
+#'   @return mappings
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords utilities
+
+level1TOlevel0 <- function (l1, phylogeny.info) {
+
+   phylogeny.info <- polish.phylogeny.info(phylogeny.info)
+
+   omap <- phylogeny.info[match(as.character(l1), phylogeny.info[["L1"]]), c("L1", "L0")]
+   omap[["L1"]] <- factor(omap[["L1"]])
+   omap[["L0"]] <- factor(omap[["L0"]])
+
+   omap
+}
+
+
+
 # Database utilities for package-internal use only
 
 #' Tests whether the database connection is a phyloarray connection.
@@ -765,7 +817,7 @@ WriteChipData <- function (finaldata, output.dir, phylogeny.info, verbose = TRUE
 #'
 #' @references See citation("microbiome")
 #' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples # TBA
+#' @examples # mydir <- chooseDir()
 #' @keywords utilities
 
 chooseDir <- function (...) {
@@ -1242,8 +1294,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
 	    		     dbuser, dbpwd, dbname, verbose = verbose, 
 			     remove.nonspecific.oligos = params$remove.nonspecific.oligos, 
 			     chip = params$chip)
-
-
+			     
   ####################
   ## COMPUTE SUMMARIES
   ####################
@@ -1259,12 +1310,6 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   # d.oligo2 <- oligo.bg.correction(d.oligo2, bgc.method = NULL)
   oligo.log10 <- d.oligo2
 
-  # Impute
-  #if (any(is.na(oligo.log10))) {
-  #  warning(round(100*mean(is.na(oligo.log10)), 3), "% of polished oligo.log10 is NAs; imputing")
-  #  oligo.log10 <- t(impute(t(oligo.log10)))
-  #}
-
   # Return to the original scale
   oligo.abs <- matrix(10^oligo.log10, nrow = nrow(oligo.log10)) # - 1  
   rownames( oligo.abs ) <- rownames( oligo.log10 )
@@ -1274,11 +1319,11 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   finaldata <- list()
   finaldata[["oligo"]] <- oligo.abs
   levels <- c("species", "L2", "L1")
-  if (params$chip == "MITChip") {levels <- c(levels, "L0")}
+  if (params$chip == "MITChip" || params$chip == "PITChip") {levels <- c(levels, "L0")}
   for (level in levels) {
     finaldata[[level]] <- list()
     for (method in c("sum", "rpa", "nmf")) {
-
+        message(paste(level, method))
     	summarized.log10 <- summarize.probesets(phylogeny.info, oligo.log10, 
       			       	          method = method, level = level, 	
 					  rm.phylotypes = params$rm.phylotypes)
@@ -1377,22 +1422,37 @@ summarize.probesets <- function (phylogeny.info, oligo.data, method, level, verb
 
   # phylogeny.info; oligo.data; method; level; rm.phylotypes = rm.phylotypes; verbose = TRUE
 
-  # Start by summarizing into species level
-  rm.species <- unique(c(unique(phylogeny.info[phylogeny.info$L1 %in% rm.phylotypes$L1, "species"]), 
-  	                 unique(phylogeny.info[phylogeny.info$L2 %in% rm.phylotypes$L2, "species"]),
-			 rm.phylotypes$species))
-			 
-  # Ensure that all L2 groups below specified L1 are removed as well
-  rm.phylotypes$L2 <- unique(c(unique(phylogeny.info[phylogeny.info$L1 %in% rm.phylotypes$L1, "L2"]), 
-			 rm.phylotypes$L2))
-			 	
-  # Remove specified oligos
+  # If remove L0 is not NULL, then add L1 groups under this group to removal list
+  if (!is.null(rm.phylotypes$L0)) {
+    rm.phylotypes$L1 <- c(rm.phylotypes$L1,
+  						unlist(levelmap(phylotypes = rm.phylotypes$L0, level.from = "L0", level.to = "L1", phylogeny.info = phylogeny.info)))
+
+    rm.phylotypes$L1 <- unique(rm.phylotypes$L1)
+  }
+
+  # If remove L1 is not NULL, then add L2 groups under this group to removal list
+  if (!is.null(rm.phylotypes$L1)) {
+    rm.phylotypes$L2 <- c(rm.phylotypes$L2,
+  						unlist(levelmap(phylotypes = rm.phylotypes$L1, level.from = "L1", level.to = "L2", phylogeny.info = phylogeny.info)))
+
+    rm.phylotypes$L2 <- unique(rm.phylotypes$L2)
+  }
+
+  # If remove L2 is not NULL, then add species groups under this group to removal list
+  if (!is.null(rm.phylotypes$L2)) {
+    rm.phylotypes$species <- c(rm.phylotypes$species,
+  						unlist(levelmap(phylotypes = rm.phylotypes$L2, level.from = "L2", level.to = "species", phylogeny.info = phylogeny.info)))
+
+    rm.phylotypes$species <- unique(rm.phylotypes$species)
+  }
+
+  # print("Remove specified oligos")
   rm.oligos <- rm.phylotypes$oligos
   if (!is.null(rm.oligos)) { oligo.data <- oligo.data[setdiff(rownames(oligo.data), rm.oligos), ]}
   phylogeny.info <- phylogeny.info[!phylogeny.info$oligoID %in% rm.oligos, ]
 
-  # Get species matrix in original scale
-  species.matrix <- 10^summarize.probesets.species(phylogeny.info, oligo.data, method, verbose = FALSE, rm.species)
+  # print("Get species matrix in original scale")
+  species.matrix <- 10^summarize.probesets.species(phylogeny.info, oligo.data, method, verbose = FALSE, rm.phylotypes$species)
    
   if (level == "species") {
 
@@ -1402,7 +1462,7 @@ summarize.probesets <- function (phylogeny.info, oligo.data, method, level, verb
 
     if (method %in% c("rpa", "ave", "sum")) {
 
-      # List all species for the given level (L0/L1/L2)
+      # List all species for the given level (L0 / L1 / L2)")
       phylogroups <- levelmap(phylotypes = NULL, level.from = level, level.to = "species", phylogeny.info)
 
       # Remove specified phylogroups
@@ -1415,6 +1475,7 @@ summarize.probesets <- function (phylogeny.info, oligo.data, method, level, verb
       for (pg in names(phylogroups)) {
         specs <- unique(phylogroups[[pg]])
         mat <- matrix(species.matrix[specs,], nrow = length(specs))
+
         if (method == "ave") { vec <- colMeans(mat) }
         if (method == "sum") { vec <- colSums(mat)  } 
         if (method == "rpa") { vec <- colSums(mat)  } # For RPA, use the sum for L1/L2
@@ -1423,7 +1484,8 @@ summarize.probesets <- function (phylogeny.info, oligo.data, method, level, verb
 
     } else if (method == "nmf") {
 
-      summarized.matrix <- deconvolution.nonneg(10^oligo.data, phylogeny.info, level)
+      # Add +1 to avoid taking log10 for 0
+      summarized.matrix <- 1 + deconvolution.nonneg(10^oligo.data, phylogeny.info, level)
 
     }
 
@@ -1462,10 +1524,8 @@ summarize.probesets.species <- function (phylogeny.info, oligo.data, method, ver
   level <- "species"			    
 
   if (method == "nmf") {warning("nmf oligo summarization method not implemented at species level"); return(NULL)}
-  
   probesets <- retrieve.probesets(phylogeny.info, level = level)
   probesets <- probesets[setdiff(names(probesets), rm.species)]
-  
   nPhylotypesPerOligo <- n.phylotypes.per.oligo(phylogeny.info, level) 
 
   # initialize

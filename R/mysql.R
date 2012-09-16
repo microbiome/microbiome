@@ -92,7 +92,7 @@ get.phylogeny.info <- function (phylogeny = "16S", rmoligos = NULL, dbuser, dbpw
                        paste('AND NOT (', paste("o.oligoID='",rmoligos,"'",sep="",collapse=" OR "), ') ', sep=''), '')
                        
 
-  if (chip == "MITChip") {
+  if (chip == "MITChip" || chip == "PITChip") {
 
     # Also get level0
 
