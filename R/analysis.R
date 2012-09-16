@@ -324,13 +324,22 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
    if (mode == "matrix") {
      return(res)     
    } else if (mode == "table") {
-     ctab <- cbind(melt(res$cor), melt(res$qval)$value)
-     colnames(ctab) <- c("X1", "X2", "correlation", "qvalue")
+     ctab <- NULL
 
-     #o <- order(ctab$qvalue)
-     #ctab <- ctab[o, ]
+     if (!is.null(res$cor)) {
+       ctab <- melt(res$cor)
+       colnames(ctab) <- c("X1", "X2", "correlation")
+     }
 
-     ctab <- esort(ctab, qvalue, -abs(correlation))
+     if (!is.null(res$qval)) {
+       ctab <- cbind(ctab, melt(res$qval)$value)
+       colnames(ctab) <- c("X1", "X2", "correlation", "qvalue")
+       ctab <- esort(ctab, qvalue, -abs(correlation))
+       colnames(ctab) <- c("X1", "X2", method, "qvalue")
+     } else {
+       ctab <- esort(ctab, -abs(correlation))
+       colnames(ctab) <- c("X1", "X2", method)
+     }
 
      return(ctab)
    }
