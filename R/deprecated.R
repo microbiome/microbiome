@@ -631,57 +631,6 @@ read.hitchip.prof008v3.4 <- function(path="../data/", dataID=""){
   return(d)
  }
 
-#' Description: read hitchip prof 010
-#'
-#' Arguments:
-#'   @param path TBA
-#'   @param dataID TBA
-#'
-#' Returns:
-#'   @return d
-#'
-
-#'
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-#' @examples # usage example:
-#' # d = read.hitchip.prof010("my.file.path")
-#' # d = preproc.Hitchip(d) 
-#' # mapply(doPCA,d,names(d))
-#' # where doPCA is a function, for example
-#' # doPCA=function(Data,filename){
-#' #   pdf(paste(filename,"PCAplot.pdf",sep=""))
-#' #   # screeplot:
-#' #   plot(prcomp(t(Data)))
-#' #   dev.off()
-#' #}
-#' #t.test example
-#' # c.i a vector with class information
-#' #t.test.res=apply(d$l2.log10.ave,1,function(x,y) t.test(x[y==1],x[y==2]),y=c.i)
-#' #p.val.vec=sapply(t.test.res,function(x) x$p.value)
-#' #estimate.vec=sapply(t.test.res,function(x) x$estimate)
-#' #qvalue(p.val.vec)$qvalue
-#' #which(p.val.vec<0.05)
-
-read.hitchip.prof010 <- function(path="../data/", dataID = ""){
-
-  ## Unweighted
-  d <- list()
-  d$o <- read.table(paste(path,dataID,"oligoprofile_010.tab", sep=""),
-                    sep="\t",header=T, row.names=1)
-  d$l1.sum <- read.table(paste(path,dataID,"level1_Sum_010.tab", sep=""),
-                             sep="\t",header=T, row.names=1)
-  d$l2.sum <- read.table(paste(path,dataID,"level2_Sum_010.tab", sep=""),
-                             sep="\t",header=T, row.names=1)
-  d$l1.log10.ave <- read.table(paste(path,dataID,"level1_log10Ave_010.tab", sep=""),
-                             sep="\t",header=T, row.names=1)
-  d$l2.log10.ave <- read.table(paste(path,dataID,"level2_log10Ave_010.tab", sep=""),
-                             sep="\t",header=T, row.names=1)
-  d$species.log10.ave <- read.table(paste(path,dataID,"species_log10Ave_010.tab", sep=""),
-                                  sep="\t",header=T, row.names=1)
-  return(d)
-}
 
 
 #' Description: HITChip preprocessing function
