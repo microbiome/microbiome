@@ -201,3 +201,6 @@ deconvolution.nonneg <- function(oligo.data, phylogeny.info, level, block.soluti
    return(H.nonneg)
 
 }
+
+# --------------------------------------------------------------------
+
