@@ -54,4 +54,5 @@ Collate:
     'nmf.R'
     'phylo.R'
     'AllClasses.R'
+    'toydata.R'
 Packaged: 2012-01-12 14:19:39 UTC; lei

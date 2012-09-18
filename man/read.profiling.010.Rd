@@ -1,8 +1,8 @@
-\name{read.profiling}
-\alias{read.profiling}
-\title{read.profiling}
+\name{read.profiling.010}
+\alias{read.profiling.010}
+\title{read.profiling.010}
 \usage{
-  read.profiling(level = NULL, method = "rpa",
+  read.profiling.010(level = NULL, method = "rpa",
     data.dir = NULL, log10 = TRUE, impute = TRUE)
 }
 \arguments{
@@ -25,13 +25,14 @@
   data matrix (phylo x samples)
 }
 \description{
-  Description: read run.profiling.script output into R
+  Description: read profiling script output from profiling
+  script v. 010 into R
 }
 \details{
   Arguments:
 }
 \examples{
-# params <- run.profiling.script(...); dat <- read.profiling(params$wdir, "L1", "rpa")
+# params <- read.profiling.010(...);
 }
 \author{
   Contact: Leo Lahti

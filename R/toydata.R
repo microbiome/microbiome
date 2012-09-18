@@ -29,7 +29,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-GenerateSimulatedData <- function (oligo.matrix.nolog.simulated, phylogeny.info, , output.file = "toydata-hitchip.rda") {
+GenerateSimulatedData <- function (oligo.matrix.nolog.simulated, phylogeny.info, output.file = "toydata-hitchip.rda") {
 
   set.seed(344)
   N <- ncol(oligo.matrix.nolog.simulated)
