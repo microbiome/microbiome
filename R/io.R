@@ -168,7 +168,7 @@ read.profiling.010 <- function(level = NULL, method = "rpa", data.dir = NULL, lo
     } else if (level == "oligo") {
       f <- paste(data.dir, "/oligoprofile_010.tab", sep = "")
     } else if (level == "phylogeny.info") {
-      f <- paste(data.dir, "/oligomap.tab", sep = "")
+      f <- paste(data.dir, "/phylogenyinfo_010.tab", sep = "")
     }
   }
 
@@ -177,12 +177,18 @@ read.profiling.010 <- function(level = NULL, method = "rpa", data.dir = NULL, lo
   # species_log10Ave_010.tab
 
   # Read the data
-  tab <- read.table(f, sep = "\t", header = T, row.names = 1)
- 
+  if (level == "phylogeny.info") {
+    tab <- read.table(f, sep = "\t", header = T, row.names = NULL)
+  } else {
+    tab <- read.table(f, sep = "\t", header = T, row.names = 1)
+  }
+
   # Check that the data is logarithmized as required in the arguments
-  if (!length(grep("log10", f)) == 0 && !log10) { 
+  if (level == "phylogeny.info") {
+    tab <- tab
+  } else if (!length(grep("log10", f)) == 0 && !log10) { 
     tab <- 10^tab
-  } else if  (length(grep("log10", f)) == 0 && log10) {
+  } else if (length(grep("log10", f)) == 0 && log10) {
     tab <- log10(tab)
   } else {
     tab <- tab

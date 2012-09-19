@@ -1552,7 +1552,7 @@ summarize.probesets.species <- function (phylogeny.info, oligo.data, method, ver
       # variances set according to number of matching probes
       # This will provide slight emphasis to downweigh potentially
       # cross-hybridizing probes
-      vec <- rpa.fit(dat, sigma2.method = "robust", alpha = 1 + 0.1*ncol(oligo.data)/2, beta = 1 + 0.1*ncol(oligo.data)*nPhylotypesPerOligo[probes]^2)$mu
+      vec <- rpa.fit(dat, tau2.method = "robust", alpha = 1 + 0.1*ncol(oligo.data)/2, beta = 1 + 0.1*ncol(oligo.data)*nPhylotypesPerOligo[probes]^2)$mu
 
     } else if (method == "ave") {
 
@@ -1618,12 +1618,12 @@ calculate.rpa <- function (level, phylo, oligo.data) {
     } else {
       res <- rpa.fit(dat)
       vec <- res$mu
-      noise <- sqrt(res$sigma2)
+      noise <- sqrt(res$tau2)
       names(noise) <- probes
     }
 
     noise.list[[entity]] <- noise
-    summarized.matrix[entity, ] <- vec #, epsilon, alpha, beta, sigma2.method, d.method)
+    summarized.matrix[entity, ] <- vec #, epsilon, alpha, beta, tau2.method, d.method)
 
   }
 
