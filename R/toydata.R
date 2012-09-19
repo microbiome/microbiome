@@ -44,14 +44,14 @@ GenerateSimulatedData <- function (oligo.matrix.nolog.simulated, phylogeny.info,
   #phylum.matrix.log10.simulated <- summarize.probesets(phylogeny.info, log10(oligo.matrix.nolog.simulated), "sum", "L1", verbose = TRUE, phylotype.rm.list("HITChip"))
 
   metadata.simulated <- data.frame(list(
-              sampleID = colnames(oligo.matrix.nolog.simulated),
+              sampleID = I(colnames(oligo.matrix.nolog.simulated)),
 	      time = rep(1:4, 5),
               age = runif(N, 0, 100),
               bmi = runif(N, 20, 40),
-	      subjectID = paste("subjectID", rep(1:4, 5), sep = "-"),
-	      group = sample(paste("group", rep(1:4, 5))),
-              gender = sample(c("M", "F"), N, replace = TRUE),
-              diet = sample(c("Apricots", "Beverages", "Carrots"), N, replace = TRUE)))
+	      subjectID = I(paste("subjectID", rep(1:4, 5), sep = "-")),
+	      group = I(sample(paste("group", rep(1:4, 5), sep = "-"))),
+              gender = I(sample(c("M", "F"), N, replace = TRUE)),
+              diet = I(sample(c("Apricots", "Beverages", "Carrots"), N, replace = TRUE))))
 
 
   message(paste("Saving the output in", output.file))
