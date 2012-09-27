@@ -108,8 +108,10 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
     names(cor.p) <- rownames(M)
 
   } else {
+
     # Skip p-value correction
-    cor.p <- M
+    cor.p <- as.vector(M)
+    names(cor.p) <- rownames(M)
 
   }
 
