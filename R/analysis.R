@@ -51,7 +51,7 @@ distance.matrix <- function (x, method = "pearson", ...) {
 #' Arguments:
 #'   @param dat data matrix (features x samples)
 #'   @param file data file  (if data matrix not provided) 
-#'   @param p.adjust.method p-value correction method for p.adjust function (default "BH")
+#'   @param p.adjust.method p-value correction method for p.adjust function (default "BH"). If NULL, no correction will be performed.
 #'   @param sort sort the results
 #' Returns:
 #'   @return (Corrected) p-values for two-group comparison.
@@ -100,12 +100,21 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
 
   }
 
-  ## To Adjust P-values for Multiple Comparisons with Benjamini & Hochberg (1995) ("BH" or its alias "fdr")
-  cor.p <- p.adjust(M, method = p.adjust.method) 
-  names(cor.p) <- rownames(M)
+  ## To Adjust P-values for Multiple Comparisons with Benjamini & Hochberg (1995) 
+  ## ("BH" or its alias "fdr")
+  if (!is.null(p.adjust.method)) {
+
+    cor.p <- p.adjust(M, method = p.adjust.method) 
+    names(cor.p) <- rownames(M)
+
+  } else {
+    # Skip p-value correction
+    cor.p <- M
+
+  }
 
   # Sort the values
-  if (sort) {cor.p <- sort(cor.p)}
+  if (sort) { cor.p <- sort(cor.p) }
 
   cor.p
 
@@ -139,10 +148,12 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
 
   # annot <- metadata.df; dat <- t(genus.matrix); method = "pearson"; qth = NULL; cth = NULL; order = FALSE; n.signif = 0; verbose = TRUE; mode = "matrix"
 
+  # annot <- atlas.meta; order = TRUE; method = "spearman"; qth = NULL; cth = NULL; n.signif = 0; mode = "table"
+
   x <- as.data.frame(annot) # numeric or discrete
   y <- dat # numeric
 
-  if (is.null(colnames(y))) {colnames(y) <- paste("column-", 1:ncol(y), sep = "")}
+  if (is.null(colnames(y))) { colnames(y) <- paste("column-", 1:ncol(y), sep = "") }
 
   xnames <- colnames(x)
   ynames <- colnames(y)
@@ -158,15 +169,17 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
     if (any(!inds)) {
       warning("Considering only numeric annotations for pearson/spearman/bicor/mi")
     }
+    inds <- names(which(inds))
   } else if (method %in% categorical.methods) {
     inds <- sapply(x, is.factor) 
     if (any(!inds)) {
       warning("Considering only categorical annotations for factors")
     }
+    inds <- names(which(inds))
   }
 
-  xnames <- xnames[inds]
-  x <- as.matrix(x[inds], ncol = sum(inds))
+  xnames <- inds
+  x <- as.matrix(x[inds], ncol = length(inds))
   colnames(x) <- xnames
 
   Pc <- matrix(NA, ncol(x), ncol(y))
@@ -207,7 +220,7 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
 
           xvec <- x[, varname]
 	  yvec <- y[, lev]
-	  keep <- rowSums(is.na(cbind(xvec,yvec))) == 0	       
+	  keep <- rowSums(is.na(cbind(xvec, yvec))) == 0	       
 	  xvec <- xvec[keep]
 	  yvec <- yvec[keep]
 	
@@ -228,29 +241,27 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
         for (j in 1:ncol(y)) {
 
           Cc[i,j] <- build.mim(cbind(x[,i], y[,j]), estimator = "spearman")[1, 2]
+
         }
       }
    }
 
    if (!all(is.na(Pc))) {
 
-     # Corrected p-values
-     require(qvalue)
-     if (prod(dim(Pc)) >= 100) {
-       qv <- qvalue(Pc)$qvalue
-       rownames(qv) <- xnames
-       colnames(qv) <- ynames
-
-     } else {
-       cat("Too few p-values available, q-value calculation skipped-")
-       qv <- NULL
-     }
-
      rownames(Pc) <- xnames
      colnames(Pc) <- ynames
 
      rownames(Cc) <- xnames
      colnames(Cc) <- ynames
+
+     # Corrected p-values
+     if ((prod(dim(Pc)) - sum(is.na(Pc))) >= 100) {
+       qv <- matrix.qvalue(Pc)
+     } else {
+       warning("Too few p-values available, q-value calculation skipped-")
+       qv <- NULL
+     }
+
   }
 
    # Filter
@@ -365,6 +376,5 @@ calculate.stability <- function (dat) {
   cors <- lower.triangle(cor(dat))
   list(correlations = cors, stability = mean(cors))
 }
-
 
 

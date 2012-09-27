@@ -12,7 +12,8 @@ Either provide the input data as matrix, file path, or select the file through G
   \item{file}{data file (if data matrix not provided)}
 
   \item{p.adjust.method}{p-value correction method for
-  p.adjust function (default "BH")}
+  p.adjust function (default "BH"). If NULL, no correction
+  will be performed.}
 
   \item{sort}{sort the results Returns:}
 }

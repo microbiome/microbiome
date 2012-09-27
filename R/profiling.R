@@ -34,6 +34,7 @@ run.profiling.script <- function (dbuser, dbpwd, dbname, verbose = TRUE) {
 
   # Fetch and preprocess the data		     
   chipdata  <- preprocess.chipdata(dbuser, dbpwd, dbname)
+
   finaldata <- chipdata$data
   params    <- chipdata$params
   phylogeny.info <- chipdata$phylogeny.info

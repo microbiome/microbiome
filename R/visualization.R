@@ -583,20 +583,16 @@ PlotPhylochipHeatmap <- function (data,
    }
 
    if (tree.display) {
-
-      data <- data[,hc$order] 
-      layout(matrix(c(3,0,1,2),ncol=2,byrow=TRUE),widths=lcm(c(profilewidth,annwidth)),heights=lcm(figureheight*heights))
-
+      data <- data[, hc$order] 
+      layout(matrix(c(3,0,1,2), ncol = 2, byrow = TRUE),widths=lcm(c(profilewidth,annwidth)),heights=lcm(figureheight*heights))
    } else {    
-
       layout(matrix(c(3,0,1,2),ncol=2,byrow=TRUE),widths=lcm(c(profilewidth,annwidth)),heights=lcm(figureheight*heights))
-
    }
 
    par(mar = c(1,1,0,0), oma = c(0,0,0,0))
    
    img <- as.matrix(rev(as.data.frame(t(data[as.character(phylogeny.info$oligoID),]))))
-   image(z=img, col=palette, axes=FALSE, frame.plot=TRUE, zlim=limits)
+   image(z = img, col = palette, axes = FALSE, frame.plot = TRUE, zlim = limits)
    plot.new()
    par(mar = c(1, 0, 0, 1), usr = c(0, 1, 0, 1), xaxs = 'i', yaxs = 'i')
 
@@ -624,4 +620,44 @@ PlotPhylochipHeatmap <- function (data,
 
 }
 
+#' Description: 
+#' Visualize the histogram, density estimate, and estimated Gaussian latent classes for a given vector
+#' 
+#' Arguments:
+#'   @param vec numeric data vector
+#'   @param max.responses maximum number of latent classes to consider
+#'   @param mixture.method information criterion for estimating the number of latent classes
+#'   @param bic.threshold threshold for adding new components (latent classes) in the mixture
+#'   @param title.text title.text 
+#'   @param xlab.text xlab.text 
+#'   @param ylab.text ylab.text 
+#'
+#' Returns:
+#'   @return ggplot2 object
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
 
+PhyloPlot <- function (vec, max.responses = 8, mixture.method = "bic", bic.threshold = 0, title.text = NULL, xlab.text = NULL, ylab.text = "Frequency") {
+  	
+  model <- detect.responses(matrix(vec),
+			      max.subnet.size = 1, 
+			      max.responses = max.responses, 
+			      mixture.method = mixture.method, 
+			      bic.threshold = bic.threshold)
+
+  theme_set(theme_bw(20))			      
+
+  pg <- PlotMixtureUnivariate(as.vector(vec), 
+     			      as.vector(model@models[[1]]$mu), 
+			      as.vector(model@models[[1]]$sd), 
+			      as.vector(model@models[[1]]$w), 
+			      title.text = title.text, 
+			      xlab.text = xlab.text, 
+			      ylab.text = ylab.text) 
+
+  pg
+ 
+}

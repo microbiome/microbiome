@@ -12,6 +12,34 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+
+#' matrix.qvalue
+#'
+#' Calculate qvalues for a matrix of pvalues which may contain missing values.
+#' 
+#'
+#' @param pvals p-value matrix
+#'
+#' @return q-value matrix
+#' @export 
+#' @references
+#' See citation("microbiome")
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @examples #qvals <- matrix.qvalue(pvals)
+#' @keywords utilities
+
+matrix.qvalue <- function (pvals) {
+
+  pvec <- as.vector(pvals)
+  nai <- is.na(pvec);
+  qvec <- rep(NA, length(pvec))
+  qvec[!nai] <- qvalue::qvalue(pvec[!nai])$qvalue
+  qmat <- matrix(qvec, nrow = nrow(pvals))
+  dimnames(qmat) <- dimnames(pvals)
+  qmat
+
+}
+
 #' polish.phylogeny.info
 #'
 #' Ensure phylogeny.info is in correct format
