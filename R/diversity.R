@@ -31,7 +31,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL) {
+estimate.diversity <- function (dat, det.th = NULL) {
 
   veganT <- require(vegan)
   if(!veganT) { install.packages("vegan") }
@@ -40,7 +40,6 @@ estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL)
   # Use the 80% quantile as this has proven robust across methodologies
   if (is.null(det.th)) {
     dat <- 10^t(impute(t(log10(dat)))) # impute missing values
-    #det.th <- 10^estimate.min.threshold(log10(dat))
     det.th <- quantile(dat, 0.8)
     warning(paste("Applying detection threshold at 0.8 quantile: ", det.th))
   }
@@ -50,18 +49,18 @@ estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL)
   dat[dat < 0] <- 0
 
   # Species diversity - only for species that exceeded the thresholding above
-  H <- diversity(dat, index = diversity.index, MARGIN = 2)
+  H.shannon <- diversity(dat, index = "shannon", MARGIN = 2)
+  H.invsimpson <- diversity(dat, index = "invsimpson", MARGIN = 2)
   
   # Species richness - count phylotypes that exceed detection threshold
   S <- colSums(dat > 0)
   
   # Pielou's evenness (J) 
-  H.shannon <- diversity(dat, index = "shannon", MARGIN = 2)
   J <- H.shannon/log(S)
   
-  names(J) <- names(S) <- names(H) <- colnames(dat)
+  names(J) <- names(S) <- names(H.shannon) <- names(H.invsimpson) <- colnames(dat)
 
-  data.frame(list(evenness = J, richness = S, diversity = H, det.th = det.th))
+  data.frame(list(evenness = J, richness = S, diversity.shannon = H.shannon, diversity.invsimpson = H.invsimpson, det.th = det.th))
 	
 }
 
@@ -137,7 +136,11 @@ make.abundancy.table <- function (dat, det.th, discretization.resolution = 1) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-diversity.boxplot <- function (div.table, diversity.index = "invsimpson", title = NULL, col.list, sample.groups) { 
+diversity.boxplot <- function (which.plot = "richness", div.table = NULL, diversity.index = "shannon", title = NULL, col.list, sample.groups, det.th = NULL) { 
+
+  if (is.null(div.table)) {
+    div.table <- estimate.diversity(dat, diversity.index = diversity.index, det.th = det.th)
+  }
 
   if (diversity.index %in% c("shannon", "invsimpson", "diversity")) {
     div <- div.table[["diversity"]]
@@ -148,8 +151,7 @@ diversity.boxplot <- function (div.table, diversity.index = "invsimpson", title 
   }
   names(div) <- rownames(div.table)
 
-  ## "Box-plotting":
-  # Diversity index
+  # Boxplot
   boxplot(div[sample.groups[[1]]], ylab = diversity.index, col=col.list[[1]], ylim=c(min(div),max(div)),xlim=c(0,length(sample.groups))+0.5, main = title)
   axis(1,labels=names(sample.groups),at=c(1:length(sample.groups)))
   for (i in 2:length(sample.groups)) {

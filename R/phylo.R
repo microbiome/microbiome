@@ -33,6 +33,14 @@
 
 levelmap <- function (phylotypes = NULL, level.from, level.to, phylogeny.info) {
 
+  if (level.from == "level 0") {level.from <- "L0"}	 
+  if (level.from == "level 1") {level.from <- "L1"}	 
+  if (level.from == "level 2") {level.from <- "L2"}	 
+
+  if (level.to == "level 0") {level.to <- "L0"}	 
+  if (level.to == "level 1") {level.to <- "L1"}	 
+  if (level.to == "level 2") {level.to <- "L2"}	 
+
   phylogeny.info <- polish.phylogeny.info(phylogeny.info)
 
   if (is.null(phylotypes)) {

@@ -633,7 +633,7 @@ PlotPhylochipHeatmap <- function (data,
 #'   @param ylab.text ylab.text 
 #'
 #' Returns:
-#'   @return ggplot2 object
+#'   @return List: ggplot2 object and NetResponse model object
 #'
 #' @export
 #' @references See citation("microbiome") 
@@ -658,6 +658,6 @@ PhyloPlot <- function (vec, max.responses = 8, mixture.method = "bic", bic.thres
 			      xlab.text = xlab.text, 
 			      ylab.text = ylab.text) 
 
-  pg
+  list(plot = pg, model = model)
  
 }
