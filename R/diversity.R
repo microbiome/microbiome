@@ -16,51 +16,44 @@
 #' estimate.diversity
 #'
 #' Description: Estimate diversities for each sample (column)
-#' Aliases: get.diversity.estimates. Also replaces the function ST: diversity.indices
 #'
 #' Arguments:
 #'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
-#'   @param diversity.index diversity index
+#'   @param diversity.index diversity index (shannon or invsimpson) 
 #'   @param det.th detection threshold. Used for richness and evenness estimation. Not used in diversity estimation. 
 #'
 #' Returns:
-#'   @return diversity indicators
+#'   @return Table with various richness, evenness, and diversity indicators
 #'
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-estimate.diversity <- function (dat, det.th = NULL) {
+estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL) {
+
+  dat.orig <- dat
 
   veganT <- require(vegan)
   if(!veganT) { install.packages("vegan") }
 
-  # Specify detection threshold if not provided
-  # Use the 80% quantile as this has proven robust across methodologies
-  if (is.null(det.th)) {
-    dat <- 10^t(impute(t(log10(dat)))) # impute missing values
-    det.th <- quantile(dat, 0.8)
-    warning(paste("Applying detection threshold at 0.8 quantile: ", det.th))
-  }
+  # Species diversity
+  # Always use the complete data for diversity calculations
+  # If you wish calculate diversity for thresholded data
+  # this has to be done manually
+  H <- microbiome::diversity(dat.orig, diversity.index = diversity.index, det.th = 0)
 
-  # Apply detection threshold
-  dat <- dat - det.th
-  dat[dat < 0] <- 0
+  # richness - count phylotypes that exceed detection threshold
+  # Use automated threshold determination if det.th is NULL
+  S <- microbiome::richness(dat.orig, det.th = det.th)
 
-  # Species diversity - only for species that exceeded the thresholding above
-  H.shannon <- diversity(dat, index = "shannon", MARGIN = 2)
-  H.invsimpson <- diversity(dat, index = "invsimpson", MARGIN = 2)
+  # evenness - use phylotypes that exceed detection threshold
+  # Use automated threshold determination if det.th is NULL
+  J <- microbiome::evenness(dat.orig, det.th = det.th)
   
-  # Species richness - count phylotypes that exceed detection threshold
-  S <- colSums(dat > 0)
-  
-  # Pielou's evenness (J) 
-  J <- H.shannon/log(S)
-  
-  names(J) <- names(S) <- names(H.shannon) <- names(H.invsimpson) <- colnames(dat)
+  names(J) <- names(S) <- names(H) <- colnames(dat)
 
-  data.frame(list(evenness = J, richness = S, diversity.shannon = H.shannon, diversity.invsimpson = H.invsimpson, det.th = det.th))
+  data.frame(list(evenness = J, richness = S, diversity = H, det.th = det.th))
 	
 }
 
@@ -79,6 +72,134 @@ estimate.diversity <- function (dat, det.th = NULL) {
   #ab <- make.abundancy.table(dat[, k], discretization.resolution = 1e-4)
     #ChaoLee1992(ab, t=10, method="ACE")$Nhat
   #}))
+
+
+#' diversity
+#'
+#' Description: Estimate diversity for each sample with a given threshold
+#'
+#' Arguments:
+#'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
+#'   @param diversity.index diversity index (shannon or invsimpson) 
+#'   @param det.th detection threshold. Used for richness and evenness estimation. Not used in diversity estimation. 
+#'
+#' Returns:
+#'   @return Vector containing diversity estimate for each sample 
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+diversity <- function (dat, diversity.index = "shannon", det.th = 0) {
+
+  veganT <- require(vegan)
+  if(!veganT) { install.packages("vegan") }
+
+  # Specify detection threshold if not provided
+  # Use the 80% quantile as this has proven robust across methodologies
+  if (is.null(det.th)) {
+    dat <- 10^t(impute(t(log10(dat)))) # impute missing values
+    det.th <- quantile(dat, 0.8)
+    warning(paste("Applying detection threshold at 0.8 quantile: ", det.th))
+  }
+
+  # Apply detection threshold
+  dat.th <- dat - det.th
+  dat.th[dat.th < 0] <- 0
+
+  # Species diversity
+  H <- vegan::diversity(dat.th, index = diversity.index, MARGIN = 2)
+  names(H) <- colnames(dat)
+
+  H
+	
+}
+
+
+#' richness
+#'
+#' Description: Estimate richness for each sample with a given threshold
+#'
+#' Arguments:
+#'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
+#'   @param det.th detection threshold. Used for richness and evenness estimation. Not used in diversity estimation. 
+#'
+#' Returns:
+#'   @return Vector containing richness estimate for each sample 
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+richness <- function (dat, det.th = NULL) {
+
+  # Specify detection threshold if not provided
+  # Use the 80% quantile as this has proven robust across methodologies
+  if (is.null(det.th)) {
+    dat <- 10^t(impute(t(log10(dat)))) # impute missing values
+    det.th <- quantile(dat, 0.8)
+    warning(paste("Applying detection threshold at 0.8 quantile: ", det.th))
+  }
+
+  # Apply detection threshold
+  dat.th <- dat - det.th
+  dat.th[dat.th < 0] <- 0
+
+  # Species richness - count phylotypes that exceed detection threshold
+  S <- colSums(dat.th > 0)
+  names(S) <- colnames(dat)
+
+  S
+	
+}
+
+
+
+#' evenness
+#'
+#' Description: Estimate evenness for each sample with a given threshold
+#'
+#' Arguments:
+#'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
+#'   @param det.th detection threshold. Used for richness and evenness estimation. Not used in diversity estimation. 
+#'
+#' Returns:
+#'   @return Vector containing evenness estimate for each sample 
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+evenness <- function (dat, det.th = NULL) {
+
+  # Specify detection threshold if not provided
+  # Use the 80% quantile as this has proven robust across methodologies
+  if (is.null(det.th)) {
+    dat <- 10^t(impute(t(log10(dat)))) # impute missing values
+    det.th <- quantile(dat, 0.8)
+    warning(paste("Applying detection threshold at 0.8 quantile: ", det.th))
+  }
+
+  # Apply detection threshold
+  dat.th <- dat - det.th
+  dat.th[dat.th < 0] <- 0
+
+  # Species richness - count phylotypes that exceed detection threshold
+  S <- colSums(dat.th > 0)
+  
+  # Pielou's evenness (J); always calculated from H.shannon which has to use same detection threshold
+  # as the richness measure:
+  H.shannon.th <- microbiome::diversity(dat.th, diversity.index = "shannon", det.th = 0)
+
+  J <- H.shannon.th/log(S)
+  names(J) <- colnames(dat)
+
+  J
+	
+}
 
 
 
@@ -123,10 +244,12 @@ make.abundancy.table <- function (dat, det.th, discretization.resolution = 1) {
 #' Description: diversity.boxplot
 #'
 #' Arguments:
-#'   @param div.table diversity table: output from the estimate.diversity function
-#'   @param diversity.index specify the diversity index to plot (diversity / richness / evenness)
+#'   @param dat data matrix in the original (non-log) scale: features x samples.
+#'   @param sample.groups specify the distinct sample groups     
+#'   @param diversity.index Options: "shannon" / "invsimpson" / "richness" / "evenness" 
+#'   @param det.th Detection threshold for richness and evenness calculations
 #'   @param title figure title
-#'   @param n.groups max number of groups for boxplot
+#'   @param col.list Optional: colors for the sample groups
 #'
 #' Returns:
 #'   @return Sample group list corresponding to the boxplot groups.
@@ -136,29 +259,38 @@ make.abundancy.table <- function (dat, det.th, discretization.resolution = 1) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-diversity.boxplot <- function (which.plot = "richness", div.table = NULL, diversity.index = "shannon", title = NULL, col.list, sample.groups, det.th = NULL) { 
+diversity.boxplot <- function (dat, sample.groups, diversity.index = "shannon", det.th = NULL, title = NULL, col.list = NULL) {
 
-  if (is.null(div.table)) {
-    div.table <- estimate.diversity(dat, diversity.index = diversity.index, det.th = det.th)
-  }
+  div.table <- estimate.diversity(dat, diversity.index = diversity.index, det.th = det.th)
+
+  if (is.null(title)) {title <- diversity.index}
 
   if (diversity.index %in% c("shannon", "invsimpson", "diversity")) {
     div <- div.table[["diversity"]]
+    ylab = "Diversity"
   } else if (diversity.index %in% c("richness")) {
     div <- div.table[["richness"]]
+    ylab <- "Richness"
   } else if (diversity.index %in% c("evenness")) {
     div <- div.table[["evenness"]]
+    ylab <- "Evenness"
   }
   names(div) <- rownames(div.table)
 
-  # Boxplot
-  boxplot(div[sample.groups[[1]]], ylab = diversity.index, col=col.list[[1]], ylim=c(min(div),max(div)),xlim=c(0,length(sample.groups))+0.5, main = title)
-  axis(1,labels=names(sample.groups),at=c(1:length(sample.groups)))
-  for (i in 2:length(sample.groups)) {
-	boxplot(div[sample.groups[[i]]],col=col.list[[i]],names=names(sample.groups)[i],add=T,at=i)
+  if (is.null(col.list)) {
+    # Define colors for each sample group
+    col.list <- gray(seq(0, 1, length = length(sample.groups)))
+    names(col.list) <- names(sample.groups)
   }
 
-  sample.groups
+  # Boxplot
+  boxplot(div[sample.groups[[1]]], col=col.list[[1]], ylim=c(min(div),max(div)),xlim=c(0,length(sample.groups))+0.5, main = title, ylab = ylab, las = 2)
+  axis(1,labels=names(sample.groups), at=c(1:length(sample.groups)))
+  for (i in 2:length(sample.groups)) {
+    boxplot(div[sample.groups[[i]]], col=col.list[[i]], names=names(sample.groups)[i], add = T, at = i, ylab = NULL, yaxt = "n")
+  }
+
+  list(sample.groups = sample.groups, diversity.table = div.table)
 
 }
 

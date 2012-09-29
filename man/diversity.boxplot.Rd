@@ -2,20 +2,25 @@
 \alias{diversity.boxplot}
 \title{diversity.boxplot}
 \usage{
-  diversity.boxplot(div.table,
-    diversity.index = "invsimpson", title = NULL, col.list,
-    sample.groups)
+  diversity.boxplot(dat, sample.groups,
+    diversity.index = "shannon", det.th = NULL,
+    title = NULL, col.list = NULL)
 }
 \arguments{
-  \item{div.table}{diversity table: output from the
-  estimate.diversity function}
+  \item{dat}{data matrix in the original (non-log) scale:
+  features x samples.}
 
-  \item{diversity.index}{specify the diversity index to
-  plot (diversity / richness / evenness)}
+  \item{sample.groups}{specify the distinct sample groups}
+
+  \item{diversity.index}{Options: "shannon" / "invsimpson"
+  / "richness" / "evenness"}
+
+  \item{det.th}{Detection threshold for richness and
+  evenness calculations}
 
   \item{title}{figure title}
 
-  \item{n.groups}{max number of groups for boxplot
+  \item{col.list}{Optional: colors for the sample groups
 
   Returns:}
 }

@@ -28,7 +28,7 @@ Visualize the histogram, density estimate, and estimated Gaussian latent classes
   Returns:}
 }
 \value{
-  ggplot2 object
+  List: ggplot2 object and NetResponse model object
 }
 \description{
   Arguments:
