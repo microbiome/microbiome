@@ -32,28 +32,23 @@
 
 estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL) {
 
-  dat.orig <- dat
-
-  veganT <- require(vegan)
-  if(!veganT) { install.packages("vegan") }
-
   # Species diversity
   # Always use the complete data for diversity calculations
   # If you wish calculate diversity for thresholded data
   # this has to be done manually
-  H <- microbiome::diversity(dat.orig, diversity.index = diversity.index, det.th = 0)
+  H <- microbiome::diversity(dat, diversity.index = diversity.index, det.th = 0)
 
   # richness - count phylotypes that exceed detection threshold
   # Use automated threshold determination if det.th is NULL
-  S <- microbiome::richness(dat.orig, det.th = det.th)
+  S <- microbiome::richness(dat, det.th = det.th)
 
   # evenness - use phylotypes that exceed detection threshold
   # Use automated threshold determination if det.th is NULL
-  J <- microbiome::evenness(dat.orig, det.th = det.th)
+  J <- microbiome::evenness(dat, det.th = det.th)
   
   names(J) <- names(S) <- names(H) <- colnames(dat)
 
-  data.frame(list(evenness = J, richness = S, diversity = H, det.th = det.th))
+  data.frame(list(evenness = J, richness = S, diversity = H))
 	
 }
 
@@ -218,7 +213,7 @@ evenness <- function (dat, det.th = NULL) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-relative.abundance <- function (dat, det.th = NULL) {
+relative.abundance <- function (dat, det.th = 0) {
 
   # Specify detection threshold if not provided
   # Use the 80% quantile as this has proven robust across methodologies

@@ -1,3 +1,9 @@
+
+CHANGES IN VERSION 0.3.43 (2012-09-28)
+  o added relative.abundance function
+  o polished estimate.diversity function
+  o added functions: richness, evenness, diversity
+
 CHANGES IN VERSION 0.3.15 (2012-08-31)
   o FetchHITChipAtlas and run.profiling.script validated against each other
   o default imputation removed from run.profiling.script; this had considerable effect on normalized data
