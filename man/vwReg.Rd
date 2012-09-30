@@ -3,8 +3,7 @@
 \title{Description: Draw regression curve with smoothed error bars
 based on the Visually-Weighted Regression by Solomon M. Hsiang; see
 http://www.fight-entropy.com/2012/07/visually-weighted-regression.html
-The R implementation is based on Felix Schönbrodt's code from
-http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/}
+The R implementation is based on Felix Schönbrodt's code (under MIT/FreeBSD license) from http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/}
 \usage{
   vwReg(formula, data, B = 1000, shade = TRUE,
     spag = FALSE, mweight = TRUE, show.lm = FALSE,
@@ -25,12 +24,11 @@ http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-v
 
   \item{shade}{plot the shaded confidence region?}
 
-  \item{shade.alpha}{shade.alpha: should the CI shading
-  fade out at the edges? (by reducing alpha; 0 = no alpha
-  decrease, 0.1 = medium alpha decrease, 0.5 = strong alpha
-  decrease)}
+  \item{shade.alpha}{should the CI shading fade out at the
+  edges? (by reducing alpha; 0 = no alpha decrease, 0.1 =
+  medium alpha decrease, 0.5 = strong alpha decrease)}
 
-  \item{spag:}{plot spaghetti lines?}
+  \item{spag}{plot spaghetti lines?}
 
   \item{mweight}{should the median smoother be visually
   weighted?}
@@ -42,7 +40,7 @@ http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-v
 
   \item{median.col}{median color}
 
-  \item{show.CI:}{should the 95% CI limits be plotted?}
+  \item{show.CI}{should the 95\% CI limits be plotted?}
 
   \item{method}{the fitting function for the spaghettis;
   default: loess}
