@@ -12,6 +12,54 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+#' diversity.table
+#'
+#' Description: Estimate diversity within each taxonomic group across the samples
+#'
+#' Arguments:
+#'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
+#'   @param phylogeny.info mapping table between taxonomic levels
+#'   @param level.from higher-level taxonomic groups for which the diversity will be calculated
+#'   @param level.to lower taxonomic level used for the diversity calculations. Must correspond to the input data matrix argument 'dat'
+#'   @param diversity.index diversity index (shannon or invsimpson) 
+#'   @param det.th Optional detection threshold. 
+#'
+#' Returns:
+#'   @return Table with various richness, evenness, and diversity indicators
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+diversity.table <- function (dat, phylogeny.info, level.from, level.to, diversity.index = "shannon", det.th = 0) {
+
+  if (level.to == "oligo") {level.to <- "oligoID"}		
+  if (level.to == "level 1") {level.to <- "L1"}		
+  if (level.to == "level 2") {level.to <- "L2"}		
+
+  if (level.from == "level 1") {level.from <- "L1"}		
+  if (level.from == "level 2") {level.from <- "L2"}		
+
+  if (!any(rownames(dat) %in% phylogeny.info[[level.to]])) {
+    stop("Provide input data matrix that corresponds to the target level ie. level.to argument!")
+  }
+
+  level.data <- levelmap(level.from = level.from, level.to = level.to, phylogeny.info = phylogeny.info)
+  		
+  tab <- array(NA, dim = c(length(level.data), ncol = ncol(dat)))		
+  rownames(tab) <- names(level.data)
+  colnames(tab) <- colnames(dat)
+
+  for (nam in names(level.data)) {
+    o <- level.data[[nam]]
+    tab[nam, ] <- microbiome::diversity(dat[o, ], diversity.index = diversity.index, det.th = det.th)
+  }
+
+  tab
+
+}
+
 
 #' estimate.diversity
 #'
