@@ -68,7 +68,7 @@ core.which <- function(data, intTr, prevalenceTr){
 #' Returns:
 #'   @return TBA
 #'
-#' @examples # data("toydata-hitchip"); core <- createCore(phylum.matrix) 
+#' @examples # core <- createCore(L2.matrix) 
 #'
 #' @export 
 #' 
@@ -174,7 +174,7 @@ Core2D <- function(coreMat, colnum = NULL, title = "Common core"){
 #' Returns:
 #'   @return TBA
 #'
-#' @examples # data("toydata-hitchip"); bootstrap.microbes(phylum.matrix)
+#' @examples # bs <- bootstrap.microbes(phylum.matrix)
 #'
 #' @export 
 #' 
@@ -223,7 +223,7 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 100, I.th
 #' Returns:
 #'   @return TBA
 #'
-#' @examples # data("toydata-hitchip"); bootstrap.microbecount(phylum.matrix)
+#' @examples # tmp <- bootstrap.microbecount(phylum.matrix)
 #'
 #' @export 
 #' 
@@ -280,7 +280,7 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1, Nboot = 100, 
 #' Returns:
 #'   @return TBA
 #'
-#' @examples # data("toydata-hitchip"); bs <- bootstrap.microbes(phylum.matrix); plot_cumulative(bs, writedir = "./", "tmp-", phylogeny.info = phylogeny.info)
+#' @examples # bs <- bootstrap.microbes(phylum.matrix); plot_cumulative(bs, writedir = "./", "tmp-", phylogeny.info = phylogeny.info)
 #'
 #' @export 
 #' 
