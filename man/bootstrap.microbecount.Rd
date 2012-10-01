@@ -30,7 +30,7 @@
   Arguments:
 }
 \examples{
-# data("toydata-hitchip"); bootstrap.microbecount(phylum.matrix)
+# tmp <- bootstrap.microbecount(phylum.matrix)
 }
 \author{
   Contact: Leo Lahti

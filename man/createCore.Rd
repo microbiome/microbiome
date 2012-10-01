@@ -21,7 +21,7 @@
   Arguments:
 }
 \examples{
-# data("toydata-hitchip"); core <- createCore(phylum.matrix)
+# core <- createCore(L2.matrix)
 }
 \author{
   Contact: Leo Lahti
