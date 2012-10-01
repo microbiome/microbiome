@@ -2,15 +2,10 @@
 \alias{GenerateSimulatedData}
 \title{Description: Generate toydata for the package}
 \usage{
-  GenerateSimulatedData(oligo.matrix.nolog.simulated,
-    phylogeny.info, output.file = "toydata-hitchip.rda")
+  GenerateSimulatedData(output.dir)
 }
 \arguments{
-  \item{oligo.matrix.nolog.simulated}{}
-
-  \item{phylogeny.info}{phylogeny.info}
-
-  \item{output.file}{output file name
+  \item{output.dir}{output directory name
 
   Returns:}
 }
