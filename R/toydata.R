@@ -31,7 +31,7 @@ GenerateSimulatedData <- function (output.dir) {
 
   data.directory <- system.file("extdata/", package = "microbiome")
 
-  phylogeny.info <- read.profiling(level = "phylogeny.info", data.dir = data.directory)
+  phylogeny.info <- read.profiling(level = "phylogeny.info", data.dir = data.directory)[, 1:6]
 
   oligo.matrix.nolog.simulated <- read.profiling(level = "oligo", data.dir = data.directory, log10 = FALSE)
 
