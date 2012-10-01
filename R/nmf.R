@@ -156,7 +156,9 @@ deconvolution.nonneg <- function(oligo.data, phylogeny.info, level, block.soluti
 
    # oligos x phylotypes mixing matrix for the given level
    M <- mixingMatrix(phylogeny.info, level)
-   M <- M[rownames(oligo.data), ]
+   coms <- intersect(rownames(oligo.data), rownames(M))
+   M <- M[coms, ]  
+   oligo.data <- oligo.data[coms, ]
 
    # least squares solution, may contain negative values.
    # H = solve(t(M) %*% M, t(M) %*% dd$Simulated)

@@ -1420,6 +1420,8 @@ threshold.data <- function(dat, sd.times = 6){
 
 summarize.probesets <- function (phylogeny.info, oligo.data, method, level, verbose = TRUE, rm.phylotypes = NULL) {
 
+  # oligo.data <- log10(oligo.matrix.nolog.simulated); verbose = T; rm.phylotypes = NULL
+
   # phylogeny.info; oligo.data; method; level; rm.phylotypes = rm.phylotypes; verbose = TRUE
 
   # If remove L0 is not NULL, then add L1 groups under this group to removal list
