@@ -13,6 +13,59 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
+
+#' Center data matrix.
+#' 
+#' Center data matrix to 0 for each variable by removing the means.
+#' 
+#' 
+#' @usage centerData(X, rm.na = TRUE, meanvalue = NULL)
+#' @param X The data set: samples x features. Each feature will be centered.
+#' @param rm.na Ignore NAs.
+#' @param meanvalue Can be used to set a desired center value. The default is
+#' 0.
+#' @return Centered data matrix.
+#' @note Note that the model assumes samples x features matrix, and centers
+#' each feature.
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @references See citation("microbiome").
+#' @keywords utilities maths
+#' @export
+#' @examples
+#' 
+#' #centerData(X)
+#' 
+centerData <- function (X, rm.na = TRUE, meanvalue = NULL) {
+
+  # Shift data matrix (columns) to zero, or given 'meanvalue'
+  
+  if (!rm.na) {
+    xcenter <- colMeans(X)
+    X2 <- X - rep(xcenter, rep.int(nrow(X), ncol(X)))
+  } else {	
+    X2 <- array(NA, dim = c(nrow(X), ncol(X)), dimnames = dimnames(X))
+    for (i in 1:ncol(X)) {
+      x <- X[,i]
+      nainds <- is.na(x)
+      xmean <- mean(x[!nainds])
+      X2[!nainds,i] <- x[!nainds] - xmean 	
+    }
+    dimnames(X2) <- dimnames(X)
+  }
+
+  if (!is.null(meanvalue)) {
+    # Shift the data so that mean gets a specified value
+    X2 <- X2 + meanvalue
+  }
+
+
+  
+  X2
+}
+
+
+
+
 #' matrix.qvalue
 #'
 #' Calculate qvalues for a matrix of pvalues which may contain missing values.

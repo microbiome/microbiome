@@ -34,6 +34,8 @@ GenerateSimulatedData <- function (output.dir) {
   phylogeny.info <- read.profiling(level = "phylogeny.info", data.dir = data.directory)[, 1:6]
 
   oligo.matrix.nolog.simulated <- read.profiling(level = "oligo", data.dir = data.directory, log10 = FALSE)
+  N <- ncol(oligo.matrix.nolog.simulated)
+  colnames(oligo.matrix.nolog.simulated) <- paste("Sample.", 1:N, sep = "")
 
   # Oligo summarization
   finaldata <- list()
@@ -56,10 +58,6 @@ GenerateSimulatedData <- function (output.dir) {
   outd <- WriteChipData(finaldata, output.dir, phylogeny.info)
 
   set.seed(344)
-  N <- ncol(oligo.matrix.nolog.simulated)
-  s <- colnames(oligo.matrix.nolog.simulated)
-  colnames(oligo.matrix.nolog.simulated) <- paste("Sample-", 1:N, sep = "")
-
   metadata.simulated <- data.frame(list(
               sampleID = I(colnames(oligo.matrix.nolog.simulated)),
 	      time = rep(1:4, 5),
