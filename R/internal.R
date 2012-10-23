@@ -1141,6 +1141,9 @@ oligo.bg.correction <- function (d.oligo2, bgc.method) {
 
 ScaleProfile <- function (dat, method = 'minmax', bg.adjust = NULL, minmax.quantiles = c(0.005, 0.995), minmax.points = NULL) {
 
+  # d.scaled <- ScaleProfile(fdat.orig, params$normalization, bg.adjust = NULL, minmax.points = params$minmax.points) 
+  # dat <- fdat.orig; method = params$normalization; bg.adjust = NULL; minmax.quantiles = c(0.005, 0.995); minmax.points = NULL
+
   message(paste("Normalizing with", method))
   
   ## Table dat is a copy of featuretab containing 
@@ -1152,15 +1155,15 @@ ScaleProfile <- function (dat, method = 'minmax', bg.adjust = NULL, minmax.quant
   } else if (method=='minmax.robust') {
     r <- scaling.minmax(dat, quantile.points = minmax.quantiles, minmax.points = minmax.points, robust = TRUE)
   } else if (method=='quantile') {
-    dn <- dimnames(r)
-    r <- normalize.quantiles(r)
+    dn <- dimnames(dat)
+    r <- normalize.quantiles(dat)
     dimnames(r) <- dn
   } else if (method=='normExpQuant') {
     ## Impute NA's with sample medians
-    na.inds <- which(is.na(r), arr.ind=T)
-    r <- apply(r,2,function(x){x[is.na(x)] <- median(x, na.rm=T); return(x)})
+    na.inds <- which(is.na(dat), arr.ind=T)
+    r <- apply(dat, 2, function(x){x[is.na(x)] <- median(x, na.rm=T); return(x)})
+    dn <- dimnames(dat)
     rc <- apply(10^(r), 2, bg.adjust)
-    dn <- dimnames(r)
     r <- normalize.quantiles(log10(rc+1))
     dimnames(r) <- dn
     r[na.inds] <- NA
