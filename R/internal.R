@@ -800,8 +800,9 @@ WriteChipData <- function (finaldata, output.dir, phylogeny.info, verbose = TRUE
 
   ## Write oligo specificity at species level (the number of species for the oligo targets)
   fname <- paste(output.dir, "/phylogeny.tab", sep = "")
-  nSpeciesPerOligo <- sapply(split(phylogeny.info, phylogeny.info$oligoID), function(x) length(unique(x$species)))
-  WriteMatrix(cbind(phylogeny.info, nSpeciesPerOligo = nSpeciesPerOligo[phylogeny.info$oligoID]), fname, verbose)
+  #nSpeciesPerOligo <- sapply(split(phylogeny.info, phylogeny.info$oligoID), function(x) length(unique(x$species)))
+  #WriteMatrix(cbind(phylogeny.info, nSpeciesPerOligo = nSpeciesPerOligo[phylogeny.info$oligoID]), fname, verbose)
+  WriteMatrix(phylogeny.info, fname, verbose)
 
   # Return path to the output directory 
   output.dir
@@ -1150,7 +1151,7 @@ ScaleProfile <- function (dat, method = 'minmax', bg.adjust = NULL, minmax.quant
     r <- scaling.minmax(dat, quantile.points = minmax.quantiles, minmax.points = minmax.points, robust = FALSE)
   } else if (method=='minmax.robust') {
     r <- scaling.minmax(dat, quantile.points = minmax.quantiles, minmax.points = minmax.points, robust = TRUE)
-  } else if (method=='quant') {
+  } else if (method=='quantile') {
     dn <- dimnames(r)
     r <- normalize.quantiles(r)
     dimnames(r) <- dn
@@ -1419,6 +1420,8 @@ threshold.data <- function(dat, sd.times = 6){
 #' @keywords utilities
 
 summarize.probesets <- function (phylogeny.info, oligo.data, method, level, verbose = TRUE, rm.phylotypes = NULL) {
+
+  # oligo.data <- log10(oligo.matrix.nolog.simulated); verbose = T; rm.phylotypes = NULL
 
   # phylogeny.info; oligo.data; method; level; rm.phylotypes = rm.phylotypes; verbose = TRUE
 

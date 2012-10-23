@@ -150,7 +150,7 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
 
   # annot <- metadata.df; dat <- t(genus.matrix); method = "pearson"; qth = NULL; cth = NULL; order = FALSE; n.signif = 0; verbose = TRUE; mode = "matrix"
 
-  # annot <- atlas.meta; order = TRUE; method = "spearman"; qth = NULL; cth = NULL; n.signif = 0; mode = "table"
+  # annot <- meta[sample.set,]; dat <- t(ds[, sample.set]); method = cor.method; qth = NULL; cth = NULL; order = FALSE; n.signif = 0; mode = "table"
 
   x <- as.data.frame(annot) # numeric or discrete
   y <- dat # numeric
@@ -165,7 +165,6 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
   categorical.methods <- c("categorical")
 
   # Rows paired.
-
   if (method %in% numeric.methods) {
     inds <- sapply(x, is.numeric) 
     if (any(!inds)) {
@@ -196,7 +195,16 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
   if (method %in% c("pearson", "spearman")) {
 
     for (j in 1:ncol(y)){
-      jc <- apply(x, 2, function (xi) { res <- cor.test(xi, y[, j], method = method, use = "pairwise.complete.obs"); c(res$estimate, res$p.value) })
+      jc <- apply(x, 2, function (xi) { 
+        if (sum(!is.na(xi)) > 10) {
+          res <- cor.test(xi, y[, j], method = method, use = "pairwise.complete.obs"); 
+	  res <- c(res$estimate, res$p.value)	   
+	} else {
+	  warning("Not enough observations; skipping correlation estimation")
+	  res <- c(NA, NA)
+        }
+	res
+      })
   
       Cc[,j] <- jc[1,]        
       Pc[,j] <- jc[2,]        
@@ -261,13 +269,18 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
        qv <- matrix.qvalue(Pc)
      } else {
        warning("Too few p-values available, q-value calculation skipped-")
-       qv <- NULL
+       qv <- array(NA, dim = dim(Pc))
      }
 
   }
 
    # Filter
    if (!is.null(qth) || !is.null(cth)) {
+
+     # Replace NAs with extreme values for filtering purposes
+     qv[is.na(qv)] <- 1
+     Pc[is.na(qv)] <- 1
+     Cc[is.na(Cc)] <- 0
 
      # Filter by qvalues and correlations
      inds1.q <- inds2.q <- inds1.c <- inds2.c <- NULL
