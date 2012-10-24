@@ -1239,6 +1239,9 @@ WriteMatrix <- function (dat, filename, verbose = FALSE) {
 
 preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = TRUE) {
 
+  # dbuser = "pit"; dbpwd = "passu"; dbname = "pitchipdb"; mc.cores = 1; verbose = TRUE
+  # dbuser = "pit"; dbpwd = "passu"; dbname = "Phyloarray_PIT"; mc.cores = 1; verbose = TRUE
+
   if (!require(RMySQL)) {
     install.packages("RMySQL")
     require(RMySQL)
@@ -1300,7 +1303,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   # This handles also pmTm, complement and mismatch filtering
   phylogeny.info <- get.phylogeny.info(params$phylogeny, 
     	       		     rmoligos = params$rm.phylotypes$oligos, 
-	    		     dbuser, dbpwd, dbname, verbose = verbose, 
+	    		     dbuser = dbuser, dbpwd = dbpwd, dbname = dbname, verbose = verbose, 
 			     remove.nonspecific.oligos = params$remove.nonspecific.oligos, 
 			     chip = params$chip)
 			     

@@ -2,12 +2,21 @@
 \alias{createCore}
 \title{createCore}
 \usage{
-  createCore(data, I.thr = 1.8)
+  createCore(data, I.thr = 0, verbose = FALSE,
+    prevalence.intervals = NULL, intensity.intervals = 20)
 }
 \arguments{
-  \item{data}{data matrix}
+  \item{data}{data matrix; phylotypes vs. samples}
 
-  \item{I.thr}{core threshold
+  \item{I.thr}{core threshold}
+
+  \item{verbose}{verbose}
+
+  \item{prevalence.intervals}{number of bins on the
+  prevalence grid}
+
+  \item{intensity.intervals}{number of bins on the
+  intensity grid
 
   Returns:}
 }
@@ -24,7 +33,7 @@
 # core <- createCore(L2.matrix)
 }
 \author{
-  Contact: Leo Lahti
+  Contact: Jarkko Salojarvi
   \email{microbiome-admin@googlegroups.com}
 }
 \references{

@@ -5,7 +5,7 @@
   core.which(data, intTr, prevalenceTr)
 }
 \arguments{
-  \item{data}{data}
+  \item{data}{data matrix; phylotypes vs. samples}
 
   \item{intTr}{intTr}
 

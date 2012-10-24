@@ -2,12 +2,15 @@
 \alias{Core3D}
 \title{Core3D}
 \usage{
-  Core3D(coreMat, title = "Abundance core")
+  Core3D(coreMat, title = "Core microbiota",
+    cex.axis = 0.7)
 }
 \arguments{
   \item{coreMat}{core matrix}
 
-  \item{title}{title
+  \item{title}{title}
+
+  \item{cex.axis}{axis text size
 
   Returns:}
 }
