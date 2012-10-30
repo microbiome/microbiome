@@ -136,6 +136,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
 #'   @param order order the results
 #'   @param n.signif mininum number of significant correlations for each element
 #'   @param mode Specify the output format ("table" or "matrix")
+#'   @param qvalues calculate qvalues
 #'
 #' Returns:
 #'   @return List with cor, pval, qval
@@ -146,11 +147,12 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NULL, order = FALSE, n.signif = 0, mode = "table"){
+cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NULL, order = FALSE, n.signif = 0, mode = "table", qvalues = TRUE){
 
   # annot <- metadata.df; dat <- t(genus.matrix); method = "pearson"; qth = NULL; cth = NULL; order = FALSE; n.signif = 0; verbose = TRUE; mode = "matrix"
 
-  # annot <- meta[sample.set,]; dat <- t(ds[, sample.set]); method = cor.method; qth = NULL; cth = NULL; order = FALSE; n.signif = 0; mode = "table"
+  # annot <- meta[sample.set,]; dat <- t(ds[, sample.set]); method = cor.method; qth = NULL; cth = NULL; order = FALSE; n.signif = 0; mode = "table";qvalues = FALSE
+  # meta[sample.set,], t(ds[, sample.set]), method = cor.method
 
   x <- as.data.frame(annot) # numeric or discrete
   y <- dat # numeric
@@ -265,11 +267,11 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
      colnames(Cc) <- ynames
 
      # Corrected p-values
-     if ((prod(dim(Pc)) - sum(is.na(Pc))) >= 100) {
+     qv <- array(NA, dim = dim(Pc))
+     if (qvalues && ((prod(dim(Pc)) - sum(is.na(Pc))) >= 100)) {
        qv <- matrix.qvalue(Pc)
      } else {
        warning("Too few p-values available, q-value calculation skipped-")
-       qv <- array(NA, dim = dim(Pc))
      }
 
   }
@@ -345,7 +347,11 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
     }
    }
 
-   res <- list(cor = Cc, pval = Pc, qval = qv)
+   if (qvalues) {
+     res <- list(cor = Cc, pval = Pc, qval = qv)
+   } else {
+     res <- list(cor = Cc, pval = Pc, qval = NULL)
+   }
 
    if (mode == "matrix") {
      return(res)     
@@ -363,8 +369,10 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
        ctab <- esort(ctab, qvalue, -abs(correlation))
        colnames(ctab) <- c("X1", "X2", method, "qvalue")
      } else {
+       ctab <- cbind(ctab, melt(res$pval)$value)
+       #colnames(ctab) <- c("X1", "X2", method, "pvalue")
        ctab <- esort(ctab, -abs(correlation))
-       colnames(ctab) <- c("X1", "X2", method)
+       colnames(ctab) <- c("X1", "X2", method, "pvalue")
      }
 
      return(ctab)

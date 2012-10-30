@@ -4,7 +4,7 @@
 \usage{
   cross.correlate(annot, dat, method = "pearson",
     qth = NULL, cth = NULL, order = FALSE, n.signif = 0,
-    mode = "table")
+    mode = "table", qvalues = TRUE)
 }
 \arguments{
   \item{annot}{annotation matrix: samples x features}
@@ -24,7 +24,9 @@
   correlations for each element}
 
   \item{mode}{Specify the output format ("table" or
-  "matrix")
+  "matrix")}
+
+  \item{qvalues}{calculate qvalues
 
   Returns:}
 }

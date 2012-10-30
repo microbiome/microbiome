@@ -117,7 +117,7 @@ matrix.qvalue <- function (pvals) {
   pvec <- as.vector(pvals)
   nai <- is.na(pvec);
   qvec <- rep(NA, length(pvec))
-  qvec[!nai] <- qvalue::qvalue(pvec[!nai])$qvalue
+  qvec[!nai] <- qvalue::qvalue(pvec[!nai], pi0.method = "bootstrap")$qvalue
   qmat <- matrix(qvec, nrow = nrow(pvals))
   dimnames(qmat) <- dimnames(pvals)
   qmat
