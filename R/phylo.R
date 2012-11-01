@@ -12,6 +12,43 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+#' GetPhylogeny
+#' 
+#' Description: Get Chip phylogeny
+#'
+#' Arguments:
+#'   @param chip chip type (e.g. "HITChip")
+#'
+#' Returns:
+#'   @return phylogeny mapping table
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+GetPhylogeny <- function (chip) {
+
+  #GetPhylogeny <- function (chip, remove.nonspecific.oligos = FALSE, dbuser = NULL, dbpwd = NULL, dbname = NULL, phylogeny = "16S") {
+  if (chip == "HITChip") {
+    phylogeny.info <- read.profiling(level = "phylogeny.info", data.dir = system.file("extdata", package = "microbiome"))
+  } else {
+    message(paste("GetPhylogeny not implemented for", chip))
+    phylogeny.info <- NULL
+  }
+
+  # rm.oligos <- phylotype.rm.list(chip)$oligos # List oligos and phylotypes to remove by default
+  # phylogeny.info <- get.phylogeny.info(phylogeny, 
+  #  	       		     rmoligos = rm.oligos, 
+  #	    		     dbuser = dbuser, dbpwd = dbpwd, dbname = dbname, 
+  #			     remove.nonspecific.oligos = remove.nonspecific.oligos, 
+  #			     chip = chip)
+
+  phylogeny.info
+
+}
+
+
 
 #' levelmap
 #' 

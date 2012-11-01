@@ -13,6 +13,39 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
+#' PhylotypeRatios
+#'
+#' Calculate phylotype ratios (eg. Bacteroides vs. Prevotella etc.) for a given
+#' phylotypes vs. samples matrix
+#'
+#' @param dat phylotypes vs. samples data matrix in log10 scale
+#'
+#' @return phylotype pairs x samples matrix indicating the ratio (in log10 domain) between each unique pair
+#' @export 
+#' @references
+#' See citation("microbiome")
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @examples #
+#' @keywords utilities
+
+PhylotypeRatios <- function (dat) {
+
+  phylogroups <- rownames(dat)
+  Nratios <- (length(phylogroups)^2 - length(phylogroups))/2
+  Nsamples <- ncol(dat)
+  ratios <- list()
+  for (i in 1:(length(phylogroups)-1)) {
+    for (j in (i+1):length(phylogroups)) {
+      pt1 <- phylogroups[[i]]
+      pt2 <- phylogroups[[j]]
+      ratios[[paste(pt1, pt2, sep = "-")]] <- dat[pt1,] - dat[pt2,]
+    } 
+  }
+  ratios <- do.call(cbind, ratios)
+
+  t(ratios)
+}
+
 
 #' Center data matrix.
 #' 
@@ -64,8 +97,6 @@ centerData <- function (X, rm.na = TRUE, meanvalue = NULL) {
 }
 
 
-
-
 #' matrix.qvalue
 #'
 #' Calculate qvalues for a matrix of pvalues which may contain missing values.
@@ -86,7 +117,7 @@ matrix.qvalue <- function (pvals) {
   pvec <- as.vector(pvals)
   nai <- is.na(pvec);
   qvec <- rep(NA, length(pvec))
-  qvec[!nai] <- qvalue::qvalue(pvec[!nai])$qvalue
+  qvec[!nai] <- qvalue::qvalue(pvec[!nai], pi0.method = "bootstrap")$qvalue
   qmat <- matrix(qvec, nrow = nrow(pvals))
   dimnames(qmat) <- dimnames(pvals)
   qmat

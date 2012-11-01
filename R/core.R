@@ -16,7 +16,7 @@
 #' Description: core.sum
 #'
 #' Arguments:
-#'   @param data data
+#'   @param data data matrix; phylotypes vs. samples
 #'   @param intTr intTr
 #'   @param prevalenceTr prevalenceTr
 #'
@@ -28,16 +28,16 @@
 #' @keywords utilities
 
 core.sum <- function(data, intTr, prevalenceTr){
-  d.bin <- data>=intTr
+  d.bin <- data>intTr
   prevalences <- rowSums(d.bin)
-  nOTUs <- sum(prevalences>=prevalenceTr)# jos haluat titetää lajit, älä summaa!
+  nOTUs <- sum(prevalences>=prevalenceTr) # jos haluat tietaa lajit, ala summaa!
   return(nOTUs)
 }
 
 #' Description: core.which
 #'
 #' Arguments:
-#'   @param data data
+#'   @param data data matrix; phylotypes vs. samples
 #'   @param intTr intTr
 #'   @param prevalenceTr prevalenceTr
 #'
@@ -62,8 +62,11 @@ core.which <- function(data, intTr, prevalenceTr){
 #' Description: create coreMatrix 
 #'
 #' Arguments:
-#'   @param data data matrix
+#'   @param data data matrix; phylotypes vs. samples
 #'   @param I.thr core threshold
+#'   @param verbose verbose
+#'   @param prevalence.intervals number of bins on the prevalence grid
+#'   @param intensity.intervals number of bins on the intensity grid
 #'
 #' Returns:
 #'   @return TBA
@@ -73,22 +76,25 @@ core.which <- function(data, intTr, prevalenceTr){
 #' @export 
 #' 
 #' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-createCore <- function(data, I.thr = 1.8) {
+createCore <- function(data, I.thr = 0, verbose = FALSE, prevalence.intervals = NULL, intensity.intervals = 20) {
 
    ## Prevalence vector
-   p.seq <- 1:ncol(data)
+   if (is.null(prevalence.intervals)) {prevalence.intervals <- ncol(data)}
+   p.seq <- seq(1, ncol(data), length = prevalence.intervals)
 
    #intensity vector
-   #for TR set the min to static 1.8 
-   i.seq <- seq(I.thr, max(data), 0.08) 
+   i.seq <- seq(I.thr, max(data), length = intensity.intervals) 
 
-   coreMat <- matrix(,nrow = length(i.seq), ncol = length(p.seq), dimnames = list(i.seq, p.seq))
+   coreMat <- matrix(NA, nrow = length(i.seq), ncol = length(p.seq), dimnames = list(i.seq, p.seq))
 
+   n <- length(i.seq)*length(p.seq)
+   cnt <- 0
    for(i in i.seq){
      for(p in p.seq){
+       if (verbose) {cnt <- cnt + 1; message(cnt/n)}
        coreMat[as.character(i),as.character(p)] <- core.sum(data, i, p)
      }
    }
@@ -105,6 +111,7 @@ createCore <- function(data, I.thr = 1.8) {
 #' Arguments:
 #'  @param coreMat core matrix
 #'  @param title title
+#'  @param cex.axis axis text size
 #'
 #' Returns:
 #'  @return Used for its side effects
@@ -115,11 +122,18 @@ createCore <- function(data, I.thr = 1.8) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-Core3D <- function(coreMat, title = "Abundance core"){
+Core3D <- function(coreMat, title = "Core microbiota", cex.axis = 0.7){
 
   MinimumPrevalence <- as.numeric(colnames(coreMat))
   MinimumLogIntensity <- as.numeric(rownames(coreMat))
-  tmp <- persp(MinimumLogIntensity, MinimumPrevalence, coreMat, theta=60, phi=5, main=title, col="light blue", axes=T, ticktype="detailed", nticks=9, shade = 0.58,cex.axis=0.5)
+  tmp <- persp(MinimumLogIntensity, MinimumPrevalence, coreMat, 
+      	       theta = 60, phi = 5, 
+	       main=title, 
+	       col="light blue", 
+	       axes=T, ticktype="detailed", nticks=9, 
+	       shade = 0.58, 	    
+	       cex.axis = cex.axis, 
+	       ylab = "Minimum Prevalence", xlab = "Minimum Log Intensity", zlab = "Core Size")
 
   return(NULL)
 

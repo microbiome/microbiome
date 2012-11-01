@@ -670,21 +670,28 @@ PhyloPlot <- function (vec, max.responses = 8, mixture.method = "bic", bic.thres
   	
   require(netresponse)
 
-  model <- detect.responses(matrix(vec),
+  if (sd(vec) > 0) {
+
+    model <- detect.responses(matrix(vec),
 			      max.subnet.size = 1, 
 			      max.responses = max.responses, 
 			      mixture.method = mixture.method, 
 			      bic.threshold = bic.threshold)
 
-  theme_set(theme_bw(20))			      
+    theme_set(theme_bw(20))			      
 
-  pg <- PlotMixtureUnivariate(as.vector(vec), 
+    pg <- PlotMixtureUnivariate(as.vector(vec), 
      			      as.vector(model@models[[1]]$mu), 
 			      as.vector(model@models[[1]]$sd), 
 			      as.vector(model@models[[1]]$w), 
 			      title.text = title.text, 
 			      xlab.text = xlab.text, 
 			      ylab.text = ylab.text) 
+  } else {
+    pg <- ggplot2::qplot(1)
+    model <- NULL
+  }
+
 
   list(plot = pg, model = model)
  

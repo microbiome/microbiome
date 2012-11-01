@@ -1,8 +1,9 @@
 microbiome
 ==========
 
-microbiome R package - experimental beta release ([home
-page](http://microbiome.github.com))
+microbiome R package - beta development version  
+
+[Home page](http://microbiome.github.com)  
 
 Check the [wiki](https://github.com/microbiome/microbiome/wiki) for
 installation instructions & usage examples.
