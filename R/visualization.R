@@ -51,15 +51,16 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
 
   IV <- all.vars(formula)[2]
   DV <- all.vars(formula)[1]
-  data <- na.omit(data[order(data[, IV]), c(IV, DV)])
+  data <- na.omit(data[order(data[, IV]), c(IV, DV)]) 
   if (bw) palette <- colorRampPalette(c("#EEEEEE", "#999999", "#333333"), bias=2)(20)
   message("Computing boostrapped smoothers ...")
 
   newx <- data.frame(seq(min(data[, IV]), max(data[, IV]), length=slices))
   colnames(newx) <- IV
   l0.boot <- matrix(NA, nrow=nrow(newx), ncol=B)
+
   l0 <- method(formula, data)
-  
+
   for (i in 1:B) {
     data2 <- data[sample(nrow(data), replace=TRUE), ]
     data2 <- data2[order(data2[, IV]), ]
@@ -166,13 +167,14 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
   	  p1 <- p1 + geom_path(data=CI.boot, aes(x=x, y=LL, group=B), size=1, color="red")
 	}
 
-	# plain linear regression line
-	if (show.lm) {p1 <- p1 + geom_smooth(method="lm", color="darkgreen", se=FALSE)}
-  	  p1 <- p1 + geom_point(size=1, shape=21, fill="white", color="black")
+  # plain linear regression line
+  if (show.lm) {p1 <- p1 + geom_smooth(method="lm", color="darkgreen", se=FALSE)}
 
-	  if (title != "") {
-  	    p1 <- p1 + opts(title=title)
-	  }
+  p1 <- p1 + geom_point(size=1, shape=21, fill="white", color="black")
+
+  if (title != "") {
+    p1 <- p1 + opts(title=title)
+  }
 
   p1  + opts(legend.position="none")
 

@@ -5,13 +5,13 @@ based on the Visually-Weighted Regression by Solomon M. Hsiang; see
 http://www.fight-entropy.com/2012/07/visually-weighted-regression.html
 The R implementation is based on Felix Schönbrodt's code (under MIT/FreeBSD license) from http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/}
 \usage{
-  vwReg(formula, data, B = 1000, shade = TRUE,
-    spag = FALSE, mweight = TRUE, show.lm = FALSE,
-    show.CI = FALSE)
-
-  vwReg(formula, data, B = 1000, shade = TRUE,
-    spag = FALSE, mweight = TRUE, show.lm = FALSE,
-    show.CI = FALSE)
+  vwReg(formula, data, title = "", B = 1000, shade = TRUE,
+    shade.alpha = 0.1, spag = FALSE, mweight = TRUE,
+    show.lm = FALSE, show.median = TRUE,
+    median.col = "white", show.CI = FALSE, method = loess,
+    bw = FALSE, slices = 200,
+    palette = colorRampPalette(c("#FFEDA0", "#DD0000"), bias = 2)(20),
+    ylim = NULL, quantize = "continuous", ...)
 }
 \arguments{
   \item{formula}{formula}
@@ -65,48 +65,19 @@ The R implementation is based on Felix Schönbrodt's code (under MIT/FreeBSD lic
   or "family = 'symmetric'"
 
   Returns:}
-
-  \item{formula}{formula}
-
-  \item{data}{data}
-
-  \item{B}{number bootstrapped smoothers}
-
-  \item{shade:}{plot the shaded confidence region?}
-
-  \item{spag:}{plot spaghetti lines?}
-
-  \item{mweight:}{should the median smoother be visually
-  weighted?}
-
-  \item{show.lm:}{should the linear regresison line be
-  plotted?}
-
-  \item{show.CI:}{should the 95% CI limits be plotted?
-
-  Returns:}
 }
 \value{
   ggplot2 object
-
-  ggplot2 object
 }
 \description{
-  Arguments:
-
   Arguments:
 }
 \author{
   Based on the original version from Felix Schönbrodt.
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}
-
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
-
   See citation("microbiome")
 }
 \keyword{utilities}
