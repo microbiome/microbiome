@@ -38,6 +38,7 @@
 #' @param ylim restrict range of the watercoloring
 #' @param quantize either "continuous", or "SD". In the latter case, we get three color regions for 1, 2, and 3 SD (an idea of John Mashey)
 #' @param ... further parameters passed to the fitting function, in the case of loess, for example, "span = .9", or "family = 'symmetric'"
+#' @param verbose print information during execution
 #'
 #' Returns:
 #' @return ggplot2 object
@@ -47,13 +48,13 @@
 #' @author Based on the original version from Felix Schönbrodt. Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous",  ...) {
+vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous",  verbose = FALSE, ...) {
 
   IV <- all.vars(formula)[2]
   DV <- all.vars(formula)[1]
   data <- na.omit(data[order(data[, IV]), c(IV, DV)]) 
   if (bw) palette <- colorRampPalette(c("#EEEEEE", "#999999", "#333333"), bias=2)(20)
-  message("Computing boostrapped smoothers ...")
+  if (verbose) {message("Computing boostrapped smoothers ...")}
 
   newx <- data.frame(seq(min(data[, IV]), max(data[, IV]), length=slices))
   colnames(newx) <- IV
@@ -100,7 +101,7 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
 
         if (quantize == "continuous") {
 
-	  message("Computing density estimates for each vertical cut ...")
+	  if (verbose) {message("Computing density estimates for each vertical cut ...")}
 	  flush.console()
   	    if (is.null(ylim)) {
 	      min_value <- min(min(l0.boot, na.rm=TRUE), min(data[, DV], na.rm=TRUE))
@@ -147,7 +148,7 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
 	  }
 	}	  
 
-	message("Build ggplot figure ...")
+	if (verbose) {message("Build ggplot figure ...")}
 	flush.console()
 	if (spag) {
 	  p1 <- p1 + geom_path(data=b2, aes(x=x, y=value, group=B), size=0.7, alpha=10/B, color="darkblue")
@@ -669,7 +670,7 @@ PlotPhylochipHeatmap <- function (data,
 
 PhyloPlot <- function (vec, max.responses = 8, mixture.method = "bic", bic.threshold = 0, title.text = NULL, xlab.text = NULL, ylab.text = "Frequency") {
   	
-  # vec <- atlas[[level]][[method]][phylogroup, sample.set]; max.responses <- 8; mixture.method <- "bic"; bic.threshold <- 0; title.text = paste(phylogroup, sample.group, sep = " / "); xlab.text = "HITChip"; ylab.text = "Frequency"
+  require(netresponse)
 
   if (sd(vec) > 0) {
 

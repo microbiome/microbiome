@@ -13,9 +13,9 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-#' Description: Computes the given lme model for each variable (row) in the given data frame
-#'      Designed for HITchip matrices, but is applicable to any other matrix also.
-#'      NOTE: does not take log automatically!
+#' Description: Computes the given lme model for each variable (row) in 
+#' the given data frame Designed for HITchip matrices, but is applicable 
+#' to other matrices, too. NOTE: does not take log automatically!
 #'
 #' Arguments:
 #'   @param fixed TBA
@@ -41,23 +41,20 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-lmeMatrix <- function(fixed, vars, d.matrix, d.info, random,
+lmeMatrix <- function(fixed, vars = NULL, d.matrix, d.info, random,
                         correlation = NULL, weights = NULL, subset, 
-			method = c("REML", "ML"),                                                                      
-                        na.action = na.fail, control = list(), contrasts = NULL,
+			method = c("REML", "ML"),      
+                        na.action = na.fail, 
+			control = list(), contrasts = NULL,
                         keep.data = TRUE) {
 
   ## initialize
-  vars <- rownames(d.matrix)
+  if (is.null(vars)) { vars <- rownames(d.matrix) }
+
   lmeMatrixRes <- list()
 
-  message("Computing lm for the following variables and data:\n")
-  print(vars)
-  print(str(d.info))
-  print(str(t(d.matrix)))
-  
   for(v in vars){
-    print(v)
+    message(v)
     data <- d.info
     data$y <- t(d.matrix[v,])
 
