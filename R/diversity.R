@@ -23,7 +23,8 @@
 #'   @param level.to lower taxonomic level used for the diversity calculations. Must correspond to the input data matrix argument 'dat'
 #'   @param diversity.index diversity index (shannon or invsimpson) 
 #'   @param det.th Optional detection threshold. 
-#'
+#'   @param min.probes Minimum number of probes for a phylotype
+#' 
 #' Returns:
 #'   @return Table with various richness, evenness, and diversity indicators
 #'
@@ -32,7 +33,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-diversity.table <- function (dat, phylogeny.info, level.from, level.to, diversity.index = "shannon", det.th = 0) {
+diversity.table <- function (dat, phylogeny.info, level.from, level.to, diversity.index = "shannon", det.th = 0, min.probes = 0) {
 
   if (level.to == "oligo") {level.to <- "oligoID"}		
   if (level.to == "level 1") {level.to <- "L1"}		
@@ -46,7 +47,11 @@ diversity.table <- function (dat, phylogeny.info, level.from, level.to, diversit
   }
 
   level.data <- levelmap(level.from = level.from, level.to = level.to, phylogeny.info = phylogeny.info)
-  		
+  
+  # Include only phylotypes with at leas min.probes
+  pts <- names(which(sapply(level.data, length) >= min.probes))
+  level.data <- level.data[pts]
+		
   tab <- array(NA, dim = c(length(level.data), ncol = ncol(dat)))		
   rownames(tab) <- names(level.data)
   colnames(tab) <- colnames(dat)

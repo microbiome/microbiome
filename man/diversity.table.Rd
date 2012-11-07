@@ -3,7 +3,8 @@
 \title{diversity.table}
 \usage{
   diversity.table(dat, phylogeny.info, level.from,
-    level.to, diversity.index = "shannon", det.th = 0)
+    level.to, diversity.index = "shannon", det.th = 0,
+    min.probes = 0)
 }
 \arguments{
   \item{dat}{data matrix (phylotypes x samples) in original
@@ -22,7 +23,10 @@
   \item{diversity.index}{diversity index (shannon or
   invsimpson)}
 
-  \item{det.th}{Optional detection threshold.
+  \item{det.th}{Optional detection threshold.}
+
+  \item{min.probes}{Minimum number of probes for a
+  phylotype
 
   Returns:}
 }
