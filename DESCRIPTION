@@ -20,7 +20,6 @@ Depends:
     methods,
     mixOmics,
     nlme,
-    NMF,
     outliers,
     plyr,
     preprocessCore,
