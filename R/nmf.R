@@ -29,7 +29,7 @@
 #' @keywords utilities
 
 count <- function(d){
-  sapply(unique(d),function(x) sum(d==x))
+   tabulate(d)
 }
 
 
@@ -131,11 +131,65 @@ mixingMatrix <- function(phylogeny.info, level){
 
 }
 
+#' Description: ngp: Non-negative probabilistic solution to probe mixing problem.
+#'
+#' Uses gamma prior to solve known cross-hybridisation problems. 
+#' Perfect probe targets are given in phylogeny.info data frame. 
+#'
+#' Arguments:
+#'   @param oligo.data oligo.data in absolute domain
+#'   @param phylogeny.info oligo - phylotype mapping data frame
+#'   @param level taxonomic level
+#'   @param lambda - stregth of gamma prior. Default: 0.001.
+#'   @param alpha - alpha parameter of gamma prior. Default: 1.
+#'   @param beta - beta parameter of gamma prior. Default: 1.
+#'
+#' Returns:
+#'   @return list
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
 
+ngp <- function(oligo.data, phylogeny.info, level, lambda=0.001, alpha=1,beta=1){
+
+   # oligos x phylotypes mixing matrix for the given level
+   M <- mixingMatrix(phylogeny.info, level)
+   coms <- intersect(rownames(oligo.data), rownames(M))
+   M <- M[coms, ]  
+   oligo.data <- oligo.data[coms, ]
+
+   # starting guess using pseudoinverse
+   require(MASS)
+   W=t(M)%*%M
+   X=t(oligo.data) %*% M
+   A=ginv(W)%*%t(X)
+   A[which(A<0)]=0
+
+   for (i in 1:ncol(oligo.data)){
+      Acol=A[,i]
+      for (j in 1:ncol(M)){  
+         a=2*W[j,j]
+         b=sum((W[j,-j]+W[-j,j])*Acol[-j])-2*X[i,j]-beta*lambda
+         c=lambda*(alpha-1)
+         if (a!=0){
+           D=b^2-4*a*c
+           if (D>0)
+             A[j,i]=max((-b+sqrt(D)),(-b-sqrt(D)))/(2*a)
+         }else
+            A[j,i]=-c/b
+     }
+   }
+   colnames(A) <- colnames(oligo.data)
+   rownames(A) <- colnames(M)
+   return(A)
+}
 
 #' Description: Deconvolution
 #'
-#' For cross-hyb control
+#' !OBSOLETE! Used nmf package (currently removed from CRAN) for solving cross-hyb problem.
+#' Calls function ngp with standard arguments (SEE: ngp).
 #'
 #' Arguments:
 #'   @param oligo.data oligo.data in absolute domain
@@ -150,58 +204,9 @@ mixingMatrix <- function(phylogeny.info, level){
 #' @references See citation("microbiome") 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-deconvolution.nonneg <- function(oligo.data, phylogeny.info, level, block.solution = T, verbose = FALSE){
 
-   require(NMF)
-
-   # oligos x phylotypes mixing matrix for the given level
-   M <- mixingMatrix(phylogeny.info, level)
-   coms <- intersect(rownames(oligo.data), rownames(M))
-   M <- M[coms, ]  
-   oligo.data <- oligo.data[coms, ]
-
-   # least squares solution, may contain negative values.
-   # H = solve(t(M) %*% M, t(M) %*% dd$Simulated)
-   # this is a faster version. (but not much)
-   # H.nonneg = NMF:::.fcnnls(t(M) %*% M,t(M) %*% oligo.data,pseudo=TRUE)
-
-   if (block.solution){
-
-     require(ggm)
-     A <- t(M) %*% M
-     B <- t(M) %*% oligo.data
-     H.nonneg <- matrix(0, ncol(M), ncol(oligo.data))
-
-     # non-connected ones
-     t1 <- which(rowSums(A>0) == 1)
-     H.nonneg[t1,] <- t(M[, t1] > 0) %*% oligo.data
-
-     # connected: divide into subsets
-     t2 <- setdiff(1:nrow(A), t1)
-
-     cmp.ndx <- conComp(A[t2, t2])
-
-     for (i in 1:max(cmp.ndx)){
-     
-       if (verbose) {message(i/max(cmp.ndx))}
-
-       i1 <- which(cmp.ndx == i)
-
-       if (length(i1)>1)
-         H.nonneg[t2[i1],] <- fcnnls(A[t2[i1],t2[i1]],B[t2[i1],], pseudo = TRUE)$x
-       else {
-         H.nonneg[t2[i1],] <- t(M[,t2[i1]]>0) %*% oligo.data
-       }
-     }
-   } else {
-     H.nonneg <- fcnnls(t(M) %*% M, t(M) %*% oligo.data, pseudo = TRUE)$x
-   }
-
-   colnames(H.nonneg) <- colnames(oligo.data)
-   rownames(H.nonneg) <- colnames(M)
-
-   return(H.nonneg)
-
+deconvolution.nonneg=function(oligo.data, phylogeny.info, level, block.solution = T,verbose=F,...){
+   ngp(oligo.data, phylogeny.info, level,...)
 }
 
 # --------------------------------------------------------------------
