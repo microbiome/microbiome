@@ -1,0 +1,39 @@
+\name{estimate.diversity}
+\alias{estimate.diversity}
+\title{estimate.diversity}
+\usage{
+  estimate.diversity(dat, diversity.index = "shannon",
+    det.th = NULL)
+}
+\arguments{
+  \item{dat}{data matrix (phylotypes x samples) in original
+  (non-log) scale}
+
+  \item{diversity.index}{diversity index (shannon or
+  invsimpson)}
+
+  \item{det.th}{detection threshold. Used for richness and
+  evenness estimation. Not used in diversity estimation.
+
+  Returns:}
+}
+\value{
+  Table with various richness, evenness, and diversity
+  indicators
+}
+\description{
+  Description: Estimate diversities for each sample
+  (column)
+}
+\details{
+  Arguments:
+}
+\author{
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
+}
+\references{
+  See citation("microbiome")
+}
+\keyword{utilities}
+

@@ -1,0 +1,46 @@
+\name{GKtau}
+\alias{GKtau}
+\title{Description: Measure association between nominal (no order for levels) variables
+using Goodman and Kruskal tau. Code modified from the original source:
+http://www.r-bloggers.com/measuring-associations-between-non-numeric-variables/
+An important feature of this procedure is that it allows missing
+values in either of the variables x or y, treating 'missing' as an
+additional level.  In practice, this is sometimes very important since
+missing values in one variable may be strongly associated with either
+missing values in another variable or specific non-missing levels of
+that variable. An important characteristic of Goodman and Kruskal's tau measure is
+its asymmetry: because the variables x and y enter this expression
+differently, the value of a(y,x) is not the same as the value of
+a(x, y), in general.  This stands in marked contrast to either the
+product-moment correlation coefficient or the Spearman rank
+correlation coefficient, which are both symmetric, giving the same
+association between x and y as that between y and x.  The fundamental
+reason for the asymmetry of the general class of measures defined
+above is that they quantify the extent to which the variable x is
+useful in predicting y, which may be very different than the extent to
+which the variable y is useful in predicting x.}
+\usage{
+  GKtau(x, y)
+}
+\arguments{
+  \item{x}{first variable}
+
+  \item{y}{second variable
+
+  Returns:}
+}
+\value{
+  List with correlations and a stability estimate
+}
+\description{
+  Arguments:
+}
+\author{
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
+}
+\references{
+  See citation("microbiome")
+}
+\keyword{utilities}
+

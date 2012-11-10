@@ -1,0 +1,50 @@
+\name{GetHclustParameters}
+\alias{GetHclustParameters}
+\title{GetHclustParameters}
+\usage{
+  GetHclustParameters(dat, data.dir, ppcm = 150,
+    hclust.method = "complete", pal = "white/blue",
+    lev = "L2", clmet = "Pearsons correlation coefficient",
+    tree.display = "yes", figureratio = 12, fontsize = 12)
+}
+\arguments{
+  \item{dat}{data matrix}
+
+  \item{data.dir}{data directory}
+
+  \item{ppcm}{plotting parameter}
+
+  \item{hclust.method}{hierarchical clustering method}
+
+  \item{pal}{color palette}
+
+  \item{lev}{phylogeny level}
+
+  \item{clmet}{clustering metrics}
+
+  \item{tree.display}{tree.display}
+
+  \item{figureratio}{figureratio}
+
+  \item{fontsize}{fontsize
+
+  Returns:}
+}
+\value{
+  plots the profile
+}
+\description{
+  Description: Read parameters for PROFILE PLOT FUNCTION
+}
+\details{
+  Arguments:
+}
+\author{
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
+}
+\references{
+  See citation("microbiome")
+}
+\keyword{utilities}
+
