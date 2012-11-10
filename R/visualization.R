@@ -16,7 +16,8 @@
 #' Description: Draw regression curve with smoothed error bars 
 #' based on the Visually-Weighted Regression by Solomon M. Hsiang; see
 #' http://www.fight-entropy.com/2012/07/visually-weighted-regression.html
-#' The R implementation is based on Felix Schönbrodt's code (under MIT/FreeBSD license) from http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/
+#' The R implementation is based on Felix Schonbrodt's code (under MIT/FreeBSD license) from 
+#' http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/
 #'
 #' Arguments:
 #' @param formula formula
@@ -49,6 +50,19 @@
 #' @keywords utilities
 
 vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous",  verbose = FALSE, ...) {
+
+  # Circumvent global variable binding warnings
+  x <- NA
+  y <- NA
+  dens.scaled <- NA
+  alpha.factor <- NA
+  value <- NA
+  group <- NA
+  M <- NA
+  w3 <- NA
+  UL <- NA
+  LL <- NA
+
 
   IV <- all.vars(formula)[2]
   DV <- all.vars(formula)[1]
@@ -465,7 +479,7 @@ htree.plot <- function (dat, method = "complete") {
 #' Arguments:
 #'   @param dat oligoprofile data in original (non-log) domain
 #'   @param output.dir output data directory
-#'   @param output.dir output file name
+#'   @param output.file output file name
 #'   @param phylogeny.info oligo-phylotype mappings
 #'   @param ppcm figure size
 #'   @param hclust.method hierarchical clustering method

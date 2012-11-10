@@ -50,9 +50,10 @@ distance.matrix <- function (x, method = "pearson", ...) {
 #'             
 #' Arguments:
 #'   @param dat data matrix (features x samples)
-#'   @param file data file  (if data matrix not provided) 
+#'   @param fnam data file  (if data matrix not provided) 
 #'   @param p.adjust.method p-value correction method for p.adjust function (default "BH"). If NULL, no correction will be performed.
 #'   @param sort sort the results
+#'
 #' Returns:
 #'   @return (Corrected) p-values for two-group comparison.
 #'

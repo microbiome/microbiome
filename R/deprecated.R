@@ -834,7 +834,6 @@ plotScatter <- function(sampleA, sampleB, d, cex=1){
 }
 
 
-
 #' Description: PCA function
 #'
 #' Arguments:

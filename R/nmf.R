@@ -34,8 +34,6 @@ count <- function(d){
 
 
 
-
-
 #' Description: summarize.oligos 
 #'
 #' Arguments:
@@ -162,6 +160,9 @@ ngp <- function(oligo.data, phylogeny.info, level, lambda=0.001, alpha=1,beta=1)
 #'   @param phylogeny.info oligo - phylotype mapping data frame
 #'   @param level taxonomic level
 #'   @param block.solution block.solution
+#'   @param verbose verbose
+#'   @param ... parameters to be passed to ngp function
+#'
 #'
 #' Returns:
 #'   @return list
@@ -171,9 +172,11 @@ ngp <- function(oligo.data, phylogeny.info, level, lambda=0.001, alpha=1,beta=1)
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-deconvolution.nonneg=function(oligo.data, phylogeny.info, level, block.solution = T,verbose=F,...){
+deconvolution.nonneg <- function(oligo.data, phylogeny.info, level, block.solution = T,verbose=F,...){
    ngp(oligo.data, phylogeny.info, level,...)
 }
 
 # --------------------------------------------------------------------
+
+
 

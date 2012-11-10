@@ -1136,6 +1136,9 @@ oligo.bg.correction <- function (d.oligo2, bgc.method) {
 #'   @param method normalization method
 #'   @param bg.adjust background adjustment 
 #'   @param minmax.quantiles quantiles for minmax
+#'   @param minmax.points minmax end points
+#'
+#'
 #' Returns:
 #'   @return Normalized data matrix in absolute scale
 #'
