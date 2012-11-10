@@ -46,7 +46,7 @@
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Based on the original version from Felix Schönbrodt. Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @author Based on the original version from Felix Schonbrodt. Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous",  verbose = FALSE, ...) {

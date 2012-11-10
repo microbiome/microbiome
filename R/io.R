@@ -22,7 +22,8 @@
 #'   @param method ("rpa" / "sum" / "ave" / "nmf")
 #'   @param data.dir Profiling script output directory for reading the data. If not given, GUI will ask to specify the file and overruns the possible level / method arguments in the function call.
 #'   @param log10 Logical. Logarithmize the data TRUE/FALSE. By default, the data is in original non-log scale.
-#'
+#'   @param impute impute missing oligo signals
+#' 
 #' Returns:
 #'   @return data matrix (phylo x samples)
 #'
@@ -119,6 +120,7 @@ read.profiling <- function(level = NULL, method = "rpa", data.dir = NULL, log10 
 #'   @param method ("rpa" / "sum" / "ave" / "nmf")
 #'   @param data.dir Profiling script output directory for reading the data. If not given, GUI will ask to specify the file and overruns the possible level / method arguments in the function call.
 #'   @param log10 Logical. Logarithmize the data TRUE/FALSE. By default, the data is in original non-log scale.
+#'   @param impute impute missing oligo signals
 #'
 #' Returns:
 #'   @return data matrix (phylo x samples)

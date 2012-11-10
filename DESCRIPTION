@@ -18,6 +18,7 @@ Depends:
     limma,
     MASS,
     methods,
+    minet,
     mixOmics,
     nlme,
     outliers,

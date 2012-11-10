@@ -142,6 +142,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
 #' Returns:
 #'   @return List with cor, pval, qval
 #'
+#' @importFrom minet build.mim
 #' @export
 #'
 #' @references See citation("microbiome") 
@@ -410,20 +411,18 @@ calculate.stability <- function (dat) {
 
 
 
-#' Description: 
-#' Measure association between nominal (no order for levels) variables 
+#' Description: Measure association between nominal (no order for levels) variables 
 #' using Goodman and Kruskal tau. Code modified from the original source:
 #' http://www.r-bloggers.com/measuring-associations-between-non-numeric-variables/
 #' An important feature of this procedure is that it allows missing
-#' values in either of the variables x or y, treating “missing” as an
+#' values in either of the variables x or y, treating 'missing' as an
 #' additional level.  In practice, this is sometimes very important since
 #' missing values in one variable may be strongly associated with either
 #' missing values in another variable or specific non-missing levels of
-#' that variable.
-#' An important characteristic of Goodman and Kruskal’s tau measure is
+#' that variable. An important characteristic of Goodman and Kruskal's tau measure is
 #' its asymmetry: because the variables x and y enter this expression
 #' differently, the value of a(y,x) is not the same as the value of
-#' a(x,y), in general.  This stands in marked contrast to either the
+#' a(x, y), in general.  This stands in marked contrast to either the
 #' product-moment correlation coefficient or the Spearman rank
 #' correlation coefficient, which are both symmetric, giving the same
 #' association between x and y as that between y and x.  The fundamental
@@ -434,10 +433,10 @@ calculate.stability <- function (dat) {
 #'
 #' Arguments:
 #'   @param x first variable
-#'   @param y secondvariable
+#'   @param y second variable
 #'
 #' Returns:
-#'   @return List with correlations and astability estimate
+#'   @return List with correlations and a stability estimate
 #'
 #' @export
 #' @references See citation("microbiome") 

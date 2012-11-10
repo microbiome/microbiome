@@ -262,6 +262,8 @@ Phylogeneticenrichments <- function(x, phylogeny.info, origlevel = colnames(phyl
 #' Arguments:
 #'   @param phylogeny.info data.frame with oligo - phylotype mapping information
 #'   @param level phylotype level for probesets
+#'   @param name specify phylotypes to check (optional)
+#'
 #' Returns:
 #'   @return A list. Probes for each phylotype.
 #'
