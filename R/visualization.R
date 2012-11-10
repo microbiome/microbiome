@@ -687,6 +687,7 @@ PhyloPlot <- function (vec, max.responses = 8, mixture.method = "bic", bic.thres
   	
   if (!try(require(netresponse))) {
     message("Installing netresponse..")
+    biocLite <- NULL # warning circumvention
     source("http://www.bioconductor.org/biocLite.R")
     biocLite("netresponse")
     require(netresponse)

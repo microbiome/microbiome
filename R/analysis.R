@@ -143,6 +143,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
 #'   @return List with cor, pval, qval
 #'
 #' @importFrom minet build.mim
+#' @importFrom WGCNA bicorAndPvalue
 #' @export
 #'
 #' @references See citation("microbiome") 
@@ -217,7 +218,13 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
 
   } else if (method == "bicor") {
 
-    require(WGCNA)
+  
+    if (!try(require(WGCNA))) {
+      message("Installing WGCNA..")
+      install.packages("WGCNA")
+      require("WGCNA")
+    }
+
     t1 <- WGCNA::bicorAndPvalue(x, y, use = "pairwise.complete.obs")
     Pc <- t1$p
     Cc <- t1$bicor
@@ -248,7 +255,7 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
    } else if (method == "mi") {
     
       if (!try(require("minet"))) {
-        messsage("Installing minet..")
+        message("Installing minet..")
         install.packages("minet")
 	require(minet)
       }

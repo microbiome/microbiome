@@ -818,17 +818,19 @@ WriteChipData <- function (finaldata, output.dir, phylogeny.info, verbose = TRUE
 #'
 #' @references See citation("microbiome")
 #' @author Douwe Molenaar. Maintainer: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' importFrom svDialogs guiDlgDir
+#' importFrom svDialogs dir.create
 #' @examples # mydir <- chooseDir()
 #' @keywords utilities
 
 chooseDir <- function (...) {
   choice <- ''
   while (choice == '') {
-    choice <- guiDlgDir(dir = '', ...)
+    choice <- svDialogs::guiDlgDir(dir = '', ...)
   }
   # create if not exist
   if (!file.exists(choice)) {
-    dir.create(choice, recursive = TRUE)
+    svDialogs::dir.create(choice, recursive = TRUE)
   }
   return(choice)
 }

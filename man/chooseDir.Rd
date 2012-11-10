@@ -18,7 +18,8 @@
 }
 \author{
   Douwe Molenaar. Maintainer: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+  \email{microbiome-admin@googlegroups.com} importFrom
+  svDialogs guiDlgDir importFrom svDialogs dir.create
 }
 \references{
   See citation("microbiome")

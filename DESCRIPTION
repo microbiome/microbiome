@@ -26,12 +26,14 @@ Depends:
     plyr,
     preprocessCore,
     qvalue,
+    RColorBrewer,
     reshape2,
     R2HTML,
     RPA,
     svDialogs,
     tcltk,
-    vegan
+    vegan,
+    WGCNA
 URL: TBA
 LazyLoad: yes
 Collate:
