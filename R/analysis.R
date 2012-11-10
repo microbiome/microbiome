@@ -369,6 +369,7 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
        colnames(ctab) <- c("X1", "X2", "correlation")
      }
 
+     correlation <- NULL # circumwent warning on globabl vars
      if (!is.null(res$qval)) {
        ctab <- cbind(ctab, melt(res$qval)$value)
        colnames(ctab) <- c("X1", "X2", "correlation", "qvalue")
