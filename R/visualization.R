@@ -679,7 +679,7 @@ PhyloPlot <- function (vec, max.responses = 8, mixture.method = "bic", bic.thres
 
   if (sd(vec) > 0) {
 
-    model <- detect.responses(matrix(vec),
+    model <- netresponse::detect.responses(matrix(vec),
 			      max.subnet.size = 1, 
 			      max.responses = max.responses, 
 			      mixture.method = mixture.method, 
@@ -687,7 +687,7 @@ PhyloPlot <- function (vec, max.responses = 8, mixture.method = "bic", bic.thres
 
     theme_set(theme_bw(20))			      
 
-    pg <- PlotMixtureUnivariate(as.vector(vec), 
+    pg <- netresponse::PlotMixtureUnivariate(as.vector(vec), 
      			      as.vector(model@models[[1]]$mu), 
 			      as.vector(model@models[[1]]$sd), 
 			      as.vector(model@models[[1]]$w), 
