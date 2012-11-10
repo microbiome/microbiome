@@ -12,7 +12,41 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+#' Description: simulate.hitchip
+#'
+#' For cross-hyb control
+#'
+#' Arguments:
+#'   @param PH.i phylogeny.info
+#'   @param Ns Ns
+#'   @param level taxonomic level
+#'   @param N N
+#'
+#' Returns:
+#'   @return list
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
 
+simulate.hitchip <- function(PH.i, Ns, level = "L2", N = 5000){
+
+  oligo <- split(PH.i$oligoID,PH.i[, level])
+  oligo <- lapply(oligo,function(x) unique(as.character(x)))
+  oligos <- unique(as.character(PH.i$oligoID))
+  M <- matrix(0,length(oligos),Ns)
+  rownames(M) <- oligos
+  s.vec <- t(round(replicate(length(oligo),sapply(rnorm(Ns,mean=N,sd=N/4),function(y) max(y,1)))))
+  for (i in 1:Ns){
+    for (j in 1:nrow(s.vec)){
+      a <- count(sample(oligo[[j]],s.vec[j,i],replace=T))
+      M[names(a),i] <- M[names(a),i] + a
+   } 
+  }
+  rownames(s.vec) <- names(oligo)
+  list(Simulated = M[order(rownames(M)),], True = s.vec)
+}
 
 #' GetHclustParameters
 #'
