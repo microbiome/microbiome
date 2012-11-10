@@ -677,6 +677,7 @@ PlotPhylochipHeatmap <- function (data,
 #' Returns:
 #'   @return List: ggplot2 object and NetResponse model object
 #'
+#' @importFrom netresponse detect.responses
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

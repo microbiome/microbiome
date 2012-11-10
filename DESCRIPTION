@@ -20,6 +20,7 @@ Depends:
     methods,
     minet,
     mixOmics,
+    netresponse,
     nlme,
     outliers,
     plyr,
