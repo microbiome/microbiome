@@ -410,7 +410,7 @@ theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
 
 
 
-#' plot.htrees
+#' htree.plot
 #' Description: Plot hierarchical clustering for the input data in absolute
 #' and log10 scale using euclidean and pearson correlation similarities. 
 #' Intended for internal use in the run.profiling.script function. 
@@ -422,12 +422,12 @@ theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
 #'   @return NULL
 #'
 #' @export
-#' @examples # dat <- read.profiling(params$wdir, "species", "rpa"); tmp <- plot.htrees(dat)
+#' @examples # dat <- read.profiling(params$wdir, "species", "rpa"); tmp <- htree.plot(dat)
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-plot.htrees <- function (dat, method = "complete") {
+htree.plot <- function (dat, method = "complete") {
 
   # Plot CLUSTER TREES TO A GRAPHICS WINDOW
   # Euclidean & Correlation / Raw & Log10
@@ -670,7 +670,12 @@ PlotPhylochipHeatmap <- function (data,
 
 PhyloPlot <- function (vec, max.responses = 8, mixture.method = "bic", bic.threshold = 0, title.text = NULL, xlab.text = NULL, ylab.text = "Frequency") {
   	
-  require(netresponse)
+  if (!try(require(netresponse))) {
+    message("Installing netresponse..")
+    source("http://www.bioconductor.org/biocLite.R")
+    biocLite("netresponse")
+    require(netresponse)
+  }
 
   if (sd(vec) > 0) {
 

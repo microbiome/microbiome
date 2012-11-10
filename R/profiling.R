@@ -75,7 +75,7 @@ run.profiling.script <- function (dbuser, dbpwd, dbname, verbose = TRUE) {
   }
 
   # Plot hclust trees on screen
-  tmp <- plot.htrees(finaldata[["oligo"]])
+  tmp <- htree.plot(finaldata[["oligo"]])
 
   # Write parameters into log file
   tmp <- WriteLog(chipdata$naHybs, params)
