@@ -13,6 +13,22 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
+#' dir.exists
+#'
+#' @param d d
+#'
+#' @return logical
+#' @references
+#' See citation("microbiome")
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @examples #
+#' @keywords utilities
+dir.exists <- function(d) {
+  de <- file.info(d)$isdir
+  ifelse(is.na(de), FALSE, de)
+}
+
+
 #' PhylotypeRatios
 #'
 #' Calculate phylotype ratios (eg. Bacteroides vs. Prevotella etc.) for a given

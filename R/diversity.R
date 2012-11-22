@@ -144,10 +144,12 @@ diversity <- function (dat, diversity.index = "shannon", det.th = 0) {
   veganT <- require(vegan)
   if(!veganT) { install.packages("vegan") }
 
+  # impute missing values
+  dat <- 10^t(impute(t(log10(dat))))
+  
   # Specify detection threshold if not provided
   # Use the 80% quantile as this has proven robust across methodologies
   if (is.null(det.th)) {
-    dat <- 10^t(impute(t(log10(dat)))) # impute missing values
     det.th <- quantile(dat, 0.8)
     warning(paste("Applying detection threshold at 0.8 quantile: ", det.th))
   }
@@ -156,9 +158,23 @@ diversity <- function (dat, diversity.index = "shannon", det.th = 0) {
   dat.th <- dat - det.th
   dat.th[dat.th < 0] <- 0
 
+  # Use relative abundancies
+  x <- relative.abundance(dat.th)
+
   # Species diversity
-  H <- vegan::diversity(dat.th, index = diversity.index, MARGIN = 2)
-  names(H) <- colnames(dat)
+  #H <- vegan::diversity(dat.th, index = diversity.index, MARGIN = 2)
+  #names(H) <- colnames(dat)
+
+    if (diversity.index == "shannon") 
+        x <- -x * log(x, base = exp(1))
+    else x <- x * x
+    if (length(dim(x)) > 1) 
+        H <- apply(x, MARGIN = 2, sum, na.rm = TRUE)
+    else H <- sum(x, na.rm = TRUE)
+    if (diversity.index == "invsimpson") 
+        H <- 1/H
+
+  names(H) <- colnames(dat)	
 
   H
 	
