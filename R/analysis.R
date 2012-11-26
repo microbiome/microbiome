@@ -454,7 +454,7 @@ calculate.stability <- function (dat1, dat2 = NULL) {
 #'   @param y second variable
 #'
 #' Returns:
-#'   @return List with correlations and a stability estimate
+#'   @return Dependency measure
 #'
 #' @export
 #' @references See citation("microbiome") 
