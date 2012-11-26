@@ -2,7 +2,7 @@
 \alias{calculate.stability}
 \title{Description: Stability analysis. Calculates average Pearson '}
 \usage{
-  calculate.stability(dat)
+  calculate.stability(dat1, dat2 = NULL)
 }
 \arguments{
   \item{dat}{data matrix phylotypes vs. samples

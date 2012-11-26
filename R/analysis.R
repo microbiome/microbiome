@@ -411,9 +411,20 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-calculate.stability <- function (dat) {
-  cors <- lower.triangle(cor(dat))
-  list(correlations = cors, stability = mean(cors))
+calculate.stability <- function (dat1, dat2 = NULL) {
+
+  if (is.null(dat2)) {
+    # Within-matrix stability
+    cors <- lower.triangle(cor(dat1))
+    stab <- list(correlations = cors, stability = mean(cors))
+  } else {
+    # Between-matrices stability
+    cors <- diag(cor(dat1, dat2))
+    stab <- list(correlations = cors, stability = mean(cors))
+  }
+
+  stab
+
 }
 
 
