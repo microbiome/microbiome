@@ -719,3 +719,4 @@ PhyloPlot <- function (vec, max.responses = 8, mixture.method = "bic", bic.thres
   list(plot = pg, model = model)
  
 }
+

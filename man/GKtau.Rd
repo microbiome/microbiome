@@ -30,7 +30,7 @@ which the variable y is useful in predicting x.}
   Returns:}
 }
 \value{
-  List with correlations and a stability estimate
+  Dependency measure
 }
 \description{
   Arguments:
