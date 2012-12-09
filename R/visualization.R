@@ -129,7 +129,8 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
 
 	      colnames(res) <- c("y", "dens")
 	      return(res)
-	    }, .progress="text")
+	    })
+	    #}, .progress="text")
 
 	    maxdens <- max(d2$dens)
 	    mindens <- min(d2$dens)
@@ -188,7 +189,7 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
   p1 <- p1 + geom_point(size=1, shape=21, fill="white", color="black")
 
   if (title != "") {
-    p1 <- p1 + opts(title=title)
+    p1 <- p1 + ggtitle(title)
   }
 
   p1  + opts(legend.position="none")
