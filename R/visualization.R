@@ -683,7 +683,7 @@ PlotPhylochipHeatmap <- function (data,
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-PhyloPlot <- function (vec, max.responses = 8, mixture.method = "bic", bic.threshold = 0, title.text = NULL, xlab.text = NULL, ylab.text = "Frequency") {
+PhyloPlot <- function (vec, max.responses = 8, mixture.method = "bic", bic.threshold = 0, title.text = NULL, xlab.text = NULL, ylab.text = "Frequency", binwidth = 0.05) {
   	
   if (!try(require(netresponse))) {
     message("Installing netresponse..")
@@ -695,7 +695,7 @@ PhyloPlot <- function (vec, max.responses = 8, mixture.method = "bic", bic.thres
 
   if (sd(vec) > 0) {
 
-    model <- netresponse::detect.responses(matrix(vec),
+    model <- netresponse::mixture.model(matrix(vec),
 			      max.subnet.size = 1, 
 			      max.responses = max.responses, 
 			      mixture.method = mixture.method, 
@@ -703,13 +703,16 @@ PhyloPlot <- function (vec, max.responses = 8, mixture.method = "bic", bic.thres
 
     theme_set(theme_bw(20))			      
 
-    pg <- netresponse::PlotMixtureUnivariate(as.vector(vec), 
-     			      as.vector(model@models[[1]]$mu), 
-			      as.vector(model@models[[1]]$sd), 
-			      as.vector(model@models[[1]]$w), 
+    pg <- PlotMixtureUnivariate(x = as.vector(vec), 
+     			      means = as.vector(model$mu), 
+			      sds = as.vector(model$sd), 
+			      ws = as.vector(model$w), 
+			      qofz = model$qofz,
 			      title.text = title.text, 
 			      xlab.text = xlab.text, 
-			      ylab.text = ylab.text) 
+			      ylab.text = ylab.text, 
+			      binwidth = binwidth)
+
   } else {
     pg <- ggplot2::qplot(1)
     model <- NULL
