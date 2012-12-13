@@ -5,7 +5,7 @@ Visualize the histogram, density estimate, and estimated Gaussian latent classes
 \usage{
   PhyloPlot(vec, max.responses = 8, mixture.method = "bic",
     bic.threshold = 0, title.text = NULL, xlab.text = NULL,
-    ylab.text = "Frequency")
+    ylab.text = "Frequency", binwidth = 0.05)
 }
 \arguments{
   \item{vec}{numeric data vector}
