@@ -3,7 +3,7 @@
 \title{Description: Profiling preprocessing script}
 \usage{
   preprocess.chipdata(dbuser, dbpwd, dbname, mc.cores = 1,
-    verbose = TRUE)
+    verbose = TRUE, host = NULL, port = NULL)
 }
 \arguments{
   \item{dbuser}{MySQL username}
@@ -16,7 +16,11 @@
   parallelization is used.}
 
   \item{verbose}{monitor processing through intermediate
-  messages
+  messages}
+
+  \item{host}{host; needed with FTP connections}
+
+  \item{port}{port; needed with FTP connections
 
   Returns:}
 }

@@ -4,7 +4,8 @@
 \usage{
   FetchHITChipAtlas(allowed.projects, dbuser, dbpwd,
     dbname, result.path, my.scaling = "minmax",
-    mc.cores = 3, remove.nonspecific.oligos = FALSE)
+    mc.cores = 3, remove.nonspecific.oligos = FALSE,
+    host = NULL, port = NULL)
 }
 \arguments{
   \item{allowed.projects}{Vector of projectNames to
@@ -25,7 +26,11 @@
 
   \item{remove.nonspecific.oligos}{Optional logical set to
   remove nonspecific oligos (TRUE). By default keeping the
-  non-specific oligos (FALSE) Returns:}
+  non-specific oligos (FALSE)}
+
+  \item{host}{host; needed with FTP connections}
+
+  \item{port}{port; needed with FTP connections Returns:}
 }
 \value{
   List with the following elements: training.data: training

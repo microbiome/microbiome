@@ -4,7 +4,8 @@
 \usage{
   get.phylogeny.info(phylogeny = "16S", rmoligos = NULL,
     dbuser, dbpwd, dbname, verbose = TRUE,
-    remove.nonspecific.oligos = FALSE, chip = "HITChip")
+    remove.nonspecific.oligos = FALSE, chip = "HITChip",
+    host = NULL, port = NULL)
 }
 \arguments{
   \item{phylogeny}{phylogeny (default: 16S)}
@@ -22,9 +23,11 @@
   \item{remove.nonspecific.oligos}{Logical. Remove oligos
   with multiple targets.}
 
-  \item{chip}{chip type
+  \item{chip}{chip type}
 
-  Returns:}
+  \item{host}{host; needed with FTP connections}
+
+  \item{port}{port; needed with FTP connections Returns:}
 }
 \value{
   phylogeny.info

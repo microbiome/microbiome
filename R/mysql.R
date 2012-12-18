@@ -20,6 +20,9 @@
 #'   @param dbuser MySQL user
 #'   @param dbpwd  MySQL password
 #'   @param dbname MySqL database name
+#'   @param host host; needed with FTP connections
+#'   @param port port; needed with FTP connections
+
 #' Returns:
 #'   @return project names vector
 #'
@@ -28,7 +31,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-list.mysql.projects <- function (dbuser, dbpwd, dbname) { 
+list.mysql.projects <- function (dbuser, dbpwd, dbname, host = NULL, port = NULL) { 
 
   if (!require(RMySQL)) {
     install.packages("RMySQL")
@@ -36,8 +39,13 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
   }
 
   drv <- dbDriver("MySQL")
-  con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
 
+  if (!(is.null(host) && is.null(port))) {
+    con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname, host = host, port = port)
+  } else { 
+    con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
+  }
+  
   # Fetch all data from the database
   rs <- dbSendQuery(con, paste("SELECT p.projectName FROM project p"))
 
@@ -62,7 +70,8 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 #'   @param verbose verbose
 #'   @param remove.nonspecific.oligos Logical. Remove oligos with multiple targets.
 #'   @param chip chip type
-#'
+#'   @param host host; needed with FTP connections
+#'   @param port port; needed with FTP connections
 #' Returns:
 #'   @return phylogeny.info
 #'
@@ -71,7 +80,7 @@ list.mysql.projects <- function (dbuser, dbpwd, dbname) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-get.phylogeny.info <- function (phylogeny = "16S", rmoligos = NULL, dbuser, dbpwd, dbname, verbose = TRUE, remove.nonspecific.oligos = FALSE, chip = "HITChip") {   
+get.phylogeny.info <- function (phylogeny = "16S", rmoligos = NULL, dbuser, dbpwd, dbname, verbose = TRUE, remove.nonspecific.oligos = FALSE, chip = "HITChip", host = NULL, port = NULL) {   
 
   # phylogeny = "16S"; rmoligos = NULL; verbose = TRUE; remove.nonspecific.oligos = FALSE; chip = "HITChip"
 
@@ -84,8 +93,12 @@ get.phylogeny.info <- function (phylogeny = "16S", rmoligos = NULL, dbuser, dbpw
 
   require(RMySQL)
   drv <- dbDriver("MySQL")
-  con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
-
+  if (!(is.null(host) && is.null(port))) {
+    con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname, host = host, port = port)
+  } else { 
+    con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
+  }
+  
   ## Collect the full phylogenetic information for oligos
   message("Collect the full phylogeny")
   excloligos <- ifelse(length(rmoligos>0),

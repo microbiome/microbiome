@@ -618,7 +618,9 @@ prune16S <- function (full16S, pmTm.margin = 2.5, complement = 1, mismatch = 0) 
 #'   @param dbpwd  MySQL password
 #'   @param dbname MySqL database name
 #'   @param mc.cores Number of cores for multicore computing
-#' Returns:
+#'   @param host host; needed with FTP connections
+#'   @param port port; needed with FTP connections
+#' Returns:                                        
 #'   @return list with data (features x hybridizations matrix) and info (features x info) fields 
 #'
 #' @export
@@ -626,7 +628,7 @@ prune16S <- function (full16S, pmTm.margin = 2.5, complement = 1, mismatch = 0) 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-get.probedata <- function (hybridization.ids, rmoligos, dbuser, dbpwd, dbname, mc.cores = 1) {
+get.probedata <- function (hybridization.ids, rmoligos, dbuser, dbpwd, dbname, mc.cores = 1, host = NULL, port = NULL) {
 
   if (!require(RMySQL)) {
     install.packages("RMySQL")
@@ -640,7 +642,11 @@ get.probedata <- function (hybridization.ids, rmoligos, dbuser, dbpwd, dbname, m
                       
   require(RMySQL)
   drv <- dbDriver("MySQL")
-  con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
+  if (!(is.null(host) && is.null(port))) {
+    con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname, host = host, port = port)
+  } else { 
+    con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
+  }  
 
   rs <- dbSendQuery(con, statement = paste("SELECT featureID,extractionID,fe.hybridisationID,spatNormSignal,isOutlier
       		FROM featuremeasurement 
@@ -1233,7 +1239,9 @@ WriteMatrix <- function (dat, filename, verbose = FALSE) {
 #'   @param dbname MySQL database name
 #'   @param mc.cores Optional. Number of cores if parallelization is used.
 #'   @param verbose monitor processing through intermediate messages
-#'
+#'   @param host host; needed with FTP connections
+#'   @param port port; needed with FTP connections
+#'                                        
 #' Returns:
 #'   @return Preprocessed data and parameters
 #'
@@ -1242,7 +1250,7 @@ WriteMatrix <- function (dat, filename, verbose = FALSE) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = TRUE) {
+preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = TRUE, host = NULL, port = NULL) {
 
   # dbuser = "pit"; dbpwd = "passu"; dbname = "pitchipdb"; mc.cores = 1; verbose = TRUE
   # dbuser = "pit"; dbpwd = "passu"; dbname = "Phyloarray_PIT"; mc.cores = 1; verbose = TRUE
@@ -1255,8 +1263,12 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   # library(microbiome); fs <- list.files("~/Rpackages/microbiome/microbiome/R/", full.names = T); for (f in fs) {source(f)}; dbuser = "lmlahti"; dbpwd = "passu"; dbname = "Phyloarray"; verbose = TRUE; mc.cores = 1
 
   ## ask parameters or read from R-file
-  con <- dbConnect(dbDriver("MySQL"), username = dbuser, password = dbpwd, dbname = dbname)
-
+  if (!(is.null(host) && is.null(port))) {
+    con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname, host = host, port = port)
+  } else { 
+    con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
+  }  
+  
   params <- ReadParameters(con)  
   params$chip <- detect.chip(dbname)
   params$rm.phylotypes <- phylotype.rm.list(params$chip) # List oligos and phylotypes to remove by default
@@ -1272,7 +1284,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
   	       	  		    selected.samples = params$samples$sampleID)
 
   message("Get probe-level data for the selected hybridisations")
-  tmp <- get.probedata(unique(project.info[["hybridisationID"]]), params$rm.phylotypes$oligos, dbuser, dbpwd, dbname, mc.cores = mc.cores)
+  tmp <- get.probedata(unique(project.info[["hybridisationID"]]), params$rm.phylotypes$oligos, dbuser, dbpwd, dbname, mc.cores = mc.cores, host = host, port = port)
   fdat.orig <- tmp$data       # features x hybs, original non-log scale
   fdat.oligoinfo <- tmp$info  # oligoinfo
 

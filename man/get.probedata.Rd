@@ -3,7 +3,7 @@
 \title{Description: Get probedata}
 \usage{
   get.probedata(hybridization.ids, rmoligos, dbuser, dbpwd,
-    dbname, mc.cores = 1)
+    dbname, mc.cores = 1, host = NULL, port = NULL)
 }
 \arguments{
   \item{hybridization.ids}{Specify the hybridizations to
@@ -17,8 +17,11 @@
 
   \item{dbname}{MySqL database name}
 
-  \item{mc.cores}{Number of cores for multicore computing
-  Returns:}
+  \item{mc.cores}{Number of cores for multicore computing}
+
+  \item{host}{host; needed with FTP connections}
+
+  \item{port}{port; needed with FTP connections Returns:}
 }
 \value{
   list with data (features x hybridizations matrix) and

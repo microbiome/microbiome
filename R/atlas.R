@@ -26,6 +26,8 @@
 #'   @param my.scaling Normalization method. Default "minmax".
 #'   @param mc.cores Number of cores for parallel computation
 #'   @param remove.nonspecific.oligos Optional logical set to remove nonspecific oligos (TRUE). By default keeping the non-specific oligos (FALSE)
+#'   @param host host; needed with FTP connections
+#'   @param port port; needed with FTP connections
 #' Returns:
 #'   @return  List with the following elements: 
 #'     	      training.data: training data matrices (including alternative preprocessing methods)
@@ -43,7 +45,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 		     	       result.path,
 		     	       my.scaling = "minmax", 
 			       mc.cores = 3, 
-			       remove.nonspecific.oligos = FALSE) 
+			       remove.nonspecific.oligos = FALSE, host = NULL, port = NULL) 
 {
 
   # source("~/scripts/R/HITchip/atlas.R"); library(microbiome); fs <- list.files("~/Rpackages/microbiome/microbiome/R/", full.names = T); for (f in fs) {source(f)}; allowed.projects <- ListAtlasProjects(); dbuser = 'lmlahti'; dbpwd = 'passu'; dbname = 'Phyloarray'; result.path <- "~/tmp/"; my.scaling = "minmax"; mc.cores = 3; remove.nonspecific.oligos = FALSE
@@ -68,16 +70,16 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   test.data.file <- paste(result.path, "/atlas.test.RData", sep = "")
   parameter.data.file <- paste(result.path, "/atlas.parameters.RData", sep = "")
   a <- try(save(chiptype, file = parameter.data.file))
-  if (!is.null(a)) {stop("Create result directory in advance!")}
+  if (!is.null(a)) { stop("Create result directory in advance!") }
 
   message("Extract sample information from the HITChip database")
-  project.info <- fetch.sample.info(allowed.projects, chiptype, dbuser, dbpwd, dbname)
+  project.info <- fetch.sample.info(allowed.projects, chiptype, dbuser, dbpwd, dbname, host = host, port = port)
 
-  phylogeny.info <- get.phylogeny.info(phylogeny = "16S", rm.phylotypes$oligos, dbuser, dbpwd, dbname, remove.nonspecific.oligos = remove.nonspecific.oligos)
+  phylogeny.info <- get.phylogeny.info(phylogeny = "16S", rm.phylotypes$oligos, dbuser, dbpwd, dbname, remove.nonspecific.oligos = remove.nonspecific.oligos, host = host, port = port)
 
   message("Get probe-level data for the selected hybridisations")
   tmp <- get.probedata(unique(project.info[["hybridisationID"]]), 
-      	 		rm.phylotypes$oligos, dbuser, dbpwd, dbname, mc.cores = mc.cores)  
+      	 		rm.phylotypes$oligos, dbuser, dbpwd, dbname, mc.cores = mc.cores, host = host, port = port)  
 
   fdat.orig <- tmp$data       # features x hybs, original non-log scale
   fdat.oligoinfo <- tmp$info      # oligoinfo
@@ -97,9 +99,6 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   }
 
   # calculate quantile points in original scale 
-  #maxabs <- mean(apply(fdat.orig, 2, quantile, max(minmax.quantiles), na.rm = TRUE))
-  #minabs <- mean(apply(fdat.orig, 2, quantile, min(minmax.quantiles), na.rm = TRUE))  
-  #minmax.points <- c(minabs, maxabs)
   # hard-code to unify all analyses; these values were calculated manually from the HITChip atlas with 3200 samples, 
   # and rounded to 3 significant digits
   minmax.points <- c(30, 133000) 
@@ -112,22 +111,10 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   oligo.log10 <- summarize.rawdata(log10(fdat), fdat.hybinfo, fdat.oligoinfo, 
   	     		oligo.ids = sort(unique(phylogeny.info$oligoID)))
 	 
-
-  # Impute
-  #if (any(is.na(oligo.log10))) {
-  #  warning(round(100*mean(is.na(oligo.log10)), 3), "% of polished oligo.log10 is NAs; imputing")
-  #  oligo.log10 <- t(impute(t(oligo.log10)))
-  #}
-			
-  # Background correction
-  #if (!is.null(bgc.method)) { 
-  #  oligo.log10 <- oligo.bg.correction(oligo.log10, bgc.method)
-  #}
-
   # First produce full preprocessed data matrices
   data.matrices.full <- list(oligo = oligo.log10)
   for (level in c("species", "L1", "L2")) {
-    for (method in c("ave", "sum", "rpa", "nmf")) { 
+    for (method in c("sum", "rpa")) { 
       message(paste(level, method))
       data.matrices.full[[level]][[method]] <- summarize.probesets(phylogeny.info, oligo.log10, method, level, rm.phylotypes = rm.phylotypes)
     }
@@ -181,7 +168,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 
   # Save parameters
   session.info <- sessionInfo()
-  params <- list(dbuser = dbuser, dbpwd = NA, dbname = dbname, 
+  params <- list(dbuser = dbuser, dbpwd = NA, dbname = dbname, host = host, port = port,
   	         my.scaling = my.scaling, # minmax.quantiles = minmax.quantiles, 
 		 minmax.points = minmax.points, 
 		 result.path = result.path, 
@@ -216,6 +203,8 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 #'   @param dbpwd MySQL password
 #'   @param dbname MySqL database name
 #'   @param selected.samples Sample to investigate. By default all.
+#'   @param host host; needed with FTP connections
+#'   @param port port; needed with FTP connections
 #' Returns:
 #'   @return project.info data.frame
 #'
@@ -225,7 +214,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 #' @keywords utilities
 
 fetch.sample.info <- function (allowed.projects, chiptype = NULL, 
-		  dbuser, dbpwd, dbname, selected.samples = NULL) { 
+		  dbuser, dbpwd, dbname, selected.samples = NULL, host = NULL, port = NULL) { 
 
   if (!require(RMySQL)) {
     install.packages("RMySQL")
@@ -233,7 +222,12 @@ fetch.sample.info <- function (allowed.projects, chiptype = NULL,
   }
 
   drv <- dbDriver("MySQL")
-  con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
+  if (!(is.null(host) && is.null(port))) {
+    con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname, host = host, port = port)
+  } else { 
+    con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
+  }  
+
 
   # Fetch all data from the database
    rs <- dbSendQuery(con, paste("SELECT p.projectName,p.projectID,s.subjectID,s.sampleID,s.samplingDate,s.normAlgVersion,h.hybridisationID,h.dye,a.arrayID,a.barcode,sl.designID,s.reproducibility,s.normalisationFinished,s.imageID,fe.extractionID,fe.extractionName,fe.noSampleNormalisation,h.isDiscarded,fe.hasReproCheck
