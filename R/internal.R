@@ -766,10 +766,10 @@ WriteLog <- function (naHybs, params) {
 }
 
 
-#' Description: Write preprocessed data into the output directory
+#' Description: Writed data into the output directory
 #'
 #' Arguments:
-#'   @param finaldata preprocessed data matrices in absolute scale (from the preprocess.chipdata function)
+#'   @param finaldata preprocessed data matrices in absolute scale (from the chipdata function)
 #'   @param output.dir output directory
 #'   @param phylogeny.info phylogeny.info
 #'   @param verbose verbose
@@ -1275,7 +1275,7 @@ preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = 
 
   # Minmax parameters hard-coded to standardize normalization;
   # Using the parameters from HITChip atlas with 3200 samples
-  #params$minmax.points <- c(30.02459, 132616.91371)
+  # params$minmax.points <- c(30.02459, 132616.91371)
   params$minmax.points <- c(30, 133000) 
 
   # Get sample information matrix for the selected projects	
