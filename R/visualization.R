@@ -106,7 +106,8 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
     colnames(b2) <- c("index", "B", "value", "x")
 
     require(ggplot2)
-    require(RColorBrewer)
+
+    InstallMarginal("RColorBrewer")
 
     p1 <- ggplot(data, aes_string(x=IV, y=DV)) + theme_bw()
 
@@ -661,66 +662,5 @@ PlotPhylochipHeatmap <- function (data,
 
   params
 
-}
-
-#' Description: 
-#' Visualize the histogram, density estimate, and estimated Gaussian latent classes for a given vector
-#' 
-#' Arguments:
-#'   @param vec numeric data vector
-#'   @param max.responses maximum number of latent classes to consider
-#'   @param mixture.method information criterion for estimating the number of latent classes
-#'   @param bic.threshold threshold for adding new components (latent classes) in the mixture
-#'   @param title.text title.text 
-#'   @param xlab.text xlab.text 
-#'   @param ylab.text ylab.text 
-#'
-#' Returns:
-#'   @return List: ggplot2 object and NetResponse model object
-#'
-#' @importFrom netresponse detect.responses
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-PhyloPlot <- function (vec, max.responses = 8, mixture.method = "bic", bic.threshold = 0, title.text = NULL, xlab.text = NULL, ylab.text = "Frequency", binwidth = 0.05) {
-  	
-  if (!try(require(netresponse))) {
-    message("Installing netresponse..")
-    biocLite <- NULL # warning circumvention
-    source("http://www.bioconductor.org/biocLite.R")
-    biocLite("netresponse")
-    require(netresponse)
-  }
-
-  if (sd(vec) > 0) {
-
-    model <- netresponse::mixture.model(matrix(vec),
-			      max.subnet.size = 1, 
-			      max.responses = max.responses, 
-			      mixture.method = mixture.method, 
-			      bic.threshold = bic.threshold)
-
-    theme_set(theme_bw(20))			      
-
-    pg <- PlotMixtureUnivariate(x = as.vector(vec), 
-     			      means = as.vector(model$mu), 
-			      sds = as.vector(model$sd), 
-			      ws = as.vector(model$w), 
-			      qofz = model$qofz,
-			      title.text = title.text, 
-			      xlab.text = xlab.text, 
-			      ylab.text = ylab.text, 
-			      binwidth = binwidth)
-
-  } else {
-    pg <- ggplot2::qplot(1)
-    model <- NULL
-  }
-
-
-  list(plot = pg, model = model)
- 
 }
 

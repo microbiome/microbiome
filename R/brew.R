@@ -30,7 +30,7 @@
 #' @keywords utilities
 
 include.fig <- function (fname, captiontext, width = "5cm", height="5cm", rotate = NULL, include.figname = TRUE) {    
-  
+
     cat("\\begin{figure}[h!]\\begin{center}\n")
 
     if (length(rotate)>0) {cat("\\rotatebox{",rotate,"}{")}
@@ -71,9 +71,7 @@ include.fig <- function (fname, captiontext, width = "5cm", height="5cm", rotate
 
 include.figs <- function (fnames, captiontext, width = "5cm", height="5cm", rotate = NULL) {    
 
-  
     cat("\\begin{figure}[h!]\\begin{center}\n")
-
 
     for (i in 1:length(fnames)) {
 

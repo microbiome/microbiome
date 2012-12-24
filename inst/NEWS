@@ -1,4 +1,8 @@
 
+CHANGES IN VERSION 0.3.63 (2012-12-24)
+  o separated MySQL/preprocessing functions into a distinct package,
+    HITChipDB
+
 CHANGES IN VERSION 0.3.43 (2012-09-28)
   o added relative.abundance function
   o polished estimate.diversity function

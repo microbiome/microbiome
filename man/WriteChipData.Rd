@@ -1,13 +1,13 @@
 \name{WriteChipData}
 \alias{WriteChipData}
-\title{Description: Write preprocessed data into the output directory}
+\title{Description: Writed data into the output directory}
 \usage{
   WriteChipData(finaldata, output.dir, phylogeny.info,
     verbose = TRUE)
 }
 \arguments{
   \item{finaldata}{preprocessed data matrices in absolute
-  scale (from the preprocess.chipdata function)}
+  scale (from the chipdata function)}
 
   \item{output.dir}{output directory}
 

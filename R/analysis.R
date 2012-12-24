@@ -124,8 +124,6 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
 }
 
 
-
-
 #' Description: Cross-correlate input variables
 #'              
 #' Arguments:
@@ -142,8 +140,6 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
 #' Returns:
 #'   @return List with cor, pval, qval
 #'
-#' @importFrom minet build.mim
-#' @importFrom WGCNA bicorAndPvalue
 #' @export
 #'
 #' @references See citation("microbiome") 
@@ -218,14 +214,9 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
 
   } else if (method == "bicor") {
 
-  
-    if (!try(require(WGCNA))) {
-      message("Installing WGCNA..")
-      install.packages("WGCNA")
-      require("WGCNA")
-    }
+    InstallMarginal("WGCNA")
 
-    t1 <- WGCNA::bicorAndPvalue(x, y, use = "pairwise.complete.obs")
+    t1 <- bicorAndPvalue(x, y, use = "pairwise.complete.obs")
     Pc <- t1$p
     Cc <- t1$bicor
 
@@ -254,11 +245,7 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
       }
    } else if (method == "mi") {
     
-      if (!try(require("minet"))) {
-        message("Installing minet..")
-        install.packages("minet")
-	require(minet)
-      }
+      InstallMarginal("minet")
 
       Cc <- matrix(NA, nrow = ncol(x), ncol = ncol(y))
       rownames(Cc) <- colnames(x)
@@ -267,7 +254,7 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
       for (i in 1:ncol(x)) {
         for (j in 1:ncol(y)) {
 
-          Cc[i,j] <- minet::build.mim(cbind(x[,i], y[,j]), estimator = "spearman")[1, 2]
+          Cc[i,j] <- build.mim(cbind(x[,i], y[,j]), estimator = "spearman")[1, 2]
 
         }
       }
