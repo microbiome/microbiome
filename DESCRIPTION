@@ -1,8 +1,8 @@
 Package: microbiome
 Type: Package
 Title: microbiome
-Version: 0.3.63
-Date: 2012-12-24
+Version: 0.3.64
+Date: 2013-01-03
 Author: Leo Lahti and Jarkko Salojarvi
 Maintainer: microbiome developer team <microbiome-admin@googlegroups.com>
 Description: R package for microbiome studies
