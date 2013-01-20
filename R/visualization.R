@@ -1,3 +1,7 @@
+# "A model is a lie that helps you see the truth."
+#                                 - Howard Skipper
+
+
 # Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
