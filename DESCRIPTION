@@ -12,6 +12,7 @@ Depends:
     ggplot2,
     MASS,
     methods,
+    minet,
     mixOmics,
     multicore,
     plyr,
@@ -32,7 +33,6 @@ Collate:
     'show-methods.R'
     'utils.R'
     'profiling.R'
-    'atlas.R'
     'diversity.R'
     'visualization.R'
     'brew.R'

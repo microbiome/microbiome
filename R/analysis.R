@@ -252,7 +252,7 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
       for (i in 1:ncol(x)) {
         for (j in 1:ncol(y)) {
 
-          Cc[i,j] <- build.mim(cbind(x[,i], y[,j]), estimator = "spearman")[1, 2]
+          Cc[i,j] <- minet::build.mim(cbind(x[,i], y[,j]), estimator = "spearman")[1, 2]
 
         }
       }
