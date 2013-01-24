@@ -40,6 +40,4 @@ Collate:
     'core.R'
     'phylo.R'
     'AllClasses.R'
-    'toydata.R'
-    'deprecated.R'
 Packaged: 2012-01-12 14:19:39 UTC; lei
