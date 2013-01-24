@@ -10,11 +10,15 @@ License: FreeBSD
 Depends:
     R (>= 2.12.1),
     ggplot2,
+    MASS,
     methods,
+    mixOmics,
+    multicore,
     plyr,
     qvalue,
     reshape2,
     RPA,
+    svDialogs,
     vegan
 URL: TBA
 LazyLoad: yes

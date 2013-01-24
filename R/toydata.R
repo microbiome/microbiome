@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -55,7 +55,7 @@ GenerateSimulatedData <- function (output.dir) {
   }
 
   # Write summary matrices into the output directory
-  outd <- WriteChipData(finaldata, output.dir, phylogeny.info)
+  outd <- HITChipDB::WriteChipData(finaldata, output.dir, phylogeny.info)
 
   set.seed(344)
   metadata.simulated <- data.frame(list(

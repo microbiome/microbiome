@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -11,8 +11,6 @@
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-
 
 
 #' Description: Calculate distance matrix between the _columns_ of the 
@@ -216,7 +214,7 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
 
     InstallMarginal("WGCNA")
 
-    t1 <- bicorAndPvalue(x, y, use = "pairwise.complete.obs")
+    t1 <- WGCNA::bicorAndPvalue(x, y, use = "pairwise.complete.obs")
     Pc <- t1$p
     Cc <- t1$bicor
 

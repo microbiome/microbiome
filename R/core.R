@@ -249,7 +249,6 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1, Nboot = 100, 
 
   if (is.null(Nsample)) {Nsample <- ncol(D)}
 
-
    require(multicore)
 
    boot <- replicate(Nboot,sample(ncol(D),Nsample,replace=T),simplify=F)

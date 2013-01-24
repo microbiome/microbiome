@@ -13,7 +13,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-
 #' Description: Default list of removed phylotypes and oligos
 #'
 #' Arguments:
@@ -233,58 +232,7 @@ oligo.bg.correction <- function (d.oligo2, bgc.method) {
 
 }
 
-#' Description: Between-arrays normalization 
-#'
-#' Arguments:
-#'   @param dat data matrix in original absolute scale
-#'   @param method normalization method
-#'   @param bg.adjust background adjustment 
-#'   @param minmax.quantiles quantiles for minmax
-#'   @param minmax.points minmax end points
-#'
-#'
-#' Returns:
-#'   @return Normalized data matrix in absolute scale
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
 
-ScaleProfile <- function (dat, method = 'minmax', bg.adjust = NULL, minmax.quantiles = c(0.005, 0.995), minmax.points = NULL) {
-
-  # d.scaled <- ScaleProfile(fdat.orig, params$normalization, bg.adjust = NULL, minmax.points = params$minmax.points) 
-  # dat <- fdat.orig; method = params$normalization; bg.adjust = NULL; minmax.quantiles = c(0.005, 0.995); minmax.points = NULL
-
-  message(paste("Normalizing with", method))
-  
-  ## Table dat is a copy of featuretab containing 
-  ## logarithms of the values in 
-  ## featuretab
-
-  if (method=='minmax') {
-    r <- scaling.minmax(dat, quantile.points = minmax.quantiles, minmax.points = minmax.points, robust = FALSE)
-  } else if (method=='minmax.robust') {
-    r <- scaling.minmax(dat, quantile.points = minmax.quantiles, minmax.points = minmax.points, robust = TRUE)
-  } else if (method=='quantile') {
-    dn <- dimnames(dat)
-    r <- normalize.quantiles(dat)
-    dimnames(r) <- dn
-  } else if (method=='normExpQuant') {
-    ## Impute NA's with sample medians
-    na.inds <- which(is.na(dat), arr.ind=T)
-    r <- apply(dat, 2, function(x){x[is.na(x)] <- median(x, na.rm=T); return(x)})
-    dn <- dimnames(dat)
-    rc <- apply(10^(r), 2, bg.adjust)
-    r <- normalize.quantiles(log10(rc+1))
-    dimnames(r) <- dn
-    r[na.inds] <- NA
-  } else {
-    stop("No between-array normalization recognized!!")
-  }
- 
-  return(r)
-}
 
 #' Description: Check number of matching phylotypes for each probe
 #' 
@@ -326,142 +274,6 @@ WriteMatrix <- function (dat, filename, verbose = FALSE) {
 
 }
 
-
-#' Description: Profiling preprocessing script
-#'
-#' Arguments:
-#'   @param dbuser MySQL username
-#'   @param dbpwd  MySQL password
-#'   @param dbname MySQL database name
-#'   @param mc.cores Optional. Number of cores if parallelization is used.
-#'   @param verbose monitor processing through intermediate messages
-#'   @param host host; needed with FTP connections
-#'   @param port port; needed with FTP connections
-#'                                        
-#' Returns:
-#'   @return Preprocessed data and parameters
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-preprocess.chipdata <- function (dbuser, dbpwd, dbname, mc.cores = 1, verbose = TRUE, host = NULL, port = NULL) {
-
-  # dbuser = "pit"; dbpwd = "passu"; dbname = "pitchipdb"; mc.cores = 1; verbose = TRUE
-  # dbuser = "pit"; dbpwd = "passu"; dbname = "Phyloarray_PIT"; mc.cores = 1; verbose = TRUE
-
-  if (!require(RMySQL)) {
-    install.packages("RMySQL")
-    require(RMySQL)
-  }
-
-  # library(microbiome); fs <- list.files("~/Rpackages/microbiome/microbiome/R/", full.names = T); for (f in fs) {source(f)}; dbuser = "lmlahti"; dbpwd = "passu"; dbname = "Phyloarray"; verbose = TRUE; mc.cores = 1
-
-  ## ask parameters or read from R-file
-  if (!(is.null(host) && is.null(port))) {
-    con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname, host = host, port = port)
-  } else { 
-    con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
-  }  
-  
-  params <- ReadParameters(con)  
-  params$chip <- detect.chip(dbname)
-  params$rm.phylotypes <- phylotype.rm.list(params$chip) # List oligos and phylotypes to remove by default
-
-  # Minmax parameters hard-coded to standardize normalization;
-  # Using the parameters from HITChip atlas with 3200 samples
-  # params$minmax.points <- c(30.02459, 132616.91371)
-  params$minmax.points <- c(30, 133000) 
-
-  # Get sample information matrix for the selected projects	
-  project.info <- fetch.sample.info(params$prj$projectName, chiptype = NULL, 
-  	       	  		    dbuser, dbpwd, dbname, 
-  	       	  		    selected.samples = params$samples$sampleID)
-
-  message("Get probe-level data for the selected hybridisations")
-  tmp <- get.probedata(unique(project.info[["hybridisationID"]]), params$rm.phylotypes$oligos, dbuser, dbpwd, dbname, mc.cores = mc.cores, host = host, port = port)
-  fdat.orig <- tmp$data       # features x hybs, original non-log scale
-  fdat.oligoinfo <- tmp$info  # oligoinfo
-
-  # Annotations for selected hybridisations
-  fdat.hybinfo <- project.info[match(colnames(fdat.orig), project.info$hybridisationID), ]
-  rownames(fdat.hybinfo) <- colnames(fdat.orig)
-
-  ## Discard the hybs that contain only NAs
-  onlyNA <- colMeans(is.na(fdat.orig)) == 1
-  naHybs <- colnames(fdat.orig)[onlyNA]
-  if(sum(onlyNA) > 0){
-    message("Removing the following hybs, because they contain only NAs:\n")
-    message(naHybs,"\n\n")
-    fdat.orig <- fdat.orig[, !onlyNA]
-    fdat.hybinfo <- fdat.hybinfo[, !onlyNA]
-  }
-  
-  ##############################
-  ## Between-array normalization
-  ##############################
-
-  # selected scaling for featurelevel data
-  # Background correction after this step, if any. 
-  # Order of normalization / bg correction was validated empirically.
-  # bg.adjust intentionally set to NULL 
-  # bg correction done _after_ oligo summarization, if any (see next steps)
-  d.scaled <- ScaleProfile(fdat.orig, params$normalization, bg.adjust = NULL, minmax.points = params$minmax.points) 
-
-  ##################################
-  ## GET OLIGO-PHYLOTYPE MAPPINGS
-  ##################################
-
-  # This handles also pmTm, complement and mismatch filtering
-  phylogeny.info <- get.phylogeny.info(params$phylogeny, 
-    	       		     rmoligos = params$rm.phylotypes$oligos, 
-	    		     dbuser = dbuser, dbpwd = dbpwd, dbname = dbname, verbose = verbose, 
-			     remove.nonspecific.oligos = params$remove.nonspecific.oligos, 
-			     chip = params$chip)
-			     
-  ####################
-  ## COMPUTE SUMMARIES
-  ####################
-
-  # Summarize probes into oligos and hybridisations into samples
-  d.oligo2 <- summarize.rawdata(log10(d.scaled), 
-  	      			fdat.hybinfo, 
-				fdat.oligoinfo = fdat.oligoinfo, 
-				oligo.ids = sort(unique(phylogeny.info$oligoID)))
-
-  # Then apply background correction if required:
-  # if (!is.null(params$bgc.method)) { d.oligo2 <- oligo.bg.correction(d.oligo2, bgc.method = params$bgc.method) }
-  # d.oligo2 <- oligo.bg.correction(d.oligo2, bgc.method = NULL)
-  oligo.log10 <- d.oligo2
-
-  # Return to the original scale
-  oligo.abs <- matrix(10^oligo.log10, nrow = nrow(oligo.log10)) # - 1  
-  rownames( oligo.abs ) <- rownames( oligo.log10 )
-  colnames( oligo.abs ) <- colnames( oligo.log10 )
-
-  # Oligo summarization
-  finaldata <- list()
-  finaldata[["oligo"]] <- oligo.abs
-  levels <- c("species", "L2", "L1")
-  if (params$chip == "MITChip" || params$chip == "PITChip") {levels <- c(levels, "L0")}
-  for (level in levels) {
-    finaldata[[level]] <- list()
-    for (method in c("sum", "rpa", "nmf")) {
-        message(paste(level, method))
-    	summarized.log10 <- summarize.probesets(phylogeny.info, oligo.log10, 
-      			       	          method = method, level = level, 	
-					  rm.phylotypes = params$rm.phylotypes)
-
-        # Store the data in absolute scale					
-        finaldata[[level]][[method]] <- 10^summarized.log10
-
-    }
-  }
-
-  list(data = finaldata, phylogeny.info = phylogeny.info, naHybs = naHybs, params = params)
-
-}
 
 
 #' Description: determine threshold for bg correction

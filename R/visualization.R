@@ -224,7 +224,7 @@ project.data <- function (amat, type = "PCA") {
 
       message("More samples than features, using sparse PCA")
       ## Spca example: we are selecting 50 variables on each of the PCs
-      library(mixOmics)
+      require(mixOmics)
       result <- spca(amat, ncomp = 2, center = TRUE, scale. = TRUE, keepX = rep(50, 2))
       scores <- result$x
     } else {
@@ -235,7 +235,9 @@ project.data <- function (amat, type = "PCA") {
     tab <- data.frame(scores[,1:2])
     rownames(tab) <- rownames(amat)
   } else if (type == "Sammon") {
-    library(MASS)
+
+    require(MASS)
+
     d <- as.dist(1-cor(t(amat)))
     # This gave the clearest visualization. 
     # Tuning magic parameter could still improve. 

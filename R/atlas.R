@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -54,11 +54,6 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   # mysql -u"dbuser" -p"dbpwd" dbname < dump.sql
   require(parallel)
 
-  if (!require(RMySQL)) {
-    install.packages("RMySQL")
-    require(RMySQL)
-  }
-
   # Probes and species to exclude
   rm.phylotypes <- phylotype.rm.list("HITChip")
 
@@ -73,12 +68,12 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   if (!is.null(a)) { stop("Create result directory in advance!") }
 
   message("Extract sample information from the HITChip database")
-  project.info <- fetch.sample.info(allowed.projects, chiptype, dbuser, dbpwd, dbname, host = host, port = port)
+  project.info <- HITChipDB::fetch.sample.info(allowed.projects, chiptype, dbuser, dbpwd, dbname, host = host, port = port)
 
-  phylogeny.info <- get.phylogeny.info(phylogeny = "16S", rm.phylotypes$oligos, dbuser, dbpwd, dbname, remove.nonspecific.oligos = remove.nonspecific.oligos, host = host, port = port)
+  phylogeny.info <- HITChipDB::get.phylogeny.info(phylogeny = "16S", rm.phylotypes$oligos, dbuser, dbpwd, dbname, remove.nonspecific.oligos = remove.nonspecific.oligos, host = host, port = port)
 
   message("Get probe-level data for the selected hybridisations")
-  tmp <- get.probedata(unique(project.info[["hybridisationID"]]), 
+  tmp <- HITChipDB::get.probedata(unique(project.info[["hybridisationID"]]), 
       	 		rm.phylotypes$oligos, dbuser, dbpwd, dbname, mc.cores = mc.cores, host = host, port = port)  
 
   fdat.orig <- tmp$data       # features x hybs, original non-log scale
@@ -108,7 +103,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
   fdat <- ScaleProfile(fdat.orig, method = my.scaling, minmax.points = minmax.points)
 
   # Summarize probes into oligos and hybridisations into samples
-  oligo.log10 <- summarize.rawdata(log10(fdat), fdat.hybinfo, fdat.oligoinfo, 
+  oligo.log10 <- HITChipDB::summarize.rawdata(log10(fdat), fdat.hybinfo, fdat.oligoinfo, 
   	     		oligo.ids = sort(unique(phylogeny.info$oligoID)))
 	 
   # First produce full preprocessed data matrices
@@ -192,81 +187,6 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 
 
 
-#' fetch.sample.info
-#'
-#' Description: Fetch sample information from HITChip atlas
-#'
-#' Arguments:
-#'   @param allowed.projects list projects for which to fetch the data
-#'   @param chiptype chiptype (eg. new.chip)
-#'   @param dbuser MySQL user
-#'   @param dbpwd MySQL password
-#'   @param dbname MySqL database name
-#'   @param selected.samples Sample to investigate. By default all.
-#'   @param host host; needed with FTP connections
-#'   @param port port; needed with FTP connections
-#' Returns:
-#'   @return project.info data.frame
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-fetch.sample.info <- function (allowed.projects, chiptype = NULL, 
-		  dbuser, dbpwd, dbname, selected.samples = NULL, host = NULL, port = NULL) { 
-
-  if (!require(RMySQL)) {
-    install.packages("RMySQL")
-    require(RMySQL)
-  }
-
-  drv <- dbDriver("MySQL")
-  if (!(is.null(host) && is.null(port))) {
-    con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname, host = host, port = port)
-  } else { 
-    con <- dbConnect(drv, username = dbuser, password = dbpwd, dbname = dbname)
-  }  
-
-
-  # Fetch all data from the database
-   rs <- dbSendQuery(con, paste("SELECT p.projectName,p.projectID,s.subjectID,s.sampleID,s.samplingDate,s.normAlgVersion,h.hybridisationID,h.dye,a.arrayID,a.barcode,sl.designID,s.reproducibility,s.normalisationFinished,s.imageID,fe.extractionID,fe.extractionName,fe.noSampleNormalisation,h.isDiscarded,fe.hasReproCheck
-     FROM sample s               
-     JOIN hybridisation h USING (sampleID) JOIN featureextraction fe USING (hybridisationID)
-     JOIN project p USING (projectID)
-     JOIN array a USING (arrayID)
-     JOIN slide sl USING (barcode)
-     ORDER BY s.projectID, s.sampleID, h.hybridisationID, fe.extractionID"))
-
-  message("Fetch selected projects and samples")
-  project.info.all <- fetch(rs, n = -1)
-
-  # If no chiptype specified, use all
-  if (is.null(chiptype)) {chiptype <- unique(project.info.all$designID)}
-  if (is.null(selected.samples)) {selected.samples <- unique(project.info.all$sampleID)}
-
-  # Close MySQL connection
-  dbDisconnect(con) 
-
-  # Filter out samples based on predefined criteria
-  rkeep <- project.info.all$projectName %in% allowed.projects &
-           !as.logical(project.info.all$isDiscarded) &
-           !as.logical(project.info.all$noSampleNormalisation) &
-           as.logical(project.info.all$normalisationFinished) &
-           project.info.all$hasReproCheck & 
-           project.info.all$designID %in% chiptype &
-           project.info.all$normAlgVersion == 1.1 &
-    	   project.info.all$sampleID %in% selected.samples
- 
-  # Remove annotations which are identical for all samples
-  ckeep <- sapply(project.info.all, function (x) {!length(unique(x)) == 1})
-
-  message("Filter the data")
-  project.info <- project.info.all[rkeep, ckeep]
-
-  project.info                  
-     
-}
 
 
 #' pick.training.samples
