@@ -48,7 +48,6 @@ dir.exists <- function(d) {
 InstallMarginal <- function(package, repo = "CRAN", ...) {
   if (suppressWarnings(!require(package, character.only=TRUE, quietly=TRUE))) { 
 
-
       parent.function <- sys.calls()[[1]][1]
       message(paste("Function ", parent.function, " requires package: ", package,
                   ". Package not found, installing...", sep=""))

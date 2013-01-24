@@ -19,7 +19,8 @@ Depends:
     reshape2,
     RPA,
     svDialogs,
-    vegan
+    vegan,
+    WGCNA
 URL: TBA
 LazyLoad: yes
 Collate:
@@ -37,8 +38,8 @@ Collate:
     'brew.R'
     'internal.R'
     'core.R'
-    'lm.R'
     'phylo.R'
     'AllClasses.R'
     'toydata.R'
+    'deprecated.R'
 Packaged: 2012-01-12 14:19:39 UTC; lei

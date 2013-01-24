@@ -52,7 +52,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 
   # Install new MySQL dump of the database with: 
   # mysql -u"dbuser" -p"dbpwd" dbname < dump.sql
-  require(parallel)
+  InstallMarginal("parallel")
 
   # Probes and species to exclude
   rm.phylotypes <- phylotype.rm.list("HITChip")
@@ -100,7 +100,7 @@ FetchHITChipAtlas <- function (allowed.projects, dbuser, dbpwd, dbname,
 
   # Normalize (input required in log-scale)
   #fdat <- ScaleProfile(fdat.orig, method = my.scaling, minmax.quantiles = c(0.005, 0.995))
-  fdat <- ScaleProfile(fdat.orig, method = my.scaling, minmax.points = minmax.points)
+  fdat <- HITChipDB::ScaleProfile(fdat.orig, method = my.scaling, minmax.points = minmax.points)
 
   # Summarize probes into oligos and hybridisations into samples
   oligo.log10 <- HITChipDB::summarize.rawdata(log10(fdat), fdat.hybinfo, fdat.oligoinfo, 

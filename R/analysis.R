@@ -63,7 +63,7 @@ distance.matrix <- function (x, method = "pearson", ...) {
 
 check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sort = FALSE) {
 
-  require(svDialogs)
+  InstallMarginal("svDialogs")
 
   ## Open your tab fnam, Level 1 & 2 Sum_BGsub_Rel.contribution
 
@@ -381,12 +381,18 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
 }
 
 #' Description: Stability analysis. Calculates average Pearson '
-#  correlation between samples in the input data and picks the lower '
-#  triangular matrix to avoid duplicating the correlations. Returns 
-#  correlations and stability estimate (average of the correlations).
+#'  correlation between samples in the input data and picks the lower '
+#'  triangular matrix to avoid duplicating the correlations. Returns 
+#'  correlations and stability estimate (average of the correlations). 
+#'  Can also be used to calculate stability between two data sets. 
+#'  Then provide two data sets as inputs.
 #'
+#' 
 #' Arguments:
-#'   @param dat data matrix phylotypes vs. samples
+#'   @param dat1 data matrix phylotypes vs. samples
+#'   @param dat2 Optional. Second data matrix phylotypes vs. samples. 
+#'          Provide this to calculate stability between two (paired) 
+#'          data sets.
 #'
 #' Returns:
 #'   @return List with correlations and astability estimate

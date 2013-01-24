@@ -2,7 +2,7 @@
 #                                 - Howard Skipper
 
 
-# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -93,8 +93,8 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
     }
 
     # compute median and CI limits of bootstrap
-    require(plyr)
-    require(reshape2)
+    InstallMarginal("plyr")
+    InstallMarginal("reshape2")
     CI.boot <- adply(l0.boot, 1, function(x) quantile(x, prob=c(.025, .5, .975, pnorm(c(-3, -2, -1, 0, 1, 2, 3))), na.rm=TRUE))[, -1]
     colnames(CI.boot)[1:10] <- c("LL", "M", "UL", paste0("SD", 1:7))
     CI.boot$x <- newx[, 1]
@@ -109,8 +109,7 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
     b2$x <- newx[,1]
     colnames(b2) <- c("index", "B", "value", "x")
 
-    require(ggplot2)
-
+    InstallMarginal("ggplot2")
     InstallMarginal("RColorBrewer")
 
     p1 <- ggplot(data, aes_string(x=IV, y=DV)) + theme_bw()
@@ -224,8 +223,9 @@ project.data <- function (amat, type = "PCA") {
 
       message("More samples than features, using sparse PCA")
       ## Spca example: we are selecting 50 variables on each of the PCs
-      require(mixOmics)
-      result <- spca(amat, ncomp = 2, center = TRUE, scale. = TRUE, keepX = rep(50, 2))
+      InstallMarginal("mixOmics")
+
+      result <- mixOmics::spca(amat, ncomp = 2, center = TRUE, scale. = TRUE, keepX = rep(50, 2))
       scores <- result$x
     } else {
       message("PCA")
@@ -236,7 +236,7 @@ project.data <- function (amat, type = "PCA") {
     rownames(tab) <- rownames(amat)
   } else if (type == "Sammon") {
 
-    require(MASS)
+    InstallMarginal("MASS")
 
     d <- as.dist(1-cor(t(amat)))
     # This gave the clearest visualization. 
@@ -419,9 +419,9 @@ theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
   # use with e.g.: ggplot2::ggplot(...) + opts( panel.border=theme_bottom_border() ) + ...
   structure(
     function(x = 0, y = 0, width = 1, height = 1, ...) {
-      polylineGrob(
-        x=c(x, x+width), y=c(y,y), ..., default.units = "npc",
-        gp=gpar(lwd=size, col=colour, lty=linetype),
+      ggplot2::polylineGrob(
+        x = c(x, x + width), y = c(y, y), ..., default.units = "npc",
+        gp = ggplot2::gpar(lwd=size, col=colour, lty=linetype),
       )
     },
     class = "theme",
