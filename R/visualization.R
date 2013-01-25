@@ -17,6 +17,64 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
+
+#' correlation.heatmap
+#'
+#' Description: Visualizes n x m correlation table as heatmap. See examples for details.
+#'
+#' Arguments:
+#'   @param df Data frame. Each row corresponds to a pair of correlated variables. The columns give variable names, correlations and significance estimates.
+#'   @param Xvar X axis variable column name. For instance "X".
+#'   @param Yvar Y axis variable column name. For instance "Y".
+#'   @param fill Column to be used for heatmap coloring. For instance "correlation".
+#'   @param star Column to be used for cell highlighting. For instance "qvalue".
+#'   @param qvalue.threshold Significance threshold for the stars.
+#'   @param step color interval
+#'   @param colours heatmap colours
+#'   @param limits colour scale limits
+#'   @param legend.text legend text
+#'
+#' Returns:
+#'   @return ggplot2 object
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "qvalue", qvalue.threshold = 0.05, step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"), limits = c(-1, 1), legend.text = "Correlation") {
+
+  theme_set(theme_bw())
+
+  if (any(c("XXXX", "YYYY", "ffff") %in% names(df))) {stop("XXXX, YYYY, ffff are not allowed in df")}
+
+  XXXX <- YYYY <- ffff <- NULL
+
+  df[["XXXX"]] <- df[[Xvar]]
+  df[["YYYY"]] <- df[[Yvar]]
+  df[["ffff"]] <- df[[fill]]
+
+  p <- ggplot(df, aes(x = XXXX, y = YYYY, fill = ffff))
+
+  p <- p + geom_tile()
+
+  p <- p + scale_fill_gradientn(legend.text, 
+       	   		breaks = seq(from = min(limits), to = max(limits), by = step), 
+			colours = colours, 
+			limits = limits)
+
+  p <- p + xlab("") + ylab("")
+
+  # Mark significant cells with stars
+  p <- p + theme(axis.text.x = element_text(angle = 90))
+  p <- p + geom_text(data = subset(df, qvalue < qvalue.threshold), aes(x = XXXX, y = YYYY, label = "+"), col = "white", size = 5)
+
+  p
+
+}
+
+
+
+
 #' Description: Draw regression curve with smoothed error bars 
 #' based on the Visually-Weighted Regression by Solomon M. Hsiang; see
 #' http://www.fight-entropy.com/2012/07/visually-weighted-regression.html
