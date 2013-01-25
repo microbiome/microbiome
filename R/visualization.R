@@ -554,7 +554,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny.info, pp
 #'   @param palette color palette ("white/black" / "white/blue" / "black/yellow/white")
 #'   @param fontsize font size
 #'   @param figureratio figure ratio
-#'   @param hclust.method hierarchical clustering method
+#'   @param hclust.method hierarchical clustering method. See help(hclust) for details. To prevent ordering of the rows, use hclust.method = NULL.
 #'
 #' Returns:
 #'   @return parameters
@@ -576,8 +576,15 @@ PlotPhylochipHeatmap <- function (data,
 
   # data = dat; metric = "pearson"; level = "L2"; tree.display = TRUE; palette = "white/black"; fontsize = 40; figureratio = 10; hclust.method = "complete"
 
-  params <- c(metric = metric, level = level, tree.display = tree.display, palette = palette, 
-  	      fontsize = fontsize, figureratio = figureratio, hclust.method = hclust.method)
+  if (hclust.method == "none") {hclust.method <- NULL}
+
+  params <- c(metric = metric, 
+  	      level = level, 
+	      tree.display = tree.display, 
+	      palette = palette, 
+  	      fontsize = fontsize, 
+	      figureratio = figureratio,  
+	      hclust.method = hclust.method)
 			 
   if (is.character(palette)) {
     palette  <- list.color.scales()[[palette]]
@@ -608,11 +615,18 @@ PlotPhylochipHeatmap <- function (data,
    limits <- limits*c(0.98, 1.02)
 
    # calculate clustering based on oligoprofile
-   if (metric == "euclidean") {
-    hc <- hclust(dist(t(data)), method = hclust.method)
-   } else if (metric == "pearson") {
-    hc <- hclust(as.dist(1 - cor(data, use = "pairwise.complete.obs")), method = hclust.method)
+   if (metric == "euclidean" && !is.null(hclust.method)) {
+     hc <- hclust(dist(t(data)), method = hclust.method)
+     ord <- hc$order
+   } else if (metric == "pearson" && !is.null(hclust.method)) {
+     hc <- hclust(as.dist(1 - cor(data, use = "pairwise.complete.obs")), method = hclust.method)
+     ord <- hc$order
+   } else if (is.null(hclust.method)) {
+     ord <- 1:nrow(data) # do not change the order
    }
+
+   # Order the data
+   data <- data[, ord] 
 
    data[data < limits[1]] <- limits[1]
    data[data > limits[2]] <- limits[2]
@@ -626,8 +640,7 @@ PlotPhylochipHeatmap <- function (data,
       }
    }
 
-   if (tree.display) {
-      data <- data[, hc$order] 
+   if (tree.display && !is.null(hclust.method)) {
       layout(matrix(c(3,0,1,2), ncol = 2, byrow = TRUE),widths=lcm(c(profilewidth,annwidth)),heights=lcm(figureheight*heights))
    } else {    
       layout(matrix(c(3,0,1,2),ncol=2,byrow=TRUE),widths=lcm(c(profilewidth,annwidth)),heights=lcm(figureheight*heights))
@@ -646,7 +659,7 @@ PlotPhylochipHeatmap <- function (data,
 
    text(x = c(0.03), y = (cumsum(rev(levs))-rev(levs/2))/sum(levs), labels = (names(rev(levs))), pos = 4)
 
-   if (tree.display) {
+   if (tree.display && !is.null(hclust.method)) {
 
       par(mar=c(0.2,1.5,1,0.5),usr=c(0,1,0,1))
       plot(hc, axes = FALSE, ann = FALSE, hang = -1)
