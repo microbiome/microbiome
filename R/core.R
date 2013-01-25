@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 Jarkko Salojarvi and Leo Lahti 
+# Copyright (C) 2011-2013 Jarkko Salojarvi and Leo Lahti 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -200,7 +200,7 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 100, I.th
 
    if (is.null(Nsample)) {Nsample <- ncol(D)}
 
-   require(multicore)
+   InstallMarginal("multicore")
 
    boot <- replicate(Nboot, sample(ncol(D), Nsample, replace = T), simplify = F)
 
@@ -249,8 +249,7 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1, Nboot = 100, 
 
   if (is.null(Nsample)) {Nsample <- ncol(D)}
 
-
-   require(multicore)
+   InstallMarginal("multicore")
 
    boot <- replicate(Nboot,sample(ncol(D),Nsample,replace=T),simplify=F)
 

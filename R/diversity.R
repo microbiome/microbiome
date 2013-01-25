@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -152,8 +152,7 @@ estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL)
 
 diversity <- function (dat, diversity.index = "shannon", det.th = 0) {
 
-  veganT <- require(vegan)
-  if(!veganT) { install.packages("vegan") }
+  InstallMarginal("vegan")
 
   # Impute missing values
   dat <- 10^t(impute(t(log10(dat))))

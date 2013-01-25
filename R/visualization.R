@@ -1,4 +1,8 @@
-# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# "A model is a lie that helps you see the truth."
+#                                 - Howard Skipper
+
+
+# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -11,6 +15,64 @@
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+
+#' correlation.heatmap
+#'
+#' Description: Visualizes n x m correlation table as heatmap. See examples for details.
+#'
+#' Arguments:
+#'   @param df Data frame. Each row corresponds to a pair of correlated variables. The columns give variable names, correlations and significance estimates.
+#'   @param Xvar X axis variable column name. For instance "X".
+#'   @param Yvar Y axis variable column name. For instance "Y".
+#'   @param fill Column to be used for heatmap coloring. For instance "correlation".
+#'   @param star Column to be used for cell highlighting. For instance "qvalue".
+#'   @param qvalue.threshold Significance threshold for the stars.
+#'   @param step color interval
+#'   @param colours heatmap colours
+#'   @param limits colour scale limits
+#'   @param legend.text legend text
+#'
+#' Returns:
+#'   @return ggplot2 object
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "qvalue", qvalue.threshold = 0.05, step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"), limits = c(-1, 1), legend.text = "Correlation") {
+
+  theme_set(theme_bw())
+
+  if (any(c("XXXX", "YYYY", "ffff") %in% names(df))) {stop("XXXX, YYYY, ffff are not allowed in df")}
+
+  XXXX <- YYYY <- ffff <- NULL
+
+  df[["XXXX"]] <- df[[Xvar]]
+  df[["YYYY"]] <- df[[Yvar]]
+  df[["ffff"]] <- df[[fill]]
+
+  p <- ggplot(df, aes(x = XXXX, y = YYYY, fill = ffff))
+
+  p <- p + geom_tile()
+
+  p <- p + scale_fill_gradientn(legend.text, 
+       	   		breaks = seq(from = min(limits), to = max(limits), by = step), 
+			colours = colours, 
+			limits = limits)
+
+  p <- p + xlab("") + ylab("")
+
+  # Mark significant cells with stars
+  p <- p + theme(axis.text.x = element_text(angle = 90))
+  p <- p + geom_text(data = subset(df, qvalue < qvalue.threshold), aes(x = XXXX, y = YYYY, label = "+"), col = "white", size = 5)
+
+  p
+
+}
+
+
 
 
 #' Description: Draw regression curve with smoothed error bars 
@@ -89,8 +151,8 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
     }
 
     # compute median and CI limits of bootstrap
-    require(plyr)
-    require(reshape2)
+    InstallMarginal("plyr")
+    InstallMarginal("reshape2")
     CI.boot <- adply(l0.boot, 1, function(x) quantile(x, prob=c(.025, .5, .975, pnorm(c(-3, -2, -1, 0, 1, 2, 3))), na.rm=TRUE))[, -1]
     colnames(CI.boot)[1:10] <- c("LL", "M", "UL", paste0("SD", 1:7))
     CI.boot$x <- newx[, 1]
@@ -105,8 +167,7 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
     b2$x <- newx[,1]
     colnames(b2) <- c("index", "B", "value", "x")
 
-    require(ggplot2)
-
+    InstallMarginal("ggplot2")
     InstallMarginal("RColorBrewer")
 
     p1 <- ggplot(data, aes_string(x=IV, y=DV)) + theme_bw()
@@ -220,8 +281,9 @@ project.data <- function (amat, type = "PCA") {
 
       message("More samples than features, using sparse PCA")
       ## Spca example: we are selecting 50 variables on each of the PCs
-      library(mixOmics)
-      result <- spca(amat, ncomp = 2, center = TRUE, scale. = TRUE, keepX = rep(50, 2))
+      InstallMarginal("mixOmics")
+
+      result <- mixOmics::spca(amat, ncomp = 2, center = TRUE, scale. = TRUE, keepX = rep(50, 2))
       scores <- result$x
     } else {
       message("PCA")
@@ -231,7 +293,9 @@ project.data <- function (amat, type = "PCA") {
     tab <- data.frame(scores[,1:2])
     rownames(tab) <- rownames(amat)
   } else if (type == "Sammon") {
-    library(MASS)
+
+    InstallMarginal("MASS")
+
     d <- as.dist(1-cor(t(amat)))
     # This gave the clearest visualization. 
     # Tuning magic parameter could still improve. 
@@ -413,9 +477,9 @@ theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
   # use with e.g.: ggplot2::ggplot(...) + opts( panel.border=theme_bottom_border() ) + ...
   structure(
     function(x = 0, y = 0, width = 1, height = 1, ...) {
-      polylineGrob(
-        x=c(x, x+width), y=c(y,y), ..., default.units = "npc",
-        gp=gpar(lwd=size, col=colour, lty=linetype),
+      ggplot2::polylineGrob(
+        x = c(x, x + width), y = c(y, y), ..., default.units = "npc",
+        gp = ggplot2::gpar(lwd=size, col=colour, lty=linetype),
       )
     },
     class = "theme",

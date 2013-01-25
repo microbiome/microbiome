@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -37,8 +37,7 @@ read.profiling <- function(level = NULL, method = "rpa", data.dir = NULL, log10 
 
   # level <- "oligo"; method = "sum"; data.dir = "test/"; log10 = TRUE
 
-  svDialogsT <- require(svDialogs)
-  if(!svDialogsT) { install.packages("svDialogs") }
+  InstallMarginal("svDialogs")
 
   ##  Select file
   if (is.null(data.dir)) {
@@ -141,8 +140,7 @@ read.profiling.010 <- function(level = NULL, method = "rpa", data.dir = NULL, lo
   if (method == "ave") {method <- "log10Ave"}
   if (method == "nmf") {method <- "NMF"}
 
-  svDialogsT <- require(svDialogs)
-  if(!svDialogsT) { install.packages("svDialogs") }
+  InstallMarginal("svDialogs")
 
   ##  Select file
   if (is.null(data.dir)) {

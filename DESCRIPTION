@@ -1,8 +1,8 @@
 Package: microbiome
 Type: Package
 Title: microbiome
-Version: 0.3.65
-Date: 2013-01-016
+Version: 0.3.66
+Date: 2013-01-25
 Author: Leo Lahti and Jarkko Salojarvi
 Maintainer: microbiome developer team <microbiome-admin@googlegroups.com>
 Description: R package for microbiome studies
@@ -10,12 +10,18 @@ License: FreeBSD
 Depends:
     R (>= 2.12.1),
     ggplot2,
+    MASS,
     methods,
+    minet,
+    mixOmics,
+    multicore,
     plyr,
     qvalue,
     reshape2,
     RPA,
-    vegan
+    svDialogs,
+    vegan,
+    WGCNA
 URL: TBA
 LazyLoad: yes
 Collate:
@@ -27,15 +33,11 @@ Collate:
     'show-methods.R'
     'utils.R'
     'profiling.R'
-    'atlas.R'
     'diversity.R'
     'visualization.R'
     'brew.R'
     'internal.R'
     'core.R'
-    'deprecated.R'
-    'lm.R'
     'phylo.R'
     'AllClasses.R'
-    'toydata.R'
 Packaged: 2012-01-12 14:19:39 UTC; lei
