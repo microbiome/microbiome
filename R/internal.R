@@ -188,24 +188,6 @@ list.color.scales <- function () {
 
 
 
-#' Description: Format string vector to mysql query format
-#' 
-#' Arguments:
-#'   @param s string vector
-#'
-#' Returns:
-#'   @return mysql query version
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-mysql.format <- function (s) {
-  paste("('",paste(as.character(s),collapse="','",sep="'"),"')",sep="")
-}
-
-
 
 
 #' Description: Calculate species summaries and possibly update d.oligo2
@@ -231,7 +213,6 @@ oligo.bg.correction <- function (d.oligo2, bgc.method) {
   d.oligo2
 
 }
-
 
 
 #' Description: Check number of matching phylotypes for each probe
@@ -336,135 +317,6 @@ threshold.data <- function(dat, sd.times = 6){
   return(data.mat)
 }
 
-
-
-#' Description: Probeset summarization with various methods.
-#' 
-#' Arguments:
-#'   @param phylogeny.info oligo - phylotype matching data.frame
-#'   @param oligo.data preprocessed probes x samples data matrix in log10 domain
-#'   @param method summarization method
-#'   @param verbose print intermediate messages
-#'   @param rm.species Species to exclude
-#' Returns:
-#'   @return summarized data matrix in log10 scale
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-summarize.probesets.species <- function (phylogeny.info, oligo.data, method, verbose = TRUE, rm.species = c("Victivallis vadensis")) {
-
-  level <- "species"			    
-
-  if (method == "nmf") {warning("nmf oligo summarization method not implemented at species level"); return(NULL)}
-  probesets <- retrieve.probesets(phylogeny.info, level = level)
-  probesets <- probesets[setdiff(names(probesets), rm.species)]
-  nPhylotypesPerOligo <- n.phylotypes.per.oligo(phylogeny.info, level) 
-
-  # initialize
-  summarized.matrix <- array(NA, dim = c(length(probesets), ncol(oligo.data)), 
-  		    	      dimnames = list(names(probesets), colnames(oligo.data))) 
-
-  for (set in names(probesets)) {
-
-    if (verbose) { message(set) }
-
-    # Pick expression for particular probes
-    probes <- probesets[[set]]
-
-    # Pick probe data for the probeset: probes x samples
-    # oligo.data assumed to be already in log10
-    dat <- matrix(oligo.data[probes,], length(probes)) 
-    rownames(dat) <- probes
-    colnames(dat) <- colnames(oligo.data)
-
-    if (method == "rpa") {
-
-      # RPA is calculated in log domain
-      # Downweigh non-specific probes with priors with 10% of virtual data and
-      # variances set according to number of matching probes
-      # This will provide slight emphasis to downweigh potentially
-      # cross-hybridizing probes
-      vec <- rpa.fit(dat, tau2.method = "robust", alpha = 1 + 0.1*ncol(oligo.data)/2, beta = 1 + 0.1*ncol(oligo.data)*nPhylotypesPerOligo[probes]^2)$mu
-
-    } else if (method == "ave") {
-
-      vec <- log10(colMeans((10^dat), na.rm = T))
-
-    } else if (method == "sum") {
-
-      # Weight each probe by the inverse of the number of matching phylotypes
-      # Then calculate sum -> less specific probes are downweighted
-      # However, set the minimum signal to 0 in log10 scale (1 in original scale)!
-      dat2 <- (10^dat) / nPhylotypesPerOligo[rownames(dat)]
-      dat2[dat2 < 1] <- 1
-      vec <- log10(colSums(dat2, na.rm = T))
-
-    }
-    
-    summarized.matrix[set, ] <- vec 
-
-  }
-
-  summarized.matrix
-  
-}
-
-#' Description: RPA for HITChip
-#' 
-#' Arguments:
-#'   @param level level
-#'   @param phylo phylo
-#'   @param oligo.data oligo.data
-#'
-#' Returns:
-#'   @return RPA preprocessed data
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-calculate.rpa <- function (level, phylo, oligo.data) {
-
-  # List entities (e.g. species)
-  phylo.list <- split(phylo, phylo[[level]])
-  entities <- names(phylo.list)
-
-  # initialize
-  summarized.matrix <- array(NA, dim = c(length(entities), ncol(oligo.data)), dimnames = list(entities, colnames(oligo.data)))
-  noise.list <- list() 
-
-  for (entity in names(phylo.list)) {
-    message(entity)
-
-    # Pick expression for particular probes
-    probes <- unique(phylo.list[[entity]][, "oligoID"])
-
-    # oligo.data is already in log10
-    dat <- matrix(oligo.data[probes,], length(probes)) 
-
-    # dat: probes x samples
-    if (nrow(dat) < 2) {
-      vec <- as.vector(dat) # NOTE: circumvent RPA if there are no replicates 
-      noise <- NA
-    } else {
-      res <- rpa.fit(dat)
-      vec <- res$mu
-      noise <- sqrt(res$tau2)
-      names(noise) <- probes
-    }
-
-    noise.list[[entity]] <- noise
-    summarized.matrix[entity, ] <- vec #, epsilon, alpha, beta, tau2.method, d.method)
-
-  }
-
-  list(emat = summarized.matrix, noise = noise.list)
-  
-}
 
 
 
