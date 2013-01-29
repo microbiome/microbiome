@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -11,6 +11,92 @@
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+#' calculate.hclust
+#' 
+#' Description: Calculate hierarchical clustering for standard selections in profiling script
+#'
+#' Arguments:
+#'   @param dat data matrix 
+#'   @param method hierarchical clustering method (see ?hclust)
+#'   @param metric clustering metrics (euclidean / correlation)
+#'
+#' Returns:
+#'   @return hclust object for log10 and for absolute scale data
+#'
+#' @export
+#' @examples # hc <- calculate.hclust(dat, "complete", "correlation") 
+#' @references See citation("microbiome")
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+calculate.hclust <- function (dat, method = "complete", metric = "correlation") {
+
+  if (metric == 'euclidean') {
+    hc <- hclust(dist(t(dat)), method = method)
+  } else if (metric == 'correlation') {
+    hc <- hclust(as.dist(1 - cor(dat, use = "complete.obs")), method = method)
+  } else {  
+    stop("Provide proper metric for calculate.hclust!")
+  }
+
+  hc
+
+}
+
+
+#' Description: get probeset data matrix
+#' 
+#' Arguments:
+#'   @param name name
+#'   @param level taxonomic level
+#'   @param phylogeny.info phylogeny.info
+#'   @param oligo.matrix oligos vs. samples preprocessed data matrix; absolute scale
+#'   @param log10 Logical. Log or no log?
+#'
+#' Returns:
+#'   @return probeset data matrix
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+get.probeset <- function (name, level, phylogeny.info, oligo.matrix, log10 = TRUE) {
+
+  # Pick probes for this entity
+  probes <- retrieve.probesets(phylogeny.info, level, name)
+
+  sets <- vector(length = length(probes), mode = "list")
+  names(sets) <- names(probes)
+
+  for (nam in names(probes)) {
+
+    # Pick expression for particular probes (absolute scale)
+    p <- intersect(probes[[nam]], rownames(oligo.matrix))
+    dat <- NULL
+    if (length(p) > 0) {
+      dat <- oligo.matrix[p, ]
+  
+      dat <- matrix(dat, nrow = length(probes[[nam]]))
+      rownames(dat) <- probes[[nam]]
+      colnames(dat) <- colnames(oligo.matrix)
+
+      # Logarithmize probeset?
+      if ( log10 ) { dat <- log10(dat) } 
+    } 
+    sets[[nam]] <- dat
+
+  }
+  
+  if (length(sets) == 1) {sets <- sets[[1]]}
+
+  # Return
+  sets
+
+}
+
 
 
 #' dir.exists
