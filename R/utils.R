@@ -126,7 +126,7 @@ dir.exists <- function(d) {
 #' @param ... further arguments passed on to install.packages
 #'
 #' @return Invisible NULL
-#' 
+#' @export
 #' @note meant for package internal use only
 #' @author Contact: \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

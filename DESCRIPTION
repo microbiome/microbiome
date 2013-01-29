@@ -32,7 +32,6 @@ Collate:
     'microbiome-package.R'
     'show-methods.R'
     'utils.R'
-    'profiling.R'
     'diversity.R'
     'visualization.R'
     'brew.R'
