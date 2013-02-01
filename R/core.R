@@ -200,18 +200,31 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 100, I.th
 
    if (is.null(Nsample)) {Nsample <- ncol(D)}
 
-   InstallMarginal("multicore")
+   #InstallMarginal("multicore")
+   # multicore is not available for windows
+   multicore.available <- try(require(multicore))
 
    boot <- replicate(Nboot, sample(ncol(D), Nsample, replace = T), simplify = F)
 
    # choose intensity such that there is at least one bacteria fulfilling prevalence criterion
-   boot.which <- mclapply(boot, function(x){ 
-      Prev = round(runif(1, minPrev, length(x)));
-      Imax = max(apply(D[,x], 1, function(xx) quantile(xx, probs = (1 - Prev/length(x)))));
-      Imax = max(I.thr, Imax); # Ensure Imax > I.thr, otherwise Insty gives NA's / LL 13.8.2012
-      Insty = runif(1, I.thr, Imax);
-      return(core.which(D[,x], Insty, Prev))
-   }, mc.cores = ncore)
+
+   if (multicore.available) {
+     boot.which <- mclapply(boot, function(x){ 
+       Prev = round(runif(1, minPrev, length(x)));
+       Imax = max(apply(D[,x], 1, function(xx) quantile(xx, probs = (1 - Prev/length(x)))));
+       Imax = max(I.thr, Imax); # Ensure Imax > I.thr, otherwise Insty gives NA's / LL 13.8.2012
+       Insty = runif(1, I.thr, Imax);
+       return(core.which(D[,x], Insty, Prev))
+    }, mc.cores = ncore)
+   } else {
+     boot.which <- lapply(boot, function(x){ 
+       Prev = round(runif(1, minPrev, length(x)));
+       Imax = max(apply(D[,x], 1, function(xx) quantile(xx, probs = (1 - Prev/length(x)))));
+       Imax = max(I.thr, Imax); # Ensure Imax > I.thr, otherwise Insty gives NA's / LL 13.8.2012
+       Insty = runif(1, I.thr, Imax);
+       return(core.which(D[,x], Insty, Prev))
+    }, mc.cores = ncore)
+   }
 
    boot.prob <- rowSums(as.data.frame(boot.which))/Nboot
 
@@ -249,18 +262,25 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1, Nboot = 100, 
 
   if (is.null(Nsample)) {Nsample <- ncol(D)}
 
-   InstallMarginal("multicore")
+   #InstallMarginal("multicore")
+   multicore.available <- try(require("multicore"))
 
    boot <- replicate(Nboot,sample(ncol(D),Nsample,replace=T),simplify=F)
 
    # below:choose intensity such that there is at least one bacteria fulfilling prevalence criterion
-   if (Nsample>1) {
+   if (Nsample>1 && multicore.available) {
      boot.which=mclapply(boot,function(x){ 
         Imax=max(apply(D[,x],1,min))
         Insty=runif(1,I.thr,Imax)
         sum(rowSums(D[,x]>Insty) >= minprev)
      }, mc.cores = ncore)
-   } else{
+   } else if (Nsample>1 && !multicore.available) {
+     boot.which=lapply(boot,function(x){ 
+        Imax=max(apply(D[,x],1,min))
+        Insty=runif(1,I.thr,Imax)
+        sum(rowSums(D[,x]>Insty) >= minprev)
+     }, mc.cores = ncore) 
+   } else {
      boot.which=lapply(boot,function(x){ 
         Imax=max(D[,x])
         Insty=runif(1,I.thr,Imax)
@@ -268,8 +288,8 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1, Nboot = 100, 
      })
    }
 
-   boot.prob <- as.matrix(as.data.frame(boot.which,check.names=F))
-   t1 <- quantile(boot.prob,probs=c(0.05,0.5,0.95))
+   boot.prob <- as.matrix(as.data.frame(boot.which, check.names = F))
+   t1 <- quantile(boot.prob, probs = c(0.05, 0.5, 0.95))
    t1[2] <- mean(boot.prob)
 
    return(t1)
