@@ -75,15 +75,15 @@ read.profiling <- function(level = NULL, method = "rpa", data.dir = NULL, log10 
 
   if (level %in% c("L0", "L1", "L2", "species")) {
 
-    tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1)
+    tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
 
   } else if (level == "oligo") {
 
-    tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1)
+    tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
 
   } else if (length(grep("phylogeny", level)) > 0) {
 
-    tab <- read.csv(f, header = TRUE, sep = "\t")
+    tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
     tab <- polish.phylogeny.info(tab)
 
   }
