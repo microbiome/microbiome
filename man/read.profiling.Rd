@@ -9,7 +9,7 @@
   \item{level}{phylogenetic level ("oligo" / "species" /
   "L1" / "L2" / "L0") or "phylogeny.info"}
 
-  \item{method}{("rpa" / "sum" / "ave" / "nmf")}
+  \item{method}{("rpa" / "frpa" / "sum" / "ave" / "nmf")}
 
   \item{data.dir}{Profiling script output directory for
   reading the data. If not given, GUI will ask to specify

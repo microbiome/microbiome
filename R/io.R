@@ -19,7 +19,7 @@
 #'
 #' Arguments:
 #'   @param level phylogenetic level ("oligo" / "species" / "L1" / "L2" / "L0") or "phylogeny.info"
-#'   @param method ("rpa" / "sum" / "ave" / "nmf")
+#'   @param method ("rpa" / "frpa" / "sum" / "ave" / "nmf")
 #'   @param data.dir Profiling script output directory for reading the data. If not given, GUI will ask to specify the file and overruns the possible level / method arguments in the function call.
 #'   @param log10 Logical. Logarithmize the data TRUE/FALSE. By default, the data is in original non-log scale.
 #'   @param impute impute missing oligo signals
@@ -52,7 +52,8 @@ read.profiling <- function(level = NULL, method = "rpa", data.dir = NULL, log10 
     if (!length(grep("L1", f)) == 0) { level <- "L1"}
     if (!length(grep("L2", f)) == 0) { level <- "L2"}
     if (!length(grep("phylogeny", f)) == 0) { level <- "phylogeny.info"}
-    if (!length(grep("rpa", f)) == 0) { method <- "rpa"}
+    if (f == "rpa")  { method <- "rpa"}
+    if (f == "frpa") { method <- "frpa"}
     if (!length(grep("sum", f)) == 0) { method <- "sum"}
     if (!length(grep("ave", f)) == 0) { method <- "ave"}
     if (!length(grep("nmf", f)) == 0) { method <- "nmf"}
@@ -64,10 +65,13 @@ read.profiling <- function(level = NULL, method = "rpa", data.dir = NULL, log10 
       f <- paste(data.dir, "/", level, "-", method, ".tab", sep = "")
     } else if (level == "oligo") {
       f <- paste(data.dir, "/oligoprofile.tab", sep = "")
-    } else if (level == "phylogeny.info") {
+    } else if (level == "phylogeny.full") {
+      f <- paste(data.dir, "/phylogeny.full.tab", sep = "")
+    } else if (level %in% c("phylogeny.filtered", "phylogeny.info", "phylogeny")) {
       f <- paste(data.dir, "/phylogeny.tab", sep = "")
     }
   }
+  message(paste("Reading", f))
 
   if (level %in% c("L0", "L1", "L2", "species")) {
 
@@ -77,7 +81,7 @@ read.profiling <- function(level = NULL, method = "rpa", data.dir = NULL, log10 
 
     tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1)
 
-  } else if (level == "phylogeny.info") {
+  } else if (length(grep("phylogeny", level)) > 0) {
 
     tab <- read.csv(f, header = TRUE, sep = "\t")
     tab <- polish.phylogeny.info(tab)
