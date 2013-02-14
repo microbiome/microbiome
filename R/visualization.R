@@ -17,7 +17,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-
 #' correlation.heatmap
 #'
 #' Description: Visualizes n x m correlation table as heatmap. See examples for details.
@@ -640,7 +639,7 @@ PlotPhylochipHeatmap <- function (data,
 
   # data = dat; metric = "pearson"; level = "L2"; tree.display = TRUE; palette = "white/black"; fontsize = 40; figureratio = 10; hclust.method = "complete"
 
-  if (hclust.method == "none") {hclust.method <- NULL}
+  if (is.null(hclust.method) || hclust.method == "none") {hclust.method <- NULL}
 
   params <- c(metric = metric, 
   	      level = level, 
