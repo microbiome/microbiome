@@ -685,7 +685,7 @@ PlotPhylochipHeatmap <- function (data,
      hc <- hclust(as.dist(1 - cor(data, use = "pairwise.complete.obs")), method = hclust.method)
      ord <- hc$order
    } else if (is.null(hclust.method)) {
-     ord <- 1:nrow(data) # do not change the order
+     ord <- 1:ncol(data) # do not change the order
    }
 
    # Order the data
