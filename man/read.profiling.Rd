@@ -2,8 +2,8 @@
 \alias{read.profiling}
 \title{read.profiling}
 \usage{
-  read.profiling(level = NULL, method = "rpa",
-    data.dir = NULL, log10 = TRUE, impute = TRUE)
+  read.profiling(level = NULL, method = "rpa", data.dir,
+    log10 = TRUE, impute = TRUE)
 }
 \arguments{
   \item{level}{phylogenetic level ("oligo" / "species" /
