@@ -151,7 +151,7 @@ read.profiling.010 <- function(level = NULL, method = "rpa", data.dir = NULL, lo
   ##  Select file
   if (is.null(data.dir)) {
 
-    f <- tk_choose.files(multi = F)
+    f <- svDialogs::tk_choose.files(multi = F)
 
     # Recognize level and method from the file name 
     level <- NULL; method <- NULL
@@ -166,7 +166,7 @@ read.profiling.010 <- function(level = NULL, method = "rpa", data.dir = NULL, lo
     if (!length(grep("Ave", f)) == 0) { method <- "log10Ave"}
     if (!length(grep("NMF", f)) == 0) { method <- "NMF"}
 
-    tclServiceMode(FALSE)
+    svDialogs::tclServiceMode(FALSE)
 
   } else {
     if (level %in% c("level0", "level1", "level2", "species")) {

@@ -67,7 +67,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
 
   ## Open your tab fnam, Level 1 & 2 Sum_BGsub_Rel.contribution
 
-  if (is.null(dat) && is.null(fnam)) { fnam <- tk_choose.files(multi = F) }
+  if (is.null(dat) && is.null(fnam)) { fnam <- svDialogs::tk_choose.files(multi = F) }
   if (is.null(dat)) {
     dat <- read.table(fnam, sep = "\t", header = T, row.names = 1)
   } 
@@ -79,8 +79,8 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
   ## G2 <- samples[!(samples %in% G1)]
   ## or select G1 and select G2 (this is useful when you have multiple groups) (standard below)
 
-  G1 <- tk_select.list(samples, multiple = T, title = "Select samples for 1st group")
-  G2 <- tk_select.list(samples, multiple = T, title = "Select samples for 2nd group")
+  G1 <- svDialogs::tk_select.list(samples, multiple = T, title = "Select samples for 1st group")
+  G2 <- svDialogs::tk_select.list(samples, multiple = T, title = "Select samples for 2nd group")
 
   M <- matrix(data = NA, length(levels), 1)
   rownames(M) <- levels
