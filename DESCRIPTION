@@ -21,7 +21,7 @@ Depends:
     svDialogs,
     vegan,
     WGCNA
-URL: TBA
+URL: http://microbiome.github.com
 LazyLoad: yes
 Collate:
     'AllGenerics.R'
