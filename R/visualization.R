@@ -629,7 +629,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny.info, pp
 
 PlotPhylochipHeatmap <- function (data,
                          phylogeny.info,
-                         metric = "pearson", 
+                         metric = "spearman", 
                          level = "L1", 
                          tree.display = TRUE, 
                          palette = "white/black", 
@@ -683,6 +683,9 @@ PlotPhylochipHeatmap <- function (data,
      ord <- hc$order
    } else if (metric == "pearson" && !is.null(hclust.method)) {
      hc <- hclust(as.dist(1 - cor(data, use = "pairwise.complete.obs")), method = hclust.method)
+     ord <- hc$order
+   } else if (metric == "spearman" && !is.null(hclust.method)) {
+     hc <- hclust(as.dist(1 - cor(data, use = "pairwise.complete.obs", method = "spearman")), method = hclust.method)
      ord <- hc$order
    } else if (is.null(hclust.method)) {
      ord <- 1:ncol(data) # do not change the order
