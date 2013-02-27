@@ -516,13 +516,13 @@ htree.plot <- function (dat, method = "complete", metric = "spearman") {
 
     if (metric == "euclidean") {
       # Metric: Euclidean
-      hc <- hclust(dist(t(dat)), method = method)
+      hc <- hclust(dist(t(dat)), method = metric)
       #hc.raw.eu <- hclust(dist(t(dat)), method = method)
       #hc.log10.eu <- hclust(dist(t(log10(dat + 1))), method = method)
     } else if (metric %in% c("pearson", "spearman")) {
 
       # 'Metric': Correlation
-      hc <- hclust(as.dist(1 - cor(dat, use = "complete.obs")), method = metric)
+      hc <- hclust(as.dist(1 - cor(dat, use = "pairwise.complete.obs")), method = metric)
 
       #hc.raw.cor <- hclust(as.dist(1 - cor(dat, use = "complete.obs")), method = method)
       #hc.log10.cor <- hclust(as.dist(1 - cor(log10(dat + 1), use = "complete.obs")), method = method)
