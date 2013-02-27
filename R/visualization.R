@@ -497,6 +497,7 @@ theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
 #' Arguments:
 #'   @param dat oligoprofile data in original (non-log) domain
 #'   @param method hierarchical clustering method
+#'   @param metric clustering similarity measure
 #' Returns:
 #'   @return NULL
 #'
@@ -506,28 +507,36 @@ theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-htree.plot <- function (dat, method = "complete") {
+htree.plot <- function (dat, method = "complete", metric = "spearman") {
 
   # Plot CLUSTER TREES TO A GRAPHICS WINDOW
   # Euclidean & Correlation / Raw & Log10
 
   if(ncol(dat) > 2){
 
-    # Metric: Euclidean
-    hc.raw.eu <- hclust(dist(t(dat)), method = method)
-    hc.log10.eu <- hclust(dist(t(log10(dat + 1))), method = method)
+    if (metric == "euclidean") {
+      # Metric: Euclidean
+      hc <- hclust(dist(t(dat)), method = method)
+      #hc.raw.eu <- hclust(dist(t(dat)), method = method)
+      #hc.log10.eu <- hclust(dist(t(log10(dat + 1))), method = method)
+    } else if (metric %in% c("pearson", "spearman")) {
 
-    # 'Metric': Correlation
-    hc.raw.cor <- hclust(as.dist(1 - cor(dat, use = "complete.obs")), method = method)
-    hc.log10.cor <- hclust(as.dist(1 - cor(log10(dat + 1), use = "complete.obs")), method = method)
+      # 'Metric': Correlation
+      hc <- hclust(as.dist(1 - cor(dat, use = "complete.obs")), method = metric)
+
+      #hc.raw.cor <- hclust(as.dist(1 - cor(dat, use = "complete.obs")), method = method)
+      #hc.log10.cor <- hclust(as.dist(1 - cor(log10(dat + 1), use = "complete.obs")), method = method)
+    }
+
 
     # Plot all hclust trees in a single figure
-    x11() 
-    par(mfrow=c(2,2))
-    plot(hc.log10.eu, hang = -1, main = "hclust/euclid/oligo/log10", xlab = "Samples")
-    plot(hc.raw.eu, hang = -1, main = "hclust/euclid/oligo/raw", xlab = "Samples")
-    plot(hc.log10.cor, hang = -1, main = "hclust/pearson/oligo/log10", xlab = "Samples")
-    plot(hc.raw.cor, hang = -1, main = "hclust/pearson/oligo/raw", xlab = "Samples")
+    #x11() 
+    #par(mfrow=c(2,2))
+    #plot(hc.log10.eu, hang = -1, main = "hclust/euclid/oligo/log10", xlab = "Samples")
+    #plot(hc.raw.eu, hang = -1, main = "hclust/euclid/oligo/raw", xlab = "Samples")
+    #plot(hc.log10.cor, hang = -1, main = "hclust/pearson/oligo/log10", xlab = "Samples")
+    #plot(hc.raw.cor, hang = -1, main = "hclust/pearson/oligo/raw", xlab = "Samples")
+    plot(hc, hang = -1, main = paste("hclust/", metric, sep = ""), xlab = "Samples")
 
   } else {
     warning("Three or more samples required for clustering - skipped.\n")
