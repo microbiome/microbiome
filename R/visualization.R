@@ -522,7 +522,7 @@ htree.plot <- function (dat, method = "complete", metric = "spearman") {
     } else if (metric %in% c("pearson", "spearman")) {
 
       # 'Metric': Correlation
-      hc <- hclust(as.dist(1 - cor(dat, use = "pairwise.complete.obs"), method = metric), method = method)
+      hc <- hclust(as.dist(1 - cor(dat, use = "pairwise.complete.obs", method = metric)), method = method)
 
       #hc.raw.cor <- hclust(as.dist(1 - cor(dat, use = "complete.obs")), method = method)
       #hc.log10.cor <- hclust(as.dist(1 - cor(log10(dat + 1), use = "complete.obs")), method = method)
