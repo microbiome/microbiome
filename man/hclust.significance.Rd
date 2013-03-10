@@ -8,7 +8,8 @@ clusters based on multiscale bootstrap resamping}
     replace = TRUE)
 }
 \arguments{
-  \item{dat}{data matrix}
+  \item{dat}{data matrix samples to be clustered on the
+  rows}
 
   \item{my.groups}{groups from hierarchical clustering}
 
