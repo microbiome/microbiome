@@ -1,7 +1,7 @@
 #' Description: asses significance of hierarchical clustering 
 #' clusters based on multiscale bootstrap resamping
 #' 
-#' @param dat data matrix
+#' @param dat data matrix samples to be clustered on the rows
 #' @param my.groups groups from hierarchical clustering
 #' @param R bootstrap iterations
 #' @param sample.sizes sample sizes for multiscale bootstrap as fractions of the total data (0...1)
@@ -33,9 +33,15 @@ hclust.significance <- function (dat, my.groups, R, sample.sizes = c(0.2, 0.5, 1
 
       # Bootstrap sampling
       inds <- sample(ncol(dat), replace = replace, size = sample.size)
+      dat2 <- dat[, inds]
+      # Ensure std is never zero for items as a result of resampling
+      while (any(apply(dat2, 1, sd) == 0)) {
+        inds <- sample(ncol(dat), replace = replace, size = sample.size)
+        dat2 <- dat[, inds]
+      }
 
       # Get groups that exceed threshold. The most general groups, no nested ones.
-      my.groups2 <- get.hclust.groups(dat[, inds], corr.th, recursive = FALSE, min.size = min.size) 
+      my.groups2 <- get.hclust.groups(dat2, corr.th, recursive = FALSE, min.size = min.size) 
 
       # For each group in the original data, check if it is included in one 
       # of the bootstrap groups
@@ -114,11 +120,9 @@ get.hclust.groups <- function (dat, corr.th, recursive = FALSE, min.size = 2) {
 
   # Group the phylotypes
   cordist <- as.dist(1 - cor(t(dat), method = "spearman"))
-
   hc <- fastcluster::hclust(cordist, method = "complete")
 
   # Identify all groups that are higher than threshold
-
   # First, identify number of groups at the threshold
   groups <- cutree(hc, h = 1 - corr.th) 
   K <- length(unique(groups)) 
