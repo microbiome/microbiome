@@ -574,7 +574,7 @@ htree.plot <- function (dat, method = "complete", metric = "spearman") {
 #' @keywords utilities
 
 add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny.info, ppcm = 150, 
-	         hclust.method = "complete", palette = "white/black", level = "L1", metric = "pearson", 
+	         hclust.method = "complete", palette = "white/black", level = "L1", metric = "spearman", 
   		 figureratio = 10, fontsize = 40, tree.display = TRUE) {
 
   # dat <- finaldata[["oligo"]]; output.dir = params$wdir;  output.file = NULL; phylogeny.info = phylogeny.info; ppcm = 150; hclust.method = "complete"; palette = "white/blue"; level = "L2"; metric = "pearson"; figureratio = 12; fontsize = 12; tree.display = TRUE
