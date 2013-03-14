@@ -20,23 +20,23 @@
 #' Arguments:
 #'   @param dat data matrix 
 #'   @param method hierarchical clustering method (see ?hclust)
-#'   @param metric clustering metrics (euclidean / correlation)
+#'   @param metric clustering metrics (spearman / pearson / euclidean)
 #'
 #' Returns:
 #'   @return hclust object for log10 and for absolute scale data
 #'
 #' @export
-#' @examples # hc <- calculate.hclust(dat, "complete", "correlation") 
+#' @examples # hc <- calculate.hclust(dat, "complete", "spearman") 
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-calculate.hclust <- function (dat, method = "complete", metric = "correlation") {
+calculate.hclust <- function (dat, method = "complete", metric = "spearman") {
 
   if (metric == 'euclidean') {
     hc <- hclust(dist(t(dat)), method = method)
-  } else if (metric == 'correlation') {
-    hc <- hclust(as.dist(1 - cor(dat, use = "complete.obs")), method = method)
+  } else if (metric %in% c("spearman", "pearson")) {
+    hc <- hclust(as.dist(1 - cor(dat, use = "complete.obs", method = metric)), method = method)
   } else {  
     stop("Provide proper metric for calculate.hclust!")
   }

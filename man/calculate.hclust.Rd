@@ -3,7 +3,7 @@
 \title{calculate.hclust}
 \usage{
   calculate.hclust(dat, method = "complete",
-    metric = "correlation")
+    metric = "spearman")
 }
 \arguments{
   \item{dat}{data matrix}
@@ -11,8 +11,8 @@
   \item{method}{hierarchical clustering method (see
   ?hclust)}
 
-  \item{metric}{clustering metrics (euclidean /
-  correlation)
+  \item{metric}{clustering metrics (spearman / pearson /
+  euclidean)
 
   Returns:}
 }
@@ -27,7 +27,7 @@
   Arguments:
 }
 \examples{
-# hc <- calculate.hclust(dat, "complete", "correlation")
+# hc <- calculate.hclust(dat, "complete", "spearman")
 }
 \author{
   Contact: Leo Lahti
