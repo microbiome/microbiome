@@ -122,17 +122,17 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
 }
 
 
-#' Description: Cross-correlate input variables
+#' Description: Cross-correlate columns of the input matrices
 #'              
 #' Arguments:
-#'   @param annot annotation matrix: samples x features
-#'   @param dat numeric data matrix: samples x features
-#'   @param method association method (pearson, spearman for continuous; categorical for discrete
-#'   @param qth q-value threshold for included features 
-#'   @param cth correlation threshold
+#'   @param x matrix (samples x features if annotation matrix)
+#'   @param y matrix (samples x features if cross-correlated with annotations)
+#'   @param method association method (pearson, spearman for continuous; categorical for discrete)
+#'   @param qth q-value threshold to include features 
+#'   @param cth correlation threshold to include features 
 #'   @param order order the results
 #'   @param n.signif mininum number of significant correlations for each element
-#'   @param mode Specify the output format ("table" or "matrix")
+#'   @param mode Specify output format ("table" or "matrix")
 #'   @param qvalues calculate qvalues
 #'
 #' Returns:
@@ -365,16 +365,23 @@ cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NU
 
      correlation <- NULL # circumwent warning on globabl vars
      if (!is.null(res$qval)) {
+       message("Arranging the table")
        ctab <- cbind(ctab, melt(res$qval)$value)
        colnames(ctab) <- c("X1", "X2", "correlation", "qvalue")
        ctab <- esort(ctab, ctab$qvalue, -abs(ctab$correlation))
        colnames(ctab) <- c("X1", "X2", method, "qvalue")
      } else {
-       ctab <- cbind(ctab, melt(res$pval)$value)
-       #colnames(ctab) <- c("X1", "X2", method, "pvalue")
-       ctab <- esort(ctab, -abs(ctab$correlation))
-       colnames(ctab) <- c("X1", "X2", method, "pvalue")
+       message("No significant q-values")
+       if (!is.null(ctab)) {
+         ctab <- cbind(ctab, melt(res$pval)$value)
+         #colnames(ctab) <- c("X1", "X2", method, "pvalue")
+         ctab <- esort(ctab, -abs(ctab$correlation))
+         colnames(ctab) <- c("X1", "X2", method, "pvalue")
+       }
      }
+
+     ctab$X1 <- as.character(ctab$X1)
+     ctab$X2 <- as.character(ctab$X2)
 
      return(ctab)
    }
