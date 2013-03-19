@@ -144,15 +144,15 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-cross.correlate <- function(annot, dat, method = "pearson", qth = NULL, cth = NULL, order = FALSE, n.signif = 0, mode = "table", qvalues = TRUE){
+cross.correlate <- function(x, y, method = "pearson", qth = NULL, cth = NULL, order = FALSE, n.signif = 0, mode = "table", qvalues = TRUE){
 
   # annot <- metadata.df; dat <- t(genus.matrix); method = "pearson"; qth = NULL; cth = NULL; order = FALSE; n.signif = 0; verbose = TRUE; mode = "matrix"
 
   # annot <- meta[sample.set,]; dat <- t(ds[, sample.set]); method = cor.method; qth = NULL; cth = NULL; order = FALSE; n.signif = 0; mode = "table";qvalues = FALSE
   # meta[sample.set,], t(ds[, sample.set]), method = cor.method
 
-  x <- as.data.frame(annot) # numeric or discrete
-  y <- dat # numeric
+  x <- as.data.frame(x) # numeric or discrete
+  y <- y # numeric
 
   if (is.null(colnames(y))) { colnames(y) <- paste("column-", 1:ncol(y), sep = "") }
 

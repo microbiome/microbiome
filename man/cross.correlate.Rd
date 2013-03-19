@@ -1,30 +1,31 @@
 \name{cross.correlate}
 \alias{cross.correlate}
-\title{Description: Cross-correlate input variables}
+\title{Description: Cross-correlate columns of the input matrices}
 \usage{
-  cross.correlate(annot, dat, method = "pearson",
-    qth = NULL, cth = NULL, order = FALSE, n.signif = 0,
+  cross.correlate(x, y, method = "pearson", qth = NULL,
+    cth = NULL, order = FALSE, n.signif = 0,
     mode = "table", qvalues = TRUE)
 }
 \arguments{
-  \item{annot}{annotation matrix: samples x features}
+  \item{x}{matrix (samples x features if annotation
+  matrix)}
 
-  \item{dat}{numeric data matrix: samples x features}
+  \item{y}{matrix (samples x features if cross-correlated
+  with annotations)}
 
   \item{method}{association method (pearson, spearman for
-  continuous; categorical for discrete}
+  continuous; categorical for discrete)}
 
-  \item{qth}{q-value threshold for included features}
+  \item{qth}{q-value threshold to include features}
 
-  \item{cth}{correlation threshold}
+  \item{cth}{correlation threshold to include features}
 
   \item{order}{order the results}
 
   \item{n.signif}{mininum number of significant
   correlations for each element}
 
-  \item{mode}{Specify the output format ("table" or
-  "matrix")}
+  \item{mode}{Specify output format ("table" or "matrix")}
 
   \item{qvalues}{calculate qvalues
 
