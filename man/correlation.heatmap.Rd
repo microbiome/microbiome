@@ -5,7 +5,9 @@
   correlation.heatmap(df, Xvar, Yvar, fill,
     star = "qvalue", qvalue.threshold = 0.05, step = 0.2,
     colours = c("darkblue", "blue", "white", "red", "darkred"),
-    limits = c(-1, 1), legend.text = "Correlation")
+    limits = c(-1, 1), legend.text = "Correlation",
+    order.rows = TRUE, order.cols = TRUE, text.size = 10,
+    filter.significant = TRUE)
 }
 \arguments{
   \item{df}{Data frame. Each row corresponds to a pair of
@@ -33,7 +35,18 @@
 
   \item{limits}{colour scale limits}
 
-  \item{legend.text}{legend text
+  \item{legend.text}{legend text}
+
+  \item{order.rows}{Order rows to enhance visualization
+  interpretability}
+
+  \item{order.cols}{Order columns to enhance visualization
+  interpretability}
+
+  \item{text.size}{Adjust text size}
+
+  \item{filter.significant}{Keep only the elements with at
+  least one significant entry
 
   Returns:}
 }

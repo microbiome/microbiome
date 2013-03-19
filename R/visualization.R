@@ -32,6 +32,10 @@
 #'   @param colours heatmap colours
 #'   @param limits colour scale limits
 #'   @param legend.text legend text
+#'   @param order.rows Order rows to enhance visualization interpretability
+#'   @param order.cols Order columns to enhance visualization interpretability
+#'   @param text.size Adjust text size
+#'   @param filter.significant Keep only the elements with at least one significant entry
 #'
 #' Returns:
 #'   @return ggplot2 object
@@ -40,11 +44,58 @@
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "qvalue", qvalue.threshold = 0.05, step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"), limits = c(-1, 1), legend.text = "Correlation") {
 
-  theme_set(theme_bw())
+correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "qvalue", qvalue.threshold = 0.05, step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"), limits = c(-1, 1), legend.text = "Correlation", order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.significant = TRUE) {
+
+  if (nrow(df) == 0) {warning("Input data frame is empty."); return(NULL)}
+
+  if (filter.significant) {
+    keep.X <- unique(df[df$qvalue < qvalue.threshold, Xvar])
+    #names(which(sapply(split(df, df[[Xvar]]), function (x) {sum(x$qvalue < qvalue.threshold)>=n.signif})))
+    keep.Y <- unique(df[df$qvalue < qvalue.threshold, Yvar])
+    #names(which(sapply(split(df, df[[Yvar]]), function (x) {sum(x$qvalue < qvalue.threshold)>=n.signif})))
+    df <- df[((df[[Xvar]] %in% keep.X) & (df[[Yvar]] %in% keep.Y)),]
+  }		    
+		   
+  theme_set(theme_bw(text.size))
 
   if (any(c("XXXX", "YYYY", "ffff") %in% names(df))) {stop("XXXX, YYYY, ffff are not allowed in df")}
+
+  # ------------------------------------------------------
+
+  if (order.rows || order.cols) {
+
+    rnams <- unique(as.character(df[[Xvar]]))
+    cnams <- unique(as.character(df[[Yvar]]))
+    mat <- matrix(0, nrow = length(rnams), ncol = length(cnams))
+    rownames(mat) <- rnams
+    colnames(mat) <- cnams
+    for (i in 1:nrow(df)) {
+      mat[df[i, Xvar], df[i, Yvar]] <- df[i, fill]
+    }
+
+    #library(fastcluster)
+    #cind <- fastcluster::hclust(as.dist(1 - cor(mat, method = "spearman")))$ord
+    #rind <- fastcluster::hclust(as.dist(1 - cor(t(mat), method = "spearman")))$ord
+    hm <- heatmap(mat)
+    dev.off()
+    rind <- hm$rowInd
+    cind <- hm$colInd
+
+    if (order.cols) {
+      message("Ordering columns")
+      df[[Xvar]] <- factor(df[[Xvar]])
+      levels(df[[Xvar]]) <- rownames(mat)[rind]
+    }
+
+    if (order.rows) {
+      message("Ordering rows")
+      df[[Yvar]] <- factor(df[[Yvar]])
+      levels(df[[Yvar]]) <- colnames(mat)[cind]
+    }
+  }
+
+  # ---------------------------------------------
 
   XXXX <- YYYY <- ffff <- NULL
 
