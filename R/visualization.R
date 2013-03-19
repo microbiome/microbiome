@@ -578,6 +578,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny.info, pp
   		 figureratio = 10, fontsize = 40, tree.display = TRUE) {
 
   # dat <- finaldata[["oligo"]]; output.dir = params$wdir;  output.file = NULL; phylogeny.info = phylogeny.info; ppcm = 150; hclust.method = "complete"; palette = "white/blue"; level = "L2"; metric = "pearson"; figureratio = 12; fontsize = 12; tree.display = TRUE
+  #output.dir = "~/tmp/";  output.file = NULL; phylogeny.info = phylogeny.info; ppcm = 150; hclust.method = "complete"; palette = "white/blue"; level = "L2"; metric = "pearson"; figureratio = 12; fontsize = 12; tree.display = TRUE
 
   if (is.null(output.file)) {
     output.file <- paste(output.dir,"/", gsub(" ", "", level), "-oligoprofileClustering.png",sep="")

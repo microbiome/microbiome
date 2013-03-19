@@ -58,8 +58,14 @@ diversity.table <- function (dat, phylogeny.info, level.from, level.to, diversit
 
   for (nam in names(level.data)) {
     o <- level.data[[nam]]
-    divs <- microbiome::estimate.diversity(dat[o, ], diversity.index = diversity.index, det.th = det.th)
-    
+    if (length(o) > 1) {
+      divs <- microbiome::estimate.diversity(dat[o, ], diversity.index = diversity.index, det.th = det.th)
+    } else {
+      warning(paste("Not enough oligos for ", nam, ": diversity calculations skipped!"))
+      divs <- NULL
+    }    
+
+
     if (diversity.index %in% c("shannon", "invsimpson")) {
        divs <- divs$diversity
     } else if (diversity.index %in% c("richness")) {
@@ -68,7 +74,12 @@ diversity.table <- function (dat, phylogeny.info, level.from, level.to, diversit
        divs <- divs$evenness
     }
 
-    tab[nam, ] <- divs
+    if (!is.null(divs)) {
+      tab[nam, ] <- divs
+    } else {
+      tab[nam, ] <- rep(NA, ncol(tab))    
+    }
+
 
   }
 
