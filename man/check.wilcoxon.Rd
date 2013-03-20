@@ -3,13 +3,17 @@
 \title{Description: Calculate Wilcoxon test (unpaired; BH correction) for the specified sample groups.
 Either provide the input data as matrix, file path, or select the file through GUI.}
 \usage{
-  check.wilcoxon(dat = NULL, fnam = NULL,
+  check.wilcoxon(dat = NULL, fnam = NULL, G1, G2,
     p.adjust.method = "BH", sort = FALSE)
 }
 \arguments{
   \item{dat}{data matrix (features x samples)}
 
   \item{fnam}{data file (if data matrix not provided)}
+
+  \item{G1}{Sample group 1 (for comparison)}
+
+  \item{G2}{Sample group 2 (for comparison)}
 
   \item{p.adjust.method}{p-value correction method for
   p.adjust function (default "BH"). If NULL, no correction

@@ -49,6 +49,8 @@ distance.matrix <- function (x, method = "pearson", ...) {
 #' Arguments:
 #'   @param dat data matrix (features x samples)
 #'   @param fnam data file  (if data matrix not provided) 
+#'   @param G1 Sample group 1 (for comparison) 
+#'   @param G2 Sample group 2 (for comparison)
 #'   @param p.adjust.method p-value correction method for p.adjust function (default "BH"). If NULL, no correction will be performed.
 #'   @param sort sort the results
 #'
@@ -61,13 +63,14 @@ distance.matrix <- function (x, method = "pearson", ...) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sort = FALSE) {
+check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "BH", sort = FALSE) {
 
   InstallMarginal("svDialogs")
 
   ## Open your tab fnam, Level 1 & 2 Sum_BGsub_Rel.contribution
 
-  if (is.null(dat) && is.null(fnam)) { fnam <- svDialogs::tk_choose.files(multi = F) }
+  #if (is.null(dat) && is.null(fnam)) { fnam <- svDialogs::tk_choose.files(multi = F) }
+  if (is.null(dat) && is.null(fnam)) { stop("Provide dat or fnam in function arguments!")}
   if (is.null(dat)) {
     dat <- read.table(fnam, sep = "\t", header = T, row.names = 1)
   } 
@@ -78,9 +81,8 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, p.adjust.method = "BH", sor
   ## To select samples you can do that in 2 ways: select G1 and those samples not in G1 are G2, for which you would use:
   ## G2 <- samples[!(samples %in% G1)]
   ## or select G1 and select G2 (this is useful when you have multiple groups) (standard below)
-
-  G1 <- svDialogs::tk_select.list(samples, multiple = T, title = "Select samples for 1st group")
-  G2 <- svDialogs::tk_select.list(samples, multiple = T, title = "Select samples for 2nd group")
+  #G1 <- svDialogs::tk_select.list(samples, multiple = T, title = "Select samples for 1st group")
+  #G2 <- svDialogs::tk_select.list(samples, multiple = T, title = "Select samples for 2nd group")
 
   M <- matrix(data = NA, length(levels), 1)
   rownames(M) <- levels
