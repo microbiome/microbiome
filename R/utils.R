@@ -18,7 +18,7 @@
 #' Description: Calculate hierarchical clustering for standard selections in profiling script
 #'
 #' Arguments:
-#'   @param dat data matrix 
+#'   @param dat data matrix (use log10 with pearson!)
 #'   @param method hierarchical clustering method (see ?hclust)
 #'   @param metric clustering metrics (spearman / pearson / euclidean)
 #'
@@ -26,12 +26,12 @@
 #'   @return hclust object for log10 and for absolute scale data
 #'
 #' @export
-#' @examples # hc <- calculate.hclust(dat, "complete", "spearman") 
+#' @examples # hc <- calculate.hclust(dat, "complete", "pearson") 
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-calculate.hclust <- function (dat, method = "complete", metric = "spearman") {
+calculate.hclust <- function (dat, method = "complete", metric = "pearson") {
 
   if (metric == 'euclidean') {
     hc <- hclust(dist(t(dat)), method = method)

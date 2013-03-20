@@ -106,6 +106,7 @@ remove.nested.groups <- function (groups) {
 #' @param corr.th correlation threshold for hclust
 #' @param recursive get also nested groups TRUE/FALSE
 #' @param min.size minimum cluster size
+#' @param metric similarity measure (spearman / pearson)
 #'
 #' @return groups
 #'
@@ -116,10 +117,10 @@ remove.nested.groups <- function (groups) {
 #' @examples # 
 #' @keywords methods
 
-get.hclust.groups <- function (dat, corr.th, recursive = FALSE, min.size = 2) {
+get.hclust.groups <- function (dat, corr.th, recursive = FALSE, min.size = 2, metric = "pearson") {
 
   # Group the phylotypes
-  cordist <- as.dist(1 - cor(t(dat), method = "spearman"))
+  cordist <- as.dist(1 - cor(t(dat), method = metric))
   hc <- fastcluster::hclust(cordist, method = "complete")
 
   # Identify all groups that are higher than threshold

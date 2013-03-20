@@ -3,10 +3,10 @@
 \title{calculate.hclust}
 \usage{
   calculate.hclust(dat, method = "complete",
-    metric = "spearman")
+    metric = "pearson")
 }
 \arguments{
-  \item{dat}{data matrix}
+  \item{dat}{data matrix (use log10 with pearson!)}
 
   \item{method}{hierarchical clustering method (see
   ?hclust)}
@@ -27,7 +27,7 @@
   Arguments:
 }
 \examples{
-# hc <- calculate.hclust(dat, "complete", "spearman")
+# hc <- calculate.hclust(dat, "complete", "pearson")
 }
 \author{
   Contact: Leo Lahti

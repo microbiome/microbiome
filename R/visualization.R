@@ -74,9 +74,6 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "qvalue", qvalue.t
       mat[df[i, Xvar], df[i, Yvar]] <- df[i, fill]
     }
 
-    #library(fastcluster)
-    #cind <- fastcluster::hclust(as.dist(1 - cor(mat, method = "spearman")))$ord
-    #rind <- fastcluster::hclust(as.dist(1 - cor(t(mat), method = "spearman")))$ord
     hm <- heatmap(mat)
     dev.off()
     rind <- hm$rowInd
@@ -558,7 +555,7 @@ theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-htree.plot <- function (dat, method = "complete", metric = "spearman") {
+htree.plot <- function (dat, method = "complete", metric = "pearson") {
 
   # Plot CLUSTER TREES TO A GRAPHICS WINDOW
   # Euclidean & Correlation / Raw & Log10
@@ -625,7 +622,7 @@ htree.plot <- function (dat, method = "complete", metric = "spearman") {
 #' @keywords utilities
 
 add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny.info, ppcm = 150, 
-	         hclust.method = "complete", palette = "white/black", level = "L1", metric = "spearman", 
+	         hclust.method = "complete", palette = "white/black", level = "L1", metric = "pearson", 
   		 figureratio = 10, fontsize = 40, tree.display = TRUE) {
 
   # dat <- finaldata[["oligo"]]; output.dir = params$wdir;  output.file = NULL; phylogeny.info = phylogeny.info; ppcm = 150; hclust.method = "complete"; palette = "white/blue"; level = "L2"; metric = "pearson"; figureratio = 12; fontsize = 12; tree.display = TRUE
@@ -690,7 +687,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny.info, pp
 
 PlotPhylochipHeatmap <- function (data,
                          phylogeny.info,
-                         metric = "spearman", 
+                         metric = "pearson", 
                          level = "L1", 
                          tree.display = TRUE, 
                          palette = "white/black", 
