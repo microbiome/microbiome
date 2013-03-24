@@ -50,10 +50,8 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "qvalue", qvalue.t
   if (nrow(df) == 0) {warning("Input data frame is empty."); return(NULL)}
 
   if (filter.significant) {
-    keep.X <- unique(df[df$qvalue < qvalue.threshold, Xvar])
-    #names(which(sapply(split(df, df[[Xvar]]), function (x) {sum(x$qvalue < qvalue.threshold)>=n.signif})))
-    keep.Y <- unique(df[df$qvalue < qvalue.threshold, Yvar])
-    #names(which(sapply(split(df, df[[Yvar]]), function (x) {sum(x$qvalue < qvalue.threshold)>=n.signif})))
+    keep.X <- as.character(unique(df[df$qvalue < qvalue.threshold, Xvar]))
+    keep.Y <- as.character(unique(df[df$qvalue < qvalue.threshold, Yvar]))
     df <- df[((df[[Xvar]] %in% keep.X) & (df[[Yvar]] %in% keep.Y)),]
   }		    
 		   
@@ -67,6 +65,7 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "qvalue", qvalue.t
 
     rnams <- unique(as.character(df[[Xvar]]))
     cnams <- unique(as.character(df[[Yvar]]))
+ 
     mat <- matrix(0, nrow = length(rnams), ncol = length(cnams))
     rownames(mat) <- rnams
     colnames(mat) <- cnams
@@ -81,14 +80,12 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "qvalue", qvalue.t
 
     if (order.cols) {
       message("Ordering columns")
-      df[[Xvar]] <- factor(df[[Xvar]])
-      levels(df[[Xvar]]) <- rownames(mat)[rind]
+      df[[Xvar]] <- factor(df[[Xvar]], levels = rownames(mat)[rind])
     }
 
     if (order.rows) {
       message("Ordering rows")
-      df[[Yvar]] <- factor(df[[Yvar]])
-      levels(df[[Yvar]]) <- colnames(mat)[cind]
+      df[[Yvar]] <- factor(df[[Yvar]], levels = colnames(mat)[cind])
     }
   }
 

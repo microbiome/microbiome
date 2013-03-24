@@ -358,11 +358,35 @@ cross.correlate <- function(x, y, method = "pearson", qth = NULL, cth = NULL, or
    if (mode == "matrix") {
      return(res)     
    } else if (mode == "table") {
+
+
+
+
+   }
+}
+
+
+#' Description: Arrange correlation matrices from cross.correlate into a table format
+#'              
+#' Arguments:
+#'   @param res Output from cross.correlate
+#'
+#' Returns:
+#'   @return Correlation table
+#'
+#' @export
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+cmat2table <- function (res) {
+
      ctab <- NULL
 
      if (!is.null(res$cor)) {
        ctab <- melt(res$cor)
-       colnames(ctab) <- c("X1", "X2", "correlation")
+       colnames(ctab) <- c("X1", "X2", "Correlation")
      }
 
      correlation <- NULL # circumwent warning on globabl vars
@@ -371,23 +395,24 @@ cross.correlate <- function(x, y, method = "pearson", qth = NULL, cth = NULL, or
        ctab <- cbind(ctab, melt(res$qval)$value)
        colnames(ctab) <- c("X1", "X2", "correlation", "qvalue")
        ctab <- esort(ctab, ctab$qvalue, -abs(ctab$correlation))
-       colnames(ctab) <- c("X1", "X2", method, "qvalue")
+       colnames(ctab) <- c("X1", "X2", "Correlation", "qvalue")
      } else {
        message("No significant q-values")
        if (!is.null(ctab)) {
          ctab <- cbind(ctab, melt(res$pval)$value)
-         #colnames(ctab) <- c("X1", "X2", method, "pvalue")
          ctab <- esort(ctab, -abs(ctab$correlation))
-         colnames(ctab) <- c("X1", "X2", method, "pvalue")
+         colnames(ctab) <- c("X1", "X2", "Correlation", "pvalue")
        }
      }
 
      ctab$X1 <- as.character(ctab$X1)
      ctab$X2 <- as.character(ctab$X2)
 
-     return(ctab)
-   }
+     ctab
+
 }
+
+
 
 #' Description: Stability analysis. Calculates average Pearson '
 #'  correlation between samples in the input data and picks the lower '
