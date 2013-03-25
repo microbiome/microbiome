@@ -370,7 +370,7 @@ Strip <- function (s) {
 
 esort <- function(x, sortvar, ...) {
 
-  attach(x)
+  attach(x, warn.conflicts = FALSE)
   x <- x[with(x,order(sortvar,...)),]
   return(x)
   detach(x)

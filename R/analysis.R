@@ -390,7 +390,7 @@ cmat2table <- function (res) {
      if (!is.null(res$qval)) {
        message("Arranging the table")
        ctab <- cbind(ctab, melt(res$qval)$value)
-       colnames(ctab) <- c("X1", "X2", "correlation", "qvalue")
+       colnames(ctab) <- c("X1", "X2", "Correlation", "qvalue")
        ctab <- esort(ctab, ctab$qvalue, -abs(ctab$correlation))
        colnames(ctab) <- c("X1", "X2", "Correlation", "qvalue")
      } else {
