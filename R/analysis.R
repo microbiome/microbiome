@@ -391,7 +391,7 @@ cmat2table <- function (res) {
        message("Arranging the table")
        ctab <- cbind(ctab, melt(res$qval)$value)
        colnames(ctab) <- c("X1", "X2", "Correlation", "qvalue")
-       ctab <- esort(ctab, ctab$qvalue, -abs(ctab$correlation))
+       ctab <- esort(ctab, ctab$qvalue, -abs(ctab$Correlation))
        colnames(ctab) <- c("X1", "X2", "Correlation", "qvalue")
      } else {
        message("No significant q-values")
