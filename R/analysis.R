@@ -358,10 +358,7 @@ cross.correlate <- function(x, y, method = "pearson", qth = NULL, cth = NULL, or
    if (mode == "matrix") {
      return(res)     
    } else if (mode == "table") {
-
-
-
-
+     return(cmat2table(res))
    }
 }
 
