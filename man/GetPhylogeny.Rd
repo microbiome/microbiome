@@ -2,10 +2,13 @@
 \alias{GetPhylogeny}
 \title{GetPhylogeny}
 \usage{
-  GetPhylogeny(chip)
+  GetPhylogeny(chip, phylogeny.version = "full")
 }
 \arguments{
-  \item{chip}{chip type (e.g. "HITChip")
+  \item{chip}{chip type (e.g. "HITChip")}
+
+  \item{phylogeny.version}{"full" or "filtered" (latter is
+  used in species/L1/L2 summarization)
 
   Returns:}
 }
