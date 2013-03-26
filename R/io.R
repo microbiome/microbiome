@@ -43,7 +43,7 @@ read.profiling <- function(level = NULL, method = "frpa", data.dir, log10 = TRUE
     } else if (level == "phylogeny.full") {
       f <- paste(data.dir, "/phylogeny.full.tab", sep = "")
     } else if (level %in% c("phylogeny.filtered")) {
-      f <- paste(data.dir, "/phylogeny.tab", sep = "")
+      f <- paste(data.dir, "/phylogeny.filtered.tab", sep = "")
     } else if (level %in% c("phylogeny.full", "phylogeny")) {
       f <- paste(data.dir, "/phylogeny.full.tab", sep = "")
     }
