@@ -18,7 +18,7 @@
 #' Description: read run.profiling.script output into R
 #'
 #' Arguments:
-#'   @param level phylogenetic level ("oligo" / "species" / "L1" / "L2" / "L0") or "phylogeny.info"
+#'   @param level phylogenetic level ("oligo" / "species" / "L1" / "L2" / "L0") or "phylogeny.full", "phylogeny.filtered"
 #'   @param method ("frpa" / "rpa" / "sum" / "ave" / "nmf")
 #'   @param data.dir Profiling script output directory for reading the data. If not given, GUI will ask to specify the file and overruns the possible level / method arguments in the function call.
 #'   @param log10 Logical. Logarithmize the data TRUE/FALSE. By default, the data is in original non-log scale.
@@ -42,9 +42,11 @@ read.profiling <- function(level = NULL, method = "frpa", data.dir, log10 = TRUE
       f <- paste(data.dir, "/oligoprofile.tab", sep = "")
     } else if (level == "phylogeny.full") {
       f <- paste(data.dir, "/phylogeny.full.tab", sep = "")
-    } else if (level %in% c("phylogeny.filtered", "phylogeny.info", "phylogeny")) {
+    } else if (level %in% c("phylogeny.filtered")) {
       f <- paste(data.dir, "/phylogeny.tab", sep = "")
-  }
+    } else if (level %in% c("phylogeny.full", "phylogeny")) {
+      f <- paste(data.dir, "/phylogeny.full.tab", sep = "")
+    }
   
   message(paste("Reading", f))
 
