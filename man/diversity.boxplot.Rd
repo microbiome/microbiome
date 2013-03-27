@@ -4,7 +4,7 @@
 \usage{
   diversity.boxplot(dat, sample.groups,
     diversity.index = "shannon", det.th = NULL,
-    title = NULL, col.list = NULL)
+    title = NULL, col.list = NULL, ylim = NULL)
 }
 \arguments{
   \item{dat}{data matrix in the original (non-log) scale:
@@ -20,7 +20,9 @@
 
   \item{title}{figure title}
 
-  \item{col.list}{Optional: colors for the sample groups
+  \item{col.list}{Optional: colors for the sample groups}
+
+  \item{ylim}{y-axis limits
 
   Returns:}
 }

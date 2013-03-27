@@ -361,6 +361,7 @@ make.abundancy.table <- function (dat, det.th, discretization.resolution = 1) {
 #'   @param det.th Detection threshold for richness and evenness calculations
 #'   @param title figure title
 #'   @param col.list Optional: colors for the sample groups
+#'   @param ylim y-axis limits
 #'
 #' Returns:
 #'   @return Sample group list corresponding to the boxplot groups.
@@ -370,7 +371,7 @@ make.abundancy.table <- function (dat, det.th, discretization.resolution = 1) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-diversity.boxplot <- function (dat, sample.groups, diversity.index = "shannon", det.th = NULL, title = NULL, col.list = NULL) {
+diversity.boxplot <- function (dat, sample.groups, diversity.index = "shannon", det.th = NULL, title = NULL, col.list = NULL, ylim = NULL) {
 
   div.table <- estimate.diversity(dat, diversity.index = diversity.index, det.th = det.th)
 
@@ -395,7 +396,8 @@ diversity.boxplot <- function (dat, sample.groups, diversity.index = "shannon", 
   }
 
   # Boxplot
-  boxplot(div[sample.groups[[1]]], col=col.list[[1]], ylim=c(min(div),max(div)),xlim=c(0,length(sample.groups))+0.5, main = title, ylab = ylab, las = 2)
+  if (is.null(ylim)) { ylim <- c(min(div), max(div)) }
+  boxplot(div[sample.groups[[1]]], col=col.list[[1]],xlim=c(0,length(sample.groups))+0.5, main = title, ylab = ylab, las = 2, ylim = ylim)
   axis(1,labels=names(sample.groups), at=c(1:length(sample.groups)))
   for (i in 2:length(sample.groups)) {
     boxplot(div[sample.groups[[i]]], col=col.list[[i]], names=names(sample.groups)[i], add = T, at = i, ylab = NULL, yaxt = "n")
