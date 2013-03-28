@@ -835,13 +835,15 @@ phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL) {
     if (all(taxa %in% phylogeny.info[[tax.lev]])) {x.level <- tax.lev}
   }
 
-  # Get higher-level taxonomic groups
-  col.lev <- droplevels(levelmap(taxa, level.from = x.level, level.to = color.level, phylogeny.info = phylogeny.info)[[color.level]])
 
   # Collect all into a data.frame
   df <- list()
   df$taxa <- taxa
-  df[[color.level]] <- col.lev
+
+  # Assign higher-level taxonomic groups
+  df[[color.level]] <- droplevels(levelmap(taxa, level.from = x.level, level.to = color.level, phylogeny.info = phylogeny.info)[[color.level]])
+  df[["color.level"]] <- df[[color.level]]
+
   df$x <- x
   df <- data.frame(df)
 
@@ -856,7 +858,7 @@ phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL) {
   df <- within(df, taxa <- factor(taxa, levels = taxa[order(abs(x))]))
 
   # Plot the image
-  p <- ggplot(aes(x = taxa, y = x, fill = col.lev), data = df)
+  p <- ggplot(aes(x = taxa, y = x, fill = color.level), data = df)
   p <- p + scale_fill_manual(values = colors[as.character(levels(df[[color.level]]))])
   p <- p + geom_bar(position = "identity", stat = "identity") + theme_bw() + coord_flip()
   p <- p + ylab("Fold change") + xlab("") + ggtitle("My barplot")
