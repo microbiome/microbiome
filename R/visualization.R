@@ -809,7 +809,8 @@ PlotPhylochipHeatmap <- function (data,
 #'   @param x Data vector across taxa (each element should be named by taxon)
 #'   @param color.level Higher-order phylogenetic level to indicate by colors
 #'   @param phylogeny.info oligo-phylotype mappings
-#'
+#'   @param title title
+#' 
 #' Returns:
 #'   @return ggplot2 object
 #'
@@ -819,7 +820,7 @@ PlotPhylochipHeatmap <- function (data,
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL) {
+phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title = NULL) {
 
   # Load simulated oligo-level data:
   data.directory <- system.file("extdata", package = "microbiome")
@@ -861,7 +862,7 @@ phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL) {
   p <- ggplot(aes(x = taxa, y = x, fill = color.level), data = df)
   p <- p + scale_fill_manual(values = colors[as.character(levels(df[[color.level]]))])
   p <- p + geom_bar(position = "identity", stat = "identity") + theme_bw() + coord_flip()
-  p <- p + ylab("Fold change") + xlab("") + ggtitle("My barplot")
+  p <- p + ylab("Signal") + xlab("") + ggtitle(title)
   p <- p + theme(legend.position = "right")
   p <- p + theme(panel.border = element_rect())
 
