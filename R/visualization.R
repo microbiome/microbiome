@@ -801,3 +801,70 @@ PlotPhylochipHeatmap <- function (data,
 
 }
 
+#' phylo.barplot
+#'
+#' Description: Barplot for *ITChip sample (across taxa) with higher-level taxonomic groups indicated by colours.
+#'
+#' Arguments:
+#'   @param x Data vector across taxa (each element should be named by taxon)
+#'   @param color.level Higher-order phylogenetic level to indicate by colors
+#'   @param phylogeny.info oligo-phylotype mappings
+#'
+#' Returns:
+#'   @return ggplot2 object
+#'
+#' @export
+#' @examples # p <- phylo.barplot(signal, color.level = "L1", phylogeny.info = NULL)
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL) {
+
+  # Load simulated oligo-level data:
+  data.directory <- system.file("extdata", package = "microbiome")
+
+  if (is.null(phylogeny.info)) {
+    warning("phylogeny.info not specified, assuming HITChip phylogeny")
+    phylogeny.info <- GetPhylogeny("HITChip")
+  }
+
+  taxa <- names(x)
+
+  for (tax.lev in c("oligoID", "species", "L1", "L2")) {
+    if (all(taxa %in% phylogeny.info[[tax.lev]])) {x.level <- tax.lev}
+  }
+
+  # Get higher-level taxonomic groups
+  col.lev <- droplevels(levelmap(taxa, level.from = x.level, level.to = color.level, phylogeny.info = phylogeny.info)[[color.level]])
+
+  # Collect all into a data.frame
+  df <- list()
+  df$taxa <- taxa
+  df[[color.level]] <- col.lev
+  df$x <- x
+  df <- data.frame(df)
+
+  # Define colors for L1/L2 groups
+  colors <- rainbow(length(unique(df[[color.level]])))
+  names(colors) <- as.character(unique(df[[color.level]]))
+
+  # Rearrange data.frame
+  m <- melt(df)
+
+  # Sort by x (ie. change order of factors for plot)
+  df <- within(df, taxa <- factor(taxa, levels = taxa[order(abs(x))]))
+
+  # Plot the image
+  p <- ggplot(aes(x = taxa, y = x, fill = col.lev), data = df)
+  p <- p + scale_fill_manual(values = colors[as.character(levels(df[[color.level]]))])
+  p <- p + geom_bar(position = "identity", stat = "identity") + theme_bw() + coord_flip()
+  p <- p + ylab("Fold change") + xlab("") + ggtitle("My barplot")
+  p <- p + theme(legend.position = "right")
+  p <- p + theme(panel.border = element_rect())
+
+  print(p)
+
+  p
+
+}
