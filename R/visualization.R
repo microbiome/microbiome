@@ -842,7 +842,7 @@ phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title =
   df$taxa <- taxa
 
   # Assign higher-level taxonomic groups
-  df[[color.level]] <- droplevels(levelmap(taxa, level.from = x.level, level.to = color.level, phylogeny.info = phylogeny.info)[[color.level]])
+  df[[color.level]] <- droplevels(levelmap(taxa, level.from = x.level, level.to = color.level, phylogeny.info = phylogeny.info))
   df[["color.level"]] <- df[[color.level]]
 
   df$x <- x
