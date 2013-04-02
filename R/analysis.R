@@ -273,7 +273,7 @@ cross.correlate <- function(x, y, method = "pearson", qth = NULL, cth = NULL, or
      if (qvalues && ((prod(dim(Pc)) - sum(is.na(Pc))) >= 100)) {
        qv <- matrix.qvalue(Pc)
      } else {
-       warning("Too few p-values available, q-value calculation skipped-")
+       warning("q-value calculation skipped-")
      }
 
   }
@@ -397,7 +397,7 @@ cmat2table <- function (res) {
        message("No significant q-values")
        if (!is.null(ctab)) {
          ctab <- cbind(ctab, melt(res$pval)$value)
-         ctab <- esort(ctab, -abs(ctab$correlation))
+         ctab <- esort(ctab, -abs(ctab$Correlation))
          colnames(ctab) <- c("X1", "X2", "Correlation", "pvalue")
        }
      }
