@@ -28,7 +28,7 @@
 #'   @return data matrix (phylo x samples)
 #'
 #' @export
-#' @examples # params <- run.profiling.script(...); dat <- read.profiling(params$wdir, "L1", "rpa")
+#' @examples # params <- run.profiling.script(...); dat <- read.profiling(data.dir = params$wdir, level = "L1", method = "frpa")
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
