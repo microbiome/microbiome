@@ -4,12 +4,16 @@
 #' @param dat data matrix samples to be clustered on the rows
 #' @param my.groups groups from hierarchical clustering
 #' @param R bootstrap iterations
-#' @param sample.sizes sample sizes for multiscale bootstrap as fractions of the total data (0...1)
+#' @param sample.sizes sample sizes for multiscale bootstrap as fractions of the total data (0...1..etc.). Use vector of different sizes to perform multiscale bootstrap resampling.
 #' @param min.size minimum cluster size
 #' @param corr.th correlation threshold for determining hclust groups
 #' @param replace sampling with replacement TRUE/FALSE
+#' @param metric correlation metrix
+#' @param verbose verbose
+#' @param pvalue.threshold pvalue threshold: filter out non-significant groups
+#' @param remove.nested.clusters Remove nested clusters, or keep all? Default: TRUE
 #'
-#' @return p-value corresponding to each input cluster in my.groups argument
+#' @return List of significant clusters (corresponding to the given p-value)
 #'
 #' @export
 #'
@@ -18,18 +22,26 @@
 #' @examples # 
 #' @keywords methods
 
-hclust.significance <- function (dat, my.groups, R, sample.sizes = c(0.2, 0.5, 1, 2), min.size, corr.th, replace = TRUE)  {
+hclust.significance <- function (dat, my.groups = NULL, R, sample.sizes = 1, min.size, corr.th, replace = TRUE, metric = "pearson", verbose = TRUE, pvalue.threshold = 0.05, remove.nested.clusters = TRUE)  {
+
+  # dat <- mydata; my.groups <- NULL;  R = 1e3; sample.sizes = 1; min.size = 2; corr.th = correlation.threshold; metric = "pearson"; replace = T
+
+  if (is.null(my.groups)) {
+    if (verbose) {message("Forming the clusters")}
+    my.groups <- get.hclust.groups(dat, corr.th = corr.th, recursive = TRUE, min.size = min.size, metric = metric) 
+  }
 
   # Group the phylotypes based on random subsets of the data
   checks <- matrix(NA, ncol = length(my.groups), nrow = R * length(sample.sizes))
 
+  if (verbose) {message("Bootstrap resampling")}
   # Use multiscale bootstrap resampling to get more robust p-value estimates
   cnt <- 0
   for (sample.size in round(sample.sizes*ncol(dat))) {
 
     for (r in 1:R) {
 
-      print(c(sample.size, r))
+      if (verbose) {message(paste(sample.size, " ", r))}
 
       # Bootstrap sampling
       inds <- sample(ncol(dat), replace = replace, size = sample.size)
@@ -63,7 +75,21 @@ hclust.significance <- function (dat, my.groups, R, sample.sizes = c(0.2, 0.5, 1
 
   pvals <- 1 - colMeans(checks)
 
-  pvals
+  if (verbose) {message("Correct p-values for multiple testing")}
+  pvals <- p.adjust(pvals, "BH")
+
+  # Pick element names instead of indices
+  my.groups <- lapply(my.groups, function (inds) { rownames(dat)[inds] })
+
+  # Pick the significant clusters
+  significant.clusters <- my.groups[which(pvals < pvalue.threshold)]
+
+  if (remove.nested.clusters) {
+    if (verbose) {message("Removing nested clusters")}
+    significant.clusters <- remove.nested.groups(significant.clusters)
+  }
+
+  significant.clusters
 
 }
 
