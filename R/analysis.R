@@ -239,7 +239,7 @@ cross.correlate <- function(x, y, method = "pearson", qth = NULL, cth = NULL, or
 	  # Number of data-annotation samples for calculating the correlations
     	  n <- sum(keep)
 
-    	  Cc[varname, lev] <- GKtau(xvec, yvec)
+    	  Cc[varname, lev] <- GKtau(xvec, yvec) # 
 
         }
       }

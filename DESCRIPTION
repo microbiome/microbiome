@@ -1,8 +1,8 @@
 Package: microbiome
 Type: Package
 Title: microbiome
-Version: 0.4.06
-Date: 2013-04-02
+Version: 0.4.07
+Date: 2013-04-05
 Author: Leo Lahti and Jarkko Salojarvi
 Maintainer: microbiome developer team <microbiome-admin@googlegroups.com>
 Description: R package for microbiome studies
@@ -39,4 +39,5 @@ Collate:
     'phylo.R'
     'AllClasses.R'
     'hclust.R'
+    'data.documentation.R'
 Packaged: 2012-01-12 14:19:39 UTC; lei

@@ -28,6 +28,7 @@
 #'   @param fill Column to be used for heatmap coloring. For instance "correlation".
 #'   @param star Column to be used for cell highlighting. For instance "qvalue".
 #'   @param qvalue.threshold Significance threshold for the stars.
+#'   @param correlation.threshold Include only elements that have absolute correlation higher than this value
 #'   @param step color interval
 #'   @param colours heatmap colours
 #'   @param limits colour scale limits
@@ -45,13 +46,13 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "qvalue", qvalue.threshold = 0.05, step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"), limits = c(-1, 1), legend.text = "Correlation", order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.significant = TRUE) {
+correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "qvalue", qvalue.threshold = 0.05, correlation.threshold = 0, step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"), limits = c(-1, 1), legend.text = "Correlation", order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.significant = TRUE) {
 
   if (nrow(df) == 0) {warning("Input data frame is empty."); return(NULL)}
 
   if (filter.significant) {
-    keep.X <- as.character(unique(df[df$qvalue < qvalue.threshold, Xvar]))
-    keep.Y <- as.character(unique(df[df$qvalue < qvalue.threshold, Yvar]))
+    keep.X <- as.character(unique(df[((df$qvalue < qvalue.threshold) & (abs(df[[fill]]) > correlation.threshold)), Xvar]))
+    keep.Y <- as.character(unique(df[((df$qvalue < qvalue.threshold) & (abs(df[[fill]]) > correlation.threshold)), Yvar]))
     df <- df[((df[[Xvar]] %in% keep.X) & (df[[Yvar]] %in% keep.Y)),]
   }		    
 		   
@@ -103,8 +104,8 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "qvalue", qvalue.t
 
   p <- p + scale_fill_gradientn(legend.text, 
        	   		breaks = seq(from = min(limits), to = max(limits), by = step), 
-			colours = colours, 
-			limits = limits)
+  			colours = colours, 
+  			limits = limits)
 
   p <- p + xlab("") + ylab("")
 
@@ -112,7 +113,8 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "qvalue", qvalue.t
 
   # Mark significant cells with stars
   if (!is.null(star)) {
-    p <- p + geom_text(data = df[df[[star]] < qvalue.threshold,], aes(x = XXXX, y = YYYY, label = "+"), col = "white", size = 5)
+    df.sub <- df[(df[[star]] < qvalue.threshold) & (df[[star]] > correlation.threshold),] 
+    p <- p + geom_text(data = df.sub, aes(x = XXXX, y = YYYY, label = "+"), col = "white", size = 5)
   }
 
   p

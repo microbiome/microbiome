@@ -3,7 +3,8 @@
 \title{correlation.heatmap}
 \usage{
   correlation.heatmap(df, Xvar, Yvar, fill,
-    star = "qvalue", qvalue.threshold = 0.05, step = 0.2,
+    star = "qvalue", qvalue.threshold = 0.05,
+    correlation.threshold = 0, step = 0.2,
     colours = c("darkblue", "blue", "white", "red", "darkred"),
     limits = c(-1, 1), legend.text = "Correlation",
     order.rows = TRUE, order.cols = TRUE, text.size = 10,
@@ -28,6 +29,9 @@
 
   \item{qvalue.threshold}{Significance threshold for the
   stars.}
+
+  \item{correlation.threshold}{Include only elements that
+  have absolute correlation higher than this value}
 
   \item{step}{color interval}
 
