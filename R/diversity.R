@@ -375,6 +375,8 @@ diversity.boxplot <- function (dat, sample.groups, diversity.index = "shannon", 
 
   div.table <- estimate.diversity(dat, diversity.index = diversity.index, det.th = det.th)
 
+  sample.names <- colnames(dat)
+
   if (is.null(title)) {title <- diversity.index}
 
   if (diversity.index %in% c("shannon", "invsimpson", "diversity")) {
@@ -387,7 +389,7 @@ diversity.boxplot <- function (dat, sample.groups, diversity.index = "shannon", 
     div <- div.table[["evenness"]]
     ylab <- "Evenness"
   }
-  names(div) <- rownames(div.table)
+  names(div) <- sample.names
 
   if (is.null(col.list)) {
     # Define colors for each sample group
