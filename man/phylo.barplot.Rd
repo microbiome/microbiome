@@ -3,7 +3,7 @@
 \title{phylo.barplot}
 \usage{
   phylo.barplot(x, color.level = "L1",
-    phylogeny.info = NULL, title = NULL)
+    phylogeny.info = NULL, title = NULL, plot = TRUE)
 }
 \arguments{
   \item{x}{Data vector across taxa (each element should be
@@ -14,7 +14,9 @@
 
   \item{phylogeny.info}{oligo-phylotype mappings}
 
-  \item{title}{title
+  \item{title}{title}
+
+  \item{plot}{draw plot TRUE/FALSE
 
   Returns:}
 }

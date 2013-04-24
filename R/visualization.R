@@ -812,6 +812,7 @@ PlotPhylochipHeatmap <- function (data,
 #'   @param color.level Higher-order phylogenetic level to indicate by colors
 #'   @param phylogeny.info oligo-phylotype mappings
 #'   @param title title
+#'   @param plot draw plot TRUE/FALSE
 #' 
 #' Returns:
 #'   @return ggplot2 object
@@ -822,7 +823,7 @@ PlotPhylochipHeatmap <- function (data,
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title = NULL) {
+phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title = NULL, plot = TRUE) {
 
   # Load simulated oligo-level data:
   data.directory <- system.file("extdata", package = "microbiome")
@@ -838,17 +839,14 @@ phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title =
     if (all(taxa %in% phylogeny.info[[tax.lev]])) {x.level <- tax.lev}
   }
 
-
   # Collect all into a data.frame
-  df <- list()
-  df$taxa <- taxa
-
+  df <- data.frame(list(taxa = taxa))
+  
   # Assign higher-level taxonomic groups
-  df[[color.level]] <- droplevels(levelmap(taxa, level.from = x.level, level.to = color.level, phylogeny.info = phylogeny.info))
+  df[[color.level]] <- unlist(droplevels(levelmap(taxa, level.from = x.level, level.to = color.level, phylogeny.info = phylogeny.info)))
   df[["color.level"]] <- df[[color.level]]
 
   df$x <- x
-  df <- data.frame(df)
 
   # Define colors for L1/L2 groups
   colors <- rainbow(length(unique(df[[color.level]])))
@@ -868,7 +866,9 @@ phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title =
   p <- p + theme(legend.position = "right")
   p <- p + theme(panel.border = element_rect())
 
-  print(p)
+  if (plot) {
+    print(p)
+  }
 
   p
 

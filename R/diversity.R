@@ -391,6 +391,10 @@ diversity.boxplot <- function (dat, sample.groups, diversity.index = "shannon", 
   }
   names(div) <- sample.names
 
+  #if (is.vector(sample.groups)) {
+  #  boxplot(div[sample.groups], las = 1)
+  #}
+
   if (is.null(col.list)) {
     # Define colors for each sample group
     col.list <- gray(seq(0, 1, length = length(sample.groups)))

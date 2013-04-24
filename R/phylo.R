@@ -63,6 +63,13 @@ GetPhylogeny <- function (chip, phylogeny.version = "full") {
 
 levelmap <- function (phylotypes = NULL, level.from, level.to, phylogeny.info) {
 
+  if (level.from == level.to) {
+    df <- list()
+    df[[level.to]] <- factor(phylotypes)
+    df <- as.data.frame(df)		    
+    return(df)
+  }
+
   if (level.from == "level 0") {level.from <- "L0"}	 
   if (level.from == "level 1") {level.from <- "L1"}	 
   if (level.from == "level 2") {level.from <- "L2"}	 
@@ -80,7 +87,7 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, phylogeny.info) {
   }
 
   if (level.from == "species" && level.to %in% c("L0", "L1", "L2")) {
-    sl <- species2levels(phylotypes, phylogeny.info)[c(level.from, level.to)]
+    sl <- species2levels(phylotypes, phylogeny.info)[, level.to]
   }	 
 
   if (level.from == "L2" && level.to == "L1") {
