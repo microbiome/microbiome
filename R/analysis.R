@@ -197,11 +197,11 @@ cross.correlate <- function(x, y, method = "pearson", qth = NULL, cth = NULL, or
 
     for (j in 1:ncol(y)){
       jc <- apply(x, 2, function (xi) { 
-        if (sum(!is.na(xi)) > 10) {
+        if (sum(!is.na(xi)) >= 8) {
           res <- cor.test(xi, y[, j], method = method, use = "pairwise.complete.obs"); 
 	  res <- c(res$estimate, res$p.value)	   
 	} else {
-	  warning("Not enough observations; skipping correlation estimation")
+	  warning(paste("Not enough observations; (", sum(!is.na(xi)), ") - skipping correlation estimation"))
 	  res <- c(NA, NA)
         }
 	res
@@ -358,7 +358,15 @@ cross.correlate <- function(x, y, method = "pearson", qth = NULL, cth = NULL, or
    if (mode == "matrix") {
      return(res)     
    } else if (mode == "table") {
-     return(cmat2table(res))
+
+     tab <- cmat2table(res)
+     if ("qvalue" %in% colnames(tab)) {
+       tab <- tab[order(tab$qvalue), ]
+     } else if ("pvalue" %in% colnames(tab)) {
+       tab <- tab[order(tab$pvalue), ]
+     }
+
+     return(tab)
    }
 }
 
