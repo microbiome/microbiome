@@ -112,7 +112,7 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "qvalue", qvalue.t
   p <- p + theme(axis.text.x = element_text(angle = 90))
 
   # Mark significant cells with stars
-  if (!is.null(star)) {
+  if (!is.null(star) & sum((df[[star]] < qvalue.threshold) & (df[[star]] > correlation.threshold)) > 0) {
     df.sub <- df[(df[[star]] < qvalue.threshold) & (df[[star]] > correlation.threshold),] 
     p <- p + geom_text(data = df.sub, aes(x = XXXX, y = YYYY, label = "+"), col = "white", size = 5)
   }
