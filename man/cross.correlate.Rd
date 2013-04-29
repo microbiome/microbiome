@@ -2,8 +2,8 @@
 \alias{cross.correlate}
 \title{Description: Cross-correlate columns of the input matrices}
 \usage{
-  cross.correlate(x, y, method = "pearson", qth = NULL,
-    cth = NULL, order = FALSE, n.signif = 0,
+  cross.correlate(x, y = NULL, method = "pearson",
+    qth = NULL, cth = NULL, order = FALSE, n.signif = 0,
     mode = "table", qvalues = TRUE)
 }
 \arguments{

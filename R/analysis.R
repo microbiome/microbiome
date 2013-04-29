@@ -146,7 +146,14 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-cross.correlate <- function(x, y, method = "pearson", qth = NULL, cth = NULL, order = FALSE, n.signif = 0, mode = "table", qvalues = TRUE){
+cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = NULL, order = FALSE, n.signif = 0, mode = "table", qvalues = TRUE){
+
+  if (is.null(y)) {
+    message("Cross-correlating the data with itself")
+    y <- x
+    # Ignore self-correlations in filtering
+    n.signif <- n.signif + 1 
+  }		
 
   # annot <- metadata.df; dat <- t(genus.matrix); method = "pearson"; qth = NULL; cth = NULL; order = FALSE; n.signif = 0; verbose = TRUE; mode = "matrix"
 
@@ -260,7 +267,7 @@ cross.correlate <- function(x, y, method = "pearson", qth = NULL, cth = NULL, or
       }
    }
 
-   if (!all(is.na(Pc))) {
+  if (!all(is.na(Pc))) {
 
      rownames(Pc) <- xnames
      colnames(Pc) <- ynames
@@ -290,8 +297,8 @@ cross.correlate <- function(x, y, method = "pearson", qth = NULL, cth = NULL, or
      inds1.q <- inds2.q <- inds1.c <- inds2.c <- NULL
 
      if (!is.null(qth)) {
-       inds1.q <- apply(abs(qv), 1, function(x) {sum(x < qth) >= n.signif}) 
-       inds2.q <- apply(abs(qv), 2, function(x) {sum(x < qth) >= n.signif}) 
+       inds1.q <- apply(qv, 1, function(x) {sum(x < qth) >= n.signif}) 
+       inds2.q <- apply(qv, 2, function(x) {sum(x < qth) >= n.signif}) 
      }
 
      if (!is.null(cth)) {
@@ -355,11 +362,24 @@ cross.correlate <- function(x, y, method = "pearson", qth = NULL, cth = NULL, or
      res <- list(cor = Cc, pval = Pc, qval = NULL)
    }
 
+  if (all(as.vector(x) == as.vector(y))){ 
+    message("Ignore self-correlations in filtering")
+    diag(res$cor) <- NA
+    diag(res$pval) <- NA
+    diag(res$qval) <- NA
+  }
+
    if (mode == "matrix") {
      return(res)     
    } else if (mode == "table") {
 
      tab <- cmat2table(res)
+     
+     if (all(as.vector(x) == as.vector(y))) {
+       # Remove self-correlations
+       tab <- tab[!(tab$X1 == tab$X2),]
+     }
+
      if ("qvalue" %in% colnames(tab)) {
        tab <- tab[order(tab$qvalue), ]
      } else if ("pvalue" %in% colnames(tab)) {
