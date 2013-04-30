@@ -374,7 +374,13 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
    } else if (mode == "table") {
 
      tab <- cmat2table(res)
-     
+
+     if (order) {
+       message("Ordering factors")
+       tab$X1 <- factor(as.character(tab$X1), levels = rownames(res$cor))
+       tab$X2 <- factor(as.character(tab$X2), levels = colnames(res$cor))
+     }
+
      if (all(as.vector(x) == as.vector(y))) {
        # Remove self-correlations
        tab <- tab[!(tab$X1 == tab$X2),]

@@ -6,7 +6,7 @@
     star = "qvalue", qvalue.threshold = 0.05,
     correlation.threshold = 0, step = 0.2,
     colours = c("darkblue", "blue", "white", "red", "darkred"),
-    limits = c(-1, 1), legend.text = "Correlation",
+    limits = c(-1, 1), legend.text = fill,
     order.rows = TRUE, order.cols = TRUE, text.size = 10,
     filter.significant = TRUE)
 }
