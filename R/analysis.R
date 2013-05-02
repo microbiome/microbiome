@@ -130,15 +130,16 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #'   @param x matrix (samples x features if annotation matrix)
 #'   @param y matrix (samples x features if cross-correlated with annotations)
 #'   @param method association method (pearson, spearman for continuous; categorical for discrete)
-#'   @param qth q-value threshold to include features 
+#'   @param p.adj.threshold q-value threshold to include features 
 #'   @param cth correlation threshold to include features 
 #'   @param order order the results
 #'   @param n.signif mininum number of significant correlations for each element
 #'   @param mode Specify output format ("table" or "matrix")
-#'   @param qvalues calculate qvalues
+#'   @param p.adj.method p-value multiple testing correction method. Either "qvalue" or one of the methods in p.adjust function ("BH" and others; see help(p.adjust)).
+#'   @param verbose verbose
 #'
 #' Returns:
-#'   @return List with cor, pval, qval
+#'   @return List with cor, pval, pval.adjusted
 #'
 #' @export
 #'
@@ -146,7 +147,9 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = NULL, order = FALSE, n.signif = 0, mode = "table", qvalues = TRUE){
+cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = NULL, cth = NULL, order = FALSE, n.signif = 0, mode = "table", p.adj.method = "qvalue", verbose = F) {
+
+  # x <- metadata.simulated; y <- t(genus.matrix.log10.simulated); mode = "table"; method = "pearson"; p.adj.threshold = NULL; cth = NULL; order = FALSE; n.signif = 0; p.adj.method = "qvalue"; verbose = F
 
   if (is.null(y)) {
     message("Cross-correlating the data with itself")
@@ -155,10 +158,7 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
     n.signif <- n.signif + 1 
   }		
 
-  # annot <- metadata.df; dat <- t(genus.matrix); method = "pearson"; qth = NULL; cth = NULL; order = FALSE; n.signif = 0; verbose = TRUE; mode = "matrix"
-
-  # annot <- meta[sample.set,]; dat <- t(ds[, sample.set]); method = cor.method; qth = NULL; cth = NULL; order = FALSE; n.signif = 0; mode = "table";qvalues = FALSE
-  # meta[sample.set,], t(ds[, sample.set]), method = cor.method
+  if (verbose) {message("Polishing the data")}
 
   x <- as.data.frame(x) # numeric or discrete
   y <- y # numeric
@@ -171,6 +171,8 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
 
   numeric.methods <- c("spearman", "pearson", "bicor", "mi")
   categorical.methods <- c("categorical")
+
+  if (verbose) {message("Methods")}
 
   # Rows paired.
   if (method %in% numeric.methods) {
@@ -202,6 +204,8 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
 
   if (method %in% c("pearson", "spearman")) {
 
+    if (verbose) {message(method)}
+
     for (j in 1:ncol(y)){
       jc <- apply(x, 2, function (xi) { 
         if (sum(!is.na(xi)) >= 8) {
@@ -221,6 +225,8 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
 
   } else if (method == "bicor") {
 
+    if (verbose) {message(method)}
+
     InstallMarginal("WGCNA")
 
     t1 <- WGCNA::bicorAndPvalue(x, y, use = "pairwise.complete.obs")
@@ -228,6 +234,8 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
     Cc <- t1$bicor
 
   } else if (method == "categorical") {  
+
+      if (verbose) {message(method)}
 
       Cc <- matrix(NA, nrow = ncol(x), ncol = ncol(y))
       rownames(Cc) <- colnames(x)
@@ -251,6 +259,8 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
         }
       }
    } else if (method == "mi") {
+
+      if (verbose) {message(method)}
     
       InstallMarginal("minet")
 
@@ -269,6 +279,8 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
 
   if (!all(is.na(Pc))) {
 
+     if (verbose) {message("p adjustment")}
+
      rownames(Pc) <- xnames
      colnames(Pc) <- ynames
 
@@ -277,16 +289,27 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
 
      # Corrected p-values
      qv <- array(NA, dim = dim(Pc))
-     if (qvalues && ((prod(dim(Pc)) - sum(is.na(Pc))) >= 100)) {
-       qv <- matrix.qvalue(Pc)
-     } else {
-       warning("q-value calculation skipped-")
-     }
 
+     if (p.adj.method == "qvalue") {
+       if (((prod(dim(Pc)) - sum(is.na(Pc))) >= 100)) {
+         qv <- matrix.qvalue(Pc)
+       } else {
+         warning("Not enough p-values for qvalue calculation - q-value calculation skipped. Try BH method instead for multiple correction?")
+       }
+     } else {
+       if (verbose) {message(paste("Multiple testing correction with", p.adj.method))}
+       qv <- matrix(p.adjust(Pc, method = p.adj.method), nrow = nrow(Pc))
+       dimnames(qv) <- dimnames(Pc)
+
+     }
   }
 
+  if (verbose) {message("OK")}
+
    # Filter
-   if (!is.null(qth) || !is.null(cth)) {
+   if (!is.null(p.adj.threshold) || !is.null(cth)) {
+
+     if (verbose) {message("Filtering")}
 
      # Replace NAs with extreme values for filtering purposes
      qv[is.na(qv)] <- 1
@@ -296,9 +319,9 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
      # Filter by qvalues and correlations
      inds1.q <- inds2.q <- inds1.c <- inds2.c <- NULL
 
-     if (!is.null(qth)) {
-       inds1.q <- apply(qv, 1, function(x) {sum(x < qth) >= n.signif}) 
-       inds2.q <- apply(qv, 2, function(x) {sum(x < qth) >= n.signif}) 
+     if (!is.null(p.adj.threshold)) {
+       inds1.q <- apply(qv, 1, function(x) {sum(x < p.adj.threshold) >= n.signif}) 
+       inds2.q <- apply(qv, 2, function(x) {sum(x < p.adj.threshold) >= n.signif}) 
      }
 
      if (!is.null(cth)) {
@@ -306,13 +329,13 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
        inds2.c <- apply(abs(Cc), 2, function(x) {sum(x > cth) >= n.signif})
      }
 
-     if (!is.null(qth) && !is.null(cth)) {
+     if (!is.null(p.adj.threshold) && !is.null(cth)) {
        inds1 <- inds1.q & inds1.c
        inds2 <- inds2.q & inds2.c
-     } else if (is.null(qth) && !is.null(cth)) {
+     } else if (is.null(p.adj.threshold) && !is.null(cth)) {
        inds1 <- inds1.c
        inds2 <- inds2.c
-     } else if (!is.null(qth) && is.null(cth)) {
+     } else if (!is.null(p.adj.threshold) && is.null(cth)) {
        inds1 <- inds1.q
        inds2 <- inds2.q
      }
@@ -356,18 +379,15 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
     }
    }
 
-   if (qvalues) {
-     res <- list(cor = Cc, pval = Pc, qval = qv)
-   } else {
-     res <- list(cor = Cc, pval = Pc, qval = NULL)
-   }
 
-  if (all(as.vector(x) == as.vector(y))){ 
-    message("Ignore self-correlations in filtering")
-    diag(res$cor) <- NA
-    diag(res$pval) <- NA
-    diag(res$qval) <- NA
-  }
+   res <- list(cor = Cc, pval = Pc, p.adj = qv)
+
+   if (all(as.vector(x) == as.vector(y))){ 
+     message("Ignore self-correlations in filtering")
+     diag(res$cor) <- NA
+     diag(res$pval) <- NA
+     diag(res$p.adj) <- NA
+   }
 
    if (mode == "matrix") {
      return(res)     
@@ -386,8 +406,8 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
        tab <- tab[!(tab$X1 == tab$X2),]
      }
 
-     if ("qvalue" %in% colnames(tab)) {
-       tab <- tab[order(tab$qvalue), ]
+     if ("p.adj" %in% colnames(tab)) {
+       tab <- tab[order(tab$p.adj), ]
      } else if ("pvalue" %in% colnames(tab)) {
        tab <- tab[order(tab$pvalue), ]
      }
@@ -401,6 +421,7 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
 #'              
 #' Arguments:
 #'   @param res Output from cross.correlate
+#'   @param verbose verbose
 #'
 #' Returns:
 #'   @return Correlation table
@@ -411,7 +432,8 @@ cross.correlate <- function(x, y = NULL, method = "pearson", qth = NULL, cth = N
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-cmat2table <- function (res) {
+
+cmat2table <- function (res, verbose = FALSE) {
 
      ctab <- NULL
 
@@ -421,14 +443,16 @@ cmat2table <- function (res) {
      }
 
      correlation <- NULL # circumwent warning on globabl vars
-     if (!is.null(res$qval)) {
-       message("Arranging the table")
-       ctab <- cbind(ctab, melt(res$qval)$value)
-       colnames(ctab) <- c("X1", "X2", "Correlation", "qvalue")
-       ctab <- esort(ctab, ctab$qvalue, -abs(ctab$Correlation))
-       colnames(ctab) <- c("X1", "X2", "Correlation", "qvalue")
+     if (!is.null(res$p.adj)) {
+
+       if (verbose) {message("Arranging the table")}
+       ctab <- cbind(ctab, melt(res$p.adj)$value)
+       colnames(ctab) <- c("X1", "X2", "Correlation", "p.adj")
+       ctab <- esort(ctab, ctab$p.adj, -abs(ctab$Correlation))
+       colnames(ctab) <- c("X1", "X2", "Correlation", "p.adj")
+
      } else {
-       message("No significant q-values")
+       message("No significant adjusted p-values")
        if (!is.null(ctab)) {
          ctab <- cbind(ctab, melt(res$pval)$value)
          ctab <- esort(ctab, -abs(ctab$Correlation))

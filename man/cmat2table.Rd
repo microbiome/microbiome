@@ -2,10 +2,12 @@
 \alias{cmat2table}
 \title{Description: Arrange correlation matrices from cross.correlate into a table format}
 \usage{
-  cmat2table(res)
+  cmat2table(res, verbose = FALSE)
 }
 \arguments{
-  \item{res}{Output from cross.correlate
+  \item{res}{Output from cross.correlate}
+
+  \item{verbose}{verbose
 
   Returns:}
 }

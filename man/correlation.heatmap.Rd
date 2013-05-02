@@ -2,9 +2,9 @@
 \alias{correlation.heatmap}
 \title{correlation.heatmap}
 \usage{
-  correlation.heatmap(df, Xvar, Yvar, fill,
-    star = "qvalue", qvalue.threshold = 0.05,
-    correlation.threshold = 0, step = 0.2,
+  correlation.heatmap(df, Xvar, Yvar, fill, star = "p.adj",
+    p.adjusted.threshold = 0.05, correlation.threshold = 0,
+    step = 0.2,
     colours = c("darkblue", "blue", "white", "red", "darkred"),
     limits = c(-1, 1), legend.text = fill,
     order.rows = TRUE, order.cols = TRUE, text.size = 10,
@@ -25,10 +25,10 @@
   instance "correlation".}
 
   \item{star}{Column to be used for cell highlighting. For
-  instance "qvalue".}
+  instance "p.adj".}
 
-  \item{qvalue.threshold}{Significance threshold for the
-  stars.}
+  \item{p.adjusted.threshold}{Significance threshold for
+  the stars.}
 
   \item{correlation.threshold}{Include only elements that
   have absolute correlation higher than this value}

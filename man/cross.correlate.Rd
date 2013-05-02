@@ -3,8 +3,9 @@
 \title{Description: Cross-correlate columns of the input matrices}
 \usage{
   cross.correlate(x, y = NULL, method = "pearson",
-    qth = NULL, cth = NULL, order = FALSE, n.signif = 0,
-    mode = "table", qvalues = TRUE)
+    p.adj.threshold = NULL, cth = NULL, order = FALSE,
+    n.signif = 0, mode = "table", p.adj.method = "qvalue",
+    verbose = F)
 }
 \arguments{
   \item{x}{matrix (samples x features if annotation
@@ -16,7 +17,8 @@
   \item{method}{association method (pearson, spearman for
   continuous; categorical for discrete)}
 
-  \item{qth}{q-value threshold to include features}
+  \item{p.adj.threshold}{q-value threshold to include
+  features}
 
   \item{cth}{correlation threshold to include features}
 
@@ -27,12 +29,16 @@
 
   \item{mode}{Specify output format ("table" or "matrix")}
 
-  \item{qvalues}{calculate qvalues
+  \item{p.adj.method}{p-value multiple testing correction
+  method. Either "qvalue" or one of the methods in p.adjust
+  function ("BH" and others; see help(p.adjust)).}
+
+  \item{verbose}{verbose
 
   Returns:}
 }
 \value{
-  List with cor, pval, qval
+  List with cor, pval, pval.adjusted
 }
 \description{
   Arguments:
