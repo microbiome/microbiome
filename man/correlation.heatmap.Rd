@@ -3,7 +3,7 @@
 \title{correlation.heatmap}
 \usage{
   correlation.heatmap(df, Xvar, Yvar, fill, star = "p.adj",
-    p.adjusted.threshold = 0.05, correlation.threshold = 0,
+    p.adj.threshold = 0.05, correlation.threshold = 0,
     step = 0.2,
     colours = c("darkblue", "blue", "white", "red", "darkred"),
     limits = c(-1, 1), legend.text = fill,
@@ -27,8 +27,8 @@
   \item{star}{Column to be used for cell highlighting. For
   instance "p.adj".}
 
-  \item{p.adjusted.threshold}{Significance threshold for
-  the stars.}
+  \item{p.adj.threshold}{Significance threshold for the
+  stars.}
 
   \item{correlation.threshold}{Include only elements that
   have absolute correlation higher than this value}
