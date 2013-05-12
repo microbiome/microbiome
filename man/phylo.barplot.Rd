@@ -3,7 +3,8 @@
 \title{phylo.barplot}
 \usage{
   phylo.barplot(x, color.level = "L1",
-    phylogeny.info = NULL, title = NULL, plot = TRUE)
+    phylogeny.info = NULL, title = NULL, plot = TRUE,
+    sort = TRUE)
 }
 \arguments{
   \item{x}{Data vector across taxa (each element should be
@@ -16,7 +17,9 @@
 
   \item{title}{title}
 
-  \item{plot}{draw plot TRUE/FALSE
+  \item{plot}{draw plot TRUE/FALSE}
+
+  \item{sort}{sort the effects by magnitude
 
   Returns:}
 }

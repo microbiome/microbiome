@@ -149,8 +149,6 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 
 cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = NULL, cth = NULL, order = FALSE, n.signif = 0, mode = "table", p.adj.method = "qvalue", verbose = F) {
 
-  # x <- metadata.simulated; y <- t(genus.matrix.log10.simulated); mode = "table"; method = "pearson"; p.adj.threshold = NULL; cth = NULL; order = FALSE; n.signif = 0; p.adj.method = "qvalue"; verbose = F
-
   if (is.null(y)) {
     message("Cross-correlating the data with itself")
     y <- x
@@ -298,6 +296,7 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = N
        }
      } else {
        if (verbose) {message(paste("Multiple testing correction with", p.adj.method))}
+
        qv <- matrix(p.adjust(Pc, method = p.adj.method), nrow = nrow(Pc))
        dimnames(qv) <- dimnames(Pc)
 

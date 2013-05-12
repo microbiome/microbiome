@@ -1,7 +1,6 @@
 # "A model is a lie that helps you see the truth."
 #                                 - Howard Skipper
 
-
 # Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
@@ -818,7 +817,8 @@ PlotPhylochipHeatmap <- function (data,
 #'   @param phylogeny.info oligo-phylotype mappings
 #'   @param title title
 #'   @param plot draw plot TRUE/FALSE
-#' 
+#'   @param sort sort the effects by magnitude
+#'
 #' Returns:
 #'   @return ggplot2 object
 #'
@@ -828,7 +828,7 @@ PlotPhylochipHeatmap <- function (data,
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title = NULL, plot = TRUE) {
+phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title = NULL, plot = TRUE, sort = TRUE) {
 
   # Load simulated oligo-level data:
   data.directory <- system.file("extdata", package = "microbiome")
@@ -861,7 +861,9 @@ phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title =
   m <- melt(df)
 
   # Sort by x (ie. change order of factors for plot)
-  df <- within(df, taxa <- factor(taxa, levels = taxa[order(abs(x))]))
+  if (sort) {
+    df <- within(df, taxa <- factor(taxa, levels = taxa[order(abs(x))]))
+  }
 
   # Plot the image
   p <- ggplot(aes(x = taxa, y = x, fill = color.level), data = df)
