@@ -464,10 +464,13 @@ PlotMatrix <- function (mat, type = "twoway", midpoint = 0,
   # appears in its numeric form
   par(mar = mar)
   
-  mat <- mat[rev(seq(nrow(mat))),]
+  matm <- matrix(mat[rev(seq(nrow(mat))),], ncol = ncol(mat))
+  dimnames(matm) <- dimnames(mat)
+  mat <- matm
+
   nsamples <- ncol(mat)
   nfeats <- nrow(mat)
-  if (nrow(mat) == 1) {mat <- t(mat)}
+  if (nfeats == 1) {mat <- mat}
   image(t(mat), col = colors, xaxt = 'n', yaxt = 'n', zlim = range(col.breaks), breaks = col.breaks, ...)
 
   if (plot.axes == "both" || plot.axes == TRUE) {
