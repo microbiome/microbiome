@@ -436,7 +436,6 @@ PlotMatrix <- function (mat, type = "twoway", midpoint = 0,
 
     vals <- seq(interval/2, mm, interval)
 
-
     # Set col.breaks evenly around zero
     col.breaks  <- c(-(m + 1e6), c(-rev(vals), vals), m+1e6)
   }
@@ -464,40 +463,45 @@ PlotMatrix <- function (mat, type = "twoway", midpoint = 0,
   # transpose and revert row order to plot matrix in the same way it
   # appears in its numeric form
   par(mar = mar)
-  image(t(mat[rev(seq(nrow(mat))),]), col = colors, xaxt = 'n', yaxt = 'n', zlim = range(col.breaks), breaks = col.breaks, ...)
+  
+  mat <- mat[rev(seq(nrow(mat))),]
+  nsamples <- ncol(mat)
+  nfeats <- nrow(mat)
+  if (nrow(mat) == 1) {mat <- t(mat)}
+  image(t(mat), col = colors, xaxt = 'n', yaxt = 'n', zlim = range(col.breaks), breaks = col.breaks, ...)
 
   if (plot.axes == "both" || plot.axes == TRUE) {
 
     if (is.null(xlab)) {
-      v <- seq(1, ncol(mat), col.tick) # take every nth index
-      axis(1, at = seq(0,1,length = ncol(mat))[v], labels = colnames(mat)[v], cex.axis=cex.xlab, las=2, ...)    
+      v <- seq(1, nsamples, col.tick) # take every nth index
+      axis(1, at = seq(0,1,length = nsamples)[v], labels = colnames(mat)[v], cex.axis=cex.xlab, las=2, ...)    
     } else {
-      axis(1, at = seq(0,1,length = ncol(mat)), labels = xlab, cex.axis=cex.xlab, las=2, ...)    
+      axis(1, at = seq(0,1,length = nsamples), labels = xlab, cex.axis=cex.xlab, las=2, ...)    
     }
 
     if (is.null(ylab)) {
-      v <- seq(1, nrow(mat), row.tick) # take every nth index
-      axis(2, at = seq(0,1,length = nrow(mat))[v], labels = rev(rownames(mat))[v], cex.axis=cex.ylab, las=2, ...)
+      v <- seq(1, nfeats, row.tick) # take every nth index
+      axis(2, at = seq(0,1,length = nfeats)[v], labels = rev(rownames(mat))[v], cex.axis=cex.ylab, las=2, ...)
     } else {  
-      axis(2, at = seq(0,1,length = nrow(mat)), labels = ylab, cex.axis=cex.ylab, las=2, ...)
+      axis(2, at = seq(0,1,length = nfeats), labels = ylab, cex.axis=cex.ylab, las=2, ...)
     }
 
   } else if (plot.axes == "x") {
 
     if (is.null(xlab)) {
-      v <- seq(1, ncol(mat), col.tick) # take every nth index
-      axis(1, at = seq(0,1,length = ncol(mat))[v], labels = colnames(mat)[v], cex.axis=cex.ylab, las=2)    
+      v <- seq(1, nsamples, col.tick) # take every nth index
+      axis(1, at = seq(0,1,length = nsamples)[v], labels = colnames(mat)[v], cex.axis=cex.ylab, las=2)    
     } else {
-      axis(1, at = seq(0,1,length = ncol(mat)), labels = ylab, cex.axis=cex.ylab, las=2)    
+      axis(1, at = seq(0,1,length = nsamples), labels = ylab, cex.axis=cex.ylab, las=2)    
     }
 
   } else if (plot.axes == "y") {
 
     if (is.null(ylab)) {
-      v <- seq(1, nrow(mat), row.tick) # take every nth index
-      axis(2, at = seq(0, 1, length = nrow(mat))[v], labels = rev(rownames(mat))[v], cex.axis = cex.xlab, las = 2)
+      v <- seq(1, nfeats, row.tick) # take every nth index
+      axis(2, at = seq(0, 1, length = nfeats)[v], labels = rev(rownames(mat))[v], cex.axis = cex.xlab, las = 2)
     } else {  
-      axis(2, at = seq(0, 1, length = nrow(mat)), labels = ylab, cex.axis=cex.xlab, las=2)
+      axis(2, at = seq(0, 1, length = nfeats), labels = ylab, cex.axis=cex.xlab, las=2)
     }
   }
   
