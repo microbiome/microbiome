@@ -5,7 +5,7 @@
   cross.correlate(x, y = NULL, method = "pearson",
     p.adj.threshold = NULL, cth = NULL, order = FALSE,
     n.signif = 0, mode = "table", p.adj.method = "qvalue",
-    verbose = F)
+    verbose = F, filter.self.correlations = F)
 }
 \arguments{
   \item{x}{matrix (samples x features if annotation
@@ -33,7 +33,10 @@
   method. Either "qvalue" or one of the methods in p.adjust
   function ("BH" and others; see help(p.adjust)).}
 
-  \item{verbose}{verbose
+  \item{verbose}{verbose}
+
+  \item{filter.self.correlations}{Filter out correlations
+  between identical items.
 
   Returns:}
 }

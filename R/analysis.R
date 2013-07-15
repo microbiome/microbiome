@@ -137,6 +137,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #'   @param mode Specify output format ("table" or "matrix")
 #'   @param p.adj.method p-value multiple testing correction method. Either "qvalue" or one of the methods in p.adjust function ("BH" and others; see help(p.adjust)).
 #'   @param verbose verbose
+#'   @param filter.self.correlations Filter out correlations between identical items.
 #'
 #' Returns:
 #'   @return List with cor, pval, pval.adjusted
@@ -147,13 +148,16 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = NULL, cth = NULL, order = FALSE, n.signif = 0, mode = "table", p.adj.method = "qvalue", verbose = F) {
+cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = NULL, cth = NULL, order = FALSE, n.signif = 0, mode = "table", p.adj.method = "qvalue", verbose = F, filter.self.correlations = F) {
 
   if (is.null(y)) {
     message("Cross-correlating the data with itself")
     y <- x
-    # Ignore self-correlations in filtering
-    n.signif <- n.signif + 1 
+
+    if (filter.self.correlations) {
+      # Ignore self-correlations in filtering
+      n.signif <- n.signif + 1 
+    }
   }		
 
   if (verbose) {message("Polishing the data")}
@@ -381,7 +385,7 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = N
 
    res <- list(cor = Cc, pval = Pc, p.adj = qv)
 
-   if (all(as.vector(x) == as.vector(y))){ 
+   if (all(as.vector(x) == as.vector(y)) && filter.self.correlations){ 
      message("Ignore self-correlations in filtering")
      diag(res$cor) <- NA
      diag(res$pval) <- NA
@@ -400,7 +404,7 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = N
        tab$X2 <- factor(as.character(tab$X2), levels = colnames(res$cor))
      }
 
-     if (all(as.vector(x) == as.vector(y))) {
+     if (all(as.vector(x) == as.vector(y)) && filter.self.correlations) {
        # Remove self-correlations
        tab <- tab[!(tab$X1 == tab$X2),]
      }
