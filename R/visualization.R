@@ -16,6 +16,63 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
+#' density.plot
+#'
+#' Description: Plots densities of data points in addition to cross-plot points.
+#'
+#' Arguments:
+#'   @param mat Data matrix to plot. The first two columns will be visualized as a cross-plot.
+#'   @param title title text
+#'   @param x.ticks Number of ticks on the X axis
+#'   @param rounding Rounding for X axis tick values
+
+#'
+#' Returns:
+#'   @return ggplot2 object
+#'
+#' @export
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+density.plot <- function (mat, title = NULL, x.ticks = 10, rounding = 0) {
+
+    # mat: samples x features data matrix	     
+
+    theme_set(theme_bw(20))
+    df <- as.data.frame(mat)
+    xvar <- colnames(mat)[[1]]
+    yvar <- colnames(mat)[[2]]
+    df$x <- df[, 1]		
+    df$y <- df[, 2]		
+
+    # Remove NAs
+    df <- df[!(is.na(df$x) | is.na(df$y)), ]
+
+    # Determine bandwidth for density estimation
+    library(MASS)
+    bw <- 0.8*c(bandwidth.nrd(df[["x"]]), bandwidth.nrd(df[["y"]]))
+
+    # Construct the figure
+    p <- ggplot(df) 
+    p <- p + stat_density2d(aes(x = x, y = y, fill=..density..), geom="raster", stat_params = list(h = bw, contour = F), geom_params = list()) 
+    p <- p + scale_fill_gradient(low="white", high="black") 
+    p <- p + geom_point(aes(x = x, y = y), size = .7, colour = "black") 
+    p <- p + xlab(xvar) + ylab(yvar) 
+    #p <- p + theme(axis.title.y = element_text(angle = 0), legend.position="none")
+    p <- p + theme(legend.position="none")
+    p <- p + scale_x_continuous(breaks = round(seq(floor(min(df$x)), ceiling(max(df$x)), length = x.ticks), rounding))
+
+    if (!is.null(title)) {
+      p <- p + ggtitle(title)
+    }
+
+    p
+
+}
+
+
+
 #' correlation.heatmap
 #'
 #' Description: Visualizes n x m correlation table as heatmap. See examples for details.
