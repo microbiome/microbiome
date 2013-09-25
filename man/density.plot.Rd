@@ -3,7 +3,8 @@
 \title{density.plot}
 \usage{
   density.plot(mat, title = NULL, x.ticks = 10,
-    rounding = 0)
+    rounding = 0, add.points = TRUE, point.color = "red",
+    adjust = 1)
 }
 \arguments{
   \item{mat}{Data matrix to plot. The first two columns
@@ -13,7 +14,13 @@
 
   \item{x.ticks}{Number of ticks on the X axis}
 
-  \item{rounding}{Rounding for X axis tick values
+  \item{rounding}{Rounding for X axis tick values}
+
+  \item{add.points}{Plot the data points as well}
+
+  \item{point.color}{Color of the data points}
+
+  \item{adjust}{Kernel width adjustment
 
   Returns:}
 }
