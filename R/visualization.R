@@ -25,7 +25,9 @@
 #'   @param title title text
 #'   @param x.ticks Number of ticks on the X axis
 #'   @param rounding Rounding for X axis tick values
-
+#'   @param add.points Plot the data points as well
+#'   @param point.color Color of the data points
+#'   @param adjust Kernel width adjustment
 #'
 #' Returns:
 #'   @return ggplot2 object
@@ -35,7 +37,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-density.plot <- function (mat, title = NULL, x.ticks = 10, rounding = 0) {
+density.plot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.points = TRUE, point.color = "red", adjust = 1) {
 
     # mat: samples x features data matrix	     
 
@@ -51,15 +53,20 @@ density.plot <- function (mat, title = NULL, x.ticks = 10, rounding = 0) {
 
     # Determine bandwidth for density estimation
     library(MASS)
-    bw <- 0.8*c(bandwidth.nrd(df[["x"]]), bandwidth.nrd(df[["y"]]))
+    bw <- adjust*c(bandwidth.nrd(df[["x"]]), bandwidth.nrd(df[["y"]]))
 
     # Construct the figure
     p <- ggplot(df) 
     p <- p + stat_density2d(aes(x = x, y = y, fill=..density..), geom="raster", stat_params = list(h = bw, contour = F), geom_params = list()) 
     p <- p + scale_fill_gradient(low="white", high="black") 
-    p <- p + geom_point(aes(x = x, y = y), size = .7, colour = "black") 
+
+    if (add.points) {
+      p <- p + geom_point(aes(x = x, y = y), size = 1, colour = point.color) 
+    }
+
     p <- p + xlab(xvar) + ylab(yvar) 
     #p <- p + theme(axis.title.y = element_text(angle = 0), legend.position="none")
+
     p <- p + theme(legend.position="none")
     p <- p + scale_x_continuous(breaks = round(seq(floor(min(df$x)), ceiling(max(df$x)), length = x.ticks), rounding))
 
