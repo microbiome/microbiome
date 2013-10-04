@@ -127,6 +127,7 @@ Bagged.RDA <- function(X, Y, boot = 1000){
 #'   @param Y vector with names(Y)=rownames(X), for example
 #'   @param sig.thresh signal p-value threshold, default 0.1
 #'   @param nboot Number of bootstrap iterations
+#'   @param verbose verbose
 #'
 #' Returns:
 #'   @return List with items:
@@ -143,7 +144,7 @@ Bagged.RDA <- function(X, Y, boot = 1000){
 #' #  x <- t(peerj32$microbes)
 #' #  y <- factor(peerj32$meta$time); names(y) <- rownames(peerj32$meta)
 #' # Bag.res <- Bagged.RDA.Feature.Selection(x, y, sig.thresh=0.05, nboot=100)
-#' # plot.bagged.RDA(Bag.res, y)
+#' # PlotBaggedRDA(Bag.res, y)
 #'
 #' @export
 #'
@@ -201,7 +202,8 @@ Bagged.RDA.Feature.Selection <- function(X,Y,sig.thresh=0.1,nboot=1000, verbose 
 #'   @param comp TBA
 #'   @param cex.bac TBA
 #'   @param plot.names Plot names
-#'   @param group.controls TBA
+#'   @param group.cols TBA
+#'   @param ... Other arguments to be passed
 #'   
 #'
 #' Returns:
@@ -213,7 +215,7 @@ Bagged.RDA.Feature.Selection <- function(X,Y,sig.thresh=0.1,nboot=1000, verbose 
 #'   #x <- t(peerj32$microbes)
 #'   #y <- factor(peerj32$meta$time); names(y) <- rownames(peerj32$meta)
 #'   #Bag.res <- Bagged.RDA.Feature.Selection(x, y, sig.thresh=0.05, nboot=100)
-#'   #plot.bagged.RDA(Bag.res, y)
+#'   #PlotBaggedRDA(Bag.res, y)
 #'
 #' @export
 #'
@@ -221,11 +223,17 @@ Bagged.RDA.Feature.Selection <- function(X,Y,sig.thresh=0.1,nboot=1000, verbose 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-plot.bagged.RDA <- function(Bag.res,Y,which.bac=1:nrow(Bag.res$loadings),ptype="spider",comp=1:2,cex.bac=0.5,plot.names=T,group.cols=as.numeric(unique(Y)),...){
-  scaled.loadings=(Bag.res$loadings/max(abs(Bag.res$loadings)))[,comp]
-  scaled.scores=(Bag.res$scores/max(abs(Bag.res$scores)))[,comp]
-  require(ade4)
-  #plot(rbind(scaled.scores,scaled.loadings),type="n",xlab=paste(names(Bag.res$R2)[1],sep=""),ylab=paste(names(Bag.res$R2)[2],sep=""))
+PlotBaggedRDA <- function(Bag.res, Y, which.bac = 1:nrow(Bag.res$loadings),
+	           ptype="spider", comp=1:2, cex.bac=0.5, plot.names=T,
+		   group.cols = as.numeric(unique(Y)),...){
+
+  # NOTE LL20131004: plot.bagged.RDA could not be used as a name
+  # unless a particular plot function is defined for the object
+  # within the package. Otherwise there will be warnings in package build.
+
+  scaled.loadings <- (Bag.res$loadings/max(abs(Bag.res$loadings)))[,comp]
+  scaled.scores <- (Bag.res$scores/max(abs(Bag.res$scores)))[,comp]
+
   plot(rbind(scaled.scores,scaled.loadings),type="n",xlab=paste(names(Bag.res$R2)[1]," (",format(100*Bag.res$R2[1],digits=2),"%)",sep=""),ylab=paste(names(Bag.res$R2)[2]," (",format(100*Bag.res$R2[2],digits=2),"%)",sep=""))
   if (ptype=="spider")
     s.class(scaled.scores,factor(Y),grid=F,col=group.cols,cellipse=0.5,cpoint=0,add.plot=T)

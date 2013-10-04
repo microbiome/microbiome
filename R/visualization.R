@@ -16,7 +16,7 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-#' density.plot
+#' DensityPlot
 #'
 #' Description: Plots densities of data points in addition to cross-plot points.
 #'
@@ -37,7 +37,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-density.plot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.points = TRUE, point.color = "red", adjust = 1) {
+densityplot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.points = TRUE, point.color = "red", adjust = 1) {
 
     # mat: samples x features data matrix	     
 
@@ -45,11 +45,11 @@ density.plot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.poi
     df <- as.data.frame(mat)
     xvar <- colnames(mat)[[1]]
     yvar <- colnames(mat)[[2]]
-    df$x <- df[, 1]		
-    df$y <- df[, 2]		
+    df[["x"]] <- df[, 1]		
+    df[["y"]] <- df[, 2]		
 
     # Remove NAs
-    df <- df[!(is.na(df$x) | is.na(df$y)), ]
+    df <- df[!(is.na(df[["x"]]) | is.na(df[["y"]])), ]
 
     # Determine bandwidth for density estimation
     library(MASS)
@@ -57,7 +57,7 @@ density.plot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.poi
 
     # Construct the figure
     p <- ggplot(df) 
-    p <- p + stat_density2d(aes(x = x, y = y, fill=..density..), geom="raster", stat_params = list(h = bw, contour = F), geom_params = list()) 
+    p <- p + stat_density2d(aes(x, y, fill=..density..), geom="raster", stat_params = list(h = bw, contour = F), geom_params = list()) 
     p <- p + scale_fill_gradient(low="white", high="black") 
 
     if (add.points) {
