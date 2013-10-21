@@ -41,6 +41,9 @@ densityplot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.poin
 
     # mat: samples x features data matrix	     
 
+    # Avoid warnings
+    x <- y <- NULL
+
     theme_set(theme_bw(20))
     df <- as.data.frame(mat)
     xvar <- colnames(mat)[[1]]
@@ -65,10 +68,9 @@ densityplot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.poin
     }
 
     p <- p + xlab(xvar) + ylab(yvar) 
-    #p <- p + theme(axis.title.y = element_text(angle = 0), legend.position="none")
 
     p <- p + theme(legend.position="none")
-    p <- p + scale_x_continuous(breaks = round(seq(floor(min(df$x)), ceiling(max(df$x)), length = x.ticks), rounding))
+    p <- p + scale_x_continuous(breaks = round(seq(floor(min(df[["x"]])), ceiling(max(df[["x"]])), length = x.ticks), rounding))
 
     if (!is.null(title)) {
       p <- p + ggtitle(title)
@@ -922,7 +924,7 @@ phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title =
   df[[color.level]] <- unlist(droplevels(levelmap(taxa, level.from = x.level, level.to = color.level, phylogeny.info = phylogeny.info)))
   df[["color.level"]] <- df[[color.level]]
 
-  df$x <- x
+  df[["x"]] <- x
 
   # Define colors for L1/L2 groups
   colors <- rainbow(length(unique(df[[color.level]])))
