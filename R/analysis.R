@@ -288,7 +288,7 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = N
   x <- as.data.frame(x) # numeric or discrete
   y <- y # numeric
 
-  if (is.null(colnames(y))) { colnames(y) <- paste("column-", 1:ncol(y), sep = "") }
+  if ( is.null(colnames(y)) ) { colnames(y) <- paste("column-", 1:ncol(y), sep = "") }
 
   xnames <- colnames(x)
   ynames <- colnames(y)
@@ -297,7 +297,7 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = N
   numeric.methods <- c("spearman", "pearson", "bicor", "mi")
   categorical.methods <- c("categorical")
 
-  if (verbose) {message("Methods")}
+  if ( verbose ) { message("Methods") }
 
   # Rows paired.
   if (method %in% numeric.methods) {
@@ -520,12 +520,16 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = N
    } else if (mode == "table") {
 
      tab <- cmat2table(res)
+     tab$X1 <- factor(tab$X1, levels = rownames(res$cor))
+     tab$X2 <- factor(tab$X2, levels = colnames(res$cor))
 
      if (order) {
+
        message("Ordering factors")
        tab$X1 <- factor(as.character(tab$X1), levels = rownames(res$cor))
        tab$X2 <- factor(as.character(tab$X2), levels = colnames(res$cor))
-     }
+
+     } 
 
      if (all(as.vector(x) == as.vector(y)) && filter.self.correlations) {
        # Remove self-correlations
@@ -568,7 +572,11 @@ cmat2table <- function (res, verbose = FALSE) {
        colnames(ctab) <- c("X1", "X2", "Correlation")
      }
 
+     #ctab$X1 <- factor(ctab$X1, levels = rownames(res$cor))
+     #ctab$X2 <- factor(ctab$X2, levels = colnames(res$cor))
+
      correlation <- NULL # circumwent warning on globabl vars
+
      if (!is.null(res$p.adj)) {
 
        if (verbose) {message("Arranging the table")}

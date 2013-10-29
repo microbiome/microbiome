@@ -122,14 +122,15 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.thr
     keep.Y <- as.character(unique(df[((df$p.adj < p.adj.threshold) & (abs(df[[fill]]) > correlation.threshold)), Yvar]))
     df <- df[((df[[Xvar]] %in% keep.X) & (df[[Yvar]] %in% keep.Y)),]
   }		    
-  df[[Xvar]] <- as.character(df[[Xvar]])
-  df[[Yvar]] <- as.character(df[[Yvar]])
 
   theme_set(theme_bw(text.size))
 
   if (any(c("XXXX", "YYYY", "ffff") %in% names(df))) {stop("XXXX, YYYY, ffff are not allowed in df")}
 
   # ------------------------------------------------------
+
+  df[[Xvar]] <- factor(df[[Xvar]])
+  df[[Yvar]] <- factor(df[[Yvar]])
 
   if (order.rows || order.cols) {
 
@@ -151,12 +152,13 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.thr
     if (order.cols) {
       message("Ordering columns")
       df[[Xvar]] <- factor(df[[Xvar]], levels = rownames(mat)[rind])
-    }
+    } 
 
     if (order.rows) {
       message("Ordering rows")
       df[[Yvar]] <- factor(df[[Yvar]], levels = colnames(mat)[cind])
     }
+
   }
 
   # ---------------------------------------------
