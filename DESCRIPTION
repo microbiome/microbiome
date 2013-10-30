@@ -1,8 +1,8 @@
 Package: microbiome
 Type: Package
 Title: microbiome
-Version: 0.4.29
-Date: 2013-10-29
+Version: 0.4.30
+Date: 2013-10-30
 Author: Leo Lahti and Jarkko Salojarvi
 Maintainer: microbiome developer team <microbiome-admin@googlegroups.com>
 Description: R package for microbiome studies
@@ -10,6 +10,8 @@ License: FreeBSD
 Depends:
     R (>= 2.12.1),
     ade4,
+    df2json,
+    rjson,
     fastcluster,
     ggplot2,
     MASS,
@@ -44,4 +46,5 @@ Collate:
     'data.documentation.R'
     'ROC.R'
     'rda.R'
+    'd3.R'
 Packaged: 2012-01-12 14:19:39 UTC; lei
