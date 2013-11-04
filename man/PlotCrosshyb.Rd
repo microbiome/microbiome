@@ -8,7 +8,7 @@ the corresponding column taxon.}
     selected.taxa = NULL, show.plot = TRUE,
     order.rows = TRUE, order.cols = TRUE,
     keep.empty = FALSE, rounding = 1,
-    phylogeny.info = NULL)
+    phylogeny.info = NULL, self.correlations = FALSE)
 }
 \arguments{
   \item{tax.level}{Taxonomic level to investigate}
@@ -29,7 +29,10 @@ the corresponding column taxon.}
 
   \item{rounding}{Rounding of the cell contents}
 
-  \item{phylogeny.info}{phylogeny.info
+  \item{phylogeny.info}{phylogeny.info}
+
+  \item{self.correlations}{Show self-correlations (always
+  100%); or remove (indicate as 0%; default)
 
   Returns:}
 }

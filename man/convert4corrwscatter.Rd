@@ -1,6 +1,7 @@
 \name{convert4corrwscatter}
 \alias{convert4corrwscatter}
-\title{Description:}
+\title{Description:
+Arguments:}
 \usage{
   convert4corrwscatter(dat, group, reorder = TRUE)
 }
@@ -17,7 +18,7 @@
   JSON
 }
 \description{
-  Arguments:
+  Description: Arguments:
 }
 \author{
   Contact: Leo Lahti

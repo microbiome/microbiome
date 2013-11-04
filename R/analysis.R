@@ -28,6 +28,7 @@
 #'   @param keep.empty Keep taxa that do not show any cross-hybridization
 #'   @param rounding Rounding of the cell contents
 #'   @param phylogeny.info phylogeny.info 
+#'   @param self.correlations Show self-correlations (always 100%); or remove (indicate as 0%; default)
 #'
 #' Returns:
 #'   @return A list containing cross-hybridization table and plot
@@ -39,7 +40,7 @@
 #' @keywords utilities
 
 
-PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NULL, show.plot = TRUE, order.rows = TRUE, order.cols = TRUE, keep.empty = FALSE, rounding = 1, phylogeny.info = NULL) {
+PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NULL, show.plot = TRUE, order.rows = TRUE, order.cols = TRUE, keep.empty = FALSE, rounding = 1, phylogeny.info = NULL, self.correlations = FALSE) {
 
   # tax.level = "L1"; chip = "HITChip"; selected.taxa = NULL; show.plot = TRUE; order.rows = TRUE; order.cols = TRUE; keep.empty = FALSE; rounding = 1
 
@@ -80,7 +81,9 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
   }
 
   # Remove self-correlations
-  diag(confusion.matrix) <- 0
+  if (!self.correlations) {
+    diag(confusion.matrix) <- 0
+  }
 
   # Remove the taxa that do not have any crosshyb
   if (!keep.empty) {
