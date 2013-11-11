@@ -35,6 +35,17 @@
 
 diversity.table <- function (dat, phylogeny.info, level.from, level.to, diversity.index = "shannon", det.th = 0, min.probes = 0) {
 
+  # dat <- oligo.matrix.nolog.simulated; phylogeny.info = phylogeny.info; level.from = "L1"; level.to = "oligo"; diversity.index = "shannon"; det.th = 0; min.probes = 0
+
+  # Ensure that the same phylogeny version used in the data and phylogeny
+  # by taking the common part only
+  if (level.to == "oligo") {
+    coms <- intersect(phylogeny.info$oligoID, rownames(dat))
+    phylogeny.info <- phylogeny.info[phylogeny.info$oligoID %in% coms,]
+    dat <- dat[coms,]
+  }
+
+
   if (level.to == "oligo") {level.to <- "oligoID"}		
   if (level.to == "level 1") {level.to <- "L1"}		
   if (level.to == "level 2") {level.to <- "L2"}		
@@ -79,7 +90,6 @@ diversity.table <- function (dat, phylogeny.info, level.from, level.to, diversit
     } else {
       tab[nam, ] <- rep(NA, ncol(tab))    
     }
-
 
   }
 
