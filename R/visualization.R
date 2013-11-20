@@ -32,6 +32,8 @@
 #' Returns:
 #'   @return ggplot2 object
 #'
+#' @examples p <- densityplot(cbind(rnorm(100), rnorm(100)))
+#'
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -118,14 +120,16 @@ densityplot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.poin
 #' Returns:
 #'   @return ggplot2 object
 #'
+#' @examples data(peerj32); cc <- cross.correlate(peerj32$lipids[, 1:10], peerj32$microbes[, 1:10]); p <- correlation.heatmap(cc, "X1", "X2", "Correlation")
+#'
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.threshold = 0.05, correlation.threshold = 0, step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"), limits = c(-1, 1), legend.text = fill, order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.significant = TRUE) {
+correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.threshold = 1, correlation.threshold = 0, step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"), limits = c(-1, 1), legend.text = fill, order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.significant = TRUE) {
 
-  # df <- cc; Xvar <- "X1"; Yvar <- "X2"; fill = "Correlation"; star = "p.adj"; p.adj.threshold = 1; correlation.threshold = corth; order.rows = TRUE; order.cols = TRUE; text.size = 12; filter.significant = TRUE; step = 0.2; colours = c("darkblue", "blue", "white", "red", "darkred"); limits = c(-1, 1); legend.text = fill
+  # df <- cc; Xvar <- "X1"; Yvar <- "X2"; fill = "cor"; star = "p.adj"; p.adj.threshold = 1; correlation.threshold = 0; order.rows = TRUE; order.cols = TRUE; text.size = 12; filter.significant = TRUE; step = 0.2; colours = c("darkblue", "blue", "white", "red", "darkred"); limits = c(-1, 1); legend.text = fill
 
   if (nrow(df) == 0) {warning("Input data frame is empty."); return(NULL)}
 
@@ -238,6 +242,9 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.thr
 #'
 #' Returns:
 #' @return ggplot2 object
+#'
+#' @examples N <- 10; df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N)); p <- vwReg(hitchip~age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
+#'
 #'
 #' @export
 #' @references See citation("microbiome") 
@@ -387,7 +394,7 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
     p1 <- p1 + ggtitle(title)
   }
 
-  p1  + opts(legend.position="none")
+  p1 
 
 }
 
@@ -403,6 +410,9 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
 #'   @return projected data matrix
 #'
 #' @export
+#'
+#' @examples data(peerj32); xy <- project.data(peerj32$microbes[,1:3])
+#'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -413,6 +423,7 @@ project.data <- function (amat, type = "PCA") {
     if (nrow(amat) < ncol(amat)) {
 
       message("More samples than features, using sparse PCA")
+
       ## Spca example: we are selecting 50 variables on each of the PCs
       InstallMarginal("mixOmics")
 
@@ -493,9 +504,10 @@ project.data <- function (amat, type = "PCA") {
 #' @param ... optional parameters to be passed to function 'image', see help(image) for further details
 #' @return A list with the color palette (colors), color breakpoints (breaks), and palette function (palette.function)
 #' @export
+#' 
 #' @references See citation("microbiome") 
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples # mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2)); PlotMatrix(mat, "twoway", midpoint = 3) 
+#' @examples mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2)); PlotMatrix(mat, "twoway", midpoint = 3) 
 #' @keywords utilities
 
 PlotMatrix <- function (mat, type = "twoway", midpoint = 0, 
@@ -609,6 +621,8 @@ PlotMatrix <- function (mat, type = "twoway", midpoint = 0,
 #'
 #' @export
 #'
+#' @examples theme_bottom_border()
+#' 
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -643,7 +657,7 @@ theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
 #'   @return NULL
 #'
 #' @export
-#' @examples # dat <- read.profiling(params$wdir, "species", "rpa"); tmp <- htree.plot(dat)
+#' @examples data(peerj32); tmp <- htree.plot(peerj32$microbes[,1:5])
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -688,211 +702,7 @@ htree.plot <- function (dat, method = "complete", metric = "pearson") {
 }
 
 
-#' add.heatmap
-#' Description: Add oligprofile heatmap into output directory
-#'
-#' Arguments:
-#'   @param dat oligoprofile data in original (non-log) domain
-#'   @param output.dir output data directory
-#'   @param output.file output file name
-#'   @param phylogeny.info oligo-phylotype mappings
-#'   @param ppcm figure size
-#'   @param hclust.method hierarchical clustering method
-#'   @param palette color palette ("white/black" / "white/blue" / "black/yellow/white")
-#'   @param level taxonomic level to show
-#'   @param metric clustering metric
-#'   @param figureratio figure ratio
-#'   @param fontsize font size
-#'   @param tree.display tree.display
-#'
-#' Returns:
-#'   @return Plotting parameters
-#'
-#' @export
-#' @examples # dat <- read.profiling(params$wdir, "species", "rpa"); hc <- add.heatmap(dat)
-#' @references See citation("microbiome")
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
 
-add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny.info, ppcm = 150, 
-	         hclust.method = "complete", palette = "white/black", level = "L1", metric = "pearson", 
-  		 figureratio = 10, fontsize = 40, tree.display = TRUE) {
-
-  # dat <- finaldata[["oligo"]]; output.dir = params$wdir;  output.file = NULL; phylogeny.info = phylogeny.info; ppcm = 150; hclust.method = "complete"; palette = "white/blue"; level = "L2"; metric = "pearson"; figureratio = 12; fontsize = 12; tree.display = TRUE
-  #output.dir = "~/tmp/";  output.file = NULL; phylogeny.info = phylogeny.info; ppcm = 150; hclust.method = "complete"; palette = "white/blue"; level = "L2"; metric = "pearson"; figureratio = 12; fontsize = 12; tree.display = TRUE
-
-  if (is.null(output.file)) {
-    output.file <- paste(output.dir,"/", gsub(" ", "", level), "-oligoprofileClustering.png",sep="")
-  }		 
-
-  hc.params <- list()
-  if( ncol(dat) >= 3 ) {
-
-    message(paste("Storing oligo heatmap in", output.file))  
-    hc.params$ppcm <- ppcm
-    hc.params$output.file <- output.file
-
-    # PLOT THE HEATMAP
-    # figure width as a function of the number of the samples
-    plotdev <- png(filename = output.file, 
-  	    width = max(trunc(ppcm*21), trunc(ppcm*21*ncol(dat)/70)), 
-	    height = trunc(ppcm*29.7)) 
-    try(hc.params <- PlotPhylochipHeatmap(data = dat,
-                phylogeny.info = phylogeny.info,
-                metric = metric,
-                level = level,
-                tree.display = tree.display,
-                palette = palette,
-                fontsize = fontsize,
-                figureratio = figureratio, 
-		hclust.method = hclust.method)) 
-
-    dev.off()
-  }
-
-  hc.params
-
-}
-
-
-#' PlotPhylochipHeatmap
-#'
-#' Description: Plots heatmap of the oligo profiles together with phylotype grouping and sample clustering
-#'
-#' Arguments:
-#'   @param data oligoprofile data in original (non-log) domain
-#'   @param phylogeny.info oligo-phylotype mappings
-#'   @param metric clustering metric
-#'   @param level taxonomic level to show (L0 / L1 / L2 / species)
-#'   @param tree.display tree.display
-#'   @param palette color palette ("white/black" / "white/blue" / "black/yellow/white")
-#'   @param fontsize font size
-#'   @param figureratio figure ratio
-#'   @param hclust.method hierarchical clustering method. See help(hclust) for details. To prevent ordering of the rows, use hclust.method = NULL.
-#'
-#' Returns:
-#'   @return parameters
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-PlotPhylochipHeatmap <- function (data,
-                         phylogeny.info,
-                         metric = "pearson", 
-                         level = "L1", 
-                         tree.display = TRUE, 
-                         palette = "white/black", 
-                         fontsize = 40, 
-                         figureratio = 10, 
-			 hclust.method = "complete") {
-
-  # data = dat; metric = "pearson"; level = "L2"; tree.display = TRUE; palette = "white/black"; fontsize = 40; figureratio = 10; hclust.method = "complete"
-
-  if (is.null(hclust.method) || hclust.method == "none") {hclust.method <- NULL}
-
-  params <- c(metric = metric, 
-  	      level = level, 
-	      tree.display = tree.display, 
-	      palette = palette, 
-  	      fontsize = fontsize, 
-	      figureratio = figureratio,  
-	      hclust.method = hclust.method)
-			 
-  if (is.character(palette)) {
-    palette  <- list.color.scales()[[palette]]
-  }
-              
-   par(ps = fontsize, xpd = NA)
-   paper <- par("din")
-
-   if (level == "oligo") { level <- "oligoID" }
-   tax.order <- order(as.character(phylogeny.info[[level]]), na.last = FALSE)
-
-   nainds <- is.na(phylogeny.info[, level])
-   if (sum(nainds) > 0) {
-     phylogeny.info[nainds, level] <- '-'  # replace empty maps
-   }
-
-   levs <- unlist(lapply(split(phylogeny.info[[level]], as.factor(phylogeny.info[[level]])), length))
-   # order the rows in phylogeny.info by level
-   phylogeny.info <- phylogeny.info[tax.order,]
-   phylogeny.info <- phylogeny.info[phylogeny.info$oligoID %in% rownames(data), ]
-
-   annwidth <- max(strwidth(names(levs),units="inch"))*2.54*1.2
-   profilewidth <- max(strheight(names(levs),units="inch"))*2.54*dim(data)[2]*1.6
-   figureheight <- paper[2]*2.54*0.9
-
-   # prevent outliers from determining the ends of the colour scale
-   limits <- quantile(data, c(0.001,0.999), na.rm = TRUE)
-   limits <- limits*c(0.98, 1.02)
-
-   # calculate clustering based on oligoprofile
-   if (metric == "euclidean" && !is.null(hclust.method)) {
-     hc <- hclust(dist(t(data)), method = hclust.method)
-     ord <- hc$order
-   } else if (metric == "pearson" && !is.null(hclust.method)) {
-     hc <- hclust(as.dist(1 - cor(data, use = "pairwise.complete.obs")), method = hclust.method)
-     ord <- hc$order
-   } else if (metric == "spearman" && !is.null(hclust.method)) {
-     hc <- hclust(as.dist(1 - cor(data, use = "pairwise.complete.obs", method = "spearman")), method = hclust.method)
-     ord <- hc$order
-   } else if (is.null(hclust.method)) {
-     ord <- 1:ncol(data) # do not change the order
-   }
-
-   # Order the data
-   data <- data[, ord] 
-
-   data[data < limits[1]] <- limits[1]
-   data[data > limits[2]] <- limits[2]
-   if (!is.na(figureratio)) {
-      heights = c(figureratio/100, (100-figureratio)/100)
-   } else {
-      if (tree.display) {
-         heights = c(15/100, 85/100)
-      } else {
-         heights = c(6/100, 94/100)
-      }
-   }
-
-   if (tree.display && !is.null(hclust.method)) {
-      layout(matrix(c(3,0,1,2), ncol = 2, byrow = TRUE),widths=lcm(c(profilewidth,annwidth)),heights=lcm(figureheight*heights))
-   } else {    
-      layout(matrix(c(3,0,1,2),ncol=2,byrow=TRUE),widths=lcm(c(profilewidth,annwidth)),heights=lcm(figureheight*heights))
-   }
-
-   par(mar = c(1,1,0,0), oma = c(0,0,0,0))
-   
-   img <- as.matrix(rev(as.data.frame(t(data[as.character(phylogeny.info$oligoID),]))))
-   image(z = img, col = palette, axes = FALSE, frame.plot = TRUE, zlim = limits)
-   plot.new()
-   par(mar = c(1, 0, 0, 1), usr = c(0, 1, 0, 1), xaxs = 'i', yaxs = 'i')
-
-   rect(xleft = rep(0,length(levs)),
-        ybottom = c(0,cumsum(rev(levs))[1:length(levs)-1])/sum(levs),
-        xright = rep(1,length(levs)),ytop=cumsum(rev(levs))/sum(levs), border = 'grey')
-
-   text(x = c(0.03), y = (cumsum(rev(levs))-rev(levs/2))/sum(levs), labels = (names(rev(levs))), pos = 4)
-
-   if (tree.display && !is.null(hclust.method)) {
-
-      par(mar=c(0.2,1.5,1,0.5),usr=c(0,1,0,1))
-      plot(hc, axes = FALSE, ann = FALSE, hang = -1)
-
-   } else {
-
-      plot.new()
-      par(mar=c(0,1,1,0),usr=c(0,1,0,1),xaxs='i',yaxs='i')
-      text(x=0.5/length(colnames(data))+(seq(along.with=colnames(data))-1)/length(colnames(data)),
-      y = c(0.15), labels = colnames(data), pos = 3, cex = 0.8, srt = 90)
-
-   }
-
-  params
-
-}
 
 #' phylo.barplot
 #'
@@ -910,7 +720,7 @@ PlotPhylochipHeatmap <- function (data,
 #'   @return ggplot2 object
 #'
 #' @export
-#' @examples # p <- phylo.barplot(signal, color.level = "L1", phylogeny.info = NULL)
+#' @examples # NOT RUN: phylogeny.info <- GetPhylogeny("HITChip", "filtered"); signal <-  unlist(peerj32$microbes[1, 1:10]); p <- phylo.barplot(signal, color.level = "L1", phylogeny.info = phylogeny.info)
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -919,7 +729,7 @@ phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title =
 
   if (is.null(phylogeny.info)) {
     warning("phylogeny.info not specified, assuming HITChip phylogeny")
-    phylogeny.info <- GetPhylogeny("HITChip")
+    phylogeny.info <- GetPhylogeny("HITChip", "filtered")
   }
 
   taxa <- names(x)

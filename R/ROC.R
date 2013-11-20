@@ -11,6 +11,8 @@
 #'
 #' @export
 #'
+#' @examples data(peerj32); x <- unlist(peerj32$microbes[1,]); res <- roc(names(x), sample(names(x), 10))
+#'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -48,6 +50,8 @@ roc <- function (ordered.results, true.positives) {
 #'
 #' @export
 #'
+#' @examples data(peerj32); x <- unlist(peerj32$microbes[1,]); res <- roc.plot(names(x), sample(names(x), 10)) 
+#' 
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -75,11 +79,12 @@ roc.plot <- function(ordered.results, true.positives, line=F, title="") {
 #'
 #' @export
 #'
+#' @examples data(peerj32); x <- unlist(peerj32$microbes[1,]); res <- roc.auc(names(x), sample(names(x), 10)) 
+#' 
+#'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
-
 
 roc.auc <- function (ordered.results, true.positives) {
 
