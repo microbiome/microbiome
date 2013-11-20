@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -31,10 +31,19 @@
 GetPhylogeny <- function (chip, phylogeny.version = "full") {
 
   if (chip == "HITChip") {
-    phylogeny.info <- read.profiling(level = paste("phylogeny.", phylogeny.version, sep = ""), data.dir = system.file("extdata", package = "microbiome"))
+    # Old version
+    #phylogeny.info <- read.profiling(level = paste("phylogeny.", phylogeny.version, sep = ""), data.dir = system.file("extdata", package = "microbiome"))
+
+    # Get the phylogeny from Github
+    url <- "https://raw.github.com/microbiome/data/master/example-datasets/phylogeny"
+    fnam <- paste(url, ".", phylogeny.version, ".tab", sep = "")
+    phylogeny.info <- read.csv(text = getURL(fnam), sep = "\t")
+
   } else {
+
     message(paste("GetPhylogeny not implemented for", chip))
     phylogeny.info <- NULL
+
   }
 
   phylogeny.info

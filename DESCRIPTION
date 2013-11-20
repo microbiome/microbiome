@@ -1,12 +1,12 @@
 Package: microbiome
 Type: Package
 Title: microbiome
-Version: 0.4.32
-Date: 2013-11-011
+Version: 0.5.01
+Date: 2013-11-19
 Author: Leo Lahti and Jarkko Salojarvi
 Maintainer: microbiome developer team <microbiome-admin@googlegroups.com>
 Description: R package for microbiome studies
-License: FreeBSD
+License: BSD_2_clause + file LICENSE
 Depends:
     R (>= 2.12.1),
     ade4,
@@ -20,11 +20,14 @@ Depends:
     mixOmics,
     plyr,
     qvalue,
+    RCurl,
     reshape2,
     RPA,
     svDialogs,
     vegan,
     WGCNA
+Suggests:
+    multicore
 URL: http://microbiome.github.com
 LazyLoad: yes
 Collate:

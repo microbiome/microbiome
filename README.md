@@ -1,9 +1,16 @@
-microbiome
+microbiome R package (beta)
 ==========
-
-microbiome R package - beta development version  
 
 [Home page](http://microbiome.github.com)  
 
-Check the [wiki](https://github.com/microbiome/microbiome/wiki) for
-installation instructions & usage examples.
+### Installation
+
+Installing the package:
+
+```r
+library(devtools)  
+install_github(repo = "microbiome", username = "microbiome")  
+```
+
+You may need to install some dependencies first. See the [wiki](https://github.com/microbiome/microbiome/wiki) for more details and usage instructions.
+

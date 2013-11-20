@@ -42,7 +42,7 @@ densityplot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.poin
     # mat: samples x features data matrix	     
 
     # Avoid warnings
-    x <- y <- NULL
+    x <- y <- ..density.. <- NULL
 
     theme_set(theme_bw(20))
     df <- as.data.frame(mat)
@@ -62,6 +62,18 @@ densityplot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.poin
     p <- ggplot(df) 
     p <- p + stat_density2d(aes(x, y, fill=..density..), geom="raster", stat_params = list(h = bw, contour = F), geom_params = list()) 
     p <- p + scale_fill_gradient(low="white", high="black") 
+
+    # MASS::kde2d(x, y)
+    #des <- MASS::kde2d(x, y)
+    #x <- des$x
+    #y <- des$y
+    #z <- des$z
+    #df <- data.frame(cbind(expand.grid(des$x, des$y), as.vector(des$z)))
+    #colnames(df) <- c("x", "y", "z")
+    #p <- ggplot(df) 
+    #p <- p + stat_density2d(aes(x, y, fill = z), geom = "raster", stat_params = list(h = bw, contour = F), geom_params = list()) 
+    #p <- p + scale_fill_gradient(low = "white", high = "black") 
+
 
     if (add.points) {
       p <- p + geom_point(aes(x = x, y = y), size = 1, colour = point.color) 
@@ -904,9 +916,6 @@ PlotPhylochipHeatmap <- function (data,
 #' @keywords utilities
 
 phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title = NULL, plot = TRUE, sort = TRUE) {
-
-  # Load simulated oligo-level data:
-  data.directory <- system.file("extdata", package = "microbiome")
 
   if (is.null(phylogeny.info)) {
     warning("phylogeny.info not specified, assuming HITChip phylogeny")
