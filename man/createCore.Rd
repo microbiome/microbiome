@@ -30,7 +30,7 @@
   Arguments:
 }
 \examples{
-# core <- createCore(L2.matrix)
+data(peerj32); core <- createCore(t(peerj32$microbes))
 }
 \author{
   Contact: Jarkko Salojarvi

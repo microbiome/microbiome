@@ -20,6 +20,9 @@ along an ordered list}
 \description{
   Arguments:
 }
+\examples{
+data(peerj32); x <- unlist(peerj32$microbes[1,]); res <- roc(names(x), sample(names(x), 10))
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

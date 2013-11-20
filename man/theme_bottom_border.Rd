@@ -18,6 +18,9 @@
 \description{
   Arguments:
 }
+\examples{
+theme_bottom_border()
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

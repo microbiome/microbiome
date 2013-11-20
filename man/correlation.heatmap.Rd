@@ -3,7 +3,7 @@
 \title{correlation.heatmap}
 \usage{
   correlation.heatmap(df, Xvar, Yvar, fill, star = "p.adj",
-    p.adj.threshold = 0.05, correlation.threshold = 0,
+    p.adj.threshold = 1, correlation.threshold = 0,
     step = 0.2,
     colours = c("darkblue", "blue", "white", "red", "darkred"),
     limits = c(-1, 1), legend.text = fill,
@@ -63,6 +63,9 @@
 }
 \details{
   Arguments:
+}
+\examples{
+data(peerj32); cc <- cross.correlate(peerj32$lipids[, 1:10], peerj32$microbes[, 1:10]); p <- correlation.heatmap(cc, "X1", "X2", "Correlation")
 }
 \author{
   Contact: Leo Lahti

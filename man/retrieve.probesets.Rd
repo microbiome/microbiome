@@ -24,6 +24,9 @@
 \details{
   Arguments:
 }
+\examples{
+# NOT RUN phylogeny.info <- GetPhylogeny(); sets <- retrieve.probesets(phylogeny.info, level = "species", name = "Weissella confusa")
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

@@ -24,7 +24,7 @@
   including the nested ones if recursive = TRUE
 }
 \examples{
-#
+data(peerj32); cl <- get.hclust.groups(peerj32$microbes, corr.th = 0.8)
 }
 \author{
   Leo Lahti \email{leo.lahti@iki.fi}

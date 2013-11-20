@@ -32,7 +32,7 @@
   Arguments:
 }
 \examples{
-# bs <- bootstrap.microbes(phylum.matrix); plot_cumulative(bs, writedir = "./", "tmp-", phylogeny.info = phylogeny.info)
+# NOT RUN bs <- bootstrap.microbes(t(peerj32$microbes), Nboot = 5); plot_cumulative(bs, writedir = "./", "tmp-", phylogeny.info = phylogeny.info)
 }
 \author{
   Contact: Leo Lahti

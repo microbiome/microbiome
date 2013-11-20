@@ -29,6 +29,9 @@ Either provide the input data as matrix, file path, or select the file through G
 \description{
   Arguments:
 }
+\examples{
+data(peerj32); pval <- check.wilcoxon(t(peerj32$microbes), G1 = 1:22, G2 = 23:44)
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

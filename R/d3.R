@@ -15,6 +15,10 @@
 #'
 #' @export
 #'
+#' @import rjson df2json MASS
+#'
+#' @examples # NOT RUN See https://github.com/microbiome/d3/tree/master/corr_w_scatter"
+#'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

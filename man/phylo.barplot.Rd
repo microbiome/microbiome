@@ -34,7 +34,7 @@
   Arguments:
 }
 \examples{
-# p <- phylo.barplot(signal, color.level = "L1", phylogeny.info = NULL)
+# NOT RUN: phylogeny.info <- GetPhylogeny("HITChip", "filtered"); signal <-  unlist(peerj32$microbes[1, 1:10]); p <- phylo.barplot(signal, color.level = "L1", phylogeny.info = phylogeny.info)
 }
 \author{
   Contact: Leo Lahti

@@ -20,6 +20,9 @@ Arguments:}
 \description{
   Description: Arguments:
 }
+\examples{
+# NOT RUN See https://github.com/microbiome/d3/tree/master/corr_w_scatter"
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

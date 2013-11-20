@@ -34,6 +34,9 @@
 \details{
   Arguments:
 }
+\examples{
+p <- densityplot(cbind(rnorm(100), rnorm(100)))
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

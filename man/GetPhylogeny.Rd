@@ -8,7 +8,7 @@
   \item{chip}{chip type (e.g. "HITChip")}
 
   \item{phylogeny.version}{"full" or "filtered" (latter is
-  used in species/L1/L2 summarization)
+  the basis for species/L1/L2 summarization)
 
   Returns:}
 }
@@ -20,6 +20,9 @@
 }
 \details{
   Arguments:
+}
+\examples{
+# NOT RUN: phylogeny.info <- GetPhylogeny("HITChip", "full")
 }
 \author{
   Contact: Leo Lahti

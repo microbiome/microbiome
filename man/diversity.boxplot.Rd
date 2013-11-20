@@ -35,6 +35,9 @@
 \details{
   Arguments:
 }
+\examples{
+data(peerj32); div <- diversity.boxplot(peerj32$microbes, sample.groups = list(1:22, 23:44), det.th = 0)
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

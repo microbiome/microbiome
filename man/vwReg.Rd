@@ -76,6 +76,9 @@ http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-v
 \description{
   Arguments:
 }
+\examples{
+N <- 10; df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N)); p <- vwReg(hitchip~age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
+}
 \author{
   Based on the original version from Felix Schonbrodt.
   Contact: Leo Lahti

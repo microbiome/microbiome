@@ -23,6 +23,9 @@
 \details{
   Arguments:
 }
+\examples{
+data(peerj32); eve <- evenness(10^t(peerj32$microbes), det.th = 100)
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

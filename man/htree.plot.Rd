@@ -22,7 +22,7 @@ Intended for internal use in the run.profiling.script function.}
   Arguments:
 }
 \examples{
-# dat <- read.profiling(params$wdir, "species", "rpa"); tmp <- htree.plot(dat)
+data(peerj32); tmp <- htree.plot(peerj32$microbes[,1:5])
 }
 \author{
   Contact: Leo Lahti

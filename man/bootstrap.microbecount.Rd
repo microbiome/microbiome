@@ -30,7 +30,7 @@
   Arguments:
 }
 \examples{
-# tmp <- bootstrap.microbecount(phylum.matrix)
+data(peerj32); tmp <- bootstrap.microbecount(t(peerj32$microbes), Nboot = 5)
 }
 \author{
   Contact: Leo Lahti

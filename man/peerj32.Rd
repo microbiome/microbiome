@@ -14,7 +14,7 @@
   \url{http://dx.doi.org/10.7717/peerj.32}.
 }
 \author{
-  Leo Lahti \email{louhos@googlegroups.com} has
+  Leo Lahti \email{microbiome-admin@googlegroups.com} has
   preprocessed the data.
 }
 \references{

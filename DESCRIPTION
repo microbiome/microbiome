@@ -1,14 +1,18 @@
 Package: microbiome
 Type: Package
 Title: microbiome
-Version: 0.5.02
+Version: 0.99.0
 Date: 2013-11-20
 Author: Leo Lahti and Jarkko Salojarvi
 Maintainer: microbiome developer team <microbiome-admin@googlegroups.com>
-Description: R package for microbiome studies
+biocViews: Microarray, Preprocessing, QualityControl, ConnectTools
+Description: R package for microbiome analysis with microarrays
 License: BSD_2_clause + file LICENSE
 Depends:
-    R (>= 2.12.1),
+    R (>= 2.15.1),
+    RPA,
+    vegan
+Imports:
     ade4,
     df2json,
     rjson,
@@ -22,32 +26,24 @@ Depends:
     qvalue,
     RCurl,
     reshape2,
-    RPA,
-    svDialogs,
-    vegan,
     WGCNA
 Suggests:
     multicore
 URL: http://microbiome.github.com
 LazyLoad: yes
 Collate:
-    'AllGenerics.R'
     'analysis.R'
     'firstlib.R'
     'io.R'
     'microbiome-package.R'
-    'show-methods.R'
     'utils.R'
     'diversity.R'
     'visualization.R'
-    'brew.R'
     'internal.R'
     'core.R'
     'phylo.R'
-    'AllClasses.R'
     'hclust.R'
     'data.documentation.R'
     'ROC.R'
-    'rda.R'
     'd3.R'
 Packaged: 2012-01-12 14:19:39 UTC; lei

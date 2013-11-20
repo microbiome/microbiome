@@ -19,7 +19,7 @@
 #'
 #' @references See citation("microbiome") 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples # 
+#' @examples data(peerj32); sign.clust <- hclust.significance(as.matrix(peerj32$microbes), R = 20, min.size = 2, corr.th = 0.5) 
 #' @keywords methods
 
 hclust.significance <- function (dat, my.groups = NULL, R, sample.sizes = 1, min.size, corr.th, replace = TRUE, metric = "pearson", verbose = TRUE, pvalue.threshold = 0.05, remove.nested.clusters = TRUE)  {
@@ -140,7 +140,7 @@ remove.nested.groups <- function (groups) {
 #'
 #' @references See citation("microbiome") 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples # 
+#' @examples data(peerj32); cl <- get.hclust.groups(peerj32$microbes, corr.th = 0.8)
 #' @keywords methods
 
 get.hclust.groups <- function (dat, corr.th, recursive = FALSE, min.size = 2, metric = "pearson") {

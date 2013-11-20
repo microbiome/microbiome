@@ -28,6 +28,9 @@
 \details{
   Arguments:
 }
+\examples{
+data(peerj32); abtab <- make.abundancy.table(10^t(peerj32$microbes), det.th = 0)
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

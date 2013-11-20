@@ -27,6 +27,9 @@
 \description{
   Arguments:
 }
+\examples{
+data(peerj32); s <- calculate.stability(t(peerj32$microbes)[, 1:5])
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

@@ -23,6 +23,9 @@
 \details{
   Arguments:
 }
+\examples{
+data(peerj32); c3d <- Core3D(createCore(t(peerj32$microbes)))
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

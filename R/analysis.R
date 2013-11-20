@@ -13,7 +13,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-
 #' Description: Cross-hybridization between multimodal taxa as percentages of shared probes. 
 #' The number indicates how many percent of oligos for the row taxon are also hybridizing 
 #' the corresponding column taxon.
@@ -33,12 +32,13 @@
 #' Returns:
 #'   @return A list containing cross-hybridization table and plot
 #'
+#' @examples res <- PlotCrosshyb(tax.level = "L1", rounding = 1, show.plot = FALSE)
 #' @export
+#' @import ggplot2
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 
 PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NULL, show.plot = TRUE, order.rows = TRUE, order.cols = TRUE, keep.empty = FALSE, rounding = 1, phylogeny.info = NULL, self.correlations = FALSE) {
 
@@ -94,7 +94,7 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
   Taxon1 <- Taxon2 <- crosshyb <- NULL
 
   # Organize into data frame
-  df <- melt(confusion.matrix)
+  df <- reshape2::melt(confusion.matrix)
   names(df) <- c("Taxon1", "Taxon2", "crosshyb")
 
   # Switch to percentages
@@ -121,12 +121,13 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
   theme_set(theme_bw(15))
   df$labels <- round(df[["crosshyb"]], rounding)
     
+  aes <- NULL
   p <- ggplot(df, aes(Taxon2, Taxon1, group = Taxon1)) 
-  p <- p + geom_tile(aes(fill = crosshyb)) 
-  p <- p + geom_text(aes(fill = crosshyb, label = labels, size = 4))
+  p <- p + ggplot2::geom_tile(aes(fill = crosshyb)) 
+  p <- p + ggplot2::geom_text(aes(fill = crosshyb, label = labels, size = 4))
   p <- p + scale_fill_gradient(low = "white", high = "red") 
-  p <- p + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + xlab("") + ylab("") 
-  p <- p + theme(legend.position = "none")
+  p <- p + ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5)) + ggplot2::xlab("") + ggplot2::ylab("") 
+  p <- p + ggplot2::theme(legend.position = "none")
 
   if (show.plot) {
     print(p)
@@ -153,6 +154,7 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
 #'
 #' @export
 #'
+#' @examples data(peerj32); d <- distance.matrix(peerj32$microbes[1:10, 1:3])
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -183,6 +185,7 @@ distance.matrix <- function (x, method = "pearson", ...) {
 #' Returns:
 #'   @return (Corrected) p-values for two-group comparison.
 #'
+#' @examples data(peerj32); pval <- check.wilcoxon(t(peerj32$microbes), G1 = 1:22, G2 = 23:44)
 #' @export
 #'
 #' @references See citation("microbiome") 
@@ -191,11 +194,8 @@ distance.matrix <- function (x, method = "pearson", ...) {
 
 check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "BH", sort = FALSE) {
 
-  InstallMarginal("svDialogs")
-
   ## Open your tab fnam, Level 1 & 2 Sum_BGsub_Rel.contribution
 
-  #if (is.null(dat) && is.null(fnam)) { fnam <- svDialogs::tk_choose.files(multi = F) }
   if (is.null(dat) && is.null(fnam)) { stop("Provide dat or fnam in function arguments!")}
   if (is.null(dat)) {
     dat <- read.table(fnam, sep = "\t", header = T, row.names = 1)
@@ -203,12 +203,6 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 
   samples <- colnames(dat)
   levels <- rownames(dat)
-
-  ## To select samples you can do that in 2 ways: select G1 and those samples not in G1 are G2, for which you would use:
-  ## G2 <- samples[!(samples %in% G1)]
-  ## or select G1 and select G2 (this is useful when you have multiple groups) (standard below)
-  #G1 <- svDialogs::tk_select.list(samples, multiple = T, title = "Select samples for 1st group")
-  #G2 <- svDialogs::tk_select.list(samples, multiple = T, title = "Select samples for 2nd group")
 
   M <- matrix(data = NA, length(levels), 1)
   rownames(M) <- levels
@@ -221,7 +215,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 	
     p <- wilcox.test(as.numeric(l.g1), as.numeric(l.g2))$p.value
 
-    message(lvl, " p-value: ", p, "\n")
+    # message(lvl, " p-value: ", p, "\n")
 
     M[i, 1] <- p
 
@@ -268,6 +262,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #' Returns:
 #'   @return List with cor, pval, pval.adjusted
 #'
+#' @examples data(peerj32); cc <- cross.correlate(peerj32$microbes[1:20, 1:10], peerj32$lipids[1:20,1:10])
 #' @export
 #'
 #' @references See citation("microbiome") 
@@ -561,6 +556,7 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = N
 #'
 #' @export
 #'
+#' @examples data(peerj32); cc <- cross.correlate(peerj32$microbes[1:20, 1:10], peerj32$lipids[1:20,1:10], mode = "matrix"); cmat <- cmat2table(cc)
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -571,7 +567,7 @@ cmat2table <- function (res, verbose = FALSE) {
      ctab <- NULL
 
      if (!is.null(res$cor)) {
-       ctab <- melt(res$cor)
+       ctab <- reshape2::melt(res$cor)
        colnames(ctab) <- c("X1", "X2", "Correlation")
      }
 
@@ -625,6 +621,7 @@ cmat2table <- function (res, verbose = FALSE) {
 #'   @return List with correlations and astability estimate
 #'
 #' @export
+#' @examples data(peerj32); s <- calculate.stability(t(peerj32$microbes)[, 1:5])
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -681,6 +678,7 @@ calculate.stability <- function (dat1, dat2 = NULL, method = "pearson") {
 #' Returns:
 #'   @return Dependency measure
 #'
+#' @examples data(peerj32); tc <- GKtau(unlist(peerj32$microbes[,1]), unlist(peerj32$lipids[,1]))
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

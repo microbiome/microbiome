@@ -17,7 +17,7 @@
 #' Description: Estimate diversity within each taxonomic group across the samples
 #'
 #' Arguments:
-#'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
+#'   @param dat data matrix (phylotypes x samples) in original (non-log) scale; this should present the highest level phylogeny (typically probe-level) used in the analysis
 #'   @param phylogeny.info mapping table between taxonomic levels
 #'   @param level.from higher-level taxonomic groups for which the diversity will be calculated
 #'   @param level.to lower taxonomic level used for the diversity calculations. Must correspond to the input data matrix argument 'dat'
@@ -28,14 +28,18 @@
 #' Returns:
 #'   @return Table with various richness, evenness, and diversity indicators
 #'
+#' @examples # NOT RUN divtab <- diversity.table(dat, level.from = "L2", level.to = "oligo") 
+#'
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-diversity.table <- function (dat, phylogeny.info, level.from, level.to, diversity.index = "shannon", det.th = 0, min.probes = 0) {
+diversity.table <- function (dat, level.from, level.to, phylogeny.info = NULL, diversity.index = "shannon", det.th = 0, min.probes = 0) {
 
-  # dat <- oligo.matrix.nolog.simulated; phylogeny.info = phylogeny.info; level.from = "L1"; level.to = "oligo"; diversity.index = "shannon"; det.th = 0; min.probes = 0
+  if (is.null(phylogeny.info)) {
+    phylogeny.info <- GetPhylogeny("HITChip", "filtered")
+  }
 
   # Ensure that the same phylogeny version used in the data and phylogeny
   # by taking the common part only
@@ -45,7 +49,6 @@ diversity.table <- function (dat, phylogeny.info, level.from, level.to, diversit
     dat <- dat[coms,]
   }
 
-
   if (level.to == "oligo") {level.to <- "oligoID"}		
   if (level.to == "level 1") {level.to <- "L1"}		
   if (level.to == "level 2") {level.to <- "L2"}		
@@ -53,7 +56,7 @@ diversity.table <- function (dat, phylogeny.info, level.from, level.to, diversit
   if (level.from == "level 1") {level.from <- "L1"}		
   if (level.from == "level 2") {level.from <- "L2"}		
 
-  if (!any(rownames(dat) %in% phylogeny.info[[level.to]])) {
+  if (!any(rownames(dat) %in% phylogeny.info[[level.from]])) {
     stop("Provide input data matrix that corresponds to the target level ie. level.to argument!")
   }
 
@@ -70,7 +73,7 @@ diversity.table <- function (dat, phylogeny.info, level.from, level.to, diversit
   for (nam in names(level.data)) {
     o <- level.data[[nam]]
     if (length(o) > 1) {
-      divs <- microbiome::estimate.diversity(dat[o, ], diversity.index = diversity.index, det.th = det.th)
+      divs <- estimate.diversity(dat[o, ], diversity.index = diversity.index, det.th = det.th)
     } else {
       warning(paste("Not enough oligos for ", nam, ": diversity calculations skipped!"))
       divs <- NULL
@@ -111,6 +114,9 @@ diversity.table <- function (dat, phylogeny.info, level.from, level.to, diversit
 #'   @return Table with various richness, evenness, and diversity indicators
 #'
 #' @export
+#'
+#' @examples data(peerj32); div <- estimate.diversity(10^t(peerj32$microbes), det.th = 0)
+#'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -166,6 +172,8 @@ estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL)
 #' Returns:
 #'   @return Vector containing diversity estimate for each sample 
 #'
+#' @examples data(peerj32); div <- diversity(10^t(peerj32$microbes), det.th = 0)
+#'
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -213,6 +221,9 @@ diversity <- function (dat, diversity.index = "shannon", det.th = 0) {
 #' Returns:
 #'   @return Vector containing richness estimate for each sample 
 #'
+#'
+#' @examples data(peerj32); rich <- richness(10^t(peerj32$microbes), det.th = 100)
+#'
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -252,6 +263,8 @@ richness <- function (dat, det.th = NULL) {
 #'
 #' Returns:
 #'   @return Vector containing evenness estimate for each sample 
+#'
+#' @examples data(peerj32); eve <- evenness(10^t(peerj32$microbes), det.th = 100)
 #'
 #' @export
 #' @references See citation("microbiome") 
@@ -298,6 +311,7 @@ evenness <- function (dat, det.th = NULL) {
 #' Returns:
 #'   @return Vector containing relative proportions for each phylotype in each sample 
 #'
+#' @examples data(peerj32); relab <- relative.abundance(10^t(peerj32$microbes), det.th = 0)
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -340,6 +354,7 @@ relative.abundance <- function (dat, det.th = 0) {
 #' Returns:
 #'   @return abundancy table
 #'
+#' @examples data(peerj32); abtab <- make.abundancy.table(10^t(peerj32$microbes), det.th = 0)
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -375,7 +390,7 @@ make.abundancy.table <- function (dat, det.th, discretization.resolution = 1) {
 #'
 #' Returns:
 #'   @return Sample group list corresponding to the boxplot groups.
-#'
+#' @examples data(peerj32); div <- diversity.boxplot(peerj32$microbes, sample.groups = list(1:22, 23:44), det.th = 0)
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

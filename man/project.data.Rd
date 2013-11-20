@@ -16,6 +16,9 @@
 \description{
   Arguments:
 }
+\examples{
+data(peerj32); xy <- project.data(peerj32$microbes[,1:3])
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

@@ -42,6 +42,9 @@ the corresponding column taxon.}
 \description{
   Arguments:
 }
+\examples{
+res <- PlotCrosshyb(tax.level = "L1", rounding = 1, show.plot = FALSE)
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

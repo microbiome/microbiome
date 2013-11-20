@@ -35,6 +35,7 @@
 #' @examples p <- densityplot(cbind(rnorm(100), rnorm(100)))
 #'
 #' @export
+#' @import ggplot2
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -57,7 +58,7 @@ densityplot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.poin
     df <- df[!(is.na(df[["x"]]) | is.na(df[["y"]])), ]
 
     # Determine bandwidth for density estimation
-    library(MASS)
+    InstallMarginal("MASS")
     bw <- adjust*c(bandwidth.nrd(df[["x"]]), bandwidth.nrd(df[["y"]]))
 
     # Construct the figure
@@ -78,16 +79,16 @@ densityplot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.poin
 
 
     if (add.points) {
-      p <- p + geom_point(aes(x = x, y = y), size = 1, colour = point.color) 
+      p <- p + ggplot2::geom_point(aes(x = x, y = y), size = 1, colour = point.color) 
     }
 
-    p <- p + xlab(xvar) + ylab(yvar) 
+    p <- p + ggplot2::xlab(xvar) + ggplot2::ylab(yvar) 
 
-    p <- p + theme(legend.position="none")
-    p <- p + scale_x_continuous(breaks = round(seq(floor(min(df[["x"]])), ceiling(max(df[["x"]])), length = x.ticks), rounding))
+    p <- p + ggplot2::theme(legend.position="none")
+    p <- p + ggplot2::scale_x_continuous(breaks = round(seq(floor(min(df[["x"]])), ceiling(max(df[["x"]])), length = x.ticks), rounding))
 
     if (!is.null(title)) {
-      p <- p + ggtitle(title)
+      p <- p + ggplot2::ggtitle(title)
     }
 
     p
@@ -119,6 +120,8 @@ densityplot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.poin
 #'
 #' Returns:
 #'   @return ggplot2 object
+#'
+#' @import ggplot2 
 #'
 #' @examples data(peerj32); cc <- cross.correlate(peerj32$lipids[, 1:10], peerj32$microbes[, 1:10]); p <- correlation.heatmap(cc, "X1", "X2", "Correlation")
 #'
@@ -245,6 +248,7 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.thr
 #'
 #' @examples N <- 10; df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N)); p <- vwReg(hitchip~age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
 #'
+#' @import ggplot2 plyr reshape2
 #'
 #' @export
 #' @references See citation("microbiome") 
@@ -410,6 +414,7 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
 #'   @return projected data matrix
 #'
 #' @export
+#' @import MASS
 #'
 #' @examples data(peerj32); xy <- project.data(peerj32$microbes[,1:3])
 #'

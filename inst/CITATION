@@ -14,3 +14,22 @@ citEntry(entry="misc",
                sep=" ")
          )
 
+
+citEntry(entry="misc",
+         title = "Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data",
+         author = personList(
+	 	person(given ="Leo", family="Lahti", email = "leo.lahti@iki.fi"),
+	 	person(given ="Anne", family="Salonen"),
+	 	person(given ="Riina", family="Kekkonen"),
+	 	person(given ="Jarkko", family="Salojarvi"),
+	 	person(given ="Jonna", family="Jalanka-Tuovinen"),
+	 	person(given ="Airi", family="Palva"),
+	 	person(given ="Matej", family="Oresic"),
+	 	person(given ="Willem", family="de Vos"),
+	 	  ),
+	 journal = "PeerJ",
+	 year = "2013",
+         textVersion = "L. Lahti et al. Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data. PeerJ 1:e32, 2013. URL: http://dx.doi.org/10.7717/peerj.32"
+
+         )
+

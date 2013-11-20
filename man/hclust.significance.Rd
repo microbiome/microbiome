@@ -48,7 +48,7 @@ clusters based on multiscale bootstrap resamping}
   resamping
 }
 \examples{
-#
+data(peerj32); sign.clust <- hclust.significance(as.matrix(peerj32$microbes), R = 20, min.size = 2, corr.th = 0.5)
 }
 \author{
   Leo Lahti \email{leo.lahti@iki.fi}

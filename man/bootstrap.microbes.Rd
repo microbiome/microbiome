@@ -6,7 +6,7 @@
     Nboot = 100, I.thr = 1.8, ncore = 1)
 }
 \arguments{
-  \item{D}{data}
+  \item{D}{data (phylotypes x samples)}
 
   \item{Nsample}{sample size}
 
@@ -30,7 +30,7 @@
   Arguments:
 }
 \examples{
-# bs <- bootstrap.microbes(phylum.matrix)
+data(peerj32); bs <- bootstrap.microbes(t(peerj32$microbes), Nboot = 5)
 }
 \author{
   Contact: Leo Lahti

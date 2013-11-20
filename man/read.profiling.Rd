@@ -34,7 +34,7 @@
   Arguments:
 }
 \examples{
-# params <- run.profiling.script(...); dat <- read.profiling(data.dir = params$wdir, level = "L1", method = "frpa")
+# NOT RUN params <- run.profiling.script(...); dat <- read.profiling(data.dir = params$wdir, level = "L1", method = "frpa")
 }
 \author{
   Contact: Leo Lahti

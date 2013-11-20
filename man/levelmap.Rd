@@ -26,6 +26,9 @@
 \details{
   Arguments:
 }
+\examples{
+# NOT RUN: phylogeny.info <- GetPhylogeny(); levelmap(phylotypes = "Akkermansia", level.from = "L2", level.to = "L1", phylogeny.info)
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

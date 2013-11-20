@@ -35,6 +35,9 @@ which the variable y is useful in predicting x.}
 \description{
   Arguments:
 }
+\examples{
+data(peerj32); tc <- GKtau(unlist(peerj32$microbes[,1]), unlist(peerj32$lipids[,1]))
+}
 \author{
   Contact: Leo Lahti
   \email{microbiome-admin@googlegroups.com}

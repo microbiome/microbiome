@@ -34,6 +34,7 @@ core.sum <- function(data, intTr, prevalenceTr){
   return(nOTUs)
 }
 
+
 #' Description: core.which
 #'
 #' Arguments:
@@ -71,7 +72,7 @@ core.which <- function(data, intTr, prevalenceTr){
 #' Returns:
 #'   @return TBA
 #'
-#' @examples # core <- createCore(L2.matrix) 
+#' @examples data(peerj32); core <- createCore(t(peerj32$microbes))
 #'
 #' @export 
 #' 
@@ -116,6 +117,7 @@ createCore <- function(data, I.thr = 0, verbose = FALSE, prevalence.intervals = 
 #' Returns:
 #'  @return Used for its side effects
 #'
+#' @examples data(peerj32); c3d <- Core3D(createCore(t(peerj32$microbes)))
 #' @export 
 #' 
 #' @references See citation("microbiome") 
@@ -152,6 +154,7 @@ Core3D <- function(coreMat, title = "Core microbiota", cex.axis = 0.7){
 #' Returns:
 #'   @return Used for its side effects
 #'
+#' @examples data(peerj32); c2d <- Core2D(createCore(t(peerj32$microbes)))
 #' @export 
 #' 
 #' @references See citation("microbiome") 
@@ -178,7 +181,7 @@ Core2D <- function(coreMat, colnum = NULL, title = "Common core"){
 #' Description: bootstrap.microbes
 #'
 #' Arguments:
-#'   @param D data
+#'   @param D data (phylotypes x samples)
 #'   @param Nsample sample size
 #'   @param minPrev minimum prevalence
 #'   @param Nboot bootstrap sample size
@@ -188,7 +191,7 @@ Core2D <- function(coreMat, colnum = NULL, title = "Common core"){
 #' Returns:
 #'   @return TBA
 #'
-#' @examples # bs <- bootstrap.microbes(phylum.matrix)
+#' @examples data(peerj32); bs <- bootstrap.microbes(t(peerj32$microbes), Nboot = 5)
 #'
 #' @export 
 #' 
@@ -250,7 +253,7 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 100, I.th
 #' Returns:
 #'   @return TBA
 #'
-#' @examples # tmp <- bootstrap.microbecount(phylum.matrix)
+#' @examples data(peerj32); tmp <- bootstrap.microbecount(t(peerj32$microbes), Nboot = 5)
 #'
 #' @export 
 #' 
@@ -313,7 +316,7 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1, Nboot = 100, 
 #' Returns:
 #'   @return TBA
 #'
-#' @examples # bs <- bootstrap.microbes(phylum.matrix); plot_cumulative(bs, writedir = "./", "tmp-", phylogeny.info = phylogeny.info)
+#' @examples # NOT RUN bs <- bootstrap.microbes(t(peerj32$microbes), Nboot = 5); plot_cumulative(bs, writedir = "./", "tmp-", phylogeny.info = phylogeny.info)
 #'
 #' @export 
 #' 

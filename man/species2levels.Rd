@@ -23,5 +23,5 @@
 \references{
   See citation("microbiome")
 }
-\keyword{utilities}
+\keyword{internal}
 

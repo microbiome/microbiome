@@ -2,13 +2,14 @@
 \alias{diversity.table}
 \title{diversity.table}
 \usage{
-  diversity.table(dat, phylogeny.info, level.from,
-    level.to, diversity.index = "shannon", det.th = 0,
-    min.probes = 0)
+  diversity.table(dat, level.from, level.to,
+    phylogeny.info = NULL, diversity.index = "shannon",
+    det.th = 0, min.probes = 0)
 }
 \arguments{
   \item{dat}{data matrix (phylotypes x samples) in original
-  (non-log) scale}
+  (non-log) scale; this should present the highest level
+  phylogeny (typically probe-level) used in the analysis}
 
   \item{phylogeny.info}{mapping table between taxonomic
   levels}
@@ -40,6 +41,9 @@
 }
 \details{
   Arguments:
+}
+\examples{
+# NOT RUN divtab <- diversity.table(dat, level.from = "L2", level.to = "oligo")
 }
 \author{
   Contact: Leo Lahti
