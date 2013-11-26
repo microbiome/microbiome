@@ -13,7 +13,7 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-#' Description: Cross-hybridization between multimodal taxa as percentages of shared probes. 
+#' Description: Cross-hybridization table between multimodal taxa as percentages of shared probes. 
 #' The number indicates how many percent of oligos for the row taxon are also hybridizing 
 #' the corresponding column taxon.
 #'
@@ -21,28 +21,19 @@
 #'   @param tax.level Taxonomic level to investigate
 #'   @param chip Chip type (e.g. "HITChip")
 #'   @param selected.taxa Restrict cross-hyb analysis to the selected groups.
-#'   @param show.plot Produce the plot
-#'   @param order.rows Order table rows
-#'   @param order.cols Order table columns
-#'   @param keep.empty Keep taxa that do not show any cross-hybridization
-#'   @param rounding Rounding of the cell contents
 #'   @param phylogeny.info phylogeny.info 
-#'   @param self.correlations Show self-correlations (always 100%); or remove (indicate as 0%; default)
 #'
 #' Returns:
-#'   @return A list containing cross-hybridization table and plot
+#'   @return A list containing cross-hybridization table 
 #'
-#' @examples res <- PlotCrosshyb(tax.level = "L1", rounding = 1, show.plot = FALSE)
+#' @examples ch <- CrosshybTable(tax.level = "L1")
 #' @export
-#' @import ggplot2
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NULL, show.plot = TRUE, order.rows = TRUE, order.cols = TRUE, keep.empty = FALSE, rounding = 1, phylogeny.info = NULL, self.correlations = FALSE) {
-
-  # tax.level = "L1"; chip = "HITChip"; selected.taxa = NULL; show.plot = TRUE; order.rows = TRUE; order.cols = TRUE; keep.empty = FALSE; rounding = 1
+CrosshybTable <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NULL, phylogeny.info = NULL) {
 
   # Get hylogeny info
   if (is.null(phylogeny.info)) {
@@ -79,6 +70,46 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
 
     }
   }
+
+  confusion.matrix
+
+}
+
+
+
+#' Description: Cross-hybridization between multimodal taxa as percentages of shared probes. 
+#' The number indicates how many percent of oligos for the row taxon are also hybridizing 
+#' the corresponding column taxon.
+#'
+#' Arguments:
+#'   @param tax.level Taxonomic level to investigate
+#'   @param chip Chip type (e.g. "HITChip")
+#'   @param selected.taxa Restrict cross-hyb analysis to the selected groups.
+#'   @param show.plot Produce the plot
+#'   @param order.rows Order table rows
+#'   @param order.cols Order table columns
+#'   @param keep.empty Keep taxa that do not show any cross-hybridization
+#'   @param rounding Rounding of the cell contents
+#'   @param phylogeny.info phylogeny.info 
+#'   @param self.correlations Show self-correlations (always 100%); or remove (indicate as 0%; default)
+#'
+#' Returns:
+#'   @return A list containing cross-hybridization table and plot
+#'
+#' @examples res <- PlotCrosshyb(tax.level = "L1", rounding = 1, show.plot = FALSE)
+#' @export
+#' @import ggplot2
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NULL, show.plot = TRUE, order.rows = TRUE, order.cols = TRUE, keep.empty = FALSE, rounding = 1, phylogeny.info = NULL, self.correlations = FALSE) {
+
+  # tax.level = "L1"; chip = "HITChip"; selected.taxa = NULL; show.plot = TRUE; order.rows = TRUE; order.cols = TRUE; keep.empty = FALSE; rounding = 1
+
+  # Get crosshyb matrix
+  confusion.matrix <- CrosshybTable(tax.level = "L1", chip = "HITChip", selected.taxa = NULL, phylogeny.info = NULL)
 
   # Remove self-correlations
   if (!self.correlations) {
