@@ -2,15 +2,14 @@
 \alias{densityplot}
 \title{DensityPlot}
 \usage{
-  densityplot(mat, title = NULL, x.ticks = 10,
-    rounding = 0, add.points = TRUE, point.color = "red",
-    adjust = 1)
+  densityplot(mat, main = NULL, x.ticks = 10, rounding = 0,
+    add.points = TRUE, col = "red", adjust = 1, size = 1)
 }
 \arguments{
   \item{mat}{Data matrix to plot. The first two columns
   will be visualized as a cross-plot.}
 
-  \item{title}{title text}
+  \item{main}{title text}
 
   \item{x.ticks}{Number of ticks on the X axis}
 
@@ -18,9 +17,11 @@
 
   \item{add.points}{Plot the data points as well}
 
-  \item{point.color}{Color of the data points}
+  \item{col}{Color of the data points}
 
-  \item{adjust}{Kernel width adjustment
+  \item{adjust}{Kernel width adjustment}
+
+  \item{size}{point size
 
   Returns:}
 }

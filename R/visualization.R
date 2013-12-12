@@ -22,12 +22,13 @@
 #'
 #' Arguments:
 #'   @param mat Data matrix to plot. The first two columns will be visualized as a cross-plot.
-#'   @param title title text
+#'   @param main title text
 #'   @param x.ticks Number of ticks on the X axis
 #'   @param rounding Rounding for X axis tick values
 #'   @param add.points Plot the data points as well
-#'   @param point.color Color of the data points
+#'   @param col Color of the data points
 #'   @param adjust Kernel width adjustment
+#'   @param size point size
 #'
 #' Returns:
 #'   @return ggplot2 object
@@ -40,7 +41,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-densityplot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.points = TRUE, point.color = "red", adjust = 1) {
+densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.points = TRUE, col = "red", adjust = 1, size = 1) {
 
     # mat: samples x features data matrix	     
 
@@ -53,6 +54,7 @@ densityplot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.poin
     yvar <- colnames(mat)[[2]]
     df[["x"]] <- df[, 1]		
     df[["y"]] <- df[, 2]		
+    df[["color"]] <- point.color
 
     # Remove NAs
     df <- df[!(is.na(df[["x"]]) | is.na(df[["y"]])), ]
@@ -77,9 +79,8 @@ densityplot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.poin
     #p <- p + stat_density2d(aes(x, y, fill = z), geom = "raster", stat_params = list(h = bw, contour = F), geom_params = list()) 
     #p <- p + scale_fill_gradient(low = "white", high = "black") 
 
-
     if (add.points) {
-      p <- p + ggplot2::geom_point(aes(x = x, y = y), size = 1, colour = point.color) 
+      p <- p + ggplot2::geom_point(aes(x = x, y = y, col = color), size = size) 
     }
 
     p <- p + ggplot2::xlab(xvar) + ggplot2::ylab(yvar) 
@@ -87,8 +88,8 @@ densityplot <- function (mat, title = NULL, x.ticks = 10, rounding = 0, add.poin
     p <- p + ggplot2::theme(legend.position="none")
     p <- p + ggplot2::scale_x_continuous(breaks = round(seq(floor(min(df[["x"]])), ceiling(max(df[["x"]])), length = x.ticks), rounding))
 
-    if (!is.null(title)) {
-      p <- p + ggplot2::ggtitle(title)
+    if (!is.null(main)) {
+      p <- p + ggplot2::ggtitle(main)
     }
 
     p
