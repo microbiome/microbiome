@@ -35,12 +35,12 @@ GetPhylogeny <- function (chip, phylogeny.version = "full") {
 
   if (chip == "HITChip") {
 
-    # phylogeny.info <- read.profiling(level = paste("phylogeny.", phylogeny.version, sep = ""), data.dir = system.file("extdata", package = "microbiome"))
+    phylogeny.info <- read.profiling(level = paste("phylogeny.", phylogeny.version, sep = ""), data.dir = system.file("extdata", package = "microbiome"))
 
     # Get the phylogeny from Github
-    url <- "https://raw.github.com/microbiome/data/master/example-datasets/phylogeny"
-    fnam <- paste(url, ".", phylogeny.version, ".tab", sep = "")
-    phylogeny.info <- read.csv(text = RCurl::getURL(fnam), sep = "\t")
+    #url <- "https://raw.github.com/microbiome/data/master/example-datasets/phylogeny"
+    #fnam <- paste(url, ".", phylogeny.version, ".tab", sep = "")
+    #phylogeny.info <- read.csv(text = RCurl::getURL(fnam), sep = "\t")
 
   } else {
 
