@@ -1,8 +1,8 @@
 Package: microbiome
 Type: Package
 Title: microbiome
-Version: 0.99.01
-Date: 2013-12-08
+Version: 0.99.03
+Date: 2013-12-15
 Author: Leo Lahti and Jarkko Salojarvi
 Maintainer: microbiome developer team <microbiome-admin@googlegroups.com>
 biocViews: Microarray, Preprocessing, QualityControl, ConnectTools

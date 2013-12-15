@@ -1,5 +1,6 @@
 export(Core2D)
 export(Core3D)
+export(CrosshybTable)
 export(GKtau)
 export(GetPhylogeny)
 export(InstallMarginal)

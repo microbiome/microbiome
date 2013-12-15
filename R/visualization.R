@@ -54,7 +54,7 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
     yvar <- colnames(mat)[[2]]
     df[["x"]] <- df[, 1]		
     df[["y"]] <- df[, 2]		
-    df[["color"]] <- point.color
+    df[["color"]] <- col
 
     # Remove NAs
     df <- df[!(is.na(df[["x"]]) | is.na(df[["y"]])), ]
