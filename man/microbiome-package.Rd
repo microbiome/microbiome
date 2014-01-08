@@ -9,7 +9,7 @@ Brief summary of the microbiome package
 \details{
 \tabular{ll}{ Package: \tab microbiome\cr Type: \tab
 Package\cr Version: \tab See sessionInfo() or DESCRIPTION
-file\cr Date: \tab 2013\cr License: \tab FreeBSD\cr
+file\cr Date: \tab 2014\cr License: \tab FreeBSD\cr
 LazyLoad: \tab yes\cr }
 
 R package for microbiome studies
