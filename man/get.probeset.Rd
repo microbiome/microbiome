@@ -2,8 +2,7 @@
 \alias{get.probeset}
 \title{Description: get probeset data matrix}
 \usage{
-  get.probeset(name, level, phylogeny.info, oligo.matrix,
-    log10 = TRUE)
+get.probeset(name, level, phylogeny.info, oligo.matrix, log10 = TRUE)
 }
 \arguments{
   \item{name}{name}
@@ -20,17 +19,17 @@
   Returns:}
 }
 \value{
-  probeset data matrix
+probeset data matrix
 }
 \description{
-  Arguments:
+Arguments:
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

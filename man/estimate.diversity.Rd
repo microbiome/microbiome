@@ -2,8 +2,7 @@
 \alias{estimate.diversity}
 \title{estimate.diversity}
 \usage{
-  estimate.diversity(dat, diversity.index = "shannon",
-    det.th = NULL)
+estimate.diversity(dat, diversity.index = "shannon", det.th = NULL)
 }
 \arguments{
   \item{dat}{data matrix (phylotypes x samples) in original
@@ -18,25 +17,24 @@
   Returns:}
 }
 \value{
-  Table with various richness, evenness, and diversity
-  indicators
+Table with various richness, evenness, and diversity
+indicators
 }
 \description{
-  Description: Estimate diversities for each sample
-  (column)
+Description: Estimate diversities for each sample (column)
 }
 \details{
-  Arguments:
+Arguments:
 }
 \examples{
 data(peerj32); div <- estimate.diversity(10^t(peerj32$microbes), det.th = 0)
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

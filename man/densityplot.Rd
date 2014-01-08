@@ -2,9 +2,8 @@
 \alias{densityplot}
 \title{DensityPlot}
 \usage{
-  densityplot(mat, title = NULL, x.ticks = 10,
-    rounding = 0, add.points = TRUE, point.color = "red",
-    adjust = 1)
+densityplot(mat, title = NULL, x.ticks = 10, rounding = 0,
+  add.points = TRUE, point.color = "red", adjust = 1)
 }
 \arguments{
   \item{mat}{Data matrix to plot. The first two columns
@@ -25,24 +24,24 @@
   Returns:}
 }
 \value{
-  ggplot2 object
+ggplot2 object
 }
 \description{
-  Description: Plots densities of data points in addition
-  to cross-plot points.
+Description: Plots densities of data points in addition to
+cross-plot points.
 }
 \details{
-  Arguments:
+Arguments:
 }
 \examples{
 p <- densityplot(cbind(rnorm(100), rnorm(100)))
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

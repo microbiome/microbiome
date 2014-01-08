@@ -2,8 +2,7 @@
 \alias{calculate.hclust}
 \title{calculate.hclust}
 \usage{
-  calculate.hclust(dat, method = "complete",
-    metric = "pearson")
+calculate.hclust(dat, method = "complete", metric = "pearson")
 }
 \arguments{
   \item{dat}{data matrix (use log10 with pearson!)}
@@ -17,24 +16,24 @@
   Returns:}
 }
 \value{
-  hclust object for log10 and for absolute scale data
+hclust object for log10 and for absolute scale data
 }
 \description{
-  Description: Calculate hierarchical clustering for
-  standard selections in profiling script
+Description: Calculate hierarchical clustering for standard
+selections in profiling script
 }
 \details{
-  Arguments:
+Arguments:
 }
 \examples{
 # hc <- calculate.hclust(dat, "complete", "pearson")
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

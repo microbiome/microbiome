@@ -2,8 +2,8 @@
 \alias{read.profiling}
 \title{read.profiling}
 \usage{
-  read.profiling(level = NULL, method = "frpa", data.dir,
-    log10 = TRUE, impute = TRUE)
+read.profiling(level = NULL, method = "frpa", data.dir, log10 = TRUE,
+  impute = TRUE)
 }
 \arguments{
   \item{level}{phylogenetic level ("oligo" / "species" /
@@ -25,23 +25,23 @@
   Returns:}
 }
 \value{
-  data matrix (phylo x samples)
+data matrix (phylo x samples)
 }
 \description{
-  Description: read run.profiling.script output into R
+Description: read run.profiling.script output into R
 }
 \details{
-  Arguments:
+Arguments:
 }
 \examples{
 # NOT RUN params <- run.profiling.script(...); dat <- read.profiling(data.dir = params$wdir, level = "L1", method = "frpa")
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

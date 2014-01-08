@@ -2,8 +2,7 @@
 \alias{theme_bottom_border}
 \title{Description: ggplot2::ggplot2 theme}
 \usage{
-  theme_bottom_border(colour = "black", size = 1,
-    linetype = 1)
+theme_bottom_border(colour = "black", size = 1, linetype = 1)
 }
 \arguments{
   \item{colour}{colour}
@@ -13,20 +12,20 @@
   \item{linetype}{linetype Returns:}
 }
 \value{
-  set theme
+set theme
 }
 \description{
-  Arguments:
+Arguments:
 }
 \examples{
 theme_bottom_border()
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

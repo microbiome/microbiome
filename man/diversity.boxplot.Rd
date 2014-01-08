@@ -2,9 +2,8 @@
 \alias{diversity.boxplot}
 \title{diversity.boxplot}
 \usage{
-  diversity.boxplot(dat, sample.groups,
-    diversity.index = "shannon", det.th = NULL,
-    title = NULL, col.list = NULL, ylim = NULL)
+diversity.boxplot(dat, sample.groups, diversity.index = "shannon",
+  det.th = NULL, title = NULL, col.list = NULL, ylim = NULL)
 }
 \arguments{
   \item{dat}{data matrix in the original (non-log) scale:
@@ -27,23 +26,23 @@
   Returns:}
 }
 \value{
-  Sample group list corresponding to the boxplot groups.
+Sample group list corresponding to the boxplot groups.
 }
 \description{
-  Description: diversity.boxplot
+Description: diversity.boxplot
 }
 \details{
-  Arguments:
+Arguments:
 }
 \examples{
 data(peerj32); div <- diversity.boxplot(peerj32$microbes, sample.groups = list(1:22, 23:44), det.th = 0)
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

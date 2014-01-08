@@ -4,7 +4,7 @@
 input matrix. Can prduce correlation-based distance matrices, otherwise
 uses the standard 'dist' function.}
 \usage{
-  distance.matrix(x, method = "pearson", ...)
+distance.matrix(x, method = "pearson", ...)
 }
 \arguments{
   \item{x}{data matrix}
@@ -16,20 +16,20 @@ uses the standard 'dist' function.}
   Returns:}
 }
 \value{
-  distance object
+distance object
 }
 \description{
-  Arguments:
+Arguments:
 }
 \examples{
 data(peerj32); d <- distance.matrix(peerj32$microbes[1:10, 1:3])
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 
