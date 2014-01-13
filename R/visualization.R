@@ -432,7 +432,7 @@ project.data <- function (amat, type = "PCA") {
       ## Spca example: we are selecting 50 variables on each of the PCs
       InstallMarginal("mixOmics")
 
-      result <- mixOmics::spca(amat, ncomp = 2, center = TRUE, scale. = TRUE, keepX = rep(50, 2))
+      result <- mixOmics::spca(amat, ncomp = 2, center = TRUE, scale = TRUE, keepX = rep(50, 2))
       scores <- result$x
     } else {
       message("PCA")
