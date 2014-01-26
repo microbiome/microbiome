@@ -2,10 +2,9 @@
 \alias{cross.correlate}
 \title{Description: Cross-correlate columns of the input matrices}
 \usage{
-  cross.correlate(x, y = NULL, method = "pearson",
-    p.adj.threshold = NULL, cth = NULL, order = FALSE,
-    n.signif = 0, mode = "table", p.adj.method = "qvalue",
-    verbose = F, filter.self.correlations = F)
+cross.correlate(x, y = NULL, method = "pearson", p.adj.threshold = Inf,
+  cth = NULL, order = FALSE, n.signif = 0, mode = "table",
+  p.adj.method = "fdr", verbose = F, filter.self.correlations = F)
 }
 \arguments{
   \item{x}{matrix (samples x features if annotation
@@ -31,7 +30,8 @@
 
   \item{p.adj.method}{p-value multiple testing correction
   method. Either "qvalue" or one of the methods in p.adjust
-  function ("BH" and others; see help(p.adjust)).}
+  function ("BH" and others; see help(p.adjust)). Default:
+  "fdr"}
 
   \item{verbose}{verbose}
 
@@ -41,20 +41,20 @@
   Returns:}
 }
 \value{
-  List with cor, pval, pval.adjusted
+List with cor, pval, pval.adjusted
 }
 \description{
-  Arguments:
+Arguments:
 }
 \examples{
 data(peerj32); cc <- cross.correlate(peerj32$microbes[1:20, 1:10], peerj32$lipids[1:20,1:10])
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

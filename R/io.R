@@ -52,10 +52,12 @@ read.profiling <- function(level = NULL, method = "frpa", data.dir, log10 = TRUE
   if (level %in% c("L0", "L1", "L2", "species")) {
 
     tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
+    colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
 
   } else if (level == "oligo") {
 
     tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
+    colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
 
   } else if (length(grep("phylogeny", level)) > 0) {
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -286,7 +286,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #'   @param order order the results
 #'   @param n.signif mininum number of significant correlations for each element
 #'   @param mode Specify output format ("table" or "matrix")
-#'   @param p.adj.method p-value multiple testing correction method. Either "qvalue" or one of the methods in p.adjust function ("BH" and others; see help(p.adjust)).
+#'   @param p.adj.method p-value multiple testing correction method. Either "qvalue" or one of the methods in p.adjust function ("BH" and others; see help(p.adjust)). Default: "fdr"
 #'   @param verbose verbose
 #'   @param filter.self.correlations Filter out correlations between identical items.
 #'
@@ -300,7 +300,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = NULL, cth = NULL, order = FALSE, n.signif = 0, mode = "table", p.adj.method = "qvalue", verbose = F, filter.self.correlations = F) {
+cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = Inf, cth = NULL, order = FALSE, n.signif = 0, mode = "table", p.adj.method = "fdr", verbose = F, filter.self.correlations = F) {
 
   if (is.null(y)) {
     message("Cross-correlating the data with itself")
@@ -480,13 +480,15 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = N
      }
 
      if (!is.null(cth)) {
-       inds1.c <- apply(abs(Cc), 1, function(x) {sum(x > cth) >= n.signif})
-       inds2.c <- apply(abs(Cc), 2, function(x) {sum(x > cth) >= n.signif})
+       inds1.c <- apply(abs(Cc), 1, function(x) { sum(x > cth) >= n.signif })
+       inds2.c <- apply(abs(Cc), 2, function(x) { sum(x > cth) >= n.signif })
      }
 
      if (!is.null(p.adj.threshold) && !is.null(cth)) {
+
        inds1 <- inds1.q & inds1.c
        inds2 <- inds2.q & inds2.c
+
      } else if (is.null(p.adj.threshold) && !is.null(cth)) {
        inds1 <- inds1.c
        inds2 <- inds2.c
@@ -601,9 +603,6 @@ cmat2table <- function (res, verbose = FALSE) {
        ctab <- reshape2::melt(res$cor)
        colnames(ctab) <- c("X1", "X2", "Correlation")
      }
-
-     #ctab$X1 <- factor(ctab$X1, levels = rownames(res$cor))
-     #ctab$X2 <- factor(ctab$X2, levels = colnames(res$cor))
 
      correlation <- NULL # circumwent warning on globabl vars
 

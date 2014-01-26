@@ -2,7 +2,7 @@
 \alias{level1TOlevel0}
 \title{Description: L1-L0 mappings}
 \usage{
-  level1TOlevel0(l1, phylogeny.info)
+level1TOlevel0(l1, phylogeny.info)
 }
 \arguments{
   \item{l1}{level1 phylotypes}
@@ -12,16 +12,16 @@
   Returns:}
 }
 \value{
-  mappings
+mappings
 }
 \description{
-  Arguments:
+Arguments:
 }
 \author{
-  Contact: Leo Lahti \email{leo.lahti@iki.fi}
+Contact: Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{internal}
 

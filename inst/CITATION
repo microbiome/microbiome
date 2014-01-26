@@ -25,7 +25,7 @@ citEntry(entry="misc",
 	 	person(given ="Jonna", family="Jalanka-Tuovinen"),
 	 	person(given ="Airi", family="Palva"),
 	 	person(given ="Matej", family="Oresic"),
-	 	person(given ="Willem", family="de Vos"),
+	 	person(given ="Willem", family="de Vos")
 	 	  ),
 	 journal = "PeerJ",
 	 year = "2013",

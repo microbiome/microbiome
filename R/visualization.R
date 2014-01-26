@@ -1,7 +1,7 @@
 # "A model is a lie that helps you see the truth."
 #                                 - Howard Skipper
 
-# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -433,7 +433,7 @@ project.data <- function (amat, type = "PCA") {
       ## Spca example: we are selecting 50 variables on each of the PCs
       InstallMarginal("mixOmics")
 
-      result <- mixOmics::spca(amat, ncomp = 2, center = TRUE, scale. = TRUE, keepX = rep(50, 2))
+      result <- mixOmics::spca(amat, ncomp = 2, center = TRUE, scale = TRUE, keepX = rep(50, 2))
       scores <- result$x
     } else {
       message("PCA")
@@ -615,38 +615,6 @@ PlotMatrix <- function (mat, type = "twoway", midpoint = 0,
 
 
 
-
-#' Description: ggplot2::ggplot2 theme
-#'              
-#' Arguments:
-#'   @param colour colour
-#'   @param size size
-#'   @param linetype linetype
-#' Returns:
-#'   @return set theme
-#'
-#' @export
-#'
-#' @examples theme_bottom_border()
-#' 
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-theme_bottom_border <- function(colour = "black", size = 1, linetype = 1) {
-  # use with e.g.: ggplot2::ggplot(...) + opts( panel.border=theme_bottom_border() ) + ...
-  structure(
-    function(x = 0, y = 0, width = 1, height = 1, ...) {
-      ggplot2::polylineGrob(
-        x = c(x, x + width), y = c(y, y), ..., default.units = "npc",
-        gp = ggplot2::gpar(lwd=size, col=colour, lty=linetype),
-      )
-    },
-    class = "theme",
-    type = "box",
-    call = match.call()
-  )
-}
 
 
 

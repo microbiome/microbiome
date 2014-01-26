@@ -2,9 +2,8 @@
 \alias{phylo.barplot}
 \title{phylo.barplot}
 \usage{
-  phylo.barplot(x, color.level = "L1",
-    phylogeny.info = NULL, title = NULL, plot = TRUE,
-    sort = TRUE)
+phylo.barplot(x, color.level = "L1", phylogeny.info = NULL, title = NULL,
+  plot = TRUE, sort = TRUE)
 }
 \arguments{
   \item{x}{Data vector across taxa (each element should be
@@ -24,24 +23,24 @@
   Returns:}
 }
 \value{
-  ggplot2 object
+ggplot2 object
 }
 \description{
-  Description: Barplot for *ITChip sample (across taxa)
-  with higher-level taxonomic groups indicated by colours.
+Description: Barplot for *ITChip sample (across taxa) with
+higher-level taxonomic groups indicated by colours.
 }
 \details{
-  Arguments:
+Arguments:
 }
 \examples{
 # NOT RUN: phylogeny.info <- GetPhylogeny("HITChip", "filtered"); signal <-  unlist(peerj32$microbes[1, 1:10]); p <- phylo.barplot(signal, color.level = "L1", phylogeny.info = phylogeny.info)
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

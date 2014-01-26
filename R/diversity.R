@@ -175,6 +175,7 @@ estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL)
 #' @examples data(peerj32); div <- diversity(10^t(peerj32$microbes), det.th = 0)
 #'
 #' @export
+#' @import vegan
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
