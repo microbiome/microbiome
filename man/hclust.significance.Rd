@@ -3,9 +3,10 @@
 \title{Description: asses significance of hierarchical clustering
 clusters based on multiscale bootstrap resamping}
 \usage{
-hclust.significance(dat, my.groups = NULL, R, sample.sizes = 1, min.size,
-  corr.th, replace = TRUE, metric = "pearson", verbose = TRUE,
-  pvalue.threshold = 0.05, remove.nested.clusters = TRUE)
+  hclust.significance(dat, my.groups = NULL, R,
+    sample.sizes = 1, min.size, corr.th, replace = TRUE,
+    metric = "pearson", verbose = TRUE,
+    pvalue.threshold = 0.05, remove.nested.clusters = TRUE)
 }
 \arguments{
   \item{dat}{data matrix samples to be clustered on the
@@ -38,21 +39,22 @@ hclust.significance(dat, my.groups = NULL, R, sample.sizes = 1, min.size,
   keep all? Default: TRUE}
 }
 \value{
-List of significant clusters (corresponding to the given
-p-value)
+  List of significant clusters (corresponding to the given
+  p-value)
 }
 \description{
-Description: asses significance of hierarchical clustering
-clusters based on multiscale bootstrap resamping
+  Description: asses significance of hierarchical
+  clustering clusters based on multiscale bootstrap
+  resamping
 }
 \examples{
 data(peerj32); sign.clust <- hclust.significance(as.matrix(peerj32$microbes), R = 20, min.size = 2, corr.th = 0.5)
 }
 \author{
-Leo Lahti \email{leo.lahti@iki.fi}
+  Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{methods}
 

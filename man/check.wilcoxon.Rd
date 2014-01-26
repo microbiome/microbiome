@@ -3,8 +3,8 @@
 \title{Description: Calculate Wilcoxon test (unpaired; BH correction) for the specified sample groups.
 Either provide the input data as matrix, file path, or select the file through GUI.}
 \usage{
-check.wilcoxon(dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "BH",
-  sort = FALSE)
+  check.wilcoxon(dat = NULL, fnam = NULL, G1, G2,
+    p.adjust.method = "BH", sort = FALSE)
 }
 \arguments{
   \item{dat}{data matrix (features x samples)}
@@ -24,20 +24,20 @@ check.wilcoxon(dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "BH",
   Returns:}
 }
 \value{
-(Corrected) p-values for two-group comparison.
+  (Corrected) p-values for two-group comparison.
 }
 \description{
-Arguments:
+  Arguments:
 }
 \examples{
 data(peerj32); pval <- check.wilcoxon(t(peerj32$microbes), G1 = 1:22, G2 = 23:44)
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

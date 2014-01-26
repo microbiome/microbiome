@@ -2,8 +2,8 @@
 \alias{plot_cumulative}
 \title{plot_cunulative}
 \usage{
-plot_cumulative(d.sub, writedir, fname, i.set = NULL, type = "cumulative",
-  ylim = NULL, phylogeny.info)
+  plot_cumulative(d.sub, writedir, fname, i.set = NULL,
+    type = "cumulative", ylim = NULL, phylogeny.info)
 }
 \arguments{
   \item{d.sub}{d.sub}
@@ -23,23 +23,23 @@ plot_cumulative(d.sub, writedir, fname, i.set = NULL, type = "cumulative",
   Returns:}
 }
 \value{
-TBA
+  TBA
 }
 \description{
-Description: plot_cumulative
+  Description: plot_cumulative
 }
 \details{
-Arguments:
+  Arguments:
 }
 \examples{
 # NOT RUN bs <- bootstrap.microbes(t(peerj32$microbes), Nboot = 5); plot_cumulative(bs, writedir = "./", "tmp-", phylogeny.info = phylogeny.info)
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

@@ -2,7 +2,8 @@
 \alias{retrieve.probesets}
 \title{retrieve.probesets}
 \usage{
-retrieve.probesets(phylogeny.info, level = "species", name = NULL)
+  retrieve.probesets(phylogeny.info, level = "species",
+    name = NULL)
 }
 \arguments{
   \item{phylogeny.info}{data.frame with oligo - phylotype
@@ -15,23 +16,23 @@ retrieve.probesets(phylogeny.info, level = "species", name = NULL)
   Returns:}
 }
 \value{
-A list. Probes for each phylotype.
+  A list. Probes for each phylotype.
 }
 \description{
-Description: List probes for each probeset
+  Description: List probes for each probeset
 }
 \details{
-Arguments:
+  Arguments:
 }
 \examples{
 # NOT RUN phylogeny.info <- GetPhylogeny(); sets <- retrieve.probesets(phylogeny.info, level = "species", name = "Weissella confusa")
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

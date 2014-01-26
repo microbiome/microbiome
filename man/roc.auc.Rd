@@ -2,7 +2,7 @@
 \alias{roc.auc}
 \title{Description: ROC AUC calculation}
 \usage{
-roc.auc(ordered.results, true.positives)
+  roc.auc(ordered.results, true.positives)
 }
 \arguments{
   \item{ordered.results}{Items ordered from best to worst
@@ -13,20 +13,20 @@ roc.auc(ordered.results, true.positives)
   Returns:}
 }
 \value{
-ROC AUC value
+  ROC AUC value
 }
 \description{
-Arguments:
+  Arguments:
 }
 \examples{
 data(peerj32); x <- unlist(peerj32$microbes[1,]); res <- roc.auc(names(x), sample(names(x), 10))
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

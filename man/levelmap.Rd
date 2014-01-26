@@ -2,7 +2,8 @@
 \alias{levelmap}
 \title{levelmap}
 \usage{
-levelmap(phylotypes = NULL, level.from, level.to, phylogeny.info)
+  levelmap(phylotypes = NULL, level.from, level.to,
+    phylogeny.info)
 }
 \arguments{
   \item{phylotypes}{phylotypes to convert; if NULL then
@@ -17,23 +18,23 @@ levelmap(phylotypes = NULL, level.from, level.to, phylogeny.info)
   Returns:}
 }
 \value{
-mappings
+  mappings
 }
 \description{
-Description: map phylotypes between hierarchy levels
+  Description: map phylotypes between hierarchy levels
 }
 \details{
-Arguments:
+  Arguments:
 }
 \examples{
 # NOT RUN: phylogeny.info <- GetPhylogeny(); levelmap(phylotypes = "Akkermansia", level.from = "L2", level.to = "L1", phylogeny.info)
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

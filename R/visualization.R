@@ -138,8 +138,8 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.thr
   if (nrow(df) == 0) {warning("Input data frame is empty."); return(NULL)}
 
   if (filter.significant) {
-    keep.X <- as.character(unique(df[((df$p.adj < p.adj.threshold) & (abs(df[[fill]]) > correlation.threshold)), Xvar]))
-    keep.Y <- as.character(unique(df[((df$p.adj < p.adj.threshold) & (abs(df[[fill]]) > correlation.threshold)), Yvar]))
+    keep.X <- as.character(unique(df[((df[[star]] < p.adj.threshold) & (abs(df[[fill]]) > correlation.threshold)), Xvar]))
+    keep.Y <- as.character(unique(df[((df[[star]] < p.adj.threshold) & (abs(df[[fill]]) > correlation.threshold)), Yvar]))
     df <- df[((df[[Xvar]] %in% keep.X) & (df[[Yvar]] %in% keep.Y)),]
   }		    
 

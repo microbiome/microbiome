@@ -2,11 +2,13 @@
 \alias{correlation.heatmap}
 \title{correlation.heatmap}
 \usage{
-correlation.heatmap(df, Xvar, Yvar, fill, star = "p.adj",
-  p.adj.threshold = 1, correlation.threshold = 0, step = 0.2,
-  colours = c("darkblue", "blue", "white", "red", "darkred"), limits = c(-1,
-  1), legend.text = fill, order.rows = TRUE, order.cols = TRUE,
-  text.size = 10, filter.significant = TRUE)
+  correlation.heatmap(df, Xvar, Yvar, fill, star = "p.adj",
+    p.adj.threshold = 1, correlation.threshold = 0,
+    step = 0.2,
+    colours = c("darkblue", "blue", "white", "red", "darkred"),
+    limits = c(-1, 1), legend.text = fill,
+    order.rows = TRUE, order.cols = TRUE, text.size = 10,
+    filter.significant = TRUE)
 }
 \arguments{
   \item{df}{Data frame. Each row corresponds to a pair of
@@ -53,24 +55,24 @@ correlation.heatmap(df, Xvar, Yvar, fill, star = "p.adj",
   Returns:}
 }
 \value{
-ggplot2 object
+  ggplot2 object
 }
 \description{
-Description: Visualizes n x m correlation table as heatmap.
-See examples for details.
+  Description: Visualizes n x m correlation table as
+  heatmap. See examples for details.
 }
 \details{
-Arguments:
+  Arguments:
 }
 \examples{
 data(peerj32); cc <- cross.correlate(peerj32$lipids[, 1:10], peerj32$microbes[, 1:10]); p <- correlation.heatmap(cc, "X1", "X2", "Correlation")
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

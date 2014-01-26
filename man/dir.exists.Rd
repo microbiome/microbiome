@@ -2,26 +2,26 @@
 \alias{dir.exists}
 \title{dir.exists}
 \usage{
-dir.exists(d)
+  dir.exists(d)
 }
 \arguments{
   \item{d}{d}
 }
 \value{
-logical
+  logical
 }
 \description{
-dir.exists
+  dir.exists
 }
 \examples{
 #
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

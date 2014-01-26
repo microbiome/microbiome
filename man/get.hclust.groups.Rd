@@ -2,8 +2,8 @@
 \alias{get.hclust.groups}
 \title{Description: Get hierarchical clustering groups, including the nested ones if recursive = TRUE}
 \usage{
-get.hclust.groups(dat, corr.th, recursive = FALSE, min.size = 2,
-  metric = "pearson")
+  get.hclust.groups(dat, corr.th, recursive = FALSE,
+    min.size = 2, metric = "pearson")
 }
 \arguments{
   \item{dat}{data matrix}
@@ -17,20 +17,20 @@ get.hclust.groups(dat, corr.th, recursive = FALSE, min.size = 2,
   \item{metric}{similarity measure (spearman / pearson)}
 }
 \value{
-groups
+  groups
 }
 \description{
-Description: Get hierarchical clustering groups, including
-the nested ones if recursive = TRUE
+  Description: Get hierarchical clustering groups,
+  including the nested ones if recursive = TRUE
 }
 \examples{
 data(peerj32); cl <- get.hclust.groups(peerj32$microbes, corr.th = 0.8)
 }
 \author{
-Leo Lahti \email{leo.lahti@iki.fi}
+  Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{methods}
 
