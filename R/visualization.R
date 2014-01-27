@@ -46,7 +46,7 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
     # mat: samples x features data matrix	     
 
     # Avoid warnings
-    x <- y <- ..density.. <- NULL
+    x <- y <- ..density.. <- color <- NULL
 
     theme_set(theme_bw(20))
     df <- as.data.frame(mat)

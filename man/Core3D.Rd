@@ -2,8 +2,7 @@
 \alias{Core3D}
 \title{Core3D}
 \usage{
-  Core3D(coreMat, title = "Core microbiota",
-    cex.axis = 0.7)
+Core3D(coreMat, title = "Core microbiota", cex.axis = 0.7)
 }
 \arguments{
   \item{coreMat}{core matrix}
@@ -15,23 +14,23 @@
   Returns:}
 }
 \value{
-  Used for its side effects
+Used for its side effects
 }
 \description{
-  Description: Core visualization 3D
+Description: Core visualization 3D
 }
 \details{
-  Arguments:
+Arguments:
 }
 \examples{
 data(peerj32); c3d <- Core3D(createCore(t(peerj32$microbes)))
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

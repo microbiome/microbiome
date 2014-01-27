@@ -3,7 +3,7 @@
 \title{Description:
 Arguments:}
 \usage{
-  convert4corrwscatter(dat, group, reorder = TRUE)
+convert4corrwscatter(dat, group, reorder = TRUE)
 }
 \arguments{
   \item{dat}{data matrix}
@@ -15,20 +15,20 @@ Arguments:}
   Returns:}
 }
 \value{
-  JSON
+JSON
 }
 \description{
-  Description: Arguments:
+Description: Arguments:
 }
 \examples{
 # NOT RUN See https://github.com/microbiome/d3/tree/master/corr_w_scatter"
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 
