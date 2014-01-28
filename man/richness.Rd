@@ -2,7 +2,7 @@
 \alias{richness}
 \title{richness}
 \usage{
-richness(dat, det.th = NULL)
+  richness(dat, det.th = NULL)
 }
 \arguments{
   \item{dat}{data matrix (phylotypes x samples) in original
@@ -14,24 +14,24 @@ richness(dat, det.th = NULL)
   Returns:}
 }
 \value{
-Vector containing richness estimate for each sample
+  Vector containing richness estimate for each sample
 }
 \description{
-Description: Estimate richness for each sample with a given
-threshold
+  Description: Estimate richness for each sample with a
+  given threshold
 }
 \details{
-Arguments:
+  Arguments:
 }
 \examples{
 data(peerj32); rich <- richness(10^t(peerj32$microbes), det.th = 100)
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

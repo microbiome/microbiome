@@ -2,7 +2,7 @@
 \alias{core.sum}
 \title{Description: core.sum}
 \usage{
-core.sum(data, intTr, prevalenceTr)
+  core.sum(data, intTr, prevalenceTr)
 }
 \arguments{
   \item{data}{data matrix; phylotypes vs. samples}
@@ -14,17 +14,17 @@ core.sum(data, intTr, prevalenceTr)
   Returns:}
 }
 \value{
-TBA
+  TBA
 }
 \description{
-Arguments:
+  Arguments:
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

@@ -2,8 +2,8 @@
 \alias{bootstrap.microbes}
 \title{bootstrap.microbes}
 \usage{
-bootstrap.microbes(D, Nsample = NULL, minPrev = 2, Nboot = 100,
-  I.thr = 1.8, ncore = 1)
+  bootstrap.microbes(D, Nsample = NULL, minPrev = 2,
+    Nboot = 100, I.thr = 1.8, ncore = 1)
 }
 \arguments{
   \item{D}{data (phylotypes x samples)}
@@ -21,23 +21,23 @@ bootstrap.microbes(D, Nsample = NULL, minPrev = 2, Nboot = 100,
   Returns:}
 }
 \value{
-TBA
+  TBA
 }
 \description{
-Description: bootstrap.microbes
+  Description: bootstrap.microbes
 }
 \details{
-Arguments:
+  Arguments:
 }
 \examples{
 data(peerj32); bs <- bootstrap.microbes(t(peerj32$microbes), Nboot = 5)
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

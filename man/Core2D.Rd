@@ -2,7 +2,7 @@
 \alias{Core2D}
 \title{Core2D}
 \usage{
-Core2D(coreMat, colnum = NULL, title = "Common core")
+  Core2D(coreMat, colnum = NULL, title = "Common core")
 }
 \arguments{
   \item{coreMat}{core matrix}
@@ -14,23 +14,23 @@ Core2D(coreMat, colnum = NULL, title = "Common core")
   Returns:}
 }
 \value{
-Used for its side effects
+  Used for its side effects
 }
 \description{
-Description: Core visualization 2D
+  Description: Core visualization 2D
 }
 \details{
-Arguments:
+  Arguments:
 }
 \examples{
 data(peerj32); c2d <- Core2D(createCore(t(peerj32$microbes)))
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

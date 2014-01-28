@@ -2,7 +2,8 @@
 \alias{roc.plot}
 \title{Description: Plot ROC curve}
 \usage{
-roc.plot(ordered.results, true.positives, line = F, title = "")
+  roc.plot(ordered.results, true.positives, line = F,
+    title = "")
 }
 \arguments{
   \item{ordered.results}{Items ordered from best to worst
@@ -15,20 +16,20 @@ roc.plot(ordered.results, true.positives, line = F, title = "")
   \item{title}{Title text Returns:}
 }
 \value{
-Used for its side effects (plot)
+  Used for its side effects (plot)
 }
 \description{
-Arguments:
+  Arguments:
 }
 \examples{
 data(peerj32); x <- unlist(peerj32$microbes[1,]); res <- roc.plot(names(x), sample(names(x), 10))
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 
