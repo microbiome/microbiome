@@ -131,9 +131,11 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.threshold = 1, correlation.threshold = 0, step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"), limits = c(-1, 1), legend.text = fill, order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.significant = TRUE) {
+correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.threshold = 1, correlation.threshold = 0, step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"), limits = c(-1, 1), legend.text = NULL, order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.significant = TRUE) {
 
   # df <- cc; Xvar <- "X1"; Yvar <- "X2"; fill = "cor"; star = "p.adj"; p.adj.threshold = 1; correlation.threshold = 0; order.rows = TRUE; order.cols = TRUE; text.size = 12; filter.significant = TRUE; step = 0.2; colours = c("darkblue", "blue", "white", "red", "darkred"); limits = c(-1, 1); legend.text = fill
+
+  if ( is.null(legend.text) ) { legend.text <- fill }
 
   if (nrow(df) == 0) {warning("Input data frame is empty."); return(NULL)}
 
@@ -145,7 +147,7 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.thr
 
   theme_set(theme_bw(text.size))
 
-  if (any(c("XXXX", "YYYY", "ffff") %in% names(df))) {stop("XXXX, YYYY, ffff are not allowed in df")}
+  if (any(c("XXXX", "YYYY", "ffff") %in% names(df))) { stop("XXXX, YYYY, ffff are not allowed in df") }
 
   # ------------------------------------------------------
 
