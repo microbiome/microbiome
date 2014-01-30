@@ -2,7 +2,8 @@
 \alias{make.abundancy.table}
 \title{make.abundancy.table}
 \usage{
-make.abundancy.table(dat, det.th, discretization.resolution = 1)
+  make.abundancy.table(dat, det.th,
+    discretization.resolution = 1)
 }
 \arguments{
   \item{dat}{data matrix}
@@ -15,27 +16,27 @@ make.abundancy.table(dat, det.th, discretization.resolution = 1)
   Returns:}
 }
 \value{
-abundancy table
+  abundancy table
 }
 \description{
-Description: Calculate abundancies Discretize Hitchip
-matrix to form abundancy table of form j, nj where j is
-number of counts and nj is number of phylotypes with the
-corresponding counts this format is often required by
-richness estimation
+  Description: Calculate abundancies Discretize Hitchip
+  matrix to form abundancy table of form j, nj where j is
+  number of counts and nj is number of phylotypes with the
+  corresponding counts this format is often required by
+  richness estimation
 }
 \details{
-Arguments:
+  Arguments:
 }
 \examples{
 data(peerj32); abtab <- make.abundancy.table(10^t(peerj32$microbes), det.th = 0)
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

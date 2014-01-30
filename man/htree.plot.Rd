@@ -5,7 +5,7 @@ Description: Plot hierarchical clustering for the input data in absolute
 and log10 scale using euclidean and pearson correlation similarities.
 Intended for internal use in the run.profiling.script function.}
 \usage{
-htree.plot(dat, method = "complete", metric = "pearson")
+  htree.plot(dat, method = "complete", metric = "pearson")
 }
 \arguments{
   \item{dat}{oligoprofile data in original (non-log)
@@ -15,18 +15,21 @@ htree.plot(dat, method = "complete", metric = "pearson")
 
   \item{metric}{clustering similarity measure Returns:}
 }
+\value{
+  NULL
+}
 \description{
-Arguments:
+  Arguments:
 }
 \examples{
 data(peerj32); tmp <- htree.plot(peerj32$microbes[,1:5])
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

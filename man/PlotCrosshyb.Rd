@@ -4,10 +4,11 @@
 The number indicates how many percent of oligos for the row taxon are also hybridizing
 the corresponding column taxon.}
 \usage{
-PlotCrosshyb(tax.level = "L1", chip = "HITChip", selected.taxa = NULL,
-  show.plot = TRUE, order.rows = TRUE, order.cols = TRUE,
-  keep.empty = FALSE, rounding = 1, phylogeny.info = NULL,
-  self.correlations = FALSE)
+  PlotCrosshyb(tax.level = "L1", chip = "HITChip",
+    selected.taxa = NULL, show.plot = TRUE,
+    order.rows = TRUE, order.cols = TRUE,
+    keep.empty = FALSE, rounding = 1,
+    phylogeny.info = NULL, self.correlations = FALSE)
 }
 \arguments{
   \item{tax.level}{Taxonomic level to investigate}
@@ -36,20 +37,20 @@ PlotCrosshyb(tax.level = "L1", chip = "HITChip", selected.taxa = NULL,
   Returns:}
 }
 \value{
-A list containing cross-hybridization table and plot
+  A list containing cross-hybridization table and plot
 }
 \description{
-Arguments:
+  Arguments:
 }
 \examples{
 res <- PlotCrosshyb(tax.level = "L1", rounding = 1, show.plot = FALSE)
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

@@ -2,7 +2,7 @@
 \alias{centerData}
 \title{Center data matrix.}
 \usage{
-centerData(X, rm.na = TRUE, meanvalue = NULL)
+  centerData(X, rm.na = TRUE, meanvalue = NULL)
 }
 \arguments{
   \item{X}{The data set: samples x features. Each feature
@@ -14,24 +14,24 @@ centerData(X, rm.na = TRUE, meanvalue = NULL)
   value. The default is 0.}
 }
 \value{
-Centered data matrix.
+  Centered data matrix.
 }
 \description{
-Center data matrix to 0 for each variable by removing the
-means.
+  Center data matrix to 0 for each variable by removing the
+  means.
 }
 \note{
-Note that the model assumes samples x features matrix, and
-centers each feature.
+  Note that the model assumes samples x features matrix,
+  and centers each feature.
 }
 \examples{
 #centerData(X)
 }
 \author{
-Leo Lahti \email{microbiome-admin@googlegroups.com}
+  Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome").
+  See citation("microbiome").
 }
 \keyword{maths}
 \keyword{utilities}

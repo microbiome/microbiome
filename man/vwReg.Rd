@@ -6,12 +6,14 @@ http://www.fight-entropy.com/2012/07/visually-weighted-regression.html
 The R implementation is based on Felix Schonbrodt's code (under MIT/FreeBSD license) from
 http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/}
 \usage{
-vwReg(formula, data, title = "", B = 1000, shade = TRUE,
-  shade.alpha = 0.1, spag = FALSE, mweight = TRUE, show.lm = FALSE,
-  show.median = TRUE, median.col = "white", show.CI = FALSE,
-  method = loess, bw = FALSE, slices = 200,
-  palette = colorRampPalette(c("#FFEDA0", "#DD0000"), bias = 2)(20),
-  ylim = NULL, quantize = "continuous", verbose = FALSE, ...)
+  vwReg(formula, data, title = "", B = 1000, shade = TRUE,
+    shade.alpha = 0.1, spag = FALSE, mweight = TRUE,
+    show.lm = FALSE, show.median = TRUE,
+    median.col = "white", show.CI = FALSE, method = loess,
+    bw = FALSE, slices = 200,
+    palette = colorRampPalette(c("#FFEDA0", "#DD0000"), bias = 2)(20),
+    ylim = NULL, quantize = "continuous", verbose = FALSE,
+    ...)
 }
 \arguments{
   \item{formula}{formula}
@@ -69,21 +71,21 @@ vwReg(formula, data, title = "", B = 1000, shade = TRUE,
   Returns:}
 }
 \value{
-ggplot2 object
+  ggplot2 object
 }
 \description{
-Arguments:
+  Arguments:
 }
 \examples{
 N <- 10; df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N)); p <- vwReg(hitchip~age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
 }
 \author{
-Based on the original version from Felix Schonbrodt.
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Based on the original version from Felix Schonbrodt.
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

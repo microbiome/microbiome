@@ -2,7 +2,7 @@
 \alias{GetPhylogeny}
 \title{GetPhylogeny}
 \usage{
-GetPhylogeny(chip, phylogeny.version = "full")
+  GetPhylogeny(chip, phylogeny.version = "full")
 }
 \arguments{
   \item{chip}{chip type (e.g. "HITChip")}
@@ -13,23 +13,23 @@ GetPhylogeny(chip, phylogeny.version = "full")
   Returns:}
 }
 \value{
-phylogeny mapping table
+  phylogeny mapping table
 }
 \description{
-Description: Get Chip phylogeny
+  Description: Get Chip phylogeny
 }
 \details{
-Arguments:
+  Arguments:
 }
 \examples{
 # NOT RUN: phylogeny.info <- GetPhylogeny("HITChip", "full")
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 

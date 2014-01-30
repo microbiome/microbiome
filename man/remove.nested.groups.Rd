@@ -3,27 +3,27 @@
 \title{Description: remove nested groups from hierarchical clustering results;
              keep only the largest group when nested groups are detected}
 \usage{
-remove.nested.groups(groups)
+  remove.nested.groups(groups)
 }
 \arguments{
   \item{groups}{list of groups}
 }
 \value{
-list of groups with nested groups filtered out
+  list of groups with nested groups filtered out
 }
 \description{
-Description: remove nested groups from hierarchical
-clustering results; keep only the largest group when nested
-groups are detected
+  Description: remove nested groups from hierarchical
+  clustering results; keep only the largest group when
+  nested groups are detected
 }
 \examples{
 #
 }
 \author{
-Leo Lahti \email{leo.lahti@iki.fi}
+  Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{methods}
 

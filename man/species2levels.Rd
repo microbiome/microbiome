@@ -2,7 +2,7 @@
 \alias{species2levels}
 \title{Description: species-levels mappings}
 \usage{
-species2levels(spec, phylogeny.info)
+  species2levels(spec, phylogeny.info)
 }
 \arguments{
   \item{spec}{species}
@@ -12,16 +12,16 @@ species2levels(spec, phylogeny.info)
   Returns:}
 }
 \value{
-species-levels mappings
+  species-levels mappings
 }
 \description{
-Arguments:
+  Arguments:
 }
 \author{
-Contact: Leo Lahti \email{leo.lahti@iki.fi}
+  Contact: Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{internal}
 

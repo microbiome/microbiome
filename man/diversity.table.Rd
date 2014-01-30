@@ -2,8 +2,9 @@
 \alias{diversity.table}
 \title{diversity.table}
 \usage{
-diversity.table(dat, level.from, level.to, phylogeny.info = NULL,
-  diversity.index = "shannon", det.th = 0, min.probes = 0)
+  diversity.table(dat, level.from, level.to,
+    phylogeny.info = NULL, diversity.index = "shannon",
+    det.th = 0, min.probes = 0)
 }
 \arguments{
   \item{dat}{data matrix (phylotypes x samples) in original
@@ -31,25 +32,25 @@ diversity.table(dat, level.from, level.to, phylogeny.info = NULL,
   Returns:}
 }
 \value{
-Table with various richness, evenness, and diversity
-indicators
+  Table with various richness, evenness, and diversity
+  indicators
 }
 \description{
-Description: Estimate diversity within each taxonomic group
-across the samples
+  Description: Estimate diversity within each taxonomic
+  group across the samples
 }
 \details{
-Arguments:
+  Arguments:
 }
 \examples{
 # NOT RUN divtab <- diversity.table(dat, level.from = "L2", level.to = "oligo")
 }
 \author{
-Contact: Leo Lahti
-\email{microbiome-admin@googlegroups.com}
+  Contact: Leo Lahti
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+  See citation("microbiome")
 }
 \keyword{utilities}
 
