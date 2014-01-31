@@ -2,7 +2,7 @@
 \alias{diversity}
 \title{diversity}
 \usage{
-  diversity(dat, diversity.index = "shannon", det.th = 0)
+diversity(dat, diversity.index = "shannon", det.th = 0)
 }
 \arguments{
   \item{dat}{data matrix (phylotypes x samples) in original
@@ -17,24 +17,24 @@
   Returns:}
 }
 \value{
-  Vector containing diversity estimate for each sample
+Vector containing diversity estimate for each sample
 }
 \description{
-  Description: Estimate diversity for each sample with a
-  given threshold
+Description: Estimate diversity for each sample with a
+given threshold
 }
 \details{
-  Arguments:
+Arguments:
 }
 \examples{
 data(peerj32); div <- diversity(10^t(peerj32$microbes), det.th = 0)
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

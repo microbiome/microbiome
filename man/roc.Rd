@@ -3,7 +3,7 @@
 \title{Description: ROC analysis returning true and false positive rates
 along an ordered list}
 \usage{
-  roc(ordered.results, true.positives)
+roc(ordered.results, true.positives)
 }
 \arguments{
   \item{ordered.results}{Items ordered from best to worst
@@ -14,21 +14,21 @@ along an ordered list}
   Returns:}
 }
 \value{
-  List: true positive rate (tpr) and false positive rate
-  (fpr)
+List: true positive rate (tpr) and false positive rate
+(fpr)
 }
 \description{
-  Arguments:
+Arguments:
 }
 \examples{
 data(peerj32); x <- unlist(peerj32$microbes[1,]); res <- roc(names(x), sample(names(x), 10))
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

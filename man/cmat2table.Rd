@@ -2,7 +2,7 @@
 \alias{cmat2table}
 \title{Description: Arrange correlation matrices from cross.correlate into a table format}
 \usage{
-  cmat2table(res, verbose = FALSE)
+cmat2table(res, verbose = FALSE)
 }
 \arguments{
   \item{res}{Output from cross.correlate}
@@ -12,20 +12,20 @@
   Returns:}
 }
 \value{
-  Correlation table
+Correlation table
 }
 \description{
-  Arguments:
+Arguments:
 }
 \examples{
 data(peerj32); cc <- cross.correlate(peerj32$microbes[1:20, 1:10], peerj32$lipids[1:20,1:10], mode = "matrix"); cmat <- cmat2table(cc)
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

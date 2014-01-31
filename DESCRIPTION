@@ -28,18 +28,3 @@ Suggests:
 URL: http://microbiome.github.com
 LazyLoad: yes
 Packaged: 2012-01-12 14:19:39 UTC; lei
-Collate:
-    'ROC.R'
-    'analysis.R'
-    'core.R'
-    'd3.R'
-    'data.documentation.R'
-    'diversity.R'
-    'firstlib.R'
-    'hclust.R'
-    'internal.R'
-    'io.R'
-    'microbiome-package.R'
-    'phylo.R'
-    'utils.R'
-    'visualization.R'

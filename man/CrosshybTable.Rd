@@ -4,8 +4,8 @@
 The number indicates how many percent of oligos for the row taxon are also hybridizing
 the corresponding column taxon.}
 \usage{
-  CrosshybTable(tax.level = "L1", chip = "HITChip",
-    selected.taxa = NULL, phylogeny.info = NULL)
+CrosshybTable(tax.level = "L1", chip = "HITChip", selected.taxa = NULL,
+  phylogeny.info = NULL)
 }
 \arguments{
   \item{tax.level}{Taxonomic level to investigate}
@@ -20,20 +20,20 @@ the corresponding column taxon.}
   Returns:}
 }
 \value{
-  A list containing cross-hybridization table
+A list containing cross-hybridization table
 }
 \description{
-  Arguments:
+Arguments:
 }
 \examples{
 ch <- CrosshybTable(tax.level = "L1")
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

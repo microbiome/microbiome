@@ -2,26 +2,26 @@
 \alias{matrix.qvalue}
 \title{matrix.qvalue}
 \usage{
-  matrix.qvalue(pvals)
+matrix.qvalue(pvals)
 }
 \arguments{
   \item{pvals}{p-value matrix}
 }
 \value{
-  q-value matrix
+q-value matrix
 }
 \description{
-  Calculate qvalues for a matrix of pvalues which may
-  contain missing values.
+Calculate qvalues for a matrix of pvalues which may contain
+missing values.
 }
 \examples{
 #qvals <- matrix.qvalue(pvals)
 }
 \author{
-  Leo Lahti \email{microbiome-admin@googlegroups.com}
+Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 
