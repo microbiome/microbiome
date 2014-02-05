@@ -123,7 +123,6 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
 #'   @return ggplot2 object
 #'
 #' @import ggplot2 
-#' @importFrom ggplot2 theme_set
 #'
 #' @examples data(peerj32); cc <- cross.correlate(peerj32$lipids[, 1:10], peerj32$microbes[, 1:10]); p <- correlation.heatmap(cc, "X1", "X2", "Correlation")
 #'
