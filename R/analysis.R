@@ -109,11 +109,16 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
   # tax.level = "L1"; chip = "HITChip"; selected.taxa = NULL; show.plot = TRUE; order.rows = TRUE; order.cols = TRUE; keep.empty = FALSE; rounding = 1
 
   # Get crosshyb matrix
-  confusion.matrix <- CrosshybTable(tax.level = "L1", chip = "HITChip", selected.taxa = NULL, phylogeny.info = NULL)
+  confusion.matrix <- CrosshybTable(tax.level = tax.level, chip = "HITChip", selected.taxa = NULL, phylogeny.info = NULL)
 
   # Remove self-correlations
   if (!self.correlations) {
     diag(confusion.matrix) <- 0
+  }
+
+  # Focus on selected taxa
+  if (!is.null(selected.taxa)) {
+    confusion.matrix <- confusion.matrix[selected.taxa, ]
   }
 
   # Remove the taxa that do not have any crosshyb
@@ -133,11 +138,12 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
 
   # Order rows and cols
   if (order.rows || order.cols) {
-    #hm <- heatmap(confusion.matrix)
-    #roword <- hm$rowInd
-    #colord <- hm$colInd
+
     hc <- hclust(as.dist(1-cor(confusion.matrix)), "ward")
-    roword <- colord <- hc$ord
+    colord <- hc$ord
+
+    hc <- hclust(as.dist(1-cor(t(confusion.matrix))), "ward")
+    roword <- hc$ord
 
     if (order.rows) {
       df[["Taxon1"]] <- factor(df[["Taxon1"]], levels = rownames(confusion.matrix)[roword])
@@ -641,7 +647,7 @@ cmat2table <- function (res, verbose = FALSE) {
 #'
 #' 
 #' Arguments:
-#'   @param dat1 data matrix phylotypes vs. samples
+#'   @param dat1 data matrix phylotypes vs. samples (in log10 scale)
 #'   @param dat2 Optional. Second data matrix phylotypes vs. samples. 
 #'          Provide this to calculate stability between two (paired) 
 #'          data sets.
@@ -651,12 +657,12 @@ cmat2table <- function (res, verbose = FALSE) {
 #'   @return List with correlations and astability estimate
 #'
 #' @export
-#' @examples data(peerj32); s <- calculate.stability(t(peerj32$microbes)[, 1:5])
+#' @examples data(peerj32); s <- estimate.stability(t(peerj32$microbes)[, 1:5])
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-calculate.stability <- function (dat1, dat2 = NULL, method = "pearson") {
+estimate.stability <- function (dat1, dat2 = NULL, method = "pearson") {
 
   if (is.null(dat2)) {
     # Within-matrix stability

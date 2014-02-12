@@ -1,5 +1,5 @@
-\name{calculate.stability}
-\alias{calculate.stability}
+\name{estimate.stability}
+\alias{estimate.stability}
 \title{Description: Stability analysis. Calculates average Pearson '
  correlation between samples in the input data and picks the lower '
  triangular matrix to avoid duplicating the correlations. Returns
@@ -7,11 +7,11 @@
  Can also be used to calculate stability between two data sets.
  Then provide two data sets as inputs.}
 \usage{
-  calculate.stability(dat1, dat2 = NULL,
-    method = "pearson")
+  estimate.stability(dat1, dat2 = NULL, method = "pearson")
 }
 \arguments{
-  \item{dat1}{data matrix phylotypes vs. samples}
+  \item{dat1}{data matrix phylotypes vs. samples (in log10
+  scale)}
 
   \item{dat2}{Optional. Second data matrix phylotypes vs.
   samples.  Provide this to calculate stability between two
@@ -28,7 +28,7 @@
   Arguments:
 }
 \examples{
-data(peerj32); s <- calculate.stability(t(peerj32$microbes)[, 1:5])
+data(peerj32); s <- estimate.stability(t(peerj32$microbes)[, 1:5])
 }
 \author{
   Contact: Leo Lahti
