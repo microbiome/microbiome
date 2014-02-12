@@ -7,7 +7,11 @@
  Can also be used to calculate stability between two data sets.
  Then provide two data sets as inputs.}
 \usage{
+<<<<<<< HEAD:man/estimate.stability.Rd
   estimate.stability(dat1, dat2 = NULL, method = "pearson")
+=======
+calculate.stability(dat1, dat2 = NULL, method = "pearson")
+>>>>>>> 405f396f9007cea42de70fa994a387fffaea0aeb:man/calculate.stability.Rd
 }
 \arguments{
   \item{dat1}{data matrix phylotypes vs. samples (in log10
@@ -22,20 +26,20 @@
   Returns:}
 }
 \value{
-  List with correlations and astability estimate
+List with correlations and astability estimate
 }
 \description{
-  Arguments:
+Arguments:
 }
 \examples{
 data(peerj32); s <- estimate.stability(t(peerj32$microbes)[, 1:5])
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

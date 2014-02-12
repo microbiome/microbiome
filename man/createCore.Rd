@@ -2,8 +2,8 @@
 \alias{createCore}
 \title{createCore}
 \usage{
-  createCore(data, I.thr = 0, verbose = FALSE,
-    prevalence.intervals = NULL, intensity.intervals = 20)
+createCore(data, I.thr = 0, verbose = FALSE, prevalence.intervals = NULL,
+  intensity.intervals = 20)
 }
 \arguments{
   \item{data}{data matrix; phylotypes vs. samples}
@@ -21,23 +21,23 @@
   Returns:}
 }
 \value{
-  TBA
+TBA
 }
 \description{
-  Description: create coreMatrix
+Description: create coreMatrix
 }
 \details{
-  Arguments:
+Arguments:
 }
 \examples{
 data(peerj32); core <- createCore(t(peerj32$microbes))
 }
 \author{
-  Contact: Jarkko Salojarvi
-  \email{microbiome-admin@googlegroups.com}
+Contact: Jarkko Salojarvi
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

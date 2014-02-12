@@ -20,7 +20,7 @@ above is that they quantify the extent to which the variable x is
 useful in predicting y, which may be very different than the extent to
 which the variable y is useful in predicting x.}
 \usage{
-  GKtau(x, y)
+GKtau(x, y)
 }
 \arguments{
   \item{x}{first variable}
@@ -30,20 +30,20 @@ which the variable y is useful in predicting x.}
   Returns:}
 }
 \value{
-  Dependency measure
+Dependency measure
 }
 \description{
-  Arguments:
+Arguments:
 }
 \examples{
 data(peerj32); tc <- GKtau(unlist(peerj32$microbes[,1]), unlist(peerj32$lipids[,1]))
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

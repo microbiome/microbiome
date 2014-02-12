@@ -2,7 +2,7 @@
 \alias{project.data}
 \title{Description: Project high-dimensional data on two-dimensional plane by various methods}
 \usage{
-  project.data(amat, type = "PCA")
+project.data(amat, type = "PCA")
 }
 \arguments{
   \item{amat}{data matrix (samples x features)}
@@ -11,20 +11,20 @@
   MDS.nonmetric, Sammon) Returns:}
 }
 \value{
-  projected data matrix
+projected data matrix
 }
 \description{
-  Arguments:
+Arguments:
 }
 \examples{
 data(peerj32); xy <- project.data(peerj32$microbes[,1:3])
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

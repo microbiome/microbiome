@@ -2,25 +2,25 @@
 \alias{impute}
 \title{Impute missing values from a Gaussian.}
 \usage{
-  impute(X)
+impute(X)
 }
 \arguments{
   \item{X}{data matrix (features x samples)}
 }
 \value{
-  imputed data matrix
+imputed data matrix
 }
 \description{
-  Impute missing values from a Gaussian.
+Impute missing values from a Gaussian.
 }
 \examples{
 #X2 <- impute(X)
 }
 \author{
-  Leo Lahti \email{microbiome-admin@googlegroups.com}
+Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 

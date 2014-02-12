@@ -2,8 +2,8 @@
 \alias{bootstrap.microbecount}
 \title{bootstrap.microbecount}
 \usage{
-  bootstrap.microbecount(D, Nsample = NULL, minprev = 1,
-    Nboot = 100, I.thr = 1.8, ncore = 1)
+bootstrap.microbecount(D, Nsample = NULL, minprev = 1, Nboot = 100,
+  I.thr = 1.8, ncore = 1)
 }
 \arguments{
   \item{D}{data}
@@ -21,23 +21,23 @@
   Returns:}
 }
 \value{
-  TBA
+TBA
 }
 \description{
-  Description: bootstrap.microbecount
+Description: bootstrap.microbecount
 }
 \details{
-  Arguments:
+Arguments:
 }
 \examples{
 data(peerj32); tmp <- bootstrap.microbecount(t(peerj32$microbes), Nboot = 5)
 }
 \author{
-  Contact: Leo Lahti
-  \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
 }
 \references{
-  See citation("microbiome")
+See citation("microbiome")
 }
 \keyword{utilities}
 
