@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -102,6 +102,10 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, phylogeny.info) {
 
   if (level.from == "species" && level.to %in% c("L0", "L1", "L2")) {
     sl <- species2levels(phylotypes, phylogeny.info)[, level.to]
+  }	 
+
+  if (level.from == "oligo" && level.to == "species") {
+    sl <- oligoTOspecies(phylotypes, phylogeny.info)
   }	 
 
   if (level.from == "L2" && level.to == "L1") {

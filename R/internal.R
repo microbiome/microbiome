@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -143,4 +143,28 @@ level1TOlevel0 <- function (l1, phylogeny.info) {
 
 
 
+#' Description: oligo-species mappings
+#'
+#' Arguments:
+#'   @param oligo oligos
+#'   @param phylogeny.info phylogeny.info
+#'
+#' Returns:
+#'   @return mappings
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
+#' @keywords internal
+
+oligoTOspecies <- function (oligo, phylogeny.info) {
+
+   phylogeny.info <- polish.phylogeny.info(phylogeny.info)
+
+   oligo.species <- list()
+   for (oli in as.character(oligo)) {
+      oligo.species[[oli]] <- sort(unique(phylogeny.info[which(phylogeny.info[["oligoID"]] == oli), "species"]))
+   }
+
+   oligo.species
+}
 
