@@ -226,6 +226,8 @@ distance.matrix <- function (x, method = "pearson", ...) {
 #' @keywords utilities
 check.anova <- function (dat, group, p.adjust.method = "BH", sort = FALSE) {
 
+  if (is.null(p.adjust.method)) {p.adjust.method <- "none"}
+
   pvals <- c()
   for (tax in rownames(dat)) {
     pvals[[tax]] <- anova(lm(dat[tax, ] ~ group))["group", "Pr(>F)"]
