@@ -335,6 +335,11 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #' @examples data(peerj32); cc <- cross.correlate(peerj32$microbes[1:20, 1:10], peerj32$lipids[1:20,1:10])
 #' @export
 #'
+#' @details As the method=categorical (discrete) association measure
+#'          for nominal (no order for levels) variables ' we using Goodman and
+#'          Kruskal tau based on
+#'          http://www.r-bloggers.com/measuring-associations-between-non-numeric-variables/
+#'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
