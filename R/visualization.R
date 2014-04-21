@@ -256,6 +256,7 @@ legend.text = "", order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.s
 #' @param quantize either "continuous", or "SD". In the latter case, we get three color regions for 1, 2, and 3 SD (an idea of John Mashey)
 #' @param ... further parameters passed to the fitting function, in the case of loess, for example, "span = .9", or "family = 'symmetric'"
 #' @param verbose print information during execution
+#' @param show.points Plot the data points.
 #'
 #' Returns:
 #' @return ggplot2 object
@@ -269,7 +270,7 @@ legend.text = "", order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.s
 #' @author Based on the original version from Felix Schonbrodt. Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous",  verbose = FALSE, ...) {
+vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous",  verbose = FALSE, show.points = TRUE, ...) {
 
   # Circumvent global variable binding warnings
   x <- NA
@@ -406,7 +407,9 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
   # plain linear regression line
   if (show.lm) {p1 <- p1 + geom_smooth(method="lm", color="darkgreen", se=FALSE)}
 
-  p1 <- p1 + geom_point(size=1, shape=21, fill="white", color="black")
+  if (show.points) {
+    p1 <- p1 + geom_point(size=1, shape=21, fill="white", color="black")
+  }
 
   if (title != "") {
     p1 <- p1 + ggtitle(title)

@@ -11,7 +11,8 @@ vwReg(formula, data, title = "", B = 1000, shade = TRUE,
   show.median = TRUE, median.col = "white", show.CI = FALSE,
   method = loess, bw = FALSE, slices = 200,
   palette = colorRampPalette(c("#FFEDA0", "#DD0000"), bias = 2)(20),
-  ylim = NULL, quantize = "continuous", verbose = FALSE, ...)
+  ylim = NULL, quantize = "continuous", verbose = FALSE,
+  show.points = TRUE, ...)
 }
 \arguments{
   \item{formula}{formula}
@@ -64,7 +65,9 @@ vwReg(formula, data, title = "", B = 1000, shade = TRUE,
   function, in the case of loess, for example, "span = .9",
   or "family = 'symmetric'"}
 
-  \item{verbose}{print information during execution
+  \item{verbose}{print information during execution}
+
+  \item{show.points}{Plot the data points.
 
   Returns:}
 }

@@ -46,6 +46,12 @@ List with cor, pval, pval.adjusted
 \description{
 Arguments:
 }
+\details{
+As the method=categorical (discrete) association measure
+for nominal (no order for levels) variables ' we using
+Goodman and Kruskal tau based on
+http://www.r-bloggers.com/measuring-associations-between-non-numeric-variables/
+}
 \examples{
 data(peerj32); cc <- cross.correlate(peerj32$microbes[1:20, 1:10], peerj32$lipids[1:20,1:10])
 }

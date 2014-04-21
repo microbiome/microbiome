@@ -1,0 +1,40 @@
+\name{check.anova}
+\alias{check.anova}
+\title{Description: Calculate ANOVA test (BH correction) for multi-group comparison.
+Arguments:}
+\usage{
+check.anova(dat, group, p.adjust.method = "BH", sort = FALSE)
+}
+\arguments{
+  \item{dat}{data matrix (features x samples; eg. HITChip
+  taxa vs. samples)}
+
+  \item{group}{Vector with specifying the groups}
+
+  \item{p.adjust.method}{p-value correction method for
+  p.adjust function (default "BH"). If NULL, no correction
+  will be performed.}
+
+  \item{sort}{sort the results
+
+  Returns:}
+}
+\value{
+(Corrected) p-values for multi-group comparison.
+}
+\description{
+Description: Calculate ANOVA test (BH correction) for
+multi-group comparison. Arguments:
+}
+\examples{
+data(peerj32); pval <- check.anova(t(peerj32$microbes), peerj32$meta$time)
+}
+\author{
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
+}
+\references{
+See citation("microbiome")
+}
+\keyword{utilities}
+
