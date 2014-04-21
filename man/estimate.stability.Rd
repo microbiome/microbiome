@@ -7,11 +7,7 @@
  Can also be used to calculate stability between two data sets.
  Then provide two data sets as inputs.}
 \usage{
-<<<<<<< HEAD:man/estimate.stability.Rd
-  estimate.stability(dat1, dat2 = NULL, method = "pearson")
-=======
-calculate.stability(dat1, dat2 = NULL, method = "pearson")
->>>>>>> 405f396f9007cea42de70fa994a387fffaea0aeb:man/calculate.stability.Rd
+estimate.stability(dat1, dat2 = NULL, method = "pearson")
 }
 \arguments{
   \item{dat1}{data matrix phylotypes vs. samples (in log10
