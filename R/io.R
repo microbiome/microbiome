@@ -36,7 +36,7 @@ read.profiling <- function(level = NULL, method = "frpa", data.dir, log10 = TRUE
 
   # level <- "oligo"; method = "sum"; data.dir = "test/"; log10 = TRUE
   if (level %in% c("L0", "L1", "L2", "species")) {
-      if (method == "frpa" && length(grep(method, data.dir)) == 0) {
+      if (method == "frpa" && length(grep(method, dir(data.dir))) == 0) {
         warning("frpa method not available; using rpa instead");
         method <- "rpa" 
       }
