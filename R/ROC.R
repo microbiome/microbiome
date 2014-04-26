@@ -97,3 +97,46 @@ roc.auc <- function (ordered.results, true.positives) {
 
   auc
 }
+
+
+
+#' Description: ROC AUC calculation for a matrix of variables 
+#'
+#' Arguments:
+#' @param dat Data matrix (variables x samples)
+#' @param true.positives known true positive samples
+#'
+#' @details The samples are ordered for each row (variable) from the highest to the lowest score, and ROC/AUC value is calculated based on this ordering.
+#'
+#' Returns:
+#'   @return Vector of ROC AUC values for each variable
+#'
+#' @export
+#'
+#' @examples # rocs <- roc.auc.matrix(dat, true.positives)
+#' 
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+roc.auc.matrix <- function (dat, true.positives) {
+
+  aucs <- c()
+  for (k in 1:nrow(dat)) {
+
+    # Order the scores for this variables from the highest to the lowest
+    ordered.results <- names(rev(sort(dat[k, ])))
+
+    # Calculate AUC and store
+    auc <- roc.auc(ordered.results, true.positives)
+    aucs[[k]] <- auc
+
+  }
+
+  if (!is.null(rownames(dat))) {
+    names(aucs) <- rownames(dat)
+  }
+
+  aucs
+
+}
