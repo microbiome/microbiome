@@ -1,0 +1,36 @@
+\name{roc.auc.matrix}
+\alias{roc.auc.matrix}
+\title{Description: ROC AUC calculation for a matrix of variables}
+\usage{
+roc.auc.matrix(dat, true.positives)
+}
+\arguments{
+  \item{dat}{Data matrix (variables x samples)}
+
+  \item{true.positives}{known true positive samples}
+}
+\value{
+Vector of ROC AUC values for each variable
+}
+\description{
+Arguments:
+}
+\details{
+The samples are ordered for each row (variable) from the
+highest to the lowest score, and ROC/AUC value is
+calculated based on this ordering.
+
+Returns:
+}
+\examples{
+# rocs <- roc.auc.matrix(dat, true.positives)
+}
+\author{
+Contact: Leo Lahti
+\email{microbiome-admin@googlegroups.com}
+}
+\references{
+See citation("microbiome")
+}
+\keyword{utilities}
+
