@@ -36,6 +36,10 @@ read.profiling <- function(level = NULL, method = "frpa", data.dir, log10 = TRUE
 
   # level <- "oligo"; method = "sum"; data.dir = "test/"; log10 = TRUE
   if (level %in% c("L0", "L1", "L2", "species")) {
+      if (method == "frpa" && length(grep(method, dir(data.dir))) == 0) {
+        warning("frpa method not available; using rpa instead");
+        method <- "rpa" 
+      }
       f <- paste(data.dir, "/", level, "-", method, ".tab", sep = "")
     } else if (level == "oligo") {
       f <- paste(data.dir, "/oligoprofile.tab", sep = "")
@@ -46,7 +50,8 @@ read.profiling <- function(level = NULL, method = "frpa", data.dir, log10 = TRUE
     } else if (level %in% c("phylogeny.info", "phylogeny.full", "phylogeny")) {
       f <- paste(data.dir, "/phylogeny.full.tab", sep = "")
     }
-  
+
+ 
   message(paste("Reading", f))
 
   if (level %in% c("L0", "L1", "L2", "species")) {
