@@ -132,11 +132,10 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
 #' @keywords utilities
 
 correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj",
-p.adj.threshold = 1, correlation.threshold = 0, step = 0.2, colours =
-c("darkblue", "blue", "white", "red", "darkred"), limits = NULL,
+p.adj.threshold = 1, correlation.threshold = 0, step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"), limits = NULL,
 legend.text = "", order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.significant = TRUE) {
 
-  # df <- cc; Xvar <- "X1"; Yvar <- "X2"; fill = "cor"; star = "p.adj"; p.adj.threshold = 1; correlation.threshold = 0; order.rows = TRUE; order.cols = TRUE; text.size = 12; filter.significant = TRUE; step = 0.2; colours = c("darkblue", "blue", "white", "red", "darkred"); limits = c(-1, 1); legend.text = fill
+  # df <- cc; Xvar <- "X1"; Yvar <- "X2"; fill = "Correlation"; star = "p.adj"; p.adj.threshold = 1; correlation.threshold = 0; order.rows = TRUE; order.cols = TRUE; text.size = 12; filter.significant = TRUE; step = 0.2; colours = c("darkblue", "blue", "white", "red", "darkred"); limits = c(-1, 1); legend.text = fill
 
   if (is.null(limits)) { 
     maxval <- max(abs(df[[fill]])) 
