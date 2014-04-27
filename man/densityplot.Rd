@@ -3,7 +3,8 @@
 \title{DensityPlot}
 \usage{
 densityplot(mat, main = NULL, x.ticks = 10, rounding = 0,
-  add.points = TRUE, col = "red", adjust = 1, size = 1)
+  add.points = TRUE, col = "red", adjust = 1, size = 1,
+  legend = FALSE)
 }
 \arguments{
   \item{mat}{Data matrix to plot. The first two columns
