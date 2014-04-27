@@ -41,7 +41,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.points = TRUE, col = "red", adjust = 1, size = 1) {
+densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.points = TRUE, col = "red", adjust = 1, size = 1, legend = FALSE) {
 
     # mat: samples x features data matrix	     
 
@@ -85,7 +85,10 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
 
     p <- p + ggplot2::xlab(xvar) + ggplot2::ylab(yvar) 
 
-    p <- p + ggplot2::theme(legend.position="none")
+    if (!legend) {
+      p <- p + ggplot2::theme(legend.position="none")
+    }
+
     p <- p + ggplot2::scale_x_continuous(breaks = round(seq(floor(min(df[["x"]])), ceiling(max(df[["x"]])), length = x.ticks), rounding))
 
     if (!is.null(main)) {
