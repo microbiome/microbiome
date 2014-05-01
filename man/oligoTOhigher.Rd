@@ -1,0 +1,27 @@
+\name{oligoTOhigher}
+\alias{oligoTOhigher}
+\title{Description: oligo-species mappings}
+\usage{
+oligoTOhigher(oligo, phylogeny.info, level.to = "species")
+}
+\arguments{
+  \item{oligo}{oligos}
+
+  \item{phylogeny.info}{phylogeny.info
+
+  Returns:}
+}
+\value{
+mappings
+}
+\description{
+Arguments:
+}
+\author{
+Contact: Leo Lahti \email{leo.lahti@iki.fi}
+}
+\references{
+See citation("microbiome")
+}
+\keyword{internal}
+
