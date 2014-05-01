@@ -8,9 +8,11 @@ levelmap(phylotypes = NULL, level.from, level.to, phylogeny.info)
   \item{phylotypes}{phylotypes to convert; if NULL then
   considering all phylotypes in the phylogeny.info}
 
-  \item{level.from}{level.from}
+  \item{level.from}{convert from Options: "L0", "L1", "L2",
+  "species", "oligo"}
 
-  \item{level.to}{level.to}
+  \item{level.to}{conver to Options: "L0", "L1", "L2",
+  "species", "oligo"}
 
   \item{phylogeny.info}{phylogeny.info
 
@@ -26,7 +28,7 @@ Description: map phylotypes between hierarchy levels
 Arguments:
 }
 \examples{
-# NOT RUN: phylogeny.info <- GetPhylogeny(); levelmap(phylotypes = "Akkermansia", level.from = "L2", level.to = "L1", phylogeny.info)
+# NOT RUN: phylogeny.info <- GetPhylogeny("HITChip"); levelmap(phylotypes = "Akkermansia", level.from = "L2", level.to = "L1", phylogeny.info)
 }
 \author{
 Contact: Leo Lahti

@@ -22,7 +22,9 @@ densityplot(mat, main = NULL, x.ticks = 10, rounding = 0,
 
   \item{adjust}{Kernel width adjustment}
 
-  \item{size}{point size
+  \item{size}{point size}
+
+  \item{legend}{plot legend TRUE/FALSE
 
   Returns:}
 }

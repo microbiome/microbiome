@@ -61,14 +61,14 @@ GetPhylogeny <- function (chip, phylogeny.version = "full") {
 #'
 #' Arguments:
 #'   @param phylotypes phylotypes to convert; if NULL then considering all phylotypes in the phylogeny.info
-#'   @param level.from level.from
-#'   @param level.to level.to
+#'   @param level.from convert from Options: "L0", "L1", "L2", "species", "oligo"
+#'   @param level.to conver to Options: "L0", "L1", "L2", "species", "oligo"
 #'   @param phylogeny.info phylogeny.info
 #'
 #' Returns:
 #'   @return mappings
 #'
-#' @examples # NOT RUN: phylogeny.info <- GetPhylogeny(); levelmap(phylotypes = "Akkermansia", level.from = "L2", level.to = "L1", phylogeny.info)
+#' @examples # NOT RUN: library(microbiome); phylogeny.info <- GetPhylogeny("HITChip", "filtered"); levelmap(phylotypes = NULL, level.from = "L2", level.to = "L1", phylogeny.info)
 #'
 #' @export
 #' @references See citation("microbiome") 
@@ -104,8 +104,8 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, phylogeny.info) {
     sl <- species2levels(phylotypes, phylogeny.info)[, level.to]
   }	 
 
-  if (level.from == "oligo" && level.to == "species") {
-    sl <- oligoTOspecies(phylotypes, phylogeny.info)
+  if (level.from == "oligoID" && level.to %in% c("L0", "L1", "L2", "species")) {
+    sl <- oligoTOhigher(phylotypes, phylogeny.info, level.to = level.to)
   }	 
 
   if (level.from == "L2" && level.to == "L1") {

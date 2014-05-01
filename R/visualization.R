@@ -29,6 +29,7 @@
 #'   @param col Color of the data points
 #'   @param adjust Kernel width adjustment
 #'   @param size point size
+#'   @param legend plot legend TRUE/FALSE
 #'
 #' Returns:
 #'   @return ggplot2 object

@@ -156,13 +156,13 @@ level1TOlevel0 <- function (l1, phylogeny.info) {
 #' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
 #' @keywords internal
 
-oligoTOspecies <- function (oligo, phylogeny.info) {
+oligoTOhigher <- function (oligo, phylogeny.info, level.to = "species") {
 
    phylogeny.info <- polish.phylogeny.info(phylogeny.info)
 
    oligo.species <- list()
    for (oli in as.character(oligo)) {
-      oligo.species[[oli]] <- sort(unique(phylogeny.info[which(phylogeny.info[["oligoID"]] == oli), "species"]))
+      oligo.species[[oli]] <- sort(unique(phylogeny.info[which(phylogeny.info[["oligoID"]] == oli), level.to]))
    }
 
    oligo.species
