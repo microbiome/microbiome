@@ -603,7 +603,7 @@ PlotMatrix <- function (mat, type = "twoway", midpoint = 0,
       v <- seq(1, nfeats, row.tick) # take every nth index
       axis(2, at = seq(0,1,length = nfeats)[v], labels = rev(rownames(mat))[v], cex.axis=cex.ylab, las=2, ...)
     } else {  
-      axis(2, at = seq(0,1,length = nfeats), labels = ylab, cex.axis=cex.ylab, las=2, ...)
+      axis(2, at = seq(0,1,length = nfeats), labels = rev(ylab), cex.axis = cex.ylab, las=2, ...)
     }
 
   } else if (plot.axes == "x") {
