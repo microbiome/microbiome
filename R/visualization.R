@@ -38,6 +38,7 @@
 #'
 #' @export
 #' @import ggplot2
+#' @importFrom MASS bandwidth.nrd
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -47,7 +48,7 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
     # mat: samples x features data matrix	     
 
     # Avoid warnings
-    x <- y <- ..density.. <- color <- NULL
+    x <- y <- ..density.. <- color <- size <- NULL
 
     theme_set(theme_bw(20))
     df <- as.data.frame(mat)
@@ -56,12 +57,12 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
     df[["x"]] <- df[, 1]		
     df[["y"]] <- df[, 2]		
     df[["color"]] <- col
+    df[["size"]] <- size
 
     # Remove NAs
     df <- df[!(is.na(df[["x"]]) | is.na(df[["y"]])), ]
 
     # Determine bandwidth for density estimation
-    InstallMarginal("MASS")
     bw <- adjust*c(bandwidth.nrd(df[["x"]]), bandwidth.nrd(df[["y"]]))
 
     # Construct the figure
@@ -69,31 +70,20 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
     p <- p + stat_density2d(aes(x, y, fill=..density..), geom="raster", stat_params = list(h = bw, contour = F), geom_params = list()) 
     p <- p + scale_fill_gradient(low="white", high="black") 
 
-    # MASS::kde2d(x, y)
-    #des <- MASS::kde2d(x, y)
-    #x <- des$x
-    #y <- des$y
-    #z <- des$z
-    #df <- data.frame(cbind(expand.grid(des$x, des$y), as.vector(des$z)))
-    #colnames(df) <- c("x", "y", "z")
-    #p <- ggplot(df) 
-    #p <- p + stat_density2d(aes(x, y, fill = z), geom = "raster", stat_params = list(h = bw, contour = F), geom_params = list()) 
-    #p <- p + scale_fill_gradient(low = "white", high = "black") 
-
     if (add.points) {
-      p <- p + ggplot2::geom_point(aes(x = x, y = y, col = color), size = size) 
+      p <- p + geom_point(aes(x = x, y = y, col = color, size = size)) 
     }
 
-    p <- p + ggplot2::xlab(xvar) + ggplot2::ylab(yvar) 
+    p <- p + xlab(xvar) + ylab(yvar) 
 
     if (!legend) {
-      p <- p + ggplot2::theme(legend.position="none")
+      p <- p + theme(legend.position="none")
     }
 
-    p <- p + ggplot2::scale_x_continuous(breaks = round(seq(floor(min(df[["x"]])), ceiling(max(df[["x"]])), length = x.ticks), rounding))
+    p <- p + scale_x_continuous(breaks = round(seq(floor(min(df[["x"]])), ceiling(max(df[["x"]])), length = x.ticks), rounding))
 
     if (!is.null(main)) {
-      p <- p + ggplot2::ggtitle(main)
+      p <- p + ggtitle(main)
     }
 
     p
