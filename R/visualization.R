@@ -46,6 +46,7 @@
 densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.points = TRUE, col = "red", adjust = 1, size = 1, legend = FALSE) {
 
     # mat: samples x features data matrix	     
+    #main = NULL; x.ticks = 10; rounding = 0; add.points = TRUE; col = "red"; adjust = 1; size = 1; legend = FALSE
 
     # Avoid warnings
     x <- y <- ..density.. <- color <- size <- NULL
@@ -425,6 +426,7 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
 #'
 #' @export
 #' @import MASS
+#' @importFrom mixOmics spca
 #'
 #' @examples data(peerj32); xy <- project.data(peerj32$microbes[,1:3])
 #'
@@ -440,9 +442,7 @@ project.data <- function (amat, type = "PCA") {
       message("More samples than features, using sparse PCA")
 
       ## Spca example: we are selecting 50 variables on each of the PCs
-      InstallMarginal("mixOmics")
-
-      result <- mixOmics::spca(amat, ncomp = 2, center = TRUE, scale = TRUE, keepX = rep(50, 2))
+      result <- spca(amat, ncomp = 2, center = TRUE, scale = TRUE, keepX = rep(50, 2))
       scores <- result$x
     } else {
       message("PCA")
@@ -452,8 +452,6 @@ project.data <- function (amat, type = "PCA") {
     tab <- data.frame(scores[,1:2])
     rownames(tab) <- rownames(amat)
   } else if (type == "Sammon") {
-
-    InstallMarginal("MASS")
 
     d <- as.dist(1-cor(t(amat)))
     # This gave the clearest visualization. 
