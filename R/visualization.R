@@ -714,6 +714,7 @@ phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title =
   }
 
   taxa <- names(x)
+  tax.lev <- names(which.max(apply(phylogeny.info, 2, function (x) {sum(taxa %in% x)})))
 
   for (tax.lev in c("oligoID", "species", "L1", "L2")) {
     if (all(taxa %in% phylogeny.info[[tax.lev]])) {x.level <- tax.lev}
