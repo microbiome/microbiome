@@ -319,7 +319,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #' Arguments:
 #'   @param x matrix (samples x features if annotation matrix)
 #'   @param y matrix (samples x features if cross-correlated with annotations)
-#'   @param method association method (pearson, spearman for continuous; categorical for discrete)
+#'   @param method association method ('pearson', 'spearman', or 'bicor' for continuous; categorical for discrete)
 #'   @param p.adj.threshold q-value threshold to include features 
 #'   @param cth correlation threshold to include features 
 #'   @param order order the results
@@ -339,6 +339,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #'          for nominal (no order for levels) variables ' we using Goodman and
 #'          Kruskal tau based on
 #'          http://www.r-bloggers.com/measuring-associations-between-non-numeric-variables/
+#'  	    The 'bicor' method is from the WGCNA package.
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
