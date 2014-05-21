@@ -64,7 +64,7 @@ core.which <- function(data, intTr, prevalenceTr){
 #'
 #' Arguments:
 #'   @param data data matrix; phylotypes vs. samples
-#'   @param I.thr core threshold
+#'   @param I.thr minimum detection threshold
 #'   @param verbose verbose
 #'   @param prevalence.intervals number of bins on the prevalence grid
 #'   @param intensity.intervals number of bins on the intensity grid
@@ -112,6 +112,7 @@ createCore <- function(data, I.thr = 0, verbose = FALSE, prevalence.intervals = 
 #' Arguments:
 #'  @param coreMat core matrix
 #'  @param title title
+#'  @param xlab X axis label
 #'  @param cex.axis axis text size
 #'
 #' Returns:
@@ -124,7 +125,7 @@ createCore <- function(data, I.thr = 0, verbose = FALSE, prevalence.intervals = 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-Core3D <- function(coreMat, title = "Core microbiota", cex.axis = 0.7){
+Core3D <- function(coreMat, title = "Core microbiota", xlab = "Minimum Intensity", cex.axis = 0.7){
 
   MinimumPrevalence <- as.numeric(colnames(coreMat))
   MinimumLogIntensity <- as.numeric(rownames(coreMat))
@@ -135,7 +136,7 @@ Core3D <- function(coreMat, title = "Core microbiota", cex.axis = 0.7){
 	       axes=T, ticktype="detailed", nticks=9, 
 	       shade = 0.58, 	    
 	       cex.axis = cex.axis, 
-	       ylab = "Minimum Prevalence", xlab = "Minimum Log Intensity", zlab = "Core Size")
+	       ylab = "Minimum Prevalence", xlab = xlab, zlab = "Core Size")
 
   return(NULL)
 
@@ -150,6 +151,7 @@ Core3D <- function(coreMat, title = "Core microbiota", cex.axis = 0.7){
 #'   @param coreMat core matrix
 #'   @param colnum colnum
 #'   @param title title
+#'   @param xlab X axis label
 #'
 #' Returns:
 #'   @return Used for its side effects
@@ -161,7 +163,7 @@ Core3D <- function(coreMat, title = "Core microbiota", cex.axis = 0.7){
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-Core2D <- function(coreMat, colnum = NULL, title = "Common core"){
+Core2D <- function(coreMat, colnum = NULL, title = "Common core", xlab = "signal intensity"){
 
   if (is.null(colnum)) {
     colnum <- ncol(coreMat)
@@ -169,7 +171,7 @@ Core2D <- function(coreMat, colnum = NULL, title = "Common core"){
 
   title <- paste(title, " (with ",colnum," subjects)", sep = "")
 
-  plot(as.numeric(rownames(coreMat)), coreMat[,colnum], main = title,  xlab="log intensity", ylab="number of Species", type="o", pch=16, cex.axis=1.5, cex.main=1.5, cex=1.5)
+  plot(as.numeric(rownames(coreMat)), coreMat[,colnum], main = title,  xlab=xlab, ylab="number of Species", type="o", pch=16, cex.axis=1.5, cex.main=1.5, cex=1.5)
 
   return(NULL)
 

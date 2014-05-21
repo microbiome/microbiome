@@ -3,14 +3,17 @@
 \alias{Core2D}
 \title{Core2D}
 \usage{
-Core2D(coreMat, colnum = NULL, title = "Common core")
+Core2D(coreMat, colnum = NULL, title = "Common core",
+  xlab = "signal intensity")
 }
 \arguments{
 \item{coreMat}{core matrix}
 
 \item{colnum}{colnum}
 
-\item{title}{title
+\item{title}{title}
+
+\item{xlab}{X axis label
 
 Returns:}
 }

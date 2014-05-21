@@ -3,12 +3,15 @@
 \alias{Core3D}
 \title{Core3D}
 \usage{
-Core3D(coreMat, title = "Core microbiota", cex.axis = 0.7)
+Core3D(coreMat, title = "Core microbiota", xlab = "Minimum Intensity",
+  cex.axis = 0.7)
 }
 \arguments{
 \item{coreMat}{core matrix}
 
 \item{title}{title}
+
+\item{xlab}{X axis label}
 
 \item{cex.axis}{axis text size
 

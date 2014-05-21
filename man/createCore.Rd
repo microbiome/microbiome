@@ -9,7 +9,7 @@ createCore(data, I.thr = 0, verbose = FALSE, prevalence.intervals = NULL,
 \arguments{
 \item{data}{data matrix; phylotypes vs. samples}
 
-\item{I.thr}{core threshold}
+\item{I.thr}{minimum detection threshold}
 
 \item{verbose}{verbose}
 

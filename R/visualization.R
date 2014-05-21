@@ -38,7 +38,7 @@
 #'
 #' @export
 #' @import ggplot2
-#' @importFrom MASS bandwidth.nrd
+#' @import MASS
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
