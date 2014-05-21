@@ -257,7 +257,7 @@ legend.text = "", order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.s
 #'
 #' @examples N <- 10; df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N)); p <- vwReg(hitchip~age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
 #'
-#' @import ggplot2 plyr reshape2
+#' @import ggplot2 plyr reshape
 #'
 #' @export
 #' @references See citation("microbiome") 
@@ -304,8 +304,6 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
     }
 
     # compute median and CI limits of bootstrap
-    InstallMarginal("plyr")
-    InstallMarginal("reshape2")
     CI.boot <- adply(l0.boot, 1, function(x) quantile(x, prob=c(.025, .5, .975, pnorm(c(-3, -2, -1, 0, 1, 2, 3))), na.rm=TRUE))[, -1]
     colnames(CI.boot)[1:10] <- c("LL", "M", "UL", paste0("SD", 1:7))
     CI.boot$x <- newx[, 1]

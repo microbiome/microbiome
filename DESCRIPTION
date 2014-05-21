@@ -1,7 +1,7 @@
 Package: microbiome
 Type: Package
 Title: microbiome
-Version: 0.99.24
+Version: 0.99.25
 Date: 2014-05-21
 Author: Leo Lahti and Jarkko Salojarvi
 Maintainer: microbiome developer team <microbiome-admin@googlegroups.com>
@@ -21,7 +21,7 @@ Imports:
     mixOmics,
     plyr,
     qvalue,
-    reshape2,
+    reshape,
     WGCNA
 Suggests:
     multicore

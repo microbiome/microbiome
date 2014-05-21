@@ -3,17 +3,20 @@
 \alias{Core2D}
 \title{Core2D}
 \usage{
-Core2D(coreMat, colnum = NULL, title = "Common core",
-  xlab = "signal intensity")
+Core2D(coreMat, title = "Common core", plot = TRUE, xlabel = "Abundance",
+  ylabel = "Core size (number of taxa)")
 }
 \arguments{
 \item{coreMat}{core matrix}
 
-\item{colnum}{colnum}
-
 \item{title}{title}
 
-\item{xlab}{X axis label
+\item{plot}{plot the figure}
+
+\item{xlabel}{X axis label}
+
+\item{ylabel}{Y axis label
+
 
 Returns:}
 }

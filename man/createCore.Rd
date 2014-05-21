@@ -3,19 +3,17 @@
 \alias{createCore}
 \title{createCore}
 \usage{
-createCore(data, I.thr = 0, verbose = FALSE, prevalence.intervals = NULL,
-  intensity.intervals = 20)
+createCore(data, verbose = FALSE, prevalence.intervals = seq(20, 100, 20),
+  intensity.intervals = NULL)
 }
 \arguments{
 \item{data}{data matrix; phylotypes vs. samples}
 
-\item{I.thr}{minimum detection threshold}
-
 \item{verbose}{verbose}
 
-\item{prevalence.intervals}{number of bins on the prevalence grid}
+\item{prevalence.intervals}{a vector of prevalence percentages in [0,100]}
 
-\item{intensity.intervals}{number of bins on the intensity grid
+\item{intensity.intervals}{a vector of intensities around the data range
 
 Returns:}
 }

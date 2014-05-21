@@ -130,7 +130,7 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
   Taxon1 <- Taxon2 <- crosshyb <- NULL
 
   # Organize into data frame
-  df <- reshape2::melt(confusion.matrix)
+  df <- reshape::melt(confusion.matrix)
   names(df) <- c("Taxon1", "Taxon2", "crosshyb")
 
   # Switch to percentages
@@ -645,7 +645,7 @@ cmat2table <- function (res, verbose = FALSE) {
      ctab <- NULL
 
      if (!is.null(res$cor)) {
-       ctab <- reshape2::melt(res$cor)
+       ctab <- melt(res$cor)
        colnames(ctab) <- c("X1", "X2", "Correlation")
      }
 

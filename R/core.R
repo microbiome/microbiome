@@ -64,10 +64,9 @@ core.which <- function(data, intTr, prevalenceTr){
 #'
 #' Arguments:
 #'   @param data data matrix; phylotypes vs. samples
-#'   @param I.thr minimum detection threshold
 #'   @param verbose verbose
-#'   @param prevalence.intervals number of bins on the prevalence grid
-#'   @param intensity.intervals number of bins on the intensity grid
+#'   @param prevalence.intervals a vector of prevalence percentages in [0,100]
+#'   @param intensity.intervals a vector of intensities around the data range
 #'
 #' Returns:
 #'   @return TBA
@@ -80,14 +79,21 @@ core.which <- function(data, intTr, prevalenceTr){
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-createCore <- function(data, I.thr = 0, verbose = FALSE, prevalence.intervals = NULL, intensity.intervals = 20) {
+createCore <- function(data, verbose = FALSE, prevalence.intervals = seq(20, 100, 20), intensity.intervals = NULL) {
 
    ## Prevalence vector
-   if (is.null(prevalence.intervals)) {prevalence.intervals <- ncol(data)}
-   p.seq <- seq(1, ncol(data), length = prevalence.intervals)
+   if (is.null(prevalence.intervals)) {
+     prevalence.intervals <- seq(0, 100, 10)
+   }
+   # Convert prevalences from percentages to numerics
+   p.seq <- 0.01*prevalence.intervals*ncol(data)
 
-   #intensity vector
-   i.seq <- seq(I.thr, max(data), length = intensity.intervals) 
+   ## Intensity vector
+   if (is.null(intensity.intervals)) {
+     i.seq <- seq(min(data), max(data), length = 10) 
+   } else {
+     i.seq <- intensity.intervals
+   }
 
    coreMat <- matrix(NA, nrow = length(i.seq), ncol = length(p.seq), dimnames = list(i.seq, p.seq))
 
@@ -99,6 +105,9 @@ createCore <- function(data, I.thr = 0, verbose = FALSE, prevalence.intervals = 
        coreMat[as.character(i),as.character(p)] <- core.sum(data, i, p)
      }
    }
+
+   # Convert Prevalences to percentages
+   colnames(coreMat) <- 100*as.numeric(colnames(coreMat))/ncol(data)
 
    return(coreMat)
 }
@@ -149,9 +158,11 @@ Core3D <- function(coreMat, title = "Core microbiota", xlab = "Minimum Intensity
 #'
 #' Arguments:
 #'   @param coreMat core matrix
-#'   @param colnum colnum
 #'   @param title title
-#'   @param xlab X axis label
+#'   @param plot plot the figure 
+#'   @param xlabel X axis label
+#'   @param ylabel Y axis label
+#'  
 #'
 #' Returns:
 #'   @return Used for its side effects
@@ -163,17 +174,22 @@ Core3D <- function(coreMat, title = "Core microbiota", xlab = "Minimum Intensity
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-Core2D <- function(coreMat, colnum = NULL, title = "Common core", xlab = "signal intensity"){
+Core2D <- function(coreMat, title = "Common core", plot = TRUE, xlabel = "Abundance", ylabel = "Core size (number of taxa)"){
 
-  if (is.null(colnum)) {
-    colnum <- ncol(coreMat)
-  }
+  Abundance <- Prevalence <- Count <- NULL       
 
-  title <- paste(title, " (with ",colnum," subjects)", sep = "")
+  df <- melt(coreMat)
+  names(df) <- c("Abundance", "Prevalence", "Count")
+  p <- ggplot(df, aes(x = Abundance, y = Count, color = Prevalence, group = Prevalence))
+  p <- p + geom_line()
+  p <- p + geom_point()
+  p <- p + xlab(xlabel)
+  p <- p + ylab(ylabel)
+  p <- p + ggtitle("Core microbiota")
 
-  plot(as.numeric(rownames(coreMat)), coreMat[,colnum], main = title,  xlab=xlab, ylab="number of Species", type="o", pch=16, cex.axis=1.5, cex.main=1.5, cex=1.5)
+  if (plot) { print(p) }
 
-  return(NULL)
+  return(p)
 
 }
 
@@ -386,3 +402,63 @@ plot_cumulative <- function(d.sub, writedir, fname, i.set = NULL, type = "cumula
 
 
 
+#' core_heatmap
+#'
+#' Description: Heatmap of core microbiota
+#'
+#' Arguments:
+#'   @param data data matrix: phylotypes vs. samples
+#'   @param detection.thresholds Vector of detection thresholds
+#'   @param plot plot the figure
+#'
+#' Returns:
+#'   @return TBA
+#'
+#' @examples data(peerj32); core <- core_heatmap(t(peerj32$microbes))
+#'
+#' @export 
+#' @import reshape
+#' @import ggplot2
+#' 
+#' @references See citation("microbiome") 
+#' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+core_heatmap <- function (data, detection.thresholds = NULL, plot = TRUE) {
+
+  DetectionThreshold <- Taxa <- Prevalence <- NULL
+
+  if (is.null(detection.thresholds)) {
+    detection.thresholds <- seq(min(data), max(data), length = 10)
+  }
+
+  # Prevalences with varying detection thresholds
+  taxa <- rownames(data)
+  prevalences <- matrix(NA, nrow = length(taxa), ncol = length(detection.thresholds))
+  rownames(prevalences) <- taxa
+  colnames(prevalences) <- as.character(detection.thresholds)
+  for (det.th in detection.thresholds) {
+    prevalence <- 100*sort(rowMeans(data > det.th))
+    prevalences[taxa, as.character(det.th)] <- prevalence[taxa]
+  }
+
+  df <- melt(prevalences)
+  names(df) <- c("Taxa", "DetectionThreshold", "Prevalence")
+  o <- names(sort(rowSums(prevalences)))
+  df$Taxa <- factor(df$Taxa, levels = o)
+  theme_set(theme_bw(10))
+  p <- ggplot(df, aes(x = DetectionThreshold, y = Taxa, fill = Prevalence))
+  p <- p + geom_tile()
+  p <- p + scale_fill_gradientn("Prevalence", 
+       	 		breaks = seq(from = 0, to = 100, by = 10), 
+			colours = c("black", "darkgray", "gray", "lightgray", "white"), 
+			limits = c(0, 100))
+  p <- p + ggtitle("Core microbiota") 
+
+  if (plot) {
+    print(p)
+  }
+
+  return(p)
+
+}
