@@ -12,7 +12,7 @@ cross.correlate(x, y = NULL, method = "pearson", p.adj.threshold = Inf,
 
 \item{y}{matrix (samples x features if cross-correlated with annotations)}
 
-\item{method}{association method (pearson, spearman for continuous; categorical for discrete)}
+\item{method}{association method ('pearson', 'spearman', or 'bicor' for continuous; categorical for discrete)}
 
 \item{p.adj.threshold}{q-value threshold to include features}
 
@@ -43,6 +43,7 @@ As the method=categorical (discrete) association measure
          for nominal (no order for levels) variables ' we using Goodman and
          Kruskal tau based on
          http://www.r-bloggers.com/measuring-associations-between-non-numeric-variables/
+ 	    The 'bicor' method is from the WGCNA package.
 }
 \examples{
 data(peerj32); cc <- cross.correlate(peerj32$microbes[1:20, 1:10], peerj32$lipids[1:20,1:10])
