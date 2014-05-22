@@ -318,9 +318,6 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
     b2$x <- newx[,1]
     colnames(b2) <- c("index", "B", "value", "x")
 
-    InstallMarginal("ggplot2")
-    InstallMarginal("RColorBrewer")
-
     p1 <- ggplot(data, aes_string(x=IV, y=DV)) + theme_bw()
 
     if (shade) {

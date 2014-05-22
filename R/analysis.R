@@ -130,7 +130,7 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
   Taxon1 <- Taxon2 <- crosshyb <- NULL
 
   # Organize into data frame
-  df <- reshape::melt(confusion.matrix)
+  df <- melt(confusion.matrix)
   names(df) <- c("Taxon1", "Taxon2", "crosshyb")
 
   # Switch to percentages

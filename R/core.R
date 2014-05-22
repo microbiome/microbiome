@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Jarkko Salojarvi and Leo Lahti 
+# Copyright (C) 2011-2014 Jarkko Salojarvi and Leo Lahti 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -180,6 +180,7 @@ Core2D <- function(coreMat, title = "Common core", plot = TRUE, xlabel = "Abunda
 
   df <- melt(coreMat)
   names(df) <- c("Abundance", "Prevalence", "Count")
+  theme_set(theme_bw(20))
   p <- ggplot(df, aes(x = Abundance, y = Count, color = Prevalence, group = Prevalence))
   p <- p + geom_line()
   p <- p + geom_point()
@@ -221,7 +222,6 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 100, I.th
 
    if (is.null(Nsample)) {Nsample <- ncol(D)}
 
-   #InstallMarginal("multicore")
    # multicore is not available for windows
    multicore.available <- try(require(multicore))
 
@@ -283,7 +283,6 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1, Nboot = 100, 
 
   if (is.null(Nsample)) {Nsample <- ncol(D)}
 
-   #InstallMarginal("multicore")
    multicore.available <- try(require("multicore"))
 
    boot <- replicate(Nboot,sample(ncol(D),Nsample,replace=T),simplify=F)
@@ -410,22 +409,27 @@ plot_cumulative <- function(d.sub, writedir, fname, i.set = NULL, type = "cumula
 #'   @param data data matrix: phylotypes vs. samples
 #'   @param detection.thresholds Vector of detection thresholds
 #'   @param plot plot the figure
+#'   @param palette "bw" (grayscale) or "spectral" (colourscale)
 #'
 #' Returns:
-#'   @return TBA
+#'   @return List with the following elements: 
+#'   	     plot: ggplot figure
+#'	     data: prevalence data with the varying thresholds
 #'
 #' @examples data(peerj32); core <- core_heatmap(t(peerj32$microbes))
 #'
 #' @export 
 #' @import reshape
 #' @import ggplot2
+#' @import RColorBrewer
 #' 
 #' @references See citation("microbiome") 
-#' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-core_heatmap <- function (data, detection.thresholds = NULL, plot = TRUE) {
+core_heatmap <- function (data, detection.thresholds = NULL, plot = TRUE, palette = "bw") {
 
+	     
   DetectionThreshold <- Taxa <- Prevalence <- NULL
 
   if (is.null(detection.thresholds)) {
@@ -449,16 +453,25 @@ core_heatmap <- function (data, detection.thresholds = NULL, plot = TRUE) {
   theme_set(theme_bw(10))
   p <- ggplot(df, aes(x = DetectionThreshold, y = Taxa, fill = Prevalence))
   p <- p + geom_tile()
+
+  if (palette == "bw") {
+    colours <- c("black", "darkgray", "gray", "lightgray", "white")
+  } else if (palette == "spectral") {
+    myPalette <- colorRampPalette(rev(brewer.pal(11, "Spectral")))
+    colours <- myPalette(5)
+  }
+
   p <- p + scale_fill_gradientn("Prevalence", 
        	 		breaks = seq(from = 0, to = 100, by = 10), 
-			colours = c("black", "darkgray", "gray", "lightgray", "white"), 
+			colours = colours,
 			limits = c(0, 100))
+
   p <- p + ggtitle("Core microbiota") 
 
   if (plot) {
     print(p)
   }
 
-  return(p)
+  return(list(plot = p, data = prevalences))
 
 }
