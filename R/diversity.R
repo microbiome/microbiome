@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -37,6 +37,8 @@
 
 diversity.table <- function (dat, level.from, level.to, phylogeny.info = NULL, diversity.index = "shannon", det.th = 0, min.probes = 0) {
 
+  #phylogeny.info = phylogeny.info; level.from = "L1"; level.to = "oligo"; diversity.index = "shannon"; det.th = 0; min.probes = 0
+
   if (is.null(phylogeny.info)) {
     phylogeny.info <- GetPhylogeny("HITChip", "filtered")
   }
@@ -56,12 +58,12 @@ diversity.table <- function (dat, level.from, level.to, phylogeny.info = NULL, d
   if (level.from == "level 1") {level.from <- "L1"}		
   if (level.from == "level 2") {level.from <- "L2"}		
 
-  if (!any(rownames(dat) %in% phylogeny.info[[level.from]])) {
+  if (!any(rownames(dat) %in% phylogeny.info[[level.to]])) {
     stop("Provide input data matrix that corresponds to the target level ie. level.to argument!")
   }
 
   level.data <- levelmap(level.from = level.from, level.to = level.to, phylogeny.info = phylogeny.info)
-  
+
   # Include only phylotypes with at leas min.probes
   pts <- names(which(sapply(level.data, length) >= min.probes))
   level.data <- level.data[pts]
@@ -71,7 +73,9 @@ diversity.table <- function (dat, level.from, level.to, phylogeny.info = NULL, d
   colnames(tab) <- colnames(dat)
 
   for (nam in names(level.data)) {
+
     o <- level.data[[nam]]
+
     if (length(o) > 1) {
       divs <- estimate.diversity(dat[o, ], diversity.index = diversity.index, det.th = det.th)
     } else {

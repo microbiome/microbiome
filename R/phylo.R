@@ -148,6 +148,7 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, phylogeny.info) {
     }
   } 	
 
+
   if (level.from %in% c("L0", "L1", "L2", "species") && level.to == "oligoID") {
     sl <- list()
     for (pt in phylotypes) {

@@ -7,7 +7,7 @@ correlation.heatmap(df, Xvar, Yvar, fill, star = "p.adj",
   p.adj.threshold = 1, correlation.threshold = 0, step = 0.2,
   colours = c("darkblue", "blue", "white", "red", "darkred"), limits = NULL,
   legend.text = "", order.rows = TRUE, order.cols = TRUE,
-  text.size = 10, filter.significant = TRUE)
+  text.size = 10, filter.significant = TRUE, star.size = NULL)
 }
 \arguments{
 \item{df}{Data frame. Each row corresponds to a pair of correlated variables. The columns give variable names, correlations and significance estimates.}
@@ -38,7 +38,9 @@ correlation.heatmap(df, Xvar, Yvar, fill, star = "p.adj",
 
 \item{text.size}{Adjust text size}
 
-\item{filter.significant}{Keep only the elements with at least one significant entry
+\item{filter.significant}{Keep only the elements with at least one significant entry}
+
+\item{star.size}{NULL Determine size of the highlight symbols
 
 Returns:}
 }
@@ -52,7 +54,10 @@ Description: Visualizes n x m correlation table as heatmap. See examples for det
 Arguments:
 }
 \examples{
-data(peerj32); cc <- cross.correlate(peerj32$lipids[, 1:10], peerj32$microbes[, 1:10]); p <- correlation.heatmap(cc, "X1", "X2", "Correlation")
+data(peerj32);
+          cc <- cross.correlate(peerj32$lipids[, 1:10],
+	     	   		   peerj32$microbes[, 1:10]);
+          p <- correlation.heatmap(cc, "X1", "X2", "Correlation")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

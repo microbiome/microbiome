@@ -113,22 +113,24 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
 #'   @param order.cols Order columns to enhance visualization interpretability
 #'   @param text.size Adjust text size
 #'   @param filter.significant Keep only the elements with at least one significant entry
+#'   @param star.size NULL Determine size of the highlight symbols
 #'
 #' Returns:
 #'   @return ggplot2 object
 #'
 #' @import ggplot2 
 #'
-#' @examples data(peerj32); cc <- cross.correlate(peerj32$lipids[, 1:10], peerj32$microbes[, 1:10]); p <- correlation.heatmap(cc, "X1", "X2", "Correlation")
+#' @examples data(peerj32); 
+#'           cc <- cross.correlate(peerj32$lipids[, 1:10], 
+#'	     	   		   peerj32$microbes[, 1:10]); 
+#'           p <- correlation.heatmap(cc, "X1", "X2", "Correlation")
 #'
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj",
-p.adj.threshold = 1, correlation.threshold = 0, step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"), limits = NULL,
-legend.text = "", order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.significant = TRUE) {
+correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.threshold = 1, correlation.threshold = 0, step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"), limits = NULL, legend.text = "", order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.significant = TRUE, star.size = NULL) {
 
   # df <- cc; Xvar <- "X1"; Yvar <- "X2"; fill = "Correlation"; star = "p.adj"; p.adj.threshold = 1; correlation.threshold = 0; order.rows = TRUE; order.cols = TRUE; text.size = 12; filter.significant = TRUE; step = 0.2; colours = c("darkblue", "blue", "white", "red", "darkred"); limits = c(-1, 1); legend.text = fill
 
@@ -213,7 +215,10 @@ legend.text = "", order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.s
   inds <- which((df[[star]] < p.adj.threshold) & (abs(df[[fill]]) > correlation.threshold))
   if (!is.null(star) & length(inds) > 0) {
     df.sub <- df[inds,] 
-    p <- p + geom_text(data = df.sub, aes(x = XXXX, y = YYYY, label = "+"), col = "white", size = max(1, floor(text.size/2)))
+
+    if (is.null(star.size)) {star.size <- max(1, floor(text.size/2))}
+
+    p <- p + geom_text(data = df.sub, aes(x = XXXX, y = YYYY, label = "+"), col = "white", size = star.size)
   }
 
   p
@@ -257,7 +262,8 @@ legend.text = "", order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.s
 #'
 #' @examples N <- 10; df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N)); p <- vwReg(hitchip~age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
 #'
-#' @import ggplot2 plyr reshape
+#' @importFrom reshape melt
+#' @import ggplot2 plyr 
 #'
 #' @export
 #' @references See citation("microbiome") 
