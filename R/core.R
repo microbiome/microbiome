@@ -419,7 +419,7 @@ plot_cumulative <- function(d.sub, writedir, fname, i.set = NULL, type = "cumula
 #' @examples data(peerj32); core <- core_heatmap(t(peerj32$microbes))
 #'
 #' @export 
-#' @import reshape
+#' @importFrom reshape melt
 #' @import ggplot2
 #' @import RColorBrewer
 #' 
@@ -429,7 +429,6 @@ plot_cumulative <- function(d.sub, writedir, fname, i.set = NULL, type = "cumula
 
 core_heatmap <- function (data, detection.thresholds = NULL, plot = TRUE, palette = "bw") {
 
-	     
   DetectionThreshold <- Taxa <- Prevalence <- NULL
 
   if (is.null(detection.thresholds)) {

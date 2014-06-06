@@ -262,7 +262,8 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.thr
 #'
 #' @examples N <- 10; df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N)); p <- vwReg(hitchip~age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
 #'
-#' @import ggplot2 plyr reshape
+#' @importFrom reshape melt
+#' @import ggplot2 plyr 
 #'
 #' @export
 #' @references See citation("microbiome") 
