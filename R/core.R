@@ -427,7 +427,9 @@ plot_cumulative <- function(d.sub, writedir, fname, i.set = NULL, type = "cumula
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-core_heatmap <- function (data, detection.thresholds = NULL, plot = TRUE, palette = "bw") {
+core_heatmap <- function (data, detection.thresholds = NULL, 
+                              plot = TRUE, 
+			      palette = "bw") {
 
 	     
   DetectionThreshold <- Taxa <- Prevalence <- NULL
