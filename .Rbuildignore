@@ -1,0 +1,24 @@
+# Extra material related but not to be included in the package
+inst/extras/..Rcheck
+inst/extras/*
+inst/extras/.*
+inst/extras/.RData
+inst/extras/legacy
+inst/extras/travis-tool.sh
+inst/extras
+inst/extras/*.tar.gz
+inst/win-install*
+
+# Vignette sources
+# vignettes/sorvi_tutorial.Rmd
+
+# Git related
+.git*
+
+# Travis scripts
+.travis.yml
+
+# Misc
+.*~
+
+

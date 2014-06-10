@@ -96,7 +96,7 @@ CrosshybTable <- function (tax.level = "L1", chip = "HITChip", selected.taxa = N
 #' Returns:
 #'   @return A list containing cross-hybridization table and plot
 #'
-#' @examples res <- PlotCrosshyb(tax.level = "L1", rounding = 1, show.plot = FALSE)
+#' @examples res <- PlotCrosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE)
 #' @export
 #' @import ggplot2
 #'
@@ -106,7 +106,7 @@ CrosshybTable <- function (tax.level = "L1", chip = "HITChip", selected.taxa = N
 
 PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NULL, show.plot = TRUE, order.rows = TRUE, order.cols = TRUE, keep.empty = FALSE, rounding = 1, phylogeny.info = NULL, self.correlations = FALSE) {
 
-  # tax.level = "L1"; chip = "HITChip"; selected.taxa = NULL; show.plot = TRUE; order.rows = TRUE; order.cols = TRUE; keep.empty = FALSE; rounding = 1
+  # tax.level = "L1"; chip = "HITChip"; selected.taxa = NULL; show.plot = TRUE; order.rows = TRUE; order.cols = TRUE; keep.empty = FALSE; rounding = 1; phylogeny.info = NULL; self.correlations = FALSE
 
   # Get crosshyb matrix
   confusion.matrix <- CrosshybTable(tax.level = tax.level, chip = "HITChip", selected.taxa = NULL, phylogeny.info = NULL)
@@ -128,6 +128,11 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
 
   # Avoid warnings
   Taxon1 <- Taxon2 <- crosshyb <- NULL
+
+  if (length(confusion.matrix) == 0) {
+    message(paste("No cross-hybriziation at", tax.level, "level"))
+    return(NULL)
+  }
 
   # Organize into data frame
   df <- melt(confusion.matrix)
