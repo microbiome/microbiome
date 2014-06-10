@@ -186,8 +186,6 @@ estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL)
 
 diversity <- function (dat, diversity.index = "shannon", det.th = 0) {
 
-  InstallMarginal("vegan")
-
   # Impute missing values
   dat <- 10^t(impute(t(log10(dat))))
   

@@ -339,6 +339,8 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #'
 #' @examples data(peerj32); cc <- cross.correlate(peerj32$microbes[1:20, 1:10], peerj32$lipids[1:20,1:10])
 #' @export
+#' @import minet
+#' @import WGCNA
 #'
 #' @details As the method=categorical (discrete) association measure
 #'          for nominal (no order for levels) variables ' we using Goodman and
@@ -431,9 +433,7 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = I
 
     if (verbose) {message(method)}
 
-    InstallMarginal("WGCNA")
-
-    t1 <- WGCNA::bicorAndPvalue(x, y, use = "pairwise.complete.obs")
+    t1 <- bicorAndPvalue(x, y, use = "pairwise.complete.obs")
     Pc <- t1$p
     Cc <- t1$bicor
 
@@ -466,8 +466,6 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = I
 
       if (verbose) {message(method)}
     
-      InstallMarginal("minet")
-
       Cc <- matrix(NA, nrow = ncol(x), ncol = ncol(y))
       rownames(Cc) <- colnames(x)
       colnames(Cc) <- colnames(y)
@@ -475,7 +473,7 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = I
       for (i in 1:ncol(x)) {
         for (j in 1:ncol(y)) {
 
-          Cc[i,j] <- minet::build.mim(cbind(x[,i], y[,j]), estimator = "spearman")[1, 2]
+          Cc[i,j] <- build.mim(cbind(x[,i], y[,j]), estimator = "spearman")[1, 2]
 
         }
       }
