@@ -5,7 +5,7 @@
 Either provide the input data as matrix, file path, or select the file through GUI.}
 \usage{
 check.wilcoxon(dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "BH",
-  sort = FALSE)
+  sort = FALSE, paired = FALSE)
 }
 \arguments{
 \item{dat}{data matrix (features x samples)}
@@ -18,7 +18,9 @@ check.wilcoxon(dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "BH",
 
 \item{p.adjust.method}{p-value correction method for p.adjust function (default "BH"). If NULL, no correction will be performed.}
 
-\item{sort}{sort the results
+\item{sort}{sort the results}
+
+\item{paired}{paired Wilcoxon test
 
 Returns:}
 }

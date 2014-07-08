@@ -256,6 +256,7 @@ check.anova <- function (dat, group, p.adjust.method = "BH", sort = FALSE) {
 #'   @param G2 Sample group 2 (for comparison)
 #'   @param p.adjust.method p-value correction method for p.adjust function (default "BH"). If NULL, no correction will be performed.
 #'   @param sort sort the results
+#'   @param paired paired Wilcoxon test
 #'
 #' Returns:
 #'   @return (Corrected) p-values for two-group comparison.
@@ -267,7 +268,7 @@ check.anova <- function (dat, group, p.adjust.method = "BH", sort = FALSE) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "BH", sort = FALSE) {
+check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "BH", sort = FALSE, paired = FALSE) {
 
   ## Open your tab fnam, Level 1 & 2 Sum_BGsub_Rel.contribution
 
@@ -288,7 +289,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
     l.g1 <- dat[lvl,G1]
     l.g2 <- dat[lvl,G2]
 	
-    p <- wilcox.test(as.numeric(l.g1), as.numeric(l.g2))$p.value
+    p <- wilcox.test(as.numeric(l.g1), as.numeric(l.g2), paired = paired)$p.value
 
     # message(lvl, " p-value: ", p, "\n")
 
