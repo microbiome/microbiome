@@ -49,7 +49,7 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
     #main = NULL; x.ticks = 10; rounding = 0; add.points = TRUE; col = "red"; adjust = 1; size = 1; legend = FALSE
 
     # Avoid warnings
-    x <- y <- ..density.. <- color <- size <- NULL
+    x <- y <- ..density.. <- color <- NULL
 
     theme_set(theme_bw(20))
     df <- as.data.frame(mat)
