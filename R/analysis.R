@@ -320,6 +320,10 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 }
 
 
+
+
+
+
 #' Description: Cross-correlate columns of the input matrices
 #'              
 #' Arguments:

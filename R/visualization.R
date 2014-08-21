@@ -173,10 +173,16 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.thr
       mat[as.character(df[i, Xvar]), as.character(df[i, Yvar])] <- df[i, fill]
     }
 
-    hm <- heatmap(mat)
-    dev.off()
-    rind <- hm$rowInd
-    cind <- hm$colInd
+    
+    if (nrow(mat) > 1 && ncol(mat) > 1) {
+      hm <- heatmap(mat)
+      dev.off()
+      rind <- hm$rowInd
+      cind <- hm$colInd
+    } else {
+      rind <- 1:nrow(mat)
+      cind <- 1:ncol(mat)
+    }    
 
     if (order.cols) {
       message("Ordering columns")
