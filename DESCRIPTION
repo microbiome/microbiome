@@ -1,7 +1,7 @@
 Package: microbiome
 Type: Package
 Title: microbiome
-Version: 0.99.33
+Version: 0.99.34
 Date: 2014-08-21
 Author: Leo Lahti and Jarkko Salojarvi
 Maintainer: microbiome developer team <microbiome-admin@googlegroups.com>
