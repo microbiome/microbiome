@@ -28,7 +28,9 @@
 #' Returns:
 #'   @return Table with various richness, evenness, and diversity indicators
 #'
-#' @examples # NOT RUN divtab <- diversity.table(dat, level.from = "L2", level.to = "oligo") 
+#' @examples \dontrun{divtab <- diversity.table(dat, 
+#'   	     	       		level.from = "L2", 
+#'				level.to = "oligo")}
 #'
 #' @export
 #' @references See citation("microbiome") 
@@ -119,7 +121,9 @@ diversity.table <- function (dat, level.from, level.to, phylogeny.info = NULL, d
 #'
 #' @export
 #'
-#' @examples data(peerj32); div <- estimate.diversity(10^t(peerj32$microbes), det.th = 0)
+#' @examples data(peerj32); 
+#' 	     div <- estimate.diversity(10^t(peerj32$microbes), 
+#'	     	    			det.th = 0)
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -176,7 +180,9 @@ estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL)
 #' Returns:
 #'   @return Vector containing diversity estimate for each sample 
 #'
-#' @examples data(peerj32); div <- diversity(10^t(peerj32$microbes), det.th = 0)
+#' @examples data(peerj32); 
+#' 	     div <- diversity(10^t(peerj32$microbes), 
+#'	     	              det.th = 0)
 #'
 #' @export
 #' @import vegan
@@ -225,7 +231,9 @@ diversity <- function (dat, diversity.index = "shannon", det.th = 0) {
 #'   @return Vector containing richness estimate for each sample 
 #'
 #'
-#' @examples data(peerj32); rich <- richness(10^t(peerj32$microbes), det.th = 100)
+#' @examples data(peerj32); 
+#' 	     rich <- richness(10^t(peerj32$microbes), 
+#'	     det.th = 100)
 #'
 #' @export
 #' @references See citation("microbiome") 
@@ -267,7 +275,9 @@ richness <- function (dat, det.th = NULL) {
 #' Returns:
 #'   @return Vector containing evenness estimate for each sample 
 #'
-#' @examples data(peerj32); eve <- evenness(10^t(peerj32$microbes), det.th = 100)
+#' @examples data(peerj32); 
+#' 	     eve <- evenness(10^t(peerj32$microbes), 
+#' 	     	    	     det.th = 100)
 #'
 #' @export
 #' @references See citation("microbiome") 
@@ -314,7 +324,9 @@ evenness <- function (dat, det.th = NULL) {
 #' Returns:
 #'   @return Vector containing relative proportions for each phylotype in each sample 
 #'
-#' @examples data(peerj32); relab <- relative.abundance(10^t(peerj32$microbes), det.th = 0)
+#' @examples data(peerj32); 
+#' 	     relab <- relative.abundance(10^t(peerj32$microbes), 
+#'	     	      		det.th = 0)
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -357,7 +369,9 @@ relative.abundance <- function (dat, det.th = 0) {
 #' Returns:
 #'   @return abundancy table
 #'
-#' @examples data(peerj32); abtab <- make.abundancy.table(10^t(peerj32$microbes), det.th = 0)
+#' @examples data(peerj32); 
+#' 	     abtab <- make.abundancy.table(10^t(peerj32$microbes), 
+#'	     	      			det.th = 0)
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -393,7 +407,10 @@ make.abundancy.table <- function (dat, det.th, discretization.resolution = 1) {
 #'
 #' Returns:
 #'   @return Sample group list corresponding to the boxplot groups.
-#' @examples data(peerj32); div <- diversity.boxplot(peerj32$microbes, sample.groups = list(1:22, 23:44), det.th = 0)
+#' @examples data(peerj32); 
+#'           div <- diversity.boxplot(peerj32$microbes, 
+#'	     	                      sample.groups = list(1:22, 23:44), 
+#'				      det.th = 0)
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -418,10 +435,6 @@ diversity.boxplot <- function (dat, sample.groups, diversity.index = "shannon", 
     ylab <- "Evenness"
   }
   names(div) <- sample.names
-
-  #if (is.vector(sample.groups)) {
-  #  boxplot(div[sample.groups], las = 1)
-  #}
 
   if (is.null(col.list)) {
     # Define colors for each sample group

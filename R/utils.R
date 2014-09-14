@@ -26,7 +26,9 @@
 #'   @return hclust object for log10 and for absolute scale data
 #'
 #' @export
-#' @examples # hc <- calculate.hclust(dat, "complete", "pearson") 
+#' @examples data(peerj32); 
+#'   	     dat <- peerj32$microbes;
+#'           hc <- calculate.hclust(dat, "complete", "pearson") 
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -53,12 +55,13 @@ calculate.hclust <- function (dat, method = "complete", metric = "pearson") {
 #'   @param level taxonomic level
 #'   @param phylogeny.info phylogeny.info
 #'   @param oligo.matrix oligos vs. samples preprocessed data matrix; absolute scale
-#'   @param log10 Logical. Log or no log?
+#'   @param log10 Logical. Logarithmize the data TRUE/FALSE
 #'
 #' Returns:
 #'   @return probeset data matrix
 #'
 #' @export
+#' @example \dontrun{get.probeset("Vibrio", "L2", phylogeny.info, oligo.matrix)}
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -107,7 +110,7 @@ get.probeset <- function (name, level, phylogeny.info, oligo.matrix, log10 = TRU
 #' @references
 #' See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples #
+#' @examples dir.exists(".")
 #' @keywords utilities
 dir.exists <- function(d) {
   de <- file.info(d)$isdir
@@ -126,10 +129,12 @@ dir.exists <- function(d) {
 #'
 #' @return phylotype pairs x samples matrix indicating the ratio (in log10 domain) between each unique pair
 #' @export 
+#' @examples data(peerj32); 
+#' 	     dat <- peerj32$microbes; 
+#'	     ratios <- PhylotypeRatios(dat)
 #' @references
 #' See citation("microbiome")
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples #
 #' @keywords utilities
 
 PhylotypeRatios <- function (dat) {
@@ -151,55 +156,6 @@ PhylotypeRatios <- function (dat) {
 }
 
 
-#' Center data matrix.
-#' 
-#' Center data matrix to 0 for each variable by removing the means.
-#' 
-#' 
-#' @usage centerData(X, rm.na = TRUE, meanvalue = NULL)
-#' @param X The data set: samples x features. Each feature will be centered.
-#' @param rm.na Ignore NAs.
-#' @param meanvalue Can be used to set a desired center value. The default is
-#' 0.
-#' @return Centered data matrix.
-#' @note Note that the model assumes samples x features matrix, and centers
-#' each feature.
-#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @references See citation("microbiome").
-#' @keywords utilities maths
-#' @export
-#' @examples
-#' 
-#' #centerData(X)
-#' 
-centerData <- function (X, rm.na = TRUE, meanvalue = NULL) {
-
-  # Shift data matrix (columns) to zero, or given 'meanvalue'
-  
-  if (!rm.na) {
-    xcenter <- colMeans(X)
-    X2 <- X - rep(xcenter, rep.int(nrow(X), ncol(X)))
-  } else {	
-    X2 <- array(NA, dim = c(nrow(X), ncol(X)), dimnames = dimnames(X))
-    for (i in 1:ncol(X)) {
-      x <- X[,i]
-      nainds <- is.na(x)
-      xmean <- mean(x[!nainds])
-      X2[!nainds,i] <- x[!nainds] - xmean 	
-    }
-    dimnames(X2) <- dimnames(X)
-  }
-
-  if (!is.null(meanvalue)) {
-    # Shift the data so that mean gets a specified value
-    X2 <- X2 + meanvalue
-  }
-
-
-  
-  X2
-}
-
 
 #' matrix.qvalue
 #'
@@ -213,7 +169,7 @@ centerData <- function (X, rm.na = TRUE, meanvalue = NULL) {
 #' @references
 #' See citation("microbiome")
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples #qvals <- matrix.qvalue(pvals)
+#' @examples qvals <- matrix.qvalue(matrix(runif(1000), nrow = 100))
 #' @keywords utilities
 
 matrix.qvalue <- function (pvals) {
@@ -239,7 +195,7 @@ matrix.qvalue <- function (pvals) {
 #' @references
 #' See citation("microbiome")
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples #polished.phylogeny.info <- impute(phylogeny.info) 
+#' @examples \dontrun{polished.phylogeny.info <- impute(phylogeny.info)}
 #' @keywords utilities
 
 polish.phylogeny.info <- function (phylogeny.info) {

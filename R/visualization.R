@@ -266,14 +266,21 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.thr
 #' Returns:
 #' @return ggplot2 object
 #'
-#' @examples N <- 10; df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N)); p <- vwReg(hitchip~age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
+#' @examples N <- 10; 
+#' 	     df <- data.frame(age = sort(runif(N, 0, 100)), 
+#' 	     	   	      hitchip = rnorm(N)); 
+#'	     p <- vwReg(hitchip ~ age, df, 
+#'	                shade = TRUE, 
+#'			mweight = TRUE, 
+#'			verbose = FALSE)
 #'
 #' @importFrom reshape melt
 #' @import ggplot2 plyr 
 #'
 #' @export
 #' @references See citation("microbiome") 
-#' @author Based on the original version from Felix Schonbrodt. Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @author Based on the original version from Felix Schonbrodt. 
+#'         Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous",  verbose = FALSE, show.points = TRUE, ...) {
@@ -435,7 +442,8 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
 #' @import MASS
 #' @importFrom mixOmics spca
 #'
-#' @examples data(peerj32); xy <- project.data(peerj32$microbes[,1:3])
+#' @examples data(peerj32); 
+#'           xy <- project.data(peerj32$microbes[,1:3])
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -527,7 +535,8 @@ project.data <- function (amat, type = "PCA") {
 #' 
 #' @references See citation("microbiome") 
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2)); PlotMatrix(mat, "twoway", midpoint = 3) 
+#' @examples mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2)); 
+#'           PlotMatrix(mat, "twoway", midpoint = 3) 
 #' @keywords utilities
 
 PlotMatrix <- function (mat, type = "twoway", midpoint = 0, 
@@ -645,7 +654,8 @@ PlotMatrix <- function (mat, type = "twoway", midpoint = 0,
 #'   @return NULL
 #'
 #' @export
-#' @examples data(peerj32); tmp <- htree.plot(peerj32$microbes[,1:5])
+#' @examples data(peerj32); 
+#'           tmp <- htree.plot(peerj32$microbes[,1:5])
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -671,14 +681,6 @@ htree.plot <- function (dat, method = "complete", metric = "pearson") {
       #hc.log10.cor <- hclust(as.dist(1 - cor(log10(dat + 1), use = "complete.obs")), method = method)
     }
 
-
-    # Plot all hclust trees in a single figure
-    #x11() 
-    #par(mfrow=c(2,2))
-    #plot(hc.log10.eu, hang = -1, main = "hclust/euclid/oligo/log10", xlab = "Samples")
-    #plot(hc.raw.eu, hang = -1, main = "hclust/euclid/oligo/raw", xlab = "Samples")
-    #plot(hc.log10.cor, hang = -1, main = "hclust/pearson/oligo/log10", xlab = "Samples")
-    #plot(hc.raw.cor, hang = -1, main = "hclust/pearson/oligo/raw", xlab = "Samples")
     plot(hc, hang = -1, main = paste("hclust/", metric, sep = ""), xlab = "Samples")
 
   } else {
@@ -708,7 +710,13 @@ htree.plot <- function (dat, method = "complete", metric = "pearson") {
 #'   @return ggplot2 object
 #'
 #' @export
-#' @examples # NOT RUN: phylogeny.info <- GetPhylogeny("HITChip", "filtered"); signal <-  unlist(peerj32$microbes[1, 1:10]); p <- phylo.barplot(signal, color.level = "L1", phylogeny.info = phylogeny.info)
+#' @examples \dontrun{
+#'      phylogeny.info <- GetPhylogeny("HITChip", "filtered"); 
+#'      signal <- unlist(peerj32$microbes[1, 1:10]); 
+#'      p <- phylo.barplot(signal, 
+#'      	           color.level = "L1", 
+#'			   phylogeny.info = phylogeny.info)
+#'                   }
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

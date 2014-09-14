@@ -19,7 +19,8 @@
 #'   @return Plotting parameters
 #'
 #' @export
-#' @examples # data(peerj32); hc <- add.heatmap(peerj32$microbes[, 1:4])
+#' @examples \dontrun{data(peerj32); 
+#' 	     	hc <- add.heatmap(peerj32$microbes[, 1:4])}
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -83,6 +84,7 @@ add.heatmap <- function (dat, output.dir, output.file = NULL, phylogeny.info, pp
 #'   @return parameters
 #'
 #' @export
+#' @examples # TODO
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -212,6 +214,7 @@ PlotPhylochipHeatmap <- function (data,
 #'   @return list of color scales
 #'
 #' @export
+#' @examples list.color.scales()
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords internal

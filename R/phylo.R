@@ -25,7 +25,7 @@
 #'
 #' @export
 #'
-#' @examples # NOT RUN: phylogeny.info <- GetPhylogeny("HITChip", "full") 
+#' @examples \dontrun{phylogeny.info <- GetPhylogeny("HITChip", "full")}
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -68,7 +68,12 @@ GetPhylogeny <- function (chip, phylogeny.version = "full") {
 #' Returns:
 #'   @return mappings
 #'
-#' @examples # NOT RUN: library(microbiome); phylogeny.info <- GetPhylogeny("HITChip", "filtered"); levelmap(phylotypes = NULL, level.from = "L2", level.to = "L1", phylogeny.info)
+#' @examples \dontrun{phylogeny.info <- GetPhylogeny("HITChip", "filtered"); 
+#' 	     	      levelmap(phylotypes = NULL, 
+#'		      	       level.from = "L2", 
+#'			       level.to = "L1", 
+#'			       phylogeny.info)
+#'			       }
 #'
 #' @export
 #' @references See citation("microbiome") 
@@ -160,7 +165,6 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, phylogeny.info) {
 
 }
 
-
 #' retrieve.probesets
 #' 
 #' Description: List probes for each probeset
@@ -173,7 +177,11 @@ levelmap <- function (phylotypes = NULL, level.from, level.to, phylogeny.info) {
 #' Returns:
 #'   @return A list. Probes for each phylotype.
 #'
-#' @examples # NOT RUN phylogeny.info <- GetPhylogeny(); sets <- retrieve.probesets(phylogeny.info, level = "species", name = "Weissella confusa")
+#' @examples \dontrun{phylogeny.info <- GetPhylogeny(); 
+#' 	     	      sets <- retrieve.probesets(phylogeny.info, 
+#'		      	      			 level = "species", 
+#'						 name = "Weissella confusa")
+#'						 }
 #'
 #' @export
 #' @references See citation("microbiome") 

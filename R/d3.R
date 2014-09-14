@@ -17,7 +17,7 @@
 #'
 #' @import rjson df2json MASS
 #'
-#' @examples # NOT RUN See https://github.com/microbiome/d3/tree/master/corr_w_scatter"
+#' @examples print("See https://github.com/microbiome/d3/tree/master/corr_w_scatter for an example of the convert4corrwscatter function")
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

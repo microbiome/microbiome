@@ -117,7 +117,9 @@ CrosshybTable <- function (tax.level = "L1", chip = "HITChip", selected.taxa = N
 #' Returns:
 #'   @return A list containing cross-hybridization table and plot
 #'
-#' @examples res <- PlotCrosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE)
+#' @examples res <- PlotCrosshyb(tax.level = "L2", 
+#' 	     	    	         rounding = 1, 
+#'				 show.plot = FALSE)
 #' @export
 #' @import ggplot2
 #'
@@ -201,8 +203,6 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
 }
 
 
-
-
 #' Description: Calculate distance matrix between the _columns_ of the 
 #' input matrix. Can prduce correlation-based distance matrices, otherwise
 #' uses the standard 'dist' function.
@@ -217,7 +217,8 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
 #'
 #' @export
 #'
-#' @examples data(peerj32); d <- distance.matrix(peerj32$microbes[1:10, 1:3])
+#' @examples data(peerj32); 
+#' 	     d <- distance.matrix(peerj32$microbes[1:10, 1:3])
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -244,7 +245,9 @@ distance.matrix <- function (x, method = "pearson", ...) {
 #' Returns:
 #'   @return (Corrected) p-values for multi-group comparison.
 #'
-#' @examples data(peerj32); pval <- check.anova(t(peerj32$microbes), peerj32$meta$time)
+#' @examples data(peerj32); 
+#' 	     pval <- check.anova(t(peerj32$microbes), 
+#'	     	     		   peerj32$meta$time)
 #' @export
 #'
 #' @references See citation("microbiome") 
@@ -282,7 +285,9 @@ check.anova <- function (dat, group, p.adjust.method = "BH", sort = FALSE) {
 #' Returns:
 #'   @return (Corrected) p-values for two-group comparison.
 #'
-#' @examples data(peerj32); pval <- check.wilcoxon(t(peerj32$microbes), G1 = 1:22, G2 = 23:44)
+#' @examples data(peerj32); 
+#' 	     pval <- check.wilcoxon(t(peerj32$microbes), 
+#'	     G1 = 1:22, G2 = 23:44)
 #' @export
 #'
 #' @references See citation("microbiome") 
@@ -363,7 +368,9 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #' Returns:
 #'   @return List with cor, pval, pval.adjusted
 #'
-#' @examples data(peerj32); cc <- cross.correlate(peerj32$microbes[1:20, 1:10], peerj32$lipids[1:20,1:10])
+#' @examples data(peerj32); 
+#'  	     cc <- cross.correlate(peerj32$microbes[1:20, 1:10], 
+#'	     	   		   peerj32$lipids[1:20,1:10])
 #' @export
 #' @import minet
 #' @import WGCNA
@@ -663,7 +670,11 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = I
 #'
 #' @export
 #'
-#' @examples data(peerj32); cc <- cross.correlate(peerj32$microbes[1:20, 1:10], peerj32$lipids[1:20,1:10], mode = "matrix"); cmat <- cmat2table(cc)
+#' @examples data(peerj32); 
+#' 	     cc <- cross.correlate(peerj32$microbes[1:20, 1:10], 
+#'	                           peerj32$lipids[1:20,1:10], 
+#'				   mode = "matrix"); 
+#' 				   cmat <- cmat2table(cc)
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -725,7 +736,8 @@ cmat2table <- function (res, verbose = FALSE) {
 #'   @return List with correlations and astability estimate
 #'
 #' @export
-#' @examples data(peerj32); s <- estimate.stability(t(peerj32$microbes)[, 1:5])
+#' @examples data(peerj32); 
+#' 	     s <- estimate.stability(t(peerj32$microbes)[, 1:5])
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -782,7 +794,9 @@ estimate.stability <- function (dat1, dat2 = NULL, method = "pearson") {
 #' Returns:
 #'   @return Dependency measure
 #'
-#' @examples data(peerj32); tc <- GKtau(unlist(peerj32$microbes[,1]), unlist(peerj32$lipids[,1]))
+#' @examples data(peerj32); 
+#' 	     tc <- GKtau(unlist(peerj32$microbes[,1]), 
+#'	                 unlist(peerj32$lipids[,1]))
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

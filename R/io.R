@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Leo Lahti and Jarkko Salojarvi 
+# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi 
 # Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
@@ -27,7 +27,8 @@
 #'   @return data matrix (phylo x samples)
 #'
 #' @export
-#' @examples # NOT RUN params <- run.profiling.script(...); dat <- read.profiling(data.dir = params$wdir, level = "L1", method = "frpa")
+#' @examples \dontrun{dat <- read.profiling(data.dir = params$wdir, 
+#' 	     		                    level = "L1", method = "frpa")}
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

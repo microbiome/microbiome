@@ -13,7 +13,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-
 get.file.method <- function (f) {
 
   method <- NULL

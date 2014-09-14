@@ -19,7 +19,12 @@
 #'
 #' @references See citation("microbiome") 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples data(peerj32); sign.clust <- hclust.significance(as.matrix(peerj32$microbes), R = 20, min.size = 2, corr.th = 0.5) 
+#' @examples data(peerj32); 
+#' 	     sign.clust <- hclust.significance(
+#'	     		       as.matrix(peerj32$microbes), 
+#'			       R = 20, 
+#'			       min.size = 2, 
+#'			       corr.th = 0.5) 
 #' @keywords methods
 
 hclust.significance <- function (dat, my.groups = NULL, R, sample.sizes = 1, min.size, corr.th, replace = TRUE, metric = "pearson", verbose = TRUE, pvalue.threshold = 0.05, remove.nested.clusters = TRUE)  {
@@ -106,7 +111,7 @@ hclust.significance <- function (dat, my.groups = NULL, R, sample.sizes = 1, min
 #'
 #' @references See citation("microbiome") 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples # 
+#' @examples \dontrun{remove.nested.groups(groups)}
 #' @keywords methods
 
 remove.nested.groups <- function (groups) { 
@@ -125,7 +130,8 @@ remove.nested.groups <- function (groups) {
 }
 
 
-#' Description: Get hierarchical clustering groups, including the nested ones if recursive = TRUE
+#' Description: Get hierarchical clustering groups, 
+#' including the nested ones if recursive = TRUE
 #' 
 #'
 #' @param dat data matrix
@@ -140,7 +146,9 @@ remove.nested.groups <- function (groups) {
 #'
 #' @references See citation("microbiome") 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples data(peerj32); cl <- get.hclust.groups(peerj32$microbes, corr.th = 0.8)
+#' @examples data(peerj32); 
+#' 	     cl <- get.hclust.groups(peerj32$microbes, 
+#'	                             corr.th = 0.8)
 #' @keywords methods
 
 get.hclust.groups <- function (dat, corr.th, recursive = FALSE, min.size = 2, metric = "pearson") {

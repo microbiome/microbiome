@@ -71,7 +71,8 @@ core.which <- function(data, intTr, prevalenceTr){
 #' Returns:
 #'   @return TBA
 #'
-#' @examples data(peerj32); core <- createCore(t(peerj32$microbes))
+#' @examples data(peerj32); 
+#' 	     core <- createCore(t(peerj32$microbes))
 #'
 #' @export 
 #' 
@@ -127,7 +128,8 @@ createCore <- function(data, verbose = FALSE, prevalence.intervals = seq(20, 100
 #' Returns:
 #'  @return Used for its side effects
 #'
-#' @examples data(peerj32); c3d <- Core3D(createCore(t(peerj32$microbes)))
+#' @examples data(peerj32); 
+#' 	     c3d <- Core3D(createCore(t(peerj32$microbes)))
 #' @export 
 #' 
 #' @references See citation("microbiome") 
@@ -167,7 +169,8 @@ Core3D <- function(coreMat, title = "Core microbiota", xlab = "Minimum Intensity
 #' Returns:
 #'   @return Used for its side effects
 #'
-#' @examples data(peerj32); c2d <- Core2D(createCore(t(peerj32$microbes)))
+#' @examples data(peerj32); 
+#' 	     c2d <- Core2D(createCore(t(peerj32$microbes)))
 #' @export 
 #' 
 #' @references See citation("microbiome") 
@@ -210,7 +213,8 @@ Core2D <- function(coreMat, title = "Common core", plot = TRUE, xlabel = "Abunda
 #' Returns:
 #'   @return TBA
 #'
-#' @examples data(peerj32); bs <- bootstrap.microbes(t(peerj32$microbes), Nboot = 5)
+#' @examples data(peerj32); 
+#' 	     bs <- bootstrap.microbes(t(peerj32$microbes), Nboot = 5)
 #'
 #' @export 
 #' 
@@ -254,8 +258,6 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 100, I.th
 }
 
 
-
-
 #' bootstrap.microbecount
 #'
 #' Description: bootstrap.microbecount
@@ -271,7 +273,8 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 100, I.th
 #' Returns:
 #'   @return TBA
 #'
-#' @examples data(peerj32); tmp <- bootstrap.microbecount(t(peerj32$microbes), Nboot = 5)
+#' @examples data(peerj32); 
+#' 	     tmp <- bootstrap.microbecount(t(peerj32$microbes),	Nboot = 5)
 #'
 #' @export 
 #' 
@@ -333,7 +336,9 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1, Nboot = 100, 
 #' Returns:
 #'   @return TBA
 #'
-#' @examples # NOT RUN bs <- bootstrap.microbes(t(peerj32$microbes), Nboot = 5); plot_cumulative(bs, writedir = "./", "tmp-", phylogeny.info = phylogeny.info)
+#' @examples \dontrun{bs <- bootstrap.microbes(t(peerj32$microbes), Nboot = 5)
+#' 	     	      plot_cumulative(bs, writedir = "./", "tmp-", 
+#'		      			phylogeny.info = phylogeny.info)}
 #'
 #' @export 
 #' 
@@ -399,8 +404,6 @@ plot_cumulative <- function(d.sub, writedir, fname, i.set = NULL, type = "cumula
 
 }
 
-
-
 #' core_heatmap
 #'
 #' Description: Heatmap of core microbiota
@@ -416,7 +419,8 @@ plot_cumulative <- function(d.sub, writedir, fname, i.set = NULL, type = "cumula
 #'   	     plot: ggplot figure
 #'	     data: prevalence data with the varying thresholds
 #'
-#' @examples data(peerj32); core <- core_heatmap(t(peerj32$microbes))
+#' @examples data(peerj32); 
+#' 	     core <- core_heatmap(t(peerj32$microbes))
 #'
 #' @export 
 #' @importFrom reshape melt
