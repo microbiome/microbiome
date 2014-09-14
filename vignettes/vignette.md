@@ -21,7 +21,6 @@ biocLite("microbiome")
 library(microbiome)
 ```
 
-
 ### Installing and loading the development version
 
 For developers:
@@ -33,7 +32,6 @@ library(devtools)
 install_github("microbiome", "microbiome")
 library(microbiome)
 ```
-
 
 ### Examples
 
@@ -62,7 +60,6 @@ names(peerj32)
 ```
 ## Error: object 'peerj32' not found
 ```
-
 
 
 ### Licensing and Citations
@@ -130,14 +127,14 @@ sessionInfo()
 ```
 
 ```
-## R version 2.15.3 (2013-03-01)
+## R version 3.1.1 (2014-07-10)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
 ##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
 ##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
-##  [7] LC_PAPER=C                 LC_NAME=C                 
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
@@ -145,13 +142,11 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] knitr_1.2
+## [1] knitr_1.6
 ## 
 ## loaded via a namespace (and not attached):
-## [1] digest_0.6.3   evaluate_0.4.3 formatR_0.7    stringr_0.6.2 
-## [5] tools_2.15.3
+## [1] evaluate_0.5.5 formatR_0.10   stringr_0.6.2  tools_3.1.1
 ```
-
 
 
 

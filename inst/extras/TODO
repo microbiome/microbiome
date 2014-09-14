@@ -1,0 +1,46 @@
+Move data elsewhere; now package size 11Mb while 1Mb recommended (is
+this CRAN recommendation though?)
+-> Can these go to experimental data pkg? Also including 1000 Atlas!
+
+The source package resulting from running R CMD build should occupy less than 4MB on disk. The package should require less than 5 minutes to run R CMD check --no-build-vignettes. Using the --no-build-vignettes option ensures that the vignette is built only once.
+
+Check these also on Win and Mac with the lates R-devel
+R CMD build, 
+R CMD check
+R CMD BiocCheck
+
+> library(BiocCheck)
+Failed to copy the "script/BiocCheck" script to /usr/lib/R/bin. If you
+want to be able to run 'R CMD BiocCheck' you'll need to copy it
+yourself to a directory on your PATH, making sure it is executable.
+Edit the copied version, replacing RSCRIPT_PATH with the full path to
+Rscript. See BiocCheck vignette for more information.
+
+
+------------
+
+Package guidelines 
+http://bioconductor.org/developers/package-guidelines/
+
+Include examples in all man pages.
+
+Contain (literature) references to the methods used as well as to other similar or related packages.
+
+Appropriate citations must be included in help pages (e.g., in the see also section) and vignettes; this aspect of documentation is no different from any scientific endeavor. The file inst/CITATION can be used to specify how a package is to be cited.
+
+Whether or not a CITATION file is present, an automatically-generated citation will appear on the package landing page on the Bioconductor web site. For optimal formatting of author names (if a CITATION file is not present), specify the package author and maintainer using the Authors@R field as described in Writing R Extensions.
+
+
+Unit tests are highly recommended. We find them indispensable for both package development and maintenance. Examples and explanations are provided here.
+http://www.bioconductor.org/developers/unitTesting-guidelines
+
+BugReports: field to the DESCRIPTION file if reports should be directed to a particular web page rather than the package maintainer.
+
+    Imports: is for packages that provide functions, methods, or classes that are used inside your package name space. Most dependencies are listed here.
+    Depends: is appropriate when a package is used in the example section of a man page. It is very unusual for a package to list more than three packages as 'Depends:'.
+    Suggests: is appropriate for packages used in your vignette.
+    Enhances: is for packages such as Rmpi or parallel that enhance the performance of the current package, but are not strictly needed for its functionality.
+    SystemRequirements: is for listing any external software which is required, but not automatically installed by the normal package installation process. If the installation process is non-trivial, a top-level README file should be included to document the process.
+
+
+To submit a package or obtain additional support, contact Marc Carlson (email: mcarlson NEAR fhcrc POINT org)
