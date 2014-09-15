@@ -61,7 +61,7 @@ calculate.hclust <- function (dat, method = "complete", metric = "pearson") {
 #'   @return probeset data matrix
 #'
 #' @export
-#' @example \dontrun{get.probeset("Vibrio", "L2", phylogeny.info, oligo.matrix)}
+#' @examples \dontrun{get.probeset("Vibrio", "L2", phylogeny.info, oligo.matrix)}
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -100,22 +100,6 @@ get.probeset <- function (name, level, phylogeny.info, oligo.matrix, log10 = TRU
 
 }
 
-
-
-#' dir.exists
-#'
-#' @param d d
-#'
-#' @return logical
-#' @references
-#' See citation("microbiome")
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples dir.exists(".")
-#' @keywords utilities
-dir.exists <- function(d) {
-  de <- file.info(d)$isdir
-  ifelse(is.na(de), FALSE, de)
-}
 
 
 
