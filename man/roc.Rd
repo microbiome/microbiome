@@ -29,7 +29,7 @@ data(peerj32);
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+To cite microbiome R package, see citation("microbiome")
 }
 \keyword{utilities}
 

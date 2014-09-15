@@ -145,13 +145,13 @@ PhylotypeRatios <- function (dat) {
 #'
 #' Calculate qvalues for a matrix of pvalues which may contain missing values.
 #' 
-#'
 #' @param pvals p-value matrix
 #'
 #' @return q-value matrix
 #' @export 
-#' @references
-#' See citation("microbiome")
+#' @references 
+#'    JD Storey 2003. Ann. Statist. 31(6):2013-2035. The positive false discovery rate: a Bayesian interpretation and the q-value. 
+#'    To cite the microbiome R package, see citation("microbiome")
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples qvals <- matrix.qvalue(matrix(runif(1000), nrow = 100))
 #' @keywords utilities

@@ -76,11 +76,10 @@ N <- 10;
 			verbose = FALSE)
 }
 \author{
-Based on the original version from Felix Schonbrodt.
-        Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
+Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+Based on the original version from Felix Schonbrodt: http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/
 }
 \keyword{utilities}
 

@@ -36,7 +36,8 @@ data(peerj32);
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+A Salonen et al. The adult intestinal core microbiota is determined by analysis depth and health status. Clinical Microbiology and Infection 18(S4):16 20, 2012.
+  To cite the microbiome R package, see citation("microbiome")
 }
 \keyword{utilities}
 

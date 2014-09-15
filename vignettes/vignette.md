@@ -1,7 +1,16 @@
-<!--
-%\VignetteEngine{knitr}
+---
+title: "microbiome vignette"
+author: "Leo Lahti and Jarkko Salojarvi"
+date: "2014-09-15"
+output: rmarkdown::html_vignette
+vignette: > 
+%\VignetteEngine{knitr::rmarkdown}
 %\VignetteIndexEntry{An R Markdown Vignette made with knitr}
--->
+%\usepackage[utf8]{inputenc}
+---
+
+
+
 
 microbiome R package
 ===========
@@ -10,9 +19,7 @@ The microbiome package contains general-purpose tools for
 microarray-based analysis of microbiome profiling data sets. 
 
 
-### Installing and loading the release version (not available yet)
-
-For general users:
+### Installing and loading the release version
 
 
 ```r
@@ -21,16 +28,94 @@ biocLite("microbiome")
 library(microbiome)
 ```
 
-### Installing and loading the development version
-
-For developers:
+### Installing and loading the experimental development version
 
 
 ```r
 install.packages("devtools")
+```
+
+```
+## Installing package into '/home/lei/R/x86_64-pc-linux-gnu-library/3.1'
+## (as 'lib' is unspecified)
+```
+
+```
+## --- Please select a CRAN mirror for use in this session ---
+## 
+## The downloaded source packages are in
+## 	'/tmp/RtmpQ4lXwS/downloaded_packages'
+```
+
+```r
 library(devtools)
+```
+
+```
+## 
+## Attaching package: 'devtools'
+## 
+## The following objects are masked from 'package:utils':
+## 
+##     ?, help
+## 
+## The following object is masked from 'package:base':
+## 
+##     system.file
+```
+
+```r
 install_github("microbiome", "microbiome")
+```
+
+```
+## Installing github repo microbiome/master from microbiome
+## Downloading master.zip from https://github.com/microbiome/microbiome/archive/master.zip
+## Installing package from /tmp/RtmpQ4lXwS/master.zip
+## arguments 'minimized' and 'invisible' are for Windows only
+## Installing microbiome
+## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
+##   '/tmp/RtmpQ4lXwS/devtools1520588c6168/microbiome-master'  \
+##   --library='/home/lei/R/x86_64-pc-linux-gnu-library/3.1'  \
+##   --install-tests
+```
+
+```r
 library(microbiome)
+```
+
+```
+## Loading required package: e1071
+## Loading required package: vegan
+## Loading required package: permute
+## 
+## Attaching package: 'permute'
+## 
+## The following object is masked from 'package:devtools':
+## 
+##     check
+## 
+## Loading required package: lattice
+## This is vegan 2.0-10
+## Loading required package: reshape
+## 
+## microbiome R package (microbiome.github.com)
+## Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi <microbiome-admin@googlegroups.com>
+## 
+## 
+## Attaching package: 'microbiome'
+## 
+## The following object is masked from 'package:vegan':
+## 
+##     diversity
+## 
+## The following object is masked from 'package:lattice':
+## 
+##     densityplot
+## 
+## The following object is masked from 'package:e1071':
+## 
+##     impute
 ```
 
 ### Examples
@@ -47,18 +132,11 @@ The microbiome package contains an example data set from Lahti et al. [PeerJ 1:e
 
 ```r
 data(peerj32)
-```
-
-```
-## Warning: data set 'peerj32' not found
-```
-
-```r
 names(peerj32)
 ```
 
 ```
-## Error: object 'peerj32' not found
+## [1] "lipids"   "microbes" "meta"
 ```
 
 
@@ -67,7 +145,7 @@ names(peerj32)
 This work can be freely used, modified and distributed under the 
 [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
 
-Kindly cite the work, if appropriate, as 'Leo Lahti and Jarkko Salojärvi (2013). URL: http://microbiome.github.com'. 
+Kindly cite the work, if appropriate, as 'Leo Lahti and Jarkko Salojarvi (2014). URL: http://microbiome.github.com'. 
 
 
 ### References
@@ -102,7 +180,7 @@ contributions:
 
  * P. E. Meyer, Frederic Lafitte and Gianluca Bontempi (2008). MINET: An open source R/Bioconductor Package for Mutual Information based Network Inference. [BMC Bioinformatics](http://www.biomedcentral.com/1471-2105/9/461)
 
- * D. Müllner (2013). fastcluster: Fast Hierarchical, Agglomerative Clustering Routines for R and Python. [Journal of Statistical Software, 53(9), 1-18](http://www.jstatsoft.org/v53/i09/)
+ * D. Mullner (2013). fastcluster: Fast Hierarchical, Agglomerative Clustering Routines for R and Python. [Journal of Statistical Software, 53(9), 1-18](http://www.jstatsoft.org/v53/i09/)
 
  * Jari Oksanen et al. (2013). [vegan: Community Ecology Package](http://CRAN.R-project.org/package=vegan)
 
@@ -142,10 +220,28 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] knitr_1.6
+## [1] microbiome_0.99.0 reshape_0.8.5     vegan_2.0-10      lattice_0.20-29  
+## [5] permute_0.8-3     e1071_1.6-4       devtools_1.5      knitr_1.6        
 ## 
 ## loaded via a namespace (and not attached):
-## [1] evaluate_0.5.5 formatR_0.10   stringr_0.6.2  tools_3.1.1
+##  [1] acepack_1.3-3.3     class_7.3-11        cluster_1.15.3     
+##  [4] codetools_0.2-9     colorspace_1.2-4    df2json_0.0.2      
+##  [7] digest_0.6.4        doParallel_1.0.8    dynamicTreeCut_1.62
+## [10] evaluate_0.5.5      flashClust_1.01-2   foreach_1.4.2      
+## [13] foreign_0.8-61      formatR_1.0         Formula_1.1-2      
+## [16] ggplot2_1.0.0       grid_3.1.1          gtable_0.1.2       
+## [19] Hmisc_3.14-5        httr_0.5            igraph_0.7.1       
+## [22] impute_1.38.1       iterators_1.0.7     latticeExtra_0.6-26
+## [25] MASS_7.3-34         matrixStats_0.10.0  memoise_0.2.1      
+## [28] minet_3.20.1        mixOmics_5.0-3      munsell_0.4.2      
+## [31] nnet_7.3-8          parallel_3.1.1      pheatmap_0.7.7     
+## [34] plyr_1.8.1          proto_0.3-10        RColorBrewer_1.0-5 
+## [37] Rcpp_0.11.2         RCurl_1.95-4.3      reshape2_1.4       
+## [40] RGCCA_2.0           rgl_0.94.1131       rjson_0.2.14       
+## [43] R.methodsS3_1.6.1   rpart_4.1-8         scales_0.2.4       
+## [46] splines_3.1.1       stringr_0.6.2       survival_2.37-7    
+## [49] tcltk_3.1.1         tools_3.1.1         WGCNA_1.41-1       
+## [52] whisker_0.4
 ```
 
 

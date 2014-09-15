@@ -45,7 +45,9 @@ data(peerj32);
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+Code modified from the original source:
+  http://www.r-bloggers.com/measuring-associations-between-non-numeric-variables/
+  To cite the microbiome R package, see citation("microbiome")
 }
 \keyword{utilities}
 

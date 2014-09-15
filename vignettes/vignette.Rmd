@@ -1,7 +1,16 @@
-<!--
+---
+title: "microbiome vignette"
+author: "Leo Lahti and Jarkko Salojarvi"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: > 
 %\VignetteEngine{knitr}
 %\VignetteIndexEntry{An R Markdown Vignette made with knitr}
--->
+%\usepackage[utf8]{inputenc}
+---
+
+
+
 
 microbiome R package
 ===========
@@ -10,9 +19,7 @@ The microbiome package contains general-purpose tools for
 microarray-based analysis of microbiome profiling data sets. 
 
 
-### Installing and loading the release version (not available yet)
-
-For general users:
+### Installing and loading the release version
 
 ```{r install, eval=FALSE}
 source("http://www.bioconductor.org/biocLite.R")
@@ -20,11 +27,9 @@ biocLite("microbiome")
 library(microbiome)
 ```
 
-### Installing and loading the development version
+### Installing and loading the experimental development version
 
-For developers:
-
-```{r install2, eval=FALSE}
+```{r install2, eval=TRUE}
 install.packages("devtools")
 library(devtools)
 install_github("microbiome", "microbiome")
@@ -53,7 +58,7 @@ names(peerj32)
 This work can be freely used, modified and distributed under the 
 [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
 
-Kindly cite the work, if appropriate, as 'Leo Lahti and Jarkko Salojärvi (2013). URL: http://microbiome.github.com'. 
+Kindly cite the work, if appropriate, as 'Leo Lahti and Jarkko Salojarvi (2014). URL: http://microbiome.github.com'. 
 
 
 ### References
@@ -88,7 +93,7 @@ contributions:
 
  * P. E. Meyer, Frederic Lafitte and Gianluca Bontempi (2008). MINET: An open source R/Bioconductor Package for Mutual Information based Network Inference. [BMC Bioinformatics](http://www.biomedcentral.com/1471-2105/9/461)
 
- * D. Müllner (2013). fastcluster: Fast Hierarchical, Agglomerative Clustering Routines for R and Python. [Journal of Statistical Software, 53(9), 1-18](http://www.jstatsoft.org/v53/i09/)
+ * D. Mullner (2013). fastcluster: Fast Hierarchical, Agglomerative Clustering Routines for R and Python. [Journal of Statistical Software, 53(9), 1-18](http://www.jstatsoft.org/v53/i09/)
 
  * Jari Oksanen et al. (2013). [vegan: Community Ecology Package](http://CRAN.R-project.org/package=vegan)
 

@@ -33,7 +33,14 @@
 #'				level.to = "oligo")}
 #'
 #' @export
-#' @references See citation("microbiome") 
+#' @references 
+#'
+#'    This function builds on tools from the vegan R package. 
+#'    Jari Oksanen et al. (2013). vegan: Community Ecology. 
+#'    R Package. http://CRAN.R-project.org/package=vegan
+#'
+#'    To cite the microbiome R package, see citation("microbiome") 
+#'
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
@@ -125,7 +132,13 @@ diversity.table <- function (dat, level.from, level.to, phylogeny.info = NULL, d
 #' 	     div <- estimate.diversity(10^t(peerj32$microbes), 
 #'	     	    			det.th = 0)
 #'
-#' @references See citation("microbiome") 
+#' @references 
+#'    This function builds on tools from the vegan R package. 
+#'    Jari Oksanen et al. (2013). vegan: Community Ecology. 
+#'    R Package. http://CRAN.R-project.org/package=vegan
+#'
+#'    To cite the microbiome R package, see citation("microbiome") 
+#'
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
@@ -186,7 +199,13 @@ estimate.diversity <- function (dat, diversity.index = "shannon", det.th = NULL)
 #'
 #' @export
 #' @import vegan
-#' @references See citation("microbiome") 
+#' @references 
+#'    This function builds on tools from the vegan R package. 
+#'    Jari Oksanen et al. (2013). vegan: Community Ecology. 
+#'    R Package. http://CRAN.R-project.org/package=vegan
+#'
+#'    To cite the microbiome R package, see citation("microbiome") 
+#'
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
@@ -236,7 +255,12 @@ diversity <- function (dat, diversity.index = "shannon", det.th = 0) {
 #'	     det.th = 100)
 #'
 #' @export
-#' @references See citation("microbiome") 
+#' @references 
+#'    This function builds on tools from the vegan R package. 
+#'    Jari Oksanen et al. (2013). vegan: Community Ecology. 
+#'    R Package. http://CRAN.R-project.org/package=vegan
+#'
+#'    To cite the microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
@@ -280,7 +304,12 @@ richness <- function (dat, det.th = NULL) {
 #' 	     	    	     det.th = 100)
 #'
 #' @export
-#' @references See citation("microbiome") 
+#' @references 
+#'    This function builds on tools from the vegan R package. 
+#'    Jari Oksanen et al. (2013). vegan: Community Ecology. 
+#'    R Package. http://CRAN.R-project.org/package=vegan
+#'
+#'    To cite the microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
@@ -373,7 +402,8 @@ relative.abundance <- function (dat, det.th = 0) {
 #' 	     abtab <- make.abundancy.table(10^t(peerj32$microbes), 
 #'	     	      			det.th = 0)
 #' @export
-#' @references See citation("microbiome") 
+#' @references 
+#'    To cite the microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 

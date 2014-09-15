@@ -26,7 +26,10 @@
 #' @import e1071
 #' @details Coefficient of bimodality used in Shade et al. mBio 5(4):e01371-14. 
 #' 	    and picked from Ellison AM Am. J. Bot 74:1280-8, 1987 
-#' @references See citation("microbiome") 
+#' @references 
+#'   Shade et al. mBio 5(4):e01371-14, 2014.
+#'   AM Ellison, Am. J. Bot 74:1280-8, 1987.
+#'   To cite the microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 coefficient.of.bimodality <- function (x) {
@@ -798,7 +801,10 @@ estimate.stability <- function (dat1, dat2 = NULL, method = "pearson") {
 #' 	     tc <- GKtau(unlist(peerj32$microbes[,1]), 
 #'	                 unlist(peerj32$lipids[,1]))
 #' @export
-#' @references See citation("microbiome") 
+#' @references 
+#'   Code modified from the original source:
+#'   http://www.r-bloggers.com/measuring-associations-between-non-numeric-variables/
+#'   To cite the microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 

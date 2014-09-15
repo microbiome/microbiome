@@ -282,9 +282,8 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.thr
 #' @import ggplot2 plyr 
 #'
 #' @export
-#' @references See citation("microbiome") 
-#' @author Based on the original version from Felix Schonbrodt. 
-#'         Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @references Based on the original version from Felix Schonbrodt: http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
 vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous",  verbose = FALSE, show.points = TRUE, ...) {
@@ -449,7 +448,11 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
 #' @examples data(peerj32); 
 #'           xy <- project.data(peerj32$microbes[,1:3])
 #'
-#' @references See citation("microbiome") 
+#' @references 
+#'    
+#'    D. Hand and H. Mannila and P. Smyth: Principles of Data Mining. MIT Press. Cambridge, MA, US (2001).
+#'    
+#'    To cite microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
@@ -491,7 +494,6 @@ project.data <- function (amat, type = "PCA") {
   }  
 
   # TODO Kernel-PCA
-  #library(kernlab)
   #kpc <- kpca(~., data=as.data.frame(x.train), kernel="rbfdot", features = 2)
   #Print the principal component vectors
   #pcv(kpc)

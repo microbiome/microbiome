@@ -19,7 +19,9 @@
 #'
 #' @examples print("See https://github.com/microbiome/d3/tree/master/corr_w_scatter for an example of the convert4corrwscatter function")
 #'
-#' @references See citation("microbiome") 
+#' @references Based on a similar example originally suggested by K. Broman: 
+#' 	       https://www.biostat.wisc.edu/~kbroman/D3/corr_w_scatter
+#'    To cite microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 

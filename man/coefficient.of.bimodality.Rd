@@ -27,7 +27,9 @@ coefficient.of.bimodality(rnorm(100))
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+Shade et al. mBio 5(4):e01371-14, 2014.
+  AM Ellison, Am. J. Bot 74:1280-8, 1987.
+  To cite the microbiome R package, see citation("microbiome")
 }
 \keyword{utilities}
 

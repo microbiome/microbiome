@@ -23,7 +23,9 @@
 #' Returns:
 #'   @return TBA
 #'
-#' @references See citation("microbiome") 
+#' @references 
+#'   A Salonen et al. The adult intestinal core microbiota is determined by analysis depth and health status. Clinical Microbiology and Infection 18(S4):16 20, 2012. 
+#'   To cite the microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
@@ -45,7 +47,9 @@ core.sum <- function(data, intTr, prevalenceTr){
 #' Returns:
 #'   @return TBA
 #'
-#' @references See citation("microbiome") 
+#' @references 
+#'   A Salonen et al. The adult intestinal core microbiota is determined by analysis depth and health status. Clinical Microbiology and Infection 18(S4):16 20, 2012. 
+#'   To cite the microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
@@ -76,7 +80,9 @@ core.which <- function(data, intTr, prevalenceTr){
 #'
 #' @export 
 #' 
-#' @references See citation("microbiome") 
+#' @references 
+#'   A Salonen et al. The adult intestinal core microbiota is determined by analysis depth and health status. Clinical Microbiology and Infection 18(S4):16 20, 2012. 
+#'   To cite the microbiome R package, see citation("microbiome") 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
@@ -132,7 +138,9 @@ createCore <- function(data, verbose = FALSE, prevalence.intervals = seq(20, 100
 #' 	     c3d <- Core3D(createCore(t(peerj32$microbes)))
 #' @export 
 #' 
-#' @references See citation("microbiome") 
+#' @references 
+#'   A Salonen et al. The adult intestinal core microbiota is determined by analysis depth and health status. Clinical Microbiology and Infection 18(S4):16 20, 2012. 
+#'   To cite the microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
@@ -173,7 +181,9 @@ Core3D <- function(coreMat, title = "Core microbiota", xlab = "Minimum Intensity
 #' 	     c2d <- Core2D(createCore(t(peerj32$microbes)))
 #' @export 
 #' 
-#' @references See citation("microbiome") 
+#' @references 
+#'   A Salonen et al. The adult intestinal core microbiota is determined by analysis depth and health status. Clinical Microbiology and Infection 18(S4):16 20, 2012. 
+#'   To cite the microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
@@ -219,7 +229,9 @@ Core2D <- function(coreMat, title = "Common core", plot = TRUE, xlabel = "Abunda
 #'
 #' @export 
 #' 
-#' @references See citation("microbiome") 
+#' @references 
+#'   A Salonen et al. The adult intestinal core microbiota is determined by analysis depth and health status. Clinical Microbiology and Infection 18(S4):16 20, 2012. 
+#'   To cite the microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
@@ -304,7 +316,9 @@ plot_cumulative <- function(d.sub, writedir, fname, i.set = NULL, type = "cumula
 #' @import ggplot2
 #' @import RColorBrewer
 #' 
-#' @references See citation("microbiome") 
+#' @references 
+#'   A Salonen et al. The adult intestinal core microbiota is determined by analysis depth and health status. Clinical Microbiology and Infection 18(S4):16 20, 2012. 
+#'   To cite the microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 

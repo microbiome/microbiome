@@ -25,7 +25,9 @@ data(peerj32);
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+D. Hand and H. Mannila and P. Smyth: Principles of Data Mining. MIT Press. Cambridge, MA, US (2001).
+
+   To cite microbiome R package, see citation("microbiome")
 }
 \keyword{utilities}
 

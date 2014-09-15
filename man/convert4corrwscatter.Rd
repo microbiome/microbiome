@@ -29,7 +29,9 @@ print("See https://github.com/microbiome/d3/tree/master/corr_w_scatter for an ex
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+Based on a similar example originally suggested by K. Broman:
+	       https://www.biostat.wisc.edu/~kbroman/D3/corr_w_scatter
+   To cite microbiome R package, see citation("microbiome")
 }
 \keyword{utilities}
 

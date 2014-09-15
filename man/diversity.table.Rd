@@ -41,7 +41,11 @@ Arguments:
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+This function builds on tools from the vegan R package.
+   Jari Oksanen et al. (2013). vegan: Community Ecology.
+   R Package. http://CRAN.R-project.org/package=vegan
+
+   To cite the microbiome R package, see citation("microbiome")
 }
 \keyword{utilities}
 
