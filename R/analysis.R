@@ -25,7 +25,7 @@
 #' @export
 #' @import e1071
 #' @details Coefficient of bimodality used in Shade et al. mBio 5(4):e01371-14. 
-#' 	    and picked from Ellison AM Am. J. Bot 74:1280-8, 1987 
+#'         and picked from Ellison AM Am. J. Bot 74:1280-8, 1987 
 #' @references 
 #'   Shade et al. mBio 5(4):e01371-14, 2014.
 #'   AM Ellison, Am. J. Bot 74:1280-8, 1987.
@@ -37,8 +37,10 @@ coefficient.of.bimodality <- function (x) {
 }
 
 
-#' Description: Cross-hybridization table between multimodal taxa as percentages of shared probes. 
-#' The number indicates how many percent of oligos for the row taxon are also hybridizing 
+#' Description: Cross-hybridization table between multimodal taxa as 
+#'         percentages of shared probes. 
+#' The number indicates how many percent of oligos for the row taxon are 
+#'     also hybridizing 
 #' the corresponding column taxon.
 #'
 #' Arguments:
@@ -57,7 +59,8 @@ coefficient.of.bimodality <- function (x) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-CrosshybTable <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NULL, phylogeny.info = NULL) {
+CrosshybTable <- function (tax.level = "L1", chip = "HITChip", 
+                      selected.taxa = NULL, phylogeny.info = NULL) {
 
   # Get hylogeny info
   if (is.null(phylogeny.info)) {
@@ -74,7 +77,8 @@ CrosshybTable <- function (tax.level = "L1", chip = "HITChip", selected.taxa = N
 
   # Create taxon-oligo mapping matrix
   tax.oligos <- sapply(split(phi, phi[[tax.level]]), function (x) {x$oligoID})
-  tax2oligo <- matrix(0, nrow = length(unique(phi[[tax.level]])), ncol = length(unique(phi$oligoID)))
+  tax2oligo <- matrix(0, nrow = length(unique(phi[[tax.level]])), 
+                      ncol = length(unique(phi$oligoID)))
   rownames(tax2oligo) <- unique(phi[[tax.level]])
   colnames(tax2oligo) <- unique(phi$oligoID)
   for (tax in names(tax.oligos)) {
@@ -83,7 +87,8 @@ CrosshybTable <- function (tax.level = "L1", chip = "HITChip", selected.taxa = N
   }
 
   # Confusion matrix: how many overlapping oligos between two taxa
-  confusion.matrix <- matrix(NA, nrow = length(tax.oligos), ncol = length(tax.oligos))
+  confusion.matrix <- matrix(NA, nrow = length(tax.oligos), 
+                         ncol = length(tax.oligos))
   rownames(confusion.matrix) <- colnames(confusion.matrix) <- names(tax.oligos)
   for (tax1 in rownames(tax2oligo)) {
     for (tax2 in rownames(tax2oligo)) {
@@ -101,9 +106,10 @@ CrosshybTable <- function (tax.level = "L1", chip = "HITChip", selected.taxa = N
 
 
 
-#' Description: Cross-hybridization between multimodal taxa as percentages of shared probes. 
-#' The number indicates how many percent of oligos for the row taxon are also hybridizing 
-#' the corresponding column taxon.
+#' Description: Cross-hybridization between multimodal taxa as percentages 
+#'         of shared probes. 
+#' The number indicates how many percent of oligos for the row taxon are 
+#' also hybridizing the corresponding column taxon.
 #'
 #' Arguments:
 #'   @param tax.level Taxonomic level to investigate
@@ -115,14 +121,15 @@ CrosshybTable <- function (tax.level = "L1", chip = "HITChip", selected.taxa = N
 #'   @param keep.empty Keep taxa that do not show any cross-hybridization
 #'   @param rounding Rounding of the cell contents
 #'   @param phylogeny.info phylogeny.info 
-#'   @param self.correlations Show self-correlations (always 100%); or remove (indicate as 0%; default)
+#'   @param self.correlations Show self-correlations (always 100%); 
+#'                         or remove (indicate as 0%; default)
 #'
 #' Returns:
 #'   @return A list containing cross-hybridization table and plot
 #'
 #' @examples res <- PlotCrosshyb(tax.level = "L2", 
-#' 	     	    	         rounding = 1, 
-#'				 show.plot = FALSE)
+#'                               rounding = 1, 
+#'                 show.plot = FALSE)
 #' @export
 #' @import ggplot2
 #'
@@ -130,12 +137,16 @@ CrosshybTable <- function (tax.level = "L1", chip = "HITChip", selected.taxa = N
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NULL, show.plot = TRUE, order.rows = TRUE, order.cols = TRUE, keep.empty = FALSE, rounding = 1, phylogeny.info = NULL, self.correlations = FALSE) {
-
-  # tax.level = "L1"; chip = "HITChip"; selected.taxa = NULL; show.plot = TRUE; order.rows = TRUE; order.cols = TRUE; keep.empty = FALSE; rounding = 1; phylogeny.info = NULL; self.correlations = FALSE
+PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", 
+                   selected.taxa = NULL, show.plot = TRUE, 
+              order.rows = TRUE, order.cols = TRUE, 
+              keep.empty = FALSE, rounding = 1, 
+              phylogeny.info = NULL, 
+              self.correlations = FALSE) {
 
   # Get crosshyb matrix
-  confusion.matrix <- CrosshybTable(tax.level = tax.level, chip = "HITChip", selected.taxa = NULL, phylogeny.info = NULL)
+  confusion.matrix <- CrosshybTable(tax.level = tax.level, chip = "HITChip", 
+                selected.taxa = NULL, phylogeny.info = NULL)
 
   # Remove self-correlations
   if (!self.correlations) {
@@ -149,7 +160,8 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
 
   # Remove the taxa that do not have any crosshyb
   if (!keep.empty) {
-    confusion.matrix <- confusion.matrix[rowSums(confusion.matrix) > 0, colSums(confusion.matrix) > 0]
+    confusion.matrix <- confusion.matrix[rowSums(confusion.matrix) > 0, 
+                             colSums(confusion.matrix) > 0]
   }
 
   # Avoid warnings
@@ -177,11 +189,13 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
     roword <- hc$ord
 
     if (order.rows) {
-      df[["Taxon1"]] <- factor(df[["Taxon1"]], levels = rownames(confusion.matrix)[roword])
+      df[["Taxon1"]] <- factor(df[["Taxon1"]],    
+                   levels = rownames(confusion.matrix)[roword])
     }
 
     if (order.cols) {  
-      df[["Taxon2"]] <- factor(df[["Taxon2"]], levels = colnames(confusion.matrix)[colord])
+      df[["Taxon2"]] <- factor(df[["Taxon2"]], 
+                   levels = colnames(confusion.matrix)[colord])
     }
   }
 
@@ -194,8 +208,9 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
   p <- p + ggplot2::geom_tile(aes(fill = crosshyb)) 
   p <- p + ggplot2::geom_text(aes(fill = crosshyb, label = labels, size = 4))
   p <- p + scale_fill_gradient(low = "white", high = "red") 
-  p <- p + ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5)) + ggplot2::xlab("") + ggplot2::ylab("") 
-  p <- p + ggplot2::theme(legend.position = "none")
+  p <- p + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) 
+  p <- p + xlab("") + ylab("") 
+  p <- p + theme(legend.position = "none")
 
   if (show.plot) {
     print(p)
@@ -221,7 +236,7 @@ PlotCrosshyb <- function (tax.level = "L1", chip = "HITChip", selected.taxa = NU
 #' @export
 #'
 #' @examples data(peerj32); 
-#' 	     d <- distance.matrix(peerj32$microbes[1:10, 1:3])
+#'          d <- distance.matrix(peerj32$microbes[1:10, 1:3])
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -238,19 +253,20 @@ distance.matrix <- function (x, method = "pearson", ...) {
 
 
 
-#' Description: Calculate ANOVA test (BH correction) for multi-group comparison. 
+#' Description: Calculate ANOVA test (BH correction) for multi-group comparison 
 #' Arguments:
 #'   @param dat data matrix (features x samples; eg. HITChip taxa vs. samples)
 #'   @param group Vector with specifying the groups
-#'   @param p.adjust.method p-value correction method for p.adjust function (default "BH"). If NULL, no correction will be performed.
+#'   @param p.adjust.method p-value correction method for p.adjust function 
+#'               (default "BH"). If NULL, no correction will be performed.
 #'   @param sort sort the results
 #'
 #' Returns:
 #'   @return (Corrected) p-values for multi-group comparison.
 #'
 #' @examples data(peerj32); 
-#' 	     pval <- check.anova(t(peerj32$microbes), 
-#'	     	     		   peerj32$meta$time)
+#'          pval <- check.anova(t(peerj32$microbes), 
+#'                             peerj32$meta$time)
 #' @export
 #'
 #' @references See citation("microbiome") 
@@ -273,15 +289,18 @@ check.anova <- function (dat, group, p.adjust.method = "BH", sort = FALSE) {
 }
 
 
-#' Description: Calculate Wilcoxon test (unpaired; BH correction) for the specified sample groups. 
-#' Either provide the input data as matrix, file path, or select the file through GUI.
+#' Description: Calculate Wilcoxon test (unpaired; BH correction) for the 
+#'         specified sample groups. 
+#' Either provide the input data as matrix, file path, or select the file 
+#'       through GUI.
 #'             
 #' Arguments:
 #'   @param dat data matrix (features x samples)
 #'   @param fnam data file  (if data matrix not provided) 
 #'   @param G1 Sample group 1 (for comparison) 
 #'   @param G2 Sample group 2 (for comparison)
-#'   @param p.adjust.method p-value correction method for p.adjust function (default "BH"). If NULL, no correction will be performed.
+#'   @param p.adjust.method p-value correction method for p.adjust function 
+#'               (default "BH"). If NULL, no correction will be performed.
 #'   @param sort sort the results
 #'   @param paired paired Wilcoxon test
 #'
@@ -289,19 +308,22 @@ check.anova <- function (dat, group, p.adjust.method = "BH", sort = FALSE) {
 #'   @return (Corrected) p-values for two-group comparison.
 #'
 #' @examples data(peerj32); 
-#' 	     pval <- check.wilcoxon(t(peerj32$microbes), 
-#'	     G1 = 1:22, G2 = 23:44)
+#'          pval <- check.wilcoxon(t(peerj32$microbes), 
+#'         G1 = 1:22, G2 = 23:44)
 #' @export
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "BH", sort = FALSE, paired = FALSE) {
+check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, 
+           p.adjust.method = "BH", sort = FALSE, paired = FALSE) {
 
   ## Open your tab fnam, Level 1 & 2 Sum_BGsub_Rel.contribution
 
-  if (is.null(dat) && is.null(fnam)) { stop("Provide dat or fnam in function arguments!")}
+  if (is.null(dat) && is.null(fnam)) { 
+     stop("Provide dat or fnam in function arguments!")
+  }
   if (is.null(dat)) {
     dat <- read.table(fnam, sep = "\t", header = TRUE, row.names = 1)
   } 
@@ -313,12 +335,13 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
   rownames(M) <- levels
 
   for (i in 1:length(levels)) {
-	
+    
     lvl  <- levels[i]
     l.g1 <- dat[lvl,G1]
     l.g2 <- dat[lvl,G2]
-	
-    p <- wilcox.test(as.numeric(l.g1), as.numeric(l.g2), paired = paired)$p.value
+    
+    p <- wilcox.test(as.numeric(l.g1), as.numeric(l.g2), 
+                              paired = paired)$p.value
 
     # message(lvl, " p-value: ", p, "\n")
 
@@ -326,7 +349,8 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 
   }
 
-  ## To Adjust P-values for Multiple Comparisons with Benjamini & Hochberg (1995) 
+  ## To Adjust P-values for Multiple Comparisons with 
+  ## Benjamini & Hochberg (1995) 
   ## ("BH" or its alias "fdr")
   if (!is.null(p.adjust.method)) {
 
@@ -358,22 +382,28 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #' Arguments:
 #'   @param x matrix (samples x features if annotation matrix)
 #'   @param y matrix (samples x features if cross-correlated with annotations)
-#'   @param method association method ('pearson', 'spearman', or 'bicor' for continuous; categorical for discrete)
+#'   @param method association method ('pearson', 'spearman', or 'bicor' 
+#'                  for continuous; categorical for discrete)
 #'   @param p.adj.threshold q-value threshold to include features 
 #'   @param cth correlation threshold to include features 
 #'   @param order order the results
-#'   @param n.signif mininum number of significant correlations for each element
+#'   @param n.signif mininum number of significant correlations for each 
+#'                    element
 #'   @param mode Specify output format ("table" or "matrix")
-#'   @param p.adj.method p-value multiple testing correction method. Either "qvalue" or one of the methods in p.adjust function ("BH" and others; see help(p.adjust)). Default: "fdr"
+#'   @param p.adj.method p-value multiple testing correction method. 
+#'                    Either "qvalue" or one of the methods in p.adjust 
+#'             function ("BH" and others; see help(p.adjust)). 
+#'             Default: "fdr"
 #'   @param verbose verbose
-#'   @param filter.self.correlations Filter out correlations between identical items.
+#'   @param filter.self.correlations Filter out correlations between 
+#'                            identical items.
 #'
 #' Returns:
 #'   @return List with cor, pval, pval.adjusted
 #'
 #' @examples data(peerj32); 
-#'  	     cc <- cross.correlate(peerj32$microbes[1:20, 1:10], 
-#'	     	   		   peerj32$lipids[1:20,1:10])
+#'           cc <- cross.correlate(peerj32$microbes[1:20, 1:10], 
+#'                           peerj32$lipids[1:20,1:10])
 #' @export
 #' @import minet
 #' @import WGCNA
@@ -382,14 +412,19 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #' @details As the method=categorical (discrete) association measure
 #'          for nominal (no order for levels) variables ' we using Goodman and
 #'          Kruskal tau based on
-#'          http://www.r-bloggers.com/measuring-associations-between-non-numeric-variables/
-#'  	    The 'bicor' method is from the WGCNA package.
+#' http://www.r-bloggers.com/measuring-associations-between-non-numeric-variables/
+#'          The 'bicor' method is from the WGCNA package.
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = Inf, cth = NULL, order = FALSE, n.signif = 0, mode = "table", p.adj.method = "fdr", verbose = FALSE, filter.self.correlations = FALSE) {
+cross.correlate <- function(x, y = NULL, method = "pearson", 
+                   p.adj.threshold = Inf, cth = NULL, 
+                order = FALSE, n.signif = 0, 
+                mode = "table", p.adj.method = "fdr", 
+                verbose = FALSE, 
+                filter.self.correlations = FALSE) {
 
   if (is.null(y)) {
     message("Cross-correlating the data with itself")
@@ -399,7 +434,7 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = I
       # Ignore self-correlations in filtering
       n.signif <- n.signif + 1 
     }
-  }		
+  }        
 
   if (verbose) {message("Polishing the data")}
 
@@ -421,7 +456,8 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = I
   if (method %in% numeric.methods) {
     inds <- sapply(x, is.numeric) 
     if (any(!inds)) {
-      warning("Considering only numeric annotations for pearson/spearman/bicor/mi")
+      warning("Considering only numeric annotations for 
+                     pearson/spearman/bicor/mi")
     }
     inds <- names(which(inds))
   } else if (method %in% categorical.methods) {
@@ -452,13 +488,15 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = I
     for (j in 1:ncol(y)){
       jc <- apply(x, 2, function (xi) { 
         if (sum(!is.na(xi)) >= 8) {
-          res <- cor.test(xi, y[, j], method = method, use = "pairwise.complete.obs"); 
-	  res <- c(res$estimate, res$p.value)	   
-	} else {
-	  warning(paste("Not enough observations; (", sum(!is.na(xi)), ") - skipping correlation estimation"))
-	  res <- c(NA, NA)
+          res <- cor.test(xi, y[, j], method = method, 
+                         use = "pairwise.complete.obs"); 
+      res <- c(res$estimate, res$p.value)       
+    } else {
+      warning(paste("Not enough observations; (", sum(!is.na(xi)), ") 
+                           - skipping correlation estimation"))
+      res <- c(NA, NA)
         }
-	res
+    res
       })
   
       Cc[,j] <- jc[1,]        
@@ -487,15 +525,15 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = I
         for (lev in colnames(y)) {
 
           xvec <- x[, varname]
-	  yvec <- y[, lev]
-	  keep <- rowSums(is.na(cbind(xvec, yvec))) == 0	       
-	  xvec <- xvec[keep]
-	  yvec <- yvec[keep]
-	
-	  # Number of data-annotation samples for calculating the correlations
-    	  n <- sum(keep)
+      yvec <- y[, lev]
+      keep <- rowSums(is.na(cbind(xvec, yvec))) == 0           
+      xvec <- xvec[keep]
+      yvec <- yvec[keep]
+    
+      # Number of data-annotation samples for calculating the correlations
+          n <- sum(keep)
 
-    	  Cc[varname, lev] <- GKtau(xvec, yvec) # 
+          Cc[varname, lev] <- GKtau(xvec, yvec) # 
 
         }
       }
@@ -510,7 +548,8 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = I
       for (i in 1:ncol(x)) {
         for (j in 1:ncol(y)) {
 
-          Cc[i,j] <- build.mim(cbind(x[,i], y[,j]), estimator = "spearman")[1, 2]
+          Cc[i,j] <- build.mim(cbind(x[,i], y[,j]), 
+                               estimator = "spearman")[1, 2]
 
         }
       }
@@ -533,10 +572,13 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = I
        if (((prod(dim(Pc)) - sum(is.na(Pc))) >= 100)) {
          qv <- matrix.qvalue(Pc)
        } else {
-         warning("Not enough p-values for qvalue calculation - q-value calculation skipped. Try BH method instead for multiple correction?")
+         warning("Not enough p-values for qvalue calculation 
+               - q-value calculation skipped. 
+              Try BH method instead for multiple correction?")
        }
      } else {
-       if (verbose) {message(paste("Multiple testing correction with", p.adj.method))}
+       if (verbose) {message(paste("Multiple testing correction with", 
+                                      p.adj.method))}
 
        qv <- matrix(p.adjust(Pc, method = p.adj.method), nrow = nrow(Pc))
        dimnames(qv) <- dimnames(Pc)
@@ -560,8 +602,10 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = I
      inds1.q <- inds2.q <- inds1.c <- inds2.c <- NULL
 
      if (!is.null(p.adj.threshold)) {
-       inds1.q <- apply(qv, 1, function(x) {sum(x < p.adj.threshold) >= n.signif}) 
-       inds2.q <- apply(qv, 2, function(x) {sum(x < p.adj.threshold) >= n.signif}) 
+       inds1.q <- apply(qv, 1, function(x) {
+                  sum(x < p.adj.threshold) >= n.signif}) 
+       inds2.q <- apply(qv, 2, function(x) {
+                  sum(x < p.adj.threshold) >= n.signif}) 
      }
 
      if (!is.null(cth)) {
@@ -597,12 +641,14 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = I
        rownames(qv) <- rownames(Pc) <- rownames(Cc) <- rnams
        colnames(qv) <- colnames(Pc) <- colnames(Cc) <- cnams
 
-       if ( order && sum(inds1) >=2 && sum(inds2)>=2 ) { # Order in visually appealing order
-
+       if ( order && sum(inds1) >=2 && sum(inds2)>=2 ) { 
+             # Order in visually appealing order
          tmp <- Cc
          rownames(tmp) <- NULL
          colnames(tmp) <- NULL
-         h <- heatmap(tmp, xlab = NULL, ylab = NULL, xaxt = 'n', yaxt = 'n'); dev.off()
+
+         h <- heatmap(tmp, xlab = NULL, ylab = NULL, xaxt = 'n', yaxt = 'n'); 
+     dev.off()
 
          rnams <- rownames(Cc)[h$rowInd]
          cnams <- colnames(Cc)[h$colInd]
@@ -663,7 +709,8 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = I
 }
 
 
-#' Description: Arrange correlation matrices from cross.correlate into a table format
+#' Description: Arrange correlation matrices from cross.correlate into 
+#'         a table format
 #'              
 #' Arguments:
 #'   @param res Output from cross.correlate
@@ -675,10 +722,10 @@ cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = I
 #' @export
 #'
 #' @examples data(peerj32); 
-#' 	     cc <- cross.correlate(peerj32$microbes[1:20, 1:10], 
-#'	                           peerj32$lipids[1:20,1:10], 
-#'				   mode = "matrix"); 
-#' 				   cmat <- cmat2table(cc)
+#'          cc <- cross.correlate(peerj32$microbes[1:20, 1:10], 
+#'                               peerj32$lipids[1:20,1:10], 
+#'                   mode = "matrix"); 
+#'                    cmat <- cmat2table(cc)
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -741,7 +788,7 @@ cmat2table <- function (res, verbose = FALSE) {
 #'
 #' @export
 #' @examples data(peerj32); 
-#' 	     s <- estimate.stability(t(peerj32$microbes)[, 1:5])
+#'          s <- estimate.stability(t(peerj32$microbes)[, 1:5])
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -771,7 +818,8 @@ estimate.stability <- function (dat1, dat2 = NULL, method = "pearson") {
 
 
 
-#' Description: Measure association between nominal (no order for levels) variables 
+#' Description: Measure association between nominal 
+#'         (no order for levels) variables 
 #' using Goodman and Kruskal tau. Code modified from the original source:
 #' http://www.r-bloggers.com/measuring-associations-between-non-numeric-variables/
 #' An important feature of this procedure is that it allows missing
@@ -779,7 +827,8 @@ estimate.stability <- function (dat1, dat2 = NULL, method = "pearson") {
 #' additional level.  In practice, this is sometimes very important since
 #' missing values in one variable may be strongly associated with either
 #' missing values in another variable or specific non-missing levels of
-#' that variable. An important characteristic of Goodman and Kruskal's tau measure is
+#' that variable. An important characteristic of Goodman and Kruskal's tau 
+#' measure is
 #' its asymmetry: because the variables x and y enter this expression
 #' differently, the value of a(y,x) is not the same as the value of
 #' a(x, y), in general.  This stands in marked contrast to either the
@@ -799,8 +848,8 @@ estimate.stability <- function (dat1, dat2 = NULL, method = "pearson") {
 #'   @return Dependency measure
 #'
 #' @examples data(peerj32); 
-#' 	     tc <- GKtau(unlist(peerj32$microbes[,1]), 
-#'	                 unlist(peerj32$lipids[,1]))
+#'          tc <- GKtau(unlist(peerj32$microbes[,1]), 
+#'                    unlist(peerj32$lipids[,1]))
 #' @export
 #' @references 
 #'   Code modified from the original source:

@@ -17,23 +17,32 @@
 #' Description: read run.profiling.script output into R
 #'
 #' Arguments:
-#'   @param level phylogenetic level ("oligo" / "species" / "L1" / "L2" / "L0") or "phylogeny.full", "phylogeny.filtered"
+#'   @param level phylogenetic level 
+#'           ("oligo" / "species" / "L1" / "L2" / "L0") or 
+#'        "phylogeny.full", "phylogeny.filtered"
 #'   @param method ("frpa" / "rpa" / "sum" / "ave" / "nmf")
-#'   @param data.dir Profiling script output directory for reading the data. If not given, GUI will ask to specify the file and overruns the possible level / method arguments in the function call.
-#'   @param log10 Logical. Logarithmize the data TRUE/FALSE. By default, the data is in original non-log scale.
+#'   @param data.dir Profiling script output directory for reading the data. 
+#'                    If not given, GUI will ask to specify the file and 
+#'             overruns the possible level / method arguments in the 
+#'             function call.
+#'   @param log10 Logical. Logarithmize the data TRUE/FALSE. 
+#'                 By default, the data is in original non-log scale.
 #'   @param impute impute missing oligo signals
 #' 
 #' Returns:
 #'   @return data matrix (phylo x samples)
 #'
 #' @export
-#' @examples \dontrun{dat <- read.profiling(data.dir = params$wdir, 
-#' 	     		                    level = "L1", method = "frpa")}
+#' @examples print("Only applicable with HITChipDB data types.")
+#'            # dat <- read.profiling(data.dir = params$wdir, 
+#'           #                   level = "L1", method = "frpa")}
+#'
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-read.profiling <- function(level = NULL, method = "frpa", data.dir, log10 = TRUE, impute = TRUE){
+read.profiling <- function(level = NULL, method = "frpa", data.dir, 
+                          log10 = TRUE, impute = TRUE){
 
   # level <- "oligo"; method = "sum"; data.dir = "test/"; log10 = TRUE
   if (level %in% c("L0", "L1", "L2", "species")) {
@@ -84,7 +93,8 @@ read.profiling <- function(level = NULL, method = "frpa", data.dir, log10 = TRUE
   }
 
   if (impute && any(is.na(tab))) {
-    warning(paste("The matrix has ", sum(is.na(tab)), " missing values - imputing."))
+    warning(paste("The matrix has ", sum(is.na(tab)), " missing values 
+                             - imputing."))
     tab <- 10^t(impute(t(log10(tab))))
   }
 

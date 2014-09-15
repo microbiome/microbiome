@@ -13,7 +13,7 @@
 #'
 #' @examples data(peerj32); 
 #'           x <- unlist(peerj32$microbes[1,]); 
-#'	     res <- roc(names(x), sample(names(x), 10))
+#'         res <- roc(names(x), sample(names(x), 10))
 #'
 #' @references To cite microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -61,7 +61,9 @@ roc <- function (ordered.results, true.positives) {
 #' @keywords utilities
 roc.plot <- function(ordered.results, true.positives, line = FALSE, title = "") {
 	res <- roc(ordered.results, true.positives)
-	plot(res$fpr,res$tpr,lty=1,type='l',xlab="False positive rate",ylab="True positive rate",xlim=c(0,1),ylim=c(0,1),main=paste("ROC curve", title))
+	plot(res$fpr,res$tpr,lty=1,type='l',xlab="False positive rate",
+	     ylab="True positive rate",xlim=c(0,1),ylim=c(0,1),
+	     main=paste("ROC curve", title))
 	if (line) {
 	  # Draw 45 angle line
 	  lines(c(0,1),c(0,1))
@@ -96,7 +98,8 @@ roc.auc <- function (ordered.results, true.positives) {
   # integration: Compute step intervals and compute weighted sum of 
   # true positive rates in each interval.
   # note that interval length can be 0 if fpr does not change
-  auc <- as.numeric(t(rates$fpr[-1]-rates$fpr[-length(rates$fpr)])%*%rates$tpr[-length(rates$fpr)])
+  auc <- as.numeric(t(rates$fpr[-1]-
+		rates$fpr[-length(rates$fpr)])%*%rates$tpr[-length(rates$fpr)])
 
   auc
 }
@@ -109,14 +112,18 @@ roc.auc <- function (ordered.results, true.positives) {
 #' @param dat Data matrix (variables x samples)
 #' @param true.positives known true positive samples
 #'
-#' @details The samples are ordered for each row (variable) from the highest to the lowest score, and ROC/AUC value is calculated based on this ordering.
+#' @details The samples are ordered for each row (variable) from the highest 
+#' 	    to the lowest score, and ROC/AUC value is calculated 
+#'	    based on this ordering.
 #'
 #' Returns:
 #'   @return Vector of ROC AUC values for each variable
 #'
 #' @export
 #'
-#' @examples \dontrun{rocs <- roc.auc.matrix(dat, true.positives)}
+#' @examples data(peerj32); 
+#' 	     dat <- peerj32$microbes
+#'	     res <- roc.auc.matrix(dat, sample(colnames(dat))) 
 #' 
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

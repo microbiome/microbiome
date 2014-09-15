@@ -15,6 +15,8 @@
 #' @import knitr
 .onAttach <- function(lib, pkg)
 {
-  packageStartupMessage('\nmicrobiome R package (microbiome.github.com)\nCopyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi <microbiome-admin@googlegroups.com>\n')
+  packageStartupMessage('\nmicrobiome R package (microbiome.github.com)\n
+          Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi 
+        <microbiome-admin@googlegroups.com>\n')
 
 }

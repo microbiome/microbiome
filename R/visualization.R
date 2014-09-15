@@ -1,4 +1,4 @@
-# "A model is a lie that helps you see the truth."
+# "A model is a lie that helps you see the truth."                              
 #                                 - Howard Skipper
 
 # Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi 
@@ -21,7 +21,8 @@
 #' Description: Plots densities of data points in addition to cross-plot points.
 #'
 #' Arguments:
-#'   @param mat Data matrix to plot. The first two columns will be visualized as a cross-plot.
+#'   @param mat Data matrix to plot. The first two columns will be visualized 
+#'               as a cross-plot.
 #'   @param main title text
 #'   @param x.ticks Number of ticks on the X axis
 #'   @param rounding Rounding for X axis tick values
@@ -43,10 +44,13 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.points = TRUE, col = "red", adjust = 1, size = 1, legend = FALSE) {
+densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, 
+                    add.points = TRUE, col = "red", adjust = 1, 
+             size = 1, legend = FALSE) {
 
-    # mat: samples x features data matrix	     
-    #main = NULL; x.ticks = 10; rounding = 0; add.points = TRUE; col = "red"; adjust = 1; size = 1; legend = FALSE
+    # mat: samples x features data matrix         
+    # main = NULL; x.ticks = 10; rounding = 0; add.points = TRUE; 
+    # col = "red"; adjust = 1; size = 1; legend = FALSE
 
     # Avoid warnings
     x <- y <- ..density.. <- color <- NULL
@@ -55,8 +59,8 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
     df <- as.data.frame(mat)
     xvar <- colnames(mat)[[1]]
     yvar <- colnames(mat)[[2]]
-    df[["x"]] <- df[, 1]		
-    df[["y"]] <- df[, 2]		
+    df[["x"]] <- df[, 1]        
+    df[["y"]] <- df[, 2]        
     df[["color"]] <- col
     df[["size"]] <- size
 
@@ -68,7 +72,9 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
 
     # Construct the figure
     p <- ggplot(df) 
-    p <- p + stat_density2d(aes(x, y, fill=..density..), geom="raster", stat_params = list(h = bw, contour = FALSE), geom_params = list()) 
+    p <- p + stat_density2d(aes(x, y, fill=..density..), geom="raster", 
+                              stat_params = list(h = bw, contour = FALSE), 
+                   geom_params = list()) 
     p <- p + scale_fill_gradient(low="white", high="black") 
 
     if (add.points) {
@@ -81,7 +87,8 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
       p <- p + theme(legend.position="none")
     }
 
-    p <- p + scale_x_continuous(breaks = round(seq(floor(min(df[["x"]])), ceiling(max(df[["x"]])), length = x.ticks), rounding))
+    p <- p + scale_x_continuous(breaks = round(seq(floor(min(df[["x"]])), 
+                       ceiling(max(df[["x"]])), length = x.ticks), rounding))
 
     if (!is.null(main)) {
       p <- p + ggtitle(main)
@@ -95,16 +102,21 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
 
 #' correlation.heatmap
 #'
-#' Description: Visualizes n x m correlation table as heatmap. See examples for details.
+#' Description: Visualizes n x m correlation table as heatmap. 
+#'         See examples for details.
 #'
 #' Arguments:
-#'   @param df Data frame. Each row corresponds to a pair of correlated variables. The columns give variable names, correlations and significance estimates.
+#'   @param df Data frame. Each row corresponds to a pair of correlated 
+#'                variables. The columns give variable names, correlations and 
+#'           significance estimates.
 #'   @param Xvar X axis variable column name. For instance "X".
 #'   @param Yvar Y axis variable column name. For instance "Y".
-#'   @param fill Column to be used for heatmap coloring. For instance "correlation".
+#'   @param fill Column to be used for heatmap coloring. 
+#'                For instance "correlation".
 #'   @param star Column to be used for cell highlighting. For instance "p.adj".
 #'   @param p.adj.threshold Significance threshold for the stars.
-#'   @param correlation.threshold Include only elements that have absolute correlation higher than this value
+#'   @param correlation.threshold Include only elements that have absolute 
+#'                         correlation higher than this value
 #'   @param step color interval
 #'   @param colours heatmap colours
 #'   @param limits colour scale limits
@@ -112,7 +124,8 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
 #'   @param order.rows Order rows to enhance visualization interpretability
 #'   @param order.cols Order columns to enhance visualization interpretability
 #'   @param text.size Adjust text size
-#'   @param filter.significant Keep only the elements with at least one significant entry
+#'   @param filter.significant Keep only the elements with at least one 
+#'                          significant entry
 #'   @param star.size NULL Determine size of the highlight symbols
 #'
 #' Returns:
@@ -122,7 +135,7 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
 #'
 #' @examples data(peerj32); 
 #'           cc <- cross.correlate(peerj32$lipids[, 1:10], 
-#'	     	   		   peerj32$microbes[, 1:10]); 
+#'                           peerj32$microbes[, 1:10]); 
 #'           p <- correlation.heatmap(cc, "X1", "X2", "Correlation")
 #'
 #' @export
@@ -130,9 +143,13 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.threshold = 1, correlation.threshold = 0, step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"), limits = NULL, legend.text = "", order.rows = TRUE, order.cols = TRUE, text.size = 10, filter.significant = TRUE, star.size = NULL) {
-
-  # df <- cc; Xvar <- "X1"; Yvar <- "X2"; fill = "Correlation"; star = "p.adj"; p.adj.threshold = 1; correlation.threshold = 0; order.rows = TRUE; order.cols = TRUE; text.size = 12; filter.significant = TRUE; step = 0.2; colours = c("darkblue", "blue", "white", "red", "darkred"); limits = c(-1, 1); legend.text = fill
+correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", 
+                         p.adj.threshold = 1, 
+                 correlation.threshold = 0, step = 0.2, 
+        colours = c("darkblue", "blue", "white", "red", "darkred"), 
+        limits = NULL, legend.text = "", 
+        order.rows = TRUE, order.cols = TRUE, 
+        text.size = 10, filter.significant = TRUE, star.size = NULL) {
 
   if (is.null(limits)) { 
     maxval <- max(abs(df[[fill]])) 
@@ -150,13 +167,13 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.thr
     keep.X <- as.character(unique(df[((df[[star]] < p.adj.threshold) & (abs(df[[fill]]) > correlation.threshold)), Xvar]))
     keep.Y <- as.character(unique(df[((df[[star]] < p.adj.threshold) & (abs(df[[fill]]) > correlation.threshold)), Yvar]))
     df <- df[((df[[Xvar]] %in% keep.X) & (df[[Yvar]] %in% keep.Y)),]
-  }		    
+  }            
 
   theme_set(theme_bw(text.size))
 
-  if (any(c("XXXX", "YYYY", "ffff") %in% names(df))) { stop("XXXX, YYYY, ffff are not allowed in df") }
-
-  # ------------------------------------------------------
+  if (any(c("XXXX", "YYYY", "ffff") %in% names(df))) { 
+     stop("XXXX, YYYY, ffff are not allowed in df") 
+  }
 
   df[[Xvar]] <- factor(df[[Xvar]])
   df[[Yvar]] <- factor(df[[Yvar]])
@@ -213,22 +230,24 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.thr
   p <- p + geom_tile()
 
   p <- p + scale_fill_gradientn(legend.text, 
-       	   		breaks = seq(from = min(limits), to = max(limits), by = step), 
-  			colours = colours, 
-  			limits = limits)
+                  breaks = seq(from = min(limits), to = max(limits), by = step), 
+              colours = colours, 
+              limits = limits)
 
   p <- p + xlab("") + ylab("")
 
   p <- p + theme(axis.text.x = element_text(angle = 90))
 
   # Mark significant cells with stars
-  inds <- which((df[[star]] < p.adj.threshold) & (abs(df[[fill]]) > correlation.threshold))
+  inds <- which((df[[star]] < p.adj.threshold) & 
+                     (abs(df[[fill]]) > correlation.threshold))
   if (!is.null(star) & length(inds) > 0) {
     df.sub <- df[inds,] 
 
     if (is.null(star.size)) {star.size <- max(1, floor(text.size/2))}
 
-    p <- p + geom_text(data = df.sub, aes(x = XXXX, y = YYYY, label = "+"), col = "white", size = star.size)
+    p <- p + geom_text(data = df.sub, aes(x = XXXX, y = YYYY, label = "+"), 
+                           col = "white", size = star.size)
   }
 
   p
@@ -259,11 +278,17 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.thr
 #' @param show.CI should the 95\% CI limits be plotted?
 #' @param method the fitting function for the spaghettis; default: loess
 #' @param bw define a default b/w-palette (TRUE/FALSE)
-#' @param slices number of slices in x and y direction for the shaded region. Higher numbers make a smoother plot, but takes longer to draw. I wouldn'T go beyond 500
+#' @param slices number of slices in x and y direction for the shaded region. 
+#'            Higher numbers make a smoother plot, but takes longer to draw.
+#'         Not recommended to go beyond 500.
 #' @param palette provide a custom color palette for the watercolors
 #' @param ylim restrict range of the watercoloring
-#' @param quantize either "continuous", or "SD". In the latter case, we get three color regions for 1, 2, and 3 SD (an idea of John Mashey)
-#' @param ... further parameters passed to the fitting function, in the case of loess, for example, "span = .9", or "family = 'symmetric'"
+#' @param quantize either "continuous", or "SD". In the latter case, 
+#'              we get three color regions for 1, 2, and 3 SD 
+#'           (an idea of John Mashey)
+#' @param ... further parameters passed to the fitting function, 
+#'           in the case of loess, for example, 
+#'          "span = .9", or "family = 'symmetric'"
 #' @param verbose print information during execution
 #' @param show.points Plot the data points.
 #'
@@ -271,22 +296,32 @@ correlation.heatmap <- function (df, Xvar, Yvar, fill, star = "p.adj", p.adj.thr
 #' @return ggplot2 object
 #'
 #' @examples N <- 10; 
-#' 	     df <- data.frame(age = sort(runif(N, 0, 100)), 
-#' 	     	   	      hitchip = rnorm(N)); 
-#'	     p <- vwReg(hitchip ~ age, df, 
-#'	                shade = TRUE, 
-#'			mweight = TRUE, 
-#'			verbose = FALSE)
+#'          df <- data.frame(age = sort(runif(N, 0, 100)), 
+#'                           hitchip = rnorm(N)); 
+#'         p <- vwReg(hitchip ~ age, df, 
+#'                    shade = TRUE, 
+#'            mweight = TRUE, 
+#'            verbose = FALSE)
 #'
 #' @importFrom reshape melt
 #' @import ggplot2 plyr 
 #'
 #' @export
-#' @references Based on the original version from Felix Schonbrodt: http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/
+#' @references Based on the original version from Felix Schonbrodt: 
+#'             http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous",  verbose = FALSE, show.points = TRUE, ...) {
+vwReg <- function(formula, data, title="", B=1000, 
+                 shade=TRUE, shade.alpha=.1, 
+          spag=FALSE, mweight=TRUE, 
+          show.lm=FALSE, show.median = TRUE, 
+          median.col = "white", 
+          show.CI=FALSE, method=loess, bw=FALSE, slices=200, 
+          palette=colorRampPalette(c("#FFEDA0", "#DD0000"), 
+          bias=2)(20), ylim=NULL, 
+          quantize = "continuous",  verbose = FALSE, 
+          show.points = TRUE, ...) {
 
   # Circumvent global variable binding warnings
   x <- NA
@@ -300,11 +335,12 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
   UL <- NA
   LL <- NA
 
-
   IV <- all.vars(formula)[2]
   DV <- all.vars(formula)[1]
   data <- na.omit(data[order(data[, IV]), c(IV, DV)]) 
-  if (bw) palette <- colorRampPalette(c("#EEEEEE", "#999999", "#333333"), bias=2)(20)
+
+  if (bw) palette <- colorRampPalette(c("#EEEEEE", "#999999", "#333333"), 
+                                       bias=2)(20)
   if (verbose) {message("Computing boostrapped smoothers ...")}
 
   newx <- data.frame(seq(min(data[, IV]), max(data[, IV]), length=slices))
@@ -318,7 +354,8 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
     data2 <- data2[order(data2[, IV]), ]
 
     if (class(l0)=="loess") {
-      m1 <- method(formula, data2, control = loess.control(surface = "i", statistics="a", trace.hat="a"), ...)
+      m1 <- method(formula, data2, 
+   control = loess.control(surface = "i", statistics="a", trace.hat="a"), ...)
     } else {
       m1 <- method(formula, data2, ...)
     }
@@ -326,12 +363,15 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
     }
 
     # compute median and CI limits of bootstrap
-    CI.boot <- adply(l0.boot, 1, function(x) quantile(x, prob=c(.025, .5, .975, pnorm(c(-3, -2, -1, 0, 1, 2, 3))), na.rm=TRUE))[, -1]
+    CI.boot <- adply(l0.boot, 1, function(x) 
+            quantile(x, prob=c(.025, .5, .975, 
+                pnorm(c(-3, -2, -1, 0, 1, 2, 3))), na.rm=TRUE))[, -1]
     colnames(CI.boot)[1:10] <- c("LL", "M", "UL", paste0("SD", 1:7))
     CI.boot$x <- newx[, 1]
     CI.boot$width <- CI.boot$UL - CI.boot$LL
 
-    # scale the CI width to the range 0 to 1 and flip it (bigger numbers = narrower CI)
+    # scale the CI width to the range 0 to 1 and flip it 
+    # (bigger numbers = narrower CI)
     CI.boot$w2 <- (CI.boot$width - min(CI.boot$width))
     CI.boot$w3 <- 1-(CI.boot$w2/max(CI.boot$w2))
 
@@ -347,76 +387,97 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
 
         if (quantize == "continuous") {
 
-	  if (verbose) {message("Computing density estimates for each vertical cut ...")}
-	  flush.console()
-  	    if (is.null(ylim)) {
-	      min_value <- min(min(l0.boot, na.rm=TRUE), min(data[, DV], na.rm=TRUE))
-	      max_value <- max(max(l0.boot, na.rm=TRUE), max(data[, DV], na.rm=TRUE))
-	      ylim <- c(min_value, max_value)
-	    }
+      if (verbose) {
+        message("Computing density estimates for each vertical cut ...")
+      }
+      flush.console()
+          if (is.null(ylim)) {
+          min_value <- min(min(l0.boot, na.rm=TRUE), 
+                         min(data[, DV], na.rm=TRUE))
+          max_value <- max(max(l0.boot, na.rm=TRUE), 
+                         max(data[, DV], na.rm=TRUE))
+          ylim <- c(min_value, max_value)
+        }
 
-	    # vertical cross-sectional density estimate
-	    d2 <- ddply(b2[, c("x", "value")], .(x), function(df) {
-	      res <- data.frame(density(df$value, na.rm=TRUE, n=slices, from=ylim[1], to=ylim[2])[c("x", "y")])
+        # vertical cross-sectional density estimate
+        d2 <- ddply(b2[, c("x", "value")], .(x), function(df) {
+          res <- data.frame(density(df$value, na.rm=TRUE, n=slices, 
+                           from=ylim[1], to=ylim[2])[c("x", "y")])
 
-	      colnames(res) <- c("y", "dens")
-	      return(res)
-	    })
-	    #}, .progress="text")
+          colnames(res) <- c("y", "dens")
+          return(res)
+        })
 
-	    maxdens <- max(d2$dens)
-	    mindens <- min(d2$dens)
-	    d2$dens.scaled <- (d2$dens - mindens)/maxdens
+        maxdens <- max(d2$dens)
+        mindens <- min(d2$dens)
+        d2$dens.scaled <- (d2$dens - mindens)/maxdens
 
-	    ## Tile approach
-	    d2$alpha.factor <- d2$dens.scaled^shade.alpha
-	    p1 <- p1 + geom_tile(data=d2, aes(x=x, y=y, fill=dens.scaled, alpha=alpha.factor)) + scale_fill_gradientn("dens.scaled", colours=palette) + scale_alpha_continuous(range=c(0.001, 1))
-	    }
+        ## Tile approach
+        d2$alpha.factor <- d2$dens.scaled^shade.alpha
+        p1 <- p1 + geom_tile(data=d2, aes(x=x, y=y, fill=dens.scaled, 
+                                alpha=alpha.factor)) 
+        p1 <- p1 + scale_fill_gradientn("dens.scaled", colours=palette) 
+        p1 <- p1 + scale_alpha_continuous(range=c(0.001, 1))
+        }
 
-	    if (quantize == "SD") {
+        if (quantize == "SD") {
 
-	      ## Polygon approach
-	      SDs <- melt(CI.boot[, c("x", paste0("SD", 1:7))], id.vars="x")
-	      count <- 0
-	      d3 <- data.frame()
-	      col <- c(1,2,3,3,2,1)
+          ## Polygon approach
+          SDs <- melt(CI.boot[, c("x", paste0("SD", 1:7))], id.vars="x")
+          count <- 0
+          d3 <- data.frame()
+          col <- c(1,2,3,3,2,1)
 
-	      for (i in 1:6) {
-	        seg1 <- SDs[SDs$variable == paste0("SD", i), ]
-		seg2 <- SDs[SDs$variable == paste0("SD", i+1), ]
-		seg <- rbind(seg1, seg2[nrow(seg2):1, ])
-		seg$group <- count
-		seg$col <- col[i]
-		count <- count + 1
-		d3 <- rbind(d3, seg)
- 	     }
+          for (i in 1:6) {
+            seg1 <- SDs[SDs$variable == paste0("SD", i), ]
+        seg2 <- SDs[SDs$variable == paste0("SD", i+1), ]
+        seg <- rbind(seg1, seg2[nrow(seg2):1, ])
+        seg$group <- count
+        seg$col <- col[i]
+        count <- count + 1
+        d3 <- rbind(d3, seg)
+          }
 
-	     p1 <- p1 + geom_polygon(data=d3, aes(x=x, y=value, color=NULL, fill=col, group=group)) + scale_fill_gradientn("dens.scaled", colours=palette, values=seq(-1, 3, 1))
-	  }
-	}	  
+         p1 <- p1 + geom_polygon(data=d3, 
+                   aes(x=x, y=value, color=NULL, fill=col, group=group)) 
+         p1 <- p1 + scale_fill_gradientn("dens.scaled", 
+                   colours=palette, values=seq(-1, 3, 1))
+      }
+    }      
 
-	if (verbose) {message("Build ggplot figure ...")}
-	flush.console()
-	if (spag) {
-	  p1 <- p1 + geom_path(data=b2, aes(x=x, y=value, group=B), size=0.7, alpha=10/B, color="darkblue")
-	}
+    if (verbose) {message("Build ggplot figure ...")}
+    flush.console()
+    if (spag) {
+      p1 <- p1 + geom_path(data=b2, 
+                      aes(x=x, y=value, group=B), 
+            size=0.7, alpha=10/B, color = "darkblue")
+    }
 
-	if (show.median) {
-	  if (mweight) {
-	    p1 <- p1 + geom_path(data=CI.boot, aes(x=x, y=M, alpha=w3^3), size=.6, linejoin="mitre", color=median.col)
-	  } else {
-	    p1 <- p1 + geom_path(data=CI.boot, aes(x=x, y=M), size = 0.6, linejoin="mitre", color=median.col)
-	  }
-	}
+    if (show.median) {
+      if (mweight) {
+        p1 <- p1 + geom_path(data=CI.boot, 
+                               aes(x=x, y=M, alpha=w3^3), 
+                 size=.6, linejoin="mitre", 
+                 color=median.col)
+      } else {
+        p1 <- p1 + geom_path(data=CI.boot, 
+                               aes(x=x, y=M), size = 0.6, 
+                 linejoin="mitre", color=median.col)
+      }
+    }
 
-	# Confidence limits
-	if (show.CI) {
-  	  p1 <- p1 + geom_path(data=CI.boot, aes(x=x, y=UL, group=B), size=1, color="red")
-  	  p1 <- p1 + geom_path(data=CI.boot, aes(x=x, y=LL, group=B), size=1, color="red")
-	}
+    # Confidence limits
+    if (show.CI) {
+        p1 <- p1 + geom_path(data=CI.boot, 
+                             aes(x=x, y=UL, group=B), size=1, color="red")
+        p1 <- p1 + geom_path(data=CI.boot, 
+                            aes(x=x, y=LL, group=B), size=1, color="red")
+    }
 
   # plain linear regression line
-  if (show.lm) {p1 <- p1 + geom_smooth(method="lm", color="darkgreen", se=FALSE)}
+  if (show.lm) {
+    p1 <- p1 + geom_smooth(method="lm", color="darkgreen", se=FALSE)
+  }
 
   if (show.points) {
     p1 <- p1 + geom_point(size=1, shape=21, fill="white", color="black")
@@ -433,11 +494,13 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
 
 
 
-#' Description: Project high-dimensional data on two-dimensional plane by various methods
+#' Description: Project high-dimensional data on two-dimensional plane 
+#'         by various methods
 #' 
 #' Arguments:
 #'   @param amat data matrix (samples x features)
-#'   @param type projection type (options: PCA, MDS.classical, MDS.nonmetric, Sammon)
+#'   @param type projection type 
+#'           (options: PCA, MDS.classical, MDS.nonmetric, Sammon)
 #' Returns:
 #'   @return projected data matrix
 #'
@@ -450,7 +513,8 @@ vwReg <- function(formula, data, title="", B=1000, shade=TRUE, shade.alpha=.1, s
 #'
 #' @references 
 #'    
-#'    D. Hand and H. Mannila and P. Smyth: Principles of Data Mining. MIT Press. Cambridge, MA, US (2001).
+#'    D. Hand and H. Mannila and P. Smyth: 
+#'    Principles of Data Mining. MIT Press. Cambridge, MA, US (2001).
 #'    
 #'    To cite microbiome R package, see citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -464,7 +528,8 @@ project.data <- function (amat, type = "PCA") {
       message("More samples than features, using sparse PCA")
 
       ## Spca example: we are selecting 50 variables on each of the PCs
-      result <- spca(amat, ncomp = 2, center = TRUE, scale = TRUE, keepX = rep(50, 2))
+      result <- spca(amat, ncomp = 2, center = TRUE, 
+                          scale = TRUE, keepX = rep(50, 2))
       scores <- result$x
     } else {
       message("PCA")
@@ -486,11 +551,11 @@ project.data <- function (amat, type = "PCA") {
   } else if (type == "MDS.classical") {
     d <- as.dist(1-cor(t(amat)))
     fit <- cmdscale(d, eig=TRUE, k=2) # classical MDS
-    tab <- data.frame(list(Comp.1 = fit$points[,1], Comp.2 = fit$points[,2]))    
+    tab <- data.frame(list(Comp.1 = fit$points[,1], Comp.2 = fit$points[,2])) 
   } else if (type == "MDS.nonmetric") {
     d <- as.dist(1-cor(t(amat)))
     fit <- isoMDS(d, k=2)             # nonmetric MDS
-    tab <- data.frame(list(Comp.1 = fit$points[,1], Comp.2 = fit$points[,2]))    
+    tab <- data.frame(list(Comp.1 = fit$points[,1], Comp.2 = fit$points[,2]))
   }  
 
   # TODO Kernel-PCA
@@ -520,13 +585,24 @@ project.data <- function (amat, type = "PCA") {
 #' optimal visualization.
 #'
 #' @param mat matrix
-#' @param type String. Specifies visualization type. Options: "oneway" (color scale ranges from white to dark red; the color can be changed if needed); "twoway" (color scale ranges from dark blue through white to dark red; colors can be changed if needed)
-#' @param midpoint middle point for the color plot: smaller values are shown with blue, larger are shown with red in type = "twoway"
+
+#' @param type String. Specifies visualization type. Options: "oneway" 
+#'                       (color scale ranges from white to dark red; 
+#'               the color can be changed if needed); 
+#'               "twoway" (color scale ranges from dark blue 
+#'               through white to dark red; colors can be changed 
+#'               if needed)
+#'
+#' @param midpoint middle point for the color plot: smaller values are 
+#'              shown with blue, larger are shown with red 
+#'           in type = "twoway"
+#'
 #' @param palette Optional. Color palette.
 #' @param colors Optional. Colors.
 #' @param col.breaks breakpoints for the color palette
 #' @param interval interval for palette color switches
-#' @param plot.axes String. Indicates whether to plot x-axis ("x"), y-axis ("y"), or both ("both").
+#' @param plot.axes String. Indicates whether to plot 
+#'               x-axis ("x"), y-axis ("y"), or both ("both").
 #' @param row.tick interval for plotting row axis texts
 #' @param col.tick interval for plotting column axis texts
 #' @param cex.xlab use this to specify distinct font size for the x axis
@@ -535,8 +611,10 @@ project.data <- function (amat, type = "PCA") {
 #' @param ylab optional y axis labels
 #' @param limit.trunc color scale limit breakpoint
 #' @param mar image margins
-#' @param ... optional parameters to be passed to function 'image', see help(image) for further details
-#' @return A list with the color palette (colors), color breakpoints (breaks), and palette function (palette.function)
+#' @param ... optional parameters to be passed to function 'image', 
+#'           see help(image) for further details
+#' @return A list with the color palette (colors), 
+#'        color breakpoints (breaks), and palette function (palette.function)
 #' @export
 #' 
 #' @references See citation("microbiome") 
@@ -546,12 +624,13 @@ project.data <- function (amat, type = "PCA") {
 #' @keywords utilities
 
 PlotMatrix <- function (mat, type = "twoway", midpoint = 0, 
-	      	        palette = NULL, colors = NULL, col.breaks = NULL, interval = .1, 
-			plot.axes = "both",
-			row.tick = 1, col.tick = 1, 
-			cex.xlab = .9, cex.ylab = .9, 
-			xlab = NULL, ylab = NULL,
-			limit.trunc = 0, mar = c(5, 4, 4, 2), ...) {
+                      palette = NULL, colors = NULL, 
+            col.breaks = NULL, interval = .1, 
+            plot.axes = "both",
+            row.tick = 1, col.tick = 1, 
+            cex.xlab = .9, cex.ylab = .9, 
+            xlab = NULL, ylab = NULL,
+            limit.trunc = 0, mar = c(5, 4, 4, 2), ...) {
 
   # Center the data and color breakpoints around the specified midpoint
   mat <- mat - midpoint
@@ -598,52 +677,59 @@ PlotMatrix <- function (mat, type = "twoway", midpoint = 0,
   nsamples <- ncol(mat)
   nfeats <- nrow(mat)
   if (nfeats == 1) {mat <- mat}
-  image(t(mat), col = colors, xaxt = 'n', yaxt = 'n', zlim = range(col.breaks), breaks = col.breaks, ...)
+  image(t(mat), col = colors, xaxt = 'n', yaxt = 'n', 
+          zlim = range(col.breaks), breaks = col.breaks, ...)
 
   if (plot.axes == "both" || plot.axes == TRUE) {
 
     if (is.null(xlab)) {
       v <- seq(1, nsamples, col.tick) # take every nth index
-      axis(1, at = seq(0,1,length = nsamples)[v], labels = colnames(mat)[v], cex.axis=cex.xlab, las=2, ...)    
+      axis(1, at = seq(0,1,length = nsamples)[v], 
+                labels = colnames(mat)[v], cex.axis=cex.xlab, las=2, ...)    
     } else {
-      axis(1, at = seq(0,1,length = nsamples), labels = xlab, cex.axis=cex.xlab, las=2, ...)    
+      axis(1, at = seq(0,1,length = nsamples), labels = xlab, 
+                cex.axis=cex.xlab, las=2, ...)    
     }
 
     if (is.null(ylab)) {
       v <- seq(1, nfeats, row.tick) # take every nth index
-      axis(2, at = seq(0,1,length = nfeats)[v], labels = rev(rownames(mat))[v], cex.axis=cex.ylab, las=2, ...)
+      axis(2, at = seq(0,1,length = nfeats)[v], 
+                labels = rev(rownames(mat))[v], cex.axis=cex.ylab, las=2, ...)
     } else {  
-      axis(2, at = seq(0,1,length = nfeats), labels = rev(ylab), cex.axis = cex.ylab, las=2, ...)
+      axis(2, at = seq(0,1,length = nfeats), labels = rev(ylab), 
+                cex.axis = cex.ylab, las=2, ...)
     }
 
   } else if (plot.axes == "x") {
 
     if (is.null(xlab)) {
       v <- seq(1, nsamples, col.tick) # take every nth index
-      axis(1, at = seq(0,1,length = nsamples)[v], labels = colnames(mat)[v], cex.axis=cex.ylab, las=2)    
+      axis(1, at = seq(0,1,length = nsamples)[v], 
+                labels = colnames(mat)[v], cex.axis=cex.ylab, las=2)    
     } else {
-      axis(1, at = seq(0,1,length = nsamples), labels = ylab, cex.axis=cex.ylab, las=2)    
+      axis(1, at = seq(0,1,length = nsamples), 
+                labels = ylab, cex.axis=cex.ylab, las=2)    
     }
 
   } else if (plot.axes == "y") {
 
     if (is.null(ylab)) {
       v <- seq(1, nfeats, row.tick) # take every nth index
-      axis(2, at = seq(0, 1, length = nfeats)[v], labels = rev(rownames(mat))[v], cex.axis = cex.xlab, las = 2)
+      axis(2, at = seq(0, 1, length = nfeats)[v], 
+                labels = rev(rownames(mat))[v], cex.axis = cex.xlab, las = 2)
     } else {  
-      axis(2, at = seq(0, 1, length = nfeats), labels = ylab, cex.axis=cex.xlab, las=2)
+      axis(2, at = seq(0, 1, length = nfeats), 
+                labels = ylab, cex.axis=cex.xlab, las=2)
     }
   }
   
   # Return default margins
   par(mar = c(5, 4, 4, 2) + 0.1)
  
-  return(list(colors = colors, breaks = col.breaks + midpoint, palette.function = my.palette))
-      	  
+  return(list(colors = colors, breaks = col.breaks + midpoint, 
+               palette.function = my.palette))
+            
 }
-
-
-
 
 
 
@@ -681,13 +767,13 @@ htree.plot <- function (dat, method = "complete", metric = "pearson") {
     } else if (metric %in% c("pearson", "spearman")) {
 
       # 'Metric': Correlation
-      hc <- hclust(as.dist(1 - cor(dat, use = "pairwise.complete.obs", method = metric)), method = method)
+      hc <- hclust(as.dist(1 - cor(dat, use = "pairwise.complete.obs", 
+                           method = metric)), method = method)
 
-      #hc.raw.cor <- hclust(as.dist(1 - cor(dat, use = "complete.obs")), method = method)
-      #hc.log10.cor <- hclust(as.dist(1 - cor(log10(dat + 1), use = "complete.obs")), method = method)
     }
 
-    plot(hc, hang = -1, main = paste("hclust/", metric, sep = ""), xlab = "Samples")
+    plot(hc, hang = -1, main = paste("hclust/", metric, sep = ""), 
+             xlab = "Samples")
 
   } else {
     warning("Three or more samples required for clustering - skipped.\n")
@@ -702,7 +788,8 @@ htree.plot <- function (dat, method = "complete", metric = "pearson") {
 
 #' phylo.barplot
 #'
-#' Description: Barplot for *ITChip sample (across taxa) with higher-level taxonomic groups indicated by colours.
+#' Description: Barplot for *ITChip sample (across taxa) with higher-level 
+#'         taxonomic groups indicated by colours.
 #'
 #' Arguments:
 #'   @param x Data vector across taxa (each element should be named by taxon)
@@ -716,18 +803,19 @@ htree.plot <- function (dat, method = "complete", metric = "pearson") {
 #'   @return ggplot2 object
 #'
 #' @export
-#' @examples \dontrun{
+#' @examples 
 #'      phylogeny.info <- GetPhylogeny("HITChip", "filtered"); 
 #'      signal <- unlist(peerj32$microbes[1, 1:10]); 
 #'      p <- phylo.barplot(signal, 
-#'      	           color.level = "L1", 
-#'			   phylogeny.info = phylogeny.info)
-#'                   }
+#'                     color.level = "L1", 
+#'               phylogeny.info = phylogeny.info)
+#'                   
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title = NULL, plot = TRUE, sort = TRUE) {
+phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, 
+                      title = NULL, plot = TRUE, sort = TRUE) {
 
   if (is.null(phylogeny.info)) {
     warning("phylogeny.info not specified, assuming HITChip phylogeny")
@@ -735,7 +823,8 @@ phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title =
   }
 
   taxa <- names(x)
-  tax.lev <- names(which.max(apply(phylogeny.info, 2, function (x) {sum(taxa %in% x)})))
+  tax.lev <- names(which.max(apply(phylogeny.info, 2, function (x) {
+         sum(taxa %in% x)})))
 
   for (tax.lev in c("oligoID", "species", "L1", "L2")) {
     if (all(taxa %in% phylogeny.info[[tax.lev]])) {x.level <- tax.lev}
@@ -745,7 +834,9 @@ phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title =
   df <- data.frame(list(taxa = taxa))
   
   # Assign higher-level taxonomic groups
-  df[[color.level]] <- unlist(droplevels(levelmap(taxa, level.from = x.level, level.to = color.level, phylogeny.info = phylogeny.info)))
+  df[[color.level]] <- unlist(droplevels(levelmap(taxa, 
+                     level.from = x.level, level.to = color.level, 
+            phylogeny.info = phylogeny.info)))
   df[["color.level"]] <- df[[color.level]]
 
   df[["x"]] <- x
@@ -764,8 +855,10 @@ phylo.barplot <- function (x, color.level = "L1", phylogeny.info = NULL, title =
 
   # Plot the image
   p <- ggplot(aes(x = taxa, y = x, fill = color.level), data = df)
-  p <- p + scale_fill_manual(values = colors[as.character(levels(df[[color.level]]))])
-  p <- p + geom_bar(position = "identity", stat = "identity") + theme_bw() + coord_flip()
+  p <- p + scale_fill_manual(
+        values = colors[as.character(levels(df[[color.level]]))])
+  p <- p + geom_bar(position = "identity", stat = "identity") 
+  p <- p + theme_bw() + coord_flip()
   p <- p + ylab("Signal") + xlab("") + ggtitle(title)
   p <- p + theme(legend.position = "right")
   p <- p + theme(panel.border = element_rect())

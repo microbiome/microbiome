@@ -27,9 +27,12 @@
 
 list.color.scales <- function () {
   ## Different colour scales
-  list('white/blue'=colorRampPalette(c("white","darkblue"),interpolate='linear')(100),
-       'white/black'=colorRampPalette(c("white","black"),interpolate='linear')(100),
-       'black/yellow/white'=colorRampPalette(c("black","yellow","white"),bias=0.5,interpolate='linear')(100))
+  list('white/blue'=colorRampPalette(c("white","darkblue"),
+        interpolate='linear')(100),
+       'white/black'=colorRampPalette(c("white","black"),
+        interpolate='linear')(100),
+       'black/yellow/white'=colorRampPalette(c("black","yellow","white"),
+        bias=0.5,interpolate='linear')(100))
 
 }
 
@@ -50,7 +53,7 @@ list.color.scales <- function () {
 #'
 #' @export
 #' @examples data(peerj32); 
-#'   	     dat <- peerj32$microbes;
+#'            dat <- peerj32$microbes;
 #'           hc <- calculate.hclust(dat, "complete", "pearson") 
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -61,7 +64,8 @@ calculate.hclust <- function (dat, method = "complete", metric = "pearson") {
   if (metric == 'euclidean') {
     hc <- hclust(dist(t(dat)), method = method)
   } else if (metric %in% c("spearman", "pearson")) {
-    hc <- hclust(as.dist(1 - cor(dat, use = "complete.obs", method = metric)), method = method)
+    hc <- hclust(as.dist(1 - cor(dat, use = "complete.obs", method = metric)), 
+                        method = method)
   } else {  
     stop("Provide proper metric for calculate.hclust!")
   }
@@ -77,19 +81,23 @@ calculate.hclust <- function (dat, method = "complete", metric = "pearson") {
 #'   @param name name
 #'   @param level taxonomic level
 #'   @param phylogeny.info phylogeny.info
-#'   @param oligo.matrix oligos vs. samples preprocessed data matrix; absolute scale
+#'   @param oligo.matrix oligos vs. samples preprocessed data matrix; 
+#'                    absolute scale
 #'   @param log10 Logical. Logarithmize the data TRUE/FALSE
 #'
 #' Returns:
 #'   @return probeset data matrix
 #'
 #' @export
-#' @examples \dontrun{get.probeset("Vibrio", "L2", phylogeny.info, oligo.matrix)}
+#' @examples 
+#'      phylogeny.info <- GetPhylogeny("HITChip", "filtered")
+#'      # ps <- get.probeset("Vibrio", "L2", phylogeny.info, oligo.matrix)
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-get.probeset <- function (name, level, phylogeny.info, oligo.matrix, log10 = TRUE) {
+get.probeset <- function (name, level, phylogeny.info, oligo.matrix, 
+                   log10 = TRUE) {
 
   # Pick probes for this entity
   probes <- retrieve.probesets(phylogeny.info, level, name)
@@ -129,16 +137,17 @@ get.probeset <- function (name, level, phylogeny.info, oligo.matrix, log10 = TRU
 
 #' PhylotypeRatios
 #'
-#' Calculate phylotype ratios (eg. Bacteroides vs. Prevotella etc.) for a given
-#' phylotypes vs. samples matrix
+#' Calculate phylotype ratios (eg. Bacteroides vs. Prevotella etc.) 
+#'          for a given phylotypes vs. samples matrix
 #'
 #' @param dat phylotypes vs. samples data matrix in log10 scale
 #'
-#' @return phylotype pairs x samples matrix indicating the ratio (in log10 domain) between each unique pair
+#' @return phylotype pairs x samples matrix indicating the ratio 
+#'                 (in log10 domain) between each unique pair
 #' @export 
 #' @examples data(peerj32); 
-#' 	     dat <- peerj32$microbes; 
-#'	     ratios <- PhylotypeRatios(dat)
+#'          dat <- peerj32$microbes; 
+#'         ratios <- PhylotypeRatios(dat)
 #' @references
 #' See citation("microbiome")
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -173,7 +182,9 @@ PhylotypeRatios <- function (dat) {
 #' @return q-value matrix
 #' @export 
 #' @references 
-#'    JD Storey 2003. Ann. Statist. 31(6):2013-2035. The positive false discovery rate: a Bayesian interpretation and the q-value. 
+#'    JD Storey 2003. Ann. Statist. 31(6):2013-2035. 
+#'    The positive false discovery rate: 
+#'          a Bayesian interpretation and the q-value. 
 #'    To cite the microbiome R package, see citation("microbiome")
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples qvals <- matrix.qvalue(matrix(runif(1000), nrow = 100))
@@ -202,7 +213,9 @@ matrix.qvalue <- function (pvals) {
 #' @references
 #' See citation("microbiome")
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples \dontrun{polished.phylogeny.info <- impute(phylogeny.info)}
+#' @examples 
+#'          phylogeny.info <- GetPhylogeny("HITChip", "filtered")   
+#'          phylogeny.info <- polish.phylogeny.info(phylogeny.info)
 #' @keywords utilities
 
 polish.phylogeny.info <- function (phylogeny.info) {
@@ -229,7 +242,9 @@ polish.phylogeny.info <- function (phylogeny.info) {
 #' @references
 #' See citation("microbiome")
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples #X2 <- impute(X) 
+#' @examples data(peerj32)
+#'          x <- peerj32$microbes
+#'          xi <- impute(x) 
 #' @keywords utilities
 
 impute <- function (X) {
@@ -254,8 +269,7 @@ impute <- function (X) {
 #' @references
 #' See citation("microbiome")
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples 
-#' #s2 <- Strip(s) 
+#' @examples Strip(" aa b c ") 
 #' @keywords utilities
 Strip <- function (s) {
 
@@ -292,6 +306,9 @@ Strip <- function (s) {
 #'   @return sorted data frame
 #'
 #' @export
+#' @examples data(peerj32)
+#'          esort(peerj32$meta, -time, gender)
+#'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -319,7 +336,9 @@ esort <- function(x, sortvar, ...) {
 #'   @return lower triangle as vector 
 #'
 #' @export
-#'
+#' @examples 
+#'          mat <- rbind(c(1,2,3), c(4,5,6), c(7,8,9))
+#'          vec <- lower.triangle(mat)
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
