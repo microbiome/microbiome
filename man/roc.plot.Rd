@@ -3,7 +3,7 @@
 \alias{roc.plot}
 \title{Description: Plot ROC curve}
 \usage{
-roc.plot(ordered.results, true.positives, line = F, title = "")
+roc.plot(ordered.results, true.positives, line = FALSE, title = "")
 }
 \arguments{
 \item{ordered.results}{Items ordered from best to worst according
@@ -24,14 +24,14 @@ Arguments:
 }
 \examples{
 data(peerj32);
-	     x <- unlist(peerj32$microbes[1,]);
-	     res <- roc.plot(names(x), sample(names(x), 10))
+     x <- unlist(peerj32$microbes[1,]);
+     res <- roc.plot(names(x), sample(names(x), 10))
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

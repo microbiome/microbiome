@@ -25,14 +25,14 @@ Arguments:
 }
 \examples{
 data(peerj32);
-  	     dat <- peerj32$microbes;
-          hc <- calculate.hclust(dat, "complete", "pearson")
+           dat <- peerj32$microbes;
+          hc <- calculate.hclust(dat, 'complete', 'pearson')
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

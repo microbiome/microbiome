@@ -24,17 +24,16 @@ Description: List probes for each probeset
 Arguments:
 }
 \examples{
-\dontrun{phylogeny.info <- GetPhylogeny();
-	     	      sets <- retrieve.probesets(phylogeny.info,
-		      	      			 level = "species",
-						 name = "Weissella confusa")
-						 }
+phylogeny.info <- GetPhylogeny();
+         sets <- retrieve.probesets(phylogeny.info,
+                       level = 'species',
+                 name = 'Weissella confusa')
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

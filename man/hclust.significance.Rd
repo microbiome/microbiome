@@ -15,7 +15,10 @@ hclust.significance(dat, my.groups = NULL, R, sample.sizes = 1, min.size,
 
 \item{R}{bootstrap iterations}
 
-\item{sample.sizes}{sample sizes for multiscale bootstrap as fractions of the total data (0...1..etc.). Use vector of different sizes to perform multiscale bootstrap resampling.}
+\item{sample.sizes}{sample sizes for multiscale bootstrap as fractions of
+   the total data (0...1..etc.).
+Use vector of different sizes to perform
+multiscale bootstrap resampling.}
 
 \item{min.size}{minimum cluster size}
 
@@ -29,7 +32,8 @@ hclust.significance(dat, my.groups = NULL, R, sample.sizes = 1, min.size,
 
 \item{pvalue.threshold}{pvalue threshold: filter out non-significant groups}
 
-\item{remove.nested.clusters}{Remove nested clusters, or keep all? Default: TRUE}
+\item{remove.nested.clusters}{Remove nested clusters, or keep all?
+                   Default: TRUE}
 }
 \value{
 List of significant clusters (corresponding to the given p-value)
@@ -40,17 +44,17 @@ clusters based on multiscale bootstrap resamping
 }
 \examples{
 data(peerj32);
-	     sign.clust <- hclust.significance(
-	     		       as.matrix(peerj32$microbes),
-			       R = 20,
-			       min.size = 2,
-			       corr.th = 0.5)
+         sign.clust <- hclust.significance(
+                       as.matrix(peerj32$microbes),
+                  R = 20,
+                  min.size = 2,
+                  corr.th = 0.5)
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{methods}
 

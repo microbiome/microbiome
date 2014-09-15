@@ -19,9 +19,9 @@
 #' @author Leo Lahti and Jarkko Salojarvi 
 #'       \email{microbiome-admin@@googlegroups.com}
 #' @references
-#' See citation("microbiome")
+#' See citation('microbiome')
 #' \url{http://microbiome.github.io}
-#' @examples citation("microbiome")
+#' @examples citation('microbiome')
 #' @keywords package
 NULL
-
+ 

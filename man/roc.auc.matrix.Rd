@@ -17,18 +17,22 @@ Vector of ROC AUC values for each variable
 Arguments:
 }
 \details{
-The samples are ordered for each row (variable) from the highest to the lowest score, and ROC/AUC value is calculated based on this ordering.
+The samples are ordered for each row (variable) from the highest
+   to the lowest score, and ROC/AUC value is calculated
+   based on this ordering.
 
 Returns:
 }
 \examples{
-\dontrun{rocs <- roc.auc.matrix(dat, true.positives)}
+data(peerj32);
+     dat <- peerj32$microbes
+     res <- roc.auc.matrix(dat, sample(colnames(dat)))
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

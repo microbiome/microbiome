@@ -19,11 +19,15 @@ lower triangle as vector
 \description{
 Arguments:
 }
+\examples{
+mat <- rbind(c(1,2,3), c(4,5,6), c(7,8,9))
+         vec <- lower.triangle(mat)
+}
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

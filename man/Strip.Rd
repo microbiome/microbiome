@@ -15,13 +15,13 @@ Stripped string
 Strip string i.e. remove spaces from the beginning and end
 }
 \examples{
-#s2 <- Strip(s)
+Strip(' aa b c ')
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

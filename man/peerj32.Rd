@@ -16,10 +16,14 @@ associations between intestinal bacteria and host lipid metabolism.
 For details, see \url{http://dx.doi.org/10.7717/peerj.32}.
 }
 \author{
-Leo Lahti \email{microbiome-admin@googlegroups.com} has preprocessed the data.
+Leo Lahti \email{microbiome-admin@googlegroups.com}
+        has preprocessed the data.
 }
 \references{
-Lahti et al. (2013) Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data. PeerJ 1:e32 \url{http://dx.doi.org/10.7717/peerj.32}
+Lahti et al. (2013) Associations between the human intestinal
+           microbiota, Lactobacillus rhamnosus GG and serum lipids
+          indicated by integrated analysis of high-throughput profiling
+         data. PeerJ 1:e32 \url{http://dx.doi.org/10.7717/peerj.32}
 }
 \keyword{data}
 

@@ -44,13 +44,17 @@ vwReg(formula, data, title = "", B = 1000, shade = TRUE,
 
 \item{bw}{define a default b/w-palette (TRUE/FALSE)}
 
-\item{slices}{number of slices in x and y direction for the shaded region. Higher numbers make a smoother plot, but takes longer to draw. I wouldn'T go beyond 500}
+\item{slices}{number of slices in x and y direction for the shaded region.
+   Higher numbers make a smoother plot, but takes longer to draw.
+Not recommended to go beyond 500.}
 
 \item{palette}{provide a custom color palette for the watercolors}
 
 \item{ylim}{restrict range of the watercoloring}
 
-\item{quantize}{either "continuous", or "SD". In the latter case, we get three color regions for 1, 2, and 3 SD (an idea of John Mashey)}
+\item{quantize}{either 'continuous', or 'SD'. In the latter case,
+   we get three color regions for 1, 2, and 3 SD
+(an idea of John Mashey)}
 
 \item{verbose}{print information during execution}
 
@@ -58,7 +62,9 @@ vwReg(formula, data, title = "", B = 1000, shade = TRUE,
 
 Returns:}
 
-\item{...}{further parameters passed to the fitting function, in the case of loess, for example, "span = .9", or "family = 'symmetric'"}
+\item{...}{further parameters passed to the fitting function,
+ in the case of loess, for example,
+'span = .9', or 'family = 'symmetric''}
 }
 \value{
 ggplot2 object
@@ -68,18 +74,19 @@ Arguments:
 }
 \examples{
 N <- 10;
-	     df <- data.frame(age = sort(runif(N, 0, 100)),
-	     	   	      hitchip = rnorm(N));
-	     p <- vwReg(hitchip ~ age, df,
-	                shade = TRUE,
-			mweight = TRUE,
-			verbose = FALSE)
+         df <- data.frame(age = sort(runif(N, 0, 100)),
+                          hitchip = rnorm(N));
+        p <- vwReg(hitchip ~ age, df,
+                   shade = TRUE,
+           mweight = TRUE,
+           verbose = FALSE)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-Based on the original version from Felix Schonbrodt: http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/
+Based on the original version from Felix Schonbrodt:
+            http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/
 }
 \keyword{utilities}
 

@@ -25,25 +25,24 @@ Returns:}
 ggplot2 object
 }
 \description{
-Description: Barplot for *ITChip sample (across taxa) with higher-level taxonomic groups indicated by colours.
+Description: Barplot for *ITChip sample (across taxa) with higher-level
+        taxonomic groups indicated by colours.
 }
 \details{
 Arguments:
 }
 \examples{
-\dontrun{
-     phylogeny.info <- GetPhylogeny("HITChip", "filtered");
+phylogeny.info <- GetPhylogeny('HITChip', 'filtered');
      signal <- unlist(peerj32$microbes[1, 1:10]);
      p <- phylo.barplot(signal,
-     	           color.level = "L1",
-			   phylogeny.info = phylogeny.info)
-                  }
+                    color.level = 'L1',
+              phylogeny.info = phylogeny.info)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

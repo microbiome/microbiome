@@ -13,7 +13,8 @@ relative.abundance(dat, det.th = 0)
 Returns:}
 }
 \value{
-Vector containing relative proportions for each phylotype in each sample
+Vector containing relative proportions for each phylotype in
+           each sample
 }
 \description{
 Description: Estimate relative abundance for each phylotype in each sample with a given threshold
@@ -23,14 +24,14 @@ Arguments:
 }
 \examples{
 data(peerj32);
-	     relab <- relative.abundance(10^t(peerj32$microbes),
-	     	      		det.th = 0)
+         relab <- relative.abundance(10^t(peerj32$microbes),
+                          det.th = 0)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

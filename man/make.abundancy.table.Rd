@@ -29,14 +29,14 @@ Arguments:
 }
 \examples{
 data(peerj32);
-	     abtab <- make.abundancy.table(10^t(peerj32$microbes),
-	     	      			det.th = 0)
+         abtab <- make.abundancy.table(10^t(peerj32$microbes),
+                              det.th = 0)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-To cite the microbiome R package, see citation("microbiome")
+To cite the microbiome R package, see citation('microbiome')
 }
 \keyword{utilities}
 

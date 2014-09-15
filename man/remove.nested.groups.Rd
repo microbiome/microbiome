@@ -17,13 +17,16 @@ Description: remove nested groups from hierarchical clustering results;
              keep only the largest group when nested groups are detected
 }
 \examples{
-\dontrun{remove.nested.groups(groups)}
+data(peerj32);
+         cl <- get.hclust.groups(peerj32$microbes,
+                                corr.th = 0.8)
+         cl <- remove.nested.groups(cl)
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{methods}
 

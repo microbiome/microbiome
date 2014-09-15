@@ -7,11 +7,15 @@ diversity.table(dat, level.from, level.to, phylogeny.info = NULL,
   diversity.index = "shannon", det.th = 0, min.probes = 0)
 }
 \arguments{
-\item{dat}{data matrix (phylotypes x samples) in original (non-log) scale; this should present the highest level phylogeny (typically probe-level) used in the analysis}
+\item{dat}{data matrix (phylotypes x samples) in original (non-log) scale;
+            this should present the highest level phylogeny
+     (typically probe-level) used in the analysis}
 
-\item{level.from}{higher-level taxonomic groups for which the diversity will be calculated}
+\item{level.from}{higher-level taxonomic groups for which the diversity
+                   will be calculated}
 
-\item{level.to}{lower taxonomic level used for the diversity calculations. Must correspond to the input data matrix argument 'dat'}
+\item{level.to}{lower taxonomic level used for the diversity calculations.
+                 Must correspond to the input data matrix argument 'dat'}
 
 \item{phylogeny.info}{mapping table between taxonomic levels}
 
@@ -27,15 +31,17 @@ Returns:}
 Table with various richness, evenness, and diversity indicators
 }
 \description{
-Description: Estimate diversity within each taxonomic group across the samples
+Description: Estimate diversity within each taxonomic group
+        across the samples
 }
 \details{
 Arguments:
 }
 \examples{
-\dontrun{divtab <- diversity.table(dat,
-  	     	       		level.from = "L2",
-				level.to = "oligo")}
+print("Only applicable to HITChipDB data formats.")
+   #divtab <- diversity.table(dat,
+   #                                 level.from = 'L2',
+   #                                 level.to = 'oligo')
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
@@ -45,7 +51,7 @@ This function builds on tools from the vegan R package.
    Jari Oksanen et al. (2013). vegan: Community Ecology.
    R Package. http://CRAN.R-project.org/package=vegan
 
-   To cite the microbiome R package, see citation("microbiome")
+   To cite the microbiome R package, see citation('microbiome')
 }
 \keyword{utilities}
 

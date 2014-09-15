@@ -10,7 +10,8 @@ diversity(dat, diversity.index = "shannon", det.th = 0)
 
 \item{diversity.index}{diversity index (shannon or invsimpson)}
 
-\item{det.th}{detection threshold. Used for richness and evenness estimation. Not used in diversity estimation.
+\item{det.th}{detection threshold. Used for richness and evenness
+                 estimation. Not used in diversity estimation.
 
 Returns:}
 }
@@ -25,8 +26,8 @@ Arguments:
 }
 \examples{
 data(peerj32);
-	     div <- diversity(10^t(peerj32$microbes),
-	     	              det.th = 0)
+         div <- diversity(10^t(peerj32$microbes),
+                          det.th = 0)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
@@ -36,7 +37,7 @@ This function builds on tools from the vegan R package.
    Jari Oksanen et al. (2013). vegan: Community Ecology.
    R Package. http://CRAN.R-project.org/package=vegan
 
-   To cite the microbiome R package, see citation("microbiome")
+   To cite the microbiome R package, see citation('microbiome')
 }
 \keyword{utilities}
 

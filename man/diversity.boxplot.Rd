@@ -11,7 +11,7 @@ diversity.boxplot(dat, sample.groups, diversity.index = "shannon",
 
 \item{sample.groups}{specify the distinct sample groups}
 
-\item{diversity.index}{Options: "shannon" / "invsimpson" / "richness" / "evenness"}
+\item{diversity.index}{Options: 'shannon' / 'invsimpson' / 'richness' / 'evenness'}
 
 \item{det.th}{Detection threshold for richness and evenness calculations}
 
@@ -35,14 +35,14 @@ Arguments:
 \examples{
 data(peerj32);
           div <- diversity.boxplot(peerj32$microbes,
-	     	                      sample.groups = list(1:22, 23:44),
-				      det.th = 0)
+                                  sample.groups = list(1:22, 23:44),
+                     det.th = 0)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

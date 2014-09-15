@@ -29,13 +29,13 @@ Arguments:
 }
 \examples{
 data(peerj32);
-	     s <- estimate.stability(t(peerj32$microbes)[, 1:5])
+         s <- estimate.stability(t(peerj32$microbes)[, 1:5])
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

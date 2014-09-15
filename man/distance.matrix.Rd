@@ -24,13 +24,13 @@ Arguments:
 }
 \examples{
 data(peerj32);
-	     d <- distance.matrix(peerj32$microbes[1:10, 1:3])
+         d <- distance.matrix(peerj32$microbes[1:10, 1:3])
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

@@ -15,13 +15,14 @@ polished phylogeny.info
 Ensure phylogeny.info is in correct format
 }
 \examples{
-\dontrun{polished.phylogeny.info <- impute(phylogeny.info)}
+phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
+         phylogeny.info <- polish.phylogeny.info(phylogeny.info)
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

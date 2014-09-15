@@ -20,11 +20,15 @@ sorted data frame
 \description{
 Arguments:
 }
+\examples{
+data(peerj32)
+         esort(peerj32$meta, -time, gender)
+}
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

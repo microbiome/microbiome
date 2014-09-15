@@ -12,7 +12,8 @@ get.probeset(name, level, phylogeny.info, oligo.matrix, log10 = TRUE)
 
 \item{phylogeny.info}{phylogeny.info}
 
-\item{oligo.matrix}{oligos vs. samples preprocessed data matrix; absolute scale}
+\item{oligo.matrix}{oligos vs. samples preprocessed data matrix;
+                 absolute scale}
 
 \item{log10}{Logical. Logarithmize the data TRUE/FALSE
 
@@ -25,13 +26,14 @@ probeset data matrix
 Arguments:
 }
 \examples{
-\dontrun{get.probeset("Vibrio", "L2", phylogeny.info, oligo.matrix)}
+phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
+     # ps <- get.probeset('Vibrio', 'L2', phylogeny.info, oligo.matrix)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

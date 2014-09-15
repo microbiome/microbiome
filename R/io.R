@@ -1,16 +1,15 @@
-# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi 
-# Contact: <microbiome-admin@googlegroups.com>. All rights reserved.
+# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi Contact:
+# <microbiome-admin@googlegroups.com>. All rights reserved.
 
-# This file is a part of the microbiome R package
-# http://microbiome.github.com/
+# This file is a part of the microbiome R package http://microbiome.github.com/
 
-# This program is open source software; you can redistribute it and/or
-# modify it under the terms of the FreeBSD License (keep this notice):
+# This program is open source software; you can redistribute it and/or modify it
+# under the terms of the FreeBSD License (keep this notice):
 # http://en.wikipedia.org/wiki/BSD_licenses
 
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
 
 #' read.profiling
 #' 
@@ -18,9 +17,9 @@
 #'
 #' Arguments:
 #'   @param level phylogenetic level 
-#'           ("oligo" / "species" / "L1" / "L2" / "L0") or 
-#'        "phylogeny.full", "phylogeny.filtered"
-#'   @param method ("frpa" / "rpa" / "sum" / "ave" / "nmf")
+#'           ('oligo' / 'species' / 'L1' / 'L2' / 'L0') or 
+#'        'phylogeny.full', 'phylogeny.filtered'
+#'   @param method ('frpa' / 'rpa' / 'sum' / 'ave' / 'nmf')
 #'   @param data.dir Profiling script output directory for reading the data. 
 #'                    If not given, GUI will ask to specify the file and 
 #'             overruns the possible level / method arguments in the 
@@ -33,78 +32,77 @@
 #'   @return data matrix (phylo x samples)
 #'
 #' @export
-#' @examples print("Only applicable with HITChipDB data types.")
-#'            # dat <- read.profiling(data.dir = params$wdir, 
-#'           #                   level = "L1", method = "frpa")}
+#' @examples print('Only applicable with HITChipDB data types.')
+#'           # dat <- read.profiling(data.dir = params$wdir, 
+#'           #               level = 'L1', method = 'frpa')
 #'
-#' @references See citation("microbiome")
+#' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-read.profiling <- function(level = NULL, method = "frpa", data.dir, 
-                          log10 = TRUE, impute = TRUE){
-
-  # level <- "oligo"; method = "sum"; data.dir = "test/"; log10 = TRUE
-  if (level %in% c("L0", "L1", "L2", "species")) {
-      if (method == "frpa" && length(grep(method, dir(data.dir))) == 0) {
-        warning("frpa method not available; using rpa instead");
-        method <- "rpa" 
-      }
-      f <- paste(data.dir, "/", level, "-", method, ".tab", sep = "")
+read.profiling <- function(level = NULL, method = "frpa", data.dir, log10 = TRUE, 
+    impute = TRUE) {
+    
+    # level <- 'oligo'; method = 'sum'; data.dir = 'test/'; log10 = TRUE
+    if (level %in% c("L0", "L1", "L2", "species")) {
+        if (method == "frpa" && length(grep(method, dir(data.dir))) == 0) {
+            warning("frpa method not available; using rpa instead")
+            method <- "rpa"
+        }
+        f <- paste(data.dir, "/", level, "-", method, ".tab", sep = "")
     } else if (level == "oligo") {
-      f <- paste(data.dir, "/oligoprofile.tab", sep = "")
+        f <- paste(data.dir, "/oligoprofile.tab", sep = "")
     } else if (level == "phylogeny.full") {
-      f <- paste(data.dir, "/phylogeny.full.tab", sep = "")
+        f <- paste(data.dir, "/phylogeny.full.tab", sep = "")
     } else if (level %in% c("phylogeny.filtered")) {
-      f <- paste(data.dir, "/phylogeny.filtered.tab", sep = "")
+        f <- paste(data.dir, "/phylogeny.filtered.tab", sep = "")
     } else if (level %in% c("phylogeny.info", "phylogeny.full", "phylogeny")) {
-      f <- paste(data.dir, "/phylogeny.full.tab", sep = "")
+        f <- paste(data.dir, "/phylogeny.full.tab", sep = "")
     }
-
- 
-  message(paste("Reading", f))
-
-  if (level %in% c("L0", "L1", "L2", "species")) {
-
-    tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
-    colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
-
-  } else if (level == "oligo") {
-
-    tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
-    colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
-
-  } else if (length(grep("phylogeny", level)) > 0) {
-
-    tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
-    tab <- polish.phylogeny.info(tab)
-
-  }
-
-  # Convert to numeric
-  if (level %in% c("oligo", "species", "L0", "L1", "L2")) {
-  
-    rnams <- rownames(tab)
-    cnams <- colnames(tab)
-    tab <- apply(tab, 2, as.numeric)
-    rownames(tab) <- rnams
-    colnames(tab) <- cnams
-
-  }
-
-  if (impute && any(is.na(tab))) {
-    warning(paste("The matrix has ", sum(is.na(tab)), " missing values 
-                             - imputing."))
-    tab <- 10^t(impute(t(log10(tab))))
-  }
-
-  if (log10 && (level %in% c("oligo", "species", "L0", "L1", "L2"))) {
-    message("Logarithmizing the data")
-    tab <- log10(tab)        
-  }
-
-  tab    
-
+    
+    
+    message(paste("Reading", f))
+    
+    if (level %in% c("L0", "L1", "L2", "species")) {
+        
+        tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
+        colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
+        
+    } else if (level == "oligo") {
+        
+        tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
+        colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
+        
+    } else if (length(grep("phylogeny", level)) > 0) {
+        
+        tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
+        tab <- polish.phylogeny.info(tab)
+        
+    }
+    
+    # Convert to numeric
+    if (level %in% c("oligo", "species", "L0", "L1", "L2")) {
+        
+        rnams <- rownames(tab)
+        cnams <- colnames(tab)
+        tab <- apply(tab, 2, as.numeric)
+        rownames(tab) <- rnams
+        colnames(tab) <- cnams
+        
+    }
+    
+    if (impute && any(is.na(tab))) {
+        warning(paste("The matrix has ", sum(is.na(tab)), " missing values \n                             - imputing."))
+        tab <- 10^t(impute(t(log10(tab))))
+    }
+    
+    if (log10 && (level %in% c("oligo", "species", "L0", "L1", "L2"))) {
+        message("Logarithmizing the data")
+        tab <- log10(tab)
+    }
+    
+    tab
+    
 }
 
-
+ 

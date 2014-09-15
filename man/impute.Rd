@@ -15,13 +15,15 @@ imputed data matrix
 Impute missing values from a Gaussian.
 }
 \examples{
-#X2 <- impute(X)
+data(peerj32)
+         x <- peerj32$microbes
+         xi <- impute(x)
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

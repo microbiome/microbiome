@@ -6,9 +6,10 @@
 GetPhylogeny(chip, phylogeny.version = "full")
 }
 \arguments{
-\item{chip}{chip type (e.g. "HITChip")}
+\item{chip}{chip type (e.g. 'HITChip')}
 
-\item{phylogeny.version}{"full" or "filtered" (latter is the basis for species/L1/L2 summarization)
+\item{phylogeny.version}{'full' or 'filtered'
+          (latter is the basis for species/L1/L2 summarization)
 
 Returns:}
 }
@@ -22,13 +23,13 @@ Description: Get Chip phylogeny
 Arguments:
 }
 \examples{
-\dontrun{phylogeny.info <- GetPhylogeny("HITChip", "full")}
+phylogeny.info <- GetPhylogeny('HITChip', 'full')
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

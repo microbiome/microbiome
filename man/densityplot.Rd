@@ -8,7 +8,8 @@ densityplot(mat, main = NULL, x.ticks = 10, rounding = 0,
   legend = FALSE)
 }
 \arguments{
-\item{mat}{Data matrix to plot. The first two columns will be visualized as a cross-plot.}
+\item{mat}{Data matrix to plot. The first two columns will be visualized
+            as a cross-plot.}
 
 \item{main}{title text}
 
@@ -44,7 +45,7 @@ p <- densityplot(cbind(rnorm(100), rnorm(100)))
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

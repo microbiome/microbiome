@@ -22,7 +22,7 @@ Arguments:
 Contact: Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{internal}
 

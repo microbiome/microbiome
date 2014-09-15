@@ -8,7 +8,8 @@ evenness(dat, det.th = NULL)
 \arguments{
 \item{dat}{data matrix (phylotypes x samples) in original (non-log) scale}
 
-\item{det.th}{detection threshold. Used for richness and evenness estimation. Not used in diversity estimation.
+\item{det.th}{detection threshold. Used for richness and evenness
+                 estimation. Not used in diversity estimation.
 
 Returns:}
 }
@@ -23,8 +24,8 @@ Arguments:
 }
 \examples{
 data(peerj32);
-	     eve <- evenness(10^t(peerj32$microbes),
-	     	    	     det.th = 100)
+         eve <- evenness(10^t(peerj32$microbes),
+                          det.th = 100)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
@@ -34,7 +35,7 @@ This function builds on tools from the vegan R package.
    Jari Oksanen et al. (2013). vegan: Community Ecology.
    R Package. http://CRAN.R-project.org/package=vegan
 
-   To cite the microbiome R package, see citation("microbiome")
+   To cite the microbiome R package, see citation('microbiome')
 }
 \keyword{utilities}
 

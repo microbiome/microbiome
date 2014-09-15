@@ -23,13 +23,13 @@ Arguments:
 \examples{
 data(peerj32);
           x <- unlist(peerj32$microbes[1,]);
-	     res <- roc(names(x), sample(names(x), 10))
+        res <- roc(names(x), sample(names(x), 10))
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-To cite microbiome R package, see citation("microbiome")
+To cite microbiome R package, see citation('microbiome')
 }
 \keyword{utilities}
 

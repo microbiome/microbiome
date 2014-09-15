@@ -9,22 +9,23 @@ PhylotypeRatios(dat)
 \item{dat}{phylotypes vs. samples data matrix in log10 scale}
 }
 \value{
-phylotype pairs x samples matrix indicating the ratio (in log10 domain) between each unique pair
+phylotype pairs x samples matrix indicating the ratio
+                (in log10 domain) between each unique pair
 }
 \description{
-Calculate phylotype ratios (eg. Bacteroides vs. Prevotella etc.) for a given
-phylotypes vs. samples matrix
+Calculate phylotype ratios (eg. Bacteroides vs. Prevotella etc.)
+         for a given phylotypes vs. samples matrix
 }
 \examples{
 data(peerj32);
-	     dat <- peerj32$microbes;
-	     ratios <- PhylotypeRatios(dat)
+         dat <- peerj32$microbes;
+        ratios <- PhylotypeRatios(dat)
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

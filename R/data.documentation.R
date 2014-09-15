@@ -2,13 +2,13 @@
 
 # Copyright (C) 2010-2014 Leo Lahti. All rights reserved.
 
-# This program is open source software; you can redistribute it and/or modify 
-# it under the terms of the FreeBSD License (keep this notice): 
+# This program is open source software; you can redistribute it and/or modify it
+# under the terms of the FreeBSD License (keep this notice):
 # http://en.wikipedia.org/wiki/BSD_licenses
 
-# This program is distributed in the hope that it will be useful, 
-# but WITHOUT ANY WARRANTY; without even the implied warranty of 
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
 
 
 #' peerj32 data documentation 
@@ -23,7 +23,7 @@
 #' @name peerj32
 #' @docType data
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com} 
-#'        has preprocessed the data.
+#'         has preprocessed the data.
 #' @references Lahti et al. (2013) Associations between the human intestinal 
 #'            microbiota, Lactobacillus rhamnosus GG and serum lipids 
 #'           indicated by integrated analysis of high-throughput profiling 
@@ -31,4 +31,4 @@
 #' @usage data(peerj32)
 #' @format list
 #' @keywords data
-NULL
+NULL 

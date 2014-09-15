@@ -6,11 +6,13 @@
 levelmap(phylotypes = NULL, level.from, level.to, phylogeny.info)
 }
 \arguments{
-\item{phylotypes}{phylotypes to convert; if NULL then considering all phylotypes in the phylogeny.info}
+\item{phylotypes}{phylotypes to convert;
+        if NULL then considering all phylotypes in the phylogeny.info}
 
-\item{level.from}{convert from Options: "L0", "L1", "L2", "species", "oligo"}
+\item{level.from}{convert from
+        Options: 'L0', 'L1', 'L2', 'species', 'oligo'}
 
-\item{level.to}{conver to Options: "L0", "L1", "L2", "species", "oligo"}
+\item{level.to}{conver to Options: 'L0', 'L1', 'L2', 'species', 'oligo'}
 
 \item{phylogeny.info}{phylogeny.info
 
@@ -26,18 +28,17 @@ Description: map phylotypes between hierarchy levels
 Arguments:
 }
 \examples{
-\dontrun{phylogeny.info <- GetPhylogeny("HITChip", "filtered");
-	     	      levelmap(phylotypes = NULL,
-		      	       level.from = "L2",
-			       level.to = "L1",
-			       phylogeny.info)
-			       }
+phylogeny.info <- GetPhylogeny('HITChip', 'filtered');
+                   levelmap(phylotypes = 'Prevotella oralis et rel.',
+                        level.from = 'L2',
+                  level.to = 'L1',
+                  phylogeny.info)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 

@@ -20,13 +20,14 @@ LazyLoad: \tab yes\cr
 R package for microbiome studies
 }
 \examples{
-citation("microbiome")
+citation('microbiome')
 }
 \author{
-Leo Lahti and Jarkko Salojarvi (University of Helsinki, Finland and Wageningen University, The Netherlands). \email{microbiome-admin@googlegroups.com}
+Leo Lahti and Jarkko Salojarvi
+      \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 \url{http://microbiome.github.io}
 }
 \keyword{package}

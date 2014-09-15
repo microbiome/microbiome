@@ -12,9 +12,16 @@ PlotMatrix(mat, type = "twoway", midpoint = 0, palette = NULL,
 \arguments{
 \item{mat}{matrix}
 
-\item{type}{String. Specifies visualization type. Options: "oneway" (color scale ranges from white to dark red; the color can be changed if needed); "twoway" (color scale ranges from dark blue through white to dark red; colors can be changed if needed)}
+\item{type}{String. Specifies visualization type. Options: 'oneway'
+                      (color scale ranges from white to dark red;
+              the color can be changed if needed);
+              'twoway' (color scale ranges from dark blue
+              through white to dark red; colors can be changed
+              if needed)}
 
-\item{midpoint}{middle point for the color plot: smaller values are shown with blue, larger are shown with red in type = "twoway"}
+\item{midpoint}{middle point for the color plot: smaller values are
+             shown with blue, larger are shown with red
+          in type = 'twoway'}
 
 \item{palette}{Optional. Color palette.}
 
@@ -24,7 +31,8 @@ PlotMatrix(mat, type = "twoway", midpoint = 0, palette = NULL,
 
 \item{interval}{interval for palette color switches}
 
-\item{plot.axes}{String. Indicates whether to plot x-axis ("x"), y-axis ("y"), or both ("both").}
+\item{plot.axes}{String. Indicates whether to plot
+x-axis ('x'), y-axis ('y'), or both ('both').}
 
 \item{row.tick}{interval for plotting row axis texts}
 
@@ -42,10 +50,12 @@ PlotMatrix(mat, type = "twoway", midpoint = 0, palette = NULL,
 
 \item{mar}{image margins}
 
-\item{...}{optional parameters to be passed to function 'image', see help(image) for further details}
+\item{...}{optional parameters to be passed to function 'image',
+see help(image) for further details}
 }
 \value{
-A list with the color palette (colors), color breakpoints (breaks), and palette function (palette.function)
+A list with the color palette (colors),
+       color breakpoints (breaks), and palette function (palette.function)
 }
 \description{
 Fast investigation of matrix objects; standard visualization choices are
@@ -54,13 +64,13 @@ optimal visualization.
 }
 \examples{
 mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2));
-          PlotMatrix(mat, "twoway", midpoint = 3)
+          PlotMatrix(mat, 'twoway', midpoint = 3)
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \keyword{utilities}
 
