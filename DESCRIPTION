@@ -15,20 +15,22 @@ Depends:
     reshape
 Imports:
     df2json,
-    rjson,
     fastcluster,
     ggplot2,
+    knitr,
     MASS,
     minet,
     mixOmics,
     plyr,
     qvalue,
     RColorBrewer,
+    rjson,
     WGCNA
 Suggests:
     RUnit,
     BiocGenerics
 URL: http://microbiome.github.com
 BugReports: https://github.com/microbiome/microbiome/issues
+VignetteBuilder: knitr
 LazyLoad: yes
 Packaged: 2014-09-14 14:19:39 UTC; lei

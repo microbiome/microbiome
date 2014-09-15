@@ -303,7 +303,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 
   if (is.null(dat) && is.null(fnam)) { stop("Provide dat or fnam in function arguments!")}
   if (is.null(dat)) {
-    dat <- read.table(fnam, sep = "\t", header = T, row.names = 1)
+    dat <- read.table(fnam, sep = "\t", header = TRUE, row.names = 1)
   } 
 
   samples <- colnames(dat)
@@ -377,6 +377,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #' @export
 #' @import minet
 #' @import WGCNA
+#' @import qvalue
 #'
 #' @details As the method=categorical (discrete) association measure
 #'          for nominal (no order for levels) variables ' we using Goodman and
@@ -388,7 +389,7 @@ check.wilcoxon <- function (dat = NULL, fnam = NULL, G1, G2, p.adjust.method = "
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = Inf, cth = NULL, order = FALSE, n.signif = 0, mode = "table", p.adj.method = "fdr", verbose = F, filter.self.correlations = F) {
+cross.correlate <- function(x, y = NULL, method = "pearson", p.adj.threshold = Inf, cth = NULL, order = FALSE, n.signif = 0, mode = "table", p.adj.method = "fdr", verbose = FALSE, filter.self.correlations = FALSE) {
 
   if (is.null(y)) {
     message("Cross-correlating the data with itself")

@@ -273,20 +273,20 @@ plot_cumulative <- function(d.sub, writedir, fname, i.set = NULL, type = "cumula
        out[j]=sum(l.res*(d.sub[,2]>t1[j]))
        null.cum[j,]=quantile(replicate(1000,sum(sample(l.res,length(l.res))*(d.sub[,2]>=t1[j]))),probs=c(0.025,0.5,0.975))
      }
-     yplot=(out-null.cum[,2])/max(abs(out-null.cum[,2]))
+     yplot <- (out-null.cum[,2])/max(abs(out-null.cum[,2]))
      if (sum(out<null.cum[,1])>0 | sum(out>null.cum[,3])>0){
       if (cnt==1){
         if (is.null(ylim))
-           plot(t1,yplot,type="l",main=paste(type,"prevalence of L1 taxa (",fname,")"),xlim=c(max(t1),min(t1)),col=colmap[i],ylab="proportion of total",xlab="Frequency")
+           plot(t1, yplot, type="l", main=paste(type,"prevalence of L1 taxa (",fname,")"), xlim=c(max(t1),min(t1)), col=colmap[i], ylab="proportion of total",xlab="Frequency")
         else
            plot(t1,yplot,type="l",main=paste(type,"prevalence of L1 taxa (",fname,")"),ylim=ylim,xlim=c(max(t1),min(t1)),col=colmap[i],ylab="proportion of total",xlab="Frequency")
       }else
          lines(t1,yplot,col=colmap[i])
       cnt=cnt+1;
-      i.accept[i]=T
+      i.accept[i] <- TRUE
     }
    }
-   legend(max(t1),1,levels(d.sub[,1])[which(i.accept==T)],fill=colmap[which(i.accept==T)],cex=0.5)
+   legend(max(t1),1,levels(d.sub[,1])[which(i.accept==T)],fill=colmap[which(i.accept==TRUE)],cex=0.5)
    dev.off()
 
    fnam

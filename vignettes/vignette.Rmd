@@ -29,17 +29,16 @@ library(microbiome)
 
 ### Installing and loading the experimental development version
 
-```{r install2, eval=TRUE}
+```{r install2, eval=FALSE}
 install.packages("devtools")
 library(devtools)
 install_github("microbiome", "microbiome")
-library(microbiome)
 ```
 
 ### Examples
 
-Further installation and usage instructions can be found at the
-project [wiki](https://github.com/microbiome/microbiome/wiki/). 
+Installation and usage instructions can be found at the project
+[wiki](https://github.com/microbiome/microbiome/wiki/).
 
 
 ### Example data set
@@ -48,10 +47,34 @@ The microbiome package contains an example data set from Lahti et al. [PeerJ 1:e
 
 
 ```{r exdata}
+library(microbiome)
 data(peerj32)
 names(peerj32)
 ```
 
+### Visualization example
+
+```{r heatmap}
+dat1 <- peerj32$lipids # Lipids (44 samples x 389 lipids)
+dat2 <- peerj32$microbes # Microbiota (44 samples x 130 bacteria)
+meta <- peerj32$meta
+
+correlations <- cross.correlate(dat1, dat2, 
+                        method = "bicor", 
+			mode = "matrix", 
+                        n.signif = 1, 
+			p.adj.threshold = 0.05, 
+                        p.adj.method = "qvalue")
+
+
+correlation.table <- cmat2table(correlations)
+head(correlation.table)
+
+p <- microbiome::correlation.heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
+
+print(p)
+
+```
 
 ### Licensing and Citations
 

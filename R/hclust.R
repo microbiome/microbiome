@@ -142,6 +142,8 @@ remove.nested.groups <- function (groups) {
 #'
 #' @return groups
 #'
+#' @import fastcluster
+#'
 #' @export
 #'
 #' @references See citation("microbiome") 
@@ -155,7 +157,7 @@ get.hclust.groups <- function (dat, corr.th, recursive = FALSE, min.size = 2, me
 
   # Group the phylotypes
   cordist <- as.dist(1 - cor(t(dat), method = metric))
-  hc <- fastcluster::hclust(cordist, method = "complete")
+  hc <- hclust(cordist, method = "complete")
 
   # Identify all groups that are higher than threshold
   # First, identify number of groups at the threshold

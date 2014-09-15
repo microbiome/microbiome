@@ -477,7 +477,7 @@ diversity.boxplot <- function (dat, sample.groups, diversity.index = "shannon", 
   boxplot(div[sample.groups[[1]]], col=col.list[[1]],xlim=c(0,length(sample.groups))+0.5, main = title, ylab = ylab, las = 2, ylim = ylim)
   axis(1,labels=names(sample.groups), at=c(1:length(sample.groups)))
   for (i in 2:length(sample.groups)) {
-    boxplot(div[sample.groups[[i]]], col=col.list[[i]], names=names(sample.groups)[i], add = T, at = i, ylab = NULL, yaxt = "n")
+    boxplot(div[sample.groups[[i]]], col=col.list[[i]], names=names(sample.groups)[i], add = TRUE, at = i, ylab = NULL, yaxt = "n")
   }
 
   list(sample.groups = sample.groups, diversity.table = div.table)

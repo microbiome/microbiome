@@ -68,7 +68,7 @@ densityplot <- function (mat, main = NULL, x.ticks = 10, rounding = 0, add.point
 
     # Construct the figure
     p <- ggplot(df) 
-    p <- p + stat_density2d(aes(x, y, fill=..density..), geom="raster", stat_params = list(h = bw, contour = F), geom_params = list()) 
+    p <- p + stat_density2d(aes(x, y, fill=..density..), geom="raster", stat_params = list(h = bw, contour = FALSE), geom_params = list()) 
     p <- p + scale_fill_gradient(low="white", high="black") 
 
     if (add.points) {

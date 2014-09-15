@@ -59,7 +59,7 @@ roc <- function (ordered.results, true.positives) {
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-roc.plot <- function(ordered.results, true.positives, line=F, title="") {
+roc.plot <- function(ordered.results, true.positives, line = FALSE, title = "") {
 	res <- roc(ordered.results, true.positives)
 	plot(res$fpr,res$tpr,lty=1,type='l',xlab="False positive rate",ylab="True positive rate",xlim=c(0,1),ylim=c(0,1),main=paste("ROC curve", title))
 	if (line) {
