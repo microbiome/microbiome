@@ -54,14 +54,14 @@ cmat2table <- function(res, verbose = FALSE) {
         }
         ctab <- cbind(ctab, melt(res$p.adj)$value)
         colnames(ctab) <- c("X1", "X2", "Correlation", "p.adj")
-        ctab <- esort(ctab, ctab$p.adj, -abs(ctab$Correlation))
+        ctab <- ctab[order(ctab$p.adj), ]
         colnames(ctab) <- c("X1", "X2", "Correlation", "p.adj")
         
     } else {
         message("No significant adjusted p-values")
         if (!is.null(ctab)) {
             ctab <- cbind(ctab, melt(res$pval)$value)
-            ctab <- esort(ctab, -abs(ctab$Correlation))
+            ctab <- ctab[order(-abs(ctab$Correlation)), ]
             colnames(ctab) <- c("X1", "X2", "Correlation", "pvalue")
         }
     }
@@ -364,35 +364,6 @@ Strip <- function(s) {
     
     ss
 }
-
-
-
-#' Description: Sort data frame dd by columns like: esort(dd, -z, b)
-#'
-#' Arguments:
-#'   @param x data frame to sort
-#'   @param sortvar sorted variable/s
-#'   @param ... further parameters to pass
-#'
-#' Returns:
-#'   @return sorted data frame
-#'
-#' @export
-#' @examples data(peerj32)
-#'          esort(peerj32$meta, -time, gender)
-#'
-#' @references See citation('microbiome') 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-esort <- function(x, sortvar, ...) {
-    
-    attach(x, warn.conflicts = FALSE)
-    x <- x[with(x, order(sortvar, ...)), ]
-    return(x)
-    detach(x)
-}
-
 
 
 
