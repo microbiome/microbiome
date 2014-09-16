@@ -19,16 +19,15 @@ Imports:
     ggplot2,
     knitr,
     MASS,
-    minet,
     mixOmics,
     plyr,
-    qvalue,
     RColorBrewer,
     rjson,
     WGCNA
 Suggests:
     RUnit,
-    BiocGenerics
+    BiocGenerics,
+    BiocStyle
 URL: http://microbiome.github.com
 BugReports: https://github.com/microbiome/microbiome/issues
 VignetteBuilder: knitr

@@ -1,15 +1,12 @@
----
+<!--
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
 vignette: > 
-%\VignetteEngine{knitr}
+%\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{An R Markdown Vignette made with knitr}
 %\usepackage[utf8]{inputenc}
----
-
-
+-->
 
 
 microbiome R package
@@ -52,7 +49,7 @@ data(peerj32)
 names(peerj32)
 ```
 
-### Visualization example
+### Cross-correlation example
 
 ```{r heatmap}
 dat1 <- peerj32$lipids # Lipids (44 samples x 389 lipids)
@@ -64,15 +61,11 @@ correlations <- cross.correlate(dat1, dat2,
 			mode = "matrix", 
                         n.signif = 1, 
 			p.adj.threshold = 0.05, 
-                        p.adj.method = "qvalue")
+                        p.adj.method = "BH")
 
 
 correlation.table <- cmat2table(correlations)
 head(correlation.table)
-
-p <- microbiome::correlation.heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
-
-print(p)
 
 ```
 
@@ -81,7 +74,8 @@ print(p)
 This work can be freely used, modified and distributed under the 
 [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
 
-Kindly cite the work, if appropriate, as 'Leo Lahti and Jarkko Salojarvi (2014). URL: http://microbiome.github.com'. 
+Kindly cite the work, if appropriate, as 'Leo Lahti and Jarkko
+Salojarvi (2014). microbiome R package. URL: http://microbiome.github.com'. 
 
 
 ### References
@@ -92,23 +86,23 @@ ggplot2, MASS, methods, minet, mixOmics, plyr, qvalue, RCurl,
 reshape2, RPA, vegan, and WGCNA. We thank all authors for these
 contributions:
 
- * N. Caballero (2013). [df2json: Convert a dataframe to JSON](http://CRAN.R-project.org/package=df2json)
+ * N. Caballero (2013). [df2json: Convert a dataframe to JSON](http://CRAN.R-project.org/package=df2json) 
 
- * A. Couture-Beil (2013). [rjson: JSON for R](http://CRAN.R-project.org/package=rjson)
+ * A. Couture-Beil (2013). [rjson: JSON for R](http://CRAN.R-project.org/package=rjson) 
 
  * A. Dabney, John D. Storey and with assistance from Gregory R. Warnes. qvalue: Q-value estimation for false discovery rate control. 
 
  * S. Dray and A. B. Dufour, (2007): The ade4 package: implementing the duality diagram for ecologists. Journal of Statistical Software. 22(4): 1-20.
 
- * S. Dejean et al. (2013). [mixOmics: Omics Data Integration Project](http://CRAN.R-project.org/package=mixOmics)
+ * S. Dejean et al. (2013). [mixOmics: Omics Data Integration Project](http://CRAN.R-project.org/package=mixOmics) 
 
- * L. Lahti et al. A fully scalable online-preprocessing algorithm for short oligonucleotide microarray atlases. [NAR 41(10):e110, 2013](http://nar.oxfordjournals.org/content/41/10/e110)
+ * L. Lahti et al. A fully scalable online-preprocessing algorithm for short oligonucleotide microarray atlases. [NAR 41(10):e110, 2013](http://nar.oxfordjournals.org/content/41/10/e110) 
 
  * L. Lahti et al. Analysis of Probe Reliability in Differential Gene Expression Studies with Short Oligonucleotide Arrays. [TCBB/IEEE 8(1):217-225, 2011](http://www.computer.org/portal/web/csdl/doi/10.1109/TCBB.2009.38)
 
  * L. Lahti et al. Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data. [PeerJ 1:e32, 2013](http://dx.doi.org/10.7717/peerj.32).
 
- * D. T. Lang (2013). [RCurl: General network (HTTP/FTP/...) client interface for R](http://CRAN.R-project.org/package=RCurl)
+ * D. T. Lang (2013). [RCurl: General network (HTTP/FTP/...) client interface for R](http://CRAN.R-project.org/package=RCurl) 
 
  * P. Langfelder and S. Horvath, WGCNA: an R package for weighted correlation network analysis. BMC Bioinformatics 2008, 9:559 
 
@@ -118,7 +112,7 @@ contributions:
 
  * D. Mullner (2013). fastcluster: Fast Hierarchical, Agglomerative Clustering Routines for R and Python. [Journal of Statistical Software, 53(9), 1-18](http://www.jstatsoft.org/v53/i09/)
 
- * Jari Oksanen et al. (2013). [vegan: Community Ecology Package](http://CRAN.R-project.org/package=vegan)
+ * Jari Oksanen et al. (2013). [vegan: Community Ecology Package](http://CRAN.R-project.org/package=vegan) 
 
  * R Core Team (2013). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. [ISBN 3-900051-07-0](http://www.R-project.org/)
 
@@ -126,7 +120,7 @@ contributions:
 
  * H. Wickham (2007). Reshaping Data with the reshape Package. [Journal of Statistical Software, 21(12), 1-20](http://www.jstatsoft.org/v21/i12/)
 
- * H. Wickham. ggplot2: elegant graphics for data analysis. Springer New York, 2009.
+ * H. Wickham. ggplot2: elegant graphics for data analysis. Springer New York, 2009. 
 
  * H. Wickham (2011). The Split-Apply-Combine Strategy for Data Analysis. [Journal of Statistical Software, 40(1), 1-29](http://www.jstatsoft.org/v40/i01/)
 

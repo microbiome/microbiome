@@ -12,6 +12,69 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+
+
+#' Description: Arrange correlation matrices from cross.correlate into 
+#'         a table format
+#'              
+#' Arguments:
+#'   @param res Output from cross.correlate
+#'   @param verbose verbose
+#'
+#' Returns:
+#'   @return Correlation table
+#'
+#' @export
+#'
+#' @examples data(peerj32); 
+#'          cc <- cross.correlate(peerj32$microbes[1:20, 1:10], 
+#'                               peerj32$lipids[1:20,1:10], 
+#'                   mode = 'matrix'); 
+#'                    cmat <- cmat2table(cc)
+#' @references See citation('microbiome') 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+
+cmat2table <- function(res, verbose = FALSE) {
+    
+    ctab <- NULL
+    
+    if (!is.null(res$cor)) {
+        ctab <- melt(res$cor)
+        colnames(ctab) <- c("X1", "X2", "Correlation")
+    }
+    
+    correlation <- NULL  # circumwent warning on globabl vars
+    
+    if (!is.null(res$p.adj)) {
+        
+        if (verbose) {
+            message("Arranging the table")
+        }
+        ctab <- cbind(ctab, melt(res$p.adj)$value)
+        colnames(ctab) <- c("X1", "X2", "Correlation", "p.adj")
+        ctab <- esort(ctab, ctab$p.adj, -abs(ctab$Correlation))
+        colnames(ctab) <- c("X1", "X2", "Correlation", "p.adj")
+        
+    } else {
+        message("No significant adjusted p-values")
+        if (!is.null(ctab)) {
+            ctab <- cbind(ctab, melt(res$pval)$value)
+            ctab <- esort(ctab, -abs(ctab$Correlation))
+            colnames(ctab) <- c("X1", "X2", "Correlation", "pvalue")
+        }
+    }
+    
+    ctab$X1 <- as.character(ctab$X1)
+    ctab$X2 <- as.character(ctab$X2)
+    
+    ctab
+    
+}
+
+
+
 #' Description: List color scales
 #'
 #' Arguments:
@@ -178,30 +241,29 @@ PhylotypeRatios <- function(dat) {
 
 
 
-#' matrix.qvalue
+#' matrix.padjust
 #'
-#' Calculate qvalues for a matrix of pvalues which may contain missing values.
-#' 
+#' Calculate adjusted p-values for a matrix of pvalues 
+#' which may contain missing values.
 #' @param pvals p-value matrix
-#'
-#' @return q-value matrix
+#' @param p.adjust.method p-value adjustment method: for options, see ?p.adjust
+#' @return Adjusted p-value matrix
 #' @export 
-#' @importFrom qvalue qvalue
 #' @references 
 #'    JD Storey 2003. Ann. Statist. 31(6):2013-2035. 
 #'    The positive false discovery rate: 
 #'          a Bayesian interpretation and the q-value. 
 #'    To cite the microbiome R package, see citation('microbiome')
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples qvals <- matrix.qvalue(matrix(runif(1000), nrow = 100))
+#' @examples qvals <- matrix.padjust(matrix(runif(1000), nrow = 100))
 #' @keywords utilities
 
-matrix.qvalue <- function(pvals) {
+matrix.padjust <- function(pvals, p.adjust.method = "BH") {
     
     pvec <- as.vector(pvals)
     nai <- is.na(pvec)
     qvec <- rep(NA, length(pvec))
-    qvec[!nai] <- qvalue(pvec[!nai], pi0.method = "bootstrap")$qvalue
+    qvec[!nai] <- p.adjust(pvec[!nai], method = p.adjust.method)
     qmat <- matrix(qvec, nrow = nrow(pvals))
     dimnames(qmat) <- dimnames(pvals)
     qmat
@@ -216,12 +278,10 @@ matrix.qvalue <- function(pvals) {
 #'
 #' @return polished phylogeny.info
 #' @export 
-#' @references
-#' See citation('microbiome')
+#' @references See citation('microbiome')
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples 
-#'          phylogeny.info <- GetPhylogeny('HITChip', 'filtered')   
-#'          phylogeny.info <- polish.phylogeny.info(phylogeny.info)
+#' @examples phylogeny.info <- GetPhylogeny('HITChip', 'filtered');
+#'           phylogeny.info <- polish.phylogeny.info(phylogeny.info)
 #' @keywords utilities
 
 polish.phylogeny.info <- function(phylogeny.info) {

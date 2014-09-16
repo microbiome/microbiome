@@ -13,7 +13,7 @@
 #'
 #' @examples data(peerj32); 
 #'           x <- unlist(peerj32$microbes[1,]); 
-#'         res <- roc(names(x), sample(names(x), 10))
+#'           res <- roc(names(x), sample(names(x), 10))
 #'
 #' @references To cite microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

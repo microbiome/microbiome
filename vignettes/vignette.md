@@ -1,15 +1,12 @@
----
+<!--
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
 date: "2014-09-16"
-output: rmarkdown::html_vignette
 vignette: > 
-%\VignetteEngine{knitr}
+%\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{An R Markdown Vignette made with knitr}
 %\usepackage[utf8]{inputenc}
----
-
-
+-->
 
 
 microbiome R package
@@ -60,20 +57,12 @@ library(microbiome)
 ## Loading required package: lattice
 ## This is vegan 2.0-10
 ## Loading required package: reshape
-```
-
-```
-## Warning: replacing previous import by 'qvalue::qplot' when loading 'microbiome'
-## Warning: replacing previous import by 'qvalue::qvalue' when loading 'microbiome'
-```
-
-```
 ## 
 ## microbiome R package (microbiome.github.com)
 ##           
 ## 
 ## 
-##         Copyright (C) 2011-2014 
+##  Copyright (C) 2011-2014 
 ##           Leo Lahti and Jarkko Salojarvi 
 ## 
 ##         
@@ -104,7 +93,7 @@ names(peerj32)
 ## [1] "lipids"   "microbes" "meta"
 ```
 
-### Visualization example
+### Cross-correlation example
 
 
 ```r
@@ -117,7 +106,7 @@ correlations <- cross.correlate(dat1, dat2,
 			mode = "matrix", 
                         n.signif = 1, 
 			p.adj.threshold = 0.05, 
-                        p.adj.method = "qvalue")
+                        p.adj.method = "BH")
 ```
 
 ```
@@ -131,25 +120,12 @@ head(correlation.table)
 
 ```
 ##              X1                               X2 Correlation    p.adj
-## 1219 TG(54:5).2      Ruminococcus gnavus et rel.      0.7208 0.001501
-## 1205   TG(52:5)      Ruminococcus gnavus et rel.      0.6996 0.002757
-## 1198   TG(50:4)      Ruminococcus gnavus et rel.      0.6852 0.003282
-## 751    PC(40:3)                     Helicobacter     -0.6838 0.003282
-## 565    PC(40:3) Eubacterium cylindroides et rel.     -0.6771 0.003282
-## 1218 TG(54:4).2      Ruminococcus gnavus et rel.      0.6768 0.003282
-```
-
-```r
-p <- microbiome::correlation.heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
-```
-
-```
-## Ordering columns
-## Ordering rows
-```
-
-```r
-print(p)
+## 1100 TG(54:5).2      Ruminococcus gnavus et rel.      0.7208 0.001738
+## 1087   TG(52:5)      Ruminococcus gnavus et rel.      0.6996 0.003193
+## 1082   TG(50:4)      Ruminococcus gnavus et rel.      0.6852 0.003801
+## 656    PC(40:3)                     Helicobacter     -0.6838 0.003801
+## 479    PC(40:3) Eubacterium cylindroides et rel.     -0.6771 0.003801
+## 1099 TG(54:4).2      Ruminococcus gnavus et rel.      0.6768 0.003801
 ```
 
 ### Licensing and Citations
@@ -157,7 +133,8 @@ print(p)
 This work can be freely used, modified and distributed under the 
 [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
 
-Kindly cite the work, if appropriate, as 'Leo Lahti and Jarkko Salojarvi (2014). URL: http://microbiome.github.com'. 
+Kindly cite the work, if appropriate, as 'Leo Lahti and Jarkko
+Salojarvi (2014). microbiome R package. URL: http://microbiome.github.com'. 
 
 
 ### References
@@ -168,23 +145,23 @@ ggplot2, MASS, methods, minet, mixOmics, plyr, qvalue, RCurl,
 reshape2, RPA, vegan, and WGCNA. We thank all authors for these
 contributions:
 
- * N. Caballero (2013). [df2json: Convert a dataframe to JSON](http://CRAN.R-project.org/package=df2json)
+ * N. Caballero (2013). [df2json: Convert a dataframe to JSON](http://CRAN.R-project.org/package=df2json) 
 
- * A. Couture-Beil (2013). [rjson: JSON for R](http://CRAN.R-project.org/package=rjson)
+ * A. Couture-Beil (2013). [rjson: JSON for R](http://CRAN.R-project.org/package=rjson) 
 
  * A. Dabney, John D. Storey and with assistance from Gregory R. Warnes. qvalue: Q-value estimation for false discovery rate control. 
 
  * S. Dray and A. B. Dufour, (2007): The ade4 package: implementing the duality diagram for ecologists. Journal of Statistical Software. 22(4): 1-20.
 
- * S. Dejean et al. (2013). [mixOmics: Omics Data Integration Project](http://CRAN.R-project.org/package=mixOmics)
+ * S. Dejean et al. (2013). [mixOmics: Omics Data Integration Project](http://CRAN.R-project.org/package=mixOmics) 
 
- * L. Lahti et al. A fully scalable online-preprocessing algorithm for short oligonucleotide microarray atlases. [NAR 41(10):e110, 2013](http://nar.oxfordjournals.org/content/41/10/e110)
+ * L. Lahti et al. A fully scalable online-preprocessing algorithm for short oligonucleotide microarray atlases. [NAR 41(10):e110, 2013](http://nar.oxfordjournals.org/content/41/10/e110) 
 
  * L. Lahti et al. Analysis of Probe Reliability in Differential Gene Expression Studies with Short Oligonucleotide Arrays. [TCBB/IEEE 8(1):217-225, 2011](http://www.computer.org/portal/web/csdl/doi/10.1109/TCBB.2009.38)
 
  * L. Lahti et al. Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data. [PeerJ 1:e32, 2013](http://dx.doi.org/10.7717/peerj.32).
 
- * D. T. Lang (2013). [RCurl: General network (HTTP/FTP/...) client interface for R](http://CRAN.R-project.org/package=RCurl)
+ * D. T. Lang (2013). [RCurl: General network (HTTP/FTP/...) client interface for R](http://CRAN.R-project.org/package=RCurl) 
 
  * P. Langfelder and S. Horvath, WGCNA: an R package for weighted correlation network analysis. BMC Bioinformatics 2008, 9:559 
 
@@ -194,7 +171,7 @@ contributions:
 
  * D. Mullner (2013). fastcluster: Fast Hierarchical, Agglomerative Clustering Routines for R and Python. [Journal of Statistical Software, 53(9), 1-18](http://www.jstatsoft.org/v53/i09/)
 
- * Jari Oksanen et al. (2013). [vegan: Community Ecology Package](http://CRAN.R-project.org/package=vegan)
+ * Jari Oksanen et al. (2013). [vegan: Community Ecology Package](http://CRAN.R-project.org/package=vegan) 
 
  * R Core Team (2013). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. [ISBN 3-900051-07-0](http://www.R-project.org/)
 
@@ -202,7 +179,7 @@ contributions:
 
  * H. Wickham (2007). Reshaping Data with the reshape Package. [Journal of Statistical Software, 21(12), 1-20](http://www.jstatsoft.org/v21/i12/)
 
- * H. Wickham. ggplot2: elegant graphics for data analysis. Springer New York, 2009.
+ * H. Wickham. ggplot2: elegant graphics for data analysis. Springer New York, 2009. 
 
  * H. Wickham (2011). The Split-Apply-Combine Strategy for Data Analysis. [Journal of Statistical Software, 40(1), 1-29](http://www.jstatsoft.org/v40/i01/)
 
@@ -244,15 +221,14 @@ sessionInfo()
 ## [16] Formula_1.1-2       ggplot2_1.0.0       grid_3.1.1         
 ## [19] gtable_0.1.2        Hmisc_3.14-5        igraph_0.7.1       
 ## [22] impute_1.38.1       iterators_1.0.7     latticeExtra_0.6-26
-## [25] MASS_7.3-34         matrixStats_0.10.0  minet_3.20.1       
-## [28] mixOmics_5.0-3      munsell_0.4.2       nnet_7.3-8         
-## [31] parallel_3.1.1      pheatmap_0.7.7      plyr_1.8.1         
-## [34] proto_0.3-10        qvalue_1.38.0       RColorBrewer_1.0-5 
-## [37] Rcpp_0.11.2         reshape2_1.4        RGCCA_2.0          
-## [40] rgl_0.94.1131       rjson_0.2.14        R.methodsS3_1.6.1  
-## [43] rpart_4.1-8         scales_0.2.4        splines_3.1.1      
-## [46] stringr_0.6.2       survival_2.37-7     tcltk_3.1.1        
-## [49] tools_3.1.1         WGCNA_1.41-1
+## [25] MASS_7.3-34         matrixStats_0.10.0  mixOmics_5.0-3     
+## [28] munsell_0.4.2       nnet_7.3-8          parallel_3.1.1     
+## [31] pheatmap_0.7.7      plyr_1.8.1          proto_0.3-10       
+## [34] RColorBrewer_1.0-5  Rcpp_0.11.2         reshape2_1.4       
+## [37] RGCCA_2.0           rgl_0.94.1131       rjson_0.2.14       
+## [40] R.methodsS3_1.6.1   rpart_4.1-8         scales_0.2.4       
+## [43] splines_3.1.1       stringr_0.6.2       survival_2.37-7    
+## [46] tools_3.1.1         WGCNA_1.41-1
 ```
 
 
