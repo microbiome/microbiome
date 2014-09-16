@@ -48,7 +48,7 @@ Arguments:
 As the method=categorical (discrete) association measure
          for nominal (no order for levels) variables ' we using Goodman and
          Kruskal tau based on
-http://www.r-bloggers.com/measuring-associations-between-non-numeric-variables/
+r-bloggers.com/measuring-associations-between-non-numeric-variables/
          The 'bicor' method is from the WGCNA package.
 }
 \examples{

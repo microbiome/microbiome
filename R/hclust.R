@@ -31,20 +31,24 @@
 #'                   corr.th = 0.5) 
 #' @keywords methods
 
-hclust.significance <- function(dat, my.groups = NULL, R, sample.sizes = 1, min.size, 
-    corr.th, replace = TRUE, metric = "pearson", verbose = TRUE, pvalue.threshold = 0.05, 
+hclust.significance <- function(dat, my.groups = NULL, R, sample.sizes = 1, 
+                                min.size, 
+    corr.th, replace = TRUE, metric = "pearson", verbose = TRUE, 
+    pvalue.threshold = 0.05, 
     remove.nested.clusters = TRUE) {
     
     if (is.null(my.groups)) {
         if (verbose) {
             message("Forming the clusters")
         }
-        my.groups <- get.hclust.groups(dat, corr.th = corr.th, recursive = TRUE, 
+        my.groups <- get.hclust.groups(dat, corr.th = corr.th, 
+                          recursive = TRUE, 
             min.size = min.size, metric = metric)
     }
     
     # Group the phylotypes based on random subsets of the data
-    checks <- matrix(NA, ncol = length(my.groups), nrow = R * length(sample.sizes))
+    checks <- matrix(NA, ncol = length(my.groups), 
+                nrow = R * length(sample.sizes))
     
     if (verbose) {
         message("Bootstrap resampling")
@@ -68,11 +72,15 @@ hclust.significance <- function(dat, my.groups = NULL, R, sample.sizes = 1, min.
                 dat2 <- dat[, inds]
             }
             
-            # Get groups that exceed threshold. The most general groups, no nested ones.
-            my.groups2 <- get.hclust.groups(dat2, corr.th, recursive = FALSE, min.size = min.size)
+            # Get groups that exceed threshold. The most general
+            # groups, no nested ones.
+
+            my.groups2 <- get.hclust.groups(dat2, corr.th, recursive = FALSE, 
+                             min.size = min.size)
             
-            # For each group in the original data, check if it is included in one of the
-            # bootstrap groups
+            # For each group in the original data, check if it is
+            # included in one of the bootstrap groups
+
             check <- c()
             for (i in 1:length(my.groups)) {
                 g1 <- my.groups[[i]]
@@ -176,14 +184,16 @@ remove.nested.groups <- function(groups) {
 #'                                 corr.th = 0.8)
 #' @keywords methods
 
-get.hclust.groups <- function(dat, corr.th, recursive = FALSE, min.size = 2, metric = "pearson") {
+get.hclust.groups <- function(dat, corr.th, recursive = FALSE, min.size = 2, 
+                              metric = "pearson") {
     
     # Group the phylotypes
     cordist <- as.dist(1 - cor(t(dat), method = metric))
     hc <- hclust(cordist, method = "complete")
     
-    # Identify all groups that are higher than threshold First, identify number of
-    # groups at the threshold
+    # Identify all groups that are higher than threshold First,
+    # identify number of groups at the threshold
+
     groups <- cutree(hc, h = 1 - corr.th)
     K <- length(unique(groups))
     

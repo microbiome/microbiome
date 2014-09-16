@@ -3,13 +3,13 @@
 
 # This file is a part of the microbiome R package http://microbiome.github.com/
 
-# This program is open source software; you can redistribute it and/or modify it
-# under the terms of the FreeBSD License (keep this notice):
+# This program is open source software; you can redistribute it and/or modify 
+# it under the terms of the FreeBSD License (keep this notice):
 # http://en.wikipedia.org/wiki/BSD_licenses
 
-# This program is distributed in the hope that it will be useful, but WITHOUT ANY
-# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE.
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 #' GetPhylogeny
 #' 
@@ -35,13 +35,14 @@ GetPhylogeny <- function(chip, phylogeny.version = "full") {
     
     if (chip == "HITChip") {
         
-        phylogeny.info <- read.profiling(level = paste("phylogeny.", phylogeny.version, 
-            sep = ""), data.dir = system.file("extdata", package = "microbiome"))
+        phylogeny.info <- read.profiling(level = 
+              paste("phylogeny.", phylogeny.version, sep = ""), 
+              data.dir = system.file("extdata", package = "microbiome"))
         
-        # Get the phylogeny from Github url <-
-        # 'https://raw.github.com/microbiome/data/master/example-datasets/phylogeny' fnam
-        # <- paste(url, '.', phylogeny.version, '.tab', sep = '') phylogeny.info <-
-        # read.csv(text = RCurl::getURL(fnam), sep = '\t')
+  # Get the phylogeny from Github url <-
+  # 'raw.github.com/microbiome/data/master/example-datasets/phylogeny' fnam
+  # <- paste(url, '.', phylogeny.version, '.tab', sep = '') phylogeny.info <-
+  # read.csv(text = RCurl::getURL(fnam), sep = '\t')
         
     } else {
         
@@ -128,7 +129,8 @@ levelmap <- function(phylotypes = NULL, level.from, level.to, phylogeny.info) {
         sl <- species2levels(phylotypes, phylogeny.info)[, level.to]
     }
     
-    if (level.from == "oligoID" && level.to %in% c("L0", "L1", "L2", "species")) {
+    if (level.from == "oligoID" && 
+        level.to %in% c("L0", "L1", "L2", "species")) {
         sl <- oligoTOhigher(phylotypes, phylogeny.info, level.to = level.to)
     }
     
@@ -147,7 +149,8 @@ levelmap <- function(phylotypes = NULL, level.from, level.to, phylogeny.info) {
     if (level.from == "L1" && level.to == "L2") {
         sl <- list()
         for (pt in phylotypes) {
-            sl[[pt]] <- as.character(unique(phylogeny.info[phylogeny.info[["L1"]] == 
+            sl[[pt]] <- as.character(unique(
+                phylogeny.info[phylogeny.info[["L1"]] == 
                 pt, "L2"]))
         }
     }
@@ -155,7 +158,8 @@ levelmap <- function(phylotypes = NULL, level.from, level.to, phylogeny.info) {
     if (level.from == "L1" && level.to == "L0") {
         sl <- list()
         for (pt in phylotypes) {
-            sl[[pt]] <- as.character(unique(phylogeny.info[phylogeny.info[["L1"]] == 
+            sl[[pt]] <- as.character(unique(
+                phylogeny.info[phylogeny.info[["L1"]] == 
                 pt, "L0"]))
         }
     }
@@ -163,7 +167,8 @@ levelmap <- function(phylotypes = NULL, level.from, level.to, phylogeny.info) {
     if (level.from == "L0" && level.to %in% c("L1", "L2")) {
         sl <- list()
         for (pt in phylotypes) {
-            sl[[pt]] <- as.character(unique(phylogeny.info[phylogeny.info[[level.from]] == 
+            sl[[pt]] <- as.character(unique(
+                phylogeny.info[phylogeny.info[[level.from]] == 
                 pt, level.to]))
         }
     }
@@ -171,16 +176,19 @@ levelmap <- function(phylotypes = NULL, level.from, level.to, phylogeny.info) {
     if (level.from %in% c("L0", "L1", "L2") && level.to == "species") {
         sl <- list()
         for (pt in phylotypes) {
-            sl[[pt]] <- as.character(unique(phylogeny.info[phylogeny.info[[level.from]] == 
+            sl[[pt]] <- as.character(unique(
+                phylogeny.info[phylogeny.info[[level.from]] == 
                 pt, level.to]))
         }
     }
     
     
-    if (level.from %in% c("L0", "L1", "L2", "species") && level.to == "oligoID") {
+    if (level.from %in% c("L0", "L1", "L2", "species") && 
+        level.to == "oligoID") {
         sl <- list()
         for (pt in phylotypes) {
-            sl[[pt]] <- as.character(unique(phylogeny.info[phylogeny.info[[level.from]] == 
+            sl[[pt]] <- as.character(unique( 
+                phylogeny.info[phylogeny.info[[level.from]] == 
                 pt, level.to]))
         }
     }
@@ -201,7 +209,7 @@ levelmap <- function(phylotypes = NULL, level.from, level.to, phylogeny.info) {
 #' Returns:
 #'   @return A list. Probes for each phylotype.
 #'
-#' @examples phylogeny.info <- GetPhylogeny(); 
+#' @examples phylogeny.info <- GetPhylogeny('HITChip'); 
 #'          sets <- retrieve.probesets(phylogeny.info, 
 #'                        level = 'species', 
 #'                  name = 'Weissella confusa')

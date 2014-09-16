@@ -1,15 +1,16 @@
 # Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi Contact:
 # <microbiome-admin@googlegroups.com>. All rights reserved.
 
-# This file is a part of the microbiome R package http://microbiome.github.com/
+# This file is a part of the microbiome R package
+# http://microbiome.github.com/
 
-# This program is open source software; you can redistribute it and/or modify it
-# under the terms of the FreeBSD License (keep this notice):
+# This program is open source software; you can redistribute it and/or
+# modify it under the terms of the FreeBSD License (keep this notice):
 # http://en.wikipedia.org/wiki/BSD_licenses
 
-# This program is distributed in the hope that it will be useful, but WITHOUT ANY
-# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE.
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 #' read.profiling
 #' 
@@ -40,8 +41,8 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-read.profiling <- function(level = NULL, method = "frpa", data.dir, log10 = TRUE, 
-    impute = TRUE) {
+read.profiling <- function(level = NULL, method = "frpa", data.dir, 
+                         log10 = TRUE, impute = TRUE) {
     
     # level <- 'oligo'; method = 'sum'; data.dir = 'test/'; log10 = TRUE
     if (level %in% c("L0", "L1", "L2", "species")) {
@@ -65,12 +66,14 @@ read.profiling <- function(level = NULL, method = "frpa", data.dir, log10 = TRUE
     
     if (level %in% c("L0", "L1", "L2", "species")) {
         
-        tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
+        tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, 
+                        as.is = TRUE)
         colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
         
     } else if (level == "oligo") {
         
-        tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
+        tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, 
+                        as.is = TRUE)
         colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
         
     } else if (length(grep("phylogeny", level)) > 0) {
@@ -92,7 +95,9 @@ read.profiling <- function(level = NULL, method = "frpa", data.dir, log10 = TRUE
     }
     
     if (impute && any(is.na(tab))) {
-        warning(paste("The matrix has ", sum(is.na(tab)), " missing values \n                             - imputing."))
+        warning(paste("The matrix has ", sum(is.na(tab)), 
+                      " missing values \n                             
+                      - imputing."))
         tab <- 10^t(impute(t(log10(tab))))
     }
     
@@ -103,6 +108,4 @@ read.profiling <- function(level = NULL, method = "frpa", data.dir, log10 = TRUE
     
     tab
     
-}
-
- 
+} 

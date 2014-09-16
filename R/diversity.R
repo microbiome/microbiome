@@ -1,15 +1,16 @@
 # Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi Contact:
 # <microbiome-admin@googlegroups.com>. All rights reserved.
 
-# This file is a part of the microbiome R package http://microbiome.github.com/
+# This file is a part of the microbiome R package
+  http://microbiome.github.com/
 
-# This program is open source software; you can redistribute it and/or modify it
-# under the terms of the FreeBSD License (keep this notice):
+# This program is open source software; you can redistribute it and/or
+# modify it under the terms of the FreeBSD License (keep this notice):
 # http://en.wikipedia.org/wiki/BSD_licenses
 
-# This program is distributed in the hope that it will be useful, but WITHOUT ANY
-# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE.
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 #' diversity.table
 #'
@@ -32,7 +33,7 @@
 #' Returns:
 #'   @return Table with various richness, evenness, and diversity indicators
 #'
-#' @examples print("Only applicable to HITChipDB data formats.")
+#' @examples print('Only applicable to HITChipDB data formats.')
 #'    #divtab <- diversity.table(dat, 
 #'    #                                 level.from = 'L2', 
 #'    #                                 level.to = 'oligo')
@@ -49,15 +50,17 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-diversity.table <- function(dat, level.from, level.to, phylogeny.info = NULL, diversity.index = "shannon", 
-    det.th = 0, min.probes = 0) {
+diversity.table <- function(dat, level.from, level.to, phylogeny.info = NULL, 
+                   diversity.index = "shannon", 
+                   det.th = 0, min.probes = 0) {
     
     if (is.null(phylogeny.info)) {
         phylogeny.info <- GetPhylogeny("HITChip", "filtered")
     }
     
-    # Ensure that the same phylogeny version used in the data and phylogeny by taking
-    # the common part only
+    # Ensure that the same phylogeny version used in the data and
+    # phylogeny by taking the common part only
+
     if (level.to == "oligo") {
         coms <- intersect(phylogeny.info$oligoID, rownames(dat))
         phylogeny.info <- phylogeny.info[phylogeny.info$oligoID %in% coms, ]
@@ -82,10 +85,12 @@ diversity.table <- function(dat, level.from, level.to, phylogeny.info = NULL, di
     }
     
     if (!any(rownames(dat) %in% phylogeny.info[[level.to]])) {
-        stop("Provide input data matrix that corresponds to the target level ie. \n              level.to argument!")
+        stop("Provide input data matrix that corresponds to the target level 
+              ie. \n level.to argument!")
     }
     
-    level.data <- levelmap(level.from = level.from, level.to = level.to, phylogeny.info = phylogeny.info)
+    level.data <- levelmap(level.from = level.from, level.to = level.to, 
+                           phylogeny.info = phylogeny.info)
     
     # Include only phylotypes with at leas min.probes
     pts <- names(which(sapply(level.data, length) >= min.probes))
@@ -100,7 +105,8 @@ diversity.table <- function(dat, level.from, level.to, phylogeny.info = NULL, di
         o <- level.data[[nam]]
         
         if (length(o) > 1) {
-            divs <- estimate.diversity(dat[o, ], diversity.index = diversity.index, 
+            divs <- estimate.diversity(dat[o, ], 
+                diversity.index = diversity.index, 
                 det.th = det.th)
         } else {
             warning(paste("Not enough oligos for ", nam, ": \n                   diversity calculations skipped!"))
@@ -160,9 +166,12 @@ diversity.table <- function(dat, level.from, level.to, phylogeny.info = NULL, di
 
 estimate.diversity <- function(dat, diversity.index = "shannon", det.th = NULL) {
     
-    # Species diversity Always use the complete data for diversity calculations If
-    # you wish calculate diversity for thresholded data this has to be done manually
-    H <- microbiome::diversity(dat, diversity.index = diversity.index, det.th = 0)
+    # Species diversity Always use the complete data for diversity
+    # calculations If you wish calculate diversity for thresholded
+    # data this has to be done manually
+
+    H <- microbiome::diversity(dat, diversity.index = diversity.index, 
+                               det.th = 0)
     
     # richness - count phylotypes that exceed detection threshold Use automated
     # threshold determination if det.th is NULL
@@ -178,15 +187,17 @@ estimate.diversity <- function(dat, diversity.index = "shannon", det.th = NULL) 
     
 }
 
-# Compare to ACE estimate with different discretization bins -> no clear way to
-# discretize, will affect the results quite much -> skip so far par(mfrow=c(3,3))
-# for (discretization.resolution in 10^(-seq(-2,6,length=9))) { ab <-
-# make.abundancy.table(dat, det.th, discretization.resolution) S2 <-
-# estimateR(ab)['S.ACE', ] plot(S, S2, main = discretization.resolution) } Chao
-# and ACE estimators by modifying this: requiring counts, add later?
-# Estimater(floor(10^t(dat))) S <- unlist(mclapply(1:ncol(dat), function(k) {' ab
-# <- make.abundancy.table(dat[, k], discretization.resolution = 1e-4)
-# ChaoLee1992(ab, t=10, method='ACE')$Nhat }))
+# Compare to ACE estimate with different discretization bins -> no
+# clear way to discretize, will affect the results quite much -> skip
+# so far par(mfrow=c(3,3)) for (discretization.resolution in
+# 10^(-seq(-2,6,length=9))) { ab <- make.abundancy.table(dat, det.th,
+# discretization.resolution) S2 <- estimateR(ab)['S.ACE', ] plot(S,
+# S2, main = discretization.resolution) } Chao and ACE estimators by
+# modifying this: requiring counts, add later?
+# Estimater(floor(10^t(dat))) S <- unlist(mclapply(1:ncol(dat),
+# function(k) {' ab <- make.abundancy.table(dat[, k],
+# discretization.resolution = 1e-4) ChaoLee1992(ab, t=10,
+# method='ACE')$Nhat }))
 
 
 #' diversity
@@ -233,8 +244,12 @@ diversity <- function(dat, diversity.index = "shannon", det.th = 0) {
     # Calculate diversity
     if (diversity.index == "shannon") 
         x <- -x * log(x, base = exp(1)) else x <- x * x
-    if (length(dim(x)) > 1) 
-        H <- apply(x, MARGIN = 2, sum, na.rm = TRUE) else H <- sum(x, na.rm = TRUE)
+    if (length(dim(x)) > 1) {
+        H <- apply(x, MARGIN = 2, sum, na.rm = TRUE) 
+    } else { 
+      H <- sum(x, na.rm = TRUE)
+    }
+
     if (diversity.index == "invsimpson") 
         H <- 1/H
     
@@ -274,8 +289,9 @@ diversity <- function(dat, diversity.index = "shannon", det.th = 0) {
 
 richness <- function(dat, det.th = NULL) {
     
-    # Specify detection threshold if not provided Use the 80% quantile as this has
-    # proven robust across methodologies
+    # Specify detection threshold if not provided Use the 80% quantile
+    # as this has proven robust across methodologies
+
     if (is.null(det.th)) {
         dat <- 10^t(impute(t(log10(dat))))  # impute missing values
         det.th <- quantile(dat, 0.8)
@@ -324,8 +340,9 @@ richness <- function(dat, det.th = NULL) {
 
 evenness <- function(dat, det.th = NULL) {
     
-    # Specify detection threshold if not provided Use the 80% quantile as this has
-    # proven robust across methodologies
+    # Specify detection threshold if not provided Use the 80% quantile
+    # as this has proven robust across methodologies
+
     if (is.null(det.th)) {
         dat <- 10^t(impute(t(log10(dat))))  # impute missing values
         det.th <- quantile(dat, 0.8)
@@ -339,9 +356,11 @@ evenness <- function(dat, det.th = NULL) {
     # Species richness - count phylotypes that exceed detection threshold
     S <- colSums(dat.th > 0)
     
-    # Pielou's evenness (J); always calculated from H.shannon which has to use same
-    # detection threshold as the richness measure:
-    H.shannon.th <- microbiome::diversity(dat.th, diversity.index = "shannon", det.th = 0)
+    # Pielou's evenness (J); always calculated from H.shannon which
+    # has to use same detection threshold as the richness measure:
+
+    H.shannon.th <- microbiome::diversity(dat.th, 
+                       diversity.index = "shannon", det.th = 0)
     
     J <- H.shannon.th/log(S)
     names(J) <- colnames(dat)
@@ -353,7 +372,8 @@ evenness <- function(dat, det.th = NULL) {
 
 #' relative.abundance
 #'
-#' Description: Estimate relative abundance for each phylotype in each sample with a given threshold
+#' Description: Estimate relative abundance for each phylotype in each
+#' sample with a given threshold '
 #'
 #' Arguments:
 #'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
@@ -373,8 +393,9 @@ evenness <- function(dat, det.th = NULL) {
 
 relative.abundance <- function(dat, det.th = 0) {
     
-    # Specify detection threshold if not provided Use the 80% quantile as this has
-    # proven robust across methodologies
+    # Specify detection threshold if not provided Use the 80% quantile
+    # as this has proven robust across methodologies
+
     if (is.null(det.th)) {
         dat <- 10^t(impute(t(log10(dat))))  # impute missing values
         det.th <- quantile(dat, 0.8)
@@ -459,10 +480,12 @@ make.abundancy.table <- function(dat, det.th, discretization.resolution = 1) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-diversity.boxplot <- function(dat, sample.groups, diversity.index = "shannon", det.th = NULL, 
+diversity.boxplot <- function(dat, sample.groups, diversity.index = "shannon", 
+                              det.th = NULL, 
     title = NULL, col.list = NULL, ylim = NULL) {
     
-    div.table <- estimate.diversity(dat, diversity.index = diversity.index, det.th = det.th)
+    div.table <- estimate.diversity(dat, diversity.index = diversity.index, 
+                              det.th = det.th)
     
     sample.names <- colnames(dat)
     
@@ -492,18 +515,16 @@ diversity.boxplot <- function(dat, sample.groups, diversity.index = "shannon", d
     if (is.null(ylim)) {
         ylim <- c(min(div), max(div))
     }
-    boxplot(div[sample.groups[[1]]], col = col.list[[1]], xlim = c(0, length(sample.groups)) + 
+    boxplot(div[sample.groups[[1]]], col = col.list[[1]], 
+            xlim = c(0, length(sample.groups)) + 
         0.5, main = title, ylab = ylab, las = 2, ylim = ylim)
     axis(1, labels = names(sample.groups), at = c(1:length(sample.groups)))
     for (i in 2:length(sample.groups)) {
-        boxplot(div[sample.groups[[i]]], col = col.list[[i]], names = names(sample.groups)[i], 
+        boxplot(div[sample.groups[[i]]], col = col.list[[i]], 
+            names = names(sample.groups)[i], 
             add = TRUE, at = i, ylab = NULL, yaxt = "n")
     }
     
     list(sample.groups = sample.groups, diversity.table = div.table)
     
-}
-
-
-
- 
+} 

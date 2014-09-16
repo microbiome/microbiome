@@ -23,5 +23,4 @@
 #' \url{http://microbiome.github.io}
 #' @examples citation('microbiome')
 #' @keywords package
-NULL
- 
+NULL 

@@ -32,9 +32,10 @@ Description: Barplot for *ITChip sample (across taxa) with higher-level
 Arguments:
 }
 \examples{
-phylogeny.info <- GetPhylogeny('HITChip', 'filtered');
-     signal <- unlist(peerj32$microbes[1, 1:10]);
-     p <- phylo.barplot(signal,
+data(peerj32)
+    phylogeny.info <- GetPhylogeny('HITChip', 'filtered');
+    signal <- unlist(peerj32$microbes[1, 1:10]);
+    p <- phylo.barplot(signal,
                     color.level = 'L1',
               phylogeny.info = phylogeny.info)
 }

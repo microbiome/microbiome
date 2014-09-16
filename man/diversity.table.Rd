@@ -38,7 +38,7 @@ Description: Estimate diversity within each taxonomic group
 Arguments:
 }
 \examples{
-print("Only applicable to HITChipDB data formats.")
+print('Only applicable to HITChipDB data formats.')
    #divtab <- diversity.table(dat,
    #                                 level.from = 'L2',
    #                                 level.to = 'oligo')

@@ -3,13 +3,13 @@
 
 # This file is a part of the microbiome R package http://microbiome.github.com/
 
-# This program is open source software; you can redistribute it and/or modify it
-# under the terms of the FreeBSD License (keep this notice):
+# This program is open source software; you can redistribute it and/or modify 
+# it under the terms of the FreeBSD License (keep this notice):
 # http://en.wikipedia.org/wiki/BSD_licenses
 
-# This program is distributed in the hope that it will be useful, but WITHOUT ANY
-# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE.
+# This program is distributed in the hope that it will be useful, but WITHOUT 
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or 
+# FITNESS FOR A PARTICULAR PURPOSE.
 
 #' Description: List color scales
 #'
@@ -26,11 +26,12 @@
 
 list.color.scales <- function() {
     ## Different colour scales
-    list(`white/blue` = colorRampPalette(c("white", "darkblue"), interpolate = "linear")(100), 
-        `white/black` = colorRampPalette(c("white", "black"), interpolate = "linear")(100), 
-        `black/yellow/white` = colorRampPalette(c("black", "yellow", "white"), bias = 0.5, 
-            interpolate = "linear")(100))
-    
+    list(`white/blue` = colorRampPalette(c("white", "darkblue"), 
+         interpolate = "linear")(100), 
+         `white/black` = colorRampPalette(c("white", "black"), 
+         interpolate = "linear")(100), 
+        `black/yellow/white` = colorRampPalette(c("black", "yellow", "white"), 
+         bias = 0.5, interpolate = "linear")(100))
 }
 
 
@@ -38,7 +39,8 @@ list.color.scales <- function() {
 
 #' calculate.hclust
 #' 
-#' Description: Calculate hierarchical clustering for standard selections in profiling script
+#' Description: Calculate hierarchical clustering for standard selections in 
+#' profiling script
 #'
 #' Arguments:
 #'   @param dat data matrix (use log10 with pearson!)
@@ -61,7 +63,8 @@ calculate.hclust <- function(dat, method = "complete", metric = "pearson") {
     if (metric == "euclidean") {
         hc <- hclust(dist(t(dat)), method = method)
     } else if (metric %in% c("spearman", "pearson")) {
-        hc <- hclust(as.dist(1 - cor(dat, use = "complete.obs", method = metric)), 
+        hc <- hclust(as.dist(1 - cor(dat, use = "complete.obs", 
+                     method = metric)), 
             method = method)
     } else {
         stop("Provide proper metric for calculate.hclust!")
@@ -93,7 +96,8 @@ calculate.hclust <- function(dat, method = "complete", metric = "pearson") {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-get.probeset <- function(name, level, phylogeny.info, oligo.matrix, log10 = TRUE) {
+get.probeset <- function(name, level, phylogeny.info, oligo.matrix, 
+                         log10 = TRUE) {
     
     # Pick probes for this entity
     probes <- retrieve.probesets(phylogeny.info, level, name)
@@ -195,7 +199,7 @@ matrix.qvalue <- function(pvals) {
     pvec <- as.vector(pvals)
     nai <- is.na(pvec)
     qvec <- rep(NA, length(pvec))
-    qvec[!nai] <- qvalue::qvalue(pvec[!nai], pi0.method = "bootstrap")$qvalue
+    qvec[!nai] <- qvalue(pvec[!nai], pi0.method = "bootstrap")$qvalue
     qmat <- matrix(qvec, nrow = nrow(pvals))
     dimnames(qmat) <- dimnames(pvals)
     qmat
@@ -220,13 +224,19 @@ matrix.qvalue <- function(pvals) {
 
 polish.phylogeny.info <- function(phylogeny.info) {
     
-    colnames(phylogeny.info)[which(colnames(phylogeny.info) == "level.0")] <- "L0"
-    colnames(phylogeny.info)[which(colnames(phylogeny.info) == "level.1")] <- "L1"
-    colnames(phylogeny.info)[which(colnames(phylogeny.info) == "level.2")] <- "L2"
+    colnames(phylogeny.info)[
+          which(colnames(phylogeny.info) == "level.0")] <- "L0"
+    colnames(phylogeny.info)[
+          which(colnames(phylogeny.info) == "level.1")] <- "L1"
+    colnames(phylogeny.info)[
+          which(colnames(phylogeny.info) == "level.2")] <- "L2"
     
-    colnames(phylogeny.info)[which(colnames(phylogeny.info) == "level 0")] <- "L0"
-    colnames(phylogeny.info)[which(colnames(phylogeny.info) == "level 1")] <- "L1"
-    colnames(phylogeny.info)[which(colnames(phylogeny.info) == "level 2")] <- "L2"
+    colnames(phylogeny.info)[
+          which(colnames(phylogeny.info) == "level 0")] <- "L0"
+    colnames(phylogeny.info)[
+          which(colnames(phylogeny.info) == "level 1")] <- "L1"
+    colnames(phylogeny.info)[
+          which(colnames(phylogeny.info) == "level 2")] <- "L2"
     
     phylogeny.info
     
@@ -354,6 +364,4 @@ lower.triangle <- function(mat) {
         }
     }
     elements
-}
-
- 
+} 

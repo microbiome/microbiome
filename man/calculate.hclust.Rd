@@ -18,7 +18,8 @@ Returns:}
 hclust object for log10 and for absolute scale data
 }
 \description{
-Description: Calculate hierarchical clustering for standard selections in profiling script
+Description: Calculate hierarchical clustering for standard selections in
+profiling script
 }
 \details{
 Arguments:

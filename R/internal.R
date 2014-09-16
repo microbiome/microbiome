@@ -1,15 +1,16 @@
 # Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi Contact:
 # <microbiome-admin@googlegroups.com>. All rights reserved.
 
-# This file is a part of the microbiome R package http://microbiome.github.com/
+# This file is a part of the microbiome R package
+#  http://microbiome.github.com/
 
-# This program is open source software; you can redistribute it and/or modify it
-# under the terms of the FreeBSD License (keep this notice):
+# This program is open source software; you can redistribute it and/or
+# modify it under the terms of the FreeBSD License (keep this notice):
 # http://en.wikipedia.org/wiki/BSD_licenses
 
-# This program is distributed in the hope that it will be useful, but WITHOUT ANY
-# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE.
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
 get.file.method <- function(f) {
@@ -79,7 +80,8 @@ species2levels <- function(spec, phylogeny.info) {
     
     phylogeny.info <- polish.phylogeny.info(phylogeny.info)
     
-    omap <- phylogeny.info[match(as.character(spec), phylogeny.info$species), c("species", 
+    omap <- phylogeny.info[match(as.character(spec), 
+               phylogeny.info$species), c("species", 
         "L2", "L1")]
     omap[["species"]] <- factor(omap[["species"]])
     omap[["L1"]] <- factor(omap[["L1"]])
@@ -105,7 +107,8 @@ level2TOlevel1 <- function(l2, phylogeny.info) {
     
     phylogeny.info <- polish.phylogeny.info(phylogeny.info)
     
-    omap <- phylogeny.info[match(as.character(l2), phylogeny.info[["L2"]]), c("L2", 
+    omap <- phylogeny.info[match(as.character(l2), 
+               phylogeny.info[["L2"]]), c("L2", 
         "L1")]
     omap[["L2"]] <- factor(omap[["L2"]])
     omap[["L1"]] <- factor(omap[["L1"]])
@@ -131,7 +134,8 @@ level2TOlevel0 <- function(l2, phylogeny.info) {
     
     phylogeny.info <- polish.phylogeny.info(phylogeny.info)
     
-    omap <- phylogeny.info[match(as.character(l2), phylogeny.info[["L2"]]), c("L2", 
+    omap <- phylogeny.info[match(as.character(l2), 
+              phylogeny.info[["L2"]]), c("L2", 
         "L0")]
     omap[["L2"]] <- factor(omap[["L2"]])
     omap[["L0"]] <- factor(omap[["L0"]])
@@ -157,7 +161,8 @@ level1TOlevel0 <- function(l1, phylogeny.info) {
     
     phylogeny.info <- polish.phylogeny.info(phylogeny.info)
     
-    omap <- phylogeny.info[match(as.character(l1), phylogeny.info[["L1"]]), c("L1", 
+    omap <- phylogeny.info[match(as.character(l1), 
+                phylogeny.info[["L1"]]), c("L1", 
         "L0")]
     omap[["L1"]] <- factor(omap[["L1"]])
     omap[["L0"]] <- factor(omap[["L0"]])
@@ -186,10 +191,10 @@ oligoTOhigher <- function(oligo, phylogeny.info, level.to = "species") {
     
     oligo.species <- list()
     for (oli in as.character(oligo)) {
-        oligo.species[[oli]] <- sort(unique(phylogeny.info[which(phylogeny.info[["oligoID"]] == 
+        oligo.species[[oli]] <- sort(unique(
+              phylogeny.info[which(phylogeny.info[["oligoID"]] == 
             oli), level.to]))
     }
     
     oligo.species
-}
- 
+} 

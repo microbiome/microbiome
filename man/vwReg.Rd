@@ -4,8 +4,9 @@
 \title{Description: Draw regression curve with smoothed error bars
 based on the Visually-Weighted Regression by Solomon M. Hsiang; see
 http://www.fight-entropy.com/2012/07/visually-weighted-regression.html
-The R implementation is based on Felix Schonbrodt's code (under MIT/FreeBSD license) from
-http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/}
+The R implementation is based on Felix Schonbrodt's code
+(under MIT/FreeBSD license) from
+nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/}
 \usage{
 vwReg(formula, data, title = "", B = 1000, shade = TRUE,
   shade.alpha = 0.1, spag = FALSE, mweight = TRUE, show.lm = FALSE,
@@ -26,7 +27,9 @@ vwReg(formula, data, title = "", B = 1000, shade = TRUE,
 
 \item{shade}{plot the shaded confidence region?}
 
-\item{shade.alpha}{should the CI shading fade out at the edges? (by reducing alpha; 0 = no alpha decrease, 0.1 = medium alpha decrease, 0.5 = strong alpha decrease)}
+\item{shade.alpha}{should the CI shading fade out at the edges?
+(by reducing alpha; 0 = no alpha decrease, 0.1 = medium
+alpha decrease, 0.5 = strong alpha decrease)}
 
 \item{spag}{plot spaghetti lines?}
 
@@ -45,7 +48,7 @@ vwReg(formula, data, title = "", B = 1000, shade = TRUE,
 \item{bw}{define a default b/w-palette (TRUE/FALSE)}
 
 \item{slices}{number of slices in x and y direction for the shaded region.
-   Higher numbers make a smoother plot, but takes longer to draw.
+Higher numbers make a smoother plot, but takes longer to draw.
 Not recommended to go beyond 500.}
 
 \item{palette}{provide a custom color palette for the watercolors}
@@ -86,7 +89,7 @@ Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
 Based on the original version from Felix Schonbrodt:
-            http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/
+nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/
 }
 \keyword{utilities}
 

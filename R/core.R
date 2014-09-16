@@ -1,15 +1,16 @@
 # Copyright (C) 2011-2014 Jarkko Salojarvi and Leo Lahti Contact:
 # <microbiome-admin@googlegroups.com>. All rights reserved.
 
-# This file is a part of the microbiome R package http://microbiome.github.com/
+# This file is a part of the microbiome R package
+  http://microbiome.github.com/
 
-# This program is open source software; you can redistribute it and/or modify it
-# under the terms of the FreeBSD License (keep this notice):
+# This program is open source software; you can redistribute it and/or
+# modify it under the terms of the FreeBSD License (keep this notice):
 # http://en.wikipedia.org/wiki/BSD_licenses
 
-# This program is distributed in the hope that it will be useful, but WITHOUT ANY
-# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-# PARTICULAR PURPOSE.
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
 #' Description: core.sum
@@ -92,8 +93,9 @@ core.which <- function(data, intTr, prevalenceTr) {
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-createCore <- function(data, verbose = FALSE, prevalence.intervals = seq(20, 100, 
-    20), intensity.intervals = NULL) {
+createCore <- function(data, verbose = FALSE, 
+          prevalence.intervals = seq(20, 100, 20), 
+          intensity.intervals = NULL) {
     
     ## Prevalence vector
     if (is.null(prevalence.intervals)) {
@@ -109,8 +111,8 @@ createCore <- function(data, verbose = FALSE, prevalence.intervals = seq(20, 100
         i.seq <- intensity.intervals
     }
     
-    coreMat <- matrix(NA, nrow = length(i.seq), ncol = length(p.seq), dimnames = list(i.seq, 
-        p.seq))
+    coreMat <- matrix(NA, nrow = length(i.seq), ncol = length(p.seq), 
+                      dimnames = list(i.seq, p.seq))
     
     n <- length(i.seq) * length(p.seq)
     cnt <- 0
@@ -157,17 +159,18 @@ createCore <- function(data, verbose = FALSE, prevalence.intervals = seq(20, 100
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-Core3D <- function(coreMat, title = "Core microbiota", xlab = "Minimum Intensity", 
-    cex.axis = 0.7) {
+Core3D <- function(coreMat, title = "Core microbiota", 
+                   xlab = "Minimum Intensity", cex.axis = 0.7) {
     
     MinimumPrevalence <- as.numeric(colnames(coreMat))
     MinimumLogIntensity <- as.numeric(rownames(coreMat))
-    tmp <- persp(MinimumLogIntensity, MinimumPrevalence, coreMat, theta = 60, 
-                    phi = 5, main = title, col = "light blue", axes = TRUE, 
-                    ticktype = "detailed", nticks = 9, 
-                    shade = 0.58, cex.axis = cex.axis, 
-                    ylab = "Minimum Prevalence", xlab = xlab, 
-                    zlab = "Core Size")
+    tmp <- persp(MinimumLogIntensity, MinimumPrevalence, coreMat, 
+                 theta = 60, phi = 5, 
+        main = title, col = "light blue", axes = TRUE, ticktype = "detailed", 
+        nticks = 9, 
+        shade = 0.58, cex.axis = cex.axis, ylab = "Minimum Prevalence", 
+        xlab = xlab, 
+        zlab = "Core Size")
     
     return(NULL)
     
@@ -201,15 +204,17 @@ Core3D <- function(coreMat, title = "Core microbiota", xlab = "Minimum Intensity
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-Core2D <- function(coreMat, title = "Common core", plot = TRUE, xlabel = "Abundance", 
-    ylabel = "Core size (number of taxa)") {
+Core2D <- function(coreMat, title = "Common core", plot = TRUE, 
+                   xlabel = "Abundance", 
+                   ylabel = "Core size (number of taxa)") {
     
     Abundance <- Prevalence <- Count <- NULL
     
     df <- melt(coreMat)
     names(df) <- c("Abundance", "Prevalence", "Count")
     theme_set(theme_bw(20))
-    p <- ggplot(df, aes(x = Abundance, y = Count, color = Prevalence, group = Prevalence))
+    p <- ggplot(df, aes(x = Abundance, y = Count, color = Prevalence, 
+                        group = Prevalence))
     p <- p + geom_line()
     p <- p + geom_point()
     p <- p + xlab(xlabel)
@@ -256,7 +261,8 @@ Core2D <- function(coreMat, title = "Common core", plot = TRUE, xlabel = "Abunda
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-core_heatmap <- function(data, detection.thresholds = NULL, plot = TRUE, palette = "bw") {
+core_heatmap <- function(data, detection.thresholds = NULL, plot = TRUE, 
+                         palette = "bw") {
     
     DetectionThreshold <- Taxa <- Prevalence <- NULL
     
@@ -266,7 +272,8 @@ core_heatmap <- function(data, detection.thresholds = NULL, plot = TRUE, palette
     
     # Prevalences with varying detection thresholds
     taxa <- rownames(data)
-    prevalences <- matrix(NA, nrow = length(taxa), ncol = length(detection.thresholds))
+    prevalences <- matrix(NA, nrow = length(taxa), 
+                          ncol = length(detection.thresholds))
     rownames(prevalences) <- taxa
     colnames(prevalences) <- as.character(detection.thresholds)
     for (det.th in detection.thresholds) {
@@ -289,7 +296,8 @@ core_heatmap <- function(data, detection.thresholds = NULL, plot = TRUE, palette
         colours <- myPalette(5)
     }
     
-    p <- p + scale_fill_gradientn("Prevalence", breaks = seq(from = 0, to = 100, 
+    p <- p + scale_fill_gradientn("Prevalence", 
+        breaks = seq(from = 0, to = 100, 
         by = 10), colours = colours, limits = c(0, 100))
     
     p <- p + ggtitle("Core microbiota")

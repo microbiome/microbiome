@@ -59,9 +59,11 @@ roc <- function(ordered.results, true.positives) {
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-roc.plot <- function(ordered.results, true.positives, line = FALSE, title = "") {
+roc.plot <- function(ordered.results, true.positives, 
+                     line = FALSE, title = "") {
     res <- roc(ordered.results, true.positives)
-    plot(res$fpr, res$tpr, lty = 1, type = "l", xlab = "False positive rate", ylab = "True positive rate", 
+    plot(res$fpr, res$tpr, lty = 1, type = "l", xlab = "False positive rate", 
+         ylab = "True positive rate", 
         xlim = c(0, 1), ylim = c(0, 1), main = paste("ROC curve", title))
     if (line) {
         # Draw 45 angle line
@@ -94,10 +96,13 @@ roc.auc <- function(ordered.results, true.positives) {
     
     # Compute area under curve
     rates <- roc(ordered.results, true.positives)
-    # integration: Compute step intervals and compute weighted sum of true positive
-    # rates in each interval.  note that interval length can be 0 if fpr does not
-    # change
-    auc <- as.numeric(t(rates$fpr[-1] - rates$fpr[-length(rates$fpr)]) %*% rates$tpr[-length(rates$fpr)])
+
+    # integration: Compute step intervals and compute weighted sum of
+    # true positive rates in each interval.  note that interval length
+    # can be 0 if fpr does not change
+
+    auc <- as.numeric(t(rates$fpr[-1] - 
+            rates$fpr[-length(rates$fpr)]) %*% rates$tpr[-length(rates$fpr)])
     
     auc
 }

@@ -4,7 +4,7 @@
 \title{Description: Measure association between nominal
         (no order for levels) variables
 using Goodman and Kruskal tau. Code modified from the original source:
-http://www.r-bloggers.com/measuring-associations-between-non-numeric-variables/
+r-bloggers.com/measuring-associations-between-non-numeric-variables/
 An important feature of this procedure is that it allows missing
 values in either of the variables x or y, treating 'missing' as an
 additional level.  In practice, this is sometimes very important since
@@ -48,7 +48,7 @@ Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
 Code modified from the original source:
-  http://www.r-bloggers.com/measuring-associations-between-non-numeric-variables/
+  r-bloggers.com/measuring-associations-between-non-numeric-variables/
   To cite the microbiome R package, see citation('microbiome')
 }
 \keyword{utilities}
