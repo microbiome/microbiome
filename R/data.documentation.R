@@ -1,4 +1,5 @@
-# This file is a part of the microbiome package (http://microbiome.github.com/)
+# This file is a part of the microbiome package
+# (http://microbiome.github.com/)
 
 # Copyright (C) 2010-2014 Leo Lahti. All rights reserved.
 

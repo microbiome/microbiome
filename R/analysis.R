@@ -2,7 +2,7 @@
 # <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
-  http://microbiome.github.com/
+# http://microbiome.github.com/
 
 # This program is open source software; you can redistribute it and/or
 # modify it under the terms of the FreeBSD License (keep this notice):
@@ -80,7 +80,8 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
     tax.oligos <- sapply(split(phi, phi[[tax.level]]), function(x) {
         x$oligoID
     })
-    tax2oligo <- matrix(0, nrow = length(unique(phi[[tax.level]])), ncol = length(unique(phi$oligoID)))
+    tax2oligo <- matrix(0, nrow = length(unique(phi[[tax.level]])), 
+                        ncol = length(unique(phi$oligoID)))
     rownames(tax2oligo) <- unique(phi[[tax.level]])
     colnames(tax2oligo) <- unique(phi$oligoID)
     for (tax in names(tax.oligos)) {
@@ -125,7 +126,7 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
 #'   @param rounding Rounding of the cell contents
 #'   @param phylogeny.info phylogeny.info 
 #'   @param self.correlations Show self-correlations (always 100%); 
-#'                         or remove (indicate as 0%; default)
+#'                            or remove (indicate as 0%; default)
 #'
 #' Returns:
 #'   @return A list containing cross-hybridization table and plot
@@ -148,7 +149,7 @@ PlotCrosshyb <- function(tax.level = "L1", chip = "HITChip",
     
     # Get crosshyb matrix
     confusion.matrix <- CrosshybTable(tax.level = tax.level, chip = "HITChip", 
-                                      selected.taxa = NULL, 
+        selected.taxa = NULL, 
         phylogeny.info = NULL)
     
     # Remove self-correlations

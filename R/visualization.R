@@ -311,7 +311,8 @@ correlation.heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj",
 #'            verbose = FALSE)
 #'
 #' @importFrom reshape melt
-#' @import ggplot2 plyr 
+#' @import ggplot2 
+#' @import plyr 
 #'
 #' @export
 #' @references Based on the original version from Felix Schonbrodt: 
@@ -523,7 +524,7 @@ vwReg <- function(formula, data, title = "", B = 1000, shade = TRUE,
 #'
 #' @export
 #' @import MASS
-#' @importFrom mixOmics spca
+#' @import mixOmics
 #'
 #' @examples data(peerj32); 
 #'           xy <- project.data(peerj32$microbes[,1:3])

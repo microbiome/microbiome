@@ -31,7 +31,7 @@ PlotCrosshyb(tax.level = "L1", chip = "HITChip", selected.taxa = NULL,
 \item{phylogeny.info}{phylogeny.info}
 
 \item{self.correlations}{Show self-correlations (always 100%);
-                        or remove (indicate as 0%; default)
+                           or remove (indicate as 0%; default)
 
 Returns:}
 }

@@ -17,7 +17,8 @@ Vector containing relative proportions for each phylotype in
            each sample
 }
 \description{
-Description: Estimate relative abundance for each phylotype in each sample with a given threshold
+Description: Estimate relative abundance for each phylotype in each
+sample with a given threshold '
 }
 \details{
 Arguments:

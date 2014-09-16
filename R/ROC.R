@@ -21,8 +21,9 @@
 
 roc <- function(ordered.results, true.positives) {
     
-    # Check that all known positives are included in the original analysis i.e.
-    # ordered results list
+    # Check that all known positives are included in the original
+    # analysis i.e.  ordered results list
+
     positives <- true.positives[true.positives %in% ordered.results]
     
     # Number of retrieved known cytobands

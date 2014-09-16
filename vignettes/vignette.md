@@ -1,10 +1,10 @@
 ---
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
-date: "2014-09-15"
+date: "2014-09-16"
 output: rmarkdown::html_vignette
 vignette: > 
-%\VignetteEngine{knitr::rmarkdown}
+%\VignetteEngine{knitr}
 %\VignetteIndexEntry{An R Markdown Vignette made with knitr}
 %\usepackage[utf8]{inputenc}
 ---
@@ -33,52 +33,21 @@ library(microbiome)
 
 ```r
 install.packages("devtools")
-```
-
-```
-## Installing package into '/home/lei/R/x86_64-pc-linux-gnu-library/3.1'
-## (as 'lib' is unspecified)
-```
-
-```
-## --- Please select a CRAN mirror for use in this session ---
-## 
-## The downloaded source packages are in
-## 	'/tmp/RtmpQ4lXwS/downloaded_packages'
-```
-
-```r
 library(devtools)
-```
-
-```
-## 
-## Attaching package: 'devtools'
-## 
-## The following objects are masked from 'package:utils':
-## 
-##     ?, help
-## 
-## The following object is masked from 'package:base':
-## 
-##     system.file
-```
-
-```r
 install_github("microbiome", "microbiome")
 ```
 
-```
-## Installing github repo microbiome/master from microbiome
-## Downloading master.zip from https://github.com/microbiome/microbiome/archive/master.zip
-## Installing package from /tmp/RtmpQ4lXwS/master.zip
-## arguments 'minimized' and 'invisible' are for Windows only
-## Installing microbiome
-## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
-##   '/tmp/RtmpQ4lXwS/devtools1520588c6168/microbiome-master'  \
-##   --library='/home/lei/R/x86_64-pc-linux-gnu-library/3.1'  \
-##   --install-tests
-```
+### Examples
+
+Installation and usage instructions can be found at the project
+[wiki](https://github.com/microbiome/microbiome/wiki/).
+
+
+### Example data set
+
+The microbiome package contains an example data set from Lahti et al. [PeerJ 1:e32, 2013](https://peerj.com/articles/32/) concerning associations between human intestinal microbiota and blood serum lipids. Load the data in R as follows:
+
+
 
 ```r
 library(microbiome)
@@ -88,19 +57,27 @@ library(microbiome)
 ## Loading required package: e1071
 ## Loading required package: vegan
 ## Loading required package: permute
-## 
-## Attaching package: 'permute'
-## 
-## The following object is masked from 'package:devtools':
-## 
-##     check
-## 
 ## Loading required package: lattice
 ## This is vegan 2.0-10
 ## Loading required package: reshape
+```
+
+```
+## Warning: replacing previous import by 'qvalue::qplot' when loading 'microbiome'
+## Warning: replacing previous import by 'qvalue::qvalue' when loading 'microbiome'
+```
+
+```
 ## 
 ## microbiome R package (microbiome.github.com)
-## Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi <microbiome-admin@googlegroups.com>
+##           
+## 
+## 
+##         Copyright (C) 2011-2014 
+##           Leo Lahti and Jarkko Salojarvi 
+## 
+##         
+##           <microbiome-admin@googlegroups.com>
 ## 
 ## 
 ## Attaching package: 'microbiome'
@@ -118,18 +95,6 @@ library(microbiome)
 ##     impute
 ```
 
-### Examples
-
-Further installation and usage instructions can be found at the
-project [wiki](https://github.com/microbiome/microbiome/wiki/). 
-
-
-### Example data set
-
-The microbiome package contains an example data set from Lahti et al. [PeerJ 1:e32, 2013](https://peerj.com/articles/32/) concerning associations between human intestinal microbiota and blood serum lipids. Load the data in R as follows:
-
-
-
 ```r
 data(peerj32)
 names(peerj32)
@@ -139,6 +104,53 @@ names(peerj32)
 ## [1] "lipids"   "microbes" "meta"
 ```
 
+### Visualization example
+
+
+```r
+dat1 <- peerj32$lipids # Lipids (44 samples x 389 lipids)
+dat2 <- peerj32$microbes # Microbiota (44 samples x 130 bacteria)
+meta <- peerj32$meta
+
+correlations <- cross.correlate(dat1, dat2, 
+                        method = "bicor", 
+			mode = "matrix", 
+                        n.signif = 1, 
+			p.adj.threshold = 0.05, 
+                        p.adj.method = "qvalue")
+```
+
+```
+## Warning: longer object length is not a multiple of shorter object length
+```
+
+```r
+correlation.table <- cmat2table(correlations)
+head(correlation.table)
+```
+
+```
+##              X1                               X2 Correlation    p.adj
+## 1219 TG(54:5).2      Ruminococcus gnavus et rel.      0.7208 0.001501
+## 1205   TG(52:5)      Ruminococcus gnavus et rel.      0.6996 0.002757
+## 1198   TG(50:4)      Ruminococcus gnavus et rel.      0.6852 0.003282
+## 751    PC(40:3)                     Helicobacter     -0.6838 0.003282
+## 565    PC(40:3) Eubacterium cylindroides et rel.     -0.6771 0.003282
+## 1218 TG(54:4).2      Ruminococcus gnavus et rel.      0.6768 0.003282
+```
+
+```r
+p <- microbiome::correlation.heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
+```
+
+```
+## Ordering columns
+## Ordering rows
+```
+
+```r
+print(p)
+```
 
 ### Licensing and Citations
 
@@ -221,27 +233,26 @@ sessionInfo()
 ## 
 ## other attached packages:
 ## [1] microbiome_0.99.0 reshape_0.8.5     vegan_2.0-10      lattice_0.20-29  
-## [5] permute_0.8-3     e1071_1.6-4       devtools_1.5      knitr_1.6        
+## [5] permute_0.8-3     e1071_1.6-4       knitr_1.6        
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] acepack_1.3-3.3     class_7.3-11        cluster_1.15.3     
 ##  [4] codetools_0.2-9     colorspace_1.2-4    df2json_0.0.2      
 ##  [7] digest_0.6.4        doParallel_1.0.8    dynamicTreeCut_1.62
-## [10] evaluate_0.5.5      flashClust_1.01-2   foreach_1.4.2      
-## [13] foreign_0.8-61      formatR_1.0         Formula_1.1-2      
-## [16] ggplot2_1.0.0       grid_3.1.1          gtable_0.1.2       
-## [19] Hmisc_3.14-5        httr_0.5            igraph_0.7.1       
+## [10] evaluate_0.5.5      fastcluster_1.1.13  flashClust_1.01-2  
+## [13] foreach_1.4.2       foreign_0.8-61      formatR_1.0        
+## [16] Formula_1.1-2       ggplot2_1.0.0       grid_3.1.1         
+## [19] gtable_0.1.2        Hmisc_3.14-5        igraph_0.7.1       
 ## [22] impute_1.38.1       iterators_1.0.7     latticeExtra_0.6-26
-## [25] MASS_7.3-34         matrixStats_0.10.0  memoise_0.2.1      
-## [28] minet_3.20.1        mixOmics_5.0-3      munsell_0.4.2      
-## [31] nnet_7.3-8          parallel_3.1.1      pheatmap_0.7.7     
-## [34] plyr_1.8.1          proto_0.3-10        RColorBrewer_1.0-5 
-## [37] Rcpp_0.11.2         RCurl_1.95-4.3      reshape2_1.4       
-## [40] RGCCA_2.0           rgl_0.94.1131       rjson_0.2.14       
-## [43] R.methodsS3_1.6.1   rpart_4.1-8         scales_0.2.4       
-## [46] splines_3.1.1       stringr_0.6.2       survival_2.37-7    
-## [49] tcltk_3.1.1         tools_3.1.1         WGCNA_1.41-1       
-## [52] whisker_0.4
+## [25] MASS_7.3-34         matrixStats_0.10.0  minet_3.20.1       
+## [28] mixOmics_5.0-3      munsell_0.4.2       nnet_7.3-8         
+## [31] parallel_3.1.1      pheatmap_0.7.7      plyr_1.8.1         
+## [34] proto_0.3-10        qvalue_1.38.0       RColorBrewer_1.0-5 
+## [37] Rcpp_0.11.2         reshape2_1.4        RGCCA_2.0          
+## [40] rgl_0.94.1131       rjson_0.2.14        R.methodsS3_1.6.1  
+## [43] rpart_4.1-8         scales_0.2.4        splines_3.1.1      
+## [46] stringr_0.6.2       survival_2.37-7     tcltk_3.1.1        
+## [49] tools_3.1.1         WGCNA_1.41-1
 ```
 
 

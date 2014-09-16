@@ -2,7 +2,7 @@
 # <microbiome-admin@googlegroups.com>. All rights reserved.
 
 # This file is a part of the microbiome R package
-  http://microbiome.github.com/
+# http://microbiome.github.com/
 
 # This program is open source software; you can redistribute it and/or
 # modify it under the terms of the FreeBSD License (keep this notice):
@@ -109,7 +109,8 @@ diversity.table <- function(dat, level.from, level.to, phylogeny.info = NULL,
                 diversity.index = diversity.index, 
                 det.th = det.th)
         } else {
-            warning(paste("Not enough oligos for ", nam, ": \n                   diversity calculations skipped!"))
+            warning(paste("Not enough oligos for ", nam, ": \n            
+                           diversity calculations skipped!"))
             divs <- NULL
         }
         
@@ -164,7 +165,8 @@ diversity.table <- function(dat, level.from, level.to, phylogeny.info = NULL,
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-estimate.diversity <- function(dat, diversity.index = "shannon", det.th = NULL) {
+estimate.diversity <- function(dat, diversity.index = "shannon", 
+                               det.th = NULL) {
     
     # Species diversity Always use the complete data for diversity
     # calculations If you wish calculate diversity for thresholded

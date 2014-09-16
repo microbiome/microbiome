@@ -1,10 +1,11 @@
 # Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi Contact:
 # <microbiome-admin@googlegroups.com>. All rights reserved.
 
-# This file is a part of the microbiome R package http://microbiome.github.com/
+# This file is a part of the microbiome R package
+# http://microbiome.github.com/
 
-# This program is open source software; you can redistribute it and/or modify 
-# it under the terms of the FreeBSD License (keep this notice):
+# This program is open source software; you can redistribute it and/or
+# modify it under the terms of the FreeBSD License (keep this notice):
 # http://en.wikipedia.org/wiki/BSD_licenses
 
 # This program is distributed in the hope that it will be useful, but
@@ -202,7 +203,8 @@ levelmap <- function(phylotypes = NULL, level.from, level.to, phylogeny.info) {
 #' Description: List probes for each probeset
 #'
 #' Arguments:
-#'   @param phylogeny.info data.frame with oligo - phylotype mapping information
+#'   @param phylogeny.info data.frame with oligo - phylotype 
+#'                         mapping information
 #'   @param level phylotype level for probesets
 #'   @param name specify phylotypes to check (optional)
 #'
@@ -221,7 +223,7 @@ levelmap <- function(phylotypes = NULL, level.from, level.to, phylogeny.info) {
 #' @keywords utilities
 
 retrieve.probesets <- function(phylogeny.info, level = "species", name = NULL) {
-    
+
     # If name not given, pick all
     if (is.null(name)) {
         name <- unique(as.character(phylogeny.info[[level]]))

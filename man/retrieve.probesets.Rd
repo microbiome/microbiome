@@ -6,7 +6,8 @@
 retrieve.probesets(phylogeny.info, level = "species", name = NULL)
 }
 \arguments{
-\item{phylogeny.info}{data.frame with oligo - phylotype mapping information}
+\item{phylogeny.info}{data.frame with oligo - phylotype
+                      mapping information}
 
 \item{level}{phylotype level for probesets}
 
@@ -24,7 +25,7 @@ Description: List probes for each probeset
 Arguments:
 }
 \examples{
-phylogeny.info <- GetPhylogeny();
+phylogeny.info <- GetPhylogeny('HITChip');
          sets <- retrieve.probesets(phylogeny.info,
                        level = 'species',
                  name = 'Weissella confusa')
