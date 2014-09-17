@@ -134,47 +134,7 @@ createCore <- function(data, verbose = FALSE,
 
 
 
-#' Core3D
-#'
-#' Description: Core visualization 3D
-#'
-#' Arguments:
-#'  @param coreMat core matrix
-#'  @param title title
-#'  @param xlab X axis label
-#'  @param cex.axis axis text size
-#'
-#' Returns:
-#'  @return Used for its side effects
-#'
-#' @examples data(peerj32); 
-#'          c3d <- Core3D(createCore(t(peerj32$microbes)))
-#' @export 
-#' 
-#' @references 
-#'   A Salonen et al. The adult intestinal core microbiota is determined by 
-#'   analysis depth and health status. Clinical Microbiology and Infection 
-#'   18(S4):16 20, 2012. 
-#'   To cite the microbiome R package, see citation('microbiome') 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
 
-Core3D <- function(coreMat, title = "Core microbiota", 
-                   xlab = "Minimum Intensity", cex.axis = 0.7) {
-    
-    MinimumPrevalence <- as.numeric(colnames(coreMat))
-    MinimumLogIntensity <- as.numeric(rownames(coreMat))
-    tmp <- persp(MinimumLogIntensity, MinimumPrevalence, coreMat, 
-                 theta = 60, phi = 5, 
-        main = title, col = "light blue", axes = TRUE, ticktype = "detailed", 
-        nticks = 9, 
-        shade = 0.58, cex.axis = cex.axis, ylab = "Minimum Prevalence", 
-        xlab = xlab, 
-        zlab = "Core Size")
-    
-    return(NULL)
-    
-}
 
 
 #' Core2D

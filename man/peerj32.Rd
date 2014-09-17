@@ -7,6 +7,9 @@
 \usage{
 data(peerj32)
 }
+\value{
+List of data matrices
+}
 \description{
 The peerj32 data set contains high-through profiling data from
 389 human blood serum lipids and 130 intestinal genus-level bacteria from
@@ -21,9 +24,9 @@ Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
 Lahti et al. (2013) Associations between the human intestinal
-           microbiota, Lactobacillus rhamnosus GG and serum lipids
-          indicated by integrated analysis of high-throughput profiling
-         data. PeerJ 1:e32 \url{http://dx.doi.org/10.7717/peerj.32}
+            microbiota, Lactobacillus rhamnosus GG and serum lipids
+            indicated by integrated analysis of high-throughput profiling
+            data. PeerJ 1:e32 \url{http://dx.doi.org/10.7717/peerj.32}
 }
 \keyword{data}
 

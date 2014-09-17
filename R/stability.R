@@ -1,5 +1,3 @@
-
-
 #' Description: Stability analysis. Calculates average Pearson '
 #'  correlation between samples in the input data and picks the lower '
 #'  triangular matrix to avoid duplicating the correlations. Returns 

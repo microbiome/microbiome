@@ -248,12 +248,12 @@ cross.correlate <- function(x, y = NULL, method = "pearson",
 		#cind <- h$colInd
 
 	    	rind <- hclust(as.dist(1-cor(t(tmp), use = "pairwise.complete.obs")))$order
-	    	cind <- hclust(as.dist(1-cor(tmp), use = "pairwise.complete.obs"))$order
+	    	cind <- hclust(as.dist(1-cor(tmp, use = "pairwise.complete.obs")))$order
                 rnams <- rownames(Cc)[rind]
                 cnams <- colnames(Cc)[cind]
-                Cc <- Cc[h$rowInd, h$colInd]
-                Pc <- Pc[h$rowInd, h$colInd]
-                qv <- qv[h$rowInd, h$colInd]
+                Cc <- Cc[rind, cind]
+                Pc <- Pc[rind, cind]
+                qv <- qv[rind, cind]
                 
                 rownames(qv) <- rownames(Pc) <- rownames(Cc) <- rnams
                 colnames(qv) <- colnames(Pc) <- colnames(Cc) <- cnams

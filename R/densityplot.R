@@ -67,7 +67,7 @@ densityplot <- function(mat, main = NULL, x.ticks = 10, rounding = 0,
     
     p <- p + scale_x_continuous(breaks = round(seq(floor(min(df[["x"]])), 
                    ceiling(max(df[["x"]])), 
-        length = x.ticks), rounding))
+                   length = x.ticks), rounding))
     
     if (!is.null(main)) {
         p <- p + ggtitle(main)

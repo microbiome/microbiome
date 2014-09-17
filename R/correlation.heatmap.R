@@ -100,7 +100,7 @@ correlation.heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj",
         cind <- 1:ncol(mat)
         if (nrow(mat) > 1 && ncol(mat) > 1) {
 	    rind <- hclust(as.dist(1-cor(t(mat), use = "pairwise.complete.obs")))$order
-	    cind <- hclust(as.dist(1-cor(mat), use = "pairwise.complete.obs"))$order
+	    cind <- hclust(as.dist(1-cor(mat, use = "pairwise.complete.obs")))$order
             #hm <- heatmap(mat)
             # dev.off()
             #rind <- hm$rowInd
@@ -138,7 +138,7 @@ correlation.heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj",
     p <- p + geom_tile()
     
     p <- p + scale_fill_gradientn(legend.text, 
-                 breaks = seq(from = min(limits), to = max(limits), 
+        breaks = seq(from = min(limits), to = max(limits), 
         by = step), colours = colours, limits = limits)
     
     p <- p + xlab("") + ylab("")
@@ -147,7 +147,7 @@ correlation.heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj",
     
     # Mark significant cells with stars
     inds <- which((df[[star]] < p.adj.threshold) 
-              & (abs(df[[fill]]) > correlation.threshold))
+        & (abs(df[[fill]]) > correlation.threshold))
     if (!is.null(star) & length(inds) > 0) {
         df.sub <- df[inds, ]
         
@@ -156,8 +156,8 @@ correlation.heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj",
         }
         
         p <- p + geom_text(data = df.sub, aes(x = XXXX, y = YYYY, label = "+"), 
-                           col = "white", 
-            size = star.size)
+             col = "white", 
+             size = star.size)
     }
     
     p

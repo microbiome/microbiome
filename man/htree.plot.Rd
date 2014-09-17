@@ -16,6 +16,9 @@ htree.plot(dat, method = "complete", metric = "pearson")
 \item{metric}{clustering similarity measure
 Returns:}
 }
+\value{
+Used for its side effects; returns the arguments
+}
 \description{
 Arguments:
 }

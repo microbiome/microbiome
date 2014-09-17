@@ -1,6 +1,3 @@
-
-
-
 #' phylo.barplot
 #'
 #' Description: Barplot for *ITChip sample (across taxa) with higher-level 
