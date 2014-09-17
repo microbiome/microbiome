@@ -26,10 +26,11 @@
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com} 
 #'         has preprocessed the data.
 #' @references Lahti et al. (2013) Associations between the human intestinal 
-#'            microbiota, Lactobacillus rhamnosus GG and serum lipids 
-#'           indicated by integrated analysis of high-throughput profiling 
-#'          data. PeerJ 1:e32 \url{http://dx.doi.org/10.7717/peerj.32}
+#'             microbiota, Lactobacillus rhamnosus GG and serum lipids 
+#'             indicated by integrated analysis of high-throughput profiling 
+#'             data. PeerJ 1:e32 \url{http://dx.doi.org/10.7717/peerj.32}
 #' @usage data(peerj32)
+#' @return List of data matrices
 #' @format list
 #' @keywords data
 NULL 

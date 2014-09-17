@@ -242,12 +242,15 @@ cross.correlate <- function(x, y = NULL, method = "pearson",
                 rownames(tmp) <- NULL
                 colnames(tmp) <- NULL
                 
-                h <- heatmap(tmp, xlab = NULL, 
-                   ylab = NULL, xaxt = "n", yaxt = "n")
-                dev.off()
-                
-                rnams <- rownames(Cc)[h$rowInd]
-                cnams <- colnames(Cc)[h$colInd]
+                #h <- heatmap(tmp, xlab = NULL, 
+                #   ylab = NULL, xaxt = "n", yaxt = "n")                
+                #rind <- h$rowInd
+		#cind <- h$colInd
+
+	    	rind <- hclust(as.dist(1-cor(t(tmp), use = "pairwise.complete.obs")))$order
+	    	cind <- hclust(as.dist(1-cor(tmp), use = "pairwise.complete.obs"))$order
+                rnams <- rownames(Cc)[rind]
+                cnams <- colnames(Cc)[cind]
                 Cc <- Cc[h$rowInd, h$colInd]
                 Pc <- Pc[h$rowInd, h$colInd]
                 qv <- qv[h$rowInd, h$colInd]
