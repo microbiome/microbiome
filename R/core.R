@@ -40,30 +40,7 @@ core.sum <- function(data, intTr, prevalenceTr) {
 }
 
 
-#' Description: core.which
-#'
-#' Arguments:
-#'   @param data data matrix; phylotypes vs. samples
-#'   @param intTr intTr
-#'   @param prevalenceTr prevalenceTr
-#'
-#' Returns:
-#'   @return TBA
-#'
-#' @references 
-#'   A Salonen et al. The adult intestinal core microbiota is determined by 
-#'   analysis depth and health status. Clinical Microbiology and Infection 
-#'   18(S4):16 20, 2012. 
-#'   To cite the microbiome R package, see citation('microbiome') 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
 
-core.which <- function(data, intTr, prevalenceTr) {
-    d.bin <- data >= intTr
-    prevalences <- rowSums(d.bin)
-    nOTUs <- as.numeric(prevalences >= prevalenceTr)
-    return(nOTUs)
-}
 
 
 
