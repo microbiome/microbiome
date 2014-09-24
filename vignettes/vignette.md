@@ -1,7 +1,7 @@
 <!--
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
-date: "2014-09-16"
+date: "2014-09-24"
 vignette: > 
 %\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{An R Markdown Vignette made with knitr}
@@ -34,7 +34,74 @@ library(devtools)
 install_github("microbiome", "microbiome")
 ```
 
-### Examples
+## Examples
+
+### Load example data
+
+Load simulated example data of the human gut microbiota from the
+microbiome package (you can replace the final data matrices with your
+own).
+
+
+```r
+# Load the package
+library(microbiome)  
+
+# Define data path (here we retrieve data from R package itself)
+data.directory <- system.file("extdata", package = "microbiome")
+
+# Read HITChip data matrix (genus-level (L2) log10 values)
+level <- "L2"
+method <- "frpa"
+genus.data <- read.profiling(level = level, 
+	     		       method = method, 
+              		       data.dir = data.directory, 
+	      	       	       log10 = TRUE)  
+```
+
+```
+## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/L2-frpa.tab
+## Logarithmizing the data
+```
+
+```r
+# Read HITChip probe level data (absolute values - no log10)
+oligo.data <- read.profiling(level = "oligo", 
+                             data.dir = data.directory, 
+			     log10 = FALSE)  
+```
+
+```
+## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/oligoprofile.tab
+```
+
+```r
+# Probe-taxon mapping table
+phylogeny.info <- read.profiling(level = "phylogeny.full", 
+                           	 data.dir = data.directory)
+```
+
+```
+## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/phylogeny.full.tab
+```
+
+
+### Read metadata
+
+An easy way to provide sample metadata is to create a tab-separated metadata file. You can create the file in Excel and export it to tab-separated csv format. The standard (and self-explanatory) field names include 'sampleID', 'time', 'subjectID', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). Read the metadata with:
+
+
+```r
+# Read simulated example metadata
+library(gdata)
+metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
+metadata <- read.xls(metadata.file, as.is = TRUE)
+rownames(metadata) <- metadata$sampleID
+```
+
+
+
+## Usage Examples
 
 Installation and usage instructions can be found at the project
 [wiki](https://github.com/microbiome/microbiome/wiki/).
@@ -48,43 +115,6 @@ The microbiome package contains an example data set from Lahti et al. [PeerJ 1:e
 
 ```r
 library(microbiome)
-```
-
-```
-## Loading required package: e1071
-## Loading required package: vegan
-## Loading required package: permute
-## Loading required package: lattice
-## This is vegan 2.0-10
-## Loading required package: reshape
-## 
-## microbiome R package (microbiome.github.com)
-##           
-## 
-## 
-##  Copyright (C) 2011-2014 
-##           Leo Lahti and Jarkko Salojarvi 
-## 
-##         
-##           <microbiome-admin@googlegroups.com>
-## 
-## 
-## Attaching package: 'microbiome'
-## 
-## The following object is masked from 'package:vegan':
-## 
-##     diversity
-## 
-## The following object is masked from 'package:lattice':
-## 
-##     densityplot
-## 
-## The following object is masked from 'package:e1071':
-## 
-##     impute
-```
-
-```r
 data(peerj32)
 names(peerj32)
 ```
@@ -122,10 +152,10 @@ head(correlation.table)
 ##              X1                               X2 Correlation    p.adj
 ## 1100 TG(54:5).2      Ruminococcus gnavus et rel.      0.7208 0.001738
 ## 1087   TG(52:5)      Ruminococcus gnavus et rel.      0.6996 0.003193
-## 1082   TG(50:4)      Ruminococcus gnavus et rel.      0.6852 0.003801
-## 656    PC(40:3)                     Helicobacter     -0.6838 0.003801
 ## 479    PC(40:3) Eubacterium cylindroides et rel.     -0.6771 0.003801
-## 1099 TG(54:4).2      Ruminococcus gnavus et rel.      0.6768 0.003801
+## 656    PC(40:3)                     Helicobacter     -0.6838 0.003801
+## 1082   TG(50:4)      Ruminococcus gnavus et rel.      0.6852 0.003801
+## 1086 TG(52:4).1      Ruminococcus gnavus et rel.      0.6716 0.003801
 ```
 
 ### Licensing and Citations
@@ -209,8 +239,9 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] microbiome_0.99.0 reshape_0.8.5     vegan_2.0-10      lattice_0.20-29  
-## [5] permute_0.8-3     e1071_1.6-4       knitr_1.6        
+## [1] gdata_2.13.3       microbiome_0.99.21 reshape_0.8.5     
+## [4] vegan_2.0-10       lattice_0.20-29    permute_0.8-3     
+## [7] e1071_1.6-4        knitr_1.6         
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] acepack_1.3-3.3     class_7.3-11        cluster_1.15.3     
@@ -219,16 +250,16 @@ sessionInfo()
 ## [10] evaluate_0.5.5      fastcluster_1.1.13  flashClust_1.01-2  
 ## [13] foreach_1.4.2       foreign_0.8-61      formatR_1.0        
 ## [16] Formula_1.1-2       ggplot2_1.0.0       grid_3.1.1         
-## [19] gtable_0.1.2        Hmisc_3.14-5        igraph_0.7.1       
-## [22] impute_1.38.1       iterators_1.0.7     latticeExtra_0.6-26
-## [25] MASS_7.3-34         matrixStats_0.10.0  mixOmics_5.0-3     
-## [28] munsell_0.4.2       nnet_7.3-8          parallel_3.1.1     
-## [31] pheatmap_0.7.7      plyr_1.8.1          proto_0.3-10       
-## [34] RColorBrewer_1.0-5  Rcpp_0.11.2         reshape2_1.4       
-## [37] RGCCA_2.0           rgl_0.94.1131       rjson_0.2.14       
-## [40] R.methodsS3_1.6.1   rpart_4.1-8         scales_0.2.4       
-## [43] splines_3.1.1       stringr_0.6.2       survival_2.37-7    
-## [46] tools_3.1.1         WGCNA_1.41-1
+## [19] gtable_0.1.2        gtools_3.4.1        Hmisc_3.14-5       
+## [22] igraph_0.7.1        impute_1.38.1       iterators_1.0.7    
+## [25] latticeExtra_0.6-26 MASS_7.3-34         matrixStats_0.10.0 
+## [28] mixOmics_5.0-3      munsell_0.4.2       nnet_7.3-8         
+## [31] parallel_3.1.1      pheatmap_0.7.7      plyr_1.8.1         
+## [34] proto_0.3-10        RColorBrewer_1.0-5  Rcpp_0.11.2        
+## [37] reshape2_1.4        RGCCA_2.0           rgl_0.94.1131      
+## [40] rjson_0.2.14        R.methodsS3_1.6.1   rpart_4.1-8        
+## [43] scales_0.2.4        splines_3.1.1       stringr_0.6.2      
+## [46] survival_2.37-7     tools_3.1.1         WGCNA_1.41-1
 ```
 
 
