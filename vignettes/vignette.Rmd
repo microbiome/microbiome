@@ -32,7 +32,55 @@ library(devtools)
 install_github("microbiome", "microbiome")
 ```
 
-### Examples
+## Examples
+
+### Load example data
+
+Load simulated example data of the human gut microbiota from the
+microbiome package (you can replace the final data matrices with your
+own).
+
+```{r data, eval=TRUE}
+# Load the package
+library(microbiome)  
+
+# Define data path (here we retrieve data from R package itself)
+data.directory <- system.file("extdata", package = "microbiome")
+
+# Read HITChip data matrix (genus-level (L2) log10 values)
+level <- "L2"
+method <- "frpa"
+genus.data <- read.profiling(level = level, 
+	     		       method = method, 
+              		       data.dir = data.directory, 
+	      	       	       log10 = TRUE)  
+
+# Read HITChip probe level data (absolute values - no log10)
+oligo.data <- read.profiling(level = "oligo", 
+                             data.dir = data.directory, 
+			     log10 = FALSE)  
+
+# Probe-taxon mapping table
+phylogeny.info <- read.profiling(level = "phylogeny.full", 
+                           	 data.dir = data.directory)
+```
+
+
+### Read metadata
+
+An easy way to provide sample metadata is to create a tab-separated metadata file. You can create the file in Excel and export it to tab-separated csv format. The standard (and self-explanatory) field names include 'sampleID', 'time', 'subjectID', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). Read the metadata with:
+
+```{r meta, eval=TRUE}
+# Read simulated example metadata
+library(gdata)
+metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
+metadata <- read.xls(metadata.file, as.is = TRUE)
+rownames(metadata) <- metadata$sampleID
+```
+
+
+
+## Usage Examples
 
 Installation and usage instructions can be found at the project
 [wiki](https://github.com/microbiome/microbiome/wiki/).
