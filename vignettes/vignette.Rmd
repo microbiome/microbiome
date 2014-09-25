@@ -15,6 +15,7 @@ microbiome R package
 The microbiome package contains general-purpose tools for
 microarray-based analysis of microbiome profiling data sets. 
 
+## Installation
 
 ### Installing and loading the release version
 
@@ -38,7 +39,14 @@ install_github("microbiome", "microbiome")
 
 Load simulated example data of the human gut microbiota from the
 microbiome package (you can replace the final data matrices with your
-own).
+own). We use here microbiota profiling data from the HITChip
+phylogenetic microarray. Most methods are applicable also for
+analogous sequencing data matrices.
+
+Note that with HITChip, fRPA is the recommended default method (kindly
+cite [this
+article](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)).
+
 
 ```{r data, eval=TRUE}
 # Load the package
@@ -79,16 +87,9 @@ rownames(metadata) <- metadata$sampleID
 ```
 
 
+### PeerJ example data set
 
-## Usage Examples
-
-Installation and usage instructions can be found at the project
-[wiki](https://github.com/microbiome/microbiome/wiki/).
-
-
-### Example data set
-
-The microbiome package contains an example data set from Lahti et al. [PeerJ 1:e32, 2013](https://peerj.com/articles/32/) concerning associations between human intestinal microbiota and blood serum lipids. Load the data in R as follows:
+The microbiome package contains also an example data set from Lahti et al. [PeerJ 1:e32, 2013](https://peerj.com/articles/32/) concerning associations between human intestinal microbiota and blood serum lipids. Load the data in R as follows:
 
 
 ```{r exdata}
@@ -96,6 +97,31 @@ library(microbiome)
 data(peerj32)
 names(peerj32)
 ```
+
+
+## Usage Examples
+
+Examples on determining the common core microbiota for the given profiling data set, following [Salonen et al. CMI 18(s4):16-20, 2012](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract), Clinical Microbiology and Infection 18:16–20. 
+
+### Core microbiota
+
+Determine the core microbiota [('blanket analysis')](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
+
+```{r core-example, message=FALSE, warning=FALSE}
+mydata <- t(peerj32$microbes)
+core <- createCore(mydata)
+```
+
+Visualizing core microbiota:
+
+```{r core-example2, fig.width=8, fig.heigth=8}
+# Core 2D visualization
+tmp <- Core2D(core)
+
+# Core heatmap
+tmp <- core_heatmap(mydata)
+```
+
 
 ### Cross-correlation example
 
