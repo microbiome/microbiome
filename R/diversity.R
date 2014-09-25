@@ -183,10 +183,12 @@ estimate.diversity <- function(dat, diversity.index = "shannon",
     # threshold determination if det.th is NULL
     J <- microbiome::evenness(dat, det.th = det.th)
     
-    names(J) <- names(S) <- names(H) <- colnames(dat)
-    
-    data.frame(list(evenness = J, richness = S, diversity = H))
-    
+    df <- data.frame(list(evenness = J, richness = S, diversity = H))
+    #rownames(df) <- colnames(dat)    
+    df$SampleID <- colnames(dat)    
+    df <- df[, c("SampleID", "diversity", "richness", "evenness")]
+
+    df
 }
 
 # Compare to ACE estimate with different discretization bins -> no
