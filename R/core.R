@@ -12,6 +12,33 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
+#' Description: core.which
+#'
+#' Arguments:
+#'   @param data data matrix; phylotypes vs. samples
+#'   @param intTr intTr
+#'   @param prevalenceTr prevalenceTr
+#'
+#' Returns:
+#'   @return Number of OTUs.
+#'
+#' @references 
+#'   A Salonen et al. The adult intestinal core microbiota is determined by 
+#'   analysis depth and health status. Clinical Microbiology and Infection 
+#'   18(S4):16 20, 2012. 
+#'   To cite the microbiome R package, see citation('microbiome') 
+#' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+core.which <- function(data, intTr, prevalenceTr) {
+    d.bin <- data >= intTr
+    prevalences <- rowSums(d.bin)
+    nOTUs <- as.numeric(prevalences >= prevalenceTr)
+    return(nOTUs)
+}
+
+
+
 
 #' plot_cumulative
 #'
@@ -156,7 +183,7 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 1000,
 
    if (is.null(Nsample)) {Nsample <- ncol(D)}
 
-   boot <- replicate(Nboot, sample(ncol(D), Nsample, replace = T), 
+   boot <- replicate(Nboot, sample(ncol(D), Nsample, replace = TRUE), 
    	   		    simplify = FALSE)
 
    # choose intensity such that there is at least one bacteria 
