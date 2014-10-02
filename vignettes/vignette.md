@@ -54,43 +54,7 @@ article](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)).
 ```r
 # Load the package
 library(microbiome)  
-```
 
-```
-## Loading required package: e1071
-## Loading required package: vegan
-## Loading required package: permute
-## Loading required package: lattice
-## This is vegan 2.0-10
-## Loading required package: reshape
-## 
-## microbiome R package (microbiome.github.com)
-##           
-## 
-## 
-##  Copyright (C) 2011-2014 
-##           Leo Lahti and Jarkko Salojarvi 
-## 
-##         
-##           <microbiome-admin@googlegroups.com>
-## 
-## 
-## Attaching package: 'microbiome'
-## 
-## The following object is masked from 'package:vegan':
-## 
-##     diversity
-## 
-## The following object is masked from 'package:lattice':
-## 
-##     densityplot
-## 
-## The following object is masked from 'package:e1071':
-## 
-##     impute
-```
-
-```r
 # Define data path (here we retrieve data from R package itself)
 data.directory <- system.file("extdata", package = "microbiome")
 
@@ -138,25 +102,6 @@ An easy way to provide sample metadata is to create a tab-separated metadata fil
 ```r
 # Read simulated example metadata
 library(gdata)
-```
-
-```
-## gdata: read.xls support for 'XLS' (Excel 97-2004) files ENABLED.
-## 
-## gdata: read.xls support for 'XLSX' (Excel 2007+) files ENABLED.
-## 
-## Attaching package: 'gdata'
-## 
-## The following object is masked from 'package:stats':
-## 
-##     nobs
-## 
-## The following object is masked from 'package:utils':
-## 
-##     object.size
-```
-
-```r
 metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
 metadata <- read.xls(metadata.file, as.is = TRUE)
 rownames(metadata) <- metadata$sampleID
