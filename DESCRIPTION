@@ -1,7 +1,7 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.21
+Version: 0.99.23
 Date: 2014-10-02
 Author: Leo Lahti and Jarkko Salojarvi
 Maintainer: Leo Lahti <leo.lahti@iki.fi>
@@ -10,7 +10,7 @@ biocViews: Microarray, Preprocessing, SystemsBiology, Visualization,
 Description: R tools for microbiome analysis
 License: BSD_2_clause + file LICENSE
 Depends:
-    R (>= 2.15.1),
+    R (>= 3.0.1),
     e1071,
     vegan,
     reshape
@@ -29,7 +29,8 @@ Imports:
 Suggests:
     RUnit,
     BiocGenerics,
-    BiocStyle
+    BiocStyle,
+    gdata
 URL: http://microbiome.github.com
 BugReports: https://github.com/microbiome/microbiome/issues
 VignetteBuilder: knitr
