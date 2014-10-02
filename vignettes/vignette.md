@@ -1,7 +1,7 @@
 <!--
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
-date: "2014-09-24"
+date: "2014-10-02"
 vignette: > 
 %\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{An R Markdown Vignette made with knitr}
@@ -15,6 +15,7 @@ microbiome R package
 The microbiome package contains general-purpose tools for
 microarray-based analysis of microbiome profiling data sets. 
 
+## Installation
 
 ### Installing and loading the release version
 
@@ -40,13 +41,56 @@ install_github("microbiome", "microbiome")
 
 Load simulated example data of the human gut microbiota from the
 microbiome package (you can replace the final data matrices with your
-own).
+own). We use here microbiota profiling data from the HITChip
+phylogenetic microarray. Most methods are applicable also for
+analogous sequencing data matrices.
+
+Note that with HITChip, fRPA is the recommended default method (kindly
+cite [this
+article](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)).
+
 
 
 ```r
 # Load the package
 library(microbiome)  
+```
 
+```
+## Loading required package: e1071
+## Loading required package: vegan
+## Loading required package: permute
+## Loading required package: lattice
+## This is vegan 2.0-10
+## Loading required package: reshape
+## 
+## microbiome R package (microbiome.github.com)
+##           
+## 
+## 
+##  Copyright (C) 2011-2014 
+##           Leo Lahti and Jarkko Salojarvi 
+## 
+##         
+##           <microbiome-admin@googlegroups.com>
+## 
+## 
+## Attaching package: 'microbiome'
+## 
+## The following object is masked from 'package:vegan':
+## 
+##     diversity
+## 
+## The following object is masked from 'package:lattice':
+## 
+##     densityplot
+## 
+## The following object is masked from 'package:e1071':
+## 
+##     impute
+```
+
+```r
 # Define data path (here we retrieve data from R package itself)
 data.directory <- system.file("extdata", package = "microbiome")
 
@@ -60,7 +104,7 @@ genus.data <- read.profiling(level = level,
 ```
 
 ```
-## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/L2-frpa.tab
+## Reading /home/lei/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/L2-frpa.tab
 ## Logarithmizing the data
 ```
 
@@ -72,7 +116,7 @@ oligo.data <- read.profiling(level = "oligo",
 ```
 
 ```
-## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/oligoprofile.tab
+## Reading /home/lei/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/oligoprofile.tab
 ```
 
 ```r
@@ -82,7 +126,7 @@ phylogeny.info <- read.profiling(level = "phylogeny.full",
 ```
 
 ```
-## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/phylogeny.full.tab
+## Reading /home/lei/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/phylogeny.full.tab
 ```
 
 
@@ -94,22 +138,34 @@ An easy way to provide sample metadata is to create a tab-separated metadata fil
 ```r
 # Read simulated example metadata
 library(gdata)
+```
+
+```
+## gdata: read.xls support for 'XLS' (Excel 97-2004) files ENABLED.
+## 
+## gdata: read.xls support for 'XLSX' (Excel 2007+) files ENABLED.
+## 
+## Attaching package: 'gdata'
+## 
+## The following object is masked from 'package:stats':
+## 
+##     nobs
+## 
+## The following object is masked from 'package:utils':
+## 
+##     object.size
+```
+
+```r
 metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
 metadata <- read.xls(metadata.file, as.is = TRUE)
 rownames(metadata) <- metadata$sampleID
 ```
 
 
+### PeerJ example data set
 
-## Usage Examples
-
-Installation and usage instructions can be found at the project
-[wiki](https://github.com/microbiome/microbiome/wiki/).
-
-
-### Example data set
-
-The microbiome package contains an example data set from Lahti et al. [PeerJ 1:e32, 2013](https://peerj.com/articles/32/) concerning associations between human intestinal microbiota and blood serum lipids. Load the data in R as follows:
+The microbiome package contains also an example data set from Lahti et al. [PeerJ 1:e32, 2013](https://peerj.com/articles/32/) concerning associations between human intestinal microbiota and blood serum lipids. Load the data in R as follows:
 
 
 
@@ -122,6 +178,114 @@ names(peerj32)
 ```
 ## [1] "lipids"   "microbes" "meta"
 ```
+
+
+## Usage Examples
+
+Examples on determining the common core microbiota for the given profiling data set, following [Salonen et al. CMI 18(s4):16-20, 2012](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract), Clinical Microbiology and Infection 18:16–20. 
+
+### Diversity estimation
+
+
+```r
+# This will return a samples x indices table with 
+# richness, evenness and diversity collected in one table
+div.table <- estimate.diversity(oligo.data, diversity.index = "shannon")  
+
+# Estimate richness, evenness, and diversity separately
+di <- diversity(oligo.data, diversity.index = "shannon")
+ri <- richness(oligo.data, det.th = NULL)
+ev <- evenness(oligo.data, det.th = NULL)
+```
+
+
+### Diversity boxplot
+
+Produce diversity boxplot for your selected sample groups. NOTE: colors and sample groups are specified before function call. To tune y-axis limits, use 'ylim' argument. For other options, see help(diversity.boxplot).
+
+
+```r
+# Define sample groups 
+# Alternatively, read metadata from file. See
+# https://github.com/microbiome/microbiome/wiki/reading for details
+# sample.groups <- metadata$group
+sample.groups <- list()
+sample.groups$Group1 <- colnames(oligo.data)[1:3]
+sample.groups$Group2 <- colnames(oligo.data)[4:6]
+
+# Plot diversity boxplots
+res <- diversity.boxplot(oligo.data, sample.groups, diversity.index = "shannon")
+```
+
+![plot of chunk diversity-example2](figure/diversity-example2.png) 
+
+```r
+# The function also returns the sample groups and diversity values 
+# used for the plot
+sample.groups <- res$sample.groups
+div.table <- res$diversity.table 
+```
+
+Writing diversity table into file:
+
+
+```r
+output.dir <- "./"
+write.table(div.table, file = "DiversityTable.tab", sep = "\t")
+```
+
+
+### Phylotype-specific diversity tables
+
+Retrieve phylotypes x samples table which presents diversity within
+each higher-level taxonomic category for each sample.
+
+
+```r
+divtab <- diversity.table(oligo.data, phylogeny.info, level.from = "L1", level.to = "oligo", diversity.index = "shannon") 
+```
+
+### Estimating relative abundancies
+
+
+```r
+# NOTE: estimate relative abundancies for phylotypes based on 
+# absolute-scale data for diversity calculations (no logarithm!)
+rel <- relative.abundance(oligo.data, det.th = NULL)
+```
+
+```
+## Warning: Applying detection threshold at 0.8 quantile: 232.026771597465
+```
+
+
+### Core microbiota
+
+Determine the core microbiota [('blanket analysis')](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
+
+
+```r
+mydata <- t(peerj32$microbes)
+core <- createCore(mydata)
+```
+
+Visualizing core microbiota:
+
+
+```r
+# Core 2D visualization
+tmp <- Core2D(core)
+```
+
+![plot of chunk core-example2](figure/core-example21.png) 
+
+```r
+# Core heatmap
+tmp <- core_heatmap(mydata)
+```
+
+![plot of chunk core-example2](figure/core-example22.png) 
+
 
 ### Cross-correlation example
 
@@ -239,7 +403,7 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] gdata_2.13.3       microbiome_0.99.21 reshape_0.8.5     
+## [1] gdata_2.13.3       microbiome_0.99.23 reshape_0.8.5     
 ## [4] vegan_2.0-10       lattice_0.20-29    permute_0.8-3     
 ## [7] e1071_1.6-4        knitr_1.6         
 ## 
@@ -251,15 +415,16 @@ sessionInfo()
 ## [13] foreach_1.4.2       foreign_0.8-61      formatR_1.0        
 ## [16] Formula_1.1-2       ggplot2_1.0.0       grid_3.1.1         
 ## [19] gtable_0.1.2        gtools_3.4.1        Hmisc_3.14-5       
-## [22] igraph_0.7.1        impute_1.38.1       iterators_1.0.7    
-## [25] latticeExtra_0.6-26 MASS_7.3-34         matrixStats_0.10.0 
-## [28] mixOmics_5.0-3      munsell_0.4.2       nnet_7.3-8         
-## [31] parallel_3.1.1      pheatmap_0.7.7      plyr_1.8.1         
-## [34] proto_0.3-10        RColorBrewer_1.0-5  Rcpp_0.11.2        
-## [37] reshape2_1.4        RGCCA_2.0           rgl_0.94.1131      
-## [40] rjson_0.2.14        R.methodsS3_1.6.1   rpart_4.1-8        
-## [43] scales_0.2.4        splines_3.1.1       stringr_0.6.2      
-## [46] survival_2.37-7     tools_3.1.1         WGCNA_1.41-1
+## [22] igraph_0.7.1        impute_1.39.0       iterators_1.0.7    
+## [25] labeling_0.3        latticeExtra_0.6-26 MASS_7.3-34        
+## [28] matrixStats_0.10.0  mixOmics_5.0-3      munsell_0.4.2      
+## [31] nnet_7.3-8          parallel_3.1.1      pheatmap_0.7.7     
+## [34] plyr_1.8.1          proto_0.3-10        RColorBrewer_1.0-5 
+## [37] Rcpp_0.11.2         reshape2_1.4        RGCCA_2.0          
+## [40] rgl_0.94.1131       rjson_0.2.14        R.methodsS3_1.6.1  
+## [43] rpart_4.1-8         scales_0.2.4        splines_3.1.1      
+## [46] stringr_0.6.2       survival_2.37-7     tools_3.1.1        
+## [49] WGCNA_1.41-1
 ```
 
 
