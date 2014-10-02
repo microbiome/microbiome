@@ -167,7 +167,7 @@ rel <- relative.abundance(oligo.data, det.th = NULL)
 
 ### Core microbiota
 
-Determine the core microbiota [('blanket analysis')](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
+Determine the core microbiota [(blanket analysis)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
 
 ```{r core-example, message=FALSE, warning=FALSE}
 mydata <- t(peerj32$microbes)
@@ -260,8 +260,8 @@ contributions:
 
  * H. Wickham (2011). The Split-Apply-Combine Strategy for Data Analysis. [Journal of Statistical Software, 40(1), 1-29](http://www.jstatsoft.org/v40/i01/)
 
-### Session info
 
+### Session info
 
 This vignette was created with
 

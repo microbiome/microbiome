@@ -134,7 +134,7 @@ plot_cumulative <- function(d.sub, i.set = NULL, type = "cumulative",
       i.accept[i] <- TRUE
     }
    }
-   legend(max(t1),1,levels(d.sub[,1])[which(i.accept==T)],fill=colmap[which(i.accept==TRUE)],cex=0.5)
+   legend(max(t1),1,levels(d.sub[,1])[which(i.accept == TRUE)],fill=colmap[which(i.accept==TRUE)],cex=0.5)
 
   NULL
 
@@ -322,8 +322,6 @@ core.sum <- function(data, intTr, prevalenceTr) {
     nOTUs <- sum(prevalences >= prevalenceTr)
     return(nOTUs)
 }
-
-
 
 
 
