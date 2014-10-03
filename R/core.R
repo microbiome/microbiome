@@ -56,8 +56,8 @@ core.which <- function(data, intTr, prevalenceTr) {
 #'
 #' @examples 
 #' \dontrun{
-#'   bs <- bootstrap.microbes(t(peerj32$microbes), Nboot = 5);
 #'   data(peerj32)
+#'   bs <- bootstrap.microbes(t(peerj32$microbes), Nboot = 5);
 #'   phylogeny.info <- GetPhylogeny("HITChip")
 #'   plot_cumulative(bs, phylogeny.info = phylogeny.info)
 #' }
