@@ -2,20 +2,13 @@
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
 date: "2014-10-06"
-output:
-  html_document:
-    toc: true
-    number_sections: true
-    theme_united
-    highlight: pygments
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial}
+  %\usepackage[utf8]{inputenc}
 ---
 
-<!--
-%vignette: 
-%\VignetteEngine{knitr::knitr}
-%\VignetteIndexEntry{An R Markdown Vignette made with knitr}
-%\usepackage[utf8]{inputenc}
--->
 
 microbiome R package
 ===========
@@ -26,6 +19,7 @@ microarray-based analysis of microbiome profiling data sets.
 ## Installation
 
 ### Installing and loading the release version
+
 
 
 ```r
@@ -411,7 +405,7 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] gdata_2.13.3       microbiome_0.99.23 reshape_0.8.5     
+## [1] gdata_2.13.3       microbiome_0.99.25 reshape_0.8.5     
 ## [4] vegan_2.0-10       lattice_0.20-29    permute_0.8-3     
 ## [7] e1071_1.6-4        knitr_1.6         
 ## 

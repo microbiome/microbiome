@@ -1,14 +1,20 @@
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial}
+  %\usepackage[utf8]{inputenc}
+-->
+
 ---
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{microbiome tutorial}
-  %\usepackage[utf8]{inputenc}
+output:
+  html_document:
+    toc: true
+    number_sections: true
+    theme: united
+    highlight: pygments
 ---
-
 
 
 microbiome R package
@@ -20,6 +26,7 @@ microarray-based analysis of microbiome profiling data sets.
 ## Installation
 
 ### Installing and loading the release version
+
 
 ```{r install, eval=FALSE}
 source("http://www.bioconductor.org/biocLite.R")
