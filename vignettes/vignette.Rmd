@@ -1,9 +1,3 @@
-<!--
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{microbiome tutorial}
-  %\usepackage[utf8]{inputenc}
--->
-
 ---
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
@@ -15,6 +9,13 @@ output:
     theme: united
     highlight: pygments
 ---
+
+tmp<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial}
+  %\usepackage[utf8]{inputenc}
+-->
+
 
 
 microbiome R package
