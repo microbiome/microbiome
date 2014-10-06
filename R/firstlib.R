@@ -12,7 +12,6 @@
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-#' @import knitr
 .onAttach <- function(lib, pkg) {
     packageStartupMessage("\nmicrobiome R package (microbiome.github.com)
           \n\n\n Copyright (C) 2011-2014 

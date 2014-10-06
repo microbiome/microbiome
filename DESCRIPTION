@@ -1,8 +1,8 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.23
-Date: 2014-10-02
+Version: 0.99.24
+Date: 2014-10-06
 Author: Leo Lahti and Jarkko Salojarvi
 Maintainer: Leo Lahti <leo.lahti@iki.fi>
 biocViews: Microarray, Preprocessing, SystemsBiology, Visualization,
@@ -18,7 +18,6 @@ Imports:
     df2json,
     fastcluster,
     ggplot2,
-    knitr,
     MASS,
     mixOmics,
     parallel,
@@ -27,10 +26,12 @@ Imports:
     rjson,
     WGCNA
 Suggests:
-    RUnit,
     BiocGenerics,
     BiocStyle,
-    gdata
+    gdata,
+    knitr,
+    rmarkdown,
+    RUnit
 URL: http://microbiome.github.com
 BugReports: https://github.com/microbiome/microbiome/issues
 VignetteBuilder: knitr

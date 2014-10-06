@@ -1,12 +1,14 @@
-<!--
+---
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
 date: "`r Sys.Date()`"
-vignette: > 
-%\VignetteEngine{knitr::knitr}
-%\VignetteIndexEntry{An R Markdown Vignette made with knitr}
-%\usepackage[utf8]{inputenc}
--->
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial}
+  %\usepackage[utf8]{inputenc}
+---
+
 
 
 microbiome R package

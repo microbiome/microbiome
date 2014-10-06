@@ -82,7 +82,7 @@ plot_cumulative <- function(d.sub, i.set = NULL, type = "cumulative",
    PH.i <- PH.i[order(PH.i[,2]),]
    rownames(PH.i)=PH.i[,2]
    d.sub$Microbe <- PH.i[d.sub[,1],1]
-   d.sub <- d.sub[order(d.sub[,2], decreasing = T),]
+   d.sub <- d.sub[order(d.sub[,2], decreasing = TRUE),]
 
    if (is.null(i.set)) {
       i.set <- 1:length(levels(d.sub[,1]))
