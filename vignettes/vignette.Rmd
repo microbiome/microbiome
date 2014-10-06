@@ -10,7 +10,7 @@ output:
     highlight: pygments
 ---
 
-tmp<!--
+<!--
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{microbiome tutorial}
   %\usepackage[utf8]{inputenc}
