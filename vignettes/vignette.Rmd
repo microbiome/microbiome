@@ -215,13 +215,27 @@ head(correlation.table)
 
 ```
 
+
+### Prevalence of taxonomic groups
+
+```{r heatmap}
+# List prevalence measure for each group using detection threshold of 2
+# Sort the taxa by prevalence
+head(prevalence(peerj32$microbes, 2, sort = TRUE))
+
+# Just list the names of taxa that are present over abundance threshold 2
+# in over 20 percent of the samples:
+prevalent.taxa <- list_prevalent_groups(peerj32$microbes, 2, 0.2)
+```
+
+
 ### Licensing and Citations
 
 This work can be freely used, modified and distributed under the 
 [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
 
-Kindly cite the work, if appropriate, as 'Leo Lahti and Jarkko
-Salojarvi (2014). microbiome R package. URL: http://microbiome.github.com'. 
+Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
+(2014). microbiome R package. URL: http://microbiome.github.com'.
 
 
 ### References
