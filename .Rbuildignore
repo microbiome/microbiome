@@ -20,3 +20,5 @@ inst/win-install*
 
 # Misc
 .*~
+^.*\.Rproj$
+^\.Rproj\.user$

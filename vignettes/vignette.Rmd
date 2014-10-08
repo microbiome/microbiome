@@ -218,7 +218,7 @@ head(correlation.table)
 
 ### Prevalence of taxonomic groups
 
-```{r heatmap}
+```{r prevalence}
 # List prevalence measure for each group using detection threshold of 2
 # Sort the taxa by prevalence
 head(prevalence(peerj32$microbes, 2, sort = TRUE))

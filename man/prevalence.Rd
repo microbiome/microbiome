@@ -3,12 +3,14 @@
 \alias{prevalence}
 \title{Description: Simple prevalence measure}
 \usage{
-prevalence(x, detection.threshold, sort = F)
+prevalence(x, detection.threshold, sort = FALSE)
 }
 \arguments{
 \item{x}{Abundance data matrix: samples x features (microbes)}
 
 \item{detection.threshold}{Detection threshold for absence/presence.}
+
+\item{sort}{Sort the groups by prevalence}
 }
 \value{
 Number of OTUs.
@@ -25,7 +27,7 @@ Returns:
 }
 \examples{
 data(peerj32)
-prevalence(peerj32$microbes, detection.threshold, sort = T)
+prevalence(peerj32$microbes, detection.threshold = 1.8, sort = TRUE)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

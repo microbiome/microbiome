@@ -3,6 +3,7 @@
 #' Arguments:
 #'   @param x Abundance data matrix: samples x features (microbes) 
 #'   @param detection.threshold Detection threshold for absence/presence.
+#'   @param sort Sort the groups by prevalence
 #'
 #' @details Calculates for each sample the fraction of samples that
 #'          exceed the detection threshold
@@ -21,8 +22,8 @@
 #' @export
 #' @examples
 #' data(peerj32)
-#' prevalence(peerj32$microbes, detection.threshold, sort = T)
-prevalence <- function (x, detection.threshold, sort = F) {
+#' prevalence(peerj32$microbes, detection.threshold = 1.8, sort = TRUE)
+prevalence <- function (x, detection.threshold, sort = FALSE) {
   prev <- colMeans(x > detection.threshold)
   if (sort) {prev <- rev(sort(prev))}
   prev
