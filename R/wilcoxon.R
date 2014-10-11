@@ -1,11 +1,9 @@
 
 
-#' Description: Calculate Wilcoxon test (unpaired; BH correction) for the 
-#'         specified sample groups. 
-#' Either provide the input data as matrix, file path, or select the file 
-#'       through GUI.
+#' Calculate Wilcoxon test (unpaired; BH correction) for the 
+#' specified sample groups. Either provide the input data as matrix, 
+#' file path, or select the file through GUI.
 #'             
-#' Arguments:
 #'   @param dat data matrix (features x samples)
 #'   @param fnam data file  (if data matrix not provided) 
 #'   @param G1 Sample group 1 (for comparison) 
@@ -15,7 +13,6 @@
 #'   @param sort sort the results
 #'   @param paired paired Wilcoxon test
 #'
-#' Returns:
 #'   @return (Corrected) p-values for two-group comparison.
 #'
 #' @examples 

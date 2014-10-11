@@ -1,12 +1,13 @@
-#' Description: ROC analysis returning true and false positive rates
+
+#' ROC analysis returning true and false positive rates
 #' along an ordered list
 #'
-#' Arguments:
+#' 
 #' @param ordered.results Items ordered from best to worst according
 #'        to the test score.
 #' @param true.positives known true positives
 #'
-#' Returns:
+#' 
 #'   @return List: true positive rate (tpr) and false positive rate (fpr)
 #'
 #' @export
@@ -41,9 +42,9 @@ roc <- function(ordered.results, true.positives) {
 }
 
 
-#' Description: Plot ROC curve
+#' Plot ROC curve
 #'
-#' Arguments:
+#' 
 #' @param ordered.results Items ordered from best to worst according
 #'        to the test score.
 #' @param true.positives known true positives
@@ -75,14 +76,14 @@ roc.plot <- function(ordered.results, true.positives,
 }
 
 
-#' Description: ROC AUC calculation
+#' ROC AUC calculation
 #'
-#' Arguments:
+#' 
 #' @param ordered.results Items ordered from best to worst according
 #'        to the test score.
 #' @param true.positives known true positives
 #'
-#' Returns:
+#' 
 #'   @return ROC AUC value
 #'
 #' @export
@@ -113,9 +114,8 @@ roc.auc <- function(ordered.results, true.positives) {
 
 
 
-#' Description: ROC AUC calculation for a matrix of variables 
+#' ROC AUC calculation for a matrix of variables 
 #'
-#' Arguments:
 #' @param dat Data matrix (variables x samples)
 #' @param true.positives known true positive samples
 #'
@@ -123,7 +123,6 @@ roc.auc <- function(ordered.results, true.positives) {
 #'    to the lowest score, and ROC/AUC value is calculated 
 #'    based on this ordering.
 #'
-#' Returns:
 #'   @return Vector of ROC AUC values for each variable
 #'
 #' @export

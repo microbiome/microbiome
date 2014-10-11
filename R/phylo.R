@@ -1,13 +1,11 @@
 #' GetPhylogeny
 #' 
-#' Description: Get Chip phylogeny
+#' Get Chip phylogeny
 #'
-#' Arguments:
 #'   @param chip chip type (e.g. 'HITChip')
 #'   @param phylogeny.version 'full' or 'filtered' 
 #'           (latter is the basis for species/L1/L2 summarization)
 #'
-#' Returns:
 #'   @return phylogeny mapping table
 #'
 #' @export

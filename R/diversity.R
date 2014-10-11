@@ -245,14 +245,14 @@ diversity <- function(dat, diversity.index = "shannon", det.th = 0) {
 
 #' richness
 #'
-#' Description: Estimate richness for each sample with a given threshold
+#' Estimate richness for each sample with a given threshold
 #'
-#' Arguments:
+#' 
 #'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
 #'   @param det.th detection threshold. Used for richness and evenness 
 #'                  estimation. Not used in diversity estimation. 
 #'
-#' Returns:
+#' 
 #'   @return Vector containing richness estimate for each sample 
 #'
 #' @examples 
@@ -298,12 +298,11 @@ richness <- function(dat, det.th = NULL) {
 #'
 #' Estimate evenness for each sample with a given threshold
 #'
-#' Arguments:
+#' 
 #'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
 #'   @param det.th detection threshold. Used for richness and evenness 
 #'                  estimation. Not used in diversity estimation. 
 #'
-#' Returns:
 #'   @return Vector containing evenness estimate for each sample 
 #'
 #' @examples 

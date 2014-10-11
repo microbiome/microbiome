@@ -1,11 +1,11 @@
-#' Description: Draw regression curve with smoothed error bars 
+
+#' Draw regression curve with smoothed error bars 
 #' based on the Visually-Weighted Regression by Solomon M. Hsiang; see
 #' http://www.fight-entropy.com/2012/07/visually-weighted-regression.html
 #' The R implementation is based on Felix Schonbrodt's code 
 #' (under MIT/FreeBSD license) from 
 #' nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/
 #'
-#' Arguments:
 #' @param formula formula
 #' @param data data
 #' @param title title
@@ -36,7 +36,6 @@
 #' @param verbose print information during execution
 #' @param show.points Plot the data points.
 #'
-#' Returns:
 #' @return ggplot2 object
 #'
 #' @examples 

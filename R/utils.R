@@ -1,26 +1,9 @@
-# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi Contact:
-# <microbiome-admin@googlegroups.com>. All rights reserved.
-
-# This file is a part of the microbiome R package
-# http://microbiome.github.com/
-
-# This program is open source software; you can redistribute it and/or
-# modify it under the terms of the FreeBSD License (keep this notice):
-# http://en.wikipedia.org/wiki/BSD_licenses
-
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-#' Description: Arrange correlation matrices from cross.correlate into 
-#'         a table format
+#' Arrange correlation matrices from cross.correlate into a table format
 #'              
-#' Arguments:
-#'   @param res Output from cross.correlate
-#'   @param verbose verbose
+#' @param res Output from cross.correlate
+#' @param verbose verbose
 #'
-#' Returns:
-#'   @return Correlation table
+#' @return Correlation table
 #'
 #' @export
 #'
@@ -74,11 +57,11 @@ cmat2table <- function(res, verbose = FALSE) {
 
 
 
-#' Description: List color scales
+#' List color scales
 #'
-#' Arguments:
+#' 
 #'
-#' Returns:
+#' 
 #'   @return list of color scales
 #'
 #' @export
@@ -100,15 +83,15 @@ list.color.scales <- function() {
 
 #' calculate.hclust
 #' 
-#' Description: Calculate hierarchical clustering for standard selections in 
+#' Calculate hierarchical clustering for standard selections in 
 #' profiling script
 #'
-#' Arguments:
+#' 
 #'   @param dat data matrix (use log10 with pearson!)
 #'   @param method hierarchical clustering method (see ?hclust)
 #'   @param metric clustering metrics (spearman / pearson / euclidean)
 #'
-#' Returns:
+#' 
 #'   @return hclust object for log10 and for absolute scale data
 #'
 #' @export
@@ -135,9 +118,9 @@ calculate.hclust <- function(dat, method = "complete", metric = "pearson") {
     
 }
 
-#' Description: get probeset data matrix
+#' get probeset data matrix
 #' 
-#' Arguments:
+#' 
 #'   @param name name
 #'   @param level taxonomic level
 #'   @param phylogeny.info phylogeny.info
@@ -145,7 +128,7 @@ calculate.hclust <- function(dat, method = "complete", metric = "pearson") {
 #'                    absolute scale
 #'   @param log10 Logical. Logarithmize the data TRUE/FALSE
 #'
-#' Returns:
+#' 
 #'   @return probeset data matrix
 #'
 #' @export
@@ -326,15 +309,13 @@ impute <- function(X) {
 }
 
 
-#' Description: 
 #' Get lower triangle of a square matrix 
 #' as a numeric vector such that
 #' row-by-row, picking elements in the order
 #' 2,1;3,1;3,2;4,1,...
 #'        
-#' Arguments:
 #'   @param mat data matrix
-#' Returns:
+#'
 #'   @return lower triangle as vector 
 #'
 #' @export

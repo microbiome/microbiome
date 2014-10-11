@@ -1,6 +1,6 @@
-#' Description: Simple prevalence measure
+#' Simple prevalence measure
 #'
-#' Arguments:
+#' 
 #'   @param x Abundance data matrix: samples x features (microbes) 
 #'   @param detection.threshold Detection threshold for absence/presence.
 #'   @param sort Sort the groups by prevalence
@@ -30,9 +30,8 @@ prevalence <- function (x, detection.threshold, sort = FALSE) {
 
 
 
-#' Description: List prevalent groups
+#' List prevalent groups
 #'
-#' Arguments:
 #'   @param x Abundance data matrix: samples x features (microbes) 
 #'   @param detection.threshold Detection threshold for absence/presence.
 #'   @param prevalence.threshold Detection threshold for prevalence
@@ -41,7 +40,6 @@ prevalence <- function (x, detection.threshold, sort = FALSE) {
 #'          threshold as specified by the detection and prevalence threshold
 #' 	    arguments
 #'
-#' Returns:
 #'   @return Vector of prevalent groups
 #'
 #' @references 

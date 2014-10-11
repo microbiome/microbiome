@@ -1,13 +1,12 @@
-#' Description: Calculate distance matrix between the _columns_ of the 
+
+#' Calculate distance matrix between the _columns_ of the 
 #' input matrix. Can prduce correlation-based distance matrices, otherwise
 #' uses the standard 'dist' function.
 #'
-#' Arguments:
 #'   @param x data matrix
 #'   @param method distance method
 #'   @param ... other arguments to be passed
 #'
-#' Returns:
 #'   @return distance object
 #'
 #' @export

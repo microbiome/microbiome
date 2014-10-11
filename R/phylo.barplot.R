@@ -1,9 +1,9 @@
 #' phylo.barplot
 #'
-#' Description: Barplot for *ITChip sample (across taxa) with higher-level 
-#'         taxonomic groups indicated by colours.
+#' Barplot for *ITChip sample (across taxa) with higher-level 
+#' taxonomic groups indicated by colours.
 #'
-#' Arguments:
+#' 
 #'   @param x Data vector across taxa (each element should be named by taxon)
 #'   @param color.level Higher-order phylogenetic level to indicate by colors
 #'   @param phylogeny.info oligo-phylotype mappings
@@ -11,7 +11,6 @@
 #'   @param plot draw plot TRUE/FALSE
 #'   @param sort sort the effects by magnitude
 #'
-#' Returns:
 #'   @return ggplot2 object
 #'
 #' @export

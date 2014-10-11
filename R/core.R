@@ -310,7 +310,6 @@ core.sum <- function(data, intTr, prevalenceTr) {
 #' @param prevalence.intervals a vector of prevalence percentages in [0,100]
 #' @param intensity.intervals a vector of intensities around the data range
 #'
-#' Returns:
 #' @return Estimated core microbiota
 #'
 #' @examples 
