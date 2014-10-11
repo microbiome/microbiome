@@ -1,10 +1,9 @@
 #' DensityPlot
 #'
-#' Description: Plots densities of data points in addition to cross-plot points.
+#' Plots densities of data points in addition to cross-plot points.
 #'
-#' Arguments:
 #'   @param mat Data matrix to plot. The first two columns will be visualized 
-#'               as a cross-plot.
+#'              as a cross-plot.
 #'   @param main title text
 #'   @param x.ticks Number of ticks on the X axis
 #'   @param rounding Rounding for X axis tick values
@@ -14,8 +13,7 @@
 #'   @param size point size
 #'   @param legend plot legend TRUE/FALSE
 #'
-#' Returns:
-#'   @return ggplot2 object
+#' @return ggplot2 object
 #'
 #' @examples p <- densityplot(cbind(rnorm(100), rnorm(100)))
 #'

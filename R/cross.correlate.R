@@ -1,38 +1,38 @@
-
-#' Description: Cross-correlate columns of the input matrices
+#' Cross-correlate columns of the input matrices
 #'              
-#' Arguments:
-#'   @param x matrix (samples x features if annotation matrix)
-#'   @param y matrix (samples x features if cross-correlated with annotations)
-#'   @param method association method ('pearson', 'spearman', or 'bicor' 
+#' @param x matrix (samples x features if annotation matrix)
+#' @param y matrix (samples x features if cross-correlated with annotations)
+#' @param method association method ('pearson', 'spearman', or 'bicor' 
 #'                  for continuous; categorical for discrete)
-#'   @param p.adj.threshold q-value threshold to include features 
-#'   @param cth correlation threshold to include features 
-#'   @param order order the results
-#'   @param n.signif mininum number of significant correlations for each 
+#' @param p.adj.threshold q-value threshold to include features 
+#' @param cth correlation threshold to include features 
+#' @param order order the results
+#' @param n.signif mininum number of significant correlations for each 
 #'                    element
-#'   @param mode Specify output format ('table' or 'matrix')
-#'   @param p.adj.method p-value multiple testing correction method. 
-#'                    One of the methods in p.adjust 
-#'             function ('BH' and others; see help(p.adjust)). 
-#'             Default: 'fdr'
-#'   @param verbose verbose
-#'   @param filter.self.correlations Filter out correlations between 
-#'                            identical items.
+#' @param mode Specify output format ('table' or 'matrix')
+#' @param p.adj.method p-value multiple testing correction method. 
+#'                     One of the methods in p.adjust 
+#'             	       function ('BH' and others; see help(p.adjust)). 
+#'             	       Default: 'fdr'
+#' @param verbose verbose
+#' @param filter.self.correlations Filter out correlations between 
+#'                            	   identical items.
 #'
-#' Returns:
-#'   @return List with cor, pval, pval.adjusted
+#' @return List with cor, pval, pval.adjusted
 #'
-#' @examples data(peerj32); 
-#'           cc <- cross.correlate(peerj32$microbes[1:20, 1:10], 
-#'                           peerj32$lipids[1:20,1:10])
+#' @examples 
+#'   data(peerj32)
+#'   d1 <- peerj32$microbes[1:20, 1:10]
+#'   d2 <- peerj32$lipids[1:20,1:10]
+#'   cc <- cross.correlate(d1, d2)
+#'
 #' @export
 #' @import WGCNA
 #'
 #' @details As the method=categorical (discrete) association measure
 #'          for nominal (no order for levels) variables we use Goodman and
 #'          Kruskal tau based on
-#' r-bloggers.com/measuring-associations-between-non-numeric-variables/
+#'          r-bloggers.com/measuring-associations-between-non-numeric-variables/
 #'          The 'bicor' method is from the WGCNA package.
 #'
 #' @references See citation('microbiome') 

@@ -1,19 +1,15 @@
 
 
-#' Description: Cross-hybridization table between multimodal taxa as 
-#'         percentages of shared probes. 
-#' The number indicates how many percent of oligos for the row taxon are 
-#'     also hybridizing 
-#' the corresponding column taxon.
+#' Cross-hybridization table between multimodal taxa as percentages of shared 
+#' probes. The number indicates how many percent of oligos for the row taxon 
+#' are also hybridizing the corresponding column taxon.
 #'
-#' Arguments:
-#'   @param tax.level Taxonomic level to investigate
-#'   @param chip Chip type (e.g. 'HITChip')
-#'   @param selected.taxa Restrict cross-hyb analysis to the selected groups.
-#'   @param phylogeny.info phylogeny.info 
+#' @param tax.level Taxonomic level to investigate
+#' @param chip Chip type (e.g. 'HITChip')
+#' @param selected.taxa Restrict cross-hyb analysis to the selected groups.
+#' @param phylogeny.info phylogeny.info 
 #'
-#' Returns:
-#'   @return A list containing cross-hybridization table 
+#' @return A list containing cross-hybridization table 
 #'
 #' @examples ch <- CrosshybTable(tax.level = 'L1')
 #' @export
@@ -73,30 +69,27 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
 
 
 
-#' Description: Cross-hybridization between multimodal taxa as percentages 
-#'         of shared probes. 
+#' Cross-hybridization between multimodal taxa as percentages of shared probes. 
 #' The number indicates how many percent of oligos for the row taxon are 
 #' also hybridizing the corresponding column taxon.
 #'
-#' Arguments:
-#'   @param tax.level Taxonomic level to investigate
-#'   @param chip Chip type (e.g. 'HITChip')
-#'   @param selected.taxa Restrict cross-hyb analysis to the selected groups.
-#'   @param show.plot Produce the plot
-#'   @param order.rows Order table rows
-#'   @param order.cols Order table columns
-#'   @param keep.empty Keep taxa that do not show any cross-hybridization
-#'   @param rounding Rounding of the cell contents
-#'   @param phylogeny.info phylogeny.info 
-#'   @param self.correlations Show self-correlations (always 100%); 
-#'                            or remove (indicate as 0%; default)
+#' @param tax.level Taxonomic level to investigate
+#' @param chip Chip type (e.g. 'HITChip')
+#' @param selected.taxa Restrict cross-hyb analysis to the selected groups.
+#' @param show.plot Produce the plot
+#' @param order.rows Order table rows
+#' @param order.cols Order table columns
+#' @param keep.empty Keep taxa that do not show any cross-hybridization
+#' @param rounding Rounding of the cell contents
+#' @param phylogeny.info phylogeny.info 
+#' @param self.correlations Show self-correlations (always 100%); 
+#'                          or remove (indicate as 0%; default)
 #'
-#' Returns:
-#'   @return A list containing cross-hybridization table and plot
+#' @return A list containing cross-hybridization table and plot
 #'
-#' @examples res <- PlotCrosshyb(tax.level = 'L2', 
-#'                               rounding = 1, 
-#'                 show.plot = FALSE)
+#' @examples 
+#'   res <- PlotCrosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE)
+#' 
 #' @export
 #' @import ggplot2
 #'

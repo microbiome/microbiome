@@ -1,21 +1,20 @@
-#' Description: core.which
+#' core.which
 #'
-#' Arguments:
-#'   @param data data matrix; phylotypes vs. samples
-#'   @param intTr intTr
-#'   @param prevalenceTr prevalenceTr
+#' @param data data matrix; phylotypes vs. samples
+#' @param intTr intTr
+#' @param prevalenceTr prevalenceTr
 #'
-#' Returns:
-#'   @return Number of OTUs.
+#' @return Number of OTUs.
 #'
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
 #'   analysis depth and health status. Clinical Microbiology and Infection 
 #'   18(S4):16 20, 2012. 
+#'
 #'   To cite the microbiome R package, see citation('microbiome') 
+#'
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 core.which <- function(data, intTr, prevalenceTr) {
     d.bin <- data >= intTr
     prevalences <- rowSums(d.bin)
@@ -28,17 +27,15 @@ core.which <- function(data, intTr, prevalenceTr) {
 
 #' plot_cumulative
 #'
-#' Description: Plot cumulative core microbiota.
+#' Plot cumulative core microbiota.
 #'
-#' Arguments:
-#'   @param d.sub d.sub
-#'   @param i.set i.set
-#'   @param type plot type 
-#'   @param ylim y axis limits
-#'   @param phylogeny.info phylogeny.info matrix
+#' @param d.sub d.sub
+#' @param i.set i.set
+#' @param type plot type 
+#' @param ylim y axis limits
+#' @param phylogeny.info phylogeny.info matrix
 #'
-#' Returns:
-#'   @return Used for side-effects (plot)
+#' @return Used for side-effects (plot)
 #'
 #' @examples 
 #' \dontrun{
@@ -127,23 +124,19 @@ plot_cumulative <- function(d.sub, i.set = NULL, type = "cumulative",
 }
 
 
-
 #' bootstrap.microbes
 #'
-#' Description: Bootstrap method for core microbiota estimation as 
-#' described in Salonen et al. (2012)
+#' Bootstrap method for core microbiota estimation from Salonen et al. (2012)
 #'
-#' Arguments:
-#'   @param D data (phylotypes x samples)
-#'   @param Nsample bootstrap sample size, default is the same size as data
-#'   @param minPrev Lower limit for number of samples where microbe needs 
+#' @param D data (phylotypes x samples)
+#' @param Nsample bootstrap sample size, default is the same size as data
+#' @param minPrev Lower limit for number of samples where microbe needs 
 #'   	    to exceed the intensity threshold for a 'present' call. 
-#'   @param Nboot bootstrap sample size
-#'   @param I.thr Lower limit for intensity threshold
-#'   @param ncore number of nodes for parallelization - default 1
+#' @param Nboot bootstrap sample size
+#' @param I.thr Lower limit for intensity threshold
+#' @param ncore number of nodes for parallelization - default 1
 #'
-#' Returns:
-#'   @return data frame with microbes and their frequency of presence in 
+#' @return data frame with microbes and their frequency of presence in 
 #'   	     the core
 #'
 #' @examples data(peerj32); 
@@ -213,22 +206,20 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 1000,
 
 #' bootstrap.microbecount
 #'
-#' Description: 
 #' Auxiliary function for bootstrap.microbes
 #'
-#' Arguments:
-#'   @param D data
-#'   @param Nsample sample size
-#'   @param minprev minimum prevalence
-#'   @param Nboot bootstrap sample size
-#'   @param I.thr threshold
-#'   @param ncore number of nodes for parallelization
+#' @param D data
+#' @param Nsample sample size
+#' @param minprev minimum prevalence
+#' @param Nboot bootstrap sample size
+#' @param I.thr threshold
+#' @param ncore number of nodes for parallelization
 #'
-#' Returns:
-#'   @return median microbe count in bootstrapped cores
+#' @return median microbe count in bootstrapped cores
 #'
-#' @examples data(peerj32); 
-#' 	     tmp <- bootstrap.microbecount(t(peerj32$microbes),	Nboot = 5)
+#' @examples 
+#'   data(peerj32)
+#'   tmp <- bootstrap.microbecount(t(peerj32$microbes),	Nboot = 5)
 #'
 #' @export 
 #' 
@@ -283,15 +274,13 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1,
 }
 
 
-#' Description: core.sum
+#' core.sum
 #'
-#' Arguments:
-#'   @param data data matrix; phylotypes vs. samples
-#'   @param intTr intTr
-#'   @param prevalenceTr prevalenceTr
+#' @param data data matrix; phylotypes vs. samples
+#' @param intTr intTr
+#' @param prevalenceTr prevalenceTr
 #'
-#' Returns:
-#'   @return TBA
+#' @return Number of OTUs
 #'
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
@@ -314,19 +303,19 @@ core.sum <- function(data, intTr, prevalenceTr) {
 
 #' createCore
 #'
-#' Description: create coreMatrix 
+#' create coreMatrix 
 #'
-#' Arguments:
-#'   @param data data matrix; phylotypes vs. samples
-#'   @param verbose verbose
-#'   @param prevalence.intervals a vector of prevalence percentages in [0,100]
-#'   @param intensity.intervals a vector of intensities around the data range
+#' @param data data matrix; phylotypes vs. samples
+#' @param verbose verbose
+#' @param prevalence.intervals a vector of prevalence percentages in [0,100]
+#' @param intensity.intervals a vector of intensities around the data range
 #'
 #' Returns:
-#'   @return TBA
+#' @return Estimated core microbiota
 #'
-#' @examples data(peerj32); 
-#'          core <- createCore(t(peerj32$microbes))
+#' @examples 
+#'   data(peerj32)
+#'   core <- createCore(t(peerj32$microbes))
 #'
 #' @export 
 #' 
@@ -334,6 +323,7 @@ core.sum <- function(data, intTr, prevalenceTr) {
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
 #'   analysis depth and health status. Clinical Microbiology and Infection 
 #'   18(S4):16 20, 2012. 
+#'
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -384,27 +374,26 @@ createCore <- function(data, verbose = FALSE,
 
 #' Core2D
 #'
-#' Description: Core visualization 2D
+#' Core visualization 2D
 #'
-#' Arguments:
-#'   @param coreMat core matrix
-#'   @param title title
-#'   @param plot plot the figure 
-#'   @param xlabel X axis label
-#'   @param ylabel Y axis label
+#' @param coreMat core matrix
+#' @param title title
+#' @param plot plot the figure 
+#' @param xlabel X axis label
+#' @param ylabel Y axis label
 #'  
+#' @return Used for its side effects
 #'
-#' Returns:
-#'   @return Used for its side effects
-#'
-#' @examples data(peerj32); 
-#'          c2d <- Core2D(createCore(t(peerj32$microbes)))
+#' @examples 
+#'   data(peerj32)
+#'   c2d <- Core2D(createCore(t(peerj32$microbes)))
 #' @export 
 #' 
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
 #'   analysis depth and health status. Clinical Microbiology and Infection 
 #'   18(S4):16 20, 2012. 
+#'
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -437,21 +426,20 @@ Core2D <- function(coreMat, title = "Common core", plot = TRUE,
 
 #' core_heatmap
 #'
-#' Description: Heatmap of core microbiota
+#' Heatmap of core microbiota
 #'
-#' Arguments:
-#'   @param data data matrix: phylotypes vs. samples
-#'   @param detection.thresholds Vector of detection thresholds
-#'   @param plot plot the figure
-#'   @param palette 'bw' (grayscale) or 'spectral' (colourscale)
+#' @param data data matrix: phylotypes vs. samples
+#' @param detection.thresholds Vector of detection thresholds
+#' @param plot plot the figure
+#' @param palette 'bw' (grayscale) or 'spectral' (colourscale)
 #'
-#' Returns:
-#'   @return List with the following elements: 
-#'            plot: ggplot figure
+#' @return List with the following elements: 
+#'         plot: ggplot figure
 #'         data: prevalence data with the varying thresholds
 #'
-#' @examples data(peerj32); 
-#'           core <- core_heatmap(t(peerj32$microbes))
+#' @examples 
+#'   data(peerj32)
+#'   core <- core_heatmap(t(peerj32$microbes))
 #'
 #' @export 
 #' @importFrom reshape melt

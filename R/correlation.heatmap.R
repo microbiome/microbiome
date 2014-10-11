@@ -1,40 +1,39 @@
 #' correlation.heatmap
 #'
-#' Description: Visualizes n x m correlation table as heatmap. 
-#'         See examples for details.
+#' Visualizes n x m correlation table as heatmap. 
 #'
-#' Arguments:
-#'   @param df Data frame. Each row corresponds to a pair of correlated 
-#'                variables. The columns give variable names, correlations and 
+#' @param df Data frame. Each row corresponds to a pair of correlated 
+#'           variables. The columns give variable names, correlations and 
 #'           significance estimates.
-#'   @param Xvar X axis variable column name. For instance 'X'.
-#'   @param Yvar Y axis variable column name. For instance 'Y'.
-#'   @param fill Column to be used for heatmap coloring. 
-#'                For instance 'correlation'.
-#'   @param star Column to be used for cell highlighting. For instance 'p.adj'.
-#'   @param p.adj.threshold Significance threshold for the stars.
-#'   @param correlation.threshold Include only elements that have absolute 
-#'                         correlation higher than this value
-#'   @param step color interval
-#'   @param colours heatmap colours
-#'   @param limits colour scale limits
-#'   @param legend.text legend text
-#'   @param order.rows Order rows to enhance visualization interpretability
-#'   @param order.cols Order columns to enhance visualization interpretability
-#'   @param text.size Adjust text size
-#'   @param filter.significant Keep only the elements with at least one 
-#'                          significant entry
-#'   @param star.size NULL Determine size of the highlight symbols
+#' @param Xvar X axis variable column name. For instance 'X'.
+#' @param Yvar Y axis variable column name. For instance 'Y'.
+#' @param fill Column to be used for heatmap coloring. 
+#'             For instance 'correlation'.
+#' @param star Column to be used for cell highlighting. For instance 'p.adj'.
+#' @param p.adj.threshold Significance threshold for the stars.
+#' @param correlation.threshold Include only elements that have absolute 
+#'                         	correlation higher than this value
+#' @param step color interval
+#' @param colours heatmap colours
+#' @param limits colour scale limits
+#' @param legend.text legend text
+#' @param order.rows Order rows to enhance visualization interpretability
+#' @param order.cols Order columns to enhance visualization interpretability
+#' @param text.size Adjust text size
+#' @param filter.significant Keep only the elements with at least one 
+#'                           significant entry
+#' @param star.size NULL Determine size of the highlight symbols
 #'
-#' Returns:
-#'   @return ggplot2 object
+#' @return ggplot2 object
 #'
 #' @import ggplot2 
 #'
-#' @examples data(peerj32); 
-#'           cc <- cross.correlate(peerj32$lipids[, 1:10], 
-#'                           peerj32$microbes[, 1:10]); 
-#'           p <- correlation.heatmap(cc, 'X1', 'X2', 'Correlation')
+#' @examples 
+#'   data(peerj32)
+#'   d1 <- peerj32$lipids[, 1:10]
+#'   d2 <- peerj32$microbes[, 1:10]
+#'   cc <- cross.correlate(d1, d2) 
+#'   p <- correlation.heatmap(cc, 'X1', 'X2', 'Correlation')
 #'
 #' @export
 #' @references See citation('microbiome') 
