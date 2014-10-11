@@ -16,13 +16,9 @@ output:
   %\usepackage[utf8]{inputenc}
 -->
 
+## microbiome R package
 
-
-microbiome R package
-===========
-
-The microbiome package contains general-purpose tools for
-microarray-based analysis of microbiome profiling data sets. 
+General-purpose tools for microbiome profiling data sets.
 
 ## Installation
 
@@ -58,7 +54,7 @@ cite [this
 article](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)).
 
 
-```{r data, eval=TRUE}
+```{r data, eval=TRUE, message=FALSE}
 # Load the package
 library(microbiome)  
 
@@ -66,21 +62,13 @@ library(microbiome)
 data.directory <- system.file("extdata", package = "microbiome")
 
 # Read HITChip data matrix (genus-level (L2) log10 values)
-level <- "L2"
-method <- "frpa"
-genus.data <- read.profiling(level = level, 
-	     		       method = method, 
-              		       data.dir = data.directory, 
-	      	       	       log10 = TRUE)  
+genus.data <- read.profiling("L2", "frpa", data.directory, log10 = TRUE)  
 
 # Read HITChip probe level data (absolute values - no log10)
-oligo.data <- read.profiling(level = "oligo", 
-                             data.dir = data.directory, 
-			     log10 = FALSE)  
+oligo.data <- read.profiling("oligo", data.dir = data.directory, log10 = FALSE)
 
 # Probe-taxon mapping table
-phylogeny.info <- read.profiling(level = "phylogeny.full", 
-                           	 data.dir = data.directory)
+phylogeny.info <- read.profiling("phylogeny.full", data.dir = data.directory)
 ```
 
 
@@ -88,7 +76,7 @@ phylogeny.info <- read.profiling(level = "phylogeny.full",
 
 An easy way to provide sample metadata is to create a tab-separated metadata file. You can create the file in Excel and export it to tab-separated csv format. The standard (and self-explanatory) field names include 'sampleID', 'time', 'subjectID', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). Read the metadata with:
 
-```{r meta, eval=TRUE}
+```{r meta, eval=TRUE, message=FALSE}
 # Read simulated example metadata
 library(gdata)
 metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
@@ -102,7 +90,7 @@ rownames(metadata) <- metadata$sampleID
 The microbiome package contains also an example data set from Lahti et al. [PeerJ 1:e32, 2013](https://peerj.com/articles/32/) concerning associations between human intestinal microbiota and blood serum lipids. Load the data in R as follows:
 
 
-```{r exdata}
+```{r exdata, message=FALSE}
 library(microbiome)
 data(peerj32)
 names(peerj32)
@@ -115,7 +103,7 @@ Examples on determining the common core microbiota for the given profiling data 
 
 ### Diversity estimation
 
-```{r diversity-example, warning=FALSE}
+```{r diversity-example, warning=FALSE, message=FALSE}
 # This will return a samples x indices table with 
 # richness, evenness and diversity collected in one table
 div.table <- estimate.diversity(oligo.data, diversity.index = "shannon")  
@@ -131,7 +119,7 @@ ev <- evenness(oligo.data, det.th = NULL)
 
 Produce diversity boxplot for your selected sample groups. NOTE: colors and sample groups are specified before function call. To tune y-axis limits, use 'ylim' argument. For other options, see help(diversity.boxplot).
 
-```{r diversity-example2, warning=FALSE}
+```{r diversity-example2, warning=FALSE, message=FALSE}
 # Define sample groups 
 # Alternatively, read metadata from file. See
 # https://github.com/microbiome/microbiome/wiki/reading for details
@@ -151,7 +139,7 @@ div.table <- res$diversity.table
 
 Writing diversity table into file:
 
-```{r diversity-example4, warning=FALSE}
+```{r diversity-example4, warning=FALSE, message=FALSE}
 output.dir <- "./"
 write.table(div.table, file = "DiversityTable.tab", sep = "\t")
 ```
@@ -162,13 +150,13 @@ write.table(div.table, file = "DiversityTable.tab", sep = "\t")
 Retrieve phylotypes x samples table which presents diversity within
 each higher-level taxonomic category for each sample.
 
-```{r diversity-example5}
+```{r diversity-example5, message=FALSE}
 divtab <- diversity.table(oligo.data, phylogeny.info, level.from = "L1", level.to = "oligo", diversity.index = "shannon") 
 ```
 
 ### Estimating relative abundancies
 
-```{r diversity-example6}
+```{r diversity-example6, message=FALSE}
 # NOTE: estimate relative abundancies for phylotypes based on 
 # absolute-scale data for diversity calculations (no logarithm!)
 rel <- relative.abundance(oligo.data, det.th = NULL)
@@ -186,7 +174,7 @@ core <- createCore(mydata)
 
 Visualizing core microbiota:
 
-```{r core-example2, fig.width=8, fig.heigth=8}
+```{r core-example2, fig.width=8, fig.heigth=8, message=FALSE}
 # Core 2D visualization
 tmp <- Core2D(core)
 
@@ -197,28 +185,26 @@ tmp <- core_heatmap(mydata)
 
 ### Cross-correlation example
 
-```{r heatmap}
+```{r heatmap, message=FALSE}
 dat1 <- peerj32$lipids # Lipids (44 samples x 389 lipids)
 dat2 <- peerj32$microbes # Microbiota (44 samples x 130 bacteria)
 meta <- peerj32$meta
 
 correlations <- cross.correlate(dat1, dat2, 
-                        method = "bicor", 
-			mode = "matrix", 
-                        n.signif = 1, 
-			p.adj.threshold = 0.05, 
-                        p.adj.method = "BH")
-
+	     			      method = "bicor", 
+				      mode = "matrix", 
+				      n.signif = 1, 
+				      p.adj.threshold = 0.05, 
+				      p.adj.method = "BH")
 
 correlation.table <- cmat2table(correlations)
 head(correlation.table)
-
 ```
 
 
 ### Prevalence of taxonomic groups
 
-```{r prevalence}
+```{r prevalence, message=FALSE}
 # List prevalence measure for each group using detection threshold of 2
 # Sort the taxa by prevalence
 head(prevalence(peerj32$microbes, 2, sort = TRUE))

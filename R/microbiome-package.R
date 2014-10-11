@@ -17,7 +17,7 @@
 #' @title R package for microbiome studies
 #'
 #' @author Leo Lahti and Jarkko Salojarvi 
-#'       \email{microbiome-admin@@googlegroups.com}
+#'   \email{microbiome-admin@@googlegroups.com}
 #' @references
 #' See citation('microbiome')
 #' \url{http://microbiome.github.io}

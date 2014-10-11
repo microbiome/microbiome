@@ -13,8 +13,9 @@
 #' @import MASS
 #' @import mixOmics
 #'
-#' @examples data(peerj32); 
-#'           xy <- project.data(peerj32$microbes[,1:3])
+#' @examples 
+#'   data(peerj32)
+#'   xy <- project.data(peerj32$microbes[,1:3])
 #'
 #' @references 
 #'    
@@ -22,6 +23,7 @@
 #'    Principles of Data Mining. MIT Press. Cambridge, MA, US (2001).
 #'    
 #'    To cite microbiome R package, see citation('microbiome') 
+#'
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 

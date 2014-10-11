@@ -18,21 +18,19 @@
 #' Returns:
 #'   @return (Corrected) p-values for two-group comparison.
 #'
-#' @examples data(peerj32); 
-#'          pval <- check.wilcoxon(t(peerj32$microbes), 
-#'         G1 = 1:22, G2 = 23:44)
+#' @examples 
+#'  data(peerj32)
+#'  pval <- check.wilcoxon(t(peerj32$microbes), G1 = 1:22, G2 = 23:44)
 #' @export
 #'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 check.wilcoxon <- function(dat = NULL, fnam = NULL, G1, G2, 
-                           p.adjust.method = "BH", 
-    sort = FALSE, paired = FALSE) {
+	       	  	       p.adjust.method = "BH", 
+			       sort = FALSE, paired = FALSE) {
     
     ## Open your tab fnam, Level 1 & 2 Sum_BGsub_Rel.contribution
-    
     if (is.null(dat) && is.null(fnam)) {
         stop("Provide dat or fnam in function arguments!")
     }

@@ -17,8 +17,9 @@
 #'   @return List with correlations and astability estimate
 #'
 #' @export
-#' @examples data(peerj32); 
-#'          s <- estimate.stability(t(peerj32$microbes)[, 1:5])
+#' @examples 
+#'   data(peerj32)
+#'   s <- estimate.stability(t(peerj32$microbes)[, 1:5])
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

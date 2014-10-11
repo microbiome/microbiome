@@ -39,13 +39,10 @@
 #' Returns:
 #' @return ggplot2 object
 #'
-#' @examples N <- 10; 
-#'          df <- data.frame(age = sort(runif(N, 0, 100)), 
-#'                           hitchip = rnorm(N)); 
-#'         p <- vwReg(hitchip ~ age, df, 
-#'                    shade = TRUE, 
-#'            mweight = TRUE, 
-#'            verbose = FALSE)
+#' @examples 
+#'   N <- 10
+#'   df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N))
+#'   p <- vwReg(hitchip ~ age, data = df)
 #'
 #' @importFrom reshape melt
 #' @import ggplot2 
@@ -58,14 +55,12 @@
 #' @keywords utilities
 
 vwReg <- function(formula, data, title = "", B = 1000, shade = TRUE, 
-                  shade.alpha = 0.1, 
-                  spag = FALSE, mweight = TRUE, show.lm = FALSE, 
-                  show.median = TRUE, median.col = "white", 
-    show.CI = FALSE, method = loess, bw = FALSE, slices = 200, 
+                  shade.alpha = 0.1, spag = FALSE, mweight = TRUE, 
+		  show.lm = FALSE, show.median = TRUE, median.col = "white", 
+    		  show.CI = FALSE, method = loess, bw = FALSE, slices = 200, 
     palette = colorRampPalette(c("#FFEDA0", "#DD0000"), bias = 2)(20), 
-    ylim = NULL, 
-            quantize = "continuous", verbose = FALSE, 
-    show.points = TRUE, ...) {
+    	      	  ylim = NULL, quantize = "continuous", verbose = FALSE, 
+		  show.points = TRUE, ...) {
     
     # Circumvent global variable binding warnings
     x <- NA

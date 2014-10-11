@@ -12,8 +12,9 @@
 #'
 #' @export
 #'
-#' @examples data(peerj32); 
-#'          d <- distance.matrix(peerj32$microbes[1:10, 1:3])
+#' @examples 
+#'   data(peerj32)
+#'   d <- distance.matrix(peerj32$microbes[1:10, 1:3])
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

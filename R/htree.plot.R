@@ -1,21 +1,19 @@
-
-
-
 #' htree.plot
-#' Description: Plot hierarchical clustering for the input data in absolute
+#' 
+#' Plot hierarchical clustering for the input data in absolute
 #' and log10 scale using euclidean and pearson correlation similarities. 
 #' Intended for internal use in the run.profiling.script function. 
 #'
-#' Arguments:
-#'   @param dat oligoprofile data in original (non-log) domain
-#'   @param method hierarchical clustering method
-#'   @param metric clustering similarity measure
-#' Returns:
-#'   @return Used for its side effects; returns the arguments
+#' @param dat oligoprofile data in original (non-log) domain
+#' @param method hierarchical clustering method
+#' @param metric clustering similarity measure
+#'
+#' @return Used for its side effects; returns the arguments
 #'
 #' @export
-#' @examples data(peerj32); 
-#'           tmp <- htree.plot(peerj32$microbes[,1:5])
+#' @examples 
+#'   data(peerj32)
+#'   tmp <- htree.plot(peerj32$microbes[,1:5])
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -45,7 +43,7 @@ htree.plot <- function(dat, method = "complete", metric = "pearson") {
              xlab = "Samples")
         
     } else {
-        warning("Three or more samples required for clustering - skipped.\n")
+      warning("Three or more samples required for clustering - skipped.\n")
     }
     
     list(data = dat, method = method, metric = metric)

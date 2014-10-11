@@ -16,12 +16,10 @@
 #'
 #' @export
 #' @examples 
-#'     data(peerj32)
-#'     phylogeny.info <- GetPhylogeny('HITChip', 'filtered'); 
-#'     signal <- unlist(peerj32$microbes[1, 1:10]); 
-#'     p <- phylo.barplot(signal, 
-#'                     color.level = 'L1', 
-#'               phylogeny.info = phylogeny.info)
+#'   data(peerj32)
+#'   phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
+#'   signal <- unlist(peerj32$microbes[1, 1:10])
+#'   p <- phylo.barplot(signal, 'L1', phylogeny.info)
 #'                   
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
