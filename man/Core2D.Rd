@@ -15,23 +15,17 @@ Core2D(coreMat, title = "Common core", plot = TRUE, xlabel = "Abundance",
 
 \item{xlabel}{X axis label}
 
-\item{ylabel}{Y axis label
-
-
-Returns:}
+\item{ylabel}{Y axis label}
 }
 \value{
 Used for its side effects
 }
 \description{
-Description: Core visualization 2D
-}
-\details{
-Arguments:
+Core visualization 2D
 }
 \examples{
-data(peerj32);
-         c2d <- Core2D(createCore(t(peerj32$microbes)))
+data(peerj32)
+  c2d <- Core2D(createCore(t(peerj32$microbes)))
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
@@ -40,6 +34,7 @@ Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 A Salonen et al. The adult intestinal core microbiota is determined by
   analysis depth and health status. Clinical Microbiology and Infection
   18(S4):16 20, 2012.
+
   To cite the microbiome R package, see citation('microbiome')
 }
 \keyword{utilities}

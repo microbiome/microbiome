@@ -15,8 +15,8 @@ polished phylogeny.info
 Ensure phylogeny.info is in correct format
 }
 \examples{
-phylogeny.info <- GetPhylogeny('HITChip', 'filtered');
-          phylogeny.info <- polish.phylogeny.info(phylogeny.info)
+phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
+  phylogeny.info <- polish.phylogeny.info(phylogeny.info)
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}

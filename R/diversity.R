@@ -444,10 +444,11 @@ make.abundancy.table <- function(dat, det.th, discretization.resolution = 1) {
 #' @param ylim y-axis limits
 #'
 #' @return Sample group list corresponding to the boxplot groups.
+#'
 #' @examples 
 #'   data(peerj32)
 #'   div <- diversity.boxplot(peerj32$microbes, 
-     	    		      sample.groups = list(1:22, 23:44), 
+#'     	    		      sample.groups = list(1:22, 23:44), 
 #'                            det.th = 0)
 #' @export
 #' @references See citation('microbiome') 

@@ -8,25 +8,19 @@ relative.abundance(dat, det.th = 0)
 \arguments{
 \item{dat}{data matrix (phylotypes x samples) in original (non-log) scale}
 
-\item{det.th}{detection threshold.
-
-Returns:}
+\item{det.th}{detection threshold.}
 }
 \value{
 Vector containing relative proportions for each phylotype in
-           each sample
+        each sample
 }
 \description{
-Description: Estimate relative abundance for each phylotype in each
-sample with a given threshold '
-}
-\details{
-Arguments:
+Estimate relative abundance for each phylotype in each sample
+with a given threshold '
 }
 \examples{
-data(peerj32);
-         relab <- relative.abundance(10^t(peerj32$microbes),
-                          det.th = 0)
+data(peerj32)
+  relab <- relative.abundance(10^t(peerj32$microbes), det.th = 0)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

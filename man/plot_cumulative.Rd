@@ -15,18 +15,13 @@ plot_cumulative(d.sub, i.set = NULL, type = "cumulative", ylim = NULL,
 
 \item{ylim}{y axis limits}
 
-\item{phylogeny.info}{phylogeny.info matrix
-
-Returns:}
+\item{phylogeny.info}{phylogeny.info matrix}
 }
 \value{
 Used for side-effects (plot)
 }
 \description{
-Description: Plot cumulative core microbiota.
-}
-\details{
-Arguments:
+Plot cumulative core microbiota.
 }
 \examples{
 \dontrun{

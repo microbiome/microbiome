@@ -1,8 +1,5 @@
-
-
 #' Calculate Wilcoxon test (unpaired; BH correction) for the 
-#' specified sample groups. Either provide the input data as matrix, 
-#' file path, or select the file through GUI.
+#' specified sample groups. 
 #'             
 #'   @param dat data matrix (features x samples)
 #'   @param fnam data file  (if data matrix not provided) 
@@ -15,6 +12,7 @@
 #'
 #'   @return (Corrected) p-values for two-group comparison.
 #'
+#' @aliases check.wilcoxon
 #' @examples 
 #'  data(peerj32)
 #'  pval <- check.wilcoxon(t(peerj32$microbes), G1 = 1:22, G2 = 23:44)
@@ -23,9 +21,9 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-check.wilcoxon <- function(dat = NULL, fnam = NULL, G1, G2, 
-	       	  	       p.adjust.method = "BH", 
-			       sort = FALSE, paired = FALSE) {
+check_wilcoxon <- function(dat = NULL, fnam = NULL, G1, G2, 
+	       	  	   p.adjust.method = "BH", 
+			   sort = FALSE, paired = FALSE) {
     
     ## Open your tab fnam, Level 1 & 2 Sum_BGsub_Rel.contribution
     if (is.null(dat) && is.null(fnam)) {
@@ -50,8 +48,7 @@ check.wilcoxon <- function(dat = NULL, fnam = NULL, G1, G2,
         p <- wilcox.test(as.numeric(l.g1), as.numeric(l.g2), 
                 paired = paired)$p.value
         
-        # message(lvl, ' p-value: ', p, '\n')
-        
+        # message(lvl, ' p-value: ', p, '\n')        
         M[i, 1] <- p
         
     }
@@ -60,7 +57,6 @@ check.wilcoxon <- function(dat = NULL, fnam = NULL, G1, G2,
     ## Benjamini & Hochberg (1995)
     ## ('BH' or its alias 'fdr')
     if (!is.null(p.adjust.method)) {
-        
         cor.p <- p.adjust(M, method = p.adjust.method)
         names(cor.p) <- rownames(M)
         

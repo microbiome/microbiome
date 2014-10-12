@@ -63,8 +63,8 @@ made automatically; fast and easy-to-use but does not necessarily provide
 optimal visualization.
 }
 \examples{
-mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2));
-          PlotMatrix(mat, 'twoway', midpoint = 3)
+mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2))
+  PlotMatrix(mat, 'twoway', midpoint = 3)
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}

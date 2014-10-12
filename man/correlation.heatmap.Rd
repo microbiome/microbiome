@@ -11,22 +11,22 @@ correlation.heatmap(df, Xvar, Yvar, fill, star = "p.adj",
 }
 \arguments{
 \item{df}{Data frame. Each row corresponds to a pair of correlated
-             variables. The columns give variable names, correlations and
-        significance estimates.}
+variables. The columns give variable names, correlations and
+significance estimates.}
 
 \item{Xvar}{X axis variable column name. For instance 'X'.}
 
 \item{Yvar}{Y axis variable column name. For instance 'Y'.}
 
 \item{fill}{Column to be used for heatmap coloring.
-             For instance 'correlation'.}
+For instance 'correlation'.}
 
 \item{star}{Column to be used for cell highlighting. For instance 'p.adj'.}
 
 \item{p.adj.threshold}{Significance threshold for the stars.}
 
 \item{correlation.threshold}{Include only elements that have absolute
-                      correlation higher than this value}
+correlation higher than this value}
 
 \item{step}{color interval}
 
@@ -43,27 +43,22 @@ correlation.heatmap(df, Xvar, Yvar, fill, star = "p.adj",
 \item{text.size}{Adjust text size}
 
 \item{filter.significant}{Keep only the elements with at least one
-                       significant entry}
+significant entry}
 
-\item{star.size}{NULL Determine size of the highlight symbols
-
-Returns:}
+\item{star.size}{NULL Determine size of the highlight symbols}
 }
 \value{
 ggplot2 object
 }
 \description{
-Description: Visualizes n x m correlation table as heatmap.
-        See examples for details.
-}
-\details{
-Arguments:
+Visualizes n x m correlation table as heatmap.
 }
 \examples{
-data(peerj32);
-          cc <- cross.correlate(peerj32$lipids[, 1:10],
-                          peerj32$microbes[, 1:10]);
-          p <- correlation.heatmap(cc, 'X1', 'X2', 'Correlation')
+data(peerj32)
+  d1 <- peerj32$lipids[, 1:10]
+  d2 <- peerj32$microbes[, 1:10]
+  cc <- cross.correlate(d1, d2)
+  p <- correlation.heatmap(cc, 'X1', 'X2', 'Correlation')
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

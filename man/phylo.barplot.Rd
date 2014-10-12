@@ -17,27 +17,20 @@ phylo.barplot(x, color.level = "L1", phylogeny.info = NULL, title = NULL,
 
 \item{plot}{draw plot TRUE/FALSE}
 
-\item{sort}{sort the effects by magnitude
-
-Returns:}
+\item{sort}{sort the effects by magnitude}
 }
 \value{
 ggplot2 object
 }
 \description{
-Description: Barplot for *ITChip sample (across taxa) with higher-level
-        taxonomic groups indicated by colours.
-}
-\details{
-Arguments:
+Barplot for *ITChip sample (across taxa) with higher-level
+taxonomic groups indicated by colours.
 }
 \examples{
 data(peerj32)
-    phylogeny.info <- GetPhylogeny('HITChip', 'filtered');
-    signal <- unlist(peerj32$microbes[1, 1:10]);
-    p <- phylo.barplot(signal,
-                    color.level = 'L1',
-              phylogeny.info = phylogeny.info)
+  phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
+  signal <- unlist(peerj32$microbes[1, 1:10])
+  p <- phylo.barplot(signal, 'L1', phylogeny.info)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

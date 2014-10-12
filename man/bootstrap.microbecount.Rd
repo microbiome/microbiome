@@ -17,23 +17,17 @@ bootstrap.microbecount(D, Nsample = NULL, minprev = 1, Nboot = 1000,
 
 \item{I.thr}{threshold}
 
-\item{ncore}{number of nodes for parallelization
-
-Returns:}
+\item{ncore}{number of nodes for parallelization}
 }
 \value{
 median microbe count in bootstrapped cores
 }
 \description{
-Description:
 Auxiliary function for bootstrap.microbes
 }
-\details{
-Arguments:
-}
 \examples{
-data(peerj32);
-	     tmp <- bootstrap.microbecount(t(peerj32$microbes),	Nboot = 5)
+data(peerj32)
+  tmp <- bootstrap.microbecount(t(peerj32$microbes),	Nboot = 5)
 }
 \author{
 Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}
