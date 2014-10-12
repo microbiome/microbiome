@@ -15,7 +15,7 @@
 #' @aliases check.wilcoxon
 #' @examples 
 #'  data(peerj32)
-#'  pval <- check.wilcoxon(t(peerj32$microbes), G1 = 1:22, G2 = 23:44)
+#'  pval <- check_wilcoxon(t(peerj32$microbes), G1 = 1:22, G2 = 23:44)
 #' @export
 #'
 #' @references See citation('microbiome') 

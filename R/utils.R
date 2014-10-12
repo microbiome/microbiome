@@ -256,8 +256,8 @@ matrix.padjust <- function(pvals, p.adjust.method = "BH") {
 #' @references See citation('microbiome')
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples 
-#'   phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
-#'   phylogeny.info <- polish.phylogeny.info(phylogeny.info)
+#'   #phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
+#'   #phylogeny.info <- polish.phylogeny.info(phylogeny.info)
 #' @keywords utilities
 
 polish.phylogeny.info <- function(phylogeny.info) {

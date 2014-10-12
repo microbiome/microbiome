@@ -29,8 +29,8 @@ PlotCrosshyb(tax.level = "L1", chip = "HITChip", selected.taxa = NULL,
 
 \item{phylogeny.info}{phylogeny.info}
 
-\item{self.correlations}{Show self-correlations (always 100%);
-                         or remove (indicate as 0%; default)}
+\item{self.correlations}{Show self-correlations (always 100 percent);
+                         or remove (indicate as 0 percent; default)}
 }
 \value{
 A list containing cross-hybridization table and plot

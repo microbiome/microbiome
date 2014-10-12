@@ -80,8 +80,8 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
 #' @param keep.empty Keep taxa that do not show any cross-hybridization
 #' @param rounding Rounding of the cell contents
 #' @param phylogeny.info phylogeny.info 
-#' @param self.correlations Show self-correlations (always 100%); 
-#'                          or remove (indicate as 0%; default)
+#' @param self.correlations Show self-correlations (always 100 percent); 
+#'                          or remove (indicate as 0 percent; default)
 #'
 #' @return A list containing cross-hybridization table and plot
 #'

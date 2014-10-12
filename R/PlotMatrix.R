@@ -6,7 +6,6 @@
 #' optimal visualization.
 #'
 #' @param mat matrix
-
 #' @param type String. Specifies visualization type. Options: 'oneway' 
 #'                       (color scale ranges from white to dark red; 
 #'               the color can be changed if needed); 
