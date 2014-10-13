@@ -17,6 +17,18 @@
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-coefficient.of.bimodality <- function(x) {
-    (1 + skewness(x)^2)/(kurtosis(x) + 3)
+coefficient.of.bimodality <- function(x, bs.iter = 1) {
+
+    s <- (1 + skewness(x)^2)/(kurtosis(x) + 3)
+
+    if (bs.iter > 1) {
+      s <- c()
+      for (i in 1:bs.iter) {
+        xbs <- sample(x, replace = TRUE)
+        s[[i]] <- (1 + skewness(xbs)^2)/(kurtosis(xbs) + 3)
+      }
+      s <- mean(s)
+    }
+
+    s
 }

@@ -3,7 +3,7 @@
 \alias{coefficient.of.bimodality}
 \title{Description: Coefficient of bimodality}
 \usage{
-coefficient.of.bimodality(x)
+coefficient.of.bimodality(x, bs.iter = 1)
 }
 \arguments{
 \item{x}{Data vector for which bimodality will be quantified
