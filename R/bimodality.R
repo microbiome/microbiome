@@ -1,6 +1,7 @@
 #' Coefficient of bimodality 
 #'
 #' @param x Data vector for which bimodality will be quantified
+#' @param bs.iter Bootstrap iterations
 #'
 #' @return Bimodality score
 #'
