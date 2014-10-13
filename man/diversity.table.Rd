@@ -8,14 +8,14 @@ diversity.table(dat, level.from, level.to, phylogeny.info = NULL,
 }
 \arguments{
 \item{dat}{data matrix (phylotypes x samples) in original (non-log) scale;
-            this should present the highest level phylogeny
-     (typically probe-level) used in the analysis}
+this should present the highest level phylogeny
+(typically probe-level) used in the analysis}
 
 \item{level.from}{higher-level taxonomic groups for which the diversity
-                   will be calculated}
+will be calculated}
 
 \item{level.to}{lower taxonomic level used for the diversity calculations.
-                 Must correspond to the input data matrix argument 'dat'}
+Must correspond to the input data matrix argument 'dat'}
 
 \item{phylogeny.info}{mapping table between taxonomic levels}
 
@@ -23,25 +23,18 @@ diversity.table(dat, level.from, level.to, phylogeny.info = NULL,
 
 \item{det.th}{Optional detection threshold.}
 
-\item{min.probes}{Minimum number of probes for a phylotype
-
-Returns:}
+\item{min.probes}{Minimum number of probes for a phylotype}
 }
 \value{
 Table with various richness, evenness, and diversity indicators
 }
 \description{
-Description: Estimate diversity within each taxonomic group
-        across the samples
-}
-\details{
-Arguments:
+Estimate diversity within each taxonomic group across samples
 }
 \examples{
-print('Only applicable to HITChipDB data formats.')
-   #divtab <- diversity.table(dat,
-   #                                 level.from = 'L2',
-   #                                 level.to = 'oligo')
+data.dir <- system.file("extdata", package = "microbiome")
+  dat <- read.profiling("oligo", data.dir = data.dir, log10 = FALSE)
+  divtab <- diversity.table(dat, "L2", "oligo")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

@@ -1,19 +1,5 @@
-# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi Contact:
-# <microbiome-admin@googlegroups.com>. All rights reserved.
 
-# This file is a part of the microbiome R package
-# http://microbiome.github.com/
-
-# This program is open source software; you can redistribute it and/or
-# modify it under the terms of the FreeBSD License (keep this notice):
-# http://en.wikipedia.org/wiki/BSD_licenses
-
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-
-get.file.method <- function(f) {
+get.file.method <- function( f ) {
     
     method <- NULL
     
@@ -36,6 +22,7 @@ get.file.method <- function(f) {
     method
     
 }
+
 get.file.level <- function(f) {
     
     level <- NULL
@@ -63,14 +50,12 @@ get.file.level <- function(f) {
     
 }
 
-#' Description: species-levels mappings
+#' Species-levels mappings
 #'
-#' Arguments:
-#'   @param spec species
-#'   @param phylogeny.info phylogeny.info
+#' @param spec species
+#' @param phylogeny.info phylogeny.info
 #'
-#' Returns:
-#'   @return species-levels mappings
+#' @return species-levels mappings
 #'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
@@ -90,14 +75,12 @@ species2levels <- function(spec, phylogeny.info) {
     omap
 }
 
-#' Description: level2-level1 mappings
+#' level2-level1 mappings
 #'
-#' Arguments:
-#'   @param l2 level2 phylotypes
-#'   @param phylogeny.info phylogeny.info
+#' @param l2 level2 phylotypes
+#' @param phylogeny.info phylogeny.info
 #'
-#' Returns:
-#'   @return mappings
+#' @return mappings
 #'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
@@ -117,14 +100,12 @@ level2TOlevel1 <- function(l2, phylogeny.info) {
 }
 
 
-#' Description: L2-L0 mappings
+#' L2-L0 mappings
 #'
-#' Arguments:
-#'   @param l2 level2 phylotypes
-#'   @param phylogeny.info phylogeny.info
+#' @param l2 level2 phylotypes
+#' @param phylogeny.info phylogeny.info
 #'
-#' Returns:
-#'   @return mappings
+#' @return mappings
 #'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
@@ -144,14 +125,12 @@ level2TOlevel0 <- function(l2, phylogeny.info) {
 }
 
 
-#' Description: L1-L0 mappings
+#' L1-L0 mappings
 #'
-#' Arguments:
-#'   @param l1 level1 phylotypes
-#'   @param phylogeny.info phylogeny.info
+#' @param l1 level1 phylotypes
+#' @param phylogeny.info phylogeny.info
 #'
-#' Returns:
-#'   @return mappings
+#' @return mappings
 #'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}
@@ -172,14 +151,12 @@ level1TOlevel0 <- function(l1, phylogeny.info) {
 
 
 
-#' Description: oligo-species mappings
+#' oligo-species mappings
 #'
-#' Arguments:
-#'   @param oligo oligos
-#'   @param phylogeny.info phylogeny.info
+#' @param oligo oligos
+#' @param phylogeny.info phylogeny.info
 #'
-#' Returns:
-#'   @return mappings
+#' @return mappings
 #'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{leo.lahti@@iki.fi}

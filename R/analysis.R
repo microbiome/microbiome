@@ -1,25 +1,7 @@
-# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi Contact:
-# <microbiome-admin@googlegroups.com>. All rights reserved.
 
-# This file is a part of the microbiome R package
-# http://microbiome.github.com/
-
-# This program is open source software; you can redistribute it and/or
-# modify it under the terms of the FreeBSD License (keep this notice):
-# http://en.wikipedia.org/wiki/BSD_licenses
-
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-
-
-
-
-
-
-#' Description: Measure association between nominal 
-#'         (no order for levels) variables 
+#' Measure association between nominal (no order for levels) variables 
+#'
+#' @details Measure association between nominal (no order for levels) variables 
 #' using Goodman and Kruskal tau. Code modified from the original source:
 #' r-bloggers.com/measuring-associations-between-non-numeric-variables/
 #' An important feature of this procedure is that it allows missing
@@ -40,16 +22,17 @@
 #' useful in predicting y, which may be very different than the extent to
 #' which the variable y is useful in predicting x.
 #'
-#' Arguments:
-#'   @param x first variable
-#'   @param y second variable
+#' @param x first variable
+#' @param y second variable
 #'
-#' Returns:
-#'   @return Dependency measure
+#' @return Dependency measure
 #'
-#' @examples data(peerj32); 
-#'          tc <- GKtau(unlist(peerj32$microbes[,1]), 
-#'                    unlist(peerj32$lipids[,1]))
+#' @examples 
+#'   data(peerj32)
+#'   v1 <- unlist(peerj32$microbes[,1])
+#'   v2 <- unlist(peerj32$lipids[,1])
+#'   tc <- GKtau(v1, v2)
+#'
 #' @export
 #' @references 
 #'   Code modified from the original source:

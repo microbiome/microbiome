@@ -1,42 +1,25 @@
-# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi Contact:
-# <microbiome-admin@googlegroups.com>. All rights reserved.
-
-# This file is a part of the microbiome R package
-# http://microbiome.github.com/
-
-# This program is open source software; you can redistribute it and/or
-# modify it under the terms of the FreeBSD License (keep this notice):
-# http://en.wikipedia.org/wiki/BSD_licenses
-
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
 #' diversity.table
 #'
-#' Description: Estimate diversity within each taxonomic group 
-#'         across the samples
+#' Estimate diversity within each taxonomic group across samples
 #'
-#' Arguments:
-#'   @param dat data matrix (phylotypes x samples) in original (non-log) scale;
-#'               this should present the highest level phylogeny 
-#'        (typically probe-level) used in the analysis
-#'   @param phylogeny.info mapping table between taxonomic levels
-#'   @param level.from higher-level taxonomic groups for which the diversity 
-#'                      will be calculated
-#'   @param level.to lower taxonomic level used for the diversity calculations.
-#'                    Must correspond to the input data matrix argument 'dat'
-#'   @param diversity.index diversity index (shannon or invsimpson) 
-#'   @param det.th Optional detection threshold. 
-#'   @param min.probes Minimum number of probes for a phylotype
+#' @param dat data matrix (phylotypes x samples) in original (non-log) scale;
+#'            this should present the highest level phylogeny 
+#'            (typically probe-level) used in the analysis
+#' @param phylogeny.info mapping table between taxonomic levels
+#' @param level.from higher-level taxonomic groups for which the diversity 
+#'                   will be calculated
+#' @param level.to lower taxonomic level used for the diversity calculations.
+#'                 Must correspond to the input data matrix argument 'dat'
+#' @param diversity.index diversity index (shannon or invsimpson) 
+#' @param det.th Optional detection threshold. 
+#' @param min.probes Minimum number of probes for a phylotype
 #' 
-#' Returns:
-#'   @return Table with various richness, evenness, and diversity indicators
+#' @return Table with various richness, evenness, and diversity indicators
 #'
-#' @examples print('Only applicable to HITChipDB data formats.')
-#'    #divtab <- diversity.table(dat, 
-#'    #                                 level.from = 'L2', 
-#'    #                                 level.to = 'oligo')
+#' @examples    
+#'   data.dir <- system.file("extdata", package = "microbiome")
+#'   dat <- read.profiling("oligo", data.dir = data.dir, log10 = FALSE)
+#'   divtab <- diversity.table(dat, "L2", "oligo")
 #'
 #' @export
 #' @references 
@@ -51,8 +34,8 @@
 #' @keywords utilities
 
 diversity.table <- function(dat, level.from, level.to, phylogeny.info = NULL, 
-                   diversity.index = "shannon", 
-                   det.th = 0, min.probes = 0) {
+		            diversity.index = "shannon", 
+                  	    det.th = 0, min.probes = 0) {
     
     if (is.null(phylogeny.info)) {
         phylogeny.info <- GetPhylogeny("HITChip", "filtered")
@@ -138,22 +121,20 @@ diversity.table <- function(dat, level.from, level.to, phylogeny.info = NULL,
 
 #' estimate.diversity
 #'
-#' Description: Estimate diversities for each sample (column)
+#' Estimate diversities for each sample (column)
 #'
-#' Arguments:
-#'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
-#'   @param diversity.index diversity index (shannon or invsimpson) 
-#'   @param det.th detection threshold. Used for richness and 
-#'                  evenness estimation. Not used in diversity estimation. 
+#' @param dat data matrix (phylotypes x samples) in original (non-log) scale
+#' @param diversity.index diversity index (shannon or invsimpson) 
+#' @param det.th detection threshold. Used for richness and 
+#'               evenness estimation. Not used in diversity estimation. 
 #' 
-#' Returns:
-#'   @return Table with various richness, evenness, and diversity indicators
+#' @return Table with various richness, evenness, and diversity indicators
 #'
 #' @export
 #'
-#' @examples data(peerj32); 
-#'          div <- estimate.diversity(10^t(peerj32$microbes), 
-#'                             det.th = 0)
+#' @examples 
+#'   data(peerj32)
+#'   div <- estimate.diversity(10^t(peerj32$microbes), det.th = 0)
 #'
 #' @references 
 #'    This function builds on tools from the vegan R package. 
@@ -206,20 +187,18 @@ estimate.diversity <- function(dat, diversity.index = "shannon",
 
 #' diversity
 #'
-#' Description: Estimate diversity for each sample with a given threshold
+#' Estimate diversity for each sample with a given threshold
 #'
-#' Arguments:
-#'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
-#'   @param diversity.index diversity index (shannon or invsimpson) 
-#'   @param det.th detection threshold. Used for richness and evenness 
-#'                  estimation. Not used in diversity estimation. 
+#' @param dat data matrix (phylotypes x samples) in original (non-log) scale
+#' @param diversity.index diversity index (shannon or invsimpson) 
+#' @param det.th detection threshold. Used for richness and evenness 
+#'               estimation. Not used in diversity estimation. 
 #'
-#' Returns:
-#'   @return Vector containing diversity estimate for each sample 
+#' @return Vector containing diversity estimate for each sample 
 #'
-#' @examples data(peerj32); 
-#'          div <- diversity(10^t(peerj32$microbes), 
-#'                           det.th = 0)
+#' @examples 
+#'   data(peerj32)
+#'   div <- diversity(10^t(peerj32$microbes), det.th = 0)
 #'
 #' @export
 #' @import vegan
@@ -266,20 +245,19 @@ diversity <- function(dat, diversity.index = "shannon", det.th = 0) {
 
 #' richness
 #'
-#' Description: Estimate richness for each sample with a given threshold
+#' Estimate richness for each sample with a given threshold
 #'
-#' Arguments:
+#' 
 #'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
 #'   @param det.th detection threshold. Used for richness and evenness 
 #'                  estimation. Not used in diversity estimation. 
 #'
-#' Returns:
+#' 
 #'   @return Vector containing richness estimate for each sample 
 #'
-#'
-#' @examples data(peerj32); 
-#'          rich <- richness(10^t(peerj32$microbes), 
-#'         det.th = 100)
+#' @examples 
+#'   data(peerj32)
+#'   rich <- richness(10^t(peerj32$microbes), det.th = 100)
 #'
 #' @export
 #' @references 
@@ -318,19 +296,18 @@ richness <- function(dat, det.th = NULL) {
 
 #' evenness
 #'
-#' Description: Estimate evenness for each sample with a given threshold
+#' Estimate evenness for each sample with a given threshold
 #'
-#' Arguments:
+#' 
 #'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
 #'   @param det.th detection threshold. Used for richness and evenness 
 #'                  estimation. Not used in diversity estimation. 
 #'
-#' Returns:
 #'   @return Vector containing evenness estimate for each sample 
 #'
-#' @examples data(peerj32); 
-#'          eve <- evenness(10^t(peerj32$microbes), 
-#'                           det.th = 100)
+#' @examples 
+#'   data(peerj32)
+#'   eve <- evenness(10^t(peerj32$microbes), det.th = 100)
 #'
 #' @export
 #' @references 
@@ -376,20 +353,19 @@ evenness <- function(dat, det.th = NULL) {
 
 #' relative.abundance
 #'
-#' Description: Estimate relative abundance for each phylotype in each
-#' sample with a given threshold '
+#' Estimate relative abundance for each phylotype in each sample 
+#' with a given threshold '
 #'
-#' Arguments:
-#'   @param dat data matrix (phylotypes x samples) in original (non-log) scale
-#'   @param det.th detection threshold. 
+#' @param dat data matrix (phylotypes x samples) in original (non-log) scale
+#' @param det.th detection threshold. 
 #'
-#' Returns:
-#'   @return Vector containing relative proportions for each phylotype in 
-#'            each sample 
+#' @return Vector containing relative proportions for each phylotype in 
+#'         each sample 
 #'
-#' @examples data(peerj32); 
-#'          relab <- relative.abundance(10^t(peerj32$microbes), 
-#'                           det.th = 0)
+#' @examples 
+#'   data(peerj32)
+#'   relab <- relative.abundance(10^t(peerj32$microbes), det.th = 0)
+#'
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -421,23 +397,21 @@ relative.abundance <- function(dat, det.th = 0) {
 
 #' make.abundancy.table
 #'
-#' Description: Calculate abundancies
+#' Calculate abundancies
 #' Discretize Hitchip matrix to form abundancy table
 #' of form j, nj where j is number of counts and nj is number
 #' of phylotypes with the corresponding counts
 #' this format is often required by richness estimation
 #'
-#' Arguments:
-#'   @param dat data matrix
-#'   @param det.th detection threshold
-#'   @param discretization.resolution discretization resolution
+#' @param dat data matrix
+#' @param det.th detection threshold
+#' @param discretization.resolution discretization resolution
 #'
-#' Returns:
-#'   @return abundancy table
+#' @return abundancy table
 #'
-#' @examples data(peerj32); 
-#'          abtab <- make.abundancy.table(10^t(peerj32$microbes), 
-#'                               det.th = 0)
+#' @examples 
+#'   data(peerj32)
+#'   abtab <- make.abundancy.table(10^t(peerj32$microbes), det.th = 0)
 #' @export
 #' @references 
 #'    To cite the microbiome R package, see citation('microbiome') 
@@ -461,24 +435,21 @@ make.abundancy.table <- function(dat, det.th, discretization.resolution = 1) {
 
 #' diversity.boxplot
 #'
-#' Description: diversity.boxplot
+#' @param dat data matrix in the original (non-log) scale: features x samples.
+#' @param sample.groups specify the distinct sample groups     
+#' @param diversity.index ('shannon' / 'invsimpson' / 'richness' / 'evenness')
+#' @param det.th Detection threshold for richness and evenness calculations
+#' @param title figure title
+#' @param col.list Optional: colors for the sample groups
+#' @param ylim y-axis limits
 #'
-#' Arguments:
-#'   @param dat data matrix in the original (non-log) scale: features x samples.
-#'   @param sample.groups specify the distinct sample groups     
-#'   @param diversity.index 
-#'           Options: 'shannon' / 'invsimpson' / 'richness' / 'evenness' 
-#'   @param det.th Detection threshold for richness and evenness calculations
-#'   @param title figure title
-#'   @param col.list Optional: colors for the sample groups
-#'   @param ylim y-axis limits
+#' @return Sample group list corresponding to the boxplot groups.
 #'
-#' Returns:
-#'   @return Sample group list corresponding to the boxplot groups.
-#' @examples data(peerj32); 
-#'           div <- diversity.boxplot(peerj32$microbes, 
-#'                                   sample.groups = list(1:22, 23:44), 
-#'                      det.th = 0)
+#' @examples 
+#'   data(peerj32)
+#'   div <- diversity.boxplot(peerj32$microbes, 
+#'     	    		      sample.groups = list(1:22, 23:44), 
+#'                            det.th = 0)
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

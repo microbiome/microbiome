@@ -1,19 +1,17 @@
-
-
-#' Description: Calculate ANOVA test (BH correction) for multi-group comparison 
-#' Arguments:
-#'   @param dat data matrix (features x samples; eg. HITChip taxa vs. samples)
-#'   @param group Vector with specifying the groups
-#'   @param p.adjust.method p-value correction method for p.adjust function 
+#' Calculate ANOVA test (BH correction) for multi-group comparison 
+#'
+#' @param dat data matrix (features x samples; eg. HITChip taxa vs. samples)
+#' @param group Vector with specifying the groups
+#' @param p.adjust.method p-value correction method for p.adjust function 
 #'               (default 'BH'). If NULL, no correction will be performed.
-#'   @param sort sort the results
+#' @param sort sort the results
 #'
-#' Returns:
-#'   @return (Corrected) p-values for multi-group comparison.
+#' @return Corrected p-values for multi-group comparison.
 #'
-#' @examples data(peerj32); 
-#'          pval <- check.anova(t(peerj32$microbes), 
-#'                             peerj32$meta$time)
+#' @examples 
+#'   data(peerj32)
+#'   pval <- check.anova(t(peerj32$microbes), peerj32$meta$time)
+#'
 #' @export
 #'
 #' @references See citation('microbiome') 

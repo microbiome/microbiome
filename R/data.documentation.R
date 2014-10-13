@@ -1,17 +1,3 @@
-# This file is a part of the microbiome package
-# (http://microbiome.github.com/)
-
-# Copyright (C) 2010-2014 Leo Lahti. All rights reserved.
-
-# This program is open source software; you can redistribute it and/or
-# modify it under the terms of the FreeBSD License (keep this notice):
-# http://en.wikipedia.org/wiki/BSD_licenses
-
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-
 #' peerj32 data documentation 
 #'
 #' The peerj32 data set contains high-through profiling data from 
@@ -30,7 +16,13 @@
 #'             indicated by integrated analysis of high-throughput profiling 
 #'             data. PeerJ 1:e32 \url{http://dx.doi.org/10.7717/peerj.32}
 #' @usage data(peerj32)
-#' @return List of data matrices
-#' @format list
+#' @format List of the following data matrices as described in detail in 
+#'         Lahti et al. (2013):
+#' \itemize{
+#'   \item lipids: Quantification of 389 blood serum lipids across 44 samples
+#'   \item microbes: Quantification of 130 genus-like taxa across 44 samples
+#'   \item meta: Sample metadata including time point, gender, subjectID, sampleID and treatment group (probiotic LGG / Placebo)
+#' }
+#'   
 #' @keywords data
 NULL 

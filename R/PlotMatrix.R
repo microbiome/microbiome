@@ -1,5 +1,3 @@
-
-
 #' Visualize a matrix with one or two-way color scale. 
 #' TODO: one-way color scale
 #'
@@ -8,7 +6,6 @@
 #' optimal visualization.
 #'
 #' @param mat matrix
-
 #' @param type String. Specifies visualization type. Options: 'oneway' 
 #'                       (color scale ranges from white to dark red; 
 #'               the color can be changed if needed); 
@@ -42,8 +39,9 @@
 #' 
 #' @references See citation('microbiome') 
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2)); 
-#'           PlotMatrix(mat, 'twoway', midpoint = 3) 
+#' @examples 
+#'   mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2))
+#'   PlotMatrix(mat, 'twoway', midpoint = 3) 
 #' @keywords utilities
 
 PlotMatrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL, 

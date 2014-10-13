@@ -1,19 +1,19 @@
-#' Description: Calculate distance matrix between the _columns_ of the 
+
+#' Calculate distance matrix between the _columns_ of the 
 #' input matrix. Can prduce correlation-based distance matrices, otherwise
 #' uses the standard 'dist' function.
 #'
-#' Arguments:
 #'   @param x data matrix
 #'   @param method distance method
 #'   @param ... other arguments to be passed
 #'
-#' Returns:
 #'   @return distance object
 #'
 #' @export
 #'
-#' @examples data(peerj32); 
-#'          d <- distance.matrix(peerj32$microbes[1:10, 1:3])
+#' @examples 
+#'   data(peerj32)
+#'   d <- distance.matrix(peerj32$microbes[1:10, 1:3])
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

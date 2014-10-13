@@ -11,23 +11,17 @@ estimate.diversity(dat, diversity.index = "shannon", det.th = NULL)
 \item{diversity.index}{diversity index (shannon or invsimpson)}
 
 \item{det.th}{detection threshold. Used for richness and
-                 evenness estimation. Not used in diversity estimation.
-
-Returns:}
+              evenness estimation. Not used in diversity estimation.}
 }
 \value{
 Table with various richness, evenness, and diversity indicators
 }
 \description{
-Description: Estimate diversities for each sample (column)
-}
-\details{
-Arguments:
+Estimate diversities for each sample (column)
 }
 \examples{
-data(peerj32);
-         div <- estimate.diversity(10^t(peerj32$microbes),
-                            det.th = 0)
+data(peerj32)
+  div <- estimate.diversity(10^t(peerj32$microbes), det.th = 0)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

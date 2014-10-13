@@ -12,26 +12,20 @@ bootstrap.microbes(D, Nsample = NULL, minPrev = 2, Nboot = 1000,
 \item{Nsample}{bootstrap sample size, default is the same size as data}
 
 \item{minPrev}{Lower limit for number of samples where microbe needs
-        to exceed the intensity threshold for a 'present' call.}
+to exceed the intensity threshold for a 'present' call.}
 
 \item{Nboot}{bootstrap sample size}
 
 \item{I.thr}{Lower limit for intensity threshold}
 
-\item{ncore}{number of nodes for parallelization - default 1
-
-Returns:}
+\item{ncore}{number of nodes for parallelization - default 1}
 }
 \value{
 data frame with microbes and their frequency of presence in
   	     the core
 }
 \description{
-Description: Bootstrap method for core microbiota estimation as
-described in Salonen et al. (2012)
-}
-\details{
-Arguments:
+Bootstrap method for core microbiota estimation from Salonen et al. (2012)
 }
 \examples{
 data(peerj32);

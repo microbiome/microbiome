@@ -1,9 +1,9 @@
 #' phylo.barplot
 #'
-#' Description: Barplot for *ITChip sample (across taxa) with higher-level 
-#'         taxonomic groups indicated by colours.
+#' Barplot for *ITChip sample (across taxa) with higher-level 
+#' taxonomic groups indicated by colours.
 #'
-#' Arguments:
+#' 
 #'   @param x Data vector across taxa (each element should be named by taxon)
 #'   @param color.level Higher-order phylogenetic level to indicate by colors
 #'   @param phylogeny.info oligo-phylotype mappings
@@ -11,17 +11,14 @@
 #'   @param plot draw plot TRUE/FALSE
 #'   @param sort sort the effects by magnitude
 #'
-#' Returns:
 #'   @return ggplot2 object
 #'
 #' @export
 #' @examples 
-#'     data(peerj32)
-#'     phylogeny.info <- GetPhylogeny('HITChip', 'filtered'); 
-#'     signal <- unlist(peerj32$microbes[1, 1:10]); 
-#'     p <- phylo.barplot(signal, 
-#'                     color.level = 'L1', 
-#'               phylogeny.info = phylogeny.info)
+#'   data(peerj32)
+#'   phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
+#'   signal <- unlist(peerj32$microbes[1, 1:10])
+#'   p <- phylo.barplot(signal, 'L1', phylogeny.info)
 #'                   
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

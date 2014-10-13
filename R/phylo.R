@@ -1,32 +1,17 @@
-# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi Contact:
-# <microbiome-admin@googlegroups.com>. All rights reserved.
-
-# This file is a part of the microbiome R package
-# http://microbiome.github.com/
-
-# This program is open source software; you can redistribute it and/or
-# modify it under the terms of the FreeBSD License (keep this notice):
-# http://en.wikipedia.org/wiki/BSD_licenses
-
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
 #' GetPhylogeny
 #' 
-#' Description: Get Chip phylogeny
+#' Get Chip phylogeny
 #'
-#' Arguments:
 #'   @param chip chip type (e.g. 'HITChip')
 #'   @param phylogeny.version 'full' or 'filtered' 
 #'           (latter is the basis for species/L1/L2 summarization)
 #'
-#' Returns:
 #'   @return phylogeny mapping table
 #'
 #' @export
 #'
-#' @examples phylogeny.info <- GetPhylogeny('HITChip', 'full')
+#' @examples 
+#'   phylogeny.info <- GetPhylogeny('HITChip', 'full')
 #'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -60,26 +45,21 @@ GetPhylogeny <- function(chip, phylogeny.version = "full") {
 
 #' levelmap
 #' 
-#' Description: map phylotypes between hierarchy levels
+#' Map phylotypes between hierarchy levels
 #'
-#' Arguments:
-#'   @param phylotypes phylotypes to convert; 
-#'           if NULL then considering all phylotypes in the phylogeny.info
-#'   @param level.from convert from 
-#'           Options: 'L0', 'L1', 'L2', 'species', 'oligo'
-#'   @param level.to conver to Options: 'L0', 'L1', 'L2', 'species', 'oligo'
-#'   @param phylogeny.info phylogeny.info
+#' @param phylotypes phylotypes to convert; 
+#' 	  if NULL then considering all phylotypes in the phylogeny.info
+#' @param level.from convert from 
+#' 	  Options: 'L0', 'L1', 'L2', 'species', 'oligo'
+#' @param level.to conver to Options: 'L0', 'L1', 'L2', 'species', 'oligo'
+#' @param phylogeny.info phylogeny.info
 #'
-#' Returns:
-#'   @return mappings
+#' @return mappings
 #'
-#' @examples phylogeny.info <- GetPhylogeny('HITChip', 'filtered'); 
-#'                    levelmap(phylotypes = 'Prevotella oralis et rel.', 
-#'                         level.from = 'L2', 
-#'                   level.to = 'L1', 
-#'                   phylogeny.info)
+#' @examples 
+#'   phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
+#'   levelmap(phylotypes = 'Akkermansia', 'L2', 'L1', phylogeny.info)
 #'                   
-#'
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -200,23 +180,19 @@ levelmap <- function(phylotypes = NULL, level.from, level.to, phylogeny.info) {
 
 #' retrieve.probesets
 #' 
-#' Description: List probes for each probeset
+#' List probes for each probeset
 #'
-#' Arguments:
-#'   @param phylogeny.info data.frame with oligo - phylotype 
-#'                         mapping information
-#'   @param level phylotype level for probesets
-#'   @param name specify phylotypes to check (optional)
+#' @param phylogeny.info data.frame with oligo - phylotype 
+#' 	  		 mapping information
+#' @param level phylotype level for probesets
+#' @param name specify phylotypes to check (optional)
 #'
-#' Returns:
-#'   @return A list. Probes for each phylotype.
+#' @return A list. Probes for each phylotype.
 #'
-#' @examples phylogeny.info <- GetPhylogeny('HITChip'); 
-#'          sets <- retrieve.probesets(phylogeny.info, 
-#'                        level = 'species', 
-#'                  name = 'Weissella confusa')
+#' @examples 
+#'   phylogeny.info <- GetPhylogeny('HITChip')
+#'   sets <- retrieve.probesets(phylogeny.info, 'species', 'Weissella confusa')
 #'                         
-#'
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

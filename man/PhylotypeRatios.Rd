@@ -17,9 +17,8 @@ Calculate phylotype ratios (eg. Bacteroides vs. Prevotella etc.)
          for a given phylotypes vs. samples matrix
 }
 \examples{
-data(peerj32);
-         dat <- peerj32$microbes;
-        ratios <- PhylotypeRatios(dat)
+data(peerj32)
+  ratios <- PhylotypeRatios(peerj32$microbes)
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}

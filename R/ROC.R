@@ -1,19 +1,21 @@
-#' Description: ROC analysis returning true and false positive rates
+
+#' ROC analysis returning true and false positive rates
 #' along an ordered list
 #'
-#' Arguments:
+#' 
 #' @param ordered.results Items ordered from best to worst according
 #'        to the test score.
 #' @param true.positives known true positives
 #'
-#' Returns:
+#' 
 #'   @return List: true positive rate (tpr) and false positive rate (fpr)
 #'
 #' @export
 #'
-#' @examples data(peerj32); 
-#'           x <- unlist(peerj32$microbes[1,]); 
-#'           res <- roc(names(x), sample(names(x), 10))
+#' @examples 
+#'   data(peerj32)
+#'   x <- unlist(peerj32$microbes[1,])
+#'   res <- roc(names(x), sample(names(x), 10))
 #'
 #' @references To cite microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -40,22 +42,23 @@ roc <- function(ordered.results, true.positives) {
 }
 
 
-#' Description: Plot ROC curve
+#' Plot ROC curve
 #'
-#' Arguments:
+#' 
 #' @param ordered.results Items ordered from best to worst according
 #'        to the test score.
 #' @param true.positives known true positives
 #' @param line Draw 45 angle line
 #' @param title Title text
-#' Returns:
-#'   @return Used for its side effects (plot)
+#'
+#' @return Used for its side effects (plot)
 #'
 #' @export
 #'
-#' @examples data(peerj32); 
-#'      x <- unlist(peerj32$microbes[1,]); 
-#'      res <- roc.plot(names(x), sample(names(x), 10)) 
+#' @examples 
+#'   data(peerj32)
+#'   x <- unlist(peerj32$microbes[1,])
+#'   res <- roc.plot(names(x), sample(names(x), 10)) 
 #' 
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -73,21 +76,22 @@ roc.plot <- function(ordered.results, true.positives,
 }
 
 
-#' Description: ROC AUC calculation
+#' ROC AUC calculation
 #'
-#' Arguments:
+#' 
 #' @param ordered.results Items ordered from best to worst according
 #'        to the test score.
 #' @param true.positives known true positives
 #'
-#' Returns:
+#' 
 #'   @return ROC AUC value
 #'
 #' @export
 #'
-#' @examples data(peerj32); 
-#'      x <- unlist(peerj32$microbes[1,]); 
-#'     res <- roc.auc(names(x), sample(names(x), 10)) 
+#' @examples 
+#'   data(peerj32)
+#'   x <- unlist(peerj32$microbes[1,])
+#'   res <- roc.auc(names(x), sample(names(x), 10)) 
 #' 
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -110,9 +114,8 @@ roc.auc <- function(ordered.results, true.positives) {
 
 
 
-#' Description: ROC AUC calculation for a matrix of variables 
+#' ROC AUC calculation for a matrix of variables 
 #'
-#' Arguments:
 #' @param dat Data matrix (variables x samples)
 #' @param true.positives known true positive samples
 #'
@@ -120,14 +123,14 @@ roc.auc <- function(ordered.results, true.positives) {
 #'    to the lowest score, and ROC/AUC value is calculated 
 #'    based on this ordering.
 #'
-#' Returns:
 #'   @return Vector of ROC AUC values for each variable
 #'
 #' @export
 #'
-#' @examples data(peerj32); 
-#'      dat <- peerj32$microbes
-#'      res <- roc.auc.matrix(dat, sample(colnames(dat))) 
+#' @examples 
+#'   data(peerj32)
+#'   dat <- peerj32$microbes
+#'   res <- roc.auc.matrix(dat, sample(colnames(dat))) 
 #' 
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

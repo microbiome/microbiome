@@ -1,40 +1,22 @@
-# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi Contact:
-# <microbiome-admin@googlegroups.com>. All rights reserved.
-
-# This file is a part of the microbiome R package
-# http://microbiome.github.com/
-
-# This program is open source software; you can redistribute it and/or
-# modify it under the terms of the FreeBSD License (keep this notice):
-# http://en.wikipedia.org/wiki/BSD_licenses
-
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-
-
-#' Description: Arrange correlation matrices from cross.correlate into 
-#'         a table format
+#' Arrange correlation matrices from cross.correlate into a table format
 #'              
-#' Arguments:
-#'   @param res Output from cross.correlate
-#'   @param verbose verbose
+#' @param res Output from cross.correlate
+#' @param verbose verbose
 #'
-#' Returns:
-#'   @return Correlation table
+#' @return Correlation table
 #'
 #' @export
 #'
-#' @examples data(peerj32); 
-#'          cc <- cross.correlate(peerj32$microbes[1:20, 1:10], 
-#'                               peerj32$lipids[1:20,1:10], 
-#'                   mode = 'matrix'); 
-#'                    cmat <- cmat2table(cc)
+#' @examples 
+#'   data(peerj32)
+#'   d1 <- peerj32$microbes[1:20, 1:10]
+#'   d2 <- peerj32$lipids[1:20,1:10]
+#'   cc <- cross.correlate(d1, d2, mode = 'matrix')
+#'   cmat <- cmat2table(cc)
+#'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 
 cmat2table <- function(res, verbose = FALSE) {
     
@@ -75,11 +57,11 @@ cmat2table <- function(res, verbose = FALSE) {
 
 
 
-#' Description: List color scales
+#' List color scales
 #'
-#' Arguments:
+#' 
 #'
-#' Returns:
+#' 
 #'   @return list of color scales
 #'
 #' @export
@@ -99,29 +81,27 @@ list.color.scales <- function() {
 }
 
 
-
-
 #' calculate.hclust
 #' 
-#' Description: Calculate hierarchical clustering for standard selections in 
+#' Calculate hierarchical clustering for standard selections in 
 #' profiling script
 #'
-#' Arguments:
+#' 
 #'   @param dat data matrix (use log10 with pearson!)
 #'   @param method hierarchical clustering method (see ?hclust)
 #'   @param metric clustering metrics (spearman / pearson / euclidean)
 #'
-#' Returns:
+#' 
 #'   @return hclust object for log10 and for absolute scale data
 #'
 #' @export
-#' @examples data(peerj32); 
-#'            dat <- peerj32$microbes;
-#'           hc <- calculate.hclust(dat, 'complete', 'pearson') 
+#' @examples 
+#'   data(peerj32)
+#'   dat <- peerj32$microbes
+#'   hc <- calculate.hclust(dat, 'complete', 'pearson')
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 calculate.hclust <- function(dat, method = "complete", metric = "pearson") {
     
     if (metric == "euclidean") {
@@ -138,30 +118,29 @@ calculate.hclust <- function(dat, method = "complete", metric = "pearson") {
     
 }
 
-
-#' Description: get probeset data matrix
+#' get probeset data matrix
 #' 
-#' Arguments:
+#' 
 #'   @param name name
 #'   @param level taxonomic level
 #'   @param phylogeny.info phylogeny.info
-#'   @param oligo.matrix oligos vs. samples preprocessed data matrix; 
+#'   @param probedata oligos vs. samples preprocessed data matrix; 
 #'                    absolute scale
 #'   @param log10 Logical. Logarithmize the data TRUE/FALSE
 #'
-#' Returns:
+#' 
 #'   @return probeset data matrix
 #'
 #' @export
 #' @examples 
-#'      phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
-#'      # ps <- get.probeset('Vibrio', 'L2', phylogeny.info, oligo.matrix)
+#'   phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
+#'   data.dir <- system.file("extdata", package = "microbiome")
+#'   probedata <- read.profiling("oligo", data.dir = data.dir)
+#'   ps <- get.probeset('Akkermansia', 'L2', phylogeny.info, probedata)
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
-get.probeset <- function(name, level, phylogeny.info, oligo.matrix, 
-                         log10 = TRUE) {
+get.probeset <- function(name, level, phylogeny.info, probedata, log10 = TRUE) {
     
     # Pick probes for this entity
     probes <- retrieve.probesets(phylogeny.info, level, name)
@@ -172,14 +151,14 @@ get.probeset <- function(name, level, phylogeny.info, oligo.matrix,
     for (nam in names(probes)) {
         
         # Pick expression for particular probes (absolute scale)
-        p <- intersect(probes[[nam]], rownames(oligo.matrix))
+        p <- intersect(probes[[nam]], rownames(probedata))
         dat <- NULL
         if (length(p) > 0) {
-            dat <- oligo.matrix[p, ]
+            dat <- probedata[p, ]
             
             dat <- matrix(dat, nrow = length(probes[[nam]]))
             rownames(dat) <- probes[[nam]]
-            colnames(dat) <- colnames(oligo.matrix)
+            colnames(dat) <- colnames(probedata)
             
             # Logarithmize probeset?
             if (log10) {
@@ -200,9 +179,6 @@ get.probeset <- function(name, level, phylogeny.info, oligo.matrix,
 }
 
 
-
-
-
 #' PhylotypeRatios
 #'
 #' Calculate phylotype ratios (eg. Bacteroides vs. Prevotella etc.) 
@@ -213,9 +189,9 @@ get.probeset <- function(name, level, phylogeny.info, oligo.matrix,
 #' @return phylotype pairs x samples matrix indicating the ratio 
 #'                 (in log10 domain) between each unique pair
 #' @export 
-#' @examples data(peerj32); 
-#'          dat <- peerj32$microbes; 
-#'         ratios <- PhylotypeRatios(dat)
+#' @examples 
+#'   data(peerj32)
+#'   ratios <- PhylotypeRatios(peerj32$microbes)
 #' @references
 #' See citation('microbiome')
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -250,10 +226,10 @@ PhylotypeRatios <- function(dat) {
 #' @return Adjusted p-value matrix
 #' @export 
 #' @references 
-#'    JD Storey 2003. Ann. Statist. 31(6):2013-2035. 
-#'    The positive false discovery rate: 
-#'          a Bayesian interpretation and the q-value. 
-#'    To cite the microbiome R package, see citation('microbiome')
+#'   JD Storey 2003. Ann. Statist. 31(6):2013-2035. The positive false 
+#'   discovery rate: a Bayesian interpretation and the q-value. 
+#'
+#'   To cite the microbiome R package, see citation('microbiome')
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples qvals <- matrix.padjust(matrix(runif(1000), nrow = 100))
 #' @keywords utilities
@@ -277,11 +253,11 @@ matrix.padjust <- function(pvals, p.adjust.method = "BH") {
 #' @param phylogeny.info phylogeny.info data frame
 #'
 #' @return polished phylogeny.info
-#' @export 
 #' @references See citation('microbiome')
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples phylogeny.info <- GetPhylogeny('HITChip', 'filtered');
-#'           phylogeny.info <- polish.phylogeny.info(phylogeny.info)
+#' @examples 
+#'   #phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
+#'   #phylogeny.info <- polish.phylogeny.info(phylogeny.info)
 #' @keywords utilities
 
 polish.phylogeny.info <- function(phylogeny.info) {
@@ -314,9 +290,10 @@ polish.phylogeny.info <- function(phylogeny.info) {
 #' @references
 #' See citation('microbiome')
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples data(peerj32)
-#'          x <- peerj32$microbes
-#'          xi <- impute(x) 
+#' @examples 
+#'   data(peerj32)
+#'   x <- peerj32$microbes
+#'   xi <- impute(x) 
 #' @keywords utilities
 
 impute <- function(X) {
@@ -332,56 +309,19 @@ impute <- function(X) {
 }
 
 
-
-#' Strip string i.e. remove spaces from the beginning and end
-#' @param s string or character vector
-#'
-#' @return Stripped string
-#' @export 
-#' @references
-#' See citation('microbiome')
-#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples Strip(' aa b c ') 
-#' @keywords utilities
-Strip <- function(s) {
-    
-    ss <- c()
-    
-    for (i in 1:length(s)) {
-        
-        si <- s[[i]]
-        if (!is.na(si)) {
-            # Strip string i.e. remove spaces from the beginning and end
-            while (substr(si, 1, 1) == " ") {
-                si <- substr(si, 2, nchar(si))
-            }
-            while (substr(si, nchar(si), nchar(si)) == " ") {
-                si <- substr(si, 1, nchar(si) - 1)
-            }
-        }
-        ss[[i]] <- si
-    }
-    
-    ss
-}
-
-
-
-#' Description: 
 #' Get lower triangle of a square matrix 
 #' as a numeric vector such that
 #' row-by-row, picking elements in the order
 #' 2,1;3,1;3,2;4,1,...
 #'        
-#' Arguments:
 #'   @param mat data matrix
-#' Returns:
+#'
 #'   @return lower triangle as vector 
 #'
 #' @export
 #' @examples 
-#'          mat <- rbind(c(1,2,3), c(4,5,6), c(7,8,9))
-#'          vec <- lower.triangle(mat)
+#'   mat <- rbind(c(1,2,3), c(4,5,6), c(7,8,9))
+#'   vec <- lower.triangle(mat)
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

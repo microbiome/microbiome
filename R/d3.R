@@ -3,21 +3,20 @@
 # Based on a similar example at 
 # http://www.biostat.wisc.edu/~kbroman/D3/corr_w_scatter
 
-#' Description:
-
-#' Arguments:
-#'   @param dat data matrix
-#'   @param group sample groups (vector or factor)
-#'   @param reorder reorder the data
+#' Interactive scatter plot
 #'
-#' Returns:
-#'   @return JSON
+#' @param dat data matrix
+#' @param group sample groups (vector or factor)
+#' @param reorder reorder the data
+#'
+#' @return JSON
 #'
 #' @export
 #'
 #' @import rjson df2json MASS
 #'
-#' @examples print("See 
+#' @examples
+#' print("Check 
 #' https://github.com/microbiome/d3/tree/master/corr_w_scatter 
 #' for an example of the convert4corrwscatter function")
 #'

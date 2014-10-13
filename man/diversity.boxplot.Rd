@@ -11,7 +11,7 @@ diversity.boxplot(dat, sample.groups, diversity.index = "shannon",
 
 \item{sample.groups}{specify the distinct sample groups}
 
-\item{diversity.index}{Options: 'shannon' / 'invsimpson' / 'richness' / 'evenness'}
+\item{diversity.index}{('shannon' / 'invsimpson' / 'richness' / 'evenness')}
 
 \item{det.th}{Detection threshold for richness and evenness calculations}
 
@@ -19,24 +19,19 @@ diversity.boxplot(dat, sample.groups, diversity.index = "shannon",
 
 \item{col.list}{Optional: colors for the sample groups}
 
-\item{ylim}{y-axis limits
-
-Returns:}
+\item{ylim}{y-axis limits}
 }
 \value{
 Sample group list corresponding to the boxplot groups.
 }
 \description{
-Description: diversity.boxplot
-}
-\details{
-Arguments:
+diversity.boxplot
 }
 \examples{
-data(peerj32);
-          div <- diversity.boxplot(peerj32$microbes,
-                                  sample.groups = list(1:22, 23:44),
-                     det.th = 0)
+data(peerj32)
+  div <- diversity.boxplot(peerj32$microbes,
+    	    		      sample.groups = list(1:22, 23:44),
+                           det.th = 0)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

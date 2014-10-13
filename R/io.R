@@ -1,41 +1,24 @@
-# Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi Contact:
-# <microbiome-admin@googlegroups.com>. All rights reserved.
-
-# This file is a part of the microbiome R package
-# http://microbiome.github.com/
-
-# This program is open source software; you can redistribute it and/or
-# modify it under the terms of the FreeBSD License (keep this notice):
-# http://en.wikipedia.org/wiki/BSD_licenses
-
-# This program is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
 #' read.profiling
 #' 
-#' Description: read run.profiling.script output into R
+#' Read run.profiling.script output into R
 #'
-#' Arguments:
-#'   @param level phylogenetic level 
-#'           ('oligo' / 'species' / 'L1' / 'L2' / 'L0') or 
-#'        'phylogeny.full', 'phylogeny.filtered'
-#'   @param method ('frpa' / 'rpa' / 'sum' / 'ave' / 'nmf')
-#'   @param data.dir Profiling script output directory for reading the data. 
-#'                    If not given, GUI will ask to specify the file and 
-#'             overruns the possible level / method arguments in the 
-#'             function call.
-#'   @param log10 Logical. Logarithmize the data TRUE/FALSE. 
-#'                 By default, the data is in original non-log scale.
-#'   @param impute impute missing oligo signals
+#' @param level phylogenetic level ('oligo' / 'species' / 'L1' / 'L2' / 'L0') 
+#' 	  	or 'phylogeny.full', 'phylogeny.filtered'
+#' @param method ('frpa' / 'rpa' / 'sum' / 'ave')
+#' @param data.dir Profiling script output directory for reading the data. 
+#'                 If not given, GUI will ask to specify the file and 
+#'             	   overruns the possible level / method arguments in the 
+#'             	   function call.
+#' @param log10 Logical. Logarithmize the data TRUE/FALSE. 
+#'              By default, the data is in original non-log scale.
+#' @param impute impute missing oligo signals
 #' 
-#' Returns:
-#'   @return data matrix (phylo x samples)
+#' @return data matrix (phylo x samples)
 #'
 #' @export
-#' @examples print('Only applicable with HITChipDB data types.')
-#'           # dat <- read.profiling(data.dir = params$wdir, 
-#'           #               level = 'L1', method = 'frpa')
+#' @examples 
+#'   data.dir <- system.file("extdata", package = "microbiome")
+#'   dat <- read.profiling('L1', 'frpa', data.dir = data.dir)
 #'
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

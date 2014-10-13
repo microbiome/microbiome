@@ -9,7 +9,7 @@ densityplot(mat, main = NULL, x.ticks = 10, rounding = 0,
 }
 \arguments{
 \item{mat}{Data matrix to plot. The first two columns will be visualized
-            as a cross-plot.}
+           as a cross-plot.}
 
 \item{main}{title text}
 
@@ -25,18 +25,13 @@ densityplot(mat, main = NULL, x.ticks = 10, rounding = 0,
 
 \item{size}{point size}
 
-\item{legend}{plot legend TRUE/FALSE
-
-Returns:}
+\item{legend}{plot legend TRUE/FALSE}
 }
 \value{
 ggplot2 object
 }
 \description{
-Description: Plots densities of data points in addition to cross-plot points.
-}
-\details{
-Arguments:
+Plots densities of data points in addition to cross-plot points.
 }
 \examples{
 p <- densityplot(cbind(rnorm(100), rnorm(100)))

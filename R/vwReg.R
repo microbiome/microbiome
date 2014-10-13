@@ -1,11 +1,11 @@
-#' Description: Draw regression curve with smoothed error bars 
+
+#' Draw regression curve with smoothed error bars 
 #' based on the Visually-Weighted Regression by Solomon M. Hsiang; see
 #' http://www.fight-entropy.com/2012/07/visually-weighted-regression.html
 #' The R implementation is based on Felix Schonbrodt's code 
 #' (under MIT/FreeBSD license) from 
 #' nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/
 #'
-#' Arguments:
 #' @param formula formula
 #' @param data data
 #' @param title title
@@ -36,16 +36,12 @@
 #' @param verbose print information during execution
 #' @param show.points Plot the data points.
 #'
-#' Returns:
 #' @return ggplot2 object
 #'
-#' @examples N <- 10; 
-#'          df <- data.frame(age = sort(runif(N, 0, 100)), 
-#'                           hitchip = rnorm(N)); 
-#'         p <- vwReg(hitchip ~ age, df, 
-#'                    shade = TRUE, 
-#'            mweight = TRUE, 
-#'            verbose = FALSE)
+#' @examples 
+#'   N <- 10
+#'   df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N))
+#'   p <- vwReg(hitchip ~ age, data = df)
 #'
 #' @importFrom reshape melt
 #' @import ggplot2 
@@ -58,14 +54,12 @@
 #' @keywords utilities
 
 vwReg <- function(formula, data, title = "", B = 1000, shade = TRUE, 
-                  shade.alpha = 0.1, 
-                  spag = FALSE, mweight = TRUE, show.lm = FALSE, 
-                  show.median = TRUE, median.col = "white", 
-    show.CI = FALSE, method = loess, bw = FALSE, slices = 200, 
+                  shade.alpha = 0.1, spag = FALSE, mweight = TRUE, 
+		  show.lm = FALSE, show.median = TRUE, median.col = "white", 
+    		  show.CI = FALSE, method = loess, bw = FALSE, slices = 200, 
     palette = colorRampPalette(c("#FFEDA0", "#DD0000"), bias = 2)(20), 
-    ylim = NULL, 
-            quantize = "continuous", verbose = FALSE, 
-    show.points = TRUE, ...) {
+    	      	  ylim = NULL, quantize = "continuous", verbose = FALSE, 
+		  show.points = TRUE, ...) {
     
     # Circumvent global variable binding warnings
     x <- NA

@@ -13,24 +13,19 @@ core_heatmap(data, detection.thresholds = NULL, plot = TRUE,
 
 \item{plot}{plot the figure}
 
-\item{palette}{'bw' (grayscale) or 'spectral' (colourscale)
-
-Returns:}
+\item{palette}{'bw' (grayscale) or 'spectral' (colourscale)}
 }
 \value{
 List with the following elements:
-           plot: ggplot figure
+        plot: ggplot figure
         data: prevalence data with the varying thresholds
 }
 \description{
-Description: Heatmap of core microbiota
-}
-\details{
-Arguments:
+Heatmap of core microbiota
 }
 \examples{
-data(peerj32);
-          core <- core_heatmap(t(peerj32$microbes))
+data(peerj32)
+  core <- core_heatmap(t(peerj32$microbes))
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

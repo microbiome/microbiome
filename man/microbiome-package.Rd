@@ -24,7 +24,7 @@ citation('microbiome')
 }
 \author{
 Leo Lahti and Jarkko Salojarvi
-      \email{microbiome-admin@googlegroups.com}
+  \email{microbiome-admin@googlegroups.com}
 }
 \references{
 See citation('microbiome')

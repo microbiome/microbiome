@@ -13,22 +13,17 @@ createCore(data, verbose = FALSE, prevalence.intervals = seq(20, 100, 20),
 
 \item{prevalence.intervals}{a vector of prevalence percentages in [0,100]}
 
-\item{intensity.intervals}{a vector of intensities around the data range
-
-Returns:}
+\item{intensity.intervals}{a vector of intensities around the data range}
 }
 \value{
-TBA
+Estimated core microbiota
 }
 \description{
-Description: create coreMatrix
-}
-\details{
-Arguments:
+create coreMatrix
 }
 \examples{
-data(peerj32);
-         core <- createCore(t(peerj32$microbes))
+data(peerj32)
+  core <- createCore(t(peerj32$microbes))
 }
 \author{
 Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}
@@ -37,6 +32,7 @@ Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}
 A Salonen et al. The adult intestinal core microbiota is determined by
   analysis depth and health status. Clinical Microbiology and Infection
   18(S4):16 20, 2012.
+
   To cite the microbiome R package, see citation('microbiome')
 }
 \keyword{utilities}

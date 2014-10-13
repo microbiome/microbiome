@@ -3,12 +3,15 @@
 \name{peerj32}
 \alias{peerj32}
 \title{peerj32 data documentation}
-\format{list}
+\format{List of the following data matrices as described in detail in
+        Lahti et al. (2013):
+\itemize{
+  \item lipids: Quantification of 389 blood serum lipids across 44 samples
+  \item microbes: Quantification of 130 genus-like taxa across 44 samples
+  \item meta: Sample metadata including time point, gender, subjectID, sampleID and treatment group (probiotic LGG / Placebo)
+}}
 \usage{
 data(peerj32)
-}
-\value{
-List of data matrices
 }
 \description{
 The peerj32 data set contains high-through profiling data from

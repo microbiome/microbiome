@@ -9,18 +9,13 @@ GetPhylogeny(chip, phylogeny.version = "full")
 \item{chip}{chip type (e.g. 'HITChip')}
 
 \item{phylogeny.version}{'full' or 'filtered'
-          (latter is the basis for species/L1/L2 summarization)
-
-Returns:}
+          (latter is the basis for species/L1/L2 summarization)}
 }
 \value{
 phylogeny mapping table
 }
 \description{
-Description: Get Chip phylogeny
-}
-\details{
-Arguments:
+Get Chip phylogeny
 }
 \examples{
 phylogeny.info <- GetPhylogeny('HITChip', 'full')

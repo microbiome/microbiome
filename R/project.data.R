@@ -1,20 +1,19 @@
 
-#' Description: Project high-dimensional data on two-dimensional plane 
-#'         by various methods
+#' Project high-dimensional data on two-dimensional plane by various methods
 #' 
-#' Arguments:
 #'   @param amat data matrix (samples x features)
 #'   @param type projection type 
 #'           (options: PCA, MDS.classical, MDS.nonmetric, Sammon)
-#' Returns:
+#'
 #'   @return projected data matrix
 #'
 #' @export
 #' @import MASS
 #' @import mixOmics
 #'
-#' @examples data(peerj32); 
-#'           xy <- project.data(peerj32$microbes[,1:3])
+#' @examples 
+#'   data(peerj32)
+#'   xy <- project.data(peerj32$microbes[,1:3])
 #'
 #' @references 
 #'    
@@ -22,6 +21,7 @@
 #'    Principles of Data Mining. MIT Press. Cambridge, MA, US (2001).
 #'    
 #'    To cite microbiome R package, see citation('microbiome') 
+#'
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 

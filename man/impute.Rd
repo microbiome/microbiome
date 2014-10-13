@@ -16,8 +16,8 @@ Impute missing values from a Gaussian.
 }
 \examples{
 data(peerj32)
-         x <- peerj32$microbes
-         xi <- impute(x)
+  x <- peerj32$microbes
+  xi <- impute(x)
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}

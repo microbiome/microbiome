@@ -1,7 +1,7 @@
 ---
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
-date: "`r Sys.Date()`"
+date: "2014-10-11"
 output:
   html_document:
     toc: true
@@ -16,16 +16,21 @@ output:
   %\usepackage[utf8]{inputenc}
 -->
 
-## microbiome R package
 
-General-purpose tools for microbiome profiling data sets.
+
+microbiome R package
+===========
+
+The microbiome package contains general-purpose tools for
+microarray-based analysis of microbiome profiling data sets. 
 
 ## Installation
 
 ### Installing and loading the release version
 
 
-```{r install, eval=FALSE}
+
+```r
 source("http://www.bioconductor.org/biocLite.R")
 biocLite("microbiome")
 library(microbiome)
@@ -33,7 +38,8 @@ library(microbiome)
 
 ### Installing and loading the experimental development version
 
-```{r install2, eval=FALSE}
+
+```r
 install.packages("devtools")
 library(devtools)
 install_github("microbiome", "microbiome")
@@ -54,7 +60,8 @@ cite [this
 article](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)).
 
 
-```{r data, eval=TRUE, message=FALSE}
+
+```r
 # Load the package
 library(microbiome)  
 
@@ -62,13 +69,38 @@ library(microbiome)
 data.directory <- system.file("extdata", package = "microbiome")
 
 # Read HITChip data matrix (genus-level (L2) log10 values)
-genus.data <- read.profiling("L2", "frpa", data.directory, log10 = TRUE)  
+level <- "L2"
+method <- "frpa"
+genus.data <- read.profiling(level = level, 
+	     		       method = method, 
+              		       data.dir = data.directory, 
+	      	       	       log10 = TRUE)  
+```
 
+```
+## Reading /home/lei/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/L2-frpa.tab
+## Logarithmizing the data
+```
+
+```r
 # Read HITChip probe level data (absolute values - no log10)
-oligo.data <- read.profiling("oligo", data.dir = data.directory, log10 = FALSE)
+oligo.data <- read.profiling(level = "oligo", 
+                             data.dir = data.directory, 
+			     log10 = FALSE)  
+```
 
+```
+## Reading /home/lei/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/oligoprofile.tab
+```
+
+```r
 # Probe-taxon mapping table
-phylogeny.info <- read.profiling("phylogeny.full", data.dir = data.directory)
+phylogeny.info <- read.profiling(level = "phylogeny.full", 
+                           	 data.dir = data.directory)
+```
+
+```
+## Reading /home/lei/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/phylogeny.full.tab
 ```
 
 
@@ -76,9 +108,29 @@ phylogeny.info <- read.profiling("phylogeny.full", data.dir = data.directory)
 
 An easy way to provide sample metadata is to create a tab-separated metadata file. You can create the file in Excel and export it to tab-separated csv format. The standard (and self-explanatory) field names include 'sampleID', 'time', 'subjectID', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). Read the metadata with:
 
-```{r meta, eval=TRUE, message=FALSE}
+
+```r
 # Read simulated example metadata
 library(gdata)
+```
+
+```
+## gdata: read.xls support for 'XLS' (Excel 97-2004) files ENABLED.
+## 
+## gdata: read.xls support for 'XLSX' (Excel 2007+) files ENABLED.
+## 
+## Attaching package: 'gdata'
+## 
+## The following object is masked from 'package:stats':
+## 
+##     nobs
+## 
+## The following object is masked from 'package:utils':
+## 
+##     object.size
+```
+
+```r
 metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
 metadata <- read.xls(metadata.file, as.is = TRUE)
 rownames(metadata) <- metadata$sampleID
@@ -90,10 +142,15 @@ rownames(metadata) <- metadata$sampleID
 The microbiome package contains also an example data set from Lahti et al. [PeerJ 1:e32, 2013](https://peerj.com/articles/32/) concerning associations between human intestinal microbiota and blood serum lipids. Load the data in R as follows:
 
 
-```{r exdata, message=FALSE}
+
+```r
 library(microbiome)
 data(peerj32)
 names(peerj32)
+```
+
+```
+## [1] "lipids"   "microbes" "meta"
 ```
 
 
@@ -103,7 +160,8 @@ Examples on determining the common core microbiota for the given profiling data 
 
 ### Diversity estimation
 
-```{r diversity-example, warning=FALSE, message=FALSE}
+
+```r
 # This will return a samples x indices table with 
 # richness, evenness and diversity collected in one table
 div.table <- estimate.diversity(oligo.data, diversity.index = "shannon")  
@@ -119,7 +177,8 @@ ev <- evenness(oligo.data, det.th = NULL)
 
 Produce diversity boxplot for your selected sample groups. NOTE: colors and sample groups are specified before function call. To tune y-axis limits, use 'ylim' argument. For other options, see help(diversity.boxplot).
 
-```{r diversity-example2, warning=FALSE, message=FALSE}
+
+```r
 # Define sample groups 
 # Alternatively, read metadata from file. See
 # https://github.com/microbiome/microbiome/wiki/reading for details
@@ -130,7 +189,11 @@ sample.groups$Group2 <- colnames(oligo.data)[4:6]
 
 # Plot diversity boxplots
 res <- diversity.boxplot(oligo.data, sample.groups, diversity.index = "shannon")
+```
 
+![plot of chunk diversity-example2](figure/diversity-example2.png) 
+
+```r
 # The function also returns the sample groups and diversity values 
 # used for the plot
 sample.groups <- res$sample.groups
@@ -139,7 +202,8 @@ div.table <- res$diversity.table
 
 Writing diversity table into file:
 
-```{r diversity-example4, warning=FALSE, message=FALSE}
+
+```r
 output.dir <- "./"
 write.table(div.table, file = "DiversityTable.tab", sep = "\t")
 ```
@@ -150,16 +214,22 @@ write.table(div.table, file = "DiversityTable.tab", sep = "\t")
 Retrieve phylotypes x samples table which presents diversity within
 each higher-level taxonomic category for each sample.
 
-```{r diversity-example5, message=FALSE}
+
+```r
 divtab <- diversity.table(oligo.data, phylogeny.info, level.from = "L1", level.to = "oligo", diversity.index = "shannon") 
 ```
 
 ### Estimating relative abundancies
 
-```{r diversity-example6, message=FALSE}
+
+```r
 # NOTE: estimate relative abundancies for phylotypes based on 
 # absolute-scale data for diversity calculations (no logarithm!)
 rel <- relative.abundance(oligo.data, det.th = NULL)
+```
+
+```
+## Warning: Applying detection threshold at 0.8 quantile: 232.026771597465
 ```
 
 
@@ -167,48 +237,85 @@ rel <- relative.abundance(oligo.data, det.th = NULL)
 
 Determine the core microbiota [(blanket analysis)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
 
-```{r core-example, message=FALSE, warning=FALSE}
+
+```r
 mydata <- t(peerj32$microbes)
 core <- createCore(mydata)
 ```
 
 Visualizing core microbiota:
 
-```{r core-example2, fig.width=8, fig.heigth=8, message=FALSE}
+
+```r
 # Core 2D visualization
 tmp <- Core2D(core)
+```
 
+![plot of chunk core-example2](figure/core-example21.png) 
+
+```r
 # Core heatmap
 tmp <- core_heatmap(mydata)
 ```
 
+![plot of chunk core-example2](figure/core-example22.png) 
+
 
 ### Cross-correlation example
 
-```{r heatmap, message=FALSE}
+
+```r
 dat1 <- peerj32$lipids # Lipids (44 samples x 389 lipids)
 dat2 <- peerj32$microbes # Microbiota (44 samples x 130 bacteria)
 meta <- peerj32$meta
 
 correlations <- cross.correlate(dat1, dat2, 
-	     			      method = "bicor", 
-				      mode = "matrix", 
-				      n.signif = 1, 
-				      p.adj.threshold = 0.05, 
-				      p.adj.method = "BH")
+                        method = "bicor", 
+			mode = "matrix", 
+                        n.signif = 1, 
+			p.adj.threshold = 0.05, 
+                        p.adj.method = "BH")
+```
 
+```
+## Warning: longer object length is not a multiple of shorter object length
+```
+
+```r
 correlation.table <- cmat2table(correlations)
 head(correlation.table)
+```
+
+```
+##              X1                               X2 Correlation    p.adj
+## 1100 TG(54:5).2      Ruminococcus gnavus et rel.      0.7208 0.001738
+## 1087   TG(52:5)      Ruminococcus gnavus et rel.      0.6996 0.003193
+## 479    PC(40:3) Eubacterium cylindroides et rel.     -0.6771 0.003801
+## 656    PC(40:3)                     Helicobacter     -0.6838 0.003801
+## 1082   TG(50:4)      Ruminococcus gnavus et rel.      0.6852 0.003801
+## 1086 TG(52:4).1      Ruminococcus gnavus et rel.      0.6716 0.003801
 ```
 
 
 ### Prevalence of taxonomic groups
 
-```{r prevalence, message=FALSE}
+
+```r
 # List prevalence measure for each group using detection threshold of 2
 # Sort the taxa by prevalence
 head(prevalence(peerj32$microbes, 2, sort = TRUE))
+```
 
+```
+##  Subdoligranulum variable at rel.       Streptococcus mitis et rel. 
+##                                 1                                 1 
+## Streptococcus intermedius et rel.       Streptococcus bovis et rel. 
+##                                 1                                 1 
+##    Sporobacter termitidis et rel.        Ruminococcus obeum et rel. 
+##                                 1                                 1
+```
+
+```r
 # Just list the names of taxa that are present over abundance threshold 2
 # in over 20 percent of the samples:
 prevalent.taxa <- list_prevalent_groups(peerj32$microbes, 2, 0.2)
@@ -275,8 +382,48 @@ contributions:
 
 This vignette was created with
 
-```{r sessioninfo}
+
+```r
 sessionInfo()
+```
+
+```
+## R version 3.1.1 (2014-07-10)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## 
+## locale:
+##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+## [1] gdata_2.13.3      knitr_1.6         microbiome_0.99.3 reshape_0.8.5    
+## [5] vegan_2.0-10      lattice_0.20-29   permute_0.8-3     e1071_1.6-4      
+## 
+## loaded via a namespace (and not attached):
+##  [1] acepack_1.3-3.3     class_7.3-11        cluster_1.15.3     
+##  [4] codetools_0.2-9     colorspace_1.2-4    df2json_0.0.2      
+##  [7] digest_0.6.4        doParallel_1.0.8    dynamicTreeCut_1.62
+## [10] evaluate_0.5.5      fastcluster_1.1.13  flashClust_1.01-2  
+## [13] foreach_1.4.2       foreign_0.8-61      formatR_1.0        
+## [16] Formula_1.1-2       ggplot2_1.0.0       grid_3.1.1         
+## [19] gtable_0.1.2        gtools_3.4.1        Hmisc_3.14-5       
+## [22] igraph_0.7.1        impute_1.39.0       iterators_1.0.7    
+## [25] labeling_0.3        latticeExtra_0.6-26 MASS_7.3-34        
+## [28] matrixStats_0.10.0  mixOmics_5.0-3      munsell_0.4.2      
+## [31] nnet_7.3-8          parallel_3.1.1      pheatmap_0.7.7     
+## [34] plyr_1.8.1          proto_0.3-10        RColorBrewer_1.0-5 
+## [37] Rcpp_0.11.2         reshape2_1.4        RGCCA_2.0          
+## [40] rgl_0.94.1131       rjson_0.2.14        R.methodsS3_1.6.1  
+## [43] rpart_4.1-8         scales_0.2.4        splines_3.1.1      
+## [46] stringr_0.6.2       survival_2.37-7     tools_3.1.1        
+## [49] WGCNA_1.41-1
 ```
 
 

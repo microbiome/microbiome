@@ -10,24 +10,19 @@ calculate.hclust(dat, method = "complete", metric = "pearson")
 
 \item{method}{hierarchical clustering method (see ?hclust)}
 
-\item{metric}{clustering metrics (spearman / pearson / euclidean)
-
-Returns:}
+\item{metric}{clustering metrics (spearman / pearson / euclidean)}
 }
 \value{
 hclust object for log10 and for absolute scale data
 }
 \description{
-Description: Calculate hierarchical clustering for standard selections in
+Calculate hierarchical clustering for standard selections in
 profiling script
 }
-\details{
-Arguments:
-}
 \examples{
-data(peerj32);
-           dat <- peerj32$microbes;
-          hc <- calculate.hclust(dat, 'complete', 'pearson')
+data(peerj32)
+  dat <- peerj32$microbes
+  hc <- calculate.hclust(dat, 'complete', 'pearson')
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

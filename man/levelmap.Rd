@@ -7,32 +7,24 @@ levelmap(phylotypes = NULL, level.from, level.to, phylogeny.info)
 }
 \arguments{
 \item{phylotypes}{phylotypes to convert;
-        if NULL then considering all phylotypes in the phylogeny.info}
+if NULL then considering all phylotypes in the phylogeny.info}
 
 \item{level.from}{convert from
-        Options: 'L0', 'L1', 'L2', 'species', 'oligo'}
+Options: 'L0', 'L1', 'L2', 'species', 'oligo'}
 
 \item{level.to}{conver to Options: 'L0', 'L1', 'L2', 'species', 'oligo'}
 
-\item{phylogeny.info}{phylogeny.info
-
-Returns:}
+\item{phylogeny.info}{phylogeny.info}
 }
 \value{
 mappings
 }
 \description{
-Description: map phylotypes between hierarchy levels
-}
-\details{
-Arguments:
+Map phylotypes between hierarchy levels
 }
 \examples{
-phylogeny.info <- GetPhylogeny('HITChip', 'filtered');
-                   levelmap(phylotypes = 'Prevotella oralis et rel.',
-                        level.from = 'L2',
-                  level.to = 'L1',
-                  phylogeny.info)
+phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
+  levelmap(phylotypes = 'Akkermansia', 'L2', 'L1', phylogeny.info)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
