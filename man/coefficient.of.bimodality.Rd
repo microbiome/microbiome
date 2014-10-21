@@ -7,6 +7,8 @@ coefficient.of.bimodality(x, bs.iter = 1)
 }
 \arguments{
 \item{x}{Data vector for which bimodality will be quantified}
+
+\item{bs.iter}{Bootstrap iterations}
 }
 \value{
 Bimodality score
