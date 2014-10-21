@@ -258,7 +258,7 @@ matrix.padjust <- function(pvals, p.adjust.method = "BH") {
 #' @examples 
 #'   #phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
 #'   #phylogeny.info <- polish.phylogeny.info(phylogeny.info)
-#' @keywords utilities
+#' @keywords internal
 
 polish.phylogeny.info <- function(phylogeny.info) {
     
@@ -297,6 +297,8 @@ polish.phylogeny.info <- function(phylogeny.info) {
 #' @keywords utilities
 
 impute <- function(X) {
+
+  # TODO Replace with standard R functions
     
     for (i in 1:ncol(X)) {
         x <- X[, i]
@@ -327,6 +329,8 @@ impute <- function(X) {
 #' @keywords utilities
 lower.triangle <- function(mat) {
     
+  # TODO is this easy replace with standard R functions ?
+
     elements <- c()
     nr <- dim(mat)[[1]]
     nc <- dim(mat)[[2]]
