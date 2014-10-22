@@ -19,7 +19,8 @@ rel <- relative.abundance(oligo.data, det.th = NULL)
 
 ### Core microbiota
 
-Determine the core microbiota [(blanket analysis)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
+Determine common core microbiota, following the blanket analysis of [Salonen et al. CMI 18(s4):16-20, 2012](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
+ 
 
 ```{r core-example, message=FALSE, warning=FALSE}
 mydata <- t(peerj32$microbes)
