@@ -24,5 +24,5 @@ Leo Lahti \email{microbiome-admin@googlegroups.com}
 \references{
 See citation('microbiome')
 }
-\keyword{utilities}
+\keyword{internal}
 

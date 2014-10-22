@@ -45,6 +45,20 @@ install_github("microbiome", "microbiome")
 
 ## Examples
 
+### Overview
+
+Here you will find R packages dedicated to the analysis of microbiota
+profiling data, in particular regarding HITChip, PITChip and MITChip
+platforms. You can also [join the microbiome-devel@googlegroups.com
+email list](contact). A typical workflow is as follows:
+
+ 1. [Install the package](wiki/Installation)
+ 1. [Update the package](wiki/Update)
+ 1. [Extract data from the MySQL database](wiki/Profiling)
+ 1. [Read preprocessed data](wiki/Reading)
+ 1. [Analyse the data](wiki/Analysis)
+
+
 ### Load example data
 
 Load simulated example data of the human gut microbiota from the
@@ -167,76 +181,7 @@ write.table(div.table, file = "DiversityTable.tab", sep = "\t")
 ```
 
 
-### Phylotype-specific diversity tables
 
-Retrieve phylotypes x samples table which presents diversity within
-each higher-level taxonomic category for each sample.
-
-```{r diversity-example5}
-divtab <- diversity.table(oligo.data, phylogeny.info, level.from = "L1", level.to = "oligo", diversity.index = "shannon") 
-```
-
-### Estimating relative abundancies
-
-```{r diversity-example6}
-# NOTE: estimate relative abundancies for phylotypes based on 
-# absolute-scale data for diversity calculations (no logarithm!)
-rel <- relative.abundance(oligo.data, det.th = NULL)
-```
-
-
-### Core microbiota
-
-Determine the core microbiota [(blanket analysis)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
-
-```{r core-example, message=FALSE, warning=FALSE}
-mydata <- t(peerj32$microbes)
-core <- createCore(mydata)
-```
-
-Visualizing core microbiota:
-
-```{r core-example2, fig.width=8, fig.heigth=8}
-# Core 2D visualization
-tmp <- Core2D(core)
-
-# Core heatmap
-tmp <- core_heatmap(mydata)
-```
-
-
-### Cross-correlation example
-
-```{r heatmap}
-dat1 <- peerj32$lipids # Lipids (44 samples x 389 lipids)
-dat2 <- peerj32$microbes # Microbiota (44 samples x 130 bacteria)
-meta <- peerj32$meta
-
-correlations <- cross.correlate(dat1, dat2, 
-                        method = "bicor", 
-			mode = "matrix", 
-                        n.signif = 1, 
-			p.adj.threshold = 0.05, 
-                        p.adj.method = "BH")
-
-
-correlation.table <- cmat2table(correlations)
-head(correlation.table)
-
-```
-
-
-### Prevalence of taxonomic groups
-
-```{r prevalence}
-# List prevalence measure for each group using detection threshold of 2
-# Sort the taxa by prevalence
-head(prevalence(peerj32$microbes, 2, sort = TRUE))
-
-# Just list the names of taxa that are present over abundance threshold 2
-# in over 20 percent of the samples:
-prevalent.taxa <- list_prevalent_groups(peerj32$microbes, 2, 0.2)
-```
 
 
 ### Licensing and Citations
