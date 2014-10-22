@@ -1,0 +1,36 @@
+
+### Correlation analysis
+
+Cross-correlate input variables between two data sets (samples x features matrices; matched samples assumed; correlations calculated between features). For instance, between phylotypes and environmental variables:
+
+```{r metrics-example22, warning=FALSE, message=FALSE}
+# Determine sample size
+N <- ncol(l2.log10.simulated)
+
+# Create some random sample information for the metadata
+metadata.simulated <- data.frame(list(
+              sampleID = colnames(l2.log10.simulated),
+	      subjectID = paste("subjectID", rep(1:4, 5)),
+	      group = sample(paste("group", rep(1:4, 5))),
+	      time = paste("group", rep(1:4, 5)),
+              age = runif(N, 0, 100),
+              gender = sample(c("M", "F"), N, replace = TRUE),
+              diet = sample(c("Apricots", "Beverages", "Carrots"), 
+	      N, replace = TRUE)))
+
+# Calculate correlations between metadata and profiling data
+cc <- cross.correlate(metadata.simulated, t(l2.log10.simulated), 
+      			mode = "table", p.adj.method = "BY")
+
+print(head(cc))
+```
+
+
+
+Matrix mode plus visualization for the similarity matrix:  
+
+```{r metrics-example3, fig.width=8, fig.height=8, warning=FALSE, message=FALSE}
+cc <- cross.correlate(metadata.simulated, t(l2.log10.simulated), mode = "matrix")
+
+tmp <- PlotMatrix(t(cc$cor), type = "twoway")
+```

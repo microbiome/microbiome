@@ -1,0 +1,40 @@
+### ROC analysis
+
+A basic example of ROC/AUC analysis with simulated random data.
+
+```{r roc-example, warning=FALSE}
+
+# Get example data
+library(microbiome, quietly = TRUE)
+data.directory <- system.file("extdata", package = "microbiome")
+l2.log.simulated <- read.profiling(level = "L2", 
+                             data.dir = data.directory, log10 = TRUE)
+hitchip.matrix <- l2.log.simulated  
+
+# Define two random groups for demonstration purpose
+g1 <- sample(colnames(hitchip.matrix), 10)
+g2 <- setdiff(colnames(hitchip.matrix), g1)
+
+# Compare the two groups with t-test
+pvalues <- c()
+for (tax in rownames(hitchip.matrix)) {
+  pvalues[[tax]] <- t.test(hitchip.matrix[tax, g1], hitchip.matrix[tax, g2])$p.value
+}
+
+# Order the taxa based on the p-values
+ordered.results <- names(sort(pvalues))
+
+# Assume there are some known true positives (here just randomly picked for demonstration)
+true.positives <- sample(rownames(hitchip.matrix), 10)
+
+# Overall ROC analysis (this will give the cumulative TPR and FPR along the ordered list)
+res <- roc(ordered.results, true.positives)
+
+# Calculate ROC/AUC value
+auc <- roc.auc(ordered.results, true.positives)
+print(auc)
+
+# Plot ROC curve
+roc.plot(ordered.results, true.positives, line = TRUE)
+```
+
