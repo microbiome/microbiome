@@ -1,7 +1,7 @@
 ---
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
-date: "2014-10-22"
+date: "2014-10-27"
 output:
   html_document:
     toc: true
@@ -32,7 +32,6 @@ microarray-based analysis of microbiome profiling data sets.
 ```r
 source("http://www.bioconductor.org/biocLite.R")
 biocLite("microbiome")
-library(microbiome)
 ```
 
 ### Installing and loading the experimental development version
@@ -44,27 +43,66 @@ library(devtools)
 install_github("microbiome", "microbiome")
 ```
 
+### Loading the package
+
+
+```r
+library(microbiome)  
+```
+
+```
+## Loading required package: vegan
+## Loading required package: permute
+## Loading required package: lattice
+## This is vegan 2.0-10
+## Loading required package: reshape
+## 
+## microbiome R package (microbiome.github.com)
+## Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi <microbiome-admin@googlegroups.com>
+## This program comes with ABSOLUTELY NO WARRANTY.
+## This is free software, and you are welcome to redistribute it under the FreeBSD open source license.
+## 
+## 
+## Attaching package: 'microbiome'
+## 
+## The following object is masked from 'package:vegan':
+## 
+##     diversity
+## 
+## The following object is masked from 'package:lattice':
+## 
+##     densityplot
+```
+
+
 ## Examples
+
+### PeerJ example data set
+
+An example data set from Lahti et al. [PeerJ 1:e32, 2013](https://peerj.com/articles/32/) concerns associations between human intestinal microbiota and blood serum lipids. Load the data in R:
+
+
+```r
+library(microbiome)
+data(peerj32)
+names(peerj32)
+```
+
+```
+## [1] "lipids"   "microbes" "meta"
+```
 
 ### Load example data
 
-Load simulated example data of the human gut microbiota from the
-microbiome package (you can replace the final data matrices with your
-own). We use here microbiota profiling data from the HITChip
-phylogenetic microarray. Most methods are applicable also for
-analogous sequencing data matrices.
-
-Note that with HITChip, fRPA is the recommended default method (kindly
+Load simulated example data of the human gut microbiota. Note that
+with HITChip, fRPA is the recommended preprocessing method (kindly
 cite [this
-article](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)).
+article](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)). 
 
 
 
 ```r
-# Load the package
-library(microbiome)  
-
-# Define data path (here we retrieve data from R package itself)
+# Define data path (you can replace data.directory with your own path)
 data.directory <- system.file("extdata", package = "microbiome")
 
 # Read HITChip data matrix (genus-level (L2) log10 values)
@@ -103,6 +141,7 @@ phylogeny.info <- read.profiling(level = "phylogeny.full",
 ```
 
 
+
 ### Read metadata
 
 An easy way to provide sample metadata is to create a tab-separated metadata file. You can create the file in Excel and export it to tab-separated csv format. The standard (and self-explanatory) field names include 'sampleID', 'time', 'subjectID', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). Read the metadata with:
@@ -111,45 +150,66 @@ An easy way to provide sample metadata is to create a tab-separated metadata fil
 ```r
 # Read simulated example metadata
 library(gdata)
+```
+
+```
+## gdata: read.xls support for 'XLS' (Excel 97-2004) files ENABLED.
+## 
+## gdata: read.xls support for 'XLSX' (Excel 2007+) files ENABLED.
+## 
+## Attaching package: 'gdata'
+## 
+## The following object is masked from 'package:stats':
+## 
+##     nobs
+## 
+## The following object is masked from 'package:utils':
+## 
+##     object.size
+```
+
+```r
 metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
 metadata <- read.xls(metadata.file, as.is = TRUE)
 rownames(metadata) <- metadata$sampleID
 ```
 
 
-### PeerJ example data set
-
-The microbiome package contains also an example data set from Lahti et al. [PeerJ 1:e32, 2013](https://peerj.com/articles/32/) concerning associations between human intestinal microbiota and blood serum lipids. Load the data in R as follows:
-
-
-
-```r
-library(microbiome)
-data(peerj32)
-names(peerj32)
-```
-
-```
-## [1] "lipids"   "microbes" "meta"
-```
-
-
 ## Usage Examples
-
-Examples on determining the common core microbiota for the given profiling data set, following [Salonen et al. CMI 18(s4):16-20, 2012](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract), Clinical Microbiology and Infection 18:16–20. 
 
 ### Diversity estimation
 
 
 ```r
-# This will return a samples x indices table with 
-# richness, evenness and diversity collected in one table
-div.table <- estimate.diversity(oligo.data, diversity.index = "shannon")  
+# Determine detection threshold as the top 80 percent quantile
+# of the data
+det.th <- quantile(oligo.data, 0.8)
 
-# Estimate richness, evenness, and diversity separately
-di <- diversity(oligo.data, diversity.index = "shannon")
-ri <- richness(oligo.data, det.th = NULL)
-ev <- evenness(oligo.data, det.th = NULL)
+# Visualize the detection threshold (at log10 scale for clarity)
+plot(density(log10(oligo.data))); abline(v = log10(det.th), main = "Detection threshold", xlab = "Abundance (Log10)", ylab = "Frequency")
+```
+
+![plot of chunk diversity-example](figure/diversity-example.png) 
+
+```r
+# Calculate richness. 
+# This indicates how many oligos are present in each sample
+# (exceed the detection threshold)
+ri <- colSums(oligo.data > det.th)
+
+# Diversity using the vegan package
+# NOTE: data needs to be in absolute scale, not logarithmic
+di <- vegan::diversity(t(oligo.data), index = "shannon")
+
+# Pielou's evenness is S/ln(R) w.r.t. given detection threshold
+oligo.data2 <- oligo.data - det.th
+S <- vegan::diversity(t(oligo.data2), index = "shannon")
+R <- colSums(oligo.data2 > 0)
+ev <- Sd/log(Rd)
+```
+
+```
+## Error: object 'Sd' not found
 ```
 
 ### Phylogeny
@@ -159,46 +219,26 @@ Map phylotypes between hierarchy levels:
 
 ```r
 phylogeny.info <- GetPhylogeny("HITChip")
-m <- levelmap(phylotypes = NULL, level.from = "species", level.to = "L2", phylogeny.info = phylogeny.info)
+m <- levelmap(phylotypes = NULL, 
+              level.from = "species", 
+	      level.to = "L2", 
+	      phylogeny.info = phylogeny.info)
 ```
 
 
 ### Diversity boxplot
 
-Produce diversity boxplot for your selected sample groups. NOTE: colors and sample groups are specified before function call. To tune y-axis limits, use 'ylim' argument. For other options, see help(diversity.boxplot).
+Diversity boxplot for selected samples:
 
 
 ```r
-# Define sample groups 
-# Alternatively, read metadata from file. See
-# https://github.com/microbiome/microbiome/wiki/reading for details
-# sample.groups <- metadata$group
-sample.groups <- list()
-sample.groups$Group1 <- colnames(oligo.data)[1:3]
-sample.groups$Group2 <- colnames(oligo.data)[4:6]
-
-# Plot diversity boxplots
-res <- diversity.boxplot(oligo.data, sample.groups, diversity.index = "shannon")
+group <- metadata$group
+names(group) <- metadata$sampleID
+my.samples <- names(group)
+boxplot(di[my.samples]  ~ group[my.samples], las = 1)
 ```
 
 ![plot of chunk diversity-example2](figure/diversity-example2.png) 
-
-```r
-# The function also returns the sample groups and diversity values 
-# used for the plot
-sample.groups <- res$sample.groups
-div.table <- res$diversity.table 
-```
-
-Writing diversity table into file:
-
-
-```r
-output.dir <- "./"
-write.table(div.table, file = "DiversityTable.tab", sep = "\t")
-```
-
-
 
 
 
