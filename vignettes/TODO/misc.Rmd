@@ -1,0 +1,9 @@
+Writing diversity table into file:
+
+```{r diversity-example4, warning=FALSE, eval = FALSE}
+output.dir <- "./"
+write.table(div.table, file = "DiversityTable.tab", sep = "\t")
+```
+
+
+

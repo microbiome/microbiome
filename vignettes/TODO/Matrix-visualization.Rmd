@@ -1,0 +1,21 @@
+### Matrix visualization
+
+Matrix heatmaps:
+
+```{r matvisu-example, fig.width=8, fig.height=8}
+library(microbiome)
+
+data.directory <- system.file("extdata", package = "microbiome")
+
+genus.matrix.log10.simulated <- read.profiling(level = "L2", method = "frpa", 
+			              data.dir = data.directory, log10 = TRUE)  
+
+tmp <- PlotMatrix(genus.matrix.log10.simulated, type = "twoway")
+```
+
+
+Project high-dimensional data on two-dimensional plane by various methods 
+including PCA, MDS, Sammons mapping etc. (for visualization purposes):
+
+* project.data
+

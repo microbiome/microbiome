@@ -1,0 +1,61 @@
+# NetResponse examples
+
+Examples on running NetResponse algorithm and visualizing the
+results. The algorithm combines network and functional information to
+detect coherent subnetworks that reveal distinct activation modes
+across conditions. Kindly cite [this
+article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short).
+
+```{r NetResponse1, warning=FALSE, message=FALSE}
+library(netresponse)
+
+# Generate simulated data
+res <- generate.toydata()
+D <- res$data
+component.means <- res$means
+component.sds   <- res$sds
+sample2comp     <- res$sample2comp
+
+# Fit NetResponse model
+set.seed(4243)
+res <- detect.responses(D, mixture.method = "vdp", pca.basis = TRUE)
+
+# List subnets (each is a list of nodes)
+subnet.id <- names(get.subnets(res))[[1]]
+```
+
+### PCA visualization
+
+```{r NetResponse2, fig.width=8, fig.height=8, warning=FALSE, message=FALSE}
+vis <- plot.responses(res, subnet.id, plot.mode = "pca")
+```
+
+### Network visualization
+
+```{r NetResponse3, fig.width=8, fig.height=8, warning=FALSE, message=FALSE}
+vis <- plot.responses(res, subnet.id, plot.mode = "network")
+```
+
+### Heatmap visualization
+
+```{r NetResponse4, fig.width=8, fig.height=8, warning=FALSE, message=FALSE}
+vis <- plot.responses(res, subnet.id, plot.mode = "heatmap")
+```
+
+### Boxplot visualization
+
+```{r NetResponse5, fig.width=8, fig.height=8, warning=FALSE, message=FALSE}
+vis <- plot.responses(res, subnet.id, plot.mode = "boxplot.data")
+```
+
+### Barplot visualization
+
+```{r NetResponse6, fig.width=8, fig.height=8, warning=FALSE, message=FALSE}
+vis <- plot.responses(res, subnet.id, plot.mode = "response.barplot")
+```
+
+### Color scale
+
+```{r NetResponse7, fig.width=8, fig.height=8, warning=FALSE, message=FALSE}
+plot.scale(vis$breaks, vis$palette, two.sided = TRUE)
+```

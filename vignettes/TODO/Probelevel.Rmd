@@ -1,0 +1,39 @@
+### Probe summarization
+
+Summarize (preprocessed) oligo-level data into phylotype level; examples with simulated data; see [read.profiling](reading) to use your own data.
+
+```{r probelevel-ex}
+library(microbiome)
+data.directory <- system.file("extdata", package = "microbiome")
+
+# Read oligo-level data (here: simulated example data)
+oligo.matrix.nolog.simulated <- read.profiling(level = "oligo", 
+                                   data.dir = data.directory, log10 = FALSE)
+
+# Read phylogeny map
+# NOTE: use phylogeny.filtered for species/L1/L2 summarization
+# Load phylogeny.info from output directory
+phylogeny.info <- GetPhylogeny("HITChip", "filtered")
+
+# Summarize oligos into higher level phylotypes
+dat <- summarize.probesets(phylogeny.info, 
+                 log10(oligo.matrix.nolog.simulated), 
+                 "frpa", "species", verbose = TRUE, 
+                  phylotype.rm.list("HITChip"))
+```
+
+
+### Retrieve probe-level data
+
+Get oligos for each probeset:
+
+```{r probelevel-ex2}
+sets <- retrieve.probesets(phylogeny.info, level = "species", name = NULL)
+```
+
+Get probeset data matrix/matrices:
+
+```{r probelevel-ex3}
+set <- get.probeset("Actinomyces naeslundii", "species", 
+             phylogeny.info, oligo.matrix.nolog.simulated, log10 = TRUE)
+```

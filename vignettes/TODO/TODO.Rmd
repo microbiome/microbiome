@@ -1,0 +1,422 @@
+
+### Phylotype-specific diversity tables
+
+Retrieve phylotypes x samples table which presents diversity within
+each higher-level taxonomic category for each sample.
+
+```{r diversity-example5}
+divtab <- diversity.table(oligo.data, phylogeny.info, level.from = "L1", level.to = "oligo", diversity.index = "shannon") 
+```
+
+### Estimating relative abundancies
+
+```{r diversity-example6}
+# NOTE: estimate relative abundancies for phylotypes based on 
+# absolute-scale data for diversity calculations (no logarithm!)
+rel <- relative.abundance(oligo.data, det.th = NULL)
+```
+
+
+### Core microbiota
+
+Determine common core microbiota, following the blanket analysis of [Salonen et al. CMI 18(s4):16-20, 2012](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
+ 
+
+```{r core-example, message=FALSE, warning=FALSE}
+mydata <- t(peerj32$microbes)
+core <- createCore(mydata)
+```
+
+Visualizing core microbiota:
+
+```{r core-example2, fig.width=8, fig.heigth=8}
+# Core 2D visualization
+tmp <- Core2D(core)
+
+# Core heatmap
+tmp <- core_heatmap(mydata)
+```
+
+
+### Cross-correlation example
+
+```{r heatmap}
+dat1 <- peerj32$lipids # Lipids (44 samples x 389 lipids)
+dat2 <- peerj32$microbes # Microbiota (44 samples x 130 bacteria)
+meta <- peerj32$meta
+
+correlations <- cross.correlate(dat1, dat2, 
+                        method = "bicor", 
+			mode = "matrix", 
+                        n.signif = 1, 
+			p.adj.threshold = 0.05, 
+                        p.adj.method = "BH")
+
+
+correlation.table <- cmat2table(correlations)
+head(correlation.table)
+
+```
+
+
+### Prevalence of taxonomic groups
+
+```{r prevalence}
+# List prevalence measure for each group using detection threshold of 2
+# Sort the taxa by prevalence
+head(prevalence(peerj32$microbes, 2, sort = TRUE))
+
+# Just list the names of taxa that are present over abundance threshold 2
+# in over 20 percent of the samples:
+prevalent.taxa <- list_prevalent_groups(peerj32$microbes, 2, 0.2)
+```
+
+
+### Multivariate (infinite) Gaussian mixture model
+
+Fit and visualize Variational Dirichlet process multivariate infinite Gaussian mixture. This variational version has been partially written in C and it is relatively fast. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short). Note that the implementation uses diagonal covariances on the Gaussian modes. The C code was partially derived from [Honkela et al. 2008](http://www.sciencedirect.com/science/article/pii/S0925231208000659).
+
+```{r LCA2, fig.width=8, fig.height=8, warning=FALSE, message=FALSE}
+library(netresponse)
+
+# Generate simulated data
+res <- generate.toydata(Dim = 2)
+D <- res$data
+component.means <- res$means
+component.sds   <- res$sds
+
+# Fit the mixture
+m <- mixture.model(D, mixture.method = "vdp", pca.basis = FALSE)
+
+# Plot the data, and indicate estimated modes with colors. 
+# If data dimensionality exceeds 2, 
+# the results are visualized on PCA projection
+# (with pca.basis = TRUE the data is projected on PCA coordinates;
+# without loss of information. This trick can help to avoid overlearning 
+# as the variational mixture relies
+# on diagonal covariance matrices, so the ellipsoidal axes of the 
+# Gaussian modes are parallel to the coordinate axes.)
+p <- PlotMixtureMultivariate(D, means = m$mu, sds = m$sd, ws = m$w, modes = apply(m$qofz,1,which.max))
+```
+
+### Univariate (infinite) Gaussian mixture model
+
+Fit and visualize Variational Dirichlet process univariate infinite Gaussian mixture. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short).
+
+```{r LCA1, fig.width=8, fig.height=8, warning=FALSE, message=FALSE}
+library(netresponse)
+
+# Generate simulated bimodal univariate data
+x <- c(rnorm(200), rnorm(200, mean = 5))
+
+# Variational Dirichlet process univariate Gaussian mixture
+m <- mixture.model(x, mixture.method = "vdp", max.responses = 10) 
+
+# Plot the data and estimated modes
+p <- PlotMixtureUnivariate(x, means = m$mu, sds = m$sd, ws = m$w, binwidth = 0.1, qofz = m$qofz)
+
+print(p)
+```
+
+
+### PCA visualization with densities
+
+Visualize deviation of all bacteria from their population mean (smaller: blue; higher: red):
+
+```{r density, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.keep='last'}
+# Project data on 2D display with PCA (visualize subjects based on 20 random features)
+set.seed(423542)
+proj <- microbiome::project.data(dat1[, sample(ncol(dat1), 10)], type = "PCA")
+
+# Produce the plot
+p <- densityplot(proj)
+
+# Visualize
+print(p)
+```
+
+Same with ggplot2 - the above example gives a shortcut for the following:
+
+```{r density2, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.keep='last'}
+
+# Arrange projected data onto a data frame
+coms <- intersect(rownames(proj), rownames(meta))
+df <- as.data.frame(cbind(proj[coms,], meta[coms,]))
+names(df) <- c("x", "y", colnames(meta))
+df$time <- factor(df$time)
+
+# Determine bandwidth for density estimation
+library(MASS)
+bw <- c(bandwidth.nrd(df[["x"]]), bandwidth.nrd(df[["y"]]))
+
+# Construct the figure with ggplot2
+library(ggplot2)
+theme_set(theme_bw(15))
+p <- ggplot(df) 
+
+# Add densities
+p <- p + stat_density2d(aes(x = x, y = y, fill=..density..), geom="raster", stat_params = list(h = bw, contour = F), geom_params = list()) 
+p <- p + scale_fill_gradient(low="white", high="black") 
+
+# Add points
+p <- p + geom_point(aes(x = x, y = y, color = subject), size = 1.5) 
+
+# Add labels
+p <- p + xlab("PCA 1") + ylab("PCA 2") + ggtitle("Density plot")
+p <- p + scale_colour_discrete(name = "Subject")
+
+# Plot the figure
+print(p)
+```
+
+
+### Data projections
+
+Project high-dimensional data on two-dimensional plane by various methods including PCA, MDS, Sammons mapping etc. (for visualization purposes; see help(project.data) for details):  
+
+```{r visu-example, message=FALSE, message=FALSE, fig.height=8, fig.width=8}
+library(microbiome, quietly = TRUE)
+data.directory <- system.file("extdata", package = "microbiome")
+genus.matrix.log10.simulated <- read.profiling(level = "L2", method = "frpa", 
+			              data.dir = data.directory, log10 = TRUE)
+
+# Note: transpose the data matrix into samples x features
+proj <- project.data(t(genus.matrix.log10.simulated), type = "MDS.nonmetric")
+
+# Plot the projection
+library(ggplot2); 
+theme_set(theme_bw(15))
+ggplot(aes(x = Comp.1, y = Comp.2), data = proj) + geom_point()
+```
+
+Plot the projection with sample names:
+
+```{r visu-example2, message=FALSE, message=FALSE, fig.height=8, fig.width=8}
+ggplot(aes(x = Comp.1, y = Comp.2, label = rownames(proj)), data = proj) + geom_text()
+```
+
+
+### Plotting trends
+
+Plot subject age versus phylotype abundance with smoothed confidence intervals:
+
+```{r visu-example3, fig.width=8, fig.height=8, message=FALSE, warning=FALSE}
+library(microbiome)
+N <- 250
+df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N))
+p <- vwReg(hitchip~age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
+p <- p + xlab("Age (y)") + ylab("HITChip Signal") 
+print(p)
+```
+
+### Visualization utilities
+
+* theme_bottom_border: ggplot2 theme
+
+
+## Hierarchical clustering: reproduce profiling script plot 
+
+Examples below with simulated data; see [read.profiling](reading) for how to read data from your own profiling output directory.
+
+```{r clustering-example, message=FALSE, warning=FALSE, fig.width=8, fig.heigth=8}
+# Read oligo-level data
+mydata <- read.profiling(level = "oligo", data.dir = data.directory, log10 = TRUE)  
+
+# Hierarchical clustering plot (write into png file)
+metric <- "pearson" # note: use log10 with Pearson!
+hc <- calculate.hclust(mydata, method = "complete", metric = metric)
+plot(hc, hang=-1, main = paste("Hierarchical clustering (", metric, ")", sep = ""), las = 1, xlab = "")
+```
+
+## Cluster significance testing
+
+Cluster significance can be assessed with bootstrap resampling of the
+original data. Here, perform R = 1000 bootstrap iterations and return
+significant classes with at least 2 members and correlation higher
+than specified. Only significant clusters with the given p-value
+threshold are returned; p-values are corrected for multiple testing
+with Benjamini-Hochberg method.
+
+```{r clustering-example3, message=FALSE, warning=FALSE}
+significant.clusters <- hclust.significance(t(mydata), R = 1e3, min.size = 2, corr.th = 0.5, metric = "pearson", pvalue.threshold = 0.05) 
+```
+
+
+## Picking all groups that are higher than threshold (including nested groups)
+
+To retrieve all clusters that exceed a given threshold, including nested groups, use:
+
+```{r clustering-example2, message=FALSE, warning=FALSE, eval=FALSE}
+all.clusters <- get.hclust.groups(mydata, corr.th = 0.8, recursive = TRUE, min.size = 2, metric = "pearson") 
+```
+
+## Bimodality quantification
+
+Calculate coefficients of bimodality (used in [Shade et
+al.](http://mbio.asm.org/content/5/4/e01371-14)) for taxa in an
+example data set, and plot the taxa with the lowest and highest score:
+
+```{r bimodality, message=FALSE, warning=FALSE}
+library(microbiome)
+data(peerj32); 
+mydata <- t(peerj32$microbes)
+bs <- apply(mydata, 1, coefficient.of.bimodality)
+unimodal <- names(which.min(bs))
+bimodal <- names(which.max(bs))
+par(mfrow = c(1,2))
+plot(density(mydata[unimodal,]), main = unimodal)
+plot(density(mydata[bimodal,]), main = bimodal)
+```
+
+## Save clustering image to a file
+
+Save in PDF:
+
+```{r clustering-saving, message=FALSE, warning=FALSE, eval=FALSE}
+pdf("myplot.pdf", width = 7, height = 7 * length(hc$order)/20)
+plot(hc, hang=-1, main = "Hierarchical clustering")
+dev.off()
+```
+
+Save in TIFF:
+
+```{r clustering-saving2, message=FALSE, warning=FALSE, eval=FALSE}
+tiff("myplot.tif", width = 480, height = 480 * length(hc$order)/20)
+plot(hc, hang=-1, main = "Hierarchical clustering")
+dev.off()
+```
+
+To save in Microsoft EMF format, try the following. If you find a
+way to tune figure width for emf files kindly let the admins know.
+
+```{r clustering-saving3, message=FALSE, warning=FALSE, eval=FALSE}
+plot(hc, hang=-1, main = "Hierarchical clustering")
+savePlot("myplot.emf", type = "emf")
+dev.off()
+```
+
+
+
+### Two-way matrix heatmap
+
+Visualize deviation of all bacteria from their population mean (smaller: blue; higher: red):
+
+```{r heatmapexample, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.keep='last'}
+dat <- t(scale(dat2)) # Shift mean to zero for each bacteria
+hm <- heatmap(dat) # Find visually appealing order for rows and columns
+tmp <- microbiome::PlotMatrix(dat[hm$rowInd, hm$colInd], type = "twoway", mar = c(5, 12, 1, 1), cex.axis = 0.5)
+```
+
+### Cross-correlating data sets
+
+Cross-correlate columns of two data sets. This will return correlations, raw p-values, and q-value estimates (not strictly proper as the comparisons are not independent). Here we use robust biweight midcorrelation ('bicor') from the [WGCNA package](http://labs.genetics.ucla.edu/horvath/CoexpressionNetwork/Rpackages/WGCNA/). Keep only those elements that have at least only one significant correlation (n.signif):
+
+```{r heatmap-crosscorrelate, message=FALSE, warning=FALSE, fig.keep='none'}
+correlations <- microbiome::cross.correlate(dat1, dat2, 
+	     				    method = "bicor", mode = "matrix", 
+					    n.signif = 1, p.adj.threshold = 0.05, 
+					    p.adj.method = "qvalue")
+```
+
+Arrange the results in handy table format: 
+
+```{r correlation-table2, message=FALSE, warning=FALSE}
+correlation.table <- microbiome::cmat2table(correlations)
+head(correlation.table)
+```
+
+### Correlation heatmaps
+
+Rearrange the data and plot the heatmap and mark significant correlations with stars to reproduce microbiota-lipidome heatmap from [this article](https://peerj.com/articles/32/): 
+
+```{r heatmap-example-stars2, message=FALSE, warning=FALSE, fig.keep='none'}
+p <- microbiome::correlation.heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
+```
+```{r heatmap-example-stars3, fig.width=12, fig.height=8, message=FALSE, warning=FALSE}
+print(p)
+```
+
+
+### Heatmaps with ggplot2
+
+The above examples provide handy shortcuts for heatmap visualization. You can also directly modify the ggplot2 routines. This time, let us set q-value threshold also for cell coloring: 
+
+```{r heatmap-example-stars, message=FALSE, warning=FALSE, fig.keep='none'}
+# Order the rows and columns with levels argument if needed:
+correlation.table$X1 <- factor(correlation.table$X1, levels = unique(as.character(correlation.table$X1)))
+correlation.table$X2 <- factor(correlation.table$X2, levels = unique(as.character(correlation.table$X2)))
+
+# Set black-and-white theme
+library(ggplot2)
+theme_set(theme_bw())
+
+# Pick only the correlations with q<0.05
+# Note: this will leave other cells empty
+subtable <- subset(correlation.table, p.adj < 0.05)
+
+# Arrange the figure
+p <- ggplot(subtable, aes(x = X1, y = X2, fill = Correlation))
+p <- p + geom_tile() 
+p <- p + scale_fill_gradientn("Correlation", 
+       	 		       breaks = seq(from = -1, to = 1, by = 0.2), 
+			       colours = c("darkblue", "blue", "white", "red", "darkred"), 
+			       limits = c(-1,1)) 
+p <- p + opts(axis.text.x=theme_text(angle = 90)) + xlab("") + ylab("")
+
+# Mark the most significant cells with stars
+p <- p + geom_text(data = subset(correlation.table, p.adj < 0.02), 
+       	 	   aes(x = X1, y = X2, label = "+"), col = "white", size = 5)
+```
+
+```{r heatmap-example-starsB, fig.width=12, fig.height=8, message=FALSE, warning=FALSE}
+print(p)
+```
+
+### Heatmap with text
+
+For detailed information, might be handy to print the actual values on
+top of the heatmap:
+
+```{r heatmap-example-text, message=FALSE, warning=FALSE, fig.width=15, fig.height=10}
+correlations <- microbiome::cross.correlate(dat1, dat2, 
+	     				    method = "bicor", 
+					    mode = "table", 
+					    n.signif = 1, 
+					    p.adj.threshold = 0.01, 
+					    p.adj.method = "qvalue")
+
+theme_set(theme_bw(20))
+df <- correlations
+df$X1 <- factor(df$X1)
+df$X2 <- factor(df$X2)
+p <- ggplot(df, aes(X1, X2, group=X2)) 
+p <- p + geom_tile(aes(fill = Correlation)) 
+p <- p + geom_text(aes(fill = df$Correlation, label = round(df$Correlation, 1))) 
+#p <- p + scale_fill_gradient(low = "white", high = "red") 
+p <- p + scale_fill_gradientn("Correlation", breaks = seq(from = -1, to = 1,  by = 0.1), colours = c("blue", "white", "red"), limits = c(-1, 1))
+p <- p + theme(axis.text.x = element_text(angle = 60, vjust = 0.5)) + xlab("") + ylab("")
+print(p)
+```
+
+
+### Oligo heatmap
+
+This reproduces the oligo-level heatmap from profiling script. If there are problems, try to tune ppcm, figureratio and fontsize (see help(add.heatmap) for details)
+
+```{r oligoheatmap, message=FALSE, warning=FALSE}
+library(microbiome)
+
+# Load Phylogeny
+phylogeny.info <- GetPhylogeny("HITChip")
+
+# Load oligo-level data
+
+# Replace data.directory here with your own profiling script output data directory
+data.directory <- system.file("extdata", package = "microbiome")
+
+oligodata <- read.profiling(level = "oligo", log10 = FALSE, data.dir = data.directory)
+
+# Produce the plot and save it to the working directory
+hc.params <- add.heatmap(log10(oligodata), output.dir = ".", phylogeny.info = phylogeny.info)
+
+```
