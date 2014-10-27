@@ -68,7 +68,7 @@ cite [this
 article](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)). 
 
 
-```{r data, eval=TRUE}
+```{r data, eval=TRUE, message=FALSE, warning=FALSE}
 # Define data path (you can replace data.directory with your own path)
 data.directory <- system.file("extdata", package = "microbiome")
 
@@ -96,7 +96,7 @@ phylogeny.info <- read.profiling(level = "phylogeny.full",
 
 An easy way to provide sample metadata is to create a tab-separated metadata file. You can create the file in Excel and export it to tab-separated csv format. The standard (and self-explanatory) field names include 'sampleID', 'time', 'subjectID', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). Read the metadata with:
 
-```{r meta, eval=TRUE}
+```{r meta, eval=TRUE, message=FALSE, warning=FALSE}
 # Read simulated example metadata
 library(gdata)
 metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
@@ -109,7 +109,7 @@ rownames(metadata) <- metadata$sampleID
 
 ### Diversity estimation
 
-```{r diversity-example, warning=FALSE}
+```{r diversity-example, warning=FALSE, message=FALSE}
 # Determine detection threshold as the top 80 percent quantile
 # of the data
 det.th <- quantile(oligo.data, 0.8)
@@ -150,7 +150,7 @@ m <- levelmap(phylotypes = NULL,
 
 Diversity boxplot for selected samples:
 
-```{r diversity-example2, warning=FALSE}
+```{r diversity-example2, warning=FALSE, message=FALSE}
 group <- metadata$group
 names(group) <- metadata$sampleID
 my.samples <- names(group)
