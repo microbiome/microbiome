@@ -1,7 +1,7 @@
 ---
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
-date: "2014-10-27"
+date: "2014-10-29"
 output:
   html_document:
     toc: true
@@ -112,32 +112,15 @@ genus.data <- read.profiling(level = level,
 	     		       method = method, 
               		       data.dir = data.directory, 
 	      	       	       log10 = TRUE)  
-```
 
-```
-## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/L2-frpa.tab
-## Logarithmizing the data
-```
-
-```r
 # Read HITChip probe level data (absolute values - no log10)
 oligo.data <- read.profiling(level = "oligo", 
                              data.dir = data.directory, 
 			     log10 = FALSE)  
-```
 
-```
-## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/oligoprofile.tab
-```
-
-```r
 # Probe-taxon mapping table
 phylogeny.info <- read.profiling(level = "phylogeny.full", 
                            	 data.dir = data.directory)
-```
-
-```
-## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/phylogeny.full.tab
 ```
 
 
@@ -150,25 +133,6 @@ An easy way to provide sample metadata is to create a tab-separated metadata fil
 ```r
 # Read simulated example metadata
 library(gdata)
-```
-
-```
-## gdata: read.xls support for 'XLS' (Excel 97-2004) files ENABLED.
-## 
-## gdata: read.xls support for 'XLSX' (Excel 2007+) files ENABLED.
-## 
-## Attaching package: 'gdata'
-## 
-## The following object is masked from 'package:stats':
-## 
-##     nobs
-## 
-## The following object is masked from 'package:utils':
-## 
-##     object.size
-```
-
-```r
 metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
 metadata <- read.xls(metadata.file, as.is = TRUE)
 rownames(metadata) <- metadata$sampleID
@@ -240,6 +204,128 @@ boxplot(di[my.samples]  ~ group[my.samples], las = 1)
 
 ![plot of chunk diversity-example2](figure/diversity-example2.png) 
 
+### Estimating relative abundancies
+
+Estimate relative abundance of the taxa in each sample. Note: the
+input data set needs to be in absolute scale (not logarithmic).
+
+
+```r
+rel <- relative.abundance(oligo.data, det.th = NULL)
+```
+
+```
+## Warning: Applying detection threshold at 0.8 quantile: 232.026771597465
+```
+
+
+### Core microbiota
+
+Determine common core microbiota, following the [blanket
+analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
+ 
+
+```r
+core <- createCore(t(peerj32$microbes))
+```
+
+Visualizing core microbiota:
+
+
+```r
+# Core 2D visualization
+tmp <- Core2D(core)
+```
+
+![plot of chunk core-example2](figure/core-example21.png) 
+
+```r
+# Core heatmap
+tmp <- core_heatmap(t(peerj32$microbes))
+```
+
+![plot of chunk core-example2](figure/core-example22.png) 
+
+### Cross-correlation example
+
+
+```r
+dat1 <- peerj32$lipids # Lipids (44 samples x 389 lipids)
+dat2 <- peerj32$microbes # Microbiota (44 samples x 130 bacteria)
+meta <- peerj32$meta
+
+correlations <- cross.correlate(dat1, dat2, 
+                        method = "bicor", 
+			mode = "matrix", 
+                        n.signif = 1, 
+			p.adj.threshold = 0.05, 
+                        p.adj.method = "BH")
+```
+
+```
+## Warning: longer object length is not a multiple of shorter object length
+```
+
+```r
+correlation.table <- cmat2table(correlations)
+head(correlation.table)
+```
+
+```
+##              X1                               X2 Correlation    p.adj
+## 1100 TG(54:5).2      Ruminococcus gnavus et rel.      0.7208 0.001738
+## 1087   TG(52:5)      Ruminococcus gnavus et rel.      0.6996 0.003193
+## 1082   TG(50:4)      Ruminococcus gnavus et rel.      0.6852 0.003801
+## 656    PC(40:3)                     Helicobacter     -0.6838 0.003801
+## 479    PC(40:3) Eubacterium cylindroides et rel.     -0.6771 0.003801
+## 1099 TG(54:4).2      Ruminococcus gnavus et rel.      0.6768 0.003801
+```
+
+### Prevalence of taxonomic groups
+
+
+```r
+# List prevalence measure for each group using detection threshold of 2
+# Sort the taxa by prevalence
+head(prevalence(peerj32$microbes, 2, sort = TRUE))
+```
+
+```
+## Error: could not find function "prevalence"
+```
+
+```r
+# Just list the names of taxa that are present over abundance threshold 2
+# in over 20 percent of the samples:
+prevalent.taxa <- list_prevalent_groups(peerj32$microbes, 2, 0.2)
+```
+
+```
+## Error: could not find function "list_prevalent_groups"
+```
+
+### Plotting trends
+
+Plot subject age versus phylotype abundance with smoothed confidence intervals:
+
+
+```r
+library(microbiome)
+N <- 250
+df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N))
+p <- vwReg(hitchip~age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
+p <- p + xlab("Age (y)") + ylab("HITChip Signal") 
+```
+
+```
+## Error: could not find function "xlab"
+```
+
+```r
+print(p)
+```
+
+![plot of chunk visu-example3](figure/visu-example3.png) 
 
 
 ### Licensing and Citations
@@ -335,15 +421,15 @@ sessionInfo()
 ## [13] formatR_1.0         Formula_1.1-2       ggplot2_1.0.0      
 ## [16] grid_3.1.1          gtable_0.1.2        gtools_3.4.1       
 ## [19] Hmisc_3.14-5        igraph_0.7.1        impute_1.38.1      
-## [22] iterators_1.0.7     latticeExtra_0.6-26 MASS_7.3-34        
-## [25] matrixStats_0.10.0  minet_3.20.1        mixOmics_5.0-3     
-## [28] munsell_0.4.2       nnet_7.3-8          parallel_3.1.1     
-## [31] pheatmap_0.7.7      plyr_1.8.1          proto_0.3-10       
-## [34] RColorBrewer_1.0-5  Rcpp_0.11.2         reshape2_1.4       
-## [37] RGCCA_2.0           rgl_0.94.1131       rjson_0.2.14       
-## [40] R.methodsS3_1.6.1   rpart_4.1-8         scales_0.2.4       
-## [43] splines_3.1.1       stringr_0.6.2       survival_2.37-7    
-## [46] tools_3.1.1         WGCNA_1.41-1
+## [22] iterators_1.0.7     labeling_0.3        latticeExtra_0.6-26
+## [25] MASS_7.3-34         matrixStats_0.10.0  minet_3.20.1       
+## [28] mixOmics_5.0-3      munsell_0.4.2       nnet_7.3-8         
+## [31] parallel_3.1.1      pheatmap_0.7.7      plyr_1.8.1         
+## [34] proto_0.3-10        RColorBrewer_1.0-5  Rcpp_0.11.2        
+## [37] reshape2_1.4        RGCCA_2.0           rgl_0.94.1131      
+## [40] rjson_0.2.14        R.methodsS3_1.6.1   rpart_4.1-8        
+## [43] scales_0.2.4        splines_3.1.1       stringr_0.6.2      
+## [46] survival_2.37-7     tools_3.1.1         WGCNA_1.41-1
 ```
 
 

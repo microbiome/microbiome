@@ -1,76 +1,4 @@
 
-### Phylotype-specific diversity tables
-
-Retrieve phylotypes x samples table which presents diversity within
-each higher-level taxonomic category for each sample.
-
-```{r diversity-example5}
-divtab <- diversity.table(oligo.data, phylogeny.info, level.from = "L1", level.to = "oligo", diversity.index = "shannon") 
-```
-
-### Estimating relative abundancies
-
-```{r diversity-example6}
-# NOTE: estimate relative abundancies for phylotypes based on 
-# absolute-scale data for diversity calculations (no logarithm!)
-rel <- relative.abundance(oligo.data, det.th = NULL)
-```
-
-
-### Core microbiota
-
-Determine common core microbiota, following the blanket analysis of [Salonen et al. CMI 18(s4):16-20, 2012](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
- 
-
-```{r core-example, message=FALSE, warning=FALSE}
-mydata <- t(peerj32$microbes)
-core <- createCore(mydata)
-```
-
-Visualizing core microbiota:
-
-```{r core-example2, fig.width=8, fig.heigth=8}
-# Core 2D visualization
-tmp <- Core2D(core)
-
-# Core heatmap
-tmp <- core_heatmap(mydata)
-```
-
-
-### Cross-correlation example
-
-```{r heatmap}
-dat1 <- peerj32$lipids # Lipids (44 samples x 389 lipids)
-dat2 <- peerj32$microbes # Microbiota (44 samples x 130 bacteria)
-meta <- peerj32$meta
-
-correlations <- cross.correlate(dat1, dat2, 
-                        method = "bicor", 
-			mode = "matrix", 
-                        n.signif = 1, 
-			p.adj.threshold = 0.05, 
-                        p.adj.method = "BH")
-
-
-correlation.table <- cmat2table(correlations)
-head(correlation.table)
-
-```
-
-
-### Prevalence of taxonomic groups
-
-```{r prevalence}
-# List prevalence measure for each group using detection threshold of 2
-# Sort the taxa by prevalence
-head(prevalence(peerj32$microbes, 2, sort = TRUE))
-
-# Just list the names of taxa that are present over abundance threshold 2
-# in over 20 percent of the samples:
-prevalent.taxa <- list_prevalent_groups(peerj32$microbes, 2, 0.2)
-```
-
 
 ### Multivariate (infinite) Gaussian mixture model
 
@@ -196,24 +124,6 @@ ggplot(aes(x = Comp.1, y = Comp.2, label = rownames(proj)), data = proj) + geom_
 ```
 
 
-### Plotting trends
-
-Plot subject age versus phylotype abundance with smoothed confidence intervals:
-
-```{r visu-example3, fig.width=8, fig.height=8, message=FALSE, warning=FALSE}
-library(microbiome)
-N <- 250
-df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N))
-p <- vwReg(hitchip~age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
-p <- p + xlab("Age (y)") + ylab("HITChip Signal") 
-print(p)
-```
-
-### Visualization utilities
-
-* theme_bottom_border: ggplot2 theme
-
-
 ## Hierarchical clustering: reproduce profiling script plot 
 
 Examples below with simulated data; see [read.profiling](reading) for how to read data from your own profiling output directory.
@@ -226,19 +136,6 @@ mydata <- read.profiling(level = "oligo", data.dir = data.directory, log10 = TRU
 metric <- "pearson" # note: use log10 with Pearson!
 hc <- calculate.hclust(mydata, method = "complete", metric = metric)
 plot(hc, hang=-1, main = paste("Hierarchical clustering (", metric, ")", sep = ""), las = 1, xlab = "")
-```
-
-## Cluster significance testing
-
-Cluster significance can be assessed with bootstrap resampling of the
-original data. Here, perform R = 1000 bootstrap iterations and return
-significant classes with at least 2 members and correlation higher
-than specified. Only significant clusters with the given p-value
-threshold are returned; p-values are corrected for multiple testing
-with Benjamini-Hochberg method.
-
-```{r clustering-example3, message=FALSE, warning=FALSE}
-significant.clusters <- hclust.significance(t(mydata), R = 1e3, min.size = 2, corr.th = 0.5, metric = "pearson", pvalue.threshold = 0.05) 
 ```
 
 
@@ -267,34 +164,6 @@ par(mfrow = c(1,2))
 plot(density(mydata[unimodal,]), main = unimodal)
 plot(density(mydata[bimodal,]), main = bimodal)
 ```
-
-## Save clustering image to a file
-
-Save in PDF:
-
-```{r clustering-saving, message=FALSE, warning=FALSE, eval=FALSE}
-pdf("myplot.pdf", width = 7, height = 7 * length(hc$order)/20)
-plot(hc, hang=-1, main = "Hierarchical clustering")
-dev.off()
-```
-
-Save in TIFF:
-
-```{r clustering-saving2, message=FALSE, warning=FALSE, eval=FALSE}
-tiff("myplot.tif", width = 480, height = 480 * length(hc$order)/20)
-plot(hc, hang=-1, main = "Hierarchical clustering")
-dev.off()
-```
-
-To save in Microsoft EMF format, try the following. If you find a
-way to tune figure width for emf files kindly let the admins know.
-
-```{r clustering-saving3, message=FALSE, warning=FALSE, eval=FALSE}
-plot(hc, hang=-1, main = "Hierarchical clustering")
-savePlot("myplot.emf", type = "emf")
-dev.off()
-```
-
 
 
 ### Two-way matrix heatmap

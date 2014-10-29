@@ -1,7 +1,7 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.32
+Version: 0.99.33
 Date: 2014-10-21
 Author: Leo Lahti and Jarkko Salojarvi
 Maintainer: Leo Lahti <leo.lahti@iki.fi>

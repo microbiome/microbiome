@@ -157,6 +157,78 @@ my.samples <- names(group)
 boxplot(di[my.samples]  ~ group[my.samples], las = 1)
 ```
 
+### Estimating relative abundancies
+
+Estimate relative abundance of the taxa in each sample. Note: the
+input data set needs to be in absolute scale (not logarithmic).
+
+```{r diversity-example6}
+rel <- relative.abundance(oligo.data, det.th = NULL)
+```
+
+
+### Core microbiota
+
+Determine common core microbiota, following the [blanket
+analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
+ 
+```{r core-example, message=FALSE, warning=FALSE}
+core <- createCore(t(peerj32$microbes))
+```
+
+Visualizing core microbiota:
+
+```{r core-example2, fig.width=8, fig.heigth=8}
+# Core 2D visualization
+tmp <- Core2D(core)
+
+# Core heatmap
+tmp <- core_heatmap(t(peerj32$microbes))
+```
+
+### Cross-correlation example
+
+```{r heatmap}
+dat1 <- peerj32$lipids # Lipids (44 samples x 389 lipids)
+dat2 <- peerj32$microbes # Microbiota (44 samples x 130 bacteria)
+meta <- peerj32$meta
+
+correlations <- cross.correlate(dat1, dat2, 
+                        method = "bicor", 
+			mode = "matrix", 
+                        n.signif = 1, 
+			p.adj.threshold = 0.05, 
+                        p.adj.method = "BH")
+
+
+correlation.table <- cmat2table(correlations)
+head(correlation.table)
+```
+
+### Prevalence of taxonomic groups
+
+```{r prevalence}
+# List prevalence measure for each group using detection threshold of 2
+# Sort the taxa by prevalence
+head(prevalence(peerj32$microbes, 2, sort = TRUE))
+
+# Just list the names of taxa that are present over abundance threshold 2
+# in over 20 percent of the samples:
+prevalent.taxa <- list_prevalent_groups(peerj32$microbes, 2, 0.2)
+```
+
+### Plotting trends
+
+Plot subject age versus phylotype abundance with smoothed confidence intervals:
+
+```{r visu-example3, fig.width=8, fig.height=8, message=FALSE, warning=FALSE}
+library(microbiome)
+N <- 250
+df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N))
+p <- vwReg(hitchip~age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
+p <- p + xlab("Age (y)") + ylab("HITChip Signal") 
+print(p)
+```
 
 
 ### Licensing and Citations
