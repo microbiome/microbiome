@@ -1,4 +1,0 @@
-## Diversity analysis
-
-See examples in the [microbiome vignette](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
-
