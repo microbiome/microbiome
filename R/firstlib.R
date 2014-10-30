@@ -1,4 +1,5 @@
 #' @import fastcluster
+#' @import vegan
 .onAttach <- function(lib, pkg) {
     packageStartupMessage("\nmicrobiome R package (microbiome.github.com)
           \n\n\n Copyright (C) 2011-2014 
