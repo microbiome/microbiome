@@ -217,19 +217,6 @@ head(prevalence(peerj32$microbes, 2, sort = TRUE))
 prevalent.taxa <- list_prevalent_groups(peerj32$microbes, 2, 0.2)
 ```
 
-### Plotting trends
-
-Plot subject age versus phylotype abundance with smoothed confidence intervals:
-
-```{r visu-example3, fig.width=8, fig.height=8, message=FALSE, warning=FALSE}
-library(microbiome)
-N <- 250
-df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N))
-p <- vwReg(hitchip~age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
-p <- p + xlab("Age (y)") + ylab("HITChip Signal") 
-print(p)
-```
-
 
 ### ROC analysis
 
