@@ -173,7 +173,7 @@ Visualize deviation of all bacteria from their population mean (smaller: blue; h
 ```{r heatmapexample, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.keep='last'}
 dat <- t(scale(dat2)) # Shift mean to zero for each bacteria
 hm <- heatmap(dat) # Find visually appealing order for rows and columns
-tmp <- microbiome::PlotMatrix(dat[hm$rowInd, hm$colInd], type = "twoway", mar = c(5, 12, 1, 1), cex.axis = 0.5)
+tmp <- netresponse::plot_matrix(dat[hm$rowInd, hm$colInd], type = "twoway", mar = c(5, 12, 1, 1), cex.axis = 0.5)
 ```
 
 ### Cross-correlating data sets

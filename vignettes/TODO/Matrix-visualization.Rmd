@@ -10,7 +10,7 @@ data.directory <- system.file("extdata", package = "microbiome")
 genus.matrix.log10.simulated <- read.profiling(level = "L2", method = "frpa", 
 			              data.dir = data.directory, log10 = TRUE)  
 
-tmp <- PlotMatrix(genus.matrix.log10.simulated, type = "twoway")
+tmp <- netresponse::plot_matrix(genus.matrix.log10.simulated, type = "twoway")
 ```
 
 

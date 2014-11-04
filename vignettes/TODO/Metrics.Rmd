@@ -32,5 +32,5 @@ Matrix mode plus visualization for the similarity matrix:
 ```{r metrics-example3, fig.width=8, fig.height=8, warning=FALSE, message=FALSE}
 cc <- cross.correlate(metadata.simulated, t(l2.log10.simulated), mode = "matrix")
 
-tmp <- PlotMatrix(t(cc$cor), type = "twoway")
+tmp <- netresponse::plot_matrix(t(cc$cor), type = "twoway")
 ```
