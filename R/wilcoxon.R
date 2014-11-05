@@ -2,7 +2,6 @@
 #' specified sample groups. 
 #'             
 #'   @param dat data matrix (features x samples)
-#'   @param fnam data file  (if data matrix not provided) 
 #'   @param G1 Sample group 1 (for comparison) 
 #'   @param G2 Sample group 2 (for comparison)
 #'   @param p.adjust.method p-value correction method for p.adjust function 
@@ -21,17 +20,9 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-check_wilcoxon <- function(dat = NULL, fnam = NULL, G1, G2, 
+check_wilcoxon <- function(dat, G1, G2, 
 	       	  	   p.adjust.method = "BH", 
 			   sort = FALSE, paired = FALSE) {
-    
-    ## Open your tab fnam, Level 1 & 2 Sum_BGsub_Rel.contribution
-    if (is.null(dat) && is.null(fnam)) {
-        stop("Provide dat or fnam in function arguments!")
-    }
-    if (is.null(dat)) {
-        dat <- read.table(fnam, sep = "\t", header = TRUE, row.names = 1)
-    }
     
     samples <- colnames(dat)
     levels <- rownames(dat)
