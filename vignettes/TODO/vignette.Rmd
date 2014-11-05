@@ -38,7 +38,7 @@ biocLite("microbiome")
 ```{r install2, eval=FALSE}
 install.packages("devtools")
 library(devtools)
-install_github("microbiome", "microbiome")
+install_github("microbiome/microbiome")
 ```
 
 ### Loading the package
