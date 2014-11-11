@@ -127,10 +127,10 @@ ri <- colSums(oligo.data > det.th)
 di <- vegan::diversity(t(oligo.data), index = "shannon")
 
 # Pielou's evenness is S/ln(R) w.r.t. given detection threshold
-oligo.data2 <- oligo.data - det.th
+oligo.data2 <- oligo.data - det.th # NOTE: absolute (not log) scale data
 S <- vegan::diversity(t(oligo.data2), index = "shannon")
 R <- colSums(oligo.data2 > 0)
-ev <- Sd/log(Rd)
+ev <- S/log(R)
 ```
 
 ### Phylogeny

@@ -1,7 +1,7 @@
 ---
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
-date: "2014-10-29"
+date: "2014-11-11"
 output:
   html_document:
     toc: true
@@ -40,7 +40,7 @@ biocLite("microbiome")
 ```r
 install.packages("devtools")
 library(devtools)
-install_github("microbiome", "microbiome")
+install_github("microbiome/microbiome")
 ```
 
 ### Loading the package
@@ -51,6 +51,7 @@ library(microbiome)
 ```
 
 ```
+## Loading required package: e1071
 ## Loading required package: vegan
 ## Loading required package: permute
 ## Loading required package: lattice
@@ -58,20 +59,25 @@ library(microbiome)
 ## Loading required package: reshape
 ## 
 ## microbiome R package (microbiome.github.com)
-## Copyright (C) 2011-2014 Leo Lahti and Jarkko Salojarvi <microbiome-admin@googlegroups.com>
-## This program comes with ABSOLUTELY NO WARRANTY.
-## This is free software, and you are welcome to redistribute it under the FreeBSD open source license.
+##           
+## 
+## 
+##  Copyright (C) 2011-2014 
+##           Leo Lahti and Jarkko Salojarvi 
+## 
+##         
+##           <microbiome-admin@googlegroups.com>
 ## 
 ## 
 ## Attaching package: 'microbiome'
 ## 
-## The following object is masked from 'package:vegan':
-## 
-##     diversity
-## 
 ## The following object is masked from 'package:lattice':
 ## 
 ##     densityplot
+## 
+## The following object is masked from 'package:e1071':
+## 
+##     impute
 ```
 
 
@@ -153,7 +159,7 @@ det.th <- quantile(oligo.data, 0.8)
 plot(density(log10(oligo.data))); abline(v = log10(det.th), main = "Detection threshold", xlab = "Abundance (Log10)", ylab = "Frequency")
 ```
 
-![plot of chunk diversity-example](figure/diversity-example.png) 
+![plot of chunk diversity-example](figure/diversity-example-1.png) 
 
 ```r
 # Calculate richness. 
@@ -166,14 +172,10 @@ ri <- colSums(oligo.data > det.th)
 di <- vegan::diversity(t(oligo.data), index = "shannon")
 
 # Pielou's evenness is S/ln(R) w.r.t. given detection threshold
-oligo.data2 <- oligo.data - det.th
+oligo.data2 <- oligo.data - det.th # NOTE: absolute (not log) scale data
 S <- vegan::diversity(t(oligo.data2), index = "shannon")
 R <- colSums(oligo.data2 > 0)
-ev <- Sd/log(Rd)
-```
-
-```
-## Error: object 'Sd' not found
+ev <- S/log(R)
 ```
 
 ### Phylogeny
@@ -202,7 +204,7 @@ my.samples <- names(group)
 boxplot(di[my.samples]  ~ group[my.samples], las = 1)
 ```
 
-![plot of chunk diversity-example2](figure/diversity-example2.png) 
+![plot of chunk diversity-example2](figure/diversity-example2-1.png) 
 
 ### Estimating relative abundancies
 
@@ -215,7 +217,8 @@ rel <- relative.abundance(oligo.data, det.th = NULL)
 ```
 
 ```
-## Warning: Applying detection threshold at 0.8 quantile: 232.026771597465
+## Warning in relative.abundance(oligo.data, det.th = NULL): Applying
+## detection threshold at 0.8 quantile: 232.026771597465
 ```
 
 
@@ -237,14 +240,14 @@ Visualizing core microbiota:
 tmp <- Core2D(core)
 ```
 
-![plot of chunk core-example2](figure/core-example21.png) 
+![plot of chunk core-example2](figure/core-example2-1.png) 
 
 ```r
 # Core heatmap
 tmp <- core_heatmap(t(peerj32$microbes))
 ```
 
-![plot of chunk core-example2](figure/core-example22.png) 
+![plot of chunk core-example2](figure/core-example2-2.png) 
 
 ### Cross-correlation example
 
@@ -263,7 +266,8 @@ correlations <- cross.correlate(dat1, dat2,
 ```
 
 ```
-## Warning: longer object length is not a multiple of shorter object length
+## Warning in as.vector(x) == as.vector(y): longer object length is not a
+## multiple of shorter object length
 ```
 
 ```r
@@ -272,13 +276,13 @@ head(correlation.table)
 ```
 
 ```
-##              X1                               X2 Correlation    p.adj
-## 1100 TG(54:5).2      Ruminococcus gnavus et rel.      0.7208 0.001738
-## 1087   TG(52:5)      Ruminococcus gnavus et rel.      0.6996 0.003193
-## 1082   TG(50:4)      Ruminococcus gnavus et rel.      0.6852 0.003801
-## 656    PC(40:3)                     Helicobacter     -0.6838 0.003801
-## 479    PC(40:3) Eubacterium cylindroides et rel.     -0.6771 0.003801
-## 1099 TG(54:4).2      Ruminococcus gnavus et rel.      0.6768 0.003801
+##              X1                               X2 Correlation       p.adj
+## 1100 TG(54:5).2      Ruminococcus gnavus et rel.   0.7207818 0.001738478
+## 1087   TG(52:5)      Ruminococcus gnavus et rel.   0.6996301 0.003192887
+## 479    PC(40:3) Eubacterium cylindroides et rel.  -0.6771286 0.003800575
+## 656    PC(40:3)                     Helicobacter  -0.6838424 0.003800575
+## 1082   TG(50:4)      Ruminococcus gnavus et rel.   0.6852226 0.003800575
+## 1086 TG(52:4).1      Ruminococcus gnavus et rel.   0.6716223 0.003800575
 ```
 
 ### Prevalence of taxonomic groups
@@ -291,7 +295,12 @@ head(prevalence(peerj32$microbes, 2, sort = TRUE))
 ```
 
 ```
-## Error: could not find function "prevalence"
+##  Subdoligranulum variable at rel.       Streptococcus mitis et rel. 
+##                                 1                                 1 
+## Streptococcus intermedius et rel.       Streptococcus bovis et rel. 
+##                                 1                                 1 
+##    Sporobacter termitidis et rel.        Ruminococcus obeum et rel. 
+##                                 1                                 1
 ```
 
 ```r
@@ -300,32 +309,48 @@ head(prevalence(peerj32$microbes, 2, sort = TRUE))
 prevalent.taxa <- list_prevalent_groups(peerj32$microbes, 2, 0.2)
 ```
 
-```
-## Error: could not find function "list_prevalent_groups"
-```
 
-### Plotting trends
+### ROC analysis
 
-Plot subject age versus phylotype abundance with smoothed confidence intervals:
+A basic example of ROC/AUC analysis with simulated random data.
 
 
 ```r
-library(microbiome)
-N <- 250
-df <- data.frame(age = sort(runif(N, 0, 100)), hitchip = rnorm(N))
-p <- vwReg(hitchip~age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
-p <- p + xlab("Age (y)") + ylab("HITChip Signal") 
+# Define two sample groups for demonstration purpose
+g1 <- sample(colnames(oligo.data), 10)
+g2 <- setdiff(colnames(oligo.data), g1)
+
+# Compare the two groups with t-test
+pvalues <- c()
+for (tax in rownames(oligo.data)) {
+  pvalues[[tax]] <- t.test(oligo.data[tax, g1], oligo.data[tax, g2])$p.value
+}
+
+# Order the taxa based on the p-values
+ordered.results <- names(sort(pvalues))
+
+# Assume there are some known true positives (here just randomly picked for demonstration)
+true.positives <- sample(rownames(oligo.data), 10)
+
+# Overall ROC analysis (this will give the cumulative TPR and FPR along the ordered list)
+res <- roc(ordered.results, true.positives)
+
+# Calculate ROC/AUC value
+auc <- roc.auc(ordered.results, true.positives)
+print(auc)
 ```
 
 ```
-## Error: could not find function "xlab"
+## [1] 0.3334595
 ```
 
 ```r
-print(p)
+# Plot ROC curve
+roc.plot(ordered.results, true.positives, line = TRUE)
 ```
 
-![plot of chunk visu-example3](figure/visu-example3.png) 
+![plot of chunk roc-example](figure/roc-example-1.png) 
+
 
 
 ### Licensing and Citations
@@ -394,7 +419,7 @@ sessionInfo()
 ```
 
 ```
-## R version 3.1.1 (2014-07-10)
+## R version 3.1.2 (2014-10-31)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## 
 ## locale:
@@ -409,27 +434,28 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] gdata_2.13.3       microbiome_0.99.32 reshape_0.8.5     
+## [1] gdata_2.13.3       microbiome_0.99.34 reshape_0.8.5     
 ## [4] vegan_2.0-10       lattice_0.20-29    permute_0.8-3     
-## [7] knitr_1.6         
+## [7] e1071_1.6-4        knitr_1.7         
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] acepack_1.3-3.3     cluster_1.15.3      codetools_0.2-9    
-##  [4] colorspace_1.2-4    df2json_0.0.2       digest_0.6.4       
-##  [7] doParallel_1.0.8    dynamicTreeCut_1.62 evaluate_0.5.5     
-## [10] flashClust_1.01-2   foreach_1.4.2       foreign_0.8-61     
-## [13] formatR_1.0         Formula_1.1-2       ggplot2_1.0.0      
-## [16] grid_3.1.1          gtable_0.1.2        gtools_3.4.1       
-## [19] Hmisc_3.14-5        igraph_0.7.1        impute_1.38.1      
-## [22] iterators_1.0.7     labeling_0.3        latticeExtra_0.6-26
-## [25] MASS_7.3-34         matrixStats_0.10.0  minet_3.20.1       
-## [28] mixOmics_5.0-3      munsell_0.4.2       nnet_7.3-8         
-## [31] parallel_3.1.1      pheatmap_0.7.7      plyr_1.8.1         
-## [34] proto_0.3-10        RColorBrewer_1.0-5  Rcpp_0.11.2        
-## [37] reshape2_1.4        RGCCA_2.0           rgl_0.94.1131      
-## [40] rjson_0.2.14        R.methodsS3_1.6.1   rpart_4.1-8        
-## [43] scales_0.2.4        splines_3.1.1       stringr_0.6.2      
-## [46] survival_2.37-7     tools_3.1.1         WGCNA_1.41-1
+##  [1] acepack_1.3-3.3     class_7.3-11        cluster_1.15.3     
+##  [4] codetools_0.2-9     colorspace_1.2-4    df2json_0.0.2      
+##  [7] digest_0.6.4        doParallel_1.0.8    dynamicTreeCut_1.62
+## [10] evaluate_0.5.5      fastcluster_1.1.13  flashClust_1.01-2  
+## [13] foreach_1.4.2       foreign_0.8-61      formatR_1.0        
+## [16] Formula_1.1-2       ggplot2_1.0.0       grid_3.1.2         
+## [19] gtable_0.1.2        gtools_3.4.1        Hmisc_3.14-5       
+## [22] igraph_0.7.1        impute_1.38.1       iterators_1.0.7    
+## [25] labeling_0.3        latticeExtra_0.6-26 MASS_7.3-35        
+## [28] matrixStats_0.10.3  mixOmics_5.0-3      munsell_0.4.2      
+## [31] nnet_7.3-8          parallel_3.1.2      pheatmap_0.7.7     
+## [34] plyr_1.8.1          proto_0.3-10        RColorBrewer_1.0-5 
+## [37] Rcpp_0.11.3         reshape2_1.4        RGCCA_2.0          
+## [40] rgl_0.95.1157       rjson_0.2.15        R.methodsS3_1.6.1  
+## [43] rpart_4.1-8         scales_0.2.4        splines_3.1.2      
+## [46] stringr_0.6.2       survival_2.37-7     tools_3.1.2        
+## [49] WGCNA_1.41-1
 ```
 
 
