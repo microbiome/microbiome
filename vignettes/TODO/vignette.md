@@ -50,36 +50,6 @@ install_github("microbiome/microbiome")
 library(microbiome)  
 ```
 
-```
-## Loading required package: e1071
-## Loading required package: vegan
-## Loading required package: permute
-## Loading required package: lattice
-## This is vegan 2.0-10
-## Loading required package: reshape
-## 
-## microbiome R package (microbiome.github.com)
-##           
-## 
-## 
-##  Copyright (C) 2011-2014 
-##           Leo Lahti and Jarkko Salojarvi 
-## 
-##         
-##           <microbiome-admin@googlegroups.com>
-## 
-## 
-## Attaching package: 'microbiome'
-## 
-## The following object is masked from 'package:lattice':
-## 
-##     densityplot
-## 
-## The following object is masked from 'package:e1071':
-## 
-##     impute
-```
-
 
 ## Examples
 
@@ -172,10 +142,29 @@ ri <- colSums(oligo.data > det.th)
 di <- vegan::diversity(t(oligo.data), index = "shannon")
 
 # Pielou's evenness is S/ln(R) w.r.t. given detection threshold
+# NOTE: here we use detection threshold for diversity as well because
+# the exact same data has to be used for diversity and richness calculation,
+# and for richness calculation the detection threshold needs to be set anyway
+# Diversity can be as such calculated also without threshold (see above)
+# but that gives somewhat different result.
 oligo.data2 <- oligo.data - det.th # NOTE: absolute (not log) scale data
 S <- vegan::diversity(t(oligo.data2), index = "shannon")
 R <- colSums(oligo.data2 > 0)
 ev <- S/log(R)
+
+# Combine all into a single table
+divtab <- cbind(richness = ri, evenness = ev, diversity = di)
+head(divtab)
+```
+
+```
+##          richness  evenness diversity
+## Sample.1      918 0.9076456  6.015876
+## Sample.2      728 0.9243413  5.759365
+## Sample.3      990 0.8960132  6.137286
+## Sample.4      698 0.8896066  5.630066
+## Sample.5      661 0.8952997  5.595988
+## Sample.6      334 1.0606226  5.327884
 ```
 
 ### Phylogeny
@@ -341,7 +330,7 @@ print(auc)
 ```
 
 ```
-## [1] 0.3334595
+## [1] 0.5299275
 ```
 
 ```r

@@ -127,10 +127,19 @@ ri <- colSums(oligo.data > det.th)
 di <- vegan::diversity(t(oligo.data), index = "shannon")
 
 # Pielou's evenness is S/ln(R) w.r.t. given detection threshold
+# NOTE: here we use detection threshold for diversity as well because
+# the exact same data has to be used for diversity and richness calculation,
+# and for richness calculation the detection threshold needs to be set anyway
+# Diversity can be as such calculated also without threshold (see above)
+# but that gives somewhat different result.
 oligo.data2 <- oligo.data - det.th # NOTE: absolute (not log) scale data
 S <- vegan::diversity(t(oligo.data2), index = "shannon")
 R <- colSums(oligo.data2 > 0)
 ev <- S/log(R)
+
+# Combine all into a single table
+divtab <- cbind(richness = ri, evenness = ev, diversity = di)
+head(divtab)
 ```
 
 ### Phylogeny
