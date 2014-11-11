@@ -88,6 +88,10 @@ oligo.data <- read.profiling(level = "oligo",
 # Probe-taxon mapping table
 phylogeny.info <- read.profiling(level = "phylogeny.full", 
                            	 data.dir = data.directory)
+
+# Phylogeny that is used to summarize the probes to phylotype/genus/phylum levels
+phylogeny.info.filtered <- read.profiling(level = "phylogeny.filtered", 
+                           	 data.dir = data.directory)
 ```
 
 
@@ -141,6 +145,25 @@ ev <- S/log(R)
 divtab <- cbind(richness = ri, evenness = ev, diversity = di)
 head(divtab)
 ```
+
+Calculate diversity for a specific phylum
+
+```{r L1div, warning=FALSE, message=FALSE}
+# Calculate diversities within each phylum-level group
+L1.groups <- unique(phylogeny.info.filtered$L1) # List all L1 groups
+L1.diversities <- NULL # initialize
+for (phylum in L1.groups) {
+  # List all probes for the given phylum
+  probes <- levelmap(phylum, "L1", "oligoID", phylogeny.info = phylogeny.info.filtered)[[phylum]]
+  # Check diversity within this phylum
+  di <- vegan::diversity(t(oligo.data[probes,]), index = "shannon")
+  # Add to the table
+  L1.diversities <- cbind(L1.diversities, di)
+}
+# Name the columns
+colnames(L1.diversities) <- L1.groups
+```
+
 
 ### Phylogeny
 

@@ -97,6 +97,10 @@ oligo.data <- read.profiling(level = "oligo",
 # Probe-taxon mapping table
 phylogeny.info <- read.profiling(level = "phylogeny.full", 
                            	 data.dir = data.directory)
+
+# Phylogeny that is used to summarize the probes to phylotype/genus/phylum levels
+phylogeny.info.filtered <- read.profiling(level = "phylogeny.filtered", 
+                           	 data.dir = data.directory)
 ```
 
 
@@ -166,6 +170,26 @@ head(divtab)
 ## Sample.5      661 0.8952997  5.595988
 ## Sample.6      334 1.0606226  5.327884
 ```
+
+Calculate diversity for a specific phylum
+
+
+```r
+# Calculate diversities within each phylum-level group
+L1.groups <- unique(phylogeny.info.filtered$L1) # List all L1 groups
+L1.diversities <- NULL # initialize
+for (phylum in L1.groups) {
+  # List all probes for the given phylum
+  probes <- levelmap(phylum, "L1", "oligoID", phylogeny.info = phylogeny.info.filtered)[[phylum]]
+  # Check diversity within this phylum
+  di <- vegan::diversity(t(oligo.data[probes,]), index = "shannon")
+  # Add to the table
+  L1.diversities <- cbind(L1.diversities, di)
+}
+# Name the columns
+colnames(L1.diversities) <- L1.groups
+```
+
 
 ### Phylogeny
 
@@ -330,7 +354,7 @@ print(auc)
 ```
 
 ```
-## [1] 0.5299275
+## [1] 0.2584043
 ```
 
 ```r
@@ -423,9 +447,9 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] gdata_2.13.3       microbiome_0.99.34 reshape_0.8.5     
-## [4] vegan_2.0-10       lattice_0.20-29    permute_0.8-3     
-## [7] e1071_1.6-4        knitr_1.7         
+## [1] knitr_1.7          gdata_2.13.3       microbiome_0.99.34
+## [4] reshape_0.8.5      vegan_2.0-10       lattice_0.20-29   
+## [7] permute_0.8-3      e1071_1.6-4       
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] acepack_1.3-3.3     class_7.3-11        cluster_1.15.3     
