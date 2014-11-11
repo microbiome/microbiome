@@ -146,10 +146,11 @@ divtab <- cbind(richness = ri, evenness = ev, diversity = di)
 head(divtab)
 ```
 
-Calculate diversity for a specific phylum
+
+Calculate diversities within each phylum-level group
 
 ```{r L1div, warning=FALSE, message=FALSE}
-# Calculate diversities within each phylum-level group
+
 L1.groups <- unique(phylogeny.info.filtered$L1) # List all L1 groups
 L1.diversities <- NULL # initialize
 for (phylum in L1.groups) {
