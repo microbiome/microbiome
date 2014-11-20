@@ -135,6 +135,8 @@ plot_cumulative <- function(d.sub, i.set = NULL, type = "cumulative",
 #' @param Nboot bootstrap sample size
 #' @param I.thr Lower limit for intensity threshold
 #' @param ncore number of nodes for parallelization - default 1
+#' @param I.max Upper limit for intensity threshold. Later addition.
+#'              set to NULL (default) to replicate Salonen et al.
 #'
 #' @return data frame with microbes and their frequency of presence in 
 #'   	     the core
@@ -158,8 +160,8 @@ plot_cumulative <- function(d.sub, i.set = NULL, type = "cumulative",
 #' @keywords utilities
 
 bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 1000, 
-		      	       I.thr = 1.8, ncore = 1){
-
+		      	       I.thr = 1.8, ncore = 1, I.max=NULL){
+   # added threshold for maximum intensity I.max
    if (is.null(Nsample)) {Nsample <- ncol(D)}
 
    boot <- replicate(Nboot, sample(ncol(D), Nsample, replace = TRUE), 
@@ -170,19 +172,21 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 1000,
    if (ncore > 1) {
      boot.which <- mclapply(boot, function(x){ 
        Prev = round(runif(1, minPrev, length(x)));
-       Imax = max(apply(D[,x], 1, 
-       	    function(xx) quantile(xx, probs = (1 - Prev/length(x))))); # Ensure Imax > I.thr, otherwise Insty gives NA's / LL 13.8.2012
-       Imax = max(I.thr, Imax); 
-       Insty = runif(1, I.thr, Imax);
+       if (is.null(I.max))
+         I.max = max(apply(D[,x], 1, 
+        	    function(xx) quantile(xx, probs = (1 - Prev/length(x)))));
+       I.max = max(I.thr, I.max);  # Ensure I.max > I.thr, otherwise Insty gives NA's / LL 13.8.2012
+       Insty = runif(1, I.thr, I.max);
        return(core.which(D[,x], Insty, Prev))
     }, mc.cores = ncore)
    } else {
      boot.which <- lapply(boot, function(x){ 
        Prev = round(runif(1, minPrev, length(x)));
-       Imax = max(apply(D[,x], 1, 
-       	    function(xx) quantile(xx, probs = (1 - Prev/length(x)))));
-       Imax = max(I.thr, Imax); # Ensure Imax > I.thr, otherwise Insty gives NA's / LL 13.8.2012
-       Insty = runif(1, I.thr, Imax);
+       if (is.null(I.max))
+          I.max = max(apply(D[,x], 1, 
+                      function(xx) quantile(xx, probs = (1 - Prev/length(x)))));
+       I.max = max(I.thr, I.max); # Ensure I.max > I.thr, otherwise Insty gives NA's / LL 13.8.2012
+       Insty = runif(1, I.thr, I.max);
        return(core.which(D[,x], Insty, Prev))
     })
    }
@@ -193,7 +197,7 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 1000,
    df <- df[order(df$Frequency,decreasing = TRUE),]
 
    mm <- bootstrap.microbecount(D,Nsample = Nsample, minprev = minPrev, 
-      	 	Nboot = Nboot, I.thr = I.thr, ncore = ncore)
+      	 	Nboot = Nboot, I.thr = I.thr, ncore = ncore, I.max=I.max)
 
    df$suggested.core <- as.numeric(sapply(1:nrow(df),function(x) x<= mm))
 
@@ -212,8 +216,9 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 1000,
 #' @param Nsample sample size
 #' @param minprev minimum prevalence
 #' @param Nboot bootstrap sample size
-#' @param I.thr threshold
+#' @param I.thr intensity threshold
 #' @param ncore number of nodes for parallelization
+#' @param I.max max intensity threshold
 #'
 #' @return median microbe count in bootstrapped cores
 #'
@@ -236,7 +241,7 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 1000,
 #' @keywords utilities
 
 bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1, 
-		       	  	      Nboot = 1000, I.thr = 1.8, ncore = 1){
+		       	  	      Nboot = 1000, I.thr = 1.8, ncore = 1,I.max=NULL){
 
   if (is.null(Nsample)) {Nsample <- ncol(D)}
 
@@ -246,21 +251,24 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1,
    # below: choose intensity such that there is at least one bacteria 
    # fulfilling prevalence criterion
    if (Nsample>1 && ncore > 1) {
-     boot.which=mclapply(boot,function(x){ 
-        Imax=max(apply(D[,x],1,min))
-        Insty=runif(1,I.thr,Imax)
+     boot.which=mclapply(boot,function(x){
+        if (is.null(I.max)) 
+           I.max=max(apply(D[,x],1,min))
+        Insty=runif(1,I.thr,I.max)
         sum(rowSums(D[,x]>Insty) >= minprev)
      }, mc.cores = ncore)
    } else if (Nsample>1 && ncore == 1) {
      boot.which=lapply(boot,function(x){ 
-        Imax=max(apply(D[,x],1,min))
-        Insty=runif(1,I.thr,Imax)
+        if (is.null(I.max)) 
+          I.max=max(apply(D[,x],1,min))
+        Insty=runif(1,I.thr,I.max)
         sum(rowSums(D[,x]>Insty) >= minprev)
      }) 
    } else {
      boot.which=lapply(boot,function(x){ 
-        Imax=max(D[,x])
-        Insty=runif(1,I.thr,Imax)
+        if (is.null(I.max)) 
+           I.max=max(D[,x])
+        Insty=runif(1,I.thr,I.max)
         return(sum(D[,x]>=Insty))
      })
    }
