@@ -1,0 +1,389 @@
+Taxon1	Taxon2	crosshyb
+Serratia	Vibrio	100
+Uncultured Selenomonadaceae	Megasphaera elsdenii et rel.	100
+Serratia	Haemophilus	100
+Serratia	Escherichia coli et rel.	100
+Uncultured Bacteroidetes	Bacteroides plebeius et rel.	100
+Uncultured Bacteroidetes	Allistipes et rel.	100
+Granulicatella	Enterococcus	60
+Granulicatella	Aerococcus	60
+Haemophilus	Vibrio	57.1428571428571
+Haemophilus	Serratia	57.1428571428571
+Haemophilus	Escherichia coli et rel.	57.1428571428571
+Streptococcus intermedius et rel.	Streptococcus mitis et rel.	52.1739130434783
+Wissella et rel.	Weissella et rel.	50
+Leminorella	Vibrio	50
+Alcaligenes faecalis et rel.	Sutterella wadsworthia et rel.	50
+Serratia	Pseudomonas	50
+Serratia	Proteus et rel.	50
+Leminorella	Proteus et rel.	50
+Serratia	Leminorella	50
+Serratia	Klebisiella pneumoniae et rel.	50
+Aerococcus	Granulicatella	50
+Serratia	Enterobacter aerogenes et rel.	50
+Leminorella	Enterobacter aerogenes et rel.	50
+Enterobacter aerogenes et rel.	Klebisiella pneumoniae et rel.	46.6666666666667
+Klebisiella pneumoniae et rel.	Enterobacter aerogenes et rel.	46.6666666666667
+Bacteroides ovatus et rel.	Bacteroides fragilis et rel.	43.5897435897436
+Haemophilus	Proteus et rel.	42.8571428571429
+Bacteroides fragilis et rel.	Bacteroides ovatus et rel.	42.5
+Bacteroides uniformis et rel.	Bacteroides plebeius et rel.	41.6666666666667
+Bacteroides plebeius et rel.	Allistipes et rel.	41.1764705882353
+Streptococcus mitis et rel.	Streptococcus intermedius et rel.	40
+Streptococcus mitis et rel.	Streptococcus bovis et rel.	40
+Klebisiella pneumoniae et rel.	Escherichia coli et rel.	40
+Helicobacter	Campylobacter	37.5
+Coprococcus eutactus et rel.	Ruminococcus obeum et rel.	35.6164383561644
+Leminorella	Yersinia et rel.	33.3333333333333
+Aquabacterium	Sutterella wadsworthia et rel.	33.3333333333333
+Leminorella	Serratia	33.3333333333333
+Leminorella	Haemophilus	33.3333333333333
+Leminorella	Escherichia coli et rel.	33.3333333333333
+Actinomycetaceae	Eggerthella lenta et rel.	33.3333333333333
+Streptococcus bovis et rel.	Streptococcus mitis et rel.	30
+Vibrio	Serratia	28.5714285714286
+Haemophilus	Pseudomonas	28.5714285714286
+Haemophilus	Leminorella	28.5714285714286
+Haemophilus	Klebisiella pneumoniae et rel.	28.5714285714286
+Vibrio	Haemophilus	28.5714285714286
+Vibrio	Escherichia coli et rel.	28.5714285714286
+Staphylococcus	Enterococcus	28.5714285714286
+Haemophilus	Enterobacter aerogenes et rel.	28.5714285714286
+Ruminococcus bromii et rel.	Ruminococcus callidus et rel.	27.7777777777778
+Bacteroides intestinalis et rel.	Bacteroides stercoris et rel.	27.2727272727273
+Prevotella oralis et rel.	Prevotella melaninogenica et rel.	26.3157894736842
+Ruminococcus lactaris et rel.	Dorea formicigenerans et rel.	26.0869565217391
+Clostridium nexile et rel.	Dorea formicigenerans et rel.	26.0869565217391
+Pseudomonas	Vibrio	25
+Pseudomonas	Serratia	25
+Pseudomonas	Klebisiella pneumoniae et rel.	25
+Campylobacter	Helicobacter	25
+Pseudomonas	Haemophilus	25
+Lachnobacillus bovis et rel.	Eubacterium rectale et rel.	25
+Pseudomonas	Escherichia coli et rel.	25
+Proteus et rel.	Escherichia coli et rel.	25
+Ruminococcus gnavus et rel.	Dorea formicigenerans et rel.	25
+Bacteroides uniformis et rel.	Bacteroides fragilis et rel.	25
+Clostridium leptum et rel.	Clostridium cellulosi et rel.	24.390243902439
+Bacteroides vulgatus et rel.	Bacteroides plebeius et rel.	23.0769230769231
+Ruminococcus bromii et rel.	Eubacterium siraeum et rel.	22.2222222222222
+Ruminococcus bromii et rel.	Clostridium cellulosi et rel.	22.2222222222222
+Ruminococcus bromii et rel.	Anaerotruncus colihominis et rel.	22.2222222222222
+Eubacterium rectale et rel.	Butyrivibrio crossotus et rel.	21.7391304347826
+Vibrio	Proteus et rel.	21.4285714285714
+Vibrio	Leminorella	21.4285714285714
+Vibrio	Klebisiella pneumoniae et rel.	21.4285714285714
+Vibrio	Enterobacter aerogenes et rel.	21.4285714285714
+Bacteroides plebeius et rel.	Uncultured Bacteroidetes	20.5882352941176
+Allistipes et rel.	Bacteroides plebeius et rel.	20.5882352941176
+Klebisiella pneumoniae et rel.	Vibrio	20
+Enterobacter aerogenes et rel.	Vibrio	20
+Lactococcus	Streptococcus bovis et rel.	20
+Eubacterium ventriosum et rel.	Roseburia intestinalis et rel.	20
+Yersinia et rel.	Proteus et rel.	20
+Enterobacter aerogenes et rel.	Proteus et rel.	20
+Enterobacter aerogenes et rel.	Leminorella	20
+Granulicatella	Lactobacillus salivarius et rel.	20
+Enterobacter aerogenes et rel.	Escherichia coli et rel.	20
+Eubacterium rectale et rel.	Lachnobacillus bovis et rel.	19.5652173913043
+Proteus et rel.	Yersinia et rel.	18.75
+Proteus et rel.	Vibrio	18.75
+Proteus et rel.	Leminorella	18.75
+Proteus et rel.	Haemophilus	18.75
+Proteus et rel.	Enterobacter aerogenes et rel.	18.75
+Ruminococcus gnavus et rel.	Bryantella formatexigens et rel.	18.1818181818182
+Lachnospira pectinoschiza et rel.	Clostridium symbiosum et rel.	17.9487179487179
+Clostridium cellulosi et rel.	Clostridium leptum et rel.	17.8571428571429
+Ruminococcus obeum et rel.	Coprococcus eutactus et rel.	17.8082191780822
+Clostridium nexile et rel.	Ruminococcus lactaris et rel.	17.3913043478261
+Clostridium nexile et rel.	Ruminococcus gnavus et rel.	17.3913043478261
+Eubacterium rectale et rel.	Lachnospira pectinoschiza et rel.	17.3913043478261
+Roseburia intestinalis et rel.	Eubacterium ventriosum et rel.	17.3913043478261
+Eubacterium rectale et rel.	Clostridium symbiosum et rel.	17.3913043478261
+Ruminococcus lactaris et rel.	Clostridium nexile et rel.	17.3913043478261
+Escherichia coli et rel.	Klebisiella pneumoniae et rel.	17.1428571428571
+Aerococcus	Lactobacillus salivarius et rel.	16.6666666666667
+Lactobacillus salivarius et rel.	Lactobacillus plantarum et rel.	16.6666666666667
+Leminorella	Klebisiella pneumoniae et rel.	16.6666666666667
+Lactobacillus salivarius et rel.	Enterococcus	16.6666666666667
+Aerococcus	Enterococcus	16.6666666666667
+Ruminococcus bromii et rel.	Clostridium leptum et rel.	16.6666666666667
+Aerococcus	Bacillus	16.6666666666667
+Dorea formicigenerans et rel.	Bryantella formatexigens et rel.	16.4705882352941
+Clostridium sphenoides et rel.	Clostridium symbiosum et rel.	15.8730158730159
+Bacteroides vulgatus et rel.	Prevotella tannerae et rel.	15.3846153846154
+Bacteroides plebeius et rel.	Bacteroides uniformis et rel.	14.7058823529412
+Bryantella formatexigens et rel.	Ruminococcus obeum et rel.	14.2857142857143
+Vibrio	Pseudomonas	14.2857142857143
+Bacteroides stercoris et rel.	Prevotella tannerae et rel.	14.2857142857143
+Bacteroides stercoris et rel.	Bacteroides intestinalis et rel.	14.2857142857143
+Clostridium symbiosum et rel.	Ruminococcus obeum et rel.	13.9130434782609
+Lachnobacillus bovis et rel.	Clostridium symbiosum et rel.	13.8888888888889
+Lachnobacillus bovis et rel.	Butyrivibrio crossotus et rel.	13.8888888888889
+Eubacterium siraeum et rel.	Ruminococcus bromii et rel.	13.7931034482759
+Eubacterium siraeum et rel.	Anaerotruncus colihominis et rel.	13.7931034482759
+Klebisiella pneumoniae et rel.	Yersinia et rel.	13.3333333333333
+Klebisiella pneumoniae et rel.	Serratia	13.3333333333333
+Enterobacter aerogenes et rel.	Serratia	13.3333333333333
+Klebisiella pneumoniae et rel.	Pseudomonas	13.3333333333333
+Prevotella ruminicola et rel.	Prevotella melaninogenica et rel.	13.3333333333333
+Yersinia et rel.	Leminorella	13.3333333333333
+Yersinia et rel.	Klebisiella pneumoniae et rel.	13.3333333333333
+Klebisiella pneumoniae et rel.	Haemophilus	13.3333333333333
+Enterobacter aerogenes et rel.	Haemophilus	13.3333333333333
+Yersinia et rel.	Escherichia coli et rel.	13.3333333333333
+Bryantella formatexigens et rel.	Dorea formicigenerans et rel.	13.3333333333333
+Eubacterium biforme et rel.	Bulleidia moorei et rel.	13.3333333333333
+Streptococcus intermedius et rel.	Streptococcus bovis et rel.	13.0434782608696
+Outgrouping clostridium cluster XIVa	Ruminococcus obeum et rel.	13.0434782608696
+Clostridium nexile et rel.	Ruminococcus obeum et rel.	13.0434782608696
+Clostridium nexile et rel.	Lachnospira pectinoschiza et rel.	13.0434782608696
+Enterococcus	Granulicatella	13.0434782608696
+Clostridium nexile et rel.	Clostridium symbiosum et rel.	13.0434782608696
+Clostridium nexile et rel.	Bryantella formatexigens et rel.	13.0434782608696
+Butyrivibrio crossotus et rel.	Eubacterium rectale et rel.	12.987012987013
+Dorea formicigenerans et rel.	Ruminococcus gnavus et rel.	12.9411764705882
+Lachnospira pectinoschiza et rel.	Ruminococcus obeum et rel.	12.8205128205128
+Weissella et rel.	Wissella et rel.	12.5
+Proteus et rel.	Serratia	12.5
+Prevotella melaninogenica et rel.	Prevotella oralis et rel.	12.5
+Prevotella tannerae et rel.	Bacteroides stercoris et rel.	12.5
+Ruminococcus callidus et rel.	Faecalibacterium prausnitzii et rel.	12.280701754386
+Clostridium leptum et rel.	Sporobacter termitidis et rel.	12.1951219512195
+Clostridium leptum et rel.	Ruminococcus callidus et rel.	12.1951219512195
+Clostridium symbiosum et rel.	Lachnospira pectinoschiza et rel.	12.1739130434783
+Oscillospira guillermondii et rel.	Sporobacter termitidis et rel.	11.9402985074627
+Escherichia coli et rel.	Vibrio	11.4285714285714
+Escherichia coli et rel.	Serratia	11.4285714285714
+Escherichia coli et rel.	Proteus et rel.	11.4285714285714
+Escherichia coli et rel.	Haemophilus	11.4285714285714
+Sporobacter termitidis et rel.	Clostridium orbiscindens et rel.	11.1111111111111
+Subdoligranulum variable at rel.	Anaerotruncus colihominis et rel.	11.1111111111111
+Ruminococcus obeum et rel.	Clostridium symbiosum et rel.	10.958904109589
+Clostridium orbiscindens et rel.	Sporobacter termitidis et rel.	10.7142857142857
+Clostridium cellulosi et rel.	Ruminococcus callidus et rel.	10.7142857142857
+Bulleidia moorei et rel.	Eubacterium biforme et rel.	10.5263157894737
+Clostridium ramosum et rel.	Coprobacillus catenaformis et rel.	10.5263157894737
+Coprobacillus catenaformis et rel.	Clostridium ramosum et rel.	10.5263157894737
+Ruminococcus callidus et rel.	Clostridium cellulosi et rel.	10.5263157894737
+Oscillospira guillermondii et rel.	Clostridium orbiscindens et rel.	10.4477611940298
+Eubacterium siraeum et rel.	Ruminococcus callidus et rel.	10.3448275862069
+Allistipes et rel.	Uncultured Bacteroidetes	10.2941176470588
+Ruminococcus obeum et rel.	Bryantella formatexigens et rel.	10.2739726027397
+Lachnospira pectinoschiza et rel.	Eubacterium rectale et rel.	10.2564102564103
+Bacillus	Lactobacillus salivarius et rel.	10
+Bacillus	Lactobacillus gasseri et rel.	10
+Bacillus	Enterococcus	10
+Bacteroides fragilis et rel.	Bacteroides splachnicus et rel.	10
+Bacillus	Aerococcus	10
+Sporobacter termitidis et rel.	Oscillospira guillermondii et rel.	9.87654320987654
+Anaerotruncus colihominis et rel.	Subdoligranulum variable at rel.	9.80392156862745
+Clostridium leptum et rel.	Oscillospira guillermondii et rel.	9.75609756097561
+Coprococcus eutactus et rel.	Clostridium symbiosum et rel.	9.58904109589041
+Papillibacter cinnamivorans et rel.	Faecalibacterium prausnitzii et rel.	9.52380952380952
+Papillibacter cinnamivorans et rel.	Clostridium cellulosi et rel.	9.52380952380952
+Anaerostipes caccae et rel.	Lachnospira pectinoschiza et rel.	9.375
+Faecalibacterium prausnitzii et rel.	Ruminococcus callidus et rel.	9.33333333333333
+Ruminococcus gnavus et rel.	Ruminococcus obeum et rel.	9.09090909090909
+Bacteroides intestinalis et rel.	Prevotella tannerae et rel.	9.09090909090909
+Ruminococcus gnavus et rel.	Lachnospira pectinoschiza et rel.	9.09090909090909
+Ruminococcus gnavus et rel.	Clostridium symbiosum et rel.	9.09090909090909
+Ruminococcus gnavus et rel.	Clostridium nexile et rel.	9.09090909090909
+Bacteroides intestinalis et rel.	Bacteroides vulgatus et rel.	9.09090909090909
+Sutterella wadsworthia et rel.	Alcaligenes faecalis et rel.	9.09090909090909
+Bacteroides plebeius et rel.	Tannerella et rel.	8.82352941176471
+Bacteroides plebeius et rel.	Bacteroides vulgatus et rel.	8.82352941176471
+Ruminococcus callidus et rel.	Ruminococcus bromii et rel.	8.7719298245614
+Ruminococcus callidus et rel.	Clostridium leptum et rel.	8.7719298245614
+Enterococcus	Staphylococcus	8.69565217391304
+Ruminococcus lactaris et rel.	Ruminococcus gnavus et rel.	8.69565217391304
+Enterococcus	Lactobacillus salivarius et rel.	8.69565217391304
+Ruminococcus lactaris et rel.	Lachnobacillus bovis et rel.	8.69565217391304
+Clostridium nexile et rel.	Lachnobacillus bovis et rel.	8.69565217391304
+Ruminococcus lactaris et rel.	Eubacterium rectale et rel.	8.69565217391304
+Clostridium nexile et rel.	Eubacterium rectale et rel.	8.69565217391304
+Clostridium colinum et rel.	Eubacterium rectale et rel.	8.69565217391304
+Eubacterium rectale et rel.	Clostridium sphenoides et rel.	8.69565217391304
+Clostridium symbiosum et rel.	Clostridium sphenoides et rel.	8.69565217391304
+Clostridium colinum et rel.	Clostridium sphenoides et rel.	8.69565217391304
+Ruminococcus lactaris et rel.	Butyrivibrio crossotus et rel.	8.69565217391304
+Clostridium nexile et rel.	Butyrivibrio crossotus et rel.	8.69565217391304
+Bacteroides splachnicus et rel.	Bacteroides fragilis et rel.	8.69565217391304
+Bacteroides splachnicus et rel.	Allistipes et rel.	8.69565217391304
+Escherichia coli et rel.	Enterobacter aerogenes et rel.	8.57142857142857
+Lachnobacillus bovis et rel.	Ruminococcus obeum et rel.	8.33333333333333
+Clostridium orbiscindens et rel.	Oscillospira guillermondii et rel.	8.33333333333333
+Lactobacillus salivarius et rel.	Lactobacillus gasseri et rel.	8.33333333333333
+Lactobacillus salivarius et rel.	Granulicatella	8.33333333333333
+Lachnobacillus bovis et rel.	Dorea formicigenerans et rel.	8.33333333333333
+Lachnobacillus bovis et rel.	Bryantella formatexigens et rel.	8.33333333333333
+Prevotella tannerae et rel.	Bacteroides vulgatus et rel.	8.33333333333333
+Lactobacillus salivarius et rel.	Bacillus	8.33333333333333
+Lactobacillus salivarius et rel.	Aerococcus	8.33333333333333
+Clostridium sphenoides et rel.	Ruminococcus obeum et rel.	7.93650793650794
+Anaerotruncus colihominis et rel.	Ruminococcus bromii et rel.	7.84313725490196
+Anaerotruncus colihominis et rel.	Eubacterium siraeum et rel.	7.84313725490196
+Lachnospira pectinoschiza et rel.	Bryantella formatexigens et rel.	7.69230769230769
+Bacteroides vulgatus et rel.	Bacteroides intestinalis et rel.	7.69230769230769
+Bryantella formatexigens et rel.	Ruminococcus gnavus et rel.	7.61904761904762
+Streptococcus bovis et rel.	Streptococcus intermedius et rel.	7.5
+Streptococcus bovis et rel.	Lactococcus	7.5
+Bacteroides fragilis et rel.	Bacteroides uniformis et rel.	7.5
+Clostridium leptum et rel.	Ruminococcus bromii et rel.	7.31707317073171
+Tannerella et rel.	Bacteroides plebeius et rel.	7.31707317073171
+Outgrouping clostridium cluster XIVa	Clostridium symbiosum et rel.	7.2463768115942
+Vibrio	Yersinia et rel.	7.14285714285714
+Megasphaera elsdenii et rel.	Uncultured Selenomonadaceae	7.14285714285714
+Eubacterium hallii et rel.	Ruminococcus obeum et rel.	7.14285714285714
+Clostridium cellulosi et rel.	Ruminococcus bromii et rel.	7.14285714285714
+Eubacterium hallii et rel.	Lachnospira pectinoschiza et rel.	7.14285714285714
+Dorea formicigenerans et rel.	Ruminococcus obeum et rel.	7.05882352941176
+Dorea formicigenerans et rel.	Ruminococcus lactaris et rel.	7.05882352941176
+Dorea formicigenerans et rel.	Clostridium symbiosum et rel.	7.05882352941176
+Dorea formicigenerans et rel.	Clostridium nexile et rel.	7.05882352941176
+Parabacteroides distasonis et rel.	Allistipes et rel.	6.97674418604651
+Clostridium symbiosum et rel.	Eubacterium rectale et rel.	6.95652173913043
+Ruminococcus obeum et rel.	Lachnospira pectinoschiza et rel.	6.84931506849315
+Ruminococcus gnavus et rel.	Outgrouping clostridium cluster XIVa	6.81818181818182
+Enterobacter aerogenes et rel.	Yersinia et rel.	6.66666666666667
+Yersinia et rel.	Vibrio	6.66666666666667
+Klebisiella pneumoniae et rel.	Proteus et rel.	6.66666666666667
+Prevotella ruminicola et rel.	Prevotella oralis et rel.	6.66666666666667
+Klebisiella pneumoniae et rel.	Leminorella	6.66666666666667
+Yersinia et rel.	Enterobacter aerogenes et rel.	6.66666666666667
+Eubacterium rectale et rel.	Bryantella formatexigens et rel.	6.52173913043478
+Butyrivibrio crossotus et rel.	Lachnobacillus bovis et rel.	6.49350649350649
+Butyrivibrio crossotus et rel.	Bryantella formatexigens et rel.	6.49350649350649
+Clostridium sphenoides et rel.	Eubacterium rectale et rel.	6.34920634920635
+Proteus et rel.	Klebisiella pneumoniae et rel.	6.25
+Anaerostipes caccae et rel.	Clostridium symbiosum et rel.	6.25
+Sporobacter termitidis et rel.	Clostridium leptum et rel.	6.17283950617284
+Ruminococcus obeum et rel.	Outgrouping clostridium cluster XIVa	6.16438356164384
+Clostridium symbiosum et rel.	Coprococcus eutactus et rel.	6.08695652173913
+Oscillospira guillermondii et rel.	Clostridium leptum et rel.	5.97014925373134
+Anaerotruncus colihominis et rel.	Ruminococcus callidus et rel.	5.88235294117647
+Allistipes et rel.	Bacteroides splachnicus et rel.	5.88235294117647
+Outgrouping clostridium cluster XIVa	Dorea formicigenerans et rel.	5.79710144927536
+Escherichia coli et rel.	Yersinia et rel.	5.71428571428571
+Escherichia coli et rel.	Pseudomonas	5.71428571428571
+Escherichia coli et rel.	Leminorella	5.71428571428571
+Bryantella formatexigens et rel.	Lachnospira pectinoschiza et rel.	5.71428571428571
+Bryantella formatexigens et rel.	Clostridium symbiosum et rel.	5.71428571428571
+Ruminococcus bromii et rel.	Sporobacter termitidis et rel.	5.55555555555556
+Lachnobacillus bovis et rel.	Ruminococcus lactaris et rel.	5.55555555555556
+Ruminococcus bromii et rel.	Oscillospira guillermondii et rel.	5.55555555555556
+Ruminococcus bromii et rel.	Clostridium orbiscindens et rel.	5.55555555555556
+Lachnobacillus bovis et rel.	Clostridium nexile et rel.	5.55555555555556
+Prevotella oralis et rel.	Prevotella ruminicola et rel.	5.26315789473684
+Ruminococcus callidus et rel.	Eubacterium siraeum et rel.	5.26315789473684
+Eggerthella lenta et rel.	Collinsella	5.26315789473684
+Ruminococcus callidus et rel.	Anaerotruncus colihominis et rel.	5.26315789473684
+Eggerthella lenta et rel.	Actinomycetaceae	5.26315789473684
+Clostridium symbiosum et rel.	Dorea formicigenerans et rel.	5.21739130434783
+Clostridium symbiosum et rel.	Bryantella formatexigens et rel.	5.21739130434783
+Butyrivibrio crossotus et rel.	Clostridium symbiosum et rel.	5.19480519480519
+Lachnospira pectinoschiza et rel.	Ruminococcus gnavus et rel.	5.12820512820513
+Lachnospira pectinoschiza et rel.	Dorea formicigenerans et rel.	5.12820512820513
+Prevotella melaninogenica et rel.	Prevotella ruminicola et rel.	5
+Eubacterium ventriosum et rel.	Lachnospira pectinoschiza et rel.	5
+Bacteroides fragilis et rel.	Allistipes et rel.	5
+Clostridium leptum et rel.	Clostridium orbiscindens et rel.	4.8780487804878
+Bryantella formatexigens et rel.	Butyrivibrio crossotus et rel.	4.76190476190476
+Clostridium sphenoides et rel.	Bryantella formatexigens et rel.	4.76190476190476
+Dorea formicigenerans et rel.	Outgrouping clostridium cluster XIVa	4.70588235294118
+Dorea formicigenerans et rel.	Lachnospira pectinoschiza et rel.	4.70588235294118
+Parabacteroides distasonis et rel.	Bacteroides splachnicus et rel.	4.65116279069767
+Ruminococcus gnavus et rel.	Ruminococcus lactaris et rel.	4.54545454545455
+Subdoligranulum variable at rel.	Clostridium cellulosi et rel.	4.44444444444444
+Allistipes et rel.	Parabacteroides distasonis et rel.	4.41176470588235
+Eubacterium rectale et rel.	Ruminococcus obeum et rel.	4.34782608695652
+Eubacterium rectale et rel.	Ruminococcus lactaris et rel.	4.34782608695652
+Outgrouping clostridium cluster XIVa	Ruminococcus gnavus et rel.	4.34782608695652
+Bacteroides splachnicus et rel.	Parabacteroides distasonis et rel.	4.34782608695652
+Eubacterium rectale et rel.	Outgrouping clostridium cluster XIVa	4.34782608695652
+Clostridium symbiosum et rel.	Outgrouping clostridium cluster XIVa	4.34782608695652
+Lactobacillus plantarum et rel.	Lactobacillus salivarius et rel.	4.34782608695652
+Enterococcus	Lactobacillus gasseri et rel.	4.34782608695652
+Clostridium symbiosum et rel.	Lachnobacillus bovis et rel.	4.34782608695652
+Eubacterium rectale et rel.	Dorea formicigenerans et rel.	4.34782608695652
+Eubacterium rectale et rel.	Clostridium nexile et rel.	4.34782608695652
+Eubacterium rectale et rel.	Clostridium colinum et rel.	4.34782608695652
+Enterococcus	Bacillus	4.34782608695652
+Enterococcus	Aerococcus	4.34782608695652
+Collinsella	Eggerthella lenta et rel.	4.16666666666667
+Prevotella tannerae et rel.	Bacteroides intestinalis et rel.	4.16666666666667
+Ruminococcus obeum et rel.	Dorea formicigenerans et rel.	4.10958904109589
+Coprococcus eutactus et rel.	Dorea formicigenerans et rel.	4.10958904109589
+Lachnospira pectinoschiza et rel.	Clostridium nexile et rel.	3.84615384615385
+Lachnospira pectinoschiza et rel.	Anaerostipes caccae et rel.	3.84615384615385
+Clostridium cellulosi et rel.	Subdoligranulum variable at rel.	3.57142857142857
+Clostridium cellulosi et rel.	Papillibacter cinnamivorans et rel.	3.57142857142857
+Clostridium cellulosi et rel.	Clostridium orbiscindens et rel.	3.57142857142857
+Dorea formicigenerans et rel.	Lachnobacillus bovis et rel.	3.52941176470588
+Dorea formicigenerans et rel.	Coprococcus eutactus et rel.	3.52941176470588
+Clostridium symbiosum et rel.	Ruminococcus gnavus et rel.	3.47826086956522
+Clostridium symbiosum et rel.	Butyrivibrio crossotus et rel.	3.47826086956522
+Ruminococcus obeum et rel.	Clostridium sphenoides et rel.	3.42465753424658
+Clostridium sphenoides et rel.	Outgrouping clostridium cluster XIVa	3.17460317460317
+Clostridium sphenoides et rel.	Lachnospira pectinoschiza et rel.	3.17460317460317
+Clostridium sphenoides et rel.	Clostridium colinum et rel.	3.17460317460317
+Anaerostipes caccae et rel.	Ruminococcus obeum et rel.	3.125
+Anaerostipes caccae et rel.	Lachnobacillus bovis et rel.	3.125
+Sutterella wadsworthia et rel.	Aquabacterium	3.03030303030303
+Bacteroides plebeius et rel.	Bacteroides ovatus et rel.	2.94117647058824
+Allistipes et rel.	Bacteroides fragilis et rel.	2.94117647058824
+Outgrouping clostridium cluster XIVa	Lachnospira pectinoschiza et rel.	2.89855072463768
+Outgrouping clostridium cluster XIVa	Eubacterium rectale et rel.	2.89855072463768
+Outgrouping clostridium cluster XIVa	Clostridium sphenoides et rel.	2.89855072463768
+Outgrouping clostridium cluster XIVa	Bryantella formatexigens et rel.	2.89855072463768
+Bryantella formatexigens et rel.	Lachnobacillus bovis et rel.	2.85714285714286
+Bryantella formatexigens et rel.	Eubacterium rectale et rel.	2.85714285714286
+Bryantella formatexigens et rel.	Clostridium sphenoides et rel.	2.85714285714286
+Bryantella formatexigens et rel.	Clostridium nexile et rel.	2.85714285714286
+Lachnobacillus bovis et rel.	Lachnospira pectinoschiza et rel.	2.77777777777778
+Lachnobacillus bovis et rel.	Clostridium sphenoides et rel.	2.77777777777778
+Lachnobacillus bovis et rel.	Anaerostipes caccae et rel.	2.77777777777778
+Ruminococcus obeum et rel.	Ruminococcus gnavus et rel.	2.73972602739726
+Coprococcus eutactus et rel.	Butyrivibrio crossotus et rel.	2.73972602739726
+Faecalibacterium prausnitzii et rel.	Papillibacter cinnamivorans et rel.	2.66666666666667
+Clostridium symbiosum et rel.	Clostridium nexile et rel.	2.60869565217391
+Butyrivibrio crossotus et rel.	Ruminococcus lactaris et rel.	2.5974025974026
+Butyrivibrio crossotus et rel.	Dorea formicigenerans et rel.	2.5974025974026
+Butyrivibrio crossotus et rel.	Coprococcus eutactus et rel.	2.5974025974026
+Butyrivibrio crossotus et rel.	Clostridium nexile et rel.	2.5974025974026
+Lachnospira pectinoschiza et rel.	Outgrouping clostridium cluster XIVa	2.56410256410256
+Lachnospira pectinoschiza et rel.	Clostridium sphenoides et rel.	2.56410256410256
+Bacteroides ovatus et rel.	Bacteroides plebeius et rel.	2.56410256410256
+Tannerella et rel.	Parabacteroides distasonis et rel.	2.4390243902439
+Lactobacillus gasseri et rel.	Lactobacillus salivarius et rel.	2.38095238095238
+Lactobacillus gasseri et rel.	Lactobacillus plantarum et rel.	2.38095238095238
+Lactobacillus gasseri et rel.	Enterococcus	2.38095238095238
+Clostridium orbiscindens et rel.	Clostridium leptum et rel.	2.38095238095238
+Clostridium orbiscindens et rel.	Clostridium cellulosi et rel.	2.38095238095238
+Lactobacillus gasseri et rel.	Bacillus	2.38095238095238
+Dorea formicigenerans et rel.	Eubacterium rectale et rel.	2.35294117647059
+Dorea formicigenerans et rel.	Butyrivibrio crossotus et rel.	2.35294117647059
+Parabacteroides distasonis et rel.	Tannerella et rel.	2.32558139534884
+Ruminococcus gnavus et rel.	Coprococcus eutactus et rel.	2.27272727272727
+Lactobacillus plantarum et rel.	Lactobacillus gasseri et rel.	2.17391304347826
+Ruminococcus obeum et rel.	Lachnobacillus bovis et rel.	2.05479452054794
+Ruminococcus obeum et rel.	Clostridium nexile et rel.	2.05479452054794
+Bryantella formatexigens et rel.	Outgrouping clostridium cluster XIVa	1.9047619047619
+Clostridium cellulosi et rel.	Sporobacter termitidis et rel.	1.78571428571429
+Clostridium cellulosi et rel.	Oscillospira guillermondii et rel.	1.78571428571429
+Clostridium symbiosum et rel.	Anaerostipes caccae et rel.	1.73913043478261
+Clostridium sphenoides et rel.	Lachnobacillus bovis et rel.	1.58730158730159
+Oscillospira guillermondii et rel.	Ruminococcus bromii et rel.	1.49253731343284
+Oscillospira guillermondii et rel.	Clostridium cellulosi et rel.	1.49253731343284
+Outgrouping clostridium cluster XIVa	Coprococcus eutactus et rel.	1.44927536231884
+Coprococcus eutactus et rel.	Ruminococcus gnavus et rel.	1.36986301369863
+Coprococcus eutactus et rel.	Outgrouping clostridium cluster XIVa	1.36986301369863
+Ruminococcus obeum et rel.	Eubacterium rectale et rel.	1.36986301369863
+Lachnospira pectinoschiza et rel.	Lachnobacillus bovis et rel.	1.28205128205128
+Lachnospira pectinoschiza et rel.	Eubacterium ventriosum et rel.	1.28205128205128
+Lachnospira pectinoschiza et rel.	Eubacterium hallii et rel.	1.28205128205128
+Sporobacter termitidis et rel.	Ruminococcus bromii et rel.	1.23456790123457
+Sporobacter termitidis et rel.	Clostridium cellulosi et rel.	1.23456790123457
+Clostridium orbiscindens et rel.	Ruminococcus bromii et rel.	1.19047619047619
+Ruminococcus obeum et rel.	Eubacterium hallii et rel.	0.684931506849315
+Ruminococcus obeum et rel.	Anaerostipes caccae et rel.	0.684931506849315
