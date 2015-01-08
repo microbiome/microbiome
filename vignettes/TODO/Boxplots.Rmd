@@ -1,7 +1,5 @@
 ### Boxplots
 
-The following example picks 20 random species from a species data vector and visualizes them as ordered barplot colored according to the L2 group. Here with simulated example data. See [read.profiling](reading) to use your own data files.
-
 ```{r barplot-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
 library(microbiome, quietly = TRUE)
 
@@ -17,7 +15,7 @@ df$hitchip <- peerj32$microbes[rownames(df), "Akkermansia"]
 library(ggplot2, quietly = TRUE)
 theme_set(theme_bw(20))
 p <- ggplot(df, aes(x = factor(time), y = hitchip))
-p <- p + geom_violin(fill = "gray")
+p <- p + geom_boxplot(fill = "gray") # also try geom_violin
 p <- p + geom_line(aes(group = subject))
 p <- p + geom_point(aes(color = time), data = df, size = 4)
 p <- p + xlab("Time") + ylab("Abundance (Log10)")
