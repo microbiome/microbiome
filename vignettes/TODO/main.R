@@ -8,6 +8,7 @@ fs <- "vignette.Rmd"
 #fs <- "Heatmap.Rmd"
 #fs <- c("RDA.Rmd", "LatentClassAnalysis.Rmd", "NetResponse.Rmd")
 #fs <- c("Barplots.Rmd")
+fs <- c("Boxplots.Rmd")
 #fs <- c("RPA.Rmd")
 #fs <- c("Clustering.Rmd")
 #fs <- c("wurcomputer.Rmd")
