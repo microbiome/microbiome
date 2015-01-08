@@ -5,9 +5,11 @@ vignettes/*~
 inst/extras/*~
 inst/extras/*.tar.gz
 inst/extras/.RData
-inst/extras/.Rout
-inst/extras/.Rcheck
+inst/extras/*.Rout
+inst/extras/*.Rcheck
 inst/extras/misc.Rmd
+inst/extras/debug.R
+
 
 
 
