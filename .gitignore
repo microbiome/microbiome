@@ -1,2 +1,8 @@
 *~
 .Rproj.user
+vignettes/old
+vignettes/*~
+../../inst/extras/*~
+../../inst/extras/*.tar.gz
+
+
