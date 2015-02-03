@@ -1,0 +1,27 @@
+---
+title: "Project Template"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+    theme: united
+    highlight: pygments
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Project Template}
+  %\usepackage[utf8]{inputenc}
+-->
+
+
+Example template
+===========
+
+```{r install2}
+library(devtools)
+install_github("microbiome/microbiome")
+plot(c(1,2,3))
+```
+

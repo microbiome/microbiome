@@ -1,0 +1,21 @@
+
+### Cross-correlation example
+
+```{r heatmap}
+dat1 <- peerj32$lipids # Lipids (44 samples x 389 lipids)
+dat2 <- peerj32$microbes # Microbiota (44 samples x 130 bacteria)
+meta <- peerj32$meta
+
+correlations <- cross.correlate(dat1, dat2, 
+                        method = "bicor", 
+			mode = "matrix", 
+                        n.signif = 1, 
+			p.adj.threshold = 0.05, 
+                        p.adj.method = "BH")
+
+
+correlation.table <- cmat2table(correlations)
+head(correlation.table)
+```
+
+
