@@ -39,36 +39,6 @@ install_github("microbiome/microbiome")
 library(microbiome)  
 ```
 
-```
-## Loading required package: e1071
-## Loading required package: vegan
-## Loading required package: permute
-## Loading required package: lattice
-## This is vegan 2.0-10
-## Loading required package: reshape
-## 
-## microbiome R package (microbiome.github.com)
-##           
-## 
-## 
-##  Copyright (C) 2011-2015
-##           Leo Lahti and Jarkko Salojarvi 
-## 
-##         
-##           <microbiome-admin@googlegroups.com>
-## 
-## 
-## Attaching package: 'microbiome'
-## 
-## The following object is masked from 'package:lattice':
-## 
-##     densityplot
-## 
-## The following object is masked from 'package:e1071':
-## 
-##     impute
-```
-
 
 ### HITChip Atlas data set
 
@@ -112,26 +82,7 @@ meta$SampleID <- rownames(meta)
 ```r
 # Load tools
 library(dplyr)
-```
 
-```
-## 
-## Attaching package: 'dplyr'
-## 
-## The following object is masked from 'package:reshape':
-## 
-##     rename
-## 
-## The following object is masked from 'package:stats':
-## 
-##     filter
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 # Pick 
 # 1. All samples (all time points and DNA extraction methods)
 # 2. Samples at time point 0 that have specific DNA extraction method 
