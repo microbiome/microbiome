@@ -344,7 +344,7 @@ print(auc)
 ```
 
 ```
-## [1] 0.4666667
+## [1] 0.3662567
 ```
 
 ```r
@@ -437,28 +437,32 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] knitr_1.8          gdata_2.13.3       microbiome_0.99.34
-## [4] reshape_0.8.5      vegan_2.0-10       lattice_0.20-29   
-## [7] permute_0.8-3      e1071_1.6-4        rmarkdown_0.3.10  
+##  [1] ggplot2_1.0.0      dplyr_0.3.0.2      rdryad_0.1.1      
+##  [4] knitr_1.8          gdata_2.13.3       microbiome_0.99.34
+##  [7] reshape_0.8.5      vegan_2.0-10       lattice_0.20-29   
+## [10] permute_0.8-3      e1071_1.6-4        rmarkdown_0.3.10  
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] acepack_1.3-3.3     class_7.3-11        cluster_1.15.3     
-##  [4] codetools_0.2-9     colorspace_1.2-4    df2json_0.0.2      
-##  [7] digest_0.6.4        doParallel_1.0.8    dynamicTreeCut_1.62
-## [10] evaluate_0.5.5      fastcluster_1.1.13  flashClust_1.01-2  
-## [13] foreach_1.4.2       foreign_0.8-61      formatR_1.0        
-## [16] Formula_1.1-2       ggplot2_1.0.0       grid_3.1.2         
-## [19] gtable_0.1.2        gtools_3.4.1        Hmisc_3.14-5       
-## [22] htmltools_0.2.6     igraph_0.7.1        impute_1.38.1      
-## [25] iterators_1.0.7     labeling_0.3        latticeExtra_0.6-26
-## [28] MASS_7.3-35         matrixStats_0.10.3  mixOmics_5.0-3     
-## [31] munsell_0.4.2       nnet_7.3-8          parallel_3.1.2     
-## [34] pheatmap_0.7.7      plyr_1.8.1          proto_0.3-10       
-## [37] RColorBrewer_1.0-5  Rcpp_0.11.3         reshape2_1.4       
-## [40] RGCCA_2.0           rgl_0.95.1158       rjson_0.2.15       
-## [43] R.methodsS3_1.6.1   rpart_4.1-8         scales_0.2.4       
-## [46] splines_3.1.2       stringr_0.6.2       survival_2.37-7    
-## [49] tools_3.1.2         WGCNA_1.41-1        yaml_2.1.13
+##  [1] acepack_1.3-3.3     ape_3.1-4           assertthat_0.1     
+##  [4] class_7.3-11        cluster_1.15.3      codetools_0.2-9    
+##  [7] colorspace_1.2-4    DBI_0.3.1           df2json_0.0.2      
+## [10] digest_0.6.4        doParallel_1.0.8    dynamicTreeCut_1.62
+## [13] evaluate_0.5.5      fastcluster_1.1.13  flashClust_1.01-2  
+## [16] foreach_1.4.2       foreign_0.8-61      formatR_1.0        
+## [19] Formula_1.1-2       grid_3.1.2          gtable_0.1.2       
+## [22] gtools_3.4.1        Hmisc_3.14-5        htmltools_0.2.6    
+## [25] igraph_0.7.1        impute_1.38.1       iterators_1.0.7    
+## [28] labeling_0.3        latticeExtra_0.6-26 lazyeval_0.1.9     
+## [31] magrittr_1.0.1      MASS_7.3-35         matrixStats_0.10.3 
+## [34] mixOmics_5.0-3      munsell_0.4.2       nlme_3.1-118       
+## [37] nnet_7.3-8          OAIHarvester_0.1-7  parallel_3.1.2     
+## [40] pheatmap_0.7.7      plyr_1.8.1          proto_0.3-10       
+## [43] RColorBrewer_1.0-5  Rcpp_0.11.3         RCurl_1.95-4.3     
+## [46] reshape2_1.4        RGCCA_2.0           rgl_0.95.1158      
+## [49] rjson_0.2.15        RJSONIO_1.3-0       R.methodsS3_1.6.1  
+## [52] rpart_4.1-8         scales_0.2.4        splines_3.1.2      
+## [55] stringr_0.6.2       survival_2.37-7     tools_3.1.2        
+## [58] WGCNA_1.41-1        XML_3.98-1.1        yaml_2.1.13
 ```
 
 

@@ -87,26 +87,7 @@ absolute or logarithmic abundances!
 ```r
 # Load tools
 library(dplyr)
-```
 
-```
-## 
-## Attaching package: 'dplyr'
-## 
-## The following object is masked from 'package:reshape':
-## 
-##     rename
-## 
-## The following object is masked from 'package:stats':
-## 
-##     filter
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 # 1. List all samples (all time points and DNA extraction methods)
 all.samples <- meta$SampleID
 
@@ -184,13 +165,6 @@ colnames(dfm) <- c("Taxon", "SampleID", "RelativeAbundance")
 
 # Provide barplot visualizations of relative abundances for some randomly selected samples
 library(ggplot2)
-```
-
-```
-## Use suppressPackageStartupMessages to eliminate package startup messages.
-```
-
-```r
 dfmf <- filter(dfm, SampleID %in% c("Sample-1", "Sample-2", "Sample-3", "Sample-4", "Sample-5"))
 p <- ggplot(dfmf, aes(x = SampleID, y = RelativeAbundance, fill = Taxon))
 p <- p + geom_bar(position = "stack", stat = "identity")
