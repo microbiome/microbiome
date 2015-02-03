@@ -2,8 +2,6 @@
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
 date: "`r Sys.Date()`"
-
-Title: "sorvi vignette"
 output:
   html_document:
     toc: true
@@ -25,13 +23,6 @@ The microbiome package contains general-purpose tools for
 microarray-based analysis of microbiome profiling data sets. 
 
 ## Installation
-
-### Installing and loading the release version
-
-```{r install, eval=FALSE}
-source("http://www.bioconductor.org/biocLite.R")
-biocLite("microbiome")
-```
 
 ### Installing and loading the experimental development version
 
