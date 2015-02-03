@@ -41,7 +41,7 @@ install_github("microbiome/microbiome")
 ## Downloading github repo microbiome/microbiome@master
 ## Installing microbiome
 ## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
-##   '/tmp/Rtmp6Q1kXc/devtools37cd2cd6a948/microbiome-microbiome-a984b76'  \
+##   '/tmp/RtmpGM2MfC/devtools3bfbf407a3/microbiome-microbiome-d3b0a8e'  \
 ##   --library='/home/antagomir/R/x86_64-pc-linux-gnu-library/3.1'  \
 ##   --install-tests 
 ## 
