@@ -23,6 +23,16 @@ This tutorial provides step-by-step examples on exploratory analysis
 of large-scale population-level microbiota profiling data.
 
 
+### Project
+
+Start the project as follows:
+
+ 1. Start [RStudio](http://www.rstudio.com/)
+ 1. Copy the [Template.Rmd](https://github.com/microbiome/microbiome/tree/master/vignettes/Template.Rmd) file on your computer and open this from RStudio
+ 1. Convert the file with the knit button
+ 1. Pick examples from this document and start making your own report by expanding the template
+
+
 ### Install the experimental tools in R
 
 ```{r install2, eval=FALSE}
@@ -71,6 +81,7 @@ meta$SampleID <- rownames(meta)
 # Order BMI groups in correct order
 # (see README at http://datadryad.org/resource/doi:10.5061/dryad.pk75d for details)
 meta$BMI_group <- factor(meta$BMI_group, levels = c("underweight", "lean", "overweight", "obese", "severeobese", "morbidobese"))
+meta$SubjectID <- factor(meta$SubjectID)
 ```
 
 ### Abundance histograms
@@ -90,7 +101,8 @@ all.samples <- meta$SampleID
 rbb.samples <- filter(meta, Time == "0" & DNA_extraction_method == "r")$SampleID
 
 # Visualize
-tax <- "Prevotella.melaninogenica.et.rel."
+#tax <- "Prevotella.melaninogenica.et.rel."
+tax <- "Bifidobacterium"
 d <- data[all.samples, tax]
 par(mfrow = c(1, 2))
 plot(density(d), main = paste(tax, "(All samples)"), xlab = "Abundance (Absolute HITChip signal)")
@@ -103,7 +115,7 @@ plot(density(log10(d)), main = paste(tax, "(RBB samples)"), xlab = "Abundance (L
 ```
 
 
-### Microbiota richness and diversity 
+### Microbiota diversity 
 
 Diversity takes into account species richness and evenness ie. how
 species abundances are distributed. We use here Shannon diversity.
@@ -130,6 +142,18 @@ plot(meta$Age, di, main = "Microbiota diversity vs. Age", ylab = "Diversity", xl
 
 TASK: Try to use just single sample per subject (time point 0) and
 perhaps a single DNA extraction method (r) - see above ?
+
+### Plotting trends
+
+Plot subject age versus phylotype abundance with smoothed confidence intervals:
+
+```{r visu-example3, fig.width=8, fig.height=8, message=FALSE, warning=FALSE}
+library(microbiome)
+library(sorvi)
+df <- data.frame(Age = meta[rbb.samples, "Age"], Diversity = di[rbb.samples])
+p <- sorvi::regression_plot(Diversity~Age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
+print(p)
+```
 
 
 ### Relative abundancies
@@ -165,7 +189,7 @@ print(p)
 
 Visualize deviation of all bacteria from their population mean (smaller: blue; higher: red):
 
-```{r density, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.keep='last'}
+```{r density, message=FALSE, warning=FALSE, fig.width=15, fig.height=8}
 # Let us focus on the most abundant and prevalent bacteria
 # that are seen in >1% (>0.01) relative abundance in 
 # >20% (>0.2) of the subjects
@@ -189,11 +213,45 @@ p <- densityplot(proj, col = meta[rbb.samples, "DNA_extraction_method"], legend 
 print(p)
 
 # Visualize with low/high Prevotella
-# This shows that Prevotella has ecosystem-level impact on microbiota composition
-high.prevotella <- log10(data[rbb.samples, "Prevotella.melaninogenica.et.rel."]) > 4
-p <- densityplot(proj, col = high.prevotella, legend = T)
+# This shows that Prevotella (color) has ecosystem-level impact on microbiota composition
+#high.prevotella <- log10(data[rbb.samples, "Prevotella.melaninogenica.et.rel."]) > 4
+prevotella.abundance  <- log10(data[rbb.samples, "Prevotella.melaninogenica.et.rel."]) 
+p <- densityplot(proj, col = prevotella.abundance, legend = T)
 print(p)
 ```
+
+
+PCA with ggplot2 - the above example gives a shortcut for the following:
+
+```{r density2, message=FALSE, warning=FALSE, fig.width=15, fig.height=8}
+# Arrange projected data onto a data frame
+coms <- intersect(rownames(proj), rownames(meta))
+df <- as.data.frame(cbind(proj[coms,], meta[coms,]))
+names(df) <- c("x", "y", colnames(meta))
+
+# Construct the figure with ggplot2
+library(ggplot2)
+theme_set(theme_bw(15))
+p <- ggplot(df) 
+
+# Add densities
+p <- p + stat_density2d(aes(x = x, y = y, fill=..density..), geom="raster", stat_params = list(contour = F), geom_params = list()) 
+p <- p + scale_fill_gradient(low="white", high="black") 
+
+# Add points
+p <- p + geom_point(aes(x = x, y = y, color = Sex), size = 1.5) 
+
+# Add labels
+p <- p + xlab("PCA 1") + ylab("PCA 2") + ggtitle("Density plot")
+p <- p + scale_colour_discrete(name = "Sex")
+
+# Plot the figure
+print(p)
+```
+
+
+
+
 
 ### Licensing and Citations
 
