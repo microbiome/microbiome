@@ -14,6 +14,41 @@ print(p)
 ```
 
 
+PCA with ggplot2 - the above example gives a shortcut for the following:
+
+```{r density2, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.keep='last'}
+
+# Arrange projected data onto a data frame
+coms <- intersect(rownames(proj), rownames(meta))
+df <- as.data.frame(cbind(proj[coms,], meta[coms,]))
+names(df) <- c("x", "y", colnames(meta))
+df$time <- factor(df$time)
+
+# Determine bandwidth for density estimation
+library(MASS)
+bw <- c(bandwidth.nrd(df[["x"]]), bandwidth.nrd(df[["y"]]))
+
+# Construct the figure with ggplot2
+library(ggplot2)
+theme_set(theme_bw(15))
+p <- ggplot(df) 
+
+# Add densities
+p <- p + stat_density2d(aes(x = x, y = y, fill=..density..), geom="raster", stat_params = list(h = bw, contour = F), geom_params = list()) 
+p <- p + scale_fill_gradient(low="white", high="black") 
+
+# Add points
+p <- p + geom_point(aes(x = x, y = y, color = subject), size = 1.5) 
+
+# Add labels
+p <- p + xlab("PCA 1") + ylab("PCA 2") + ggtitle("Density plot")
+p <- p + scale_colour_discrete(name = "Subject")
+
+# Plot the figure
+print(p)
+
+```
+
 
 ### Multivariate (infinite) Gaussian mixture model
 
@@ -62,55 +97,6 @@ print(p)
 ```
 
 
-### PCA visualization with densities
-
-Visualize deviation of all bacteria from their population mean (smaller: blue; higher: red):
-
-```{r density, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.keep='last'}
-# Project data on 2D display with PCA (visualize subjects based on 20 random features)
-set.seed(423542)
-proj <- microbiome::project.data(dat1[, sample(ncol(dat1), 10)], type = "PCA")
-
-# Produce the plot
-p <- densityplot(proj)
-
-# Visualize
-print(p)
-```
-
-Same with ggplot2 - the above example gives a shortcut for the following:
-
-```{r density2, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.keep='last'}
-
-# Arrange projected data onto a data frame
-coms <- intersect(rownames(proj), rownames(meta))
-df <- as.data.frame(cbind(proj[coms,], meta[coms,]))
-names(df) <- c("x", "y", colnames(meta))
-df$time <- factor(df$time)
-
-# Determine bandwidth for density estimation
-library(MASS)
-bw <- c(bandwidth.nrd(df[["x"]]), bandwidth.nrd(df[["y"]]))
-
-# Construct the figure with ggplot2
-library(ggplot2)
-theme_set(theme_bw(15))
-p <- ggplot(df) 
-
-# Add densities
-p <- p + stat_density2d(aes(x = x, y = y, fill=..density..), geom="raster", stat_params = list(h = bw, contour = F), geom_params = list()) 
-p <- p + scale_fill_gradient(low="white", high="black") 
-
-# Add points
-p <- p + geom_point(aes(x = x, y = y, color = subject), size = 1.5) 
-
-# Add labels
-p <- p + xlab("PCA 1") + ylab("PCA 2") + ggtitle("Density plot")
-p <- p + scale_colour_discrete(name = "Subject")
-
-# Plot the figure
-print(p)
-```
 
 
 ### Data projections

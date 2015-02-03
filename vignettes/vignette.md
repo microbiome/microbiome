@@ -2,8 +2,6 @@
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
 date: "2015-02-03"
-
-Title: "sorvi vignette"
 output:
   html_document:
     toc: true
@@ -25,14 +23,6 @@ The microbiome package contains general-purpose tools for
 microarray-based analysis of microbiome profiling data sets. 
 
 ## Installation
-
-### Installing and loading the release version
-
-
-```r
-source("http://www.bioconductor.org/biocLite.R")
-biocLite("microbiome")
-```
 
 ### Installing and loading the experimental development version
 
@@ -354,7 +344,7 @@ print(auc)
 ```
 
 ```
-## [1] 0.5976033
+## [1] 0.4666667
 ```
 
 ```r
