@@ -4,7 +4,7 @@
 \title{bootstrap.microbes}
 \usage{
 bootstrap.microbes(D, Nsample = NULL, minPrev = 2, Nboot = 1000,
-  I.thr = 1.8, ncore = 1)
+  I.thr = 1.8, ncore = 1, I.max = NULL)
 }
 \arguments{
 \item{D}{data (phylotypes x samples)}
@@ -19,6 +19,9 @@ to exceed the intensity threshold for a 'present' call.}
 \item{I.thr}{Lower limit for intensity threshold}
 
 \item{ncore}{number of nodes for parallelization - default 1}
+
+\item{I.max}{Upper limit for intensity threshold. Later addition.
+             set to NULL (default) to replicate Salonen et al.}
 }
 \value{
 data frame with microbes and their frequency of presence in

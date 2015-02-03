@@ -4,7 +4,7 @@
 \title{bootstrap.microbecount}
 \usage{
 bootstrap.microbecount(D, Nsample = NULL, minprev = 1, Nboot = 1000,
-  I.thr = 1.8, ncore = 1)
+  I.thr = 1.8, ncore = 1, I.max = NULL)
 }
 \arguments{
 \item{D}{data}
@@ -15,9 +15,11 @@ bootstrap.microbecount(D, Nsample = NULL, minprev = 1, Nboot = 1000,
 
 \item{Nboot}{bootstrap sample size}
 
-\item{I.thr}{threshold}
+\item{I.thr}{intensity threshold}
 
 \item{ncore}{number of nodes for parallelization}
+
+\item{I.max}{max intensity threshold}
 }
 \value{
 median microbe count in bootstrapped cores
