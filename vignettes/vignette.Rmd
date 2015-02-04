@@ -2,7 +2,9 @@
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
 date: "`r Sys.Date()`"
-bibliography: bibliography.bib
+bibliography: 
+- bibliography.bib
+- references.bib
 output:
   html_document:
     toc: true
