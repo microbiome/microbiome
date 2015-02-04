@@ -11,6 +11,15 @@ output:
     number_sections: true
     theme: united
     highlight: pygments
+  pdf_document:
+    toc: true
+    highlight: zenburn
+  md_document:
+    toc: true
+  word_document:
+    fig_width: 5
+    fig_height: 5
+    fig_caption: true
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
