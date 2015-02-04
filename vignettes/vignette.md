@@ -86,6 +86,8 @@ Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
 
 
 
+You can embed citations, for example2: @lahti14natcomm
+
 You can embed citations, for example: [@lahti14natcomm]
 
 Cite with DOI: [@Abrams_2012]
@@ -93,7 +95,6 @@ Cite with DOI: [@Abrams_2012]
 Cite URL [@greycite21186]
 
 Packages: [@Xie_2014; @Xie_2013; @Xie_2014a]
-
 
 
 
@@ -132,7 +133,7 @@ Packages: [@Xie_2014; @Xie_2013; @Xie_2014a]
 ## http://yihui.name/knitr/>.
 ```
 
-For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations). The package utilizes tools from a number of other CRAN and
+For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). The package utilizes tools from a number of other CRAN and
 Bioconductor extensions, including ade4, df2json, rjson, fastcluster,
 ggplot2, MASS, methods, minet, mixOmics, plyr, qvalue, RCurl,
 reshape2, RPA, vegan, and WGCNA. We thank all authors for these
