@@ -111,6 +111,8 @@ Bioconductor extensions, including:
 #Cite URL `r citep("http://knowledgeblog.org/greycite")`
 #For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). 
 write.bibtex(file="references.bib")
+
+```{r, echo=FALSE, message=FALSE, results='asis'}
 bibliography()
 ```
 

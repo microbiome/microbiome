@@ -104,71 +104,66 @@ extensions, including:
 -   minet (Meyer, Lafitte, and Bontempi, 2008)
 -   fastcluster (Müllner, 2013)
 
-<!-- -->
+[1] N. Caballero. *df2json: Convert a dataframe to JSON*. R package
+version 0.0.2. 2013. <URL:
+http://CRAN.R-project.org/package=df2json>.
 
-    ## [1] N. Caballero. _df2json: Convert a dataframe to JSON_. R
-    ## package version 0.0.2. 2013. <URL:
-    ## http://CRAN.R-project.org/package=df2json>.
-    ## 
-    ## [2] D. Chessel, A. Dufour and J. Thioulouse. "The ade4 package-I-
-    ## One-table methods". In: _R News_ 4 (2004), pp. 5-10.
-    ## 
-    ## [3] A. Couture-Beil. _rjson: JSON for R_. R package version
-    ## 0.2.15. 2014. <URL: http://CRAN.R-project.org/package=rjson>.
-    ## 
-    ## [4] S. Dejean, I. Gonzalez, K. L. C. w. c. f. P. Monget, et al.
-    ## _mixOmics: Omics Data Integration Project_. R package version
-    ## 5.0-3. 2014. <URL: http://CRAN.R-project.org/package=mixOmics>.
-    ## 
-    ## [5] S. Dray and A. Dufour. "The ade4 package: implementing the
-    ## duality diagram for ecologists". In: _Journal of Statistical
-    ## Software_ 22.4 (2007), pp. 1-20.
-    ## 
-    ## [6] S. Dray, A. Dufour and D. Chessel. "The ade4 package-II:
-    ## Two-table and K-table methods." In: _R News_ 7.2 (2007), pp.
-    ## 47-52.
-    ## 
-    ## [7] L. Lahti, A. Torrente, L. L. Elo, et al. "A fully scalable
-    ## online-preprocessing algorithm for short oligonucleotide
-    ## microarray atlases". In: _Nucleic Acids Research_ 41 (10 2013).
-    ## R/BioC:
-    ## http://bioconductor.org/packages/release/bioc/html/RPA.html, p.
-    ## e110. <URL: http://nar.oxfordjournals.org/content/41/10/e110>.
-    ## 
-    ## [8] P. Langfelder and S. Horvath. "Fast R Functions for Robust
-    ## Correlations and Hierarchical Clustering". In: _Journal of
-    ## Statistical Software_ 46.11 (2012), pp. 1-17. <URL:
-    ## http://www.jstatsoft.org/v46/i11/>.
-    ## 
-    ## [9] P. Langfelder and S. Horvath. "WGCNA: an R package for
-    ## weighted correlation network analysis". In: _BMC Bioinformatics_
-    ## (2008), p. 559.
-    ## 
-    ## [10] P. E. Meyer, F. Lafitte and G. Bontempi. "MINET: An open
-    ## source R/Bioconductor Package for Mutual Information based Network
-    ## Inference". In: _BMC Bioinformatics_ 9 (2008). <URL:
-    ## http://www.biomedcentral.com/1471-2105/9/461>.
-    ## 
-    ## [11] D. Müllner. "fastcluster: Fast Hierarchical, Agglomerative
-    ## Clustering Routines for R and Python". In: _Journal of Statistical
-    ## Software_ 53.9 (2013), pp. 1-18. <URL:
-    ## http://www.jstatsoft.org/v53/i09/>.
-    ## 
-    ## [12] J. Oksanen, F. G. Blanchet, R. Kindt, et al. _vegan:
-    ## Community Ecology Package_. R package version 2.2-1. 2015. <URL:
-    ## http://CRAN.R-project.org/package=vegan>.
-    ## 
-    ## [13] D. Temple Lang. _RCurl: General network (HTTP/FTP/...) client
-    ## interface for R_. R package version 1.95-4.3. 2014. <URL:
-    ## http://CRAN.R-project.org/package=RCurl>.
-    ## 
-    ## [14] H. Wickham. _ggplot2: elegant graphics for data analysis_.
-    ## Springer New York, 2009. ISBN: 978-0-387-98140-6. <URL:
-    ## http://had.co.nz/ggplot2/book>.
-    ## 
-    ## [15] Wickham and Hadley. "Reshaping data with the reshape
-    ## package". In: _Journal of Statistical Software_ 21.12 (2007).
-    ## <URL: http://www.jstatsoft.org/v21/i12/paper>.
+[2] D. Chessel, A. Dufour and J. Thioulouse. "The ade4 package-I-
+One-table methods". In: *R News* 4 (2004), pp. 5-10.
+
+[3] A. Couture-Beil. *rjson: JSON for R*. R package version 0.2.15.
+2014. <URL: http://CRAN.R-project.org/package=rjson>.
+
+[4] S. Dejean, I. Gonzalez, K. L. C. w. c. f. P. Monget, et al.
+*mixOmics: Omics Data Integration Project*. R package version 5.0-3.
+2014. <URL: http://CRAN.R-project.org/package=mixOmics>.
+
+[5] S. Dray and A. Dufour. "The ade4 package: implementing the duality
+diagram for ecologists". In: *Journal of Statistical Software* 22.4
+(2007), pp. 1-20.
+
+[6] S. Dray, A. Dufour and D. Chessel. "The ade4 package-II: Two-table
+and K-table methods." In: *R News* 7.2 (2007), pp. 47-52.
+
+[7] L. Lahti, A. Torrente, L. L. Elo, et al. "A fully scalable
+online-preprocessing algorithm for short oligonucleotide microarray
+atlases". In: *Nucleic Acids Research* 41 (10 2013). R/BioC:
+<http://bioconductor.org/packages/release/bioc/html/RPA.html>, p. e110.
+<URL: http://nar.oxfordjournals.org/content/41/10/e110>.
+
+[8] P. Langfelder and S. Horvath. "Fast R Functions for Robust
+Correlations and Hierarchical Clustering". In: *Journal of Statistical
+Software* 46.11 (2012), pp. 1-17. <URL:
+http://www.jstatsoft.org/v46/i11/>.
+
+[9] P. Langfelder and S. Horvath. "WGCNA: an R package for weighted
+correlation network analysis". In: *BMC Bioinformatics* (2008), p. 559.
+
+[10] P. E. Meyer, F. Lafitte and G. Bontempi. "MINET: An open source
+R/Bioconductor Package for Mutual Information based Network Inference".
+In: *BMC Bioinformatics* 9 (2008). <URL:
+http://www.biomedcentral.com/1471-2105/9/461>.
+
+[11] D. Müllner. "fastcluster: Fast Hierarchical, Agglomerative
+Clustering Routines for R and Python". In: *Journal of Statistical
+Software* 53.9 (2013), pp. 1-18. <URL:
+http://www.jstatsoft.org/v53/i09/>.
+
+[12] J. Oksanen, F. G. Blanchet, R. Kindt, et al. *vegan: Community
+Ecology Package*. R package version 2.2-1. 2015. <URL:
+http://CRAN.R-project.org/package=vegan>.
+
+[13] D. Temple Lang. *RCurl: General network (HTTP/FTP/...) client
+interface for R*. R package version 1.95-4.3. 2014. <URL:
+http://CRAN.R-project.org/package=RCurl>.
+
+[14] H. Wickham. *ggplot2: elegant graphics for data analysis*. Springer
+New York, 2009. ISBN: 978-0-387-98140-6. <URL:
+http://had.co.nz/ggplot2/book>.
+
+[15] Wickham and Hadley. "Reshaping data with the reshape package". In:
+*Journal of Statistical Software* 21.12 (2007).
+<URL: http://www.jstatsoft.org/v21/i12/paper>.
 
 The preprocessing of HITChip data is based on RPA [(Lahti, Torrente,
 Elo, et al., 2013); (Lahti, Elo, Aittokallio, et al., 2011)]
