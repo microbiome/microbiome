@@ -82,6 +82,8 @@ Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
 
 ### References
 
+Testing [@lahti14natcomm].
+
 For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html). The package utilizes tools from a number of other CRAN and
 Bioconductor extensions, including ade4, df2json, rjson, fastcluster,
 ggplot2, MASS, methods, minet, mixOmics, plyr, qvalue, RCurl,
