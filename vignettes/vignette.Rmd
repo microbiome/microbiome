@@ -110,9 +110,8 @@ Bioconductor extensions, including:
 #Cite with DOI: `r citep("10.1890/11-0011.1")`
 #Cite URL `r citep("http://knowledgeblog.org/greycite")`
 #For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). 
-#write.bibtex(file="references.bib")
-#bibliography()
-
+write.bibtex(file="references.bib")
+bibliography()
 ```
 
 The preprocessing of HITChip data is based on RPA [`r citep(citation("RPA"))`; `r citep("10.1109/TCBB.2009.38 ")`]
