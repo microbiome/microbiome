@@ -6,20 +6,8 @@ bibliography:
 - bibliography.bib
 - references.bib
 output:
-  html_document:
-    toc: true
-    number_sections: true
-    theme: united
-    highlight: pygments
-  pdf_document:
-    toc: true
-    highlight: zenburn
   md_document:
     toc: true
-  word_document:
-    fig_width: 5
-    fig_height: 5
-    fig_caption: true
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -95,68 +83,49 @@ Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
 
 ```{r, echo=FALSE, message=FALSE}
 require(knitcitations)
-#cleanbib()
+cleanbib()
 #options("citation_format" = "pandoc")
 bib <- read.bibtex("bibliography.bib")
-bib2 <- read.bibtex("references.bib")
 ```
 
-You can embed citations, for example2: @lahti14natcomm
+The package utilizes tools from a number of other CRAN and
+Bioconductor extensions, including:
 
-You can embed citations, for example: `r citep(bib[["lahti14natcomm"]])`
-
-Cite with DOI: `r citep("10.1890/11-0011.1")`
-
-Cite URL `r citep("http://knowledgeblog.org/greycite")`
-
-Packages: `r citep(citation("knitr"))`
+ * df2json `r citep(citation("df2json"))`
+ * rjson `r citep(citation("rjson"))`
+ * ade4 `r citep(citation("ade4"))`
+ * mixOmics `r citep(citation("mixOmics"))`
+ * RCurl `r citep(citation("RCurl"))`
+ * vegan `r citep(citation("vegan"))`
+ * reshape `r citep(citation("reshape"))`
+ * WGCNA `r citep(citation("WGCNA"))`
+ * ggplot2 `r citep(citation("ggplot2"))`
+ * RPA `r citep(citation("RPA"))`
+ * minet `r citep(citation("minet"))`
+ * fastcluster `r citep(citation("fastcluster"))`
 
 ```{r, echo=FALSE, message=FALSE}
-write.bibtex(file="references.bib")
+#You can embed citations, for example: `r citep(bib[["lahti14natcomm"]])`
+#You can embed citations, for example2: @lahti14natcomm
+#Cite with DOI: `r citep("10.1890/11-0011.1")`
+#Cite URL `r citep("http://knowledgeblog.org/greycite")`
+#For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). 
+#write.bibtex(file="references.bib")
 #bibliography()
+
 ```
 
-For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). The package utilizes tools from a number of other CRAN and
-Bioconductor extensions, including ade4, df2json, rjson, fastcluster,
-ggplot2, MASS, methods, minet, mixOmics, plyr, qvalue, RCurl,
-reshape2, RPA, vegan, and WGCNA. We thank all authors for these
-contributions:
-
- * N. Caballero (2013). [df2json: Convert a dataframe to JSON](http://CRAN.R-project.org/package=df2json) 
-
- * A. Couture-Beil (2013). [rjson: JSON for R](http://CRAN.R-project.org/package=rjson) 
-
- * A. Dabney, John D. Storey and with assistance from Gregory R. Warnes. qvalue: Q-value estimation for false discovery rate control. 
-
- * S. Dray and A. B. Dufour, (2007): The ade4 package: implementing the duality diagram for ecologists. Journal of Statistical Software. 22(4): 1-20.
-
- * S. Dejean et al. (2013). [mixOmics: Omics Data Integration Project](http://CRAN.R-project.org/package=mixOmics) 
-
- * L. Lahti et al. A fully scalable online-preprocessing algorithm for short oligonucleotide microarray atlases. [NAR 41(10):e110, 2013](http://nar.oxfordjournals.org/content/41/10/e110) 
+The preprocessing of HITChip data is based on RPA [`r citep(citation("RPA"))`; `r citep("10.1109/TCBB.2009.38 ")`]
 
  * L. Lahti et al. Analysis of Probe Reliability in Differential Gene Expression Studies with Short Oligonucleotide Arrays. [TCBB/IEEE 8(1):217-225, 2011](http://www.computer.org/portal/web/csdl/doi/10.1109/TCBB.2009.38)
+Lahti11rpa
 
  * L. Lahti et al. Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data. [PeerJ 1:e32, 2013](http://dx.doi.org/10.7717/peerj.32).
-
- * D. T. Lang (2013). [RCurl: General network (HTTP/FTP/...) client interface for R](http://CRAN.R-project.org/package=RCurl) 
-
- * P. Langfelder and S. Horvath, WGCNA: an R package for weighted correlation network analysis. BMC Bioinformatics 2008, 9:559 
-
- * P. Langfelder, S. Horvath (2012). Fast R Functions for Robust Correlations and Hierarchical Clustering. [Journal of Statistical Software, 46(11), 1-17](http://www.jstatsoft.org/v46/i11/)
-
- * P. E. Meyer, Frederic Lafitte and Gianluca Bontempi (2008). MINET: An open source R/Bioconductor Package for Mutual Information based Network Inference. [BMC Bioinformatics](http://www.biomedcentral.com/1471-2105/9/461)
-
- * D. Mullner (2013). fastcluster: Fast Hierarchical, Agglomerative Clustering Routines for R and Python. [Journal of Statistical Software, 53(9), 1-18](http://www.jstatsoft.org/v53/i09/)
-
- * Jari Oksanen et al. (2013). [vegan: Community Ecology Package](http://CRAN.R-project.org/package=vegan) 
+Lahti13provasI
 
  * R Core Team (2013). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. [ISBN 3-900051-07-0](http://www.R-project.org/)
 
  * W. N. Venables and B. D. Ripley (2002) Modern Applied Statistics with S. Fourth Edition. Springer, New York. ISBN 0-387-95457-0
-
- * H. Wickham (2007). Reshaping Data with the reshape Package. [Journal of Statistical Software, 21(12), 1-20](http://www.jstatsoft.org/v21/i12/)
-
- * H. Wickham. ggplot2: elegant graphics for data analysis. Springer New York, 2009. 
 
  * H. Wickham (2011). The Split-Apply-Combine Strategy for Data Analysis. [Journal of Statistical Software, 40(1), 1-29](http://www.jstatsoft.org/v40/i01/)
 

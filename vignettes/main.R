@@ -1,5 +1,7 @@
 library(rmarkdown)
-render("vignette.Rmd", "html_document")
+#render("vignette.Rmd", "html_document")
+#rmarkdown::render("vignette.Rmd", "all")
+rmarkdown::render("vignette.Rmd")
 
 library(knitr)
 knit("vignette.Rmd")
