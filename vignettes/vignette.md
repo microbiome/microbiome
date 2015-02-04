@@ -107,6 +107,9 @@ extensions, including:
 The preprocessing of HITChip data is based on RPA [(Lahti, Torrente,
 Elo, et al., 2013); (Lahti, Elo, Aittokallio, et al., 2011)]
 
+The peerj32 example data set is from (Lahti, Salonen, Kekkonen,
+Salojärvi, Jalanka-Tuovinen, Palva, Orešič, and de\~Vos, 2013).
+
 [1] N. Caballero. *df2json: Convert a dataframe to JSON*. R package
 version 0.0.2. 2013. <URL:
 http://CRAN.R-project.org/package=df2json>.
@@ -134,51 +137,51 @@ Oligonucleotide Arrays". In: *IEEE/ACM Trans. Comput. Biol. and Bioinf.*
 8.1 (Jan. 2011), pp. 217-225. DOI: 10.1109/tcbb.2009.38. <URL:
 http://dx.doi.org/10.1109/TCBB.2009.38>.
 
-[8] L. Lahti, A. Torrente, L. L. Elo, et al. "A fully scalable
+[8] L. Lahti, A. Salonen, R. A. Kekkonen, et al. " Associations between
+the human intestinal microbiota, Lactobacillus rhamnosus GG and serum
+lipids indicated by integrated analysis of high-throughput profiling
+data ". In: *PeerJ* 1 (2013), p. e32. DOI: 10.7717/peerj.32.
+<URL: http://dx.doi.org/10.7717/peerj.32>.
+
+[9] L. Lahti, A. Torrente, L. L. Elo, et al. "A fully scalable
 online-preprocessing algorithm for short oligonucleotide microarray
 atlases". In: *Nucleic Acids Research* 41 (10 2013). R/BioC:
 <http://bioconductor.org/packages/release/bioc/html/RPA.html>, p. e110.
 <URL: http://nar.oxfordjournals.org/content/41/10/e110>.
 
-[9] P. Langfelder and S. Horvath. "Fast R Functions for Robust
+[10] P. Langfelder and S. Horvath. "Fast R Functions for Robust
 Correlations and Hierarchical Clustering". In: *Journal of Statistical
 Software* 46.11 (2012), pp. 1-17. <URL:
 http://www.jstatsoft.org/v46/i11/>.
 
-[10] P. Langfelder and S. Horvath. "WGCNA: an R package for weighted
+[11] P. Langfelder and S. Horvath. "WGCNA: an R package for weighted
 correlation network analysis". In: *BMC Bioinformatics* (2008), p. 559.
 
-[11] P. E. Meyer, F. Lafitte and G. Bontempi. "MINET: An open source
+[12] P. E. Meyer, F. Lafitte and G. Bontempi. "MINET: An open source
 R/Bioconductor Package for Mutual Information based Network Inference".
 In: *BMC Bioinformatics* 9 (2008). <URL:
 http://www.biomedcentral.com/1471-2105/9/461>.
 
-[12] D. Müllner. "fastcluster: Fast Hierarchical, Agglomerative
+[13] D. Müllner. "fastcluster: Fast Hierarchical, Agglomerative
 Clustering Routines for R and Python". In: *Journal of Statistical
 Software* 53.9 (2013), pp. 1-18. <URL:
 http://www.jstatsoft.org/v53/i09/>.
 
-[13] J. Oksanen, F. G. Blanchet, R. Kindt, et al. *vegan: Community
+[14] J. Oksanen, F. G. Blanchet, R. Kindt, et al. *vegan: Community
 Ecology Package*. R package version 2.2-1. 2015. <URL:
 http://CRAN.R-project.org/package=vegan>.
 
-[14] D. Temple Lang. *RCurl: General network (HTTP/FTP/...) client
+[15] D. Temple Lang. *RCurl: General network (HTTP/FTP/...) client
 interface for R*. R package version 1.95-4.3. 2014. <URL:
 http://CRAN.R-project.org/package=RCurl>.
 
-[15] H. Wickham. *ggplot2: elegant graphics for data analysis*. Springer
+[16] H. Wickham. *ggplot2: elegant graphics for data analysis*. Springer
 New York, 2009. ISBN: 978-0-387-98140-6. <URL:
 http://had.co.nz/ggplot2/book>.
 
-[16] Wickham and Hadley. "Reshaping data with the reshape package". In:
+[17] Wickham and Hadley. "Reshaping data with the reshape package". In:
 *Journal of Statistical Software* 21.12 (2007).
 <URL: http://www.jstatsoft.org/v21/i12/paper>.
-
--   L. Lahti et al. Analysis of Probe Reliability in Differential Gene
-    Expression Studies with Short Oligonucleotide Arrays. [TCBB/IEEE
-    8(1):217-225,
-    2011](http://www.computer.org/portal/web/csdl/doi/10.1109/TCBB.2009.38)
-    Lahti11rpa
 
 -   L. Lahti et al. Associations between the human intestinal
     microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by

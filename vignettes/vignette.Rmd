@@ -113,8 +113,9 @@ Bioconductor extensions, including:
 write.bibtex(file="references.bib")
 ```
 
+The preprocessing of HITChip data is based on RPA [`r citep(citation("RPA"))`; `r citep("10.1109/TCBB.2009.38")`]
 
-The preprocessing of HITChip data is based on RPA [`r citep(citation("RPA"))`; `r citep("10.1109/TCBB.2009.38 ")`]
+The peerj32 example data set is from `r citep("10.7717/peerj.32")`.
 
 
 ```{r, echo=FALSE, message=FALSE, results='asis'}
@@ -122,8 +123,6 @@ bibliography()
 ```
 
 
- * L. Lahti et al. Analysis of Probe Reliability in Differential Gene Expression Studies with Short Oligonucleotide Arrays. [TCBB/IEEE 8(1):217-225, 2011](http://www.computer.org/portal/web/csdl/doi/10.1109/TCBB.2009.38)
-Lahti11rpa
 
  * L. Lahti et al. Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data. [PeerJ 1:e32, 2013](http://dx.doi.org/10.7717/peerj.32).
 Lahti13provasI
