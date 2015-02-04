@@ -104,6 +104,9 @@ extensions, including:
 -   minet (Meyer, Lafitte, and Bontempi, 2008)
 -   fastcluster (Müllner, 2013)
 
+The preprocessing of HITChip data is based on RPA [(Lahti, Torrente,
+Elo, et al., 2013); (Lahti, Elo, Aittokallio, et al., 2011)]
+
 [1] N. Caballero. *df2json: Convert a dataframe to JSON*. R package
 version 0.0.2. 2013. <URL:
 http://CRAN.R-project.org/package=df2json>.
@@ -125,48 +128,51 @@ diagram for ecologists". In: *Journal of Statistical Software* 22.4
 [6] S. Dray, A. Dufour and D. Chessel. "The ade4 package-II: Two-table
 and K-table methods." In: *R News* 7.2 (2007), pp. 47-52.
 
-[7] L. Lahti, A. Torrente, L. L. Elo, et al. "A fully scalable
+[7] L. Lahti, L. L. Elo, T. Aittokallio, et al. "Probabilistic Analysis
+of Probe Reliability in Differential Gene Expression Studies with Short
+Oligonucleotide Arrays". In: *IEEE/ACM Trans. Comput. Biol. and Bioinf.*
+8.1 (Jan. 2011), pp. 217-225. DOI: 10.1109/tcbb.2009.38. <URL:
+http://dx.doi.org/10.1109/TCBB.2009.38>.
+
+[8] L. Lahti, A. Torrente, L. L. Elo, et al. "A fully scalable
 online-preprocessing algorithm for short oligonucleotide microarray
 atlases". In: *Nucleic Acids Research* 41 (10 2013). R/BioC:
 <http://bioconductor.org/packages/release/bioc/html/RPA.html>, p. e110.
 <URL: http://nar.oxfordjournals.org/content/41/10/e110>.
 
-[8] P. Langfelder and S. Horvath. "Fast R Functions for Robust
+[9] P. Langfelder and S. Horvath. "Fast R Functions for Robust
 Correlations and Hierarchical Clustering". In: *Journal of Statistical
 Software* 46.11 (2012), pp. 1-17. <URL:
 http://www.jstatsoft.org/v46/i11/>.
 
-[9] P. Langfelder and S. Horvath. "WGCNA: an R package for weighted
+[10] P. Langfelder and S. Horvath. "WGCNA: an R package for weighted
 correlation network analysis". In: *BMC Bioinformatics* (2008), p. 559.
 
-[10] P. E. Meyer, F. Lafitte and G. Bontempi. "MINET: An open source
+[11] P. E. Meyer, F. Lafitte and G. Bontempi. "MINET: An open source
 R/Bioconductor Package for Mutual Information based Network Inference".
 In: *BMC Bioinformatics* 9 (2008). <URL:
 http://www.biomedcentral.com/1471-2105/9/461>.
 
-[11] D. Müllner. "fastcluster: Fast Hierarchical, Agglomerative
+[12] D. Müllner. "fastcluster: Fast Hierarchical, Agglomerative
 Clustering Routines for R and Python". In: *Journal of Statistical
 Software* 53.9 (2013), pp. 1-18. <URL:
 http://www.jstatsoft.org/v53/i09/>.
 
-[12] J. Oksanen, F. G. Blanchet, R. Kindt, et al. *vegan: Community
+[13] J. Oksanen, F. G. Blanchet, R. Kindt, et al. *vegan: Community
 Ecology Package*. R package version 2.2-1. 2015. <URL:
 http://CRAN.R-project.org/package=vegan>.
 
-[13] D. Temple Lang. *RCurl: General network (HTTP/FTP/...) client
+[14] D. Temple Lang. *RCurl: General network (HTTP/FTP/...) client
 interface for R*. R package version 1.95-4.3. 2014. <URL:
 http://CRAN.R-project.org/package=RCurl>.
 
-[14] H. Wickham. *ggplot2: elegant graphics for data analysis*. Springer
+[15] H. Wickham. *ggplot2: elegant graphics for data analysis*. Springer
 New York, 2009. ISBN: 978-0-387-98140-6. <URL:
 http://had.co.nz/ggplot2/book>.
 
-[15] Wickham and Hadley. "Reshaping data with the reshape package". In:
+[16] Wickham and Hadley. "Reshaping data with the reshape package". In:
 *Journal of Statistical Software* 21.12 (2007).
 <URL: http://www.jstatsoft.org/v21/i12/paper>.
-
-The preprocessing of HITChip data is based on RPA [(Lahti, Torrente,
-Elo, et al., 2013); (Lahti, Elo, Aittokallio, et al., 2011)]
 
 -   L. Lahti et al. Analysis of Probe Reliability in Differential Gene
     Expression Studies with Short Oligonucleotide Arrays. [TCBB/IEEE

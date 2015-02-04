@@ -111,12 +111,16 @@ Bioconductor extensions, including:
 #Cite URL `r citep("http://knowledgeblog.org/greycite")`
 #For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). 
 write.bibtex(file="references.bib")
+```
+
+
+The preprocessing of HITChip data is based on RPA [`r citep(citation("RPA"))`; `r citep("10.1109/TCBB.2009.38 ")`]
+
 
 ```{r, echo=FALSE, message=FALSE, results='asis'}
 bibliography()
 ```
 
-The preprocessing of HITChip data is based on RPA [`r citep(citation("RPA"))`; `r citep("10.1109/TCBB.2009.38 ")`]
 
  * L. Lahti et al. Analysis of Probe Reliability in Differential Gene Expression Studies with Short Oligonucleotide Arrays. [TCBB/IEEE 8(1):217-225, 2011](http://www.computer.org/portal/web/csdl/doi/10.1109/TCBB.2009.38)
 Lahti11rpa
