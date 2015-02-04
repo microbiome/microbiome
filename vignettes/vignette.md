@@ -210,31 +210,36 @@ This vignette was created with
     ## [8] base     
     ## 
     ## other attached packages:
-    ##  [1] microbiome_0.99.34   AnnotationDbi_1.26.1 GenomeInfoDb_1.0.2  
-    ##  [4] Biobase_2.24.0       BiocGenerics_0.10.0  RSQLite_1.0.0       
-    ##  [7] DBI_0.3.1            reshape_0.8.5        vegan_2.2-1         
-    ## [10] lattice_0.20-29      permute_0.8-3        e1071_1.6-4         
-    ## [13] devtools_1.7.0       knitcitations_1.0.5  rmarkdown_0.3.10    
+    ##  [1] microbiome_0.99.34   ggplot2_1.0.0        sorvi_0.7.13        
+    ##  [4] dplyr_0.3.0.2        rdryad_0.1.1         AnnotationDbi_1.26.1
+    ##  [7] GenomeInfoDb_1.0.2   Biobase_2.24.0       BiocGenerics_0.10.0 
+    ## [10] RSQLite_1.0.0        DBI_0.3.1            reshape_0.8.5       
+    ## [13] vegan_2.2-1          lattice_0.20-29      permute_0.8-3       
+    ## [16] e1071_1.6-4          devtools_1.7.0       knitcitations_1.0.5 
+    ## [19] rmarkdown_0.3.10    
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] acepack_1.3-3.3       bibtex_0.4.0          class_7.3-11         
-    ##  [4] cluster_1.15.3        codetools_0.2-9       colorspace_1.2-4     
-    ##  [7] df2json_0.0.2         digest_0.6.4          doParallel_1.0.8     
-    ## [10] dynamicTreeCut_1.62   evaluate_0.5.5        fastcluster_1.1.15   
-    ## [13] foreach_1.4.2         foreign_0.8-61        formatR_1.0          
-    ## [16] Formula_1.1-2         ggplot2_1.0.0         GO.db_2.14.0         
-    ## [19] grid_3.1.2            gtable_0.1.2          Hmisc_3.14-5         
-    ## [22] htmltools_0.2.6       httr_0.5              igraph_0.7.1         
-    ## [25] impute_1.38.1         IRanges_1.22.10       iterators_1.0.7      
-    ## [28] knitr_1.8             latticeExtra_0.6-26   lubridate_1.3.3      
-    ## [31] MASS_7.3-37           Matrix_1.1-4          matrixStats_0.10.3   
-    ## [34] memoise_0.2.1         mgcv_1.8-3            mixOmics_5.0-3       
-    ## [37] munsell_0.4.2         nlme_3.1-118          nnet_7.3-8           
-    ## [40] pheatmap_0.7.7        plyr_1.8.1            preprocessCore_1.26.1
-    ## [43] proto_0.3-10          RColorBrewer_1.0-5    Rcpp_0.11.3          
-    ## [46] RCurl_1.95-4.3        RefManageR_0.8.45     reshape2_1.4.1       
-    ## [49] RGCCA_2.0             rgl_0.95.1158         rjson_0.2.15         
-    ## [52] RJSONIO_1.3-0         R.methodsS3_1.6.1     rpart_4.1-8          
-    ## [55] scales_0.2.4          splines_3.1.2         stats4_3.1.2         
-    ## [58] stringr_0.6.2         survival_2.37-7       tools_3.1.2          
-    ## [61] WGCNA_1.43            XML_3.98-1.1          yaml_2.1.13
+    ##  [1] acepack_1.3-3.3       ape_3.1-4             assertthat_0.1       
+    ##  [4] bibtex_0.4.0          class_7.3-11          cluster_1.15.3       
+    ##  [7] codetools_0.2-9       colorspace_1.2-4      df2json_0.0.2        
+    ## [10] digest_0.6.4          doParallel_1.0.8      dynamicTreeCut_1.62  
+    ## [13] evaluate_0.5.5        fastcluster_1.1.15    foreach_1.4.2        
+    ## [16] foreign_0.8-61        formatR_1.0           Formula_1.1-2        
+    ## [19] gdata_2.13.3          GO.db_2.14.0          grid_3.1.2           
+    ## [22] gtable_0.1.2          gtools_3.4.1          Hmisc_3.14-5         
+    ## [25] htmltools_0.2.6       httr_0.5              igraph_0.7.1         
+    ## [28] impute_1.38.1         IRanges_1.22.10       iterators_1.0.7      
+    ## [31] knitr_1.8             labeling_0.3          latticeExtra_0.6-26  
+    ## [34] lazyeval_0.1.9        lubridate_1.3.3       magrittr_1.0.1       
+    ## [37] MASS_7.3-37           Matrix_1.1-4          matrixStats_0.10.3   
+    ## [40] memoise_0.2.1         mgcv_1.8-3            mixOmics_5.0-3       
+    ## [43] munsell_0.4.2         nlme_3.1-118          nnet_7.3-8           
+    ## [46] OAIHarvester_0.1-7    pheatmap_0.7.7        plyr_1.8.1           
+    ## [49] preprocessCore_1.26.1 proto_0.3-10          RColorBrewer_1.0-5   
+    ## [52] Rcpp_0.11.3           RCurl_1.95-4.3        RefManageR_0.8.45    
+    ## [55] reshape2_1.4.1        RGCCA_2.0             rgl_0.95.1158        
+    ## [58] rjson_0.2.15          RJSONIO_1.3-0         R.methodsS3_1.6.1    
+    ## [61] rpart_4.1-8           scales_0.2.4          splines_3.1.2        
+    ## [64] stats4_3.1.2          stringr_0.6.2         survival_2.37-7      
+    ## [67] tools_3.1.2           WGCNA_1.43            XML_3.98-1.1         
+    ## [70] yaml_2.1.13

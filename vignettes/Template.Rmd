@@ -27,8 +27,8 @@ To test this example, do the following:
  1. Start [RStudio](http://www.rstudio.com/)
  1. Open the [Template.Rmd](https://raw.githubusercontent.com/microbiome/microbiome/master/vignettes/Template.Rmd) file in RStudio
  1. Convert the Rmd file with the 'knit HTML' button
- 1. Start expanding this file to make your own report
- 1. [Examples to use unique microbiota profiling data set](https://github.com/microbiome/microbiome/blob/master/vignettes/Atlas.Rmd) 
+ 1. Start modifying this file to make your own reproducible report
+ 1. Start by adding some [examples with unique microbiota profiling data set](https://github.com/microbiome/microbiome/blob/master/vignettes/Atlas.Rmd) 
  1. Adapt further examples from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
 
