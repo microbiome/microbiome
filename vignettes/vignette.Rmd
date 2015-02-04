@@ -82,7 +82,7 @@ Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
 
 ### References
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE}
 require(knitcitations)
 #cleanbib()
 #options("citation_format" = "pandoc")
@@ -95,6 +95,11 @@ Cite with DOI: `r citep("10.1890/11-0011.1")`
 
 Cite URL `r citep("http://knowledgeblog.org/greycite")`
 
+Packages: `r citep(citation("knitr"))`
+
+```{r, echo=FALSE, message=FALSE}
+write.bibtex(file="references.bib")
+```
 
 For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html). The package utilizes tools from a number of other CRAN and
 Bioconductor extensions, including ade4, df2json, rjson, fastcluster,

@@ -90,6 +90,9 @@ Cite with DOI: [@Abrams_2012]
 
 Cite URL [@greycite21186]
 
+Packages: [@Xie_2014; @Xie_2013; @Xie_2014a]
+
+
 
 For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html). The package utilizes tools from a number of other CRAN and
 Bioconductor extensions, including ade4, df2json, rjson, fastcluster,
