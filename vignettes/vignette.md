@@ -1,7 +1,8 @@
 ---
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
-date: "2015-02-03"
+date: "2015-02-04"
+bibliography: bibliography.bib
 output:
   html_document:
     toc: true
@@ -22,337 +23,51 @@ microbiome R package
 The microbiome package contains general-purpose tools for
 microarray-based analysis of microbiome profiling data sets. 
 
-## Installation
-
-### Installing and loading the experimental development version
-
-
-```r
-install.packages("devtools")
-library(devtools)
-install_github("microbiome/microbiome")
-```
-
-### Loading the package
-
-
-```r
-library(microbiome)  
-```
-
-
-## Examples
-
-### PeerJ example data set
-
-An example data set from Lahti et al. [PeerJ 1:e32, 2013](https://peerj.com/articles/32/) concerns associations between human intestinal microbiota and blood serum lipids. Load the data in R:
-
-
-```r
-library(microbiome)
-data(peerj32)
-names(peerj32)
-```
-
-```
-## [1] "lipids"   "microbes" "meta"
-```
-
-### Load example data
-
-Load simulated example data of the human gut microbiota. Note that
-with HITChip, fRPA is the recommended preprocessing method (kindly
-cite [this
-article](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)). 
-
-
-
-```r
-# Define data path (you can replace data.directory with your own path)
-data.directory <- system.file("extdata", package = "microbiome")
-
-# Read HITChip data matrix (genus-level (L2) log10 values)
-level <- "L2"
-method <- "frpa"
-genus.data <- read.profiling(level = level, 
-	     		       method = method, 
-              		       data.dir = data.directory, 
-	      	       	       log10 = TRUE)  
-
-# Read HITChip probe level data (absolute values - no log10)
-oligo.data <- read.profiling(level = "oligo", 
-                             data.dir = data.directory, 
-			     log10 = FALSE)  
-
-# Probe-taxon mapping table
-phylogeny.info <- read.profiling(level = "phylogeny.full", 
-                           	 data.dir = data.directory)
-
-# Phylogeny that is used to summarize the probes to phylotype/genus/phylum levels
-phylogeny.info.filtered <- read.profiling(level = "phylogeny.filtered", 
-                           	 data.dir = data.directory)
-```
-
-
-
-### Read metadata
-
-An easy way to provide sample metadata is to create a tab-separated metadata file. You can create the file in Excel and export it to tab-separated csv format. The standard (and self-explanatory) field names include 'sampleID', 'time', 'subjectID', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). Read the metadata with:
-
-
-```r
-# Read simulated example metadata
-library(gdata)
-metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
-metadata <- read.xls(metadata.file, as.is = TRUE)
-rownames(metadata) <- metadata$sampleID
-```
-
-
-## Usage Examples
-
-### Diversity estimation
-
-
-```r
-# Determine detection threshold as the top 80 percent quantile
-# of the data
-det.th <- quantile(oligo.data, 0.8)
-
-# Visualize the detection threshold (at log10 scale for clarity)
-plot(density(log10(oligo.data))); abline(v = log10(det.th), main = "Detection threshold", xlab = "Abundance (Log10)", ylab = "Frequency")
-```
-
-![plot of chunk diversity-example](figure/diversity-example-1.png) 
-
-```r
-# Calculate richness. 
-# This indicates how many oligos are present in each sample
-# (exceed the detection threshold)
-ri <- colSums(oligo.data > det.th)
-
-# Diversity using the vegan package
-# NOTE: data needs to be in absolute scale, not logarithmic
-di <- vegan::diversity(t(oligo.data), index = "shannon")
-
-# Pielou's evenness is S/ln(R) w.r.t. given detection threshold
-# NOTE: here we use detection threshold for diversity as well because
-# the exact same data has to be used for diversity and richness calculation,
-# and for richness calculation the detection threshold needs to be set anyway
-# Diversity can be as such calculated also without threshold (see above)
-# but that gives somewhat different result.
-oligo.data2 <- oligo.data - det.th # NOTE: absolute (not log) scale data
-S <- vegan::diversity(t(oligo.data2), index = "shannon")
-R <- colSums(oligo.data2 > 0)
-ev <- S/log(R)
-
-# Combine all into a single table
-divtab <- cbind(richness = ri, evenness = ev, diversity = di)
-head(divtab)
-```
-
-```
-##          richness  evenness diversity
-## Sample.1      918 0.9076456  6.015876
-## Sample.2      728 0.9243413  5.759365
-## Sample.3      990 0.8960132  6.137286
-## Sample.4      698 0.8896066  5.630066
-## Sample.5      661 0.8952997  5.595988
-## Sample.6      334 1.0606226  5.327884
-```
-
-
-Calculate diversities within each phylum-level group
-
-
-```r
-L1.groups <- unique(phylogeny.info.filtered$L1) # List all L1 groups
-L1.diversities <- NULL # initialize
-for (phylum in L1.groups) {
-  # List all probes for the given phylum
-  probes <- levelmap(phylum, "L1", "oligoID", phylogeny.info = phylogeny.info.filtered)[[phylum]]
-  # Check diversity within this phylum
-  di <- vegan::diversity(t(oligo.data[probes,]), index = "shannon")
-  # Add to the table
-  L1.diversities <- cbind(L1.diversities, di)
-}
-# Name the columns
-colnames(L1.diversities) <- L1.groups
-```
-
-
-### Phylogeny
-
-Map phylotypes between hierarchy levels:
-
-
-```r
-phylogeny.info <- GetPhylogeny("HITChip")
-m <- levelmap(phylotypes = NULL, 
-              level.from = "species", 
-	      level.to = "L2", 
-	      phylogeny.info = phylogeny.info)
-```
-
-
-### Diversity boxplot
-
-Diversity boxplot for selected samples:
-
-
-```r
-group <- metadata$group
-names(group) <- metadata$sampleID
-my.samples <- names(group)
-boxplot(di[my.samples]  ~ group[my.samples], las = 1)
-```
-
-![plot of chunk diversity-example2](figure/diversity-example2-1.png) 
-
-### Estimating relative abundancies
-
-Estimate relative abundance of the taxa in each sample. Note: the
-input data set needs to be in absolute scale (not logarithmic).
-
-
-```r
-rel <- relative.abundance(oligo.data, det.th = NULL)
-```
-
-```
-## Warning in relative.abundance(oligo.data, det.th = NULL): Applying
-## detection threshold at 0.8 quantile: 232.026771597465
-```
-
-
-### Core microbiota
-
-Determine common core microbiota, following the [blanket
-analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
- 
-
-```r
-core <- createCore(t(peerj32$microbes))
-```
-
-Visualizing core microbiota:
-
-
-```r
-# Core 2D visualization
-tmp <- Core2D(core)
-```
-
-![plot of chunk core-example2](figure/core-example2-1.png) 
-
-```r
-# Core heatmap
-tmp <- core_heatmap(t(peerj32$microbes))
-```
-
-![plot of chunk core-example2](figure/core-example2-2.png) 
-
-### Cross-correlation example
-
-
-```r
-dat1 <- peerj32$lipids # Lipids (44 samples x 389 lipids)
-dat2 <- peerj32$microbes # Microbiota (44 samples x 130 bacteria)
-meta <- peerj32$meta
-
-correlations <- cross.correlate(dat1, dat2, 
-                        method = "bicor", 
-			mode = "matrix", 
-                        n.signif = 1, 
-			p.adj.threshold = 0.05, 
-                        p.adj.method = "BH")
-```
-
-```
-## Warning in as.vector(x) == as.vector(y): longer object length is not a
-## multiple of shorter object length
-```
-
-```r
-correlation.table <- cmat2table(correlations)
-head(correlation.table)
-```
-
-```
-##              X1                               X2 Correlation       p.adj
-## 1100 TG(54:5).2      Ruminococcus gnavus et rel.   0.7207818 0.001738478
-## 1087   TG(52:5)      Ruminococcus gnavus et rel.   0.6996301 0.003192887
-## 479    PC(40:3) Eubacterium cylindroides et rel.  -0.6771286 0.003800575
-## 656    PC(40:3)                     Helicobacter  -0.6838424 0.003800575
-## 1082   TG(50:4)      Ruminococcus gnavus et rel.   0.6852226 0.003800575
-## 1086 TG(52:4).1      Ruminococcus gnavus et rel.   0.6716223 0.003800575
-```
-
-### Prevalence of taxonomic groups
-
-
-```r
-# List prevalence measure for each group using detection threshold of 2
-# Sort the taxa by prevalence
-head(prevalence(peerj32$microbes, 2, sort = TRUE))
-```
-
-```
-##  Subdoligranulum variable at rel.       Streptococcus mitis et rel. 
-##                                 1                                 1 
-## Streptococcus intermedius et rel.       Streptococcus bovis et rel. 
-##                                 1                                 1 
-##    Sporobacter termitidis et rel.        Ruminococcus obeum et rel. 
-##                                 1                                 1
-```
-
-```r
-# Just list the names of taxa that are present over abundance threshold 2
-# in over 20 percent of the samples:
-prevalent.taxa <- list_prevalent_groups(peerj32$microbes, 2, 0.2)
-```
-
-
-### ROC analysis
-
-A basic example of ROC/AUC analysis with simulated random data.
-
-
-```r
-# Define two sample groups for demonstration purpose
-g1 <- sample(colnames(oligo.data), 10)
-g2 <- setdiff(colnames(oligo.data), g1)
-
-# Compare the two groups with t-test
-pvalues <- c()
-for (tax in rownames(oligo.data)) {
-  pvalues[[tax]] <- t.test(oligo.data[tax, g1], oligo.data[tax, g2])$p.value
-}
-
-# Order the taxa based on the p-values
-ordered.results <- names(sort(pvalues))
-
-# Assume there are some known true positives (here just randomly picked for demonstration)
-true.positives <- sample(rownames(oligo.data), 10)
-
-# Overall ROC analysis (this will give the cumulative TPR and FPR along the ordered list)
-res <- roc(ordered.results, true.positives)
-
-# Calculate ROC/AUC value
-auc <- roc.auc(ordered.results, true.positives)
-print(auc)
-```
-
-```
-## [1] 0.5025229
-```
-
-```r
-# Plot ROC curve
-roc.plot(ordered.results, true.positives, line = TRUE)
-```
-
-![plot of chunk roc-example](figure/roc-example-1.png) 
+### Example workflows
+* [Minimal example](Template.Rmd)
+* [Atlas](Atlas.Rmd)
+
+### Installation, example data sets and preprocessing
+* [Installation](Installation.Rmd)
+* [Data](Data.Rmd)
+* [RPA](RPA.Rmd)
+* [Preprocessing](Preprocessing.Rmd)
+* [Phylogeny](Phylogeny.Rmd)
+
+### Visualization and related tools
+
+* [Barplots](Barplots.Rmd)
+* [Boxplots](Boxplots.Rmd)
+* [Heatmaps](Heatmap.Rmd)
+* [Matrix visualization](Matrix-visualization.Rmd)
+* [Motion charts](Motionchart.Rmd)
+* [Ordination](Projections.Rmd)
+* [Oligo heatmap](Oligoheatmap.Rmd)
+* [Cross hybridization](Crosshyb.Rmd)
+
+### Clustering 
+* [Bimodality](Bimodality.Rmd)
+* [Clustering](Clustering.Rmd)
+* [Distance metrics](Metrics.Rmd)
+
+### Microbiota composition
+* [Core microbiota](Core.Rmd)
+* [Diversity](Diversity.Rmd)
+* [Probe level studies](Probelevel.Rmd)
+* [Stability](Stability.Rmd)
+
+### Linear models, comparisons, and association studies
+* [Linear models](limma.Rmd)
+* [Pairwise comparisons](Comparisons.Rmd)
+* [Cross correlations](Crosscorrelation.Rmd)
+
+### Other statistical analysis
+* [ROC curves](ROC.Rmd)
+* [RDA](RDA.Rmd)
+
+### Miscellaneous
+* [leaveout](leaveout.Rmd)
+* [misc](misc.Rmd)
 
 
 
@@ -367,7 +82,7 @@ Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
 
 ### References
 
-The package utilizes tools from a number of other CRAN and
+For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html). The package utilizes tools from a number of other CRAN and
 Bioconductor extensions, including ade4, df2json, rjson, fastcluster,
 ggplot2, MASS, methods, minet, mixOmics, plyr, qvalue, RCurl,
 reshape2, RPA, vegan, and WGCNA. We thank all authors for these

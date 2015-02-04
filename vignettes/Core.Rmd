@@ -30,3 +30,5 @@ tmp <- Core2D(core)
 # Core heatmap
 tmp <- core_heatmap(t(peerj32$microbes))
 ```
+
+

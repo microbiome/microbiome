@@ -32,18 +32,7 @@ hitchip.matrix[altered.taxa, g1] <- hitchip.matrix[altered.taxa, g1] + 2
 
 # Compare the two groups with limma
 library(limma)
-```
 
-```
-## 
-## Attaching package: 'limma'
-## 
-## The following object is masked from 'package:BiocGenerics':
-## 
-##     plotMA
-```
-
-```r
 # Prepare the design matrix which states the groups for each sample
 # in the hitchip.matrix
 design <- cbind(intercept=1, Grp2vs1=c(rep(0, length(g1)), rep(1, length(g2))))

@@ -50,3 +50,5 @@ tmp <- core_heatmap(t(peerj32$microbes))
 ```
 
 ![plot of chunk core-example2](figure/core-example2-2.png) 
+
+

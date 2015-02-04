@@ -36,8 +36,11 @@ install_github("microbiome/microbiome") # Install the package
 library("microbiome")
 ```
 
-Try out [examples](analysis)!
+### Loading the package
 
+```{r loading, eval=TRUE}
+library(microbiome)  
+```
 
 ## Install HITChipDB package (for developers only)
 

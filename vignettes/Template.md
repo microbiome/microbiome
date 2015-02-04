@@ -1,7 +1,7 @@
 ---
 title: "Project Template"
 author: "Your Name"
-date: "2015-02-03"
+date: "2015-02-04"
 output:
   html_document:
     toc: true
@@ -22,18 +22,6 @@ Example template
 
 ```r
 library(devtools)
-```
-
-```
-## 
-## Attaching package: 'devtools'
-## 
-## The following object is masked from 'package:permute':
-## 
-##     check
-```
-
-```r
 install_github("microbiome/microbiome")
 ```
 
@@ -41,7 +29,7 @@ install_github("microbiome/microbiome")
 ## Downloading github repo microbiome/microbiome@master
 ## Installing microbiome
 ## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
-##   '/tmp/RtmpGM2MfC/devtools3bfbf407a3/microbiome-microbiome-d3b0a8e'  \
+##   '/tmp/RtmpGM2MfC/devtools3bfb63ae523/microbiome-microbiome-9cea28c'  \
 ##   --library='/home/antagomir/R/x86_64-pc-linux-gnu-library/3.1'  \
 ##   --install-tests 
 ## 

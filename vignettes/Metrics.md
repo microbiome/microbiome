@@ -31,7 +31,7 @@ cc <- cross.correlate(metadata.simulated, t(l2.log10.simulated),
 ```
 
 ```
-## Error in as.data.frame(x): object 'metadata.simulated' not found
+## Error in cor.test.default(xi, y[, j], method = method, use = "pairwise.complete.obs"): 'x' and 'y' must have the same length
 ```
 
 ```r
@@ -52,7 +52,7 @@ cc <- cross.correlate(metadata.simulated, t(l2.log10.simulated), mode = "matrix"
 ```
 
 ```
-## Error in as.data.frame(x): object 'metadata.simulated' not found
+## Error in cor.test.default(xi, y[, j], method = method, use = "pairwise.complete.obs"): 'x' and 'y' must have the same length
 ```
 
 ```r
