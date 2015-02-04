@@ -2,12 +2,7 @@
 title: "HITChip Atlas examples"
 author: "Leo Lahti and Gerben Hermes"
 date: "`r Sys.Date()`"
-output:
-  html_document:
-    toc: true
-    number_sections: true
-    theme: united
-    highlight: pygments
+output: md_document
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -22,12 +17,6 @@ HITChip Atlas examples
 This tutorial provides step-by-step examples on exploratory analysis
 of large-scale population-level microbiota profiling data.
 
-
-### Loading the package
-
-```{r loading, eval=TRUE}
-library(microbiome)  
-```
 
 ### HITChip Atlas data set
 
@@ -73,6 +62,9 @@ microbial abundance. It is also important to consider whether to use
 absolute or logarithmic abundances!
 
 ```{r hist, fig.width=16, fig.heigth=8}
+# Load microbiome package
+library(microbiome)  
+
 # Load tools
 library(dplyr)
 
@@ -101,7 +93,6 @@ plot(density(log10(d)), main = paste(tax, "(RBB samples)"), xlab = "Abundance (L
 
 Diversity takes into account species richness and evenness ie. how
 species abundances are distributed. We use here Shannon diversity.
-
 
 ```{r diversity, warning=FALSE, message=FALSE}
 # Diversity using the vegan package

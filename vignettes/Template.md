@@ -19,11 +19,10 @@ To test this example, do the following:
     [Template.Rmd](https://raw.githubusercontent.com/microbiome/microbiome/master/vignettes/Template.Rmd)
     file in RStudio
 4.  Convert the Rmd file with the 'knit HTML' button
-5.  Start expanding this file to make your own report.
-6.  Examples on how to download and visualize unique microbiota
-    profiling data set [example
-    workflow](https://github.com/microbiome/microbiome/blob/master/vignettes/Atlas.Rmd)
-7.  You can adapt further examples for this data from [microbiome
+5.  Start expanding this file to make your own report
+6.  [Examples to use unique microbiota profiling data
+    set](https://github.com/microbiome/microbiome/blob/master/vignettes/Atlas.Rmd)
+7.  Adapt further examples from [microbiome
     tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
 ### Update the microbiome package
@@ -34,7 +33,7 @@ To test this example, do the following:
     ## Downloading github repo microbiome/microbiome@master
     ## Installing microbiome
     ## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
-    ##   '/tmp/Rtmpq61jQN/devtools5f12117b8386/microbiome-microbiome-e1a6f89'  \
+    ##   '/tmp/Rtmpq61jQN/devtools5f121d293985/microbiome-microbiome-c5feb51'  \
     ##   --library='/home/antagomir/R/x86_64-pc-linux-gnu-library/3.1'  \
     ##   --install-tests 
     ## 

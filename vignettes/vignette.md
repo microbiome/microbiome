@@ -206,15 +206,35 @@ This vignette was created with
     ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
     ## 
     ## attached base packages:
-    ## [1] stats     graphics  grDevices utils     datasets  methods   base     
+    ## [1] parallel  stats     graphics  grDevices utils     datasets  methods  
+    ## [8] base     
     ## 
     ## other attached packages:
-    ## [1] knitcitations_1.0.5 rmarkdown_0.3.10   
+    ##  [1] microbiome_0.99.34   AnnotationDbi_1.26.1 GenomeInfoDb_1.0.2  
+    ##  [4] Biobase_2.24.0       BiocGenerics_0.10.0  RSQLite_1.0.0       
+    ##  [7] DBI_0.3.1            reshape_0.8.5        vegan_2.2-1         
+    ## [10] lattice_0.20-29      permute_0.8-3        e1071_1.6-4         
+    ## [13] devtools_1.7.0       knitcitations_1.0.5  rmarkdown_0.3.10    
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] bibtex_0.4.0      digest_0.6.4      evaluate_0.5.5   
-    ##  [4] formatR_1.0       htmltools_0.2.6   httr_0.5         
-    ##  [7] knitr_1.8         lubridate_1.3.3   memoise_0.2.1    
-    ## [10] plyr_1.8.1        Rcpp_0.11.3       RCurl_1.95-4.3   
-    ## [13] RefManageR_0.8.45 RJSONIO_1.3-0     stringr_0.6.2    
-    ## [16] tools_3.1.2       XML_3.98-1.1      yaml_2.1.13
+    ##  [1] acepack_1.3-3.3       bibtex_0.4.0          class_7.3-11         
+    ##  [4] cluster_1.15.3        codetools_0.2-9       colorspace_1.2-4     
+    ##  [7] df2json_0.0.2         digest_0.6.4          doParallel_1.0.8     
+    ## [10] dynamicTreeCut_1.62   evaluate_0.5.5        fastcluster_1.1.15   
+    ## [13] foreach_1.4.2         foreign_0.8-61        formatR_1.0          
+    ## [16] Formula_1.1-2         ggplot2_1.0.0         GO.db_2.14.0         
+    ## [19] grid_3.1.2            gtable_0.1.2          Hmisc_3.14-5         
+    ## [22] htmltools_0.2.6       httr_0.5              igraph_0.7.1         
+    ## [25] impute_1.38.1         IRanges_1.22.10       iterators_1.0.7      
+    ## [28] knitr_1.8             latticeExtra_0.6-26   lubridate_1.3.3      
+    ## [31] MASS_7.3-37           Matrix_1.1-4          matrixStats_0.10.3   
+    ## [34] memoise_0.2.1         mgcv_1.8-3            mixOmics_5.0-3       
+    ## [37] munsell_0.4.2         nlme_3.1-118          nnet_7.3-8           
+    ## [40] pheatmap_0.7.7        plyr_1.8.1            preprocessCore_1.26.1
+    ## [43] proto_0.3-10          RColorBrewer_1.0-5    Rcpp_0.11.3          
+    ## [46] RCurl_1.95-4.3        RefManageR_0.8.45     reshape2_1.4.1       
+    ## [49] RGCCA_2.0             rgl_0.95.1158         rjson_0.2.15         
+    ## [52] RJSONIO_1.3-0         R.methodsS3_1.6.1     rpart_4.1-8          
+    ## [55] scales_0.2.4          splines_3.1.2         stats4_3.1.2         
+    ## [58] stringr_0.6.2         survival_2.37-7       tools_3.1.2          
+    ## [61] WGCNA_1.43            XML_3.98-1.1          yaml_2.1.13
