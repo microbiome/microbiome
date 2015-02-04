@@ -99,11 +99,16 @@ Cite URL `r citep("http://knowledgeblog.org/greycite")`
 
 Packages: `r citep(citation("knitr"))`
 
+
 ```{r, echo=FALSE, message=FALSE}
 write.bibtex(file="references.bib")
 ```
 
-For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html). The package utilizes tools from a number of other CRAN and
+```{r, echo=FALSE, message=FALSE}
+bibliography()
+```
+
+For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations). The package utilizes tools from a number of other CRAN and
 Bioconductor extensions, including ade4, df2json, rjson, fastcluster,
 ggplot2, MASS, methods, minet, mixOmics, plyr, qvalue, RCurl,
 reshape2, RPA, vegan, and WGCNA. We thank all authors for these
