@@ -80,6 +80,17 @@ Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
 (2014). microbiome R package. URL: http://microbiome.github.com'.
 
 
+This is an R Markdown document. 
+
+```{r}
+require(knitcitations)
+summary(cars)
+bib <- read.bibtex("bibliography.bib")
+```
+
+You can embed citations, for example: `r citep(bib[["lahti14natcomm"]])`
+
+
 ### References
 
 Testing [@lahti14natcomm].
