@@ -1,14 +1,3 @@
----
-title: "Project Template"
-author: "Your Name"
-date: "2015-02-04"
-output:
-  html_document:
-    toc: true
-    number_sections: true
-    theme: united
-    highlight: pygments
----
 <!--
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Project Template}
@@ -16,50 +5,35 @@ output:
 -->
 
 
-Example template
-===========
+Minimal example
+===============
 
+To test this example, do the following:
 
-```r
-library(devtools)
-install_github("microbiome/microbiome")
-```
+1.  Copy the
+    [Template.Rmd](https://github.com/microbiome/microbiome/tree/master/vignettes/Template.Rmd)
+    (this file) on your computer
+2.  Start [RStudio](http://www.rstudio.com/)
+3.  open the Template.Rmd file in RStudio
+4.  Convert the Rmd file with the knit button
+5.  Start expanding this file to make your own report. You can check
+    examples from the [example
+    workflow](https://github.com/microbiome/microbiome/blob/master/vignettes/Atlas.Rmd)
+    and [microbiome
+    tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
-```
-## Downloading github repo microbiome/microbiome@master
-## Installing microbiome
-## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
-##   '/tmp/RtmpGM2MfC/devtools3bfb63ae523/microbiome-microbiome-9cea28c'  \
-##   --library='/home/antagomir/R/x86_64-pc-linux-gnu-library/3.1'  \
-##   --install-tests 
-## 
-## Reloading installed microbiome
-## 
-## microbiome R package (microbiome.github.com)
-##           
-## 
-## 
-##  Copyright (C) 2011-2015
-##           Leo Lahti and Jarkko Salojarvi 
-## 
-##         
-##           <microbiome-admin@googlegroups.com>
-## 
-## 
-## Attaching package: 'microbiome'
-## 
-## The following object is masked from 'package:lattice':
-## 
-##     densityplot
-## 
-## The following object is masked from 'package:e1071':
-## 
-##     impute
-```
+<!-- -->
 
-```r
-plot(c(1,2,3))
-```
+    library(devtools)
+    install_github("microbiome/microbiome")
 
-![plot of chunk install2](figure/install2-1.png) 
+    ## Downloading github repo microbiome/microbiome@master
+    ## Installing microbiome
+    ## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
+    ##   '/tmp/Rtmpq61jQN/devtools5f124c8f0655/microbiome-microbiome-69dfa32'  \
+    ##   --library='/home/antagomir/R/x86_64-pc-linux-gnu-library/3.1'  \
+    ##   --install-tests
 
+    plot(c(1,2,3))
+
+![](Template_files/figure-markdown_strict/install2-1.png)

@@ -3,6 +3,8 @@ title: "Project Template"
 author: "Your Name"
 date: "`r Sys.Date()`"
 output:
+  md_document:
+    toc: false
   html_document:
     toc: true
     number_sections: true
@@ -16,8 +18,17 @@ output:
 -->
 
 
-Example template
+Minimal example
 ===========
+
+To test this example, do the following:
+
+ 1. Copy the [Template.Rmd](https://github.com/microbiome/microbiome/tree/master/vignettes/Template.Rmd) (this file) on your computer
+ 1. Start [RStudio](http://www.rstudio.com/)
+ 1. open the Template.Rmd file in RStudio
+ 1. Convert the Rmd file with the knit button
+ 1. Start expanding this file to make your own report. You can check examples from the [example workflow](https://github.com/microbiome/microbiome/blob/master/vignettes/Atlas.Rmd) and [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
+
 
 ```{r install2}
 library(devtools)
