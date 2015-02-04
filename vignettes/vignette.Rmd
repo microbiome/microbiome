@@ -5,9 +5,7 @@ date: "`r Sys.Date()`"
 bibliography: 
 - bibliography.bib
 - references.bib
-output:
-  md_document:
-    toc: true
+output: md_document
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -92,7 +90,7 @@ Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
 (2014). microbiome R package. URL: http://microbiome.github.com'.
 
 
-### References
+### Dependencies
 
 The package utilizes tools from a number of other CRAN and
 Bioconductor extensions, including:
@@ -111,6 +109,10 @@ Bioconductor extensions, including:
  * fastcluster `r citep(citation("fastcluster"))`
  * plyr `r citep(citation("plyr"))`
 
+
+
+### References
+
 ```{r, echo=FALSE, message=FALSE}
 #You can embed citations, for example: `r citep(bib[["lahti14natcomm"]])`
 #You can embed citations, for example2: @lahti14natcomm
@@ -119,7 +121,6 @@ Bioconductor extensions, including:
 #For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). 
 write.bibtex(file="references.bib")
 ```
-
 
 ```{r, echo=FALSE, message=FALSE, results='asis'}
 bibliography()

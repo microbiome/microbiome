@@ -1,16 +1,3 @@
--   microbiome R package
-    -   Example workflows
-    -   Installation, example data sets and preprocessing
-    -   Visualization and related tools
-    -   Clustering
-    -   Microbiota composition
-    -   Linear models, comparisons, and association studies
-    -   Other statistical analysis
-    -   Miscellaneous
-    -   Licensing and Citations
-    -   References
-    -   Session info
-
 <!--
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{microbiome tutorial}
@@ -94,7 +81,7 @@ This work can be freely used, modified and distributed under the
 Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi (2014).
 microbiome R package. URL: <http://microbiome.github.com>'.
 
-### References
+### Dependencies
 
 The package utilizes tools from a number of other CRAN and Bioconductor
 extensions, including:
@@ -113,6 +100,8 @@ extensions, including:
 -   minet (Meyer, Lafitte, and Bontempi, 2008)
 -   fastcluster (Müllner, 2013)
 -   plyr (Wickham, 2011)
+
+### References
 
 [1] N. Caballero. *df2json: Convert a dataframe to JSON*. R package
 version 0.0.2. 2013. <URL:
