@@ -84,11 +84,18 @@ This is an R Markdown document.
 
 ```{r}
 require(knitcitations)
-summary(cars)
+cleanbib()
+options("citation_format" = "pandoc")
 bib <- read.bibtex("bibliography.bib")
 ```
 
+
+
+
 You can embed citations, for example: `r citep(bib[["lahti14natcomm"]])`
+
+Cite with DOI: `r citep("10.1890/11-0011.1")`
+
 
 
 ### References
