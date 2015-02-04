@@ -6,7 +6,7 @@ output:
   md_document:
     toc: false
   html_document:
-    toc: true
+    toc: false
     number_sections: true
     theme: united
     highlight: pygments
@@ -27,7 +27,9 @@ To test this example, do the following:
  1. Start [RStudio](http://www.rstudio.com/)
  1. Open the [Template.Rmd](https://raw.githubusercontent.com/microbiome/microbiome/master/vignettes/Template.Rmd) file in RStudio
  1. Convert the Rmd file with the 'knit HTML' button
- 1. Start expanding this file to make your own report. See examples from the [example workflow](https://github.com/microbiome/microbiome/blob/master/vignettes/Atlas.Rmd) and [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
+ 1. Start expanding this file to make your own report. 
+ 1. Examples on how to download and visualize unique microbiota profiling data set [example workflow](https://github.com/microbiome/microbiome/blob/master/vignettes/Atlas.Rmd) 
+ 1. You can adapt further examples for this data from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
 
 ### Update the microbiome package

@@ -11,18 +11,22 @@ Minimal example
 To test this example, do the following:
 
 1.  Copy the
-    [Template.Rmd](https://github.com/microbiome/microbiome/tree/master/vignettes/Template.Rmd)
-    (this file) on your computer
+    [Template.Rmd](https://raw.githubusercontent.com/microbiome/microbiome/master/vignettes/Template.Rmd)
+    (this file) on your computer. NOTE: change the file ending from .txt
+    to .Rmd !!
 2.  Start [RStudio](http://www.rstudio.com/)
-3.  open the Template.Rmd file in RStudio
-4.  Convert the Rmd file with the knit button
-5.  Start expanding this file to make your own report. You can check
-    examples from the [example
+3.  Open the
+    [Template.Rmd](https://raw.githubusercontent.com/microbiome/microbiome/master/vignettes/Template.Rmd)
+    file in RStudio
+4.  Convert the Rmd file with the 'knit HTML' button
+5.  Start expanding this file to make your own report.
+6.  Examples on how to download and visualize unique microbiota
+    profiling data set [example
     workflow](https://github.com/microbiome/microbiome/blob/master/vignettes/Atlas.Rmd)
-    and [microbiome
+7.  You can adapt further examples for this data from [microbiome
     tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
-<!-- -->
+### Update the microbiome package
 
     library(devtools)
     install_github("microbiome/microbiome")
@@ -30,10 +34,33 @@ To test this example, do the following:
     ## Downloading github repo microbiome/microbiome@master
     ## Installing microbiome
     ## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
-    ##   '/tmp/Rtmpq61jQN/devtools5f124c8f0655/microbiome-microbiome-69dfa32'  \
+    ##   '/tmp/Rtmpq61jQN/devtools5f12117b8386/microbiome-microbiome-e1a6f89'  \
     ##   --library='/home/antagomir/R/x86_64-pc-linux-gnu-library/3.1'  \
-    ##   --install-tests
+    ##   --install-tests 
+    ## 
+    ## Reloading installed microbiome
+    ## 
+    ## microbiome R package (microbiome.github.com)
+    ##           
+    ## 
+    ## 
+    ##  Copyright (C) 2011-2015
+    ##           Leo Lahti and Jarkko Salojarvi 
+    ## 
+    ##         
+    ##           <microbiome-admin@googlegroups.com>
+    ## 
+    ## 
+    ## Attaching package: 'microbiome'
+    ## 
+    ## The following object is masked from 'package:lattice':
+    ## 
+    ##     densityplot
+    ## 
+    ## The following object is masked from 'package:e1071':
+    ## 
+    ##     impute
 
-    plot(c(1,2,3))
+### Load the microbiome package
 
-![](Template_files/figure-markdown_strict/install2-1.png)
+    library(microbiome)
