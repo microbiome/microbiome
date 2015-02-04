@@ -89,7 +89,7 @@ Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
 ```{r, echo=FALSE}
 require(knitcitations)
 cleanbib()
-options("citation_format" = "pandoc")
+#options("citation_format" = "pandoc")
 bib <- read.bibtex("bibliography.bib")
 ```
 
