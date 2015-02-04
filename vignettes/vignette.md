@@ -107,8 +107,10 @@ extensions, including:
 The preprocessing of HITChip data is based on RPA [(Lahti, Torrente,
 Elo, et al., 2013); (Lahti, Elo, Aittokallio, et al., 2011)]
 
-The peerj32 example data set is from (Lahti, Salonen, Kekkonen,
-Salojärvi, Jalanka-Tuovinen, Palva, Orešič, and de\~Vos, 2013).
+The peerj32 example data set is from (Lahti, Salonen, Kekkonen, et al.,
+2013).
+
+This project is based on R statistical environment (Team, 2013)
 
 [1] N. Caballero. *df2json: Convert a dataframe to JSON*. R package
 version 0.0.2. 2013. <URL:
@@ -171,26 +173,25 @@ http://www.jstatsoft.org/v53/i09/>.
 Ecology Package*. R package version 2.2-1. 2015. <URL:
 http://CRAN.R-project.org/package=vegan>.
 
-[15] D. Temple Lang. *RCurl: General network (HTTP/FTP/...) client
+[15] R. C. Team. *R: A language and environment for statistical
+computing*. Vienna, Austria: R Foundation for Statistical Computing,
+2013. ISBN: ISBN 3-900051-07-0. <URL:
+http://www.R-project.org/>.
+
+[16] D. Temple Lang. *RCurl: General network (HTTP/FTP/...) client
 interface for R*. R package version 1.95-4.3. 2014. <URL:
 http://CRAN.R-project.org/package=RCurl>.
 
-[16] H. Wickham. *ggplot2: elegant graphics for data analysis*. Springer
+[17] H. Wickham. *ggplot2: elegant graphics for data analysis*. Springer
 New York, 2009. ISBN: 978-0-387-98140-6. <URL:
 http://had.co.nz/ggplot2/book>.
 
-[17] Wickham and Hadley. "Reshaping data with the reshape package". In:
+[18] Wickham and Hadley. "Reshaping data with the reshape package". In:
 *Journal of Statistical Software* 21.12 (2007).
-<URL: http://www.jstatsoft.org/v21/i12/paper>.
-
--   L. Lahti et al. Associations between the human intestinal
-    microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by
-    integrated analysis of high-throughput profiling data. [PeerJ 1:e32,
-    2013](http://dx.doi.org/10.7717/peerj.32). Lahti13provasI
-
--   R Core Team (2013). R: A language and environment for statistical
-    computing. R Foundation for Statistical Computing, Vienna, Austria.
-    [ISBN 3-900051-07-0](http://www.R-project.org/)
+<URL: http://www.jstatsoft.org/v21/i12/paper>. \* R Core Team (2013). R:
+A language and environment for statistical computing. R Foundation for
+Statistical Computing, Vienna, Austria. [ISBN
+3-900051-07-0](http://www.R-project.org/)
 
 -   W. N. Venables and B. D. Ripley (2002) Modern Applied Statistics
     with S. Fourth Edition. Springer, New York. ISBN 0-387-95457-0

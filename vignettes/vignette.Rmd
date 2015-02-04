@@ -117,16 +117,11 @@ The preprocessing of HITChip data is based on RPA [`r citep(citation("RPA"))`; `
 
 The peerj32 example data set is from `r citep("10.7717/peerj.32")`.
 
+This project is based on R statistical environment `r citep(bib[["rcore13"]])`
 
 ```{r, echo=FALSE, message=FALSE, results='asis'}
 bibliography()
 ```
-
-
-
- * L. Lahti et al. Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data. [PeerJ 1:e32, 2013](http://dx.doi.org/10.7717/peerj.32).
-Lahti13provasI
-
  * R Core Team (2013). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. [ISBN 3-900051-07-0](http://www.R-project.org/)
 
  * W. N. Venables and B. D. Ripley (2002) Modern Applied Statistics with S. Fourth Edition. Springer, New York. ISBN 0-387-95457-0
