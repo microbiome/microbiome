@@ -23,24 +23,6 @@ This tutorial provides step-by-step examples on exploratory analysis
 of large-scale population-level microbiota profiling data.
 
 
-### Project
-
-Start the project as follows:
-
- 1. Start [RStudio](http://www.rstudio.com/)
- 1. Copy the [Template.Rmd](https://github.com/microbiome/microbiome/tree/master/vignettes/Template.Rmd) file on your computer and open this from RStudio
- 1. Convert the file with the knit button
- 1. Pick examples from this document and start making your own report by expanding the template
-
-
-### Install the experimental tools in R
-
-```{r install2, eval=FALSE}
-install.packages("devtools")
-library(devtools)
-install_github("microbiome/microbiome")
-```
-
 ### Loading the package
 
 ```{r loading, eval=TRUE}

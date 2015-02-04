@@ -23,16 +23,22 @@ Minimal example
 
 To test this example, do the following:
 
- 1. Copy the [Template.Rmd](https://github.com/microbiome/microbiome/tree/master/vignettes/Template.Rmd) (this file) on your computer
+ 1. Copy the [Template.Rmd](https://raw.githubusercontent.com/microbiome/microbiome/master/vignettes/Template.Rmd) (this file) on your computer
  1. Start [RStudio](http://www.rstudio.com/)
- 1. open the Template.Rmd file in RStudio
- 1. Convert the Rmd file with the knit button
- 1. Start expanding this file to make your own report. You can check examples from the [example workflow](https://github.com/microbiome/microbiome/blob/master/vignettes/Atlas.Rmd) and [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
+ 1. Open the [Template.Rmd](https://raw.githubusercontent.com/microbiome/microbiome/master/vignettes/Template.Rmd) file in RStudio
+ 1. Convert the Rmd file with the 'knit HTML' button
+ 1. Start expanding this file to make your own report. See examples from the [example workflow](https://github.com/microbiome/microbiome/blob/master/vignettes/Atlas.Rmd) and [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
 
 ```{r install2}
 library(devtools)
 install_github("microbiome/microbiome")
 plot(c(1,2,3))
+```
+
+### Load the package
+
+```{r loading, eval=TRUE}
+library(microbiome)  
 ```
 
