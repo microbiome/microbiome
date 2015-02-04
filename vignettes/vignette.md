@@ -98,41 +98,6 @@ Packages: [@Xie_2014; @Xie_2013; @Xie_2014a]
 
 
 
-
-```
-## Warning in parse_Rd(Rd, encoding = encoding, fragment = fragment, ...):
-## <connection>:3: unknown macro '\textendashprey'
-```
-
-```
-## [1] P. A. Abrams, L. Ruokolainen, B. J. Shuter, et al. "Harvesting
-## creates ecological traps: consequences of invisible mortality
-## risks in predator\textendashprey metacommunities". In: _Ecology_
-## 93.2 (Feb. 2012), pp. 281-293. DOI: 10.1890/11-0011.1. <URL:
-## http://dx.doi.org/10.1890/11-0011.1>.
-## 
-## [2] L. Lahti, J. Salojärvi, A. Salonen, et al. "Tipping elements
-## in the human intestinal ecosystem". In: _Nature Communications_ 5
-## (Jul. 2014), p. 4344. DOI: 10.1038/ncomms5344.
-## 
-## [3] P. Lord. _Greycite_. <URL: http://knowledgeblog.org/greycite>.
-## 2012. <URL: http://knowledgeblog.org/greycite>.
-## 
-## [4] Y. Xie. _Dynamic Documents with R and knitr_. ISBN
-## 978-1482203530. Boca Raton, Florida: Chapman and Hall/CRC, 2013.
-## <URL: http://yihui.name/knitr/>.
-## 
-## [5] Y. Xie. "knitr: A Comprehensive Tool for Reproducible Research
-## in R". In: _Implementing Reproducible Computational Research_. Ed.
-## by V. Stodden, F. Leisch and R. D. Peng. ISBN 978-1466561595.
-## Chapman and Hall/CRC, 2014. <URL:
-## http://www.crcpress.com/product/isbn/9781466561595>.
-## 
-## [6] Y. Xie. _knitr: A General-Purpose Package for Dynamic Report
-## Generation in R_. R package version 1.8. 2014. <URL:
-## http://yihui.name/knitr/>.
-```
-
 For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). The package utilizes tools from a number of other CRAN and
 Bioconductor extensions, including ade4, df2json, rjson, fastcluster,
 ggplot2, MASS, methods, minet, mixOmics, plyr, qvalue, RCurl,

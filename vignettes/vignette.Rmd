@@ -89,6 +89,7 @@ require(knitcitations)
 #cleanbib()
 #options("citation_format" = "pandoc")
 bib <- read.bibtex("bibliography.bib")
+bib2 <- read.bibtex("references.bib")
 ```
 
 You can embed citations, for example2: @lahti14natcomm
@@ -103,10 +104,7 @@ Packages: `r citep(citation("knitr"))`
 
 ```{r, echo=FALSE, message=FALSE}
 write.bibtex(file="references.bib")
-```
-
-```{r, echo=FALSE, message=FALSE}
-bibliography()
+#bibliography()
 ```
 
 For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). The package utilizes tools from a number of other CRAN and
