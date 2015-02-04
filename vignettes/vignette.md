@@ -18,11 +18,14 @@
 -->
 
 
+
+
 microbiome R package
 ====================
 
 The microbiome package contains general-purpose tools for
-microarray-based analysis of microbiome profiling data sets.
+microarray-based analysis of microbiome profiling data sets in R (R Core
+Team, 2013); also relevant (Venables and Ripley, 2002)
 
 ### Example workflows
 
@@ -36,6 +39,12 @@ microarray-based analysis of microbiome profiling data sets.
 -   [RPA](RPA.Rmd)
 -   [Preprocessing](Preprocessing.Rmd)
 -   [Phylogeny](Phylogeny.Rmd)
+
+The peerj32 example data set is from (Lahti, Salonen, Kekkonen, et al.,
+2013).
+
+Preprocessing of HITChip data is based on RPA [(Lahti, Torrente, Elo, et
+al., 2013); (Lahti, Elo, Aittokallio, et al., 2011)]
 
 ### Visualization and related tools
 
@@ -103,14 +112,7 @@ extensions, including:
 -   RPA (Lahti, Torrente, Elo, et al., 2013)
 -   minet (Meyer, Lafitte, and Bontempi, 2008)
 -   fastcluster (Müllner, 2013)
-
-The preprocessing of HITChip data is based on RPA [(Lahti, Torrente,
-Elo, et al., 2013); (Lahti, Elo, Aittokallio, et al., 2011)]
-
-The peerj32 example data set is from (Lahti, Salonen, Kekkonen, et al.,
-2013).
-
-This project is based on R statistical environment (Team, 2013)
+-   plyr (Wickham, 2011)
 
 [1] N. Caballero. *df2json: Convert a dataframe to JSON*. R package
 version 0.0.2. 2013. <URL:
@@ -173,7 +175,7 @@ http://www.jstatsoft.org/v53/i09/>.
 Ecology Package*. R package version 2.2-1. 2015. <URL:
 http://CRAN.R-project.org/package=vegan>.
 
-[15] R. C. Team. *R: A language and environment for statistical
+[15] R Core Team. *R: A language and environment for statistical
 computing*. Vienna, Austria: R Foundation for Statistical Computing,
 2013. ISBN: ISBN 3-900051-07-0. <URL:
 http://www.R-project.org/>.
@@ -182,23 +184,20 @@ http://www.R-project.org/>.
 interface for R*. R package version 1.95-4.3. 2014. <URL:
 http://CRAN.R-project.org/package=RCurl>.
 
-[17] H. Wickham. *ggplot2: elegant graphics for data analysis*. Springer
+[17] W. N. Venables and B. D. Ripley. *Modern Applied Statistics with
+S*. fourth. New York: Springer, 2002. ISBN: ISBN .
+
+[18] H. Wickham. *ggplot2: elegant graphics for data analysis*. Springer
 New York, 2009. ISBN: 978-0-387-98140-6. <URL:
 http://had.co.nz/ggplot2/book>.
 
-[18] Wickham and Hadley. "Reshaping data with the reshape package". In:
+[19] H. Wickham. "The Split-Apply-Combine Strategy for Data Analysis".
+In: *Journal of Statistical Software* 40.1 (2011), pp. 1-29.
+<URL: http://www.jstatsoft.org/v40/i01/>.
+
+[20] Wickham and Hadley. "Reshaping data with the reshape package". In:
 *Journal of Statistical Software* 21.12 (2007).
-<URL: http://www.jstatsoft.org/v21/i12/paper>. \* R Core Team (2013). R:
-A language and environment for statistical computing. R Foundation for
-Statistical Computing, Vienna, Austria. [ISBN
-3-900051-07-0](http://www.R-project.org/)
-
--   W. N. Venables and B. D. Ripley (2002) Modern Applied Statistics
-    with S. Fourth Edition. Springer, New York. ISBN 0-387-95457-0
-
--   H. Wickham (2011). The Split-Apply-Combine Strategy for Data
-    Analysis. [Journal of Statistical Software, 40(1),
-    1-29](http://www.jstatsoft.org/v40/i01/)
+<URL: http://www.jstatsoft.org/v21/i12/paper>.
 
 ### Session info
 

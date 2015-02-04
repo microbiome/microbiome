@@ -15,12 +15,21 @@ output:
   %\usepackage[utf8]{inputenc}
 -->
 
+```{r, echo=FALSE, message=FALSE}
+# Handle citations
+require(knitcitations)
+cleanbib()
+#options("citation_format" = "pandoc")
+bib <- read.bibtex("bibliography.bib")
+```
+
 
 microbiome R package
 ===========
 
 The microbiome package contains general-purpose tools for
-microarray-based analysis of microbiome profiling data sets. 
+microarray-based analysis of microbiome profiling data sets in R `r citep(bib[["rcore13"]])`; also relevant `r citep(bib[["venables02"]])`
+
 
 ### Example workflows
 * [Minimal example](Template.Rmd)
@@ -32,6 +41,10 @@ microarray-based analysis of microbiome profiling data sets.
 * [RPA](RPA.Rmd)
 * [Preprocessing](Preprocessing.Rmd)
 * [Phylogeny](Phylogeny.Rmd)
+
+The peerj32 example data set is from `r citep("10.7717/peerj.32")`. 
+
+Preprocessing of HITChip data is based on RPA [`r citep(citation("RPA"))`; `r citep("10.1109/TCBB.2009.38")`]
 
 ### Visualization and related tools
 
@@ -81,13 +94,6 @@ Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
 
 ### References
 
-```{r, echo=FALSE, message=FALSE}
-require(knitcitations)
-cleanbib()
-#options("citation_format" = "pandoc")
-bib <- read.bibtex("bibliography.bib")
-```
-
 The package utilizes tools from a number of other CRAN and
 Bioconductor extensions, including:
 
@@ -103,6 +109,7 @@ Bioconductor extensions, including:
  * RPA `r citep(citation("RPA"))`
  * minet `r citep(citation("minet"))`
  * fastcluster `r citep(citation("fastcluster"))`
+ * plyr `r citep(citation("plyr"))`
 
 ```{r, echo=FALSE, message=FALSE}
 #You can embed citations, for example: `r citep(bib[["lahti14natcomm"]])`
@@ -113,20 +120,10 @@ Bioconductor extensions, including:
 write.bibtex(file="references.bib")
 ```
 
-The preprocessing of HITChip data is based on RPA [`r citep(citation("RPA"))`; `r citep("10.1109/TCBB.2009.38")`]
-
-The peerj32 example data set is from `r citep("10.7717/peerj.32")`.
-
-This project is based on R statistical environment `r citep(bib[["rcore13"]])`
 
 ```{r, echo=FALSE, message=FALSE, results='asis'}
 bibliography()
 ```
- * R Core Team (2013). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. [ISBN 3-900051-07-0](http://www.R-project.org/)
-
- * W. N. Venables and B. D. Ripley (2002) Modern Applied Statistics with S. Fourth Edition. Springer, New York. ISBN 0-387-95457-0
-
- * H. Wickham (2011). The Split-Apply-Combine Strategy for Data Analysis. [Journal of Statistical Software, 40(1), 1-29](http://www.jstatsoft.org/v40/i01/)
 
 
 ### Session info
