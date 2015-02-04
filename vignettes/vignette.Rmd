@@ -80,11 +80,7 @@ Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
 (2014). microbiome R package. URL: http://microbiome.github.com'.
 
 
-
-
-
 ### References
-
 
 ```{r, echo=FALSE}
 require(knitcitations)
