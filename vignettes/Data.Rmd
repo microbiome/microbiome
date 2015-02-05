@@ -18,6 +18,9 @@ data <- read.table(url, sep = "\t", row.names = 1, header = TRUE)
 # Fix some broken names from the original release..
 # ie. replace 'Clostridium..sensu.stricto.les' with 'Clostridiales'
 colnames(data) <- gsub("Clostridium..sensu.stricto.les", "Clostridiales", colnames(data))
+
+# Convert to matrix 
+data <- as.matrix(data)
 ```
 
 Load the HITChip Atlas metadata in R. Note that some individuals have
@@ -34,6 +37,12 @@ meta$SampleID <- rownames(meta)
 # (see README at http://datadryad.org/resource/doi:10.5061/dryad.pk75d for details)
 meta$BMI_group <- factor(meta$BMI_group, levels = c("underweight", "lean", "overweight", "obese", "severeobese", "morbidobese"))
 meta$SubjectID <- factor(meta$SubjectID)
+```
+
+Collect the atlas data and metadata into a single object:
+
+```{r atlas}
+atlas <- list(microbes = data, meta = meta)
 ```
 
 
@@ -81,7 +90,7 @@ phylogeny.info.filtered <- read.profiling(level = "phylogeny.filtered",
 ```
 
 
-### Read metadata
+### Reading metadata
 
 An easy way to provide sample metadata is to create a tab-separated metadata file. You can create the file in Excel and export it to tab-separated csv format. The standard (and self-explanatory) field names include 'sampleID', 'time', 'subjectID', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). Read the metadata with:
 

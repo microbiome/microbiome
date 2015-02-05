@@ -1,6 +1,5 @@
 library(rmarkdown)
 rmarkdown::render("vignette.Rmd")
-rmarkdown::render("Atlas.Rmd")
 rmarkdown::render("Template.Rmd")
 
 #render("vignette.Rmd", "html_document")

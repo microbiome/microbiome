@@ -37,51 +37,48 @@ Example on reproducible document generation:
 
 ### Installation, example data sets and preprocessing
 
-* [Installation](Installation.Rmd)
-* [Example data sets](Data.Rmd)
-* [Extract and preprocessing data from HITChip database](Preprocessing.Rmd)
-* [Phylogeny](Phylogeny.Rmd)
+* [Installation](Installation.md)
+* [Example data sets](Data.md)
+* [Extract and preprocess data from HITChip database](Preprocessing.md)
+* [Phylogeny](Phylogeny.md)
 
 ### Visualization and related tools
 
-Download some [example data sets](Data.Rmd) to try these tools:
-
-* [Barplots](Barplots.Rmd)
-* [Boxplots](Boxplots.Rmd)
-* [Density](Density.Rmd)
-* [Heatmaps](Heatmap.Rmd)
-* [Matrix visualization](Matrix-visualization.Rmd)
-* [Motion charts](Motionchart.Rmd)
-* [Ordination](Projections.Rmd)
-* [Oligo heatmap](Oligoheatmap.Rmd)
-* [PCA](PCA.Rmd)
-* [Cross hybridization](Crosshyb.Rmd)
+Download some [example data sets](Data.md) to try these tools:
+* [Barplots](Barplots.md)
+* [Boxplots](Boxplots.md)
+* [Density](Density.md)
+* [Heatmaps](Heatmap.md)
+* [Matrix visualization](Matrix-visualization.md)
+* [Motion charts](Motionchart.md)
+* [Ordination](Projections.md)
+* [Oligo heatmap](Oligoheatmap.md)
+* [PCA](PCA.md)
+* [Cross hybridization](Crosshyb.md)
 
 ### Clustering 
-* [Bimodality](Bimodality.Rmd)
-* [Clustering](Clustering.Rmd)
-* [Distance metrics](Metrics.Rmd)
+* [Bimodality](Bimodality.md)
+* [Clustering](Clustering.md)
+* [Distance metrics](Metrics.md)
 
 ### Microbiota composition
-* [Core microbiota](Core.Rmd)
-* [Diversity](Diversity.Rmd)
-* [Probe level studies](Probelevel.Rmd)
-* [RelativeAbundance](RelativeAbundance.Rmd)
-* [Stability](Stability.Rmd)
+* [Core microbiota](Core.md)
+* [Diversity](Diversity.md)
+* [Probe level studies](Probelevel.md)
+* [RelativeAbundance](RelativeAbundance.md)
+* [Stability](Stability.md)
 
 ### Linear models, comparisons, and association studies
-* [Linear models](limma.Rmd)
-* [Pairwise comparisons](Comparisons.Rmd)
-* [Cross correlations](Crosscorrelation.Rmd)
+* [Linear models](limma.md)
+* [Pairwise comparisons](Comparisons.md)
+* [Cross correlations](Crosscorrelation.md)
 
 ### Other statistical analysis
-* [ROC curves](ROC.Rmd)
-* [RDA](RDA.Rmd)
+* [ROC curves](ROC.md)
+* [RDA](RDA.md)
 
 ### Miscellaneous
-* [leaveout](leaveout.Rmd)
-* [misc](misc.Rmd)
-
+* [misc](misc.md)
 
 
 ### Licensing and Citations
@@ -113,7 +110,6 @@ Bioconductor extensions, including:
  * plyr `r citep(citation("plyr"))`
 
 
-
 ### References
 
 ```{r, echo=FALSE, message=FALSE}
@@ -122,13 +118,12 @@ Bioconductor extensions, including:
 #Cite with DOI: `r citep("10.1890/11-0011.1")`
 #Cite URL `r citep("http://knowledgeblog.org/greycite")`
 #For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). 
-write.bibtex(file="references.bib")
+#write.bibtex(file="references.bib")
 ```
 
 ```{r, echo=FALSE, message=FALSE, results='asis'}
 bibliography()
 ```
-
 
 ### Session info
 
