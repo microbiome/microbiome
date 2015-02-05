@@ -27,25 +27,24 @@ bib <- read.bibtex("bibliography.bib")
 microbiome R package
 ===========
 
-The microbiome package contains general-purpose tools for
-microarray-based analysis of microbiome profiling data sets in R `r citep(bib[["rcore13"]])`; also relevant `r citep(bib[["venables02"]])`
+The microbiome package contains general-purpose tools for microarray-based analysis of microbiome profiling data sets in R `r citep(bib[["rcore13"]])`; also relevant `r citep(bib[["venables02"]])`
 
 
-### Example workflows
+### How to start 
+
+Example on reproducible document generation:  
 * [Minimal example](Template.Rmd)
 
 ### Installation, example data sets and preprocessing
+
 * [Installation](Installation.Rmd)
-* [Data](Data.Rmd)
-* [RPA](RPA.Rmd)
-* [Preprocessing](Preprocessing.Rmd)
+* [Example data sets](Data.Rmd)
+* [Extract and preprocessing data from HITChip database](Preprocessing.Rmd)
 * [Phylogeny](Phylogeny.Rmd)
 
-The peerj32 example data set is from `r citep("10.7717/peerj.32")`. 
-
-Preprocessing of HITChip data is based on RPA [`r citep(citation("RPA"))`; `r citep("10.1109/TCBB.2009.38")`]
-
 ### Visualization and related tools
+
+Download some [example data sets](Data.Rmd) to try these tools:
 
 * [Barplots](Barplots.Rmd)
 * [Boxplots](Boxplots.Rmd)
