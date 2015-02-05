@@ -5,10 +5,13 @@
 [Preprocessing array data ('profiling script')](profiling)  
 [Preprocessing HITChip atlas collection](atlas)  
 
-
 ### Probe-level operations 
 
 [Probe-level preprocessing](probelevel)
+
+### Robust Probabilistic Averaging
+
+[RPA](RPA.Rmd)
 
 ### Split data into training and test samples
 
@@ -25,6 +28,4 @@ splitted.data <- pick.training.samples(metadata.simulated,
 ```
 ## Error in eval(expr, envir, enclos): could not find function "pick.training.samples"
 ```
-
-
 

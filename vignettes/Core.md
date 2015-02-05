@@ -8,12 +8,10 @@ head(prevalence(peerj32$microbes, 2, sort = TRUE))
 ```
 
 ```
-##  Subdoligranulum variable at rel.       Streptococcus mitis et rel. 
-##                                 1                                 1 
-## Streptococcus intermedius et rel.       Streptococcus bovis et rel. 
-##                                 1                                 1 
-##    Sporobacter termitidis et rel.        Ruminococcus obeum et rel. 
-##                                 1                                 1
+##  Yersinia et rel.  Xanthomonadaceae  Wissella et rel.            Vibrio 
+##                 1                 1                 1                 1 
+## Weissella et rel.       Veillonella 
+##                 1                 1
 ```
 
 ```r
@@ -21,7 +19,6 @@ head(prevalence(peerj32$microbes, 2, sort = TRUE))
 # in over 20 percent of the samples:
 prevalent.taxa <- list_prevalent_groups(peerj32$microbes, 2, 0.2)
 ```
-
 
 
 ### Core microbiota

@@ -32,7 +32,18 @@ hitchip.matrix[altered.taxa, g1] <- hitchip.matrix[altered.taxa, g1] + 2
 
 # Compare the two groups with limma
 library(limma)
+```
 
+```
+## 
+## Attaching package: 'limma'
+## 
+## The following object is masked from 'package:BiocGenerics':
+## 
+##     plotMA
+```
+
+```r
 # Prepare the design matrix which states the groups for each sample
 # in the hitchip.matrix
 design <- cbind(intercept=1, Grp2vs1=c(rep(0, length(g1)), rep(1, length(g2))))
@@ -52,28 +63,28 @@ topTable(fit, coef = coef.index)
 ```
 
 ```
-##                                  logFC  AveExpr          t      P.Value
-## Methylobacterium             -1.958649 2.635062 -50.137611 3.246868e-22
-## Aerococcus                   -1.964847 2.670740 -47.823533 8.160712e-22
-## Bulleidia moorei et rel.     -2.014792 3.350158 -45.135816 2.519169e-21
-## Bacillus                     -1.937091 3.176410 -41.287269 1.427204e-20
-## Anaerobiospirillum           -1.973006 2.657116 -40.663333 1.918863e-20
-## Haemophilus                  -1.972022 2.987658 -30.163588 6.222907e-18
-## Actinomycetaceae             -1.937329 3.006550 -26.722889 6.373711e-17
-## Prevotella tannerae et rel.  -2.003901 3.707903 -10.208120 2.669446e-09
-## Bacteroides plebeius et rel. -1.942524 3.907811 -10.088794 3.246699e-09
-## Uncultured Clostridiales I   -1.997527 4.515231  -7.413681 4.122638e-07
-##                                 adj.P.Val         B
-## Methylobacterium             4.220928e-20 41.162031
-## Aerococcus                   5.304463e-20 40.238565
-## Bulleidia moorei et rel.     1.091640e-19 39.104023
-## Bacillus                     4.638411e-19 37.348552
-## Anaerobiospirillum           4.989044e-19 37.047867
-## Haemophilus                  1.348296e-16 31.126439
-## Actinomycetaceae             1.183689e-15 28.724099
-## Prevotella tannerae et rel.  4.337850e-08 10.474770
-## Bacteroides plebeius et rel. 4.689676e-08 10.271314
-## Uncultured Clostridiales I   5.359430e-06  5.250828
+##                                      logFC  AveExpr          t
+## Eubacterium limosum et rel.      -1.996643 3.178103 -44.244703
+## Wissella et rel.                 -2.087264 2.758124 -29.878412
+## Lactococcus                      -2.048501 3.177703 -29.824249
+## Lactobacillus plantarum et rel.  -2.125528 3.963640 -27.460242
+## Bryantella formatexigens et rel. -2.243230 4.517741 -13.750185
+## Uncultured Clostridiales II      -2.275919 4.440935 -11.383575
+## Uncultured Mollicutes            -1.935851 3.977371 -10.831144
+## Clostridium ramosum et rel.      -1.732479 3.736636  -9.550878
+## Ruminococcus obeum et rel.       -2.044862 5.535052  -9.358625
+## Streptococcus mitis et rel.      -1.935691 4.358083  -8.697516
+##                                       P.Value    adj.P.Val         B
+## Eubacterium limosum et rel.      3.378865e-21 4.392524e-19 38.806959
+## Wissella et rel.                 6.931890e-18 3.110880e-16 31.018845
+## Lactococcus                      7.178954e-18 3.110880e-16 30.982758
+## Lactobacillus plantarum et rel.  3.524020e-17 1.145306e-15 29.341105
+## Bryantella formatexigens et rel. 1.471547e-11 3.826021e-10 15.895750
+## Uncultured Clostridiales II      4.084953e-10 8.850731e-09 12.436140
+## Uncultured Mollicutes            9.570763e-10 1.777427e-08 11.550594
+## Clostridium ramosum et rel.      7.814506e-09 1.269857e-07  9.368664
+## Ruminococcus obeum et rel.       1.088754e-08 1.572645e-07  9.024415
+## Streptococcus mitis et rel.      3.525558e-08 4.583225e-07  7.805693
 ```
 
 ```r
@@ -99,8 +110,8 @@ print(sort(pvalues.limma[pvalues.limma < 0.05]))
 ```
 
 ```
-##  [1] 4.220928e-20 5.304463e-20 1.091640e-19 4.638411e-19 4.989044e-19
-##  [6] 1.348296e-16 1.183689e-15 4.337850e-08 4.689676e-08 5.359430e-06
+##  [1] 4.392524e-19 3.110880e-16 3.110880e-16 1.145306e-15 3.826021e-10
+##  [6] 8.850731e-09 1.777427e-08 1.269857e-07 1.572645e-07 4.583225e-07
 ```
 
 ### Comparison between limma and t-test

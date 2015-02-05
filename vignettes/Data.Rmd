@@ -62,7 +62,7 @@ Load simulated example data of the human gut microbiota. With HITChip,
 [fRPA](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)
 is the recommended preprocessing method.
 
-```{r data, eval=TRUE, message=FALSE, warning=FALSE}
+```{r datapeer, eval=TRUE, message=FALSE, warning=FALSE}
 # Define data path (you can replace data.directory with your own path)
 data.directory <- system.file("extdata", package = "microbiome")
 print(data.directory)
@@ -94,7 +94,7 @@ phylogeny.info.filtered <- read.profiling(level = "phylogeny.filtered",
 
 An easy way to provide sample metadata is to create a tab-separated metadata file. You can create the file in Excel and export it to tab-separated csv format. The standard (and self-explanatory) field names include 'sampleID', 'time', 'subjectID', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). Read the metadata with:
 
-```{r meta, eval=TRUE, message=FALSE, warning=FALSE}
+```{r metapeer, eval=TRUE, message=FALSE, warning=FALSE}
 # Read simulated example metadata
 library(gdata)
 metadata.file <- paste(data.directory, "/metadata.xls", sep = "")

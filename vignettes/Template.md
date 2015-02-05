@@ -1,3 +1,12 @@
+---
+title: "Project Template"
+author: "Your Name"
+date: "2015-02-05"
+output:
+  md_document:
+    toc: false
+    variant: markdown_github
+---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Project Template}
@@ -6,60 +15,66 @@
 
 
 Minimal example
-===============
+===========
 
-To test this example, do the following:
+### Set up reproducible document generation
 
-1.  Copy the
-    [Template.Rmd](https://raw.githubusercontent.com/microbiome/microbiome/master/vignettes/Template.Rmd)
-    (this file) on your computer. NOTE: change the file ending from .txt
-    to .Rmd !!
-2.  Start [RStudio](http://www.rstudio.com/)
-3.  Open the
-    [Template.Rmd](https://raw.githubusercontent.com/microbiome/microbiome/master/vignettes/Template.Rmd)
-    file in RStudio
-4.  Convert the Rmd file with the 'knit HTML' button
-5.  Start modifying this file to make your own reproducible report
-6.  Start by adding some [examples with unique microbiota profiling data
-    set](https://github.com/microbiome/microbiome/blob/master/vignettes/Atlas.Rmd)
-7.  Adapt further examples from [microbiome
-    tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
+To test reproducible document generation:
 
-### Update the microbiome package
+ 1. Start [RStudio](http://www.rstudio.com/)
+ 1. Open a new Rmarkdown (Rmd) file 
+ 1. Convert that Rmd file with the 'knit HTML' button
+ 1. Modify the Rmd file and knit again to make your own reproducible report
 
-    library(devtools)
-    install_github("microbiome/microbiome")
 
-    ## Downloading github repo microbiome/microbiome@master
-    ## Installing microbiome
-    ## '/usr/lib/R/bin/R' --vanilla CMD INSTALL  \
-    ##   '/tmp/Rtmpq61jQN/devtools5f122a47a840/microbiome-microbiome-718f78a'  \
-    ##   --library='/home/antagomir/R/x86_64-pc-linux-gnu-library/3.1'  \
-    ##   --install-tests 
-    ## 
-    ## Reloading installed microbiome
-    ## 
-    ## microbiome R package (microbiome.github.com)
-    ##           
-    ## 
-    ## 
-    ##  Copyright (C) 2011-2015
-    ##           Leo Lahti and Jarkko Salojarvi 
-    ## 
-    ##         
-    ##           <microbiome-admin@googlegroups.com>
-    ## 
-    ## 
-    ## Attaching package: 'microbiome'
-    ## 
-    ## The following object is masked from 'package:lattice':
-    ## 
-    ##     densityplot
-    ## 
-    ## The following object is masked from 'package:e1071':
-    ## 
-    ##     impute
+### Try out microbiome analysis
 
-### Load the microbiome package
+Start by adapting some of the following elements in your reproducible document:
 
-    library(microbiome)
+ 1. [Install the microbiome package](Installation.Rmd)
+ 1. [Download example data](Data.Rmd) (we suggest HITChip Atlas + metadata)
+ 1. [Try to analyse microbiota diversity](Diversity.Rmd)
+ 1. Adapt further examples from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
+
+### Example visualization in R
+
+
+
+```r
+# Load Dryad tools
+library("rdryad") # Use the install.packages("rdryad") if package not available
+
+# Download HITChip Atlas data
+url <- download_url('10255/dryad.64665')
+data <- as.matrix(read.table(url, sep = "\t", row.names = 1, header = TRUE))
+
+# Download metadata
+url <- download_url('10255/dryad.64666')
+meta <- read.table(url, sep = "\t", row.names = 1, header = TRUE)
+
+# Add SampleIDs as a separate column from rownames
+meta$SampleID <- rownames(meta)
+
+# Order BMI groups in correct order
+# (see README at http://datadryad.org/resource/doi:10.5061/dryad.pk75d for details)
+meta$BMI_group <- factor(meta$BMI_group, levels = c("underweight", "lean", "overweight", "obese", "severeobese", "morbidobese"))
+meta$SubjectID <- factor(meta$SubjectID)
+
+# Collect the atlas data and metadata into a single object:
+atlas <- list(microbes = data, meta = meta)
+
+# Compare BMI and microbiota diversity
+bmi <- atlas$meta$BMI_group
+div <- vegan::diversity(atlas$microbes)
+boxplot(div ~ bmi, las = 2, main = "Microbiota diversity vs. obesity")
+```
+
+![plot of chunk example](figure/example-1.png) 
+
+
+### Resources
+
+Further tips:
+
+ * [Rmarkdown tips](http://rmarkdown.rstudio.com/)
+ * [R cheat sheets](http://devcheatsheet.com/tag/r/)

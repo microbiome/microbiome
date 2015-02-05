@@ -26,13 +26,13 @@ head(correlation.table)
 ```
 
 ```
-##              X1                               X2 Correlation       p.adj
-## 1100 TG(54:5).2      Ruminococcus gnavus et rel.   0.7207818 0.001738478
-## 1087   TG(52:5)      Ruminococcus gnavus et rel.   0.6996301 0.003192887
-## 479    PC(40:3) Eubacterium cylindroides et rel.  -0.6771286 0.003800575
-## 656    PC(40:3)                     Helicobacter  -0.6838424 0.003800575
-## 1082   TG(50:4)      Ruminococcus gnavus et rel.   0.6852226 0.003800575
-## 1086 TG(52:4).1      Ruminococcus gnavus et rel.   0.6716223 0.003800575
+##             X1                               X2 Correlation       p.adj
+## 278   PC(40:3) Eubacterium cylindroides et rel.  -0.6745063 0.008697453
+## 356   PC(40:3)                     Helicobacter  -0.6807777 0.008697453
+## 530 TG(54:5).2      Ruminococcus gnavus et rel.   0.6789932 0.008697453
+## 525   TG(52:5)      Ruminococcus gnavus et rel.   0.6612294 0.013011631
+## 521   TG(50:4)      Ruminococcus gnavus et rel.   0.6556532 0.013771802
+## 474  PC(40:3e)                    Moraxellaceae  -0.6506371 0.014691099
 ```
 
 
