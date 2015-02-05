@@ -3,16 +3,9 @@ title: "Project Template"
 author: "Your Name"
 date: "`r Sys.Date()`"
 output:
-  pdf_document:
-    toc: false
   md_document:
     toc: false
     variant: markdown_github
-  html_document:
-    toc: false
-    number_sections: true
-    theme: united
-    highlight: pygments
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -24,31 +17,32 @@ output:
 Minimal example
 ===========
 
-To test this example, do the following:
+### Set up reproducible document generation
 
- 1. Copy the [Template.Rmd](https://raw.githubusercontent.com/microbiome/microbiome/master/vignettes/Template.Rmd) (this file) on your computer. NOTE: change the file ending from .txt to .Rmd !!
+To test reproducible document generation:
+
  1. Start [RStudio](http://www.rstudio.com/)
- 1. Open the [Template.Rmd](https://raw.githubusercontent.com/microbiome/microbiome/master/vignettes/Template.Rmd) file in RStudio
- 1. Convert the Rmd file with the 'knit HTML' button
- 1. Start modifying this file to make your own reproducible report
- 1. Start by adding some [examples with unique microbiota profiling data set](https://github.com/microbiome/microbiome/blob/master/vignettes/Atlas.Rmd) 
+ 1. Open a new Rmarkdown (Rmd) file 
+ 1. Convert that Rmd file with the 'knit HTML' button
+ 1. Modify the Rmd file and knit again to make your own reproducible report
+
+
+### Try out microbiome analysis
+
+Start by adapting some of the following elements in your reproducible document:
+
+ 1. [Install the microbiome package](Installation.Rmd)
+ 1. [Download example data](Data.Rmd) (we suggest HITChip Atlas + metadata)
+ 1. [Calculate microbiota diversity](Diversity.Rmd)
+
+
+ 1. Add your own [examples based on unique microbiota profiling data set](https://github.com/microbiome/microbiome/blob/master/vignettes/Atlas.Rmd) 
  1. Adapt further examples from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
 
-### Update the microbiome package
-
-```{r install2}
-library(devtools)
-install_github("microbiome/microbiome")
-```
-
-### Load the microbiome package
-
-```{r loading, eval=TRUE}
-library(microbiome)  
-```
-
 ### Resources
 
- * This template is written with Rmarkdown: [see further tips](http://rmarkdown.rstudio.com/)
+Further tips:
+
+ * [Rmarkdown tips](http://rmarkdown.rstudio.com/)
  * [R cheat sheets](http://devcheatsheet.com/tag/r/)

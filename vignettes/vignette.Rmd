@@ -33,7 +33,6 @@ microarray-based analysis of microbiome profiling data sets in R `r citep(bib[["
 
 ### Example workflows
 * [Minimal example](Template.Rmd)
-* [Atlas](Atlas.Rmd)
 
 ### Installation, example data sets and preprocessing
 * [Installation](Installation.Rmd)
@@ -50,11 +49,13 @@ Preprocessing of HITChip data is based on RPA [`r citep(citation("RPA"))`; `r ci
 
 * [Barplots](Barplots.Rmd)
 * [Boxplots](Boxplots.Rmd)
+* [Density](Density.Rmd)
 * [Heatmaps](Heatmap.Rmd)
 * [Matrix visualization](Matrix-visualization.Rmd)
 * [Motion charts](Motionchart.Rmd)
 * [Ordination](Projections.Rmd)
 * [Oligo heatmap](Oligoheatmap.Rmd)
+* [PCA](PCA.Rmd)
 * [Cross hybridization](Crosshyb.Rmd)
 
 ### Clustering 
@@ -66,6 +67,7 @@ Preprocessing of HITChip data is based on RPA [`r citep(citation("RPA"))`; `r ci
 * [Core microbiota](Core.Rmd)
 * [Diversity](Diversity.Rmd)
 * [Probe level studies](Probelevel.Rmd)
+* [RelativeAbundance](RelativeAbundance.Rmd)
 * [Stability](Stability.Rmd)
 
 ### Linear models, comparisons, and association studies

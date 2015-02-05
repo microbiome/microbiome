@@ -1,3 +1,6 @@
+
+
+
 ### Diversity estimation
 
 ```{r diversity-example, warning=FALSE, message=FALSE}
@@ -63,4 +66,29 @@ names(group) <- metadata$sampleID
 my.samples <- names(group)
 boxplot(di[my.samples]  ~ group[my.samples], las = 1)
 ```
+
+
+
+### Compare diversity with known background factors
+
+Start by loading the [HITChip Atlas data set and metadata](Data.Rmd)
+
+```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=16, fig.heigth=8}
+par(mar = c(6, 4, 3, 1), mfrow = c(1, 2))
+di <- vegan::diversity(data)
+boxplot(di ~ meta$BMI_group, las = 2, main = "Microbiota diversity vs. obesity")
+plot(meta$Age, di, main = "Microbiota diversity vs. Age", ylab = "Diversity", xlab = "Age (years)")
+```
+
+
+Plot subject age versus phylotype abundance with smoothed confidence intervals:
+
+```{r visu-example3, fig.width=8, fig.height=8, message=FALSE, warning=FALSE}
+library(microbiome)
+library(sorvi)
+df <- data.frame(Age = meta[rbb.samples, "Age"], Diversity = di[rbb.samples])
+p <- sorvi::regression_plot(Diversity~Age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
+print(p)
+```
+
 
