@@ -3,8 +3,11 @@ title: "Project Template"
 author: "Your Name"
 date: "`r Sys.Date()`"
 output:
+  pdf_document:
+    toc: false
   md_document:
     toc: false
+    variant: markdown_github
   html_document:
     toc: false
     number_sections: true
@@ -45,3 +48,7 @@ install_github("microbiome/microbiome")
 library(microbiome)  
 ```
 
+### Resources
+
+ * This template is written with Rmarkdown: [see further tips](http://rmarkdown.rstudio.com/)
+ * [R cheat sheets](http://devcheatsheet.com/tag/r/)

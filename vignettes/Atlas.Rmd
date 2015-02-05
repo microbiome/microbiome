@@ -2,7 +2,9 @@
 title: "HITChip Atlas examples"
 author: "Leo Lahti and Gerben Hermes"
 date: "`r Sys.Date()`"
-output: md_document
+output: 
+  md_document:
+    variant: markdown_github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}

@@ -5,7 +5,9 @@ date: "`r Sys.Date()`"
 bibliography: 
 - bibliography.bib
 - references.bib
-output: md_document
+output: 
+  md_document:
+    variant: markdown_github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
