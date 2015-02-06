@@ -2,34 +2,27 @@
 
 ## Group-wise comparisons
 
+
+Read example data
+
 ```{r comparisons-example, warning=FALSE, message=FALSE}
 # Example data
 library(microbiome)
 data(peerj32)
 x <- peerj32$microbes
-
-# Read simulated example metadata
-library(gdata)
-metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
-metadata <- read.xls(metadata.file, as.is = TRUE)
-rownames(metadata) <- metadata$sampleID
-
-# Ensure that the samples are in the same order in 
-# HITChip data and metadata
-metadata <- metadata[colnames(x),]
-head(metadata)
+m <- peerj32$meta
 ```
 
 ### Comparing of two or more groups with a parametric test (linear model; ANOVA)
 
-NOTE: the HITChip data (x) must be at log10 scale!
-
 ```{r comparisons2, eval=FALSE}
-# Define sample groups based on a selected metadata column
-group <- metadata$diet
-names(group) <- metadata$sampleID
+# Define sample groups (gender + case/ctrl)
+group <- apply(cbind(m$gender, m$group), 1, function (x) {paste(x, collapse = "-")})
+names(group) <- m$sample
 
 # Calculate p-values for multi-group comparison
+# NOTE: the HITChip data (x) must be at log10 scale in parametric tests!
+x <- log10(t(x))
 pvals <- check.anova(x, group, p.adjust.method = "BH", sort = TRUE)
 
 # Write the results to a table
@@ -48,12 +41,14 @@ each phylotype. This test uses unpaired Wilcoxon test with BH
 correction.
 
 ```{r comparisons-example.ia, eval=FALSE}
-# Define your sample groups
-males <- subset(metadata, gender == "M")$sampleID
-females <- subset(metadata, gender == "F")$sampleID
+# Calculate Wilcoxon test with BH p-value correction for gender
+pval <- apply(x, 1, function (xi) {wilcox.test(xi ~ m$gender)$p.value})
 
-# Calculate Wilcoxon test with BH p-value correction for genus.matrix
-pval <- check.wilcoxon(x, G1 = males, G2 = females, p.adjust.method = "BH", sort = TRUE)  
+# Multiple testing correction
+pval <- p.adjust(pval, "fdr")
+
+# Sort p-values
+pval <- sort(pval)
 
 # Investigate the top findings
 head(pval)
