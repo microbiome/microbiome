@@ -16,8 +16,8 @@ The microbiome package contains general-purpose tools for microarray-based analy
 
 Example on reproducible document generation:
 
--   [Minimal example](Template.Rmd)
--   [Example workflow](Atlas.Rmd)
+-   [Minimal example](Template.md)
+-   [Example workflow](Atlas.md)
 
 ### Installation, example data sets and preprocessing
 
@@ -31,7 +31,16 @@ Example on reproducible document generation:
 
 ### Visualization and related tools
 
-Download some [example data sets](Data.md) to try these tools: \* [Barplots](Barplots.md) \* [Boxplots](Boxplots.md) \* [Density](Density.md) \* [Heatmaps](Heatmap.md) \* [Motion charts](Motionchart.md) \* [Oligo heatmap](Oligoheatmap.md) \* [PCA and other ordination/projection methods](PCA.md) \* [Cross hybridization](Crosshyb.md)
+Download some [example data sets](Data.md) to try these tools:
+
+-   [Barplots](Barplots.md)
+-   [Boxplots](Boxplots.md)
+-   [Density](Density.md)
+-   [Heatmaps](Heatmap.md)
+-   [Motion charts](Motionchart.md)
+-   [Oligo heatmap](Oligoheatmap.md)
+-   [PCA and other ordination/projection methods](PCA.md)
+-   [Cross hybridization](Crosshyb.md)
 
 ### Clustering
 
@@ -159,33 +168,35 @@ sessionInfo()
     ## [8] base     
     ## 
     ## other attached packages:
-    ##  [1] knitcitations_1.0.5  dplyr_0.4.1          ggplot2_1.0.0       
-    ##  [4] microbiome_0.99.35   AnnotationDbi_1.26.1 GenomeInfoDb_1.0.2  
-    ##  [7] Biobase_2.24.0       BiocGenerics_0.10.0  RSQLite_1.0.0       
-    ## [10] DBI_0.3.1            reshape_0.8.5        vegan_2.2-1         
-    ## [13] lattice_0.20-29      permute_0.8-3        e1071_1.6-4         
+    ##  [1] rmarkdown_0.5.1      sorvi_0.7.13         rdryad_0.1.1        
+    ##  [4] knitcitations_1.0.5  dplyr_0.4.1          ggplot2_1.0.0       
+    ##  [7] microbiome_0.99.35   AnnotationDbi_1.26.1 GenomeInfoDb_1.0.2  
+    ## [10] Biobase_2.24.0       BiocGenerics_0.10.0  RSQLite_1.0.0       
+    ## [13] DBI_0.3.1            reshape_0.8.5        vegan_2.2-1         
+    ## [16] lattice_0.20-29      permute_0.8-3        e1071_1.6-4         
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] acepack_1.3-3.3       assertthat_0.1        bibtex_0.4.0         
-    ##  [4] bitops_1.0-6          class_7.3-11          cluster_1.15.3       
-    ##  [7] codetools_0.2-9       colorspace_1.2-4      df2json_0.0.2        
-    ## [10] digest_0.6.8          doParallel_1.0.8      dynamicTreeCut_1.62  
-    ## [13] evaluate_0.5.5        fastcluster_1.1.15    foreach_1.4.2        
-    ## [16] foreign_0.8-61        formatR_1.0           Formula_1.2-0        
-    ## [19] GO.db_2.14.0          grid_3.1.2            gtable_0.1.2         
-    ## [22] Hmisc_3.14-6          htmltools_0.2.6       httr_0.6.1           
-    ## [25] igraph_0.7.1          impute_1.38.1         IRanges_1.22.10      
-    ## [28] iterators_1.0.7       knitr_1.9             labeling_0.3         
-    ## [31] latticeExtra_0.6-26   lazyeval_0.1.10       lubridate_1.3.3      
-    ## [34] magrittr_1.5          MASS_7.3-37           Matrix_1.1-5         
-    ## [37] matrixStats_0.13.1    memoise_0.2.1         mgcv_1.8-3           
-    ## [40] mixOmics_5.0-3        munsell_0.4.2         nlme_3.1-119         
-    ## [43] nnet_7.3-8            pheatmap_0.7.7        plyr_1.8.1           
-    ## [46] preprocessCore_1.26.1 proto_0.3-10          RColorBrewer_1.1-2   
-    ## [49] Rcpp_0.11.4           RCurl_1.95-4.5        RefManageR_0.8.45    
-    ## [52] reshape2_1.4.1        RGCCA_2.0             rgl_0.95.1201        
-    ## [55] rjson_0.2.15          RJSONIO_1.3-0         rmarkdown_0.5.1      
-    ## [58] R.methodsS3_1.6.1     rpart_4.1-8           scales_0.2.4         
-    ## [61] splines_3.1.2         stats4_3.1.2          stringr_0.6.2        
-    ## [64] survival_2.37-7       tools_3.1.2           WGCNA_1.43           
-    ## [67] XML_3.98-1.1          yaml_2.1.13
+    ##  [1] acepack_1.3-3.3       ape_3.2               assertthat_0.1       
+    ##  [4] bibtex_0.4.0          bitops_1.0-6          class_7.3-11         
+    ##  [7] cluster_1.15.3        codetools_0.2-9       colorspace_1.2-4     
+    ## [10] df2json_0.0.2         digest_0.6.8          doParallel_1.0.8     
+    ## [13] dynamicTreeCut_1.62   evaluate_0.5.5        fastcluster_1.1.15   
+    ## [16] foreach_1.4.2         foreign_0.8-61        formatR_1.0          
+    ## [19] Formula_1.2-0         gdata_2.13.3          GO.db_2.14.0         
+    ## [22] grid_3.1.2            gtable_0.1.2          gtools_3.4.1         
+    ## [25] Hmisc_3.14-6          htmltools_0.2.6       httr_0.6.1           
+    ## [28] igraph_0.7.1          impute_1.38.1         IRanges_1.22.10      
+    ## [31] iterators_1.0.7       knitr_1.9             labeling_0.3         
+    ## [34] latticeExtra_0.6-26   lazyeval_0.1.10       lubridate_1.3.3      
+    ## [37] magrittr_1.5          MASS_7.3-37           Matrix_1.1-5         
+    ## [40] matrixStats_0.13.1    memoise_0.2.1         mgcv_1.8-3           
+    ## [43] mixOmics_5.0-3        munsell_0.4.2         nlme_3.1-119         
+    ## [46] nnet_7.3-8            OAIHarvester_0.1-7    pheatmap_0.7.7       
+    ## [49] plyr_1.8.1            preprocessCore_1.26.1 proto_0.3-10         
+    ## [52] RColorBrewer_1.1-2    Rcpp_0.11.4           RCurl_1.95-4.5       
+    ## [55] RefManageR_0.8.45     reshape2_1.4.1        RGCCA_2.0            
+    ## [58] rgl_0.95.1201         rjson_0.2.15          RJSONIO_1.3-0        
+    ## [61] R.methodsS3_1.6.1     rpart_4.1-8           scales_0.2.4         
+    ## [64] splines_3.1.2         stats4_3.1.2          stringr_0.6.2        
+    ## [67] survival_2.37-7       tools_3.1.2           WGCNA_1.43           
+    ## [70] XML_3.98-1.1          yaml_2.1.13

@@ -24,7 +24,8 @@ Start by adapting some of the following elements in your reproducible document:
 1.  [Install the microbiome package](Installation.md)
 2.  [Download example data](Data.md) (we suggest HITChip Atlas + metadata)
 3.  [Analyse microbiota diversity](Diversity.md)
-4.  Adapt further examples from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
+4.  [Repeat the example workflow](Atlas.md)
+5.  Adapt further examples from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
 ### Example visualization in R
 
