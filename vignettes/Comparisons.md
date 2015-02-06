@@ -20,8 +20,8 @@ Read example data
     x <- log10(t(x))
     pvals <- check.anova(x, group, p.adjust.method = "BH", sort = TRUE)
 
-    # Write the results to a table
-    write.table(pvals, file = "myfile.tab", quote = F)
+    # Writing the results to a table
+    # write.table(pvals, file = "myfile.tab", quote = F)
 
 ### Wilcoxon test (only for two-group comparison)
 
@@ -43,3 +43,10 @@ unpaired Wilcoxon test with BH correction.
 
     # Investigate the top findings
     head(pval)
+
+    ##           Clostridium nexile et rel.         Megasphaera elsdenii et rel. 
+    ##                           0.04177601                           0.04177601 
+    ##          Uncultured Clostridiales II          Eubacterium siraeum et rel. 
+    ##                           0.04177601                           0.08356243 
+    ##        Dorea formicigenerans et rel. Outgrouping clostridium cluster XIVa 
+    ##                           0.08797056                           0.09743840

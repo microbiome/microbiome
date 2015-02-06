@@ -19,11 +19,10 @@ p <- res$plot
 print(p)
 
 # Organize the Crosshyb table
-library(dplyr)
+suppressMessages(library(dplyr))
 s <- filter(res$data, crosshyb > 0)
 s <- s[rev(order(s$crosshyb)),]
 head(s)
-#write.table(s, file = "crosshyb.tab", sep = "\t", quote = F, row.names = F)
 ```
 
 
