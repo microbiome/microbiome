@@ -15,8 +15,8 @@ The microbiome package contains general-purpose tools for microarray-based analy
 ### How to start
 
 Example on reproducible document generation:
-\* [Minimal example](Template.Rmd)
-\* [Example workflow](Atlas.Rmd)
+ \* [Minimal example](Template.Rmd)
+ \* [Example workflow](Atlas.Rmd)
 
 ### Installation, example data sets and preprocessing
 
@@ -77,13 +77,13 @@ The package utilizes tools from a number of other CRAN and Bioconductor extensio
 -   df2json (Caballero, 2013)
 -   rjson (Couture-Beil, 2014)
 -   ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007)
--   mixOmics (Dejean, Gonzalez, Monget, Coquery, Yao, Liquet, and Rohart, 2014)
+-   mixOmics (Dejean, Gonzalez, Monget, et al., 2014)
 -   RCurl (Temple Lang, 2014)
--   vegan (Oksanen, Blanchet, Kindt, Legendre, Minchin, O'Hara, Simpson, Solymos, Stevens, and Wagner, 2015)
+-   vegan (Oksanen, Blanchet, Kindt, et al., 2015)
 -   reshape (Wickham and Hadley, 2007)
 -   WGCNA (Langfelder and Horvath, 2008; Langfelder and Horvath, 2012)
 -   ggplot2 (Wickham, 2009)
--   RPA (Lahti, Torrente, Elo, Brazma, and Rung, 2013)
+-   RPA (Lahti, Torrente, Elo, et al., 2013)
 -   minet (Meyer, Lafitte, and Bontempi, 2008)
 -   fastcluster (Müllner, 2013)
 -   plyr (Wickham, 2011)
