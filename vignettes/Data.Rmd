@@ -109,6 +109,6 @@ Estimate relative abundance of the taxa in each sample. Note: the
 input data set needs to be in absolute scale (not logarithmic).
 
 ```{r diversity-example6}
-rel <- relative.abundance(oligo.data, det.th = NULL)
+rel <- relative.abundance(oligo.data, det.th = min(na.omit(oligo.data)))
 ```
 

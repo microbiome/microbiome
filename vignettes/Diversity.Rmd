@@ -1,6 +1,7 @@
-### Diversity estimation
 
-Download the [HITChip Atlas data set](Data.md)
+To run these examples, you need to download the [HITChip Atlas data set](Data.md)
+
+### Richness 
 
 ```{r diversity-example, warning=FALSE, message=FALSE}
 # Use the HITChip Atlas data
@@ -18,12 +19,21 @@ abline(v = log10(det.th))
 # (exceed the detection threshold)
 ri <- rowSums(mydata > det.th)
 hist(ri, main = "Richness")
+```
 
+
+### Diversity 
+
+```{r diversity-example, warning=FALSE, message=FALSE}
 # Diversity using the vegan package
 # NOTE: data needs to be in absolute scale, not logarithmic
 di <- vegan::diversity(mydata, index = "shannon")
 hist(di, main = "Diversity")
+```
 
+### Evenness
+
+```{r diversity-example, warning=FALSE, message=FALSE}
 # Pielou's evenness is S/ln(R) w.r.t. given detection threshold
 # NOTE: here we use detection threshold for diversity as well because
 # the exact same data has to be used for diversity and richness calculation,
@@ -34,42 +44,35 @@ mydata2 <- mydata - det.th # NOTE: absolute (not log) scale data
 S <- vegan::diversity(mydata2, index = "shannon")
 R <- rowSums(mydata2 > 0)
 ev <- S/log(R)
-
-# Combine all into a single table
-divtab <- cbind(richness = ri, evenness = ev, diversity = di)
-head(divtab)
 ```
 
 
-### Compare diversity with known background factors
+### Compare with known background factors
 
-Start by loading the [HITChip Atlas data set and metadata](Data.Rmd)
+Diversity vs. obesity
 
 ```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=16, fig.heigth=8}
-par(mar = c(6, 4, 3, 1), mfrow = c(1, 2))
-d <- atlas$microbes
+par(mar = c(6, 4, 3, 1))
 bmi <- atlas$meta$BMI_group
-age <- atlas$meta$Age
-di <- vegan::diversity(d)
+di <- vegan::diversity(atlas$microbes)
 boxplot(di ~ bmi, las = 2, main = "Microbiota diversity vs. obesity")
-plot(age, di, main = "Microbiota diversity vs. Age", ylab = "Diversity", xlab = "Age (years)")
 ```
 
 
-Plot subject age versus phylotype abundance with smoothed confidence intervals:
+Diversity vs. age with smoothed confidence intervals:
 
 ```{r visu-example3, fig.width=8, fig.height=8, message=FALSE, warning=FALSE}
 library(microbiome)
 library(sorvi)
 library(dplyr)
 
-# Just pick RBB-preprocessed samples from time point 0
+# Pick the subset of RBB-preprocessed samples from time point 0
 rbb.samples <- filter(atlas$meta, Time == 0 & DNA_extraction_method == "r")$SampleID
 
 # Collect variables into a data frame
 df <- data.frame(Age = atlas$meta[rbb.samples, "Age"], Diversity = di[rbb.samples])
 
-# Regression plot
+# Visualize
 p <- sorvi::regression_plot(Diversity~Age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
 print(p)
 ```
