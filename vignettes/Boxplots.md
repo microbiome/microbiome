@@ -20,4 +20,4 @@
     p <- p + xlab("Time") + ylab("Abundance (Log10)")
     print(p)
 
-![](figure/barplot-example-1.png)
+![](figure/boxplot-example-1.png)
