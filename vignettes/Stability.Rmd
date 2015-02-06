@@ -3,17 +3,13 @@
 Calculate stability as the average correlation between samples and their mean for a given phylotypes vs. samples matrix:
 
 ```{r stability-example, message=FALSE}
+# Example data
 library(microbiome)
+data(peerj32)
+x <- peerj32$microbes
 
-data.directory <- system.file("extdata", package = "microbiome")
-
-genus.matrix.log10.simulated <- read.profiling(level = "oligo",		
-			     	  	      method = "frpa", 
-			                    data.dir = data.directory, 
-			     	      	       log10 = TRUE)  
-
-# Stability: 
-stability <- estimate.stability(genus.matrix.log10.simulated)$stability
+# Estimate Stability
+stability <- estimate.stability(t(x))$stability
 ```
 
 ### Stability analysis in time
@@ -25,7 +21,6 @@ matrix, give two matrices as input. These are phylotypes vs. samples
 matrices and correspond to time points 1 and 2, respectively. The rows
 (phylotypes) and columns (subjects) should be in the same order in
 both matrices.
-
 
 
 ### Version information

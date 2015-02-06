@@ -47,7 +47,7 @@ print(p)
 
 ## Hierarchical clustering: reproduce profiling script plot 
 
-```{r clustering-example, message=FALSE, warning=FALSE, fig.width=8, fig.heigth=8, fig.path = "figure/"}
+```{r clustering-example, message=FALSE, warning=FALSE, fig.width=8, fig.heigth=15, fig.path = "figure/"}
 # Read oligo-level data
 data(peerj32)
 mydata <- peerj32$microbes

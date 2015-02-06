@@ -25,7 +25,7 @@ blue; higher: red):
     p <- densityplot(proj, col = m$gender, legend = T)
     print(p)
 
-![](PCA_files/figure-markdown_strict/density-1.png)
+![](figure/density-1.png)
 
     # Visualize with low/high Prevotella
     # This shows that Prevotella (color) has ecosystem-level impact on microbiota composition
@@ -33,7 +33,7 @@ blue; higher: red):
     p <- densityplot(proj, col = prevotella.abundance, legend = T)
     print(p)
 
-![](PCA_files/figure-markdown_strict/density-2.png)
+![](figure/density-2.png)
 
 PCA with ggplot2 - the above example gives a shortcut for the following:
 
@@ -61,7 +61,7 @@ PCA with ggplot2 - the above example gives a shortcut for the following:
     # Plot the figure
     print(p)
 
-![](PCA_files/figure-markdown_strict/density2-1.png)
+![](figure/density2-1.png)
 
 ### Other projections
 
@@ -87,10 +87,10 @@ purposes; see help(project.data) for details):
     theme_set(theme_bw(15))
     ggplot(aes(x = Comp.1, y = Comp.2), data = proj) + geom_point()
 
-![](PCA_files/figure-markdown_strict/visu-example-1.png)
+![](figure/visu-example-1.png)
 
 Plot the projection with sample names:
 
     ggplot(aes(x = Comp.1, y = Comp.2, label = rownames(proj)), data = proj) + geom_text()
 
-![](PCA_files/figure-markdown_strict/visu-example2-1.png)
+![](figure/visu-example2-1.png)

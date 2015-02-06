@@ -2,16 +2,11 @@
 
 ## Group-wise comparisons
 
-Let us first read simulated example data.  See
-[read.profiling](reading) on how to use your own data. 
-
 ```{r comparisons-example, warning=FALSE, message=FALSE}
-# Load the package
-library(microbiome)  
-
-# Load data (here simulated example data) 
-data.directory <- system.file("extdata", package = "microbiome")
-hitchip.data <- read.profiling(level = "L2", method = "frpa", data.dir = data.directory, log10 = TRUE)  
+# Example data
+library(microbiome)
+data(peerj32)
+x <- peerj32$microbes
 
 # Read simulated example metadata
 library(gdata)
@@ -21,13 +16,13 @@ rownames(metadata) <- metadata$sampleID
 
 # Ensure that the samples are in the same order in 
 # HITChip data and metadata
-metadata <- metadata[colnames(hitchip.data),]
+metadata <- metadata[colnames(x),]
 head(metadata)
 ```
 
 ### Comparing of two or more groups with a parametric test (linear model; ANOVA)
 
-NOTE: the HITChip data (hitchip.data) must be at log10 scale!
+NOTE: the HITChip data (x) must be at log10 scale!
 
 ```{r comparisons2, eval=FALSE}
 # Define sample groups based on a selected metadata column
@@ -35,7 +30,7 @@ group <- metadata$diet
 names(group) <- metadata$sampleID
 
 # Calculate p-values for multi-group comparison
-pvals <- check.anova(hitchip.data, group, p.adjust.method = "BH", sort = TRUE)
+pvals <- check.anova(x, group, p.adjust.method = "BH", sort = TRUE)
 
 # Write the results to a table
 write.table(pvals, file = "myfile.tab", quote = F)
@@ -58,7 +53,7 @@ males <- subset(metadata, gender == "M")$sampleID
 females <- subset(metadata, gender == "F")$sampleID
 
 # Calculate Wilcoxon test with BH p-value correction for genus.matrix
-pval <- check.wilcoxon(hitchip.data, G1 = males, G2 = females, p.adjust.method = "BH", sort = TRUE)  
+pval <- check.wilcoxon(x, G1 = males, G2 = females, p.adjust.method = "BH", sort = TRUE)  
 
 # Investigate the top findings
 head(pval)
