@@ -36,11 +36,12 @@ Example on reproducible document generation:
 * [Minimal example](Template.Rmd)
 
 ### Installation, example data sets and preprocessing
+* [Installing R tools](Installation.md)
 
-* [Installation](Installation.md)
-* [Example data sets](Data.md)
-* [Extract and preprocess data from HITChip database](Preprocessing.md)
-* [Phylogeny](Phylogeny.md)
+### Data
+* [Download example data sets](Data.md)
+* [Extract data from HITChip database](Preprocessing.md)
+* [Get phylogeny](Phylogeny.md)
 
 ### Visualization and related tools
 
