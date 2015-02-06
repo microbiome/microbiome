@@ -1,12 +1,3 @@
----
-title: "Project Template"
-author: "Your Name"
-date: "2015-02-06"
-output:
-  md_document:
-    toc: false
-    variant: markdown_github
----
 <!--
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Project Template}
@@ -15,32 +6,29 @@ output:
 
 
 Minimal example
-===========
+===============
 
 ### Set up reproducible document generation
 
 To test reproducible document generation:
 
- 1. Start [RStudio](http://www.rstudio.com/)
- 1. Open a new Rmarkdown (Rmd) file 
- 1. Convert that Rmd file with the 'knit HTML' button
- 1. Modify the Rmd file and knit again to make your own reproducible report
-
+1.  Start [RStudio](http://www.rstudio.com/)
+2.  Open a new Rmarkdown (Rmd) file
+3.  Convert that Rmd file with the 'knit HTML' button
+4.  Modify the Rmd file and knit again to make your own reproducible report
 
 ### Try out microbiome analysis
 
 Start by adapting some of the following elements in your reproducible document:
 
- 1. [Install the microbiome package](Installation.Rmd)
- 1. [Download example data](Data.Rmd) (we suggest HITChip Atlas + metadata)
- 1. [Try to analyse microbiota diversity](Diversity.Rmd)
- 1. Adapt further examples from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
+1.  [Install the microbiome package](Installation.md)
+2.  [Download example data](Data.md) (we suggest HITChip Atlas + metadata)
+3.  [Analyse microbiota diversity](Diversity.md)
+4.  Adapt further examples from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
 ### Example visualization in R
 
-
-
-```r
+``` {.r}
 # Load Dryad tools
 library("rdryad") # Use the install.packages("rdryad") if package not available
 
@@ -69,18 +57,11 @@ div <- vegan::diversity(atlas$microbes)
 boxplot(div ~ bmi, las = 2, main = "Microbiota diversity vs. obesity")
 ```
 
-![plot of chunk example](figure/example-1.png) 
-
-```r
-plot(c(1:5))
-```
-
-![plot of chunk example](figure/example-2.png) 
-
+![](Template_files/figure-markdown_github/example-1.png)
 
 ### Resources
 
 Further tips:
 
- * [Rmarkdown tips](http://rmarkdown.rstudio.com/)
- * [R cheat sheets](http://devcheatsheet.com/tag/r/)
+-   [Rmarkdown tips](http://rmarkdown.rstudio.com/)
+-   [R cheat sheets](http://devcheatsheet.com/tag/r/)

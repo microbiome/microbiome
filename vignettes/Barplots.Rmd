@@ -1,6 +1,8 @@
 ### Coloured Barplots
 
-The following example picks 20 random species from a species data vector and visualizes them as ordered barplot colored according to the L2 group. Here with simulated example data. See [read.profiling](reading) to use your own data files.
+The following example picks 20 random species from a species data
+vector and visualizes them as ordered barplot colored according to the
+L2 group.
 
 ```{r barplot-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
 library(microbiome, quietly = TRUE)

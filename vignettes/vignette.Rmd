@@ -78,8 +78,8 @@ Download some [example data sets](Data.md) to try these tools:
 * [ROC curves](ROC.md)
 * [RDA](RDA.md)
 
-### Miscellaneous
-* [misc](misc.md)
+### Output
+* [Producing output files and figures](Output.md)
 
 
 ### Licensing and Citations

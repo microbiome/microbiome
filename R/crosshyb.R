@@ -140,10 +140,10 @@ PlotCrosshyb <- function(tax.level = "L1", chip = "HITChip",
     # Order rows and cols
     if (order.rows || order.cols) {
         
-        hc <- hclust(as.dist(1 - cor(confusion.matrix)), "ward")
+        hc <- hclust(as.dist(1 - cor(confusion.matrix)), "ward.D")
         colord <- hc$ord
         
-        hc <- hclust(as.dist(1 - cor(t(confusion.matrix))), "ward")
+        hc <- hclust(as.dist(1 - cor(t(confusion.matrix))), "ward.D")
         roword <- hc$ord
         
         if (order.rows) {

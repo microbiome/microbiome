@@ -9,7 +9,7 @@ By default the groups with no cross-hyb are filtered out for clarity. Rows and c
 library(microbiome, quietly = TRUE)
 
 # Check cross-hyb between all L1 groups
-res <- PlotCrosshyb(tax.level = "L1", rounding = 1, show.plot = FALSE)
+res <- PlotCrosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE)
     
 # Pick the crosshyb table and figure
 crosshyb.table <- res$data
@@ -19,11 +19,11 @@ p <- res$plot
 print(p)
 
 # Organize the Crosshyb table
-s <- subset(res$data, crosshyb > 0)
+library(dplyr)
+s <- filter(res$data, crosshyb > 0)
 s <- s[rev(order(s$crosshyb)),]
 head(s)
 #write.table(s, file = "crosshyb.tab", sep = "\t", quote = F, row.names = F)
-
 ```
 
 

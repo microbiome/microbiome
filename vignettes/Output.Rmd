@@ -32,16 +32,3 @@ savePlot("myplot.emf", type = "emf")
 dev.off()
 ```
 
-## Cluster significance testing
-
-Cluster significance can be assessed with bootstrap resampling of the
-original data. Here, perform R = 1000 bootstrap iterations and return
-significant classes with at least 2 members and correlation higher
-than specified. Only significant clusters with the given p-value
-threshold are returned; p-values are corrected for multiple testing
-with Benjamini-Hochberg method.
-
-```{r clustering-example3, message=FALSE, warning=FALSE}
-significant.clusters <- hclust.significance(t(mydata), R = 1e3, min.size = 2, corr.th = 0.5, metric = "pearson", pvalue.threshold = 0.05) 
-```
-

@@ -1,13 +1,20 @@
-### Phylogeny
+## HITChip Phylogeny
 
-Map phylotypes between hierarchy levels:
+Map HITChip phylogenetic microarray phylotypes between taxonomic hierarchy levels.  
+
+
+Check the overall phylogeny table:
 
 ```{r phylogeny-example2, warning=FALSE, message=FALSE}
 require(microbiome)
 phylogeny.info <- GetPhylogeny("HITChip")
 head(phylogeny.info)
+```
 
-# Check the phylum-level group for specific genus-like groups
+Convert taxa from one level to another level:
+
+```{r phylogeny-example2, warning=FALSE, message=FALSE}
+
 m <- levelmap(phylotypes = c("Akkermansia", "Bacteroides fragilis et rel."), 
               level.from = "L2", 
 	      level.to = "L1", 

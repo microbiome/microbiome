@@ -41,7 +41,8 @@ fs <- list.files(pattern = ".Rmd$")
 #fs <- c("Phylogeny.Rmd")
 for (f in setdiff(fs, "Installation.Rmd")) { 
     print(f)
-    knit(f) 
+    #knit(f) 
+    rmarkdown::render(f, "md_document")
 }
 
 system("git add *.md")
