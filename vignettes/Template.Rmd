@@ -61,9 +61,7 @@ meta$SubjectID <- factor(meta$SubjectID)
 
 # Collect the atlas data and metadata into a single object:
 atlas <- list(microbes = data, meta = meta)
-```
 
-```{r templateexample2}
 # Compare BMI and microbiota diversity
 bmi <- atlas$meta$BMI_group
 div <- vegan::diversity(atlas$microbes)

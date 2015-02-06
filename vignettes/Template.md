@@ -50,16 +50,14 @@ meta$SubjectID <- factor(meta$SubjectID)
 
 # Collect the atlas data and metadata into a single object:
 atlas <- list(microbes = data, meta = meta)
-```
 
-``` {.r}
 # Compare BMI and microbiota diversity
 bmi <- atlas$meta$BMI_group
 div <- vegan::diversity(atlas$microbes)
 boxplot(div ~ bmi, las = 2, main = "Microbiota diversity vs. obesity")
 ```
 
-![](Template_files/figure-markdown_github/templateexample2-1.png)
+![](Template_files/figure-markdown_github/example-1.png)
 
 ### Resources
 
