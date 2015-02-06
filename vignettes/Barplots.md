@@ -17,7 +17,7 @@ group.
     p <- phylo.barplot(x, color.level = "L1", title = "My title", phylogeny.info = phylogeny.info, plot = FALSE)
     print(p)
 
-![](figure/barplot-example-1.png)
+![](figure/barplot-1.png)
 
 ### A longer version with source code
 
