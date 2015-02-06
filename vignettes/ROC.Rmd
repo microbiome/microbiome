@@ -2,7 +2,7 @@
 
 A basic example of ROC/AUC analysis with simulated random data.
 
-```{r roc-example, warning=FALSE}
+```{r roc-example, warning=FALSE, fig.path = "figure/"}
 # Define two sample groups for demonstration purpose
 g1 <- sample(colnames(oligo.data), 10)
 g2 <- setdiff(colnames(oligo.data), g1)

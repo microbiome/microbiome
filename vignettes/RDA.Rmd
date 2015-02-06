@@ -3,7 +3,7 @@
 
 Load the package and example data:
 
-```{r rda, warning=FALSE, message=FALSE}
+```{r rda, warning=FALSE, message=FALSE, fig.path = "figure/"}
 library(microbiome, quietly = TRUE)
 data(peerj32)  # From https://peerj.com/articles/32/
 
@@ -18,7 +18,7 @@ annot <- peerj32$meta
 
 Run standard RDA for microbiota profiles versus timepoint
 
-```{r rda2, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
+```{r rda2, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
 library(vegan)
 rdatest<-rda(l2~annot$time) # Run RDA
 permutest(rdatest) # RDA Significance test
@@ -26,7 +26,7 @@ permutest(rdatest) # RDA Significance test
 
 ### Controlling for confounding variables
 
-```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
+```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
 rdatest<-rda(l2~annot$time + Condition(annot$subject)) 
 permutest(rdatest) # RDA significance test
 
@@ -38,7 +38,7 @@ permutest(rdatest) # RDA significance test
 
 Visualizing the standard RDA output:
 
-```{r rda4, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
+```{r rda4, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
 plot(rdatest, choices=c(1,2), type="points", pch=15, scaling=3, cex=0.7, col=annot$time)
 points(rdatest, choices=c(1,2), pch=15, scaling=3, cex=0.7, col=annot$time)
 pl <- ordihull(rdatest, annot$time, scaling = 3, label = TRUE)

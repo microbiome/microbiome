@@ -3,7 +3,7 @@
 Estimate relative abundance of the taxa in each sample. Note: the
 input data set needs to be in absolute scale (not logarithmic).
 
-```{r diversity-example6}
+```{r diversity-example6, fig.path = "figure/"}
 # Example data
 library(microbiome)
 data(peerj32)
