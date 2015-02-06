@@ -53,7 +53,6 @@ Download some [example data sets](Data.md) to try these tools:
 * [Boxplots](Boxplots.md)
 * [Density](Density.md)
 * [Heatmaps](Heatmap.md)
-* [Matrix visualization](Matrix-visualization.md)
 * [Motion charts](Motionchart.md)
 * [Ordination](Projections.md)
 * [Oligo heatmap](Oligoheatmap.md)

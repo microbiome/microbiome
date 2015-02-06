@@ -5,7 +5,7 @@ other chips), use the following.
 
 By default the groups with no cross-hyb are filtered out for clarity. Rows and columns are ordered by hierarchical clustering. The cross-hyb is shown in percentages, rounded as indicated by the rounding argument. The percentage indicates which fraction of probes for a row taxon overlaps with probes of a column taxon. This is not symmetric if the row and col taxon have a different total number of probes. For details, see help(PlotCrosshyb).
 
-```{r chyb, warning=FALSE, fig.path = "figure/"}
+```{r chyb, warning=FALSE, fig.path = "figure/". fig.width=10, fig.height=10}
 library(microbiome, quietly = TRUE)
 
 # Check cross-hyb between all L1 groups

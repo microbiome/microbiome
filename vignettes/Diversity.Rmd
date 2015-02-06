@@ -51,7 +51,7 @@ ev <- S/log(R)
 
 Diversity vs. obesity
 
-```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=16, fig.heigth=8, fig.path = "figure/"}
+```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=6, fig.path = "figure/"}
 par(mar = c(6, 4, 3, 1))
 bmi <- atlas$meta$BMI_group
 di <- vegan::diversity(atlas$microbes)
@@ -61,7 +61,7 @@ boxplot(di ~ bmi, las = 2, main = "Microbiota diversity vs. obesity")
 
 Diversity vs. age with smoothed confidence intervals:
 
-```{r visu-example3, fig.width=8, fig.height=8, message=FALSE, warning=FALSE, fig.path = "figure/"}
+```{r visu-example3, fig.width=5, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/"}
 library(microbiome)
 library(sorvi)
 library(dplyr)

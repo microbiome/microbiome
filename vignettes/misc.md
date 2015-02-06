@@ -1,56 +1,40 @@
-### Writing diversity table into file
+### Bagged RDA
 
+Calculate Bagged RDA and visualize the results:
 
-```r
-output.dir <- "./"
-write.table(div.table, file = "DiversityTable.tab", sep = "\t")
-```
+    # Modify the group vector into a facor as required by Bagged RDA
+    y <- factor(annot$time); names(y) <- rownames(annot)
 
-## Save clustering image to a file
+    # Bagged RDA
+    Bag.res <- Bagged.RDA.Feature.Selection(t(l2), y, sig.thresh=0.05, nboot=100)
 
-Save in PDF:
+    # Visualize
+    PlotBaggedRDA(Bag.res, y)
 
+### Oligo heatmap
 
-```r
-pdf("myplot.pdf", width = 7, height = 7 * length(hc$order)/20)
-plot(hc, hang=-1, main = "Hierarchical clustering")
-dev.off()
-```
+This reproduces the oligo-level heatmap from profiling script. If there
+are problems, try to tune ppcm, figureratio and fontsize (see
+help(add.heatmap) for details)
 
-Save in TIFF:
+    library(microbiome)
 
+    # Load Phylogeny
+    phylogeny.info <- GetPhylogeny("HITChip")
 
-```r
-tiff("myplot.tif", width = 480, height = 480 * length(hc$order)/20)
-plot(hc, hang=-1, main = "Hierarchical clustering")
-dev.off()
-```
+    # Load oligo-level data
 
-To save in Microsoft EMF format, try the following. If you find a
-way to tune figure width for emf files kindly let the admins know.
+    # Replace data.directory here with your own profiling script output data directory
+    data.directory <- system.file("extdata", package = "microbiome")
 
+    oligodata <- read.profiling(level = "oligo", log10 = FALSE, data.dir = data.directory)
 
-```r
-plot(hc, hang=-1, main = "Hierarchical clustering")
-savePlot("myplot.emf", type = "emf")
-dev.off()
-```
+    # Produce the plot and save it to the working directory
+    library(HITChipDB)
 
-## Cluster significance testing
+    ##      Package    LibPath                                            
+    ## [1,] "affydata" "/home/antagomir/R/x86_64-pc-linux-gnu-library/3.1"
+    ##      Item       Title                        
+    ## [1,] "Dilution" "AffyBatch instance Dilution"
 
-Cluster significance can be assessed with bootstrap resampling of the
-original data. Here, perform R = 1000 bootstrap iterations and return
-significant classes with at least 2 members and correlation higher
-than specified. Only significant clusters with the given p-value
-threshold are returned; p-values are corrected for multiple testing
-with Benjamini-Hochberg method.
-
-
-```r
-significant.clusters <- hclust.significance(t(mydata), R = 1e3, min.size = 2, corr.th = 0.5, metric = "pearson", pvalue.threshold = 0.05) 
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "hclust.significance"
-```
-
+    hc.params <- add.heatmap(log10(oligodata), output.dir = ".", phylogeny.info = phylogeny.info)
