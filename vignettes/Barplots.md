@@ -14,7 +14,8 @@ group.
     # Pick example data and visualize
     x <- l2.log10.simulated[,1]
     phylogeny.info <- GetPhylogeny("HITChip")
-    p <- phylo.barplot(x, color.level = "L1", title = "My title", phylogeny.info = phylogeny.info)
+    p <- phylo.barplot(x, color.level = "L1", title = "My title", phylogeny.info = phylogeny.info, plot = FALSE)
+    print(p)
 
 ![](figure/barplot-example-1.png)
 

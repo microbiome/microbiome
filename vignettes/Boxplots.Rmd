@@ -16,8 +16,14 @@ library(ggplot2, quietly = TRUE)
 theme_set(theme_bw(20))
 p <- ggplot(df, aes(x = factor(time), y = hitchip))
 p <- p + geom_boxplot(fill = "gray") # also try geom_violin
+
+# Add also subjects as lines and points
 p <- p + geom_line(aes(group = subject))
 p <- p + geom_point(aes(color = time), data = df, size = 4)
+
+# Add axis tests
 p <- p + xlab("Time") + ylab("Abundance (Log10)")
+
+# Plot the image
 print(p)
 ```
