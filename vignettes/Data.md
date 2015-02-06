@@ -60,6 +60,7 @@ Load simulated example data of the human gut microbiota. With HITChip,
 [fRPA](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)
 is the recommended preprocessing method.
 
+    library(microbiome)
     # Define data path (you can replace data.directory with your own path)
     data.directory <- system.file("extdata", package = "microbiome")
     print(data.directory)
@@ -67,9 +68,9 @@ is the recommended preprocessing method.
     ## [1] "/home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata"
 
     # Read HITChip data matrix (genus-level (L2) log10 values)
-    level <- "L2"
+    level <- "L1"
     method <- "frpa"
-    genus.data <- read.profiling(level = level, 
+    l1.data <- read.profiling(level = level, 
                            method = method, 
                                data.dir = data.directory, 
                                log10 = TRUE)  

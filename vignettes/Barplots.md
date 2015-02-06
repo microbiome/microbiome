@@ -29,31 +29,26 @@ according to the L2 group.
     phylogeny.info <- GetPhylogeny("HITChip")
 
     # Get example data 
-    data.directory <- system.file("extdata", package = "microbiome")
-    species.log10.simulated <- read.profiling(level = "species", method = "frpa", data.dir = data.directory, log10 = TRUE)  
+    data(peerj32)
+    x <- log10(t(peerj32$microbes))
 
     # Pick 20 species from first sample at random
-    taxa <- rownames(species.log10.simulated)[sample(nrow(species.log10.simulated), 20)]
+    taxa <- rownames(x)[sample(nrow(x), 20)]
 
     # Signal of the selected taxa at first sample
-    signal <- species.log10.simulated[taxa,1]
+    signal <- x[taxa,1]
 
     # Higher-level taxonomic groups for the taxa
-    l2 <- droplevels(levelmap(taxa, level.from = "species", level.to = "L2", phylogeny.info = phylogeny.info))
-    l1 <- droplevels(levelmap(taxa, level.from = "species", level.to = "L1", phylogeny.info = phylogeny.info))
+    l1 <- droplevels(levelmap(taxa, level.from = "L2", level.to = "L1", phylogeny.info = phylogeny.info))
 
     # Collect all into a data.frame
     df <- list()
     df$taxa <- taxa
-    df$L2 <- l2
     df$L1 <- l1
     df$signal <- signal
     df <- data.frame(df)
 
-    # Define colors for L1/L2 groups
-    l2.colors <- rainbow(length(unique(df$L2)))
-    names(l2.colors) <- as.character(unique(df$L2))
-
+    # Define colors for groups
     l1.colors <- rainbow(length(unique(df$L1)))
     names(l1.colors) <- as.character(unique(df$L1))
 
@@ -64,8 +59,8 @@ according to the L2 group.
     df <- within(df, taxa <- factor(taxa, levels = taxa[order(abs(signal))]))
 
     # Plot the image
-    p <- ggplot(aes(x = taxa, y = signal, fill = L2), data = df) 
-    p <- p + scale_fill_manual(values = l2.colors[as.character(levels(df$L2))])
+    p <- ggplot(aes(x = taxa, y = signal, fill = L1), data = df) 
+    p <- p + scale_fill_manual(values = l1.colors[as.character(levels(df$L1))])
 
     p <- p + geom_bar(position="identity", stat = "identity") + theme_bw() + coord_flip()
     p <- p + ylab("Fold change") + xlab("") + ggtitle("My barplot")

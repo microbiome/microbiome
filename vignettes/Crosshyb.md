@@ -31,39 +31,7 @@ help(PlotCrosshyb).
 ![](figure/chyb-1.png)
 
     # Organize the Crosshyb table
-    library(dplyr)
-
-    ## 
-    ## Attaching package: 'dplyr'
-    ## 
-    ## The following object is masked from 'package:graph':
-    ## 
-    ##     union
-    ## 
-    ## The following object is masked from 'package:AnnotationDbi':
-    ## 
-    ##     select
-    ## 
-    ## The following object is masked from 'package:Biobase':
-    ## 
-    ##     combine
-    ## 
-    ## The following objects are masked from 'package:BiocGenerics':
-    ## 
-    ##     combine, intersect, setdiff, union
-    ## 
-    ## The following object is masked from 'package:reshape':
-    ## 
-    ##     rename
-    ## 
-    ## The following object is masked from 'package:stats':
-    ## 
-    ##     filter
-    ## 
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
+    suppressMessages(library(dplyr))
     s <- filter(res$data, crosshyb > 0)
     s <- s[rev(order(s$crosshyb)),]
     head(s)
@@ -75,8 +43,6 @@ help(PlotCrosshyb).
     ## 166                    Serratia     Escherichia coli et rel.      100
     ## 39     Uncultured Bacteroidetes Bacteroides plebeius et rel.      100
     ## 11     Uncultured Bacteroidetes           Allistipes et rel.      100
-
-    #write.table(s, file = "crosshyb.tab", sep = "\t", quote = F, row.names = F)
 
 ### Further examples
 

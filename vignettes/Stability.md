@@ -43,15 +43,15 @@ matrices.
     ## other attached packages:
     ##  [1] googleVis_0.5.8      HITChipDB_0.5.13     RPA_1.20.01         
     ##  [4] affydata_1.12.0      affy_1.42.3          RMySQL_0.10.1       
-    ##  [7] ade4_1.6-2           limma_3.20.9         sorvi_0.7.13        
-    ## [10] gdata_2.13.3         dplyr_0.4.1          netresponse_1.17.13 
-    ## [13] mclust_4.4           minet_3.20.2         infotheo_1.2.0      
-    ## [16] Rgraphviz_2.8.1      graph_1.42.0         ggplot2_1.0.0       
-    ## [19] microbiome_0.99.35   AnnotationDbi_1.26.1 GenomeInfoDb_1.0.2  
-    ## [22] Biobase_2.24.0       BiocGenerics_0.10.0  RSQLite_1.0.0       
-    ## [25] DBI_0.3.1            reshape_0.8.5        vegan_2.2-1         
-    ## [28] lattice_0.20-29      permute_0.8-3        e1071_1.6-4         
-    ## [31] knitr_1.9            rdryad_0.1.1         knitcitations_1.0.5 
+    ##  [7] ade4_1.6-2           limma_3.20.9         gdata_2.13.3        
+    ## [10] netresponse_1.17.13  mclust_4.4           minet_3.20.2        
+    ## [13] infotheo_1.2.0       Rgraphviz_2.8.1      graph_1.42.0        
+    ## [16] ggplot2_1.0.0        knitr_1.9            dplyr_0.4.1         
+    ## [19] sorvi_0.7.13         microbiome_0.99.35   AnnotationDbi_1.26.1
+    ## [22] GenomeInfoDb_1.0.2   Biobase_2.24.0       BiocGenerics_0.10.0 
+    ## [25] RSQLite_1.0.0        DBI_0.3.1            reshape_0.8.5       
+    ## [28] vegan_2.2-1          lattice_0.20-29      permute_0.8-3       
+    ## [31] e1071_1.6-4          rdryad_0.1.1         knitcitations_1.0.5 
     ## [34] rmarkdown_0.5.1     
     ## 
     ## loaded via a namespace (and not attached):
