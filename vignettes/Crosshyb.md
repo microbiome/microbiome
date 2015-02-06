@@ -18,6 +18,8 @@ help(PlotCrosshyb).
     res <- PlotCrosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE)
 
     ## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/phylogeny.filtered.tab
+    ## The "ward" method has been renamed to "ward.D"; note new "ward.D2"
+    ## The "ward" method has been renamed to "ward.D"; note new "ward.D2"
 
     # Pick the crosshyb table and figure
     crosshyb.table <- res$data
@@ -26,10 +28,46 @@ help(PlotCrosshyb).
     # Plot the figure    
     print(p)
 
-![](Crosshyb_files/figure-markdown_strict/chyb-1.png)
+![](figure/chyb-1.png)
 
     # Organize the Crosshyb table
     library(dplyr)
+
+    ## 
+    ## Attaching package: 'dplyr'
+    ## 
+    ## The following object is masked from 'package:gdata':
+    ## 
+    ##     combine
+    ## 
+    ## The following object is masked from 'package:graph':
+    ## 
+    ##     union
+    ## 
+    ## The following object is masked from 'package:AnnotationDbi':
+    ## 
+    ##     select
+    ## 
+    ## The following object is masked from 'package:Biobase':
+    ## 
+    ##     combine
+    ## 
+    ## The following objects are masked from 'package:BiocGenerics':
+    ## 
+    ##     combine, intersect, setdiff, union
+    ## 
+    ## The following object is masked from 'package:reshape':
+    ## 
+    ##     rename
+    ## 
+    ## The following object is masked from 'package:stats':
+    ## 
+    ##     filter
+    ## 
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
     s <- filter(res$data, crosshyb > 0)
     s <- s[rev(order(s$crosshyb)),]
     head(s)
@@ -61,8 +99,10 @@ group
     res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, phylogeny.info = phylogeny.info)
 
     ## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/phylogeny.filtered.tab
+    ## The "ward" method has been renamed to "ward.D"; note new "ward.D2"
+    ## The "ward" method has been renamed to "ward.D"; note new "ward.D2"
 
-![](Crosshyb_files/figure-markdown_strict/chyb2-1.png)
+![](figure/chyb2-1.png)
 
     # Check the cross-hyb data as well
     head(res$data)

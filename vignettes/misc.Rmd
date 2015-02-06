@@ -1,0 +1,38 @@
+### Bagged RDA
+
+Calculate Bagged RDA and visualize the results:
+
+```{r rda5, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval = FALSE}
+# Modify the group vector into a facor as required by Bagged RDA
+y <- factor(annot$time); names(y) <- rownames(annot)
+
+# Bagged RDA
+Bag.res <- Bagged.RDA.Feature.Selection(t(l2), y, sig.thresh=0.05, nboot=100)
+
+# Visualize
+PlotBaggedRDA(Bag.res, y)
+```
+
+
+### Oligo heatmap
+
+This reproduces the oligo-level heatmap from profiling script. If there are problems, try to tune ppcm, figureratio and fontsize (see help(add.heatmap) for details)
+
+```{r oligoheatmap, message=FALSE, warning=FALSE}
+library(microbiome)
+
+# Load Phylogeny
+phylogeny.info <- GetPhylogeny("HITChip")
+
+# Load oligo-level data
+
+# Replace data.directory here with your own profiling script output data directory
+data.directory <- system.file("extdata", package = "microbiome")
+
+oligodata <- read.profiling(level = "oligo", log10 = FALSE, data.dir = data.directory)
+
+# Produce the plot and save it to the working directory
+library(HITChipDB)
+hc.params <- add.heatmap(log10(oligodata), output.dir = ".", phylogeny.info = phylogeny.info)
+```
+
