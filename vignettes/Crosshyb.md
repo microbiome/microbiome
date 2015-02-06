@@ -36,10 +36,6 @@ help(PlotCrosshyb).
     ## 
     ## Attaching package: 'dplyr'
     ## 
-    ## The following object is masked from 'package:gdata':
-    ## 
-    ##     combine
-    ## 
     ## The following object is masked from 'package:graph':
     ## 
     ##     union

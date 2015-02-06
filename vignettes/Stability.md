@@ -44,7 +44,7 @@ matrices.
     ##  [1] googleVis_0.5.8      HITChipDB_0.5.13     RPA_1.20.01         
     ##  [4] affydata_1.12.0      affy_1.42.3          RMySQL_0.10.1       
     ##  [7] ade4_1.6-2           limma_3.20.9         sorvi_0.7.13        
-    ## [10] dplyr_0.4.1          gdata_2.13.3         netresponse_1.17.13 
+    ## [10] gdata_2.13.3         dplyr_0.4.1          netresponse_1.17.13 
     ## [13] mclust_4.4           minet_3.20.2         infotheo_1.2.0      
     ## [16] Rgraphviz_2.8.1      graph_1.42.0         ggplot2_1.0.0       
     ## [19] microbiome_0.99.35   AnnotationDbi_1.26.1 GenomeInfoDb_1.0.2  

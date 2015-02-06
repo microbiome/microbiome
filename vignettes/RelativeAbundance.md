@@ -22,7 +22,7 @@ data set needs to be in absolute scale (not logarithmic).
     p <- p + geom_bar(position = "stack", stat = "identity")
     print(p)
 
-![](RelativeAbundance_files/figure-markdown_strict/diversity-example6-1.png)
+![](figure/diversity-example6-1.png)
 
     # Also note that taking relative abundances likely changes the abundance histograms
     tax <- "Akkermansia"
@@ -34,4 +34,4 @@ data set needs to be in absolute scale (not logarithmic).
     p <- p + ggtitle(tax)
     print(p)
 
-![](RelativeAbundance_files/figure-markdown_strict/diversity-example6-2.png)
+![](figure/diversity-example6-2.png)

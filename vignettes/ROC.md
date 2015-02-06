@@ -30,4 +30,4 @@ A basic example of ROC/AUC analysis with simulated random data.
     # Plot ROC curve
     roc.plot(ordered.results, true.positives, line = TRUE)
 
-![](ROC_files/figure-markdown_strict/roc-example-1.png)
+![](figure/roc-example-1.png)

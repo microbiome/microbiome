@@ -58,4 +58,4 @@ Visualizing the standard RDA output:
     pl <- ordihull(rdatest, annot$time, scaling = 3, label = TRUE)
     title("RDA with control for subject effect")
 
-![](RDA_files/figure-markdown_strict/rda4-1.png)
+![](figure/rda4-1.png)
