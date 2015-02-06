@@ -16,7 +16,6 @@ fs <- list.files(pattern = ".Rmd$")
 #fs <- "vignette.Rmd"
 #fs <- sample(list.files(pattern = ".Rmd$"))
 #fs <- "Profiling.Rmd"
-#fs <- c("Metrics.Rmd", "Heatmap.Rmd")
 #fs <- "SQL.Rmd"
 #fs <- "Heatmap.Rmd"
 #fs <- c("RDA.Rmd", "LatentClassAnalysis.Rmd", "NetResponse.Rmd")
