@@ -2,7 +2,7 @@
 
 Matrix heatmap
 
-```{r matvisu-example, fig.width=8, fig.height=16, fig.path = "figure/"}
+```{r matvisu-example, fig.width=16, fig.height=8, fig.path = "figure/"}
 # Load example data
 library(microbiome)
 data(peerj32)
@@ -10,9 +10,6 @@ x <- peerj32$microbes
 
 # Log10
 x <- log10(x)
-
-# Transponse the matrix 
-x <- t(x)
 
 # Visualize deviation of all bacteria from their population mean (smaller: blue; higher: red):
 # First Scale columns to zero mean and unit variance

@@ -4,23 +4,17 @@
 Cross-correlate input variables between two data sets (samples x features matrices; matched samples assumed; correlations calculated between features). For instance, between phylotypes and environmental variables:
 
 ```{r metrics-example22, warning=FALSE, message=FALSE}
-# Determine sample size
-N <- ncol(l2.log10.simulated)
+# Read example data (x) and metadata (m)
+library(microbiome)
+data(peerj32)
+x <- log10(peerj32$microbes)
+m <- peerj32$meta
 
-# Create some random sample information for the metadata
-metadata.simulated <- data.frame(list(
-              sampleID = colnames(l2.log10.simulated),
-	      subjectID = paste("subjectID", rep(1:4, 5)),
-	      group = sample(paste("group", rep(1:4, 5))),
-	      time = paste("group", rep(1:4, 5)),
-              age = runif(N, 0, 100),
-              gender = sample(c("M", "F"), N, replace = TRUE),
-              diet = sample(c("Apricots", "Beverages", "Carrots"), 
-	      N, replace = TRUE)))
+# Check sample size
+N <- nrow(m)
 
 # Calculate correlations between metadata and profiling data
-cc <- cross.correlate(metadata.simulated, t(l2.log10.simulated), 
-      			mode = "table", p.adj.method = "BY")
+cc <- cross.correlate(m, x,  mode = "table", p.adj.method = "BY")
 
 print(head(cc))
 ```

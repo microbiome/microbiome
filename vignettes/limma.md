@@ -1,118 +1,86 @@
 ### Limma analysis
 
-Example of limma analysis with simulated random data. For further details, see [limma homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For discussion on why limma is preferred over t-test, see [this article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
+Example of limma analysis. Identify most significantly different taxa
+between males and females. For further details, see [limma
+homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's
+guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf).
+For discussion on why limma is preferred over t-test, see [this
+article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
+    # Get example data
+    library(microbiome, quietly = TRUE)
+    data(peerj32)
+    hitchip.matrix <- log10(t(peerj32$microbes))
+    groups <- factor(peerj32$meta$gender)
 
+    # Compare the two groups with limma
+    library(limma)
 
-```r
-# Get example data
-library(microbiome, quietly = TRUE)
+    ## 
+    ## Attaching package: 'limma'
+    ## 
+    ## The following object is masked from 'package:BiocGenerics':
+    ## 
+    ##     plotMA
 
-# Define here your own HITChip data folder
-#data.directory <- system.file("extdata", package = "microbiome")
-data.directory <- "~/R/x86_64-pc-linux-gnu-library/3.0/microbiome/extdata"
+    # Prepare the design matrix which states the groups for each sample
+    # in the hitchip.matrix
+    design <- cbind(intercept=1, Grp2vs1=groups)
+    rownames(design) <- rownames(peerj32$meta)
+    design <- design[colnames(hitchip.matrix), ]
 
-# Read HITChip data
-hitchip.matrix <- read.profiling(level = "L2", 
-                       data.dir = data.directory, log10 = TRUE)
-```
+    # NOTE: results and p-values are given for all groupings in the design matrix
+    # Now focus on the second grouping ie. pairwise comparison
+    coef.index <- 2
+         
+    # Fit the limma model
+    fit <- lmFit(hitchip.matrix, design)
+    fit <- eBayes(fit)
 
-```
-## Reading ~/R/x86_64-pc-linux-gnu-library/3.0/microbiome/extdata/L2-frpa.tab
-## Logarithmizing the data
-```
+    # Summarise or plot the results
+    topTable(fit, coef = coef.index)
 
-```r
-# Define two random groups for demonstration purpose
-g1 <- sample(colnames(hitchip.matrix), 10)
-g2 <- setdiff(colnames(hitchip.matrix), g1)
-# Modify hitchip matrix so that there are a few significant differences
-altered.taxa <- sample(rownames(hitchip.matrix), 10)
-hitchip.matrix[altered.taxa, g1] <- hitchip.matrix[altered.taxa, g1] + 2
+    ##                                         logFC  AveExpr         t
+    ## Clostridium nexile et rel.         0.16758644 2.880224  3.808117
+    ## Eubacterium siraeum et rel.       -0.11930397 2.062410 -3.456079
+    ## Uncultured Clostridiales II       -0.09837062 1.963476 -3.002288
+    ## Eubacterium rectale et rel.        0.12049965 2.705183  2.995983
+    ## Allistipes et rel.                -0.16649380 2.411554 -2.814072
+    ## Sutterella wadsworthia et rel.    -0.08821913 2.000826 -2.583497
+    ## Oxalobacter formigenes et rel.    -0.15364211 2.347171 -2.557408
+    ## Aerococcus                         0.04095901 1.828605  2.480133
+    ## Lachnospira pectinoschiza et rel.  0.10021120 2.596269  2.430459
+    ## Dorea formicigenerans et rel.      0.10342281 2.782157  2.424539
+    ##                                        P.Value  adj.P.Val           B
+    ## Clostridium nexile et rel.        0.0004319395 0.05615214 -0.03277274
+    ## Eubacterium siraeum et rel.       0.0012296719 0.07992867 -0.95587985
+    ## Uncultured Clostridiales II       0.0044133782 0.14591236 -2.07172023
+    ## Eubacterium rectale et rel.       0.0044896112 0.14591236 -2.08655384
+    ## Allistipes et rel.                0.0072985192 0.18976150 -2.50572359
+    ## Sutterella wadsworthia et rel.    0.0131944745 0.23067958 -3.01126420
+    ## Oxalobacter formigenes et rel.    0.0140839522 0.23067958 -3.06654198
+    ## Aerococcus                        0.0170489505 0.23067958 -3.22787740
+    ## Lachnospira pectinoschiza et rel. 0.0192431874 0.23067958 -3.32966376
+    ## Dorea formicigenerans et rel.     0.0195210534 0.23067958 -3.34169246
 
-# Compare the two groups with limma
-library(limma)
-```
+    # Q-Q plot
+    qqt(fit$t[, coef.index], df = fit$df.residual + fit$df.prior)
+    abline(0,1)
 
-```
-## 
-## Attaching package: 'limma'
-## 
-## The following object is masked from 'package:BiocGenerics':
-## 
-##     plotMA
-```
+![](figure/limma-example-1.png)
 
-```r
-# Prepare the design matrix which states the groups for each sample
-# in the hitchip.matrix
-design <- cbind(intercept=1, Grp2vs1=c(rep(0, length(g1)), rep(1, length(g2))))
-rownames(design) <- c(g1, g2)
-design <- design[colnames(hitchip.matrix), ]
+    # Volcano plot
+    volcanoplot(fit, coef = coef.index, highlight = coef.index)
 
-# NOTE: results and p-values are given for all groupings in the design matrix
-# Now focus on the second grouping ie. pairwise comparison
-coef.index <- 2
-     
-# Fit the limma model
-fit <- lmFit(hitchip.matrix, design)
-fit <- eBayes(fit)
+![](figure/limma-example-2.png)
 
-# Summarise or plot the results
-topTable(fit, coef = coef.index)
-```
+    # Adjusted p-values; show all significant ones
+    pvalues.limma <- p.adjust(fit$p.value[, coef.index], method = "fdr")
+    names(pvalues.limma) <- rownames(fit$p.value)
+    print(sort(pvalues.limma[pvalues.limma < 0.1]))
 
-```
-##                                      logFC  AveExpr          t
-## Eubacterium limosum et rel.      -1.996643 3.178103 -44.244703
-## Wissella et rel.                 -2.087264 2.758124 -29.878412
-## Lactococcus                      -2.048501 3.177703 -29.824249
-## Lactobacillus plantarum et rel.  -2.125528 3.963640 -27.460242
-## Bryantella formatexigens et rel. -2.243230 4.517741 -13.750185
-## Uncultured Clostridiales II      -2.275919 4.440935 -11.383575
-## Uncultured Mollicutes            -1.935851 3.977371 -10.831144
-## Clostridium ramosum et rel.      -1.732479 3.736636  -9.550878
-## Ruminococcus obeum et rel.       -2.044862 5.535052  -9.358625
-## Streptococcus mitis et rel.      -1.935691 4.358083  -8.697516
-##                                       P.Value    adj.P.Val         B
-## Eubacterium limosum et rel.      3.378865e-21 4.392524e-19 38.806959
-## Wissella et rel.                 6.931890e-18 3.110880e-16 31.018845
-## Lactococcus                      7.178954e-18 3.110880e-16 30.982758
-## Lactobacillus plantarum et rel.  3.524020e-17 1.145306e-15 29.341105
-## Bryantella formatexigens et rel. 1.471547e-11 3.826021e-10 15.895750
-## Uncultured Clostridiales II      4.084953e-10 8.850731e-09 12.436140
-## Uncultured Mollicutes            9.570763e-10 1.777427e-08 11.550594
-## Clostridium ramosum et rel.      7.814506e-09 1.269857e-07  9.368664
-## Ruminococcus obeum et rel.       1.088754e-08 1.572645e-07  9.024415
-## Streptococcus mitis et rel.      3.525558e-08 4.583225e-07  7.805693
-```
-
-```r
-# Q-Q plot
-qqt(fit$t[, coef.index], df = fit$df.residual + fit$df.prior)
-abline(0,1)
-```
-
-![plot of chunk limma-example](figure/limma-example-1.png) 
-
-```r
-# Volcano plot
-volcanoplot(fit, coef = coef.index, highlight = coef.index)
-```
-
-![plot of chunk limma-example](figure/limma-example-2.png) 
-
-```r
-# Adjusted p-values; show all significant ones
-pvalues.limma <- p.adjust(fit$p.value[, coef.index], method = "fdr")
-names(pvalues.limma) <- unname(unlist(fit$genes))
-print(sort(pvalues.limma[pvalues.limma < 0.05]))
-```
-
-```
-##  [1] 4.392524e-19 3.110880e-16 3.110880e-16 1.145306e-15 3.826021e-10
-##  [6] 8.850731e-09 1.777427e-08 1.269857e-07 1.572645e-07 4.583225e-07
-```
+    ##  Clostridium nexile et rel. Eubacterium siraeum et rel. 
+    ##                  0.05615214                  0.07992867
 
 ### Comparison between limma and t-test
 
@@ -121,28 +89,19 @@ differences are small in this simulated example, but [can be
 considerable in real
 data](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
+    # Compare the two groups with t-test
+    pvalues.ttest <- c()
+    male.samples <- filter(peerj32$meta, gender == "M")$sample
+    female.samples <- filter(peerj32$meta, gender == "F")$sample
+    for (tax in rownames(hitchip.matrix)) {
+      pvalues.ttest[[tax]] <- t.test(hitchip.matrix[tax, male.samples], hitchip.matrix[tax, female.samples])$p.value
+    }
+    # Multiple testing correction
+    pvalues.ttest <- p.adjust(pvalues.ttest, method = "fdr")
 
-```r
-# Compare the two groups with t-test
-pvalues.ttest <- c()
-for (tax in rownames(hitchip.matrix)) {
-  pvalues.ttest[[tax]] <- t.test(hitchip.matrix[tax, g1], hitchip.matrix[tax, g2])$p.value
-}
-# Multiple testing correction
-pvalues.ttest <- p.adjust(pvalues.ttest, method = "fdr")
+    # Compare p-values between limma and t-test
+    taxa <- rownames(hitchip.matrix)
+    plot(pvalues.ttest[taxa], pvalues.limma[taxa])
+    abline(0,1,lty = 2)
 
-
-# Order the taxa based on the p-values
-taxa <- rownames(hitchip.matrix)
-plot(pvalues.ttest[taxa], pvalues.limma[taxa])
-```
-
-```
-## Error in plot.window(...): need finite 'ylim' values
-```
-
-![plot of chunk limma-compairson](figure/limma-compairson-1.png) 
-
-```r
-abline(0,1,lty = 2)
-```
+![](figure/limma-compairson-1.png)

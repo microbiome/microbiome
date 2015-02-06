@@ -26,11 +26,11 @@ Start by loading the [HITChip Atlas data set](Data.Rmd)
     plot(density(d), main = paste(tax, "(All samples)"), xlab = "Abundance (Absolute HITChip signal)")
     plot(density(log10(d)), main = paste(tax, "(All samples)"), xlab = "Abundance (Log10 HITChip signal)")
 
-![](Density_files/figure-markdown_strict/hist-1.png)
+![](figure/hist-1.png)
 
     d <- data[rbb.samples, tax]
     par(mfrow = c(1, 2))
     plot(density(d), main = paste(tax, "(RBB samples)"), xlab = "Abundance (Absolute HITChip signal)")
     plot(density(log10(d)), main = paste(tax, "(RBB samples)"), xlab = "Abundance (Log10 HITChip signal)")
 
-![](Density_files/figure-markdown_strict/hist-2.png)
+![](figure/hist-2.png)

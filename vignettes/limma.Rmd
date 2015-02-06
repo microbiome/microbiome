@@ -1,36 +1,21 @@
 ### Limma analysis
 
-Example of limma analysis with simulated random data. For further details, see [limma homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For discussion on why limma is preferred over t-test, see [this article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
+Example of limma analysis. Identify most significantly different taxa between males and females. For further details, see [limma homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For discussion on why limma is preferred over t-test, see [this article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
-
-```{r limma-example, warning=FALSE}
-
+```{r limma-example, warning=FALSE, fig.path = "figure/"}
 # Get example data
 library(microbiome, quietly = TRUE)
-
-# Define here your own HITChip data folder
-#data.directory <- system.file("extdata", package = "microbiome")
-data.directory <- "~/R/x86_64-pc-linux-gnu-library/3.0/microbiome/extdata"
-
-# Read HITChip data
-hitchip.matrix <- read.profiling(level = "L2", 
-                       data.dir = data.directory, log10 = TRUE)
-
-
-# Define two random groups for demonstration purpose
-g1 <- sample(colnames(hitchip.matrix), 10)
-g2 <- setdiff(colnames(hitchip.matrix), g1)
-# Modify hitchip matrix so that there are a few significant differences
-altered.taxa <- sample(rownames(hitchip.matrix), 10)
-hitchip.matrix[altered.taxa, g1] <- hitchip.matrix[altered.taxa, g1] + 2
+data(peerj32)
+hitchip.matrix <- log10(t(peerj32$microbes))
+groups <- factor(peerj32$meta$gender)
 
 # Compare the two groups with limma
 library(limma)
 
 # Prepare the design matrix which states the groups for each sample
 # in the hitchip.matrix
-design <- cbind(intercept=1, Grp2vs1=c(rep(0, length(g1)), rep(1, length(g2))))
-rownames(design) <- c(g1, g2)
+design <- cbind(intercept=1, Grp2vs1=groups)
+rownames(design) <- rownames(peerj32$meta)
 design <- design[colnames(hitchip.matrix), ]
 
 # NOTE: results and p-values are given for all groupings in the design matrix
@@ -53,10 +38,10 @@ volcanoplot(fit, coef = coef.index, highlight = coef.index)
 
 # Adjusted p-values; show all significant ones
 pvalues.limma <- p.adjust(fit$p.value[, coef.index], method = "fdr")
-names(pvalues.limma) <- unname(unlist(fit$genes))
-print(sort(pvalues.limma[pvalues.limma < 0.05]))
-
+names(pvalues.limma) <- rownames(fit$p.value)
+print(sort(pvalues.limma[pvalues.limma < 0.1]))
 ```
+
 
 ### Comparison between limma and t-test
 
@@ -65,18 +50,21 @@ differences are small in this simulated example, but [can be
 considerable in real
 data](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
-```{r limma-compairson, warning=FALSE}
+```{r limma-compairson, warning=FALSE, fig.path = "figure/"}
 # Compare the two groups with t-test
 pvalues.ttest <- c()
+male.samples <- filter(peerj32$meta, gender == "M")$sample
+female.samples <- filter(peerj32$meta, gender == "F")$sample
 for (tax in rownames(hitchip.matrix)) {
-  pvalues.ttest[[tax]] <- t.test(hitchip.matrix[tax, g1], hitchip.matrix[tax, g2])$p.value
+  pvalues.ttest[[tax]] <- t.test(hitchip.matrix[tax, male.samples], hitchip.matrix[tax, female.samples])$p.value
 }
 # Multiple testing correction
 pvalues.ttest <- p.adjust(pvalues.ttest, method = "fdr")
 
-
-# Order the taxa based on the p-values
+# Compare p-values between limma and t-test
 taxa <- rownames(hitchip.matrix)
 plot(pvalues.ttest[taxa], pvalues.limma[taxa])
 abline(0,1,lty = 2)
 ```
+
+

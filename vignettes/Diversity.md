@@ -13,7 +13,7 @@ set](Data.md)
     plot(density(log10(mydata)), main = "Detection threshold", xlab = "Abundance (Log10)", ylab = "Frequency")
     abline(v = log10(det.th))
 
-![](Diversity_files/figure-markdown_strict/rich-example-1.png)
+![](figure/rich-example-1.png)
 
     # Calculate richness. 
     # This indicates how many oligos are present in each sample
@@ -21,7 +21,7 @@ set](Data.md)
     ri <- rowSums(mydata > det.th)
     hist(ri, main = "Richness")
 
-![](Diversity_files/figure-markdown_strict/rich-example-2.png)
+![](figure/rich-example-2.png)
 
 ### Diversity
 
@@ -30,7 +30,7 @@ set](Data.md)
     di <- vegan::diversity(mydata, index = "shannon")
     hist(di, main = "Diversity")
 
-![](Diversity_files/figure-markdown_strict/div-example-1.png)
+![](figure/div-example-1.png)
 
 ### Evenness
 
@@ -54,7 +54,7 @@ Diversity vs. obesity
     di <- vegan::diversity(atlas$microbes)
     boxplot(di ~ bmi, las = 2, main = "Microbiota diversity vs. obesity")
 
-![](Diversity_files/figure-markdown_strict/diversitywithmetadata-1.png)
+![](figure/diversitywithmetadata-1.png)
 
 Diversity vs. age with smoothed confidence intervals:
 
@@ -72,4 +72,4 @@ Diversity vs. age with smoothed confidence intervals:
     p <- sorvi::regression_plot(Diversity~Age, df, shade = TRUE, mweight = TRUE, verbose = FALSE)
     print(p)
 
-![](Diversity_files/figure-markdown_strict/visu-example3-1.png)
+![](figure/visu-example3-1.png)

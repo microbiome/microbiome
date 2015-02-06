@@ -10,9 +10,6 @@ Matrix heatmap
     # Log10
     x <- log10(x)
 
-    # Transponse the matrix 
-    x <- t(x)
-
     # Visualize deviation of all bacteria from their population mean (smaller: blue; higher: red):
     # First Scale columns to zero mean and unit variance
     # This puts the mean of each bacteria to zero 
