@@ -71,6 +71,12 @@ boxplot(div ~ bmi, las = 2, main = "Microbiota diversity vs. obesity")
 
 ![plot of chunk example](figure/example-1.png) 
 
+```r
+plot(c(1:5))
+```
+
+![plot of chunk example](figure/example-2.png) 
+
 
 ### Resources
 
