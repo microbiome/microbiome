@@ -7,7 +7,7 @@ absolute or logarithmic abundances!
 Start by loading the [HITChip Atlas data set](Data.Rmd)
 
 
-```{r hist, fig.width=16, fig.heigth=8}
+```{r hist, fig.width=16, fig.heigth=8, fig.path = "figure/"}
 # Load microbiome package
 library(microbiome)  
 

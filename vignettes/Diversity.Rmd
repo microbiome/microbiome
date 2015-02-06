@@ -3,7 +3,7 @@ To run these examples, you need to download the [HITChip Atlas data set](Data.md
 
 ### Richness 
 
-```{r rich-example, warning=FALSE, message=FALSE}
+```{r rich-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
 # Use the HITChip Atlas data
 mydata <- atlas$microbes
 
@@ -24,7 +24,7 @@ hist(ri, main = "Richness")
 
 ### Diversity 
 
-```{r div-example, warning=FALSE, message=FALSE}
+```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
 # Diversity using the vegan package
 # NOTE: data needs to be in absolute scale, not logarithmic
 di <- vegan::diversity(mydata, index = "shannon")
@@ -33,7 +33,7 @@ hist(di, main = "Diversity")
 
 ### Evenness
 
-```{r ev-example, warning=FALSE, message=FALSE}
+```{r ev-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
 # Pielou's evenness is S/ln(R) w.r.t. given detection threshold
 # NOTE: here we use detection threshold for diversity as well because
 # the exact same data has to be used for diversity and richness calculation,
@@ -51,7 +51,7 @@ ev <- S/log(R)
 
 Diversity vs. obesity
 
-```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=16, fig.heigth=8}
+```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=16, fig.heigth=8, fig.path = "figure/"}
 par(mar = c(6, 4, 3, 1))
 bmi <- atlas$meta$BMI_group
 di <- vegan::diversity(atlas$microbes)
@@ -61,7 +61,7 @@ boxplot(di ~ bmi, las = 2, main = "Microbiota diversity vs. obesity")
 
 Diversity vs. age with smoothed confidence intervals:
 
-```{r visu-example3, fig.width=8, fig.height=8, message=FALSE, warning=FALSE}
+```{r visu-example3, fig.width=8, fig.height=8, message=FALSE, warning=FALSE, fig.path = "figure/"}
 library(microbiome)
 library(sorvi)
 library(dplyr)

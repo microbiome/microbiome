@@ -2,7 +2,7 @@
 
 Matrix heatmap
 
-```{r matvisu-example, fig.width=8, fig.height=16}
+```{r matvisu-example, fig.width=8, fig.height=16, fig.path = "figure/"}
 # Load example data
 library(microbiome)
 data(peerj32)
@@ -25,13 +25,13 @@ tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1), cex.ax
 
 Finding visually appealing order for rows and columns:
 
-```{r heatmap-crosscorrelate2, message=FALSE, warning=FALSE, fig.keep='none'}
+```{r heatmap-crosscorrelate2, message=FALSE, warning=FALSE, fig.keep='none', fig.path = "figure/"}
 hm <- heatmap(x) 
 ```
 
 Then plot the same matrix with ordered rows and cols:
 
-```{r heatmap-crosscorrelate3, message=FALSE, warning=FALSE}
+```{r heatmap-crosscorrelate3, message=FALSE, warning=FALSE, fig.path = "figure/"}
 tmp <- netresponse::plot_matrix(x[hm$rowInd, hm$colInd], type = "twoway", mar = c(5, 12, 1, 1), cex.axis = 0.5)
 ```
 
@@ -40,7 +40,7 @@ tmp <- netresponse::plot_matrix(x[hm$rowInd, hm$colInd], type = "twoway", mar = 
 
 Cross-correlate columns of two data sets. This will return correlations, raw p-values, and fdr estimates (not strictly proper as the comparisons are not independent). Here we use robust biweight midcorrelation ('bicor') from the [WGCNA package](http://labs.genetics.ucla.edu/horvath/CoexpressionNetwork/Rpackages/WGCNA/). Keep only those elements that have at least only one significant correlation (n.signif):
 
-```{r heatmap-crosscorrelate4, message=FALSE, warning=FALSE, fig.keep='none'}
+```{r heatmap-crosscorrelate4, message=FALSE, warning=FALSE, fig.keep='none', fig.path = "figure/"}
 # Load example data
 library(microbiome)
 data(peerj32)
@@ -58,7 +58,7 @@ correlations <- microbiome::cross.correlate(dat1, dat2,
 
 Arrange the results in handy table format: 
 
-```{r correlation-table2, message=FALSE, warning=FALSE}
+```{r correlation-table2, message=FALSE, warning=FALSE, fig.path = "figure/"}
 correlation.table <- microbiome::cmat2table(correlations)
 head(correlation.table)
 ```
@@ -67,10 +67,10 @@ head(correlation.table)
 
 Rearrange the data and plot the heatmap and mark significant correlations with stars to reproduce microbiota-lipidome heatmap from [this article](https://peerj.com/articles/32/): 
 
-```{r heatmap-example-stars2, message=FALSE, warning=FALSE, fig.keep='none'}
+```{r heatmap-example-stars2, message=FALSE, warning=FALSE, fig.keep='none', fig.path = "figure/"}
 p <- microbiome::correlation.heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
 ```
-```{r heatmap-example-stars3, fig.width=12, fig.height=8, message=FALSE, warning=FALSE}
+```{r heatmap-example-stars3, fig.width=12, fig.height=8, message=FALSE, warning=FALSE, fig.path = "figure/"}
 print(p)
 ```
 
@@ -79,7 +79,7 @@ print(p)
 
 The above examples provide handy shortcuts for heatmap visualization. You can also directly modify the ggplot2 routines. This time, let us set q-value threshold also for cell coloring: 
 
-```{r heatmap-example-stars, message=FALSE, warning=FALSE}
+```{r heatmap-example-stars, message=FALSE, warning=FALSE, fig.path = "figure/"}
 # Order the rows and columns with levels argument if needed:
 correlation.table$X1 <- factor(correlation.table$X1, levels = unique(as.character(correlation.table$X1)))
 correlation.table$X2 <- factor(correlation.table$X2, levels = unique(as.character(correlation.table$X2)))
@@ -118,7 +118,7 @@ print(p)
 For detailed information, might be handy to print the actual values on
 top of the heatmap:
 
-```{r heatmap-example-text, message=FALSE, warning=FALSE, fig.width=15, fig.height=10}
+```{r heatmap-example-text, message=FALSE, warning=FALSE, fig.width=15, fig.height=10, fig.path = "figure/"}
 theme_set(theme_bw(20))
 df <- microbiome::cmat2table(correlations)
 df$X1 <- factor(df$X1)
