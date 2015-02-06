@@ -36,6 +36,7 @@ The microbiome package contains general-purpose tools for microarray-based analy
 ### How to start 
 
 Example on reproducible document generation:  
+
  * [Minimal example](Template.Rmd)  
  * [Example workflow](Atlas.Rmd)
 
