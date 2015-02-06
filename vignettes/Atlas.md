@@ -5,8 +5,8 @@
 -->
 
 
-Example workflow
-----------------
+Intestinal microbiota diversity in 1000 western adults
+------------------------------------------------------
 
 This reproducible document investigates an example data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) that contains large-scale profiling of 130 genus-like taxa across 1006 normal western subjects. This data set is available for download from the open [Data Dryad](http://doi.org/10.5061/dryad.pk75d) repository.
 

@@ -16,7 +16,7 @@ output:
 -->
 
 
-## Example workflow
+## Intestinal microbiota diversity in 1000 western adults
 
 This reproducible document investigates an example data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) that contains large-scale profiling of 130 genus-like taxa across 1006 normal western subjects. This data set is available for download from the open [Data Dryad](http://doi.org/10.5061/dryad.pk75d) repository.
 
@@ -84,7 +84,7 @@ hist(di, main = "Diversity")
 
 Diversity vs. obesity
 
-```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=6, fig.path = "figure/"}
+```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=9, fig.heigth=6, fig.path = "figure/"}
 par(mar = c(6, 4, 3, 1))
 bmi <- atlas$meta$BMI_group
 di <- vegan::diversity(atlas$microbes)
@@ -94,7 +94,7 @@ boxplot(di ~ bmi, las = 2, main = "Microbiota diversity vs. obesity")
 
 Diversity vs. age with smoothed confidence intervals:
 
-```{r visu-example3, fig.width=5, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/"}
+```{r visu-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/"}
 library(microbiome)
 library(sorvi)
 library(dplyr)
