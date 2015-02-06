@@ -1,8 +1,13 @@
 ### Prevalence of taxonomic groups
 
+    # Example data
+    library(microbiome)
+    data(peerj32)
+    x <- peerj32$microbes
+
     # List prevalence measure for each group using detection threshold of 2
     # Sort the taxa by prevalence
-    head(prevalence(peerj32$microbes, 2, sort = TRUE))
+    head(prevalence(x, 2, sort = TRUE))
 
     ##  Yersinia et rel.  Xanthomonadaceae  Wissella et rel.            Vibrio 
     ##                 1                 1                 1                 1 
@@ -11,14 +16,14 @@
 
     # Just list the names of taxa that are present over abundance threshold 2
     # in over 20 percent of the samples:
-    prevalent.taxa <- list_prevalent_groups(peerj32$microbes, 2, 0.2)
+    prevalent.taxa <- list_prevalent_groups(x, 2, 0.2)
 
 ### Core microbiota
 
 Determine common core microbiota, following the [blanket
 analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
 
-    core <- createCore(t(peerj32$microbes))
+    core <- createCore(t(x))
 
 Visualizing core microbiota:
 
@@ -28,6 +33,6 @@ Visualizing core microbiota:
 ![](figure/core-example2-1.png)
 
     # Core heatmap
-    tmp <- core_heatmap(t(peerj32$microbes))
+    tmp <- core_heatmap(t(x))
 
 ![](figure/core-example2-2.png)

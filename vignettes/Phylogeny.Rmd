@@ -13,8 +13,7 @@ head(phylogeny.info)
 
 Convert taxa from one level to another level:
 
-```{r phylogeny-example2, warning=FALSE, message=FALSE}
-
+```{r phylogeny-example2b, warning=FALSE, message=FALSE}
 m <- levelmap(phylotypes = c("Akkermansia", "Bacteroides fragilis et rel."), 
               level.from = "L2", 
 	      level.to = "L1", 

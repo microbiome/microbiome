@@ -55,11 +55,9 @@ article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short).
 Hierarchical clustering: reproduce profiling script plot
 --------------------------------------------------------
 
-Examples below with simulated data; see [read.profiling](reading) for
-how to read data from your own profiling output directory.
-
     # Read oligo-level data
-    mydata <- read.profiling(level = "oligo", data.dir = data.directory, log10 = TRUE)  
+    data(peerj32)
+    mydata <- peerj32$microbes
 
     # Hierarchical clustering plot (write into png file)
     metric <- "pearson" # note: use log10 with Pearson!
@@ -67,11 +65,3 @@ how to read data from your own profiling output directory.
     plot(hc, hang=-1, main = paste("Hierarchical clustering (", metric, ")", sep = ""), las = 1, xlab = "")
 
 ![](figure/clustering-example-1.png)
-
-Picking all groups that are higher than threshold (including nested groups)
----------------------------------------------------------------------------
-
-To retrieve all clusters that exceed a given threshold, including nested
-groups, use:
-
-    all.clusters <- get.hclust.groups(mydata, corr.th = 0.8, recursive = TRUE, min.size = 2, metric = "pearson")

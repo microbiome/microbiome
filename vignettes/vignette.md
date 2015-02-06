@@ -24,12 +24,12 @@ Example on reproducible document generation:
 ### Data
 
 -   [Download example data sets](Data.md)
--   [Extract data from HITChip database](Preprocessing.md)
+-   [Extract data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
 -   [Get phylogeny](Phylogeny.md)
 
 ### Visualization and related tools
 
-Download some [example data sets](Data.md) to try these tools: \* [Barplots](Barplots.md) \* [Boxplots](Boxplots.md) \* [Density](Density.md) \* [Heatmaps](Heatmap.md) \* [Matrix visualization](Matrix-visualization.md) \* [Motion charts](Motionchart.md) \* [Ordination](Projections.md) \* [Oligo heatmap](Oligoheatmap.md) \* [PCA](PCA.md) \* [Cross hybridization](Crosshyb.md)
+Download some [example data sets](Data.md) to try these tools: \* [Barplots](Barplots.md) \* [Boxplots](Boxplots.md) \* [Density](Density.md) \* [Heatmaps](Heatmap.md) \* [Motion charts](Motionchart.md) \* [Oligo heatmap](Oligoheatmap.md) \* [PCA and other ordination/projection methods](PCA.md) \* [Cross hybridization](Crosshyb.md)
 
 ### Clustering
 
