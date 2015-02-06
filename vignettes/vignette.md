@@ -35,7 +35,6 @@ Download some [example data sets](Data.md) to try these tools: \* [Barplots](Bar
 
 -   [Bimodality](Bimodality.md)
 -   [Clustering](Clustering.md)
--   [Distance metrics](Metrics.md)
 
 ### Microbiota composition
 
