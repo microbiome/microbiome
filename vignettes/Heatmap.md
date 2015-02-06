@@ -21,7 +21,7 @@ Matrix heatmap
     x <- scale(x)
     tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1), cex.axis = 0.8)
 
-![](Heatmap_files/figure-markdown_strict/matvisu-example-1.png)
+![](figure/matvisu-example-1.png)
 
 Finding visually appealing order for rows and columns:
 
@@ -31,7 +31,7 @@ Then plot the same matrix with ordered rows and cols:
 
     tmp <- netresponse::plot_matrix(x[hm$rowInd, hm$colInd], type = "twoway", mar = c(5, 12, 1, 1), cex.axis = 0.5)
 
-![](Heatmap_files/figure-markdown_strict/heatmap-crosscorrelate3-1.png)
+![](figure/heatmap-crosscorrelate3-1.png)
 
 ### Cross-correlating data sets
 
@@ -80,7 +80,7 @@ correlations with stars to reproduce microbiota-lipidome heatmap from
 
     print(p)
 
-![](Heatmap_files/figure-markdown_strict/heatmap-example-stars3-1.png)
+![](figure/heatmap-example-stars3-1.png)
 
 ### Heatmaps with ggplot2
 
@@ -120,7 +120,7 @@ q-value threshold also for cell coloring:
     # Plot
     print(p)
 
-![](Heatmap_files/figure-markdown_strict/heatmap-example-stars-1.png)
+![](figure/heatmap-example-stars-1.png)
 
 ### Heatmap with text
 
@@ -142,4 +142,4 @@ top of the heatmap:
     p <- p + xlab("") + ylab("")
     print(p)
 
-![](Heatmap_files/figure-markdown_strict/heatmap-example-text-1.png)
+![](figure/heatmap-example-text-1.png)
