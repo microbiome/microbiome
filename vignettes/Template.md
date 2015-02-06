@@ -57,7 +57,7 @@ div <- vegan::diversity(atlas$microbes)
 boxplot(div ~ bmi, las = 2, main = "Microbiota diversity vs. obesity")
 ```
 
-![](Template_files/figure-markdown_github/example-1.png)
+![](figure/example-1.png)
 
 ### Resources
 

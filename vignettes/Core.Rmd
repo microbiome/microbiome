@@ -1,6 +1,6 @@
 ### Prevalence of taxonomic groups
 
-```{r prevalence}
+```{r prevalence, fig.path = "figure/"}
 # List prevalence measure for each group using detection threshold of 2
 # Sort the taxa by prevalence
 head(prevalence(peerj32$microbes, 2, sort = TRUE))
@@ -16,13 +16,13 @@ prevalent.taxa <- list_prevalent_groups(peerj32$microbes, 2, 0.2)
 Determine common core microbiota, following the [blanket
 analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
  
-```{r core-example, message=FALSE, warning=FALSE}
+```{r core-example, message=FALSE, warning=FALSE, fig.path = "figure/"}
 core <- createCore(t(peerj32$microbes))
 ```
 
 Visualizing core microbiota:
 
-```{r core-example2, fig.width=8, fig.heigth=8}
+```{r core-example2, fig.width=8, fig.heigth=8, fig.path = "figure/"}
 # Core 2D visualization
 tmp <- Core2D(core)
 

@@ -29,7 +29,7 @@ modes. The C code was partially derived from [Honkela et al.
     # Gaussian modes are parallel to the coordinate axes.)
     p <- PlotMixtureMultivariate(D, means = m$mu, sds = m$sd, ws = m$w, modes = apply(m$qofz,1,which.max))
 
-![](Clustering_files/figure-markdown_strict/LCA2-1.png)
+![](figure/LCA2-1.png)
 
 ### Univariate (infinite) Gaussian mixture model
 
@@ -50,7 +50,7 @@ article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short).
 
     print(p)
 
-![](Clustering_files/figure-markdown_strict/LCA1-1.png)
+![](figure/LCA1-1.png)
 
 Hierarchical clustering: reproduce profiling script plot
 --------------------------------------------------------
@@ -66,7 +66,7 @@ how to read data from your own profiling output directory.
     hc <- calculate.hclust(mydata, method = "complete", metric = metric)
     plot(hc, hang=-1, main = paste("Hierarchical clustering (", metric, ")", sep = ""), las = 1, xlab = "")
 
-![](Clustering_files/figure-markdown_strict/clustering-example-1.png)
+![](figure/clustering-example-1.png)
 
 Picking all groups that are higher than threshold (including nested groups)
 ---------------------------------------------------------------------------

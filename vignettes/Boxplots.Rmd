@@ -1,6 +1,6 @@
 ### Boxplots
 
-```{r barplot-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
+```{r barplot-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
 library(microbiome, quietly = TRUE)
 
 # Microbiota profiling data. Read as: bacteria x samples matrix

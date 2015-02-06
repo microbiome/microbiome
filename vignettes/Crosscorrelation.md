@@ -1,9 +1,14 @@
 ### Cross-correlation example
 
+    # Load example data
+    library(microbiome)
+    data(peerj32)
+
+    # Define data sets to cross-correlate
     dat1 <- peerj32$lipids # Lipids (44 samples x 389 lipids)
     dat2 <- peerj32$microbes # Microbiota (44 samples x 130 bacteria)
-    meta <- peerj32$meta
 
+    # Calculate cross-correlations
     correlations <- cross.correlate(dat1, dat2, 
                             method = "bicor", 
                 mode = "matrix", 
@@ -14,6 +19,7 @@
     ## Warning in as.vector(x) == as.vector(y): longer object length is not a
     ## multiple of shorter object length
 
+    # Convert correlations to a table
     correlation.table <- cmat2table(correlations)
     head(correlation.table)
 

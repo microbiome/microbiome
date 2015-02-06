@@ -57,7 +57,7 @@ library(devtools) # Load the devtools package
 install_github("microbiome/HITChipDB") # Install the package
 # Also install RMySQL, multicore and tcltk !
 source("http://www.bioconductor.org/biocLite.R")
-biocLite(c("RMySQL", "multicore", "tcltk"))
+biocLite("RMySQL") # multicore, tcltk?
 # Test installation by loading the microbiome package in R
 library("HITChipDB")
 ```

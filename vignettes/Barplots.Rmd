@@ -4,7 +4,7 @@ The following example picks 20 random species from a species data
 vector and visualizes them as ordered barplot colored according to the
 L2 group.
 
-```{r barplot-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
+```{r barplot-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
 library(microbiome, quietly = TRUE)
 library(ggplot2)
 
@@ -23,7 +23,7 @@ p <- phylo.barplot(x, color.level = "L1", title = "My title", phylogeny.info = p
 
 The following example picks 20 random species and visualizes the HITChip signal as ordered barplot. In this example the bars are colored according to the L2 group. 
 
-```{r barplot-example2, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
+```{r barplot-example2, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
 # Load Phylogeny
 phylogeny.info <- GetPhylogeny("HITChip")
 

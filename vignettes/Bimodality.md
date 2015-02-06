@@ -15,4 +15,4 @@ data set, and plot the taxa with the lowest and highest score:
     plot(density(mydata[unimodal,]), main = unimodal)
     plot(density(mydata[bimodal,]), main = bimodal)
 
-![](Bimodality_files/figure-markdown_strict/bimodality-1.png)
+![](figure/bimodality-1.png)

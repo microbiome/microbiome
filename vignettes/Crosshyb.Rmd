@@ -5,7 +5,7 @@ other chips), use the following.
 
 By default the groups with no cross-hyb are filtered out for clarity. Rows and columns are ordered by hierarchical clustering. The cross-hyb is shown in percentages, rounded as indicated by the rounding argument. The percentage indicates which fraction of probes for a row taxon overlaps with probes of a column taxon. This is not symmetric if the row and col taxon have a different total number of probes. For details, see help(PlotCrosshyb).
 
-```{r chyb, warning=FALSE}
+```{r chyb, warning=FALSE, fig.path = "figure/"}
 library(microbiome, quietly = TRUE)
 
 # Check cross-hyb between all L1 groups
@@ -31,7 +31,7 @@ head(s)
 
 Investigate species-species cross-hybridization within the Dialister L2 group
 
-```{r chyb2, warning=FALSE}
+```{r chyb2, warning=FALSE, fig.path = "figure/"}
 # Pick the phylogeny which was used to summarize probes to species level
 phylogeny.info <- GetPhylogeny("HITChip", "filtered") 
 

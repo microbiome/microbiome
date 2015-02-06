@@ -25,9 +25,9 @@ Visualizing core microbiota:
     # Core 2D visualization
     tmp <- Core2D(core)
 
-![](Core_files/figure-markdown_strict/core-example2-1.png)
+![](figure/core-example2-1.png)
 
     # Core heatmap
     tmp <- core_heatmap(t(peerj32$microbes))
 
-![](Core_files/figure-markdown_strict/core-example2-2.png)
+![](figure/core-example2-2.png)

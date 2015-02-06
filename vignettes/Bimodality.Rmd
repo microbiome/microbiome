@@ -4,7 +4,7 @@ Calculate coefficients of bimodality (used in [Shade et
 al.](http://mbio.asm.org/content/5/4/e01371-14)) for taxa in an
 example data set, and plot the taxa with the lowest and highest score:
 
-```{r bimodality, message=FALSE, warning=FALSE}
+```{r bimodality, message=FALSE, warning=FALSE, fig.path = "figure/"}
 library(microbiome)
 data(peerj32); 
 mydata <- t(peerj32$microbes)

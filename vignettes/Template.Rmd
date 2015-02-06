@@ -37,8 +37,7 @@ Start by adapting some of the following elements in your reproducible document:
 
 ### Example visualization in R
 
-
-```{r example}
+```{r example, fig.path = "figure/"}
 # Load Dryad tools
 library("rdryad") # Use the install.packages("rdryad") if package not available
 

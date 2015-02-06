@@ -2,8 +2,7 @@
 
 The following example picks 20 random species from a species data vector
 and visualizes them as ordered barplot colored according to the L2
-group. Here with simulated example data. See [read.profiling](reading)
-to use your own data files.
+group.
 
     library(microbiome, quietly = TRUE)
     library(ggplot2)
@@ -17,7 +16,7 @@ to use your own data files.
     phylogeny.info <- GetPhylogeny("HITChip")
     p <- phylo.barplot(x, color.level = "L1", title = "My title", phylogeny.info = phylogeny.info)
 
-![](Barplots_files/figure-markdown_strict/barplot-example-1.png)
+![](figure/barplot-example-1.png)
 
 ### A longer version with source code
 
@@ -74,4 +73,4 @@ according to the L2 group.
 
     print(p)
 
-![](Barplots_files/figure-markdown_strict/barplot-example2-1.png)
+![](figure/barplot-example2-1.png)

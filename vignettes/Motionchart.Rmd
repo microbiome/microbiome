@@ -1,12 +1,11 @@
 ### Interactive motioncharts
 
-Plot a Motion Chart using googleVis package. Pay attention to the instruction details below, otherwise the example won't work. To try out the examples, first read in the data (metadata.simulated and genus.matrix.log10.simulated - see the instructions [here](reading). Then carry out the analysis:
+Plotting a Motion Chart using googleVis package.
 
 ```{r motionchart-example, fig.width=8, fig.height=8, message=FALSE}
 library(microbiome)  
 
-# Load simulated example data. To use your own data, check howto at:
-# https://github.com/microbiome/microbiome/wiki/reading
+# Load simulated example data
 data.directory <- system.file("extdata", package = "microbiome")
 metadata.example.file <- paste(data.directory, "/metadata.tab", sep = "")
 metadata.simulated <- read.csv(metadata.example.file, sep = "\t", as.is = TRUE)
@@ -45,4 +44,3 @@ Save as html (needs javascript to open!). NOTE: html file viewing does not work 
 ```{r motionchart-example2, fig.width=8, fig.height=8, eval=FALSE}
 print(mchart, file="~/MotionChart.html")
 ```
-
