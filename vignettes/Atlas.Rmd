@@ -1,3 +1,21 @@
+---
+title: "Atlas workflow"
+author: "Leo Lahti"
+date: "`r Sys.Date()`"
+output:
+  md_document:
+    toc: false
+    variant: markdown_github
+  html_document:
+    toc: false
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Project Template}
+  %\usepackage[utf8]{inputenc}
+-->
+
+
 ## Example workflow
 
 This reproducible document investigates an example data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) that contains large-scale profiling of 130 genus-like taxa across 1006 normal western subjects. This data set is available for download from the open [Data Dryad](http://doi.org/10.5061/dryad.pk75d) repository.
@@ -13,7 +31,7 @@ rmarkdown::render("Atlas.Rmd")
 
 Load the HITChip Atlas microbiome profiling data in R.
 
-```{r data}
+```{r data2}
 # Load Dryad tools
 library("rdryad") # Use the install.packages("rdryad") if package not available
 
@@ -34,7 +52,7 @@ data <- as.matrix(data)
 Load the HITChip Atlas metadata in R. Note that some individuals have
 multiple time points.
 
-```{r meta}
+```{r meta2}
 url <- download_url('10255/dryad.64666')
 meta <- read.table(url, sep = "\t", row.names = 1, header = TRUE)
 
@@ -49,7 +67,7 @@ meta$SubjectID <- factor(meta$SubjectID)
 
 Collect the atlas data and metadata into a single object:
 
-```{r atlas}
+```{r atlas2}
 atlas <- list(microbes = data, meta = meta)
 ```
 
@@ -58,7 +76,7 @@ atlas <- list(microbes = data, meta = meta)
 ```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
 # Diversity using the vegan package
 # NOTE: data needs to be in absolute scale, not logarithmic
-di <- vegan::diversity(mydata, index = "shannon")
+di <- vegan::diversity(atlas$microbes, index = "shannon")
 hist(di, main = "Diversity")
 ```
 

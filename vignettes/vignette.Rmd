@@ -51,6 +51,7 @@ Example on reproducible document generation:
 ### Visualization and related tools
 
 Download some [example data sets](Data.md) to try these tools:
+
 * [Barplots](Barplots.md)
 * [Boxplots](Boxplots.md)
 * [Density](Density.md)
