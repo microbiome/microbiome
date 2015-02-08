@@ -1,6 +1,7 @@
 *~
 .Rproj.user
 *.Rproj
+.Rhistory
 vignettes/old
 vignettes/*~
 vignettes/.Rhistory
