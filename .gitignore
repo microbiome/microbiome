@@ -1,7 +1,10 @@
 *~
 .Rproj.user
+*.Rproj
 vignettes/old
 vignettes/*~
+vignettes/.Rhistory
+vignettes/*.Rproj
 inst/extras/*~
 inst/extras/*.tar.gz
 inst/extras/.RData
