@@ -1,8 +1,6 @@
 microbiome R package (beta)
 ==========
 
-[Home page](http://microbiome.github.com)  
-
 For installation and usage instructions, see the [vignette](vignettes/vignette.md)
 
 The project is jointly developed by researchers from the [Molecular
