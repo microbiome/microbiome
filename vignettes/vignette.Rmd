@@ -85,7 +85,7 @@ Download some [example data sets](Data.md) to try these tools:
 * [Producing output files and figures](Output.md)
 
 ### Misc
-*[Miscellaneous][misc.Rmd]
+* [Miscellaneous][misc.Rmd]
 
 ### Licensing and Citations
 

@@ -3,14 +3,19 @@ microbiome R package (beta)
 
 [Home page](http://microbiome.github.com)  
 
-### Installation
+For installation and usage instructions, see the [vignette](vignettes/vignette.md)
 
-Installing the package:
+The project is jointly developed by researchers from the [Molecular
+Ecology group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology,
+Wageningen University, Netherlands, and [Department of Veterinary
+Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm),
+University of Helsinki, Finland. The main developers are [Leo
+Lahti](https://github.com/antagomir) and [Jarkko
+Salojärvi](https://github.com/jsalojar). To contact the admins or
+report issues:
 
-```r
-library(devtools)  
-install_github("microbiome/microbiome")  
-```
+* [Issue Tracker](https://github.com/microbiome/microbiome/issues)
+* Email list (discussion): microbiome-devel@googlegroups.com (join by sending a request to microbiome-admin@googlegroups.com)
+* Email (admin): microbiome-admin@googlegroups.com 
 
-You may need to install some dependencies first. See the [wiki](https://github.com/microbiome/microbiome/wiki) for more details and usage instructions.
 
