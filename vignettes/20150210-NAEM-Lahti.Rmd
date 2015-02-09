@@ -30,7 +30,7 @@ RMarkdown: a reproducible document generation system (like Sweave/Rtex/etc.)
 
 ## Distributed version control
 
-\includegraphics[width=50pt]{pics/github-logo.png}
+\includegraphics[width=50pt]{pics/logo/github-logo.png}
 
 ## Open workflow
 
