@@ -3,8 +3,6 @@
   %\VignetteIndexEntry{Project Template}
   %\usepackage[utf8]{inputenc}
 -->
-
-
 Intestinal microbiota diversity in 1000 western adults
 ------------------------------------------------------
 
@@ -12,7 +10,7 @@ This reproducible document investigates an example data set from [Lahti et al. N
 
 To reproduce this analysis, you can download the [source file](Atlas.Rmd) and render it in R with:
 
-``` {.r}
+``` r
 library(rmarkdown)
 rmarkdown::render("Atlas.Rmd")
 ```
@@ -21,7 +19,7 @@ rmarkdown::render("Atlas.Rmd")
 
 Load the HITChip Atlas microbiome profiling data in R.
 
-``` {.r}
+``` r
 # Load Dryad tools
 library("rdryad") # Use the install.packages("rdryad") if package not available
 
@@ -41,7 +39,7 @@ data <- as.matrix(data)
 
 Load the HITChip Atlas metadata in R. Note that some individuals have multiple time points.
 
-``` {.r}
+``` r
 url <- download_url('10255/dryad.64666')
 meta <- read.table(url, sep = "\t", row.names = 1, header = TRUE)
 
@@ -56,13 +54,13 @@ meta$SubjectID <- factor(meta$SubjectID)
 
 Collect the atlas data and metadata into a single object:
 
-``` {.r}
+``` r
 atlas <- list(microbes = data, meta = meta)
 ```
 
 ### Diversity
 
-``` {.r}
+``` r
 # Diversity using the vegan package
 # NOTE: data needs to be in absolute scale, not logarithmic
 di <- vegan::diversity(atlas$microbes, index = "shannon")
@@ -75,7 +73,7 @@ hist(di, main = "Diversity")
 
 Diversity vs. obesity
 
-``` {.r}
+``` r
 par(mar = c(6, 4, 3, 1))
 bmi <- atlas$meta$BMI_group
 di <- vegan::diversity(atlas$microbes)
@@ -86,7 +84,7 @@ boxplot(di ~ bmi, las = 2, main = "Microbiota diversity vs. obesity")
 
 Diversity vs. age with smoothed confidence intervals:
 
-``` {.r}
+``` r
 library(microbiome)
 library(sorvi)
 library(dplyr)

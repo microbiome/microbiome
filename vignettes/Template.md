@@ -3,8 +3,6 @@
   %\VignetteIndexEntry{Project Template}
   %\usepackage[utf8]{inputenc}
 -->
-
-
 Minimal example
 ===============
 
@@ -14,22 +12,22 @@ To test reproducible document generation:
 
 1.  Start [RStudio](http://www.rstudio.com/)
 2.  Open a new Rmarkdown (Rmd) file
-3.  Convert that Rmd file with the 'knit HTML' button
+3.  Convert that Rmd file with the 'knit' button
 4.  Modify the Rmd file and knit again to make your own reproducible report
 
 ### Try out microbiome analysis
 
 Start by adapting some of the following elements in your reproducible document:
 
-1.  [Install the microbiome package](Installation.md)
-2.  [Download example data](Data.md) (we suggest HITChip Atlas + metadata)
+1.  [Install the microbiome package and its dependencies](Installation.md)
+2.  [Download example data](Data.md) (pick HITChip Atlas + metadata)
 3.  [Analyse microbiota diversity](Diversity.md)
 4.  [Repeat the example workflow](Atlas.md)
 5.  Adapt further examples from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
 ### Example visualization in R
 
-``` {.r}
+``` r
 # Load Dryad tools
 library("rdryad") # Use the install.packages("rdryad") if package not available
 

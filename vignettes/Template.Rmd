@@ -23,15 +23,16 @@ To test reproducible document generation:
 
  1. Start [RStudio](http://www.rstudio.com/)
  1. Open a new Rmarkdown (Rmd) file 
- 1. Convert that Rmd file with the 'knit HTML' button
+ 1. Convert that Rmd file with the 'knit' button
  1. Modify the Rmd file and knit again to make your own reproducible report
 
 ### Try out microbiome analysis
 
-Start by adapting some of the following elements in your reproducible document:
+Start by adapting some of the following elements in your reproducible
+document:
 
- 1. [Install the microbiome package](Installation.md)
- 1. [Download example data](Data.md) (we suggest HITChip Atlas + metadata)
+ 1. [Install the microbiome package and its dependencies](Installation.md)
+ 1. [Download example data](Data.md) (pick HITChip Atlas + metadata)
  1. [Analyse microbiota diversity](Diversity.md)
  1. [Repeat the example workflow](Atlas.md)
  1. Adapt further examples from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)

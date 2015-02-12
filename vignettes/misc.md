@@ -31,10 +31,4 @@ help(add.heatmap) for details)
 
     # Produce the plot and save it to the working directory
     library(HITChipDB)
-
-    ##      Package    LibPath                                            
-    ## [1,] "affydata" "/home/antagomir/R/x86_64-pc-linux-gnu-library/3.1"
-    ##      Item       Title                        
-    ## [1,] "Dilution" "AffyBatch instance Dilution"
-
     hc.params <- add.heatmap(log10(oligodata), output.dir = ".", phylogeny.info = phylogeny.info)

@@ -39,7 +39,8 @@ fs <- list.files(pattern = ".Rmd$")
 #fs <- c("ROC.Rmd")
 #fs <- c("limma.Rmd")
 #fs <- c("Phylogeny.Rmd")
-for (f in setdiff(fs, "Installation.Rmd")) { 
+#for (f in setdiff(fs, "Installation.Rmd")) { 
+for (f in fs) { 
     print(f)
     #knit(f) 
     rmarkdown::render(f, "md_document")
