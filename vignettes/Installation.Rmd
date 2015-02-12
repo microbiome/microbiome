@@ -15,7 +15,9 @@ following commands:
 
 ```{r installation, message=FALSE, warning=FALSE, eval=FALSE}
 source("http://www.bioconductor.org/biocLite.R")
-biocLite(c("ade4", "fastcluster", "df2json", "rjson", "gplots", "devtools", "ggplot2","MASS","minet","mixOmics", "plyr","qvalue","reshape2","RPA","svDialogs","vegan","WGCNA", "rpart"))
+biocLite(c("ade4", "fastcluster", "df2json", "rjson", "gplots", "devtools", 
+  	   "ggplot2","MASS","minet","mixOmics", "plyr","qvalue","reshape2",
+	   "RPA","svDialogs","vegan","WGCNA", "rpart"))
 ```		   
 
 If some of these installations fail, ensure from the RStudio tools
