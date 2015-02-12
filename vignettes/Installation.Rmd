@@ -40,7 +40,7 @@ install_github("ropensci/rdryad") # Install proposed packages
 
 Once the package has been installed, you can load it in R with:
 
-```{r loading, eval=TRUE}
+```{r loading, eval=TRUE, message=FALSE}
 library(microbiome)  
 ```
 

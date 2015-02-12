@@ -37,6 +37,14 @@ document:
  1. [Repeat the example workflow](Atlas.md)
  1. Adapt further examples from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
+### Resources
+
+Further tips:
+
+ * [Rmarkdown tips](http://rmarkdown.rstudio.com/)
+ * [R cheat sheets](http://devcheatsheet.com/tag/r/)
+
+
 ### Example visualization in R
 
 ```{r example, fig.path = "figure/"}
@@ -67,11 +75,3 @@ bmi <- atlas$meta$BMI_group
 div <- vegan::diversity(atlas$microbes)
 boxplot(div ~ bmi, las = 2, main = "Microbiota diversity vs. obesity")
 ```
-
-
-### Resources
-
-Further tips:
-
- * [Rmarkdown tips](http://rmarkdown.rstudio.com/)
- * [R cheat sheets](http://devcheatsheet.com/tag/r/)
