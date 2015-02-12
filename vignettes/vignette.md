@@ -173,7 +173,7 @@ sessionInfo()
     ##  [7] limma_3.22.4         gdata_2.13.3         netresponse_1.17.13 
     ## [10] mclust_4.4           minet_3.24.0         Rgraphviz_2.10.0    
     ## [13] graph_1.44.1         ggplot2_1.0.0        knitr_1.9           
-    ## [16] dplyr_0.4.1          sorvi_0.7.13         microbiome_0.99.35  
+    ## [16] dplyr_0.4.1          sorvi_0.7.15         microbiome_0.99.36  
     ## [19] AnnotationDbi_1.28.1 GenomeInfoDb_1.2.4   IRanges_2.0.1       
     ## [22] S4Vectors_0.4.0      Biobase_2.26.0       BiocGenerics_0.12.1 
     ## [25] RSQLite_1.0.0        DBI_0.3.1            reshape_0.8.5       

@@ -1,70 +1,55 @@
 ### Installing R
 
-If you do not already have R/RStudio installed, do the
-following. 
+If you do not already have R/RStudio installed, do the following.
 
-  1. Install [R](http://www.r-project.org/) 
-  1. Consider installing [RStudio](http://rstudio.org); GUI for R
-  1. If you use Windows, install also [RTools](http://cran.r-project.org/bin/windows/Rtools/) (version corresponding to your R version)
-
+1.  Install [R](http://www.r-project.org/)
+2.  Consider installing [RStudio](http://rstudio.org); GUI for R
+3.  If you use Windows, install also
+    [RTools](http://cran.r-project.org/bin/windows/Rtools/) (version
+    corresponding to your R version)
 
 ### Install dependencies
 
 Open R and install dependencies from the Tools panel, or run the
 following commands:
 
+    source("http://www.bioconductor.org/biocLite.R")
+    biocLite(c("ade4", "fastcluster", "df2json", "rjson", "gplots", "devtools", 
+           "ggplot2","MASS","minet","mixOmics", "plyr","qvalue","reshape2",
+           "RPA","svDialogs","vegan","WGCNA", "rpart"))
 
-```r
-source("http://www.bioconductor.org/biocLite.R")
-biocLite(c("ade4", "fastcluster", "df2json", "rjson", "gplots", "devtools", 
-  	   "ggplot2","MASS","minet","mixOmics", "plyr","qvalue","reshape2",
-	   "RPA","svDialogs","vegan","WGCNA", "rpart"))
-```
-
-If some of these installations fail, ensure from the RStudio tools
-panel that you have access to CRAN and Bioconductor repositories. If
-you cannot install some packages, some functionality in microbiome may
-not work.
-
+If some of these installations fail, ensure from the RStudio tools panel
+that you have access to CRAN and Bioconductor repositories. If you
+cannot install some packages, some functionality in microbiome may not
+work.
 
 ### Install/update the microbiome package
 
 To install microbiome package and recommended dependencies, run in R:
 
-
-```r
-library(devtools) # Load the devtools package
-install_github("microbiome/microbiome") # Install the package
-install_github("ropensci/rdryad") # Install proposed packages
-```
+    library(devtools) # Load the devtools package
+    install_github("microbiome/microbiome") # Install the package
+    install_github("ropensci/rdryad") # Install proposed packages
 
 ### Loading the package
 
 Once the package has been installed, you can load it in R with:
 
+    library(microbiome)  
 
-```r
-library(microbiome)  
-```
-
-
-
-## Install HITChipDB package
+Install HITChipDB package
+-------------------------
 
 The HITChipDB package contains additional routines to fetch and
 preprocess HITChip (or MIT/PITChip) data from the MySQL database. Note
-that this package is not needed by most users and the data is
-protected by password/IP combinations. Ask details from
-admins. Install the package in R with:
+that this package is not needed by most users and the data is protected
+by password/IP combinations. Ask details from admins. Install the
+package in R with:
 
-
-```r
-library(devtools) # Load the devtools package
-install_github("microbiome/HITChipDB") # Install the package
-# Also install RMySQL, multicore and tcltk !
-source("http://www.bioconductor.org/biocLite.R")
-biocLite("RMySQL") # multicore, tcltk?
-# Test installation by loading the microbiome package in R
-library("HITChipDB")
-```
-
+    library(devtools) # Load the devtools package
+    install_github("microbiome/HITChipDB") # Install the package
+    # Also install RMySQL, multicore and tcltk !
+    source("http://www.bioconductor.org/biocLite.R")
+    biocLite("RMySQL") # multicore, tcltk?
+    # Test installation by loading the microbiome package in R
+    library("HITChipDB")
