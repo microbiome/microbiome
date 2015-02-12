@@ -11,7 +11,7 @@
 #'
 #'   @return (Corrected) p-values for two-group comparison.
 #'
-#' @aliases check.wilcoxon
+#' @aliases check_wilcoxon
 #' @examples 
 #'  data(peerj32)
 #'  pval <- check_wilcoxon(t(peerj32$microbes), G1 = 1:22, G2 = 23:44)
