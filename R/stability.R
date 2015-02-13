@@ -24,13 +24,11 @@
 estimate.stability <- function(dat1, dat2 = NULL, method = "pearson") {
     
     if (is.null(dat2)) {
-
         # Within-matrix stability NOTE: earlier this was calculated as
         # the average of upper triangular correlation matrix This is
         # heavily biased since the values are dependent Now replaced
         # by calculating correlations against the mean of the whole
         # sample set cors <- lower.triangle(cor(dat1))
-
         cors <- as.vector(cor(dat1, matrix(rowMeans(dat1)), method = method))
         names(cors) <- colnames(dat1)
         stab <- list(correlations = cors, stability = mean(cors))
