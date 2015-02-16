@@ -46,7 +46,7 @@ matrices.
     ##  [7] limma_3.22.4         gdata_2.13.3         netresponse_1.17.13 
     ## [10] mclust_4.4           minet_3.24.0         Rgraphviz_2.10.0    
     ## [13] graph_1.44.1         ggplot2_1.0.0        knitr_1.9           
-    ## [16] dplyr_0.4.1          sorvi_0.7.15         microbiome_0.99.36  
+    ## [16] dplyr_0.4.1          sorvi_0.7.17         microbiome_0.99.36  
     ## [19] AnnotationDbi_1.28.1 GenomeInfoDb_1.2.4   IRanges_2.0.1       
     ## [22] S4Vectors_0.4.0      Biobase_2.26.0       BiocGenerics_0.12.1 
     ## [25] RSQLite_1.0.0        DBI_0.3.1            reshape_0.8.5       
@@ -63,11 +63,11 @@ matrices.
     ## [16] dynamicTreeCut_1.62   evaluate_0.5.5        fastcluster_1.1.15   
     ## [19] foreach_1.4.2         foreign_0.8-61        formatR_1.0          
     ## [22] Formula_1.2-0         GO.db_3.0.0           gtable_0.1.2         
-    ## [25] gtools_3.4.1          Hmisc_3.14-6          htmltools_0.2.6      
+    ## [25] gtools_3.4.1          Hmisc_3.15-0          htmltools_0.2.6      
     ## [28] httr_0.6.1            igraph_0.7.1          impute_1.40.0        
     ## [31] iterators_1.0.7       labeling_0.3          latticeExtra_0.6-26  
     ## [34] lazyeval_0.1.10       lubridate_1.3.3       magrittr_1.5         
-    ## [37] MASS_7.3-37           Matrix_1.1-5          matrixStats_0.13.1   
+    ## [37] MASS_7.3-37           Matrix_1.1-5          matrixStats_0.14.0   
     ## [40] memoise_0.2.1         mgcv_1.8-3            mixOmics_5.0-3       
     ## [43] munsell_0.4.2         mvtnorm_1.0-2         nlme_3.1-119         
     ## [46] nnet_7.3-8            OAIHarvester_0.1-7    pheatmap_0.7.7       
@@ -75,7 +75,7 @@ matrices.
     ## [52] qvalue_1.40.0         RColorBrewer_1.1-2    Rcpp_0.11.4          
     ## [55] RCurl_1.95-4.5        RefManageR_0.8.45     reshape2_1.4.1       
     ## [58] RGCCA_2.0             rgl_0.95.1201         rjson_0.2.15         
-    ## [61] RJSONIO_1.3-0         R.methodsS3_1.6.1     rpart_4.1-9          
-    ## [64] scales_0.2.4          splines_3.1.2         stringr_0.6.2        
-    ## [67] survival_2.37-7       tools_3.1.2           WGCNA_1.43           
-    ## [70] XML_3.98-1.1          yaml_2.1.13           zlibbioc_1.12.0
+    ## [61] RJSONIO_1.3-0         rpart_4.1-9           scales_0.2.4         
+    ## [64] splines_3.1.2         stringr_0.6.2         survival_2.37-7      
+    ## [67] tools_3.1.2           WGCNA_1.43            XML_3.98-1.1         
+    ## [70] yaml_2.1.13           zlibbioc_1.12.0

@@ -31,6 +31,8 @@ Further tips:
 
 -   [Rmarkdown tips](http://rmarkdown.rstudio.com/)
 -   [R cheat sheets](http://devcheatsheet.com/tag/r/)
+-   [Using Github with R and RStudio](http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/)
+-   [Molecular ecologist's view on code sharing](http://www.molecularecologist.com/2013/08/want-to-share-your-code/)
 
 ### Example visualization in R
 

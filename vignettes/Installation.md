@@ -15,7 +15,7 @@ following commands:
 
     source("http://www.bioconductor.org/biocLite.R")
     biocLite(c("ade4", "fastcluster", "df2json", "rjson", "gplots", "devtools", 
-           "ggplot2","MASS","minet","mixOmics", "plyr","qvalue","reshape2",
+           "ggplot2","MASS", "Matrix", "minet","mixOmics", "plyr","qvalue","reshape2",
            "RPA","svDialogs","vegan","WGCNA", "rpart"))
 
 If some of these installations fail, ensure from the RStudio tools panel
@@ -29,7 +29,8 @@ To install microbiome package and recommended dependencies, run in R:
 
     library(devtools) # Load the devtools package
     install_github("microbiome/microbiome") # Install the package
-    install_github("ropensci/rdryad") # Install proposed packages
+    install_github("ropensci/rdryad") # Install proposed package
+    install_github("antagomir/netresponse") # Install proposed package
 
 ### Loading the package
 
@@ -53,3 +54,21 @@ package in R with:
     biocLite("RMySQL") # multicore, tcltk?
     # Test installation by loading the microbiome package in R
     library("HITChipDB")
+
+General installation instructions
+---------------------------------
+
+R packages are maintained in three distinct repositories: CRAN,
+Bioconductor and Github. You need to somehow find out which repository
+your desired package is in, or just try out the three alternatives:
+
+    # Installing from Bioconductor
+    source("http://www.bioconductor.org/biocLite.R")
+    biocLite("MASS")
+
+    # Installing from CRAN
+    install.packages("sorvi")
+
+    # Installing from Github
+    library(devtools)
+    install_github("antagomir/netresponse")
