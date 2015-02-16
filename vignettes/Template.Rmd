@@ -31,10 +31,10 @@ To test reproducible document generation:
 Start by adapting some of the following elements in your reproducible
 document:
 
- 1. [Install the microbiome package and its dependencies](Installation.md)
- 1. [Download example data](Data.md) (pick HITChip Atlas + metadata)
+ 1. [Install the microbiome package and its dependencies](Installation.md) (No need to install the HITChipDB package that is also mentioned!)
+ 1. [Download example data](Data.md) (pick HITChip Atlas + metadata; no need to install the other data sets!)
  1. [Analyse microbiota diversity](Diversity.md)
- 1. [Repeat the example workflow](Atlas.md)
+ 1. [Repeat the example workflow](Atlas.md) (This shows the expected outcomes from some of the earlier steps)
  1. Adapt further examples from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
 ### Resources
@@ -43,7 +43,8 @@ Further tips:
 
  * [Rmarkdown tips](http://rmarkdown.rstudio.com/)
  * [R cheat sheets](http://devcheatsheet.com/tag/r/)
-
+ * [Using Github with R and RStudio](http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/)
+ * [Molecular ecologist's view on code sharing](http://www.molecularecologist.com/2013/08/want-to-share-your-code/)
 
 ### Example visualization in R
 

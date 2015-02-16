@@ -19,10 +19,10 @@ To test reproducible document generation:
 
 Start by adapting some of the following elements in your reproducible document:
 
-1.  [Install the microbiome package and its dependencies](Installation.md)
-2.  [Download example data](Data.md) (pick HITChip Atlas + metadata)
+1.  [Install the microbiome package and its dependencies](Installation.md) (No need to install the HITChipDB package that is also mentioned!)
+2.  [Download example data](Data.md) (pick HITChip Atlas + metadata; no need to install the other data sets!)
 3.  [Analyse microbiota diversity](Diversity.md)
-4.  [Repeat the example workflow](Atlas.md)
+4.  [Repeat the example workflow](Atlas.md) (This shows the expected outcomes from some of the earlier steps)
 5.  Adapt further examples from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
 ### Resources
