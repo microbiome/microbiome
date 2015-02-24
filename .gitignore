@@ -1,3 +1,4 @@
+vignettes/L1-oligoprofileClustering.pdf
 *~
 .Rproj.user
 *.Rproj
@@ -6,6 +7,8 @@ vignettes/old
 vignettes/*~
 vignettes/.Rhistory
 vignettes/*.Rproj
+vignettes/*.RData
+vignettes/figure
 inst/extras/*~
 inst/extras/*.tar.gz
 inst/extras/.RData

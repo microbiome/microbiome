@@ -18,8 +18,6 @@ help(PlotCrosshyb).
     res <- PlotCrosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE)
 
     ## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/phylogeny.filtered.tab
-    ## The "ward" method has been renamed to "ward.D"; note new "ward.D2"
-    ## The "ward" method has been renamed to "ward.D"; note new "ward.D2"
 
     # Pick the crosshyb table and figure
     crosshyb.table <- res$data
@@ -61,8 +59,6 @@ group
     res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, phylogeny.info = phylogeny.info)
 
     ## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/phylogeny.filtered.tab
-    ## The "ward" method has been renamed to "ward.D"; note new "ward.D2"
-    ## The "ward" method has been renamed to "ward.D"; note new "ward.D2"
 
 ![](figure/chyb2-1.png)
 
