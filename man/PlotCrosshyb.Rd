@@ -41,7 +41,7 @@ The number indicates how many percent of oligos for the row taxon are
 also hybridizing the corresponding column taxon.
 }
 \examples{
-res <- PlotCrosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE)
+# res <- PlotCrosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

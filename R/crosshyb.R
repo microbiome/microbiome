@@ -86,7 +86,7 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
 #' @return A list containing cross-hybridization table and plot
 #'
 #' @examples 
-#'   res <- PlotCrosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE)
+#'   # res <- PlotCrosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE)
 #' 
 #' @export
 #' @import ggplot2
@@ -140,10 +140,10 @@ PlotCrosshyb <- function(tax.level = "L1", chip = "HITChip",
     # Order rows and cols
     if (order.rows || order.cols) {
         
-        hc <- hclust(as.dist(1 - cor(confusion.matrix)), "ward.D")
+        hc <- hclust(as.dist(1 - cor(confusion.matrix)), method = "ward.D")
         colord <- hc$ord
         
-        hc <- hclust(as.dist(1 - cor(t(confusion.matrix))), "ward.D")
+        hc <- hclust(as.dist(1 - cor(t(confusion.matrix))), method = "ward.D")
         roword <- hc$ord
         
         if (order.rows) {

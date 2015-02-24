@@ -22,3 +22,4 @@ inst/win-install*
 .*~
 ^.*\.Rproj$
 ^\.Rproj\.user$
+vignettes/pics
