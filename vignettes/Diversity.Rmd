@@ -7,8 +7,10 @@ To run these examples, you need to download the [HITChip Atlas data set](Data.md
 # Use the HITChip Atlas data
 mydata <- atlas$microbes
 
-# Determine detection threshold as the top-80 quantile
-det.th <- quantile(mydata, 0.8)
+# Determine detection threshold at the 0.15 quantile
+# Bacteria that exceed this threshold are considered present
+# otherwise absent
+det.th <- quantile(mydata, 0.15)
 
 # Visualize the detection threshold (at log10 scale for clarity)
 plot(density(log10(mydata)), main = "Detection threshold", xlab = "Abundance (Log10)", ylab = "Frequency")
