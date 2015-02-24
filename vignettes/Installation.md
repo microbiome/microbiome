@@ -1,10 +1,10 @@
 ### Installing R
 
-If you do not already have R/RStudio installed, do the following.
+**If you do not already have R/RStudio installed**, do the following.
 
 1.  Install [R](http://www.r-project.org/)
 2.  Consider installing [RStudio](http://rstudio.org); GUI for R
-3.  If you use Windows, install also
+3.  With Windows, install
     [RTools](http://cran.r-project.org/bin/windows/Rtools/) (version
     corresponding to your R version)
 
@@ -14,9 +14,25 @@ Open R and install dependencies from the Tools panel, or run the
 following commands:
 
     source("http://www.bioconductor.org/biocLite.R")
-    biocLite(c("ade4", "fastcluster", "df2json", "rjson", "gplots", "devtools", 
-           "ggplot2","MASS", "Matrix", "minet","mixOmics", "plyr","qvalue","reshape2",
-           "RPA","svDialogs","vegan","WGCNA", "rpart"))
+    biocLite("ade4")
+    biocLite("fastcluster")
+    biocLite("df2json")
+    biocLite("rjson")
+    biocLite("gplots")
+    biocLite("devtools")
+    biocLite("ggplot2")
+    biocLite("MASS")
+    biocLite("Matrix")
+    biocLite("minet")
+    biocLite("mixOmics")
+    biocLite("plyr")
+    biocLite("qvalue")
+    biocLite("reshape2")
+    biocLite("RPA")
+    biocLite("svDialogs")
+    biocLite("vegan")
+    biocLite("WGCNA")
+    biocLite("rpart")
 
 If some of these installations fail, ensure from the RStudio tools panel
 that you have access to CRAN and Bioconductor repositories. If you
@@ -43,9 +59,9 @@ Install HITChipDB package
 
 The HITChipDB package contains additional routines to fetch and
 preprocess HITChip (or MIT/PITChip) data from the MySQL database. Note
-that this package is not needed by most users and the data is protected
-by password/IP combinations. Ask details from admins. Install the
-package in R with:
+that this package is **not needed by most users** and the data is
+protected by password/IP combinations. Ask details from admins. Install
+the package in R with:
 
     library(devtools) # Load the devtools package
     install_github("microbiome/HITChipDB") # Install the package

@@ -61,8 +61,9 @@ atlas <- list(microbes = data, meta = meta)
 ### Diversity
 
 ``` r
-# Diversity using the vegan package
-# NOTE: data needs to be in absolute scale, not logarithmic
+# Estimat diversity using the vegan package
+# NOTE: data needs to be in absolute scale, not logarithmic!
+# Also pay attention on having samples on the rows (not on columns)
 di <- vegan::diversity(atlas$microbes, index = "shannon")
 hist(di, main = "Diversity")
 ```
