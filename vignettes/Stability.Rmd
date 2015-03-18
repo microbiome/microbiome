@@ -1,6 +1,6 @@
-### Stability analysis within group of samples
+### Variability analysis within group of samples
 
-Calculate stability as the average correlation between samples and their mean for a given phylotypes vs. samples matrix:
+Calculate variability as the average correlation between samples and their mean for a given phylotypes vs. samples matrix:
 
 ```{r stability-example, message=FALSE}
 # Example data
@@ -9,7 +9,7 @@ data(peerj32)
 x <- peerj32$microbes
 
 # Estimate Stability
-stability <- estimate.stability(t(x))$stability
+stability <- estimate_variability(t(x))$stability
 ```
 
 ### Stability analysis in time

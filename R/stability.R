@@ -16,12 +16,12 @@
 #' @export
 #' @examples 
 #'   data(peerj32)
-#'   s <- estimate.stability(t(peerj32$microbes)[, 1:5])
+#'   s <- estimate_variability(t(peerj32$microbes)[, 1:5])
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-estimate.stability <- function(dat1, dat2 = NULL, method = "pearson") {
+estimate_variability <- function(dat1, dat2 = NULL, method = "pearson") {
     
     if (is.null(dat2)) {
         # Within-matrix stability NOTE: earlier this was calculated as
