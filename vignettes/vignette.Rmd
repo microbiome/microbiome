@@ -69,6 +69,7 @@ Download some [example data sets](Data.md) to try these tools:
 * [Diversity](Diversity.md)
 * [Probe level studies](Probelevel.md)
 * [RelativeAbundance](RelativeAbundance.md)
+* [Variability](Variability.md)
 * [Stability](Stability.md)
 
 ### Linear models, comparisons, and association studies
@@ -81,7 +82,7 @@ Download some [example data sets](Data.md) to try these tools:
 * [RDA](RDA.md)
 
 ### Output
-* [Producing output files and figures](Output.md)
+* [Generating output files/figures](Output.md)
 
 ### Misc
 * [Miscellaneous](misc.md)

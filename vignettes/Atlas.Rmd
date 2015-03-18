@@ -29,7 +29,7 @@ rmarkdown::render("Atlas.Rmd")
 
 ### Download HITChip Atlas data
 
-Load the HITChip Atlas microbiome profiling data in R.
+[Load the HITChip Atlas microbiome profiling data in R](Data.md)
 
 ```{r data2}
 # Load Dryad tools
