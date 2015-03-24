@@ -24,7 +24,11 @@ Imports:
     plyr,
     RColorBrewer,
     rjson,
-    WGCNA
+    WGCNA,
+    devtools,
+    earlywarnings,
+    diptest,
+    silvermantest
 Suggests:
     BiocGenerics,
     BiocStyle,
