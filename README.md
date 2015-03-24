@@ -1,6 +1,8 @@
 microbiome R package (beta)
 ==========
 
+[![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)
+
 For installation and usage instructions, see the [vignette](vignettes/vignette.md)
 
 The project is jointly developed by researchers from the [Molecular
