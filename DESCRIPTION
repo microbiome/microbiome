@@ -1,10 +1,11 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.37
-Date: 2015-03-19
-Author: Leo Lahti and Jarkko Salojarvi
-Maintainer: Leo Lahti <leo.lahti@iki.fi>
+Version: 0.99.38
+Date: 2015-03-27
+Authors@R: c(
+    person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
+    person("Salojarvi", "Jarkko" , role = "aut"))
 biocViews: Microarray, Preprocessing, SystemsBiology, Visualization,
     Microbiome, Clustering
 Description: R tools for microbiome analysis
@@ -26,9 +27,7 @@ Imports:
     rjson,
     WGCNA,
     devtools,
-    earlywarnings,
-    diptest,
-    silvermantest
+    earlywarnings
 Suggests:
     BiocGenerics,
     BiocStyle,
@@ -37,7 +36,7 @@ Suggests:
     rmarkdown,
     RUnit
 URL: http://microbiome.github.com
+MailingList: microbiome < microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues
 VignetteBuilder: knitr
-LazyLoad: yes
 Packaged: 2014-09-14 14:19:39 UTC; lei
