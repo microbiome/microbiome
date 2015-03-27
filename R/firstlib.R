@@ -1,3 +1,5 @@
+#' @import devtools
+#' @import earlywarnings
 #' @import fastcluster
 #' @import vegan
 #' @import plyr
