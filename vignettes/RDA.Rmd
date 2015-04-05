@@ -45,3 +45,19 @@ pl <- ordihull(rdatest, annot$time, scaling = 3, label = TRUE)
 title("RDA with control for subject effect")
 ```
 
+### Bagged RDA
+
+Calculate Bagged RDA and visualize the results:
+
+```{r rda5, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
+library(microbiome)
+# Modify the group vector into a facor as required by Bagged RDA
+y <- factor(annot$time); names(y) <- rownames(annot)
+
+# Bagged RDA
+Bag.res <- Bagged.RDA.Feature.Selection(t(l2), y, sig.thresh=0.05, nboot=100)
+
+# Visualize
+PlotBaggedRDA(Bag.res, y)
+```
+

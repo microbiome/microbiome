@@ -36,7 +36,7 @@ permutest(rdatest) # RDA Significance test
 ## Call: rda(formula = l2 ~ annot$time)
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.3568663 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.96
+## Significance:	 0.97
 ```
 
 ### Controlling for confounding variables
@@ -57,7 +57,7 @@ permutest(rdatest) # RDA significance test
 ## Call: rda(formula = l2 ~ annot$time + Condition(annot$subject))
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.756362 (with 1, 21 Degrees of Freedom)
-## Significance:	 0.51
+## Significance:	 0.58
 ```
 
 ```r
@@ -78,4 +78,27 @@ title("RDA with control for subject effect")
 ```
 
 ![plot of chunk rda4](figure/rda4-1.png) 
+
+### Bagged RDA
+
+Calculate Bagged RDA and visualize the results:
+
+
+```r
+library(microbiome)
+# Modify the group vector into a facor as required by Bagged RDA
+y <- factor(annot$time); names(y) <- rownames(annot)
+
+# Bagged RDA
+Bag.res <- Bagged.RDA.Feature.Selection(t(l2), y, sig.thresh=0.05, nboot=100)
+```
+
+![plot of chunk rda5](figure/rda5-1.png) 
+
+```r
+# Visualize
+PlotBaggedRDA(Bag.res, y)
+```
+
+![plot of chunk rda5](figure/rda5-2.png) 
 
