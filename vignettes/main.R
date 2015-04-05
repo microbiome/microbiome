@@ -1,7 +1,7 @@
 library(rmarkdown)
-rmarkdown::render("vignette.Rmd")
-rmarkdown::render("Template.Rmd")
-rmarkdown::render("Atlas.Rmd", "all")
+#rmarkdown::render("vignette.Rmd")
+#rmarkdown::render("Template.Rmd")
+#rmarkdown::render("Atlas.Rmd", "all")
 
 #render("vignette.Rmd", "html_document")
 #rmarkdown::render("vignette.Rmd", "all")
@@ -19,7 +19,8 @@ fs <- list.files(pattern = ".Rmd$")
 #fs <- "Profiling.Rmd"
 #fs <- "SQL.Rmd"
 #fs <- "Heatmap.Rmd"
-#fs <- c("RDA.Rmd", "LatentClassAnalysis.Rmd", "NetResponse.Rmd")
+#fs <- c("LatentClassAnalysis.Rmd", "NetResponse.Rmd")
+fs <- c("RDA.Rmd")
 #fs <- c("Barplots.Rmd")
 #fs <- c("Boxplots.Rmd")
 #fs <- c("RPA.Rmd")
