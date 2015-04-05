@@ -2,6 +2,7 @@
 #' @import earlywarnings
 #' @import fastcluster
 #' @import vegan
+#' @import ade4
 #' @import plyr
 .onAttach <- function(lib, pkg) {
     packageStartupMessage("\nmicrobiome R package (microbiome.github.com)

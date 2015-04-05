@@ -16,6 +16,7 @@ inst/extras/*.Rout
 inst/extras/*.Rcheck
 inst/extras/misc.Rmd
 inst/extras/debug.R
+inst/extras/tmp.R
 
 
 

@@ -131,7 +131,6 @@ subject_tables <- function (x, meta) {
 #'   dat[1, meta$time == 2] <- 1/abs(dat[1, meta$time == 1])
 #'   s <- intermediate_stability(dat, meta, reference.point = 0)
 #'
-
 intermediate_stability <- function (dat, meta, reference.point = NULL, method = "lm") {
 
   df <- meta
