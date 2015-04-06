@@ -449,7 +449,7 @@ Core2D <- function(coreMat, title = "Common core", plot = TRUE,
 #'   core <- core_heatmap(t(peerj32$microbes))
 #'
 #' @export 
-#' @importFrom reshape melt
+#' @importFrom reshape2 melt
 #' @import ggplot2
 #' @import RColorBrewer
 #' 

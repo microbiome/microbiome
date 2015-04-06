@@ -1,7 +1,7 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.39
+Version: 0.99.40
 Date: 2015-04-05
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
@@ -14,7 +14,8 @@ Depends:
     R (>= 3.0.1),
     e1071,
     vegan,
-    reshape
+    reshape2,
+    ade4
 Imports:
     df2json,
     fastcluster,

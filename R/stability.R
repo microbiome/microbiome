@@ -133,6 +133,10 @@ subject_tables <- function (x, meta) {
 #'
 intermediate_stability <- function (dat, meta, reference.point = NULL, method = "lm") {
 
+  if (!all(c("subjectID", "time") %in% names(meta))) {
+    stop("No subjectID and/or time field provided in metadata!")
+  }
+
   df <- meta
   stabilities <- c()	      
   stabilities.right <- c()	      
@@ -209,14 +213,17 @@ estimate_stability <- function (df, reference.point = NULL, method = "lm") {
   if (is.null(reference.point)) {
     reference.point <- mean(range(df$data))
   }
-  
+
   # Remove subjects with only one measurement
   df <- df[df$subjectID %in% names(which(table(df$subjectID) > 1)),]
+
+  if (nrow(df) < 2) {warning("No subjects with time series in estimate_stability. Returninng NULL"); return(NULL)} 
 
   # Split data by subject
   spl <- split(df, as.character(df$subjectID))
 
   dfis <- NULL
+
   for (spli in spl) {
 
     # Ensure the measurements are ordered in time
@@ -227,6 +234,7 @@ estimate_stability <- function (df, reference.point = NULL, method = "lm") {
     data.difs <- diff(spli$data)
     time.difs <- diff(spli$time)
     start.points <- spli$data[-nrow(spli)]
+
     start.reference.distance <- start.points - reference.point
 
     # Organize into data frame
