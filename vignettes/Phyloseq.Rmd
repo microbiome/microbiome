@@ -1,0 +1,127 @@
+---
+title: "Phyloseq examples"
+author: "Leo Lahti"
+date: "`r Sys.Date()`"
+output:
+  md_document:
+    toc: false
+    variant: markdown_github
+  html_document:
+    toc: false
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Project Template}
+  %\usepackage[utf8]{inputenc}
+-->
+
+
+## Converting HITChip data in phyloseq format
+
+The [phyloseq](https://github.com/joey711/phyloseq) is an external high-quality R package that provides additional tools for microbiome data analysis. These examples show how to convert HITChip data into phyloseq format and perform some standard analyses. For more info on phyloseq tools, see [phyloseq demo page](http://joey711.github.io/phyloseq-demo/).
+
+Loading example data (L2 data and metadata; you can replace these with your own data). Make sure that the L2 datamatrix
+
+```{r exampledata}
+library(microbiome)
+data(peerj32)
+data <- peerj32$microbes # Samples x L2 groups; L2 data matrix; ABSOLUTE scale, not log10
+meta <- peerj32$meta # Samples x features metadata
+```
+
+Convert the HITChip L2 data into [phyloseq](https://github.com/joey711/phyloseq) format
+
+```{r pseqconversion}
+library("phyloseq")
+physeq <- hitchip2physeq(data, meta)
+```
+
+Some phyloseq examples
+
+```{r taxbar}
+plot_bar(physeq, fill = "Phylum")
+```
+
+[Heatmaps](http://joey711.github.io/phyloseq/plot_heatmap-examples) and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45)
+
+```{r heatmap}
+plot_heatmap(physeq, taxa.label = "Phylum")
+plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", low="#000033", high="#FF3300", na.value="white")
+#plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", trans = log_trans(10))
+#plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", trans = identity_trans())
+#plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", trans = boxcox_trans(0.15))
+```
+
+```{r richness}
+library(ggplot2)
+plot_richness(physeq, x = "gender", color = "group") + geom_boxplot()
+```
+
+Top OTU plot:
+
+```{r topotu}
+TopNOTUs <- names(sort(taxa_sums(physeq), TRUE)[1:3])
+tops <- prune_taxa(TopNOTUs, physeq)
+plot_bar(tops, "group", fill = "gender", facet_grid = ~Genus)
+```
+
+Ordination
+
+```{r ordinate}
+plot_ordination(physeq, ordinate(physeq, "MDS"), color = "group") + geom_point(size = 5)
+
+nmds <- ordinate(physeq, "NMDS", "bray")
+
+require("ggplot2")
+p2 <- plot_ordination(physeq, ordinate(physeq, "CCA"), type = "samples", color = "gender")
+p2 + geom_point(size = 5) + geom_polygon(aes(fill = gender))
+
+plot_ordination(physeq, ordinate(physeq, "CCA"), type = "taxa", color = "Phylum") + 
+    geom_point(size = 4)
+plot_ordination(physeq, ordinate(physeq, "CCA"), type = "split", color = "gender")
+plot_ordination(physeq, ordinate(physeq, "CCA"), type = "biplot", shape = "Phylum")
+plot_ordination(physeq, ordinate(physeq, "CCA"), type = "split", color = "gender", 
+    shape = "Phylum", label = "gender")
+```
+
+Filtering and pruning
+
+```{r prune}
+f1 <- filterfun_sample(topp(0.1))
+wh1 <- genefilter_sample(physeq, f1, A = round(0.5 * nsamples(physeq)))
+ex2 <- prune_taxa(wh1, physeq)
+r <- transform_sample_counts(physeq, function(x) x/sum(x))
+f <- filter_taxa(r, function(x) var(x) > 1e-05, TRUE)
+```
+
+[Networks](http://joey711.github.io/phyloseq/plot_network-examples)
+
+```{r networks}
+plot_net(physeq, maxdist = 0.45, point_label = "group")
+
+ig <- make_network(physeq, max.dist = 0.45)
+plot_network(ig, physeq, color = "gender", shape = "group", line_weight = 0.4, label = NULL)
+```
+
+For more, see [phyloseq demo page](http://joey711.github.io/phyloseq-demo/phyloseq-demo.html)
+
+```{r more}
+#ntaxa(physeq)
+#rank_names(physeq)
+#sample_names(physeq)
+#taxa_names(physeq)
+#sample_variables(physeq)
+#merge_phyloseq
+#get_variable(physeq, sample_variables(physeq)[5])[1:10]
+#get_taxa_unique(physeq, "Phylum")
+#sample_sums(physeq)
+#taxa_sums(physeq)
+#get_taxa(physeq, sample_names(physeq)[5])
+#get_sample(physeq, taxa_names(physeq)[5])
+#plot_bar(ent10, "Genus", fill = "Genus", facet_grid = SeqTech ~ Enterotype)
+#GP <- prune_taxa(taxa_sums(physeq) > 0, physeq)
+#sample_data(GP)$human = ...
+#eso <- rarefy_even_depth(physeq)
+# UniFrac(physeq) # This requires tree that we do not have
+#GP.chl = subset_taxa(GlobalPatterns, Phylum == "Chlamydiae")
+```

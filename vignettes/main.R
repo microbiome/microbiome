@@ -20,7 +20,8 @@ fs <- list.files(pattern = ".Rmd$")
 #fs <- "SQL.Rmd"
 #fs <- "Heatmap.Rmd"
 #fs <- c("LatentClassAnalysis.Rmd", "NetResponse.Rmd")
-fs <- c("RDA.Rmd")
+#fs <- c("RDA.Rmd")
+fs <- c("Phyloseq.Rmd")
 #fs <- c("Barplots.Rmd")
 #fs <- c("Boxplots.Rmd")
 #fs <- c("RPA.Rmd")
