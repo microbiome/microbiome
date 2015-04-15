@@ -99,10 +99,10 @@ nmds <- ordinate(physeq, "NMDS", "bray")
 ## Square root transformation
 ## Wisconsin double standardization
 ## Run 0 stress 0.1747778 
-## Run 1 stress 0.17549 
-## Run 2 stress 0.17549 
-## Run 3 stress 0.1747779 
-## ... procrustes: rmse 0.0002290705  max resid 0.001306855 
+## Run 1 stress 0.1754901 
+## Run 2 stress 0.1754901 
+## Run 3 stress 0.1747798 
+## ... procrustes: rmse 0.0005217542  max resid 0.002997529 
 ## *** Solution reached
 ```
 
@@ -131,41 +131,11 @@ plot_ordination(physeq, ordinate(physeq, "CCA"), type = "split", color = "gender
 plot_ordination(physeq, ordinate(physeq, "CCA"), type = "biplot", shape = "Phylum")
 ```
 
-```
-## Warning: The shape palette can deal with a maximum of 6 discrete values
-## because more than 6 becomes difficult to discriminate; you have
-## 23. Consider specifying shapes manually. if you must have them.
-```
-
-```
-## Warning: The shape palette can deal with a maximum of 6 discrete values
-## because more than 6 becomes difficult to discriminate; you have
-## 23. Consider specifying shapes manually. if you must have them.
-```
-
 ![plot of chunk ordinate](figure/ordinate-5.png) 
 
 ```r
 plot_ordination(physeq, ordinate(physeq, "CCA"), type = "split", color = "gender", 
     shape = "Phylum", label = "gender")
-```
-
-```
-## Warning: The shape palette can deal with a maximum of 6 discrete values
-## because more than 6 becomes difficult to discriminate; you have
-## 23. Consider specifying shapes manually. if you must have them.
-```
-
-```
-## Warning: The shape palette can deal with a maximum of 6 discrete values
-## because more than 6 becomes difficult to discriminate; you have
-## 23. Consider specifying shapes manually. if you must have them.
-```
-
-```
-## Warning: The shape palette can deal with a maximum of 6 discrete values
-## because more than 6 becomes difficult to discriminate; you have
-## 23. Consider specifying shapes manually. if you must have them.
 ```
 
 ![plot of chunk ordinate](figure/ordinate-6.png) 
@@ -195,11 +165,6 @@ plot_net(physeq, maxdist = 0.45, point_label = "group")
 ```r
 ig <- make_network(physeq, max.dist = 0.45)
 plot_network(ig, physeq, color = "gender", shape = "group", line_weight = 0.4, label = NULL)
-```
-
-```
-## Warning: attributes are not identical across measure variables; they will
-## be dropped
 ```
 
 ![plot of chunk networks](figure/networks-2.png) 

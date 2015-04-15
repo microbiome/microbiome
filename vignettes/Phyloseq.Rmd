@@ -23,7 +23,7 @@ physeq <- hitchip2physeq(data, meta)
 
 ## Barplots
 
-```{r taxbar, fig.width=5, fig.height=5}
+```{r taxbar, fig.width=5, fig.height=5, warning=FALSE, message=FALSE}
 p <- plot_bar(physeq, fill = "Phylum")
 print(p)
 ```
@@ -33,7 +33,7 @@ print(p)
 
 [Heatmaps](http://joey711.github.io/phyloseq/plot_heatmap-examples) and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45)
 
-```{r heatmap}
+```{r heatmap, warning=FALSE, message=FALSE}
 plot_heatmap(physeq, taxa.label = "Phylum")
 plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", low="#000033", high="#FF3300", na.value="white")
 #plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", trans = log_trans(10))
@@ -43,14 +43,14 @@ plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", low="#000033", high="#F
 
 ## Richness
 
-```{r richness}
+```{r richness, warning=FALSE, message=FALSE}
 library(ggplot2)
 plot_richness(physeq, x = "gender", color = "group") + geom_boxplot()
 ```
 
 ## Top OTU plot
 
-```{r topotu}
+```{r topotu, warning=FALSE, message=FALSE}
 TopNOTUs <- names(sort(taxa_sums(physeq), TRUE)[1:3])
 tops <- prune_taxa(TopNOTUs, physeq)
 plot_bar(tops, "group", fill = "gender", facet_grid = ~Genus)
@@ -58,7 +58,7 @@ plot_bar(tops, "group", fill = "gender", facet_grid = ~Genus)
 
 ## Ordination
 
-```{r ordinate}
+```{r ordinate, warning=FALSE, message=FALSE}
 plot_ordination(physeq, ordinate(physeq, "MDS"), color = "group") + geom_point(size = 5)
 
 nmds <- ordinate(physeq, "NMDS", "bray")
@@ -77,7 +77,7 @@ plot_ordination(physeq, ordinate(physeq, "CCA"), type = "split", color = "gender
 
 ## Filtering and pruning
 
-```{r prune}
+```{r prune, warning=FALSE, message=FALSE}
 f1 <- filterfun_sample(topp(0.1))
 wh1 <- genefilter_sample(physeq, f1, A = round(0.5 * nsamples(physeq)))
 ex2 <- prune_taxa(wh1, physeq)
@@ -89,7 +89,7 @@ f <- filter_taxa(r, function(x) var(x) > 1e-05, TRUE)
 
 [Networks](http://joey711.github.io/phyloseq/plot_network-examples)
 
-```{r networks}
+```{r networks, warning=FALSE, message=FALSE}
 plot_net(physeq, maxdist = 0.45, point_label = "group")
 
 ig <- make_network(physeq, max.dist = 0.45)
