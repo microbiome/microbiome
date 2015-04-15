@@ -1,5 +1,5 @@
-Converting HITChip data in phyloseq format
-------------------------------------------
+HITChip data analysis in phyloseq format
+========================================
 
 The [phyloseq](https://github.com/joey711/phyloseq) is an external
 high-quality R package that provides additional tools for microbiome
@@ -7,6 +7,9 @@ data analysis. These examples show how to convert HITChip data into
 phyloseq format and perform some standard analyses. For more info on
 phyloseq tools, see [phyloseq demo
 page](http://joey711.github.io/phyloseq-demo/).
+
+Example data
+------------
 
 Loading example data (L2 data and metadata; you can replace these with
 your own data). Make sure that the L2 datamatrix
@@ -16,19 +19,23 @@ your own data). Make sure that the L2 datamatrix
     data <- peerj32$microbes # Samples x L2 groups; L2 data matrix; ABSOLUTE scale, not log10
     meta <- peerj32$meta # Samples x features metadata
 
-Convert the HITChip L2 data into
-[phyloseq](https://github.com/joey711/phyloseq) format
+Converting HITChip L2 data into [phyloseq](https://github.com/joey711/phyloseq) format
+--------------------------------------------------------------------------------------
 
     library("phyloseq")
     physeq <- hitchip2physeq(data, meta)
 
     ## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/phylogeny.full.tab
 
-Some phyloseq examples
+Barplots
+--------
 
     plot_bar(physeq, fill = "Phylum")
 
 ![](Phyloseq_files/figure-markdown_strict/taxbar-1.png)
+
+Heatmaps
+--------
 
 [Heatmaps](http://joey711.github.io/phyloseq/plot_heatmap-examples) and
 [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45)
@@ -45,12 +52,16 @@ Some phyloseq examples
     #plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", trans = identity_trans())
     #plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", trans = boxcox_trans(0.15))
 
+Richness
+--------
+
     library(ggplot2)
     plot_richness(physeq, x = "gender", color = "group") + geom_boxplot()
 
 ![](Phyloseq_files/figure-markdown_strict/richness-1.png)
 
-Top OTU plot:
+Top OTU plot
+------------
 
     TopNOTUs <- names(sort(taxa_sums(physeq), TRUE)[1:3])
     tops <- prune_taxa(TopNOTUs, physeq)
@@ -59,6 +70,7 @@ Top OTU plot:
 ![](Phyloseq_files/figure-markdown_strict/topotu-1.png)
 
 Ordination
+----------
 
     plot_ordination(physeq, ordinate(physeq, "MDS"), color = "group") + geom_point(size = 5)
 
@@ -69,10 +81,9 @@ Ordination
     ## Square root transformation
     ## Wisconsin double standardization
     ## Run 0 stress 0.1747778 
-    ## Run 1 stress 0.2107824 
-    ## Run 2 stress 0.1754653 
-    ## Run 3 stress 0.1747782 
-    ## ... procrustes: rmse 0.0003030058  max resid 0.001711078 
+    ## Run 1 stress 0.1747778 
+    ## ... New best solution
+    ## ... procrustes: rmse 8.541263e-05  max resid 0.0004805838 
     ## *** Solution reached
 
     require("ggplot2")
@@ -120,12 +131,16 @@ Ordination
 ![](Phyloseq_files/figure-markdown_strict/ordinate-6.png)
 
 Filtering and pruning
+---------------------
 
     f1 <- filterfun_sample(topp(0.1))
     wh1 <- genefilter_sample(physeq, f1, A = round(0.5 * nsamples(physeq)))
     ex2 <- prune_taxa(wh1, physeq)
     r <- transform_sample_counts(physeq, function(x) x/sum(x))
     f <- filter_taxa(r, function(x) var(x) > 1e-05, TRUE)
+
+Networks
+--------
 
 [Networks](http://joey711.github.io/phyloseq/plot_network-examples)
 
