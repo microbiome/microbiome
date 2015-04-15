@@ -12,109 +12,6 @@ Loading example data (L2 data and metadata; you can replace these with your own 
 
 ``` r
 library(microbiome)
-```
-
-    ## Loading required package: ade4
-    ## Loading required package: e1071
-    ## Loading required package: phyloseq
-    ## Loading required package: reshape2
-    ## Loading required package: vegan
-    ## Loading required package: permute
-    ## Loading required package: lattice
-    ## This is vegan 2.2-1
-    ## 
-    ## Attaching package: 'vegan'
-    ## 
-    ## The following object is masked from 'package:ade4':
-    ## 
-    ##     cca
-    ## 
-    ## Loading required package: DBI
-    ## Loading required package: AnnotationDbi
-    ## Loading required package: stats4
-    ## Loading required package: BiocGenerics
-    ## Loading required package: parallel
-    ## 
-    ## Attaching package: 'BiocGenerics'
-    ## 
-    ## The following objects are masked from 'package:parallel':
-    ## 
-    ##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
-    ##     clusterExport, clusterMap, parApply, parCapply, parLapply,
-    ##     parLapplyLB, parRapply, parSapply, parSapplyLB
-    ## 
-    ## The following object is masked from 'package:stats':
-    ## 
-    ##     xtabs
-    ## 
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     anyDuplicated, append, as.data.frame, as.vector, cbind,
-    ##     colnames, do.call, duplicated, eval, evalq, Filter, Find, get,
-    ##     intersect, is.unsorted, lapply, Map, mapply, match, mget,
-    ##     order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
-    ##     rbind, Reduce, rep.int, rownames, sapply, setdiff, sort,
-    ##     table, tapply, union, unique, unlist, unsplit
-    ## 
-    ## Loading required package: Biobase
-    ## Welcome to Bioconductor
-    ## 
-    ##     Vignettes contain introductory material; view with
-    ##     'browseVignettes()'. To cite Bioconductor, see
-    ##     'citation("Biobase")', and for packages 'citation("pkgname")'.
-    ## 
-    ## 
-    ## Attaching package: 'Biobase'
-    ## 
-    ## The following object is masked from 'package:phyloseq':
-    ## 
-    ##     sampleNames
-    ## 
-    ## Loading required package: GenomeInfoDb
-    ## Loading required package: S4Vectors
-    ## Loading required package: IRanges
-    ## 
-    ## Attaching package: 'IRanges'
-    ## 
-    ## The following object is masked from 'package:phyloseq':
-    ## 
-    ##     distance
-    ## 
-    ## The following object is masked from 'package:ade4':
-    ## 
-    ##     score
-    ## 
-    ## 
-    ## Attaching package: 'AnnotationDbi'
-    ## 
-    ## The following object is masked from 'package:GenomeInfoDb':
-    ## 
-    ##     species
-    ## 
-    ## 
-    ## 
-    ## microbiome R package (microbiome.github.com)
-    ##           
-    ## 
-    ## 
-    ##  Copyright (C) 2011-2015
-    ##           Leo Lahti and Jarkko Salojarvi 
-    ## 
-    ##         
-    ##           <microbiome-admin@googlegroups.com>
-    ## 
-    ## 
-    ## Attaching package: 'microbiome'
-    ## 
-    ## The following object is masked from 'package:lattice':
-    ## 
-    ##     densityplot
-    ## 
-    ## The following object is masked from 'package:e1071':
-    ## 
-    ##     impute
-
-``` r
 data(peerj32)
 data <- peerj32$microbes # Samples x L2 groups; L2 data matrix; ABSOLUTE scale, not log10
 meta <- peerj32$meta # Samples x features metadata
@@ -189,10 +86,10 @@ nmds <- ordinate(physeq, "NMDS", "bray")
     ## Square root transformation
     ## Wisconsin double standardization
     ## Run 0 stress 0.1747778 
-    ## Run 1 stress 0.17549 
+    ## Run 1 stress 0.2052494 
     ## Run 2 stress 0.1747778 
     ## ... New best solution
-    ## ... procrustes: rmse 7.119887e-05  max resid 0.0004098436 
+    ## ... procrustes: rmse 0.0001264439  max resid 0.0007206769 
     ## *** Solution reached
 
 ``` r
