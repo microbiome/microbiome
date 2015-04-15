@@ -24,7 +24,8 @@ physeq <- hitchip2physeq(data, meta)
 ## Barplots
 
 ```{r taxbar, fig.width=5, fig.height=5}
-plot_bar(physeq, fill = "Phylum")
+p <- plot_bar(physeq, fill = "Phylum")
+print(p)
 ```
 
 

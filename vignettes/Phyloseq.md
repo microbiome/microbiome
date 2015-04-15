@@ -30,7 +30,8 @@ Converting HITChip L2 data into [phyloseq](https://github.com/joey711/phyloseq) 
 Barplots
 --------
 
-    plot_bar(physeq, fill = "Phylum")
+    p <- plot_bar(physeq, fill = "Phylum")
+    print(p)
 
 ![](Phyloseq_files/figure-markdown_strict/taxbar-1.png)
 
@@ -82,8 +83,7 @@ Ordination
     ## Wisconsin double standardization
     ## Run 0 stress 0.1747778 
     ## Run 1 stress 0.1747778 
-    ## ... New best solution
-    ## ... procrustes: rmse 8.541263e-05  max resid 0.0004805838 
+    ## ... procrustes: rmse 0.0001601664  max resid 0.000914335 
     ## *** Solution reached
 
     require("ggplot2")
