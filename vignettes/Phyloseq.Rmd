@@ -5,7 +5,7 @@ The [phyloseq](https://github.com/joey711/phyloseq) is an external high-quality 
 
 ## Example data
 
-Loading example data (L2 data and metadata; you can replace these with your own data). Make sure that the L2 datamatrix
+Loading example data (L2 data and metadata; you can replace these with your own data). Make sure that the L2 datamatrix is in absolute (not log10) scale.
 
 ```{r exampledata}
 library(microbiome)
@@ -23,7 +23,7 @@ physeq <- hitchip2physeq(data, meta)
 
 ## Barplots
 
-```{r taxbar, fig.width=5, fig.height=5, warning=FALSE, message=FALSE}
+```{r taxbar, fig.width=10, fig.height=7, warning=FALSE, message=FALSE}
 p <- plot_bar(physeq, fill = "Phylum")
 print(p)
 ```
@@ -34,16 +34,27 @@ print(p)
 [Heatmaps](http://joey711.github.io/phyloseq/plot_heatmap-examples) and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45)
 
 ```{r heatmap, warning=FALSE, message=FALSE}
+library(scales)
+library(vegan)
 plot_heatmap(physeq, taxa.label = "Phylum")
-plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", low="#000033", high="#FF3300", na.value="white")
-#plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", trans = log_trans(10))
-#plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", trans = identity_trans())
-#plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", trans = boxcox_trans(0.15))
+
+physeq.log <- physeq
+trans <- as.matrix(t(scale(t(log10(1 + physeq.log@otu_table)))))
+otu_table(physeq.log) <- otu_table(trans, taxa_are_rows=taxa_are_rows(physeq))
+plot_heatmap(physeq.log, method = "NMDS", distance = "jaccard", low="blue", high="red")
+
+#log transform sample counts
+physeq.log <- transform_sample_counts(physeq, function(x) log10(x+1))
+#calculate ordination of log transformed sample counts
+physeq.log.ord <- ordinate(physeq.log, "NMDS")
+#split plot with log trandormed sample counts
+p <- plot_ordination(physeq.log, physeq.log.ord, type = "split")
+p
 ```
 
 ## Richness
 
-```{r richness, warning=FALSE, message=FALSE}
+```{r richness, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
 library(ggplot2)
 plot_richness(physeq, x = "gender", color = "group") + geom_boxplot()
 ```
@@ -58,7 +69,7 @@ plot_bar(tops, "group", fill = "gender", facet_grid = ~Genus)
 
 ## Ordination
 
-```{r ordinate, warning=FALSE, message=FALSE}
+```{r ordinate, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
 plot_ordination(physeq, ordinate(physeq, "MDS"), color = "group") + geom_point(size = 5)
 
 nmds <- ordinate(physeq, "NMDS", "bray")

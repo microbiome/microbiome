@@ -45,8 +45,8 @@ fs <- c("Phyloseq.Rmd")
 for (f in fs) { 
 #for (f in setdiff(fs, c("Atlas.Rmd", "vignette.Rmd"))) { 
     print(f)
-    #knit(f) 
-    rmarkdown::render(f, "md_document")
+    knit(f) 
+    #rmarkdown::render(f, "md_document")
 }
 
 system("git add *.md")
