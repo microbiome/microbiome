@@ -13,7 +13,7 @@ library(rmarkdown)
 # ---------------------------------------------
 
 library(knitr)
-fs <- list.files(pattern = ".Rmd$")
+#fs <- list.files(pattern = ".Rmd$")
 #fs <- "vignette.Rmd"
 #fs <- sample(list.files(pattern = ".Rmd$"))
 #fs <- "Profiling.Rmd"
@@ -21,7 +21,7 @@ fs <- list.files(pattern = ".Rmd$")
 #fs <- "Heatmap.Rmd"
 #fs <- c("LatentClassAnalysis.Rmd", "NetResponse.Rmd")
 #fs <- c("RDA.Rmd")
-fs <- c("Phyloseq.Rmd")
+#fs <- c("Phyloseq.Rmd")
 #fs <- c("Barplots.Rmd")
 #fs <- c("Boxplots.Rmd")
 #fs <- c("RPA.Rmd")
@@ -37,7 +37,7 @@ fs <- c("Phyloseq.Rmd")
 #fs <- "RDA.Rmd"
 #fs <- "Density.Rmd"
 #fs <- c("Crosshyb.Rmd")
-#fs <- c("Installation.Rmd")
+fs <- c("Installation.Rmd")
 #fs <- c("ROC.Rmd")
 #fs <- c("limma.Rmd")
 #fs <- c("Phylogeny.Rmd")

@@ -32,7 +32,7 @@ biocLite("reshape2")
 biocLite("RPA")
 biocLite("svDialogs")
 biocLite("vegan")
-biocLite("WGCNA")
+biocLite("phyloseq")
 biocLite("rpart")
 ```		   
 
