@@ -80,6 +80,7 @@ Download some [example data sets](Data.md) to try these tools:
 ### Other statistical analysis
 * [ROC curves](ROC.md)
 * [RDA](RDA.md)
+* [Phyloseq tools](Phyloseq.md)
 
 ### Output
 * [Generating output files/figures](Output.md)
