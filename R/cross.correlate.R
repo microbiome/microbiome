@@ -27,13 +27,11 @@
 #'   cc <- cross.correlate(d1, d2)
 #'
 #' @export
-#' @import WGCNA
 #'
 #' @details As the method=categorical (discrete) association measure
 #'          for nominal (no order for levels) variables we use Goodman and
 #'          Kruskal tau based on
 #'          r-bloggers.com/measuring-associations-between-non-numeric-variables/
-#'          The 'bicor' method is from the WGCNA package.
 #'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -118,16 +116,16 @@ cross.correlate <- function(x, y = NULL, method = "pearson",
             
         }
        
-    } else if (method == "bicor") {
-        
-        if (verbose) {
-            message(method)
-        }
-        
-        t1 <- bicorAndPvalue(x, y, use = "pairwise.complete.obs")
-        Pc <- t1$p
-        Cc <- t1$bicor
-        
+    #} else if (method == "bicor") {
+    #    
+    #    if (verbose) {
+    #        message(method)
+    #    }
+    #    
+    #    t1 <- WGCNA::bicorAndPvalue(x, y, use = "pairwise.complete.obs")
+    #    Pc <- t1$p
+    #    Cc <- t1$bicor
+    #    
     } else if (method == "categorical") {
         
         if (verbose) {
