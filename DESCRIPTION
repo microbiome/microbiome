@@ -1,14 +1,14 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.43
-Date: 2015-05-20
+Version: 0.99.44
+Date: 2015-05-21
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Salojarvi", "Jarkko" , role = "aut"))
 biocViews: Microarray, Preprocessing, SystemsBiology, Visualization,
     Microbiome, Clustering
-Description: R tools for microbiome analysis
+Description: Various utilities for microbiome analysis.
 License: BSD_2_clause + file LICENSE
 Depends:
     R (>= 3.0.1),
@@ -33,8 +33,7 @@ Suggests:
     BiocStyle,
     gdata,
     knitr,
-    rmarkdown,
-    RUnit
+    rmarkdown
 URL: http://microbiome.github.com
 MailingList: microbiome < microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues
