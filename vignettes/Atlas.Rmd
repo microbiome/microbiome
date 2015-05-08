@@ -16,67 +16,22 @@ output:
 -->
 
 
-## Intestinal microbiota diversity in 1000 western adults
+## Intestinal microbiota diversity in 1006 western adults
 
-This reproducible document investigates an example data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) that contains large-scale profiling of 130 genus-like taxa across 1006 normal western subjects. This data set is available for download from the open [Data Dryad](http://doi.org/10.5061/dryad.pk75d) repository.
+We investigate here an example data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) that contains large-scale profiling of 130 genus-like taxa across 1006 normal western subjects. This data set is available for download from the open [Data Dryad](http://doi.org/10.5061/dryad.pk75d) repository.
 
-To reproduce this analysis, you can download the [source file](Atlas.Rmd) and render it in R with:
-
-```{r atlas, eval=FALSE}
-library(rmarkdown)
-rmarkdown::render("Atlas.Rmd")
-```
 
 ### Download HITChip Atlas data
 
 [Load the HITChip Atlas microbiome profiling data in R](Data.md)
 
 ```{r data2}
-# Load Dryad tools
-library("rdryad") # Use the install.packages("rdryad") if package not available
-
-# Define the data URL
-url <- download_url('10255/dryad.64665')
-
-# Download the data
-data <- read.table(url, sep = "\t", row.names = 1, header = TRUE)
-
-# The data comes from public repository (Dryad). 
-# The formatting of taxon names needs to be harmonized for microbiome package:
-# Fix some broken names from the original release..
-# ie. replace 'Clostridium..sensu.stricto.les' with 'Clostridiales'
-colnames(data) <- gsub("Clostridium..sensu.stricto.les", "Clostridiales", colnames(data))
-# Remove periods
-colnames(data) <- gsub("\\.", " ", colnames(data))
-# Put back 'rel.' periods
-colnames(data) <- gsub("rel $", "rel.", colnames(data))
-colnames(data) <- gsub("Clostridium  sensu stricto ", "Clostridium (sensu stricto)", colnames(data))
-
-# Convert to matrix 
-data <- as.matrix(data)
+# Download the required R packages and then the HITChip Atlas data set
+library("rdryad")
+library("microbiome")
+d <- download_microbiome("atlas1006")
 ```
 
-Load the HITChip Atlas metadata in R. Note that some individuals have
-multiple time points.
-
-```{r meta2}
-url <- download_url('10255/dryad.64666')
-meta <- read.table(url, sep = "\t", row.names = 1, header = TRUE)
-
-# Add SampleIDs as a separate column from rownames
-meta$SampleID <- rownames(meta)
-
-# Order BMI groups in correct order
-# (see README at http://datadryad.org/resource/doi:10.5061/dryad.pk75d for details)
-meta$BMI_group <- factor(meta$BMI_group, levels = c("underweight", "lean", "overweight", "obese", "severeobese", "morbidobese"))
-meta$SubjectID <- factor(meta$SubjectID)
-```
-
-Collect the atlas data and metadata into a single object:
-
-```{r atlas2}
-atlas <- list(microbes = data, meta = meta)
-```
 
 ### Diversity 
 
