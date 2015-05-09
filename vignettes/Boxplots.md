@@ -1,29 +1,32 @@
 ### Boxplots
 
-    library(microbiome, quietly = TRUE)
 
-    # Microbiota profiling data. Read as: bacteria x samples matrix
-    data(peerj32)  # From https://peerj.com/articles/32/
+```r
+library(microbiome, quietly = TRUE)
 
-    # Construct example data (df). Ensure that samples are given in same order
-    # in metadata and HITChip data.
-    df <- peerj32$meta
-    df$hitchip <- peerj32$microbes[rownames(df), "Akkermansia"]
+# Microbiota profiling data. Read as: bacteria x samples matrix
+data(peerj32)  # From https://peerj.com/articles/32/
 
-    # Visualize example data with a boxplot
-    library(ggplot2, quietly = TRUE)
-    theme_set(theme_bw(20))
-    p <- ggplot(df, aes(x = factor(time), y = hitchip))
-    p <- p + geom_boxplot(fill = "gray") # also try geom_violin
+# Construct example data (df). Ensure that samples are given in same order
+# in metadata and HITChip data.
+df <- peerj32$meta
+df$hitchip <- peerj32$microbes[rownames(df), "Akkermansia"]
 
-    # Add also subjects as lines and points
-    p <- p + geom_line(aes(group = subject))
-    p <- p + geom_point(aes(color = time), data = df, size = 4)
+# Visualize example data with a boxplot
+library(ggplot2, quietly = TRUE)
+theme_set(theme_bw(20))
+p <- ggplot(df, aes(x = factor(time), y = hitchip))
+p <- p + geom_boxplot(fill = "gray") # also try geom_violin
 
-    # Add axis tests
-    p <- p + xlab("Time") + ylab("Abundance (Log10)")
+# Add also subjects as lines and points
+p <- p + geom_line(aes(group = subject))
+p <- p + geom_point(aes(color = time), data = df, size = 4)
 
-    # Plot the image
-    print(p)
+# Add axis tests
+p <- p + xlab("Time") + ylab("Abundance (Log10)")
 
-![](figure/boxplot-example-1.png)
+# Plot the image
+print(p)
+```
+
+![plot of chunk boxplot-example](figure/boxplot-example-1.png) 

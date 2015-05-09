@@ -5,7 +5,8 @@ library(rmarkdown)
 
 #render("vignette.Rmd", "html_document")
 #rmarkdown::render("vignette.Rmd", "all")
-#library(knitr)
+library(knitr)
+library(knitcitations)
 #knit("vignette.Rmd")
 #library(knitr)
 #knit("Atlas.Rmd")
@@ -13,7 +14,6 @@ library(rmarkdown)
 # ---------------------------------------------
 
 library(knitr)
-#fs <- list.files(pattern = ".Rmd$")
 #fs <- "vignette.Rmd"
 #fs <- sample(list.files(pattern = ".Rmd$"))
 #fs <- "Profiling.Rmd"
@@ -37,11 +37,12 @@ library(knitr)
 #fs <- "RDA.Rmd"
 #fs <- "Density.Rmd"
 #fs <- c("Crosshyb.Rmd")
-fs <- c("Installation.Rmd")
+#fs <- c("Installation.Rmd")
 #fs <- c("ROC.Rmd")
 #fs <- c("limma.Rmd")
 #fs <- c("Phylogeny.Rmd")
 #for (f in setdiff(fs, "Installation.Rmd")) { 
+fs <- list.files(pattern = ".Rmd$")
 for (f in fs) { 
 #for (f in setdiff(fs, c("Atlas.Rmd", "vignette.Rmd"))) { 
     print(f)

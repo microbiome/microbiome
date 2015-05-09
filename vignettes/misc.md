@@ -1,34 +1,41 @@
+
 ### Bagged RDA
 
 Calculate Bagged RDA and visualize the results:
 
-    # Modify the group vector into a facor as required by Bagged RDA
-    y <- factor(annot$time); names(y) <- rownames(annot)
 
-    # Bagged RDA
-    Bag.res <- Bagged.RDA.Feature.Selection(t(l2), y, sig.thresh=0.05, nboot=100)
+```r
+# Modify the group vector into a facor as required by Bagged RDA
+y <- factor(annot$time); names(y) <- rownames(annot)
 
-    # Visualize
-    PlotBaggedRDA(Bag.res, y)
+# Bagged RDA
+Bag.res <- Bagged.RDA.Feature.Selection(t(l2), y, sig.thresh=0.05, nboot=100)
+
+# Visualize
+PlotBaggedRDA(Bag.res, y)
+```
+
 
 ### Oligo heatmap
 
-This reproduces the oligo-level heatmap from profiling script. If there
-are problems, try to tune ppcm, figureratio and fontsize (see
-help(add.heatmap) for details)
+This reproduces the oligo-level heatmap from profiling script. If there are problems, try to tune ppcm, figureratio and fontsize (see help(add.heatmap) for details)
 
-    library(microbiome)
 
-    # Load Phylogeny
-    phylogeny.info <- GetPhylogeny("HITChip")
+```r
+library(microbiome)
 
-    # Load oligo-level data
+# Load Phylogeny
+phylogeny.info <- GetPhylogeny("HITChip")
 
-    # Replace data.directory here with your own profiling script output data directory
-    data.directory <- system.file("extdata", package = "microbiome")
+# Load oligo-level data
 
-    oligodata <- read.profiling(level = "oligo", log10 = FALSE, data.dir = data.directory)
+# Replace data.directory here with your own profiling script output data directory
+data.directory <- system.file("extdata", package = "microbiome")
 
-    # Produce the plot and save it to the working directory
-    library(HITChipDB)
-    hc.params <- add.heatmap(log10(oligodata), output.dir = ".", phylogeny.info = phylogeny.info)
+oligodata <- read.profiling(level = "oligo", log10 = FALSE, data.dir = data.directory)
+
+# Produce the plot and save it to the working directory
+library(HITChipDB)
+hc.params <- add.heatmap(log10(oligodata), output.dir = ".", phylogeny.info = phylogeny.info)
+```
+

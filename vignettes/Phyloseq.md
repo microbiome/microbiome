@@ -5,7 +5,7 @@ The [phyloseq](https://github.com/joey711/phyloseq) is an external high-quality 
 
 ## Example data
 
-Loading example data (L2 data and metadata; you can replace these with your own data). Make sure that the L2 datamatrix
+Loading example data (L2 data and metadata; you can replace these with your own data). Make sure that the L2 datamatrix is in absolute (not log10) scale.
 
 
 ```r
@@ -24,7 +24,7 @@ physeq <- hitchip2physeq(data, meta)
 ```
 
 ```
-## Reading /home/antagomir/R/x86_64-pc-linux-gnu-library/3.1/microbiome/extdata/phylogeny.full.tab
+## Reading /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.full.tab
 ```
 
 ## Barplots
@@ -32,6 +32,13 @@ physeq <- hitchip2physeq(data, meta)
 
 ```r
 p <- plot_bar(physeq, fill = "Phylum")
+```
+
+```
+## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
+```
+
+```r
 print(p)
 ```
 
@@ -44,22 +51,53 @@ print(p)
 
 
 ```r
+library(scales)
+library(vegan)
 plot_heatmap(physeq, taxa.label = "Phylum")
 ```
 
+```
+## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
+```
+
+```r
+physeq.log <- physeq
+trans <- as.matrix(t(scale(t(log10(1 + physeq.log@otu_table)))))
+otu_table(physeq.log) <- otu_table(trans, taxa_are_rows=taxa_are_rows(physeq))
+plot_heatmap(physeq.log, method = "NMDS", distance = "jaccard", low="blue", high="red")
+```
+
+```
+## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
+```
+
+```r
+#log transform sample counts
+physeq.log <- transform_sample_counts(physeq, function(x) log10(x+1))
+#calculate ordination of log transformed sample counts
+physeq.log.ord <- ordinate(physeq.log, "NMDS")
+```
+
+```
+## Run 0 stress 0.1946503 
+## Run 1 stress 0.2224881 
+## Run 2 stress 0.2024528 
+## Run 3 stress 0.2164318 
+## Run 4 stress 0.2054422 
+## Run 5 stress 0.2051604 
+## Run 6 stress 0.1946503 
+## ... New best solution
+## ... procrustes: rmse 9.201913e-05  max resid 0.0004214249 
+## *** Solution reached
+```
+
+```r
+#split plot with log trandormed sample counts
+p <- plot_ordination(physeq.log, physeq.log.ord, type = "split")
+p
+```
+
 ![plot of chunk heatmap](figure/heatmap-1.png) 
-
-```r
-plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", low="#000033", high="#FF3300", na.value="white")
-```
-
-![plot of chunk heatmap](figure/heatmap-2.png) 
-
-```r
-#plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", trans = log_trans(10))
-#plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", trans = identity_trans())
-#plot_heatmap(physeq, "NMDS", "bray", "gender", "Phylum", trans = boxcox_trans(0.15))
-```
 
 ## Richness
 
@@ -80,7 +118,9 @@ tops <- prune_taxa(TopNOTUs, physeq)
 plot_bar(tops, "group", fill = "gender", facet_grid = ~Genus)
 ```
 
-![plot of chunk topotu](figure/topotu-1.png) 
+```
+## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
+```
 
 ## Ordination
 
@@ -99,10 +139,10 @@ nmds <- ordinate(physeq, "NMDS", "bray")
 ## Square root transformation
 ## Wisconsin double standardization
 ## Run 0 stress 0.1747778 
-## Run 1 stress 0.1754901 
-## Run 2 stress 0.1754901 
-## Run 3 stress 0.1747798 
-## ... procrustes: rmse 0.0005217542  max resid 0.002997529 
+## Run 1 stress 0.17549 
+## Run 2 stress 0.17549 
+## Run 3 stress 0.1747778 
+## ... procrustes: rmse 1.753541e-05  max resid 8.234749e-05 
 ## *** Solution reached
 ```
 
@@ -160,14 +200,16 @@ f <- filter_taxa(r, function(x) var(x) > 1e-05, TRUE)
 plot_net(physeq, maxdist = 0.45, point_label = "group")
 ```
 
-![plot of chunk networks](figure/networks-1.png) 
+```
+## Error in `[.data.table`(vertexDT, LinksData$v1, x, y): i has not evaluated to logical, integer or double
+```
 
 ```r
 ig <- make_network(physeq, max.dist = 0.45)
 plot_network(ig, physeq, color = "gender", shape = "group", line_weight = 0.4, label = NULL)
 ```
 
-![plot of chunk networks](figure/networks-2.png) 
+![plot of chunk networks](figure/networks-1.png) 
 
 
 

@@ -2,32 +2,39 @@
 
 A basic example of ROC/AUC analysis with simulated random data.
 
-    # Define two sample groups for demonstration purpose
-    g1 <- sample(colnames(oligo.data), 10)
-    g2 <- setdiff(colnames(oligo.data), g1)
 
-    # Compare the two groups with t-test
-    pvalues <- c()
-    for (tax in rownames(oligo.data)) {
-      pvalues[[tax]] <- t.test(oligo.data[tax, g1], oligo.data[tax, g2])$p.value
-    }
+```r
+# Define two sample groups for demonstration purpose
+g1 <- sample(colnames(oligo.data), 10)
+g2 <- setdiff(colnames(oligo.data), g1)
 
-    # Order the taxa based on the p-values
-    ordered.results <- names(sort(pvalues))
+# Compare the two groups with t-test
+pvalues <- c()
+for (tax in rownames(oligo.data)) {
+  pvalues[[tax]] <- t.test(oligo.data[tax, g1], oligo.data[tax, g2])$p.value
+}
 
-    # Assume there are some known true positives (here just randomly picked for demonstration)
-    true.positives <- sample(rownames(oligo.data), 10)
+# Order the taxa based on the p-values
+ordered.results <- names(sort(pvalues))
 
-    # Overall ROC analysis (this will give the cumulative TPR and FPR along the ordered list)
-    res <- roc(ordered.results, true.positives)
+# Assume there are some known true positives (here just randomly picked for demonstration)
+true.positives <- sample(rownames(oligo.data), 10)
 
-    # Calculate ROC/AUC value
-    auc <- roc.auc(ordered.results, true.positives)
-    print(auc)
+# Overall ROC analysis (this will give the cumulative TPR and FPR along the ordered list)
+res <- roc(ordered.results, true.positives)
 
-    ## [1] 0.5846105
+# Calculate ROC/AUC value
+auc <- roc.auc(ordered.results, true.positives)
+print(auc)
+```
 
-    # Plot ROC curve
-    roc.plot(ordered.results, true.positives, line = TRUE)
+```
+## [1] 0.5899085
+```
 
-![](figure/roc-example-1.png)
+```r
+# Plot ROC curve
+roc.plot(ordered.results, true.positives, line = TRUE)
+```
+
+![plot of chunk roc-example](figure/roc-example-1.png) 
