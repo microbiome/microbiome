@@ -1,7 +1,7 @@
 ---
 title: "Atlas workflow"
 author: "Leo Lahti"
-date: "2015-05-09"
+date: "2015-05-11"
 output:
   md_document:
     toc: false
@@ -34,6 +34,18 @@ library("microbiome")
 
 ```
 ## Loading required package: ade4
+## Loading required package: dplyr
+## 
+## Attaching package: 'dplyr'
+## 
+## The following object is masked from 'package:stats':
+## 
+##     filter
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+## 
 ## Loading required package: e1071
 ## Loading required package: phyloseq
 ## Loading required package: reshape2
@@ -47,7 +59,14 @@ library("microbiome")
 ## The following object is masked from 'package:ade4':
 ## 
 ##     cca
-## 
+```
+
+```
+## Warning: replacing previous import by 'dplyr::select' when loading
+## 'microbiome'
+```
+
+```
 ## 
 ## microbiome R package (microbiome.github.com)
 ##           

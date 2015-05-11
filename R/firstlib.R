@@ -1,3 +1,4 @@
+#' @import dplyr
 #' @import devtools
 #' @import earlywarnings
 #' @import fastcluster

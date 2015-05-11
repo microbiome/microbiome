@@ -1,31 +1,45 @@
-#' Variability analysis. Calculates average Pearson '
-#' correlation between samples in the input data and picks the lower '
-#' triangular matrix to avoid duplicating the correlations. Returns 
-#' correlations and stability estimate (average of the correlations). 
-#' Can also be used to calculate stability between two data sets. 
-#' Then provide two data sets as inputs.
+#' Variability analysis. 
+
+#' @details Average correlation between samples in the input data within each group with the 
+#'          overall group-wise average. Picks the lower triangular matrix to avoid duplicating 
+#'	    the correlations. Returns correlations and stability estimate (inter-individual; 
+#'	    average of the correlations). Can also be used to calculate temporal variability 
+#'	    between two data sets (intra-individual), given appropriate sample metadata.
 #'
-#' @param dat1 data matrix samples vs phylotypes (in log10 scale)
-#' @param dat2 Optional. Second data matrix samples vs. phylotypes. 
-#'          Provide this to calculate stability between two (paired) 
-#'          data sets.
-#' @param method Correlation method (see ?cor)
+#' @param x data matrix samples vs phylotypes
+#' @param meta data.frame with the fields "group" and "sample" for method "interindividual". 
+#'             For method "intraindividual", also provide "time", and "subject" fields.
+#' @param type Variability type: 'interindividual' or 'intraindividual'
+#' @param group_by variable to be used in grouping. By default: "group"
+#' @param method correlation method (see ?cor)
 #'
-#' @return List with correlations and astability estimate
-#' @import dplyr
+#' @return List with correlations, group-wise statistics, and ANOVA linear model p-value for 
+#' 	   group differences.
 #'
 #' @export
 #' @examples 
-#'   library(microbiome)
-#'   data.peerj32 <- download_microbiome("peerj32")
-#'   x <- data.peerj32$microbes
-#'   s <- estimate_variability(x[, 1:5])
-#' @references See citation('microbiome') 
+#' # Example data
+#' library(microbiome)
+#' data.peerj32 <- download_microbiome("peerj32")
+#' x <- data.peerj32$microbes
+#' m <- data.peerj32$meta
+#' # Estimate inter-individual variability
+#' res <- estimate_variability(x, m, "interindividual")
+#' # Estimate intra-individual variability
+#' res <- estimate_variability(x, m, "intraindividual")
+#'
+#' @references 
+#' The inter- and intra-individual variability are calculated
+#' as described in Salonen et al. ISME J. 8:2218-30, 2014.
+#' To cite this R package, see citation('microbiome')
+#' 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 estimate_variability <- function(x, meta, type, group_by = "group", method = "spearman") {
-    
+
+ 		         
     # Split the data by group
+    group <- NULL
     if (!group_by %in% names(meta)) {
       meta[[group_by]] <- rep("completedata", nrow(meta))
     }

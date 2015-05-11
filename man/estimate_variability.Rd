@@ -2,44 +2,54 @@
 % Please edit documentation in R/variability.R
 \name{estimate_variability}
 \alias{estimate_variability}
-\title{Stability analysis. Calculates average Pearson '
-correlation between samples in the input data and picks the lower '
-triangular matrix to avoid duplicating the correlations. Returns
-correlations and stability estimate (average of the correlations).
-Can also be used to calculate stability between two data sets.
-Then provide two data sets as inputs.}
+\title{Variability analysis.}
 \usage{
-estimate_variability(dat1, dat2 = NULL, method = "pearson")
+estimate_variability(x, meta, type, group_by = "group", method = "spearman")
 }
 \arguments{
-\item{dat1}{data matrix phylotypes vs. samples (in log10 scale)}
+\item{x}{data matrix samples vs phylotypes}
 
-\item{dat2}{Optional. Second data matrix phylotypes vs. samples.
-Provide this to calculate stability between two (paired)
-data sets.}
+\item{meta}{data.frame with the fields "group" and "sample" for method "interindividual".
+For method "intraindividual", also provide "time", and "subject" fields.}
 
-\item{method}{Correlation method (see ?cor)}
+\item{type}{Variability type: 'interindividual' or 'intraindividual'}
+
+\item{group_by}{variable to be used in grouping. By default: "group"}
+
+\item{method}{correlation method (see ?cor)}
 }
 \value{
-List with correlations and astability estimate
+List with correlations, group-wise statistics, and ANOVA linear model p-value for
+	   group differences.
 }
 \description{
-Stability analysis. Calculates average Pearson '
-correlation between samples in the input data and picks the lower '
-triangular matrix to avoid duplicating the correlations. Returns
-correlations and stability estimate (average of the correlations).
-Can also be used to calculate stability between two data sets.
-Then provide two data sets as inputs.
+Variability analysis.
+}
+\details{
+Average correlation between samples in the input data within each group with the
+         overall group-wise average. Picks the lower triangular matrix to avoid duplicating
+	    the correlations. Returns correlations and stability estimate (inter-individual;
+	    average of the correlations). Can also be used to calculate temporal variability
+	    between two data sets (intra-individual), given appropriate sample metadata.
 }
 \examples{
-data(peerj32)
-  s <- estimate_variability(t(peerj32$microbes)[, 1:5])
+# Example data
+library(microbiome)
+data.peerj32 <- download_microbiome("peerj32")
+x <- data.peerj32$microbes
+m <- data.peerj32$meta
+# Estimate inter-individual variability
+res <- estimate_variability(x, m, "interindividual")
+# Estimate intra-individual variability
+res <- estimate_variability(x, m, "intraindividual")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation('microbiome')
+The inter- and intra-individual variability are calculated
+as described in Salonen et al. ISME J. 8:2218-30, 2014.
+To cite this R package, see citation('microbiome')
 }
 \keyword{utilities}
 

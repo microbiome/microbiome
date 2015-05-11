@@ -1,42 +1,55 @@
+---
+title: "Project Template"
+author: "Your Name"
+date: "2015-05-11"
+output:
+  md_document:
+    toc: false
+    variant: markdown_github
+---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{Project Template}
   %\usepackage[utf8]{inputenc}
 -->
+
+
 Minimal example
-===============
+===========
 
 ### Set up reproducible document generation
 
 To test reproducible document generation:
 
-1.  Start [RStudio](http://www.rstudio.com/)
-2.  Open a new Rmarkdown (Rmd) file
-3.  Convert that Rmd file with the 'knit' button
-4.  Modify the Rmd file and knit again to make your own reproducible report
+ 1. Start [RStudio](http://www.rstudio.com/)
+ 1. Open a new Rmarkdown (Rmd) file 
+ 1. Convert that Rmd file with the 'knit' button
+ 1. Modify the Rmd file and knit again to make your own reproducible report
 
 ### Try out microbiome analysis
 
-Start by adapting some of the following elements in your reproducible document:
+Start by adapting some of the following elements in your reproducible
+document:
 
-1.  [Install the microbiome package and its dependencies](Installation.md) (No need to install the HITChipDB package that is also mentioned!)
-2.  [Download example data](Data.md) (pick HITChip Atlas + metadata; no need to install the other data sets!)
-3.  [Analyse microbiota diversity](Diversity.md)
-4.  [Repeat the example workflow](Atlas.md) (This shows the expected outcomes from some of the earlier steps)
-5.  Adapt further examples from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
+ 1. [Install the microbiome package and its dependencies](Installation.md) (No need to install the HITChipDB package that is also mentioned!)
+ 1. [Download example data](Data.md) (pick HITChip Atlas + metadata; no need to install the other data sets!)
+ 1. [Analyse microbiota diversity](Diversity.md)
+ 1. [Repeat the example workflow](Atlas.md) (This shows the expected outcomes from some of the earlier steps)
+ 1. Adapt further examples from [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
 ### Resources
 
 Further tips:
 
--   [Rmarkdown tips](http://rmarkdown.rstudio.com/)
--   [R cheat sheets](http://devcheatsheet.com/tag/r/)
--   [Using Github with R and RStudio](http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/)
--   [Molecular ecologist's view on code sharing](http://www.molecularecologist.com/2013/08/want-to-share-your-code/)
+ * [Rmarkdown tips](http://rmarkdown.rstudio.com/)
+ * [R cheat sheets](http://devcheatsheet.com/tag/r/)
+ * [Using Github with R and RStudio](http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/)
+ * [Molecular ecologist's view on code sharing](http://www.molecularecologist.com/2013/08/want-to-share-your-code/)
 
 ### Example visualization in R
 
-``` r
+
+```r
 # Load Dryad tools
 library("rdryad") # Use the install.packages("rdryad") if package not available
 
@@ -65,4 +78,4 @@ div <- vegan::diversity(atlas$microbes)
 boxplot(div ~ bmi, las = 2, main = "Microbiota diversity vs. obesity")
 ```
 
-![](figure/example-1.png)
+![plot of chunk example](figure/example-1.png) 
