@@ -2,7 +2,7 @@
 #'
 #' Description: Quantify intermediate stability with respect to a given reference point. 
 #'
-#' @param x \link{\code{phyloseq}} object.
+#' @param x \pkg{phyloseq} object.
 #'          Includes otu_table (variables x samples) and
 #' 	    sample_data data.frame (samples x features) with 'subject'
 #'	    and 'time' field for each sample.
@@ -10,7 +10,7 @@
 #' @param reference.point Optional. Calculate stability of the
 #'                        data w.r.t. this point. By default the
 #'                        intermediate range is used (min + (max - min)/2)
-#' @param method "lm" (linear model) or "correlation";
+#' @param method 'lm' (linear model) or 'correlation';
 #'               the linear model takes time into account as a covariate 
 #' 
 #' @return A list with following elements: 

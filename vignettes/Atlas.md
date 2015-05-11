@@ -48,16 +48,6 @@ library("microbiome")
 ## 
 ## Loading required package: e1071
 ## Loading required package: phyloseq
-## 
-## Attaching package: 'phyloseq'
-## 
-## The following objects are masked _by_ '.GlobalEnv':
-## 
-##     nodeplotblank, nodeplotboot, nodeplotdefault, plot_bar,
-##     plot_clusgap, plot_heatmap, plot_net, plot_network,
-##     plot_ordination, plot_phyloseq, plot_richness, plot_scree,
-##     plot_tree, psmelt, subset_ord_plot, tree_layout
-## 
 ## Loading required package: reshape2
 ## Loading required package: vegan
 ## Loading required package: permute
@@ -168,13 +158,6 @@ Diversity vs. age with smoothed confidence intervals:
 ```r
 library(microbiome)
 library(sorvi)
-```
-
-```
-## Error in library(sorvi): there is no package called 'sorvi'
-```
-
-```r
 library(dplyr)
 
 # Pick the subset of RBB-preprocessed samples from time point 0
@@ -200,12 +183,14 @@ p <- sorvi::regression_plot(Diversity~Age, df, shade = TRUE, mweight = TRUE, ver
 ```
 
 ```
-## Error in loadNamespace(name): there is no package called 'sorvi'
+## Error in data[[IV]]: object of type 'closure' is not subsettable
 ```
 
 ```r
 print(p)
 ```
 
-![plot of chunk visu-example3](figure/visu-example3-1.png) 
+```
+## Error in print(p): object 'p' not found
+```
 

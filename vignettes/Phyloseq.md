@@ -24,7 +24,7 @@ physeq <- hitchip2physeq(data, meta)
 ```
 
 ```
-## Reading /home/antagomir/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.full.tab
+## Reading /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.full.tab
 ```
 
 ## Barplots
@@ -57,10 +57,6 @@ plot_heatmap(physeq, taxa.label = "Phylum")
 ```
 
 ```
-## [1] "test"
-```
-
-```
 ## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
 ```
 
@@ -69,10 +65,6 @@ physeq.log <- physeq
 trans <- as.matrix(t(scale(t(log10(1 + physeq.log@otu_table)))))
 otu_table(physeq.log) <- otu_table(trans, taxa_are_rows=taxa_are_rows(physeq))
 plot_heatmap(physeq.log, method = "NMDS", distance = "jaccard", low="blue", high="red")
-```
-
-```
-## [1] "test"
 ```
 
 ```
@@ -139,9 +131,7 @@ plot_bar(tops, "group", fill = "gender", facet_grid = ~Genus)
 plot_ordination(physeq, ordinate(physeq, "MDS"), color = "group") + geom_point(size = 5)
 ```
 
-```
-## Error in plot_ordination(physeq, ordinate(physeq, "MDS"), color = "group") + : non-numeric argument to binary operator
-```
+![plot of chunk ordinate](figure/ordinate-1.png) 
 
 ```r
 nmds <- ordinate(physeq, "NMDS", "bray")
@@ -162,39 +152,33 @@ p2 <- plot_ordination(physeq, ordinate(physeq, "CCA"), type = "samples", color =
 p2 + geom_point(size = 5) + geom_polygon(aes(fill = gender))
 ```
 
-![plot of chunk ordinate](figure/ordinate-1.png) 
+![plot of chunk ordinate](figure/ordinate-2.png) 
 
 ```r
 plot_ordination(physeq, ordinate(physeq, "CCA"), type = "taxa", color = "Phylum") + 
     geom_point(size = 4)
 ```
 
-![plot of chunk ordinate](figure/ordinate-2.png) 
+![plot of chunk ordinate](figure/ordinate-3.png) 
 
 ```r
 plot_ordination(physeq, ordinate(physeq, "CCA"), type = "split", color = "gender")
 ```
 
-```
-## Error in rp.joint.fill(DF, color, "Taxa"): could not find function "is.discrete"
-```
+![plot of chunk ordinate](figure/ordinate-4.png) 
 
 ```r
 plot_ordination(physeq, ordinate(physeq, "CCA"), type = "biplot", shape = "Phylum")
 ```
 
-```
-## Error in rp.joint.fill(DF, shape, "Samples"): could not find function "is.discrete"
-```
+![plot of chunk ordinate](figure/ordinate-5.png) 
 
 ```r
 plot_ordination(physeq, ordinate(physeq, "CCA"), type = "split", color = "gender", 
     shape = "Phylum", label = "gender")
 ```
 
-```
-## Error in rp.joint.fill(DF, shape, "Samples"): could not find function "is.discrete"
-```
+![plot of chunk ordinate](figure/ordinate-6.png) 
 
 ## Filtering and pruning
 
@@ -217,7 +201,7 @@ plot_net(physeq, maxdist = 0.45, point_label = "group")
 ```
 
 ```
-## Error in plot_net(physeq, maxdist = 0.45, point_label = "group"): object 'layout.auto' not found
+## Error in `[.data.table`(vertexDT, LinksData$v1, x, y): i has not evaluated to logical, integer or double
 ```
 
 ```r
@@ -225,9 +209,7 @@ ig <- make_network(physeq, max.dist = 0.45)
 plot_network(ig, physeq, color = "gender", shape = "group", line_weight = 0.4, label = NULL)
 ```
 
-```
-## Error in plot_network(ig, physeq, color = "gender", shape = "group", line_weight = 0.4, : could not find function "vcount"
-```
+![plot of chunk networks](figure/networks-1.png) 
 
 
 

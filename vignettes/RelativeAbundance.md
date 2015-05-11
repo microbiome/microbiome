@@ -14,7 +14,7 @@ x <- read.profiling(level = "L1", method = "frpa",
 ```
 
 ```
-## Reading /home/antagomir/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/L1-frpa.tab
+## Reading /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/L1-frpa.tab
 ```
 
 ```r

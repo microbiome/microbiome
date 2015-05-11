@@ -36,7 +36,7 @@ permutest(rdatest) # RDA Significance test
 ## Call: rda(formula = l2 ~ annot$time)
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.3568663 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.96
+## Significance:	 0.95
 ```
 
 ### Controlling for confounding variables

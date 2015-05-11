@@ -14,7 +14,7 @@ res <- PlotCrosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE)
 ```
 
 ```
-## Reading /home/antagomir/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.filtered.tab
+## Reading /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.filtered.tab
 ```
 
 ```r
@@ -58,7 +58,7 @@ phylogeny.info <- GetPhylogeny("HITChip", "filtered")
 ```
 
 ```
-## Reading /home/antagomir/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.filtered.tab
+## Reading /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.filtered.tab
 ```
 
 ```r
@@ -70,7 +70,7 @@ res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0,
 ```
 
 ```
-## Reading /home/antagomir/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.filtered.tab
+## Reading /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.filtered.tab
 ```
 
 ![plot of chunk chyb2](figure/chyb2-1.png) 

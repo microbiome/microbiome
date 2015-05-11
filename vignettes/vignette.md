@@ -97,8 +97,8 @@ Bioconductor extensions, including:
  * df2json (Caballero, 2013)
  * rjson (Couture-Beil, 2014)
  * ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007)
- * mixOmics (Dejean, Gonzalez, Monget, Coquery, Yao, Liquet, and Rohart, 2014)
- * RCurl (Temple Lang, 2014)
+ * mixOmics (Cao, Gonzalez, Rohart, Gautier, Monget, Coquery, Yao, and Liquet., 2015)
+ * RCurl (Temple Lang, 2015)
  * vegan (Oksanen, Blanchet, Kindt, Legendre, Minchin, O'Hara, Simpson, Solymos, Stevens, and Wagner, 2015)
  * reshape (Wickham and Hadley, 2007)
  * WGCNA (Langfelder and Horvath, 2008; Langfelder and Horvath, 2012)
@@ -117,15 +117,15 @@ Bioconductor extensions, including:
 package version 0.0.2. 2013. <URL:
 http://CRAN.R-project.org/package=df2json>.
 
-[2] D. Chessel, A. Dufour and J. Thioulouse. "The ade4 package-I-
+[2] K. L. Cao, I. Gonzalez, S. D. w. k. c. F. Rohart, et al.
+_mixOmics: Omics Data Integration Project_. R package version
+5.0-4. 2015. <URL: http://CRAN.R-project.org/package=mixOmics>.
+
+[3] D. Chessel, A. Dufour and J. Thioulouse. "The ade4 package-I-
 One-table methods". In: _R News_ 4 (2004), pp. 5-10.
 
-[3] A. Couture-Beil. _rjson: JSON for R_. R package version
+[4] A. Couture-Beil. _rjson: JSON for R_. R package version
 0.2.15. 2014. <URL: http://CRAN.R-project.org/package=rjson>.
-
-[4] S. Dejean, I. Gonzalez, K. L. C. w. c. f. P. Monget, et al.
-_mixOmics: Omics Data Integration Project_. R package version
-5.0-3. 2014. <URL: http://CRAN.R-project.org/package=mixOmics>.
 
 [5] S. Dray and A. Dufour. "The ade4 package: implementing the
 duality diagram for ecologists". In: _Journal of Statistical
@@ -177,7 +177,7 @@ Computing, 2013. ISBN: ISBN 3-900051-07-0. <URL:
 http://www.R-project.org/>.
 
 [15] D. Temple Lang. _RCurl: General network (HTTP/FTP/...) client
-interface for R_. R package version 1.95-4.5. 2014. <URL:
+interface for R_. R package version 1.95-4.6. 2015. <URL:
 http://CRAN.R-project.org/package=RCurl>.
 
 [16] H. Wickham. _ggplot2: elegant graphics for data analysis_.
@@ -204,7 +204,7 @@ sessionInfo()
 ```
 ## R version 3.2.0 (2015-04-16)
 ## Platform: x86_64-unknown-linux-gnu (64-bit)
-## Running under: Ubuntu 15.04
+## Running under: Ubuntu 14.10
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -219,70 +219,72 @@ sessionInfo()
 ##  [8] datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] scales_0.2.4          HITChipDB_0.5.15      RPA_1.24.0           
-##  [4] affy_1.46.0           Biobase_2.28.0        BiocGenerics_0.14.0  
-##  [7] RMySQL_0.10.3         DBI_0.3.1             preprocessCore_1.30.0
-## [10] limma_3.24.0          gdata_2.13.3          netresponse_1.18.0   
-## [13] reshape_0.8.5         mclust_5.0.0          minet_3.26.0         
-## [16] Rgraphviz_2.12.0      graph_1.46.0          ggplot2_1.0.1        
-## [19] microbiome_0.99.46    vegan_2.2-1           lattice_0.20-31      
-## [22] permute_0.8-3         reshape2_1.4.1        phyloseq_1.11.2      
-## [25] e1071_1.6-4           dplyr_0.4.1           ade4_1.7-2           
-## [28] rdryad_0.1.1          knitcitations_1.0.5   knitr_1.9            
-## [31] rmarkdown_0.5.1      
+##  [1] scales_0.2.4          googleVis_0.5.8       HITChipDB_0.5.15     
+##  [4] RPA_1.24.0            affy_1.46.0           Biobase_2.28.0       
+##  [7] BiocGenerics_0.14.0   RMySQL_0.10.3         DBI_0.3.1            
+## [10] preprocessCore_1.30.0 limma_3.24.3          gdata_2.13.3         
+## [13] netresponse_1.18.0    reshape_0.8.5         mclust_5.0.1         
+## [16] minet_3.26.0          Rgraphviz_2.12.0      graph_1.46.0         
+## [19] ggplot2_1.0.1         sorvi_0.7.23          microbiome_0.99.46   
+## [22] vegan_2.2-1           lattice_0.20-31       permute_0.8-3        
+## [25] reshape2_1.4.1        phyloseq_1.12.2       e1071_1.6-4          
+## [28] dplyr_0.4.1           ade4_1.7-2            rdryad_0.1.1         
+## [31] knitcitations_1.0.5   knitr_1.10            rmarkdown_0.5.3.5    
+## [34] scimapClient_0.2.1   
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] colorspace_1.2-6        rjson_0.2.15           
-##   [3] class_7.3-12            qvalue_2.0.0           
-##   [5] som_0.3-5               futile.logger_1.4.1    
-##   [7] XVector_0.8.0           OAIHarvester_0.1-7     
-##   [9] RcppArmadillo_0.5.000.0 GenomicRanges_1.20.2   
-##  [11] affyio_1.36.0           mvtnorm_1.0-2          
-##  [13] AnnotationDbi_1.30.0    lubridate_1.3.3        
-##  [15] RefManageR_0.8.45       codetools_0.2-11       
-##  [17] splines_3.2.0           geneplotter_1.46.0     
-##  [19] mixOmics_5.0-3          tgp_2.4-11             
-##  [21] spam_1.0-1              Formula_1.2-1          
-##  [23] annotate_1.46.0         cluster_2.0.1          
-##  [25] pheatmap_1.0.2          Kendall_2.2            
-##  [27] httr_0.6.1              lazyeval_0.1.10        
-##  [29] assertthat_0.1          Matrix_1.2-0           
-##  [31] formatR_1.2             acepack_1.3-3.3        
-##  [33] htmltools_0.2.6         tools_3.2.0            
-##  [35] igraph_0.7.1            gtable_0.1.2           
-##  [37] maps_2.3-9              Rcpp_0.11.5            
-##  [39] df2json_0.0.2           Biostrings_2.36.0      
-##  [41] RJSONIO_1.3-0           multtest_2.24.0        
-##  [43] biom_0.3.12             ape_3.2                
-##  [45] nlme_3.1-120            iterators_1.0.7        
-##  [47] lmtest_0.9-33           fastcluster_1.1.16     
-##  [49] stringr_0.6.2           proto_0.3-10           
-##  [51] gtools_3.4.2            devtools_1.7.0         
-##  [53] XML_3.98-1.1            zlibbioc_1.14.0        
-##  [55] MASS_7.3-40             zoo_1.7-12             
-##  [57] BiocInstaller_1.18.1    lambda.r_1.1.7         
-##  [59] RColorBrewer_1.1-2      fields_8.2-1           
-##  [61] memoise_0.2.1           rpart_4.1-9            
-##  [63] latticeExtra_0.6-26     maptree_1.4-7          
-##  [65] RSQLite_1.0.0           genefilter_1.50.0      
-##  [67] S4Vectors_0.6.0         tseries_0.10-34        
-##  [69] foreach_1.4.2           nortest_1.0-3          
-##  [71] boot_1.3-16             BiocParallel_1.2.0     
-##  [73] bibtex_0.4.0            chron_2.3-45           
-##  [75] GenomeInfoDb_1.4.0      moments_0.14           
-##  [77] bitops_1.0-6            dmt_0.8.20             
-##  [79] rgl_0.95.1201           evaluate_0.7           
-##  [81] labeling_0.3            plyr_1.8.2             
-##  [83] magrittr_1.5            DESeq2_1.8.0           
-##  [85] IRanges_2.2.1           earlywarnings_1.1.19   
-##  [87] Hmisc_3.15-0            foreign_0.8-63         
-##  [89] mgcv_1.8-6              survival_2.38-1        
-##  [91] RCurl_1.95-4.5          nnet_7.3-9             
-##  [93] futile.options_1.0.0    KernSmooth_2.23-14     
-##  [95] RGCCA_2.0               locfit_1.5-9.1         
-##  [97] data.table_1.9.4        digest_0.6.8           
-##  [99] xtable_1.7-4            stats4_3.2.0           
-## [101] munsell_0.4.2           quadprog_1.5-5
+##   [1] spam_1.0-1              Hmisc_3.16-0           
+##   [3] plyr_1.8.2              igraph_0.7.1           
+##   [5] df2json_0.0.2           lazyeval_0.1.10        
+##   [7] splines_3.2.0           BiocParallel_1.2.1     
+##   [9] GenomeInfoDb_1.4.0      digest_0.6.8           
+##  [11] foreach_1.4.2           BiocInstaller_1.18.1   
+##  [13] htmltools_0.2.6         magrittr_1.5           
+##  [15] memoise_0.2.1           cluster_2.0.1          
+##  [17] fastcluster_1.1.16      Biostrings_2.36.0      
+##  [19] annotate_1.46.0         Kendall_2.2            
+##  [21] tseries_0.10-34         colorspace_1.2-6       
+##  [23] RCurl_1.95-4.6          RcppArmadillo_0.5.000.0
+##  [25] genefilter_1.50.0       survival_2.38-1        
+##  [27] zoo_1.7-12              iterators_1.0.7        
+##  [29] ape_3.2                 gtable_0.1.2           
+##  [31] zlibbioc_1.14.0         XVector_0.8.0          
+##  [33] RGCCA_2.0               tgp_2.4-11             
+##  [35] maps_2.3-9              futile.options_1.0.0   
+##  [37] pheatmap_1.0.2          mvtnorm_1.0-2          
+##  [39] som_0.3-5               bibtex_0.4.0           
+##  [41] Rcpp_0.11.5             xtable_1.7-4           
+##  [43] foreign_0.8-63          Formula_1.2-1          
+##  [45] stats4_3.2.0            httr_0.6.1             
+##  [47] RColorBrewer_1.1-2      acepack_1.3-3.3        
+##  [49] XML_3.98-1.1            nnet_7.3-9             
+##  [51] locfit_1.5-9.1          RJSONIO_1.3-0          
+##  [53] labeling_0.3            AnnotationDbi_1.30.1   
+##  [55] munsell_0.4.2           tools_3.2.0            
+##  [57] moments_0.14            RSQLite_1.0.0          
+##  [59] devtools_1.7.0          evaluate_0.7           
+##  [61] stringr_1.0.0           dmt_0.8.20             
+##  [63] maptree_1.4-7           RefManageR_0.8.45      
+##  [65] rgl_0.95.1201           nlme_3.1-120           
+##  [67] formatR_1.2             affyio_1.36.0          
+##  [69] geneplotter_1.46.0      stringi_0.4-1          
+##  [71] futile.logger_1.4.1     fields_8.2-1           
+##  [73] earlywarnings_1.1.19    Matrix_1.2-0           
+##  [75] multtest_2.24.0         biom_0.3.12            
+##  [77] lmtest_0.9-33           data.table_1.9.4       
+##  [79] bitops_1.0-6            GenomicRanges_1.20.3   
+##  [81] qvalue_2.0.0            latticeExtra_0.6-26    
+##  [83] KernSmooth_2.23-14      gridExtra_0.9.1        
+##  [85] IRanges_2.2.1           codetools_0.2-11       
+##  [87] lambda.r_1.1.7          boot_1.3-16            
+##  [89] MASS_7.3-40             gtools_3.4.2           
+##  [91] assertthat_0.1          chron_2.3-45           
+##  [93] proto_0.3-10            DESeq2_1.8.0           
+##  [95] OAIHarvester_0.1-7      rjson_0.2.15           
+##  [97] nortest_1.0-3           S4Vectors_0.6.0        
+##  [99] mgcv_1.8-6              mixOmics_5.0-4         
+## [101] quadprog_1.5-5          rpart_4.1-9            
+## [103] class_7.3-12            lubridate_1.3.3
 ```
 
 
