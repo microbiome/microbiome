@@ -1,5 +1,5 @@
 
-### Stability analysis within group of samples
+### Stability analysis 
 
 Calculate stability as the average correlation between samples and their
 mean for a given phylotypes vs. samples matrix:
@@ -7,66 +7,95 @@ mean for a given phylotypes vs. samples matrix:
 ```{r bistability}
 # Example data
 library(microbiome)
-data.peerj32 <- download_microbiome("peerj32")
-x <- data.peerj32$microbes
+data.atlas1006 <- download_microbiome("atlas1006")
+x <- log10(data.atlas1006$microbes)
+m <- data.atlas1006$meta
 
 # Quantify temporal stability across the abundance range
-stability <- estimate_stability(t(x))$stability
+stability <- estimate_stability(x, m, method = "correlation")
+intermediate.stability <- sapply(stability, function (x) {x$stability})
+hist(intermediate.stability, main = "Intermediate stability")
 ```
-
-### Stability analysis in time
-
-Calculate correlations between time points 1 and 2 for each subject,
-then calculate stability as the average correlation of these
-subject-specific correlations. Done as above, but instead of one matrix,
-give two matrices as input. These are phylotypes vs. samples matrices
-and correspond to time points 1 and 2, respectively. The rows
-(phylotypes) and columns (subjects) should be in the same order in both
-matrices.
 
 
 ## Bimodality quantification
 
-Calculate coefficients of bimodality (used in [Shade et
+Calculate coefficient of bimodality (used in [Shade et
 al.](http://mbio.asm.org/content/5/4/e01371-14)) for taxa in an
 example data set, and plot the taxa with the lowest and highest score:
 
 ```{r bimodality, message=FALSE, warning=FALSE, fig.path = "figure/"}
-# Load example data
-library(microbiome)
-data(peerj32); 
-mydata <- t(peerj32$microbes)
+# Pick samples from zero time point (cross-sectional analysis)
+s <- subset(m, time == 0)$sample
+m0 <- m[s,]
+x0 <- x[s,]
 
 # Calculate coefficient of bimodality for each taxa
-bs <- apply(mydata, 1, coefficient.of.bimodality)
+bimodality <- apply(x0, 2, coefficient.of.bimodality)
 
 # Pick the most and least bimodal taxa as examples
-unimodal <- names(which.min(bs))
-bimodal <- names(which.max(bs))
+unimodal <- names(which.min(bimodality))
+bimodal <- names(which.max(bimodality))
 
 # Visualize
 par(mfrow = c(1,2))
-plot(density(mydata[unimodal,]), main = unimodal)
-plot(density(mydata[bimodal,]), main = bimodal)
+plot(density(x[, unimodal]), main = unimodal)
+plot(density(x[, bimodal]), main = bimodal)
 ```
 
-### Variability analysis within group of samples
+## Bimodality versus intermediate stability
 
-Calculate variability as the average correlation between samples and their mean for a given phylotypes vs. samples matrix:
+The analysis suggests that bimodal taxa tend to have instable intermediate abundances:
 
-```{r stability-example, message=FALSE}
+```{r bimodalitybistability, message=FALSE, warning=FALSE, fig.path = "figure/"}
+s <- intersect(names(intermediate.stability), names(bimodality))
+plot(intermediate.stability[s], bimodality[s], xlab = "Intermediate stability", ylab = "Bimodality")
+```
+
+
+### Variability within group of samples (inter-individual stability)
+
+Assess 'inter-individual stability' as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between samples and their mean for a given samples vs phylotypes matrix. For the illustration, calculate inter-individual stability (variability) separately for Placebo and LGG groups.
+
+```{r variability-example2, message=FALSE}
 # Example data
 library(microbiome)
-data(peerj32)
-x <- peerj32$microbes
+data.peerj32 <- download_microbiome("peerj32")
+x <- data.peerj32$microbes
+m <- data.peerj32$meta
 
-# Estimate Stability
-stability <- estimate_variability(t(x))$stability
+# Estimate inter-individual variability
+res <- estimate_variability(x, m, "interindividual")
+library(ggplot2)
+theme_set(theme_bw(20))
+p <- ggplot(res$data, aes(x = group, y = correlation))
+p <- p + geom_boxplot()
+p <- p + ggtitle(paste("Inter-individual variability (p=", round(res$p.value, 6), ")"))
+p <- p + ylab("Correlation")
+print(p)
 ```
+
+
+### Variability within subjects over time (intra-individual stability)
+
+Assess 'intra-individual stability' as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between two time points within subjects, calculated separately within each group. For illustration, check intra-individual stability (variability) separately for Placebo and LGG groups.
+
+```{r variability-intra, message=FALSE}
+res <- estimate_variability(x, m, "intraindividual")
+library(ggplot2)
+theme_set(theme_bw(20))
+p <- ggplot(res$data, aes(x = group, y = correlation))
+p <- p + geom_boxplot()
+p <- p + ggtitle(paste("Intra-individual variability (p=", round(res$p.value, 6), ")"))
+p <- p + ylab("Correlation")
+print(p)
+```
+
+
 
 ### Version information
 
-```{r stabilitysessioninfox}
+```{r stabilitysessioninfo}
 sessionInfo()
 ```
 
