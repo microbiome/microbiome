@@ -17,19 +17,13 @@ library(dplyr)
 
 # 1. List all samples (all time points and DNA extraction methods)
 all.samples <- meta$SampleID
-```
 
-```
-## Error in eval(expr, envir, enclos): object 'meta' not found
-```
-
-```r
 # 2. List samples at time point 0 that have specific DNA extraction method 
 rbb.samples <- filter(meta, Time == "0" & DNA_extraction_method == "r")$SampleID
 ```
 
 ```
-## Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object 'meta' not found
+## Error in filter_impl(.data, dots): object 'Time' not found
 ```
 
 ```r
@@ -37,19 +31,13 @@ rbb.samples <- filter(meta, Time == "0" & DNA_extraction_method == "r")$SampleID
 #tax <- "Prevotella.melaninogenica.et.rel."
 tax <- "Bifidobacterium"
 d <- data[all.samples, tax]
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'all.samples' not found
-```
-
-```r
 par(mfrow = c(1, 2))
 plot(density(d), main = paste(tax, "(All samples)"), xlab = "Abundance (Absolute HITChip signal)")
 ```
 
 ```
-## Error in plot(density(d), main = paste(tax, "(All samples)"), xlab = "Abundance (Absolute HITChip signal)"): error in evaluating the argument 'x' in selecting a method for function 'plot': Error in density.default(d) : argument 'x' must be numeric
+## Error in plot(density(d), main = paste(tax, "(All samples)"), xlab = "Abundance (Absolute HITChip signal)"): error in evaluating the argument 'x' in selecting a method for function 'plot': Error in density.default(d) : 
+##   need at least 2 points to select a bandwidth automatically
 ```
 
 ```r
@@ -57,7 +45,8 @@ plot(density(log10(d)), main = paste(tax, "(All samples)"), xlab = "Abundance (L
 ```
 
 ```
-## Error in plot(density(log10(d)), main = paste(tax, "(All samples)"), xlab = "Abundance (Log10 HITChip signal)"): error in evaluating the argument 'x' in selecting a method for function 'plot': Error in log10(d) : non-numeric argument to mathematical function
+## Error in plot(density(log10(d)), main = paste(tax, "(All samples)"), xlab = "Abundance (Log10 HITChip signal)"): error in evaluating the argument 'x' in selecting a method for function 'plot': Error in density.default(log10(d)) : 
+##   need at least 2 points to select a bandwidth automatically
 ```
 
 ```r
@@ -74,7 +63,8 @@ plot(density(d), main = paste(tax, "(RBB samples)"), xlab = "Abundance (Absolute
 ```
 
 ```
-## Error in plot(density(d), main = paste(tax, "(RBB samples)"), xlab = "Abundance (Absolute HITChip signal)"): error in evaluating the argument 'x' in selecting a method for function 'plot': Error in density.default(d) : argument 'x' must be numeric
+## Error in plot(density(d), main = paste(tax, "(RBB samples)"), xlab = "Abundance (Absolute HITChip signal)"): error in evaluating the argument 'x' in selecting a method for function 'plot': Error in density.default(d) : 
+##   need at least 2 points to select a bandwidth automatically
 ```
 
 ```r
@@ -82,5 +72,6 @@ plot(density(log10(d)), main = paste(tax, "(RBB samples)"), xlab = "Abundance (L
 ```
 
 ```
-## Error in plot(density(log10(d)), main = paste(tax, "(RBB samples)"), xlab = "Abundance (Log10 HITChip signal)"): error in evaluating the argument 'x' in selecting a method for function 'plot': Error in log10(d) : non-numeric argument to mathematical function
+## Error in plot(density(log10(d)), main = paste(tax, "(RBB samples)"), xlab = "Abundance (Log10 HITChip signal)"): error in evaluating the argument 'x' in selecting a method for function 'plot': Error in density.default(log10(d)) : 
+##   need at least 2 points to select a bandwidth automatically
 ```

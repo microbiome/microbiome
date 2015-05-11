@@ -20,7 +20,13 @@ df <- cbind(metadata.simulated, t(genus.matrix.log10.simulated))
 # Note: requires flash and internet connection
 # use install.packages("googleVis") to install the library if needed
 library(googleVis)  
+```
 
+```
+## Error in library(googleVis): there is no package called 'googleVis'
+```
+
+```r
 # Form a motion chart from example data
 # NOTE: the data set must be given as data.frame
 # which can contain NUMERIC and CHARACTER fields
@@ -35,9 +41,19 @@ library(googleVis)
 
 # See help(gvisMotionChart) for further details
 mchart <- gvisMotionChart(df, idvar = "sampleID", timevar = "time")  
+```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "gvisMotionChart"
+```
+
+```r
 # Plot immediately (opens in browser, requires flash)
 plot(mchart)  
+```
+
+```
+## Error in plot(mchart): error in evaluating the argument 'x' in selecting a method for function 'plot': Error: object 'mchart' not found
 ```
 
 Save as html (needs javascript to open!). NOTE: html file viewing does not work locally - store the html file on server and view through internet:

@@ -13,7 +13,7 @@ oligo.matrix.nolog.simulated <- read.profiling(level = "oligo",
 ```
 
 ```
-## Reading /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab
+## Reading /home/antagomir/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab
 ```
 
 ```r
@@ -24,7 +24,7 @@ phylogeny.info <- GetPhylogeny("HITChip", "filtered")
 ```
 
 ```
-## Reading /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.filtered.tab
+## Reading /home/antagomir/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.filtered.tab
 ```
 
 ```r

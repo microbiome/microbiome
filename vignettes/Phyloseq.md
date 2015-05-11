@@ -24,7 +24,7 @@ physeq <- hitchip2physeq(data, meta)
 ```
 
 ```
-## Reading /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.full.tab
+## Reading /home/antagomir/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.full.tab
 ```
 
 ## Barplots
@@ -57,6 +57,10 @@ plot_heatmap(physeq, taxa.label = "Phylum")
 ```
 
 ```
+## [1] "test"
+```
+
+```
 ## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
 ```
 
@@ -65,6 +69,10 @@ physeq.log <- physeq
 trans <- as.matrix(t(scale(t(log10(1 + physeq.log@otu_table)))))
 otu_table(physeq.log) <- otu_table(trans, taxa_are_rows=taxa_are_rows(physeq))
 plot_heatmap(physeq.log, method = "NMDS", distance = "jaccard", low="blue", high="red")
+```
+
+```
+## [1] "test"
 ```
 
 ```
@@ -79,15 +87,17 @@ physeq.log.ord <- ordinate(physeq.log, "NMDS")
 ```
 
 ```
-## Run 0 stress 0.1946503 
-## Run 1 stress 0.2224881 
-## Run 2 stress 0.2024528 
-## Run 3 stress 0.2164318 
-## Run 4 stress 0.2054422 
-## Run 5 stress 0.2051604 
-## Run 6 stress 0.1946503 
-## ... New best solution
-## ... procrustes: rmse 9.201913e-05  max resid 0.0004214249 
+## Run 0 stress 0.1948817 
+## Run 1 stress 0.2058787 
+## Run 2 stress 0.2044095 
+## Run 3 stress 0.2116521 
+## Run 4 stress 0.2014883 
+## Run 5 stress 0.2014858 
+## Run 6 stress 0.1991613 
+## Run 7 stress 0.2179107 
+## Run 8 stress 0.2022996 
+## Run 9 stress 0.1948817 
+## ... procrustes: rmse 3.217346e-05  max resid 9.502056e-05 
 ## *** Solution reached
 ```
 
@@ -129,7 +139,9 @@ plot_bar(tops, "group", fill = "gender", facet_grid = ~Genus)
 plot_ordination(physeq, ordinate(physeq, "MDS"), color = "group") + geom_point(size = 5)
 ```
 
-![plot of chunk ordinate](figure/ordinate-1.png) 
+```
+## Error in plot_ordination(physeq, ordinate(physeq, "MDS"), color = "group") + : non-numeric argument to binary operator
+```
 
 ```r
 nmds <- ordinate(physeq, "NMDS", "bray")
@@ -138,11 +150,9 @@ nmds <- ordinate(physeq, "NMDS", "bray")
 ```
 ## Square root transformation
 ## Wisconsin double standardization
-## Run 0 stress 0.1747778 
-## Run 1 stress 0.17549 
-## Run 2 stress 0.17549 
-## Run 3 stress 0.1747778 
-## ... procrustes: rmse 1.753541e-05  max resid 8.234749e-05 
+## Run 0 stress 0.1842158 
+## Run 1 stress 0.1842158 
+## ... procrustes: rmse 2.780596e-05  max resid 7.934335e-05 
 ## *** Solution reached
 ```
 
@@ -152,33 +162,39 @@ p2 <- plot_ordination(physeq, ordinate(physeq, "CCA"), type = "samples", color =
 p2 + geom_point(size = 5) + geom_polygon(aes(fill = gender))
 ```
 
-![plot of chunk ordinate](figure/ordinate-2.png) 
+![plot of chunk ordinate](figure/ordinate-1.png) 
 
 ```r
 plot_ordination(physeq, ordinate(physeq, "CCA"), type = "taxa", color = "Phylum") + 
     geom_point(size = 4)
 ```
 
-![plot of chunk ordinate](figure/ordinate-3.png) 
+![plot of chunk ordinate](figure/ordinate-2.png) 
 
 ```r
 plot_ordination(physeq, ordinate(physeq, "CCA"), type = "split", color = "gender")
 ```
 
-![plot of chunk ordinate](figure/ordinate-4.png) 
+```
+## Error in rp.joint.fill(DF, color, "Taxa"): could not find function "is.discrete"
+```
 
 ```r
 plot_ordination(physeq, ordinate(physeq, "CCA"), type = "biplot", shape = "Phylum")
 ```
 
-![plot of chunk ordinate](figure/ordinate-5.png) 
+```
+## Error in rp.joint.fill(DF, shape, "Samples"): could not find function "is.discrete"
+```
 
 ```r
 plot_ordination(physeq, ordinate(physeq, "CCA"), type = "split", color = "gender", 
     shape = "Phylum", label = "gender")
 ```
 
-![plot of chunk ordinate](figure/ordinate-6.png) 
+```
+## Error in rp.joint.fill(DF, shape, "Samples"): could not find function "is.discrete"
+```
 
 ## Filtering and pruning
 
@@ -201,7 +217,7 @@ plot_net(physeq, maxdist = 0.45, point_label = "group")
 ```
 
 ```
-## Error in `[.data.table`(vertexDT, LinksData$v1, x, y): i has not evaluated to logical, integer or double
+## Error in plot_net(physeq, maxdist = 0.45, point_label = "group"): object 'layout.auto' not found
 ```
 
 ```r
@@ -209,7 +225,9 @@ ig <- make_network(physeq, max.dist = 0.45)
 plot_network(ig, physeq, color = "gender", shape = "group", line_weight = 0.4, label = NULL)
 ```
 
-![plot of chunk networks](figure/networks-1.png) 
+```
+## Error in plot_network(ig, physeq, color = "gender", shape = "group", line_weight = 0.4, : could not find function "vcount"
+```
 
 
 

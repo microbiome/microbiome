@@ -36,8 +36,8 @@ data.dietswap <- download_microbiome("dietswap")
 ```
 
 ```
-## Warning in harmonize_fields(meta): bmi information is a factor; renaming as
-## bmi_group
+## Warning in harmonize_fields(meta): bmi information is a factor; renaming
+## as bmi_group
 ```
 
 
@@ -71,7 +71,7 @@ print(data.directory)
 ```
 
 ```
-## [1] "/home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata"
+## [1] "/home/antagomir/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata"
 ```
 
 ```r

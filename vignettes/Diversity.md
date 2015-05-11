@@ -103,6 +103,13 @@ Diversity vs. age with smoothed confidence intervals:
 ```r
 library(microbiome)
 library(sorvi)
+```
+
+```
+## Error in library(sorvi): there is no package called 'sorvi'
+```
+
+```r
 library(dplyr)
 
 # Pick the subset of RBB-preprocessed samples from time point 0
@@ -128,7 +135,7 @@ p <- sorvi::regression_plot(Diversity~Age, df, shade = TRUE, mweight = TRUE, ver
 ```
 
 ```
-## Error in eval(expr, envir, enclos): incorrect size (1), expecting : 44
+## Error in loadNamespace(name): there is no package called 'sorvi'
 ```
 
 ```r
