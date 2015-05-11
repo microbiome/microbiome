@@ -8,11 +8,14 @@ mean for a given phylotypes vs. samples matrix:
 # Example data
 library(microbiome)
 data.atlas1006 <- download_microbiome("atlas1006")
-x <- log10(data.atlas1006$microbes)
+x <- data.atlas1006$microbes
 m <- data.atlas1006$meta
 
+# Convert data into phyloseq format
+pseq <- hitchip2physeq(x, m, taxonomy = NULL)
+
 # Quantify temporal stability across the abundance range
-stability <- estimate_stability(x, m, method = "correlation")
+stability <- estimate_stability(pseq, method = "correlation")
 intermediate.stability <- sapply(stability, function (x) {x$stability})
 hist(intermediate.stability, main = "Intermediate stability")
 ```

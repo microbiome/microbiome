@@ -11,9 +11,8 @@
 #' 	         as a covariate 
 #'
 #' @return A list with following elements: 
-#' 	     stability: vector listing the intermediate stability for each variable
-#'	     data: processed data sets used for calculations	    
-#'
+#' 	 stability: vector listing the intermediate stability for each variable
+#'	 data: processed data sets used for calculations	    
 #'
 #' @details This method decomposes the data set into differences between
 #' consecutive time points. For each variable and time point we calculate

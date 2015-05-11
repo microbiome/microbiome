@@ -2,13 +2,16 @@
 #'
 #' Description: Quantify intermediate stability with respect to a given reference point. 
 #'
-#' @param x Input data matrix (samples x variables). 
-#' @param meta data.frame (samples x features) with the 'subject' and 'time' field for each sample 
+#' @param x \link{\code{phyloseq}} object.
+#'          Includes otu_table (variables x samples) and
+#' 	    sample_data data.frame (samples x features) with 'subject'
+#'	    and 'time' field for each sample.
 #'           
-#' @param reference.point Optional. Calculate stability of the data w.r.t. this point. 
-#'                        By default the intermediate range is used (min + (max - min)/2)
-#' @param method "lm" (linear model) or "correlation"; the linear model takes time into account 
-#' 	         as a covariate 
+#' @param reference.point Optional. Calculate stability of the
+#'                        data w.r.t. this point. By default the
+#'                        intermediate range is used (min + (max - min)/2)
+#' @param method "lm" (linear model) or "correlation";
+#'               the linear model takes time into account as a covariate 
 #' 
 #' @return A list with following elements: 
 #' 	     stability: estimated stability
@@ -25,8 +28,8 @@
 #' points into account as this may affect the comparison and is not taken
 #' into account by the straightforward correlation. Here the coefficients
 #' of the following linear model are used to assess stability:
-#' abs(change) ~ time + abs(start.reference.distance). 
-#' Samples with missing data, and subjects with less than two time point are excluded.	   
+#' abs(change) ~ time + abs(start.reference.distance). Samples with missing
+#' data, and subjects with less than two time point are excluded.	   
 #'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @export
@@ -39,7 +42,11 @@
 #'   # s <- estimate_stability(x, meta, reference.point = NULL, method = "lm")
 #'
 #' @keywords utilities
-estimate_stability <- function (x, meta, reference.point = NULL, method = "lm") {
+estimate_stability <- function (x, reference.point = NULL, method = "lm") {
+
+  pseq <- x		   
+  x <- t(otu_table(pseq)@.Data)
+  meta <- sample_data(pseq)
 
   stability <- list()
   for (tax in colnames(x)) {
