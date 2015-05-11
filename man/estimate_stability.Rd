@@ -4,12 +4,11 @@
 \alias{estimate_stability}
 \title{estimate_stability}
 \usage{
-estimate_stability(x, meta, reference.point = NULL, method = "lm")
+estimate_stability(df, reference.point = NULL, method = "lm")
 }
 \arguments{
-\item{x}{Input data matrix (samples x variables).}
-
-\item{meta}{data.frame (samples x features) with the 'subject' and 'time' field for each sample}
+\item{df}{Combined input data vector (samples x variables) and metadata data.frame (samples x features)
+          with the 'data', 'subject' and 'time' field for each sample}
 
 \item{reference.point}{Optional. Calculate stability of the data w.r.t. this point.
 By default the intermediate range is used (min + (max - min)/2)}
@@ -41,12 +40,11 @@ abs(change) ~ time + abs(start.reference.distance).
 Samples with missing data, and subjects with less than two time point are excluded.
 }
 \examples{
-#meta <- data.frame(list(
+#df <- data.frame(list(
   #	  subject = rep(paste("subject", 1:50, sep = "-"), each = 2),
-  #	  time = rep(1:2, 50)))
-  #	  x <- as.matrix(rnorm(100), rnorm(100));
-  #    colnames(x) <- c("tax1", "tax2")
-  # s <- estimate_stability(x, meta, reference.point = NULL, method = "lm")
+  #	  time = rep(1:2, 50),
+  #	  data = rnorm(100)))
+  # s <- estimate_stability_single(df, reference.point = NULL, method = "lm")
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

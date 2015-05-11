@@ -37,6 +37,7 @@
 #' @keywords utilities
 estimate_variability <- function(x, meta, type, group_by = "group", method = "spearman") {
 
+    correlation <- NULL
  		         
     # Split the data by group
     group <- NULL
