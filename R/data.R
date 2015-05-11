@@ -29,10 +29,20 @@ download_microbiome <- function (id = "datasets") {
     data <- download_dietswap()
   
   } else if (id == "peerj32") {
-
     message("Downloading data set from Lahti et al. PeerJ, 2013: https://peerj.com/articles/32/")
-    peerj32 <- NULL
-    data(peerj32)
+
+    #peerj32 <- NULL
+    #data(peerj32)
+    #write.table(peerj32$lipids, file = "../inst/extdata/peerj32_lipids.csv", quote = F, sep = "\t")
+    #write.table(peerj32$microbes, file = "../inst/extdata/peerj32_microbes.csv", quote = F, sep = "\t")
+    #write.table(peerj32$meta, file = "../inst/extdata/peerj32_meta.csv", quote = F, sep = "\t")
+    
+    peerj32 <- list()
+    data.dir <- system.file("extdata", package = "microbiome")
+    for (nam in c("lipids", "microbes", "meta")) {
+      peerj32[[nam]] <- read.table(paste0(data.dir, "/peerj32_", nam, ".csv"), sep = "\t", header = T, row.names = 1)
+    }
+
     data <- peerj32
 
     # Harmonize the field names etc.

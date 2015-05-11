@@ -7,8 +7,8 @@ mean for a given phylotypes vs. samples matrix:
 ```{r bistability}
 # Example data
 library(microbiome)
-data(peerj32)
-x <- peerj32$microbes
+data.peerj32 <- download_microbiome("peerj32")
+x <- data.peerj32$microbes
 
 # Quantify temporal stability across the abundance range
 stability <- estimate_stability(t(x))$stability
@@ -50,6 +50,19 @@ plot(density(mydata[unimodal,]), main = unimodal)
 plot(density(mydata[bimodal,]), main = bimodal)
 ```
 
+### Variability analysis within group of samples
+
+Calculate variability as the average correlation between samples and their mean for a given phylotypes vs. samples matrix:
+
+```{r stability-example, message=FALSE}
+# Example data
+library(microbiome)
+data(peerj32)
+x <- peerj32$microbes
+
+# Estimate Stability
+stability <- estimate_variability(t(x))$stability
+```
 
 ### Version information
 
