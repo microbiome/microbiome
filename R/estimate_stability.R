@@ -1,4 +1,4 @@
-#' estimate_stability
+#' intermediate_stability
 #'
 #' Description: Quantify intermediate stability with respect to a given reference point. 
 #'
@@ -33,38 +33,40 @@
 #'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @export
-#' @examples 
-#'   #meta <- data.frame(list(
-#'   #	  subject = rep(paste("subject", 1:50, sep = "-"), each = 2), 
-#'   #	  time = rep(1:2, 50)))
-#'   #	  x <- as.matrix(rnorm(100), rnorm(100));
-#'   #    colnames(x) <- c("tax1", "tax2")
-#'   # s <- estimate_stability(x, meta, reference.point = NULL, method = "lm")
+#' @examples
+#' # Example data
+#' library(microbiome)
+#' data.atlas1006 <- download_microbiome("atlas1006")
+#' x <- data.atlas1006$microbes[, c("Akkermansia", "Dialister")]
+#' m <- data.atlas1006$meta
+#' pseq <- hitchip2physeq(x, m, taxonomy = NULL)
+#' s <- intermediate_stability(pseq, reference.point = NULL, method = "lm")
 #'
 #' @keywords utilities
-estimate_stability <- function (x, reference.point = NULL, method = "lm") {
+intermediate_stability <- function (x, reference.point = NULL, method = "lm") {
 
-  pseq <- x		   
-  x <- t(otu_table(pseq)@.Data)
+  pseq <- x		       
+  x <- log10(t(otu_table(pseq)@.Data))
   meta <- sample_data(pseq)
 
   stability <- list()
   for (tax in colnames(x)) {
     df <- meta
     df$data <- x[, tax]
-    stability[[tax]] <- estimate_stability_single(df, reference.point = reference.point, method = method)
+    stability[[tax]] <- estimate_stability(df, reference.point = reference.point, method = method)
   }
-
+  
   stability
   
 }
 
 
-#' estimate_stability_single
+#' estimate_stability
 #'
 #' Description: Quantify intermediate stability with respect to a given reference point. 
 #'
-#' @param df Combined input data vector (samples x variables) and metadata data.frame (samples x features) with the 'data', 'subject' and 'time' field for each sample 
+#' @param df Combined input data vector (samples x variables) and metadata data.frame (samples x features)
+#'           with the 'data', 'subject' and 'time' field for each sample 
 #'           
 #' @param reference.point Optional. Calculate stability of the data w.r.t. this point. 
 #'                        By default the intermediate range is used (min + (max - min)/2)
@@ -100,7 +102,7 @@ estimate_stability <- function (x, reference.point = NULL, method = "lm") {
 #'
 #' @keywords utilities
 
-estimate_stability_single <- function (df, reference.point = NULL, method = "lm") {
+estimate_stability <- function (df, reference.point = NULL, method = "lm") {
 
   # Remove NAs
   df <- df[!is.na(df$data),]

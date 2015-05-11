@@ -26,6 +26,8 @@ hitchip2physeq <- function (data, meta, taxonomy = NULL) {
   # OTU x Sample: absolute 'read counts'
   x <- t(data) - 10^1.8 # Detection limit
   x[x < 0] <- 0
+  x <- 1 + x
+
   # Discretize to get 'counts'
   otumat <- round(x)
   rownames(otumat) <- gsub("Clostridium \\(sensu stricto\\)", "Clostridiales", rownames(otumat))

@@ -5,17 +5,21 @@ Calculate stability as the average correlation between samples and their
 mean for a given phylotypes vs. samples matrix:
 
 ```{r bistability}
-# Example data
+# Download example data (Lahti et al. Nat. Comm. 5:4344, 2014)
 library(microbiome)
 data.atlas1006 <- download_microbiome("atlas1006")
-x <- data.atlas1006$microbes
-m <- data.atlas1006$meta
+
+# OTU matrix (absolute HITChip signal; samples x OTUs)
+otu <- data.atlas1006$microbes
+
+# Metadata (samples x features)
+meta <- data.atlas1006$meta
 
 # Convert data into phyloseq format
-pseq <- hitchip2physeq(x, m, taxonomy = NULL)
+pseq <- hitchip2physeq(otu, meta, taxonomy = NULL)
 
 # Quantify temporal stability across the abundance range
-stability <- estimate_stability(pseq, method = "correlation")
+stability <- intermediate_stability(pseq, method = "correlation")
 intermediate.stability <- sapply(stability, function (x) {x$stability})
 hist(intermediate.stability, main = "Intermediate stability")
 ```
@@ -29,21 +33,27 @@ example data set, and plot the taxa with the lowest and highest score:
 
 ```{r bimodality, message=FALSE, warning=FALSE, fig.path = "figure/"}
 # Pick samples from zero time point (cross-sectional analysis)
-s <- subset(m, time == 0)$sample
-m0 <- m[s,]
-x0 <- x[s,]
+pseq0 <- subset_samples(pseq, time == 0)
 
 # Calculate coefficient of bimodality for each taxa
-bimodality <- apply(x0, 2, coefficient.of.bimodality)
+bimodality <- multimodality(pseq0, method = "potential.bootstrap")
+# bimodality.coef <- multimodality(pseq0, method = "coefficient.of.bimodality")
+
+# Compare the two bimodality scores
+# plot(bimodality.potential, bimodality.coef)
+
+# Pick log10 data
+pseq0log <- transform_sample_counts(pseq0, function(x) log10(x) )
+x <- otu_table(pseq0log)@.Data
 
 # Pick the most and least bimodal taxa as examples
 unimodal <- names(which.min(bimodality))
 bimodal <- names(which.max(bimodality))
 
-# Visualize
+# Visualize population frequencies
 par(mfrow = c(1,2))
-plot(density(x[, unimodal]), main = unimodal)
-plot(density(x[, bimodal]), main = bimodal)
+plot(density(x[unimodal, ]), main = unimodal)
+plot(density(x[bimodal, ]), main = bimodal)
 ```
 
 ## Bimodality versus intermediate stability
