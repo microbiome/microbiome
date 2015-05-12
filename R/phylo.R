@@ -14,7 +14,7 @@
 #' @examples 
 #'   phylogeny.info <- GetPhylogeny('HITChip', 'full')
 #'
-#' @references See citation('microbiome') 
+#' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
