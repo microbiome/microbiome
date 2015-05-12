@@ -22,9 +22,7 @@ download_microbiome()
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-Lahti et al. Tipping elements of the human intestinal ecosystem.
-  Nature Communications 5:4344, 2015.
-  To cite the microbiome R package, see citation('microbiome')
+To cite the microbiome R package, see citation('microbiome')
 }
 \keyword{utilities}
 

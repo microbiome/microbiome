@@ -2,29 +2,30 @@
 #'
 #' Convert HITChip data into phyloseq format
 #'
-#' @param data Sample x OTU absolute HITChip signal
+#' @param otu Sample x OTU absolute HITChip signal
 #' @param meta Sample x features metadata data.frame
 #' @param taxonomy OTU x Taxonomy data.frame (HITChip taxonomy used by default)
+#' @param detection.limit HITChip signal detection limit (absence / presence)
 #' @return phyloseq object
 #' @import phyloseq
 #'
 #' @examples 
 #'   library(microbiome)
 #'   data(peerj32)
-#'   data <- peerj32$microbes
+#'   otu <- peerj32$microbes
 #'   meta <- peerj32$meta
-#'   physeq <- hitchip2physeq(data, meta)
+#'   physeq <- hitchip2physeq(otu, meta)
 #'
 #' @export
 #' @references Utilizes the phyloseq package, see citation("phyloseq"). 
 #'             For this function, see citation('microbiome').  
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-hitchip2physeq <- function (data, meta, taxonomy = NULL) {
+hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 1.8) {
 
   # OTU matrix	       
   # OTU x Sample: absolute 'read counts'
-  x <- t(data) - 10^1.8 # Detection limit
+  x <- t(data) - 10^detection.limit # HITChip detection limit
   x[x < 0] <- 0
   x <- 1 + x
 

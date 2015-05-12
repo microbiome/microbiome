@@ -1,71 +1,78 @@
 ## Example data sets
 
-Example data sets for microbiome analyses.
+Example data sets for microbiome analyses. 
 
 
 ### HITChip Atlas data 
 
-
-The data from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) contains large-scale profiling of 130 genus-like taxa across 1006 normal western subjects. Some subjects have also short time series. This data set is available in [Data Dryad](http://doi.org/10.5061/dryad.pk75d). [Download the HITChip Atlas microbiome profiling data in R](Atlas.md):
+Data from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) contains large-scale profiling of 130 genus-like taxa across 1006 normal western adults. Some subjects have also short time series. This data set is available in [Data Dryad](http://doi.org/10.5061/dryad.pk75d). [Downloading the HITChip Atlas in R phyloseq format](Atlas.md):
 
 ```{r atlasdata}
 library(microbiome)
-library(rdryad)
 data.atlas <- download_microbiome("atlas1006")
 ```
 
 
 ### Diet swap data set
 
-An example data set from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a follow-up of microbial profiles during a 2-week diet swap of western (USA) and traditional (rural Africa) diets.
+Data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling.
 
 ```{r dietswapdata}
 library(microbiome)
-library(rdryad)
 data.dietswap <- download_microbiome("dietswap")
 ```
 
 
 ### Intestinal microbiota and blood serum lipid metabolites
 
-An example data set from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) characterizes associations between human intestinal microbiota and blood serum lipids. Loading the data in R:
+Data from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) characterizes associations between human intestinal microbiota and blood serum lipids. Loading the data in R:
 
 ```{r peerjdata}
 library(microbiome)
 data.peerj32 <- download_microbiome("peerj32")
 ```
 
+<!--
+### Long-term follow-up time series (David et al. 2014)
 
-### Loadomg example data
+The data set from [David et al. Genome Biology 2014, 15:R89](http://genomebiology.com/2014/15/7/R89):
+
+```{r peerjdata}
+library(microbiome)
+data.david2014 <- download_microbiome("david2014")
+```
+-->
+
+
+### Loading example data
 
 Load simulated example data of the human gut microbiota. With HITChip,
 [fRPA](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)
-is the recommended preprocessing method.
+is the recommended preprocessing method. You can also [convert the HITChip data in phyloseq format](Phyloseq.md)
 
 ```{r datapeer, eval=TRUE, message=FALSE, warning=FALSE}
 library(microbiome)
-# Define data path (you can replace data.directory with your own path)
+
+# Define data path (replace data.directory with your own path)
 data.directory <- system.file("extdata", package = "microbiome")
 print(data.directory)
 
 # Read HITChip data matrix (genus-level (L2) log10 values)
-level <- "L1"
-method <- "frpa"
-l1.data <- read.profiling(level = level, 
-	     		       method = method, 
-              		       data.dir = data.directory, 
-	      	       	       log10 = TRUE)  
+l2.data.absolute <- read.profiling(level = "L2", method = "frpa", 
+              		  data.dir = data.directory, 
+	      	       	  log10 = FALSE)
 
 # Read HITChip probe level data (absolute values - no log10)
 oligo.data <- read.profiling(level = "oligo", 
                              data.dir = data.directory, 
 			     log10 = FALSE)  
 
-# Probe-taxon mapping table
+# Full probe-taxon mapping phylogeny table
 phylogeny.info <- read.profiling(level = "phylogeny.full", 
                            	 data.dir = data.directory)
 
-# Phylogeny that is used to summarize the probes to phylotype/genus/phylum levels
+# Filtered phylogeny used to summarize the probes to phylotype/genus/phylum 
+# levels
 phylogeny.info.filtered <- read.profiling(level = "phylogeny.filtered", 
                            	 data.dir = data.directory)
 ```
@@ -81,6 +88,16 @@ library(gdata)
 metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
 metadata <- read.xls(metadata.file, as.is = TRUE)
 rownames(metadata) <- metadata$sampleID
+```
+
+
+## Converting HITChip data into [phyloseq](https://github.com/joey711/phyloseq) format
+
+The [phyloseq](https://github.com/joey711/phyloseq) is an external high-quality R package that provides many additional tools for microbiome data analysis. For more info on phyloseq tools, see [phyloseq demo page](http://joey711.github.io/phyloseq-demo/) and [HITChip phyloseq examples](Phyloseq.md) To convert HITChip data into phyloseq format:
+
+```{r pseqconversion}
+library("phyloseq")
+physeq <- hitchip2physeq(l2.data.absolute, metadata)
 ```
 
 

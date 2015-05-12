@@ -4,14 +4,16 @@
 \alias{hitchip2physeq}
 \title{hitchip2physeq}
 \usage{
-hitchip2physeq(data, meta, taxonomy = NULL)
+hitchip2physeq(otu, meta, taxonomy = NULL, detection.limit = 1.8)
 }
 \arguments{
-\item{data}{Sample x OTU absolute HITChip signal}
+\item{otu}{Sample x OTU absolute HITChip signal}
 
 \item{meta}{Sample x features metadata data.frame}
 
 \item{taxonomy}{OTU x Taxonomy data.frame (HITChip taxonomy used by default)}
+
+\item{detection.limit}{HITChip signal detection limit (absence / presence)}
 }
 \value{
 phyloseq object
@@ -22,9 +24,9 @@ Convert HITChip data into phyloseq format
 \examples{
 library(microbiome)
   data(peerj32)
-  data <- peerj32$microbes
+  otu <- peerj32$microbes
   meta <- peerj32$meta
-  physeq <- hitchip2physeq(data, meta)
+  physeq <- hitchip2physeq(otu, meta)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

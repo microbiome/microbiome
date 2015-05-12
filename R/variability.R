@@ -18,6 +18,7 @@
 #'
 #' @export
 #' @examples 
+#' \dontrun{
 #' # Example data
 #' library(microbiome)
 #' data.peerj32 <- download_microbiome("peerj32")
@@ -27,7 +28,7 @@
 #' res <- estimate_variability(x, m, "interindividual")
 #' # Estimate intra-individual variability
 #' res <- estimate_variability(x, m, "intraindividual")
-#'
+#' }
 #' @references 
 #' The inter- and intra-individual variability are calculated
 #' as described in Salonen et al. ISME J. 8:2218-30, 2014.

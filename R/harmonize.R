@@ -83,7 +83,7 @@ harmonize_fieldnames <- function (x) {
        c("platform", "Platform", "SeqTech"))
 
   x <- harmonize_terms(x, "age", 
-       c("age", "Age"))
+       c("age", "Age", "AGE"))
 
   x <- harmonize_terms(x, "age_group", 
        c("age_group", "Age_group", "age_group"))

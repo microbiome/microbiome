@@ -7,8 +7,6 @@
 #' @examples download_microbiome()
 #' @export
 #' @references 
-#'   Lahti et al. Tipping elements of the human intestinal ecosystem. 
-#'   Nature Communications 5:4344, 2015.
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -29,6 +27,18 @@ download_microbiome <- function (id = "datasets") {
     data <- download_dietswap()
   
   } else if (id == "peerj32") {
+
+    data <- download_peerj32()
+
+  }
+
+  data
+
+}
+
+
+download_peerj32 <- function (...) {
+
     message("Downloading data set from Lahti et al. PeerJ, 2013: https://peerj.com/articles/32/")
 
     #peerj32 <- NULL
@@ -51,11 +61,14 @@ download_microbiome <- function (id = "datasets") {
     # Harmonize field contents
     data$meta <- suppressWarnings(harmonize_fields(data$meta))
 
-  } 
+    # Convert in phyloseq format
+    physeq <- hitchip2physeq(data = data$microbes, meta = data$meta)
 
-  data
+    list(physeq = physeq, data = data)
 
 }
+
+
 
 
 
@@ -75,7 +88,7 @@ download_microbiome <- function (id = "datasets") {
 #' @keywords internal
 download_atlas <- function (...) {
 
-  message("Downloading data set from Lahti et al. Nat. Comm. from Data Dryad: http://doi.org/10.5061/dryad.pk75d")
+  message("Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d")
 
   # Define the data URL
   url <- download_url('10255/dryad.64665')
@@ -118,7 +131,12 @@ download_atlas <- function (...) {
   # Collect the atlas data and metadata into a single object
   atlas <- list(microbes = data, meta = meta)
 
-  atlas
+  # ----------------------------------------
+
+  # Convert in phyloseq format
+  physeq <- hitchip2physeq(data, meta)
+
+  physeq
 
 }
 
@@ -189,6 +207,9 @@ download_dietswap <- function (...) {
   # Collect the atlas data and metadata into a single object
   atlas <- list(microbes = data, meta = meta)
 
-  atlas
+  # Convert in phyloseq format
+  physeq <- hitchip2physeq(data, meta)
+
+  physeq
 
 }

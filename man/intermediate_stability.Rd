@@ -7,7 +7,7 @@
 intermediate_stability(x, reference.point = NULL, method = "lm")
 }
 \arguments{
-\item{x}{\link{\code{phyloseq}} object.
+\item{x}{\pkg{phyloseq} object.
          Includes otu_table (variables x samples) and
         sample_data data.frame (samples x features) with 'subject'
         and 'time' field for each sample.}
@@ -16,7 +16,7 @@ intermediate_stability(x, reference.point = NULL, method = "lm")
 data w.r.t. this point. By default the
 intermediate range is used (min + (max - min)/2)}
 
-\item{method}{"lm" (linear model) or "correlation";
+\item{method}{'lm' (linear model) or 'correlation';
               the linear model takes time into account as a covariate}
 }
 \value{

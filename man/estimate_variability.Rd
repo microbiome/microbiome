@@ -33,6 +33,7 @@ Average correlation between samples in the input data within each group with the
 	    between two data sets (intra-individual), given appropriate sample metadata.
 }
 \examples{
+\dontrun{
 # Example data
 library(microbiome)
 data.peerj32 <- download_microbiome("peerj32")
@@ -42,6 +43,7 @@ m <- data.peerj32$meta
 res <- estimate_variability(x, m, "interindividual")
 # Estimate intra-individual variability
 res <- estimate_variability(x, m, "intraindividual")
+}
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
