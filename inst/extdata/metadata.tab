@@ -1,4 +1,4 @@
-sampleID	time	age	bmi	subjectID	group	gender	diet
+sample	time	age	bmi	subject	group	gender	diet
 1	Sample.1	1	85.8433880610391	32.2863816516474	subjectID-1	group-3	M	Beverages
 2	Sample.2	2	94.6258301846683	23.1105686817318	subjectID-2	group-1	M	Beverages
 3	Sample.3	3	99.9520865967497	36.188610936515	subjectID-3	group-1	F	Carrots

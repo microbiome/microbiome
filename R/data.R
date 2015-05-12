@@ -55,6 +55,18 @@ download_peerj32 <- function (...) {
 
     data <- peerj32
 
+    # The formatting of taxon names needs to be harmonized for microbiome package:
+    # Fix some broken names from the original release..
+    # ie. replace 'Clostridium..sensu.stricto.les' with 'Clostridiales'
+    colnames(data$microbes) <- gsub("Clostridium..sensu.stricto.les", "Clostridiales", colnames(data$microbes))
+    # Remove periods
+    colnames(data$microbes) <- gsub("\\.", " ", colnames(data$microbes))
+    # Put back 'rel.' periods
+    colnames(data$microbes) <- gsub("rel $", "rel.", colnames(data$microbes))
+    colnames(data$microbes) <- gsub("Clostridium  sensu stricto ", "Clostridium (sensu stricto)", colnames(data$microbes))
+    # Convert to matrix 
+    data$microbes <- as.matrix(data$microbes)
+
     # Harmonize the field names etc.
     data$meta <- harmonize_fieldnames(data$meta)
 
@@ -62,7 +74,7 @@ download_peerj32 <- function (...) {
     data$meta <- suppressWarnings(harmonize_fields(data$meta))
 
     # Convert in phyloseq format
-    physeq <- hitchip2physeq(data = data$microbes, meta = data$meta)
+    physeq <- hitchip2physeq(data$microbes, data$meta)
 
     list(physeq = physeq, data = data)
 
@@ -199,10 +211,10 @@ download_dietswap <- function (...) {
   meta$timepoint.group <- NULL
 
   # Harmonize the field names etc.
-  colnames(meta) <- harmonize_fieldnames(colnames(meta))
+  colnames(meta) <- suppressWarnings(harmonize_fieldnames(colnames(meta)))
 
   # Harmonize field contents
-  meta <- harmonize_fields(meta)
+  meta <- suppressWarnings(harmonize_fields(meta))
 
   # Collect the atlas data and metadata into a single object
   atlas <- list(microbes = data, meta = meta)

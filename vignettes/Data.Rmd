@@ -25,30 +25,19 @@ data.dietswap <- download_microbiome("dietswap")
 
 ### Intestinal microbiota and blood serum lipid metabolites
 
-Data from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) characterizes associations between human intestinal microbiota and blood serum lipids. Loading the data in R:
+Data from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) characterizes associations between human intestinal microbiota and blood serum lipids. This data set is not readily provided in phyloseq format since it also contains additional data matrix of lipid species. Loading the data in R:
 
 ```{r peerjdata}
 library(microbiome)
 data.peerj32 <- download_microbiome("peerj32")
 ```
 
-<!--
-### Long-term follow-up time series (David et al. 2014)
-
-The data set from [David et al. Genome Biology 2014, 15:R89](http://genomebiology.com/2014/15/7/R89):
-
-```{r peerjdata}
-library(microbiome)
-data.david2014 <- download_microbiome("david2014")
-```
--->
-
 
 ### Loading example data
 
 Load simulated example data of the human gut microbiota. With HITChip,
 [fRPA](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)
-is the recommended preprocessing method. You can also [convert the HITChip data in phyloseq format](Phyloseq.md)
+is the recommended preprocessing method. 
 
 ```{r datapeer, eval=TRUE, message=FALSE, warning=FALSE}
 library(microbiome)
@@ -57,47 +46,29 @@ library(microbiome)
 data.directory <- system.file("extdata", package = "microbiome")
 print(data.directory)
 
-# Read HITChip data matrix (genus-level (L2) log10 values)
-l2.data.absolute <- read.profiling(level = "L2", method = "frpa", 
-              		  data.dir = data.directory, 
-	      	       	  log10 = FALSE)
+# Read HITChip data (this returns all levels, sample metadata and taxonomy)
+hitchip.data <- read.profiling(method = "frpa", data.dir = data.directory)
 
-# Read HITChip probe level data (absolute values - no log10)
-oligo.data <- read.profiling(level = "oligo", 
-                             data.dir = data.directory, 
-			     log10 = FALSE)  
-
-# Full probe-taxon mapping phylogeny table
-phylogeny.info <- read.profiling(level = "phylogeny.full", 
-                           	 data.dir = data.directory)
-
-# Filtered phylogeny used to summarize the probes to phylotype/genus/phylum 
-# levels
-phylogeny.info.filtered <- read.profiling(level = "phylogeny.filtered", 
-                           	 data.dir = data.directory)
+# Picking specific data field (for instance oligo level data)
+print(names(hitchip.data))
+oligo <- hitchip.data$oligo
 ```
 
 
-### Reading metadata
+## HITChip to phyloseq format
 
-An easy way to provide sample metadata is to create a tab-separated metadata file. You can create the file in Excel and export it to tab-separated csv format. The standard (and self-explanatory) field names include 'sampleID', 'time', 'subjectID', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). Read the metadata with:
-
-```{r metapeer, eval=TRUE, message=FALSE, warning=FALSE}
-# Read simulated example metadata
-library(gdata)
-metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
-metadata <- read.xls(metadata.file, as.is = TRUE)
-rownames(metadata) <- metadata$sampleID
-```
-
-
-## Converting HITChip data into [phyloseq](https://github.com/joey711/phyloseq) format
-
-The [phyloseq](https://github.com/joey711/phyloseq) is an external high-quality R package that provides many additional tools for microbiome data analysis. For more info on phyloseq tools, see [phyloseq demo page](http://joey711.github.io/phyloseq-demo/) and [HITChip phyloseq examples](Phyloseq.md) To convert HITChip data into phyloseq format:
+The [phyloseq](https://github.com/joey711/phyloseq) is an external high-quality R package with many additional tools for microbiome data analysis. For more info, see [phyloseq demo page](http://joey711.github.io/phyloseq-demo/) and [HITChip phyloseq examples](Phyloseq.md). To convert HITChip data into phyloseq format:
 
 ```{r pseqconversion}
-library("phyloseq")
-physeq <- hitchip2physeq(l2.data.absolute, metadata)
+library(phyloseq)
+
+# We need to choose the HITChip data level to be used in the analyses
+# In this example use HITChip L2 data (note: this is in absolute scale)
+L2 <- hitchip.data$L2
+meta <- hitchip.data$meta
+
+# Convert to phyloseq
+physeq <- hitchip2physeq(L2, meta)
 ```
 
 
@@ -109,4 +80,21 @@ input data set needs to be in absolute scale (not logarithmic).
 ```{r diversity-example6}
 rel <- relative.abundance(oligo.data, det.th = min(na.omit(oligo.data)))
 ```
+
+
+### Adding sample metadata
+
+An easy way to provide sample metadata is to create a tab-separated metadata file. You can modify the template metadata file your HITChip data folder in Excel and export it to tab-separated .tab format. Some standard, self-explanatory field names include 'sample', 'time', 'subject', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). The sample metadata is read together with the other files in the read.profiling function.
+
+
+<!--
+### Long-term follow-up time series (David et al. 2014)
+
+The data set from [David et al. Genome Biology 2014, 15:R89](http://genomebiology.com/2014/15/7/R89):
+
+```{r peerjdata}
+library(microbiome)
+data.david2014 <- download_microbiome("david2014")
+```
+-->
 

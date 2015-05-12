@@ -2,23 +2,11 @@
 
 The [phyloseq](https://github.com/joey711/phyloseq) is an external high-quality R package that provides additional tools for microbiome data analysis. These examples show how to convert HITChip data into phyloseq format and perform some standard analyses. For more info on phyloseq tools, see [phyloseq demo page](http://joey711.github.io/phyloseq-demo/).
 
+Download example data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling:
 
-## Example data
-
-Loading example data (L2 data and metadata; you can replace these with your own data). Make sure that the L2 datamatrix is in absolute (not log10) scale.
-
-```{r exampledata}
+```{r phyloseqdata, fig.width=10, fig.height=7, warning=FALSE, message=FALSE}
 library(microbiome)
-data(peerj32)
-data <- peerj32$microbes # Samples x L2 groups; L2 data matrix; ABSOLUTE scale, not log10
-meta <- peerj32$meta # Samples x features metadata
-```
-
-## Converting HITChip L2 data into [phyloseq](https://github.com/joey711/phyloseq) format
-
-```{r pseqconversion}
-library("phyloseq")
-physeq <- hitchip2physeq(data, meta)
+data.dietswap <- download_microbiome("dietswap")
 ```
 
 ## Barplots
