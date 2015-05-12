@@ -68,7 +68,7 @@ read.profiling <- function(method = "frpa", data.dir, impute = TRUE) {
   results[["meta"]] <- tab      
 
   # Convert to numeric
-  for (level %in% c("oligo", "species", "L0", "L1", "L2")) {
+  for (level in c("oligo", "species", "L0", "L1", "L2")) {
     tab <- results[[level]]        
     rnams <- rownames(tab)
     cnams <- colnames(tab)

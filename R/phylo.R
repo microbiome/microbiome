@@ -17,24 +17,29 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-GetPhylogeny <- function(chip, phylogeny.version = "full") {
+GetPhylogeny <- function(chip, phylogeny.version = "full", data.dir = NULL) {
+
+    if (is.null(data.dir)) {
+      data.dir <- system.file("extdata", package = "microbiome")
+    }
     
     if (chip == "HITChip") {
         
-        phylogeny.info <- read.profiling(level = 
-              paste("phylogeny.", phylogeny.version, sep = ""), 
-              data.dir = system.file("extdata", package = "microbiome"))
-        
-  # Get the phylogeny from Github url <-
-  # 'raw.github.com/microbiome/data/master/example-datasets/phylogeny' fnam
-  # <- paste(url, '.', phylogeny.version, '.tab', sep = '') phylogeny.info <-
-  # read.csv(text = RCurl::getURL(fnam), sep = '\t')
+      # Phylogeny
+      f <- paste0(data.dir, "/phylogeny.", phylogeny.version, ".tab")
+      tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
+      tab <- polish.phylogeny.info(tab)
+      
+      # Get the phylogeny from Github url <-
+      # 'raw.github.com/microbiome/data/master/example-datasets/phylogeny' fnam
+      # <- paste(url, '.', phylogeny.version, '.tab', sep = '') 
+      # phylogeny.info <- read.csv(text = RCurl::getURL(fnam), sep = '\t')
         
     } else {
-        
+
         message(paste("GetPhylogeny not implemented for", chip))
-        phylogeny.info <- NULL
-        
+        phylogeny.info <- NULL  
+
     }
     
     phylogeny.info

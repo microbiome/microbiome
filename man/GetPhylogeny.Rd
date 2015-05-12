@@ -4,7 +4,7 @@
 \alias{GetPhylogeny}
 \title{GetPhylogeny}
 \usage{
-GetPhylogeny(chip, phylogeny.version = "full")
+GetPhylogeny(chip, phylogeny.version = "full", data.dir = NULL)
 }
 \arguments{
 \item{chip}{chip type (e.g. 'HITChip')}
