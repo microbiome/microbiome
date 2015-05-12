@@ -10,7 +10,9 @@ GetPhylogeny(chip, phylogeny.version = "full", data.dir = NULL)
 \item{chip}{chip type (e.g. 'HITChip')}
 
 \item{phylogeny.version}{'full' or 'filtered'
-          (latter is the basis for species/L1/L2 summarization)}
+        (latter is the basis for species/L1/L2 summarization)}
+
+\item{data.dir}{Data directory path}
 }
 \value{
 phylogeny mapping table

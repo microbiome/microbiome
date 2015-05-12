@@ -5,6 +5,7 @@
 #'   @param chip chip type (e.g. 'HITChip')
 #'   @param phylogeny.version 'full' or 'filtered' 
 #'           (latter is the basis for species/L1/L2 summarization)
+#'   @param data.dir Data directory path
 #'
 #'   @return phylogeny mapping table
 #'
@@ -28,7 +29,7 @@ GetPhylogeny <- function(chip, phylogeny.version = "full", data.dir = NULL) {
       # Phylogeny
       f <- paste0(data.dir, "/phylogeny.", phylogeny.version, ".tab")
       tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
-      tab <- polish.phylogeny.info(tab)
+      phylogeny.info <- polish.phylogeny.info(tab)
       
       # Get the phylogeny from Github url <-
       # 'raw.github.com/microbiome/data/master/example-datasets/phylogeny' fnam
