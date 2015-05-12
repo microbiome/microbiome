@@ -44,12 +44,10 @@ data, and subjects with less than two time point are excluded.
 }
 \examples{
 # Example data
-library(microbiome)
-data.atlas1006 <- download_microbiome("atlas1006")
-x <- data.atlas1006$microbes[, c("Akkermansia", "Dialister")]
-m <- data.atlas1006$meta
-pseq <- hitchip2physeq(x, m, taxonomy = NULL)
-s <- intermediate_stability(pseq, reference.point = NULL, method = "lm")
+#library(microbiome)
+#data.atlas1006 <- download_microbiome("atlas1006")
+#pseq <- data.atlas1006 # TODO just exemplify with 2-3 example OTUs
+#s <- intermediate_stability(pseq, reference.point = NULL, method = "lm")
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

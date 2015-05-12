@@ -9,17 +9,8 @@ mean for a given phylotypes vs. samples matrix:
 library(microbiome)
 data.atlas1006 <- download_microbiome("atlas1006")
 
-# OTU matrix (absolute HITChip signal; samples x OTUs)
-otu <- data.atlas1006$microbes
-
-# Metadata (samples x features)
-meta <- data.atlas1006$meta
-
-# Convert data into phyloseq format
-pseq <- hitchip2physeq(otu, meta, taxonomy = NULL)
-
 # Quantify temporal stability across the abundance range
-stability <- intermediate_stability(pseq, method = "correlation")
+stability <- intermediate_stability(data.atlas1006, method = "correlation")
 intermediate.stability <- sapply(stability, function (x) {x$stability})
 hist(intermediate.stability, main = "Intermediate stability")
 ```
@@ -33,18 +24,19 @@ example data set, and plot the taxa with the lowest and highest score:
 
 ```{r bimodality, message=FALSE, warning=FALSE, fig.path = "figure/"}
 # Pick samples from zero time point (cross-sectional analysis)
-pseq0 <- subset_samples(pseq, time == 0)
+pseq0 <- subset_samples(data.atlas1006, time == 0 & DNA_extraction_method == "r")
 
 # Calculate coefficient of bimodality for each taxa
+# (calculated for log10 abundances)
 bimodality <- multimodality(pseq0, method = "potential.bootstrap")
-# bimodality.coef <- multimodality(pseq0, method = "coefficient.of.bimodality")
+bimodality.coef <- multimodality(pseq0, method = "coefficient.of.bimodality")
 
 # Compare the two bimodality scores
-# plot(bimodality.potential, bimodality.coef)
+# plot(bimodality, bimodality.coef)
 
 # Pick log10 data
-pseq0log <- transform_sample_counts(pseq0, function(x) log10(x) )
-x <- otu_table(pseq0log)@.Data
+pseq0log <- transform_sample_counts(pseq0, function(x) log10(x))
+otu.log10 <- otu_table(pseq0log)@.Data
 
 # Pick the most and least bimodal taxa as examples
 unimodal <- names(which.min(bimodality))
@@ -52,17 +44,26 @@ bimodal <- names(which.max(bimodality))
 
 # Visualize population frequencies
 par(mfrow = c(1,2))
-plot(density(x[unimodal, ]), main = unimodal)
-plot(density(x[bimodal, ]), main = bimodal)
+plot(density(otu.log10[unimodal, ]), main = unimodal)
+plot(density(otu.log10[bimodal, ]), main = bimodal)
 ```
 
 ## Bimodality versus intermediate stability
 
-The analysis suggests that bimodal taxa tend to have instable intermediate abundances:
+The analysis suggests that bimodal taxa tend to have instable intermediate abundances (following [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) but with a different subset, parameters and model):
+
 
 ```{r bimodalitybistability, message=FALSE, warning=FALSE, fig.path = "figure/"}
-s <- intersect(names(intermediate.stability), names(bimodality))
-plot(intermediate.stability[s], bimodality[s], xlab = "Intermediate stability", ylab = "Bimodality")
+# For clarity, visualize only the prevalent taxa seen with HITChip signal >250
+# (note HITChip signal reflects read count but is conceptually different) 
+# in at least 10% of the samples. 
+pseqf <- filter_taxa(pseq0, function(x) sum(x > 300) > (0.2*length(x)), TRUE)
+
+# Taxa that have bistability and bimodality estimates
+s <- taxa_names(pseqf)
+
+plot(intermediate.stability[s], bimodality[s], xlab = "Intermediate stability", ylab = "Bimodality", type = "n")
+text(intermediate.stability[s], bimodality[s], label = s, cex = 0.7)
 ```
 
 

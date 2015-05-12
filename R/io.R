@@ -35,11 +35,12 @@ read.profiling <- function(method = "frpa", data.dir, impute = TRUE) {
 
     f <- paste(data.dir, "/", level, "-", method, ".tab", sep = "")
 
-    tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
-    colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
+    if (file.exists(f)) {
+      tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
+      colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
 
-    results[[level]] <- tab
-
+      results[[level]] <- tab
+    }
   }
 
   # oligo data
@@ -58,10 +59,10 @@ read.profiling <- function(method = "frpa", data.dir, impute = TRUE) {
   # Metadata      
   # Read simulated example metadata
   #library(gdata)
-  #metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
+  #metadata.file <- paste(data.dir, "/metadata.xls", sep = "")
   #metadata <- read.xls(metadata.file, as.is = TRUE)
   #rownames(metadata) <- metadata$sampleID    
-  f <- paste(data.directory, "/metadata.tab", sep = "")
+  f <- paste(data.dir, "/metadata.tab", sep = "")
   tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
   rownames(tab) <- tab$sample
   return(tab)
