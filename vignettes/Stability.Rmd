@@ -72,14 +72,22 @@ text(intermediate.stability[s], bimodality[s], label = s, cex = 0.7)
 Assess 'inter-individual stability' as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between samples and their mean for a given samples vs phylotypes matrix. For the illustration, calculate inter-individual stability (variability) separately for Placebo and LGG groups.
 
 ```{r variability-example2, message=FALSE}
+
 # Example data
 library(microbiome)
-data.peerj32 <- download_microbiome("peerj32")
-x <- data.peerj32$microbes
-m <- data.peerj32$meta
+x <- download_microbiome("dietswap")
+
+# Add time field (two time points needed within each group for the 
+# intraindividual method)
+sample_data(x)$time <- sample_data(x)$timepoint.within.group
 
 # Estimate inter-individual variability
-res <- estimate_variability(x, m, "interindividual")
+res <- estimate_variability(x, "interindividual")
+
+# Estimate intra-individual variability
+res <- estimate_variability(x, "intraindividual")
+
+# Visualize
 library(ggplot2)
 theme_set(theme_bw(20))
 p <- ggplot(res$data, aes(x = group, y = correlation))

@@ -1,33 +1,33 @@
 #' Variability analysis. 
-
-#' @details Average correlation between samples in the input data within each group with the 
-#'          overall group-wise average. Picks the lower triangular matrix to avoid duplicating 
-#'	    the correlations. Returns correlations and stability estimate (inter-individual; 
-#'	    average of the correlations). Can also be used to calculate temporal variability 
-#'	    between two data sets (intra-individual), given appropriate sample metadata.
 #'
-#' @param x data matrix samples vs phylotypes
-#' @param meta data.frame with the fields "group" and "sample" for method "interindividual". 
-#'             For method "intraindividual", also provide "time", and "subject" fields.
+#' @details 
+#' Average correlation between samples in the input data within each
+#' group with the overall group-wise average. Picks the lower triangular
+#' matrix to avoid duplicating the correlations. Returns correlations and
+#' stability estimate (inter-individual; average of the
+#' correlations). Can also be used to calculate temporal variability
+#' between two data sets (intra-individual), given appropriate sample
+#' metadata.
+#'
+#' @param x phyloseq object with the OTU matrix and sample metadata. The sample metadata should contain the fields "sample" and "group" (or another grouping variable specified in the group_by argument) for the "interindividual" method. For the "intraindividual" method, also provide "time", and "subject" fields.
 #' @param type Variability type: 'interindividual' or 'intraindividual'
 #' @param group_by variable to be used in grouping. By default: "group"
 #' @param method correlation method (see ?cor)
 #'
-#' @return List with correlations, group-wise statistics, and ANOVA linear model p-value for 
-#' 	   group differences.
+#' @return List with correlations, group-wise statistics, and ANOVA 
+#'         linear model p-value for group differences.
 #'
 #' @export
 #' @examples 
 #' \dontrun{
 #' # Example data
 #' library(microbiome)
-#' data.peerj32 <- download_microbiome("peerj32")
-#' x <- data.peerj32$microbes
-#' m <- data.peerj32$meta
+#' x <- download_microbiome("dietswap")
+#' sample_data(x)$time <- sample_data(x)$timepoint.within.group
 #' # Estimate inter-individual variability
-#' res <- estimate_variability(x, m, "interindividual")
+#' res <- estimate_variability(x, "interindividual")
 #' # Estimate intra-individual variability
-#' res <- estimate_variability(x, m, "intraindividual")
+#' res <- estimate_variability(x, "intraindividual")
 #' }
 #' @references 
 #' The inter- and intra-individual variability are calculated
@@ -36,7 +36,13 @@
 #' 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-estimate_variability <- function(x, meta, type, group_by = "group", method = "spearman") {
+estimate_variability <- function(x, type, group_by = "group", method = "spearman") {
+
+    # Pick metadata		     
+    meta <- sample_data(x)
+    
+    # OTU data Log10
+    otu <- log10(t(otu_table(x)@.Data))
 
     correlation <- NULL
  		         
@@ -45,10 +51,15 @@ estimate_variability <- function(x, meta, type, group_by = "group", method = "sp
     if (!group_by %in% names(meta)) {
       meta[[group_by]] <- rep("completedata", nrow(meta))
     }
-    datasets <- split(x, droplevels(meta[[group_by]]))
+    datasets <- split(as.data.frame(otu), meta[[group_by]], drop = TRUE)
 
     if (type == "interindividual") {
-      
+    
+      tmp <- setdiff(c("sample", group_by), names(meta))
+      if (length(tmp) > 0) {
+        stop(paste("The following variables needed by estimate_variability function type=interindividual are missing from sample metadata:", paste(tmp, collapse = ",")))
+      }
+  
       # Within-matrix stability NOTE: earlier this was calculated as
       # the average of upper triangular correlation matrix This is
       # heavily biased since the values are dependent Now replaced
@@ -57,7 +68,7 @@ estimate_variability <- function(x, meta, type, group_by = "group", method = "sp
       dfs <- NULL      
       for (ds in names(datasets)) {
         dat1 <- datasets[[ds]]
-        cors <- as.vector(cor(t(dat1), matrix(colMeans(dat1)), method = method))
+        cors <- as.vector(cor(t(dat1), matrix(colMeans(dat1)), method = method, use = "pairwise.complete.obs"))
         dfs <- rbind(dfs, data.frame(group = rep(ds, length(cors)),
                    	             sample = rownames(dat1),
   		   		     correlation = cors))
@@ -69,6 +80,15 @@ estimate_variability <- function(x, meta, type, group_by = "group", method = "sp
       variability <- list(data = dfs, statistics = stats, p.value = pval)
 
     } else if (type == "intraindividual") {
+
+      tmp <- setdiff(c("time", "subject", "sample", group_by), names(meta))
+      if (length(tmp) > 0) {
+        stop(paste("The following variables needed by estimate_variability function type=intraindividual are missing from sample metadata:", paste(tmp, collapse = ",")))
+      }
+
+      if (!all(sapply(split(meta$time, meta[[group_by]]), function (x) {length(unique(x))}) == 2)) {
+        stop("Two time points needed for each group for the intraindividual type. Some groups are having a different number of time points.")
+      }
 
       variability <- list()
       dfs <- NULL
@@ -84,7 +104,7 @@ estimate_variability <- function(x, meta, type, group_by = "group", method = "sp
 	cors <- c()
         for (subj in names(datasets2)) {
           dats <- datasets2[[subj]]
-          cors[[subj]] <- cor(unlist(dats[1,]), unlist(dats[2,]), method = method)
+          cors[[subj]] <- cor(unlist(dats[1,]), unlist(dats[2,]), method = method, use = "pairwise.complete.obs")
         }
 
         dfs <- rbind(dfs, data.frame(group = rep(ds, length(cors)),
@@ -96,7 +116,7 @@ estimate_variability <- function(x, meta, type, group_by = "group", method = "sp
       # Between time point correlations within subjects
       # and the mean over those correlations
       pval <- anova(lm(correlation ~ group, data = dfs))[["Pr(>F)"]][[1]]
-      stats <- dfs %>% group_by(group) %>% summarize(mean = mean(correlation), sd = sd(correlation))
+      stats <- dfs %>% group_by(group) %>% summarize(mean = mean(correlation, na.rm = T), sd = sd(correlation, na.rm = T))
       variability <- list(data = dfs, statistics = stats, p.value = pval)
 
     }
