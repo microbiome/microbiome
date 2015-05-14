@@ -41,12 +41,6 @@ download_peerj32 <- function (...) {
 
     message("Downloading data set from Lahti et al. PeerJ, 2013: https://peerj.com/articles/32/")
 
-    #peerj32 <- NULL
-    #data(peerj32)
-    #write.table(peerj32$lipids, file = "../inst/extdata/peerj32_lipids.csv", quote = F, sep = "\t")
-    #write.table(peerj32$microbes, file = "../inst/extdata/peerj32_microbes.csv", quote = F, sep = "\t")
-    #write.table(peerj32$meta, file = "../inst/extdata/peerj32_meta.csv", quote = F, sep = "\t")
-    
     peerj32 <- list()
     data.dir <- system.file("extdata", package = "microbiome")
     for (nam in c("lipids", "microbes", "meta")) {
@@ -56,10 +50,6 @@ download_peerj32 <- function (...) {
     data <- peerj32
 
     # The formatting of taxon names needs to be harmonized for microbiome package:
-    # Fix some broken names from the original release..
-    # ie. replace 'Clostridium..sensu.stricto.les' with 'Clostridiales'
-    colnames(data$microbes) <- gsub("Clostridium..sensu.stricto.les", "Clostridiales", colnames(data$microbes))
-    # Remove periods
     colnames(data$microbes) <- gsub("\\.", " ", colnames(data$microbes))
     # Put back 'rel.' periods
     colnames(data$microbes) <- gsub("rel $", "rel.", colnames(data$microbes))
@@ -128,7 +118,7 @@ download_atlas <- function (...) {
   meta <- read.table(url, sep = "\t", row.names = 1, header = TRUE)
 
   # Add SampleIDs as a separate column from rownames
-  meta$SampleID <- rownames(meta)
+  meta$sample <- rownames(meta)
 
   # Order BMI groups in correct order
   # (see README at http://datadryad.org/resource/doi:10.5061/dryad.pk75d 

@@ -53,7 +53,7 @@ read.profiling <- function(method = "frpa", data.dir, impute = TRUE) {
   f <- paste(data.dir, "/phylogeny.full.tab", sep = "")
   #f <- paste(data.dir, "/phylogeny.filtered.tab", sep = "")        
   tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
-  tab <- polish.phylogeny.info(tab)
+  tab <- polish.tax.table(tab)
   results[["taxonomy"]] <- tab  
 
   # Metadata      

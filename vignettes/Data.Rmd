@@ -109,7 +109,7 @@ An easy way to provide sample metadata is to create a tab-separated metadata fil
 
 The data set from [David et al. Genome Biology 2014, 15:R89](http://genomebiology.com/2014/15/7/R89):
 
-```{r peerjdata}
+```{r peerjdata2}
 library(microbiome)
 data.david2014 <- download_microbiome("david2014")
 ```

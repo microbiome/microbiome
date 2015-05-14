@@ -11,13 +11,7 @@ library(microbiome, quietly = TRUE)
 
 # Check cross-hyb between all L1 groups
 res <- PlotCrosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE)
-```
-
-```
-## Reading /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.filtered.tab
-```
-
-```r
+    
 # Pick the crosshyb table and figure
 crosshyb.table <- res$data
 p <- res$plot
@@ -55,22 +49,12 @@ Investigate species-species cross-hybridization within the Dialister L2 group
 ```r
 # Pick the phylogeny which was used to summarize probes to species level
 phylogeny.info <- GetPhylogeny("HITChip", "filtered") 
-```
 
-```
-## Reading /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.filtered.tab
-```
-
-```r
 # Select species belonging to Dialister L2 group
 mytaxa <- levelmap("Dialister", level.from = "L2", level.to = "species", phylogeny.info = phylogeny.info)[[1]]
 
 # Check cross-hyb between Dialister species
 res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, phylogeny.info = phylogeny.info)
-```
-
-```
-## Reading /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata/phylogeny.filtered.tab
 ```
 
 ![plot of chunk chyb2](figure/chyb2-1.png) 

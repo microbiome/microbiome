@@ -29,23 +29,26 @@ bib <- read.bibtex("bibliography.bib")
 microbiome R package
 ===========
 
-The microbiome package contains general-purpose tools for microarray-based analysis of microbiome profiling data sets in R `r citep(bib[["rcore13"]])`. See also the related but independent R package [phyloseq](https://github.com/joey711/phyloseq).
+The microbiome package contains general-purpose tools for microarray-based analysis of microbiome profiling data sets in R `r citep(bib[["rcore13"]])`. 
+
+The analyses are based on the phyloseq class from the independent [phyloseq](https://github.com/joey711/phyloseq) R package. Convert your data into phyloseq format before testing these examples.
 
 
 ### How to start 
 
 Example on reproducible document generation:  
 
- * [Minimal example](Template.md)  
+ * [Installing R tools](Installation.md)
+ * [How to get started](Template.md)  
  * [Example workflow](Atlas.md)
 
-### Installation, example data sets and preprocessing
-* [Installing R tools](Installation.md)
 
 ### Data
+
 * [Download example data sets](Data.md)
 * [Extract data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
 * [Get phylogeny](Phylogeny.md)
+
 
 ### Visualization and related tools
 
@@ -60,9 +63,11 @@ Download some [example data sets](Data.md) to try these tools:
 * [PCA and other ordination/projection methods](PCA.md)
 * [Cross hybridization](Crosshyb.md)
 
+
 ### Clustering 
 * [Bimodality](Bimodality.md)
 * [Clustering](Clustering.md)
+
 
 ### Microbiota composition
 * [Core microbiota](Core.md)
@@ -72,21 +77,26 @@ Download some [example data sets](Data.md) to try these tools:
 * [Variability](Variability.md)
 * [Bistability analysis](Stability.md)
 
+
 ### Linear models, comparisons, and association studies
 * [Linear models](limma.md)
 * [Pairwise comparisons](Comparisons.md)
 * [Cross correlations](Crosscorrelation.md)
+
 
 ### Other statistical analysis
 * [ROC curves](ROC.md)
 * [RDA](RDA.md)
 * [Phyloseq tools](Phyloseq.md)
 
+
 ### Output
 * [Generating output files/figures](Output.md)
 
+
 ### Misc
 * [Miscellaneous](misc.md)
+
 
 ### Licensing and Citations
 

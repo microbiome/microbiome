@@ -4,7 +4,7 @@
 \alias{intermediate_stability}
 \title{intermediate_stability}
 \usage{
-intermediate_stability(x, reference.point = NULL, method = "lm")
+intermediate_stability(x, reference.point = NULL, method = "correlation")
 }
 \arguments{
 \item{x}{\pkg{phyloseq} object.
@@ -45,9 +45,9 @@ data, and subjects with less than two time point are excluded.
 \examples{
 # Example data
 #library(microbiome)
-#data.atlas1006 <- download_microbiome("atlas1006")
-#pseq <- data.atlas1006 # TODO just exemplify with 2-3 example OTUs
-#s <- intermediate_stability(pseq, reference.point = NULL, method = "lm")
+#x <- download_microbiome("atlas1006")
+#res <- intermediate_stability(x, reference.point = NULL)
+#s <- sapply(res, function (x) {x$stability})
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

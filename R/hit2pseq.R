@@ -31,7 +31,6 @@ hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 1.8) {
 
   # Discretize to get 'counts'
   otumat <- round(x)
-  rownames(otumat) <- gsub("Clostridium \\(sensu stricto\\)", "Clostridiales", rownames(otumat))
   OTU <- otu_table(otumat, taxa_are_rows = TRUE)
 
   # --------------------------
@@ -39,11 +38,10 @@ hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 1.8) {
   # Construct taxonomy table
   if (is.null(taxonomy)) {
     # Assuming for now that the input data is L2 level
-    ph <- GetPhylogeny("HITChip")
-    ph <- unique(ph[, c("L1", "L2")])
-    ph$L2 <- gsub("Clostridium \\(sensu stricto\\)", "Clostridiales", ph$L2)
-    ph <- unique(ph[, c("L1", "L2")])
-    colnames(ph) <- c("Phylum", "Genus")
+    # FIXME we could add L0 here
+    ph <- as.data.frame(GetPhylogeny("HITChip")@.Data)
+    ph <- unique(ph[, c("L1", "L2", "species")])
+    colnames(ph) <- c("Phylum", "Genus", "Species")
     taxonomy <- ph
     rownames(taxonomy) <- as.character(taxonomy$Genus)
   }
@@ -62,6 +60,9 @@ hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 1.8) {
   # Metadata
   sampledata <- sample_data(meta[colnames(otumat),])
   physeq <- merge_phyloseq(physeq, sampledata)
+
+  # Harmonize the fields
+  physeq@sam_data <- harmonize_fields(physeq@sam_data)
 
   # --------------------------
 

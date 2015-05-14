@@ -1,4 +1,18 @@
 
+#' harmonize fields
+#'
+#' @param x data.frame
+#'
+#' @return data.frame with harmonized fields
+#'
+#' @examples 
+#'   # m <- harmonize_fields(x)
+#'
+#' @export
+#'
+#' @references See citation('microbiome') 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
 harmonize_fields <- function (x) {
 
   if (("bmi" %in% colnames(x)) && !("bmi_group" %in% colnames(x))) {

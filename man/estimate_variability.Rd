@@ -4,13 +4,10 @@
 \alias{estimate_variability}
 \title{Variability analysis.}
 \usage{
-estimate_variability(x, meta, type, group_by = "group", method = "spearman")
+estimate_variability(x, type, group_by = "group", method = "spearman")
 }
 \arguments{
-\item{x}{data matrix samples vs phylotypes}
-
-\item{meta}{data.frame with the fields "group" and "sample" for method "interindividual".
-For method "intraindividual", also provide "time", and "subject" fields.}
+\item{x}{phyloseq object with the OTU matrix and sample metadata. The sample metadata should contain the fields "sample" and "group" (or another grouping variable specified in the group_by argument) for the "interindividual" method. For the "intraindividual" method, also provide "time", and "subject" fields.}
 
 \item{type}{Variability type: 'interindividual' or 'intraindividual'}
 
@@ -19,30 +16,31 @@ For method "intraindividual", also provide "time", and "subject" fields.}
 \item{method}{correlation method (see ?cor)}
 }
 \value{
-List with correlations, group-wise statistics, and ANOVA linear model p-value for
-	   group differences.
+List with correlations, group-wise statistics, and ANOVA
+        linear model p-value for group differences.
 }
 \description{
 Variability analysis.
 }
 \details{
-Average correlation between samples in the input data within each group with the
-         overall group-wise average. Picks the lower triangular matrix to avoid duplicating
-	    the correlations. Returns correlations and stability estimate (inter-individual;
-	    average of the correlations). Can also be used to calculate temporal variability
-	    between two data sets (intra-individual), given appropriate sample metadata.
+Average correlation between samples in the input data within each
+group with the overall group-wise average. Picks the lower triangular
+matrix to avoid duplicating the correlations. Returns correlations and
+stability estimate (inter-individual; average of the
+correlations). Can also be used to calculate temporal variability
+between two data sets (intra-individual), given appropriate sample
+metadata.
 }
 \examples{
 \dontrun{
 # Example data
 library(microbiome)
-data.peerj32 <- download_microbiome("peerj32")
-x <- data.peerj32$microbes
-m <- data.peerj32$meta
+x <- download_microbiome("dietswap")
+sample_data(x)$time <- sample_data(x)$timepoint.within.group
 # Estimate inter-individual variability
-res <- estimate_variability(x, m, "interindividual")
+res <- estimate_variability(x, "interindividual")
 # Estimate intra-individual variability
-res <- estimate_variability(x, m, "intraindividual")
+res <- estimate_variability(x, "intraindividual")
 }
 }
 \author{

@@ -1,7 +1,7 @@
 ---
 title: "Atlas workflow"
 author: "Leo Lahti"
-date: "2015-05-11"
+date: "2015-05-14"
 output:
   md_document:
     toc: false
@@ -95,7 +95,7 @@ d <- download_microbiome("atlas1006")
 ```
 
 ```
-## Downloading data set from Lahti et al. Nat. Comm. from Data Dryad: http://doi.org/10.5061/dryad.pk75d
+## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
 ```
 
 

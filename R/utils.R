@@ -246,40 +246,7 @@ matrix.padjust <- function(pvals, p.adjust.method = "BH") {
     
 }
 
-#' polish.phylogeny.info
-#'
-#' Ensure phylogeny.info is in correct format
-#' 
-#' @param phylogeny.info phylogeny.info data frame
-#'
-#' @return polished phylogeny.info
-#' @references See citation('microbiome')
-#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @export
-#' @examples 
-#'   #phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
-#'   #phylogeny.info <- polish.phylogeny.info(phylogeny.info)
-#' @keywords internal
 
-polish.phylogeny.info <- function(phylogeny.info) {
-    
-    colnames(phylogeny.info)[
-          which(colnames(phylogeny.info) == "level.0")] <- "L0"
-    colnames(phylogeny.info)[
-          which(colnames(phylogeny.info) == "level.1")] <- "L1"
-    colnames(phylogeny.info)[
-          which(colnames(phylogeny.info) == "level.2")] <- "L2"
-    
-    colnames(phylogeny.info)[
-          which(colnames(phylogeny.info) == "level 0")] <- "L0"
-    colnames(phylogeny.info)[
-          which(colnames(phylogeny.info) == "level 1")] <- "L1"
-    colnames(phylogeny.info)[
-          which(colnames(phylogeny.info) == "level 2")] <- "L2"
-    
-    phylogeny.info
-    
-}
 
 
 #' Impute missing values from a Gaussian. 
