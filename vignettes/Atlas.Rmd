@@ -73,7 +73,6 @@ Diversity vs. age with smoothed confidence intervals:
 ```{r atlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/"}
 library(microbiome)
 library(sorvi)
-library(dplyr)
 
 # Pick the subset of RBB-preprocessed samples from time point 0
 dsub <- subset_samples(d, time == 0 & DNA_extraction_method == "r")

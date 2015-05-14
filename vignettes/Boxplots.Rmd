@@ -1,15 +1,19 @@
 ### Boxplots
 
 ```{r boxplot-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
-library(microbiome, quietly = TRUE)
+library(microbiome)
+library(ggplot2)
 
 # Microbiota profiling data. Read as: bacteria x samples matrix
-data(peerj32)  # From https://peerj.com/articles/32/
+# From https://peerj.com/articles/32/
+x <- download_microbiome("peerj32")$physeq
 
 # Construct example data (df). Ensure that samples are given in same order
 # in metadata and HITChip data.
-df <- peerj32$meta
-df$hitchip <- peerj32$microbes[rownames(df), "Akkermansia"]
+df <- harmonize_fields(sample_data(x))
+
+# Pick log10 data for a given bug:
+df$hitchip <- log10(as.vector(otu_table(x)["Akkermansia", ]))
 
 # Visualize example data with a boxplot
 library(ggplot2, quietly = TRUE)
