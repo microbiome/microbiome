@@ -16,11 +16,11 @@ hist(intermediate.stability, main = "Intermediate stability")
 ```
 
 
-## Bimodality quantification
+## Bimodality analysis
 
-Calculate coefficient of bimodality (used in [Shade et
-al.](http://mbio.asm.org/content/5/4/e01371-14)) for taxa in an
-example data set, and plot the taxa with the lowest and highest score:
+Calculating coefficient of bimodality for each taxonomic group in an
+example data set. Multiple bimodality scores are available, see the
+function help for details.
 
 ```{r bimodality, message=FALSE, warning=FALSE, fig.path = "figure/"}
 # Pick samples from zero time point (cross-sectional analysis)
@@ -28,16 +28,33 @@ pseq0 <- subset_samples(data.atlas1006, time == 0 & DNA_extraction_method == "r"
 
 # Calculate coefficient of bimodality for each taxa
 # (calculated for log10 abundances)
+# Potential analysis + Bootstrap bimodality score
 bimodality <- multimodality(pseq0, method = "potential.bootstrap")
-bimodality.coef <- multimodality(pseq0, method = "coefficient.of.bimodality")
-
-# Compare the two bimodality scores
-# plot(bimodality, bimodality.coef)
+# Coefficient of bimodality. Also see the function coefficient_of_bimodality
+bimodality.coef <- multimodality(pseq0, method = "coefficient_of_bimodality")
 
 # Pick log10 data
-pseq0log <- transform_sample_counts(pseq0, function(x) log10(x))
-otu.log10 <- otu_table(pseq0log)@.Data
+otu <- otu_table(pseq0)@.Data
+otu.log10 <- log10(otu)
 
+# Alo calculate DIP multimodality test. This uses the separate diptest package.
+# This seems to coincide much better with the other scores when absolute OTU count is used
+dip <- apply(otu, 1, function (x) dip.test(x, simulate.p.value = TRUE, B = 5000))
+dip2 <- data.frame(t(sapply(dip, function (x) {c(x$statistic, x$p.value)})))
+dip2$tax <- names(dip)
+colnames(dip2) <- c("score", "p.value")
+# Dip measures unimodality. Values range between 0 to 1. Values less than 0.05 indicate significant 
+# deviation from unimodality. To score multimodality, use the inverse:
+multimodality.dip <- 1 - dip2$score
+#multimodality.dip <- dip2$p.value
+
+# Compare the alternative bimodality scores
+pairs(cbind(pb = bimodality, bc = bimodality.coef, dip = multimodality.dip))
+```
+
+Visualize population densities for selected taxa
+
+```{r stability2, message=FALSE, warning=FALSE, fig.path = "figure/"}
 # Pick the most and least bimodal taxa as examples
 unimodal <- names(which.min(bimodality))
 bimodal <- names(which.max(bimodality))
@@ -51,7 +68,6 @@ plot(density(otu.log10[bimodal, ]), main = bimodal)
 ## Bimodality versus intermediate stability
 
 The analysis suggests that bimodal taxa tend to have instable intermediate abundances (following [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) but with a different subset, parameters and model):
-
 
 ```{r bimodalitybistability, message=FALSE, warning=FALSE, fig.path = "figure/"}
 # For clarity, visualize only the prevalent taxa seen with HITChip signal >250
