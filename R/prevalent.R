@@ -1,14 +1,18 @@
 #' Simple prevalence measure
 #'
 #' 
-#'   @param x Abundance data matrix: samples x features (microbes) 
+#'   @param x A vector, data matrix or phyloseq object
 #'   @param detection.threshold Detection threshold for absence/presence.
 #'   @param sort Sort the groups by prevalence
 #'
-#' @details Calculates for each sample the fraction of samples that
-#'          exceed the detection threshold
 #'
-#' @return Number of OTUs.
+#' @details For vectors, calculates the fraction of samples that exceed the
+#' detection threshold. For matrices, calculates for each matrix column
+#' the fraction of entries that #' exceed the detection threshold. For
+#' phyloseq object, calculates for each OTU the fraction of samples that
+#' exceed the detection threshold
+#'
+#' @return For each OTU, the fraction of samples where a given OTU is detected
 #'
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
@@ -20,27 +24,43 @@
 #' @keywords utilities
 #' @export
 #' @examples
-#'   data(peerj32)
-#'   prevalence(peerj32$microbes, detection.threshold = 1.8, sort = TRUE)
+#'   peerj32 <- download_microbiome("peerj32")
+#'   # With matrix
+#'   prevalence(peerj32$data$microbes, detection.threshold = 200, sort = TRUE)
+#'   # With phyloseq
+#'   prevalence(peerj32$physeq, detection.threshold = 200, sort = TRUE)
+#' 
 prevalence <- function (x, detection.threshold, sort = FALSE) {
-  prev <- colMeans(x > detection.threshold)
-  if (sort) {prev <- rev(sort(prev))}
+
+  if (is.vector(x)) {
+    prev <- mean(x > detection.threshold)
+  } else if (is.matrix(x)) {
+    prev <- colMeans(x > detection.threshold)
+  } else if (class(x) == "phyloseq") {
+    x <- t(otu_table(x)@.Data)
+    prev <- prevalence(x, detection.threshold = detection.threshold)
+  }
+
+  if (sort) {
+    prev <- rev(sort(prev))
+  }
+
   prev
+
 }
 
 
 
 #' List prevalent groups
 #'
-#'   @param x Abundance data matrix: samples x features (microbes) 
+#'   @param A matrix or a x \code{\link{phyloseq}} object
 #'   @param detection.threshold Detection threshold for absence/presence.
 #'   @param prevalence.threshold Detection threshold for prevalence
 #'
-#' @details Lists groups that are more prevalent above the detection
-#'          threshold as specified by the detection and prevalence threshold
-#' 	    arguments
+#' @details For phyloseq object, lists taxa that are more prevalent with the given detection
+#'          threshold. For matrix, lists columns that satisfy these criteria.
 #'
-#'   @return Vector of prevalent groups
+#'   @return Vector of prevalent taxa names
 #'
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
@@ -51,11 +71,19 @@ prevalence <- function (x, detection.threshold, sort = FALSE) {
 #' @keywords utilities
 #' @export
 #' @examples
-#'   data(peerj32)
-#'   list_prevalent_groups(peerj32$microbes, 2, 0.2)
+#'   peerj32 <- download_microbiome("peerj32")
+#'   prevalent_taxa(peerj32$data$microbes, 10^1.8 + 100, 0.2) # matrix
+#'   prevalent_taxa(peerj32$physeq, 100, 0.2) # phyloseq object
 #' 
-list_prevalent_groups <- function (x, detection.threshold, prevalence.threshold) {
+prevalent_taxa <- function (x, detection.threshold, prevalence.threshold) {
+
+  if (class(x) == "phyloseq") {
+    # Convert into OTU matrix
+    x <- t(otu_table(x)@.Data)    
+  } 
+
   sort(names(which(prevalence(x, detection.threshold) > prevalence.threshold)))
+
 }
 
 

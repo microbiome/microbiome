@@ -64,7 +64,7 @@ Download some [example data sets](Data.md) to try these tools:
 
 
 ### Clustering 
-* [Bimodality](Bimodality.md)
+* [Bimodality](Stability.md)
 * [Clustering](Clustering.md)
 
 

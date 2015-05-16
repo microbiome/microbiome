@@ -18,24 +18,25 @@ hist(intermediate.stability, main = "Intermediate stability")
 
 ## Bimodality analysis
 
-Calculating coefficient of bimodality for each taxonomic group in an
-example data set. Multiple bimodality scores are available, see the
-function help for details.
+Multiple scores are available to calculate coefficients of bimodality
+for each taxonomic group. Some of the scores are more generally
+quantifying multimodality, or deviation from unimodality but do not
+yield estimates of the number of modes. 
 
 ```{r bimodality, message=FALSE, warning=FALSE, fig.path = "figure/"}
 # Pick samples from zero time point (cross-sectional analysis)
 pseq0 <- subset_samples(data.atlas1006, time == 0 & DNA_extraction_method == "r")
 
-# Calculate coefficient of bimodality for each taxa
-# (calculated for log10 abundances)
-# Potential analysis + Bootstrap bimodality score
-bimodality <- multimodality(pseq0, method = "potential.bootstrap")
-# Coefficient of bimodality. Also see the function coefficient_of_bimodality
-bimodality.coef <- multimodality(pseq0, method = "coefficient_of_bimodality")
-
-# Pick log10 data
+# Pick OTU log10 data
 otu <- otu_table(pseq0)@.Data
 otu.log10 <- log10(otu)
+
+# Calculate coefficient of bimodality for each taxa (calculated for log10 abundances)
+# Potential analysis + Bootstrap bimodality score
+bimodality <- multimodality(pseq0, method = "potential.bootstrap")
+
+# Coefficient of bimodality. Also see the function coefficient_of_bimodality
+bimodality.coef <- multimodality(pseq0, method = "coefficient_of_bimodality")
 
 # Alo calculate DIP multimodality test. This uses the separate diptest package.
 # This seems to coincide much better with the other scores when absolute OTU count is used
