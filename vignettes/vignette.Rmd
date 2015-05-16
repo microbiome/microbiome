@@ -48,7 +48,7 @@ Example on reproducible document generation:
 * [Download example data sets](Data.md)
 * [Extract data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
 * [Get phylogeny](Phylogeny.md)
-
+* [Preprocessing and Filtering](Preprocessing.md)
 
 ### Visualization and related tools
 
@@ -59,7 +59,9 @@ Download some [example data sets](Data.md) to try these tools:
 * [Density](Density.md)
 * [Heatmaps](Heatmap.md)
 * [Motion charts](Motionchart.md)
-* [PCA and other ordination/projection methods](PCA.md)
+* [Networks](Networks.md)
+* [Ordination](Ordination.md)
+* [PCA](Ordination.md)
 * [Cross hybridization](Crosshyb.md)
 
 
@@ -81,6 +83,7 @@ Download some [example data sets](Data.md) to try these tools:
 ### Linear models, comparisons, and association studies
 * [Linear models](limma.md)
 * [Pairwise comparisons](Comparisons.md)
+
 
 ### Other statistical analysis
 * [ROC curves](ROC.md)

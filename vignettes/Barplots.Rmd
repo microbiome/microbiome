@@ -33,6 +33,7 @@ data.dietswap <- download_microbiome("dietswap")
 TopNOTUs <- names(sort(taxa_sums(x), TRUE)[1:3])
 tops <- prune_taxa(TopNOTUs, x)
 plot_bar(tops, "group", fill = "gender", facet_grid = ~Phylum)
+#plot_bar(ent10, "Genus", fill = "Genus", facet_grid = SeqTech ~ Enterotype)
 ```
 
 
