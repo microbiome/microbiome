@@ -13,7 +13,7 @@ library(ggplot2)
 x <- download_microbiome("peerj32")$physeq
 
 # Visualize samples by Phyla (note: in HITChip data it is only approximately Phylum level)
-plot_bar(x, fill = "Phylum")
+plot_bar(x, x = "sample", fill = "Phylum")
 ```
 
 

@@ -23,8 +23,7 @@
 #' @keywords utilities
 hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 1.8) {
 
-  # OTU matrix	       
-  # OTU x Sample: absolute 'read counts'
+  # OTU x Sample matrix: absolute 'read counts'
   x <- t(otu) - 10^detection.limit # HITChip detection limit
   x[x < 0] <- 0
   x <- 1 + x

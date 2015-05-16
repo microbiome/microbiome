@@ -5,35 +5,15 @@ input data set needs to be in absolute scale (not logarithmic).
 
 ```{r diversity-example6, fig.path = "figure/"}
 library(microbiome)
-# Define data path (you can replace data.directory with your own path)
-data.directory <- system.file("extdata", package = "microbiome")
-x <- read.profiling(level = "L1", method = "frpa", 
-              		  data.dir = data.directory, 
-	      	       	  log10 = FALSE)  
+pseq <- download_microbiome("dietswap")
 
-rel <- relative.abundance(x)
+# Pick sample subset
+pseq <- subset_samples(pseq, group == "DI" & nationality == "AFR")
 
-# Rearrange the data for ggplot visualization tools
-library(reshape)
-dfm <- melt(rel)
-colnames(dfm) <- c("Taxon", "SampleID", "RelativeAbundance")
+# Plot absolute taxon abundances
+plot_abundance(pseq, relative.abundance = FALSE, taxonomic.level = "Phylum")
 
-# Provide barplot visualizations of relative abundances for some randomly selected samples
-library(ggplot2)
-suppressMessages(library(dplyr))
-dfmf <- filter(dfm, SampleID %in% c("Sample.1", "Sample.2", "Sample.3", "Sample.4", "Sample.5"))
-p <- ggplot(dfmf, aes(x = SampleID, y = RelativeAbundance, fill = Taxon))
-p <- p + geom_bar(position = "stack", stat = "identity")
-print(p)
-
-# Also note that taking relative abundances likely changes the abundance histograms
-tax <- "Bacilli"
-theme_set(theme_bw(20))
-p <- ggplot(filter(dfm, Taxon == tax), aes(x = 100*RelativeAbundance))
-p <- p + geom_density(fill = "darkgray")
-p <- p + scale_x_log10()
-p <- p + xlab("Relative Abundance (%)")
-p <- p + ggtitle(tax)
-print(p)
+# Plot relative taxon abundances
+plot_abundance(pseq, relative.abundance = TRUE, taxonomic.level = "Phylum")
 ```
 

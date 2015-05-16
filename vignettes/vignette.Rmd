@@ -70,10 +70,10 @@ Download some [example data sets](Data.md) to try these tools:
 
 ### Microbiota composition
 * [Bistability analysis](Stability.md)
+* [Composition](Composition.md)
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
 * [Probe level studies](Probelevel.md)
-* [RelativeAbundance](RelativeAbundance.md)
 * [Tipping elements](Stability.md)
 * [Variability](Variability.md)
 

@@ -110,7 +110,7 @@ download_atlas <- function (...) {
   colnames(data) <- gsub("Clostridium  sensu stricto ", "Clostridium (sensu stricto)", colnames(data))
 
   # Convert to matrix 
-  data <- as.matrix(data)
+  otu <- as.matrix(data)
 
   # -------------------------------------------
 
@@ -130,13 +130,8 @@ download_atlas <- function (...) {
   # Harmonize field contents
   meta <- harmonize_fields(meta)
 
-  # Collect the atlas data and metadata into a single object
-  atlas <- list(microbes = data, meta = meta)
-
-  # ----------------------------------------
-
   # Convert in phyloseq format
-  physeq <- hitchip2physeq(data, meta)
+  physeq <- hitchip2physeq(otu, meta)
 
   physeq
 
