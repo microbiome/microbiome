@@ -74,15 +74,13 @@ Download some [example data sets](Data.md) to try these tools:
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
 * [Probe level studies](Probelevel.md)
+* [Stability/Variability](Stability.md)
 * [Tipping elements](Stability.md)
-* [Variability](Variability.md)
 
 
 ### Linear models, comparisons, and association studies
 * [Linear models](limma.md)
 * [Pairwise comparisons](Comparisons.md)
-* [Cross correlations](Crosscorrelation.md)
-
 
 ### Other statistical analysis
 * [ROC curves](ROC.md)

@@ -1,6 +1,5 @@
 ### RDA analysis and visualization. 
 
-
 Load the package and example data:
 
 ```{r rda, warning=FALSE, message=FALSE, fig.path = "figure/"}

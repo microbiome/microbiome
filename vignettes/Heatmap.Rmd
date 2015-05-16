@@ -157,3 +157,31 @@ p <- p + xlab("") + ylab("")
 print(p)
 ```
 
+
+
+### Heatmaps
+
+[Heatmaps](http://joey711.github.io/phyloseq/plot_heatmap-examples) and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45)
+
+```{r heatmap, warning=FALSE, message=FALSE}
+library(microbiome)
+data.dietswap <- download_microbiome("dietswap")
+
+library(scales)
+library(vegan)
+plot_heatmap(physeq, taxa.label = "Phylum")
+
+physeq.log <- physeq
+trans <- as.matrix(t(scale(t(log10(1 + physeq.log@otu_table)))))
+otu_table(physeq.log) <- otu_table(trans, taxa_are_rows=taxa_are_rows(physeq))
+plot_heatmap(physeq.log, method = "NMDS", distance = "jaccard", low="blue", high="red")
+
+#log transform sample counts
+physeq.log <- transform_sample_counts(physeq, function(x) log10(x+1))
+#calculate ordination of log transformed sample counts
+physeq.log.ord <- ordinate(physeq.log, "NMDS")
+#split plot with log trandormed sample counts
+p <- plot_ordination(physeq.log, physeq.log.ord, type = "split")
+p
+```
+

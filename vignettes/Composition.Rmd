@@ -1,0 +1,44 @@
+## Microbiota composition
+
+
+### Barplot visualizations
+
+Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html). 
+
+Show OTU absolute abundance in each sample:
+
+```{r composition-example1, fig.path = "figure/"}
+# Example data
+library(microbiome)
+pseq0 <- download_microbiome("dietswap")
+# Pick sample subset
+pseq <- subset_samples(pseq, group == "DI" & nationality == "AFR")
+
+# Plot absolute taxon abundances
+plot_abundance(pseq)
+```
+
+
+Or sum the OTUs at a higher taxonomic level:
+
+```{r composition-example2, fig.path = "figure/"}
+plot_abundance(pseq, taxonomic.level = "Phylum")
+```
+
+
+Same with relative abundances:
+
+```{r composition-example3, fig.path = "figure/"}
+plot_abundance(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
+```
+
+
+Arrange by sample variable and use custom X axis labels:
+
+```{r composition-example3, fig.path = "figure/"}
+# Subset taxa and samples
+pseq <- subset_samples(pseq0, group == "DI" & timepoint.within.group == 1)
+pseq <- prune_taxa(c("Prevotella melaninogenica et rel.", "Bacteroides fragilis et rel.", "Akkermansia"), pseq)
+plot_abundance(pseq, relative.abundance = TRUE, sort.by = "nationality", x.label = "nationality")
+```
+

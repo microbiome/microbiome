@@ -153,7 +153,33 @@ p
 }
 ```
 
+
+### Further ordination examples
+
+```{r ordinate, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
+library(microbiome)
+data.dietswap <- download_microbiome("dietswap")
+
+plot_ordination(physeq, ordinate(physeq, "MDS"), color = "group") + geom_point(size = 5)
+
+nmds <- ordinate(physeq, "NMDS", "bray")
+
+require("ggplot2")
+p2 <- plot_ordination(physeq, ordinate(physeq, "CCA"), type = "samples", color = "gender")
+p2 + geom_point(size = 5) + geom_polygon(aes(fill = gender))
+
+plot_ordination(physeq, ordinate(physeq, "CCA"), type = "taxa", color = "Phylum") + 
+    geom_point(size = 4)
+plot_ordination(physeq, ordinate(physeq, "CCA"), type = "split", color = "gender")
+plot_ordination(physeq, ordinate(physeq, "CCA"), type = "biplot", shape = "Phylum")
+plot_ordination(physeq, ordinate(physeq, "CCA"), type = "split", color = "gender", 
+    shape = "Phylum", label = "gender")
+```
+
+
 ## Unifrac with PCoA
 
 
 For Unifrac with PCoA, see [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). 
+
+

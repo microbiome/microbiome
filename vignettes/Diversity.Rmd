@@ -31,6 +31,14 @@ hist(ri, main = "Richness")
 ```
 
 
+Highlight specific groups:
+
+```{r richness, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
+library(ggplot2)
+data.dietswap <- download_microbiome("dietswap")
+plot_richness(data.dietswap, x = "gender", color = "group") + geom_boxplot()
+```
+
 
 ### Diversity 
 
