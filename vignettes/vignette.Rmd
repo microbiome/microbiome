@@ -88,7 +88,6 @@ Download some [example data sets](Data.md) to try these tools:
 ### Other statistical analysis
 * [ROC curves](ROC.md)
 * [RDA](RDA.md)
-* [Phyloseq tools](Phyloseq.md)
 
 
 ### Output
@@ -125,7 +124,7 @@ Bioconductor extensions, including:
  * RPA `r citep(citation("RPA"))`
  * minet `r citep(citation("minet"))`
  * fastcluster `r citep(citation("fastcluster"))`
- * plyr `r citep(citation("plyr"))`
+ * dplyr `r citep(citation("dplyr"))`
 
 
 ### References

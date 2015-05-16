@@ -1,4 +1,0 @@
-# HITChip data analysis in phyloseq format
-
-
-
