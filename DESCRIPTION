@@ -29,7 +29,8 @@ Imports:
     RColorBrewer,
     rdryad,
     rjson,
-    earlywarnings
+    earlywarnings,
+    WGCNA
 Suggests:
     BiocGenerics,
     BiocStyle,

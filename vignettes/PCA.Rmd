@@ -1,28 +1,35 @@
+## Ordination examples
+
+Here some examples with HITChip data. See also [phyloseq ordination tutorial](joey711.github.io/phyloseq/plot_ordination-examples.html).
+
+
 ### Principal component analysis (PCA)
 
-Visualize deviation of all bacteria from their population mean (smaller: blue; higher: red):
-
 ```{r density, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.path = "figure/"}
-# Example data
 library(microbiome)
-data(peerj32)
-x <- peerj32$microbes
-m <- peerj32$meta
 
-# Convert HITChip signal to relative abundances
-rel <- relative.abundance(t(x))
+# Get some HITChip data in phyloseq format
+pseq <- download_microbiome("atlas1006")
 
-# Let us focus on the most abundant and prevalent bacteria
-# that are seen in >1% (>0.01) relative abundance in 
-# >20% (>0.2) of the subjects
-prevalent.taxa <- names(which(prevalence(t(rel), 0.01, sort = TRUE) > 0.2))
+# Convert signal to relative abundances
+pseq <- transform_sample_counts(pseq, function (x) {x/sum(x)})
+
+# Pick the OTU data
+# (note the zero point has been moved to the detection threshold;
+#  typically signal 1.8 at HITChip log10 scale)
+otu <- otu_table(pseq)@.Data
+
+# Pick OTUs that are present with >1 percent relative abundance 
+# in at least 10 percent of the samples
+pseq2 <- filter_taxa(pseq, function(x) sum(x > .01) > (0.1*nsamples(pseq)), TRUE)
 
 # Project data on 2D display with PCA (visualize subjects based on 20 random features)
 set.seed(423542)
-proj <- microbiome::project.data(log10(x[, prevalent.taxa]), type = "PCA")
+x <- t(otu_table(pseq2)@.Data)
+proj <- project.data(log10(x), type = "PCA") # MDS.classical etc.
 
 # Visualize; show gender with colors
-p <- densityplot(proj, col = m$gender, legend = T)
+p <- densityplot(proj, col = sample_data(pseq2)$gender, legend = T)
 print(p)
 
 # Visualize with low/high Prevotella
@@ -37,6 +44,7 @@ PCA with ggplot2 - the above example gives a shortcut for the following:
 
 ```{r density2, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.path = "figure/"}
 # Arrange projected data onto a data frame
+m <- sample_data(pseq)
 coms <- intersect(rownames(proj), rownames(m))
 df <- as.data.frame(cbind(proj[coms,], m[coms,]))
 names(df) <- c("x", "y", colnames(m))
@@ -51,7 +59,7 @@ p <- p + stat_density2d(aes(x = x, y = y, fill=..density..), geom="raster", stat
 p <- p + scale_fill_gradient(low="white", high="black") 
 
 # Add points
-p <- p + geom_point(aes(x = x, y = y, color = gender), size = 1.5) 
+p <- p + geom_point(aes(x = x, y = y, color = sample_data(pseq2)$gender), size = 1.5) 
 
 # Add labels
 p <- p + xlab("PCA 1") + ylab("PCA 2") + ggtitle("Density plot")
@@ -62,30 +70,90 @@ print(p)
 ```
 
 
-### Other projections
-
-Project high-dimensional data on two-dimensional plane by various
-methods including PCA, MDS, Sammons mapping etc. (for visualization
-purposes; see help(project.data) for details):
-
-```{r visu-example, message=FALSE, message=FALSE, fig.height=8, fig.width=8, fig.path = "figure/"}
-# Example data
-library(microbiome)
-data(peerj32)
-x <- peerj32$microbes
-
-# Nonmetric MDS projection
-proj <- project.data(x, type = "MDS.nonmetric")
-
-# Plot the projection
-library(ggplot2)
-theme_set(theme_bw(15))
-ggplot(aes(x = Comp.1, y = Comp.2), data = proj) + geom_point()
-```
-
-Plot the projection with sample names:
+Plot projection with sample names:
 
 ```{r visu-example2, message=FALSE, message=FALSE, fig.height=8, fig.width=8, fig.path = "figure/"}
 ggplot(aes(x = Comp.1, y = Comp.2, label = rownames(proj)), data = proj) + geom_text()
 ```
 
+## Phyloseq projections
+
+```{r pca-physeq1, message=FALSE, message=FALSE, fig.height=8, fig.width=8, fig.path = "figure/"}
+# Ordinate the taxa in NMDS plot with Bray-Curtis distances
+pseq.ord <- ordinate(pseq, "NMDS", "bray")
+p <- plot_ordination(pseq, pseq.ord, type = "taxa", color = "Genus", title = "taxa")
+print(p)
+
+# Group the plots by Phylum
+p <- p + facet_wrap(~Phylum, 5)
+print(p)
+```
+
+### Ordination biplot
+
+```{r pca-physeq2, message=FALSE, message=FALSE, fig.height=8, fig.width=8, fig.path = "figure/"}
+# Example data
+pseq <- download_microbiome("dietswap")
+
+# Just include the top Phyla
+phylum.sum <- tapply(taxa_sums(pseq), tax_table(pseq)[, "Phylum"], sum, na.rm = TRUE)
+top5phyla <- names(sort(phylum.sum, TRUE))[1:5]
+pseq2 <- prune_taxa((tax_table(pseq)[, "Phylum"] %in% top5phyla), pseq)
+pseq2.ord <- prune_taxa((tax_table(pseq.ord)[, "Phylum"] %in% top5phyla), pseq)
+
+p <- plot_ordination(pseq2, pseq.ord2, type = "biplot", color = "bmi_group", shape = "Phylum", 
+    title = "biplot")
+# Some stuff to modify the automatic shape scale
+pseq.shape.names <- get_taxa_unique(pseq, "Phylum")
+pseq.shape <- 15:(15 + length(pseq.shape.names) - 1)
+names(pseq.shape) <- pseq.shape.names
+pseq.shape["samples"] <- 16
+p + scale_shape_manual(values = pseq.shape)
+```
+
+```{r pca-physeq4, message=FALSE, message=FALSE, fig.height=8, fig.width=8, fig.path = "figure/"}
+p4 <- plot_ordination(pseq, pseq.ord, type = "split", color = "Phylum", shape = "bmi_group", 
+    label = "sample", title = "split")
+p4
+
+gg_color_hue <- function(n) {
+    hues = seq(15, 375, length = n + 1)
+    hcl(h = hues, l = 65, c = 100)[1:n]
+}
+color.names <- levels(p4$data$Phylum)
+p4cols <- gg_color_hue(length(color.names))
+names(p4cols) <- color.names
+p4cols["samples"] <- "black"
+p4 + scale_color_manual(values = p4cols)
+
+# Supported ordination methods 
+# TODO: get rid of plyr::llply
+skip <- T
+if (!skip)  {
+dist <- "bray"
+ord_meths = c("DCA", "CCA", "RDA", "DPCoA", "NMDS", "MDS", "PCoA")
+plist <- llply(as.list(ord_meths), function(i, physeq, dist) {
+    ordi = ordinate(physeq, method = i, distance = dist)
+    plot_ordination(physeq, ordi, "samples", color = "bmi_group")
+}, physeq, dist)
+names(plist) <- ord_meths
+pdataframe = ldply(plist, function(x) {
+    df = x$data[, 1:2]
+    colnames(df) = c("Axis_1", "Axis_2")
+    return(cbind(df, x$data))
+})
+names(pdataframe)[1] = "method"
+p = ggplot(pdataframe, aes(Axis_1, Axis_2, color = SampleType, shape = human, 
+    fill = SampleType))
+p = p + geom_point(size = 4) + geom_polygon()
+p = p + facet_wrap(~method, scales = "free")
+p = p + scale_fill_brewer(type = "qual", palette = "Set1")
+p = p + scale_colour_brewer(type = "qual", palette = "Set1")
+p
+}
+```
+
+## Unifrac with PCoA
+
+
+For Unifrac with PCoA, see [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). 

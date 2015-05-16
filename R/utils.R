@@ -50,7 +50,21 @@ cmat2table <- function(res, verbose = FALSE) {
     
     ctab$X1 <- as.character(ctab$X1)
     ctab$X2 <- as.character(ctab$X2)
-    
+
+    # Keep the original order of factor levels
+    ctab$X1 <- factor(as.character(ctab$X1), levels = rownames(res$cor))
+    ctab$X2 <- factor(as.character(ctab$X2), levels = colnames(res$cor))
+
+    # Remove NAs
+    ctab <- ctab[!is.na(ctab$Correlation),]
+
+    # Order the table by p-value
+    if ("p.adj" %in% colnames(ctab)) {
+      ctab <- ctab[order(ctab$p.adj), ]
+    } else if ("pvalue" %in% colnames(ctab)) {
+      ctab <- ctab[order(ctab$pvalue), ]
+    }
+
     ctab
     
 }

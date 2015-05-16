@@ -40,13 +40,15 @@ hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 1.8) {
     # Assuming for now that the input data is L2 level
     # FIXME we could add L0 here
     ph <- as.data.frame(GetPhylogeny("HITChip")@.Data)
-    ph <- unique(ph[, c("L1", "L2", "species")])
-    colnames(ph) <- c("Phylum", "Genus", "Species")
+    ph <- unique(ph[, c("L1", "L2")])
+    colnames(ph) <- c("Phylum", "Genus")
     taxonomy <- ph
     rownames(taxonomy) <- as.character(taxonomy$Genus)
   }
 
-  if (!all(rownames(otumat) %in% rownames(taxonomy))) {stop("Some OTUs are missing from the taxonomy tree!")}
+  if (!all(rownames(otumat) %in% rownames(taxonomy))) {
+    stop(paste("Some OTUs are missing from the taxonomy tree!", setdiff(rownames(otumat), rownames(taxonomy)), collapse = " / "))
+  }
 
   TAX <- tax_table(as.matrix(taxonomy[rownames(otumat), ]))
 

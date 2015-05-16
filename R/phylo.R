@@ -54,9 +54,8 @@ GetPhylogeny <- function(chip, phylogeny.version = "full", data.dir = NULL) {
 #'
 #' @param phylotypes phylotypes to convert; 
 #' 	  if NULL then considering all phylotypes in the tax.table
-#' @param from convert from 
-#' 	  Options: 'L0', 'L1', 'L2', 'species', 'oligo'
-#' @param to conver to Options: 'L0', 'L1', 'L2', 'species', 'oligo'
+#' @param from convert from taxonomic level 
+#' @param to convert to taxonomic level
 #' @param tax.table tax.table
 #'
 #' @return mappings
@@ -80,35 +79,36 @@ levelmap <- function(phylotypes = NULL, from, to, tax.table) {
     tax.table <- tax_table(tax.table)@.Data
   }
 
-    
-    if (level.from == level.to) {
-        df <- list()
-        df[[level.to]] <- factor(phylotypes)
-        df <- as.data.frame(df)
-        return(df)
-    }
+  if (from == to) {
+    df <- list()
+    df[[to]] <- factor(phylotypes)
+    df <- as.data.frame(df)
+    return(df)
+  }
 
-    tax.table <- polish.tax.table(tax.table)
+  tax.table <- polish.tax.table(tax.table)
 
-    if (is.null(phylotypes)) {
-        phylotypes <- as.character(unique(tax.table[[level.from]]))
-    }
-
+  if (is.null(phylotypes)) {
+    phylotypes <- as.character(unique(tax.table[, from]))
+  }
 
     # From higher to lower level
-    if (length(unique(df[[level.from]])) <= length(unique(df[[level.to]]))) {
+    if (length(unique(df[[from]])) <= length(unique(df[[to]]))) {
+
         sl <- list()
         for (pt in phylotypes) {
-	    pi <- tax.table[tax.table[[level.from]] == pt, level.to]
+
+	    inds <- which(as.vector(as.character(tax.table[, from])) == pt)
+	    pi <- tax.table[inds, to]
             sl[[pt]] <- as.character(unique(na.omit(pi)))
         }
     
     } else {
 
       # From lower to higher level
-      inds <- match(as.character(phylotypes), tax.table[[level.from]])
+      inds <- match(as.character(phylotypes), tax.table[[from]])
       omap <- tax.table[inds, ]
-      sl <- omap[[level.to]]
+      sl <- omap[[to]]
 
     }
      
@@ -147,7 +147,9 @@ polish.tax.table <- function(tax.table) {
           which(colnames(tax.table) == "level 2")] <- "L2"
 
     # Fix some names	  
-    tax.table$L2 <- gsub("^Clostridiales$", "Clostridium \\(sensu stricto\\)", tax.table$L2)
+    if ("L2" %in% colnames(tax.table)) {
+      tax.table$L2 <- gsub("^Clostridiales$", "Clostridium \\(sensu stricto\\)", tax.table$L2)
+    }
 
     # Convert into phyloseq taxonomyTable format
     tax.table <- tax_table(as.matrix(tax.table))    

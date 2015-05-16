@@ -171,12 +171,11 @@ download_dietswap <- function (...) {
   # The formatting of taxon names needs to be harmonized for microbiome package:
   # Fix some broken names from the original release..
   # ie. replace 'Clostridium..sensu.stricto.les' with 'Clostridiales'
-  colnames(data) <- gsub("^Clostridia$", "Clostridiales", colnames(data))
+  colnames(data) <- gsub("^Clostridia$", "Clostridium (sensu stricto)", colnames(data))
   # Remove periods
   colnames(data) <- gsub("\\.", " ", colnames(data))
   # Put back 'rel.' periods
   colnames(data) <- gsub("rel $", "rel.", colnames(data))
-  colnames(data) <- gsub("Clostridium  sensu stricto ", "Clostridium (sensu stricto)", colnames(data))
 
   # Convert to matrix 
   data <- as.matrix(data)

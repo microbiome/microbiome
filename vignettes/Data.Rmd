@@ -85,9 +85,25 @@ pseq <- download_microbiome("atlas1006")
 # (note the zero point has been moved to the detection threshold;
 #  typically signal 1.8 at HITChip log10 scale)
 otu <- otu_table(pseq)@.Data
+
+# Sample metadata
 meta <- sample_data(pseq)
+
+# Taxonomy table
+tax.table <- tax_table(pseq)
 ```
 
+### Subsetting phyloseq data
+
+```{r data-subsetting}
+bacteroidetes <- levelmap(NULL, "Phylum", "Genus", tax_table(pseq))$Bacteroidetes
+
+# Keep only the given taxa 
+pseq.subset <- prune_taxa(bacteroidetes, pseq)
+
+# Pick samples by specific metadata fields
+pseq.subset2 <- subset_samples(pseq.subset, group == "DI")
+```
 
 ### Estimating relative abundancies
 

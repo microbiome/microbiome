@@ -59,7 +59,6 @@ Download some [example data sets](Data.md) to try these tools:
 * [Density](Density.md)
 * [Heatmaps](Heatmap.md)
 * [Motion charts](Motionchart.md)
-* [Oligo heatmap](Oligoheatmap.md)
 * [PCA and other ordination/projection methods](PCA.md)
 * [Cross hybridization](Crosshyb.md)
 

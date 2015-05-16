@@ -37,12 +37,12 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-cross.correlate <- function(x, y = NULL, method = "pearson", 
+cross.correlate <- function(x, y = NULL, method = "spearman", 
                             p.adj.threshold = Inf, 
     cth = NULL, order = FALSE, n.signif = 0, mode = "table", 
     p.adj.method = "fdr", 
     verbose = FALSE, filter.self.correlations = FALSE) {
-    
+
     if (is.null(y)) {
         message("Cross-correlating the data with itself")
         y <- x
@@ -52,7 +52,7 @@ cross.correlate <- function(x, y = NULL, method = "pearson",
             n.signif <- n.signif + 1
         }
     }
-    
+
     x <- as.data.frame(x)  # numeric or discrete
     y <- y  # numeric
     
@@ -92,7 +92,7 @@ cross.correlate <- function(x, y = NULL, method = "pearson",
     colnames(Cc) <- colnames(y)
     rownames(Pc) <- colnames(x)
     colnames(Pc) <- colnames(y)
-    
+
     if (method %in% c("pearson", "spearman")) {
         
         for (j in 1:ncol(y)) {
@@ -116,16 +116,17 @@ cross.correlate <- function(x, y = NULL, method = "pearson",
             
         }
        
-    #} else if (method == "bicor") {
-    #    
-    #    if (verbose) {
-    #        message(method)
-    #    }
-    #    
-    #    t1 <- WGCNA::bicorAndPvalue(x, y, use = "pairwise.complete.obs")
-    #    Pc <- t1$p
-    #    Cc <- t1$bicor
-    #    
+    } else if (method == "bicor") {
+
+        if (verbose) {
+            message(method)
+        }
+        
+        t1 <- suppressWarnings(WGCNA::bicorAndPvalue(x, y, use = "pairwise.complete.obs"))
+        Pc <- t1$p
+        Cc <- t1$bicor
+        
+
     } else if (method == "categorical") {
         
         if (verbose) {
@@ -156,12 +157,9 @@ cross.correlate <- function(x, y = NULL, method = "pearson",
         }
     }
 
+
     
     if (!all(is.na(Pc))) {
-        
-        if (verbose) {
-            message("p adjustment")
-        }
         
         rownames(Pc) <- xnames
         colnames(Pc) <- ynames
@@ -173,7 +171,9 @@ cross.correlate <- function(x, y = NULL, method = "pearson",
         qv <- array(NA, dim = dim(Pc))            
         qv <- matrix(p.adjust(Pc, method = p.adj.method), nrow = nrow(Pc))
         dimnames(qv) <- dimnames(Pc)    
+
     }
+
     
     # Filter
     if (!is.null(p.adj.threshold) || !is.null(cth)) {
@@ -235,20 +235,18 @@ cross.correlate <- function(x, y = NULL, method = "pearson",
             colnames(qv) <- colnames(Pc) <- colnames(Cc) <- cnams
             
             if (order && sum(inds1) >= 2 && sum(inds2) >= 2) {
+
                 # Order in visually appealing order
                 tmp <- Cc
                 rownames(tmp) <- NULL
                 colnames(tmp) <- NULL
                 
-                #h <- heatmap(tmp, xlab = NULL, 
-                #   ylab = NULL, xaxt = "n", yaxt = "n")                
-                #rind <- h$rowInd
-		#cind <- h$colInd
-
 	    	rind <- hclust(as.dist(1-cor(t(tmp), use = "pairwise.complete.obs")))$order
 	    	cind <- hclust(as.dist(1-cor(tmp, use = "pairwise.complete.obs")))$order
+
                 rnams <- rownames(Cc)[rind]
                 cnams <- colnames(Cc)[cind]
+
                 Cc <- Cc[rind, cind]
                 Pc <- Pc[rind, cind]
                 qv <- qv[rind, cind]
@@ -265,41 +263,19 @@ cross.correlate <- function(x, y = NULL, method = "pearson",
     }
         
     res <- list(cor = Cc, pval = Pc, p.adj = qv)
-    
-    if (all(as.vector(x) == as.vector(y)) && filter.self.correlations) {
-        message("Ignore self-correlations in filtering")
-        diag(res$cor) <- NA
-        diag(res$pval) <- NA
-        diag(res$p.adj) <- NA
+
+    # message("Ignore self-correlations in filtering")    
+
+    if (dim(x) == dim(y) && filter.self.correlations) {
+      diag(res$cor) <- diag(res$pval) <- diag(res$p.adj) <- NA
     }
     
-    if (mode == "matrix") {
-        return(res)
-    } else if (mode == "table") {
-        
-        tab <- cmat2table(res)
-        tab$X1 <- factor(tab$X1, levels = rownames(res$cor))
-        tab$X2 <- factor(tab$X2, levels = colnames(res$cor))
-        
-        if (order) {
-            message("Ordering factors")
-            tab$X1 <- factor(as.character(tab$X1), levels = rownames(res$cor))
-            tab$X2 <- factor(as.character(tab$X2), levels = colnames(res$cor))
-        }
-        
-        if (all(as.vector(x) == as.vector(y)) && filter.self.correlations) {
-            # Remove self-correlations
-            tab <- tab[!(tab$X1 == tab$X2), ]
-        }
-        
-        if ("p.adj" %in% colnames(tab)) {
-            tab <- tab[order(tab$p.adj), ]
-        } else if ("pvalue" %in% colnames(tab)) {
-            tab <- tab[order(tab$pvalue), ]
-        }
-        
-        return(tab)
+    if (mode == "table") {  
+      res <- cmat2table(res)
     }
+
+    res
+
 }
 
 

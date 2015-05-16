@@ -1,22 +1,48 @@
+## Heatmap examples
+
+
+
+### Visualizing phyloseq objects
+
+Also see the [phyloseq heatmap tutorial](http://joey711.github.io/phyloseq/plot_heatmap-examples.html).
+
+```{r heatmap-phyloseq1, fig.width=16, fig.height=8, fig.path = "figure/"}
+library(microbiome)
+x <- download_microbiome("peerj32")$physeq
+plot_heatmap(x, sample.label = "sample")
+```
+
+
+```{r heatmap-phyloseq1, fig.width=16, fig.height=8, fig.path = "figure/"}
+library(microbiome)
+x <- download_microbiome("dietswap")
+bacteroidetes <- levelmap(NULL, "Phylum", "Genus", tax_table(x))$Bacteroidetes
+x <- prune_taxa(bacteroidetes, x)
+x <- subset_samples(x, group == "DI")
+plot_heatmap(x, "NMDS", "bray", "sample", "Phylum")
+```
+
+
+
+
 ### Matrix visualization
 
 Matrix heatmap
 
 ```{r matvisu-example, fig.width=16, fig.height=8, fig.path = "figure/"}
-# Load example data
 library(microbiome)
-data(peerj32)
-x <- peerj32$microbes
+data.peerj32 <- download_microbiome("peerj32")$physeq
 
-# Log10
-x <- log10(x)
+# Pick OTU Log10 matrix
+x <- log10(otu_table(data.peerj32)@.Data)
 
-# Visualize deviation of all bacteria from their population mean (smaller: blue; higher: red):
+# Visualize deviation of all bacteria from their population mean 
+# (smaller: blue; higher: red):
 # First Scale columns to zero mean and unit variance
 # This puts the mean of each bacteria to zero 
 # (less than mean is negative and blue; higher than mean is positive and red)
 # having same variance for bacteria makes visual comparison easier too
-x <- scale(x)
+x <- t(scale(t(x)))
 tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1), cex.axis = 0.8)
 ```
 
@@ -40,23 +66,22 @@ Cross-correlate columns of two data sets. This will return correlations, raw p-v
 ```{r heatmap-crosscorrelate4, message=FALSE, warning=FALSE, fig.keep='none', fig.path = "figure/"}
 # Load example data
 library(microbiome)
-data(peerj32)
-x <- peerj32$microbes
+data.peerj32.otu <- download_microbiome("peerj32")$data$microbes
+data.peerj32.lipids <- download_microbiome("peerj32")$data$lipids
 
 # Define data sets to cross-correlate
-dat1 <- peerj32$lipids # Lipids (44 samples x 389 lipids)
-dat2 <- log10(peerj32$microbes) # Microbiota (44 samples x 130 bacteria)
+# OTU Log10 matrix # Microbiota (44 samples x 130 bacteria)
+x <- log10(data.peerj32.otu)
+y <- as.matrix(data.peerj32.lipids) # Lipids (44 samples x 389 lipids)
 
-correlations <- microbiome::cross.correlate(dat1, dat2, 
-	     				    method = "bicor", mode = "matrix", 
-					    n.signif = 1, p.adj.threshold = 0.05, 
-					    p.adj.method = "fdr")
+# Cross correlate data sets
+correlations <- cross.correlate(x, y, method = "bicor", mode = "matrix", p.adj.threshold = 0.05, n.signif = 1)
 ```
 
 Arrange the results in handy table format: 
 
 ```{r correlation-table2, message=FALSE, warning=FALSE, fig.path = "figure/"}
-correlation.table <- microbiome::cmat2table(correlations)
+correlation.table <- cmat2table(correlations)
 head(correlation.table)
 ```
 
@@ -65,7 +90,7 @@ head(correlation.table)
 Rearrange the data and plot the heatmap and mark significant correlations with stars to reproduce microbiota-lipidome heatmap from [this article](https://peerj.com/articles/32/): 
 
 ```{r heatmap-example-stars2, message=FALSE, warning=FALSE, fig.keep='none', fig.path = "figure/"}
-p <- microbiome::correlation.heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
+p <- correlation.heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
 ```
 ```{r heatmap-example-stars3, fig.width=12, fig.height=8, message=FALSE, warning=FALSE, fig.path = "figure/"}
 print(p)
