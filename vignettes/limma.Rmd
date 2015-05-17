@@ -4,26 +4,27 @@ Example of limma analysis. Identify most significantly different taxa between ma
 
 ```{r limma-example, warning=FALSE, fig.path = "figure/"}
 # Get example data
-library(microbiome, quietly = TRUE)
-data(peerj32)
-hitchip.matrix <- log10(t(peerj32$microbes))
-groups <- factor(peerj32$meta$gender)
+library(microbiome)
+pseq <- download_microbiome("peerj32")$physeq
+otu <- log10(otu_table(pseq)@.Data)
+meta <- sample_data(pseq)
+groups <- meta$gender
 
 # Compare the two groups with limma
 library(limma)
 
 # Prepare the design matrix which states the groups for each sample
-# in the hitchip.matrix
-design <- cbind(intercept=1, Grp2vs1=groups)
-rownames(design) <- rownames(peerj32$meta)
-design <- design[colnames(hitchip.matrix), ]
+# in the otu
+design <- cbind(intercept = 1, Grp2vs1 = groups)
+rownames(design) <- rownames(meta)
+design <- design[colnames(otu), ]
 
 # NOTE: results and p-values are given for all groupings in the design matrix
 # Now focus on the second grouping ie. pairwise comparison
 coef.index <- 2
      
 # Fit the limma model
-fit <- lmFit(hitchip.matrix, design)
+fit <- lmFit(otu, design)
 fit <- eBayes(fit)
 
 # Summarise or plot the results
@@ -53,16 +54,16 @@ data](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 ```{r limma-compairson, warning=FALSE, fig.path = "figure/"}
 # Compare the two groups with t-test
 pvalues.ttest <- c()
-male.samples <- filter(peerj32$meta, gender == "M")$sample
-female.samples <- filter(peerj32$meta, gender == "F")$sample
-for (tax in rownames(hitchip.matrix)) {
-  pvalues.ttest[[tax]] <- t.test(hitchip.matrix[tax, male.samples], hitchip.matrix[tax, female.samples])$p.value
+male.samples <- filter(meta, gender == "male")$sample
+female.samples <- filter(meta, gender == "female")$sample
+for (tax in rownames(otu)) {
+  pvalues.ttest[[tax]] <- t.test(otu[tax, male.samples], otu[tax, female.samples])$p.value
 }
 # Multiple testing correction
 pvalues.ttest <- p.adjust(pvalues.ttest, method = "fdr")
 
 # Compare p-values between limma and t-test
-taxa <- rownames(hitchip.matrix)
+taxa <- rownames(otu)
 plot(pvalues.ttest[taxa], pvalues.limma[taxa])
 abline(0,1,lty = 2)
 ```

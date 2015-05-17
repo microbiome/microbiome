@@ -93,3 +93,4 @@ check_wilcoxon <- function (x, group, p.adjust.method = "BH", sort = FALSE) {
   pval
 
 }
+
