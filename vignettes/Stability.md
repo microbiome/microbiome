@@ -1,5 +1,5 @@
 
-### Stability analysis 
+### Intermediate stability 
 
 Calculate stability as the average correlation between samples and their
 mean for a given phylotypes vs. samples matrix.
@@ -72,9 +72,7 @@ Compare the alternative bimodality scores
 pairs(cbind(pb = bimodality, bc = bimodality.coef, dip = multimodality.dip))
 ```
 
-```
-## Error in pairs.default(cbind(pb = bimodality, bc = bimodality.coef, dip = multimodality.dip)): non-numeric argument to 'pairs'
-```
+![plot of chunk bimodality-comp](figure/bimodality-comp-1.png) 
 
 
 Visualize population densities for selected taxa
@@ -110,17 +108,10 @@ pseqf <- filter_taxa(pseq0, function(x) sum(x > 300) > (0.2*length(x)), TRUE)
 s <- taxa_names(pseqf)
 
 plot(intermediate.stability[s], bimodality[s], xlab = "Intermediate stability", ylab = "Bimodality", type = "n")
-```
-
-```
-## Error in plot.window(...): need finite 'ylim' values
+text(intermediate.stability[s], bimodality[s], label = s, cex = 0.7)
 ```
 
 ![plot of chunk bimodalitybistability](figure/bimodalitybistability-1.png) 
-
-```r
-text(intermediate.stability[s], bimodality[s], label = s, cex = 0.7)
-```
 
 
 ## Variability within group of samples (inter-individual stability)
@@ -225,61 +216,61 @@ sessionInfo()
 ## [8] base     
 ## 
 ## other attached packages:
-##  [1] gridExtra_0.9.1    ggplot2_1.0.1      diptest_0.75-6    
-##  [4] dplyr_0.4.1        limma_3.24.3       knitr_1.10.5      
-##  [7] ade4_1.7-2         phyloseq_1.13.2    microbiome_0.99.48
-## [10] vegan_2.2-1        lattice_0.20-31    permute_0.8-3     
-## [13] scimapClient_0.2.1
+##  [1] phyloseq_1.13.2    ggplot2_1.0.1      gridExtra_0.9.1   
+##  [4] diptest_0.75-6     knitr_1.10.5       microbiome_0.99.48
+##  [7] vegan_2.2-1        lattice_0.20-31    permute_0.8-3     
+## [10] scimapClient_0.2.1
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] nlme_3.1-120              bitops_1.0-6             
-##  [3] RColorBrewer_1.1-2        GenomeInfoDb_1.4.0       
-##  [5] tools_3.2.0               rpart_4.1-9              
-##  [7] KernSmooth_2.23-14        lazyeval_0.1.10          
-##  [9] nortest_1.0-3             Hmisc_3.16-0             
-## [11] DBI_0.3.1                 BiocGenerics_0.14.0      
-## [13] mgcv_1.8-6                colorspace_1.2-6         
-## [15] nnet_7.3-9                DESeq2_1.8.1             
-## [17] moments_0.14              chron_2.3-45             
-## [19] rdryad_0.1.1              Biobase_2.28.0           
-## [21] formatR_1.2               RGCCA_2.0                
-## [23] labeling_0.3              tseries_0.10-34          
-## [25] scales_0.2.4              lmtest_0.9-33            
-## [27] genefilter_1.50.0         quadprog_1.5-5           
-## [29] OAIHarvester_0.1-7        tgp_2.4-11               
-## [31] stringr_1.0.0             digest_0.6.8             
-## [33] foreign_0.8-63            earlywarnings_1.1.19     
-## [35] XVector_0.8.0             maps_2.3-9               
-## [37] RSQLite_1.0.0             zoo_1.7-12               
-## [39] gtools_3.4.2              BiocParallel_1.2.1       
-## [41] acepack_1.3-3.3           RCurl_1.95-4.6           
-## [43] magrittr_1.5              Formula_1.2-1            
-## [45] futile.logger_1.4.1       Matrix_1.2-0             
-## [47] Rcpp_0.11.6               munsell_0.4.2            
-## [49] S4Vectors_0.6.0           maptree_1.4-7            
-## [51] ape_3.2                   proto_0.3-10             
-## [53] stringi_0.4-1             MASS_7.3-40              
-## [55] RJSONIO_1.3-0             zlibbioc_1.14.0          
-## [57] plyr_1.8.2                gdata_2.16.1             
-## [59] parallel_3.2.0            Biostrings_2.36.1        
-## [61] splines_3.2.0             multtest_2.24.0          
-## [63] annotate_1.46.0           locfit_1.5-9.1           
-## [65] igraph_0.7.1              GenomicRanges_1.20.3     
-## [67] boot_1.3-16               geneplotter_1.46.0       
-## [69] reshape2_1.4.1            codetools_0.2-11         
-## [71] mixOmics_5.0-4            stats4_3.2.0             
-## [73] futile.options_1.0.0      XML_3.98-1.1             
-## [75] evaluate_0.7              RcppArmadillo_0.5.100.1.0
-## [77] latticeExtra_0.6-26       biom_0.3.12              
-## [79] lambda.r_1.1.7            data.table_1.9.4         
-## [81] spam_1.0-1                foreach_1.4.2            
-## [83] gtable_0.1.2              assertthat_0.1           
-## [85] xtable_1.7-4              e1071_1.6-4              
-## [87] sorvi_0.7.23              class_7.3-12             
-## [89] Kendall_2.2               survival_2.38-1          
-## [91] pheatmap_1.0.2            iterators_1.0.7          
-## [93] som_0.3-5                 AnnotationDbi_1.30.1     
-## [95] IRanges_2.2.1             fields_8.2-1             
-## [97] cluster_2.0.1             rgl_0.95.1247
+##   [1] nlme_3.1-120              bitops_1.0-6             
+##   [3] RColorBrewer_1.1-2        GenomeInfoDb_1.4.0       
+##   [5] tools_3.2.0               rpart_4.1-9              
+##   [7] KernSmooth_2.23-14        lazyeval_0.1.10          
+##   [9] nortest_1.0-3             Hmisc_3.16-0             
+##  [11] DBI_0.3.1                 BiocGenerics_0.14.0      
+##  [13] mgcv_1.8-6                colorspace_1.2-6         
+##  [15] ade4_1.7-2                nnet_7.3-9               
+##  [17] DESeq2_1.8.1              moments_0.14             
+##  [19] chron_2.3-45              rdryad_0.1.1             
+##  [21] Biobase_2.28.0            formatR_1.2              
+##  [23] RGCCA_2.0                 labeling_0.3             
+##  [25] tseries_0.10-34           scales_0.2.4             
+##  [27] lmtest_0.9-33             genefilter_1.50.0        
+##  [29] quadprog_1.5-5            OAIHarvester_0.1-7       
+##  [31] tgp_2.4-11                stringr_1.0.0            
+##  [33] digest_0.6.8              foreign_0.8-63           
+##  [35] earlywarnings_1.1.19      XVector_0.8.0            
+##  [37] maps_2.3-9                RSQLite_1.0.0            
+##  [39] zoo_1.7-12                gtools_3.4.2             
+##  [41] BiocParallel_1.2.1        acepack_1.3-3.3          
+##  [43] dplyr_0.4.1               RCurl_1.95-4.6           
+##  [45] magrittr_1.5              Formula_1.2-1            
+##  [47] futile.logger_1.4.1       Matrix_1.2-0             
+##  [49] Rcpp_0.11.6               munsell_0.4.2            
+##  [51] S4Vectors_0.6.0           maptree_1.4-7            
+##  [53] ape_3.2                   proto_0.3-10             
+##  [55] stringi_0.4-1             MASS_7.3-40              
+##  [57] RJSONIO_1.3-0             zlibbioc_1.14.0          
+##  [59] plyr_1.8.2                gdata_2.16.1             
+##  [61] parallel_3.2.0            Biostrings_2.36.1        
+##  [63] splines_3.2.0             multtest_2.24.0          
+##  [65] annotate_1.46.0           locfit_1.5-9.1           
+##  [67] igraph_0.7.1              GenomicRanges_1.20.3     
+##  [69] boot_1.3-16               geneplotter_1.46.0       
+##  [71] reshape2_1.4.1            codetools_0.2-11         
+##  [73] mixOmics_5.0-4            stats4_3.2.0             
+##  [75] futile.options_1.0.0      XML_3.98-1.1             
+##  [77] evaluate_0.7              RcppArmadillo_0.5.100.1.0
+##  [79] latticeExtra_0.6-26       biom_0.3.12              
+##  [81] lambda.r_1.1.7            data.table_1.9.4         
+##  [83] spam_1.0-1                foreach_1.4.2            
+##  [85] gtable_0.1.2              assertthat_0.1           
+##  [87] xtable_1.7-4              e1071_1.6-4              
+##  [89] sorvi_0.7.23              class_7.3-12             
+##  [91] Kendall_2.2               survival_2.38-1          
+##  [93] pheatmap_1.0.2            iterators_1.0.7          
+##  [95] som_0.3-5                 AnnotationDbi_1.30.1     
+##  [97] IRanges_2.2.1             fields_8.2-1             
+##  [99] cluster_2.0.1             rgl_0.95.1247
 ```
 

@@ -48,17 +48,34 @@
 multimodality <- function (x, method = "potential_bootstrap", detection.threshold = 1, bw.adjust = 1, bs.iterations = 100, detection.limit = 1, verbose = TRUE) {
 
   if (is.vector(x)) {
+
     if (method == "coefficient_of_bimodality") {
+
       s <- coefficient_of_bimodality(x)
+
     } else if (method == "potential_bootstrap") {
-      s <- multimodality_score(x, detection.threshold, bw.adjust, bs.iterations, detection.limit, verbose)$score
+
+
+      if (length(unique(x)) == 1) {
+        s <- 0
+      } else {
+
+        s <- multimodality_score(x, detection.threshold, 
+      	   		       bw.adjust, bs.iterations, 
+     			       detection.limit, verbose)$score
+      }
     }
+
   } else if (is.matrix(x)) {
-    s <- apply(x, 1, function (x) {multimodality(x, method = method, detection.threshold = detection.threshold, bw.adjust = bw.adjust, bs.iterations = bs.iterations, detection.limit = detection.limit, verbose = verbose)})
+
+    s <- apply(x, 1, function (xi) {multimodality(xi, method = method, detection.threshold = detection.threshold, bw.adjust = bw.adjust, bs.iterations = bs.iterations, detection.limit = detection.limit, verbose = verbose)})
+
   } else if (class(x) == "phyloseq") {
+
     # Pick the data from phyloseq object
     x <- log10(otu_table(x)@.Data)  
-    s <- apply(x, 1, function (x) {multimodality(x, method = method, detection.threshold = detection.threshold, bw.adjust = bw.adjust, bs.iterations = bs.iterations, detection.limit = detection.limit, verbose = verbose)}) 
+    s <- multimodality(x, method = method, detection.threshold = detection.threshold, bw.adjust = bw.adjust, bs.iterations = bs.iterations, detection.limit = detection.limit, verbose = verbose)
+
   }
   
   s 

@@ -1,5 +1,5 @@
 
-### Stability analysis 
+### Intermediate stability 
 
 Calculate stability as the average correlation between samples and their
 mean for a given phylotypes vs. samples matrix.
