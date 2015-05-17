@@ -3,7 +3,7 @@ Minimal example
 
 ### Try out microbiome analysis
 
- 1. [Install the microbiome package and test the analysis functions](Installation.md) 
+ [Install the microbiome package and test the analysis functions](Installation.md) 
 
 
 ### Set up reproducible document generation

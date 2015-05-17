@@ -2,7 +2,7 @@
 
 
 ```r
-# Example data
+# Load example data
 library(microbiome)
 pseq <- download_microbiome("peerj32")$physeq
 ```
@@ -11,9 +11,10 @@ pseq <- download_microbiome("peerj32")$physeq
 ## Downloading data set from Lahti et al. PeerJ, 2013: https://peerj.com/articles/32/
 ```
 
+List prevalence measure for each group with a given detection threshold:
+
+
 ```r
-# List prevalence measure for each group with a given detection threshold.
-# Also sort the taxa by prevalence.
 head(prevalence(pseq, detection.threshold = 10, sort = FALSE))
 ```
 
@@ -26,9 +27,11 @@ head(prevalence(pseq, detection.threshold = 10, sort = FALSE))
 ##                   0.04545455                   1.00000000
 ```
 
+List the taxa that are present over detection threshold in given
+fraction of the samples:
+
+
 ```r
-# Just list the names of taxa that are present over abundance threshold 2
-# in over 20 percent of the samples:
 prevalent.taxa <- prevalent_taxa(pseq, detection.threshold = 50, prevalence.threshold = 0.2)
 ```
 
@@ -41,11 +44,7 @@ based on various signal and prevalence thresholds.
  
 
 ```r
-core <- core_matrix(pseq, prevalence.intervals = seq(10, 100, 10), intensity.intervals = c(0, 10^(0:4)))
-```
-
-```
-## Error in core_matrix(pseq, prevalence.intervals = seq(10, 100, 10), intensity.intervals = c(0, : unused argument (intensity.intervals = c(0, 10^(0:4)))
+core <- core_matrix(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
 ```
 
 Two alternative ways to visualize the core microbiota:

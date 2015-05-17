@@ -182,7 +182,7 @@ core_lineplot <- function (x, title = "Common core",
 core_heatmap <- function(x, detection.thresholds = NULL, palette = "bw") {
 
     # Convert into OTU matrix
-    data <- otu_table(x)@.Data
+    data <- t(otu_table(x)@.Data)
 
     DetectionThreshold <- Taxa <- Prevalence <- NULL
     
