@@ -43,24 +43,34 @@ p <- p + geom_boxplot()
 
 ### Diversity 
 
+Estimate diversity
 
 ```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
 di <- estimate_richness(pseq, measures = c("Shannon"))
 hist(di$Shannon, main = "Diversity")
 ```
 
-Plot richness vs. BMI with phyloseq tools (assuming you have the bmi_group field available in the sample metadata)
+Visualize diversity vs. discrete variable:
 
 ```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.heigth=6}
+p <- plot_diversity(pseq, x = "bmi_group", measures = "Shannon")
+print(p)
+
+# Or with the phyloseq function:
 p <- plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
 p <- p + geom_boxplot()
 print(p)
 ```
 
-Diversity vs. age (continuous):
+Diversity vs. continuous variable:
 
 ```{r diversitywithmetadata2, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=6, fig.path = "figure/"}
 p <- plot_diversity(pseq, x = "age", measures = "Shannon")
+print(p)
+
+# Or with the phyloseq function:
+p <- plot_richness(pseq, x = "age", measures = "Shannon")
+p <- p + geom_smooth()
 print(p)
 ```
 
@@ -83,4 +93,5 @@ df <- sample_data(pseq0)
 p <- sorvi::regression_plot(diversity ~ age, df)
 print(p)
 ```
+
 

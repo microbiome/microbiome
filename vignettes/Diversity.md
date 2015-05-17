@@ -51,6 +51,7 @@ p <- p + geom_boxplot()
 
 ### Diversity 
 
+Estimate diversity
 
 
 ```r
@@ -60,30 +61,26 @@ hist(di$Shannon, main = "Diversity")
 
 ![plot of chunk div-example](figure/div-example-1.png) 
 
-Plot richness vs. BMI with phyloseq tools (assuming you have the bmi_group field available in the sample metadata)
+Visualize diversity vs. discrete variable:
 
 
 ```r
-p <- plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
-p <- p + geom_boxplot()
+p <- plot_diversity(pseq, x = "bmi_group", measures = "Shannon")
 print(p)
 ```
 
 ![plot of chunk div-example2](figure/div-example2-1.png) 
 
-### Compare with known background factors
-
-Diversity vs. obesity group (factor):
-
-
 ```r
-p <- plot_diversity(pseq, x = "bmi_group", measures = c("Shannon", "Simpson"))
+# Or with the phyloseq function:
+p <- plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
+p <- p + geom_boxplot()
 print(p)
 ```
 
-![plot of chunk diversitywithmetadata](figure/diversitywithmetadata-1.png) 
+![plot of chunk div-example2](figure/div-example2-2.png) 
 
-Diversity vs. age (continuous):
+Diversity vs. continuous variable:
 
 
 ```r
@@ -92,6 +89,15 @@ print(p)
 ```
 
 ![plot of chunk diversitywithmetadata2](figure/diversitywithmetadata2-1.png) 
+
+```r
+# Or with the phyloseq function:
+p <- plot_richness(pseq, x = "age", measures = "Shannon")
+p <- p + geom_smooth()
+print(p)
+```
+
+![plot of chunk diversitywithmetadata2](figure/diversitywithmetadata2-2.png) 
 
 
 Diversity vs. age with smoothed confidence intervals - manual version:
@@ -115,4 +121,5 @@ print(p)
 ```
 
 ![plot of chunk diversity-example13](figure/diversity-example13-1.png) 
+
 
