@@ -1,4 +1,4 @@
-#' DensityPlot
+#' densityplot
 #'
 #' Plots densities of data points in addition to cross-plot points.
 #'
