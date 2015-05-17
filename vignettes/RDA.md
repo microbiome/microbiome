@@ -19,8 +19,7 @@ sample metadata:
 rdatest <- rda_physeq(pseq, "time")
 ```
 
-
-### RDA Significance test
+### RDA significance test
 
 
 ```r
@@ -38,27 +37,8 @@ permutest(rdatest)
 ## na.action)
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.3570377 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.92
+## Significance:	 0.9
 ```
-
-
-### Controlling confounding variables
-
-For more complex scenarios, use the vegan package directly:
-
-
-```r
-# Pick microbiota profiling data from the phyloseq object
-otu <- t(otu_table(pseq)@.Data)
-
-# Sample annotations
-meta <- sample_data(pseq)
-rdatest2 <- rda(otu~meta$time + Condition(meta$subject)) 
-
-# Including even more confounders (not run):
-rdatest3 <- rda(otu~meta$time + Condition(meta$subject + meta$gender))
-```
-
 
 ### RDA visualization
 
@@ -74,7 +54,6 @@ title("RDA with control for subject effect")
 
 ![plot of chunk rda4](figure/rda4-1.png) 
 
-
 ### Bagged RDA
 
 Fitting bagged RDA on a phyloseq object:
@@ -86,7 +65,6 @@ res <- bagged_rda(pseq, "group", sig.thresh=0.05, nboot=100)
 
 ![plot of chunk rda5](figure/rda5-1.png) 
 
-
 Visualizing bagged RDA:
 
 
@@ -96,6 +74,22 @@ plot_bagged_rda(res)
 
 ![plot of chunk rda6](figure/rda6-1.png) 
 
+
+### Controlling confounding variables with RDA
+
+For more complex scenarios, use the vegan package directly:
+
+
+```r
+# Pick microbiota profiling data from the phyloseq object
+otu <- otu_table(pseq)@.Data
+
+# Sample annotations
+meta <- sample_data(pseq)
+
+# RDA with confounders
+rdatest2 <- rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))
+```
 
 
 
