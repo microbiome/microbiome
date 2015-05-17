@@ -5,6 +5,8 @@ microbial abundance. It is also important to consider whether to use
 absolute or logarithmic abundances.
 
 
+Visualize population densities for specific taxonomic group:
+
 
 ```r
 library(microbiome)
@@ -25,19 +27,28 @@ plot_density(x, "Prevotella melaninogenica et rel.")
 
 ![plot of chunk hist](figure/hist-1.png) 
 
+
+Same with log10 abundances:
+
+
 ```r
-# Same with log10 abundances
 plot_density(x, "Prevotella melaninogenica et rel.", log10 = TRUE)
 ```
 
-![plot of chunk hist](figure/hist-2.png) 
+![plot of chunk hist2](figure/hist2-1.png) 
+
+
+Same with log10 relative abundances:
+
 
 ```r
-# Same with log10 relative abundances
+# Convert to relative abundances
 x <- transform_sample_counts(x, function (x) {100 * x/sum(x)})
+
+# Visualize
 tax <- "Prevotella melaninogenica et rel."
 plot_density(x, tax, log10 = TRUE) + ggtitle(paste(tax, "(Rel. Ab. %)"))
 ```
 
-![plot of chunk hist](figure/hist-3.png) 
+![plot of chunk hist3](figure/hist3-1.png) 
 
