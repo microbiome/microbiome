@@ -1,13 +1,10 @@
 
-To run these examples, you need to download the [HITChip Atlas data set](Data.md)
-
 ### Richness 
 
 
 ```r
+# Get example data in phyloseq format
 library(microbiome)
-
-# Get some HITChip data in phyloseq format
 pseq <- download_microbiome("atlas1006")
 
 # Pick the OTU data
@@ -29,37 +26,24 @@ abline(v = log10(det.th))
 
 ```r
 # Calculate richness.
-# This indicates how many oligos are present in each sample
-# (exceed the detection threshold)
-ri <- rowSums(otu > det.th)
+# This simply indicates how many taxa are present in each sample
+# (exceed the detection threshold). This measure is sometimes used with
+# phylogenetic microarrays.
+ri <- estimate_diversity(pseq, det.th = det.th)$Observed
 hist(ri, main = "Richness")
 ```
 
 ![plot of chunk rich-example](figure/rich-example-2.png) 
 
 
-Highlight specific groups:
-
-
-```r
-library(ggplot2)
-data.dietswap <- download_microbiome("dietswap")
-p <- plot_richness(data.dietswap, x = "gender", color = "group", measures = c("Shannon", "Simpson")) 
-p <- p + geom_boxplot()
-```
-
-
 ### Diversity 
 
-Estimate diversity
+Estimate diversity (table with various diversity measures):
 
 
 ```r
-di <- estimate_richness(pseq, measures = c("Shannon"))
-hist(di$Shannon, main = "Diversity")
+diversity <- estimate_diversity(pseq)
 ```
-
-![plot of chunk div-example](figure/div-example-1.png) 
 
 Visualize diversity vs. discrete variable:
 
@@ -71,14 +55,30 @@ print(p)
 
 ![plot of chunk div-example2](figure/div-example2-1.png) 
 
+Same with the phyloseq function:
+
+
 ```r
-# Or with the phyloseq function:
 p <- plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
 p <- p + geom_boxplot()
 print(p)
 ```
 
-![plot of chunk div-example2](figure/div-example2-2.png) 
+![plot of chunk div-example2b](figure/div-example2b-1.png) 
+
+
+Highlight specific groups:
+
+
+```r
+library(ggplot2)
+data.dietswap <- download_microbiome("dietswap")
+p <- plot_richness(data.dietswap, x = "gender", color = "group", measures = c("Shannon", "Simpson")) 
+p <- p + geom_boxplot()
+print(p)
+```
+
+![plot of chunk richness](figure/richness-1.png) 
 
 Diversity vs. continuous variable:
 
@@ -90,14 +90,16 @@ print(p)
 
 ![plot of chunk diversitywithmetadata2](figure/diversitywithmetadata2-1.png) 
 
+Same with the phyloseq function:
+
+
 ```r
-# Or with the phyloseq function:
 p <- plot_richness(pseq, x = "age", measures = "Shannon")
 p <- p + geom_smooth()
 print(p)
 ```
 
-![plot of chunk diversitywithmetadata2](figure/diversitywithmetadata2-2.png) 
+![plot of chunk diversitywithmetadata2b](figure/diversitywithmetadata2b-1.png) 
 
 
 Diversity vs. age with smoothed confidence intervals - manual version:
@@ -109,7 +111,7 @@ library(sorvi)
 library(dplyr)
 
 # Add diversity into sample metadata
-sample_data(pseq)$diversity <- estimate_richness(pseq, measures = c("Shannon"))$Shannon
+sample_data(pseq)$diversity <- estimate_diversity(pseq)$Shannon
 
 # Select a subset of samples
 pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")

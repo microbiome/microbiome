@@ -1,12 +1,9 @@
 
-To run these examples, you need to download the [HITChip Atlas data set](Data.md)
-
 ### Richness 
 
 ```{r rich-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
+# Get example data in phyloseq format
 library(microbiome)
-
-# Get some HITChip data in phyloseq format
 pseq <- download_microbiome("atlas1006")
 
 # Pick the OTU data
@@ -24,10 +21,35 @@ plot(density(log10(otu)), main = "Detection threshold", xlab = "Abundance (Log10
 abline(v = log10(det.th))
 
 # Calculate richness.
-# This indicates how many oligos are present in each sample
-# (exceed the detection threshold)
-ri <- rowSums(otu > det.th)
+# This simply indicates how many taxa are present in each sample
+# (exceed the detection threshold). This measure is sometimes used with
+# phylogenetic microarrays.
+ri <- estimate_diversity(pseq, det.th = det.th)$Observed
 hist(ri, main = "Richness")
+```
+
+
+### Diversity 
+
+Estimate diversity (table with various diversity measures):
+
+```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
+diversity <- estimate_diversity(pseq)
+```
+
+Visualize diversity vs. discrete variable:
+
+```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.heigth=6}
+p <- plot_diversity(pseq, x = "bmi_group", measures = "Shannon")
+print(p)
+```
+
+Same with the phyloseq function:
+
+```{r div-example2b, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.heigth=6}
+p <- plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
+p <- p + geom_boxplot()
+print(p)
 ```
 
 
@@ -38,27 +60,6 @@ library(ggplot2)
 data.dietswap <- download_microbiome("dietswap")
 p <- plot_richness(data.dietswap, x = "gender", color = "group", measures = c("Shannon", "Simpson")) 
 p <- p + geom_boxplot()
-```
-
-
-### Diversity 
-
-Estimate diversity
-
-```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
-di <- estimate_richness(pseq, measures = c("Shannon"))
-hist(di$Shannon, main = "Diversity")
-```
-
-Visualize diversity vs. discrete variable:
-
-```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.heigth=6}
-p <- plot_diversity(pseq, x = "bmi_group", measures = "Shannon")
-print(p)
-
-# Or with the phyloseq function:
-p <- plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
-p <- p + geom_boxplot()
 print(p)
 ```
 
@@ -67,8 +68,11 @@ Diversity vs. continuous variable:
 ```{r diversitywithmetadata2, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=6, fig.path = "figure/"}
 p <- plot_diversity(pseq, x = "age", measures = "Shannon")
 print(p)
+```
 
-# Or with the phyloseq function:
+Same with the phyloseq function:
+
+```{r diversitywithmetadata2b, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=6, fig.path = "figure/"}
 p <- plot_richness(pseq, x = "age", measures = "Shannon")
 p <- p + geom_smooth()
 print(p)
@@ -83,7 +87,7 @@ library(sorvi)
 library(dplyr)
 
 # Add diversity into sample metadata
-sample_data(pseq)$diversity <- estimate_richness(pseq, measures = c("Shannon"))$Shannon
+sample_data(pseq)$diversity <- estimate_diversity(pseq)$Shannon
 
 # Select a subset of samples
 pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
