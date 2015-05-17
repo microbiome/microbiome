@@ -1,6 +1,5 @@
 ### RDA analysis and visualization. 
 
-
 Load the package and example data:
 
 
@@ -36,7 +35,7 @@ permutest(rdatest) # RDA Significance test
 ## Call: rda(formula = l2 ~ annot$time)
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.3568663 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.95
+## Significance:	 0.98
 ```
 
 ### Controlling for confounding variables
@@ -57,7 +56,7 @@ permutest(rdatest) # RDA significance test
 ## Call: rda(formula = l2 ~ annot$time + Condition(annot$subject))
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.756362 (with 1, 21 Degrees of Freedom)
-## Significance:	 0.52
+## Significance:	 0.5
 ```
 
 ```r

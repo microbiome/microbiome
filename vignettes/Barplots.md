@@ -17,7 +17,9 @@ x <- download_microbiome("peerj32")$physeq
 plot_bar(x, x = "sample", fill = "Phylum")
 ```
 
-![plot of chunk barplot](figure/barplot-1.png) 
+```
+## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
+```
 
 
 [Phyloseq](http://joey711.github.io/phyloseq/plot_bar-examples.html) example, filling by Phylum:
@@ -25,6 +27,13 @@ plot_bar(x, x = "sample", fill = "Phylum")
 
 ```r
 p <- plot_bar(x, fill = "Phylum")
+```
+
+```
+## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
+```
+
+```r
 print(p)
 ```
 
@@ -42,7 +51,9 @@ tops <- prune_taxa(TopNOTUs, x)
 plot_bar(tops, "group", fill = "gender", facet_grid = ~Phylum)
 ```
 
-![plot of chunk topotu](figure/topotu-1.png) 
+```
+## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
+```
 
 ```r
 #plot_bar(ent10, "Genus", fill = "Genus", facet_grid = SeqTech ~ Enterotype)

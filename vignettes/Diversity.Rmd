@@ -65,7 +65,7 @@ print(p)
 
 Diversity vs. age (continuous):
 
-```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=6, fig.path = "figure/"}
+```{r diversitywithmetadata2, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=6, fig.path = "figure/"}
 p <- plot_diversity(pseq, x = "age", measures = "Shannon")
 print(p)
 ```
@@ -73,7 +73,7 @@ print(p)
 
 Diversity vs. age with smoothed confidence intervals - manual version:
 
-```{r visu-example3, fig.width=5, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/"}
+```{r diversity-example13, fig.width=5, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/"}
 library(microbiome)
 library(sorvi)
 library(dplyr)

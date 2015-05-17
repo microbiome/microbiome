@@ -13,7 +13,7 @@ plot_heatmap(x, sample.label = "sample")
 ```
 
 
-```{r heatmap-phyloseq1, fig.width=16, fig.height=8, fig.path = "figure/"}
+```{r heatmap-phyloseq2, fig.width=16, fig.height=8, fig.path = "figure/"}
 library(microbiome)
 x <- download_microbiome("dietswap")
 bacteroidetes <- levelmap(NULL, "Phylum", "Genus", tax_table(x))$Bacteroidetes
@@ -29,7 +29,7 @@ plot_heatmap(x, "NMDS", "bray", "sample", "Phylum")
 
 Matrix heatmap
 
-```{r matvisu-example, fig.width=16, fig.height=8, fig.path = "figure/"}
+```{r heatmap-matvisu-example, fig.width=16, fig.height=8, fig.path = "figure/"}
 library(microbiome)
 data.peerj32 <- download_microbiome("peerj32")$physeq
 

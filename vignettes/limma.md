@@ -111,4 +111,6 @@ abline(0,1,lty = 2)
 
 ![plot of chunk limma-compairson](figure/limma-compairson-1.png) 
 
+### TODO
 
+Check relations to expressionSets. Could we use tools directly from that context by a suitable conversion.

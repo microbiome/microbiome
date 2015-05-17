@@ -12,45 +12,6 @@ Let us investigate an example data set from [Lahti et al. Nat. Comm. 5:4344, 201
 # Download the required R packages and then the HITChip Atlas data set
 library("rdryad")
 library("microbiome")
-```
-
-```
-## Loading required package: vegan
-## Loading required package: permute
-## Loading required package: lattice
-## This is vegan 2.2-1
-```
-
-```
-## Warning: replacing previous import by 'dplyr::select' when loading
-## 'microbiome'
-```
-
-```
-## 
-## microbiome R package (microbiome.github.com)
-##           
-## 
-## 
-##  Copyright (C) 2011-2015
-##           Leo Lahti and Jarkko Salojarvi 
-## 
-##         
-##           <microbiome-admin@googlegroups.com>
-## 
-## 
-## Attaching package: 'microbiome'
-## 
-## The following object is masked _by_ '.GlobalEnv':
-## 
-##     harmonize_fields
-## 
-## The following object is masked from 'package:lattice':
-## 
-##     densityplot
-```
-
-```r
 d <- download_microbiome("atlas1006")
 ```
 
@@ -94,29 +55,8 @@ dsub <- subset_samples(d, !is.na(bmi_group))
 # Visualize
 df <- harmonize_fields(sample_data(dsub))
 p <- ggplot(df)
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ggplot"
-```
-
-```r
 p <- p + geom_boxplot(aes(x = bmi_group, y = diversity))
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "geom_boxplot"
-```
-
-```r
 p <- p + ggtitle("Microbiota diversity vs. obesity")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ggtitle"
-```
-
-```r
 print(p)
 ```
 

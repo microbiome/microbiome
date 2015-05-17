@@ -2,7 +2,7 @@
 % Please edit documentation in R/densityplot.R
 \name{densityplot}
 \alias{densityplot}
-\title{DensityPlot}
+\title{densityplot}
 \usage{
 densityplot(mat, main = NULL, x.ticks = 10, rounding = 0,
   add.points = TRUE, col = "red", adjust = 1, size = 1,
