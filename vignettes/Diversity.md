@@ -44,10 +44,9 @@ Highlight specific groups:
 ```r
 library(ggplot2)
 data.dietswap <- download_microbiome("dietswap")
-plot_richness(data.dietswap, x = "gender", color = "group") + geom_boxplot()
+p <- plot_richness(data.dietswap, x = "gender", color = "group", measures = c("Shannon", "Simpson")) 
+p <- p + geom_boxplot()
 ```
-
-![plot of chunk richness](figure/richness-1.png) 
 
 
 ### Diversity 
@@ -65,10 +64,9 @@ Plot richness vs. BMI with phyloseq tools (assuming you have the bmi_group field
 
 
 ```r
-plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
+p <- plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
+p <- p + geom_boxplot()
 ```
-
-![plot of chunk div-example2](figure/div-example2-1.png) 
 
 ### Compare with known background factors
 

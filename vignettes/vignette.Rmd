@@ -76,8 +76,9 @@ Download some [example data sets](Data.md) to try these tools:
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
 * [Probe level studies](Probelevel.md)
-* [Stability/Variability](Stability.md)
+* [Stability](Stability.md)
 * [Tipping elements](Stability.md)
+* [Variability](Variability.md) (Intra- and inter-individual 'stability')
 
 
 ### Linear models, comparisons, and association studies

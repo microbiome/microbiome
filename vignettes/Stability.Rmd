@@ -66,7 +66,7 @@ pairs(cbind(pb = bimodality, bc = bimodality.coef, dip = multimodality.dip))
 
 Visualize population densities for selected taxa
 
-```{r stability2, message=FALSE, warning=FALSE, fig.path = "figure/"}
+```{r stability2, message=FALSE, warning=FALSE, fig.path = "figure/", fig.width=10, fig.height=5}
 # Pick the most and least bimodal taxa as examples
 unimodal <- names(which.min(bimodality))
 bimodal <- names(which.max(bimodality))
@@ -97,68 +97,10 @@ text(intermediate.stability[s], bimodality[s], label = s, cex = 0.7)
 ```
 
 
-## Variability within group of samples (inter-individual stability)
-
-Assess 'inter-individual stability' as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between samples and their mean for a given samples vs phylotypes matrix. For the illustration, calculate inter-individual stability (variability) separately for Placebo and LGG groups.
-
-Load example data
-
-```{r variability-example2, message=FALSE}
-library(microbiome)
-x <- download_microbiome("dietswap")
-# Add time field (two time points needed within each group for the 
-# intraindividual method)
-sample_data(x)$time <- sample_data(x)$timepoint.within.group
-```
-
-
-### Inter-individual variability
-
-Variability across subjects within a group
-
-```{r variability-example2b, message=FALSE}
-res <- estimate_variability(x, "interindividual")
-```
-
-
-Visualize
-
-```{r variability-example2d, message=FALSE}
-library(ggplot2)
-theme_set(theme_bw(20))
-p <- ggplot(res$data, aes(x = group, y = correlation))
-p <- p + geom_boxplot()
-p <- p + ggtitle(paste("Inter-individual variability (p=", round(res$p.value, 6), ")"))
-p <- p + ylab("Correlation")
-print(p)
-```
-
-
-### Intra-individual variability
-
-Variability within subjects over time (intra-individual stability). Assess 'intra-individual stability' as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between two time points within subjects, calculated separately within each group. For illustration, check intra-individual stability (variability) separately for Placebo and LGG groups.
-
-```{r variability-example2c, message=FALSE}
-res <- estimate_variability(x, "intraindividual")
-```
-
-
-Visualize
-
-```{r variability-intra, message=FALSE}
-library(ggplot2)
-theme_set(theme_bw(20))
-p <- ggplot(res$data, aes(x = group, y = correlation))
-p <- p + geom_boxplot()
-p <- p + ggtitle(paste("Intra-individual variability (p=", round(res$p.value, 6), ")"))
-p <- p + ylab("Correlation")
-print(p)
-```
-
-
 ### TODO
 
 Add examples on tipping elements.
+
 
 ### Version information
 
