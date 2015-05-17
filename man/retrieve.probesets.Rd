@@ -4,10 +4,10 @@
 \alias{retrieve.probesets}
 \title{retrieve.probesets}
 \usage{
-retrieve.probesets(phylogeny.info, level = "species", name = NULL)
+retrieve.probesets(tax.table, level = "species", name = NULL)
 }
 \arguments{
-\item{phylogeny.info}{data.frame with oligo - phylotype
+\item{tax.table}{data.frame with oligo - phylotype
 mapping information}
 
 \item{level}{phylotype level for probesets}
@@ -21,8 +21,8 @@ A list. Probes for each phylotype.
 List probes for each probeset
 }
 \examples{
-phylogeny.info <- GetPhylogeny('HITChip')
-  sets <- retrieve.probesets(phylogeny.info, 'species', 'Weissella confusa')
+tax.table <- GetPhylogeny('HITChip')
+  sets <- retrieve.probesets(tax.table, 'species', 'Weissella confusa')
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

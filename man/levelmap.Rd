@@ -4,18 +4,17 @@
 \alias{levelmap}
 \title{levelmap}
 \usage{
-levelmap(phylotypes = NULL, level.from, level.to, phylogeny.info)
+levelmap(phylotypes = NULL, from, to, tax.table)
 }
 \arguments{
 \item{phylotypes}{phylotypes to convert;
-if NULL then considering all phylotypes in the phylogeny.info}
+if NULL then considering all phylotypes in the tax.table}
 
-\item{level.from}{convert from
-Options: 'L0', 'L1', 'L2', 'species', 'oligo'}
+\item{from}{convert from taxonomic level}
 
-\item{level.to}{conver to Options: 'L0', 'L1', 'L2', 'species', 'oligo'}
+\item{to}{convert to taxonomic level}
 
-\item{phylogeny.info}{phylogeny.info}
+\item{tax.table}{tax.table}
 }
 \value{
 mappings
@@ -24,8 +23,8 @@ mappings
 Map phylotypes between hierarchy levels
 }
 \examples{
-phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
-  levelmap(phylotypes = 'Akkermansia', 'L2', 'L1', phylogeny.info)
+tax.table <- GetPhylogeny('HITChip', 'filtered')
+  levelmap(phylotypes = 'Akkermansia', 'L2', 'L1', tax.table)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

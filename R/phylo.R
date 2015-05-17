@@ -64,10 +64,6 @@ GetPhylogeny <- function(chip, phylogeny.version = "full", data.dir = NULL) {
 #'   tax.table <- GetPhylogeny('HITChip', 'filtered')
 #'   levelmap(phylotypes = 'Akkermansia', 'L2', 'L1', tax.table)
 #'
-#'   data(GlobalPatterns)
-#'   taxtable <- tax_table(GlobalPatterns)@.Data
-#'   levelmap("Crenarchaeota", 'Phylum', 'Kingdom', taxtable)
-#'
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -154,7 +150,7 @@ polish.tax.table <- function(tax.table) {
     # Convert into phyloseq taxonomyTable format
     tax.table <- tax_table(as.matrix(tax.table))    
     
-    tax.table
+    as.data.frame(tax.table)
 
 }
 

@@ -21,7 +21,7 @@ phylogeny mapping table
 Get Chip phylogeny
 }
 \examples{
-phylogeny.info <- GetPhylogeny('HITChip', 'full')
+tax.table <- GetPhylogeny('HITChip', 'full')
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

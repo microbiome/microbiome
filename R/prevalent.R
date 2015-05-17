@@ -53,7 +53,7 @@ prevalence <- function (x, detection.threshold, sort = FALSE) {
 
 #' List prevalent groups
 #'
-#'   @param A matrix or a x \code{\link{phyloseq}} object
+#'   @param x A matrix or a x \code{\link{phyloseq}} object
 #'   @param detection.threshold Detection threshold for absence/presence.
 #'   @param prevalence.threshold Detection threshold for prevalence
 #'

@@ -27,7 +27,7 @@
 
 Bagged.RDA <- function(X, Y, boot = 1000){
 
-  ## Jarkko Salojärvi 7.8.2012
+  ## Jarkko Salojarvi 7.8.2012
   ##  #17.8.2012 fixed problem with multiclass RDA  
 
    if (is.numeric(boot)){

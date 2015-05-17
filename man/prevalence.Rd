@@ -7,25 +7,31 @@
 prevalence(x, detection.threshold, sort = FALSE)
 }
 \arguments{
-\item{x}{Abundance data matrix: samples x features (microbes)}
+\item{x}{A vector, data matrix or phyloseq object}
 
 \item{detection.threshold}{Detection threshold for absence/presence.}
 
 \item{sort}{Sort the groups by prevalence}
 }
 \value{
-Number of OTUs.
+For each OTU, the fraction of samples where a given OTU is detected
 }
 \description{
 Simple prevalence measure
 }
 \details{
-Calculates for each sample the fraction of samples that
-         exceed the detection threshold
+For vectors, calculates the fraction of samples that exceed the
+detection threshold. For matrices, calculates for each matrix column
+the fraction of entries that #' exceed the detection threshold. For
+phyloseq object, calculates for each OTU the fraction of samples that
+exceed the detection threshold
 }
 \examples{
-data(peerj32)
-  prevalence(peerj32$microbes, detection.threshold = 1.8, sort = TRUE)
+peerj32 <- download_microbiome("peerj32")
+  # With matrix
+  prevalence(peerj32$data$microbes, detection.threshold = 200, sort = TRUE)
+  # With phyloseq
+  prevalence(peerj32$physeq, detection.threshold = 200, sort = TRUE)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

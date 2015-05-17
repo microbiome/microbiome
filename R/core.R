@@ -160,7 +160,25 @@ core_lineplot <- function (x, title = "Common core",
 }
 
 
-
+#' core_heatmap
+#'
+#' Core heatmap
+#'
+#' @param x A \code{\link{phyloseq}} object or a core matrix
+#' @param detection.threshold a vector of intensities around the data range
+#' @param palette palette for the plot.type = 'heatmap'
+#'  
+#' @return Used for its side effects
+#' @importFrom RColorBrewer brewer.pal
+#'
+#' @references 
+#'   A Salonen et al. The adult intestinal core microbiota is determined by 
+#'   analysis depth and health status. Clinical Microbiology and Infection 
+#'   18(S4):16 20, 2012. 
+#'
+#'   To cite the microbiome R package, see citation('microbiome') 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
 core_heatmap <- function(x, detection.thresholds = NULL, palette = "bw") {
 
     # Convert into OTU matrix
@@ -173,13 +191,13 @@ core_heatmap <- function(x, detection.thresholds = NULL, palette = "bw") {
     }
     
     # Prevalences with varying detection thresholds
-    prev <- lapply(detection.thresholds, function (th) {prevalence(pseq, detection.threshold = th)})
+    prev <- lapply(detection.thresholds, function (th) {prevalence(data, detection.threshold = th)})
     prev <- 100*do.call("cbind", prev)
     colnames(prev) <- as.character(detection.thresholds)
 
-    df <- melt(prevalences)
+    df <- melt(prev)
     names(df) <- c("Taxa", "DetectionThreshold", "Prevalence")
-    o <- names(sort(rowSums(prevalences)))
+    o <- names(sort(rowSums(prev)))
     df$Taxa <- factor(df$Taxa, levels = o)
 
     theme_set(theme_bw(10))

@@ -51,7 +51,7 @@ multimodality <- function (x, method = "potential.bootstrap", detection.threshol
 
   if (is.vector(x)) {
     if (method == "coefficient.of.bimodality") {
-      s <- coefficient.of.bimodality(x)
+      s <- coefficient_of_bimodality(x)
     } else if (method == "potential.bootstrap") {
       s <- multimodality_score(x, detection.threshold, bw.adjust, bs.iterations, detection.limit, verbose)$score
     }

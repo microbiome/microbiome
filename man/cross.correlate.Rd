@@ -4,7 +4,7 @@
 \alias{cross.correlate}
 \title{Cross-correlate columns of the input matrices}
 \usage{
-cross.correlate(x, y = NULL, method = "pearson", p.adj.threshold = Inf,
+cross.correlate(x, y = NULL, method = "spearman", p.adj.threshold = Inf,
   cth = NULL, order = FALSE, n.signif = 0, mode = "table",
   p.adj.method = "fdr", verbose = FALSE, filter.self.correlations = FALSE)
 }

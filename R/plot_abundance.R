@@ -17,6 +17,9 @@
 #' @keywords utilities
 plot_abundance <- function (x, taxonomic.level = NULL, relative.abundance = FALSE, sort.by = NULL, x.label = "sample") {
 
+  # Avoid warnings
+  Sample <- Abundance <- Taxon <- horiz <- value <- NULL
+
   # Merge the taxa at a higher taxonomic level
   if (!is.null(taxonomic.level)) {	         
     x <- tax_glom(x, taxonomic.level)
