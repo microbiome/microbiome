@@ -51,18 +51,9 @@ hist(di$Shannon, main = "Diversity")
 
 Plot richness vs. BMI with phyloseq tools (assuming you have the bmi_group field available in the sample metadata)
 
-```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/"}
+```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.heigth=6}
 p <- plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
 p <- p + geom_boxplot()
-print(p)
-```
-
-### Compare with known background factors
-
-Diversity vs. obesity group (factor):
-
-```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=6, fig.path = "figure/"}
-p <- plot_diversity(pseq, x = "bmi_group", measures = c("Shannon", "Simpson"))
 print(p)
 ```
 

@@ -1,3 +1,14 @@
+### Compare with known background factors
+
+Diversity vs. obesity group (factor):
+
+```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=6, fig.path = "figure/"}
+p <- plot_diversity(pseq, x = "bmi_group", measures = c("Shannon", "Simpson"))
+print(p)
+```
+
+
+
 ## Hierarchical clustering: reproduce profiling script plot 
 
 ```{r clustering-example, message=FALSE, warning=FALSE, fig.width=8, fig.heigth=15, fig.path = "figure/"}
