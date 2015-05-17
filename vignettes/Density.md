@@ -20,14 +20,14 @@ x <- download_microbiome("atlas1006")
 x <- subset_samples(x, time == 0 & DNA_extraction_method == "r")
 
 # Visualize population densities for specific taxa
-plot_density(x, "Bifidobacterium")
+plot_density(x, "Prevotella melaninogenica et rel.")
 ```
 
 ![plot of chunk hist](figure/hist-1.png) 
 
 ```r
 # Same with log10 abundances
-plot_density(x, "Bifidobacterium", log10 = TRUE)
+plot_density(x, "Prevotella melaninogenica et rel.", log10 = TRUE)
 ```
 
 ![plot of chunk hist](figure/hist-2.png) 
@@ -35,7 +35,7 @@ plot_density(x, "Bifidobacterium", log10 = TRUE)
 ```r
 # Same with log10 relative abundances
 x <- transform_sample_counts(x, function (x) {100 * x/sum(x)})
-tax <- "Bifidobacterium"
+tax <- "Prevotella melaninogenica et rel."
 plot_density(x, tax, log10 = TRUE) + ggtitle(paste(tax, "(Rel. Ab. %)"))
 ```
 
