@@ -54,6 +54,7 @@ Plot richness vs. BMI with phyloseq tools (assuming you have the bmi_group field
 ```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/"}
 p <- plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
 p <- p + geom_boxplot()
+print(p)
 ```
 
 ### Compare with known background factors
