@@ -3,7 +3,7 @@
 #' Wrapper to calculate multimodality score based on various methods 
 #'
 #' @param x A vector, matrix, or a phyloseq object
-#' @param method multimodality quantification method ('potential.bootstrap'
+#' @param method multimodality quantification method ('potential_bootstrap'
 #' 	  or 'coefficient_of_bimodality')
 #' @param detection.threshold Mode detection threshold
 #' @param bw.adjust Bandwidth adjustment
@@ -22,7 +22,7 @@
 #' @details
 #'   \itemize{
 #'     \item{coefficient_of_bimodality}{Coefficient of bimodality, used and described in Shade et al. (2014) and Ellison AM (1987).}
-#'     \item{potential.bootstrap}{Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the bootstrap score.}
+#'     \item{potential_bootstrap}{Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the bootstrap score.}
 #'   }
 #'
 #' @references
@@ -45,12 +45,12 @@
 #'
 #' @keywords utilities
 
-multimodality <- function (x, method = "potential.bootstrap", detection.threshold = 1, bw.adjust = 1, bs.iterations = 100, detection.limit = 1, verbose = TRUE) {
+multimodality <- function (x, method = "potential_bootstrap", detection.threshold = 1, bw.adjust = 1, bs.iterations = 100, detection.limit = 1, verbose = TRUE) {
 
   if (is.vector(x)) {
     if (method == "coefficient_of_bimodality") {
       s <- coefficient_of_bimodality(x)
-    } else if (method == "potential.bootstrap") {
+    } else if (method == "potential_bootstrap") {
       s <- multimodality_score(x, detection.threshold, bw.adjust, bs.iterations, detection.limit, verbose)$score
     }
   } else if (is.matrix(x)) {

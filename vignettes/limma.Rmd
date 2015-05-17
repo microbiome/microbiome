@@ -53,9 +53,10 @@ data](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
 ```{r limma-compairson, warning=FALSE, fig.path = "figure/"}
 # Compare the two groups with t-test
+library(dplyr)
 pvalues.ttest <- c()
-male.samples <- filter(meta, gender == "male")$sample
-female.samples <- filter(meta, gender == "female")$sample
+male.samples <- dplyr::filter(meta, gender == "male")$sample
+female.samples <- dplyr::filter(meta, gender == "female")$sample
 for (tax in rownames(otu)) {
   pvalues.ttest[[tax]] <- t.test(otu[tax, male.samples], otu[tax, female.samples])$p.value
 }

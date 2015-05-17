@@ -104,50 +104,23 @@ data](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
 ```r
 # Compare the two groups with t-test
+library(dplyr)
 pvalues.ttest <- c()
-male.samples <- filter(meta, gender == "male")$sample
-```
-
-```
-## Error in filter(meta, gender == "male"): object 'gender' not found
-```
-
-```r
-female.samples <- filter(meta, gender == "female")$sample
-```
-
-```
-## Error in filter(meta, gender == "female"): object 'gender' not found
-```
-
-```r
+male.samples <- dplyr::filter(meta, gender == "male")$sample
+female.samples <- dplyr::filter(meta, gender == "female")$sample
 for (tax in rownames(otu)) {
   pvalues.ttest[[tax]] <- t.test(otu[tax, male.samples], otu[tax, female.samples])$p.value
 }
-```
-
-```
-## Error in t.test(otu[tax, male.samples], otu[tax, female.samples]): object 'male.samples' not found
-```
-
-```r
 # Multiple testing correction
 pvalues.ttest <- p.adjust(pvalues.ttest, method = "fdr")
 
 # Compare p-values between limma and t-test
 taxa <- rownames(otu)
 plot(pvalues.ttest[taxa], pvalues.limma[taxa])
-```
-
-```
-## Error in plot.window(...): need finite 'xlim' values
+abline(0,1,lty = 2)
 ```
 
 ![plot of chunk limma-compairson](figure/limma-compairson-1.png) 
-
-```r
-abline(0,1,lty = 2)
-```
 
 ### TODO
 

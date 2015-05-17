@@ -2,17 +2,20 @@
 ### Stability analysis 
 
 Calculate stability as the average correlation between samples and their
-mean for a given phylotypes vs. samples matrix:
+mean for a given phylotypes vs. samples matrix.
+
+Download example data (Lahti et al. Nat. Comm. 5:4344, 2014):
 
 ```{r bistability}
-# Download example data (Lahti et al. Nat. Comm. 5:4344, 2014)
 library(microbiome)
-data.atlas1006 <- download_microbiome("atlas1006")
+pseq <- download_microbiome("atlas1006")
+```
 
-# Quantify temporal stability across the abundance range
-stability <- intermediate_stability(data.atlas1006, method = "correlation")
+Quantify temporal stability across the abundance range for each taxa
+
+```{r bistability2}
+stability <- intermediate_stability(pseq, method = "correlation")
 intermediate.stability <- sapply(stability, function (x) {x$stability})
-hist(intermediate.stability, main = "Intermediate stability")
 ```
 
 
@@ -25,33 +28,41 @@ yield estimates of the number of modes.
 
 ```{r bimodality, message=FALSE, warning=FALSE, fig.path = "figure/"}
 # Pick samples from zero time point (cross-sectional analysis)
-pseq0 <- subset_samples(data.atlas1006, time == 0 & DNA_extraction_method == "r")
+pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
 
-# Pick OTU log10 data
-otu <- otu_table(pseq0)@.Data
-otu.log10 <- log10(otu)
-
-# Calculate coefficient of bimodality for each taxa (calculated for log10 abundances)
-# Potential analysis + Bootstrap bimodality score
-bimodality <- multimodality(pseq0, method = "potential.bootstrap")
+# Bimodality score with potential analysis + bootstrap 
+bimodality <- multimodality(pseq0, method = "potential_bootstrap")
 
 # Coefficient of bimodality. Also see the function coefficient_of_bimodality
 bimodality.coef <- multimodality(pseq0, method = "coefficient_of_bimodality")
+```
 
-# Alo calculate DIP multimodality test. This uses the separate diptest package.
-# This seems to coincide much better with the other scores when absolute OTU count is used
-dip <- apply(otu, 1, function (x) dip.test(x, simulate.p.value = TRUE, B = 5000))
+DIP test for multimodality:
+
+```{r bimodality-dip, message=FALSE, warning=FALSE, fig.path = "figure/"}
+# DIP multimodality test uses the separate diptest package.
+library(diptest)
+
+# Pick OTU log10 data
+otu <- otu_table(pseq0)@.Data
+dip <- apply(otu, 1, function (x) dip.test(x, simulate.p.value = TRUE, B = 1000))
 dip2 <- data.frame(t(sapply(dip, function (x) {c(x$statistic, x$p.value)})))
-dip2$tax <- names(dip)
 colnames(dip2) <- c("score", "p.value")
-# Dip measures unimodality. Values range between 0 to 1. Values less than 0.05 indicate significant 
-# deviation from unimodality. To score multimodality, use the inverse:
-multimodality.dip <- 1 - dip2$score
-#multimodality.dip <- dip2$p.value
+dip2$tax <- names(dip)
 
-# Compare the alternative bimodality scores
+# Dip measures unimodality. Values range between 0 to 1. 
+# Values less than 0.05 indicate significant deviation from unimodality. 
+# To score multimodality, use the inverse:
+multimodality.dip <- 1 - dip2$score
+```
+
+
+Compare the alternative bimodality scores
+
+```{r bimodality-comp, message=FALSE, warning=FALSE, fig.path = "figure/"}
 pairs(cbind(pb = bimodality, bc = bimodality.coef, dip = multimodality.dip))
 ```
+
 
 Visualize population densities for selected taxa
 
@@ -61,10 +72,12 @@ unimodal <- names(which.min(bimodality))
 bimodal <- names(which.max(bimodality))
 
 # Visualize population frequencies
-par(mfrow = c(1,2))
-plot(density(otu.log10[unimodal, ]), main = unimodal)
-plot(density(otu.log10[bimodal, ]), main = bimodal)
+p1 <- plot_density(pseq, otu.name = unimodal, log10 = TRUE) 
+p2 <- plot_density(pseq, otu.name = bimodal, log10 = TRUE) 
+library(gridExtra)
+grid.arrange(p1, p2, nrow = 1)
 ```
+
 
 ## Bimodality versus intermediate stability
 
@@ -84,27 +97,33 @@ text(intermediate.stability[s], bimodality[s], label = s, cex = 0.7)
 ```
 
 
-### Variability within group of samples (inter-individual stability)
+## Variability within group of samples (inter-individual stability)
 
 Assess 'inter-individual stability' as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between samples and their mean for a given samples vs phylotypes matrix. For the illustration, calculate inter-individual stability (variability) separately for Placebo and LGG groups.
 
-```{r variability-example2, message=FALSE}
+Load example data
 
-# Example data
+```{r variability-example2, message=FALSE}
 library(microbiome)
 x <- download_microbiome("dietswap")
-
 # Add time field (two time points needed within each group for the 
 # intraindividual method)
 sample_data(x)$time <- sample_data(x)$timepoint.within.group
+```
 
-# Estimate inter-individual variability
+
+### Inter-individual variability
+
+Variability across subjects within a group
+
+```{r variability-example2b, message=FALSE}
 res <- estimate_variability(x, "interindividual")
+```
 
-# Estimate intra-individual variability
-res <- estimate_variability(x, "intraindividual")
 
-# Visualize
+Visualize
+
+```{r variability-example2d, message=FALSE}
 library(ggplot2)
 theme_set(theme_bw(20))
 p <- ggplot(res$data, aes(x = group, y = correlation))
@@ -115,12 +134,18 @@ print(p)
 ```
 
 
-### Variability within subjects over time (intra-individual stability)
+### Intra-individual variability
 
-Assess 'intra-individual stability' as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between two time points within subjects, calculated separately within each group. For illustration, check intra-individual stability (variability) separately for Placebo and LGG groups.
+Variability within subjects over time (intra-individual stability). Assess 'intra-individual stability' as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between two time points within subjects, calculated separately within each group. For illustration, check intra-individual stability (variability) separately for Placebo and LGG groups.
+
+```{r variability-example2c, message=FALSE}
+res <- estimate_variability(x, "intraindividual")
+```
+
+
+Visualize
 
 ```{r variability-intra, message=FALSE}
-res <- estimate_variability(x, m, "intraindividual")
 library(ggplot2)
 theme_set(theme_bw(20))
 p <- ggplot(res$data, aes(x = group, y = correlation))
@@ -129,6 +154,7 @@ p <- p + ggtitle(paste("Intra-individual variability (p=", round(res$p.value, 6)
 p <- p + ylab("Correlation")
 print(p)
 ```
+
 
 ### TODO
 
