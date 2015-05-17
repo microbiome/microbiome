@@ -1,33 +1,31 @@
 ## Example data sets
 
-Example data sets for microbiome analyses.
+Example data sets for microbiome analyses. These examples also show how to convert HITChip data into phyloseq format and perform some standard analyses. For examples on preprocessing the data (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md)
 
 
 ### HITChip Atlas data 
 
 
-The data from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) contains large-scale profiling of 130 genus-like taxa across 1006 normal western subjects. Some subjects have also short time series. This data set is available in [Data Dryad](http://doi.org/10.5061/dryad.pk75d). [Download the HITChip Atlas microbiome profiling data in R](Atlas.md):
+Data from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) contains large-scale profiling of 130 genus-like taxa across 1006 normal western adults. Some subjects have also short time series. This data set is available in [Data Dryad](http://doi.org/10.5061/dryad.pk75d). [Downloading the HITChip Atlas in R phyloseq format](Atlas.md):
 
 
 ```r
 library(microbiome)
-library(rdryad)
 data.atlas <- download_microbiome("atlas1006")
 ```
 
 ```
-## Downloading data set from Lahti et al. Nat. Comm. from Data Dryad: http://doi.org/10.5061/dryad.pk75d
+## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
 ```
 
 
 ### Diet swap data set
 
-An example data set from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a follow-up of microbial profiles during a 2-week diet swap of western (USA) and traditional (rural Africa) diets.
+Data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling.
 
 
 ```r
 library(microbiome)
-library(rdryad)
 data.dietswap <- download_microbiome("dietswap")
 ```
 
@@ -35,15 +33,10 @@ data.dietswap <- download_microbiome("dietswap")
 ## Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n
 ```
 
-```
-## Warning in harmonize_fields(meta): bmi information is a factor; renaming as
-## bmi_group
-```
-
 
 ### Intestinal microbiota and blood serum lipid metabolites
 
-An example data set from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) characterizes associations between human intestinal microbiota and blood serum lipids. Loading the data in R:
+Data from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) characterizes associations between human intestinal microbiota and blood serum lipids. This data set is not readily provided in phyloseq format since it also contains additional data matrix of lipid species. Loading the data in R:
 
 
 ```r
@@ -56,16 +49,17 @@ data.peerj32 <- download_microbiome("peerj32")
 ```
 
 
-### Loadomg example data
+### Loading example data
 
 Load simulated example data of the human gut microbiota. With HITChip,
 [fRPA](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)
-is the recommended preprocessing method.
+is the recommended preprocessing method. 
 
 
 ```r
 library(microbiome)
-# Define data path (you can replace data.directory with your own path)
+
+# Define data path (replace data.directory with your own path)
 data.directory <- system.file("extdata", package = "microbiome")
 print(data.directory)
 ```
@@ -75,42 +69,88 @@ print(data.directory)
 ```
 
 ```r
-# Read HITChip data matrix (genus-level (L2) log10 values)
-level <- "L1"
-method <- "frpa"
-l1.data <- read.profiling(level = level, 
-	     		       method = method, 
-              		       data.dir = data.directory, 
-	      	       	       log10 = TRUE)  
+# Read HITChip data (this returns all levels, sample metadata and taxonomy)
+hitchip.data <- read.profiling(method = "frpa", data.dir = data.directory)
 
-# Read HITChip probe level data (absolute values - no log10)
-oligo.data <- read.profiling(level = "oligo", 
-                             data.dir = data.directory, 
-			     log10 = FALSE)  
+# Picking specific data field (for instance oligo level data)
+print(names(hitchip.data))
+```
 
-# Probe-taxon mapping table
-phylogeny.info <- read.profiling(level = "phylogeny.full", 
-                           	 data.dir = data.directory)
+```
+## [1] "sample"  "time"    "age"     "bmi"     "subject" "group"   "gender" 
+## [8] "diet"
+```
 
-# Phylogeny that is used to summarize the probes to phylotype/genus/phylum levels
-phylogeny.info.filtered <- read.profiling(level = "phylogeny.filtered", 
-                           	 data.dir = data.directory)
+```r
+oligo <- hitchip.data$oligo
 ```
 
 
-### Reading metadata
+## HITChip to phyloseq format
 
-An easy way to provide sample metadata is to create a tab-separated metadata file. You can create the file in Excel and export it to tab-separated csv format. The standard (and self-explanatory) field names include 'sampleID', 'time', 'subjectID', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). Read the metadata with:
+The [phyloseq](https://github.com/joey711/phyloseq) is an external high-quality R package with many additional tools for microbiome data analysis. For more info, see [phyloseq demo page](http://joey711.github.io/phyloseq-demo/) and [HITChip phyloseq examples](Phyloseq.md). To convert HITChip data into phyloseq format:
 
 
 ```r
-# Read simulated example metadata
-library(gdata)
-metadata.file <- paste(data.directory, "/metadata.xls", sep = "")
-metadata <- read.xls(metadata.file, as.is = TRUE)
-rownames(metadata) <- metadata$sampleID
+library(phyloseq)
+
+# We need to choose the HITChip data level to be used in the analyses
+# In this example use HITChip L2 data (note: this is in absolute scale)
+otu <- hitchip.data$L2
+meta <- hitchip.data$meta
+
+# Convert to phyloseq
+physeq <- hitchip2physeq(otu, meta)
 ```
 
+```
+## Error in t.default(otu): argument is not a matrix
+```
+
+
+## HITChip from phyloseq
+
+
+```r
+library(microbiome)
+
+# Get some HITChip data in phyloseq format
+pseq <- download_microbiome("atlas1006")
+```
+
+```
+## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
+```
+
+```r
+# Pick the OTU data
+# (note the zero point has been moved to the detection threshold;
+#  typically signal 1.8 at HITChip log10 scale)
+otu <- otu_table(pseq)@.Data
+
+# Sample metadata
+meta <- sample_data(pseq)
+
+# Taxonomy table
+tax.table <- tax_table(pseq)
+```
+
+### Subsetting phyloseq data
+
+
+```r
+bacteroidetes <- levelmap(NULL, "Phylum", "Genus", tax_table(pseq))$Bacteroidetes
+
+# Keep only the given taxa 
+pseq.subset <- prune_taxa(bacteroidetes, pseq)
+
+# Pick samples by specific metadata fields
+pseq.subset2 <- subset_samples(pseq.subset, group == "DI")
+```
+
+```
+## Error in validObject(.Object): invalid class "sample_data" object: Sample Data must have non-zero dimensions.
+```
 
 ### Estimating relative abundancies
 
@@ -121,4 +161,26 @@ input data set needs to be in absolute scale (not logarithmic).
 ```r
 rel <- relative.abundance(oligo.data, det.th = min(na.omit(oligo.data)))
 ```
+
+```
+## Error in na.omit(oligo.data): object 'oligo.data' not found
+```
+
+
+### Adding sample metadata
+
+An easy way to provide sample metadata is to create a tab-separated metadata file. You can modify the template metadata file your HITChip data folder in Excel and export it to tab-separated .tab format. Some standard, self-explanatory field names include 'sample', 'time', 'subject', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). The sample metadata is read together with the other files in the read.profiling function.
+
+
+<!--
+### Long-term follow-up time series (David et al. 2014)
+
+The data set from [David et al. Genome Biology 2014, 15:R89](http://genomebiology.com/2014/15/7/R89):
+
+
+```r
+library(microbiome)
+data.david2014 <- download_microbiome("david2014")
+```
+-->
 

@@ -72,7 +72,7 @@ levelmap <- function(phylotypes = NULL, from, to, tax.table) {
 
   # If taxonomy table is from phyloseq, pick the data matrix separately	 
   if (class(tax.table) == "taxonomyTable") {
-    tax.table <- tax_table(tax.table)@.Data
+    tax.table <- as.data.frame(tax_table(tax.table))
   }
 
   if (from == to) {
@@ -82,33 +82,34 @@ levelmap <- function(phylotypes = NULL, from, to, tax.table) {
     return(df)
   }
 
-  tax.table <- polish.tax.table(tax.table)
-
+  df <- polish.tax.table(tax.table)
+  
   if (is.null(phylotypes)) {
-    phylotypes <- as.character(unique(tax.table[, from]))
+    phylotypes <- as.character(unique(df[, from]))
   }
 
-    # From higher to lower level
-    if (length(unique(df[[from]])) <= length(unique(df[[to]]))) {
+  # From higher to lower level
+  if (length(unique(df[, from])) <= length(unique(df[, to]))) {
 
-        sl <- list()
-        for (pt in phylotypes) {
+    sl <- list()
+    for (pt in phylotypes) {
 
-	    inds <- which(as.vector(as.character(tax.table[, from])) == pt)
-	    pi <- tax.table[inds, to]
-            sl[[pt]] <- as.character(unique(na.omit(pi)))
-        }
-    
-    } else {
-
-      # From lower to higher level
-      inds <- match(as.character(phylotypes), tax.table[[from]])
-      omap <- tax.table[inds, ]
-      sl <- omap[[to]]
+      inds <- which(as.vector(as.character(df[, from])) == pt)
+      pi <- df[inds, to]
+      sl[[pt]] <- as.character(unique(na.omit(pi)))
 
     }
+    
+  } else {
+
+    # From lower to higher level
+    inds <- match(as.character(phylotypes), df[, from])
+    omap <- df[inds, ]
+    sl <- omap[,to]
+
+  }
      
-    sl
+  sl
     
 }
 
@@ -144,7 +145,9 @@ polish.tax.table <- function(tax.table) {
 
     # Fix some names	  
     if ("L2" %in% colnames(tax.table)) {
-      tax.table$L2 <- gsub("^Clostridiales$", "Clostridium \\(sensu stricto\\)", tax.table$L2)
+      tax.table[, "L2"] <- gsub("^Clostridiales$", 
+      		  	        "Clostridium \\(sensu stricto\\)", 
+				tax.table[, "L2"])
     }
 
     # Convert into phyloseq taxonomyTable format
@@ -153,45 +156,3 @@ polish.tax.table <- function(tax.table) {
 }
 
 
-#' retrieve.probesets
-#' 
-#' List probes for each probeset
-#'
-#' @param tax.table data.frame with oligo - phylotype 
-#' 	  		 mapping information
-#' @param level phylotype level for probesets
-#' @param name specify phylotypes to check (optional)
-#'
-#' @return A list. Probes for each phylotype.
-#'
-#' @examples 
-#'   tax.table <- GetPhylogeny('HITChip')
-#'   sets <- retrieve.probesets(tax.table, 'species', 'Weissella confusa')
-#'                         
-#' @export
-#' @references See citation('microbiome') 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-retrieve.probesets <- function(tax.table, level = "species", name = NULL) {
-
-    # If name not given, pick all
-    if (is.null(name)) {
-        name <- unique(as.character(tax.table[[level]]))
-    }
-    
-    phylo <- tax.table[tax.table[[level]] %in% name, ]
-    
-    if (is.factor(phylo[[level]])) {
-        phylo[[level]] <- droplevels(phylo[[level]])
-    }
-    
-    phylo.list <- split(phylo, phylo[[level]])
-    probesets <- lapply(phylo.list, function(x) {
-        as.character(unique(x$oligoID))
-    })
-    names(probesets) <- names(phylo.list)
-    
-    probesets
-    
-} 

@@ -4,17 +4,15 @@
 \alias{read.profiling}
 \title{read.profiling}
 \usage{
-read.profiling(method = "frpa", data.dir, impute = TRUE)
+read.profiling(method = "frpa", data.dir)
 }
 \arguments{
 \item{method}{('frpa' / 'rpa' / 'sum' / 'ave')}
 
 \item{data.dir}{Profiling script output directory for reading the data.
-If not given, GUI will ask to specify the file and
-   overruns the possible level / method arguments in the
-   function call.}
-
-\item{impute}{impute missing oligo signals}
+                If not given, GUI will ask to specify the file and
+                   overruns the possible level / method arguments in the
+                   function call.}
 }
 \value{
 data matrix (phylo x samples)

@@ -2,85 +2,42 @@
 
 Different sample sets have different population distributions in
 microbial abundance. It is also important to consider whether to use
-absolute or logarithmic abundances!
-
-Start by loading the [HITChip Atlas data set](Data.Rmd)
+absolute or logarithmic abundances.
 
 
 
 ```r
-# Load microbiome package
-library(microbiome)  
-
-# Load tools
-library(dplyr)
-
-# 1. List all samples (all time points and DNA extraction methods)
-all.samples <- meta$SampleID
+library(microbiome)
+x <- download_microbiome("atlas1006")
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'meta' not found
+## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
 ```
 
 ```r
-# 2. List samples at time point 0 that have specific DNA extraction method 
-rbb.samples <- filter(meta, Time == "0" & DNA_extraction_method == "r")$SampleID
+# Pick the subset of RBB-preprocessed samples from time point 0
+x <- subset_samples(x, time == 0 & DNA_extraction_method == "r")
+
+# Visualize population densities for specific taxa
+plot_density(x, "Bifidobacterium")
 ```
 
-```
-## Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object 'meta' not found
-```
+![plot of chunk hist](figure/hist-1.png) 
 
 ```r
-# Visualize
-#tax <- "Prevotella.melaninogenica.et.rel."
+# Same with log10 abundances
+plot_density(x, "Bifidobacterium", log10 = TRUE)
+```
+
+![plot of chunk hist](figure/hist-2.png) 
+
+```r
+# Same with log10 relative abundances
+x <- transform_sample_counts(x, function (x) {100 * x/sum(x)})
 tax <- "Bifidobacterium"
-d <- data[all.samples, tax]
+plot_density(x, tax, log10 = TRUE) + ggtitle(paste(tax, "(Rel. Ab. %)"))
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'all.samples' not found
-```
+![plot of chunk hist](figure/hist-3.png) 
 
-```r
-par(mfrow = c(1, 2))
-plot(density(d), main = paste(tax, "(All samples)"), xlab = "Abundance (Absolute HITChip signal)")
-```
-
-```
-## Error in plot(density(d), main = paste(tax, "(All samples)"), xlab = "Abundance (Absolute HITChip signal)"): error in evaluating the argument 'x' in selecting a method for function 'plot': Error in density.default(d) : argument 'x' must be numeric
-```
-
-```r
-plot(density(log10(d)), main = paste(tax, "(All samples)"), xlab = "Abundance (Log10 HITChip signal)")
-```
-
-```
-## Error in plot(density(log10(d)), main = paste(tax, "(All samples)"), xlab = "Abundance (Log10 HITChip signal)"): error in evaluating the argument 'x' in selecting a method for function 'plot': Error in log10(d) : non-numeric argument to mathematical function
-```
-
-```r
-d <- data[rbb.samples, tax]
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'rbb.samples' not found
-```
-
-```r
-par(mfrow = c(1, 2))
-plot(density(d), main = paste(tax, "(RBB samples)"), xlab = "Abundance (Absolute HITChip signal)")
-```
-
-```
-## Error in plot(density(d), main = paste(tax, "(RBB samples)"), xlab = "Abundance (Absolute HITChip signal)"): error in evaluating the argument 'x' in selecting a method for function 'plot': Error in density.default(d) : argument 'x' must be numeric
-```
-
-```r
-plot(density(log10(d)), main = paste(tax, "(RBB samples)"), xlab = "Abundance (Log10 HITChip signal)")
-```
-
-```
-## Error in plot(density(log10(d)), main = paste(tax, "(RBB samples)"), xlab = "Abundance (Log10 HITChip signal)"): error in evaluating the argument 'x' in selecting a method for function 'plot': Error in log10(d) : non-numeric argument to mathematical function
-```

@@ -7,7 +7,6 @@
 #'                 If not given, GUI will ask to specify the file and 
 #'             	   overruns the possible level / method arguments in the 
 #'             	   function call.
-#' @param impute impute missing oligo signals
 #' 
 #' @return data matrix (phylo x samples)
 #'
@@ -20,7 +19,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-read.profiling <- function(method = "frpa", data.dir, impute = TRUE) {
+read.profiling <- function(method = "frpa", data.dir) {
     
   results <- list()
 
@@ -81,7 +80,14 @@ read.profiling <- function(method = "frpa", data.dir, impute = TRUE) {
         warning(paste("The", level, " matrix has ", sum(is.na(tab)), 
                       " missing values \n
                       - imputing.."))
-        tab <- 10^t(impute(t(log10(tab))))
+
+        for (i in 1:ncol(tab)) {
+	  inds <- which(is.na(tab[,i]))
+	  if (length(inds) > 0) {
+            tab[inds, i] <- sample(tab[-inds, i], length(inds))
+  	  }
+	}
+
     }
 
     results[[level]] <- tab        

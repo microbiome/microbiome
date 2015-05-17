@@ -12,6 +12,7 @@ inst/win-install*
 # Vignette sources
 # vignettes/sorvi_tutorial.Rmd
 vignettes/pics
+vignettes/.RData
 
 # Git related
 .git*

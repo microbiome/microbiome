@@ -4,53 +4,63 @@
 ```r
 # Example data
 library(microbiome)
-data(peerj32)
-x <- peerj32$microbes
-
-# List prevalence measure for each group using detection threshold of 2
-# Sort the taxa by prevalence
-head(prevalence(x, 2, sort = TRUE))
+pseq <- download_microbiome("peerj32")$physeq
 ```
 
 ```
-##  Yersinia et rel.  Xanthomonadaceae  Wissella et rel.            Vibrio 
-##                 1                 1                 1                 1 
-## Weissella et rel.       Veillonella 
-##                 1                 1
+## Downloading data set from Lahti et al. PeerJ, 2013: https://peerj.com/articles/32/
+```
+
+```r
+# List prevalence measure for each group with a given detection threshold.
+# Also sort the taxa by prevalence.
+head(prevalence(pseq, detection.threshold = 10, sort = FALSE))
+```
+
+```
+##             Actinomycetaceae                   Aerococcus 
+##                   0.13636364                   0.25000000 
+##                    Aeromonas                  Akkermansia 
+##                   0.31818182                   1.00000000 
+## Alcaligenes faecalis et rel.           Allistipes et rel. 
+##                   0.04545455                   1.00000000
 ```
 
 ```r
 # Just list the names of taxa that are present over abundance threshold 2
 # in over 20 percent of the samples:
-prevalent.taxa <- list_prevalent_groups(x, 2, 0.2)
+prevalent.taxa <- prevalent_taxa(pseq, detection.threshold = 50, prevalence.threshold = 0.2)
 ```
 
 
 ### Core microbiota
 
-Determine common core microbiota, following the [blanket
-analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract):
+Determine core microbiota with the [blanket
+analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract)
+based on various signal and prevalence thresholds.
  
 
 ```r
-core <- createCore(t(x))
+core <- core_matrix(pseq, prevalence.intervals = seq(10, 100, 10), intensity.intervals = c(0, 10^(0:4)))
 ```
 
-Visualizing core microbiota:
+```
+## Error in core_matrix(pseq, prevalence.intervals = seq(10, 100, 10), intensity.intervals = c(0, : unused argument (intensity.intervals = c(0, 10^(0:4)))
+```
+
+Two alternative ways to visualize the core microbiota:
 
 
 ```r
-# Core 2D visualization
-tmp <- Core2D(core)
+# Core 2D line plots
+p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)), plot.type = "lineplot")
 ```
 
 ![plot of chunk core-example2](figure/core-example2-1.png) 
 
 ```r
 # Core heatmap
-tmp <- core_heatmap(t(x))
+p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 2^(0:14)), plot.type = "heatmap")
 ```
 
 ![plot of chunk core-example2](figure/core-example2-2.png) 
-
-

@@ -35,7 +35,7 @@ plot_abundance(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
 
 Arrange by sample variable and use custom X axis labels:
 
-```{r composition-example3, fig.path = "figure/"}
+```{r composition-example4, fig.path = "figure/"}
 # Subset taxa and samples
 pseq <- subset_samples(pseq0, group == "DI" & timepoint.within.group == 1)
 pseq <- prune_taxa(c("Prevotella melaninogenica et rel.", "Bacteroides fragilis et rel.", "Akkermansia"), pseq)

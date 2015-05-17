@@ -1,3 +1,68 @@
+#' Calculate distance matrix between the _columns_ of the 
+#' input matrix. Can prduce correlation-based distance matrices, otherwise
+#' uses the standard 'dist' function.
+#'
+#'   @param x data matrix
+#'   @param method distance method
+#'   @param ... other arguments to be passed
+#'
+#'   @return distance object
+#'
+#' @export
+#'
+#' @examples 
+#'   data(peerj32)
+#'   d <- distance.matrix(peerj32$microbes[1:10, 1:3])
+#' @references See citation('microbiome') 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+distance.matrix <- function(x, method = "pearson", ...) {
+    if (method %in% c("pearson", "spearman")) {
+        cmat <- as.dist((1 - cor(x, use = "pairwise.complete", 
+               method = method)))
+    } else {
+        cmat <- dist(x, method = method, ...)
+    }
+    cmat
+}
+
+
+
+
+#' matrix.padjust
+#'
+#' Calculate adjusted p-values for a matrix of pvalues 
+#' which may contain missing values.
+#' @param pvals p-value matrix
+#' @param p.adjust.method p-value adjustment method: for options, see ?p.adjust
+#' @return Adjusted p-value matrix
+#' @export 
+#' @references 
+#'   JD Storey 2003. Ann. Statist. 31(6):2013-2035. The positive false 
+#'   discovery rate: a Bayesian interpretation and the q-value. 
+#'
+#'   To cite the microbiome R package, see citation('microbiome')
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @examples qvals <- matrix.padjust(matrix(runif(1000), nrow = 100))
+#' @keywords utilities
+
+matrix.padjust <- function(pvals, p.adjust.method = "BH") {
+    
+    pvec <- as.vector(pvals)
+    nai <- is.na(pvec)
+    qvec <- rep(NA, length(pvec))
+    qvec[!nai] <- p.adjust(pvec[!nai], method = p.adjust.method)
+    qmat <- matrix(qvec, nrow = nrow(pvals))
+    dimnames(qmat) <- dimnames(pvals)
+    qmat
+    
+}
+
+
+
+
+
 # Convert data to JSON format for corr_w_scatter visualization
 # of correlation matrix linked to scatterplots
 # Based on a similar example at 

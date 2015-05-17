@@ -1,21 +1,3 @@
----
-title: "Atlas workflow"
-author: "Leo Lahti"
-date: "`r Sys.Date()`"
-output:
-  md_document:
-    toc: false
-    variant: markdown_github
-  html_document:
-    toc: false
----
-<!--
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{Project Template}
-  %\usepackage[utf8]{inputenc}
--->
-
-
 ## Intestinal microbiota diversity in 1006 western adults
 
 Let us investigate an example data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). This contains large-scale profiling of 130 genus-like taxa across 1006 normal western adults. The data set is available from the [Data Dryad](http://doi.org/10.5061/dryad.pk75d) repository.
@@ -40,10 +22,11 @@ d <- download_microbiome("atlas1006")
 ```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
 library(phyloseq)
 div <- estimate_richness(d, measures = c("Chao1", "Shannon"))
+```
 
 Plot richness vs. BMI with phyloseq tools (assuming you have the bmi_group field available in the sample metadata)
 
-```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
+```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/"}
 plot_richness(d, x = "bmi_group", measures = c("Chao1", "Shannon"))
 ```
 

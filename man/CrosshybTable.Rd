@@ -7,7 +7,7 @@ probes. The number indicates how many percent of oligos for the row taxon
 are also hybridizing the corresponding column taxon.}
 \usage{
 CrosshybTable(tax.level = "L1", chip = "HITChip", selected.taxa = NULL,
-  phylogeny.info = NULL)
+  tax.table = NULL)
 }
 \arguments{
 \item{tax.level}{Taxonomic level to investigate}
@@ -16,7 +16,7 @@ CrosshybTable(tax.level = "L1", chip = "HITChip", selected.taxa = NULL,
 
 \item{selected.taxa}{Restrict cross-hyb analysis to the selected groups.}
 
-\item{phylogeny.info}{phylogeny.info}
+\item{tax.table}{tax.table}
 }
 \value{
 A list containing cross-hybridization table

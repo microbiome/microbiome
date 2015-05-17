@@ -8,7 +8,7 @@ also hybridizing the corresponding column taxon.}
 \usage{
 PlotCrosshyb(tax.level = "L1", chip = "HITChip", selected.taxa = NULL,
   show.plot = TRUE, order.rows = TRUE, order.cols = TRUE,
-  keep.empty = FALSE, rounding = 1, phylogeny.info = NULL,
+  keep.empty = FALSE, rounding = 1, tax.table = NULL,
   self.correlations = FALSE)
 }
 \arguments{
@@ -28,7 +28,7 @@ PlotCrosshyb(tax.level = "L1", chip = "HITChip", selected.taxa = NULL,
 
 \item{rounding}{Rounding of the cell contents}
 
-\item{phylogeny.info}{phylogeny.info}
+\item{tax.table}{tax.table}
 
 \item{self.correlations}{Show self-correlations (always 100 percent);
                          or remove (indicate as 0 percent; default)}

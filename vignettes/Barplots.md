@@ -1,77 +1,51 @@
 ### Coloured Barplots
 
-The following example picks 20 random species from a species data
-vector and visualizes them as ordered barplot colored according to the
-L2 group.
+The following example visualizes samples, colored by Phylum
+percentages. For further examples, see [phyloseq
+package](http://joey711.github.io/phyloseq/plot_bar-examples.html).
 
 
 ```r
-library(microbiome, quietly = TRUE)
+library(microbiome)
 library(ggplot2)
 
 # Microbiota profiling data. Read as: bacteria x samples matrix
-data(peerj32)  # From https://peerj.com/articles/32/
-l2.log10.simulated <- t(peerj32$microbes)
+# From https://peerj.com/articles/32/
+x <- download_microbiome("peerj32")$physeq
 
-# Pick example data and visualize
-x <- l2.log10.simulated[,1]
-phylogeny.info <- GetPhylogeny("HITChip")
-p <- phylo.barplot(x, color.level = "L1", title = "My title", phylogeny.info = phylogeny.info, plot = FALSE)
-print(p)
+# Visualize samples by Phyla (note: in HITChip data it is only approximately Phylum level)
+plot_bar(x, x = "sample", fill = "Phylum")
 ```
 
 ![plot of chunk barplot](figure/barplot-1.png) 
 
 
-### A longer version with source code
-
-The following example picks 20 random species and visualizes the HITChip signal as ordered barplot. In this example the bars are colored according to the L2 group. 
+[Phyloseq](http://joey711.github.io/phyloseq/plot_bar-examples.html) example, filling by Phylum:
 
 
 ```r
-# Load Phylogeny
-phylogeny.info <- GetPhylogeny("HITChip")
-
-# Get example data 
-data(peerj32)
-x <- log10(t(peerj32$microbes))
-
-# Pick 20 species from first sample at random
-taxa <- rownames(x)[sample(nrow(x), 20)]
-
-# Signal of the selected taxa at first sample
-signal <- x[taxa,1]
-
-# Higher-level taxonomic groups for the taxa
-l1 <- droplevels(levelmap(taxa, level.from = "L2", level.to = "L1", phylogeny.info = phylogeny.info))
-
-# Collect all into a data.frame
-df <- list()
-df$taxa <- taxa
-df$L1 <- l1
-df$signal <- signal
-df <- data.frame(df)
-
-# Define colors for groups
-l1.colors <- rainbow(length(unique(df$L1)))
-names(l1.colors) <- as.character(unique(df$L1))
-
-# Rearrange the data.frame
-m <- melt(df)
-
-# Sort by signal (ie. change order of factors for plot)
-df <- within(df, taxa <- factor(taxa, levels = taxa[order(abs(signal))]))
-
-# Plot the image
-p <- ggplot(aes(x = taxa, y = signal, fill = L1), data = df) 
-p <- p + scale_fill_manual(values = l1.colors[as.character(levels(df$L1))])
-
-p <- p + geom_bar(position="identity", stat = "identity") + theme_bw() + coord_flip()
-p <- p + ylab("Fold change") + xlab("") + ggtitle("My barplot")
-p <- p + theme(legend.position="right")
-p <- p + theme(panel.border=element_rect())
-
+p <- plot_bar(x, fill = "Phylum")
 print(p)
 ```
 
-![plot of chunk barplot-example2](figure/barplot-example2-1.png) 
+![plot of chunk taxbar](figure/taxbar-1.png) 
+
+
+Top OTU plot
+
+
+```r
+library(microbiome)
+data.dietswap <- download_microbiome("dietswap")
+TopNOTUs <- names(sort(taxa_sums(x), TRUE)[1:3])
+tops <- prune_taxa(TopNOTUs, x)
+plot_bar(tops, "group", fill = "gender", facet_grid = ~Phylum)
+```
+
+![plot of chunk topotu](figure/topotu-1.png) 
+
+```r
+#plot_bar(ent10, "Genus", fill = "Genus", facet_grid = SeqTech ~ Enterotype)
+```
+
+

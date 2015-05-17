@@ -50,7 +50,7 @@ hist(di$Shannon, main = "Diversity")
 
 Plot richness vs. BMI with phyloseq tools (assuming you have the bmi_group field available in the sample metadata)
 
-```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
+```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/"}
 plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
 ```
 

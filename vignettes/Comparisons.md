@@ -1,7 +1,5 @@
 
-
 ## Group-wise comparisons
-
 
 Read example data
 

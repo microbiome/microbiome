@@ -27,8 +27,7 @@ relative.abundance <- function(dat, det.th = 0) {
     # as this has proven robust across methodologies
 
     if (is.null(det.th)) {
-        dat <- 10^t(impute(t(log10(dat))))  # impute missing values
-        det.th <- quantile(dat, 0.8)
+        det.th <- quantile(na.omit(dat), 0.8)
         warning(paste("Applying detection threshold at 0.8 quantile: ", det.th))
     }
     
@@ -37,9 +36,7 @@ relative.abundance <- function(dat, det.th = 0) {
     dat.th[dat.th < 0] <- 0
     
     # Species richness - count phylotypes that exceed detection threshold
-    dat <- apply(dat.th, 2, function(x) {
-        x/sum(x)
-    })
+    dat <- apply(dat.th, 2, function(x) {x <- na.omit(x); x/sum(x)})
     
     dat
     

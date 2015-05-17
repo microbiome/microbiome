@@ -20,16 +20,10 @@
 #'   }
 #'
 #' @details
-#' 	  \itemize{
-#'	    \item{coefficient_of_bimodality}{Coefficient of bimodality, used and described in Shade et al. (2014) and Ellison AM (1987).}
-#'  	    \item{potential.bootstrap}{Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the bootstrap score.}
-#'       }
-#'
-#' @export
-#'
-#' @import earlywarnings
-#' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples multimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
+#'   \itemize{
+#'     \item{coefficient_of_bimodality}{Coefficient of bimodality, used and described in Shade et al. (2014) and Ellison AM (1987).}
+#'     \item{potential.bootstrap}{Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the bootstrap score.}
+#'   }
 #'
 #' @references
 #' Livina et al. (2010). Potential analysis 
@@ -39,9 +33,15 @@
 #' Lahti et al. (2014). Tipping elements of the human intestinal
 #' ecosystem. \emph{Nature Communications} 5:4344.
 #'
-#' Shade et al. (2014). Conditionally Rare Taxa Disproportionately Contribute to Temporal Changes in Microbial Diversity. mBio 5(4):e01371-14. doi: 10.1128/mBio.01371-14
+#' Shade et al. mBio 5(4):e01371-14, 2014.
+#' 
+#' AM Ellison, Am. J. Bot 74:1280-8, 1987.
 #'
-#' Ellison AM (1987). Effect of seed dimorphism on the density-dependent dynamics of experimental populations of Atriplex triangularis (Chenopodiaceae). Am. J. Bot. 74:1280–1288. doi:10.2307/2444163.
+#' @export
+#'
+#' @import earlywarnings
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @examples multimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
 #'
 #' @keywords utilities
 

@@ -1,9 +1,14 @@
 ## Visualizing cross-hybridization
 
 To visualize cross-hybridization between selected taxa on HITChip (or
-other chips), use the following.
-
-By default the groups with no cross-hyb are filtered out for clarity. Rows and columns are ordered by hierarchical clustering. The cross-hyb is shown in percentages, rounded as indicated by the rounding argument. The percentage indicates which fraction of probes for a row taxon overlaps with probes of a column taxon. This is not symmetric if the row and col taxon have a different total number of probes. For details, see help(PlotCrosshyb).
+other chips), use the following scripts. By default the groups with no
+cross-hyb are filtered out for clarity. Rows and columns are ordered
+by hierarchical clustering. The cross-hyb is shown in percentages,
+rounded as indicated by the rounding argument. The percentage
+indicates which fraction of probes for a row taxon overlaps with
+probes of a column taxon. This is not symmetric if the row and col
+taxon have a different total number of probes. For details, see
+help(PlotCrosshyb).
 
 
 ```r
@@ -48,13 +53,13 @@ Investigate species-species cross-hybridization within the Dialister L2 group
 
 ```r
 # Pick the phylogeny which was used to summarize probes to species level
-phylogeny.info <- GetPhylogeny("HITChip", "filtered") 
+tax.table <- GetPhylogeny("HITChip", "filtered") 
 
 # Select species belonging to Dialister L2 group
-mytaxa <- levelmap("Dialister", level.from = "L2", level.to = "species", phylogeny.info = phylogeny.info)[[1]]
+mytaxa <- levelmap("Dialister", from = "L2", to = "species", tax.table)[[1]]
 
 # Check cross-hyb between Dialister species
-res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, phylogeny.info = phylogeny.info)
+res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, tax.table)
 ```
 
 ![plot of chunk chyb2](figure/chyb2-1.png) 
