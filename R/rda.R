@@ -1,3 +1,43 @@
+
+#' rda_physeq 
+#'
+#' RDA for phyloseq objects. Based on the \code{\link{rda}} function 
+#' from the \pkg{vegan} package.
+#'
+#' Arguments:
+#'   @param x \code{\link{phyloseq-class}} object
+#'   @param varname Variable to apply in RDA visualization.
+#'   @param scale See help(rda)
+#'   @param na.action See help(rda)
+#'
+#' Returns:
+#'   @return rda result. See help(vegan::rda)
+#'
+#' @export
+#' @importFrom vegan rda
+#'
+#' @examples #
+#'
+#' @references See citation("microbiome") 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+
+rda_physeq <- function (x, varname, scale = FALSE, na.action = na.fail) {
+
+  # Microbiota profiling data (44 samples x 130 bacteria)
+  otu <- t(otu_table(x)@.Data)
+
+  # Sample annotations
+  annot <- sample_data(x)[[varname]]
+
+  # Run RDA
+  rdatest <- rda(otu ~ annot, scale = scale, na.action = na.action) 
+  
+  rdatest
+
+}
+
+
 #' Description: BAGGED RDA Bootstrap solutions that follows the
 #' Jack-knife estimation of PLS by Martens and Martens, 2000.  Solves
 #' rotational invariance of latent space by orthogonal procrustes
@@ -122,11 +162,13 @@ Bagged.RDA <- function(X, Y, boot = 1000){
 }
 
 
-#' Description: BAGGED RDA feature selection
+#' Description: Bagged RDA feature selection
 #'
 #' Arguments:
-#'   @param X a matrix, samples on columns, variables (bacteria) on rows.
-#'   @param Y vector with names(Y)=rownames(X), for example
+#'   @param x a matrix, samples on columns, variables (bacteria) on rows. 
+#'          Or a \code{\link{phyloseq-class}} object
+#'   @param y vector with names(y)=rownames(X). 
+#'            Or name of phyloseq sample data variable name.
 #'   @param sig.thresh signal p-value threshold, default 0.1
 #'   @param nboot Number of bootstrap iterations
 #'   @param verbose verbose
@@ -145,50 +187,57 @@ Bagged.RDA <- function(X, Y, boot = 1000){
 #' #  data(peerj32)
 #' #  x <- t(peerj32$microbes)
 #' #  y <- factor(peerj32$meta$time); names(y) <- rownames(peerj32$meta)
-#' # Bag.res <- Bagged.RDA.Feature.Selection(x, y, sig.thresh=0.05, nboot=100)
-#' # PlotBaggedRDA(Bag.res, y)
+#' #  res <- bagged_rda(x, y, sig.thresh=0.05, nboot=100)
+#' #  PlotBaggedRDA(res, y)
 #'
 #' @export
 #'
 #' @references See citation("microbiome") 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
+bagged_rda <- function(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T){
 
-
-Bagged.RDA.Feature.Selection <- function(X,Y,sig.thresh=0.1,nboot=1000, verbose = T){
+  if (class(x) == "phyloseq") {
+    # Pick OTU matrix and the indicated annotation field
+    x <- otu_table(pseq)@.Data
+    y <- factor(sample_data(pseq)[[y]])
+    names(y) <- sample_data(pseq)$sample
+  }
 
   stop.run=F
-  class.split=split(names(Y),Y)
-  dropped=vector("character",nrow(X))
-  X.all=X
-  mean.err=rep(1,nrow(X))
+  class.split=split(names(y),y)
+  dropped=vector("character",nrow(x))
+  x.all=x
+  mean.err=rep(1,nrow(x))
   while(stop.run==F){
     boot=replicate(nboot,unlist(sapply(class.split,function(x) sample(x,length(x),replace=T))),simplify=F)
-    Bag.res=Bagged.RDA(X,Y,boot=boot)
+    Bag.res=Bagged.RDA(x,y,boot=boot)
     min.prob=Bag.res$significance[[1]]
-    if (length(levels(Y))>2){
-      for (i in 1:nrow(X))
+    if (length(levels(y))>2){
+      for (i in 1:nrow(x))
          min.prob[i]=min(sapply(Bag.res$significance,function(x) x[i]))
     }
-    mean.err[nrow(X)]=Bag.res$error
-    dropped[nrow(X)]=rownames(X)[which.max(min.prob)]
-    if (verbose) {message(c(nrow(X), Bag.res$error))}
-    if (nrow(X)>max(length(class.split),2))
-      X=X[-which.max(min.prob),]
+    mean.err[nrow(x)]=Bag.res$error
+    dropped[nrow(x)]=rownames(x)[which.max(min.prob)]
+    if (verbose) {message(c(nrow(x), Bag.res$error))}
+    if (nrow(x)>max(length(class.split),2))
+      x=x[-which.max(min.prob),]
     else
       stop.run=T
   }
-  dropped[1:length(class.split)]=rownames(X)[order(min.prob)[1:length(class.split)]]
+  dropped[1:length(class.split)]=rownames(x)[order(min.prob)[1:length(class.split)]]
   best.res=which.min(mean.err)
 
-  Bag.res=Bagged.RDA(X.all[dropped[1:best.res],],Y,boot=boot)
-  Bag.res$data=X.all[dropped[1:best.res],]
+  Bag.res=Bagged.RDA(x.all[dropped[1:best.res],],y,boot=boot)
+  Bag.res$data=x.all[dropped[1:best.res],]
   Bag.res$Err.selection=mean.err
   Bag.res$dropped=dropped
 
-  plot(mean.err,xlab="X dimension")
+  plot(mean.err,xlab="x dimension")
   points(best.res,mean.err[best.res],col="red")
-  Bag.res
+
+  list(bagged.rda = Bag.res, variable = y)
+
 }
 
 
@@ -197,8 +246,7 @@ Bagged.RDA.Feature.Selection <- function(X,Y,sig.thresh=0.1,nboot=1000, verbose 
 #' Description: Bagged RDA visualization
 #'
 #' Arguments:
-#'   @param Bag.res Output from  Bagged.RDA.Feature.Selection function
-#'   @param Y vector with names(Y)=rownames(X), for example
+#'   @param x Output from bagged_rda
 #'   @param which.bac TBA
 #'   @param ptype TBA
 #'   @param comp TBA
@@ -216,8 +264,8 @@ Bagged.RDA.Feature.Selection <- function(X,Y,sig.thresh=0.1,nboot=1000, verbose 
 #'   #data(peerj32)
 #'   #x <- t(peerj32$microbes)
 #'   #y <- factor(peerj32$meta$time); names(y) <- rownames(peerj32$meta)
-#'   #Bag.res <- Bagged.RDA.Feature.Selection(x, y, sig.thresh=0.05, nboot=100)
-#'   #PlotBaggedRDA(Bag.res, y)
+#'   #res <- bagged_rda(x, y, sig.thresh=0.05, nboot=100)
+#'   #plot_bagged_rda(res)
 #'
 #' @export
 #' @importFrom ade4 s.class
@@ -225,14 +273,12 @@ Bagged.RDA.Feature.Selection <- function(X,Y,sig.thresh=0.1,nboot=1000, verbose 
 #' @references See citation("microbiome") 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
-PlotBaggedRDA <- function(Bag.res, Y, which.bac = 1:nrow(Bag.res$loadings),
+plot_bagged_rda <- function(x, which.bac = 1:nrow(Bag.res$loadings),
 	           ptype="spider", comp=1:2, cex.bac=0.5, plot.names=T,
 		   group.cols = as.numeric(unique(Y)),...){
 
-  # NOTE LL20131004: plot.bagged.RDA could not be used as a name
-  # unless a particular plot function is defined for the object
-  # within the package. Otherwise there will be warnings in package build.
+  Bag.res <- x$bagged.rda
+  Y <- x$variable
 
   scaled.loadings <- (Bag.res$loadings/max(abs(Bag.res$loadings)))[,comp]
   scaled.scores <- (Bag.res$scores/max(abs(Bag.res$scores)))[,comp]

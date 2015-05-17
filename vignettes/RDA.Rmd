@@ -3,34 +3,24 @@
 Load the package and example data:
 
 ```{r rda, warning=FALSE, message=FALSE, fig.path = "figure/"}
-library(microbiome, quietly = TRUE)
-data(peerj32)  # From https://peerj.com/articles/32/
-
-# Microbiota profiling data (44 samples x 130 bacteria)
-l2 <- peerj32$microbes  
-
-# Sample annotations
-annot <- peerj32$meta
+library(microbiome)
+# Data from https://peerj.com/articles/32/
+pseq <- download_microbiome("peerj32")$physeq
 ```
 
 ### Standard RDA 
 
-Run standard RDA for microbiota profiles versus timepoint
+Standard RDA for microbiota profiles versus the 'time' variable from 
+sample metadata:
 
-```{r rda2, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
-library(vegan)
-rdatest<-rda(l2~annot$time) # Run RDA
-permutest(rdatest) # RDA Significance test
+```{r rda2, warning=FALSE, message=FALSE}
+rdatest <- rda_physeq(pseq, "time")
 ```
 
-### Controlling for confounding variables
+### RDA significance test
 
-```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
-rdatest<-rda(l2~annot$time + Condition(annot$subject)) 
-permutest(rdatest) # RDA significance test
-
-# Including even more confounders (not run):
-# rdatest<-rda(l2~annot$time + Condition(annot$subject + annot$sample))
+```{r rda2b, warning=FALSE, message=FALSE}
+permutest(rdatest) 
 ```
 
 ### RDA visualization
@@ -38,25 +28,41 @@ permutest(rdatest) # RDA significance test
 Visualizing the standard RDA output:
 
 ```{r rda4, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
-plot(rdatest, choices=c(1,2), type="points", pch=15, scaling=3, cex=0.7, col=annot$time)
-points(rdatest, choices=c(1,2), pch=15, scaling=3, cex=0.7, col=annot$time)
-pl <- ordihull(rdatest, annot$time, scaling = 3, label = TRUE)
+plot(rdatest, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
+points(rdatest, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
+pl <- ordihull(rdatest, meta$time, scaling = 3, label = TRUE)
 title("RDA with control for subject effect")
 ```
 
 ### Bagged RDA
 
-Calculate Bagged RDA and visualize the results:
+Fitting bagged RDA on a phyloseq object:
 
-```{r rda5, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
-library(microbiome)
-# Modify the group vector into a facor as required by Bagged RDA
-y <- factor(annot$time); names(y) <- rownames(annot)
-
-# Bagged RDA
-Bag.res <- Bagged.RDA.Feature.Selection(t(l2), y, sig.thresh=0.05, nboot=100)
-
-# Visualize
-PlotBaggedRDA(Bag.res, y)
+```{r rda5, warning=FALSE, message=FALSE, fig.show='none'}
+res <- bagged_rda(pseq, "group", sig.thresh=0.05, nboot=100)
 ```
+
+Visualizing bagged RDA:
+
+```{r rda6, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
+plot_bagged_rda(res)
+```
+
+
+### Controlling confounding variables with RDA
+
+For more complex scenarios, use the vegan package directly:
+
+```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
+# Pick microbiota profiling data from the phyloseq object
+otu <- otu_table(pseq)@.Data
+
+# Sample annotations
+meta <- sample_data(pseq)
+
+# RDA with confounders
+rdatest2 <- rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))
+```
+
+
 
