@@ -31,7 +31,7 @@ Visualizing the standard RDA output:
 plot(rdatest, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
 points(rdatest, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
 pl <- ordihull(rdatest, meta$time, scaling = 3, label = TRUE)
-title("RDA with control for subject effect")
+title("RDA")
 ```
 
 ### Bagged RDA
