@@ -47,19 +47,20 @@ based on various signal and prevalence thresholds.
 core <- core_matrix(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
 ```
 
-Two alternative ways to visualize the core microbiota:
+### Core 2D line plots
 
 
 ```r
-# Core 2D line plots
 p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)), plot.type = "lineplot")
 ```
 
 ![plot of chunk core-example2](figure/core-example2-1.png) 
 
+### Core heatmap
+
+
 ```r
-# Core heatmap
 p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 2^(0:14)), plot.type = "heatmap")
 ```
 
-![plot of chunk core-example2](figure/core-example2-2.png) 
+![plot of chunk core-example3](figure/core-example3-1.png) 
