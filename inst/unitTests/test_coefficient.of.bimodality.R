@@ -7,6 +7,6 @@ test_coefficient.of.bimodality <- function() {
     #checkException(expr, msg)
     #obs <- tryCatch(f(), warning=conditionMessage)
     #checkIdentical("unusual condition", obs)
-   checkEqualsNumeric(coefficient.of.bimodality(seq(100)),  0.5669112, tolerance=1.0e-3)
+   checkEqualsNumeric(coefficient_of_bimodality(seq(100)),  0.5669112, tolerance=1.0e-3)
 
 }

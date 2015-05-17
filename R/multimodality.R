@@ -29,9 +29,7 @@
 #'
 #' @import earlywarnings
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples 
-#'   data(peerj32)
-#'   multimodality(peerj32$microbes[, "Akkermansia"])
+#' @examples multimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
 #'
 #' @references
 #' Livina et al. (2010). Potential analysis 

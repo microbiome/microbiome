@@ -41,6 +41,7 @@
 #'
 #' @import ggplot2
 #' @import reshape2
+#' @importFrom sorvi regression_plot
 #' @export
 #' @examples # 
 #' @keywords utilities
@@ -99,7 +100,7 @@ plot_diversity <- function(physeq, x = "group", title = "", measures = "Shannon"
       stop("Provide a single diversity measure.")
     }
 
-    p <- sorvi::regression_plot(value~horiz, mdf)
+    p <- regression_plot(value~horiz, mdf)
     p <- p + xlab(x) 
 
   }

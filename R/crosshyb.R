@@ -5,7 +5,7 @@
 #' @param tax.level Taxonomic level to investigate
 #' @param chip Chip type (e.g. 'HITChip')
 #' @param selected.taxa Restrict cross-hyb analysis to the selected groups.
-#' @param phylogeny.info phylogeny.info 
+#' @param tax.table tax.table 
 #'
 #' @return A list containing cross-hybridization table 
 #'
@@ -18,15 +18,16 @@
 
 CrosshybTable <- function(tax.level = "L1", chip = "HITChip", 
     selected.taxa = NULL, 
-    phylogeny.info = NULL) {
+    tax.table = NULL) {
     
     # Get hylogeny info
-    if (is.null(phylogeny.info)) {
-        phylogeny.info <- GetPhylogeny(chip, phylogeny.version = "filtered")
+    if (is.null(tax.table)) {
+        tax.table <- GetPhylogeny(chip, phylogeny.version = "filtered")
+	tax.table <- as.data.frame(tax.table)
     }
     
     # Pick necessary columns
-    phi <- phylogeny.info[, c(tax.level, "oligoID")]
+    phi <- tax.table[, c(tax.level, "oligoID")]
     
     # Include only selected groups (if any)
     if (!is.null(selected.taxa)) {
@@ -79,7 +80,7 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
 #' @param order.cols Order table columns
 #' @param keep.empty Keep taxa that do not show any cross-hybridization
 #' @param rounding Rounding of the cell contents
-#' @param phylogeny.info phylogeny.info 
+#' @param tax.table tax.table 
 #' @param self.correlations Show self-correlations (always 100 percent); 
 #'                          or remove (indicate as 0 percent; default)
 #'
@@ -94,17 +95,16 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 PlotCrosshyb <- function(tax.level = "L1", chip = "HITChip", 
     selected.taxa = NULL, 
     show.plot = TRUE, order.rows = TRUE, order.cols = TRUE, 
     keep.empty = FALSE, rounding = 1, 
-    phylogeny.info = NULL, self.correlations = FALSE) {
+    tax.table = NULL, self.correlations = FALSE) {
     
     # Get crosshyb matrix
     confusion.matrix <- CrosshybTable(tax.level = tax.level, chip = "HITChip", 
         selected.taxa = NULL, 
-        phylogeny.info = NULL)
+        tax.table = NULL)
     
     # Remove self-correlations
     if (!self.correlations) {

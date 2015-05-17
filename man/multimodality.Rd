@@ -43,8 +43,7 @@ Wrapper to calculate multimodality score based on various methods
       }
 }
 \examples{
-data(peerj32)
-  multimodality(peerj32$microbes[, "Akkermansia"])
+multimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
