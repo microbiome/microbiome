@@ -165,7 +165,7 @@ core_lineplot <- function (x, title = "Common core",
 #' Core heatmap
 #'
 #' @param x A \code{\link{phyloseq}} object or a core matrix
-#' @param detection.threshold a vector of intensities around the data range
+#' @param detection.thresholds a vector of intensities around the data range
 #' @param palette palette for the plot.type = 'heatmap'
 #'  
 #' @return Used for its side effects
@@ -216,6 +216,6 @@ core_heatmap <- function(x, detection.thresholds = NULL, palette = "bw") {
         breaks = seq(from = 0, to = 100, 
         by = 10), colours = colours, limits = c(0, 100))
     
-    return(list(plot = p, data = prevalences))
+    return(list(plot = p, data = prev))
     
 } 

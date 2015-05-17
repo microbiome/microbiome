@@ -10,12 +10,13 @@
 #' @import phyloseq
 #'
 #' @examples 
+#'  \dontrun{
 #'   library(microbiome)
 #'   data(peerj32)
 #'   otu <- peerj32$microbes
 #'   meta <- peerj32$meta
 #'   physeq <- hitchip2physeq(otu, meta)
-#'
+#' }
 #' @export
 #' @references Utilizes the phyloseq package, see citation("phyloseq"). 
 #'             For this function, see citation('microbiome').  

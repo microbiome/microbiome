@@ -150,8 +150,6 @@ polish.tax.table <- function(tax.table) {
     # Convert into phyloseq taxonomyTable format
     tax.table <- tax_table(as.matrix(tax.table))    
     
-    as.data.frame(tax.table)
-
 }
 
 

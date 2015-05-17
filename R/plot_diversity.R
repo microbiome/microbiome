@@ -66,6 +66,7 @@ plot_diversity <- function(physeq, x = "group", title = "", measures = "Shannon"
     DF <- data.frame(erDF)
   }
 
+  horiz <- value <- NULL
   DF$horiz <- DF[[x]]
 
   # melt to display different alpha-measures separately

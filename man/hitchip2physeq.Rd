@@ -22,11 +22,13 @@ phyloseq object
 Convert HITChip data into phyloseq format
 }
 \examples{
-library(microbiome)
+\dontrun{
+  library(microbiome)
   data(peerj32)
   otu <- peerj32$microbes
   meta <- peerj32$meta
   physeq <- hitchip2physeq(otu, meta)
+}
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

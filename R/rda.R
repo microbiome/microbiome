@@ -17,6 +17,7 @@
 #'
 #' @export
 #' @importFrom vegan scores
+#' @importFrom vegan rda
 #' @importFrom vegan procrustes
 #'
 #' @examples # NOT RUN data(peerj32); x <- as.matrix(peerj32$microbes)[1:20, 1:6]; y <- rnorm(nrow(x)); names(y) <- rownames(x); res <- Bagged.RDA(x, y , boot = 5)
