@@ -2,9 +2,9 @@
 
 The following example visualizes samples, colored by Phylum
 percentages. For further examples, see [phyloseq
-package](http://joey711.github.io/phyloseq/plot_bar-examples.html).
+package](http://joey711.github.io/phyloseq/plot_bar-examples.html) and [Composition analysis](Composition.md)
 
-```{r barplot, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
+```{r barplot, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, fig.path = "figure/"}
 library(microbiome)
 library(ggplot2)
 

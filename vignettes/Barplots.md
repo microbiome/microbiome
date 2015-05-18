@@ -2,7 +2,7 @@
 
 The following example visualizes samples, colored by Phylum
 percentages. For further examples, see [phyloseq
-package](http://joey711.github.io/phyloseq/plot_bar-examples.html).
+package](http://joey711.github.io/phyloseq/plot_bar-examples.html) and [Composition analysis](Composition.md)
 
 
 ```r
