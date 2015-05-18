@@ -3,7 +3,7 @@
 
 ### Barplot visualizations
 
-Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html). 
+Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html) and [HITChip Barplots](Barplots.md)
 
 Show OTU absolute abundance in each sample:
 
