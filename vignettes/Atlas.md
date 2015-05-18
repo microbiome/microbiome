@@ -58,19 +58,12 @@ print(p)
 
 
 ```r
-library(microbiome)
-library(sorvi)
-
 # Pick the subset of RBB-preprocessed samples from time point 0
-dsub <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
-
-# Collect variables into a data frame
-# needed to rearrange factor levels
-# FIXME: can be removed when phyloseq fix is implemented
-df <- harmonize_fields(sample_data(dsub))
+pseq <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
 
 # Visualize
-p <- sorvi::regression_plot(diversity~age, df)
+library(sorvi)
+p <- sorvi::regression_plot(diversity~age, sample_data(pseq))
 print(p)
 ```
 
