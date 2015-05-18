@@ -1,6 +1,6 @@
 ## Intestinal microbiota diversity in 1006 western adults
 
-Let us investigate an example data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). This contains large-scale profiling of 130 genus-like taxa across 1006 normal western adults. The data set is available from the [Data Dryad](http://doi.org/10.5061/dryad.pk75d) repository.
+Let us investigate an example data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). This contains microbiota profiling of 130 genus-like taxa across 1006 normal western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d).
 
 
 ### Download HITChip Atlas data
@@ -17,41 +17,24 @@ d <- download_microbiome("atlas1006")
 
 ### Diversity 
 
-# Estimate microbial diversity with different diversity measures
+### Estimating microbial diversity with different diversity measures
 
 ```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
 library(phyloseq)
-div <- estimate_richness(d, measures = c("Chao1", "Shannon"))
+div <- estimate_diversity(d, measures = c("Observed", "Shannon", "Simpson"))
+kable(div)
 ```
 
-Plot richness vs. BMI with phyloseq tools (assuming you have the bmi_group field available in the sample metadata)
+
+### Diversity vs. obesity
 
 ```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/"}
-plot_richness(d, x = "bmi_group", measures = c("Chao1", "Shannon"))
-```
-
-
-### Compare with known background factors
-
-Diversity vs. obesity
-
-```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=9, fig.heigth=6, fig.path = "figure/"}
-# Add diversity into sample data
-sample_data(d)$diversity <- estimate_richness(d, measures = c("Shannon"))$Shannon
-
-# Remove samples with no BMI information
-dsub <- subset_samples(d, !is.na(bmi_group))
-
-# Visualize
-df <- harmonize_fields(sample_data(dsub))
-p <- ggplot(df)
-p <- p + geom_boxplot(aes(x = bmi_group, y = diversity))
-p <- p + ggtitle("Microbiota diversity vs. obesity")
+p <- plot_diversity(d, x = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250)
 print(p)
 ```
 
 
-Diversity vs. age with smoothed confidence intervals:
+### Diversity vs. age
 
 ```{r atlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/"}
 library(microbiome)

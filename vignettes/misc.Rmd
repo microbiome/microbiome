@@ -1,3 +1,22 @@
+
+
+
+```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=9, fig.heigth=6, fig.path = "figure/"}
+# Add diversity into sample data
+sample_data(d)$diversity <- estimate_richness(d, measures = c("Shannon"))$Shannon
+
+# Remove samples with no BMI information
+dsub <- subset_samples(d, !is.na(bmi_group))
+
+# Visualize
+df <- harmonize_fields(sample_data(dsub))
+p <- ggplot(df)
+p <- p + geom_boxplot(aes(x = bmi_group, y = diversity))
+p <- p + ggtitle("Microbiota diversity vs. obesity")
+print(p)
+```
+
+
 ### Compare with known background factors
 
 Diversity vs. obesity group (factor):
