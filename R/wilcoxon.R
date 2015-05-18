@@ -1,70 +1,57 @@
-#' Calculate Wilcoxon test (unpaired; BH correction) for the 
-#' specified sample groups. 
-#'             
-#'   @param dat data matrix (features x samples)
-#'   @param G1 Sample group 1 (for comparison) 
-#'   @param G2 Sample group 2 (for comparison)
-#'   @param p.adjust.method p-value correction method for p.adjust function 
-#'               (default 'BH'). If NULL, no correction will be performed.
-#'   @param sort sort the results
-#'   @param paired paired Wilcoxon test
+#' Calculate Wilcoxon test (with BH correction) for two-group comparison 
 #'
-#'   @return (Corrected) p-values for two-group comparison.
+#' @param x \code{\link{phyloseq-class}} object or a data matrix 
+#'            (features x samples; eg. HITChip taxa vs. samples)
+#' @param group Vector with specifying the groups
+#' @param p.adjust.method p-value correction method for p.adjust function 
+#'               (default 'BH'). For other options, see ?p.adjust
+#' @param sort sort the results
 #'
-#' @aliases check_wilcoxon
+#' @return Corrected p-values for multi-group comparison.
+#'
 #' @examples 
-#'  data(peerj32)
-#'  pval <- check_wilcoxon(t(peerj32$microbes), G1 = 1:22, G2 = 23:44)
+#'   pseq <- download_microbiome("peerj32")$physeq
+#'   pval <- check_wilcoxon(pseq, "time")
+#'
 #' @export
 #'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-check_wilcoxon <- function(dat, G1, G2, 
-	       	  	   p.adjust.method = "BH", 
-			   sort = FALSE, paired = FALSE) {
-    
-    samples <- colnames(dat)
-    levels <- rownames(dat)
-    
-    M <- matrix(data = NA, length(levels), 1)
-    rownames(M) <- levels
-    
-    for (i in 1:length(levels)) {
-        
-        lvl <- levels[i]
-        l.g1 <- dat[lvl, G1]
-        l.g2 <- dat[lvl, G2]
-        
-        p <- wilcox.test(as.numeric(l.g1), as.numeric(l.g2), 
-                paired = paired)$p.value
-        
-        # message(lvl, ' p-value: ', p, '\n')        
-        M[i, 1] <- p
-        
+check_wilcoxon <- function (x, group, p.adjust.method = "BH", sort = FALSE) {
+
+  # Pick the grouping variable from sample metadata
+  g <- group
+  if (length(g) == 1) {
+    g <- sample_data(x)[[g]]
+    if (length(unique(g)) == 2) {
+      g <- factor(g)
     }
-    
-    ## To Adjust P-values for Multiple Comparisons with 
-    ## Benjamini & Hochberg (1995)
-    ## ('BH' or its alias 'fdr')
-    if (!is.null(p.adjust.method)) {
-        cor.p <- p.adjust(M, method = p.adjust.method)
-        names(cor.p) <- rownames(M)
-        
-    } else {
-        
-        # Skip p-value correction
-        cor.p <- as.vector(M)
-        names(cor.p) <- rownames(M)
-        
+    if (!is.factor(g)) {
+      stop(paste("The grouping variable", g, "must be a factor"))
+    }    
+    g <- droplevels(g)
+    if (!length(levels(g)) == 2) {
+      stop("check_wilcoxon is valid only for two-group comparisons")
     }
-    
-    # Sort the values
-    if (sort) {
-        cor.p <- sort(cor.p)
-    }
-    
-    cor.p
-    
+  }
+
+  if (class(x) == "phyloseq") {    
+    x <- log10(otu_table(x)@.Data)
+  }
+
+  # Calculate Wilcoxon test with BH p-value correction for gender
+  pval <- suppressWarnings(apply(x, 1, function (xi) {wilcox.test(xi ~ g)$p.value}))
+
+  # Multiple testing correction
+  pval <- p.adjust(pval, method = p.adjust.method)
+
+  # Sort p-values
+  if (sort) {
+    pval <- sort(pval)
+  }
+
+  pval
+
 }
 

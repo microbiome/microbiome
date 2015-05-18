@@ -4,11 +4,9 @@
 \alias{read.profiling}
 \title{read.profiling}
 \usage{
-read.profiling(method = "frpa", data.dir)
+read.profiling(data.dir)
 }
 \arguments{
-\item{method}{('frpa' / 'rpa' / 'sum' / 'ave')}
-
 \item{data.dir}{Profiling script output directory for reading the data.
                 If not given, GUI will ask to specify the file and
                    overruns the possible level / method arguments in the
@@ -21,8 +19,8 @@ data matrix (phylo x samples)
 Read run.profiling.script output into R
 }
 \examples{
-data.dir <- system.file("extdata", package = "microbiome")
-  dat <- read.profiling('frpa', data.dir = data.dir)
+# data.dir <- system.file("extdata", package = "microbiome")
+  # dat <- read.profiling(data.dir)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

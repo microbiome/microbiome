@@ -5,7 +5,7 @@
 \title{Plot alpha diversity with ggplot2}
 \usage{
 plot_diversity(physeq, x = "group", title = "", measures = "Shannon",
-  nrow = 1, scales = "free_y")
+  nrow = 1, scales = "free_y", det.th = 0)
 }
 \arguments{
 \item{physeq}{\code{\link{phyloseq-class}} object}
@@ -27,6 +27,9 @@ plot_diversity(physeq, x = "group", title = "", measures = "Shannon",
 \item{nrow}{Number of rows for plot faceting.}
 
 \item{scales}{scales for the plot}
+
+\item{det.th}{Detection threshold for the diversity measure 'Observed'
+              (ie. species richness). See \code{\link{estimate_diversity}}}
 }
 \value{
 A \code{\link{ggplot}} plot object summarizing
@@ -47,10 +50,9 @@ You must use untrimmed, non-normalized count data for meaningful results.
 }
 \seealso{
 \code{\link{estimate_richness}}
+ \code{\link{estimate_diversity}}
  \code{\link{plot_richness}}
-
  \code{\link[vegan]{estimateR}}
-
  \code{\link[vegan]{diversity}}
 }
 \keyword{utilities}

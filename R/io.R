@@ -2,7 +2,6 @@
 #' 
 #' Read run.profiling.script output into R
 #'
-#' @param method ('frpa' / 'rpa' / 'sum' / 'ave')
 #' @param data.dir Profiling script output directory for reading the data. 
 #'                 If not given, GUI will ask to specify the file and 
 #'             	   overruns the possible level / method arguments in the 
@@ -18,7 +17,6 @@
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 read.profiling <- function(data.dir) {
 
   results <- list()
@@ -54,5 +52,58 @@ read.profiling <- function(data.dir) {
   res
     
 } 
+
+
+
+
+#' Summarize phylogenetic microarray probe-level data from given input folder.
+#' 
+#' @param data.dir Data folder.
+#' @param probedata probe-level data matrix
+#' @param taxonomy probe taxonomy
+#'
+#' @return data matrix (taxa x samples)
+#'
+#' @export
+#' @examples #
+#'
+#' @references See citation('microbiome')
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+summarize_probedata <- function(data.dir = NULL, probedata = NULL, taxonomy = NULL) {
+
+  # message(paste("Reading Chip data from", data.dir))
+
+  # Read probe-level data
+  if (is.null(probedata)) {
+    f <- paste(data.dir, "/oligoprofile.tab", sep = "")
+    tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
+    colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
+    probedata <- t(tab)
+  }
+
+  # Read taxonomy table
+  if (is.null(taxonomy)) {
+    f <- paste(data.dir, "/taxonomy.tab", sep = "")
+    tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
+    # Convert into phyloseq taxonomyTable format
+    taxonomy <- tax_table(as.matrix(tab))     
+  }
+
+  #####################################################
+
+  summarized.log10 <- summarize.probesets(taxonomy = taxonomy,		
+			    		  oligo.data = log10(probedata), 
+      			       	          method = method, 
+	 				   level = level)$summarized.matrix
+
+  # Store the data in absolute scale					
+  otu <- 10^summarized.log10
+
+  otu
+    
+} 
+
+
 
 

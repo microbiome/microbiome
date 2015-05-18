@@ -199,9 +199,9 @@ bagged_rda <- function(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T){
 
   if (class(x) == "phyloseq") {
     # Pick OTU matrix and the indicated annotation field
-    x <- otu_table(pseq)@.Data
-    y <- factor(sample_data(pseq)[[y]])
-    names(y) <- sample_data(pseq)$sample
+    y <- factor(sample_data(x)[[y]])
+    names(y) <- sample_data(x)$sample
+    x <- otu_table(x)@.Data
   }
 
   stop.run=F
