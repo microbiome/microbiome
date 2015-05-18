@@ -11,7 +11,7 @@ Let us investigate an example data set from [Lahti et al. Nat. Comm. 5:4344, 201
 # Download the required R packages and then the HITChip Atlas data set
 library("rdryad")
 library("microbiome")
-d <- download_microbiome("atlas1006")
+pseq <- download_microbiome("atlas1006")
 ```
 
 
@@ -21,15 +21,15 @@ d <- download_microbiome("atlas1006")
 
 ```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
 library(phyloseq)
-div <- estimate_diversity(d, measures = c("Observed", "Shannon", "Simpson"))
-kable(div)
+div <- estimate_diversity(pseq, measures = c("Observed", "Shannon", "Simpson"))
+kable(head(div))
 ```
 
 
 ### Diversity vs. obesity
 
 ```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/"}
-p <- plot_diversity(d, x = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250)
+p <- plot_diversity(pseq, x = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250)
 print(p)
 ```
 
@@ -41,9 +41,11 @@ library(microbiome)
 library(sorvi)
 
 # Pick the subset of RBB-preprocessed samples from time point 0
-dsub <- subset_samples(d, time == 0 & DNA_extraction_method == "r")
+dsub <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
 
 # Collect variables into a data frame
+# needed to rearrange factor levels
+# FIXME: can be removed when phyloseq fix is implemented
 df <- harmonize_fields(sample_data(dsub))
 
 # Visualize
