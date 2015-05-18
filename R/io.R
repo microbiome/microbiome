@@ -12,89 +12,47 @@
 #'
 #' @export
 #' @examples 
-#'   data.dir <- system.file("extdata", package = "microbiome")
-#'   dat <- read.profiling('frpa', data.dir = data.dir)
+#'   # data.dir <- system.file("extdata", package = "microbiome")
+#'   # dat <- read.profiling(data.dir)
 #'
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 
-read.profiling <- function(method = "frpa", data.dir) {
-    
+read.profiling <- function(data.dir) {
+
   results <- list()
 
   message(paste("Reading Chip data from", data.dir))
 
-  for (level in c("L0", "L1", "L2", "species")) {
-
-    if (method == "frpa" && length(grep(method, dir(data.dir))) == 0) {
-      warning("frpa method not available; using rpa instead")
-      method <- "rpa"
-    }
-
-    f <- paste(data.dir, "/", level, "-", method, ".tab", sep = "")
-
-    if (file.exists(f)) {
-      tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
-      colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
-
-      results[[level]] <- tab
-    }
-  }
-
-  # oligo data
+  # Read probe-level data
   f <- paste(data.dir, "/oligoprofile.tab", sep = "")
   tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
   colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
-  results[["oligo"]] <- tab
+  otu <- t(tab)
+  #results[["oligo"]] <- tab
 
-  # Phylogeny
-  f <- paste(data.dir, "/phylogeny.full.tab", sep = "")
-  #f <- paste(data.dir, "/phylogeny.filtered.tab", sep = "")        
+  # Read taxonomy table
+  f <- paste(data.dir, "/taxonomy.tab", sep = "")
   tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
-  tab <- polish.tax.table(tab)
-  results[["taxonomy"]] <- tab  
+  # Convert into phyloseq taxonomyTable format
+  taxonomy <- tax_table(as.matrix(tab))     
+  #results[["taxonomy"]] <- tab
 
-  # Metadata      
-  # Read simulated example metadata
-  #library(gdata)
-  #metadata.file <- paste(data.dir, "/metadata.xls", sep = "")
-  #metadata <- read.xls(metadata.file, as.is = TRUE)
-  #rownames(metadata) <- metadata$sampleID    
-  f <- paste(data.dir, "/metadata.tab", sep = "")
-  tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
-  rownames(tab) <- tab$sample
-  return(tab)
-  results[["meta"]] <- tab      
-
-  # Convert to numeric
-  for (level in c("oligo", "species", "L0", "L1", "L2")) {
-    tab <- results[[level]]        
-    rnams <- rownames(tab)
-    cnams <- colnames(tab)
-    tab <- apply(tab, 2, as.numeric)
-    rownames(tab) <- rnams
-    colnames(tab) <- cnams
-    
-    if (impute && any(is.na(tab))) {
-        warning(paste("The", level, " matrix has ", sum(is.na(tab)), 
-                      " missing values \n
-                      - imputing.."))
-
-        for (i in 1:ncol(tab)) {
-	  inds <- which(is.na(tab[,i]))
-	  if (length(inds) > 0) {
-            tab[inds, i] <- sample(tab[-inds, i], length(inds))
-  	  }
-	}
-
-    }
-
-    results[[level]] <- tab        
-
+  # Read sample metadata      
+  f <- paste(data.dir, "/meta.tab", sep = "")
+  if (file.exists(f)) {
+    tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
+    rownames(tab) <- tab$sample
+    meta <- tab
+    #results[["meta"]] <- tab      
   }
-    
-  results
+
+  # Convert the object into phyloseq format
+  res <- hitchip2physeq(otu, meta, taxonomy, detection.limit = 0)
+
+  res
     
 } 
+
 
