@@ -1,7 +1,7 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.48
+Version: 0.99.49
 Date: 2015-05-21
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
@@ -23,6 +23,7 @@ Imports:
     mixOmics,
     phyloseq,
     RColorBrewer,
+    RPA,
     rdryad,
     reshape2,
     sorvi,
