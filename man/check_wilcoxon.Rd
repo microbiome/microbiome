@@ -2,36 +2,30 @@
 % Please edit documentation in R/wilcoxon.R
 \name{check_wilcoxon}
 \alias{check_wilcoxon}
-\title{Calculate Wilcoxon test (unpaired; BH correction) for the
-specified sample groups.}
+\title{Calculate Wilcoxon test (with BH correction) for two-group comparison}
 \usage{
-check_wilcoxon(dat, G1, G2, p.adjust.method = "BH", sort = FALSE,
-  paired = FALSE)
+check_wilcoxon(x, group, p.adjust.method = "BH", sort = FALSE)
 }
 \arguments{
-\item{dat}{data matrix (features x samples)}
+\item{x}{\code{\link{phyloseq-class}} object or a data matrix
+(features x samples; eg. HITChip taxa vs. samples)}
 
-\item{G1}{Sample group 1 (for comparison)}
-
-\item{G2}{Sample group 2 (for comparison)}
+\item{group}{Vector with specifying the groups}
 
 \item{p.adjust.method}{p-value correction method for p.adjust function
-            (default 'BH'). If NULL, no correction will be performed.}
+(default 'BH'). For other options, see ?p.adjust}
 
 \item{sort}{sort the results}
-
-\item{paired}{paired Wilcoxon test}
 }
 \value{
-(Corrected) p-values for two-group comparison.
+Corrected p-values for multi-group comparison.
 }
 \description{
-Calculate Wilcoxon test (unpaired; BH correction) for the
-specified sample groups.
+Calculate Wilcoxon test (with BH correction) for two-group comparison
 }
 \examples{
-data(peerj32)
- pval <- check_wilcoxon(t(peerj32$microbes), G1 = 1:22, G2 = 23:44)
+#pseq <- download_microbiome("peerj32")$physeq
+  #pval <- check_wilcoxon(pseq, "time")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

@@ -27,11 +27,11 @@ phyloseq object, calculates for each OTU the fraction of samples that
 exceed the detection threshold
 }
 \examples{
-peerj32 <- download_microbiome("peerj32")
-  # With matrix
-  prevalence(peerj32$data$microbes, detection.threshold = 200, sort = TRUE)
-  # With phyloseq
-  prevalence(peerj32$physeq, detection.threshold = 200, sort = TRUE)
+#peerj32 <- download_microbiome("peerj32")
+  ## With matrix
+  #prevalence(peerj32$data$microbes, detection.threshold = 200, sort = TRUE)
+  ## With phyloseq
+  #prevalence(peerj32$physeq, detection.threshold = 200, sort = TRUE)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

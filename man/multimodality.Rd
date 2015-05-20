@@ -4,14 +4,14 @@
 \alias{multimodality}
 \title{multimodality}
 \usage{
-multimodality(x, method = "potential.bootstrap", detection.threshold = 1,
+multimodality(x, method = "potential_bootstrap", detection.threshold = 1,
   bw.adjust = 1, bs.iterations = 100, detection.limit = 1,
   verbose = TRUE)
 }
 \arguments{
 \item{x}{A vector, matrix, or a phyloseq object}
 
-\item{method}{multimodality quantification method ('potential.bootstrap'
+\item{method}{multimodality quantification method ('potential_bootstrap'
 or 'coefficient_of_bimodality')}
 
 \item{detection.threshold}{Mode detection threshold}
@@ -39,7 +39,7 @@ Wrapper to calculate multimodality score based on various methods
 \details{
 \itemize{
     \item{coefficient_of_bimodality}{Coefficient of bimodality, used and described in Shade et al. (2014) and Ellison AM (1987).}
-    \item{potential.bootstrap}{Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the bootstrap score.}
+    \item{potential_bootstrap}{Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the bootstrap score.}
   }
 }
 \examples{

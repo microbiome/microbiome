@@ -29,6 +29,7 @@ GetPhylogeny <- function(chip, phylogeny.version = "full", data.dir = NULL) {
       f <- paste0(data.dir, "/phylogeny.", phylogeny.version, ".tab")
       tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
       tax.table <- polish.tax.table(tab)
+      #tax.table <- as.data.frame(tax_table(tab))
       
       # Get the phylogeny from Github url <-
       # 'raw.github.com/microbiome/data/master/example-datasets/phylogeny' fnam
@@ -37,8 +38,8 @@ GetPhylogeny <- function(chip, phylogeny.version = "full", data.dir = NULL) {
         
     } else {
 
-        message(paste("GetPhylogeny not implemented for", chip))
-        tax.table <- NULL  
+      message(paste("GetPhylogeny not implemented for", chip))
+      tax.table <- NULL  
 
     }
     
@@ -47,6 +48,46 @@ GetPhylogeny <- function(chip, phylogeny.version = "full", data.dir = NULL) {
 }
 
 
+#' polish.tax.table
+#'
+#' Ensure tax.table is in correct format
+#' 
+#' @param tax.table tax.table data frame
+#'
+#' @return polished tax.table
+#' @references See citation('microbiome')
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @examples 
+#'   #tax.table <- GetPhylogeny('HITChip', 'filtered')
+#'   #tax.table <- polish.tax.table(tax.table)
+#' @keywords internal
+polish.tax.table <- function(tax.table) {
+    
+    colnames(tax.table)[
+          which(colnames(tax.table) == "level.0")] <- "L0"
+    colnames(tax.table)[
+          which(colnames(tax.table) == "level.1")] <- "L1"
+    colnames(tax.table)[
+          which(colnames(tax.table) == "level.2")] <- "L2"
+    
+    colnames(tax.table)[
+          which(colnames(tax.table) == "level 0")] <- "L0"
+    colnames(tax.table)[
+          which(colnames(tax.table) == "level 1")] <- "L1"
+    colnames(tax.table)[
+          which(colnames(tax.table) == "level 2")] <- "L2"
+
+    # Fix some names	  
+    if ("L2" %in% colnames(tax.table)) {
+      tax.table[, "L2"] <- gsub("^Clostridiales$", 
+      		  	        "Clostridium \\(sensu stricto\\)", 
+				tax.table[, "L2"])
+    }
+
+    # Convert into phyloseq taxonomyTable format
+    tax.table <- tax_table(as.matrix(tax.table))    
+    
+}
 
 #' levelmap
 #' 
@@ -82,7 +123,8 @@ levelmap <- function(phylotypes = NULL, from, to, tax.table) {
     return(df)
   }
 
-  df <- polish.tax.table(tax.table)
+  #df <- polish.tax.table(tax.table)
+  df <- tax_table(as.matrix(tax.table))    
   
   if (is.null(phylotypes)) {
     phylotypes <- as.character(unique(df[, from]))

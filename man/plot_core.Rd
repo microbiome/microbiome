@@ -29,8 +29,8 @@ Used for its side effects
 Core visualization 2D
 }
 \examples{
-pseq <- download_microbiome("atlas1006")
-p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
+#pseq <- download_microbiome("atlas1006")
+#p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

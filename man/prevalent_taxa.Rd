@@ -24,9 +24,9 @@ For phyloseq object, lists taxa that are more prevalent with the given detection
          threshold. For matrix, lists columns that satisfy these criteria.
 }
 \examples{
-peerj32 <- download_microbiome("peerj32")
-  prevalent_taxa(peerj32$data$microbes, 10^1.8 + 100, 0.2) # matrix
-  prevalent_taxa(peerj32$physeq, 100, 0.2) # phyloseq object
+#peerj32 <- download_microbiome("peerj32")
+  #prevalent_taxa(peerj32$data$microbes, 10^1.8 + 100, 0.2) # matrix
+  #prevalent_taxa(peerj32$physeq, 100, 0.2) # phyloseq object
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

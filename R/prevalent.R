@@ -24,11 +24,11 @@
 #' @keywords utilities
 #' @export
 #' @examples
-#'   peerj32 <- download_microbiome("peerj32")
-#'   # With matrix
-#'   prevalence(peerj32$data$microbes, detection.threshold = 200, sort = TRUE)
-#'   # With phyloseq
-#'   prevalence(peerj32$physeq, detection.threshold = 200, sort = TRUE)
+#'   #peerj32 <- download_microbiome("peerj32")
+#'   ## With matrix
+#'   #prevalence(peerj32$data$microbes, detection.threshold = 200, sort = TRUE)
+#'   ## With phyloseq
+#'   #prevalence(peerj32$physeq, detection.threshold = 200, sort = TRUE)
 #' 
 prevalence <- function (x, detection.threshold, sort = FALSE) {
 
@@ -71,9 +71,9 @@ prevalence <- function (x, detection.threshold, sort = FALSE) {
 #' @keywords utilities
 #' @export
 #' @examples
-#'   peerj32 <- download_microbiome("peerj32")
-#'   prevalent_taxa(peerj32$data$microbes, 10^1.8 + 100, 0.2) # matrix
-#'   prevalent_taxa(peerj32$physeq, 100, 0.2) # phyloseq object
+#'   #peerj32 <- download_microbiome("peerj32")
+#'   #prevalent_taxa(peerj32$data$microbes, 10^1.8 + 100, 0.2) # matrix
+#'   #prevalent_taxa(peerj32$physeq, 100, 0.2) # phyloseq object
 #' 
 prevalent_taxa <- function (x, detection.threshold, prevalence.threshold) {
 
