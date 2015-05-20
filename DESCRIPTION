@@ -15,23 +15,23 @@ Depends:
     phyloseq,
     RPA
 Imports:
-    vegan
-Suggests:
     ade4,
-    BiocGenerics,
-    BiocStyle,
+    vegan,
     dplyr,
-    earlywarnings,
     e1071,
+    earlywarnings,
     ggplot2,
-    knitr,
     MASS,
     mixOmics,
     RColorBrewer,
     rdryad,
     reshape2,
+    sorvi
+Suggests:
+    BiocGenerics,
+    BiocStyle,
+    knitr,
     rmarkdown,
-    sorvi,
     WGCNA
 URL: http://microbiome.github.com
 MailingList: microbiome <microbiome-devel@googlegroups.com>

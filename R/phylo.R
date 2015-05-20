@@ -26,7 +26,7 @@ GetPhylogeny <- function(chip, phylogeny.version = "full", data.dir = NULL) {
     if (chip == "HITChip") {
         
       # Phylogeny
-      f <- paste0(data.dir, "/phylogeny.", phylogeny.version, ".tab")
+      f <- paste0(data.dir, "/taxonomy.", phylogeny.version, ".tab")
       tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
       tax.table <- polish.tax.table(tab)
       #tax.table <- as.data.frame(tax_table(tab))

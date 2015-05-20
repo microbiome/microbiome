@@ -18,7 +18,9 @@
 #'         linear model p-value for group differences.
 #'
 #' @export
-#' @import dplyr
+#' @importFrom dplyr group_by
+#' @importFrom dplyr summarize
+#' @importFrom dplyr %>%
 #' @examples 
 #' \dontrun{
 #' # Example data
