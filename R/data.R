@@ -4,7 +4,7 @@
 #'
 #' @return Data set
 #'
-#' @examples x <- download_microbiome("peerj32")
+#' @examples # x <- download_microbiome("peerj32")
 #' @export
 #' @references 
 #'   To cite the microbiome R package, see citation('microbiome') 

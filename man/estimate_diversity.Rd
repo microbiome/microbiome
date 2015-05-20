@@ -25,8 +25,8 @@ Diversity estimation. Augments the estimate_richness function of the
 phyloseq package
 }
 \examples{
-pseq <- download_microbiome("peerj32")$physeq
-  d <- estimate_diversity(pseq, det.th = 0)
+#pseq <- download_microbiome("peerj32")$physeq
+  #d <- estimate_diversity(pseq, det.th = 0)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

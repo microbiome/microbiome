@@ -16,7 +16,7 @@ Data set
 Download microbiome data sets
 }
 \examples{
-x <- download_microbiome("peerj32")
+# x <- download_microbiome("peerj32")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

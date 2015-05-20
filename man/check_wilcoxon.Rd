@@ -24,8 +24,8 @@ Corrected p-values for multi-group comparison.
 Calculate Wilcoxon test (with BH correction) for two-group comparison
 }
 \examples{
-pseq <- download_microbiome("peerj32")$physeq
-  pval <- check_wilcoxon(pseq, "time")
+#pseq <- download_microbiome("peerj32")$physeq
+  #pval <- check_wilcoxon(pseq, "time")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

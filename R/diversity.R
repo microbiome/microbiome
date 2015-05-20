@@ -10,8 +10,8 @@
 #'         each sample 
 #'
 #' @examples 
-#'   pseq <- download_microbiome("peerj32")$physeq
-#'   d <- estimate_diversity(pseq, det.th = 0)
+#'   #pseq <- download_microbiome("peerj32")$physeq
+#'   #d <- estimate_diversity(pseq, det.th = 0)
 #'
 #' @export
 #' @references See citation('microbiome') 

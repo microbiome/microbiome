@@ -10,8 +10,8 @@
 #' @return Estimated core microbiota
 #'
 #' @examples 
-#'   pseq <- download_microbiome("peerj32")$physeq
-#'   core <- core_matrix(pseq)
+#'   #pseq <- download_microbiome("peerj32")$physeq
+#'   #core <- core_matrix(pseq)
 #'
 #' @export 
 #' 
@@ -92,8 +92,8 @@ core.sum <- function(data, intTr, prevalenceTr) {
 #' @return Used for its side effects
 #'
 #' @examples 
-#' pseq <- download_microbiome("atlas1006")
-#' p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
+#' #pseq <- download_microbiome("atlas1006")
+#' #p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
 #' @export 
 #' 
 #' @references 

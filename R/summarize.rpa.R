@@ -19,11 +19,11 @@
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-summarize.rpa <- function (taxonomy, level, probedata, verbose = TRUE, rpa.parameters = NULL) {
+summarize.rpa <- function (taxonomy, level, probedata, verbose = TRUE, probe.parameters = NULL) {
 
   # Convert to log10 domain	      
   oligo.data <- log10(probedata) 
-  probe.parameters <- list()
+  probeinfo <- list()
  
   probesets <- retrieve.probesets(taxonomy, level = level)
   # probesets <- probesets[setdiff(names(probesets), rm.species)]
@@ -46,10 +46,10 @@ summarize.rpa <- function (taxonomy, level, probedata, verbose = TRUE, rpa.param
     rownames(dat) <- probes
     colnames(dat) <- colnames(oligo.data)
 
-    if (length(rpa.parameters) > 0) {
+    if (length(probe.parameters) > 0) {
 
       # Summarize with pre-calculated variances
-      vec <- d.update.fast(dat, rpa.parameters[[set]])
+      vec <- d.update.fast(dat, probe.parameters[[set]])
 
     } else {
 
@@ -64,7 +64,7 @@ summarize.rpa <- function (taxonomy, level, probedata, verbose = TRUE, rpa.param
 			  beta  = 1 + 0.1*ncol(oligo.data)*nPhylotypesPerOligo[probes]^2)
 
       vec <- res$mu
-      probe.parameters[[set]] <- res$tau2
+      probeinfo[[set]] <- res$tau2
 
     }
       
@@ -72,14 +72,14 @@ summarize.rpa <- function (taxonomy, level, probedata, verbose = TRUE, rpa.param
 
   }
 
-  if (!is.null(rpa.parameters)) {
-    probe.parameters <- rpa.parameters
+  if (!is.null(probe.parameters)) {
+    probeinfo <- probe.parameters
   }
 
   # Return the data in absolute scale					
   summarized.matrix <- 10^summarized.matrix
 
-  list(abundance.table = summarized.matrix, probe.parameters = probe.parameters)
+  list(abundance.table = summarized.matrix, probeinfo = probeinfo)
   
 }
 

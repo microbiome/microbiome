@@ -10,8 +10,8 @@
 #' @return Corrected p-values for multi-group comparison.
 #'
 #' @examples 
-#'   pseq <- download_microbiome("peerj32")$physeq
-#'   pval <- check_wilcoxon(pseq, "time")
+#'   #pseq <- download_microbiome("peerj32")$physeq
+#'   #pval <- check_wilcoxon(pseq, "time")
 #'
 #' @export
 #'
