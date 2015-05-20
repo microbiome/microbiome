@@ -8,6 +8,7 @@ inst/extras/travis-tool.sh
 inst/extras
 inst/extras/*.tar.gz
 inst/win-install*
+R/.RData
 
 # Vignette sources
 # vignettes/sorvi_tutorial.Rmd
