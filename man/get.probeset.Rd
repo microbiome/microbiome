@@ -27,7 +27,7 @@ get probeset data matrix
 \examples{
 phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
   data.dir <- system.file("extdata", package = "microbiome")
-  probedata <- read.profiling("frpa", data.dir = data.dir)$oligo
+  probedata <- read_profiling("frpa", data.dir = data.dir)$oligo
   ps <- get.probeset('Akkermansia', 'L2', phylogeny.info, probedata)
 }
 \author{
