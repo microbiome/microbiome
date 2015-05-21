@@ -40,7 +40,7 @@ Same with relative abundances:
 
 ```r
 p <- plot_abundance(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
-p <- p + guides(fill = guide_legend(ncol = 2))
+p <- p + guides(fill = guide_legend(nrow = 12))
 print(p)
 ```
 
