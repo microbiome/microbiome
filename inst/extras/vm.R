@@ -16,12 +16,12 @@
 # install.packages("devtools")
 
 source("http://www.bioconductor.org/biocLite.R")
-biocLite("RPA")
-biocLite("phyloseq")
 biocLite("WGCNA")
 biocLite("BiocStyle")
 biocLite("knitr")
 biocLite("rmarkdown")
+biocLite("phyloseq")
+biocLite("RPA")
 
 library(devtools)
 install_github("microbiome/microbiome")
@@ -38,15 +38,15 @@ port = 3307
 summarization.methods = c("frpa", "sum")
 which.projects = "AUTISM"
 
-install.packages("sorvi")
 library(HITChipDB)
 library(RMySQL)
 library(DBI)
 library(tcltk)
 library(phyloseq)
 library(RPA)
-fs <- list.files("~/HITChipDB/R/", full.names = TRUE)
-for (f in fs)  { source(f) }
+
+#fs <- list.files("~/HITChipDB/R/", full.names = TRUE)
+#for (f in fs)  { source(f) }
 res <- run.profiling.script(dbuser, dbpwd, dbname, verbose = TRUE, host = host, port = port, summarization.methods = c("frpa", "sum"), which.projects = "AUTISM")
 
 # -------------------------------

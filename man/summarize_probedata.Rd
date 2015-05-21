@@ -5,7 +5,7 @@
 \title{Summarize phylogenetic microarray probe-level data from given input folder.}
 \usage{
 summarize_probedata(data.dir = NULL, probedata = NULL, taxonomy = NULL,
-  level, method)
+  level, method, probe.parameters = NULL)
 }
 \arguments{
 \item{data.dir}{Data folder.}
@@ -17,6 +17,8 @@ summarize_probedata(data.dir = NULL, probedata = NULL, taxonomy = NULL,
 \item{level}{Summarization level}
 
 \item{method}{Summarization method}
+
+\item{probe.parameters}{Precalculater probe parameters. Optional.}
 }
 \value{
 data matrix (taxa x samples)

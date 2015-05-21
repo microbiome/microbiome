@@ -5,6 +5,7 @@
 #' @param taxonomy probe taxonomy
 #' @param level Summarization level
 #' @param method Summarization method
+#' @param probe.parameters Precalculater probe parameters. Optional.
 #'
 #' @return data matrix (taxa x samples)
 #'
@@ -14,7 +15,7 @@
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-summarize_probedata <- function(data.dir = NULL, probedata = NULL, taxonomy = NULL, level, method) {
+summarize_probedata <- function(data.dir = NULL, probedata = NULL, taxonomy = NULL, level, method, probe.parameters = NULL) {
 
   # If the data is not given as input, read it from the data directory		     
   # message(paste("Reading Chip data from", data.dir))
@@ -37,8 +38,8 @@ summarize_probedata <- function(data.dir = NULL, probedata = NULL, taxonomy = NU
 
   # Summarize probes through species level
   # probeset.summaries <- summarize.probesets.species(taxonomy, oligo.data, method)
-  if (method == "rpa") {
-    otu <- summarize.rpa(taxonomy, level, probedata, verbose = TRUE, probe.parameters = NULL)$abundance.table
+  if (method %in% c("rpa", "frpa")) {
+    otu <- summarize.rpa(taxonomy, level, probedata, verbose = TRUE, probe.parameters = probe.parameters)$abundance.table
   } else if (method == "sum") {
     otu <- summarize.sum(taxonomy, level, probedata, verbose = TRUE, downweight.ambiguous.probes = TRUE)$abundance.table
   }

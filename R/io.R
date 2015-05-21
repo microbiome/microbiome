@@ -68,6 +68,7 @@ read_profiling <- function(data.dir, method) {
 #'                 If not given, GUI will ask to specify the file and 
 #'             	   overruns the possible level / method arguments in the 
 #'             	   function call.
+#' @param output Specify the desired output.
 #' @param method Probe summarization method ("rpa" or "sum")
 #' 
 #' @return data matrix (phylo x samples)
@@ -101,6 +102,15 @@ read_hitchip <- function(data.dir, output = "all", method = "rpa") {
   taxonomy <- as.matrix(tab)
   if (output == "taxonomy") {
     return(tax_table(taxonomy))
+  }
+
+  # Read taxonomy table2
+  f <- paste(data.dir, "/taxonomy.full.tab", sep = "")
+  tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
+  # Convert into phyloseq taxonomyTable format
+  taxonomy.full <- as.matrix(tab)
+  if (output == "taxonomy.full") {
+    return(tax_table(taxonomy.full))
   }
 
   # Read sample metadata      
