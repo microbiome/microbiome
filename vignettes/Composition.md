@@ -44,15 +44,22 @@ plot_abundance(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
 
 ![plot of chunk composition-example3](figure/composition-example3-1.png) 
 
+```r
+p <- p + guides(fill = guide_legend(ncol = 2))
+```
 
-Arrange by sample variable and use custom X axis labels.
+
+Arrange by sample variable and use custom X axis labels. Americans have more Bacteroides, and Africans more Prevotella (as expected):
 
 
 ```r
 # Subset taxa and samples
 pseq <- subset_samples(pseq0, group == "DI" & timepoint.within.group == 1)
 pseq <- prune_taxa(c("Prevotella melaninogenica et rel.", "Bacteroides fragilis et rel.", "Akkermansia"), pseq)
-plot_abundance(pseq, relative.abundance = TRUE, sort.by = "nationality", x.label = "nationality")
+p <- plot_abundance(pseq, relative.abundance = TRUE, sort.by = "nationality", x.label = "nationality")
+p <- p + theme(legend.position = "bottom")
+p <- p + guides(fill = guide_legend(ncol = 1))
+print(p)
 ```
 
 ![plot of chunk composition-example4](figure/composition-example4-1.png) 

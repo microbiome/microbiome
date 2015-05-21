@@ -26,17 +26,21 @@ plot_abundance(pseq, taxonomic.level = "Phylum")
 
 Same with relative abundances:
 
-```{r composition-example3, fig.path = "figure/"}
+```{r composition-example3, fig.path = "figure/", fig.width=8, fig.height=5}
 plot_abundance(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
+p <- p + guides(fill = guide_legend(ncol = 2))
 ```
 
 
-Arrange by sample variable and use custom X axis labels.
+Arrange by sample variable and use custom X axis labels. Americans have more Bacteroides, and Africans more Prevotella (as expected):
 
 ```{r composition-example4, fig.path = "figure/", fig.width=12, fig.height=5}
 # Subset taxa and samples
 pseq <- subset_samples(pseq0, group == "DI" & timepoint.within.group == 1)
 pseq <- prune_taxa(c("Prevotella melaninogenica et rel.", "Bacteroides fragilis et rel.", "Akkermansia"), pseq)
-plot_abundance(pseq, relative.abundance = TRUE, sort.by = "nationality", x.label = "nationality")
+p <- plot_abundance(pseq, relative.abundance = TRUE, sort.by = "nationality", x.label = "nationality")
+p <- p + theme(legend.position = "bottom")
+p <- p + guides(fill = guide_legend(ncol = 1))
+print(p)
 ```
 
