@@ -4,7 +4,7 @@
 \alias{read_hitchip}
 \title{Read run.profiling.script output into R and preprocess into phyloseq format}
 \usage{
-read_hitchip(data.dir, method = "rpa")
+read_hitchip(data.dir, output = "all", method = "rpa")
 }
 \arguments{
 \item{data.dir}{Profiling script output directory for reading the data.
