@@ -12,6 +12,8 @@ If not given, GUI will ask to specify the file and
    overruns the possible level / method arguments in the
    function call.}
 
+\item{output}{Specify the desired output.}
+
 \item{method}{Probe summarization method ("rpa" or "sum")}
 }
 \value{
