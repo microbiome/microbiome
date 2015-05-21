@@ -29,6 +29,13 @@ install_github("microbiome/HITChipDB")
 
 # -------------------------------------------
 
+library(HITChipDB)
+#library(RMySQL)
+#library(DBI)
+#library(tcltk)
+#library(phyloseq)
+#library(RPA)
+
 dbuser <- "root"
 dbpwd <- "fidipro"
 dbname <- "phyloarray"
@@ -38,23 +45,18 @@ port = 3307
 summarization.methods = c("frpa", "sum")
 which.projects = "AUTISM"
 
-library(HITChipDB)
-library(RMySQL)
-library(DBI)
-library(tcltk)
-library(phyloseq)
-library(RPA)
-
 #fs <- list.files("~/HITChipDB/R/", full.names = TRUE)
 #for (f in fs)  { source(f) }
-res <- run.profiling.script(dbuser, dbpwd, dbname, verbose = TRUE, host = host, port = port, summarization.methods = c("frpa", "sum"), which.projects = "AUTISM")
+res <- run.profiling.script(dbuser, dbpwd, dbname, verbose = FALSE, host = host, port = port, summarization.methods = c("rpa", "frpa", "sum"), which.projects = "AUTISM")
 
 # -------------------------------
 
-library(phyloseq)
-fs <- list.files("~/microbiome/R/", full.names = TRUE)
-for (f in fs)  { source(f) }
-res <- read.profiling("~/R/temp2")
+library(microbiome)
+#library(phyloseq)
+#fs <- list.files("~/microbiome/R/", full.names = TRUE)
+#for (f in fs)  { source(f) }
+res <- read_hitchip("~/R/temp2", method = "frpa")
+
 
 
 

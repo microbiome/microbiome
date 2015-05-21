@@ -144,7 +144,7 @@ read_hitchip <- function(data.dir, output = "all", method = "rpa") {
   }  
 
   if (output == "all") {
-    res <- list(pseq = pseq, meta = meta, probedata = probedata, taxonomy = tax_table(taxonomy))
+    res <- list(pseq = pseq, meta = meta, probedata = probedata, taxonomy = tax_table(taxonomy), taxonomy.full = tax_table(taxonomy.full))
     return(res)
   }
 
