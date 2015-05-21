@@ -33,22 +33,13 @@ approximate):
 plot_composition(pseq, taxonomic.level = "Phylum")
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "plot_composition"
-```
+![plot of chunk composition-example1b](figure/composition-example1b-1.png) 
 
 Same with relative abundances:
 
 
 ```r
 p <- plot_composition(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "plot_composition"
-```
-
-```r
 p <- p + guides(fill = guide_legend(nrow = 12, byrow = TRUE))
 print(p)
 ```
@@ -64,13 +55,6 @@ Arrange by sample variable and use custom X axis labels. Americans have more Bac
 pseq <- subset_samples(pseq0, group == "DI" & timepoint.within.group == 1)
 pseq <- prune_taxa(c("Prevotella melaninogenica et rel.", "Bacteroides fragilis et rel.", "Akkermansia"), pseq)
 p <- plot_composition(pseq, relative.abundance = TRUE, sort.by = "nationality", x.label = "nationality")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "plot_composition"
-```
-
-```r
 p <- p + guides(fill = guide_legend(ncol = 1))
 p <- p + theme(legend.position = "bottom")
 print(p)
