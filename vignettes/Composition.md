@@ -62,3 +62,31 @@ print(p)
 
 ![plot of chunk composition-example4](figure/composition-example4-1.png) 
 
+
+### Coloured Barplots
+
+The following example visualizes samples, colored by Phylum
+percentages.
+
+
+```r
+library(microbiome)
+library(ggplot2)
+
+# Example data from https://peerj.com/articles/32/
+pseq <- download_microbiome("dietswap")
+
+# Select specific sample group
+pseq <- subset_samples(pseq, group == "DI")
+
+# Pick the top OTUs only
+pseq <- prune_taxa(names(sort(taxa_sums(pseq), TRUE)[1:10]), pseq)
+
+# Visualize samples 
+# (in HITChip we have only approximate Phylum level)
+plot_bar(pseq, x = "timepoint", fill = "Phylum", facet_grid = ~nationality)
+```
+
+![plot of chunk barplot](figure/barplot-1.png) 
+
+
