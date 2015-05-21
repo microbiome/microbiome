@@ -37,7 +37,7 @@ summarize.sum <- function (taxonomy, level, probedata, verbose = TRUE, downweigh
 
   for (set in names(probesets)) {
 
-    print(set)
+    #print(set)
 
     # Pick expression for particular probes
     probes <- probesets[[set]]
