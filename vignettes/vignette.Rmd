@@ -54,7 +54,7 @@ Example on reproducible document generation:
 
 Download some [example data sets](Data.md) to try these tools:
 
-* [Barplots](Barplots.md)
+* [Barplots](Composition.md)
 * [Boxplots](Boxplots.md)
 * [Density](Density.md)
 * [Heatmaps](Heatmap.md)
