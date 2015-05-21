@@ -45,12 +45,5 @@ res <- run.profiling.script(dbuser, dbpwd, dbname, verbose = FALSE, host = host,
 
 # -------------------------------
 
-library(microbiome)
-#library(phyloseq)
-#fs <- list.files("~/microbiome/R/", full.names = TRUE)
-#for (f in fs)  { source(f) }
-res <- read_hitchip("~/R/temp2", method = "frpa")
-
-
 
 

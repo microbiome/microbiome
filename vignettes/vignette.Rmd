@@ -47,7 +47,7 @@ Example on reproducible document generation:
 
 * [Download example data sets](Data.md)
 * [Extract data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
-* [Get phylogeny](Phylogeny.md)
+* [Taxonomy](Phylogeny.md)
 * [Preprocessing and Filtering](Preprocessing.md)
 
 ### Visualization and related tools

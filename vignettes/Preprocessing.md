@@ -5,22 +5,24 @@ The external high-quality [phyloseq package](http://joey711.github.io/phyloseq/)
 
 ```r
 library(microbiome)
-physeq <- download_microbiome("dietswap")
+pseq <- download_microbiome("dietswap")
 ```
 
 ### Sample operations
 
 
+Transform sample counts
+
+
 ```r
-# Filter samples
-f1 <- filterfun_sample(topp(0.1))
-wh1 <- genefilter_sample(physeq, f1, A = round(0.5 * nsamples(physeq)))
+r <- transform_sample_counts(pseq, function(x) x/sum(x))
+```
 
-# Transform sample counts
-r <- transform_sample_counts(physeq, function(x) x/sum(x))
+Sample names and variables
 
-# Sample names and variables
-sample_names(physeq)
+
+```r
+sample_names(pseq)
 ```
 
 ```
@@ -71,9 +73,11 @@ sample_names(physeq)
 ## [221] "Sample-221" "Sample-222"
 ```
 
+Sample sums
+
+
 ```r
-# Sample sums
-sample_sums(physeq)
+sample_sums(pseq)
 ```
 
 ```
@@ -153,8 +157,11 @@ sample_sums(physeq)
 ##    1322774     696071    1095165    1165830     856514    1356839
 ```
 
+Abundance for species ‘i’ in each sample
+
+
 ```r
-get_sample(physeq, taxa_names(physeq)[5])
+get_sample(pseq, taxa_names(pseq)[5])
 ```
 
 ```
@@ -237,9 +244,11 @@ get_sample(physeq, taxa_names(physeq)[5])
 
 ### Variable operations
 
+Sample variable names
+
 
 ```r
-sample_variables(physeq)
+sample_variables(pseq)
 ```
 
 ```
@@ -249,13 +258,16 @@ sample_variables(physeq)
 ## [7] "timepoint.within.group" "bmi_group"
 ```
 
+Pick variable values for a given variable
+
+
 ```r
-get_variable(physeq, sample_variables(physeq)[5])[1:10]
+head(get_variable(pseq, sample_variables(pseq)[1]))
 ```
 
 ```
-##  [1] "Sample-1"  "Sample-2"  "Sample-3"  "Sample-4"  "Sample-5" 
-##  [6] "Sample-6"  "Sample-7"  "Sample-8"  "Sample-9"  "Sample-10"
+## [1] byn nms olt pku qjy riv
+## 38 Levels: azh azl byn byu cxj dwc dwk eve fua fud gtd gty hsf irh ... zaq
 ```
 
 ```r
@@ -266,28 +278,321 @@ get_variable(physeq, sample_variables(physeq)[5])[1:10]
 ### Taxa operations
 
 
-```r
-# Prune taxa
-ex2 <- prune_taxa(wh1, physeq)
-ex3 <- prune_taxa(taxa_sums(physeq) > 0, physeq)
+Filter samples
 
-# Subset taxa
+
+```r
+f1 <- filterfun_sample(topp(0.1))
+taxa <- genefilter_sample(pseq, f1, A = round(0.5 * nsamples(pseq)))
+taxa
+```
+
+```
+##                      Actinomycetaceae 
+##                                 FALSE 
+##                            Aerococcus 
+##                                 FALSE 
+##                             Aeromonas 
+##                                 FALSE 
+##                           Akkermansia 
+##                                 FALSE 
+##          Alcaligenes faecalis et rel. 
+##                                 FALSE 
+##                    Allistipes et rel. 
+##                                 FALSE 
+##                    Anaerobiospirillum 
+##                                 FALSE 
+##                          Anaerofustis 
+##                                 FALSE 
+##           Anaerostipes caccae et rel. 
+##                                 FALSE 
+##     Anaerotruncus colihominis et rel. 
+##                                 FALSE 
+##       Anaerovorax odorimutans et rel. 
+##                                 FALSE 
+##                      Aneurinibacillus 
+##                                 FALSE 
+##                         Aquabacterium 
+##                                 FALSE 
+##                Asteroleplasma et rel. 
+##                                 FALSE 
+##                             Atopobium 
+##                                 FALSE 
+##                              Bacillus 
+##                                 FALSE 
+##          Bacteroides fragilis et rel. 
+##                                 FALSE 
+##      Bacteroides intestinalis et rel. 
+##                                 FALSE 
+##            Bacteroides ovatus et rel. 
+##                                 FALSE 
+##          Bacteroides plebeius et rel. 
+##                                 FALSE 
+##       Bacteroides splachnicus et rel. 
+##                                 FALSE 
+##         Bacteroides stercoris et rel. 
+##                                 FALSE 
+##         Bacteroides uniformis et rel. 
+##                                 FALSE 
+##          Bacteroides vulgatus et rel. 
+##                                  TRUE 
+##                       Bifidobacterium 
+##                                 FALSE 
+##                     Bilophila et rel. 
+##                                 FALSE 
+##                           Brachyspira 
+##                                 FALSE 
+##      Bryantella formatexigens et rel. 
+##                                 FALSE 
+##              Bulleidia moorei et rel. 
+##                                 FALSE 
+##                          Burkholderia 
+##                                 FALSE 
+##        Butyrivibrio crossotus et rel. 
+##                                 FALSE 
+##                         Campylobacter 
+##                                 FALSE 
+##     Catenibacterium mitsuokai et rel. 
+##                                 FALSE 
+##           Clostridium (sensu stricto) 
+##                                 FALSE 
+##         Clostridium cellulosi et rel. 
+##                                  TRUE 
+##           Clostridium colinum et rel. 
+##                                 FALSE 
+##         Clostridium difficile et rel. 
+##                                 FALSE 
+##         Clostridium felsineum et rel. 
+##                                 FALSE 
+##            Clostridium leptum et rel. 
+##                                 FALSE 
+##            Clostridium nexile et rel. 
+##                                 FALSE 
+##      Clostridium orbiscindens et rel. 
+##                                  TRUE 
+##           Clostridium ramosum et rel. 
+##                                 FALSE 
+##        Clostridium sphenoides et rel. 
+##                                 FALSE 
+##      Clostridium stercorarium et rel. 
+##                                 FALSE 
+##         Clostridium symbiosum et rel. 
+##                                  TRUE 
+##      Clostridium thermocellum et rel. 
+##                                 FALSE 
+##                           Collinsella 
+##                                 FALSE 
+##    Coprobacillus catenaformis et rel. 
+##                                 FALSE 
+##          Coprococcus eutactus et rel. 
+##                                 FALSE 
+##                       Corynebacterium 
+##                                 FALSE 
+##                 Desulfovibrio et rel. 
+##                                 FALSE 
+##                             Dialister 
+##                                 FALSE 
+##         Dorea formicigenerans et rel. 
+##                                 FALSE 
+##             Eggerthella lenta et rel. 
+##                                 FALSE 
+##        Enterobacter aerogenes et rel. 
+##                                 FALSE 
+##                          Enterococcus 
+##                                 FALSE 
+##              Escherichia coli et rel. 
+##                                 FALSE 
+##           Eubacterium biforme et rel. 
+##                                 FALSE 
+##      Eubacterium cylindroides et rel. 
+##                                 FALSE 
+##            Eubacterium hallii et rel. 
+##                                 FALSE 
+##           Eubacterium limosum et rel. 
+##                                 FALSE 
+##           Eubacterium rectale et rel. 
+##                                 FALSE 
+##           Eubacterium siraeum et rel. 
+##                                 FALSE 
+##        Eubacterium ventriosum et rel. 
+##                                 FALSE 
+##  Faecalibacterium prausnitzii et rel. 
+##                                  TRUE 
+##                          Fusobacteria 
+##                                 FALSE 
+##                               Gemella 
+##                                 FALSE 
+##                        Granulicatella 
+##                                 FALSE 
+##                           Haemophilus 
+##                                 FALSE 
+##                          Helicobacter 
+##                                 FALSE 
+##        Klebisiella pneumoniae et rel. 
+##                                 FALSE 
+##          Lachnobacillus bovis et rel. 
+##                                 FALSE 
+##     Lachnospira pectinoschiza et rel. 
+##                                 FALSE 
+##    Lactobacillus catenaformis et rel. 
+##                                 FALSE 
+##         Lactobacillus gasseri et rel. 
+##                                 FALSE 
+##       Lactobacillus plantarum et rel. 
+##                                 FALSE 
+##      Lactobacillus salivarius et rel. 
+##                                 FALSE 
+##                           Lactococcus 
+##                                 FALSE 
+##                           Leminorella 
+##                                 FALSE 
+##         Megamonas hypermegale et rel. 
+##                                 FALSE 
+##          Megasphaera elsdenii et rel. 
+##                                 FALSE 
+##                      Methylobacterium 
+##                                 FALSE 
+##                        Micrococcaceae 
+##                                 FALSE 
+##        Mitsuokella multiacida et rel. 
+##                                 FALSE 
+##                         Moraxellaceae 
+##                                 FALSE 
+##                       Novosphingobium 
+##                                 FALSE 
+##                       Oceanospirillum 
+##                                 FALSE 
+##    Oscillospira guillermondii et rel. 
+##                                  TRUE 
+##  Outgrouping clostridium cluster XIVa 
+##                                 FALSE 
+##        Oxalobacter formigenes et rel. 
+##                                 FALSE 
+##   Papillibacter cinnamivorans et rel. 
+##                                 FALSE 
+##    Parabacteroides distasonis et rel. 
+##                                 FALSE 
+##             Peptococcus niger et rel. 
+##                                 FALSE 
+## Peptostreptococcus anaerobius et rel. 
+##                                 FALSE 
+##     Peptostreptococcus micros et rel. 
+##                                 FALSE 
+## Phascolarctobacterium faecium et rel. 
+##                                 FALSE 
+##     Prevotella melaninogenica et rel. 
+##                                  TRUE 
+##             Prevotella oralis et rel. 
+##                                  TRUE 
+##         Prevotella ruminicola et rel. 
+##                                 FALSE 
+##           Prevotella tannerae et rel. 
+##                                 FALSE 
+##                     Propionibacterium 
+##                                 FALSE 
+##                       Proteus et rel. 
+##                                 FALSE 
+##                           Pseudomonas 
+##                                 FALSE 
+##        Roseburia intestinalis et rel. 
+##                                 FALSE 
+##           Ruminococcus bromii et rel. 
+##                                 FALSE 
+##         Ruminococcus callidus et rel. 
+##                                 FALSE 
+##           Ruminococcus gnavus et rel. 
+##                                 FALSE 
+##         Ruminococcus lactaris et rel. 
+##                                 FALSE 
+##            Ruminococcus obeum et rel. 
+##                                  TRUE 
+##                              Serratia 
+##                                 FALSE 
+##        Sporobacter termitidis et rel. 
+##                                  TRUE 
+##                        Staphylococcus 
+##                                 FALSE 
+##           Streptococcus bovis et rel. 
+##                                 FALSE 
+##     Streptococcus intermedius et rel. 
+##                                 FALSE 
+##           Streptococcus mitis et rel. 
+##                                 FALSE 
+##      Subdoligranulum variable at rel. 
+##                                  TRUE 
+##        Sutterella wadsworthia et rel. 
+##                                 FALSE 
+##                    Tannerella et rel. 
+##                                 FALSE 
+##              Uncultured Bacteroidetes 
+##                                 FALSE 
+##              Uncultured Chroococcales 
+##                                 FALSE 
+##            Uncultured Clostridiales I 
+##                                 FALSE 
+##           Uncultured Clostridiales II 
+##                                 FALSE 
+##                 Uncultured Mollicutes 
+##                                 FALSE 
+##           Uncultured Selenomonadaceae 
+##                                 FALSE 
+##                           Veillonella 
+##                                 FALSE 
+##                                Vibrio 
+##                                 FALSE 
+##                     Weissella et rel. 
+##                                 FALSE 
+##                      Wissella et rel. 
+##                                 FALSE 
+##                      Xanthomonadaceae 
+##                                 FALSE 
+##                      Yersinia et rel. 
+##                                 FALSE
+```
+
+Prune taxa
+
+
+```r
+# With given taxon names
+ex2 <- prune_taxa(taxa, pseq)
+
+# Taxa with positive sum across samples
+ex3 <- prune_taxa(taxa_sums(pseq) > 0, pseq)
+```
+
+Subset taxa
+
+
+```r
 pseq <- subset_taxa(pseq, Phylum == "Bacteroidetes")
-
-# Filter taxa
-f <- filter_taxa(r, function(x) var(x) > 1e-05, TRUE)
-
-# Number of taxa
-ntaxa(physeq)
 ```
 
-```
-## [1] 130
-```
+
+Filter by user-specified function values (here variance)
+
 
 ```r
-# Rank names
-rank_names(physeq)
+f <- filter_taxa(r, function(x) var(x) > 1e-05, TRUE)
+```
+
+Number of taxa
+
+
+```r
+ntaxa(pseq)
+```
+
+```
+## [1] 16
+```
+
+
+Names
+
+
+```r
+rank_names(pseq)
 ```
 
 ```
@@ -295,698 +600,94 @@ rank_names(physeq)
 ```
 
 ```r
-# Taxa names
-taxa_names(physeq)
+taxa_names(pseq)
 ```
 
 ```
-##   [1] "Actinomycetaceae"                     
-##   [2] "Aerococcus"                           
-##   [3] "Aeromonas"                            
-##   [4] "Akkermansia"                          
-##   [5] "Alcaligenes faecalis et rel."         
-##   [6] "Allistipes et rel."                   
-##   [7] "Anaerobiospirillum"                   
-##   [8] "Anaerofustis"                         
-##   [9] "Anaerostipes caccae et rel."          
-##  [10] "Anaerotruncus colihominis et rel."    
-##  [11] "Anaerovorax odorimutans et rel."      
-##  [12] "Aneurinibacillus"                     
-##  [13] "Aquabacterium"                        
-##  [14] "Asteroleplasma et rel."               
-##  [15] "Atopobium"                            
-##  [16] "Bacillus"                             
-##  [17] "Bacteroides fragilis et rel."         
-##  [18] "Bacteroides intestinalis et rel."     
-##  [19] "Bacteroides ovatus et rel."           
-##  [20] "Bacteroides plebeius et rel."         
-##  [21] "Bacteroides splachnicus et rel."      
-##  [22] "Bacteroides stercoris et rel."        
-##  [23] "Bacteroides uniformis et rel."        
-##  [24] "Bacteroides vulgatus et rel."         
-##  [25] "Bifidobacterium"                      
-##  [26] "Bilophila et rel."                    
-##  [27] "Brachyspira"                          
-##  [28] "Bryantella formatexigens et rel."     
-##  [29] "Bulleidia moorei et rel."             
-##  [30] "Burkholderia"                         
-##  [31] "Butyrivibrio crossotus et rel."       
-##  [32] "Campylobacter"                        
-##  [33] "Catenibacterium mitsuokai et rel."    
-##  [34] "Clostridium (sensu stricto)"          
-##  [35] "Clostridium cellulosi et rel."        
-##  [36] "Clostridium colinum et rel."          
-##  [37] "Clostridium difficile et rel."        
-##  [38] "Clostridium felsineum et rel."        
-##  [39] "Clostridium leptum et rel."           
-##  [40] "Clostridium nexile et rel."           
-##  [41] "Clostridium orbiscindens et rel."     
-##  [42] "Clostridium ramosum et rel."          
-##  [43] "Clostridium sphenoides et rel."       
-##  [44] "Clostridium stercorarium et rel."     
-##  [45] "Clostridium symbiosum et rel."        
-##  [46] "Clostridium thermocellum et rel."     
-##  [47] "Collinsella"                          
-##  [48] "Coprobacillus catenaformis et rel."   
-##  [49] "Coprococcus eutactus et rel."         
-##  [50] "Corynebacterium"                      
-##  [51] "Desulfovibrio et rel."                
-##  [52] "Dialister"                            
-##  [53] "Dorea formicigenerans et rel."        
-##  [54] "Eggerthella lenta et rel."            
-##  [55] "Enterobacter aerogenes et rel."       
-##  [56] "Enterococcus"                         
-##  [57] "Escherichia coli et rel."             
-##  [58] "Eubacterium biforme et rel."          
-##  [59] "Eubacterium cylindroides et rel."     
-##  [60] "Eubacterium hallii et rel."           
-##  [61] "Eubacterium limosum et rel."          
-##  [62] "Eubacterium rectale et rel."          
-##  [63] "Eubacterium siraeum et rel."          
-##  [64] "Eubacterium ventriosum et rel."       
-##  [65] "Faecalibacterium prausnitzii et rel." 
-##  [66] "Fusobacteria"                         
-##  [67] "Gemella"                              
-##  [68] "Granulicatella"                       
-##  [69] "Haemophilus"                          
-##  [70] "Helicobacter"                         
-##  [71] "Klebisiella pneumoniae et rel."       
-##  [72] "Lachnobacillus bovis et rel."         
-##  [73] "Lachnospira pectinoschiza et rel."    
-##  [74] "Lactobacillus catenaformis et rel."   
-##  [75] "Lactobacillus gasseri et rel."        
-##  [76] "Lactobacillus plantarum et rel."      
-##  [77] "Lactobacillus salivarius et rel."     
-##  [78] "Lactococcus"                          
-##  [79] "Leminorella"                          
-##  [80] "Megamonas hypermegale et rel."        
-##  [81] "Megasphaera elsdenii et rel."         
-##  [82] "Methylobacterium"                     
-##  [83] "Micrococcaceae"                       
-##  [84] "Mitsuokella multiacida et rel."       
-##  [85] "Moraxellaceae"                        
-##  [86] "Novosphingobium"                      
-##  [87] "Oceanospirillum"                      
-##  [88] "Oscillospira guillermondii et rel."   
-##  [89] "Outgrouping clostridium cluster XIVa" 
-##  [90] "Oxalobacter formigenes et rel."       
-##  [91] "Papillibacter cinnamivorans et rel."  
-##  [92] "Parabacteroides distasonis et rel."   
-##  [93] "Peptococcus niger et rel."            
-##  [94] "Peptostreptococcus anaerobius et rel."
-##  [95] "Peptostreptococcus micros et rel."    
-##  [96] "Phascolarctobacterium faecium et rel."
-##  [97] "Prevotella melaninogenica et rel."    
-##  [98] "Prevotella oralis et rel."            
-##  [99] "Prevotella ruminicola et rel."        
-## [100] "Prevotella tannerae et rel."          
-## [101] "Propionibacterium"                    
-## [102] "Proteus et rel."                      
-## [103] "Pseudomonas"                          
-## [104] "Roseburia intestinalis et rel."       
-## [105] "Ruminococcus bromii et rel."          
-## [106] "Ruminococcus callidus et rel."        
-## [107] "Ruminococcus gnavus et rel."          
-## [108] "Ruminococcus lactaris et rel."        
-## [109] "Ruminococcus obeum et rel."           
-## [110] "Serratia"                             
-## [111] "Sporobacter termitidis et rel."       
-## [112] "Staphylococcus"                       
-## [113] "Streptococcus bovis et rel."          
-## [114] "Streptococcus intermedius et rel."    
-## [115] "Streptococcus mitis et rel."          
-## [116] "Subdoligranulum variable at rel."     
-## [117] "Sutterella wadsworthia et rel."       
-## [118] "Tannerella et rel."                   
-## [119] "Uncultured Bacteroidetes"             
-## [120] "Uncultured Chroococcales"             
-## [121] "Uncultured Clostridiales I"           
-## [122] "Uncultured Clostridiales II"          
-## [123] "Uncultured Mollicutes"                
-## [124] "Uncultured Selenomonadaceae"          
-## [125] "Veillonella"                          
-## [126] "Vibrio"                               
-## [127] "Weissella et rel."                    
-## [128] "Wissella et rel."                     
-## [129] "Xanthomonadaceae"                     
-## [130] "Yersinia et rel."
+##  [1] "Allistipes et rel."                
+##  [2] "Bacteroides fragilis et rel."      
+##  [3] "Bacteroides intestinalis et rel."  
+##  [4] "Bacteroides ovatus et rel."        
+##  [5] "Bacteroides plebeius et rel."      
+##  [6] "Bacteroides splachnicus et rel."   
+##  [7] "Bacteroides stercoris et rel."     
+##  [8] "Bacteroides uniformis et rel."     
+##  [9] "Bacteroides vulgatus et rel."      
+## [10] "Parabacteroides distasonis et rel."
+## [11] "Prevotella melaninogenica et rel." 
+## [12] "Prevotella oralis et rel."         
+## [13] "Prevotella ruminicola et rel."     
+## [14] "Prevotella tannerae et rel."       
+## [15] "Tannerella et rel."                
+## [16] "Uncultured Bacteroidetes"
+```
+
+
+Pick taxa
+
+
+```r
+# Unique phyla
+head(get_taxa_unique(pseq, "Phylum"))
+```
+
+```
+## [1] "Bacteroidetes"
 ```
 
 ```r
-get_taxa_unique(physeq, "Phylum")
+# Taxa by sample 
+get_taxa(pseq, sample_names(pseq)[1])
 ```
 
 ```
-##  [1] "Actinobacteria"            "Bacilli"                  
-##  [3] "Proteobacteria"            "Verrucomicrobia"          
-##  [5] "Bacteroidetes"             "Clostridium cluster XV"   
-##  [7] "Clostridium cluster XIVa"  "Clostridium cluster IV"   
-##  [9] "Clostridium cluster XI"    "Asteroleplasma"           
-## [11] "Spirochaetes"              "Clostridium cluster XVI"  
-## [13] "Clostridium cluster XVII"  "Clostridium cluster I"    
-## [15] "Clostridium cluster XVIII" "Clostridium cluster III"  
-## [17] "Clostridium cluster IX"    "Fusobacteria"             
-## [19] "Clostridium cluster XIII"  "Cyanobacteria"            
-## [21] "Uncultured Clostridiales"  "Uncultured Mollicutes"
+##                 Allistipes et rel.       Bacteroides fragilis et rel. 
+##                              21222                              27925 
+##   Bacteroides intestinalis et rel.         Bacteroides ovatus et rel. 
+##                                758                              26913 
+##       Bacteroides plebeius et rel.    Bacteroides splachnicus et rel. 
+##                               4073                               2835 
+##      Bacteroides stercoris et rel.      Bacteroides uniformis et rel. 
+##                               1347                              19582 
+##       Bacteroides vulgatus et rel. Parabacteroides distasonis et rel. 
+##                             175035                              11772 
+##  Prevotella melaninogenica et rel.          Prevotella oralis et rel. 
+##                               1563                               1386 
+##      Prevotella ruminicola et rel.        Prevotella tannerae et rel. 
+##                                 70                               3964 
+##                 Tannerella et rel.           Uncultured Bacteroidetes 
+##                               3448                                113
 ```
+
+
+Taxa sums
+
 
 ```r
-get_taxa(physeq, sample_names(physeq)[5])
+taxa_sums(pseq)
 ```
 
 ```
-##                      Actinomycetaceae 
-##                                    16 
-##                            Aerococcus 
-##                                     1 
-##                             Aeromonas 
-##                                     1 
-##                           Akkermansia 
-##                                  1331 
-##          Alcaligenes faecalis et rel. 
-##                                   107 
-##                    Allistipes et rel. 
-##                                  3087 
-##                    Anaerobiospirillum 
-##                                     1 
-##                          Anaerofustis 
-##                                     1 
-##           Anaerostipes caccae et rel. 
-##                                  1467 
-##     Anaerotruncus colihominis et rel. 
-##                                   938 
-##       Anaerovorax odorimutans et rel. 
-##                                   735 
-##                      Aneurinibacillus 
-##                                     1 
-##                         Aquabacterium 
-##                                     1 
-##                Asteroleplasma et rel. 
-##                                     1 
-##                             Atopobium 
-##                                    22 
-##                              Bacillus 
-##                                    65 
-##          Bacteroides fragilis et rel. 
-##                                  2088 
-##      Bacteroides intestinalis et rel. 
-##                                   176 
-##            Bacteroides ovatus et rel. 
-##                                  1800 
-##          Bacteroides plebeius et rel. 
-##                                  1302 
-##       Bacteroides splachnicus et rel. 
-##                                  1907 
-##         Bacteroides stercoris et rel. 
-##                                   612 
-##         Bacteroides uniformis et rel. 
-##                                   320 
-##          Bacteroides vulgatus et rel. 
-##                                 10517 
-##                       Bifidobacterium 
-##                                  1390 
-##                     Bilophila et rel. 
-##                                    70 
-##                           Brachyspira 
-##                                    15 
-##      Bryantella formatexigens et rel. 
-##                                  3397 
-##              Bulleidia moorei et rel. 
-##                                   126 
-##                          Burkholderia 
-##                                   110 
-##        Butyrivibrio crossotus et rel. 
-##                                 11169 
-##                         Campylobacter 
-##                                   253 
-##     Catenibacterium mitsuokai et rel. 
-##                                    32 
-##           Clostridium (sensu stricto) 
-##                                  1308 
-##         Clostridium cellulosi et rel. 
-##                                 45935 
-##           Clostridium colinum et rel. 
-##                                  5441 
-##         Clostridium difficile et rel. 
-##                                  1604 
-##         Clostridium felsineum et rel. 
-##                                     1 
-##            Clostridium leptum et rel. 
-##                                  1834 
-##            Clostridium nexile et rel. 
-##                                  4252 
-##      Clostridium orbiscindens et rel. 
-##                                 16735 
-##           Clostridium ramosum et rel. 
-##                                   147 
-##        Clostridium sphenoides et rel. 
-##                                  5923 
-##      Clostridium stercorarium et rel. 
-##                                   193 
-##         Clostridium symbiosum et rel. 
-##                                  9799 
-##      Clostridium thermocellum et rel. 
-##                                     1 
-##                           Collinsella 
-##                                  1688 
-##    Coprobacillus catenaformis et rel. 
-##                                   247 
-##          Coprococcus eutactus et rel. 
-##                                 13337 
-##                       Corynebacterium 
-##                                    58 
-##                 Desulfovibrio et rel. 
-##                                   197 
-##                             Dialister 
-##                                   361 
-##         Dorea formicigenerans et rel. 
-##                                 11937 
-##             Eggerthella lenta et rel. 
-##                                   254 
-##        Enterobacter aerogenes et rel. 
-##                                   927 
-##                          Enterococcus 
-##                                   247 
-##              Escherichia coli et rel. 
-##                                   669 
-##           Eubacterium biforme et rel. 
-##                                  1091 
-##      Eubacterium cylindroides et rel. 
-##                                   149 
-##            Eubacterium hallii et rel. 
-##                                  1746 
-##           Eubacterium limosum et rel. 
-##                                    65 
-##           Eubacterium rectale et rel. 
-##                                  3946 
-##           Eubacterium siraeum et rel. 
-##                                   171 
-##        Eubacterium ventriosum et rel. 
-##                                   891 
-##  Faecalibacterium prausnitzii et rel. 
-##                                 87375 
-##                          Fusobacteria 
-##                                   299 
-##                               Gemella 
-##                                     1 
-##                        Granulicatella 
-##                                     1 
-##                           Haemophilus 
-##                                    46 
-##                          Helicobacter 
-##                                   138 
-##        Klebisiella pneumoniae et rel. 
-##                                   397 
-##          Lachnobacillus bovis et rel. 
-##                                  2066 
-##     Lachnospira pectinoschiza et rel. 
-##                                  4238 
-##    Lactobacillus catenaformis et rel. 
-##                                    21 
-##         Lactobacillus gasseri et rel. 
-##                                   443 
-##       Lactobacillus plantarum et rel. 
-##                                   723 
-##      Lactobacillus salivarius et rel. 
-##                                    62 
-##                           Lactococcus 
-##                                    75 
-##                           Leminorella 
-##                                     1 
-##         Megamonas hypermegale et rel. 
-##                                    58 
-##          Megasphaera elsdenii et rel. 
-##                                   450 
-##                      Methylobacterium 
-##                                     1 
-##                        Micrococcaceae 
-##                                     1 
-##        Mitsuokella multiacida et rel. 
-##                                    82 
-##                         Moraxellaceae 
-##                                    47 
-##                       Novosphingobium 
-##                                     1 
-##                       Oceanospirillum 
-##                                    96 
-##    Oscillospira guillermondii et rel. 
-##                                 24765 
-##  Outgrouping clostridium cluster XIVa 
-##                                  8720 
-##        Oxalobacter formigenes et rel. 
-##                                   326 
-##   Papillibacter cinnamivorans et rel. 
-##                                  6824 
-##    Parabacteroides distasonis et rel. 
-##                                  2414 
-##             Peptococcus niger et rel. 
-##                                   126 
-## Peptostreptococcus anaerobius et rel. 
-##                                     1 
-##     Peptostreptococcus micros et rel. 
-##                                   135 
-## Phascolarctobacterium faecium et rel. 
-##                                  2110 
-##     Prevotella melaninogenica et rel. 
-##                                596658 
-##             Prevotella oralis et rel. 
-##                                 94935 
-##         Prevotella ruminicola et rel. 
-##                                   557 
-##           Prevotella tannerae et rel. 
-##                                   977 
-##                     Propionibacterium 
-##                                    63 
-##                       Proteus et rel. 
-##                                   255 
-##                           Pseudomonas 
-##                                    19 
-##        Roseburia intestinalis et rel. 
-##                                  1486 
-##           Ruminococcus bromii et rel. 
-##                                  1863 
-##         Ruminococcus callidus et rel. 
-##                                  2509 
-##           Ruminococcus gnavus et rel. 
-##                                  2957 
-##         Ruminococcus lactaris et rel. 
-##                                   473 
-##            Ruminococcus obeum et rel. 
-##                                 28848 
-##                              Serratia 
-##                                    25 
-##        Sporobacter termitidis et rel. 
-##                                  8694 
-##                        Staphylococcus 
-##                                    21 
-##           Streptococcus bovis et rel. 
-##                                  6914 
-##     Streptococcus intermedius et rel. 
-##                                   338 
-##           Streptococcus mitis et rel. 
-##                                  2720 
-##      Subdoligranulum variable at rel. 
-##                                 18940 
-##        Sutterella wadsworthia et rel. 
-##                                  3497 
-##                    Tannerella et rel. 
-##                                  1268 
-##              Uncultured Bacteroidetes 
-##                                    71 
-##              Uncultured Chroococcales 
-##                                     1 
-##            Uncultured Clostridiales I 
-##                                  1203 
-##           Uncultured Clostridiales II 
-##                                  1895 
-##                 Uncultured Mollicutes 
-##                                   541 
-##           Uncultured Selenomonadaceae 
-##                                     1 
-##                           Veillonella 
-##                                   458 
-##                                Vibrio 
-##                                   143 
-##                     Weissella et rel. 
-##                                   125 
-##                      Wissella et rel. 
-##                                    16 
-##                      Xanthomonadaceae 
-##                                   185 
-##                      Yersinia et rel. 
-##                                   111
-```
-
-```r
-# Taxa sums
-taxa_sums(physeq)
-```
-
-```
-##                      Actinomycetaceae 
-##                                  4289 
-##                            Aerococcus 
-##                                   241 
-##                             Aeromonas 
-##                                   330 
-##                           Akkermansia 
-##                               1613341 
-##          Alcaligenes faecalis et rel. 
-##                                 98654 
-##                    Allistipes et rel. 
-##                               3513027 
-##                    Anaerobiospirillum 
-##                                   362 
-##                          Anaerofustis 
-##                                   855 
-##           Anaerostipes caccae et rel. 
-##                                889316 
-##     Anaerotruncus colihominis et rel. 
-##                               1011044 
-##       Anaerovorax odorimutans et rel. 
-##                                196839 
-##                      Aneurinibacillus 
-##                                   452 
-##                         Aquabacterium 
-##                                  4100 
-##                Asteroleplasma et rel. 
-##                                   222 
-##                             Atopobium 
-##                                  5171 
-##                              Bacillus 
-##                                 14538 
-##          Bacteroides fragilis et rel. 
-##                               2539567 
-##      Bacteroides intestinalis et rel. 
-##                                199684 
-##            Bacteroides ovatus et rel. 
-##                               1516522 
-##          Bacteroides plebeius et rel. 
-##                                596972 
-##       Bacteroides splachnicus et rel. 
-##                                833871 
-##         Bacteroides stercoris et rel. 
-##                                367524 
-##         Bacteroides uniformis et rel. 
-##                               1302113 
-##          Bacteroides vulgatus et rel. 
-##                              17613054 
-##                       Bifidobacterium 
-##                               1019045 
-##                     Bilophila et rel. 
-##                                 21142 
-##                           Brachyspira 
-##                                  4846 
-##      Bryantella formatexigens et rel. 
-##                               1238787 
-##              Bulleidia moorei et rel. 
-##                                 60824 
-##                          Burkholderia 
-##                                 13795 
-##        Butyrivibrio crossotus et rel. 
-##                               2556998 
-##                         Campylobacter 
-##                                 55937 
-##     Catenibacterium mitsuokai et rel. 
-##                                 60582 
-##           Clostridium (sensu stricto) 
-##                                352244 
-##         Clostridium cellulosi et rel. 
-##                               9668002 
-##           Clostridium colinum et rel. 
-##                                405221 
-##         Clostridium difficile et rel. 
-##                                400561 
-##         Clostridium felsineum et rel. 
-##                                   227 
-##            Clostridium leptum et rel. 
-##                               1162473 
-##            Clostridium nexile et rel. 
-##                                695112 
-##      Clostridium orbiscindens et rel. 
-##                               3410939 
-##           Clostridium ramosum et rel. 
-##                                 33691 
-##        Clostridium sphenoides et rel. 
-##                               1130553 
-##      Clostridium stercorarium et rel. 
-##                                126228 
-##         Clostridium symbiosum et rel. 
-##                               3614491 
-##      Clostridium thermocellum et rel. 
-##                                   222 
-##                           Collinsella 
-##                                173988 
-##    Coprobacillus catenaformis et rel. 
-##                                 44852 
-##          Coprococcus eutactus et rel. 
-##                               1218564 
-##                       Corynebacterium 
-##                                 13410 
-##                 Desulfovibrio et rel. 
-##                                 63536 
-##                             Dialister 
-##                               1248524 
-##         Dorea formicigenerans et rel. 
-##                               1445868 
-##             Eggerthella lenta et rel. 
-##                                 63978 
-##        Enterobacter aerogenes et rel. 
-##                                281964 
-##                          Enterococcus 
-##                                139975 
-##              Escherichia coli et rel. 
-##                               1122252 
-##           Eubacterium biforme et rel. 
-##                                380380 
-##      Eubacterium cylindroides et rel. 
-##                                 35333 
-##            Eubacterium hallii et rel. 
-##                                286840 
-##           Eubacterium limosum et rel. 
-##                                 16368 
-##           Eubacterium rectale et rel. 
-##                                726610 
-##           Eubacterium siraeum et rel. 
-##                                 51100 
-##        Eubacterium ventriosum et rel. 
-##                                278287 
-##  Faecalibacterium prausnitzii et rel. 
-##                               6845609 
-##                          Fusobacteria 
-##                                 87933 
-##                               Gemella 
-##                                   840 
-##                        Granulicatella 
-##                                  2803 
-##                           Haemophilus 
-##                                 33623 
-##                          Helicobacter 
-##                                 30274 
-##        Klebisiella pneumoniae et rel. 
-##                                186187 
-##          Lachnobacillus bovis et rel. 
-##                                728925 
-##     Lachnospira pectinoschiza et rel. 
-##                                897134 
-##    Lactobacillus catenaformis et rel. 
-##                                 11698 
-##         Lactobacillus gasseri et rel. 
-##                                111923 
-##       Lactobacillus plantarum et rel. 
-##                                260289 
-##      Lactobacillus salivarius et rel. 
-##                                 33920 
-##                           Lactococcus 
-##                                 22555 
-##                           Leminorella 
-##                                  6884 
-##         Megamonas hypermegale et rel. 
-##                                 13236 
-##          Megasphaera elsdenii et rel. 
-##                                599451 
-##                      Methylobacterium 
-##                                   222 
-##                        Micrococcaceae 
-##                                   222 
-##        Mitsuokella multiacida et rel. 
-##                                709390 
-##                         Moraxellaceae 
-##                                  7624 
-##                       Novosphingobium 
-##                                   402 
-##                       Oceanospirillum 
-##                                 41540 
-##    Oscillospira guillermondii et rel. 
-##                              22208228 
-##  Outgrouping clostridium cluster XIVa 
-##                                709171 
-##        Oxalobacter formigenes et rel. 
-##                                484519 
-##   Papillibacter cinnamivorans et rel. 
-##                                431703 
-##    Parabacteroides distasonis et rel. 
-##                               1509958 
-##             Peptococcus niger et rel. 
-##                                 54555 
-## Peptostreptococcus anaerobius et rel. 
-##                                   330 
-##     Peptostreptococcus micros et rel. 
-##                                 32783 
-## Phascolarctobacterium faecium et rel. 
-##                                460846 
-##     Prevotella melaninogenica et rel. 
-##                              55102081 
-##             Prevotella oralis et rel. 
-##                               8405109 
-##         Prevotella ruminicola et rel. 
-##                                 46918 
-##           Prevotella tannerae et rel. 
-##                                744898 
-##                     Propionibacterium 
-##                                 16504 
-##                       Proteus et rel. 
-##                                 65761 
-##                           Pseudomonas 
-##                                  3995 
-##        Roseburia intestinalis et rel. 
-##                                293290 
-##           Ruminococcus bromii et rel. 
-##                                750430 
-##         Ruminococcus callidus et rel. 
-##                                857217 
-##           Ruminococcus gnavus et rel. 
-##                                406358 
-##         Ruminococcus lactaris et rel. 
-##                                137526 
-##            Ruminococcus obeum et rel. 
-##                               3296629 
-##                              Serratia 
-##                                 62967 
-##        Sporobacter termitidis et rel. 
-##                               4107609 
-##                        Staphylococcus 
-##                                  4820 
-##           Streptococcus bovis et rel. 
-##                               1069640 
-##     Streptococcus intermedius et rel. 
-##                                 90656 
-##           Streptococcus mitis et rel. 
-##                                602624 
-##      Subdoligranulum variable at rel. 
-##                               3303469 
-##        Sutterella wadsworthia et rel. 
-##                                576410 
-##                    Tannerella et rel. 
-##                                465584 
-##              Uncultured Bacteroidetes 
-##                                 44595 
-##              Uncultured Chroococcales 
-##                                   905 
-##            Uncultured Clostridiales I 
-##                               1227178 
-##           Uncultured Clostridiales II 
-##                               1066574 
-##                 Uncultured Mollicutes 
-##                                628130 
-##           Uncultured Selenomonadaceae 
-##                                 23037 
-##                           Veillonella 
-##                                113879 
-##                                Vibrio 
-##                                 37200 
-##                     Weissella et rel. 
-##                                 49089 
-##                      Wissella et rel. 
-##                                  5052 
-##                      Xanthomonadaceae 
-##                                 18677 
-##                      Yersinia et rel. 
-##                                 33733
+##                 Allistipes et rel.       Bacteroides fragilis et rel. 
+##                            3513027                            2539567 
+##   Bacteroides intestinalis et rel.         Bacteroides ovatus et rel. 
+##                             199684                            1516522 
+##       Bacteroides plebeius et rel.    Bacteroides splachnicus et rel. 
+##                             596972                             833871 
+##      Bacteroides stercoris et rel.      Bacteroides uniformis et rel. 
+##                             367524                            1302113 
+##       Bacteroides vulgatus et rel. Parabacteroides distasonis et rel. 
+##                           17613054                            1509958 
+##  Prevotella melaninogenica et rel.          Prevotella oralis et rel. 
+##                           55102081                            8405109 
+##      Prevotella ruminicola et rel.        Prevotella tannerae et rel. 
+##                              46918                             744898 
+##                 Tannerella et rel.           Uncultured Bacteroidetes 
+##                             465584                              44595
 ```
 
 
-### Merging phyloseq operations
+### Merging operations for phyloseq objects
 
 
 ```r
@@ -1000,6 +701,6 @@ taxa_sums(physeq)
 
 
 ```r
-physeq.rarified <- rarefy_even_depth(physeq)
+pseq.rarified <- rarefy_even_depth(pseq)
 ```
 

@@ -30,17 +30,15 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
     
     # Include only selected groups (if any)
     if (!is.null(selected.taxa)) {
-        phi <- phi[phi[[tax.level]] %in% selected.taxa, ]
+        phi <- phi[phi[, tax.level] %in% selected.taxa, ]
     }
     
     # Create taxon-oligo mapping matrix
-    tax.oligos <- sapply(split(phi, phi[[tax.level]]), function(x) {
-        x$oligoID
-    })
-    tax2oligo <- matrix(0, nrow = length(unique(phi[[tax.level]])), 
-                        ncol = length(unique(phi$oligoID)))
-    rownames(tax2oligo) <- unique(phi[[tax.level]])
-    colnames(tax2oligo) <- unique(phi$oligoID)
+    tax.oligos <- sapply(split(phi[, "oligoID"], phi[, tax.level]), function(x) {x})
+    tax2oligo <- matrix(0, nrow = length(unique(phi[, tax.level])), 
+                        ncol = length(unique(phi[, "oligoID"])))
+    rownames(tax2oligo) <- unique(phi[, tax.level])
+    colnames(tax2oligo) <- unique(phi[, "oligoID"])
     for (tax in names(tax.oligos)) {
         oligos <- tax.oligos[[tax]]
         tax2oligo[tax, oligos] <- 1

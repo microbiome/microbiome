@@ -4,68 +4,121 @@ The external high-quality [phyloseq package](http://joey711.github.io/phyloseq/)
 
 ```{r phyloseqdata, fig.width=10, fig.height=7, warning=FALSE, message=FALSE}
 library(microbiome)
-physeq <- download_microbiome("dietswap")
+pseq <- download_microbiome("dietswap")
 ```
 
 ### Sample operations
 
+
+Transform sample counts
+
 ```{r preprocess2, warning=FALSE, message=FALSE}
-# Filter samples
-f1 <- filterfun_sample(topp(0.1))
-wh1 <- genefilter_sample(physeq, f1, A = round(0.5 * nsamples(physeq)))
+r <- transform_sample_counts(pseq, function(x) x/sum(x))
+```
 
-# Transform sample counts
-r <- transform_sample_counts(physeq, function(x) x/sum(x))
+Sample names and variables
 
-# Sample names and variables
-sample_names(physeq)
+```{r preprocess2b, warning=FALSE, message=FALSE}
+sample_names(pseq)
+```
 
-# Sample sums
-sample_sums(physeq)
-get_sample(physeq, taxa_names(physeq)[5])
+Sample sums
+
+```{r preprocess2c, warning=FALSE, message=FALSE}
+sample_sums(pseq)
+```
+
+Abundance for species ‘i’ in each sample
+
+```{r preprocess2d, warning=FALSE, message=FALSE}
+get_sample(pseq, taxa_names(pseq)[5])
 ```
 
 
 ### Variable operations
 
-```{r preprocess4, warning=FALSE, message=FALSE}
-sample_variables(physeq)
-get_variable(physeq, sample_variables(physeq)[5])[1:10]
+Sample variable names
 
+```{r preprocess4, warning=FALSE, message=FALSE}
+sample_variables(pseq)
+```
+
+Pick variable values for a given variable
+
+```{r preprocess4b, warning=FALSE, message=FALSE}
+head(get_variable(pseq, sample_variables(pseq)[1]))
 # Assign fields to sample metadata
 # sample_data(GP)$human <- ..
 ```
 
 ### Taxa operations
 
+
+Filter samples
+
 ```{r preprocess3, warning=FALSE, message=FALSE}
-# Prune taxa
-ex2 <- prune_taxa(wh1, physeq)
-ex3 <- prune_taxa(taxa_sums(physeq) > 0, physeq)
+f1 <- filterfun_sample(topp(0.1))
+taxa <- genefilter_sample(pseq, f1, A = round(0.5 * nsamples(pseq)))
+taxa
+```
 
-# Subset taxa
+Prune taxa
+
+```{r preprocess3b, warning=FALSE, message=FALSE}
+# With given taxon names
+ex2 <- prune_taxa(taxa, pseq)
+
+# Taxa with positive sum across samples
+ex3 <- prune_taxa(taxa_sums(pseq) > 0, pseq)
+```
+
+Subset taxa
+
+```{r preprocess3c, warning=FALSE, message=FALSE}
 pseq <- subset_taxa(pseq, Phylum == "Bacteroidetes")
-
-# Filter taxa
-f <- filter_taxa(r, function(x) var(x) > 1e-05, TRUE)
-
-# Number of taxa
-ntaxa(physeq)
-
-# Rank names
-rank_names(physeq)
-
-# Taxa names
-taxa_names(physeq)
-get_taxa_unique(physeq, "Phylum")
-get_taxa(physeq, sample_names(physeq)[5])
-
-# Taxa sums
-taxa_sums(physeq)
 ```
 
 
-### Merging phyloseq operations
+Filter by user-specified function values (here variance)
+
+```{r preprocess3d, warning=FALSE, message=FALSE}
+f <- filter_taxa(r, function(x) var(x) > 1e-05, TRUE)
+```
+
+Number of taxa
+
+```{r preprocess3e, warning=FALSE, message=FALSE}
+ntaxa(pseq)
+```
+
+
+Names
+
+```{r preprocess3f, warning=FALSE, message=FALSE}
+rank_names(pseq)
+taxa_names(pseq)
+```
+
+
+Pick taxa
+
+```{r preprocess3g, warning=FALSE, message=FALSE}
+# Unique phyla
+head(get_taxa_unique(pseq, "Phylum"))
+
+# Taxa by sample 
+get_taxa(pseq, sample_names(pseq)[1])
+```
+
+
+Taxa sums
+
+```{r preprocess3h, warning=FALSE, message=FALSE}
+taxa_sums(pseq)
+```
+
+
+### Merging operations for phyloseq objects
 
 ```{r preprocess-merge, warning=FALSE, message=FALSE}
 # merge_phyloseq()
@@ -77,6 +130,6 @@ taxa_sums(physeq)
 ### Rarification
 
 ```{r preprocess-rarify, warning=FALSE, message=FALSE}
-physeq.rarified <- rarefy_even_depth(physeq)
+pseq.rarified <- rarefy_even_depth(pseq)
 ```
 

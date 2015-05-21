@@ -45,6 +45,12 @@ hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 10^1.8
     colnames(ph) <- c("Phylum", "Genus", "Phylotype")
     taxonomy <- ph
     input.level <- colnames(ph)[[which.max(apply(ph, 2, function (x) {sum(rownames(otumat) %in% x)}))]]
+    if (input.level == "Genus") {
+      taxonomy <- unique(taxonomy[, c("Phylum", "Genus")])
+    } else if (input.level == "Phylum") {
+      taxonomy <- as.data.frame(Phylum = unique(taxonomy[, c("Phylum")]), ncol = 1)
+      	       
+    }
     rownames(taxonomy) <- as.character(taxonomy[[input.level]])
 
   }

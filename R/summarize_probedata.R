@@ -17,8 +17,11 @@
 #' @keywords utilities
 summarize_probedata <- function(data.dir = NULL, probedata = NULL, taxonomy = NULL, level, method, probe.parameters = NULL) {
 
-  # If the data is not given as input, read it from the data directory		     
+  # If the data is not given as input, read it from the data directory
   # message(paste("Reading Chip data from", data.dir))
+  if (method == "frpa" && is.null(probe.parameters)) {
+    stop("Provide probe parameters for frpa")
+  }
 
   # Read probe-level data
   if (is.null(probedata)) {
@@ -37,7 +40,6 @@ summarize_probedata <- function(data.dir = NULL, probedata = NULL, taxonomy = NU
   }
 
   # Summarize probes through species level
-  # probeset.summaries <- summarize.probesets.species(taxonomy, oligo.data, method)
   if (method %in% c("rpa", "frpa")) {
     otu <- summarize.rpa(taxonomy, level, probedata, verbose = TRUE, probe.parameters = probe.parameters)$abundance.table
   } else if (method == "sum") {

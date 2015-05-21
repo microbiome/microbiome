@@ -1,6 +1,4 @@
-#' read_profiling
-#' 
-#' Read run.profiling.script output into R
+#' Read HITChip run.profiling.script output into R
 #'
 #' @param data.dir Profiling script output directory for reading the data. 
 #'                 If not given, GUI will ask to specify the file and 
@@ -18,7 +16,7 @@
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-read_profiling <- function(data.dir, method) {
+read.profiling <- function(data.dir, method) {
 
   message(paste("Reading Chip data from", data.dir))
   results <- list()
@@ -31,7 +29,7 @@ read_profiling <- function(data.dir, method) {
 
   # Read abundance tables
   for (s in c("L1", "L2", "species")) {
-    f <- paste(data.dir, "/species-", method, ".tab", sep = "")
+    f <- paste(data.dir, "/", s, "-", method, ".tab", sep = "")
     tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
     colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
     results[[s]] <- tab
@@ -40,12 +38,12 @@ read_profiling <- function(data.dir, method) {
   # Read taxonomy table
   f <- paste(data.dir, "/taxonomy.tab", sep = "")
   taxonomy <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
-  results[["taxonomy"]] <- tab
+  results[["taxonomy"]] <- taxonomy
     
   # Read unfiltered taxonomy table
   f <- paste(data.dir, "/taxonomy.full.tab", sep = "")
   taxonomy.full <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
-  results[["taxonomy.full"]] <- tab
+  results[["taxonomy.full"]] <- taxonomy.full
 
   # Read sample metadata      
   f <- paste(data.dir, "/meta.tab", sep = "")
@@ -53,13 +51,12 @@ read_profiling <- function(data.dir, method) {
     tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
     rownames(tab) <- tab$sample
     meta <- tab
-    results[["meta"]] <- tab
+    results[["meta"]] <- meta
   }
 
   results
     
 } 
-
 
 
 #' Read run.profiling.script output into R and preprocess into phyloseq format
@@ -83,52 +80,19 @@ read_profiling <- function(data.dir, method) {
 #' @keywords utilities
 read_hitchip <- function(data.dir, output = "all", method = "rpa") {
 
-  message(paste("Reading Chip data from", data.dir))
-  # data.dir <- system.file("extdata", package = "microbiome")
+  # Read	     
+  res <- read.profiling(data.dir, method = method)
+  taxonomy <- res$taxonomy
+  taxonomy.full <- res$taxonomy.full
+  probedata <- res$probedata
+  meta <- res$meta
 
-  # Read probe-level data
-  f <- paste(data.dir, "/oligoprofile.tab", sep = "")
-  tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
-  colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
-  probedata <- tab
-  if (output == "probedata") {
-    return(probedata)
-  }
-
-  # Read taxonomy table
-  f <- paste(data.dir, "/taxonomy.tab", sep = "")
-  tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
-  # Convert into phyloseq taxonomyTable format
-  taxonomy <- as.matrix(tab)
-  if (output == "taxonomy") {
-    return(tax_table(taxonomy))
-  }
-
-  # Read taxonomy table2
-  f <- paste(data.dir, "/taxonomy.full.tab", sep = "")
-  tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
-  # Convert into phyloseq taxonomyTable format
-  taxonomy.full <- as.matrix(tab)
-  if (output == "taxonomy.full") {
-    return(tax_table(taxonomy.full))
-  }
-
-  # Read sample metadata      
-  meta <- NULL
-  f <- paste(data.dir, "/meta.tab", sep = "")
-  if (file.exists(f)) {
-    tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
-    rownames(tab) <- tab$sample
-    meta <- tab
-  }
-  if (output == "meta") {
-    return(meta)
-  }
-  
   # Summarize probes into abundance table
   level <- "species"
-  abu <- summarize_probedata(data.dir, probedata = probedata, taxonomy = taxonomy,
-      	 		     level = level, method = method)
+  abu <- summarize_probedata(probedata = probedata,
+      	 	             taxonomy = taxonomy,
+      	 		     level = level,
+			     method = method)
 
   # Convert the object into phyloseq format
   levels <- intersect(c("L0", "L1", "L2", "species"), colnames(taxonomy))
@@ -140,17 +104,18 @@ read_hitchip <- function(data.dir, output = "all", method = "rpa") {
 
   pseq <- hitchip2physeq(t(abu), meta, taxonomy, detection.limit = 10^1.8)
   if (output == "phyloseq") {
-    return(pseq)
+    return(pseq) 
   }  
 
   if (output == "all") {
-    res <- list(pseq = pseq, meta = meta, probedata = probedata, taxonomy = tax_table(taxonomy), taxonomy.full = tax_table(taxonomy.full))
+    res <- list(pseq = pseq, meta = meta,
+    	        probedata = probedata,
+	        taxonomy = tax_table(taxonomy),
+		taxonomy.full = tax_table(taxonomy.full))
     return(res)
   }
 
   NULL
     
 } 
-
-
 
