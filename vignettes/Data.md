@@ -1,10 +1,9 @@
 ## Example data sets
 
-Example data sets for microbiome analyses. These examples also show how to convert HITChip data into phyloseq format and perform some standard analyses. For examples on preprocessing the data (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md)
+Example data sets for microbiome analyses. These examples also show how to convert HITChip data into phyloseq format and perform some standard analyses. For examples on preprocessing the data (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md). For further microbiome example data sets in phyloseq format, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html).
 
 
 ### HITChip Atlas data 
-
 
 Data from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) contains large-scale profiling of 130 genus-like taxa across 1006 normal western adults. Some subjects have also short time series. This data set is available in [Data Dryad](http://doi.org/10.5061/dryad.pk75d). [Downloading the HITChip Atlas in R phyloseq format](Atlas.md):
 
@@ -65,7 +64,7 @@ print(data.directory)
 ```
 
 ```
-## [1] "/home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata"
+## [1] "/home/lei/Rpackages/microbiome/microbiome/inst/extdata"
 ```
 
 ```r
@@ -77,8 +76,8 @@ print(names(hitchip.data))
 ```
 
 ```
-## [1] "sample"  "time"    "age"     "bmi"     "subject" "group"   "gender" 
-## [8] "diet"
+## [1] "probedata"     "L1"            "L2"            "species"      
+## [5] "taxonomy"      "taxonomy.full" "meta"
 ```
 
 ```r
@@ -104,7 +103,7 @@ physeq <- hitchip2physeq(otu, meta)
 ```
 
 ```
-## Error in t.default(otu): argument is not a matrix
+## Error in as.data.frame(Phylum = unique(taxonomy[, c("Phylum")]), ncol = 1): argument "x" is missing, with no default
 ```
 
 

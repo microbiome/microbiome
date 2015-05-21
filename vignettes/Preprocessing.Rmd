@@ -19,19 +19,19 @@ r <- transform_sample_counts(pseq, function(x) x/sum(x))
 Sample names and variables
 
 ```{r preprocess2b, warning=FALSE, message=FALSE}
-sample_names(pseq)
+head(sample_names(pseq))
 ```
 
 Sample sums
 
 ```{r preprocess2c, warning=FALSE, message=FALSE}
-sample_sums(pseq)
+head(sample_sums(pseq))
 ```
 
 Abundance for species ‘i’ in each sample
 
 ```{r preprocess2d, warning=FALSE, message=FALSE}
-get_sample(pseq, taxa_names(pseq)[5])
+head(get_sample(pseq, taxa_names(pseq)[1]))
 ```
 
 
@@ -46,7 +46,7 @@ sample_variables(pseq)
 Pick variable values for a given variable
 
 ```{r preprocess4b, warning=FALSE, message=FALSE}
-head(get_variable(pseq, sample_variables(pseq)[1]))
+head(get_variable(pseq, sample_variables(pseq)[3]))
 # Assign fields to sample metadata
 # sample_data(GP)$human <- ..
 ```
@@ -59,7 +59,6 @@ Filter samples
 ```{r preprocess3, warning=FALSE, message=FALSE}
 f1 <- filterfun_sample(topp(0.1))
 taxa <- genefilter_sample(pseq, f1, A = round(0.5 * nsamples(pseq)))
-taxa
 ```
 
 Prune taxa
@@ -100,13 +99,15 @@ taxa_names(pseq)
 ```
 
 
-Pick taxa
+Pick taxa by rank
 
 ```{r preprocess3g, warning=FALSE, message=FALSE}
 # Unique phyla
 head(get_taxa_unique(pseq, "Phylum"))
 
-# Taxa by sample 
+Pick taxa by sample
+
+```{r preprocess3gg, warning=FALSE, message=FALSE}
 get_taxa(pseq, sample_names(pseq)[1])
 ```
 
@@ -114,7 +115,7 @@ get_taxa(pseq, sample_names(pseq)[1])
 Taxa sums
 
 ```{r preprocess3h, warning=FALSE, message=FALSE}
-taxa_sums(pseq)
+head(taxa_sums(pseq))
 ```
 
 
