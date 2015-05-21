@@ -28,7 +28,7 @@ Same with relative abundances:
 
 ```{r composition-example3, fig.path = "figure/", fig.width=8, fig.height=5}
 p <- plot_abundance(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
-p <- p + guides(fill = guide_legend(nrow = 12))
+p <- p + guides(fill = guide_legend(nrow = 12, byrow = TRUE))
 print(p)
 ```
 
@@ -40,8 +40,8 @@ Arrange by sample variable and use custom X axis labels. Americans have more Bac
 pseq <- subset_samples(pseq0, group == "DI" & timepoint.within.group == 1)
 pseq <- prune_taxa(c("Prevotella melaninogenica et rel.", "Bacteroides fragilis et rel.", "Akkermansia"), pseq)
 p <- plot_abundance(pseq, relative.abundance = TRUE, sort.by = "nationality", x.label = "nationality")
-p <- p + theme(legend.position = "bottom")
 p <- p + guides(fill = guide_legend(ncol = 1))
+p <- p + theme(legend.position = "bottom")
 print(p)
 ```
 
