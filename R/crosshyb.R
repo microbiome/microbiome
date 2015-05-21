@@ -20,9 +20,11 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
     selected.taxa = NULL, 
     tax.table = NULL) {
     
-    # Get hylogeny info
+    # Get taxonomy table
     if (is.null(tax.table)) {
-        tax.table <- GetPhylogeny(chip, phylogeny.    
+        tax.table <- GetPhylogeny(chip, "filtered")
+    }
+
     # Pick necessary columns
     phi <- tax.table[, c(tax.level, "oligoID")]
     
