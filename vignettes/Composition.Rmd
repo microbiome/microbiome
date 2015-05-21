@@ -27,8 +27,9 @@ plot_abundance(pseq, taxonomic.level = "Phylum")
 Same with relative abundances:
 
 ```{r composition-example3, fig.path = "figure/", fig.width=8, fig.height=5}
-plot_abundance(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
+p <- plot_abundance(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
 p <- p + guides(fill = guide_legend(ncol = 2))
+print(p)
 ```
 
 

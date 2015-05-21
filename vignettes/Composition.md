@@ -39,14 +39,12 @@ Same with relative abundances:
 
 
 ```r
-plot_abundance(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
+p <- plot_abundance(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
+p <- p + guides(fill = guide_legend(ncol = 2))
+print(p)
 ```
 
 ![plot of chunk composition-example3](figure/composition-example3-1.png) 
-
-```r
-p <- p + guides(fill = guide_legend(ncol = 2))
-```
 
 
 Arrange by sample variable and use custom X axis labels. Americans have more Bacteroides, and Africans more Prevotella (as expected):
