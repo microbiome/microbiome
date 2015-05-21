@@ -41,6 +41,7 @@ Same with relative abundances:
 ```r
 p <- plot_composition(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
 p <- p + guides(fill = guide_legend(nrow = 12, byrow = TRUE))
+p <- p + theme(legend.position = "bottom")
 print(p)
 ```
 
@@ -70,7 +71,8 @@ percentages.
 
 
 ```r
-plot_bar(pseq, x = "gender", fill = "Phylum", facet_grid = ~nationality)
+pseq <- subset_samples(pseq0, group == "DI")
+plot_bar(pseq, x = "timepoint.within.group", fill = "Phylum", facet_grid = ~nationality)
 ```
 
 ![plot of chunk barplot](figure/barplot-1.png) 
