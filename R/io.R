@@ -80,38 +80,65 @@ read_profiling <- function(data.dir, method) {
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-read_hitchip <- function(data.dir, method = "rpa") {
+read_hitchip <- function(data.dir, output = "all", method = "rpa") {
 
   message(paste("Reading Chip data from", data.dir))
+  # data.dir <- system.file("extdata", package = "microbiome")
 
   # Read probe-level data
   f <- paste(data.dir, "/oligoprofile.tab", sep = "")
   tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
   colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
   probedata <- tab
+  if (output == "probedata") {
+    return(probedata)
+  }
 
   # Read taxonomy table
   f <- paste(data.dir, "/taxonomy.tab", sep = "")
   tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
   # Convert into phyloseq taxonomyTable format
-  taxonomy <- tax_table(as.matrix(tab))     
+  taxonomy <- as.matrix(tab)
+  if (output == "taxonomy") {
+    return(tax_table(taxonomy))
+  }
 
   # Read sample metadata      
+  meta <- NULL
   f <- paste(data.dir, "/meta.tab", sep = "")
   if (file.exists(f)) {
     tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
     rownames(tab) <- tab$sample
     meta <- tab
   }
-
+  if (output == "meta") {
+    return(meta)
+  }
+  
   # Summarize probes into abundance table
-  otu <- summarize_probedata(data.dir, probedata = probedata, taxonomy = taxonomy,
-      	 		     level = "species", method = method)
+  level <- "species"
+  abu <- summarize_probedata(data.dir, probedata = probedata, taxonomy = taxonomy,
+      	 		     level = level, method = method)
 
   # Convert the object into phyloseq format
-  res <- hitchip2physeq(otu, meta, taxonomy, detection.limit = 0)
+  levels <- intersect(c("L0", "L1", "L2", "species"), colnames(taxonomy))
+  taxonomy <- unique(taxonomy[, levels])
+  rownames(taxonomy) <- taxonomy[, "species"]
+  coms <- intersect(rownames(taxonomy), rownames(abu))
+  abu <- abu[coms,]
+  taxonomy <- taxonomy[coms,]       
 
-  res
+  pseq <- hitchip2physeq(t(abu), meta, taxonomy, detection.limit = 10^1.8)
+  if (output == "phyloseq") {
+    return(pseq)
+  }  
+
+  if (output == "all") {
+    res <- list(pseq = pseq, meta = meta, probedata = probedata, taxonomy = tax_table(taxonomy))
+    return(res)
+  }
+
+  NULL
     
 } 
 

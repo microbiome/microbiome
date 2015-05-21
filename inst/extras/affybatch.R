@@ -4,7 +4,7 @@ data.dir <- system.file("extdata", package = "microbiome")
   f <- paste(data.dir, "/oligoprofile.tab", sep = "")
   tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
   colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
-  probedata <- tab
+  probedata <- as.matrix(tab)
 
   # Read taxonomy table
   f <- paste(data.dir, "/taxonomy.tab", sep = "")
@@ -12,26 +12,65 @@ data.dir <- system.file("extdata", package = "microbiome")
   # Convert into phyloseq taxonomyTable format
   taxonomy <- tax_table(as.matrix(tab))     
 
-# ------------------------------------------
-
-# probedata for a single sample
-p <- probedata[,1]
-names(p) <- rownames(probedata)
+require(affy)
 
 # probesets
 map <- unique(taxonomy[, c("species", "oligoID")]@.Data)
-rownames(map) <- NULL
+colnames(map) <- c("set", "probe")
+rownames(map) <- map[, "probe"]
 
-# create probesets
-sets <- split(map[, "oligoID"], map[, "species"])
-allSetDat <- lapply(sets, function (probes) {m <- as.matrix(p[probes]); colnames(m) <- "pm"; m})
+# Align the probe mappings with the data
+# only use the probes that have mapping
+coms <- intersect(rownames(probedata), rownames(map))
+map <- map[coms,]
+probedata <- probedata[coms,]
 
-require(affy)
-hgu2 <- list2env(allSetDat)
-celDat@cdfName <- "hgu2"
-rma4 <- exprs(rma(celDat))
+# Custom CDF
+nsamples <- ncol(probedata)
+nrow <- nrow(probedata)
+ncol <- 1
+sets <- unique(map[, "set"])
+cdf <- lapply(sets, function(set) {
+    tmp <- matrix(which(map[, "set"] == set), ncol = 1)
+    colnames(tmp) <- "pm"
+    return(tmp)
+})
+names(cdf) <- sets
+cdfname <- list2env(cdf)
+
+ab <- new("AffyBatch", exprs = probedata,
+		 cdfName = "cdfname", 
+            	 #phenoData = phenoData,
+		 nrow = nrow,
+		 ncol = ncol
+            #annotation = cleancdfname(cdfname, addcdf = FALSE), 
+            #protocolData = protocol,
+	    #description = description, 
+            #notes = notes
+	    )
+
+eset <- exprs(rma(ab, background = FALSE, normalize = FALSE))
+
+# Not sure if this takes normalization out - check
+eset <- exprs(rpa(ab, bg.method = "none", normalization.method = NULL))
+
+## Check given species
+#set <- sample(sets, 1)
+## Summary
+#x <- eset[set,]
+## Probedata
+#this.probes <- as.vector(map[map[, "set"] == set, "probe"])
+#x2 <- probedata[this.probes,]
+#cors <- cor(x, t(probedata), method = "spearman"); names(cors) <- rownames(probedata)
+# Ranks wrt correct data
+#sort(match(this.probes, rev(names(sort(cors)))))
+# Ranks wrt random data
+#sort(match(this.probes, rev(names(sample(cors)))))
 
 # -----------------------------------------------
+
+
+# Toydata example
 
 nsamples <- 20
 nrow <- 3

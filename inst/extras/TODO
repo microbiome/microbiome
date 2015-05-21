@@ -1,6 +1,3 @@
-Remove Victivallis vadensis
-
-
   if (probe.parameters == "frpa.HITChip") {
     if (verbose) {message("Loading pre-calculated preprocessing parameters")}
     rpa.hitchip.species.probe.parameters <- list()

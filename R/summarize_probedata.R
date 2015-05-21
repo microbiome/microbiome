@@ -17,7 +17,6 @@
 summarize_probedata <- function(data.dir = NULL, probedata = NULL, taxonomy = NULL, level, method) {
 
   # If the data is not given as input, read it from the data directory		     
-
   # message(paste("Reading Chip data from", data.dir))
 
   # Read probe-level data
