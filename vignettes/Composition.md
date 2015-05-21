@@ -30,16 +30,25 @@ approximate):
 
 
 ```r
-plot_abundance(pseq, taxonomic.level = "Phylum")
+plot_composition(pseq, taxonomic.level = "Phylum")
 ```
 
-![plot of chunk composition-example1b](figure/composition-example1b-1.png) 
+```
+## Error in eval(expr, envir, enclos): could not find function "plot_composition"
+```
 
 Same with relative abundances:
 
 
 ```r
-p <- plot_abundance(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
+p <- plot_composition(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "plot_composition"
+```
+
+```r
 p <- p + guides(fill = guide_legend(nrow = 12, byrow = TRUE))
 print(p)
 ```
@@ -54,7 +63,14 @@ Arrange by sample variable and use custom X axis labels. Americans have more Bac
 # Subset taxa and samples
 pseq <- subset_samples(pseq0, group == "DI" & timepoint.within.group == 1)
 pseq <- prune_taxa(c("Prevotella melaninogenica et rel.", "Bacteroides fragilis et rel.", "Akkermansia"), pseq)
-p <- plot_abundance(pseq, relative.abundance = TRUE, sort.by = "nationality", x.label = "nationality")
+p <- plot_composition(pseq, relative.abundance = TRUE, sort.by = "nationality", x.label = "nationality")
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "plot_composition"
+```
+
+```r
 p <- p + guides(fill = guide_legend(ncol = 1))
 p <- p + theme(legend.position = "bottom")
 print(p)
@@ -70,17 +86,8 @@ percentages.
 
 
 ```r
-library(microbiome)
-library(ggplot2)
-
-# Example data from https://peerj.com/articles/32/
-pseq <- download_microbiome("dietswap")
-
-# Select specific sample group
-pseq <- subset_samples(pseq, group == "DI")
-
 # Pick the top OTUs only
-pseq <- prune_taxa(names(sort(taxa_sums(pseq), TRUE)[1:10]), pseq)
+# pseq <- prune_taxa(names(sort(taxa_sums(pseq), TRUE)[1:10]), pseq)
 
 # Visualize samples 
 # (in HITChip we have only approximate Phylum level)

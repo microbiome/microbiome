@@ -15,7 +15,7 @@
 #' @export
 #' @examples # 
 #' @keywords utilities
-plot_abundance <- function (x, taxonomic.level = NULL, relative.abundance = FALSE, sort.by = NULL, x.label = "sample") {
+plot_composition <- function (x, taxonomic.level = NULL, relative.abundance = FALSE, sort.by = NULL, x.label = "sample") {
 
   # Avoid warnings
   Sample <- Abundance <- Taxon <- horiz <- value <- NULL
