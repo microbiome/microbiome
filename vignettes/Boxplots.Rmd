@@ -6,28 +6,9 @@ library(ggplot2)
 
 # Microbiota profiling data. Read as: bacteria x samples matrix
 # From https://peerj.com/articles/32/
-x <- download_microbiome("peerj32")$physeq
+pseq <- download_microbiome("peerj32")$physeq
 
-# Construct example data (df). Ensure that samples are given in same order
-# in metadata and HITChip data.
-df <- harmonize_fields(sample_data(x))
+p <- boxplot_abundance(pseq, x = "time", y = "Akkermansia", line = "subject", color = "gender")
 
-# Pick log10 data for a given bug:
-df$hitchip <- log10(as.vector(otu_table(x)["Akkermansia", ]))
-
-# Visualize example data with a boxplot
-library(ggplot2, quietly = TRUE)
-theme_set(theme_bw(20))
-p <- ggplot(df, aes(x = factor(time), y = hitchip))
-p <- p + geom_boxplot(fill = "gray") # also try geom_violin
-
-# Add also subjects as lines and points
-p <- p + geom_line(aes(group = subject))
-p <- p + geom_point(aes(color = time), data = df, size = 4)
-
-# Add axis tests
-p <- p + xlab("Time") + ylab("Abundance (Log10)")
-
-# Plot the image
 print(p)
 ```
