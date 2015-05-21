@@ -47,13 +47,14 @@ print(p)
 ![plot of chunk composition-example3](figure/composition-example3-1.png) 
 
 
-Arrange by sample variable and use custom X axis labels. Americans have more Bacteroides, and Africans more Prevotella (as expected):
+Arrange by sample variable and use custom X axis labels. Africans have more Prevotella as expected:
 
 
 ```r
 # Subset taxa and samples
 pseq <- subset_samples(pseq0, group == "DI" & timepoint.within.group == 1)
-pseq <- prune_taxa(c("Prevotella melaninogenica et rel.", "Bacteroides fragilis et rel.", "Akkermansia"), pseq)
+# Pick the top OTUs only
+pseq <- prune_taxa(names(sort(taxa_sums(pseq), TRUE)[1:5]), pseq)
 p <- plot_composition(pseq, relative.abundance = TRUE, sort.by = "nationality", x.label = "nationality")
 p <- p + guides(fill = guide_legend(ncol = 1))
 p <- p + theme(legend.position = "bottom")
@@ -62,7 +63,6 @@ print(p)
 
 ![plot of chunk composition-example4](figure/composition-example4-1.png) 
 
-
 ### Coloured Barplots
 
 The following example visualizes samples, colored by Phylum
@@ -70,14 +70,8 @@ percentages.
 
 
 ```r
-# Pick the top OTUs only
-# pseq <- prune_taxa(names(sort(taxa_sums(pseq), TRUE)[1:10]), pseq)
-
-# Visualize samples 
-# (in HITChip we have only approximate Phylum level)
-plot_bar(pseq, x = "timepoint", fill = "Phylum", facet_grid = ~nationality)
+plot_bar(pseq, x = "gender", fill = "Phylum", facet_grid = ~nationality)
 ```
 
 ![plot of chunk barplot](figure/barplot-1.png) 
-
 
