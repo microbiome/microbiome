@@ -3,9 +3,10 @@
 
 ### Barplot visualizations
 
-Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html). 
+Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html) and [HITChip Barplots](Barplots.md)
 
-Show OTU absolute abundance in each sample:
+
+Load example data:
 
 
 ```r
@@ -20,30 +21,19 @@ pseq0 <- download_microbiome("dietswap")
 
 ```r
 # Pick sample subset
-pseq <- subset_samples(pseq, group == "DI" & nationality == "AFR")
+pseq <- subset_samples(pseq0, group == "DI" & nationality == "AFR")
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'nationality' not found
-```
-
-```r
-# Plot absolute taxon abundances
-plot_abundance(pseq)
-```
-
-![plot of chunk composition-example1](figure/composition-example1-1.png) 
-
-
-Or sum the OTUs at a higher taxonomic level:
+Show OTU absolute abundance in each sample. Plot absolute taxon
+abundances (Note: on HITChip data the Phylum level is only
+approximate):
 
 
 ```r
 plot_abundance(pseq, taxonomic.level = "Phylum")
 ```
 
-![plot of chunk composition-example2](figure/composition-example2-1.png) 
-
+![plot of chunk composition-example1b](figure/composition-example1b-1.png) 
 
 Same with relative abundances:
 
@@ -55,7 +45,7 @@ plot_abundance(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
 ![plot of chunk composition-example3](figure/composition-example3-1.png) 
 
 
-Arrange by sample variable and use custom X axis labels:
+Arrange by sample variable and use custom X axis labels.
 
 
 ```r
