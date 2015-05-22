@@ -108,7 +108,8 @@ read_hitchip <- function(data.dir, output = "all", method = "rpa") {
   }  
 
   if (output == "all") {
-    res <- list(pseq = pseq, meta = meta,
+    res <- list(pseq = pseq, abundance.table = abu, 
+    	        meta = meta,
     	        probedata = probedata,
 	        taxonomy = tax_table(as.matrix(taxonomy)),
 		taxonomy.full = tax_table(as.matrix(taxonomy.full)))
