@@ -44,7 +44,7 @@ summarize.rpa <- function (taxonomy, level, probedata, verbose = TRUE, probe.par
     # oligo.data assumed to be already in log10
     dat <- as.matrix(oligo.data[probes,])
     if (length(probes) == 1)  {
-      dat <- t(as.matrix(oligo.data[probes,], nrow = length(probes)))
+      dat <- as.matrix(oligo.data[probes,], nrow = length(probes))
     }
     rownames(dat) <- probes
     colnames(dat) <- colnames(oligo.data)

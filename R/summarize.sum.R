@@ -39,7 +39,7 @@ summarize.sum <- function (taxonomy, level, probedata, verbose = TRUE, downweigh
 
   for (set in names(probesets)) {
 
-    #print(set)
+    # print(set)
 
     # Pick expression for particular probes
     probes <- probesets[[set]]
@@ -48,7 +48,7 @@ summarize.sum <- function (taxonomy, level, probedata, verbose = TRUE, downweigh
     # oligo.data assumed to be already in log10
     dat <- as.matrix(oligo.data[probes,])
     if (length(probes) == 1)  {
-      dat <- t(as.matrix(oligo.data[probes,], nrow = length(probes)))
+      dat <- as.matrix(oligo.data[probes,], nrow = length(probes))
     }
     rownames(dat) <- probes
     colnames(dat) <- colnames(oligo.data)
