@@ -35,14 +35,12 @@ summarize.rpa <- function (taxonomy, level, probedata, verbose = TRUE, probe.par
 
   for (set in names(probesets)) {
 
-    # print(set)
-
     # Pick expression for particular probes
     probes <- probesets[[set]]
 
     # Pick probe data for the probeset: probes x samples
     # oligo.data assumed to be already in log10
-    dat <- as.matrix(oligo.data[probes,], nrow = length(probes), ncol = ncol(oligo.data)) 
+    dat <- matrix(oligo.data[probes,], nrow = length(probes), ncol = ncol(oligo.data)) 
     rownames(dat) <- probes
     colnames(dat) <- colnames(oligo.data)
 
