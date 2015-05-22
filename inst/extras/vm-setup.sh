@@ -25,3 +25,6 @@ library(devtools)
 install_github("microbiome/microbiome")
 install_github("microbiome/HITChipDB")
 
+git config --global user.email "leo.lahti@iki.fi"
+git config --global user.name "antagomir"
+

@@ -5,10 +5,6 @@
 
 # -------------------------------------------
 
-git config --global user.email "leo.lahti@iki.fi"
-git config --global user.name "antagomir"
-
-
 library(HITChipDB)
 dbuser <- "root"
 dbpwd <- "fidipro"

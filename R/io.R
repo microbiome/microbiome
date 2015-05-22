@@ -30,9 +30,11 @@ read.profiling <- function(data.dir, method) {
   # Read abundance tables
   for (s in c("L1", "L2", "species")) {
     f <- paste(data.dir, "/", s, "-", method, ".tab", sep = "")
-    tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
-    colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
-    results[[s]] <- tab
+    if (file.exists(f)) {
+      tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
+      colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
+      results[[s]] <- tab
+    }
   }
   
   # Read taxonomy table
