@@ -5,6 +5,7 @@ library(microbiome)
 res.frpa <- read.profiling("output", method = "frpa")
 res.rpa <- read.profiling("output", method = "rpa")
 res.sum <- read.profiling("output", method = "sum")
+
 res <- read_hitchip("output", method = "sum")
 
 #plot(log10(unlist(res.rpa$species)), log10(unlist(res.frpa$species)))

@@ -30,8 +30,10 @@ summarize.rpa <- function (taxonomy, level, probedata, verbose = TRUE, probe.par
   nPhylotypesPerOligo <- n.phylotypes.per.oligo(taxonomy, level) 
 
   # initialize
-  summarized.matrix <- array(NA, dim = c(length(probesets), ncol(oligo.data)), 
-  		    	      dimnames = list(names(probesets), colnames(oligo.data))) 
+  summarized.matrix <- matrix(NA, nrow = length(probesets), 
+  		       		  ncol = ncol(oligo.data))
+  rownames(summarized.matrix) <- names(probesets)
+  colnames(summarized.matrix) <- colnames(oligo.data)
 
   for (set in names(probesets)) {
 
@@ -42,7 +44,7 @@ summarize.rpa <- function (taxonomy, level, probedata, verbose = TRUE, probe.par
     # oligo.data assumed to be already in log10
     dat <- as.matrix(oligo.data[probes,])
     if (length(probes) == 1)  {
-      dat <- matrix(oligo.data[probes,], nrow = length(probes)) 
+      dat <- as.matrix(oligo.data[probes,], nrow = length(probes)) 
     }
     rownames(dat) <- probes
     colnames(dat) <- colnames(oligo.data)
