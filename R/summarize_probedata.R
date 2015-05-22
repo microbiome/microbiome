@@ -20,7 +20,15 @@ summarize_probedata <- function(data.dir = NULL, probedata = NULL, taxonomy = NU
   # If the data is not given as input, read it from the data directory
   # message(paste("Reading Chip data from", data.dir))
   if (method == "frpa" && is.null(probe.parameters)) {
-    stop("Provide probe parameters for frpa")
+     message("Loading pre-calculated RPA preprocessing parameters")
+     probes <- unique(taxonomy[, "oligoID"])
+     rpa.hitchip.species.probe.parameters <- list()
+     load(system.file("extdata/probe.parameters.rda", package = "HITChipDB"))
+     probe.parameters <- rpa.hitchip.species.probe.parameters
+     # Ensure we use only those parameters that are in the filtered phylogeny
+     for (bac in names(probe.parameters)) {
+       probe.parameters[[bac]] <- probe.parameters[[bac]][intersect(names(probe.parameters[[bac]]), probes)]
+     }
   }
 
   # Read probe-level data
