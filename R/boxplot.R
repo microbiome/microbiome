@@ -18,6 +18,8 @@
 
 boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = TRUE, title = NULL) {
 
+  xvar <- yvar <- linevar <- colorvar <- NULL
+
   # Construct example data (df). Ensure that samples are given in same order
   # in metadata and HITChip data.
   # FIXME: this can be removed when official phyloseq package

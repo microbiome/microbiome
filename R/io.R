@@ -11,7 +11,7 @@
 #' @export
 #' @examples 
 #'   # data.dir <- system.file("extdata", package = "microbiome")
-#'   # dat <- read_profiling(data.dir)
+#'   # dat <- read.profiling(data.dir)
 #'
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

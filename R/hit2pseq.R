@@ -7,7 +7,11 @@
 #' @param taxonomy OTU x Taxonomy data.frame (HITChip taxonomy used by default)
 #' @param detection.limit HITChip signal detection limit (absence / presence)
 #' @return phyloseq object
-#' @import phyloseq
+#' @importFrom phyloseq otu_table
+#' @importFrom phyloseq tax_table
+#' @importFrom phyloseq phyloseq
+#' @importFrom phyloseq sample_data
+#' @importFrom phyloseq merge_phyloseq
 #'
 #' @examples 
 #'  \dontrun{

@@ -12,6 +12,8 @@
 #' 
 #' @import ggplot2
 #' @import reshape2
+#' @importFrom phyloseq tax_glom
+#'
 #' @export
 #' @examples # 
 #' @keywords utilities

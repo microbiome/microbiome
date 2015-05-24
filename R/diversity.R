@@ -13,6 +13,7 @@
 #'   #pseq <- download_microbiome("peerj32")$physeq
 #'   #d <- estimate_diversity(pseq, det.th = 0)
 #'
+#' @importFrom phyloseq estimate_richness
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

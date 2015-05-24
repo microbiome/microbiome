@@ -22,7 +22,7 @@ Read HITChip run.profiling.script output into R
 }
 \examples{
 # data.dir <- system.file("extdata", package = "microbiome")
-  # dat <- read_profiling(data.dir)
+  # dat <- read.profiling(data.dir)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
