@@ -1,6 +1,6 @@
 ## Example data sets
 
-This page shows how to load some example data sets for microbiome analyses in R, and how to convert HITChip data into phyloseq format. For further microbiome example data sets in phyloseq format, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html).
+This page shows how to import HITChip data in R, how to convert HITChip data into phyloseq format, and how to load some published example data sets for microbiome analyses in R. For further microbiome data sets in phyloseq format, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html).
 
 For examples on preprocessing the data (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md).
 
@@ -81,9 +81,8 @@ metadata and taxonomy; without detection thresholding):
 
 
 ```r
+# Read precalculated HITChip data and check available data entries
 chipdata <- read.profiling(method = "frpa", data.dir = data.directory)
-
-# Check the available data sets in the output
 print(names(chipdata))
 ```
 
@@ -115,13 +114,14 @@ kable(head(dat))
 
 ## HITChip to phyloseq format
 
+
 The [phyloseq](https://github.com/joey711/phyloseq) R package provides
 many additional tools for microbiome analyses. See [phyloseq demo
 page](http://joey711.github.io/phyloseq-demo/).
 
-Import HITChip phylotype-level data in phyloseq format from HITChip
-output directory (note: the precalculated matrices are calculated with
-detection.threshold = 0):
+Import HITChip phylotype-level data in
+[phyloseq](https://github.com/joey711/phyloseq) format (note: the
+precalculated matrices are calculated with detection.threshold = 0):
 
 
 ```r
@@ -134,7 +134,7 @@ pseq <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1
 ## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
 ```
 
-To get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
+Get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
 
 
 ```r
@@ -142,7 +142,7 @@ pseq.L2 <- aggregate_taxa(pseq, level = "L2")
 pseq.L1 <- aggregate_taxa(pseq, level = "L1")
 ```
 
-You can also import HITChip probe-level data matrix and taxonomy from HITChip
+Importing HITChip probe-level data and taxonomy from HITChip
 output directory (these are not available in the phyloseq object):
 
 
@@ -171,34 +171,16 @@ Convert your own data matrices into phyloseq format as follows:
 
 
 ```r
-library(phyloseq)
-
 # We need to choose the HITChip data level to be used in the analyses
 # In this example use HITChip L2 data (note: this is in absolute scale)
-otu <- hitchip.data$L2
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'hitchip.data' not found
-```
-
-```r
-meta <- hitchip.data$meta
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'hitchip.data' not found
-```
-
-```r
+otu <- read.profiling(method = "frpa", data.dir = data.directory)$L2
+meta <- read.profiling(method = "frpa", data.dir = data.directory)$meta
 taxonomy <- GetPhylogeny("HITChip", "filtered")
+taxonomy <- unique(as.data.frame(taxonomy[, c("L1", "L2")]))
+rownames(taxonomy) <- as.vector(taxonomy[, "L2"])
 
 # Convert to phyloseq
-physeq <- hitchip2physeq(otu, meta, taxonomy, detection.threshold = 10^1.8)
-```
-
-```
-## Error in hitchip2physeq(otu, meta, taxonomy, detection.threshold = 10^1.8): unused argument (detection.threshold = 10^1.8)
+pseq <- hitchip2physeq(t(otu), meta, taxonomy, detection.limit = 10^1.8)
 ```
 
 
@@ -225,13 +207,16 @@ meta <- sample_data(pseq)
 # Taxonomy table
 tax.table <- tax_table(pseq)
 
-# OTU data
-# (note that the zero point has been moved to the detection threshold;
-#  typically signal 1.8 at HITChip log10 scale)
-# In this example data the OTU level in fact corresponds to genus-like groups
+# OTU data (the zero point has been moved to the detection threshold;
+# typically signal 1.8 at HITChip log10 scale). In this example
+# the OTU level corresponds to genus-like groups
 otu <- otu_table(pseq)@.Data
 
-# Higher-level taxa
+# Higher-level taxa on HITChip
+pseq2 <- aggregate_taxa(pseq, "Phylum")
+dat <- otu_table(pseq2)@.Data
+
+# Alternatively, you can use phyloseq functions for this:
 level <- "Phylum"
 tg <- tax_glom(pseq, level) # Agglomerate taxa
 x <- tg@otu_table # Pick the agglomerated data
@@ -251,11 +236,7 @@ bacteroidetes <- levelmap(NULL, "Phylum", "Genus", tax_table(pseq))$Bacteroidete
 pseq.subset <- prune_taxa(bacteroidetes, pseq)
 
 # Pick samples by specific metadata fields
-pseq.subset2 <- subset_samples(pseq.subset, group == "DI")
-```
-
-```
-## Error in validObject(.Object): invalid class "sample_data" object: Sample Data must have non-zero dimensions.
+pseq.subset2 <- subset_samples(pseq.subset, nationality == "US")
 ```
 
 
@@ -266,11 +247,16 @@ input data set needs to be in absolute scale (not logarithmic).
 
 
 ```r
-rel <- relative.abundance(oligo.data, det.th = min(na.omit(oligo.data)))
+pseq <- download_microbiome("dietswap")
 ```
 
 ```
-## Error in na.omit(oligo.data): object 'oligo.data' not found
+## Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n
+```
+
+```r
+dat <- otu_table(pseq)@.Data
+rel <- relative.abundance(dat, det.th = 0)
 ```
 
 Calculating relative abundances for phyloseq objects:
