@@ -186,13 +186,13 @@ pseq <- hitchip2physeq(t(otu), meta, taxonomy, detection.limit = 10^1.8)
 
 ### Picking data from phyloseq  
 
-Assuming your data is in the phyloseq format, many standard tools can directly operate on that data. If you need to pick specific data sets separately, you can mimic these examples:
+Assuming your data is in the phyloseq format, many standard tools can directly operate on that data. If you need to pick specific data sets separately, you can mimic these examples.
+
+Get example data in phyloseq format:
 
 
 ```r
 library(microbiome)
-
-# Get some HITChip data in phyloseq format
 pseq <- download_microbiome("atlas1006")
 ```
 
@@ -200,28 +200,33 @@ pseq <- download_microbiome("atlas1006")
 ## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
 ```
 
+
+Pick sample metadata:
+
+
 ```r
-# Sample metadata
 meta <- sample_data(pseq)
+```
 
-# Taxonomy table
+Pick taxonomy table
+
+
+```r
 tax.table <- tax_table(pseq)
+```
 
-# OTU data (the zero point has been moved to the detection threshold;
-# typically signal 1.8 at HITChip log10 scale). In this example
-# the OTU level corresponds to genus-like groups
-otu <- otu_table(pseq)@.Data
+OTU data (the zero point has been moved to the detection threshold; typically signal 1.8 at HITChip log10 scale). In this example the OTU level corresponds to genus-like groups (the function name otu_table is somewhat misleading):
 
-# Higher-level taxa on HITChip
+
+```r
+abundance.table <- otu_table(pseq)@.Data
+```
+
+Higher-level taxa on HITChip:
+
+
+```r
 pseq2 <- aggregate_taxa(pseq, "Phylum")
 dat <- otu_table(pseq2)@.Data
-
-# Alternatively, you can use phyloseq functions for this:
-level <- "Phylum"
-tg <- tax_glom(pseq, level) # Agglomerate taxa
-x <- tg@otu_table # Pick the agglomerated data
-# On HITChip, we are missing the taxonomic tree and 
-# need to use the following to provide correct names for the
-# agglomerated taxa:
-rownames(x) <- as.character(as.data.frame(tax_table(tg))[[level]]) 
 ```
+
