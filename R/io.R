@@ -28,7 +28,7 @@ read.profiling <- function(data.dir, method) {
   results[["probedata"]] <- tab
 
   # Read abundance tables
-  for (s in c("L1", "L2", "species")) {
+  for (s in c("L0", "L1", "L2", "species")) {
     f <- paste(data.dir, "/", s, "-", method, ".tab", sep = "")
     if (file.exists(f)) {
       tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
@@ -39,11 +39,19 @@ read.profiling <- function(data.dir, method) {
   
   # Read taxonomy table
   f <- paste(data.dir, "/taxonomy.tab", sep = "")
+  if (!file.exists(f)) {
+    # Old outputs had this name
+    f <- paste(data.dir, "/phylogeny.filtered.tab", sep = "")    
+  }
   taxonomy <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
   results[["taxonomy"]] <- taxonomy
-    
+  
   # Read unfiltered taxonomy table
   f <- paste(data.dir, "/taxonomy.full.tab", sep = "")
+  if (!file.exists(f)) {
+    # Old outputs had this name
+    f <- paste(data.dir, "/phylogeny.full.tab", sep = "")    
+  }
   taxonomy.full <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
   results[["taxonomy.full"]] <- taxonomy.full
 
@@ -61,64 +69,51 @@ read.profiling <- function(data.dir, method) {
 } 
 
 
-#' Read run.profiling.script output into R and preprocess into phyloseq format
+#' Read HITChip output and preprocess into phyloseq format
 #'
 #' @param data.dir Profiling script output directory for reading the data. 
-#'                 If not given, GUI will ask to specify the file and 
-#'             	   overruns the possible level / method arguments in the 
-#'             	   function call.
-#' @param output Specify the desired output.
-#' @param method Probe summarization method ("rpa" or "sum")
+#' @param method Probe summarization method ("rpa", "frpa", or "sum")
+#' @param detection.threshold Taxon absence/presence thresholds (typically 10^1.8 for HITChip)
 #' 
+#' Converts the probe-level data matrix and probe-level taxonomy table to phylotype-level 
+#' HITChip data. Returns the probe-level data (data matrix and taxonomies) and the phylotype-level 
+#' phyloseq object. There are two versions of probe-level taxonomy. The full version includes all probes 
+#' in the probe-level data. The filtered version includes those probes that have been used to aggregate
+#' probes into phylotype level.
+#'
 #' @return data matrix (phylo x samples)
 #'
 #' @export
 #' @examples 
 #'   # data.dir <- system.file("extdata", package = "microbiome")
-#'   # dat <- read_profiling(data.dir)
+#'   # dat <- read_hitchip(data.dir)
 #'
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-read_hitchip <- function(data.dir, output = "all", method = "rpa") {
+read_hitchip <- function(data.dir, method = "rpa", detection.threshold = 0) {
 
-  # Read	     
+  # Convert to phyloseq format. Includes summarization to species level.
+  pseq <- import_hitchip(data.dir, method = method, detection.threshold = detection.threshold)
+
+  # Read data
   res <- read.profiling(data.dir, method = method)
+
+  # Probe-level taxonomies
+  # (not available in the final pseq object)
   taxonomy <- res$taxonomy
   taxonomy.full <- res$taxonomy.full
+
+  # Probe-level data
+  # (not available in the final pseq object)
   probedata <- res$probedata
-  meta <- res$meta
 
-  # Summarize probes into abundance table
-  level <- "species"
-  abu <- summarize_probedata(probedata = probedata,
-      	 	             taxonomy = taxonomy,
-      	 		     level = level,
-			     method = method)
-
-  # Convert the object into phyloseq format
-  levels <- intersect(c("L0", "L1", "L2", "species"), colnames(taxonomy))
-  taxonomy <- unique(taxonomy[, levels])
-  rownames(taxonomy) <- taxonomy[, "species"]
-  coms <- intersect(rownames(taxonomy), rownames(abu))
-  abu <- abu[coms,]
-  taxonomy <- taxonomy[coms,]       
-
-  pseq <- hitchip2physeq(t(abu), meta, taxonomy, detection.limit = 10^1.8)
-  if (output == "phyloseq") {
-    return(pseq) 
-  }  
-
-  if (output == "all") {
-    res <- list(pseq = pseq, abundance.table = abu, 
-    	        meta = meta,
+  res <- list(pseq = pseq, 
     	        probedata = probedata,
 	        taxonomy = tax_table(as.matrix(taxonomy)),
 		taxonomy.full = tax_table(as.matrix(taxonomy.full)))
-    return(res)
-  }
-
-  NULL
-    
+  
+  return(res)
+  
 } 
 

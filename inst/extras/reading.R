@@ -11,7 +11,9 @@ res.sum <- read.profiling("output", method = "sum")
 # Read and recalculate
 res <- read_hitchip("output", method = "sum")
 
-res1 <- res$species
-res2 <- res.sum$abundance.table
+res1 <- res.sum$species
+res2 <- res$abundance.table
+res3 <- res.rpa$species
 plot(log10(unlist(res1)), log10(unlist(res2)))
+plot(log10(unlist(res1)), log10(unlist(res3)))
 

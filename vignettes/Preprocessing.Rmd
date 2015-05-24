@@ -10,7 +10,7 @@ pseq <- download_microbiome("dietswap")
 ### Sample operations
 
 
-Transform sample counts
+Transform sample counts. Here, calculate relative abundances:
 
 ```{r preprocess2, warning=FALSE, message=FALSE}
 r <- transform_sample_counts(pseq, function(x) x/sum(x))
