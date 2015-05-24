@@ -1,6 +1,9 @@
-## Filtering and pruning
+## Standard data processing operations
 
-The external high-quality [phyloseq package](http://joey711.github.io/phyloseq/) provides a complete set of tools for data preprocessing and filtering purposes. Download example data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling:
+
+The high-quality [phyloseq package](http://joey711.github.io/phyloseq/) provides a complete set of tools for data subsetting, aggregating and filtering.
+
+Download example data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling:
 
 ```{r phyloseqdata, fig.width=10, fig.height=7, warning=FALSE, message=FALSE}
 library(microbiome)
@@ -13,15 +16,19 @@ pseq <- download_microbiome("dietswap")
 Estimate relative abundance of the taxa in each sample. Note: the
 input data set needs to be in absolute scale (not logarithmic).
 
-```{r diversity-example6}
-dat <- otu_table(pseq)@.Data
-rel <- relative.abundance(dat, det.th = 0)
-```
 
-Calculating relative abundances for phyloseq objects:
+Calculating relative abundances for a phyloseq object:
 
 ```{r data10}
 pseq <- transform_sample_counts(pseq, function(x) x/sum(x))
+```
+
+
+Calculating relative abundance for standard abundance matrix:
+
+```{r diversity-example6}
+dat <- otu_table(pseq)@.Data
+rel <- relative.abundance(dat, det.th = 0)
 ```
 
 
