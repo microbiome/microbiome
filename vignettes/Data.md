@@ -10,6 +10,75 @@ Data from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/20
 
 ```r
 library(microbiome)
+```
+
+```
+## Loading required package: phyloseq
+## Loading required package: RPA
+## Loading required package: parallel
+## Loading required package: affy
+## Loading required package: BiocGenerics
+## 
+## Attaching package: 'BiocGenerics'
+## 
+## The following objects are masked from 'package:parallel':
+## 
+##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+##     clusterExport, clusterMap, parApply, parCapply, parLapply,
+##     parLapplyLB, parRapply, parSapply, parSapplyLB
+## 
+## The following object is masked from 'package:stats':
+## 
+##     xtabs
+## 
+## The following objects are masked from 'package:base':
+## 
+##     anyDuplicated, append, as.data.frame, as.vector, cbind,
+##     colnames, do.call, duplicated, eval, evalq, Filter, Find, get,
+##     intersect, is.unsorted, lapply, Map, mapply, match, mget,
+##     order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+##     rbind, Reduce, rep.int, rownames, sapply, setdiff, sort,
+##     table, tapply, union, unique, unlist, unsplit
+## 
+## Loading required package: Biobase
+## Welcome to Bioconductor
+## 
+##     Vignettes contain introductory material; view with
+##     'browseVignettes()'. To cite Bioconductor, see
+##     'citation("Biobase")', and for packages 'citation("pkgname")'.
+## 
+## 
+## Attaching package: 'Biobase'
+## 
+## The following object is masked from 'package:phyloseq':
+## 
+##     sampleNames
+## 
+## 
+## RPA Copyright (C) 2008-2014 Leo Lahti.
+## This program comes with ABSOLUTELY NO WARRANTY.
+## This is free software, and you are welcome to redistribute it under the FreeBSD open source license.
+## 
+## 
+## microbiome R package (microbiome.github.com)
+##           
+## 
+## 
+##  Copyright (C) 2011-2015
+##           Leo Lahti and Jarkko Salojarvi 
+## 
+##         
+##           <microbiome-admin@googlegroups.com>
+## 
+## 
+## Attaching package: 'microbiome'
+## 
+## The following object is masked _by_ '.GlobalEnv':
+## 
+##     harmonize_fields
+```
+
+```r
 data.atlas <- download_microbiome("atlas1006")
 ```
 
@@ -48,31 +117,39 @@ data.peerj32 <- download_microbiome("peerj32")
 ```
 
 
-### Loading example data
+### Importing HITChip data
 
-Load simulated example data of the human gut microbiota. With HITChip,
+Importing HITChip data from data folder. With HITChip,
 [fRPA](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)
-is the recommended preprocessing method. 
+is the recommended preprocessing method. You can provide sample
+metadata by adding new fields in the template metadata file your
+HITChip data folder and exporting it again to tab-separated .tab
+format. Some standard, self-explanatory field names include 'sample',
+'time', 'subject', 'group', 'gender', 'diet', 'age'. You can leave
+these out or include further fields. See this [example
+file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/meta.tab).
+
 
 
 ```r
 library(microbiome)
 
-# Define data path (replace data.directory with your own path)
+# Define data path (replace here data.directory with your own path)
 data.directory <- system.file("extdata", package = "microbiome")
 print(data.directory)
 ```
 
 ```
-## [1] "/home/lei/Rpackages/microbiome/microbiome/inst/extdata"
+## [1] "/home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata"
 ```
 
 ```r
-# Read HITChip data (this returns all levels, sample metadata and taxonomy)
-hitchip.data <- read.profiling(method = "frpa", data.dir = data.directory)
+# Read HITChip data (returns the precalculated data matrices for all levels, 
+# sample metadata and taxonomy; without detection thresholding)
+chipdata <- read.profiling(method = "frpa", data.dir = data.directory)
 
-# Picking specific data field (for instance oligo level data)
-print(names(hitchip.data))
+# Check the available data sets in the output
+print(names(chipdata))
 ```
 
 ```
@@ -81,13 +158,72 @@ print(names(hitchip.data))
 ```
 
 ```r
-oligo <- hitchip.data$oligo
+# Pick specific data field (for instance oligo level or L2-level data)
+probedata <- chipdata[["probedata"]]
+dat <- chipdata[["L2"]]
 ```
 
 
 ## HITChip to phyloseq format
 
-The [phyloseq](https://github.com/joey711/phyloseq) is an external high-quality R package with many additional tools for microbiome data analysis. For more info, see [phyloseq demo page](http://joey711.github.io/phyloseq-demo/) and [HITChip phyloseq examples](Phyloseq.md). To convert HITChip data into phyloseq format:
+The [phyloseq](https://github.com/joey711/phyloseq) R package provides
+many additional tools for microbiome analyses. See [phyloseq demo
+page](http://joey711.github.io/phyloseq-demo/).
+
+Import HITChip phylotype-level data in phyloseq format from HITChip
+output directory (note: the precalculated matrices are calculated with
+detection.threshold = 0):
+
+
+```r
+pseq <- read_hitchip(data.dir, method = "frpa", detection.threshold = 10^1.8)$pseq
+```
+
+```
+## Error in paste("Reading Chip data from", data.dir): object 'data.dir' not found
+```
+
+To get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
+
+
+```r
+pseq.L2 <- aggregate_taxa(pseq, level = "L2")
+```
+
+```
+## Error in inherits(x, get.component.classes()): object 'pseq' not found
+```
+
+```r
+pseq.L1 <- aggregate_taxa(pseq, level = "L1")
+```
+
+```
+## Error in inherits(x, get.component.classes()): object 'pseq' not found
+```
+
+You can also import HITChip probe-level data matrix and taxonomy from HITChip
+output directory (these are not available in the phyloseq object):
+
+
+```r
+probedata <- read_hitchip(data.dir, method = "frpa", detection.threshold = 10^1.8)$probedata
+```
+
+```
+## Error in paste("Reading Chip data from", data.dir): object 'data.dir' not found
+```
+
+```r
+taxonomy.full <- read_hitchip(data.dir, method = "frpa", detection.threshold = 10^1.8)$taxonomy.full
+```
+
+```
+## Error in paste("Reading Chip data from", data.dir): object 'data.dir' not found
+```
+
+
+Convert your own data matrices into phyloseq format as follows:
 
 
 ```r
@@ -96,18 +232,35 @@ library(phyloseq)
 # We need to choose the HITChip data level to be used in the analyses
 # In this example use HITChip L2 data (note: this is in absolute scale)
 otu <- hitchip.data$L2
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'hitchip.data' not found
+```
+
+```r
 meta <- hitchip.data$meta
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'hitchip.data' not found
+```
+
+```r
+taxonomy <- GetPhylogeny("HITChip", "filtered")
 
 # Convert to phyloseq
-physeq <- hitchip2physeq(otu, meta)
+physeq <- hitchip2physeq(otu, meta, taxonomy, detection.threshold = 10^1.8)
 ```
 
 ```
-## Error in as.data.frame(Phylum = unique(taxonomy[, c("Phylum")]), ncol = 1): argument "x" is missing, with no default
+## Error in hitchip2physeq(otu, meta, taxonomy, detection.threshold = 10^1.8): unused argument (detection.threshold = 10^1.8)
 ```
 
 
-## HITChip from phyloseq
+### Picking data from phyloseq  
+
+Assuming your data is in the phyloseq format, many standard tools can directly operate on that data. If you need to pick specific data sets separately, you can mimic these examples:
 
 
 ```r
@@ -122,16 +275,26 @@ pseq <- download_microbiome("atlas1006")
 ```
 
 ```r
-# Pick the OTU data
-# (note the zero point has been moved to the detection threshold;
-#  typically signal 1.8 at HITChip log10 scale)
-otu <- otu_table(pseq)@.Data
-
 # Sample metadata
 meta <- sample_data(pseq)
 
 # Taxonomy table
 tax.table <- tax_table(pseq)
+
+# OTU data
+# (note that the zero point has been moved to the detection threshold;
+#  typically signal 1.8 at HITChip log10 scale)
+# In this example data the OTU level in fact corresponds to genus-like groups
+otu <- otu_table(pseq)@.Data
+
+# Higher-level taxa
+level <- "Phylum"
+tg <- tax_glom(pseq, level) # Agglomerate taxa
+x <- tg@otu_table # Pick the agglomerated data
+# On HITChip, we are missing the taxonomic tree and 
+# need to use the following to provide correct names for the
+# agglomerated taxa:
+rownames(x) <- as.character(as.data.frame(tax_table(tg))[[level]]) 
 ```
 
 ### Subsetting phyloseq data
@@ -151,6 +314,7 @@ pseq.subset2 <- subset_samples(pseq.subset, group == "DI")
 ## Error in validObject(.Object): invalid class "sample_data" object: Sample Data must have non-zero dimensions.
 ```
 
+
 ### Estimating relative abundancies
 
 Estimate relative abundance of the taxa in each sample. Note: the
@@ -165,10 +329,13 @@ rel <- relative.abundance(oligo.data, det.th = min(na.omit(oligo.data)))
 ## Error in na.omit(oligo.data): object 'oligo.data' not found
 ```
 
+Calculating relative abundances for phyloseq objects:
 
-### Adding sample metadata
 
-An easy way to provide sample metadata is to create a tab-separated metadata file. You can modify the template metadata file your HITChip data folder in Excel and export it to tab-separated .tab format. Some standard, self-explanatory field names include 'sample', 'time', 'subject', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). The sample metadata is read together with the other files in the read.profiling function.
+```r
+pseq <- transform_sample_counts(pseq, function(x) x/sum(x))
+```
+
 
 
 <!--

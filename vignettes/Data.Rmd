@@ -116,7 +116,7 @@ physeq <- hitchip2physeq(otu, meta, taxonomy, detection.threshold = 10^1.8)
 
 Assuming your data is in the phyloseq format, many standard tools can directly operate on that data. If you need to pick specific data sets separately, you can mimic these examples:
 
-```{r pseqconversion2}
+```{r pseqconversion22}
 library(microbiome)
 
 # Get some HITChip data in phyloseq format
