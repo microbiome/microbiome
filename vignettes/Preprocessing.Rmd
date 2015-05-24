@@ -7,8 +7,25 @@ library(microbiome)
 pseq <- download_microbiome("dietswap")
 ```
 
-### Sample operations
 
+### Estimating relative abundancies
+
+Estimate relative abundance of the taxa in each sample. Note: the
+input data set needs to be in absolute scale (not logarithmic).
+
+```{r diversity-example6}
+dat <- otu_table(pseq)@.Data
+rel <- relative.abundance(dat, det.th = 0)
+```
+
+Calculating relative abundances for phyloseq objects:
+
+```{r data10}
+pseq <- transform_sample_counts(pseq, function(x) x/sum(x))
+```
+
+
+### Sample operations
 
 Transform sample counts. Here, calculate relative abundances:
 
@@ -32,6 +49,16 @@ Abundance for species ‘i’ in each sample
 
 ```{r preprocess2d, warning=FALSE, message=FALSE}
 head(get_sample(pseq, taxa_names(pseq)[1]))
+```
+
+
+
+
+```{r data-subsetting}
+
+
+# Pick samples by specific metadata fields
+pseq.subset2 <- subset_samples(pseq.subset, nationality == "US")
 ```
 
 
@@ -64,6 +91,8 @@ taxa <- genefilter_sample(pseq, f1, A = round(0.5 * nsamples(pseq)))
 Prune taxa
 
 ```{r preprocess3b, warning=FALSE, message=FALSE}
+taxa <- levelmap(NULL, "Phylum", "Genus", tax_table(pseq))$Bacteroidetes
+
 # With given taxon names
 ex2 <- prune_taxa(taxa, pseq)
 
@@ -102,13 +131,14 @@ taxa_names(pseq)
 Pick taxa by rank
 
 ```{r preprocess3g, warning=FALSE, message=FALSE}
-# Unique phyla
+# List unique phylum-level groups in the data
 head(get_taxa_unique(pseq, "Phylum"))
+```
 
-Pick taxa by sample
+Pick taxa by sample name:
 
 ```{r preprocess3gg, warning=FALSE, message=FALSE}
-get_taxa(pseq, sample_names(pseq)[1])
+get_taxa(pseq, sample_names(pseq)[[1]])
 ```
 
 

@@ -1,4 +1,16 @@
 
+<!--
+### Long-term follow-up time series (David et al. 2014)
+
+The data set from [David et al. Genome Biology 2014, 15:R89](http://genomebiology.com/2014/15/7/R89):
+
+```{r peerjdata2}
+library(microbiome)
+data.david2014 <- download_microbiome("david2014")
+```
+-->
+
+
 
 
 ```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=9, fig.heigth=6, fig.path = "figure/"}
