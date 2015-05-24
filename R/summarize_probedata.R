@@ -17,8 +17,9 @@
 #' @keywords utilities
 summarize_probedata <- function(data.dir = NULL, probedata = NULL, taxonomy = NULL, level, method, probe.parameters = NULL) {
 
-  # If the data is not given as input, read it from the data directory
   # message(paste("Reading Chip data from", data.dir))
+  
+  # If the data is not given as input, read it from the data directory
   if (method == "frpa" && is.null(probe.parameters)) {
      message("Loading pre-calculated RPA preprocessing parameters")
      probes <- unique(taxonomy[, "oligoID"])

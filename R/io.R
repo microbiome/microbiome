@@ -16,12 +16,13 @@
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-read.profiling <- function(data.dir, method) {
+read.profiling <- function(data.dir, method, verbose = TRUE) {
 
-  message(paste("Reading Chip data from", data.dir))
+  if (verbose) {message(paste("Reading Chip data from", data.dir))}
+
   results <- list()
 
-  # Read probe-level data
+# Read probe-level data
   f <- paste(data.dir, "/oligoprofile.tab", sep = "")
   tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
   colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]
@@ -97,7 +98,7 @@ read_hitchip <- function(data.dir, method = "rpa", detection.threshold = 0) {
   pseq <- import_hitchip(data.dir, method = method, detection.threshold = detection.threshold)
 
   # Read data
-  res <- read.profiling(data.dir, method = method)
+  res <- read.profiling(data.dir, method = method, verbose = FALSE)
 
   # Probe-level taxonomies
   # (not available in the final pseq object)
