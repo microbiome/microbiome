@@ -1,6 +1,8 @@
 ## Example data sets
 
-Example data sets for microbiome analyses. These examples also show how to convert HITChip data into phyloseq format and perform some standard analyses. For examples on preprocessing the data (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md). For further microbiome example data sets in phyloseq format, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html).
+This page shows how to load some example data sets for microbiome analyses in R, and how to convert HITChip data into phyloseq format. For further microbiome example data sets in phyloseq format, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html).
+
+For examples on preprocessing the data (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md).
 
 
 ### HITChip Atlas data 
@@ -63,9 +65,8 @@ file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/meta.tab)
 
 
 ```r
+# Define example data path (replace here data.directory with your own path)
 library(microbiome)
-
-# Define data path (replace here data.directory with your own path)
 data.directory <- system.file("extdata", package = "microbiome")
 print(data.directory)
 ```
@@ -74,9 +75,12 @@ print(data.directory)
 ## [1] "/home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata"
 ```
 
+Read HITChip data from the specified folder and probe summarization
+method (returns the precalculated data matrices for all levels, sample
+metadata and taxonomy; without detection thresholding):
+
+
 ```r
-# Read HITChip data (returns the precalculated data matrices for all levels, 
-# sample metadata and taxonomy; without detection thresholding)
 chipdata <- read.profiling(method = "frpa", data.dir = data.directory)
 
 # Check the available data sets in the output
@@ -92,7 +96,21 @@ print(names(chipdata))
 # Pick specific data field (for instance oligo level or L2-level data)
 probedata <- chipdata[["probedata"]]
 dat <- chipdata[["L2"]]
+
+# Check the output
+kable(head(dat))
 ```
+
+
+
+|                             |   Sample.1|    Sample.2|    Sample.3|   Sample.4|   Sample.5|   Sample.6|   Sample.7|   Sample.8|    Sample.9|   Sample.10|  Sample.11|  Sample.12| Sample.13| Sample.14| Sample.15| Sample.16|  Sample.17| Sample.18|  Sample.19|  Sample.20|
+|:----------------------------|----------:|-----------:|-----------:|----------:|----------:|----------:|----------:|----------:|-----------:|-----------:|----------:|----------:|---------:|---------:|---------:|---------:|----------:|---------:|----------:|----------:|
+|Actinomycetaceae             |   84.76163|    78.29504|   134.13189|  109.30349|  102.27557|   91.90667|  123.30067|   76.80188|    92.14881|   100.80771|  105.48939|   75.44185|  80.54118|  79.29750| 385.23378|  93.70611|  145.87980|  84.28841|   74.86562|   99.49987|
+|Aerococcus                   |   39.46335|    37.15725|    57.04694|   49.92221|   50.12097|   45.20561|   39.18982|   40.00816|    48.15633|    48.88911|   47.43598|   40.01769|  38.47069|  51.66101|  57.82417|  59.01372|   74.22681|  40.46727|   38.66126|   49.77266|
+|Aeromonas                    |   50.05587|    39.16444|    65.74415|   61.35530|   54.83985|   44.42839|   46.46214|   37.13851|    48.41742|    49.84928|   49.77854|   38.50172|  54.63650|  36.81774|  59.30448|  57.19805|   76.79569|  41.01024|   39.13462|   57.59464|
+|Akkermansia                  | 3241.64899| 16118.25264|  3545.40458| 2695.79856| 1373.24405| 3092.14005| 6116.98477| 5479.95341|  2785.46574|  2980.10595| 1997.84190| 2480.54241| 723.33085| 894.08274| 681.38990| 559.76203| 1457.17800| 850.12411| 2778.85817| 2479.55738|
+|Alcaligenes faecalis et rel. |  193.64745|   274.46270|   242.94563|  185.10122|  188.41686|  184.45777|  147.32411|  144.44846|   257.87644|   179.00981|  496.61390|  153.35142| 149.67784| 149.41375| 177.97378| 165.68556|  294.35603| 162.99679|  152.82539|  181.06110|
+|Allistipes et rel.           | 5275.98593|  2885.60708| 26293.81603| 2176.93497| 3004.86107|  679.42221| 1355.59886|  609.17888| 14413.70966| 14237.53229| 7305.26704| 4402.88386| 579.25640| 665.34332| 740.46958| 973.90064| 4646.47323| 906.95959| 4966.18710| 5052.53186|
 
 
 ## HITChip to phyloseq format
@@ -107,11 +125,13 @@ detection.threshold = 0):
 
 
 ```r
-pseq <- read_hitchip(data.dir, method = "frpa", detection.threshold = 10^1.8)$pseq
+pseq <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$pseq
 ```
 
 ```
-## Error in paste("Reading Chip data from", data.dir): object 'data.dir' not found
+## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
+## Loading pre-calculated RPA preprocessing parameters
+## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
 ```
 
 To get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
@@ -119,18 +139,7 @@ To get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/G
 
 ```r
 pseq.L2 <- aggregate_taxa(pseq, level = "L2")
-```
-
-```
-## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
-```
-
-```r
 pseq.L1 <- aggregate_taxa(pseq, level = "L1")
-```
-
-```
-## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
 ```
 
 You can also import HITChip probe-level data matrix and taxonomy from HITChip
@@ -138,19 +147,23 @@ output directory (these are not available in the phyloseq object):
 
 
 ```r
-probedata <- read_hitchip(data.dir, method = "frpa", detection.threshold = 10^1.8)$probedata
+probedata <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$probedata
 ```
 
 ```
-## Error in paste("Reading Chip data from", data.dir): object 'data.dir' not found
+## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
+## Loading pre-calculated RPA preprocessing parameters
+## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
 ```
 
 ```r
-taxonomy.full <- read_hitchip(data.dir, method = "frpa", detection.threshold = 10^1.8)$taxonomy.full
+taxonomy.full <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$taxonomy.full
 ```
 
 ```
-## Error in paste("Reading Chip data from", data.dir): object 'data.dir' not found
+## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
+## Loading pre-calculated RPA preprocessing parameters
+## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
 ```
 
 

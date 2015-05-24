@@ -1,6 +1,8 @@
 ## Example data sets
 
-Example data sets for microbiome analyses. These examples also show how to convert HITChip data into phyloseq format and perform some standard analyses. For examples on preprocessing the data (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md). For further microbiome example data sets in phyloseq format, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html).
+This page shows how to load some example data sets for microbiome analyses in R, and how to convert HITChip data into phyloseq format. For further microbiome example data sets in phyloseq format, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html).
+
+For examples on preprocessing the data (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md).
 
 
 ### HITChip Atlas data 
@@ -47,14 +49,17 @@ file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/meta.tab)
 
 
 ```{r datapeer, eval=TRUE, message=FALSE, warning=FALSE}
+# Define example data path (replace here data.directory with your own path)
 library(microbiome)
-
-# Define data path (replace here data.directory with your own path)
 data.directory <- system.file("extdata", package = "microbiome")
 print(data.directory)
+```
 
-# Read HITChip data (returns the precalculated data matrices for all levels, 
-# sample metadata and taxonomy; without detection thresholding)
+Read HITChip data from the specified folder and probe summarization
+method (returns the precalculated data matrices for all levels, sample
+metadata and taxonomy; without detection thresholding):
+
+```{r dataread, eval=TRUE, message=FALSE, warning=FALSE}
 chipdata <- read.profiling(method = "frpa", data.dir = data.directory)
 
 # Check the available data sets in the output
@@ -63,6 +68,9 @@ print(names(chipdata))
 # Pick specific data field (for instance oligo level or L2-level data)
 probedata <- chipdata[["probedata"]]
 dat <- chipdata[["L2"]]
+
+# Check the output
+kable(head(dat))
 ```
 
 
@@ -77,7 +85,7 @@ output directory (note: the precalculated matrices are calculated with
 detection.threshold = 0):
 
 ```{r pseqconversion}
-pseq <- read_hitchip(data.dir, method = "frpa", detection.threshold = 10^1.8)$pseq
+pseq <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$pseq
 ```
 
 To get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
@@ -91,8 +99,8 @@ You can also import HITChip probe-level data matrix and taxonomy from HITChip
 output directory (these are not available in the phyloseq object):
 
 ```{r pseqconversion3}
-probedata <- read_hitchip(data.dir, method = "frpa", detection.threshold = 10^1.8)$probedata
-taxonomy.full <- read_hitchip(data.dir, method = "frpa", detection.threshold = 10^1.8)$taxonomy.full
+probedata <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$probedata
+taxonomy.full <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$taxonomy.full
 ```
 
 
