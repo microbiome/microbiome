@@ -3,17 +3,12 @@
 Here some examples with HITChip data. See also [phyloseq ordination tutorial](joey711.github.io/phyloseq/plot_ordination-examples.html).
 
 
-### Principal component analysis (PCA)
-
 Load example data:
 
 ```{r ordination1, message=FALSE, warning=FALSE, eval=FALSE}
 library(microbiome)
 pseq.atlas <- download_microbiome("atlas1006")
-```
 
-
-```{r density, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.path = "figure/"}
 # Define the data set to be used in the examples:
 pseq <- pseq.atlas
 
@@ -21,166 +16,107 @@ pseq <- pseq.atlas
 pseq.rel <- transform_sample_counts(pseq, function (x) {x/sum(x)})
 
 # Pick OTUs that are present with >1 percent relative abundance 
-# in at least 10 percent of the samples
+# in >10 percent of the samples
 pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > .01) > (0.1*nsamples(pseq.rel)), TRUE)
+```
 
-# Project data on 2D display with PCA (visualize subjects based on 20 random features)
+
+### Principal component analysis (PCA)
+
+```{r ordination2, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.path = "figure/"}
+# Project data on 2D display with PCA
 set.seed(423542)
 x <- t(otu_table(pseq2)@.Data)
 proj <- project.data(log10(x), type = "PCA") # MDS.classical etc.
+```
 
-# Visualize; show gender with colors
+Visualize and highlight:
+
+```{r ordination4, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.path = "figure/"}
+# Highlight gender
 p <- densityplot(proj, col = sample_data(pseq2)$gender, legend = T)
 print(p)
 
-# Visualize with low/high Prevotella
-# This shows that Prevotella (color) has ecosystem-level impact on microbiota composition
+# Highlight low/high Prevotella subjects
 prevotella.abundance  <- log10(x[, "Prevotella melaninogenica et rel."]) 
 p <- densityplot(proj, col = prevotella.abundance, legend = T)
 print(p)
 ```
 
-
-PCA with ggplot2 - the above example gives a shortcut for the following:
-
-```{r density2, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.path = "figure/"}
-# Arrange projected data onto a data frame
-m <- sample_data(pseq2)
-coms <- intersect(rownames(proj), rownames(m))
-df <- as.data.frame(cbind(proj[coms,], m[coms,]))
-names(df) <- c("x", "y", colnames(m))
-
-# Construct the figure with ggplot2
-library(ggplot2)
-theme_set(theme_bw(15))
-p <- ggplot(df) 
-
-# Add densities
-p <- p + stat_density2d(aes(x = x, y = y, fill=..density..), geom="raster", stat_params = list(contour = F), geom_params = list()) 
-p <- p + scale_fill_gradient(low="white", high="black") 
-
-# Add points
-p <- p + geom_point(aes(x = x, y = y, color = sample_data(pseq2)$gender), size = 1.5) 
-
-# Add labels
-p <- p + xlab("PCA 1") + ylab("PCA 2") + ggtitle("Density plot")
-p <- p + scale_colour_discrete(name = "Sex")
-
-# Plot the figure
-print(p)
-```
-
-
-Plot projection with sample names:
+Projection with sample names:
 
 ```{r visu-example2, message=FALSE, message=FALSE, fig.height=8, fig.width=8, fig.path = "figure/"}
-ggplot(aes(x = Comp.1, y = Comp.2, label = rownames(proj)), data = proj) + geom_text()
+ggplot(aes(x = Comp.1, y = Comp.2, label = rownames(proj)), data = proj) + geom_text(size = 2)
 ```
 
-## Phyloseq projections
 
-```{r pca-physeq1, message=FALSE, message=FALSE, fig.height=8, fig.width=8, fig.path = "figure/"}
-# Ordinate the taxa in NMDS plot with Bray-Curtis distances
+### Unifrac with PCoA
+
+See [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). 
+
+
+### NMDS with Bray-Curtis distances
+
+```{r ordination3, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.path = "figure/"}
+nmds <- ordinate(pseq, "NMDS", "bray")
+```
+
+Ordinate the taxa in NMDS plot with Bray-Curtis distances
+
+```{r pca-ordination21, message=FALSE, message=FALSE, fig.height=8, fig.width=8}
 pseq.ord <- ordinate(pseq2, "NMDS", "bray")
 p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Genus", title = "taxa")
 print(p)
-
-# Group the plots by Phylum
-p <- p + facet_wrap(~Phylum, 5)
-print(p)
 ```
 
-### Ordination biplot
+Grouping the plots by Phylum
 
-```{r pca-physeq2, message=FALSE, message=FALSE, fig.height=8, fig.width=8, fig.path = "figure/"}
-# Example data
-pseq <- download_microbiome("dietswap")
-
-# Just include the top Phyla
-phylum.sum <- tapply(taxa_sums(pseq), tax_table(pseq)[, "Phylum"], sum, na.rm = TRUE)
-top5phyla <- names(sort(phylum.sum, TRUE))[1:5]
-pseq2 <- prune_taxa((tax_table(pseq)[, "Phylum"] %in% top5phyla), pseq)
-pseq2.ord <- prune_taxa((tax_table(pseq.ord)[, "Phylum"] %in% top5phyla), pseq)
-
-p <- plot_ordination(pseq2, pseq.ord2, type = "biplot", color = "bmi_group", shape = "Phylum", 
-    title = "biplot")
-# Some stuff to modify the automatic shape scale
-pseq.shape.names <- get_taxa_unique(pseq, "Phylum")
-pseq.shape <- 15:(15 + length(pseq.shape.names) - 1)
-names(pseq.shape) <- pseq.shape.names
-pseq.shape["samples"] <- 16
-p + scale_shape_manual(values = pseq.shape)
-```
-
-```{r pca-physeq4, message=FALSE, message=FALSE, fig.height=8, fig.width=8, fig.path = "figure/"}
-p4 <- plot_ordination(pseq, pseq.ord, type = "split", color = "Phylum", shape = "bmi_group", 
-    label = "sample", title = "split")
-p4
-
-gg_color_hue <- function(n) {
-    hues = seq(15, 375, length = n + 1)
-    hcl(h = hues, l = 65, c = 100)[1:n]
-}
-color.names <- levels(p4$data$Phylum)
-p4cols <- gg_color_hue(length(color.names))
-names(p4cols) <- color.names
-p4cols["samples"] <- "black"
-p4 + scale_color_manual(values = p4cols)
-
-# Supported ordination methods 
-# TODO: get rid of plyr::llply
-skip <- T
-if (!skip)  {
-dist <- "bray"
-ord_meths = c("DCA", "CCA", "RDA", "DPCoA", "NMDS", "MDS", "PCoA")
-plist <- llply(as.list(ord_meths), function(i, physeq, dist) {
-    ordi = ordinate(physeq, method = i, distance = dist)
-    plot_ordination(physeq, ordi, "samples", color = "bmi_group")
-}, physeq, dist)
-names(plist) <- ord_meths
-pdataframe = ldply(plist, function(x) {
-    df = x$data[, 1:2]
-    colnames(df) = c("Axis_1", "Axis_2")
-    return(cbind(df, x$data))
-})
-names(pdataframe)[1] = "method"
-p = ggplot(pdataframe, aes(Axis_1, Axis_2, color = SampleType, shape = human, 
-    fill = SampleType))
-p = p + geom_point(size = 4) + geom_polygon()
-p = p + facet_wrap(~method, scales = "free")
-p = p + scale_fill_brewer(type = "qual", palette = "Set1")
-p = p + scale_colour_brewer(type = "qual", palette = "Set1")
-p
-}
+```{r pca-ordination22, message=FALSE, message=FALSE, fig.height=8, fig.width=8}
+p + facet_wrap(~Phylum, 5)
 ```
 
 
-### Further ordination examples
 
-```{r ordinate, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
-library(microbiome)
-data.dietswap <- download_microbiome("dietswap")
+### Multidimensional scaling (MDS)
 
-plot_ordination(physeq, ordinate(physeq, "MDS"), color = "group") + geom_point(size = 5)
+```{r ordinate23, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
+plot_ordination(pseq, ordinate(pseq, "MDS"), color = "group") + geom_point(size = 5)
+```
 
-nmds <- ordinate(physeq, "NMDS", "bray")
 
-require("ggplot2")
-p2 <- plot_ordination(physeq, ordinate(physeq, "CCA"), type = "samples", color = "gender")
-p2 + geom_point(size = 5) + geom_polygon(aes(fill = gender))
+### Canonical correspondence analysis (CCA)
 
-plot_ordination(physeq, ordinate(physeq, "CCA"), type = "taxa", color = "Phylum") + 
+With samples:
+
+```{r ordinate24a, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
+p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gender")
+p + geom_point(size = 5) + geom_polygon(aes(fill = gender))
+```
+
+With taxa:
+
+```{r ordinate24b, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
+plot_ordination(pseq, ordinate(pseq, "CCA"), type = "taxa", color = "Phylum") + 
     geom_point(size = 4)
-plot_ordination(physeq, ordinate(physeq, "CCA"), type = "split", color = "gender")
-plot_ordination(physeq, ordinate(physeq, "CCA"), type = "biplot", shape = "Phylum")
-plot_ordination(physeq, ordinate(physeq, "CCA"), type = "split", color = "gender", 
+```
+
+
+### Split plot
+
+```{r ordinate25, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
+plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", color = "gender", 
     shape = "Phylum", label = "gender")
 ```
 
 
-## Unifrac with PCoA
+### Ordination biplot
+
+```{r ordinate26, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
+plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", shape = "Phylum")
+```
+
+See [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). 
 
 
-For Unifrac with PCoA, see [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). 
 
 
