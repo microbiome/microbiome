@@ -23,8 +23,9 @@ pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > .01) > (0.1*nsamples(pseq.rel
 
 ### Principal component analysis (PCA)
 
+Project data on the first two PCA axes:
+
 ```{r ordination2, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.path = "figure/"}
-# Project data on 2D display with PCA
 set.seed(423542)
 x <- t(otu_table(pseq2)@.Data)
 proj <- project.data(log10(x), type = "PCA") # MDS.classical etc.
