@@ -5,23 +5,24 @@ Here some examples with HITChip data. See also [phyloseq ordination tutorial](jo
 
 ### Principal component analysis (PCA)
 
-```{r density, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.path = "figure/"}
-library(microbiome)
+Load example data:
 
-# Get some HITChip data in phyloseq format
-pseq <- download_microbiome("atlas1006")
+```{r ordination1, message=FALSE, warning=FALSE, eval=FALSE}
+library(microbiome)
+pseq.atlas <- download_microbiome("atlas1006")
+```
+
+
+```{r density, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.path = "figure/"}
+# Define the data set to be used in the examples:
+pseq <- pseq.atlas
 
 # Convert signal to relative abundances
-pseq <- transform_sample_counts(pseq, function (x) {x/sum(x)})
-
-# Pick the OTU data
-# (note the zero point has been moved to the detection threshold;
-#  typically signal 1.8 at HITChip log10 scale)
-otu <- otu_table(pseq)@.Data
+pseq.rel <- transform_sample_counts(pseq, function (x) {x/sum(x)})
 
 # Pick OTUs that are present with >1 percent relative abundance 
 # in at least 10 percent of the samples
-pseq2 <- filter_taxa(pseq, function(x) sum(x > .01) > (0.1*nsamples(pseq)), TRUE)
+pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > .01) > (0.1*nsamples(pseq.rel)), TRUE)
 
 # Project data on 2D display with PCA (visualize subjects based on 20 random features)
 set.seed(423542)
@@ -44,7 +45,7 @@ PCA with ggplot2 - the above example gives a shortcut for the following:
 
 ```{r density2, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.path = "figure/"}
 # Arrange projected data onto a data frame
-m <- sample_data(pseq)
+m <- sample_data(pseq2)
 coms <- intersect(rownames(proj), rownames(m))
 df <- as.data.frame(cbind(proj[coms,], m[coms,]))
 names(df) <- c("x", "y", colnames(m))
@@ -80,8 +81,8 @@ ggplot(aes(x = Comp.1, y = Comp.2, label = rownames(proj)), data = proj) + geom_
 
 ```{r pca-physeq1, message=FALSE, message=FALSE, fig.height=8, fig.width=8, fig.path = "figure/"}
 # Ordinate the taxa in NMDS plot with Bray-Curtis distances
-pseq.ord <- ordinate(pseq, "NMDS", "bray")
-p <- plot_ordination(pseq, pseq.ord, type = "taxa", color = "Genus", title = "taxa")
+pseq.ord <- ordinate(pseq2, "NMDS", "bray")
+p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Genus", title = "taxa")
 print(p)
 
 # Group the plots by Phylum

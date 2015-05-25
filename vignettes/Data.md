@@ -131,7 +131,6 @@ pseq <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1
 ```
 ## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
 ## Loading pre-calculated RPA preprocessing parameters
-## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
 ```
 
 Get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
@@ -153,7 +152,6 @@ probedata <- read_hitchip(data.directory, method = "frpa", detection.threshold =
 ```
 ## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
 ## Loading pre-calculated RPA preprocessing parameters
-## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
 ```
 
 ```r
@@ -163,7 +161,6 @@ taxonomy.full <- read_hitchip(data.directory, method = "frpa", detection.thresho
 ```
 ## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
 ## Loading pre-calculated RPA preprocessing parameters
-## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
 ```
 
 
@@ -215,18 +212,18 @@ Pick taxonomy table
 tax.table <- tax_table(pseq)
 ```
 
-OTU data (the zero point has been moved to the detection threshold; typically signal 1.8 at HITChip log10 scale). In this example the OTU level corresponds to genus-like groups (the function name otu_table is somewhat misleading):
+Pick taxa abundance data matrix. In this example the OTU level corresponds to genus-like groups (the function name otu_table is somewhat misleading):
 
 
 ```r
 abundance.table <- otu_table(pseq)@.Data
 ```
 
-Higher-level taxa on HITChip:
+Aggregate the abundance matrix to higher-level taxa on HITChip:
 
 
 ```r
-pseq2 <- aggregate_taxa(pseq, "Phylum")
-dat <- otu_table(pseq2)@.Data
+pseq2 <- aggregate_taxa(pseq, "Phylum") # Aggregate into phyloseq object
+dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
 ```
 

@@ -51,30 +51,3 @@ print(p)
 ![plot of chunk LCA1](figure/LCA1-1.png) 
 
 
-## Hierarchical clustering: reproduce profiling script plot 
-
-
-```r
-# Download example data
-library(microbiome)
-pseq <- download_microbiome("peerj32")$physeq
-
-# Pick OTU log10 data
-otu <- otu_table(pseq)@.Data
-otu.log10 <- log10(otu)
-
-# Hierarchical clustering plot (write into png file)
-metric <- "pearson" # note: use log10 with Pearson!
-hc <- calculate.hclust(otu.log10, method = "complete", metric = metric)
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "calculate.hclust"
-```
-
-```r
-plot(hc, hang=-1, main = paste("Hierarchical clustering (", metric, ")", sep = ""), las = 1, xlab = "")
-```
-
-![plot of chunk clustering-example](figure/clustering-example-1.png) 
-

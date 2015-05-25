@@ -8,7 +8,7 @@ library(microbiome)
 data.directory <- system.file("extdata", package = "microbiome")
 
 # Read oligo-level data (here: simulated example data)
-probedata <- read.profiling(data.directory, method = "frpa")$probedata
+probedata <- read_hitchip(data.directory, method = "frpa")$probedata
 
 # Read phylogeny map
 # NOTE: use phylogeny.filtered for species/L1/L2 summarization
@@ -29,7 +29,8 @@ dat <- summarize_probedata(
 Get probes for each probeset:
 
 ```{r probelevel-ex2}
-sets <- retrieve.probesets(phylogeny.info, level = "species", name = NULL)
+sets <- retrieve.probesets(taxonomy, level = "species", name = NULL)
+head(sets)
 ```
 
 
@@ -37,7 +38,8 @@ Get probeset data matrix/matrices:
 
 ```{r probelevel-ex3}
 set <- get.probeset("Actinomyces naeslundii", "species",
-       		    taxonomy, probedata, log10 = TRUE)
+       		     taxonomy, probedata, log10 = TRUE)
+kable(set[1:3, 1:5])
 ```
 
 
