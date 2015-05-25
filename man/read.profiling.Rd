@@ -4,7 +4,7 @@
 \alias{read.profiling}
 \title{Read HITChip run.profiling.script output into R}
 \usage{
-read.profiling(data.dir, method)
+read.profiling(data.dir, method, verbose = TRUE)
 }
 \arguments{
 \item{data.dir}{Profiling script output directory for reading the data.
@@ -13,6 +13,8 @@ If not given, GUI will ask to specify the file and
    function call.}
 
 \item{method}{Select the preprocessing method that you like to check}
+
+\item{verbose}{verbose}
 }
 \value{
 data matrix (phylo x samples)

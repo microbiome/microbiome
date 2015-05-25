@@ -87,6 +87,10 @@ Pick samples by specific metadata fields
 pseq.subset2 <- subset_samples(pseq.subset, nationality == "US")
 ```
 
+```
+## Error in sample_data(physeq): error in evaluating the argument 'object' in selecting a method for function 'sample_data': Error: object 'pseq.subset' not found
+```
+
 
 ### Variable operations
 
@@ -313,6 +317,10 @@ Filter by user-specified function values (here variance)
 f <- filter_taxa(r, function(x) var(x) > 1e-05, TRUE)
 ```
 
+```
+## Error in inherits(x, get.component.classes()): object 'r' not found
+```
+
 
 List unique phylum-level groups: 
 
@@ -390,4 +398,5 @@ pseq.rarified <- rarefy_even_depth(pseq)
 ## Error in validObject(.Object): invalid class "otu_table" object: 
 ##  OTU abundance data must have non-zero dimensions.
 ```
+
 

@@ -33,6 +33,7 @@ The microbiome package contains general-purpose tools for microarray-based analy
 
 The analyses are based on the phyloseq class from the independent [phyloseq](https://github.com/joey711/phyloseq) R package. Convert your data into phyloseq format before testing these examples.
 
+For probe-level summarization of phylogenetic microarray data we use and recommend Robust Probabilistic Averaging (RPA) [`r citep(citation("RPA"))`; `r citep("10.1109/TCBB.2009.38")`].
 
 ### How to start 
 

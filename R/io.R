@@ -5,6 +5,7 @@
 #'             	   overruns the possible level / method arguments in the 
 #'             	   function call.
 #' @param method Select the preprocessing method that you like to check
+#' @param verbose verbose
 #' 
 #' @return data matrix (phylo x samples)
 #'
@@ -22,7 +23,7 @@ read.profiling <- function(data.dir, method, verbose = TRUE) {
 
   results <- list()
 
-# Read probe-level data
+  # Read probe-level data
   f <- paste(data.dir, "/oligoprofile.tab", sep = "")
   tab <- read.csv(f, header = TRUE, sep = "\t", row.names = 1, as.is = TRUE)
   colnames(tab) <- unlist(strsplit(readLines(f, 1), "\t"))[-1]

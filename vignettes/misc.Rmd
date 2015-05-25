@@ -10,7 +10,7 @@ data.david2014 <- download_microbiome("david2014")
 ```
 -->
 
-
+<!--Preprocessing of HITChip data is based on RPA [`r citep(citation("RPA"))`; `r citep("10.1109/TCBB.2009.38")`]-->
 
 
 ```{r diversitywithmetadata, warning=FALSE, message=FALSE, fig.width=9, fig.heigth=6, fig.path = "figure/"}

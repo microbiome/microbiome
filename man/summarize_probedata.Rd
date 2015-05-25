@@ -28,6 +28,20 @@ Summarize phylogenetic microarray probe-level data from given input folder.
 }
 \examples{
 #
+library(microbiome)
+data.directory <- system.file("extdata", package = "microbiome")
+# Read oligo-level data (here: simulated example data)
+probedata <- read.profiling(data.directory, method = "frpa")$probedata
+# Read phylogeny map
+# NOTE: use phylogeny.filtered for species/L1/L2 summarization
+# Load taxonomy from output directory
+taxonomy <- GetPhylogeny("HITChip", "filtered")
+# Summarize oligos into higher level phylotypes
+dat <- summarize_probedata(
+                 probedata = probedata,
+		 taxonomy = taxonomy,
+                method = "rpa",
+		 level = "species")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
