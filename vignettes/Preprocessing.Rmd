@@ -11,6 +11,33 @@ pseq <- download_microbiome("dietswap")
 ```
 
 
+### Sample operations
+
+Sample names and variables
+
+```{r preprocess2b, warning=FALSE, message=FALSE}
+head(sample_names(pseq))
+```
+
+Sample sums
+
+```{r preprocess2c, warning=FALSE, message=FALSE}
+head(sample_sums(pseq))
+```
+
+Abundance of a given species in each sample
+
+```{r preprocess2d, warning=FALSE, message=FALSE}
+head(get_sample(pseq, taxa_names(pseq)[1]))
+```
+
+Filter samples
+
+```{r preprocess3, warning=FALSE, message=FALSE}
+f1 <- filterfun_sample(topp(0.1))
+taxa <- genefilter_sample(pseq, f1, A = round(0.5 * nsamples(pseq)))
+```
+
 ### Estimating relative abundancies
 
 Estimate relative abundance of the taxa in each sample. Note: the
@@ -32,39 +59,9 @@ rel <- relative.abundance(dat, det.th = 0)
 ```
 
 
-### Sample operations
-
-Transform sample counts. Here, calculate relative abundances:
-
-```{r preprocess2, warning=FALSE, message=FALSE}
-r <- transform_sample_counts(pseq, function(x) x/sum(x))
-```
-
-Sample names and variables
-
-```{r preprocess2b, warning=FALSE, message=FALSE}
-head(sample_names(pseq))
-```
-
-Sample sums
-
-```{r preprocess2c, warning=FALSE, message=FALSE}
-head(sample_sums(pseq))
-```
-
-Abundance for species ‘i’ in each sample
-
-```{r preprocess2d, warning=FALSE, message=FALSE}
-head(get_sample(pseq, taxa_names(pseq)[1]))
-```
-
-
-
+Pick samples by specific metadata fields
 
 ```{r data-subsetting}
-
-
-# Pick samples by specific metadata fields
 pseq.subset2 <- subset_samples(pseq.subset, nationality == "US")
 ```
 
@@ -88,12 +85,20 @@ head(get_variable(pseq, sample_variables(pseq)[3]))
 ### Taxa operations
 
 
-Filter samples
+Number of taxa
 
-```{r preprocess3, warning=FALSE, message=FALSE}
-f1 <- filterfun_sample(topp(0.1))
-taxa <- genefilter_sample(pseq, f1, A = round(0.5 * nsamples(pseq)))
+```{r preprocess3e, warning=FALSE, message=FALSE}
+ntaxa(pseq)
 ```
+
+
+Names
+
+```{r preprocess3f, warning=FALSE, message=FALSE}
+rank_names(pseq)
+taxa_names(pseq)
+```
+
 
 Prune taxa
 
@@ -120,29 +125,14 @@ Filter by user-specified function values (here variance)
 f <- filter_taxa(r, function(x) var(x) > 1e-05, TRUE)
 ```
 
-Number of taxa
 
-```{r preprocess3e, warning=FALSE, message=FALSE}
-ntaxa(pseq)
-```
-
-
-Names
-
-```{r preprocess3f, warning=FALSE, message=FALSE}
-rank_names(pseq)
-taxa_names(pseq)
-```
-
-
-Pick taxa by rank
+List unique phylum-level groups: 
 
 ```{r preprocess3g, warning=FALSE, message=FALSE}
-# List unique phylum-level groups in the data
 head(get_taxa_unique(pseq, "Phylum"))
 ```
 
-Pick taxa by sample name:
+Pick detected taxa by sample name:
 
 ```{r preprocess3gg, warning=FALSE, message=FALSE}
 get_taxa(pseq, sample_names(pseq)[[1]])
@@ -158,10 +148,10 @@ head(taxa_sums(pseq))
 
 ### Merging operations for phyloseq objects
 
-```{r preprocess-merge, warning=FALSE, message=FALSE}
-# merge_phyloseq()
-# merge_taxa()
-# tax_glom()
+```{r preprocess-merge, warning=FALSE, message=FALSE, eval=FALSE}
+merge_phyloseq()
+merge_taxa()
+tax_glom()
 ```
 
 
@@ -170,4 +160,5 @@ head(taxa_sums(pseq))
 ```{r preprocess-rarify, warning=FALSE, message=FALSE}
 pseq.rarified <- rarefy_even_depth(pseq)
 ```
+
 

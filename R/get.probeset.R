@@ -3,7 +3,7 @@
 #' 
 #'   @param name name
 #'   @param level taxonomic level
-#'   @param phylogeny.info phylogeny.info
+#'   @param taxonomy taxonomy
 #'   @param probedata oligos vs. samples preprocessed data matrix; 
 #'                    absolute scale
 #'   @param log10 Logical. Logarithmize the data TRUE/FALSE
@@ -13,19 +13,19 @@
 #'
 #' @export
 #' @examples 
-#'   phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
+#'   taxonomy <- GetPhylogeny('HITChip', 'filtered')
 #'   data.dir <- system.file("extdata", package = "microbiome")
-#'   probedata <- read.profiling("frpa", data.dir = data.dir)$oligo
-#'   ps <- get.probeset('Akkermansia', 'L2', phylogeny.info, probedata)
+#'   probedata <- read.profiling(data.dir, "rpa")$probedata
+#'   ps <- get.probeset('Akkermansia', 'L2', taxonomy, probedata)
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-get.probeset <- function(name, level, phylogeny.info, probedata, log10 = TRUE) {
+get.probeset <- function(name, level, taxonomy, probedata, log10 = TRUE) {
     
-    phylogeny.info <- as.data.frame(phylogeny.info)
+    taxonomy <- as.data.frame(taxonomy)
 
     # Pick probes for this entity
-    probes <- retrieve.probesets(phylogeny.info, level, name)
+    probes <- retrieve.probesets(taxonomy, level, name)
     
     sets <- vector(length = length(probes), mode = "list")
     names(sets) <- names(probes)
@@ -36,12 +36,7 @@ get.probeset <- function(name, level, phylogeny.info, probedata, log10 = TRUE) {
         p <- intersect(probes[[nam]], rownames(probedata))
         dat <- NULL
         if (length(p) > 0) {
-            dat <- probedata[p, ]
-            
-            dat <- matrix(dat, nrow = length(probes[[nam]]))
-            rownames(dat) <- probes[[nam]]
-            colnames(dat) <- colnames(probedata)
-            
+            dat <- probedata[p, ]  
             # Logarithmize probeset?
             if (log10) {
                 dat <- log10(dat)
