@@ -1,15 +1,15 @@
+## Microbiome stability analysis
 
-### Intermediate stability 
 
-Calculate stability as the average correlation between samples and their
-mean for a given phylotypes vs. samples matrix.
-
-Download example data (Lahti et al. Nat. Comm. 5:4344, 2014):
+Download example data [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
 
 ```{r bistability}
 library(microbiome)
 pseq <- download_microbiome("atlas1006")
 ```
+
+
+## Intermediate stability 
 
 Quantify temporal stability across the abundance range for each taxa
 
