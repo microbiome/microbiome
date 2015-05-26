@@ -8,7 +8,8 @@
 #'   @return projected data matrix
 #'
 #' @export
-#' @import MASS
+#' @importFrom MASS isoMDS
+#' @importFrom MASS sammon
 #' @import mixOmics
 #'
 #' @examples 

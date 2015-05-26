@@ -2,10 +2,13 @@
 #'
 #' @param x Data vector for which bimodality will be quantified
 #' @param bs.iter Bootstrap iterations
+#' @param na.rm Remove NAs
+#' @param type Bimodality score type
+#'             ("Sarle.finite.sample" or "Sarle.asymptotic")
 #'
 #' @return Bimodality score
 #'
-#' @examples coefficient_of_bimodality(rnorm(100), type = "finite.sample")
+#' @examples coefficient_of_bimodality(rnorm(100), type = "Sarle.finite.sample")
 #' @export
 #' @importFrom moments skewness
 #' @importFrom moments kurtosis
@@ -29,10 +32,8 @@
 #'
 #' @references 
 #'   Shade et al. mBio 5(4):e01371-14, 2014.
-#'
-#'   Ellison AM (1987) Effect of seed dimorphism on the density-dependent dynamics of experimental populations of Atriplex triangularis (Chenopodiaceae). Am J Botany 74(8): 1280–1288
-#'
-#'   SAS Institute Inc. (2012). SAS/STAT 12.1 user’s guide. Cary, NC: Author.   
+#'   Ellison AM (1987) Am J Botany 74(8):1280-1288.
+#'   SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.
 #'
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

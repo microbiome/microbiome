@@ -2,33 +2,55 @@
 % Please edit documentation in R/bimodality.R
 \name{coefficient_of_bimodality}
 \alias{coefficient_of_bimodality}
-\title{Coefficient of bimodality}
+\title{Coefficient of bimodality (Sarle's bimodality coefficient b)}
 \usage{
-coefficient_of_bimodality(x, bs.iter = 1)
+coefficient_of_bimodality(x, bs.iter = 1, na.rm = TRUE,
+  type = "Sarle.finite.sample")
 }
 \arguments{
 \item{x}{Data vector for which bimodality will be quantified}
 
 \item{bs.iter}{Bootstrap iterations}
+
+\item{na.rm}{Remove NAs}
+
+\item{type}{Bimodality score type
+            ("Sarle.finite.sample" or "Sarle.asymptotic")}
 }
 \value{
 Bimodality score
 }
 \description{
-Coefficient of bimodality
+Coefficient of bimodality (Sarle's bimodality coefficient b)
 }
 \details{
-Coefficient of bimodality used in Shade et al. 2014 and Ellison AM Am. J. Bot. 1987
+The coefficient lies in (0, 1).
+
+	    The 'Sarle.asymptotic' version is defined as
+         \deqn{b = (g^2 + 1) / k}.
+         This is coefficient of bimodality from Ellison AM Am. J. Bot. 1987,
+         for microbiome analysis it has been used for instance in
+         Shade et al. 2014.
+
+         The formula for 'Sarle.finite.sample' (SAS 2012):
+
+	    \deqn{b = \frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
+         where n is sample size and
+
+         In both formulas, \eqn{g} is sample skewness and \eqn{k} is the kth
+         standardized moment (also called the sample kurtosis, or
+         excess kurtosis).
 }
 \examples{
-coefficient_of_bimodality(rnorm(100))
+coefficient_of_bimodality(rnorm(100), type = "Sarle.finite.sample")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
 Shade et al. mBio 5(4):e01371-14, 2014.
-  AM Ellison, Am. J. Bot 74:1280-8, 1987.
+  Ellison AM (1987) Am J Botany 74(8):1280-1288.
+  SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.
 
   To cite the microbiome R package, see citation('microbiome')
 }
