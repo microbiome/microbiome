@@ -33,7 +33,7 @@ proj <- project.data(log10(x), type = "PCA") # MDS.classical etc.
 
 Visualize and highlight:
 
-```{r ordination4, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.path = "figure/"}
+```{r ordination4, message=FALSE, warning=FALSE, fig.width=12, fig.height=8, fig.path = "figure/"}
 # Highlight gender
 p <- densityplot(proj, col = sample_data(pseq2)$gender, legend = T)
 print(p)
@@ -58,7 +58,7 @@ See [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-exampl
 
 ### NMDS with Bray-Curtis distances
 
-```{r ordination3, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.path = "figure/"}
+```{r ordination3, message=FALSE, warning=FALSE, fig.width=15, fig.height=8}
 nmds <- ordinate(pseq, "NMDS", "bray")
 ```
 
@@ -116,7 +116,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", color = "gender",
 plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", shape = "Phylum")
 ```
 
-See [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). 
+
 
 
 
