@@ -17,7 +17,7 @@
 import_hitchip <- function(data.dir, method = "frpa", detection.threshold = 0) {
 
   # Read	     
-  res <- read.profiling(data.dir, method = method)
+  res <- read_profiling(data.dir, method = method)
   taxonomy <- res$taxonomy
   probedata <- res$probedata
   meta <- res$meta

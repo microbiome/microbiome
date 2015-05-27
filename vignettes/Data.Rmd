@@ -61,7 +61,7 @@ metadata and taxonomy; without detection thresholding):
 
 ```{r dataread, eval=TRUE, message=FALSE, warning=FALSE}
 # Read precalculated HITChip data and check available data entries
-chipdata <- read.profiling(method = "frpa", data.dir = data.directory)
+chipdata <- read_profiling(method = "frpa", data.dir = data.directory)
 print(names(chipdata))
 
 # Pick specific data field (for instance oligo level or L2-level data)
@@ -109,8 +109,8 @@ Convert your own data matrices into phyloseq format as follows:
 ```{r pseqconversion2, eval = FALSE}
 # We need to choose the HITChip data level to be used in the analyses
 # In this example use HITChip L2 data (note: this is in absolute scale)
-otu <- read.profiling(method = "frpa", data.dir = data.directory)$L2
-meta <- read.profiling(method = "frpa", data.dir = data.directory)$meta
+otu <- read_profiling(method = "frpa", data.dir = data.directory)$L2
+meta <- read_profiling(method = "frpa", data.dir = data.directory)$meta
 taxonomy <- GetPhylogeny("HITChip", "filtered")
 taxonomy <- unique(as.data.frame(taxonomy[, c("L1", "L2")]))
 rownames(taxonomy) <- as.vector(taxonomy[, "L2"])

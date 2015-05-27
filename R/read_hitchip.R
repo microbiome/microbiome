@@ -26,7 +26,7 @@ read_hitchip <- function(data.dir, method = "rpa", detection.threshold = 0) {
   pseq <- import_hitchip(data.dir, method = method, detection.threshold = detection.threshold)
 
   # Read data
-  res <- read.profiling(data.dir, method = method, verbose = FALSE)
+  res <- read_profiling(data.dir, method = method, verbose = FALSE)
 
   # Probe-level taxonomies
   # (not available in the final pseq object)
