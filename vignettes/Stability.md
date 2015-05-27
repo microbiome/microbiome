@@ -101,7 +101,9 @@ library(gridExtra)
 grid.arrange(p1, p2, nrow = 1)
 ```
 
-![plot of chunk stability2](figure/stability2-1.png) 
+```
+## Error: could not find function "ggplotGrob"
+```
 
 
 ## Comparing bimodality and intermediate stability
@@ -113,9 +115,37 @@ The analysis suggests that bimodal population distribution across individuals is
 df <- data.frame(group = tax,
                  intermediate.stability = intermediate.stability[tax],
 		 bimodality = bimodality.pb[tax])
+```
+
+```
+## Error in data.frame(group = tax, intermediate.stability = intermediate.stability[tax], : object 'tax' not found
+```
+
+```r
 theme_set(theme_bw(20))
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "theme_set"
+```
+
+```r
 p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "ggplot"
+```
+
+```r
 p <- p + geom_text(size = 3)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "geom_text"
+```
+
+```r
 p
 ```
 
@@ -155,10 +185,9 @@ sessionInfo()
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] ggplot2_1.0.1       gridExtra_0.9.1     diptest_0.75-6     
-##  [4] microbiome_0.99.52  RPA_1.24.0          affy_1.46.0        
-##  [7] Biobase_2.28.0      BiocGenerics_0.14.0 phyloseq_1.13.2    
-## [10] knitr_1.10.5        scimapClient_0.2.1 
+## [1] gridExtra_0.9.1     microbiome_0.99.52  RPA_1.24.0         
+## [4] affy_1.46.0         Biobase_2.28.0      BiocGenerics_0.14.0
+## [7] phyloseq_1.13.2     knitr_1.10.5        scimapClient_0.2.1 
 ## 
 ## loaded via a namespace (and not attached):
 ##   [1] nlme_3.1-120              bitops_1.0-6             
@@ -173,7 +202,7 @@ sessionInfo()
 ##  [19] moments_0.14              preprocessCore_1.30.0    
 ##  [21] chron_2.3-45              rdryad_0.1.1             
 ##  [23] formatR_1.2               RGCCA_2.0                
-##  [25] labeling_0.3              tseries_0.10-34          
+##  [25] tseries_0.10-34           diptest_0.75-6           
 ##  [27] scales_0.2.4              lmtest_0.9-33            
 ##  [29] genefilter_1.50.0         quadprog_1.5-5           
 ##  [31] OAIHarvester_0.1-7        tgp_2.4-11               
@@ -205,11 +234,12 @@ sessionInfo()
 ##  [83] lambda.r_1.1.7            data.table_1.9.4         
 ##  [85] spam_1.0-1                foreach_1.4.2            
 ##  [87] gtable_0.1.2              assertthat_0.1           
-##  [89] xtable_1.7-4              sorvi_0.7.23             
-##  [91] Kendall_2.2               survival_2.38-1          
-##  [93] pheatmap_1.0.2            iterators_1.0.7          
-##  [95] som_0.3-5                 AnnotationDbi_1.30.1     
-##  [97] IRanges_2.2.1             fields_8.2-1             
-##  [99] cluster_2.0.1             rgl_0.95.1247
+##  [89] ggplot2_1.0.1             xtable_1.7-4             
+##  [91] sorvi_0.7.23              Kendall_2.2              
+##  [93] survival_2.38-1           pheatmap_1.0.2           
+##  [95] iterators_1.0.7           som_0.3-5                
+##  [97] AnnotationDbi_1.30.1      IRanges_2.2.1            
+##  [99] fields_8.2-1              cluster_2.0.1            
+## [101] rgl_0.95.1247
 ```
 
