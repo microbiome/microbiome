@@ -1,105 +1,116 @@
 # Microbiome stability analysis
 
-Download example data - HITChip Atlas of 130 genus-like taxa across 1006 healthy western adults from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). A subset of 76 subjects have also short time series for temporal stability analysis:
+Download example data - HITChip Atlas of 130 genus-like taxa across 1006 healthy western adults from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). A subset of 76 subjects have also short time series available for temporal stability analysis:
 
 ```{r bistability}
 library(microbiome)
 pseq <- download_microbiome("atlas1006")
+
+# Let us keep only prevalent taxa
+# (HITChip signal >3 in >20 percent of the samples)
+pseq <- filter_prevalent(pseq, detection.threshold = 10^3,
+     			       prevalence.threshold = 0.2)
 ```
 
 
-## Intermediate stability 
 
-Quantify temporal stability across the abundance range for each taxa
+## Quantify intermediate stability 
+
+It has been reported that certain microbial groups exhibit bi-stable
+abundance distributions with distinct peaks at low and high
+abundances, and an instable intermediate abundance range.
+
+Instability at the intermediate abundance range is hence one indicator
+of bi-stability.
+
+[Lahti et
+al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html))
+use straightforward correlation analysis to quantify how the distance
+from the intermediate abundance region (50% quantile) is associated
+with the observed shifts between consecutive time points. This can be
+calculated with:
 
 ```{r bistability2}
-stability <- intermediate_stability(pseq, method = "correlation")
-intermediate.stability <- sapply(stability, function (x) {x$stability})
+intermediate.stability <- intermediate_stability(pseq, output = "scores")
 ```
 
 
-## Bimodality analysis
+## Quantify bimodality 
 
-Multiple scores are available to calculate coefficients of bimodality
-for each taxonomic group. Some of the scores are more generally
-quantifying multimodality, or deviation from unimodality but do not
-yield estimates of the number of modes. 
+Bistable systems often exhibit bimodal population patterns. Hence,
+bimodality of the abundance distribution provides another indicator of
+bistability, although other explanations for bimodality (sampling
+biases; heterogeneous population structure etc.) are also possible.
+
+Multiple bimodality scores are available. Perform cross-sectional
+analysis of bimodality by including only the samples from the zero
+time point:
 
 ```{r bimodality, message=FALSE, warning=FALSE, fig.path = "figure/"}
-# Pick samples from zero time point (cross-sectional analysis)
 pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
-
-# Bimodality score with potential analysis + bootstrap 
-bimodality <- multimodality(pseq0, method = "potential_bootstrap")
-
-# Coefficient of bimodality. Also see the function coefficient_of_bimodality
-bimodality.coef <- multimodality(pseq0, method = "coefficient_of_bimodality")
 ```
 
-DIP test for multimodality:
+
+[Multimodality score with potential analysis with
+bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
+
+
+```{r bimodality2, message=FALSE, warning=FALSE, fig.path = "figure/"}
+bimodality.pb <- bimodality(pseq0, method = "potential_bootstrap")
+```
+
+Sarle's bimodality coefficient (see help(coefficient_of_bimodality)):
+
+```{r bimodality3, message=FALSE, warning=FALSE, fig.path = "figure/"}
+bimodality.sarle <- bimodality(pseq0, method = "Sarle.finite.sample")
+```
+
+
+DIP test for multimodality (not included in the microbiome package):
 
 ```{r bimodality-dip, message=FALSE, warning=FALSE, fig.path = "figure/"}
-# DIP multimodality test uses the separate diptest package.
-library(diptest)
-
-# Pick OTU log10 data
-otu <- otu_table(pseq0)@.Data
-dip <- apply(otu, 1, function (x) dip.test(x, simulate.p.value = TRUE, B = 1000))
-dip2 <- data.frame(t(sapply(dip, function (x) {c(x$statistic, x$p.value)})))
-colnames(dip2) <- c("score", "p.value")
-dip2$tax <- names(dip)
-
-# Dip measures unimodality. Values range between 0 to 1. 
-# Values less than 0.05 indicate significant deviation from unimodality. 
-# To score multimodality, use the inverse:
-multimodality.dip <- 1 - dip2$score
+bimodality.dip <- bimodality(pseq0, method = "dip")
 ```
 
 
-Compare the alternative bimodality scores
+Visualize population densities 
 
-```{r bimodality-comp, message=FALSE, warning=FALSE, fig.path = "figure/"}
-pairs(cbind(pb = bimodality, bc = bimodality.coef, dip = multimodality.dip))
-```
-
-
-Visualize population densities for selected taxa
-
-```{r stability2, message=FALSE, warning=FALSE, fig.path = "figure/", fig.width=10, fig.height=5}
+```{r stability2, message=FALSE, warning=FALSE, fig.width=10, fig.height=5}
 # Pick the most and least bimodal taxa as examples
+bimodality <- bimodality.pb
 unimodal <- names(which.min(bimodality))
-bimodal <- names(which.max(bimodality))
+bimodal  <- names(which.max(bimodality))
 
 # Visualize population frequencies
 p1 <- plot_density(pseq, otu.name = unimodal, log10 = TRUE) 
-p2 <- plot_density(pseq, otu.name = bimodal, log10 = TRUE) 
+p2 <- plot_density(pseq, otu.name = bimodal,  log10 = TRUE) 
 library(gridExtra)
 grid.arrange(p1, p2, nrow = 1)
 ```
 
 
-## Bimodality versus intermediate stability
+## Comparing bimodality and intermediate stability
 
-The analysis suggests that bimodal taxa tend to have instable intermediate abundances (following [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) but with a different subset, parameters and model):
+The analysis suggests that bimodal population distribution across individuals is often associated with instable intermediate abundances within individuals. The specific bi-stable groups in the upper left corner were suggested in [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
 
 ```{r bimodalitybistability, message=FALSE, warning=FALSE, fig.path = "figure/"}
-# For clarity, visualize only the prevalent taxa seen with HITChip signal >250
-# (note HITChip signal reflects read count but is conceptually different) 
-# in at least 10% of the samples. 
-pseqf <- filter_taxa(pseq0, function(x) sum(x > 300) > (0.2*length(x)), TRUE)
-
-# Taxa that have bistability and bimodality estimates
-s <- taxa_names(pseqf)
-
-plot(intermediate.stability[s], bimodality[s], xlab = "Intermediate stability", ylab = "Bimodality", type = "n")
-text(intermediate.stability[s], bimodality[s], label = s, cex = 0.7)
+df <- data.frame(group = tax,
+                 intermediate.stability = intermediate.stability[tax],
+		 bimodality = bimodality.pb[tax])
+theme_set(theme_bw(20))
+p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
+p <- p + geom_text(size = 3)
+p
 ```
 
 
 ### TODO
 
-Add examples on tipping elements.
+ * tipping element heatmap
 
+ * stability line plot
+
+ * classification of the taxa into the distinct abundance types
 
 ### Version information
 

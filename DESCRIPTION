@@ -17,6 +17,7 @@ Depends:
 Imports:
     ade4,
     vegan,
+    diptest,
     dplyr,
     earlywarnings,
     ggplot2,

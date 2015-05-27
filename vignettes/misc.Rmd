@@ -1,3 +1,28 @@
+```{r bimodality-dip, message=FALSE, warning=FALSE, fig.path = "figure/"}
+# DIP multimodality test uses the separate diptest package.
+library(diptest)
+
+# Pick OTU log10 data
+otu <- otu_table(pseq0)@.Data
+dip <- apply(otu, 1, function (x) dip.test(x, simulate.p.value = TRUE, B = 1000))
+dip2 <- data.frame(t(sapply(dip, function (x) {c(x$statistic, x$p.value)})))
+colnames(dip2) <- c("score", "p.value")
+dip2$tax <- names(dip)
+
+# Dip quantifies unimodality. Values range between 0 to 1. 
+# Values less than 0.05 indicate significant deviation from unimodality. 
+# To score multimodality, use the inverse:
+multimodality.dip <- 1 - dip2$score
+```
+
+
+Compare the alternative bimodality/multimodality scores
+
+```{r bimodality-comp, message=FALSE, warning=FALSE}
+pairs(cbind(pb = bimodality.pb, bc = bimodality.sarle, dip = bimodality.dip))
+```
+
+
 ```{r pca-physeq2, message=FALSE, message=FALSE, fig.height=8, fig.width=8, fig.path = "figure/"}
 # Example data
 pseq <- download_microbiome("dietswap")
