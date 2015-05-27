@@ -1,7 +1,6 @@
-## Microbiome stability analysis
+# Microbiome stability analysis
 
-
-Download example data [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
+Download example data - HITChip Atlas of 130 genus-like taxa across 1006 healthy western adults from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). A subset of 76 subjects have also short time series for temporal stability analysis:
 
 ```{r bistability}
 library(microbiome)
