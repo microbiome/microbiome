@@ -85,6 +85,7 @@ bimodal  <- names(which.max(bimodality))
 p1 <- plot_density(pseq, otu.name = unimodal, log10 = TRUE) 
 p2 <- plot_density(pseq, otu.name = bimodal,  log10 = TRUE) 
 library(gridExtra)
+library(ggplot2)
 grid.arrange(p1, p2, nrow = 1)
 ```
 
@@ -94,23 +95,16 @@ grid.arrange(p1, p2, nrow = 1)
 The analysis suggests that bimodal population distribution across individuals is often associated with instable intermediate abundances within individuals. The specific bi-stable groups in the upper left corner were suggested in [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
 
 ```{r bimodalitybistability, message=FALSE, warning=FALSE, fig.path = "figure/"}
-df <- data.frame(group = tax,
-                 intermediate.stability = intermediate.stability[tax],
-		 bimodality = bimodality.pb[tax])
+taxa <- taxa_names(pseq0)
+df <- data.frame(group = taxa,
+                 intermediate.stability = intermediate.stability[taxa],
+		 bimodality = bimodality.pb[taxa])
 theme_set(theme_bw(20))
 p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
 p <- p + geom_text(size = 3)
 p
 ```
 
-
-### TODO
-
- * tipping element heatmap
-
- * stability line plot
-
- * classification of the taxa into the distinct abundance types
 
 ### Version information
 
