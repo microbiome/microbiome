@@ -75,7 +75,5 @@ pseq <- subset_samples(pseq0, group == "DI")
 plot_bar(pseq, x = "timepoint.within.group", fill = "Phylum", facet_grid = ~nationality)
 ```
 
-```
-## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
-```
+![plot of chunk barplot](figure/barplot-1.png) 
 

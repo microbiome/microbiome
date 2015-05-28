@@ -26,7 +26,7 @@ plot_composition(pseq, taxonomic.level = "Phylum")
 
 Same with relative abundances:
 
-```{r composition-example3, fig.path = "figure/", fig.width=8, fig.height=5}
+```{r composition-example3, fig.path = "figure/", fig.width=8, fig.height=12}
 p <- plot_composition(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
 p <- p + guides(fill = guide_legend(nrow = 12, byrow = TRUE))
 p <- p + theme(legend.position = "bottom")
