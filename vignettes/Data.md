@@ -12,6 +12,75 @@ Data from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/20
 
 ```r
 library(microbiome)
+```
+
+```
+## Loading required package: phyloseq
+## Loading required package: RPA
+## Loading required package: parallel
+## Loading required package: affy
+## Loading required package: BiocGenerics
+## 
+## Attaching package: 'BiocGenerics'
+## 
+## The following objects are masked from 'package:parallel':
+## 
+##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+##     clusterExport, clusterMap, parApply, parCapply, parLapply,
+##     parLapplyLB, parRapply, parSapply, parSapplyLB
+## 
+## The following object is masked from 'package:stats':
+## 
+##     xtabs
+## 
+## The following objects are masked from 'package:base':
+## 
+##     anyDuplicated, append, as.data.frame, as.vector, cbind,
+##     colnames, do.call, duplicated, eval, evalq, Filter, Find, get,
+##     intersect, is.unsorted, lapply, Map, mapply, match, mget,
+##     order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+##     rbind, Reduce, rep.int, rownames, sapply, setdiff, sort,
+##     table, tapply, union, unique, unlist, unsplit
+## 
+## Loading required package: Biobase
+## Welcome to Bioconductor
+## 
+##     Vignettes contain introductory material; view with
+##     'browseVignettes()'. To cite Bioconductor, see
+##     'citation("Biobase")', and for packages 'citation("pkgname")'.
+## 
+## 
+## Attaching package: 'Biobase'
+## 
+## The following object is masked from 'package:phyloseq':
+## 
+##     sampleNames
+## 
+## 
+## RPA Copyright (C) 2008-2014 Leo Lahti.
+## This program comes with ABSOLUTELY NO WARRANTY.
+## This is free software, and you are welcome to redistribute it under the FreeBSD open source license.
+## 
+## 
+## microbiome R package (microbiome.github.com)
+##           
+## 
+## 
+##  Copyright (C) 2011-2015
+##           Leo Lahti and Jarkko Salojarvi 
+## 
+##         
+##           <microbiome-admin@googlegroups.com>
+## 
+## 
+## Attaching package: 'microbiome'
+## 
+## The following object is masked _by_ '.GlobalEnv':
+## 
+##     harmonize_fields
+```
+
+```r
 data.atlas <- download_microbiome("atlas1006")
 ```
 
@@ -82,7 +151,7 @@ metadata and taxonomy; without detection thresholding):
 
 ```r
 # Read precalculated HITChip data and check available data entries
-chipdata <- read.profiling(method = "frpa", data.dir = data.directory)
+chipdata <- read_profiling(method = "frpa", data.dir = data.directory)
 print(names(chipdata))
 ```
 
@@ -170,8 +239,8 @@ Convert your own data matrices into phyloseq format as follows:
 ```r
 # We need to choose the HITChip data level to be used in the analyses
 # In this example use HITChip L2 data (note: this is in absolute scale)
-otu <- read.profiling(method = "frpa", data.dir = data.directory)$L2
-meta <- read.profiling(method = "frpa", data.dir = data.directory)$meta
+otu <- read_profiling(method = "frpa", data.dir = data.directory)$L2
+meta <- read_profiling(method = "frpa", data.dir = data.directory)$meta
 taxonomy <- GetPhylogeny("HITChip", "filtered")
 taxonomy <- unique(as.data.frame(taxonomy[, c("L1", "L2")]))
 rownames(taxonomy) <- as.vector(taxonomy[, "L2"])
