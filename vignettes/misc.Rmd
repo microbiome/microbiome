@@ -1,3 +1,12 @@
+# Read HITChip data in phyloseq format
+# Pick specific data field (for instance oligo level or L2-level data)
+probe.data <- chipdata[["probedata"]]
+l2.data <- chipdata[["L2"]]
+pseq <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$pseq
+
+
+
+
 ```{r bimodality-dip, message=FALSE, warning=FALSE, fig.path = "figure/"}
 # DIP multimodality test uses the separate diptest package.
 library(diptest)
