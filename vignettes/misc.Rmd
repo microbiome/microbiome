@@ -4,6 +4,20 @@ probe.data <- chipdata[["probedata"]]
 l2.data <- chipdata[["L2"]]
 pseq <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$pseq
 
+dats <- read_profiling(data.dir = data.path, method = "frpa")$species
+
+s <- intersect(rownames(dat), rownames(otu_table(pseq.L2)))
+plot(unlist(log10(dat[s,])), log10(unlist(otu_table(pseq.L2)@.Data[s, ])))
+
+s <- intersect(rownames(dats), rownames(otu_table(pseq)))
+plot(unlist(log10(dats[s,])), log10(unlist(otu_table(pseq)@.Data[s, ])))
+
+s <- intersect(rownames(dats), rownames(otu_table(data0$pseq)))
+plot(unlist(log10(dats[s,])), log10(unlist(otu_table(data0$pseq)@.Data[s, ])))
+
+data0 <- read_hitchip(data.dir = data.path, method = "frpa", detection.threshold = 0)
+
+dat <- read_profiling(data.dir = data.path, method = "frpa")$L2
 
 
 

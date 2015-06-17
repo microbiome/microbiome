@@ -61,23 +61,22 @@ hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 10^1.8
       	       
     }
     rownames(taxonomy) <- as.character(taxonomy[[input.level]])
-    
+  }
 
-    if (!all(rownames(otumat) %in% rownames(taxonomy))) {
+  if (!all(rownames(otumat) %in% rownames(taxonomy))) {
       warning(paste("Some OTUs are missing from the taxonomy tree!", paste(setdiff(rownames(otumat), rownames(taxonomy)), collapse = " / ")))
       # Common probes or OTUs
       coms <- intersect(rownames(otumat), rownames(taxonomy))
       # Only keep probes that have taxonomy information
       otumat <- otumat[coms, ]
       taxonomy <- taxonomy[coms, ]
-    }
+   }
 
-    TAX <- tax_table(as.matrix(taxonomy[rownames(otumat), ]))
+  TAX <- tax_table(as.matrix(taxonomy[rownames(otumat), ]))
 
-    # Combine OTU and Taxon matrix into Phyloseq object
-    pseq <- merge_phyloseq(pseq, TAX)
-  }
-
+  # Combine OTU and Taxon matrix into Phyloseq object
+  pseq <- merge_phyloseq(pseq, TAX)
+  
   # -------------------------
 
   if (!is.null(meta)) {

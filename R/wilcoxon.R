@@ -24,15 +24,14 @@ check_wilcoxon <- function (x, group, p.adjust.method = "BH", sort = FALSE) {
   g <- group
   if (length(g) == 1) {
     g <- sample_data(x)[[g]]
-    if (length(unique(g)) == 2) {
-      g <- factor(g)
-    }
+
     if (!is.factor(g)) {
-      stop(paste("The grouping variable", g, "must be a factor"))
+      warning(paste("Converting the grouping variable", group, "into a factor."))
+      g <- as.factor(g)
     }    
     g <- droplevels(g)
     if (!length(levels(g)) == 2) {
-      stop("check_wilcoxon is valid only for two-group comparisons")
+      stop(paste("check_wilcoxon is valid only for two-group comparisons. The selected variable", group, "has", length(unique(g)), "levels: ", paste(unique(g), collapse = "/")))
     }
   }
 
