@@ -119,6 +119,8 @@ for (tax in top.groups) {
 
 ### Hierarchical clustering
 
+Cluster the samples in probe-level data with hierarchical clustering:
+
 ```{r example-, echo=TRUE, message=FALSE}
 # Calculate dissimilarity matrix
 d <- 1 - cor(as.matrix(otu_table(pseq.probe)@.Data), method = "spearman")
