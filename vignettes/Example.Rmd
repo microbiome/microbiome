@@ -7,7 +7,7 @@ This Rmarkdown document shows how to carry out some basic HITChip analysis with 
 
 Run this to make sure you have the latest version of the microbiome package:
 
-```{r, echo=TRUE, message=FALSE, cache=TRUE}
+```{r example-1, echo=TRUE, message=FALSE, cache=TRUE}
 # Updating microbiome package
 library(devtools)
 install_github("microbiome/microbiome")
@@ -15,7 +15,7 @@ install_github("microbiome/microbiome")
 
 Load the tools:
 
-```{r, echo=TRUE, message=FALSE}
+```{r example-2, echo=TRUE, message=FALSE}
 # Loading microbiome package
 library(microbiome)
 ```
@@ -24,7 +24,7 @@ library(microbiome)
 
 Change the data.path to your own data folder here:
 
-```{r, echo=TRUE, message=FALSE}
+```{r example-3, echo=TRUE, message=FALSE}
 # data.directory <- "/home/mydata/hitchip/"
 data.path <- system.file("extdata", package = "microbiome")
 print(paste("Reading data from:", data.path))
@@ -35,7 +35,7 @@ print(paste("Reading data from:", data.path))
 
 Read HITChip data and check available data entries:
 
-```{r, echo=TRUE, message=FALSE}
+```{r example-4, echo=TRUE, message=FALSE}
 # Read HITChip data from the given folder, preprocessed with fRPA
 data <- read_hitchip(data.dir = data.path, method = "frpa", detection.threshold = 10^1.8)
 
@@ -53,7 +53,7 @@ pseq.probe <- hitchip2physeq(t(data$probedata), sample_data(data$pseq), detectio
 
 Use probe-level data (pseq.probe) to quantify diversity:
 
-```{r, echo=TRUE, message=FALSE}
+```{r example-5, echo=TRUE, message=FALSE}
 # Diversity estimation
 diversities <- estimate_diversity(pseq.probe)[, c("Shannon", "InvSimpson")]
 
@@ -67,7 +67,7 @@ kable(diversities[1:5,])
 
 Estimate richness (probe count):
 
-```{r, echo=TRUE, message=FALSE}
+```{r example-6, echo=TRUE, message=FALSE}
 # Estimate richness
 res <- estimate_diversity(pseq.probe, det.th = 1)
 richness <- res$Observed
@@ -80,7 +80,7 @@ richness[1:5]
 
 Visualize diversity vs. discrete metadata variable (here 'diet' but you can call any variable from your metadata):
 
-```{r, echo=TRUE, message=FALSE}
+```{r example-7, echo=TRUE, message=FALSE}
 plot_diversity(pseq.probe, x = "diet", measures = "Shannon")
 plot_diversity(pseq.probe, x = "diet", measures = "InvSimpson")
 ```
@@ -92,14 +92,14 @@ Wilcoxon test for each OTU based on gender comparison. You can replace the gende
 
 Run Wilcoxon test and show the first 5 values (sorted by p-value):
 
-```{r, echo=TRUE, message=FALSE}
+```{r example-8, echo=TRUE, message=FALSE}
 res <- check_wilcoxon(pseq.L2, "gender", p.adjust.method = "BH", sort = TRUE)
 kable(res[1:5,])
 ```
 
-[Volcano plot](https://en.wikipedia.org/wiki/Volcano_plot_%28statistics%29):
+[Volcano plot](https://en.wikipedia.org/wiki/Volcano_plot_%28statistics%29) shows how the fold-changes and p-values are related. In general, if there are significant findings, the fold-changes tend to be larger with smaller p-values:
 
-```{r, echo=TRUE, message=FALSE}
+```{r example-9, echo=TRUE, message=FALSE}
 library(ggplot2)
 ggplot(res, aes(x = p.value, y = fold.change.log10)) + 
   geom_point() + 
@@ -108,7 +108,7 @@ ggplot(res, aes(x = p.value, y = fold.change.log10)) +
 
 Boxplots of the most significant groups:
 
-```{r, echo=TRUE, message=FALSE}
+```{r example-10, echo=TRUE, message=FALSE}
 top.groups <- rownames(res)[1:4]
 for (tax in top.groups) {
   p <- boxplot_abundance(pseq.L2, x = "gender", y = tax, log10 = TRUE, title = tax)
@@ -119,7 +119,7 @@ for (tax in top.groups) {
 
 ### Hierarchical clustering
 
-```{r, echo=TRUE, message=FALSE}
+```{r example-, echo=TRUE, message=FALSE}
 # Calculate dissimilarity matrix
 d <- 1 - cor(as.matrix(otu_table(pseq.probe)@.Data), method = "spearman")
 # Perform hierarchical clustering

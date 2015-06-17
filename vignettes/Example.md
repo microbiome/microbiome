@@ -14,6 +14,10 @@ library(devtools)
 install_github("microbiome/microbiome")
 ```
 
+```
+## Error: Command failed (3)
+```
+
 Load the tools:
 
 
@@ -120,13 +124,13 @@ Visualize diversity vs. discrete metadata variable (here 'diet' but you can call
 plot_diversity(pseq.probe, x = "diet", measures = "Shannon")
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
+![plot of chunk example-7](figure/example-7-1.png) 
 
 ```r
 plot_diversity(pseq.probe, x = "diet", measures = "InvSimpson")
 ```
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-2.png) 
+![plot of chunk example-7](figure/example-7-2.png) 
 
 ### Wilcoxon test
 
@@ -151,7 +155,7 @@ kable(res[1:5,])
 |Asteroleplasma et rel. | 0.8696424|         0.1995724|
 |Aerococcus             | 0.8696424|         0.2825466|
 
-[Volcano plot](https://en.wikipedia.org/wiki/Volcano_plot_%28statistics%29):
+[Volcano plot](https://en.wikipedia.org/wiki/Volcano_plot_%28statistics%29) shows how the fold-changes and p-values are related. In general, if there are significant findings, the fold-changes tend to be larger with smaller p-values:
 
 
 ```r
@@ -161,7 +165,7 @@ ggplot(res, aes(x = p.value, y = fold.change.log10)) +
   xlim(0, 1)
 ```
 
-![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
+![plot of chunk example-9](figure/example-9-1.png) 
 
 Boxplots of the most significant groups:
 
@@ -174,7 +178,7 @@ for (tax in top.groups) {
 }
 ```
 
-![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-2.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-3.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-4.png) 
+![plot of chunk example-10](figure/example-10-1.png) ![plot of chunk example-10](figure/example-10-2.png) ![plot of chunk example-10](figure/example-10-3.png) ![plot of chunk example-10](figure/example-10-4.png) 
 
 
 ### Hierarchical clustering
@@ -189,7 +193,7 @@ hc <- hclust(as.dist(d), method = "complete")
 plot(hc, hang = -1)
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
+![plot of chunk example-](figure/example--1.png) 
 
 
 
