@@ -2,8 +2,8 @@
 #'
 #' @param pseq \code{\link{phyloseq-class}} object
 #'
-#' @param x A variable to map to the horizontal axis.
-#' @param y The variable to map on the vertical axis
+#' @param x Metadata variable to map to the horizontal axis.
+#' @param y OTU to map on the vertical axis
 #' @param line The variable to map on lines
 #' @param color The variable to map on colors
 #' @param log10 show y axis on log scale

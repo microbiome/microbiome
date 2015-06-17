@@ -87,17 +87,45 @@ plot_diversity(pseq.probe, x = "diet", measures = "InvSimpson")
 
 ### Wilcoxon test
 
-Wilcoxon test for each OTU based on gender comparison. You can replace the gender with any variable that is available in your sample metadata and has exactly two groups:
+Wilcoxon test for each OTU based on gender comparison. You can replace the gender with any variable that is available in your sample metadata and has exactly two groups.
+
+
+Run Wilcoxon test and show the first 5 values (sorted by p-value):
 
 ```{r, echo=TRUE, message=FALSE}
-# Run Wilcoxon test
-pval <- check_wilcoxon(pseq.L2, "gender", p.adjust.method = "BH", sort = TRUE)
+res <- check_wilcoxon(pseq.L2, "gender", p.adjust.method = "BH", sort = TRUE)
+kable(res[1:5,])
+```
 
-# Show the first 5 values
-print(pval[1:5])
+[Volcano plot](https://en.wikipedia.org/wiki/Volcano_plot_%28statistics%29):
+
+```{r, echo=TRUE, message=FALSE}
+library(ggplot2)
+ggplot(w, aes(x = p.value, y = fold.change.log10)) + 
+  geom_point() + 
+  xlim(0, 1)
+```
+
+Boxplots of the most significant groups:
+
+```{r, echo=TRUE, message=FALSE}
+top.groups <- rownames(w)[1:4]
+for (tax in top.groups) {
+  boxplot_abundance(pseq.L2, x = "gender", y = tax, log10 = TRUE, title = tax)
+}
 ```
 
 
+### Hierarchical clustering
+
+```{r, echo=TRUE, message=FALSE}
+# Calculate dissimilarity matrix
+d <- 1 - cor(as.matrix(otu_table(pseq.probe)@.Data), method = "spearman")
+# Perform hierarchical clustering
+hc <- hclust(as.dist(d), method = "complete")
+# Show the plot
+plot(hc, hang = -1)
+```
 
 
 

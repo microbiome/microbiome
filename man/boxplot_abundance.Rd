@@ -10,9 +10,9 @@ boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = TRUE,
 \arguments{
 \item{pseq}{\code{\link{phyloseq-class}} object}
 
-\item{x}{A variable to map to the horizontal axis.}
+\item{x}{Metadata variable to map to the horizontal axis.}
 
-\item{y}{The variable to map on the vertical axis}
+\item{y}{OTU to map on the vertical axis}
 
 \item{line}{The variable to map on lines}
 

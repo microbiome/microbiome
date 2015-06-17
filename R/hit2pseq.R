@@ -47,6 +47,7 @@ hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 10^1.8
   # Construct taxonomy table
   # If nrow(otumat) then it is probe-level data and no taxonomy should be given
   # for that by default
+print(dim(otumat))
   if (is.null(taxonomy) && nrow(otumat) < 3000) {
 
     ph <- as.data.frame(GetPhylogeny("HITChip")@.Data)
@@ -63,7 +64,7 @@ hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 10^1.8
     rownames(taxonomy) <- as.character(taxonomy[[input.level]])
   }
 
-  if (!all(rownames(otumat) %in% rownames(taxonomy))) {
+  if (!all(rownames(otumat) %in% rownames(taxonomy)) && nrow(otumat) < 3000) {
       warning(paste("Some OTUs are missing from the taxonomy tree!", paste(setdiff(rownames(otumat), rownames(taxonomy)), collapse = " / ")))
       # Common probes or OTUs
       coms <- intersect(rownames(otumat), rownames(taxonomy))
@@ -72,10 +73,12 @@ hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 10^1.8
       taxonomy <- taxonomy[coms, ]
    }
 
-  TAX <- tax_table(as.matrix(taxonomy[rownames(otumat), ]))
+   if (!is.null(taxonomy) || nrow(otumat) < 3000) {
+     TAX <- tax_table(as.matrix(taxonomy[rownames(otumat), ]))
 
-  # Combine OTU and Taxon matrix into Phyloseq object
-  pseq <- merge_phyloseq(pseq, TAX)
+     # Combine OTU and Taxon matrix into Phyloseq object
+     pseq <- merge_phyloseq(pseq, TAX)
+  }
   
   # -------------------------
 
