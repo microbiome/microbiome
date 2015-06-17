@@ -1,3 +1,6 @@
+*_cache
+*_files
+
 Phyloseq.R
 Phyloseq_files
 tmp*

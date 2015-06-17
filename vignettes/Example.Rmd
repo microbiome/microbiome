@@ -1,0 +1,103 @@
+# Example document
+
+This Rmarkdown document shows how to carry out some basic HITChip analysis with RStudio. [Download this file], open it in RStudio, and then press the 'Knit HTML button'. This will generate and open a HTML file with some analysis with an example data set. You can then modify this file to use your own data (see below), or add new analyses.
+
+
+## Update the microbiome package
+
+Run this to make sure you have the latest version of the microbiome package:
+
+```{r, echo=TRUE, message=FALSE, cache=TRUE}
+# Updating microbiome package
+library(devtools)
+install_github("microbiome/microbiome")
+```
+
+Load the tools:
+
+```{r, echo=TRUE, message=FALSE}
+# Loading microbiome package
+library(microbiome)
+```
+
+## Define your data folder
+
+Change the data.path to your own data folder here:
+
+```{r, echo=TRUE, message=FALSE}
+# data.directory <- "/home/mydata/hitchip/"
+data.path <- system.file("extdata", package = "microbiome")
+print(paste("Reading data from:", data.path))
+```
+
+
+## Reading probe-level data
+
+Read HITChip data and check available data entries:
+
+```{r, echo=TRUE, message=FALSE}
+# Read HITChip data from the given folder, preprocessed with fRPA
+data <- read_hitchip(data.dir = data.path, method = "frpa", detection.threshold = 10^1.8)
+
+# 'OTU' (species-level) data in phyloseq data
+pseq.species <- data$pseq
+
+# L2 data in phyloseq format
+pseq.L2 <- aggregate_taxa(pseq.species, level = "L2")
+
+# Probe-level data in phyloseq format
+pseq.probe <- hitchip2physeq(t(data$probedata), sample_data(data$pseq), detection.limit = 10^1.8)
+```
+
+## Diversity 
+
+Use probe-level data (pseq.probe) to quantify diversity:
+
+```{r, echo=TRUE, message=FALSE}
+# Diversity estimation
+diversities <- estimate_diversity(pseq.probe)[, c("Shannon", "InvSimpson")]
+
+# Show diversity estimates for the first 5 samples:
+library(knitr)
+kable(diversities[1:5,])
+```
+
+
+## Richness
+
+Estimate richness (probe count):
+
+```{r, echo=TRUE, message=FALSE}
+# Estimate richness
+res <- estimate_diversity(pseq.probe, det.th = 1)
+richness <- res$Observed
+names(richness) <- rownames(res)
+
+# Show richness estimates for the first 5 samples
+richness[1:5]
+```
+
+
+Visualize diversity vs. discrete metadata variable (here 'diet' but you can call any variable from your metadata):
+
+```{r, echo=TRUE, message=FALSE}
+plot_diversity(pseq.probe, x = "diet", measures = "Shannon")
+plot_diversity(pseq.probe, x = "diet", measures = "InvSimpson")
+```
+
+### Wilcoxon test
+
+Wilcoxon test for each OTU based on gender comparison. You can replace the gender with any variable that is available in your sample metadata and has exactly two groups:
+
+```{r, echo=TRUE, message=FALSE}
+# Run Wilcoxon test
+pval <- check_wilcoxon(pseq.L2, "gender", p.adjust.method = "BH", sort = TRUE)
+
+# Show the first 5 values
+print(pval[1:5])
+```
+
+
+
+
+
