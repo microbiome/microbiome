@@ -7,7 +7,8 @@ This Rmarkdown document shows how to carry out some basic HITChip analysis with 
 
 Run this to make sure you have the latest version of the microbiome package:
 
-```{r, echo=TRUE, message=FALSE, cache=TRUE}
+
+```r
 # Updating microbiome package
 library(devtools)
 install_github("microbiome/microbiome")
@@ -15,7 +16,8 @@ install_github("microbiome/microbiome")
 
 Load the tools:
 
-```{r, echo=TRUE, message=FALSE}
+
+```r
 # Loading microbiome package
 library(microbiome)
 ```
@@ -24,10 +26,15 @@ library(microbiome)
 
 Change the data.path to your own data folder here:
 
-```{r, echo=TRUE, message=FALSE}
+
+```r
 # data.directory <- "/home/mydata/hitchip/"
 data.path <- system.file("extdata", package = "microbiome")
 print(paste("Reading data from:", data.path))
+```
+
+```
+## [1] "Reading data from: /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata"
 ```
 
 
@@ -35,10 +42,17 @@ print(paste("Reading data from:", data.path))
 
 Read HITChip data and check available data entries:
 
-```{r, echo=TRUE, message=FALSE}
+
+```r
 # Read HITChip data from the given folder, preprocessed with fRPA
 data <- read_hitchip(data.dir = data.path, method = "frpa", detection.threshold = 10^1.8)
+```
 
+```
+## [1] 1025   20
+```
+
+```r
 # 'OTU' (species-level) data in phyloseq data
 pseq.species <- data$pseq
 
@@ -49,11 +63,16 @@ pseq.L2 <- aggregate_taxa(pseq.species, level = "L2")
 pseq.probe <- hitchip2physeq(t(data$probedata), sample_data(data$pseq), detection.limit = 10^1.8)
 ```
 
+```
+## [1] 3181   20
+```
+
 ## Diversity 
 
 Use probe-level data (pseq.probe) to quantify diversity:
 
-```{r, echo=TRUE, message=FALSE}
+
+```r
 # Diversity estimation
 diversities <- estimate_diversity(pseq.probe)[, c("Shannon", "InvSimpson")]
 
@@ -63,11 +82,22 @@ kable(diversities[1:5,])
 ```
 
 
+
+|         |  Shannon| InvSimpson|
+|:--------|--------:|----------:|
+|Sample.1 | 5.854566|   194.7215|
+|Sample.2 | 5.516757|   117.1191|
+|Sample.3 | 5.994427|   237.3818|
+|Sample.4 | 5.414883|   121.0294|
+|Sample.5 | 5.355688|   111.0888|
+
+
 ## Richness
 
 Estimate richness (probe count):
 
-```{r, echo=TRUE, message=FALSE}
+
+```r
 # Estimate richness
 res <- estimate_diversity(pseq.probe, det.th = 1)
 richness <- res$Observed
@@ -77,13 +107,26 @@ names(richness) <- rownames(res)
 richness[1:5]
 ```
 
+```
+## Sample.1 Sample.2 Sample.3 Sample.4 Sample.5 
+##     1453     1254     1917     1138     1120
+```
+
 
 Visualize diversity vs. discrete metadata variable (here 'diet' but you can call any variable from your metadata):
 
-```{r, echo=TRUE, message=FALSE}
+
+```r
 plot_diversity(pseq.probe, x = "diet", measures = "Shannon")
+```
+
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-1.png) 
+
+```r
 plot_diversity(pseq.probe, x = "diet", measures = "InvSimpson")
 ```
+
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7-2.png) 
 
 ### Wilcoxon test
 
@@ -92,23 +135,38 @@ Wilcoxon test for each OTU based on gender comparison. You can replace the gende
 
 Run Wilcoxon test and show the first 5 values (sorted by p-value):
 
-```{r, echo=TRUE, message=FALSE}
+
+```r
 res <- check_wilcoxon(pseq.L2, "gender", p.adjust.method = "BH", sort = TRUE)
 kable(res[1:5,])
 ```
 
+
+
+|                       |   p.value| fold.change.log10|
+|:----------------------|---------:|-----------------:|
+|Collinsella            | 0.8696424|         0.7078125|
+|Corynebacterium        | 0.8696424|        -0.2030747|
+|Propionibacterium      | 0.8696424|         0.0605491|
+|Asteroleplasma et rel. | 0.8696424|         0.1995724|
+|Aerococcus             | 0.8696424|         0.2825466|
+
 [Volcano plot](https://en.wikipedia.org/wiki/Volcano_plot_%28statistics%29):
 
-```{r, echo=TRUE, message=FALSE}
+
+```r
 library(ggplot2)
 ggplot(res, aes(x = p.value, y = fold.change.log10)) + 
   geom_point() + 
   xlim(0, 1)
 ```
 
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
+
 Boxplots of the most significant groups:
 
-```{r, echo=TRUE, message=FALSE}
+
+```r
 top.groups <- rownames(res)[1:4]
 for (tax in top.groups) {
   p <- boxplot_abundance(pseq.L2, x = "gender", y = tax, log10 = TRUE, title = tax)
@@ -116,10 +174,13 @@ for (tax in top.groups) {
 }
 ```
 
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-2.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-3.png) ![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-4.png) 
+
 
 ### Hierarchical clustering
 
-```{r, echo=TRUE, message=FALSE}
+
+```r
 # Calculate dissimilarity matrix
 d <- 1 - cor(as.matrix(otu_table(pseq.probe)@.Data), method = "spearman")
 # Perform hierarchical clustering
@@ -127,6 +188,8 @@ hc <- hclust(as.dist(d), method = "complete")
 # Show the plot
 plot(hc, hang = -1)
 ```
+
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
 
 
 
