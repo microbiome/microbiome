@@ -67,7 +67,8 @@ print(p)
 ### Coloured Barplots
 
 The following example visualizes samples, colored by Phylum
-percentages.
+percentages (in this example data the Phylum is approximated by 16S
+sequence similarity, not exactly Phylum):
 
 
 ```r

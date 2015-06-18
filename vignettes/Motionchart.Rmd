@@ -9,7 +9,7 @@ library(microbiome)
 data.directory <- system.file("extdata", package = "microbiome")
 metadata.example.file <- paste(data.directory, "/meta.tab", sep = "")
 metadata.simulated <- read.csv(metadata.example.file, sep = "\t", as.is = TRUE)
-genus.matrix.log10.simulated <- read.profiling(data.directory, method = "frpa")$L2
+genus.matrix.log10.simulated <- read_profiling(data.directory, method = "frpa")$L2
 
 # Combine phylotype profiling data and sample metadata
 df <- cbind(metadata.simulated, t(genus.matrix.log10.simulated))  

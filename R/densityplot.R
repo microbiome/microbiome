@@ -19,15 +19,16 @@
 #'
 #' @export
 #' @import ggplot2
-#' @import MASS
+#' @importFrom MASS bandwidth.nrd
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 densityplot <- function(mat, main = NULL, x.ticks = 10, rounding = 0, 
                add.points = TRUE, 
     col = "red", adjust = 1, size = 1, legend = FALSE) {
-    
+
+    mat <- as.matrix(mat)
+
     # Avoid warnings
     x <- y <- ..density.. <- color <- NULL
     

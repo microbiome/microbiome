@@ -4,7 +4,8 @@
 \alias{check_wilcoxon}
 \title{Calculate Wilcoxon test (with BH correction) for two-group comparison}
 \usage{
-check_wilcoxon(x, group, p.adjust.method = "BH", sort = FALSE)
+check_wilcoxon(x, group, p.adjust.method = "BH", sort = FALSE,
+  paired = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object or a data matrix
@@ -16,16 +17,18 @@ check_wilcoxon(x, group, p.adjust.method = "BH", sort = FALSE)
 (default 'BH'). For other options, see ?p.adjust}
 
 \item{sort}{sort the results}
+
+\item{paired}{Paired comparison (Default: FALSE)}
 }
 \value{
-Corrected p-values for multi-group comparison.
+Corrected p-values for two-group comparison.
 }
 \description{
 Calculate Wilcoxon test (with BH correction) for two-group comparison
 }
 \examples{
 #pseq <- download_microbiome("peerj32")$physeq
-  #pval <- check_wilcoxon(pseq, "time")
+  #pval <- check_wilcoxon(pseq, "gender")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

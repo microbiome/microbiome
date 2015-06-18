@@ -11,14 +11,29 @@
 #'
 #' @export
 #' @examples #
+#' library(microbiome)
+#' data.directory <- system.file("extdata", package = "microbiome")
+#' # Read oligo-level data (here: simulated example data)
+#' probedata <- read_profiling(data.directory, method = "frpa")$probedata
+#' # Read phylogeny map
+#' # NOTE: use phylogeny.filtered for species/L1/L2 summarization
+#' # Load taxonomy from output directory
+#' taxonomy <- GetPhylogeny("HITChip", "filtered")
+#' # Summarize oligos into higher level phylotypes
+#' dat <- summarize_probedata(
+#'                  probedata = probedata,
+#'		 taxonomy = taxonomy, 
+#'                 method = "rpa",
+#'		 level = "species")
 #'
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 summarize_probedata <- function(data.dir = NULL, probedata = NULL, taxonomy = NULL, level, method, probe.parameters = NULL) {
 
-  # If the data is not given as input, read it from the data directory
   # message(paste("Reading Chip data from", data.dir))
+  
+  # If the data is not given as input, read it from the data directory
   if (method == "frpa" && is.null(probe.parameters)) {
      message("Loading pre-calculated RPA preprocessing parameters")
      probes <- unique(taxonomy[, "oligoID"])

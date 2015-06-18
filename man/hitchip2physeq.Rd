@@ -27,7 +27,7 @@ Convert HITChip data into phyloseq format
   data(peerj32)
   otu <- peerj32$microbes
   meta <- peerj32$meta
-  physeq <- hitchip2physeq(otu, meta)
+  pseq <- hitchip2physeq(otu, meta)
 }
 }
 \author{

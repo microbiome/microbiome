@@ -4,14 +4,14 @@
 \alias{get.probeset}
 \title{get probeset data matrix}
 \usage{
-get.probeset(name, level, phylogeny.info, probedata, log10 = TRUE)
+get.probeset(name, level, taxonomy, probedata, log10 = TRUE)
 }
 \arguments{
 \item{name}{name}
 
 \item{level}{taxonomic level}
 
-\item{phylogeny.info}{phylogeny.info}
+\item{taxonomy}{taxonomy}
 
 \item{probedata}{oligos vs. samples preprocessed data matrix;
                  absolute scale}
@@ -25,10 +25,10 @@ probeset data matrix
 get probeset data matrix
 }
 \examples{
-phylogeny.info <- GetPhylogeny('HITChip', 'filtered')
+taxonomy <- GetPhylogeny('HITChip', 'filtered')
   data.dir <- system.file("extdata", package = "microbiome")
-  probedata <- read_profiling("frpa", data.dir = data.dir)$oligo
-  ps <- get.probeset('Akkermansia', 'L2', phylogeny.info, probedata)
+  probedata <- read_profiling(data.dir, "rpa")$probedata
+  ps <- get.probeset('Akkermansia', 'L2', taxonomy, probedata)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

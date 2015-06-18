@@ -6,33 +6,36 @@
 #' @param p.adjust.method p-value correction method for p.adjust function 
 #'               (default 'BH'). For other options, see ?p.adjust
 #' @param sort sort the results
+#' @param paired Paired comparison (Default: FALSE)
 #'
-#' @return Corrected p-values for multi-group comparison.
+#' @return Corrected p-values for two-group comparison.
 #'
 #' @examples 
 #'   #pseq <- download_microbiome("peerj32")$physeq
-#'   #pval <- check_wilcoxon(pseq, "time")
+#'   #pval <- check_wilcoxon(pseq, "gender")
 #'
 #' @export
 #'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-check_wilcoxon <- function (x, group, p.adjust.method = "BH", sort = FALSE) {
+check_wilcoxon <- function (x, group, p.adjust.method = "BH", sort = FALSE, paired = FALSE) {
+
+  # Also calculate fold changes
+  fc <- check_foldchange(x, group, paired = paired)
 
   # Pick the grouping variable from sample metadata
   g <- group
   if (length(g) == 1) {
     g <- sample_data(x)[[g]]
-    if (length(unique(g)) == 2) {
-      g <- factor(g)
-    }
+
     if (!is.factor(g)) {
-      stop(paste("The grouping variable", g, "must be a factor"))
+      warning(paste("Converting the grouping variable", group, "into a factor."))
+      g <- as.factor(g)
     }    
     g <- droplevels(g)
     if (!length(levels(g)) == 2) {
-      stop("check_wilcoxon is valid only for two-group comparisons")
+      stop(paste("check_wilcoxon is valid only for two-group comparisons. The selected variable", group, "has", length(unique(g)), "levels: ", paste(unique(g), collapse = "/")))
     }
   }
 
@@ -41,7 +44,7 @@ check_wilcoxon <- function (x, group, p.adjust.method = "BH", sort = FALSE) {
   }
 
   # Calculate Wilcoxon test with BH p-value correction for gender
-  pval <- suppressWarnings(apply(x, 1, function (xi) {wilcox.test(xi ~ g)$p.value}))
+  pval <- suppressWarnings(apply(x, 1, function (xi) {wilcox.test(xi ~ g, paired = paired)$p.value}))
 
   # Multiple testing correction
   pval <- p.adjust(pval, method = p.adjust.method)
@@ -51,7 +54,8 @@ check_wilcoxon <- function (x, group, p.adjust.method = "BH", sort = FALSE) {
     pval <- sort(pval)
   }
 
-  pval
+  data.frame(list(p.value = pval, fold.change.log10 = fc[names(pval)]))
+
 
 }
 

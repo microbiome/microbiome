@@ -70,7 +70,7 @@ plot_diversity <- function(physeq, x = "group", title = "", measures = "Shannon"
   }
 
   horiz <- value <- NULL
-  DF$horiz <- DF[[x]]
+  DF$horiz <- as.factor(DF[[x]])
 
   # melt to display different alpha-measures separately
   mdf <- melt(DF, measure.vars = measures)

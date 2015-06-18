@@ -1,6 +1,8 @@
 ## Example data sets
 
-Example data sets for microbiome analyses. These examples also show how to convert HITChip data into phyloseq format and perform some standard analyses. For examples on preprocessing the data (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md). For further microbiome example data sets in phyloseq format, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html).
+This page shows how to import HITChip data in R, how to convert HITChip data into phyloseq format, and how to load some published example data sets for microbiome analyses in R. For further microbiome data sets in phyloseq format, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html).
+
+For examples on preprocessing the data (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md).
 
 
 ### HITChip Atlas data 
@@ -48,31 +50,40 @@ data.peerj32 <- download_microbiome("peerj32")
 ```
 
 
-### Loading example data
+### Importing HITChip data
 
-Load simulated example data of the human gut microbiota. With HITChip,
+Importing HITChip data from data folder. With HITChip,
 [fRPA](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)
-is the recommended preprocessing method. 
+is the recommended preprocessing method. You can provide sample
+metadata by adding new fields in the template metadata file your
+HITChip data folder and exporting it again to tab-separated .tab
+format. Some standard, self-explanatory field names include 'sample',
+'time', 'subject', 'group', 'gender', 'diet', 'age'. You can leave
+these out or include further fields. See this [example
+file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/meta.tab).
+
 
 
 ```r
+# Define example data path (replace here data.directory with your own path)
 library(microbiome)
-
-# Define data path (replace data.directory with your own path)
 data.directory <- system.file("extdata", package = "microbiome")
 print(data.directory)
 ```
 
 ```
-## [1] "/home/lei/Rpackages/microbiome/microbiome/inst/extdata"
+## [1] "/home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata"
 ```
 
-```r
-# Read HITChip data (this returns all levels, sample metadata and taxonomy)
-hitchip.data <- read.profiling(method = "frpa", data.dir = data.directory)
+Read HITChip data from the specified folder and probe summarization
+method (returns the precalculated data matrices for all levels, sample
+metadata and taxonomy; without detection thresholding):
 
-# Picking specific data field (for instance oligo level data)
-print(names(hitchip.data))
+
+```r
+# Read precalculated HITChip data and check available data entries
+chipdata <- read_profiling(method = "frpa", data.dir = data.directory)
+print(names(chipdata))
 ```
 
 ```
@@ -81,39 +92,104 @@ print(names(hitchip.data))
 ```
 
 ```r
-oligo <- hitchip.data$oligo
+# Pick specific data field (for instance oligo level or L2-level data)
+probedata <- chipdata[["probedata"]]
+dat <- chipdata[["L2"]]
+
+# Check the output
+kable(head(dat))
 ```
+
+
+
+|                             |   Sample.1|    Sample.2|    Sample.3|   Sample.4|   Sample.5|   Sample.6|   Sample.7|   Sample.8|    Sample.9|   Sample.10|  Sample.11|  Sample.12| Sample.13| Sample.14| Sample.15| Sample.16|  Sample.17| Sample.18|  Sample.19|  Sample.20|
+|:----------------------------|----------:|-----------:|-----------:|----------:|----------:|----------:|----------:|----------:|-----------:|-----------:|----------:|----------:|---------:|---------:|---------:|---------:|----------:|---------:|----------:|----------:|
+|Actinomycetaceae             |   84.76163|    78.29504|   134.13189|  109.30349|  102.27557|   91.90667|  123.30067|   76.80188|    92.14881|   100.80771|  105.48939|   75.44185|  80.54118|  79.29750| 385.23378|  93.70611|  145.87980|  84.28841|   74.86562|   99.49987|
+|Aerococcus                   |   39.46335|    37.15725|    57.04694|   49.92221|   50.12097|   45.20561|   39.18982|   40.00816|    48.15633|    48.88911|   47.43598|   40.01769|  38.47069|  51.66101|  57.82417|  59.01372|   74.22681|  40.46727|   38.66126|   49.77266|
+|Aeromonas                    |   50.05587|    39.16444|    65.74415|   61.35530|   54.83985|   44.42839|   46.46214|   37.13851|    48.41742|    49.84928|   49.77854|   38.50172|  54.63650|  36.81774|  59.30448|  57.19805|   76.79569|  41.01024|   39.13462|   57.59464|
+|Akkermansia                  | 3241.64899| 16118.25264|  3545.40458| 2695.79856| 1373.24405| 3092.14005| 6116.98477| 5479.95341|  2785.46574|  2980.10595| 1997.84190| 2480.54241| 723.33085| 894.08274| 681.38990| 559.76203| 1457.17800| 850.12411| 2778.85817| 2479.55738|
+|Alcaligenes faecalis et rel. |  193.64745|   274.46270|   242.94563|  185.10122|  188.41686|  184.45777|  147.32411|  144.44846|   257.87644|   179.00981|  496.61390|  153.35142| 149.67784| 149.41375| 177.97378| 165.68556|  294.35603| 162.99679|  152.82539|  181.06110|
+|Allistipes et rel.           | 5275.98593|  2885.60708| 26293.81603| 2176.93497| 3004.86107|  679.42221| 1355.59886|  609.17888| 14413.70966| 14237.53229| 7305.26704| 4402.88386| 579.25640| 665.34332| 740.46958| 973.90064| 4646.47323| 906.95959| 4966.18710| 5052.53186|
 
 
 ## HITChip to phyloseq format
 
-The [phyloseq](https://github.com/joey711/phyloseq) is an external high-quality R package with many additional tools for microbiome data analysis. For more info, see [phyloseq demo page](http://joey711.github.io/phyloseq-demo/) and [HITChip phyloseq examples](Phyloseq.md). To convert HITChip data into phyloseq format:
+
+The [phyloseq](https://github.com/joey711/phyloseq) R package provides
+many additional tools for microbiome analyses. See [phyloseq demo
+page](http://joey711.github.io/phyloseq-demo/).
+
+Import HITChip phylotype-level data in
+[phyloseq](https://github.com/joey711/phyloseq) format (note: the
+precalculated matrices are calculated with detection.threshold = 0):
 
 
 ```r
-library(phyloseq)
+pseq <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$pseq
+```
 
+```
+## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
+## Loading pre-calculated RPA preprocessing parameters
+```
+
+Get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
+
+
+```r
+pseq.L2 <- aggregate_taxa(pseq, level = "L2")
+pseq.L1 <- aggregate_taxa(pseq, level = "L1")
+```
+
+Importing HITChip probe-level data and taxonomy from HITChip
+output directory (these are not available in the phyloseq object):
+
+
+```r
+probedata <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$probedata
+```
+
+```
+## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
+## Loading pre-calculated RPA preprocessing parameters
+```
+
+```r
+taxonomy.full <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$taxonomy.full
+```
+
+```
+## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
+## Loading pre-calculated RPA preprocessing parameters
+```
+
+
+Convert your own data matrices into phyloseq format as follows:
+
+
+```r
 # We need to choose the HITChip data level to be used in the analyses
 # In this example use HITChip L2 data (note: this is in absolute scale)
-otu <- hitchip.data$L2
-meta <- hitchip.data$meta
+otu <- read_profiling(method = "frpa", data.dir = data.directory)$L2
+meta <- read_profiling(method = "frpa", data.dir = data.directory)$meta
+taxonomy <- GetPhylogeny("HITChip", "filtered")
+taxonomy <- unique(as.data.frame(taxonomy[, c("L1", "L2")]))
+rownames(taxonomy) <- as.vector(taxonomy[, "L2"])
 
 # Convert to phyloseq
-physeq <- hitchip2physeq(otu, meta)
-```
-
-```
-## Error in as.data.frame(Phylum = unique(taxonomy[, c("Phylum")]), ncol = 1): argument "x" is missing, with no default
+pseq <- hitchip2physeq(t(otu), meta, taxonomy, detection.limit = 10^1.8)
 ```
 
 
-## HITChip from phyloseq
+### Picking data from phyloseq  
+
+Assuming your data is in the phyloseq format, many standard tools can directly operate on that data. If you need to pick specific data sets separately, you can mimic these examples.
+
+Get example data in phyloseq format:
 
 
 ```r
 library(microbiome)
-
-# Get some HITChip data in phyloseq format
 pseq <- download_microbiome("atlas1006")
 ```
 
@@ -121,65 +197,33 @@ pseq <- download_microbiome("atlas1006")
 ## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
 ```
 
+
+Pick sample metadata:
+
+
 ```r
-# Pick the OTU data
-# (note the zero point has been moved to the detection threshold;
-#  typically signal 1.8 at HITChip log10 scale)
-otu <- otu_table(pseq)@.Data
-
-# Sample metadata
 meta <- sample_data(pseq)
+```
 
-# Taxonomy table
+Pick taxonomy table
+
+
+```r
 tax.table <- tax_table(pseq)
 ```
 
-### Subsetting phyloseq data
+Pick taxa abundance data matrix. In this example the OTU level corresponds to genus-like groups (the function name otu_table is somewhat misleading):
 
 
 ```r
-bacteroidetes <- levelmap(NULL, "Phylum", "Genus", tax_table(pseq))$Bacteroidetes
-
-# Keep only the given taxa 
-pseq.subset <- prune_taxa(bacteroidetes, pseq)
-
-# Pick samples by specific metadata fields
-pseq.subset2 <- subset_samples(pseq.subset, group == "DI")
+abundance.table <- otu_table(pseq)@.Data
 ```
 
-```
-## Error in validObject(.Object): invalid class "sample_data" object: Sample Data must have non-zero dimensions.
-```
-
-### Estimating relative abundancies
-
-Estimate relative abundance of the taxa in each sample. Note: the
-input data set needs to be in absolute scale (not logarithmic).
+Aggregate the abundance matrix to higher-level taxa on HITChip:
 
 
 ```r
-rel <- relative.abundance(oligo.data, det.th = min(na.omit(oligo.data)))
+pseq2 <- aggregate_taxa(pseq, "Phylum") # Aggregate into phyloseq object
+dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
 ```
-
-```
-## Error in na.omit(oligo.data): object 'oligo.data' not found
-```
-
-
-### Adding sample metadata
-
-An easy way to provide sample metadata is to create a tab-separated metadata file. You can modify the template metadata file your HITChip data folder in Excel and export it to tab-separated .tab format. Some standard, self-explanatory field names include 'sample', 'time', 'subject', 'group', 'gender', 'diet', 'age'. You can leave these out or include further fields. See this [example file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/metadata.xls). The sample metadata is read together with the other files in the read.profiling function.
-
-
-<!--
-### Long-term follow-up time series (David et al. 2014)
-
-The data set from [David et al. Genome Biology 2014, 15:R89](http://genomebiology.com/2014/15/7/R89):
-
-
-```r
-library(microbiome)
-data.david2014 <- download_microbiome("david2014")
-```
--->
 

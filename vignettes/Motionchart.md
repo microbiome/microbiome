@@ -8,26 +8,13 @@ library(microbiome)
 
 # Load simulated example data
 data.directory <- system.file("extdata", package = "microbiome")
-metadata.example.file <- paste(data.directory, "/metadata.tab", sep = "")
+metadata.example.file <- paste(data.directory, "/meta.tab", sep = "")
 metadata.simulated <- read.csv(metadata.example.file, sep = "\t", as.is = TRUE)
-genus.matrix.log10.simulated <- read.profiling(level = "L2", method = "frpa", 
-			     	      data.dir = data.directory, log10 = TRUE)
-```
+genus.matrix.log10.simulated <- read.profiling(data.directory, method = "frpa")$L2
 
-```
-## Error in read.profiling(level = "L2", method = "frpa", data.dir = data.directory, : unused arguments (level = "L2", log10 = TRUE)
-```
-
-```r
 # Combine phylotype profiling data and sample metadata
 df <- cbind(metadata.simulated, t(genus.matrix.log10.simulated))  
-```
 
-```
-## Error in t(genus.matrix.log10.simulated): error in evaluating the argument 'x' in selecting a method for function 't': Error: object 'genus.matrix.log10.simulated' not found
-```
-
-```r
 # Plot a Motion Chart using googleVis - package
 # Note: requires flash and internet connection
 # use install.packages("googleVis") to install the library if needed
@@ -46,20 +33,10 @@ library(googleVis)
 # using df$time <- rep(1, nrow(df))
 
 # See help(gvisMotionChart) for further details
-mchart <- gvisMotionChart(df, idvar = "sampleID", timevar = "time")  
-```
+mchart <- gvisMotionChart(df, idvar = "sample", timevar = "time")  
 
-```
-## Error in gvisCheckMotionChartData(data, my.options): There is a missmatch between the idvar and timevar specified and the colnames of your data.
-```
-
-```r
 # Plot immediately (opens in browser, requires flash)
 plot(mchart)  
-```
-
-```
-## Error in plot(mchart): error in evaluating the argument 'x' in selecting a method for function 'plot': Error: object 'mchart' not found
 ```
 
 Save as html (needs javascript to open!). NOTE: html file viewing does not work locally - store the html file on server and view through internet:

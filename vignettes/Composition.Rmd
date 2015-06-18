@@ -26,7 +26,7 @@ plot_composition(pseq, taxonomic.level = "Phylum")
 
 Same with relative abundances:
 
-```{r composition-example3, fig.path = "figure/", fig.width=8, fig.height=5}
+```{r composition-example3, fig.path = "figure/", fig.width=8, fig.height=10}
 p <- plot_composition(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
 p <- p + guides(fill = guide_legend(nrow = 12, byrow = TRUE))
 p <- p + theme(legend.position = "bottom")
@@ -36,7 +36,7 @@ print(p)
 
 Arrange by sample variable and use custom X axis labels. Africans have more Prevotella as expected:
 
-```{r composition-example4, fig.path = "figure/", fig.width=12, fig.height=5}
+```{r composition-example4, fig.width=12, fig.height=5}
 # Subset taxa and samples
 pseq <- subset_samples(pseq0, group == "DI" & timepoint.within.group == 1)
 # Pick the top OTUs only
@@ -50,7 +50,8 @@ print(p)
 ### Coloured Barplots
 
 The following example visualizes samples, colored by Phylum
-percentages.
+percentages (in this example data the Phylum is approximated by 16S
+sequence similarity, not exactly Phylum):
 
 ```{r barplot, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, fig.path = "figure/"}
 pseq <- subset_samples(pseq0, group == "DI")
