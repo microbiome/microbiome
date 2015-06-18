@@ -26,9 +26,9 @@ GetPhylogeny <- function(chip, phylogeny.version = "full", data.dir = NULL) {
     if (chip == "HITChip") {
         
       # Phylogeny
-      f <- paste0(data.dir, "/phylogeny.", phylogeny.version, ".tab")
+      f <- paste0(data.dir, "/taxonomy.", phylogeny.version, ".tab")
       tab <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
-      tax.table <- polish.tax.table(tab)
+      tax.table <- tax_table(as.matrix(tab))    
       #tax.table <- as.data.frame(tax_table(tab))
       
       # Get the phylogeny from Github url <-
@@ -42,59 +42,19 @@ GetPhylogeny <- function(chip, phylogeny.version = "full", data.dir = NULL) {
       tax.table <- NULL  
 
     }
-    
+
     tax.table
 
 }
 
 
-#' polish.tax.table
-#'
-#' Ensure tax.table is in correct format
-#' 
-#' @param tax.table tax.table data frame
-#'
-#' @return polished tax.table
-#' @references See citation('microbiome')
-#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @examples 
-#'   #tax.table <- GetPhylogeny('HITChip', 'filtered')
-#'   #tax.table <- polish.tax.table(tax.table)
-#' @keywords internal
-polish.tax.table <- function(tax.table) {
-    
-    colnames(tax.table)[
-          which(colnames(tax.table) == "level.0")] <- "L0"
-    colnames(tax.table)[
-          which(colnames(tax.table) == "level.1")] <- "L1"
-    colnames(tax.table)[
-          which(colnames(tax.table) == "level.2")] <- "L2"
-    
-    colnames(tax.table)[
-          which(colnames(tax.table) == "level 0")] <- "L0"
-    colnames(tax.table)[
-          which(colnames(tax.table) == "level 1")] <- "L1"
-    colnames(tax.table)[
-          which(colnames(tax.table) == "level 2")] <- "L2"
-
-    # Fix some names	  
-    if ("L2" %in% colnames(tax.table)) {
-      tax.table[, "L2"] <- gsub("^Clostridiales$", 
-      		  	        "Clostridium \\(sensu stricto\\)", 
-				tax.table[, "L2"])
-    }
-
-    # Convert into phyloseq taxonomyTable format
-    tax.table <- tax_table(as.matrix(tax.table))    
-    
-}
 
 #' levelmap
 #' 
-#' Map phylotypes between hierarchy levels
+#' Map taxa between hierarchy levels
 #'
-#' @param phylotypes phylotypes to convert; 
-#' 	  if NULL then considering all phylotypes in the tax.table
+#' @param taxa taxa to convert; 
+#' 	  if NULL then considering all taxa in the tax.table
 #' @param from convert from taxonomic level 
 #' @param to convert to taxonomic level
 #' @param tax.table tax.table
@@ -103,13 +63,13 @@ polish.tax.table <- function(tax.table) {
 #'
 #' @examples 
 #'   tax.table <- GetPhylogeny('HITChip', 'filtered')
-#'   levelmap(phylotypes = 'Akkermansia', 'L2', 'L1', tax.table)
+#'   levelmap('Akkermansia', 'L2', 'L1', tax.table)
 #'
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-levelmap <- function(phylotypes = NULL, from, to, tax.table) {
+levelmap <- function(taxa = NULL, from, to, tax.table) {
 
   # If taxonomy table is from phyloseq, pick the data matrix separately	 
   if (class(tax.table) == "taxonomyTable") {
@@ -118,23 +78,22 @@ levelmap <- function(phylotypes = NULL, from, to, tax.table) {
 
   if (from == to) {
     df <- list()
-    df[[to]] <- factor(phylotypes)
+    df[[to]] <- factor(taxa)
     df <- as.data.frame(df)
     return(df)
   }
 
-  #df <- polish.tax.table(tax.table)
   df <- tax_table(as.matrix(tax.table))    
   
-  if (is.null(phylotypes)) {
-    phylotypes <- as.character(unique(df[, from]))
+  if (is.null(taxa)) {
+    taxa <- as.character(unique(df[, from]))
   }
 
   # From higher to lower level
   if (length(unique(df[, from])) <= length(unique(df[, to]))) {
 
     sl <- list()
-    for (pt in phylotypes) {
+    for (pt in taxa) {
 
       inds <- which(as.vector(as.character(df[, from])) == pt)
       pi <- df[inds, to]
@@ -145,13 +104,13 @@ levelmap <- function(phylotypes = NULL, from, to, tax.table) {
   } else {
 
     # From lower to higher level
-    inds <- match(as.character(phylotypes), df[, from])
+    inds <- match(as.character(taxa), df[, from])
     omap <- df[inds, ]
     sl <- omap[,to]
 
   }
      
-  sl
+  as.vector(sl@.Data)
     
 }
 

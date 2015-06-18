@@ -1,39 +1,48 @@
 ### Probe summarization
 
-Summarize (preprocessed) oligo-level data into phylotype level; examples with simulated data; see [read.profiling](reading) to use your own data.
+Summarize (preprocessed) oligo-level data into phylotype level; examples with simulated data; see [read_profiling](reading) to use your own data. We use and recommend the [Robust Probabilistic Averaging (RPA)](https://github.com/antagomir/RPA/wiki) for probe summarization.
+
 
 ```{r probelevel-ex}
 library(microbiome)
 data.directory <- system.file("extdata", package = "microbiome")
 
 # Read oligo-level data (here: simulated example data)
-oligo.matrix.nolog.simulated <- read.profiling(level = "oligo", 
-                                   data.dir = data.directory, log10 = FALSE)
+probedata <- read_hitchip(data.directory, method = "frpa")$probedata
 
 # Read phylogeny map
 # NOTE: use phylogeny.filtered for species/L1/L2 summarization
-# Load phylogeny.info from output directory
-phylogeny.info <- GetPhylogeny("HITChip", "filtered")
+# Load taxonomy from output directory
+taxonomy <- GetPhylogeny("HITChip", "filtered")
 
 # Summarize oligos into higher level phylotypes
-dat <- summarize.probesets(phylogeny.info, 
-                 log10(oligo.matrix.nolog.simulated), 
-                 "frpa", "species", verbose = TRUE, 
-                  phylotype.rm.list("HITChip"))
+dat <- summarize_probedata(
+                 probedata = probedata,
+		 taxonomy = taxonomy, 
+                 method = "rpa",
+		 level = "species")
 ```
 
 
 ### Retrieve probe-level data
 
-Get oligos for each probeset:
+Get probes for each probeset:
 
 ```{r probelevel-ex2}
-sets <- retrieve.probesets(phylogeny.info, level = "species", name = NULL)
+sets <- retrieve.probesets(taxonomy, level = "species", name = NULL)
+head(sets)
 ```
+
 
 Get probeset data matrix/matrices:
 
 ```{r probelevel-ex3}
-set <- get.probeset("Actinomyces naeslundii", "species", 
-             phylogeny.info, oligo.matrix.nolog.simulated, log10 = TRUE)
+set <- get.probeset("Actinomyces naeslundii", "species",
+       		     taxonomy, probedata, log10 = TRUE)
+kable(set[, 1:5])
 ```
+
+
+
+
+

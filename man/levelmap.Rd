@@ -4,11 +4,11 @@
 \alias{levelmap}
 \title{levelmap}
 \usage{
-levelmap(phylotypes = NULL, from, to, tax.table)
+levelmap(taxa = NULL, from, to, tax.table)
 }
 \arguments{
-\item{phylotypes}{phylotypes to convert;
-if NULL then considering all phylotypes in the tax.table}
+\item{taxa}{taxa to convert;
+if NULL then considering all taxa in the tax.table}
 
 \item{from}{convert from taxonomic level}
 
@@ -20,11 +20,11 @@ if NULL then considering all phylotypes in the tax.table}
 mappings
 }
 \description{
-Map phylotypes between hierarchy levels
+Map taxa between hierarchy levels
 }
 \examples{
 tax.table <- GetPhylogeny('HITChip', 'filtered')
-  levelmap(phylotypes = 'Akkermansia', 'L2', 'L1', tax.table)
+  levelmap('Akkermansia', 'L2', 'L1', tax.table)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

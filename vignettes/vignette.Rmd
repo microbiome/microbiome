@@ -33,6 +33,7 @@ The microbiome package contains general-purpose tools for microarray-based analy
 
 The analyses are based on the phyloseq class from the independent [phyloseq](https://github.com/joey711/phyloseq) R package. Convert your data into phyloseq format before testing these examples.
 
+For probe-level summarization of phylogenetic microarray data we use and recommend Robust Probabilistic Averaging (RPA) [`r citep(citation("RPA"))`; `r citep("10.1109/TCBB.2009.38")`].
 
 ### How to start 
 
@@ -47,14 +48,14 @@ Example on reproducible document generation:
 
 * [Download example data sets](Data.md)
 * [Extract data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
-* [Get phylogeny](Phylogeny.md)
+* [Taxonomy](Phylogeny.md)
 * [Preprocessing and Filtering](Preprocessing.md)
 
 ### Visualization and related tools
 
 Download some [example data sets](Data.md) to try these tools:
 
-* [Barplots](Barplots.md)
+* [Barplots](Composition.md)
 * [Boxplots](Boxplots.md)
 * [Density](Density.md)
 * [Heatmaps](Heatmap.md)

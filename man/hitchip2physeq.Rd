@@ -4,7 +4,7 @@
 \alias{hitchip2physeq}
 \title{hitchip2physeq}
 \usage{
-hitchip2physeq(otu, meta, taxonomy = NULL, detection.limit = 1.8)
+hitchip2physeq(otu, meta, taxonomy = NULL, detection.limit = 10^1.8)
 }
 \arguments{
 \item{otu}{Sample x OTU absolute HITChip signal}
@@ -27,7 +27,7 @@ Convert HITChip data into phyloseq format
   data(peerj32)
   otu <- peerj32$microbes
   meta <- peerj32$meta
-  physeq <- hitchip2physeq(otu, meta)
+  pseq <- hitchip2physeq(otu, meta)
 }
 }
 \author{

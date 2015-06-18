@@ -3,9 +3,10 @@
 
 ### Barplot visualizations
 
-Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html). 
+Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html) and [HITChip Barplots](Barplots.md)
 
-Show OTU absolute abundance in each sample:
+
+Load example data:
 
 
 ```r
@@ -20,50 +21,60 @@ pseq0 <- download_microbiome("dietswap")
 
 ```r
 # Pick sample subset
-pseq <- subset_samples(pseq, group == "DI" & nationality == "AFR")
+pseq <- subset_samples(pseq0, group == "DI" & nationality == "AFR")
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'nationality' not found
-```
-
-```r
-# Plot absolute taxon abundances
-plot_abundance(pseq)
-```
-
-![plot of chunk composition-example1](figure/composition-example1-1.png) 
-
-
-Or sum the OTUs at a higher taxonomic level:
+Show OTU absolute abundance in each sample. Plot absolute taxon
+abundances (Note: on HITChip data the Phylum level is only
+approximate):
 
 
 ```r
-plot_abundance(pseq, taxonomic.level = "Phylum")
+plot_composition(pseq, taxonomic.level = "Phylum")
 ```
 
-![plot of chunk composition-example2](figure/composition-example2-1.png) 
-
+![plot of chunk composition-example1b](figure/composition-example1b-1.png) 
 
 Same with relative abundances:
 
 
 ```r
-plot_abundance(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
+p <- plot_composition(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
+p <- p + guides(fill = guide_legend(nrow = 12, byrow = TRUE))
+p <- p + theme(legend.position = "bottom")
+print(p)
 ```
 
 ![plot of chunk composition-example3](figure/composition-example3-1.png) 
 
 
-Arrange by sample variable and use custom X axis labels:
+Arrange by sample variable and use custom X axis labels. Africans have more Prevotella as expected:
 
 
 ```r
 # Subset taxa and samples
 pseq <- subset_samples(pseq0, group == "DI" & timepoint.within.group == 1)
-pseq <- prune_taxa(c("Prevotella melaninogenica et rel.", "Bacteroides fragilis et rel.", "Akkermansia"), pseq)
-plot_abundance(pseq, relative.abundance = TRUE, sort.by = "nationality", x.label = "nationality")
+# Pick the top OTUs only
+pseq <- prune_taxa(names(sort(taxa_sums(pseq), TRUE)[1:5]), pseq)
+p <- plot_composition(pseq, relative.abundance = TRUE, sort.by = "nationality", x.label = "nationality")
+p <- p + guides(fill = guide_legend(ncol = 1))
+p <- p + theme(legend.position = "bottom")
+print(p)
 ```
 
 ![plot of chunk composition-example4](figure/composition-example4-1.png) 
+
+### Coloured Barplots
+
+The following example visualizes samples, colored by Phylum
+percentages (in this example data the Phylum is approximated by 16S
+sequence similarity, not exactly Phylum):
+
+
+```r
+pseq <- subset_samples(pseq0, group == "DI")
+plot_bar(pseq, x = "timepoint.within.group", fill = "Phylum", facet_grid = ~nationality)
+```
+
+![plot of chunk barplot](figure/barplot-1.png) 
 

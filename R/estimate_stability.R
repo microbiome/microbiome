@@ -1,6 +1,5 @@
-#' intermediate_stability
-#'
-#' Description: Quantify intermediate stability with respect to a given reference point. 
+#' Quantify intermediate stability with respect to a given
+#' reference point. 
 #'
 #' @param x \pkg{phyloseq} object.
 #'          Includes otu_table (variables x samples) and
@@ -12,6 +11,8 @@
 #'                        intermediate range is used (min + (max - min)/2)
 #' @param method 'lm' (linear model) or 'correlation';
 #'               the linear model takes time into account as a covariate 
+#' @param output Specify the return mode. Either the "full" set of stability
+#'        analysis outputs, or the "scores" of intermediate stability.
 #' 
 #' @return A list with following elements: 
 #' 	     stability: estimated stability
@@ -41,7 +42,7 @@
 #' #res <- intermediate_stability(x, reference.point = NULL)
 #' #s <- sapply(res, function (x) {x$stability})
 #' @keywords utilities
-intermediate_stability <- function (x, reference.point = NULL, method = "correlation") {
+intermediate_stability <- function (x, reference.point = NULL, method = "correlation", output = "full") {
 
   # Logarithmize the data
   pseq <- x		       
@@ -57,9 +58,14 @@ intermediate_stability <- function (x, reference.point = NULL, method = "correla
     		     	  reference.point = reference.point, 
 		     	  method = method)
   }
-  
-  stability
-  
+
+  if (output == "full") {
+    return(stability)
+  } else if (output == "scores") {
+    intermediate.stability <- sapply(stability, function (x) {x$stability})
+    return(intermediate.stability)  
+  }
+
 }
 
 

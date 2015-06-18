@@ -18,9 +18,6 @@ following commands:
 source("http://www.bioconductor.org/biocLite.R")
 biocLite("ade4")
 biocLite("fastcluster")
-biocLite("df2json")
-biocLite("rjson")
-biocLite("gplots")
 biocLite("devtools")
 biocLite("ggplot2")
 biocLite("Matrix")
@@ -75,15 +72,11 @@ admins. Install the package in R with:
 
 
 ```r
-# Install dependencies
+# Install additional dependencies
 source("http://www.bioconductor.org/biocLite.R")
-biocLite("MASS")
-biocLite("dplyr")
-biocLite("reshape2")
+biocLite("DBI")
 biocLite("RPA")
 biocLite("svDialogs")
-biocLite("vegan")
-biocLite("rpart")
 
 library(devtools) # Load the devtools package
 install_github("microbiome/HITChipDB") # Install the package

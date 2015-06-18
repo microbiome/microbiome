@@ -181,7 +181,7 @@ download_dietswap <- function (...) {
   meta <- read.table(url, sep = ",", row.names = 1, header = TRUE)
 
   # Add SampleIDs as a separate column from rownames
-  meta$SampleID <- rownames(meta)
+  meta$sample <- rownames(meta)
 
   # Order BMI groups in correct order
   # (see README at http://datadryad.org/resource/doi:10.5061/dryad.pk75d 
@@ -204,8 +204,8 @@ download_dietswap <- function (...) {
   atlas <- list(microbes = data, meta = meta)
 
   # Convert in phyloseq format
-  physeq <- hitchip2physeq(data, meta)
+  pseq <- hitchip2physeq(data, meta)
 
-  physeq
+  pseq
 
 }

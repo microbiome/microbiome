@@ -2,9 +2,11 @@
 % Please edit documentation in R/estimate_stability.R
 \name{intermediate_stability}
 \alias{intermediate_stability}
-\title{intermediate_stability}
+\title{Quantify intermediate stability with respect to a given
+reference point.}
 \usage{
-intermediate_stability(x, reference.point = NULL, method = "correlation")
+intermediate_stability(x, reference.point = NULL, method = "correlation",
+  output = "full")
 }
 \arguments{
 \item{x}{\pkg{phyloseq} object.
@@ -17,7 +19,10 @@ data w.r.t. this point. By default the
 intermediate range is used (min + (max - min)/2)}
 
 \item{method}{'lm' (linear model) or 'correlation';
-              the linear model takes time into account as a covariate}
+the linear model takes time into account as a covariate}
+
+\item{output}{Specify the return mode. Either the "full" set of stability
+       analysis outputs, or the "scores" of intermediate stability.}
 }
 \value{
 A list with following elements:
@@ -25,7 +30,8 @@ A list with following elements:
 	     data: processed data set used in calculations
 }
 \description{
-Description: Quantify intermediate stability with respect to a given reference point.
+Quantify intermediate stability with respect to a given
+reference point.
 }
 \details{
 Decomposes each column in x into differences between

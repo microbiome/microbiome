@@ -1,8 +1,8 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.51
-Date: 2015-06-21
+Version: 0.99.53
+Date: 2015-06-18
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Salojarvi", "Jarkko" , role = "aut"))
@@ -15,23 +15,24 @@ Depends:
     phyloseq,
     RPA
 Imports:
-    vegan
-Suggests:
     ade4,
-    BiocGenerics,
-    BiocStyle,
+    vegan,
+    diptest,
     dplyr,
     earlywarnings,
-    e1071,
     ggplot2,
-    knitr,
     MASS,
     mixOmics,
+    moments,
     RColorBrewer,
     rdryad,
     reshape2,
+    sorvi
+Suggests:
+    BiocGenerics,
+    BiocStyle,
+    knitr,
     rmarkdown,
-    sorvi,
     WGCNA
 URL: http://microbiome.github.com
 MailingList: microbiome <microbiome-devel@googlegroups.com>

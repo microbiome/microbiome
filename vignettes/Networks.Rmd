@@ -1,15 +1,25 @@
 
 ## Networks
 
-[Networks](http://joey711.github.io/phyloseq/plot_network-examples)
+Load example data:
+
+```{r ordination1, message=FALSE, warning=FALSE, eval=FALSE}
+library(microbiome)
+# Get some HITChip data in phyloseq format
+pseq.dietswap <- download_microbiome("dietswap")
+```
+
+For more network examples, see [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
 
 ```{r networks, warning=FALSE, message=FALSE}
-library(microbiome)
-data.dietswap <- download_microbiome("dietswap")
+pseq <- pseq.dietswap
+ig <- make_network(pseq, max.dist = 0.2)
+plot_network(ig, pseq, color = "nationality", shape = "group", line_weight = 0.4, label = "sample")
+```
 
-plot_net(physeq, maxdist = 0.45, point_label = "group")
+Another example:
 
-ig <- make_network(physeq, max.dist = 0.45)
-plot_network(ig, physeq, color = "gender", shape = "group", line_weight = 0.4, label = NULL)
+```{r networks2, warning=FALSE, message=FALSE}
+plot_net(pseq, maxdist = 0.2, point_label = "group")
 ```
 

@@ -32,19 +32,24 @@ summarize.sum <- function (taxonomy, level, probedata, verbose = TRUE, downweigh
   }
 
   # initialize
-  summarized.matrix <- array(NA, dim = c(length(probesets), ncol(oligo.data)), 
-  		    	      dimnames = list(names(probesets), colnames(oligo.data))) 
+  summarized.matrix <- matrix(NA, nrow = length(probesets), 
+  		       		  ncol = ncol(oligo.data))
+  rownames(summarized.matrix) <- names(probesets)
+  colnames(summarized.matrix) <- colnames(oligo.data)
 
   for (set in names(probesets)) {
 
-    print(set)
+    # print(set)
 
     # Pick expression for particular probes
     probes <- probesets[[set]]
 
     # Pick probe data for the probeset: probes x samples
     # oligo.data assumed to be already in log10
-    dat <- as.matrix(oligo.data[probes,], nrow = length(probes)) 
+    dat <- as.matrix(oligo.data[probes,])
+    if (length(probes) == 1)  {
+      dat <- as.matrix(oligo.data[probes,], nrow = length(probes))
+    }
     rownames(dat) <- probes
     colnames(dat) <- colnames(oligo.data)
 

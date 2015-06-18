@@ -11,7 +11,7 @@ head(tax.table)
 Conversion between taxonomic levels:
 
 ```{r phylogeny-example2b, warning=FALSE, message=FALSE}
-m <- levelmap(phylotypes = c("Akkermansia", "Bacteroides fragilis et rel."), 
+m <- levelmap(c("Akkermansia", "Bacteroides fragilis et rel."), 
               from = "L2", to = "L1", tax.table)
 
 # Another example

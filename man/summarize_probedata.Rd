@@ -5,7 +5,7 @@
 \title{Summarize phylogenetic microarray probe-level data from given input folder.}
 \usage{
 summarize_probedata(data.dir = NULL, probedata = NULL, taxonomy = NULL,
-  level, method)
+  level, method, probe.parameters = NULL)
 }
 \arguments{
 \item{data.dir}{Data folder.}
@@ -17,6 +17,8 @@ summarize_probedata(data.dir = NULL, probedata = NULL, taxonomy = NULL,
 \item{level}{Summarization level}
 
 \item{method}{Summarization method}
+
+\item{probe.parameters}{Precalculater probe parameters. Optional.}
 }
 \value{
 data matrix (taxa x samples)
@@ -26,6 +28,20 @@ Summarize phylogenetic microarray probe-level data from given input folder.
 }
 \examples{
 #
+library(microbiome)
+data.directory <- system.file("extdata", package = "microbiome")
+# Read oligo-level data (here: simulated example data)
+probedata <- read_profiling(data.directory, method = "frpa")$probedata
+# Read phylogeny map
+# NOTE: use phylogeny.filtered for species/L1/L2 summarization
+# Load taxonomy from output directory
+taxonomy <- GetPhylogeny("HITChip", "filtered")
+# Summarize oligos into higher level phylotypes
+dat <- summarize_probedata(
+                 probedata = probedata,
+		 taxonomy = taxonomy,
+                method = "rpa",
+		 level = "species")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
