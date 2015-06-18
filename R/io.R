@@ -39,11 +39,17 @@ read_profiling <- function(data.dir, method) {
   
   # Read taxonomy table
   f <- paste(data.dir, "/taxonomy.tab", sep = "")
+  if (!file.exists(f)) {
+    f <- paste(data.dir, "/phylogeny.filtered.tab", sep = "")  
+  }
   taxonomy <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
   results[["taxonomy"]] <- tab
     
   # Read unfiltered taxonomy table
   f <- paste(data.dir, "/taxonomy.full.tab", sep = "")
+  if (!file.exists(f)) {
+    f <- paste(data.dir, "/phylogeny.full.tab", sep = "")  
+  }  
   taxonomy.full <- read.csv(f, header = TRUE, sep = "\t", as.is = TRUE)
   results[["taxonomy.full"]] <- tab
 
