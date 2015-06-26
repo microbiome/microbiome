@@ -12,7 +12,12 @@ R/.RData
 
 # Vignette sources
 # vignettes/sorvi_tutorial.Rmd
+
 vignettes/pics
+vignettes/Example_cache
+vignettes/Example_files
+vignettes/cache
+vignettes/figs
 vignettes/.RData
 
 # Git related
