@@ -36,6 +36,7 @@ read.profiling <- function(level = NULL, method = "frpa", data.dir,
             method <- "rpa"
         }
         f <- paste(data.dir, "/", level, "-", method, ".tab", sep = "")
+
     } else if (level == "oligo") {
         f <- paste(data.dir, "/oligoprofile.tab", sep = "")
     } else if (level == "phylogeny.full") {
