@@ -1,8 +1,8 @@
 library(microbiome)
 
 # New pipeline
-frpa.new <- read.profiling("PET", method = "frpa")
-sum.new <- read.profiling("PET", method = "sum")
+frpa1 <- read.profiling(data.dir = "PET", level = "species", method = "frpa")
+frpa2 <- read.profiling(data.dir = "PET", level = "species", method = "sum")
 
 # New pipeline 2
 sum.new2 <- read_hitchip("PET", method = "sum")
