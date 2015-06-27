@@ -4,13 +4,10 @@ Here some examples with HITChip data. See also [phyloseq ordination tutorial](jo
 
 Load example data:
 
-```{r ordination1, message=FALSE, warning=FALSE, eval=FALSE}
+```{r ordination1, message=FALSE, warning=FALSE, eval=TRUE}
 library(microbiome)
 library(ggplot2)
-pseq.atlas <- download_microbiome("atlas1006")
-
-# Define the data set to be used in the examples:
-pseq <- pseq.atlas
+pseq <- download_microbiome("atlas1006")
 
 # Convert signal to relative abundances
 pseq.rel <- transform_sample_counts(pseq, function (x) {x/sum(x)})
@@ -54,7 +51,7 @@ ggplot(aes(x = Comp.1, y = Comp.2, label = rownames(proj)), data = proj) + geom_
 
 ### Unifrac with PCoA
 
-See [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). 
+Not implemented with HITChip but popular with sequencing data. See [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). 
 
 
 ### NMDS with Bray-Curtis distances
@@ -65,14 +62,14 @@ pseq.ord <- ordinate(pseq2, "NMDS", "bray")
 
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
-```{r pca-ordination21, message=FALSE, message=FALSE, fig.height=8, fig.width=8}
+```{r pca-ordination21, message=FALSE, message=FALSE, fig.height=8, fig.width=12}
 p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Genus", title = "taxa")
 print(p)
 ```
 
 Grouping the plots by Phylum
 
-```{r pca-ordination22, message=FALSE, message=FALSE, fig.height=8, fig.width=8}
+```{r pca-ordination22, message=FALSE, message=FALSE, fig.height=8, fig.width=10}
 p + facet_wrap(~Phylum, 5)
 ```
 
@@ -88,7 +85,7 @@ plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") + 
 
 With samples:
 
-```{r ordinate24a, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
+```{r ordinate24a, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gender")
 p + geom_point(size = 5) + geom_polygon(aes(fill = gender))
 ```
@@ -104,7 +101,7 @@ print(p)
 
 ### Split plot
 
-```{r ordinate25, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
+```{r ordinate25, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
 plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", color = "gender", 
     shape = "Phylum", label = "gender")
 ```
@@ -112,7 +109,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", color = "gender",
 
 ### Ordination biplot
 
-```{r ordinate26, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
+```{r ordinate26, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
 plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", shape = "Phylum")
 ```
 

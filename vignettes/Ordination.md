@@ -8,10 +8,7 @@ Load example data:
 ```r
 library(microbiome)
 library(ggplot2)
-pseq.atlas <- download_microbiome("atlas1006")
-
-# Define the data set to be used in the examples:
-pseq <- pseq.atlas
+pseq <- download_microbiome("atlas1006")
 
 # Convert signal to relative abundances
 pseq.rel <- transform_sample_counts(pseq, function (x) {x/sum(x)})
@@ -66,7 +63,7 @@ ggplot(aes(x = Comp.1, y = Comp.2, label = rownames(proj)), data = proj) + geom_
 
 ### Unifrac with PCoA
 
-See [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). 
+Not implemented with HITChip but popular with sequencing data. See [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). 
 
 
 ### NMDS with Bray-Curtis distances
