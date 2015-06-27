@@ -4,14 +4,17 @@
 \alias{read_hitchip}
 \title{Read HITChip output and preprocess into phyloseq format}
 \usage{
-read_hitchip(data.dir, method = "rpa", detection.threshold = 0)
+read_hitchip(data.dir, method = "rpa", detection.threshold = 0,
+  verbose = F)
 }
 \arguments{
 \item{data.dir}{Profiling script output directory for reading the data.}
 
 \item{method}{Probe summarization method ("rpa", "frpa", or "sum")}
 
-\item{detection.threshold}{Taxon absence/presence thresholds (typically 10^1.8 for HITChip)
+\item{detection.threshold}{Taxon absence/presence thresholds (typically 10^1.8 for HITChip)}
+
+\item{verbose}{verbose
 
 Converts the probe-level data matrix and probe-level taxonomy table to phylotype-level
 HITChip data. Returns the probe-level data (data matrix and taxonomies) and the phylotype-level

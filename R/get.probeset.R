@@ -15,7 +15,7 @@
 #' @examples 
 #'   taxonomy <- GetPhylogeny('HITChip', 'filtered')
 #'   data.dir <- system.file("extdata", package = "microbiome")
-#'   probedata <- read_profiling(data.dir, "rpa")$probedata
+#'   probedata <- read_hitchip(data.dir, "rpa")$probedata
 #'   ps <- get.probeset('Akkermansia', 'L2', taxonomy, probedata)
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

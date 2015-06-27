@@ -75,45 +75,7 @@ print(data.directory)
 ## [1] "/home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata"
 ```
 
-Read HITChip data from the specified folder and probe summarization
-method (returns the precalculated data matrices for all levels, sample
-metadata and taxonomy; without detection thresholding):
-
-
-```r
-# Read precalculated HITChip data and check available data entries
-chipdata <- read_profiling(method = "frpa", data.dir = data.directory)
-print(names(chipdata))
-```
-
-```
-## [1] "probedata"     "L1"            "L2"            "species"      
-## [5] "taxonomy"      "taxonomy.full" "meta"
-```
-
-```r
-# Pick specific data field (for instance oligo level or L2-level data)
-probedata <- chipdata[["probedata"]]
-dat <- chipdata[["L2"]]
-
-# Check the output
-kable(head(dat))
-```
-
-
-
-|                             |   Sample.1|    Sample.2|    Sample.3|   Sample.4|   Sample.5|   Sample.6|   Sample.7|   Sample.8|    Sample.9|   Sample.10|  Sample.11|  Sample.12| Sample.13| Sample.14| Sample.15| Sample.16|  Sample.17| Sample.18|  Sample.19|  Sample.20|
-|:----------------------------|----------:|-----------:|-----------:|----------:|----------:|----------:|----------:|----------:|-----------:|-----------:|----------:|----------:|---------:|---------:|---------:|---------:|----------:|---------:|----------:|----------:|
-|Actinomycetaceae             |   84.76163|    78.29504|   134.13189|  109.30349|  102.27557|   91.90667|  123.30067|   76.80188|    92.14881|   100.80771|  105.48939|   75.44185|  80.54118|  79.29750| 385.23378|  93.70611|  145.87980|  84.28841|   74.86562|   99.49987|
-|Aerococcus                   |   39.46335|    37.15725|    57.04694|   49.92221|   50.12097|   45.20561|   39.18982|   40.00816|    48.15633|    48.88911|   47.43598|   40.01769|  38.47069|  51.66101|  57.82417|  59.01372|   74.22681|  40.46727|   38.66126|   49.77266|
-|Aeromonas                    |   50.05587|    39.16444|    65.74415|   61.35530|   54.83985|   44.42839|   46.46214|   37.13851|    48.41742|    49.84928|   49.77854|   38.50172|  54.63650|  36.81774|  59.30448|  57.19805|   76.79569|  41.01024|   39.13462|   57.59464|
-|Akkermansia                  | 3241.64899| 16118.25264|  3545.40458| 2695.79856| 1373.24405| 3092.14005| 6116.98477| 5479.95341|  2785.46574|  2980.10595| 1997.84190| 2480.54241| 723.33085| 894.08274| 681.38990| 559.76203| 1457.17800| 850.12411| 2778.85817| 2479.55738|
-|Alcaligenes faecalis et rel. |  193.64745|   274.46270|   242.94563|  185.10122|  188.41686|  184.45777|  147.32411|  144.44846|   257.87644|   179.00981|  496.61390|  153.35142| 149.67784| 149.41375| 177.97378| 165.68556|  294.35603| 162.99679|  152.82539|  181.06110|
-|Allistipes et rel.           | 5275.98593|  2885.60708| 26293.81603| 2176.93497| 3004.86107|  679.42221| 1355.59886|  609.17888| 14413.70966| 14237.53229| 7305.26704| 4402.88386| 579.25640| 665.34332| 740.46958| 973.90064| 4646.47323| 906.95959| 4966.18710| 5052.53186|
-
-
 ## HITChip to phyloseq format
-
 
 The [phyloseq](https://github.com/joey711/phyloseq) R package provides
 many additional tools for microbiome analyses. See [phyloseq demo
@@ -125,11 +87,10 @@ precalculated matrices are calculated with detection.threshold = 0):
 
 
 ```r
-pseq <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$pseq
+pseq <- read_hitchip(data.directory, method = "frpa")$pseq
 ```
 
 ```
-## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
 ## Loading pre-calculated RPA preprocessing parameters
 ```
 
@@ -146,38 +107,42 @@ output directory (these are not available in the phyloseq object):
 
 
 ```r
-probedata <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$probedata
+probedata <- read_hitchip(data.directory, method = "frpa")$probedata
 ```
 
 ```
-## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
 ## Loading pre-calculated RPA preprocessing parameters
 ```
 
 ```r
-taxonomy.full <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$taxonomy.full
+taxonomy.full <- read_hitchip(data.directory, method = "frpa")$taxonomy.full
 ```
 
 ```
-## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
 ## Loading pre-calculated RPA preprocessing parameters
 ```
 
-
-Convert your own data matrices into phyloseq format as follows:
+Convert your own data into phyloseq format as follows:
 
 
 ```r
 # We need to choose the HITChip data level to be used in the analyses
 # In this example use HITChip L2 data (note: this is in absolute scale)
-otu <- read_profiling(method = "frpa", data.dir = data.directory)$L2
-meta <- read_profiling(method = "frpa", data.dir = data.directory)$meta
-taxonomy <- GetPhylogeny("HITChip", "filtered")
-taxonomy <- unique(as.data.frame(taxonomy[, c("L1", "L2")]))
-rownames(taxonomy) <- as.vector(taxonomy[, "L2"])
+res <- read_hitchip(method = "frpa", data.dir = data.directory)
 
-# Convert to phyloseq
-pseq <- hitchip2physeq(t(otu), meta, taxonomy, detection.limit = 10^1.8)
+# Species-level data matrix
+otu <- otu_table(res$pseq)@.Data 
+
+# Corresponding sample metadata
+meta <- res$meta
+
+# Taxonomy
+taxonomy <- GetPhylogeny("HITChip", "filtered")
+taxonomy <- unique(as.data.frame(taxonomy[, c("L1", "L2", "species")]))
+rownames(taxonomy) <- as.vector(taxonomy[, "species"])
+
+# Merging data matrices into phyloseq format:
+pseq <- hitchip2physeq(t(otu), meta, taxonomy)
 ```
 
 
@@ -196,7 +161,6 @@ pseq <- download_microbiome("atlas1006")
 ```
 ## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
 ```
-
 
 Pick sample metadata:
 

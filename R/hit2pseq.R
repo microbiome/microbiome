@@ -47,7 +47,6 @@ hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 10^1.8
   # Construct taxonomy table
   # If nrow(otumat) then it is probe-level data and no taxonomy should be given
   # for that by default
-print(dim(otumat))
   if (is.null(taxonomy) && nrow(otumat) < 3000) {
 
     ph <- as.data.frame(GetPhylogeny("HITChip")@.Data)

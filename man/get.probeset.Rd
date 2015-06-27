@@ -27,7 +27,7 @@ get probeset data matrix
 \examples{
 taxonomy <- GetPhylogeny('HITChip', 'filtered')
   data.dir <- system.file("extdata", package = "microbiome")
-  probedata <- read_profiling(data.dir, "rpa")$probedata
+  probedata <- read_hitchip(data.dir, "rpa")$probedata
   ps <- get.probeset('Akkermansia', 'L2', taxonomy, probedata)
 }
 \author{

@@ -55,26 +55,7 @@ data.directory <- system.file("extdata", package = "microbiome")
 print(data.directory)
 ```
 
-Read HITChip data from the specified folder and probe summarization
-method (returns the precalculated data matrices for all levels, sample
-metadata and taxonomy; without detection thresholding):
-
-```{r dataread, eval=TRUE, message=FALSE, warning=FALSE}
-# Read precalculated HITChip data and check available data entries
-chipdata <- read_profiling(method = "frpa", data.dir = data.directory)
-print(names(chipdata))
-
-# Pick specific data field (for instance oligo level or L2-level data)
-probedata <- chipdata[["probedata"]]
-dat <- chipdata[["L2"]]
-
-# Check the output
-kable(head(dat))
-```
-
-
 ## HITChip to phyloseq format
-
 
 The [phyloseq](https://github.com/joey711/phyloseq) R package provides
 many additional tools for microbiome analyses. See [phyloseq demo
@@ -85,7 +66,7 @@ Import HITChip phylotype-level data in
 precalculated matrices are calculated with detection.threshold = 0):
 
 ```{r pseqconversion}
-pseq <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$pseq
+pseq <- read_hitchip(data.directory, method = "frpa")$pseq
 ```
 
 Get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
@@ -99,24 +80,30 @@ Importing HITChip probe-level data and taxonomy from HITChip
 output directory (these are not available in the phyloseq object):
 
 ```{r pseqconversion3}
-probedata <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$probedata
-taxonomy.full <- read_hitchip(data.directory, method = "frpa", detection.threshold = 10^1.8)$taxonomy.full
+probedata <- read_hitchip(data.directory, method = "frpa")$probedata
+taxonomy.full <- read_hitchip(data.directory, method = "frpa")$taxonomy.full
 ```
 
-
-Convert your own data matrices into phyloseq format as follows:
+Convert your own data into phyloseq format as follows:
 
 ```{r pseqconversion2, eval = FALSE}
 # We need to choose the HITChip data level to be used in the analyses
 # In this example use HITChip L2 data (note: this is in absolute scale)
-otu <- read_profiling(method = "frpa", data.dir = data.directory)$L2
-meta <- read_profiling(method = "frpa", data.dir = data.directory)$meta
-taxonomy <- GetPhylogeny("HITChip", "filtered")
-taxonomy <- unique(as.data.frame(taxonomy[, c("L1", "L2")]))
-rownames(taxonomy) <- as.vector(taxonomy[, "L2"])
+res <- read_hitchip(method = "frpa", data.dir = data.directory)
 
-# Convert to phyloseq
-pseq <- hitchip2physeq(t(otu), meta, taxonomy, detection.limit = 10^1.8)
+# Species-level data matrix
+otu <- otu_table(res$pseq)@.Data 
+
+# Corresponding sample metadata
+meta <- res$meta
+
+# Taxonomy
+taxonomy <- GetPhylogeny("HITChip", "filtered")
+taxonomy <- unique(as.data.frame(taxonomy[, c("L1", "L2", "species")]))
+rownames(taxonomy) <- as.vector(taxonomy[, "species"])
+
+# Merging data matrices into phyloseq format:
+pseq <- hitchip2physeq(t(otu), meta, taxonomy)
 ```
 
 
@@ -130,7 +117,6 @@ Get example data in phyloseq format:
 library(microbiome)
 pseq <- download_microbiome("atlas1006")
 ```
-
 
 Pick sample metadata:
 

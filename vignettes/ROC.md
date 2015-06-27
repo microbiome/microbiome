@@ -3,8 +3,10 @@
 A basic example of ROC/AUC analysis.
 
 
+### Load example data
+
+
 ```r
-# Example data
 library(microbiome)
 pseq <- download_microbiome("dietswap")
 ```
@@ -41,19 +43,33 @@ for (tax in rownames(otu)) {
   pvalues[[tax]] <- wilcox.test(otu[tax, g1], otu[tax, g2])$p.value
 }
 
-# Order the taxa based on the p-values
-ordered.results <- names(sort(pvalues))
-
 # Assume there are some known true positives 
 # Here for instance Bacteroidetes
 bacteroidetes <- levelmap("Bacteroidetes", from = "L1", to = "L2", GetPhylogeny("HITChip", "filtered"))$Bacteroidetes
+```
+
+
+### Overall ROC analysis 
+
+This gives the cumulative TPR and FPR along the ordered list
+
+
+```r
+# Order the taxa based on the p-values
+ordered.results <- names(sort(pvalues))
+
+# Define true positive taxa to be tested for enrichment
 true.positives <- bacteroidetes
 
-# Overall ROC analysis (this will give the cumulative TPR and FPR 
-# along the ordered list)
+# ROC analysis
 res <- roc(ordered.results, true.positives)
+```
 
-# Calculate ROC/AUC value
+
+### Calculate ROC/AUC value
+
+
+```r
 auc <- roc.auc(ordered.results, true.positives)
 print(auc)
 ```
@@ -62,9 +78,12 @@ print(auc)
 ## [1] 0.3621495
 ```
 
+
+### Plot ROC curve
+
+
 ```r
-# Plot ROC curve
 roc.plot(ordered.results, true.positives, line = TRUE)
 ```
 
-![plot of chunk roc-example](figure/roc-example-1.png) 
+![plot of chunk roc-example4](figure/roc-example4-1.png) 

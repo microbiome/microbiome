@@ -50,13 +50,7 @@ Read HITChip data and check available data entries:
 ```r
 # Read HITChip data from the given folder, preprocessed with fRPA
 data <- read_hitchip(data.dir = data.path, method = "frpa", detection.threshold = 10^1.8)
-```
 
-```
-## [1] 1025   20
-```
-
-```r
 # 'OTU' (species-level) data in phyloseq data
 pseq.species <- data$pseq
 
@@ -65,10 +59,6 @@ pseq.L2 <- aggregate_taxa(pseq.species, level = "L2")
 
 # Probe-level data in phyloseq format
 pseq.probe <- hitchip2physeq(t(data$probedata), sample_data(data$pseq), detection.limit = 10^1.8)
-```
-
-```
-## [1] 3181   20
 ```
 
 ## Diversity 
@@ -182,6 +172,8 @@ for (tax in top.groups) {
 
 
 ### Hierarchical clustering
+
+Cluster the samples in probe-level data with hierarchical clustering:
 
 
 ```r

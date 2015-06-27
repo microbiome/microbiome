@@ -1,6 +1,6 @@
 ### Probe summarization
 
-Summarize (preprocessed) oligo-level data into phylotype level; examples with simulated data; see [read.profiling](reading) to use your own data. We use and recommend the [Robust Probabilistic Averaging (RPA)](https://github.com/antagomir/RPA/wiki) for probe summarization.
+Summarize (preprocessed) oligo-level data into phylotype level; examples with simulated data; see [read_hitchip](reading) to use your own data. We use and recommend the [Robust Probabilistic Averaging (RPA)](https://github.com/antagomir/RPA/wiki) for probe summarization.
 
 
 
@@ -13,7 +13,6 @@ probedata <- read_hitchip(data.directory, method = "frpa")$probedata
 ```
 
 ```
-## Reading Chip data from /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata
 ## Loading pre-calculated RPA preprocessing parameters
 ```
 
@@ -69,7 +68,7 @@ Get probeset data matrix/matrices:
 ```r
 set <- get.probeset("Actinomyces naeslundii", "species",
        		     taxonomy, probedata, log10 = TRUE)
-kable(set[1:3, 1:5])
+kable(set[, 1:5])
 ```
 
 
@@ -78,7 +77,6 @@ kable(set[1:3, 1:5])
 |:--------|--------:|--------:|--------:|--------:|--------:|
 |HIT 1589 | 1.606418| 1.569691| 1.805999| 1.666957| 1.670350|
 |HIT 1590 | 1.599793| 1.594346| 1.890435| 1.913062| 1.732066|
-|NA       |       NA|       NA|       NA|       NA|       NA|
 
 
 

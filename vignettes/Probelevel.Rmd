@@ -1,6 +1,6 @@
 ### Probe summarization
 
-Summarize (preprocessed) oligo-level data into phylotype level; examples with simulated data; see [read_profiling](reading) to use your own data. We use and recommend the [Robust Probabilistic Averaging (RPA)](https://github.com/antagomir/RPA/wiki) for probe summarization.
+Summarize (preprocessed) oligo-level data into phylotype level; examples with simulated data; see [read_hitchip](reading) to use your own data. We use and recommend the [Robust Probabilistic Averaging (RPA)](https://github.com/antagomir/RPA/wiki) for probe summarization.
 
 
 ```{r probelevel-ex}

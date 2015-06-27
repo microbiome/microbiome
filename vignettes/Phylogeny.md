@@ -31,7 +31,7 @@ Conversion between taxonomic levels:
 
 
 ```r
-m <- levelmap(phylotypes = c("Akkermansia", "Bacteroides fragilis et rel."), 
+m <- levelmap(c("Akkermansia", "Bacteroides fragilis et rel."), 
               from = "L2", to = "L1", tax.table)
 
 # Another example
@@ -41,9 +41,7 @@ levelmap("Crenarchaeota", 'Phylum', 'Kingdom', taxtable)
 ```
 
 ```
-## Taxonomy Table:     [1 taxa by 1 taxonomic ranks]:
-##        Kingdom  
-## 549322 "Archaea"
+## [1] "Archaea"
 ```
 
 

@@ -27,7 +27,7 @@
 read.profiling <- function(level = NULL, method = "frpa", data.dir, 
                          log10 = TRUE, impute = TRUE) {
 
-    .Deprecated("read_profiling")
+    .Deprecated("read_hitchip")
     
     # level <- 'oligo'; method = 'sum'; data.dir = 'test/'; log10 = TRUE
     if (level %in% c("L0", "L1", "L2", "species")) {

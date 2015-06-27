@@ -4,7 +4,8 @@
 \alias{import_hitchip}
 \title{Import HITChip output into phyloseq format}
 \usage{
-import_hitchip(data.dir, method = "frpa", detection.threshold = 0)
+import_hitchip(data.dir, method = "frpa", detection.threshold = 0,
+  verbose = F)
 }
 \arguments{
 \item{data.dir}{Profiling script output directory for reading the data.}
@@ -12,6 +13,8 @@ import_hitchip(data.dir, method = "frpa", detection.threshold = 0)
 \item{method}{Probe summarization method ("rpa" or "sum")}
 
 \item{detection.threshold}{Taxon absence/presence thresholds (typically 10^1.8 for HITChip)}
+
+\item{verbose}{verbose}
 }
 \value{
 data matrix (phylo x samples)

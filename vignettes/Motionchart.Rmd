@@ -1,35 +1,52 @@
-### Interactive motioncharts
+### Interactive motioncharts with googleVis
 
-Plotting a Motion Chart using googleVis package.
+This provides interactive charts where you can change the variables at
+X/Y axis, point size and color as you like. With time series data
+moving animations are also possible.
+
+
+Prepare the data:
 
 ```{r motionchart-example, fig.width=8, fig.height=8, message=FALSE}
 library(microbiome)  
 
-# Load simulated example data
+# Folder containing simulated example data
+# (change your own path here)
 data.directory <- system.file("extdata", package = "microbiome")
-metadata.example.file <- paste(data.directory, "/meta.tab", sep = "")
-metadata.simulated <- read.csv(metadata.example.file, sep = "\t", as.is = TRUE)
-genus.matrix.log10.simulated <- read_profiling(data.directory, method = "frpa")$L2
+
+# Read HITChip profiling results
+res <- read_hitchip(data.directory, method = "frpa")
+
+# Pick the metadata (the meta.tab file in HITChip data folder)
+metadata.simulated <- sample_data(res$pseq)
+
+# Species-level data in phyloseq format
+pseq <- res$pseq 
+
+# Retrieve L2 (genus-like) data in phyloseq format
+pseq.L2 <- aggregate_taxa(pseq, level = "L2")
+# Convert L2 to matrix format
+genus.matrix.log10.simulated <- log10(otu_table(pseq.L2)@.Data)
 
 # Combine phylotype profiling data and sample metadata
 df <- cbind(metadata.simulated, t(genus.matrix.log10.simulated))  
+```
 
-# Plot a Motion Chart using googleVis - package
-# Note: requires flash and internet connection
-# use install.packages("googleVis") to install the library if needed
+Plot a Motion Chart using googleVis - package. Note: this requires
+flash and internet connection. 
+
+Form a motion chart from example data NOTE: the data set must be given
+as data.frame which can contain NUMERIC and CHARACTER fields (NO
+FACTORS, NOR LOGICAL variables!). The FIRST FOUR FIELDS must be
+provided in the following order: idvar, timevar, two numeric fields,
+then any number of numeric and character fields.
+
+The plot shows only the first time point.  Replace the time field with
+a constant to plot all in one figure using df$time <- rep(1, nrow(df))
+
+```{r motionchart-example-2, fig.width=8, fig.height=8, message=FALSE}
 library(googleVis)  
-
-# Form a motion chart from example data
-# NOTE: the data set must be given as data.frame
-# which can contain NUMERIC and CHARACTER fields
-# (NO FACTORS, NOR LOGICAL variables!).
-# The FIRST FOUR FIELDS must be provided in the following order:
-# idvar, timevar, two numeric fields, then any number of numeric and 
-# character fields
-#
-# NOTE: the plot shows only the first time point. 
-# Replace the time field with a constant to plot all in one figure
-# using df$time <- rep(1, nrow(df))
+# install.packages("googleVis") # install the library if needde
 
 # See help(gvisMotionChart) for further details
 mchart <- gvisMotionChart(df, idvar = "sample", timevar = "time")  

@@ -31,7 +31,7 @@ Summarize phylogenetic microarray probe-level data from given input folder.
 library(microbiome)
 data.directory <- system.file("extdata", package = "microbiome")
 # Read oligo-level data (here: simulated example data)
-probedata <- read_profiling(data.directory, method = "frpa")$probedata
+probedata <- read_hitchip(data.directory, method = "frpa")$probedata
 # Read phylogeny map
 # NOTE: use phylogeny.filtered for species/L1/L2 summarization
 # Load taxonomy from output directory

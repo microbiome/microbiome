@@ -1,3 +1,22 @@
+Read HITChip data from the specified folder and probe summarization
+method (returns the precalculated data matrices for all levels, sample
+metadata and taxonomy; without detection thresholding):
+
+```{r dataread, eval=TRUE, message=FALSE, warning=FALSE}
+# Read precalculated HITChip data and check available data entries
+chipdata <- read_profiling(method = "frpa", data.dir = data.directory)
+print(names(chipdata))
+
+# Pick specific data field (for instance oligo level or L2-level data)
+probedata <- chipdata[["probedata"]]
+dat <- chipdata[["L2"]]
+
+# Check the output
+kable(head(dat))
+```
+
+
+
 # Read HITChip data in phyloseq format
 # Pick specific data field (for instance oligo level or L2-level data)
 probe.data <- chipdata[["probedata"]]

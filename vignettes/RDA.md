@@ -37,7 +37,7 @@ permutest(rdatest)
 ## na.action)
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.3570377 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.9
+## Significance:	 0.93
 ```
 
 ### RDA visualization
@@ -49,7 +49,7 @@ Visualizing the standard RDA output:
 plot(rdatest, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
 points(rdatest, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
 pl <- ordihull(rdatest, meta$time, scaling = 3, label = TRUE)
-title("RDA with control for subject effect")
+title("RDA")
 ```
 
 ![plot of chunk rda4](figure/rda4-1.png) 
