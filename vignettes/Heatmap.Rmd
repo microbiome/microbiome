@@ -1,7 +1,5 @@
 ## Heatmap examples
 
-
-
 ### Visualizing phyloseq objects
 
 Also see the [phyloseq heatmap tutorial](http://joey711.github.io/phyloseq/plot_heatmap-examples.html).
@@ -21,8 +19,6 @@ x <- prune_taxa(bacteroidetes, x)
 x <- subset_samples(x, group == "DI")
 plot_heatmap(x, "NMDS", "bray", "sample", "Phylum")
 ```
-
-
 
 
 ### Matrix visualization
@@ -165,23 +161,50 @@ print(p)
 
 ```{r heatmap, warning=FALSE, message=FALSE}
 library(microbiome)
-data.dietswap <- download_microbiome("dietswap")
+pseq <- download_microbiome("dietswap")
 
-library(scales)
 library(vegan)
-plot_heatmap(physeq, taxa.label = "Phylum")
-
-physeq.log <- physeq
-trans <- as.matrix(t(scale(t(log10(1 + physeq.log@otu_table)))))
-otu_table(physeq.log) <- otu_table(trans, taxa_are_rows=taxa_are_rows(physeq))
-plot_heatmap(physeq.log, method = "NMDS", distance = "jaccard", low="blue", high="red")
-
-#log transform sample counts
-physeq.log <- transform_sample_counts(physeq, function(x) log10(x+1))
-#calculate ordination of log transformed sample counts
-physeq.log.ord <- ordinate(physeq.log, "NMDS")
-#split plot with log trandormed sample counts
-p <- plot_ordination(physeq.log, physeq.log.ord, type = "split")
-p
+plot_heatmap(pseq, taxa.label = "Phylum")
 ```
 
+Visualize Z-transformed OTUs on a heatmap
+
+```{r heatmapz, warning=FALSE, message=FALSE}
+# Z transforming OTUs
+pseq.z <- pseq
+trans <- as.matrix(t(scale(t(log10(1 + otu_table(pseq)@.Data)))))
+# Some OTUs have minimum signal in all samples and scaling gives NA.
+# In these cases just give 0 signal for these OTUs in all samples
+trans[names(which(rowMeans(is.na(trans)) == 1)),] <- 0
+otu_table(pseq.z) <- otu_table(trans, taxa_are_rows=taxa_are_rows(pseq.z))
+
+# Pick the transformed OTU table
+x <- otu_table(pseq.z)@.Data
+
+# Visualize deviation of all bacteria from their population mean 
+# (smaller: blue; higher: red):
+# First Scale columns to zero mean and unit variance
+# This puts the mean of each bacteria to zero 
+# (less than mean is negative and blue; higher than mean is positive and red)
+# having same variance for bacteria makes visual comparison easier too
+
+# Truncate all signals with abs(x) > 2 as the upper limit of the color scale
+y <- x; y[y>1] <- 2; y[y< -1] <- -2
+tmp <- netresponse::plot_matrix(y, type = "twoway", mar = c(5, 14, 1, 1), cex.axis = 0.8)
+
+# Visualize
+# plot_heatmap(pseq.z, method = "NMDS", distance = "jaccard", low="blue", high="red")
+```
+
+
+Finding visually appealing row and column ordering
+
+```{r heatmap-crosscorrelate2, message=FALSE, warning=FALSE, fig.keep='none', fig.path = "figure/"}
+hm <- heatmap(y) 
+```
+
+Then plot the same matrix with ordered rows and cols:
+
+```{r heatmap-crosscorrelate3, message=FALSE, warning=FALSE, fig.path = "figure/"}
+tmp <- netresponse::plot_matrix(y[hm$rowInd, hm$colInd], type = "twoway", mar = c(5, 12, 1, 1), cex.axis = 0.5)
+```

@@ -7,19 +7,11 @@ Load example data:
 ```r
 library(microbiome)
 # Get some HITChip data in phyloseq format
-pseq.dietswap <- download_microbiome("dietswap")
+pseq <- download_microbiome("dietswap")
 ```
 
 For more network examples, see [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
 
-
-```r
-pseq <- pseq.dietswap
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'pseq.dietswap' not found
-```
 
 ```r
 ig <- make_network(pseq, max.dist = 0.2)

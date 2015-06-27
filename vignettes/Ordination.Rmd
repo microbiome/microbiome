@@ -85,9 +85,10 @@ plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") + 
 
 With samples:
 
-```{r ordinate24a, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
+```{r ordinate24a, warning=FALSE, message=FALSE, fig.width=9, fig.height=7}
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gender")
-p + geom_point(size = 5) + geom_polygon(aes(fill = gender))
+p + geom_point(size = 5)
+#p <- p + geom_polygon(aes(fill = gender))
 ```
 
 With taxa:
