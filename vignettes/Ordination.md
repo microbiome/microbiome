@@ -2,7 +2,6 @@
 
 Here some examples with HITChip data. See also [phyloseq ordination tutorial](joey711.github.io/phyloseq/plot_ordination-examples.html).
 
-
 Load example data:
 
 
@@ -24,12 +23,25 @@ pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > .01) > (0.1*nsamples(pseq.rel
 
 ### Principal component analysis (PCA)
 
+Project data on the first two PCA axes:
+
 
 ```r
-# Project data on 2D display with PCA
 set.seed(423542)
 x <- t(otu_table(pseq2)@.Data)
+```
+
+```
+## Error in t(otu_table(pseq2)@.Data): error in evaluating the argument 'x' in selecting a method for function 't': Error in otu_table(pseq2) : 
+##   error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq2' not found
+```
+
+```r
 proj <- project.data(log10(x), type = "PCA") # MDS.classical etc.
+```
+
+```
+## Error in nrow(amat): object 'x' not found
 ```
 
 Visualize and highlight:
@@ -38,19 +50,44 @@ Visualize and highlight:
 ```r
 # Highlight gender
 p <- densityplot(proj, col = sample_data(pseq2)$gender, legend = T)
+```
+
+```
+## Error in as.vector(x, mode): cannot coerce type 'closure' to vector of type 'any'
+```
+
+```r
 print(p)
 ```
 
-![plot of chunk ordination4](figure/ordination4-1.png) 
+```
+## Error in print(p): object 'p' not found
+```
 
 ```r
 # Highlight low/high Prevotella subjects
 prevotella.abundance  <- log10(x[, "Prevotella melaninogenica et rel."]) 
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'x' not found
+```
+
+```r
 p <- densityplot(proj, col = prevotella.abundance, legend = T)
+```
+
+```
+## Error in as.vector(x, mode): cannot coerce type 'closure' to vector of type 'any'
+```
+
+```r
 print(p)
 ```
 
-![plot of chunk ordination4](figure/ordination4-2.png) 
+```
+## Error in print(p): object 'p' not found
+```
 
 Projection with sample names:
 
@@ -59,7 +96,9 @@ Projection with sample names:
 ggplot(aes(x = Comp.1, y = Comp.2, label = rownames(proj)), data = proj) + geom_text(size = 2)
 ```
 
-![plot of chunk visu-example2](figure/visu-example2-1.png) 
+```
+## Error in eval(expr, envir, enclos): could not find function "ggplot"
+```
 
 
 ### Unifrac with PCoA
@@ -75,32 +114,27 @@ nmds <- ordinate(pseq, "NMDS", "bray")
 ```
 
 ```
-## Square root transformation
-## Wisconsin double standardization
-## Run 0 stress 0.2044329 
-## Run 1 stress 0.2047176 
-## ... procrustes: rmse 0.01353912  max resid 0.1388324 
-## Run 2 stress 0.203759 
-## ... New best solution
-## ... procrustes: rmse 0.009482057  max resid 0.1384349 
-## Run 3 stress 0.2053158 
-## Run 4 stress 0.2168802 
-## Run 5 stress 0.2049942 
-## Run 6 stress 0.2063315 
-## Run 7 stress 0.2089041 
-## Run 8 stress 0.2087436 
-## Run 9 stress 0.2049411 
-## Run 10 stress 0.206135 
-## Run 11 stress 0.2083954 
-## Run 12 stress 0.2136372 
-## Run 13 stress 0.2086734 
-## Run 14 stress 0.2098592 
-## Run 15 stress 0.2121382 
-## Run 16 stress 0.2074855 
-## Run 17 stress 0.2050563 
-## Run 18 stress 0.2084222 
-## Run 19 stress 0.2084397 
-## Run 20 stress 0.2158551
+## Run 0 stress 0.09247795 
+## Run 1 stress 0.1530495 
+## Run 2 stress 0.143999 
+## Run 3 stress 0.1531471 
+## Run 4 stress 0.1419316 
+## Run 5 stress 0.1179732 
+## Run 6 stress 0.1495741 
+## Run 7 stress 0.1453781 
+## Run 8 stress 0.1529878 
+## Run 9 stress 0.1410185 
+## Run 10 stress 0.1415313 
+## Run 11 stress 0.1311486 
+## Run 12 stress 0.1508441 
+## Run 13 stress 0.1217562 
+## Run 14 stress 0.1477764 
+## Run 15 stress 0.1526569 
+## Run 16 stress 0.1446284 
+## Run 17 stress 0.1492881 
+## Run 18 stress 0.1553502 
+## Run 19 stress 0.1527892 
+## Run 20 stress 0.1503915
 ```
 
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
@@ -111,39 +145,24 @@ pseq.ord <- ordinate(pseq2, "NMDS", "bray")
 ```
 
 ```
-## Square root transformation
-## Wisconsin double standardization
-## Run 0 stress 0.2014154 
-## Run 1 stress 0.4170224 
-## Run 2 stress 0.2175427 
-## Run 3 stress 0.2120913 
-## Run 4 stress 0.2149669 
-## Run 5 stress 0.2205538 
-## Run 6 stress 0.23016 
-## Run 7 stress 0.2120833 
-## Run 8 stress 0.2174832 
-## Run 9 stress 0.2114263 
-## Run 10 stress 0.2116162 
-## Run 11 stress 0.2013954 
-## ... New best solution
-## ... procrustes: rmse 0.008975218  max resid 0.09184326 
-## Run 12 stress 0.2081587 
-## Run 13 stress 0.2284501 
-## Run 14 stress 0.2142035 
-## Run 15 stress 0.2039289 
-## Run 16 stress 0.2141113 
-## Run 17 stress 0.2041206 
-## Run 18 stress 0.2362722 
-## Run 19 stress 0.2102958 
-## Run 20 stress 0.2085741
+## Error in inherits(physeq, "formula"): object 'pseq2' not found
 ```
 
 ```r
 p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Genus", title = "taxa")
+```
+
+```
+## Error in inherits(physeq, "phyloseq"): object 'pseq2' not found
+```
+
+```r
 print(p)
 ```
 
-![plot of chunk pca-ordination21](figure/pca-ordination21-1.png) 
+```
+## Error in print(p): object 'p' not found
+```
 
 Grouping the plots by Phylum
 
@@ -152,7 +171,9 @@ Grouping the plots by Phylum
 p + facet_wrap(~Phylum, 5)
 ```
 
-![plot of chunk pca-ordination22](figure/pca-ordination22-1.png) 
+```
+## Error in eval(expr, envir, enclos): object 'p' not found
+```
 
 
 
@@ -163,7 +184,9 @@ p + facet_wrap(~Phylum, 5)
 plot_ordination(pseq, ordinate(pseq, "MDS"), color = "group") + geom_point(size = 5)
 ```
 
-![plot of chunk ordinate23](figure/ordinate23-1.png) 
+```
+## Error in eval(expr, envir, enclos): could not find function "geom_point"
+```
 
 
 ### Canonical correspondence analysis (CCA)
@@ -176,7 +199,9 @@ p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gen
 p + geom_point(size = 5) + geom_polygon(aes(fill = gender))
 ```
 
-![plot of chunk ordinate24a](figure/ordinate24a-1.png) 
+```
+## Error in eval(expr, envir, enclos): could not find function "geom_point"
+```
 
 With taxa:
 
@@ -186,7 +211,9 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "taxa", color = "Phylum") +
     geom_point(size = 4)
 ```
 
-![plot of chunk ordinate24b](figure/ordinate24b-1.png) 
+```
+## Error in eval(expr, envir, enclos): could not find function "geom_point"
+```
 
 
 ### Split plot
@@ -209,7 +236,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", shape = "Phylum")
 
 ![plot of chunk ordinate26](figure/ordinate26-1.png) 
 
-See [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). 
+
 
 
 

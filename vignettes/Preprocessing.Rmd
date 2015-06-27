@@ -1,6 +1,5 @@
 ## Standard data processing operations
 
-
 The high-quality [phyloseq package](http://joey711.github.io/phyloseq/) provides a complete set of tools for data subsetting, aggregating and filtering.
 
 Download example data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling:
@@ -62,7 +61,7 @@ rel <- relative.abundance(dat, det.th = 0)
 Pick samples by specific metadata fields
 
 ```{r data-subsetting}
-pseq.subset2 <- subset_samples(pseq.subset, nationality == "US")
+pseq.subset <- subset_samples(pseq, nationality == "AFR")
 ```
 
 
@@ -77,7 +76,7 @@ sample_variables(pseq)
 Pick variable values for a given variable
 
 ```{r preprocess4b, warning=FALSE, message=FALSE}
-head(get_variable(pseq, sample_variables(pseq)[3]))
+head(get_variable(pseq, sample_variables(pseq)[1]))
 # Assign fields to sample metadata
 # sample_data(GP)$human <- ..
 ```
@@ -95,8 +94,8 @@ ntaxa(pseq)
 Names
 
 ```{r preprocess3f, warning=FALSE, message=FALSE}
-rank_names(pseq)
-taxa_names(pseq)
+ranks <- rank_names(pseq)
+taxa <- taxa_names(pseq)
 ```
 
 
@@ -122,7 +121,7 @@ pseq <- subset_taxa(pseq, Phylum == "Bacteroidetes")
 Filter by user-specified function values (here variance)
 
 ```{r preprocess3d, warning=FALSE, message=FALSE}
-f <- filter_taxa(r, function(x) var(x) > 1e-05, TRUE)
+f <- filter_taxa(pseq, function(x) var(x) > 1e-05, TRUE)
 ```
 
 
@@ -135,7 +134,8 @@ head(get_taxa_unique(pseq, "Phylum"))
 Pick detected taxa by sample name:
 
 ```{r preprocess3gg, warning=FALSE, message=FALSE}
-get_taxa(pseq, sample_names(pseq)[[1]])
+samplename <- sample_names(pseq)[[1]]
+tax.abundances <- get_taxa(pseq, samplename)
 ```
 
 
@@ -148,10 +148,18 @@ head(taxa_sums(pseq))
 
 ### Merging operations for phyloseq objects
 
+
+Aggregate OTUs to higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
+
+```{r preprocessing-aggregate-taxa}
+pseq <- read_hitchip(data.directory, method = "frpa")$pseq
+pseq.L2 <- aggregate_taxa(pseq, level = "L2")
+```
+
+Merging phyloseq objects
+
 ```{r preprocess-merge, warning=FALSE, message=FALSE, eval=FALSE}
-merge_phyloseq()
-merge_taxa()
-tax_glom()
+merge_phyloseq(pseq1, pseq2)
 ```
 
 

@@ -2,7 +2,6 @@
 
 Here some examples with HITChip data. See also [phyloseq ordination tutorial](joey711.github.io/phyloseq/plot_ordination-examples.html).
 
-
 Load example data:
 
 ```{r ordination1, message=FALSE, warning=FALSE, eval=FALSE}
