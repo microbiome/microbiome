@@ -213,7 +213,7 @@ head(taxa_sums(pseq))
 ### Merging operations for phyloseq objects
 
 
-Aggregate OTUs to higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
+Aggregate OTUs to higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus). See also [merge_samples and and merge_taxa](http://joey711.github.io/phyloseq/merge.html):
 
 
 ```r

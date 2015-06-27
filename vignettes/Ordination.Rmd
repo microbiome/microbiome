@@ -6,6 +6,7 @@ Load example data:
 
 ```{r ordination1, message=FALSE, warning=FALSE, eval=FALSE}
 library(microbiome)
+library(ggplot2)
 pseq.atlas <- download_microbiome("atlas1006")
 
 # Define the data set to be used in the examples:
@@ -29,6 +30,7 @@ set.seed(423542)
 x <- t(otu_table(pseq2)@.Data)
 proj <- project.data(log10(x), type = "PCA") # MDS.classical etc.
 ```
+
 
 Visualize and highlight:
 
@@ -58,13 +60,12 @@ See [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-exampl
 ### NMDS with Bray-Curtis distances
 
 ```{r ordination3, message=FALSE, warning=FALSE, fig.width=15, fig.height=8}
-nmds <- ordinate(pseq, "NMDS", "bray")
+pseq.ord <- ordinate(pseq2, "NMDS", "bray")
 ```
 
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
 ```{r pca-ordination21, message=FALSE, message=FALSE, fig.height=8, fig.width=8}
-pseq.ord <- ordinate(pseq2, "NMDS", "bray")
 p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Genus", title = "taxa")
 print(p)
 ```
@@ -76,11 +77,10 @@ p + facet_wrap(~Phylum, 5)
 ```
 
 
-
 ### Multidimensional scaling (MDS)
 
 ```{r ordinate23, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
-plot_ordination(pseq, ordinate(pseq, "MDS"), color = "group") + geom_point(size = 5)
+plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") + geom_point(size = 5)
 ```
 
 
@@ -96,8 +96,9 @@ p + geom_point(size = 5) + geom_polygon(aes(fill = gender))
 With taxa:
 
 ```{r ordinate24b, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
-plot_ordination(pseq, ordinate(pseq, "CCA"), type = "taxa", color = "Phylum") + 
-    geom_point(size = 4)
+p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "taxa", color = "Phylum")
+p <- p + geom_point(size = 4)
+print(p)
 ```
 
 
