@@ -22,7 +22,7 @@ pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > .01) > (0.1*nsamples(pseq.rel
 
 Project data on the first two PCA axes:
 
-```{r ordination2, message=FALSE, warning=FALSE, fig.width=15, fig.height=8, fig.path = "figure/"}
+```{r ordination2, message=FALSE, warning=FALSE, fig.path = "figure/"}
 set.seed(423542)
 x <- t(otu_table(pseq2)@.Data)
 proj <- project.data(log10(x), type = "PCA") # MDS.classical etc.
@@ -31,7 +31,7 @@ proj <- project.data(log10(x), type = "PCA") # MDS.classical etc.
 
 Visualize and highlight:
 
-```{r ordination4, message=FALSE, warning=FALSE, fig.width=12, fig.height=8, fig.path = "figure/"}
+```{r ordination4, message=FALSE, warning=FALSE, fig.width=11, fig.height=8, fig.path = "figure/"}
 # Highlight gender
 p <- densityplot(proj, col = sample_data(pseq2)$gender, legend = T)
 print(p)
@@ -76,7 +76,7 @@ p + facet_wrap(~Phylum, 5)
 
 ### Multidimensional scaling (MDS)
 
-```{r ordinate23, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
+```{r ordinate23, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
 plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") + geom_point(size = 5)
 ```
 
@@ -92,7 +92,7 @@ p + geom_point(size = 5) + geom_polygon(aes(fill = gender))
 
 With taxa:
 
-```{r ordinate24b, warning=FALSE, message=FALSE, fig.width=8, fig.height=7}
+```{r ordinate24b, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "taxa", color = "Phylum")
 p <- p + geom_point(size = 4)
 print(p)
@@ -101,7 +101,7 @@ print(p)
 
 ### Split plot
 
-```{r ordinate25, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
+```{r ordinate25, warning=FALSE, message=FALSE, fig.width=12, fig.height=7}
 plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", color = "gender", 
     shape = "Phylum", label = "gender")
 ```
