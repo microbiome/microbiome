@@ -56,9 +56,14 @@ summarize.sum <- function (taxonomy, level, probedata, verbose = TRUE, downweigh
     # Weight each probe by the inverse of the number of matching phylotypes
     # Then calculate sum -> less specific probes are downweighted
     # However, set the minimum signal to 0 in log10 scale (1 in original scale)!
-    dat2 <- dat * probe.weights[rownames(dat)]
-    vec <- colSums(dat2, na.rm = T)         
-    summarized.matrix[set, ] <- vec 
+    if (nrow(dat) > 1) {
+      dat <- dat * probe.weights[rownames(dat)]
+      vec <- colSums(dat, na.rm = T)               
+    } else {
+      vec <- as.vector(unlist(dat))
+    }
+
+    summarized.matrix[set, ] <- vec
 
   }
 

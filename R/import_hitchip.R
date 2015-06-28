@@ -18,7 +18,7 @@
 import_hitchip <- function(data.dir, method = "frpa", detection.threshold = 0, verbose = F) {
 
   # Read	     
-  if (verbose) {message(paste("Reading Chip data from", data.dir))}
+  if ( verbose ) { message(paste("Reading Chip data from", data.dir)) }
 
   res <- list()
 
