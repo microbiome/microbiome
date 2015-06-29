@@ -9,8 +9,8 @@
 #'
 #' @export
 #' @examples 
-#'   # data.dir <- system.file("extdata", package = "microbiome")
-#'   # dat <- import_hitchip(data.dir)
+#'   data.dir <- system.file("extdata", package = "microbiome")
+#'   dat <- import_hitchip(data.dir)
 #'
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

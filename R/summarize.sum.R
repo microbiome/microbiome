@@ -48,19 +48,15 @@ summarize.sum <- function (taxonomy, level, probedata, verbose = TRUE, downweigh
     # oligo.data assumed to be already in log10
     dat <- as.matrix(oligo.data[probes,])
     if (length(probes) == 1)  {
-      dat <- as.matrix(oligo.data[probes,], nrow = length(probes))
-    }
-    rownames(dat) <- probes
-    colnames(dat) <- colnames(oligo.data)
-
-    # Weight each probe by the inverse of the number of matching phylotypes
-    # Then calculate sum -> less specific probes are downweighted
-    # However, set the minimum signal to 0 in log10 scale (1 in original scale)!
-    if (nrow(dat) > 1) {
+      vec <- as.vector(unlist(oligo.data[probes,]))
+    } else {
+      # Weight each probe by the inverse of the number of matching phylotypes
+      # Then calculate sum -> less specific probes are downweighted
+      # However, set the minimum signal to 0 in log10 scale (1 in original scale)!
+      rownames(dat) <- probes
+      colnames(dat) <- colnames(oligo.data)
       dat <- dat * probe.weights[rownames(dat)]
       vec <- colSums(dat, na.rm = T)               
-    } else {
-      vec <- as.vector(unlist(dat))
     }
 
     summarized.matrix[set, ] <- vec

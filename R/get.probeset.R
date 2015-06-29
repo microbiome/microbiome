@@ -12,7 +12,7 @@
 #'   @return probeset data matrix
 #'
 #' @export
-#' @examples 
+#' @examples
 #'   taxonomy <- GetPhylogeny('HITChip', 'filtered')
 #'   data.dir <- system.file("extdata", package = "microbiome")
 #'   probedata <- read_hitchip(data.dir, "rpa")$probedata

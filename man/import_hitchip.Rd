@@ -23,8 +23,8 @@ data matrix (phylo x samples)
 Import HITChip output into phyloseq format
 }
 \examples{
-# data.dir <- system.file("extdata", package = "microbiome")
-  # dat <- import_hitchip(data.dir)
+data.dir <- system.file("extdata", package = "microbiome")
+  dat <- import_hitchip(data.dir)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

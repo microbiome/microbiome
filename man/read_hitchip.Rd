@@ -29,8 +29,8 @@ data matrix (phylo x samples)
 Read HITChip output and preprocess into phyloseq format
 }
 \examples{
-# data.dir <- system.file("extdata", package = "microbiome")
-  # dat <- read_hitchip(data.dir)
+data.dir <- system.file("extdata", package = "microbiome")
+  dat <- read_hitchip(data.dir)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

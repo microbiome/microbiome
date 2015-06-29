@@ -25,7 +25,6 @@
 #'		 taxonomy = taxonomy, 
 #'                 method = "rpa",
 #'		 level = "species")
-#'
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
