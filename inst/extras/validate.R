@@ -1,4 +1,3 @@
-library(microbiome)
 library(HITChipDB)
 
 # Read probe level data
