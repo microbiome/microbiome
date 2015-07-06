@@ -43,8 +43,9 @@ GetPhylogeny <- function(chip, phylogeny.version = "full", data.dir = NULL) {
 
     }
 
-    tax.table
+    df <- as.data.frame(tax.table)
 
+    df
 }
 
 
