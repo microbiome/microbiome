@@ -30,7 +30,7 @@ Alternatively, pick abundance matrix separately and use matrix
 visualization tools. Z-transforming OTUs ie. visualize deviation of
 all bacteria from their population mean (smaller: blue; higher: red):
 
-```{r heatmap-matvisu-example, fig.width=16, fig.height=8, fig.path = "figure/"}
+```{r heatmap-matvisu-example, fig.width=16, fig.height=6, fig.path = "figure/"}
 # Z transform
 pseqz <- ztransform_phyloseq(pseq2, "OTU")
 # Pick OTU table
@@ -136,7 +136,7 @@ print(p)
 For detailed information, might be handy to print the actual values on
 top of the heatmap:
 
-```{r heatmap-example-text, message=FALSE, warning=FALSE, fig.width=14, fig.height=14, fig.path = "figure/"}
+```{r heatmap-example-text, message=FALSE, warning=FALSE, fig.width=14, fig.height=16, fig.path = "figure/"}
 theme_set(theme_bw(20))
 df <- microbiome::cmat2table(correlations)
 df$X1 <- factor(df$X1)
