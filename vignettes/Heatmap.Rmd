@@ -13,7 +13,8 @@ plot_heatmap(pseq, sample.label = "sample")
 Pick subset of the data and plot ordered heatmap
 
 ```{r heatmap-phyloseq2, fig.width=16, fig.height=8, fig.path = "figure/"}
-bacteroidetes <- levelmap(NULL, "Phylum", "Genus", tax_table(x))$Bacteroidetes
+bacteroidetes <- levelmap(from = "Phylum", to = "Genus",
+	      	 	   tax.table = tax_table(pseq))$Bacteroidetes
 pseq2 <- prune_taxa(bacteroidetes, pseq)
 pseq2 <- subset_samples(pseq2, group == "DI")
 
@@ -77,7 +78,7 @@ Arrange the results in handy table format:
 
 ```{r correlation-table2, message=FALSE, warning=FALSE, fig.path = "figure/"}
 correlation.table <- cmat2table(correlations)
-kable(correlation.table)
+kable(head(correlation.table))
 ```
 
 ### Correlation heatmaps
