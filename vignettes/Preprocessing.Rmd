@@ -55,17 +55,18 @@ Log transforming the sample counts
 pseq.log <- transform_sample_counts(pseq, function(x) log10(1 + x))
 ```
 
-Z transforming the counts
+
+Z transforming the data
 
 ```{r preprocessing-ztrans}
 # Z transform samples
-pseq.z <- transform_sample_counts(pseq, function(x) { y <- log10(1 + x); (y - mean(y))/sd(y) })
+pseq.z <- ztransform_phyloseq(pseq, "sample")
 
 # Z transform OTUs
-pseq.z <- pseq
-trans <- as.matrix(t(scale(t(log10(1 + otu_table(pseq)@.Data)))))
-otu_table(pseq.z) <- otu_table(trans, taxa_are_rows=taxa_are_rows(physeq))
+pseq.z <- ztransform_phyloseq(pseq, "OTU")
 ```
+
+
 
 Calculating relative abundance for standard abundance matrix:
 

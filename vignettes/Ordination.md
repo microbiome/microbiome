@@ -134,10 +134,14 @@ With samples:
 
 ```r
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gender")
-p + geom_point(size = 5) + geom_polygon(aes(fill = gender))
+p + geom_point(size = 5)
 ```
 
 ![plot of chunk ordinate24a](figure/ordinate24a-1.png) 
+
+```r
+#p <- p + geom_polygon(aes(fill = gender))
+```
 
 With taxa:
 
@@ -155,8 +159,8 @@ print(p)
 
 
 ```r
-plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", color = "gender", 
-    shape = "Phylum", label = "gender")
+plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender", 
+    color = "Phylum", label = "gender")
 ```
 
 ![plot of chunk ordinate25](figure/ordinate25-1.png) 
@@ -166,7 +170,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", color = "gender",
 
 
 ```r
-plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", shape = "Phylum")
+plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
 ```
 
 ![plot of chunk ordinate26](figure/ordinate26-1.png) 

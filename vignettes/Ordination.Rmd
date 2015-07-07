@@ -103,15 +103,15 @@ print(p)
 ### Split plot
 
 ```{r ordinate25, warning=FALSE, message=FALSE, fig.width=12, fig.height=7}
-plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", color = "gender", 
-    shape = "Phylum", label = "gender")
+plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender", 
+    color = "Phylum", label = "gender")
 ```
 
 
 ### Ordination biplot
 
 ```{r ordinate26, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
-plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", shape = "Phylum")
+plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
 ```
 
 

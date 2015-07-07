@@ -27,17 +27,7 @@ permutest(rdatest)
 ```
 
 ```
-## 
-## Permutation test for rda 
-## 
-## Permutation: free
-## Number of permutations: 99
-##  
-## Call: rda(formula = otu ~ annot, scale = scale, na.action =
-## na.action)
-## Permutation test for all constrained eigenvalues
-## Pseudo-F:	 0.3570377 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.93
+## Error in eval(expr, envir, enclos): could not find function "permutest"
 ```
 
 ### RDA visualization
@@ -49,6 +39,13 @@ Visualizing the standard RDA output:
 plot(rdatest, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
 points(rdatest, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
 pl <- ordihull(rdatest, meta$time, scaling = 3, label = TRUE)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "ordihull"
+```
+
+```r
 title("RDA")
 ```
 
@@ -89,6 +86,10 @@ meta <- sample_data(pseq)
 
 # RDA with confounders
 rdatest2 <- rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "rda"
 ```
 
 

@@ -94,16 +94,14 @@ sessionInfo()
 ## 
 ## other attached packages:
 ##  [1] gridExtra_0.9.1     googleVis_0.5.8     limma_3.24.10      
-##  [4] vegan_2.3-0         lattice_0.20-31     permute_0.8-4      
-##  [7] scales_0.2.5        RSQLite_1.0.0       DBI_0.3.1          
-## [10] mgcv_1.8-6          nlme_3.1-120        dplyr_0.4.2        
-## [13] netresponse_1.18.0  reshape_0.8.5       mclust_5.0.1       
-## [16] minet_3.26.0        Rgraphviz_2.12.0    graph_1.46.0       
-## [19] ggplot2_1.0.1       sorvi_0.7.26        microbiome_0.99.55 
-## [22] RPA_1.24.0          affy_1.46.1         Biobase_2.28.0     
-## [25] BiocGenerics_0.14.0 phyloseq_1.13.2     rdryad_0.1.1       
-## [28] knitcitations_1.0.6 knitr_1.10.5        rmarkdown_0.7      
-## [31] scimapClient_0.2.1 
+##  [4] RSQLite_1.0.0       DBI_0.3.1           mgcv_1.8-6         
+##  [7] nlme_3.1-120        dplyr_0.4.2         netresponse_1.18.0 
+## [10] reshape_0.8.5       mclust_5.0.1        minet_3.26.0       
+## [13] Rgraphviz_2.12.0    graph_1.46.0        ggplot2_1.0.1      
+## [16] sorvi_0.7.26        microbiome_0.99.60  RPA_1.24.0         
+## [19] affy_1.46.1         Biobase_2.28.0      BiocGenerics_0.14.0
+## [22] phyloseq_1.13.2     rdryad_0.1.1        knitcitations_1.0.6
+## [25] knitr_1.10.5        rmarkdown_0.7       scimapClient_0.2.1 
 ## 
 ## loaded via a namespace (and not attached):
 ##   [1] spam_1.0-1                Hmisc_3.16-0             
@@ -125,41 +123,43 @@ sessionInfo()
 ##  [33] ape_3.3                   gtable_0.1.2             
 ##  [35] zlibbioc_1.14.0           XVector_0.8.0            
 ##  [37] RGCCA_2.0                 tgp_2.4-11               
-##  [39] maps_2.3-9                futile.options_1.0.0     
-##  [41] pheatmap_1.0.2            mvtnorm_1.0-2            
-##  [43] som_0.3-5                 bibtex_0.4.0             
-##  [45] Rcpp_0.11.6               xtable_1.7-4             
-##  [47] foreign_0.8-63            preprocessCore_1.30.0    
-##  [49] Formula_1.2-1             stats4_3.2.1             
-##  [51] httr_0.6.1                RColorBrewer_1.1-2       
-##  [53] acepack_1.3-3.3           XML_3.98-1.2             
-##  [55] nnet_7.3-9                locfit_1.5-9.1           
-##  [57] RJSONIO_1.3-0             dynamicTreeCut_1.62      
-##  [59] labeling_0.3              reshape2_1.4.1           
-##  [61] AnnotationDbi_1.30.1      munsell_0.4.2            
-##  [63] tools_3.2.1               moments_0.14             
-##  [65] ade4_1.7-2                evaluate_0.7             
-##  [67] stringr_1.0.0             dmt_0.8.20               
-##  [69] maptree_1.4-7             RefManageR_0.8.63        
-##  [71] rgl_0.95.1247             formatR_1.2              
-##  [73] affyio_1.36.0             geneplotter_1.46.0       
-##  [75] stringi_0.5-2             highr_0.5                
-##  [77] futile.logger_1.4.1       fields_8.2-1             
-##  [79] earlywarnings_1.1.21      Matrix_1.2-1             
-##  [81] multtest_2.24.0           biom_0.3.12              
-##  [83] lmtest_0.9-34             data.table_1.9.4         
-##  [85] bitops_1.0-6              GenomicRanges_1.20.5     
-##  [87] qvalue_2.0.0              R6_2.0.1                 
-##  [89] latticeExtra_0.6-26       KernSmooth_2.23-14       
-##  [91] IRanges_2.2.4             codetools_0.2-11         
-##  [93] lambda.r_1.1.7            boot_1.3-16              
-##  [95] MASS_7.3-41               gtools_3.5.0             
-##  [97] assertthat_0.1            chron_2.3-46             
-##  [99] proto_0.3-10              DESeq2_1.8.1             
-## [101] OAIHarvester_0.1-7        nortest_1.0-3            
-## [103] S4Vectors_0.6.0           diptest_0.75-7           
-## [105] mixOmics_5.0-4            quadprog_1.5-5           
-## [107] rpart_4.1-9               WGCNA_1.47               
-## [109] lubridate_1.3.3
+##  [39] maps_2.3-9                scales_0.2.5             
+##  [41] futile.options_1.0.0      pheatmap_1.0.2           
+##  [43] mvtnorm_1.0-2             som_0.3-5                
+##  [45] bibtex_0.4.0              Rcpp_0.11.6              
+##  [47] xtable_1.7-4              foreign_0.8-63           
+##  [49] preprocessCore_1.30.0     Formula_1.2-1            
+##  [51] stats4_3.2.1              httr_0.6.1               
+##  [53] RColorBrewer_1.1-2        acepack_1.3-3.3          
+##  [55] XML_3.98-1.3              nnet_7.3-9               
+##  [57] locfit_1.5-9.1            RJSONIO_1.3-0            
+##  [59] dynamicTreeCut_1.62       labeling_0.3             
+##  [61] reshape2_1.4.1            AnnotationDbi_1.30.1     
+##  [63] munsell_0.4.2             tools_3.2.1              
+##  [65] moments_0.14              ade4_1.7-2               
+##  [67] evaluate_0.7              stringr_1.0.0            
+##  [69] dmt_0.8.20                maptree_1.4-7            
+##  [71] RefManageR_0.8.63         rgl_0.95.1247            
+##  [73] formatR_1.2               affyio_1.36.0            
+##  [75] geneplotter_1.46.0        stringi_0.5-5            
+##  [77] highr_0.5                 futile.logger_1.4.1      
+##  [79] fields_8.2-1              earlywarnings_1.1.22     
+##  [81] lattice_0.20-31           Matrix_1.2-1             
+##  [83] vegan_2.3-0               permute_0.8-4            
+##  [85] multtest_2.24.0           biom_0.3.12              
+##  [87] lmtest_0.9-34             data.table_1.9.4         
+##  [89] bitops_1.0-6              GenomicRanges_1.20.5     
+##  [91] qvalue_2.0.0              R6_2.0.1                 
+##  [93] latticeExtra_0.6-26       KernSmooth_2.23-14       
+##  [95] IRanges_2.2.4             codetools_0.2-11         
+##  [97] lambda.r_1.1.7            boot_1.3-16              
+##  [99] MASS_7.3-41               gtools_3.5.0             
+## [101] assertthat_0.1            chron_2.3-47             
+## [103] proto_0.3-10              DESeq2_1.8.1             
+## [105] OAIHarvester_0.1-7        nortest_1.0-3            
+## [107] S4Vectors_0.6.0           diptest_0.75-7           
+## [109] mixOmics_5.0-4            quadprog_1.5-5           
+## [111] rpart_4.1-9               WGCNA_1.47               
+## [113] lubridate_1.3.3
 ```
 

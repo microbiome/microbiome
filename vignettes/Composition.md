@@ -74,6 +74,13 @@ sequence similarity, not exactly Phylum):
 ```r
 pseq <- subset_samples(pseq0, group == "DI")
 p <- plot_bar(pseq, x = "timepoint.within.group", fill = "Phylum", facet_grid = ~nationality)
+```
+
+```
+## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
+```
+
+```r
 print(p)
 ```
 

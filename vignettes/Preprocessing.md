@@ -69,6 +69,26 @@ Calculating relative abundances for a phyloseq object:
 pseq <- transform_sample_counts(pseq, function(x) x/sum(x))
 ```
 
+Log transforming the sample counts
+
+
+```r
+pseq.log <- transform_sample_counts(pseq, function(x) log10(1 + x))
+```
+
+
+Z transforming the data
+
+
+```r
+# Z transform samples
+pseq.z <- ztransform_phyloseq(pseq, "sample")
+
+# Z transform OTUs
+pseq.z <- ztransform_phyloseq(pseq, "OTU")
+```
+
+
 
 Calculating relative abundance for standard abundance matrix:
 
@@ -221,15 +241,11 @@ pseq <- read_hitchip(data.directory, method = "frpa")$pseq
 ```
 
 ```
-## Error in paste(data.dir, "/oligoprofile.tab", sep = ""): object 'data.directory' not found
+## Loading pre-calculated RPA preprocessing parameters
 ```
 
 ```r
 pseq.L2 <- aggregate_taxa(pseq, level = "L2")
-```
-
-```
-## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
 ```
 
 Merging phyloseq objects
@@ -245,11 +261,6 @@ merge_phyloseq(pseq1, pseq2)
 
 ```r
 pseq.rarified <- rarefy_even_depth(pseq)
-```
-
-```
-## Error in validObject(.Object): invalid class "otu_table" object: 
-##  OTU abundance data must have non-zero dimensions.
 ```
 
 

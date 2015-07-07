@@ -49,7 +49,7 @@ hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 10^1.8
   # for that by default
   if (is.null(taxonomy) && nrow(otumat) < 3000) {
 
-    ph <- as.data.frame(GetPhylogeny("HITChip")@.Data)
+    ph <- GetPhylogeny("HITChip")
     ph <- unique(ph[, c("L1", "L2", "species")])
     colnames(ph) <- c("Phylum", "Genus", "Phylotype")
     taxonomy <- ph
