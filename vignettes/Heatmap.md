@@ -30,7 +30,7 @@ pseq2 <- prune_taxa(bacteroidetes, pseq)
 pseq2 <- subset_samples(pseq2, group == "DI")
 
 # Plot heatmap ordered with NMDS
-plot_heatmap(pseq, method = "NMDS", distance = "bray",
+plot_heatmap(pseq2, method = "NMDS", distance = "bray",
 	     sample.label = "sample", taxa.label = "Genus")
 ```
 

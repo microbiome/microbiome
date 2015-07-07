@@ -19,7 +19,7 @@ pseq2 <- prune_taxa(bacteroidetes, pseq)
 pseq2 <- subset_samples(pseq2, group == "DI")
 
 # Plot heatmap ordered with NMDS
-plot_heatmap(pseq, method = "NMDS", distance = "bray",
+plot_heatmap(pseq2, method = "NMDS", distance = "bray",
 	     sample.label = "sample", taxa.label = "Genus")
 ```
 
@@ -136,7 +136,7 @@ print(p)
 For detailed information, might be handy to print the actual values on
 top of the heatmap:
 
-```{r heatmap-example-text, message=FALSE, warning=FALSE, fig.width=14, fig.height=12, fig.path = "figure/"}
+```{r heatmap-example-text, message=FALSE, warning=FALSE, fig.width=14, fig.height=14, fig.path = "figure/"}
 theme_set(theme_bw(20))
 df <- microbiome::cmat2table(correlations)
 df$X1 <- factor(df$X1)
