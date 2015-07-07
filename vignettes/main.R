@@ -45,7 +45,7 @@ library(knitr)
 fs <- list.files(pattern = ".Rmd$")
 #for (f in setdiff(fs, c("misc.Rmd"))) { 
 #for (f in setdiff(fs, c("Atlas.Rmd", "vignette.Rmd"))) { 
-for (f in setdiff(fs[19:28], c("misc.Rmd"))) { 
+for (f in setdiff(fs, c("misc.Rmd"))) { 
     print(f)
     knit(f) 
     #rmarkdown::render(f, "md_document")
