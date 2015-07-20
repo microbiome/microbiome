@@ -10,7 +10,7 @@
 #' @export
 #' @importFrom MASS isoMDS
 #' @importFrom MASS sammon
-#' @import mixOmics
+#' @importFrom mixOmics spca
 #'
 #' @examples 
 #'   data(peerj32)

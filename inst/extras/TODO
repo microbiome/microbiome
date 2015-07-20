@@ -1,4 +1,13 @@
-  if (probe.parameters == "frpa.HITChip") {
+rdryad and phyloseq depend on RJSONIO:
+library("tools")
+dependsOnPkgs("RJSONIO")
+This causes the BioC warnings in build/check
+Could be replaced by custom copies of the necessary functions to get rid of this. Postponing for now.
+
+
+
+
+if (probe.parameters == "frpa.HITChip") {
     if (verbose) {message("Loading pre-calculated preprocessing parameters")}
     rpa.hitchip.species.probe.parameters <- list()
     load(system.file("extdata/probe.parameters.rda", package = "HITChipDB"))

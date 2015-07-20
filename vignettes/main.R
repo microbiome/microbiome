@@ -1,4 +1,4 @@
-library(rmarkdown)
+#library(rmarkdown)
 #rmarkdown::render("vignette.Rmd")
 #rmarkdown::render("Template.Rmd")
 #rmarkdown::render("Atlas.Rmd", "all")
@@ -43,9 +43,9 @@ library(knitr)
 #fs <- c("Phylogeny.Rmd")
 #for (f in setdiff(fs, "Installation.Rmd")) { 
 fs <- list.files(pattern = ".Rmd$")
-#for (f in setdiff(fs, c("misc.Rmd"))) { 
-#for (f in setdiff(fs, c("Atlas.Rmd", "vignette.Rmd"))) { 
 for (f in setdiff(fs, c("misc.Rmd"))) { 
+#for (f in setdiff(fs, c("Atlas.Rmd", "vignette.Rmd"))) { 
+#for (f in setdiff(fs, c("misc.Rmd", "Networks.Rmd"))) {
     print(f)
     knit(f) 
     #rmarkdown::render(f, "md_document")

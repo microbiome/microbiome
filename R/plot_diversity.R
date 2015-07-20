@@ -41,7 +41,7 @@
 #'  \code{\link[vegan]{diversity}}
 #'
 #' @import ggplot2
-#' @import reshape2
+#' @importFrom reshape2 melt
 #' @importFrom sorvi regression_plot
 #' @export
 #' @examples # 

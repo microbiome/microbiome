@@ -16,6 +16,7 @@ library("microbiome")
 
 ```
 ## Loading required package: phyloseq
+## Creating a generic function for 'nchar' from package 'base' in package 'S4Vectors'
 ## Loading required package: RPA
 ## Loading required package: parallel
 ## Loading required package: affy

@@ -1,8 +1,8 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.60
-Date: 2015-07-06
+Version: 0.99.61
+Date: 2015-07-20
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Salojarvi", "Jarkko" , role = "aut"))
@@ -16,7 +16,6 @@ Depends:
     RPA
 Imports:
     ade4,
-    vegan,
     diptest,
     dplyr,
     earlywarnings,
@@ -27,12 +26,12 @@ Imports:
     RColorBrewer,
     rdryad,
     reshape2,
-    sorvi
+    sorvi,
+    vegan    
 Suggests:
     BiocGenerics,
     BiocStyle,
     knitr,
-    rmarkdown,
     WGCNA
 URL: http://microbiome.github.com
 MailingList: microbiome <microbiome-devel@googlegroups.com>

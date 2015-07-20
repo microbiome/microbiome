@@ -27,5 +27,7 @@ Another example:
 plot_net(pseq, maxdist = 0.2, point_label = "group")
 ```
 
-![plot of chunk networks2](figure/networks2-1.png) 
+```
+## Error in `[.data.table`(vertexDT, LinksData$v1, x, y): i has not evaluated to logical, integer or double
+```
 

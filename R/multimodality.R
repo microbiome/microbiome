@@ -43,7 +43,6 @@
 #' @importFrom diptest dip.test
 #' @export
 #'
-#' @import earlywarnings
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
 #'

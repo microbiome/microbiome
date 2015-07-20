@@ -11,7 +11,7 @@
 #' @return A \code{\link{ggplot}} plot object.
 #' 
 #' @import ggplot2
-#' @import reshape2
+#' @importFrom reshape2 melt
 #' @importFrom phyloseq tax_glom
 #'
 #' @export
