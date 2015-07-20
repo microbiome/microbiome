@@ -43,9 +43,10 @@ library(knitr)
 #fs <- c("Phylogeny.Rmd")
 #for (f in setdiff(fs, "Installation.Rmd")) { 
 fs <- list.files(pattern = ".Rmd$")
-for (f in setdiff(fs, c("misc.Rmd"))) { 
-#for (f in setdiff(fs, c("Atlas.Rmd", "vignette.Rmd"))) { 
-#for (f in setdiff(fs, c("misc.Rmd", "Networks.Rmd"))) {
+#for (f in setdiff(fs, c("misc.Rmd"))) { 
+#for (f in setdiff(fs, c("Atlas.Rmd", "vignette.Rmd"))) {
+# Motionchart as the last one
+for (f in c(setdiff(fs, c("misc.Rmd", "Motionchart.Rmd")), "Motionchart.Rmd")) {
     print(f)
     knit(f) 
     #rmarkdown::render(f, "md_document")

@@ -18,7 +18,7 @@ ig <- make_network(pseq, max.dist = 0.2)
 plot_network(ig, pseq, color = "nationality", shape = "group", line_weight = 0.4, label = "sample")
 ```
 
-![plot of chunk networks](figure/networks-1.png) 
+![plot of chunk networks2](figure/networks2-1.png) 
 
 Another example:
 

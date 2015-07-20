@@ -93,15 +93,15 @@ sessionInfo()
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] gridExtra_0.9.1     googleVis_0.5.8     limma_3.24.13      
-##  [4] RSQLite_1.0.0       DBI_0.3.1           mgcv_1.8-6         
-##  [7] nlme_3.1-120        dplyr_0.4.2         netresponse_1.18.0 
-## [10] reshape_0.8.5       mclust_5.0.1        minet_3.26.0       
-## [13] Rgraphviz_2.12.0    graph_1.46.0        ggplot2_1.0.1      
-## [16] sorvi_0.7.30        microbiome_0.99.61  RPA_1.24.0         
-## [19] affy_1.46.1         Biobase_2.28.0      BiocGenerics_0.14.0
-## [22] phyloseq_1.13.2     rdryad_0.1.1        knitcitations_1.0.6
-## [25] knitr_1.10.5        scimapClient_0.2.1 
+##  [1] gridExtra_0.9.1     limma_3.24.13       RSQLite_1.0.0      
+##  [4] DBI_0.3.1           mgcv_1.8-6          nlme_3.1-120       
+##  [7] dplyr_0.4.2         netresponse_1.18.0  reshape_0.8.5      
+## [10] mclust_5.0.1        minet_3.26.0        Rgraphviz_2.12.0   
+## [13] graph_1.46.0        ggplot2_1.0.1       sorvi_0.7.30       
+## [16] microbiome_0.99.61  RPA_1.24.0          affy_1.46.1        
+## [19] Biobase_2.28.0      BiocGenerics_0.14.0 phyloseq_1.13.2    
+## [22] rdryad_0.1.1        knitcitations_1.0.6 knitr_1.10.5       
+## [25] scimapClient_0.2.1 
 ## 
 ## loaded via a namespace (and not attached):
 ##   [1] colorspace_1.2-6          dynamicTreeCut_1.62      
