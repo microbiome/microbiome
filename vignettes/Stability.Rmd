@@ -2,14 +2,13 @@
 
 Download example data - HITChip Atlas of 130 genus-like taxa across 1006 healthy western adults from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). A subset of 76 subjects have also short time series available for temporal stability analysis:
 
-```{r bistability}
+```{r bistability, message=FALSE}
 library(microbiome)
 pseq <- download_microbiome("atlas1006")
 
 # Let us keep only prevalent taxa
 # (HITChip signal >3 in >20 percent of the samples)
-pseq <- filter_prevalent(pseq, detection.threshold = 10^3,
-     			       prevalence.threshold = 0.2)
+pseq <- filter_prevalent(pseq, detection.threshold = 10^3, prevalence.threshold = 0.2)
 ```
 
 
@@ -18,12 +17,9 @@ pseq <- filter_prevalent(pseq, detection.threshold = 10^3,
 
 It has been reported that certain microbial groups exhibit bi-stable
 abundance distributions with distinct peaks at low and high
-abundances, and an instable intermediate abundance range.
-
-Instability at the intermediate abundance range is hence one indicator
-of bi-stability.
-
-[Lahti et
+abundances, and an instable intermediate abundance range. Instability
+at the intermediate abundance range is hence one indicator of
+bi-stability. [Lahti et
 al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html))
 use straightforward correlation analysis to quantify how the distance
 from the intermediate abundance region (50% quantile) is associated
@@ -37,21 +33,20 @@ intermediate.stability <- intermediate_stability(pseq, output = "scores")
 
 ## Quantify bimodality 
 
-Bistable systems often exhibit bimodal population patterns. Hence,
-bimodality of the abundance distribution provides another indicator of
-bistability, although other explanations for bimodality (sampling
-biases; heterogeneous population structure etc.) are also possible.
+Bimodality of the abundance distribution provides another (indirect)
+indicator of bistability, although other explanations such as sampling
+biases etc. should be controlled. Multiple bimodality scores are
+available.
 
-Multiple bimodality scores are available. Perform cross-sectional
-analysis of bimodality by including only the samples from the zero
-time point:
+Let is stick to cross-sectional analysis of bimodality and include
+only the samples from the zero time point:
 
 ```{r bimodality, message=FALSE, warning=FALSE, fig.path = "figure/"}
 pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
 ```
 
 
-[Multimodality score with potential analysis with
+Multimodality score using [potential analysis with
 bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
 
 
@@ -66,7 +61,7 @@ bimodality.sarle <- bimodality(pseq0, method = "Sarle.finite.sample")
 ```
 
 
-DIP test for multimodality (not included in the microbiome package):
+DIP test for multimodality (from the [diptest](https://cran.r-project.org/web/packages/diptest/index.html) package):
 
 ```{r bimodality-dip, message=FALSE, warning=FALSE, fig.path = "figure/"}
 bimodality.dip <- bimodality(pseq0, method = "dip")
@@ -92,7 +87,7 @@ grid.arrange(p1, p2, nrow = 1)
 
 ## Comparing bimodality and intermediate stability
 
-The analysis suggests that bimodal population distribution across individuals is often associated with instable intermediate abundances within individuals. The specific bi-stable groups in the upper left corner were suggested in [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
+The analysis suggests that bimodal population distribution across individuals is often associated with instable intermediate abundances within individuals. The specific bi-stable groups in the upper left corner were suggested to constitute bistable tipping elements of the human intestinal microbiota in [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
 
 ```{r bimodalitybistability, message=FALSE, warning=FALSE, fig.path = "figure/"}
 taxa <- taxa_names(pseq0)
