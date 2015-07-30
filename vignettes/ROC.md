@@ -8,6 +8,68 @@ A basic example of ROC/AUC analysis.
 
 ```r
 library(microbiome)
+```
+
+```
+## Loading required package: phyloseq
+## Loading required package: RPA
+## Loading required package: parallel
+## Loading required package: affy
+## Loading required package: BiocGenerics
+## 
+## Attaching package: 'BiocGenerics'
+## 
+## The following objects are masked from 'package:parallel':
+## 
+##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+##     clusterExport, clusterMap, parApply, parCapply, parLapply,
+##     parLapplyLB, parRapply, parSapply, parSapplyLB
+## 
+## The following object is masked from 'package:stats':
+## 
+##     xtabs
+## 
+## The following objects are masked from 'package:base':
+## 
+##     anyDuplicated, append, as.data.frame, as.vector, cbind,
+##     colnames, do.call, duplicated, eval, evalq, Filter, Find, get,
+##     intersect, is.unsorted, lapply, Map, mapply, match, mget,
+##     order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+##     rbind, Reduce, rep.int, rownames, sapply, setdiff, sort,
+##     table, tapply, union, unique, unlist, unsplit
+## 
+## Loading required package: Biobase
+## Welcome to Bioconductor
+## 
+##     Vignettes contain introductory material; view with
+##     'browseVignettes()'. To cite Bioconductor, see
+##     'citation("Biobase")', and for packages 'citation("pkgname")'.
+## 
+## 
+## Attaching package: 'Biobase'
+## 
+## The following object is masked from 'package:phyloseq':
+## 
+##     sampleNames
+## 
+## 
+## RPA Copyright (C) 2008-2014 Leo Lahti.
+## This program comes with ABSOLUTELY NO WARRANTY.
+## This is free software, and you are welcome to redistribute it under the FreeBSD open source license.
+## 
+## 
+## microbiome R package (microbiome.github.com)
+##           
+## 
+## 
+##  Copyright (C) 2011-2015
+##           Leo Lahti and Jarkko Salojarvi 
+## 
+##         
+##           <microbiome-admin@googlegroups.com>
+```
+
+```r
 pseq <- download_microbiome("dietswap")
 ```
 
@@ -51,31 +113,42 @@ bacteroidetes <- levelmap("Bacteroidetes", from = "L1", to = "L2", GetPhylogeny(
 
 ### Overall ROC analysis 
 
-This gives the cumulative TPR and FPR along the ordered list
+Based on the [xrobin/pROC](https://github.com/xrobin/pROC) package
+(see that page for more examples with confidence limits etc):
 
 
 ```r
-# Order the taxa based on the p-values
-ordered.results <- names(sort(pvalues))
+library(pROC)
+```
 
-# Define true positive taxa to be tested for enrichment
-true.positives <- bacteroidetes
+```
+## Type 'citation("pROC")' for a citation.
+## 
+## Attaching package: 'pROC'
+## 
+## The following object is masked from 'package:microbiome':
+## 
+##     roc
+## 
+## The following objects are masked from 'package:stats':
+## 
+##     cov, smooth, var
+```
 
-# ROC analysis
-res <- roc(ordered.results, true.positives)
+```r
+res <- roc(names(pvalues) %in% bacteroidetes, pvalues)
 ```
 
 
-### Calculate ROC/AUC value
+### ROC/AUC value
 
 
 ```r
-auc <- roc.auc(ordered.results, true.positives)
-print(auc)
+res$auc
 ```
 
 ```
-## [1] 0.3621495
+## Area under the curve: 0.6373
 ```
 
 
@@ -83,7 +156,7 @@ print(auc)
 
 
 ```r
-roc.plot(ordered.results, true.positives, line = TRUE)
+plot(res)
 ```
 
 ![plot of chunk roc-example4](figure/roc-example4-1.png) 

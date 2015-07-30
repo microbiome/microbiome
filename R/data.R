@@ -195,7 +195,7 @@ download_dietswap <- function (...) {
   meta$timepoint.group <- NULL
 
   # Harmonize the field names etc.
-  colnames(meta) <- suppressWarnings(harmonize_fieldnames(colnames(meta)))
+  # colnames(meta) <- suppressWarnings(harmonize_fieldnames(colnames(meta)))
 
   # Harmonize field contents
   meta <- suppressWarnings(harmonize_fields(meta))
