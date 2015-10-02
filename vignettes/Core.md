@@ -56,7 +56,7 @@ p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.threshol
 
 ![plot of chunk core-example2](figure/core-example2-1.png) 
 
-### Core heatmap
+### Core heatmaps
 
 
 ```r
@@ -64,3 +64,13 @@ p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.threshol
 ```
 
 ![plot of chunk core-example3](figure/core-example3-1.png) 
+
+
+
+```r
+p <- core_heatmap(pseq, palette == "spectral")
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "core_heatmap"
+```

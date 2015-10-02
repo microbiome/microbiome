@@ -36,8 +36,13 @@ core <- core_matrix(pseq, prevalence.intervals = seq(10, 100, 10), detection.thr
 p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)), plot.type = "lineplot")
 ```
 
-### Core heatmap
+### Core heatmaps
 
 ```{r core-example3, fig.width=8, fig.heigth=13, fig.path = "figure/"}
 p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 2^(0:14)), plot.type = "heatmap")
+```
+
+
+```{r core-example4, fig.width=8, fig.heigth=13, fig.path = "figure/"}
+p <- core_heatmap(pseq, palette == "spectral")
 ```
