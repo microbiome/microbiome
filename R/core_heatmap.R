@@ -7,7 +7,6 @@
 #'  
 #' @return Used for its side effects
 #' @importFrom RColorBrewer brewer.pal
-#' @export
 #'
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
