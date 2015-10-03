@@ -44,30 +44,24 @@ bacteroidetes <- levelmap("Bacteroidetes", from = "L1", to = "L2", GetPhylogeny(
 
 ### Overall ROC analysis 
 
-This gives the cumulative TPR and FPR along the ordered list
+Based on the [xrobin/pROC](https://github.com/xrobin/pROC) package
+(see that page for more examples with confidence limits etc):
 
 ```{r roc-example2, warning=FALSE, fig.path = "figure/"}
-# Order the taxa based on the p-values
-ordered.results <- names(sort(pvalues))
-
-# Define true positive taxa to be tested for enrichment
-true.positives <- bacteroidetes
-
-# ROC analysis
-res <- roc(ordered.results, true.positives)
+library(pROC)
+res <- roc(names(pvalues) %in% bacteroidetes, pvalues)
 ```
 
 
-### Calculate ROC/AUC value
+### ROC/AUC value
 
 ```{r roc-example3, warning=FALSE, fig.path = "figure/"}
-auc <- roc.auc(ordered.results, true.positives)
-print(auc)
+res$auc
 ```
 
 
 ### Plot ROC curve
 
 ```{r roc-example4, warning=FALSE, fig.path = "figure/"}
-roc.plot(ordered.results, true.positives, line = TRUE)
+plot(res)
 ```

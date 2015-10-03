@@ -57,8 +57,7 @@ hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 10^1.8
     if (input.level == "Genus") {
       taxonomy <- unique(taxonomy[, c("Phylum", "Genus")])
     } else if (input.level == "Phylum") {
-      taxonomy <- as.data.frame(Phylum = unique(taxonomy[, c("Phylum")]), ncol = 1)
-      	       
+      taxonomy <- data.frame(Phylum = unique(taxonomy[, c("Phylum")]))
     }
     rownames(taxonomy) <- as.character(taxonomy[[input.level]])
   }
