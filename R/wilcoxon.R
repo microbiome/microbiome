@@ -1,4 +1,5 @@
-#' Calculate Wilcoxon test (with BH correction) for two-group comparison 
+#' @title check_wilcoxon
+#' @description Calculate Wilcoxon test (with BH correction) for two-group comparison 
 #'
 #' @param x \code{\link{phyloseq-class}} object or a data matrix 
 #'            (features x samples; eg. HITChip taxa vs. samples)

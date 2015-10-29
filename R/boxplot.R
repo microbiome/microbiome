@@ -1,4 +1,5 @@
-#' Plot abundances with ggplot2
+#' @title boxplot_abundance
+#' @description Plot abundances with ggplot2
 #'
 #' @param pseq \code{\link{phyloseq-class}} object
 #'

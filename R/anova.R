@@ -1,4 +1,5 @@
-#' Calculate ANOVA test (BH correction) for multi-group comparison 
+#' @title check_anova
+#' @description Calculate ANOVA test (BH correction) for multi-group comparison 
 #'
 #' @param x \code{\link{phyloseq-class}} object or a data matrix 
 #'            (features x samples; eg. HITChip taxa vs. samples)

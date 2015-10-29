@@ -1,17 +1,16 @@
-#' densityplot
+#' @title densityplot
+#' @description Plots densities of data points in addition to cross-plot points.
 #'
-#' Plots densities of data points in addition to cross-plot points.
-#'
-#'   @param mat Data matrix to plot. The first two columns will be visualized 
+#' @param mat Data matrix to plot. The first two columns will be visualized 
 #'              as a cross-plot.
-#'   @param main title text
-#'   @param x.ticks Number of ticks on the X axis
-#'   @param rounding Rounding for X axis tick values
-#'   @param add.points Plot the data points as well
-#'   @param col Color of the data points
-#'   @param adjust Kernel width adjustment
-#'   @param size point size
-#'   @param legend plot legend TRUE/FALSE
+#' @param main title text
+#' @param x.ticks Number of ticks on the X axis
+#' @param rounding Rounding for X axis tick values
+#' @param add.points Plot the data points as well
+#' @param col Color of the data points
+#' @param adjust Kernel width adjustment
+#' @param size point size
+#' @param legend plot legend TRUE/FALSE
 #'
 #' @return ggplot2 object
 #'

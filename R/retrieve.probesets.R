@@ -1,6 +1,6 @@
-#' retrieve.probesets
+#' @title retrieve.probesets
 #' 
-#' List probes for each probeset
+#' @description List probes for each probeset
 #'
 #' @param tax.table data.frame with oligo - phylotype 
 #' 	  		 mapping information

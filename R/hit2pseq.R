@@ -1,6 +1,6 @@
-#' hitchip2physeq
+#' @title hitchip2physeq
 #'
-#' Convert HITChip data into phyloseq format
+#' @description Convert HITChip data into phyloseq format
 #'
 #' @param otu Sample x OTU absolute HITChip signal
 #' @param meta Sample x features metadata data.frame

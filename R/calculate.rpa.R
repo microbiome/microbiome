@@ -1,18 +1,16 @@
-#' Description: RPA for HITChip
+#' @title calculate.rpa
+#' @description RPA for HITChip
 #' 
-#' Arguments:
-#'   @param level level
-#'   @param phylo phylo
-#'   @param oligo.data oligo.data
+#' @param level level
+#' @param phylo phylo
+#' @param oligo.data oligo.data
 #'
-#' Returns:
-#'   @return RPA preprocessed data
+#' @return RPA preprocessed data
 #'
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 calculate.rpa <- function (level, phylo, oligo.data) {
 
   # List entities (e.g. species)

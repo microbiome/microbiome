@@ -1,4 +1,5 @@
-#' Summarize phylogenetic microarray probe-level data from given input folder.
+#' @title summarize_probedata
+#' @description Summarize phylogenetic microarray probe-level data from given input folder.
 #' 
 #' @param data.dir Data folder.
 #' @param probedata probe-level data matrix

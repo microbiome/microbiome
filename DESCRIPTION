@@ -1,8 +1,8 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.62
-Date: 2015-10-03
+Version: 0.99.63
+Date: 2015-10-29
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Salojarvi", "Jarkko" , role = "aut"))
@@ -27,7 +27,7 @@ Imports:
     rdryad,
     reshape2,
     sorvi,
-    vegan    
+    vegan
 Suggests:
     BiocGenerics,
     BiocStyle,
@@ -38,3 +38,4 @@ MailingList: microbiome <microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues
 VignetteBuilder: knitr
 Packaged: 2014-09-14 14:19:39 UTC; lei
+RoxygenNote: 5.0.0

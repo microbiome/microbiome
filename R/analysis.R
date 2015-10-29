@@ -1,5 +1,5 @@
-
-#' Measure association between nominal (no order for levels) variables 
+#' @title GKtau
+#' @description Measure association between nominal (no order for levels) variables 
 #'
 #' @details Measure association between nominal (no order for levels) variables 
 #' using Goodman and Kruskal tau. Code modified from the original source:
@@ -40,7 +40,6 @@
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 GKtau <- function(x, y) {
     
     # First, compute the IxJ contingency table between x and y

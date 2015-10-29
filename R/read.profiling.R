@@ -1,6 +1,6 @@
-#' read.profiling
+#' @title read.profiling
 #' 
-#' Read run.profiling.script output into R
+#' @description Read run.profiling.script output into R
 #'
 #' @param level phylogenetic level ('oligo' / 'species' / 'L1' / 'L2' / 'L0') 
 #' 	  	or 'phylogeny.full', 'phylogeny.filtered'

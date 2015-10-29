@@ -1,4 +1,5 @@
-#' Read HITChip output and preprocess into phyloseq format
+#' @title read_hitchip
+#' @description Read HITChip output and preprocess into phyloseq format
 #'
 #' @param data.dir Profiling script output directory for reading the data. 
 #' @param method Probe summarization method ("rpa", "frpa", or "sum")

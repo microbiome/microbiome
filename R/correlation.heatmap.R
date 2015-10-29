@@ -1,6 +1,6 @@
-#' correlation.heatmap
+#' @title correlation.heatmap
 #'
-#' Visualizes n x m correlation table as heatmap. 
+#' @description Visualizes n x m correlation table as heatmap. 
 #'
 #' @param df Data frame. Each row corresponds to a pair of correlated 
 #'           variables. The columns give variable names, correlations and 

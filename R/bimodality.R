@@ -1,4 +1,5 @@
-#' Coefficient of bimodality (Sarle's bimodality coefficient b)
+#' @title coefficient_of_bimodality
+#' @description Coefficient of bimodality (Sarle's bimodality coefficient b)
 #'
 #' @param x Data vector for which bimodality will be quantified
 #' @param bs.iter Bootstrap iterations
@@ -8,7 +9,7 @@
 #'
 #' @return Bimodality score
 #'
-#' @examples coefficient_of_bimodality(rnorm(100), type = "Sarle.finite.sample")
+#' @examples # coefficient_of_bimodality(rnorm(100), type = "Sarle.finite.sample")
 #' @export
 #' @importFrom moments skewness
 #' @importFrom moments kurtosis

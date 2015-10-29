@@ -1,11 +1,12 @@
-
-#' Project high-dimensional data on two-dimensional plane by various methods
+#' @title project.data
+#' @description Project high-dimensional data on two-dimensional plane
+#'              by various methods
 #' 
-#'   @param amat data matrix (samples x features)
-#'   @param type projection type 
+#' @param amat data matrix (samples x features)
+#' @param type projection type 
 #'           (options: PCA, MDS.classical, MDS.nonmetric, Sammon)
 #'
-#'   @return projected data matrix
+#' @return projected data matrix
 #'
 #' @export
 #' @importFrom MASS isoMDS

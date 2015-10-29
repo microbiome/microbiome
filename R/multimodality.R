@@ -1,4 +1,5 @@
-#' Wrapper to calculate bimodality score based on various methods 
+#' @title bimodality
+#' @description Wrapper to calculate bimodality score based on various methods 
 #'
 #' @param x A vector, matrix, or a phyloseq object
 #' @param method bimodality quantification method ('potential_bootstrap'

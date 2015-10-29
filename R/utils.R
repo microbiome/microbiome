@@ -1,22 +1,5 @@
-#' Description: Check number of matching phylotypes for each probe
-#' 
-#' Arguments:
-#'   @param taxonomy oligo - phylotype matching data.frame
-#'   @param level phylotype level
-#'
-#' Returns:
-#'   @return number of matching phylotypes for each probe
-#'
-#' @export
-#' @references See citation("microbiome") 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-n.phylotypes.per.oligo <- function (taxonomy, level) {
-  sapply(split(as.vector(taxonomy[, level]), as.vector(taxonomy[, "oligoID"])), function(x) length(unique(x)))
-}
-
-
-#' Arrange correlation matrices from cross.correlate into a table format
+#' @title cmat2table
+#' @description Arrange correlation matrices from cross.correlate into a table format
 #'              
 #' @param res Output from cross.correlate
 #' @param verbose verbose
@@ -35,7 +18,6 @@ n.phylotypes.per.oligo <- function (taxonomy, level) {
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 cmat2table <- function(res, verbose = FALSE) {
     
     ctab <- NULL
@@ -89,73 +71,5 @@ cmat2table <- function(res, verbose = FALSE) {
 
 
 
-#' PhylotypeRatios
-#'
-#' Calculate phylotype ratios (eg. Bacteroides vs. Prevotella etc.) 
-#'          for a given phylotypes vs. samples matrix
-#'
-#' @param dat phylotypes vs. samples data matrix in log10 scale
-#'
-#' @return phylotype pairs x samples matrix indicating the ratio 
-#'                 (in log10 domain) between each unique pair
-#' @export 
-#' @examples 
-#'   data(peerj32)
-#'   ratios <- PhylotypeRatios(peerj32$microbes)
-#' @references
-#' See citation('microbiome')
-#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-
-PhylotypeRatios <- function(dat) {
-    
-    phylogroups <- rownames(dat)
-    Nratios <- (length(phylogroups)^2 - length(phylogroups))/2
-    Nsamples <- ncol(dat)
-    ratios <- list()
-    for (i in 1:(length(phylogroups) - 1)) {
-        for (j in (i + 1):length(phylogroups)) {
-            pt1 <- phylogroups[[i]]
-            pt2 <- phylogroups[[j]]
-            ratios[[paste(pt1, pt2, sep = "-")]] <- dat[pt1, ] - dat[pt2, ]
-        }
-    }
-    ratios <- do.call(cbind, ratios)
-    
-    t(ratios)
-}
 
 
-
-
-#' Get lower triangle of a square matrix 
-#' as a numeric vector such that
-#' row-by-row, picking elements in the order
-#' 2,1;3,1;3,2;4,1,...
-#'        
-#'   @param mat data matrix
-#'
-#'   @return lower triangle as vector 
-#'
-#' @export
-#' @examples 
-#'   mat <- rbind(c(1,2,3), c(4,5,6), c(7,8,9))
-#'   vec <- lower.triangle(mat)
-#' @references See citation('microbiome') 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-lower.triangle <- function(mat) {
-    
-  # TODO is this easy replace with standard R functions ?
-
-    elements <- c()
-    nr <- dim(mat)[[1]]
-    nc <- dim(mat)[[2]]
-    
-    for (i in 2:nr) {
-        for (j in 1:(i - 1)) {
-            elements <- c(elements, mat[i, j])
-        }
-    }
-    elements
-} 

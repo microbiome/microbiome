@@ -1,15 +1,15 @@
-#' get probeset data matrix
-#' 
-#' 
-#'   @param name name
-#'   @param level taxonomic level
-#'   @param taxonomy taxonomy
-#'   @param probedata oligos vs. samples preprocessed data matrix; 
-#'                    absolute scale
-#'   @param log10 Logical. Logarithmize the data TRUE/FALSE
+#' @title get.probeset
+#' @description get probeset data matrix
+#'  
+#' @param name name
+#' @param level taxonomic level
+#' @param taxonomy taxonomy
+#' @param probedata oligos vs. samples preprocessed data matrix; 
+#'                  absolute scale
+#' @param log10 Logical. Logarithmize the data TRUE/FALSE
 #'
 #' 
-#'   @return probeset data matrix
+#' @return probeset data matrix
 #'
 #' @export
 #' @examples

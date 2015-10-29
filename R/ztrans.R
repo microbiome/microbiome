@@ -1,4 +1,5 @@
-#' Z transform phyloseq objects
+#' @title ztransform_phyloseq
+#' @description Z transform phyloseq objects
 #'
 #' @param x \code{\link{phyloseq-class}} object 
 #' @param which Specify Z transformation for "sample" or "OTU"

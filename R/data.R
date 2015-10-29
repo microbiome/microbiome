@@ -1,4 +1,5 @@
-#' Download microbiome data sets
+#' @title download_microbiome
+#' @description Download microbiome data sets
 #'
 #' @param id Data set name. For options, see download_microbiome()
 #'

@@ -1,6 +1,6 @@
-#' core_matrix
+#' @title core_matrix
 #'
-#' create core matrix 
+#' @description create core matrix 
 #'
 #' @param x \code{\link{phyloseq}} object
 #' @param verbose verbose

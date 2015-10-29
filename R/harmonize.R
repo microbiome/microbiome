@@ -1,5 +1,5 @@
-
-#' harmonize fields
+#' @title harmonize_fields
+#' @description harmonize fields
 #'
 #' @param x data.frame
 #'

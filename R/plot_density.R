@@ -1,4 +1,5 @@
-#' Plot taxon density for samples
+#' @title plot_density
+#' @description Plot taxon density for samples
 #'
 #' @param x \code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)
 #' @param otu.name OTU name to visualize

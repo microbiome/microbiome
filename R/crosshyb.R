@@ -1,4 +1,5 @@
-#' Cross-hybridization table between multimodal taxa as percentages of shared 
+#' @title CrosshybTable
+#' @description Cross-hybridization table between multimodal taxa as percentages of shared 
 #' probes. The number indicates how many percent of oligos for the row taxon 
 #' are also hybridizing the corresponding column taxon.
 #'
@@ -9,13 +10,12 @@
 #'
 #' @return A list containing cross-hybridization table 
 #'
-#' @examples ch <- CrosshybTable(tax.level = 'L1')
+#' @examples \dontrun{ch <- CrosshybTable(tax.level = 'L1')}
 #' @export
 #'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 CrosshybTable <- function(tax.level = "L1", chip = "HITChip", 
     selected.taxa = NULL, 
     tax.table = NULL) {

@@ -1,4 +1,5 @@
-#' Plot taxon abundance for samples
+#' @title plot_composition
+#' @description Plot taxon abundance for samples
 #'
 #' @param x \code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)
 #' @param taxonomic.level Merge the OTUs (for phyloseq object) into a higher taxonomic level. 
@@ -15,7 +16,13 @@
 #' @importFrom phyloseq tax_glom
 #'
 #' @export
-#' @examples # 
+#' @examples \dontrun{
+#'   # Example data
+#'     library(microbiome)
+#'     pseq0 <- download_microbiome("dietswap")
+#'     pseq <- subset_samples(pseq0, group == "DI" & nationality == "AFR")
+#'     plot_composition(pseq, taxonomic.level = "Phylum")
+#'           }
 #' @keywords utilities
 plot_composition <- function (x, taxonomic.level = NULL, relative.abundance = FALSE, sort.by = NULL, x.label = "sample") {
 

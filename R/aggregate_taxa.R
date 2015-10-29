@@ -1,4 +1,5 @@
-#' Aggregate phyloseq data into higher phylogenetic level
+#' @title aggregate_taxa
+#' @description Aggregate phyloseq data into higher phylogenetic level
 #' when the phylogenetic tree is missing. If the tree is available, 
 #' uses the \code{\link{tax_glom}} function from the \pkg{phyloseq} package
 #'

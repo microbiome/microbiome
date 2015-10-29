@@ -1,4 +1,5 @@
-#' Diversity estimation. Augments the estimate_richness function of the
+#' @title estimate_diversity
+#' @description Diversity estimation. Augments the estimate_richness function of the
 #' phyloseq package
 #'
 #' @param x \code{\link{phyloseq-class}} object 

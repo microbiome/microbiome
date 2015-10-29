@@ -1,14 +1,13 @@
-#' Probeset summarization with SUM
+#' @title summarize.sum
+#' @description Probeset summarization with SUM
 #' 
-#' Arguments:
-#'   @param taxonomy oligo - phylotype matching data.frame
-#'   @param level taxonomic level for the summarization. 
-#'   @param probedata preprocessed probes x samples data matrix in absolute domain
-#'   @param verbose print intermediate messages
-#'   @param downweight.ambiguous.probes Downweight probes with multiple targets
+#' @param taxonomy oligo - phylotype matching data.frame
+#' @param level taxonomic level for the summarization. 
+#' @param probedata preprocessed probes x samples data matrix in absolute domain
+#' @param verbose print intermediate messages
+#' @param downweight.ambiguous.probes Downweight probes with multiple targets
 #'
-#' Returns:
-#'   @return List with two elements: abundance.table (summarized data matrix in absolute scale) and probe.parameters used in the calculations
+#' @return List with two elements: abundance.table (summarized data matrix in absolute scale) and probe.parameters used in the calculations
 #'
 #' @export
 #'

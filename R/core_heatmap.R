@@ -1,4 +1,5 @@
-#' Core heatmap
+#' @title core_heatmap
+#' @description Core heatmap
 #'
 #' @param x A \code{\link{phyloseq}} object or a core matrix
 #' @param detection.thresholds A vector or  a scalar indicating the number of intervals
