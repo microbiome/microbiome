@@ -78,7 +78,9 @@ p <- p + geom_boxplot()
 print(p)
 ```
 
-![plot of chunk richness](figure/richness-1.png) 
+```
+## Error in eval(expr, envir, enclos): object 'gender' not found
+```
 
 Diversity vs. continuous variable:
 

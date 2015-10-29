@@ -72,7 +72,7 @@ print(data.directory)
 ```
 
 ```
-## [1] "/home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata"
+## [1] "/home/lei/R/x86_64-pc-linux-gnu-library/3.2/microbiome/extdata"
 ```
 
 ## HITChip to phyloseq format
@@ -99,7 +99,18 @@ Get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genu
 
 ```r
 pseq.L2 <- aggregate_taxa(pseq, level = "L2")
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "aggregate_taxa"
+```
+
+```r
 pseq.L1 <- aggregate_taxa(pseq, level = "L1")
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "aggregate_taxa"
 ```
 
 Importing HITChip probe-level data and taxonomy from HITChip
@@ -188,6 +199,17 @@ Aggregate the abundance matrix to higher-level taxa on HITChip:
 
 ```r
 pseq2 <- aggregate_taxa(pseq, "Phylum") # Aggregate into phyloseq object
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "aggregate_taxa"
+```
+
+```r
 dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
+```
+
+```
+## Error in otu_table(pseq2): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq2' not found
 ```
 

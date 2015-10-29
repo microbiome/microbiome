@@ -38,7 +38,7 @@ print(paste("Reading data from:", data.path))
 ```
 
 ```
-## [1] "Reading data from: /home/lei/R/x86_64-unknown-linux-gnu-library/3.2/microbiome/extdata"
+## [1] "Reading data from: /home/lei/R/x86_64-pc-linux-gnu-library/3.2/microbiome/extdata"
 ```
 
 
@@ -56,7 +56,13 @@ pseq.species <- data$pseq
 
 # L2 data in phyloseq format
 pseq.L2 <- aggregate_taxa(pseq.species, level = "L2")
+```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "aggregate_taxa"
+```
+
+```r
 # Probe-level data in phyloseq format
 pseq.probe <- hitchip2physeq(t(data$probedata), sample_data(data$pseq), detection.limit = 10^1.8)
 ```
@@ -132,18 +138,25 @@ Run Wilcoxon test and show the first 5 values (sorted by p-value):
 
 ```r
 res <- check_wilcoxon(pseq.L2, "gender", p.adjust.method = "BH", sort = TRUE)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "check_wilcoxon"
+```
+
+```r
 kable(res[1:5,])
 ```
 
 
 
-|                       |   p.value| fold.change.log10|
-|:----------------------|---------:|-----------------:|
-|Collinsella            | 0.8696424|         0.7078125|
-|Corynebacterium        | 0.8696424|        -0.2030747|
-|Propionibacterium      | 0.8696424|         0.0605491|
-|Asteroleplasma et rel. | 0.8696424|         0.1995724|
-|Aerococcus             | 0.8696424|         0.2825466|
+|         | Observed|     Chao1|  se.chao1|       ACE|   se.ACE|  Shannon|   Simpson| InvSimpson|   Fisher|
+|:--------|--------:|---------:|---------:|---------:|--------:|--------:|---------:|----------:|--------:|
+|Sample.1 |     1453| 138829.00| 39540.425| 41773.754| 69.43420| 5.854566| 0.9948645|   194.7215| 334.8536|
+|Sample.2 |     1254| 209370.00| 65478.259| 51618.318| 76.52628| 5.516757| 0.9914617|   117.1191| 351.1098|
+|Sample.3 |     1917|  23648.08|  3436.974|  9437.125| 52.38438| 5.994427| 0.9957874|   237.3818| 322.6991|
+|Sample.4 |     1138| 192808.55| 55158.061| 46159.164| 75.61457| 5.414883| 0.9917375|   121.0294| 339.0321|
+|Sample.5 |     1120| 154811.71| 39620.279| 46521.574| 80.27909| 5.355688| 0.9909982|   111.0888| 343.0875|
 
 [Volcano plot](https://en.wikipedia.org/wiki/Volcano_plot_%28statistics%29) shows how the fold-changes and p-values are related. In general, if there are significant findings, the fold-changes tend to be larger with smaller p-values:
 
@@ -155,7 +168,9 @@ ggplot(res, aes(x = p.value, y = fold.change.log10)) +
   xlim(0, 1)
 ```
 
-![plot of chunk example-9](figure/example-9-1.png) 
+```
+## Error in eval(expr, envir, enclos): object 'p.value' not found
+```
 
 Boxplots of the most significant groups:
 
@@ -168,7 +183,9 @@ for (tax in top.groups) {
 }
 ```
 
-![plot of chunk example-10](figure/example-10-1.png) ![plot of chunk example-10](figure/example-10-2.png) ![plot of chunk example-10](figure/example-10-3.png) ![plot of chunk example-10](figure/example-10-4.png) 
+```
+## Error in sample_data(pseq): error in evaluating the argument 'object' in selecting a method for function 'sample_data': Error: object 'pseq.L2' not found
+```
 
 
 ### Hierarchical clustering

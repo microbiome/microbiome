@@ -83,9 +83,19 @@ Z transforming the data
 ```r
 # Z transform samples
 pseq.z <- ztransform_phyloseq(pseq, "sample")
+```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "ztransform_phyloseq"
+```
+
+```r
 # Z transform OTUs
 pseq.z <- ztransform_phyloseq(pseq, "OTU")
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "ztransform_phyloseq"
 ```
 
 
@@ -117,7 +127,7 @@ sample_variables(pseq)
 ```
 
 ```
-## [1] "subject"                "gender"                
+## [1] "subject"                "sex"                   
 ## [3] "nationality"            "group"                 
 ## [5] "sample"                 "timepoint"             
 ## [7] "timepoint.within.group" "bmi_group"
@@ -246,6 +256,10 @@ pseq <- read_hitchip(data.directory, method = "frpa")$pseq
 
 ```r
 pseq.L2 <- aggregate_taxa(pseq, level = "L2")
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "aggregate_taxa"
 ```
 
 Merging phyloseq objects

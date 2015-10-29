@@ -23,6 +23,10 @@ names(group) <- meta$sample
 pvals <- check_anova(pseq, group, p.adjust.method = "BH", sort = TRUE)
 ```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "check_anova"
+```
+
 
 ### Wilcoxon test (two-group comparisons)
 
@@ -33,6 +37,10 @@ comparison. Here we compare males and females in the example data.
 
 ```r
 pval <- check_wilcoxon(pseq, "gender")
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "check_wilcoxon"
 ```
 
 

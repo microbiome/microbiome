@@ -26,11 +26,28 @@ pseq <- res$pseq
 
 # Retrieve L2 (genus-like) data in phyloseq format
 pseq.L2 <- aggregate_taxa(pseq, level = "L2")
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "aggregate_taxa"
+```
+
+```r
 # Convert L2 to matrix format
 genus.matrix.log10.simulated <- log10(otu_table(pseq.L2)@.Data)
+```
 
+```
+## Error in otu_table(pseq.L2): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq.L2' not found
+```
+
+```r
 # Combine phylotype profiling data and sample metadata
 df <- cbind(metadata.simulated, t(genus.matrix.log10.simulated))  
+```
+
+```
+## Error in t(genus.matrix.log10.simulated): error in evaluating the argument 'x' in selecting a method for function 't': Error: object 'genus.matrix.log10.simulated' not found
 ```
 
 Plot a Motion Chart using googleVis - package. Note: this requires

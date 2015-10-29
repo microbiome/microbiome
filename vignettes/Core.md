@@ -47,6 +47,10 @@ based on various signal and prevalence thresholds.
 core <- core_matrix(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
 ```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "core_matrix"
+```
+
 ### Core 2D line plots
 
 
@@ -54,7 +58,9 @@ core <- core_matrix(pseq, prevalence.intervals = seq(10, 100, 10), detection.thr
 p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)), plot.type = "lineplot")
 ```
 
-![plot of chunk core-example2](figure/core-example2-1.png) 
+```
+## Error in eval(expr, envir, enclos): could not find function "plot_core"
+```
 
 ### Core heatmaps
 
@@ -63,12 +69,16 @@ p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.threshol
 p <- plot_core(pseq, plot.type = "heatmap", palette = "bw")
 ```
 
-![plot of chunk core-example3](figure/core-example3-1.png) 
+```
+## Error in eval(expr, envir, enclos): could not find function "plot_core"
+```
 
 
 ```r
 p <- plot_core(pseq, plot.type = "heatmap", palette = "spectral")
 ```
 
-![plot of chunk core-example4](figure/core-example4-1.png) 
+```
+## Error in eval(expr, envir, enclos): could not find function "plot_core"
+```
 

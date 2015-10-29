@@ -60,7 +60,9 @@ Fitting bagged RDA on a phyloseq object:
 res <- bagged_rda(pseq, "group", sig.thresh=0.05, nboot=100)
 ```
 
-![plot of chunk rda5](figure/rda5-1.png) 
+```
+## Error in eval(expr, envir, enclos): could not find function "bagged_rda"
+```
 
 Visualizing bagged RDA:
 
@@ -69,7 +71,9 @@ Visualizing bagged RDA:
 plot_bagged_rda(res)
 ```
 
-![plot of chunk rda6](figure/rda6-1.png) 
+```
+## Error in abs(Bag.res$loadings): non-numeric argument to mathematical function
+```
 
 
 ### Controlling confounding variables with RDA

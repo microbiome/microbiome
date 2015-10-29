@@ -48,6 +48,10 @@ for (tax in rownames(otu)) {
 bacteroidetes <- levelmap("Bacteroidetes", from = "L1", to = "L2", GetPhylogeny("HITChip", "filtered"))$Bacteroidetes
 ```
 
+```
+## Error in levelmap("Bacteroidetes", from = "L1", to = "L2", GetPhylogeny("HITChip", : could not find function "GetPhylogeny"
+```
+
 
 ### Overall ROC analysis 
 
@@ -57,7 +61,18 @@ Based on the [xrobin/pROC](https://github.com/xrobin/pROC) package
 
 ```r
 library(pROC)
+```
+
+```
+## Error in library(pROC): there is no package called 'pROC'
+```
+
+```r
 res <- roc(names(pvalues) %in% bacteroidetes, pvalues)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "roc"
 ```
 
 
@@ -69,7 +84,7 @@ res$auc
 ```
 
 ```
-## Area under the curve: 0.6373
+## NULL
 ```
 
 
