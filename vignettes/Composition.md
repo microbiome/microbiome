@@ -5,8 +5,7 @@
 
 Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html) and [HITChip Barplots](Barplots.md)
 
-
-Load example data:
+Loading example data:
 
 
 ```r
@@ -17,6 +16,10 @@ pseq0 <- download_microbiome("dietswap")
 
 ```
 ## Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n
+```
+
+```
+## Error in function (type, msg, asError = TRUE) : Could not resolve host: datadryad.org
 ```
 
 ```r

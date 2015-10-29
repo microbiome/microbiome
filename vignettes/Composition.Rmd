@@ -5,8 +5,7 @@
 
 Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html) and [HITChip Barplots](Barplots.md)
 
-
-Load example data:
+Loading example data:
 
 ```{r composition-example1, fig.path = "figure/", fig.width=8, fig.height=5}
 # Example data
