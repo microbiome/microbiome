@@ -18,10 +18,6 @@ pseq0 <- download_microbiome("dietswap")
 ## Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n
 ```
 
-```
-## Error in function (type, msg, asError = TRUE) : Could not resolve host: datadryad.org
-```
-
 ```r
 # Pick sample subset
 pseq <- subset_samples(pseq0, group == "DI" & nationality == "AFR")
