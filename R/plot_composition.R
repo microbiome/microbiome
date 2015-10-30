@@ -63,8 +63,14 @@ plot_composition <- function (x, taxonomic.level = NULL, relative.abundance = FA
   dfm <- melt(otu)
   colnames(dfm) <- c("Taxon", "Sample", "Abundance")
   dfm$Sample <- factor(as.character(dfm$Sample), levels = sort.by)
-  dfm$xlabel <- as.vector(unlist(meta[as.character(dfm$Sample), x.label]))
 
+  # SampleIDs used in plotting
+  if (x.label %in% colnames(meta)) {
+    dfm$xlabel <- as.vector(unlist(meta[as.character(dfm$Sample), x.label]))    
+  } else {
+    dfm$xlabel <- rownames(meta)
+  }
+  
   # Provide barplot of relative abundances
   p <- ggplot(dfm, aes(x = Sample, y = Abundance, fill = Taxon))
   p <- p + geom_bar(position = "stack", stat = "identity")
