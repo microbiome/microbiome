@@ -25,7 +25,7 @@ The microbiome package contains general-purpose tools for microarray-based analy
 
 The analyses are based on the phyloseq class from the independent [phyloseq](https://github.com/joey711/phyloseq) R package. Convert your data into phyloseq format before testing these examples.
 
-For probe-level summarization of phylogenetic microarray data we use and recommend Robust Probabilistic Averaging (RPA) [(Lahti, Torrente, Elo, et al., 2013; Lahti, Elo, Aittokallio, et al., 2011); (Lahti, Elo, Aittokallio, et al., 2011b)].
+For probe-level summarization of phylogenetic microarray data we use and recommend Robust Probabilistic Averaging (RPA) [(Lahti, Torrente, Elo, Brazma, and Rung, 2013; Lahti, Elo, Aittokallio, and Kaski, 2011); (Lahti, Elo, Aittokallio, and Kaski, 2011)].
 
 ### How to start 
 
@@ -109,9 +109,9 @@ Bioconductor extensions, including:
  * df2json (Caballero, 2013)
  * rjson (Couture-Beil, 2014)
  * ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007)
- * mixOmics (Cao, Gonzalez, Rohart, et al., 2015)
+ * mixOmics (Cao, Gonzalez, Rohart, Gautier, Monget, Coquery, Yao, and Liquet., 2015)
  * RCurl (Temple Lang and team, 2015)
- * vegan (Oksanen, Blanchet, Kindt, et al., 2015)
+ * vegan (Oksanen, Blanchet, Kindt, Legendre, Minchin, O'Hara, Simpson, Solymos, Stevens, and Wagner, 2015)
  * reshape (Wickham and Hadley, 2007)
  * WGCNA (Langfelder and Horvath, 2008; Langfelder and Horvath, 2012)
  * ggplot2 (Wickham, 2009)
@@ -238,14 +238,14 @@ sessionInfo()
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] googleVis_0.5.10    gridExtra_2.0.0     limma_3.24.15      
-##  [4] mgcv_1.8-8          nlme_3.1-122        dplyr_0.4.3        
-##  [7] netresponse_1.18.0  reshape_0.8.5       mclust_5.1         
-## [10] minet_3.26.0        Rgraphviz_2.12.0    graph_1.46.0       
-## [13] ggplot2_1.0.1       sorvi_0.7.32        microbiome_0.99.63 
-## [16] RPA_1.24.0          affy_1.46.1         Biobase_2.28.0     
-## [19] BiocGenerics_0.14.0 phyloseq_1.12.2     rdryad_0.1.1       
-## [22] knitcitations_1.0.7 knitr_1.11         
+##  [1] gridExtra_2.0.0     limma_3.24.15       mgcv_1.8-8         
+##  [4] nlme_3.1-122        dplyr_0.4.3         netresponse_1.18.0 
+##  [7] reshape_0.8.5       mclust_5.1          minet_3.26.0       
+## [10] Rgraphviz_2.12.0    graph_1.46.0        ggplot2_1.0.1      
+## [13] sorvi_0.7.32        microbiome_0.99.63  RPA_1.24.0         
+## [16] affy_1.46.1         Biobase_2.28.0      BiocGenerics_0.14.0
+## [19] phyloseq_1.12.2     rdryad_0.1.1        knitcitations_1.0.7
+## [22] knitr_1.11         
 ## 
 ## loaded via a namespace (and not attached):
 ##   [1] colorspace_1.2-6          qvalue_2.0.0             

@@ -209,3 +209,7 @@ pseq2 <- aggregate_taxa(pseq, "Phylum") # Aggregate into phyloseq object
 dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
 ```
 
+```
+## Error in otu_table(pseq2): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq2' not found
+```
+
