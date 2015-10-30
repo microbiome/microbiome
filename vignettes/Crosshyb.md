@@ -66,7 +66,7 @@ mytaxa <- levelmap("Dialister", from = "L2", to = "species", tax.table)[[1]]
 ```
 
 ```
-## Error in levelmap("Dialister", from = "L2", to = "species", tax.table): object 'tax.table' not found
+## Error in tax_table(as(x, "matrix")[i, j, drop = FALSE]): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error in as(x, "matrix")[i, j, drop = FALSE] : subscript out of bounds
 ```
 
 ```r

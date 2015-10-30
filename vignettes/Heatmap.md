@@ -71,19 +71,13 @@ x <- otu_table(pseqz)@.Data
 tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
 ```
 
-```
-## Error in mat - midpoint: non-numeric argument to binary operator
-```
+![plot of chunk heatmap-matvisu-example](figure/heatmap-matvisu-example-1.png) 
 
 Finding visually appealing order for rows and columns:
 
 
 ```r
 hm <- heatmap(x) 
-```
-
-```
-## Error in heatmap(x): 'x' must be a numeric matrix
 ```
 
 Then plot the same matrix with ordered rows (keep column order):
@@ -94,9 +88,7 @@ tmp <- netresponse::plot_matrix(x[hm$rowInd, ], type = "twoway",
        			        mar = c(5, 12, 1, 1))
 ```
 
-```
-## Error in x[hm$rowInd, ]: error in evaluating the argument 'i' in selecting a method for function '[': Error: object 'hm' not found
-```
+![plot of chunk heatmap-crosscorrelate3](figure/heatmap-crosscorrelate3-1.png) 
 
 
 ### Cross-correlating data sets

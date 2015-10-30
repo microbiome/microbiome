@@ -43,7 +43,7 @@ library(knitr)
 #fs <- c("limma.Rmd")
 #fs <- c("Phylogeny.Rmd")
 #for (f in setdiff(fs, "Installation.Rmd")) { 
-fs <- list.files(pattern = ".Rmd$")
+fs <- sample(list.files(pattern = ".Rmd$"))
 #for (f in setdiff(fs, c("misc.Rmd"))) { 
 #for (f in setdiff(fs, c("Atlas.Rmd", "vignette.Rmd"))) {
 # Motionchart as the last one

@@ -195,14 +195,14 @@ sessionInfo()
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] gridExtra_2.0.0     limma_3.24.15       mgcv_1.8-8         
-##  [4] nlme_3.1-122        dplyr_0.4.3         netresponse_1.18.0 
-##  [7] reshape_0.8.5       mclust_5.1          minet_3.26.0       
-## [10] Rgraphviz_2.12.0    graph_1.46.0        ggplot2_1.0.1      
-## [13] sorvi_0.7.32        microbiome_0.99.63  RPA_1.24.0         
-## [16] affy_1.46.1         Biobase_2.28.0      BiocGenerics_0.14.0
-## [19] phyloseq_1.12.2     rdryad_0.1.1        knitcitations_1.0.7
-## [22] knitr_1.11         
+##  [1] googleVis_0.5.10    gridExtra_2.0.0     limma_3.24.15      
+##  [4] mgcv_1.8-8          nlme_3.1-122        dplyr_0.4.3        
+##  [7] netresponse_1.18.0  reshape_0.8.5       mclust_5.1         
+## [10] minet_3.26.0        Rgraphviz_2.12.0    graph_1.46.0       
+## [13] ggplot2_1.0.1       sorvi_0.7.32        microbiome_0.99.63 
+## [16] RPA_1.24.0          affy_1.46.1         Biobase_2.28.0     
+## [19] BiocGenerics_0.14.0 phyloseq_1.12.2     rdryad_0.1.1       
+## [22] knitcitations_1.0.7 knitr_1.11         
 ## 
 ## loaded via a namespace (and not attached):
 ##   [1] colorspace_1.2-6          qvalue_2.0.0             
