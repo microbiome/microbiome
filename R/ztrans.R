@@ -1,20 +1,15 @@
 #' @title ztransform_phyloseq
 #' @description Z transform phyloseq objects
-#'
 #' @param x \code{\link{phyloseq-class}} object 
 #' @param which Specify Z transformation for "sample" or "OTU"
-#'
 #' @return Z-transformed phyloseq object
-#'
 #' @examples
 #'   pseq <- download_microbiome("peerj32")$physeq
 #'   pseqz <- ztransform_phyloseq(pseq, "OTU")
-#'
 #' @importFrom phyloseq transform_sample_counts
 #' @importFrom phyloseq otu_table
 #' @importFrom phyloseq otu_table<-
 #' @export
-#'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

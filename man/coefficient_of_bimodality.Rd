@@ -14,8 +14,7 @@ coefficient_of_bimodality(x, bs.iter = 1, na.rm = TRUE,
 
 \item{na.rm}{Remove NAs}
 
-\item{type}{Bimodality score type
-("Sarle.finite.sample" or "Sarle.asymptotic")}
+\item{type}{Bimodality score type ("Sarle.finite.sample" or "Sarle.asymptotic")}
 }
 \value{
 Bimodality score
@@ -48,11 +47,12 @@ The coefficient lies in (0, 1).
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-Shade et al. mBio 5(4):e01371-14, 2014.
-  Ellison AM (1987) Am J Botany 74(8):1280-1288.
-  SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.
-
-  To cite the microbiome R package, see citation('microbiome')
+\itemize{
+    \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
+    \item{}{Ellison AM (1987) Am J Botany 74(8):1280-1288.}
+    \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
+    \item{}{To cite the microbiome R package, see citation('microbiome')}
+ }
 }
 \keyword{utilities}
 

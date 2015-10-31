@@ -23,7 +23,6 @@ Arrange correlation matrices from cross.correlate into a table format
   d2 <- peerj32$lipids[1:20,1:10]
   cc <- cross.correlate(d1, d2, mode = 'matrix')
   cmat <- cmat2table(cc)
-
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

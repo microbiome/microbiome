@@ -1,6 +1,5 @@
 #' @title check_wilcoxon
 #' @description Calculate Wilcoxon test (with BH correction) for two-group comparison 
-#'
 #' @param x \code{\link{phyloseq-class}} object or a data matrix 
 #'            (features x samples; eg. HITChip taxa vs. samples)
 #' @param group Vector with specifying the groups
@@ -8,15 +7,11 @@
 #'               (default 'BH'). For other options, see ?p.adjust
 #' @param sort sort the results
 #' @param paired Paired comparison (Default: FALSE)
-#'
 #' @return Corrected p-values for two-group comparison.
-#'
 #' @examples 
 #'   #pseq <- download_microbiome("peerj32")$physeq
 #'   #pval <- check_wilcoxon(pseq, "gender")
-#'
 #' @export
-#'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

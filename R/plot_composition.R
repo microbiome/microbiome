@@ -1,20 +1,15 @@
 #' @title plot_composition
 #' @description Plot taxon abundance for samples
-#'
 #' @param x \code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)
-#' @param taxonomic.level Merge the OTUs (for phyloseq object) into a higher taxonomic level. 
-#'                        This has to be one from \code{colnames(tax_table(x))}.
+#' @param taxonomic.level Merge the OTUs (for phyloseq object) into a higher taxonomic level. This has to be one from \code{colnames(tax_table(x))}.
 #' @param relative.abundance Logical. Show relative abundances or not.
 #' @param sort.by Sort by sample data column. Or provide vector of sample IDs.
 #' @param x.label Specify how to label the x axis. This should be one of the variables in 
 #'        \code{sample_variables(x)}
-#'
 #' @return A \code{\link{ggplot}} plot object.
-#' 
 #' @import ggplot2
 #' @importFrom reshape2 melt
 #' @importFrom phyloseq tax_glom
-#'
 #' @export
 #' @examples \dontrun{
 #'   # Example data
@@ -66,9 +61,16 @@ plot_composition <- function (x, taxonomic.level = NULL, relative.abundance = FA
 
   # SampleIDs used in plotting
   if (x.label %in% colnames(meta)) {
-    dfm$xlabel <- as.vector(unlist(meta[as.character(dfm$Sample), x.label]))    
+    dfm$xlabel <- as.vector(unlist(meta[as.character(dfm$Sample), x.label]))
+    # Sort the levels as in the original metadata
+    if (is.factor(meta[, x.label])) {
+      lev <- levels(meta[, x.label])
+    } else {
+      lev <- unique(as.character(meta[, x.label]))
+    }
+    dfm$xlabel <- factor(dfm$xlabel, levels = lev)
   } else {
-    dfm$xlabel <- rownames(meta)
+    dfm$xlabel <- dfm$Sample
   }
   
   # Provide barplot of relative abundances

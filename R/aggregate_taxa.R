@@ -2,17 +2,12 @@
 #' @description Aggregate phyloseq data into higher phylogenetic level
 #' when the phylogenetic tree is missing. If the tree is available, 
 #' uses the \code{\link{tax_glom}} function from the \pkg{phyloseq} package
-#'
 #' @param pseq \code{\link{phyloseq-class}} object
 #' @param level Aggregation level (from \code{colnames(tax_table(pseq))})
-#'
 #' @return Aggregated phyloseq object
-#'
 #' @examples # aggregate_taxa(pseq, "L1")
-#'
 #' @importFrom phyloseq tax_glom
 #' @export
-#'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

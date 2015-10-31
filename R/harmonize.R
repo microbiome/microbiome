@@ -1,15 +1,9 @@
 #' @title harmonize_fields
 #' @description harmonize fields
-#'
 #' @param x data.frame
-#'
 #' @return data.frame with harmonized fields
-#'
-#' @examples 
-#'   # m <- harmonize_fields(x)
-#'
+#' @examples # m <- harmonize_fields(x)
 #' @export
-#'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

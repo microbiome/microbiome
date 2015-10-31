@@ -1,25 +1,18 @@
 #' @title core_matrix
-#'
 #' @description create core matrix 
-#'
 #' @param x \code{\link{phyloseq}} object
 #' @param verbose verbose
 #' @param prevalence.intervals a vector of prevalence percentages in [0,100]
 #' @param detection.thresholds a vector of intensities around the data range
-#'
 #' @return Estimated core microbiota
-#'
 #' @examples 
 #'   #pseq <- download_microbiome("peerj32")$physeq
 #'   #core <- core_matrix(pseq)
-#'
 #' @export 
-#' 
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
 #'   analysis depth and health status. Clinical Microbiology and Infection 
 #'   18(S4):16 20, 2012. 
-#'
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

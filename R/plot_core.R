@@ -1,7 +1,5 @@
 #' @title plot_core
-#'
 #' @description Core visualization 2D
-#'
 #' @param x A \code{\link{phyloseq}} object or a core matrix
 #' @param title title
 #' @param plot plot the figure 
@@ -10,19 +8,15 @@
 #'          or a scalar indicating the number of intervals in the data range.
 #' @param plot.type Plot type ('lineplot' or 'heatmap')
 #' @param palette palette for the plot.type = 'heatmap'
-#'  
 #' @return Used for its side effects
-#'
 #' @examples 
 #' #pseq <- download_microbiome("atlas1006")
 #' #p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
 #' @export 
-#' 
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
 #'   analysis depth and health status. Clinical Microbiology and Infection 
 #'   18(S4):16 20, 2012. 
-#'
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

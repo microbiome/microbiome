@@ -21,7 +21,6 @@ uses the \code{\link{tax_glom}} function from the \pkg{phyloseq} package
 }
 \examples{
 # aggregate_taxa(pseq, "L1")
-
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

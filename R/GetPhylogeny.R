@@ -1,16 +1,12 @@
 #' @title GetPhylogeny
 #' @description Get Chip phylogeny
-#'
 #' @param chip chip type (e.g. 'HITChip')
 #' @param phylogeny.version 'full' or 'filtered' 
 #'           (latter is the basis for species/L1/L2 summarization)
 #' @param data.dir Data directory path
 #' @return phylogeny mapping table
-#'
 #' @export
-#'
 #' @examples # tax.table <- GetPhylogeny('HITChip', 'full')
-#'
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

@@ -99,18 +99,7 @@ Get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genu
 
 ```r
 pseq.L2 <- aggregate_taxa(pseq, level = "L2")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "aggregate_taxa"
-```
-
-```r
 pseq.L1 <- aggregate_taxa(pseq, level = "L1")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "aggregate_taxa"
 ```
 
 Importing HITChip probe-level data and taxonomy from HITChip
@@ -199,13 +188,6 @@ Aggregate the abundance matrix to higher-level taxa on HITChip:
 
 ```r
 pseq2 <- aggregate_taxa(pseq, "Phylum") # Aggregate into phyloseq object
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "aggregate_taxa"
-```
-
-```r
 dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
 ```
 

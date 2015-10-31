@@ -54,29 +54,15 @@ Investigate species-species cross-hybridization within the Dialister L2 group
 ```r
 # Pick the phylogeny which was used to summarize probes to species level
 tax.table <- GetPhylogeny("HITChip", "filtered") 
-```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "GetPhylogeny"
-```
-
-```r
 # Select species belonging to Dialister L2 group
 mytaxa <- levelmap("Dialister", from = "L2", to = "species", tax.table)[[1]]
-```
 
-```
-## Error in tax_table(as(x, "matrix")[i, j, drop = FALSE]): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error in as(x, "matrix")[i, j, drop = FALSE] : subscript out of bounds
-```
-
-```r
 # Check cross-hyb between Dialister species
 res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, tax.table)
 ```
 
-```
-## Error in PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, : object 'mytaxa' not found
-```
+![plot of chunk chyb2](figure/chyb2-1.png) 
 
 ```r
 # Check the cross-hyb data as well
@@ -84,12 +70,12 @@ head(res$data)
 ```
 
 ```
-##                              Taxon1           Taxon2 crosshyb
-## 1                  Actinomycetaceae Actinomycetaceae        0
-## 2                        Aerococcus Actinomycetaceae        0
-## 3      Alcaligenes faecalis et rel. Actinomycetaceae        0
-## 4                Allistipes et rel. Actinomycetaceae        0
-## 5       Anaerostipes caccae et rel. Actinomycetaceae        0
-## 6 Anaerotruncus colihominis et rel. Actinomycetaceae        0
+##                                   Taxon1                 Taxon2  crosshyb
+## 1                      Dialister invisus      Dialister invisus   0.00000
+## 2                 Dialister pneumosintes      Dialister invisus  20.00000
+## 3 Uncultured bacterium clone Eldhufec089      Dialister invisus 100.00000
+## 4 Uncultured bacterium clone Eldhufec093      Dialister invisus 100.00000
+## 5              uncultured bacterium MG10      Dialister invisus   0.00000
+## 6                      Dialister invisus Dialister pneumosintes  33.33333
 ```
 

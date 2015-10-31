@@ -20,7 +20,6 @@ Z transform phyloseq objects
 \examples{
   pseq <- download_microbiome("peerj32")$physeq
   pseqz <- ztransform_phyloseq(pseq, "OTU")
-
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

@@ -21,12 +21,14 @@ Or name of phyloseq sample data variable name.}
 }
 \value{
 List with items:
-  	     loadings: bagged loadings
-	     scores: bagged scores
-	     significance: significances of X variables
-	     group.centers: group centers on latent space
-	     bootstrapped: bootstrapped loadings
-	     data: data set with non-significant components dropped out.
+  \itemize{
+    \item{loadings}{bagged loadings}
+    \item{scores}{bagged scores}
+    \item{significance}{significances of X variables}
+    \item{group.centers}{group centers on latent space}
+    \item{bootstrapped}{bootstrapped loadings}
+    \item{data}{data set with non-significant components dropped out}
+  }
 }
 \description{
 Bagged RDA feature selection

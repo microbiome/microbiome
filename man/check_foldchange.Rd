@@ -25,7 +25,6 @@ Calculate Log10 Fold Change for two-group comparison
 \examples{
   #pseq <- download_microbiome("peerj32")$physeq
   #fc <- check_foldchange(pseq, "gender")
-
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

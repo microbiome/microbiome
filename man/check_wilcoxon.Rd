@@ -29,7 +29,6 @@ Calculate Wilcoxon test (with BH correction) for two-group comparison
 \examples{
   #pseq <- download_microbiome("peerj32")$physeq
   #pval <- check_wilcoxon(pseq, "gender")
-
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

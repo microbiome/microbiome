@@ -39,18 +39,16 @@ This function repeats potential analysis (Livina et al. 2010) multiple
 \examples{
   data(peerj32)
   multimodality_score(t(peerj32$microbes[, c("Akkermansia", "Dialister")]))
-
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
 Livina et al. (2010). Potential analysis 
-reveals changing number of climate states during the last 60
-kyr. \emph{Climate of the Past}, 6, 77-82.
-
-Lahti et al. (2014). Tipping elements of the human intestinal
-ecosystem. \emph{Nature Communications} 5:4344.
+  reveals changing number of climate states during the last 60
+  kyr. \emph{Climate of the Past}, 6, 77-82.
+  Lahti et al. (2014). Tipping elements of the human intestinal
+  ecosystem. \emph{Nature Communications} 5:4344.
 }
 \keyword{utilities}
 

@@ -10,8 +10,7 @@ plot_composition(x, taxonomic.level = NULL, relative.abundance = FALSE,
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)}
 
-\item{taxonomic.level}{Merge the OTUs (for phyloseq object) into a higher taxonomic level. 
-This has to be one from \code{colnames(tax_table(x))}.}
+\item{taxonomic.level}{Merge the OTUs (for phyloseq object) into a higher taxonomic level. This has to be one from \code{colnames(tax_table(x))}.}
 
 \item{relative.abundance}{Logical. Show relative abundances or not.}
 

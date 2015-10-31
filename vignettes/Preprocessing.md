@@ -83,19 +83,9 @@ Z transforming the data
 ```r
 # Z transform samples
 pseq.z <- ztransform_phyloseq(pseq, "sample")
-```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "ztransform_phyloseq"
-```
-
-```r
 # Z transform OTUs
 pseq.z <- ztransform_phyloseq(pseq, "OTU")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ztransform_phyloseq"
 ```
 
 
@@ -251,7 +241,7 @@ pseq <- read_hitchip(data.directory, method = "frpa")$pseq
 ```
 
 ```
-## Loading pre-calculated RPA preprocessing parameters
+## Error in paste(data.dir, "/oligoprofile.tab", sep = ""): object 'data.directory' not found
 ```
 
 ```r
@@ -259,7 +249,7 @@ pseq.L2 <- aggregate_taxa(pseq, level = "L2")
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "aggregate_taxa"
+## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
 ```
 
 Merging phyloseq objects
@@ -275,6 +265,11 @@ merge_phyloseq(pseq1, pseq2)
 
 ```r
 pseq.rarified <- rarefy_even_depth(pseq)
+```
+
+```
+## Error in validObject(.Object): invalid class "otu_table" object: 
+##  OTU abundance data must have non-zero dimensions.
 ```
 
 

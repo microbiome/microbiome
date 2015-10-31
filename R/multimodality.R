@@ -1,6 +1,5 @@
 #' @title bimodality
 #' @description Wrapper to calculate bimodality score based on various methods 
-#'
 #' @param x A vector, matrix, or a phyloseq object
 #' @param method bimodality quantification method ('potential_bootstrap'
 #' 	  or one of the methods in coefficient_of_bimodality)
@@ -10,14 +9,12 @@
 #' @param detection.limit minimum accepted density for a maximum; 
 #'        as a multiple of kernel height
 #' @param verbose Verbose
-#' 
 #' @return A list with following elements: 
 #'   \itemize{
 #'     \item{score}{Fraction of bootstrap samples where multiple modes are observed}
 #'     \item{nmodes}{The most frequently observed number of modes in bootrstrap sampling results}
 #'     \item{results}{Full results of potential_analysis_bootstrap for each row of the input matrix.}
 #'   }
-#'
 #' @details
 #'   \itemize{
 #'     \item{Sarle.finite.sample}{Coefficient of bimodality for finite sample. See SAS 2012.}
@@ -25,28 +22,22 @@
 #'     \item{potential_bootstrap}{Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the bootstrap score.}
 #'     \item{dip}{DIP test from the package \pkg{diptest}. See help(dip.test). The DIP test quantifies unimodality and varies between [0,1]. To quantify multimodality, this function returns the inverse score: 1-x. }
 #'   }
-#'
 #' @seealso coefficient_of_bimodality
 #' @references
-#' Livina et al. (2010). Potential analysis 
-#' reveals changing number of climate states during the last 60
-#' kyr. \emph{Climate of the Past}, 6, 77-82.
-#'
-#' Lahti et al. (2014). Tipping elements of the human intestinal
-#' ecosystem. \emph{Nature Communications} 5:4344.
-#'
-#' Shade et al. mBio 5(4):e01371-14, 2014.
-#' 
-#' AM Ellison, Am. J. Bot 74:1280-8, 1987.
-#'
-#' SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.
-#'
+#' \itemize{
+#'   \item{}{Livina et al. (2010). Potential analysis 
+#'         reveals changing number of climate states during the last 60
+#' 	   kyr. \emph{Climate of the Past}, 6, 77-82.}
+#'   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
+#'         ecosystem. \emph{Nature Communications} 5:4344.}
+#'   \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
+#'   \item{}{AM Ellison, Am. J. Bot 74:1280-8, 1987.}
+#'   \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
+#' }
 #' @importFrom diptest dip.test
 #' @export
-#'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
-#'
 #' @keywords utilities
 bimodality <- function (x, method = "potential_bootstrap", detection.threshold = 1, bw.adjust = 1, bs.iterations = 100, detection.limit = 1, verbose = TRUE) {
 

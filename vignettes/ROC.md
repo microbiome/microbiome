@@ -48,10 +48,6 @@ for (tax in rownames(otu)) {
 bacteroidetes <- levelmap("Bacteroidetes", from = "L1", to = "L2", GetPhylogeny("HITChip", "filtered"))$Bacteroidetes
 ```
 
-```
-## Error in levelmap("Bacteroidetes", from = "L1", to = "L2", GetPhylogeny("HITChip", : could not find function "GetPhylogeny"
-```
-
 
 ### Overall ROC analysis 
 
@@ -95,4 +91,6 @@ res$auc
 plot(res)
 ```
 
-![plot of chunk roc-example4](figure/roc-example4-1.png) 
+```
+## Error in xy.coords(x, y, xlabel, ylabel, log): 'x' is a list, but does not have components 'x' and 'y'
+```

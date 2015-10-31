@@ -1,6 +1,5 @@
 #' @title cross.correlate
 #' @description Cross-correlate columns of the input matrices
-#'              
 #' @param x matrix (samples x features if annotation matrix)
 #' @param y matrix (samples x features if cross-correlated with annotations)
 #' @param method association method ('pearson', 'spearman', or 'bicor' 
@@ -18,26 +17,20 @@
 #' @param verbose verbose
 #' @param filter.self.correlations Filter out correlations between 
 #'                            	   identical items.
-#'
 #' @return List with cor, pval, pval.adjusted
-#'
 #' @examples 
 #'   data(peerj32)
 #'   d1 <- peerj32$microbes[1:20, 1:10]
 #'   d2 <- peerj32$lipids[1:20,1:10]
 #'   cc <- cross.correlate(d1, d2)
-#'
 #' @export
-#'
 #' @details As the method=categorical (discrete) association measure
 #'          for nominal (no order for levels) variables we use Goodman and
 #'          Kruskal tau based on
 #'          r-bloggers.com/measuring-associations-between-non-numeric-variables/
-#'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 cross.correlate <- function(x, y = NULL, method = "spearman", 
                             p.adj.threshold = Inf, 
     cth = NULL, order = FALSE, n.signif = 0, mode = "table", 

@@ -1,19 +1,14 @@
 #' @title coefficient_of_bimodality
 #' @description Coefficient of bimodality (Sarle's bimodality coefficient b)
-#'
 #' @param x Data vector for which bimodality will be quantified
 #' @param bs.iter Bootstrap iterations
 #' @param na.rm Remove NAs
-#' @param type Bimodality score type
-#'             ("Sarle.finite.sample" or "Sarle.asymptotic")
-#'
+#' @param type Bimodality score type ("Sarle.finite.sample" or "Sarle.asymptotic")
 #' @return Bimodality score
-#'
 #' @examples # coefficient_of_bimodality(rnorm(100), type = "Sarle.finite.sample")
 #' @export
 #' @importFrom moments skewness
 #' @importFrom moments kurtosis
-#'
 #' @details The coefficient lies in (0, 1).
 #' 
 #'	    The 'Sarle.asymptotic' version is defined as
@@ -31,12 +26,13 @@
 #'          standardized moment (also called the sample kurtosis, or
 #'          excess kurtosis).
 #'
-#' @references 
-#'   Shade et al. mBio 5(4):e01371-14, 2014.
-#'   Ellison AM (1987) Am J Botany 74(8):1280-1288.
-#'   SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.
-#'
-#'   To cite the microbiome R package, see citation('microbiome') 
+#' @references
+#'   \itemize{
+#'     \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
+#'     \item{}{Ellison AM (1987) Am J Botany 74(8):1280-1288.}
+#'     \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
+#'     \item{}{To cite the microbiome R package, see citation('microbiome')}
+#'  }
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' 

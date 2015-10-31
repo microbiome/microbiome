@@ -1,6 +1,5 @@
 #' @title bagged_rda
 #' @description Bagged RDA feature selection
-#'
 #' @param x a matrix, samples on columns, variables (bacteria) on rows. 
 #'        Or a \code{\link{phyloseq-class}} object
 #' @param y vector with names(y)=rownames(X). 
@@ -8,15 +7,15 @@
 #' @param sig.thresh signal p-value threshold, default 0.1
 #' @param nboot Number of bootstrap iterations
 #' @param verbose verbose
-#'
 #' @return List with items:
-#'   	     loadings: bagged loadings
-#' 	     scores: bagged scores
-#' 	     significance: significances of X variables
-#' 	     group.centers: group centers on latent space
-#' 	     bootstrapped: bootstrapped loadings
-#' 	     data: data set with non-significant components dropped out.
-#'
+#'   \itemize{
+#'     \item{loadings}{bagged loadings}
+#'     \item{scores}{bagged scores}
+#'     \item{significance}{significances of X variables}
+#'     \item{group.centers}{group centers on latent space}
+#'     \item{bootstrapped}{bootstrapped loadings}
+#'     \item{data}{data set with non-significant components dropped out}
+#'   }
 #' @examples \dontrun{
 #'   library(microbiome)
 #'   data(peerj32)
@@ -26,7 +25,6 @@
 #'   PlotBaggedRDA(res, y)
 #'  }
 #' @export
-#'
 #' @references See citation("microbiome") 
 #' @author Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

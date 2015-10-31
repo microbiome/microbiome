@@ -26,7 +26,6 @@ Calculate ANOVA test (BH correction) for multi-group comparison
 \examples{
   data(peerj32)
   pval <- check_anova(t(peerj32$microbes), peerj32$meta$time)
-
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

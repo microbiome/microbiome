@@ -22,7 +22,6 @@ Get Chip phylogeny
 }
 \examples{
 # tax.table <- GetPhylogeny('HITChip', 'full')
-
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

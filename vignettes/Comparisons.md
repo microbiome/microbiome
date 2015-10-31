@@ -23,10 +23,6 @@ names(group) <- meta$sample
 pvals <- check_anova(pseq, group, p.adjust.method = "BH", sort = TRUE)
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "check_anova"
-```
-
 
 ### Wilcoxon test (two-group comparisons)
 
@@ -40,7 +36,12 @@ pval <- check_wilcoxon(pseq, "gender")
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "check_wilcoxon"
+## Warning in check_foldchange(x, group, paired = paired): Converting the
+## grouping variable gender into a factor.
+```
+
+```
+## Error in check_foldchange(x, group, paired = paired): check_foldchange is currently implemented only for two-group comparisons. The selected variable gender has 0 levels:
 ```
 
 

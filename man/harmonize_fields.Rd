@@ -16,8 +16,7 @@ data.frame with harmonized fields
 harmonize fields
 }
 \examples{
-  # m <- harmonize_fields(x)
-
+# m <- harmonize_fields(x)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

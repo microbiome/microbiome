@@ -46,24 +46,21 @@ Wrapper to calculate bimodality score based on various methods
 }
 \examples{
 bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
-
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-Livina et al. (2010). Potential analysis 
-reveals changing number of climate states during the last 60
-kyr. \emph{Climate of the Past}, 6, 77-82.
-
-Lahti et al. (2014). Tipping elements of the human intestinal
-ecosystem. \emph{Nature Communications} 5:4344.
-
-Shade et al. mBio 5(4):e01371-14, 2014.
-
-AM Ellison, Am. J. Bot 74:1280-8, 1987.
-
-SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.
+\itemize{
+  \item{}{Livina et al. (2010). Potential analysis 
+        reveals changing number of climate states during the last 60
+	   kyr. \emph{Climate of the Past}, 6, 77-82.}
+  \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
+        ecosystem. \emph{Nature Communications} 5:4344.}
+  \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
+  \item{}{AM Ellison, Am. J. Bot 74:1280-8, 1987.}
+  \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
+}
 }
 \seealso{
 coefficient_of_bimodality

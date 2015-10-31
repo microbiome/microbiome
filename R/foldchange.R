@@ -1,20 +1,15 @@
 #' @title check_foldchange
 #' @description Calculate Log10 Fold Change for two-group comparison 
-#'
 #' @param x \code{\link{phyloseq-class}} object or a data matrix 
 #'            (features x samples; eg. HITChip taxa vs. samples)
 #' @param group Vector with specifying the groups
 #' @param sort sort the results
 #' @param paired Paired comparison (Default: FALSE)
-#'
 #' @return Fold change information for two-group comparison.
-#'
 #' @examples 
 #'   #pseq <- download_microbiome("peerj32")$physeq
 #'   #fc <- check_foldchange(pseq, "gender")
-#'
 #' @export
-#'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

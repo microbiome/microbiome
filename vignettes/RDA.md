@@ -37,7 +37,21 @@ Visualizing the standard RDA output:
 
 ```r
 plot(rdatest, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
+```
+
+```
+## Error in plot.xy(xy, type, ...): object 'meta' not found
+```
+
+```r
 points(rdatest, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
+```
+
+```
+## Error in plot.xy(xy.coords(x, y), type = type, ...): object 'meta' not found
+```
+
+```r
 pl <- ordihull(rdatest, meta$time, scaling = 3, label = TRUE)
 ```
 
@@ -60,9 +74,7 @@ Fitting bagged RDA on a phyloseq object:
 res <- bagged_rda(pseq, "group", sig.thresh=0.05, nboot=100)
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "bagged_rda"
-```
+![plot of chunk rda5](figure/rda5-1.png) 
 
 Visualizing bagged RDA:
 
@@ -71,9 +83,7 @@ Visualizing bagged RDA:
 plot_bagged_rda(res)
 ```
 
-```
-## Error in abs(Bag.res$loadings): non-numeric argument to mathematical function
-```
+![plot of chunk rda6](figure/rda6-1.png) 
 
 
 ### Controlling confounding variables with RDA
