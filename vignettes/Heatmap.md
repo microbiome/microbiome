@@ -18,7 +18,9 @@ pseq <- download_microbiome("dietswap")
 plot_heatmap(pseq, sample.label = "sample")
 ```
 
-![plot of chunk heatmap-phyloseq1](figure/heatmap-phyloseq1-1.png) 
+```
+## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
+```
 
 Pick subset of the data and plot ordered heatmap
 
@@ -34,7 +36,9 @@ plot_heatmap(pseq2, method = "NMDS", distance = "bray",
 	     sample.label = "sample", taxa.label = "Genus")
 ```
 
-![plot of chunk heatmap-phyloseq2](figure/heatmap-phyloseq2-1.png) 
+```
+## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
+```
 
 
 ### Matrix heatmaps

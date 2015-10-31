@@ -93,14 +93,15 @@ sessionInfo()
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] netresponse_1.18.0  reshape_0.8.5       mclust_5.1         
-##  [4] minet_3.26.0        Rgraphviz_2.12.0    graph_1.46.0       
-##  [7] gridExtra_2.0.0     sorvi_0.7.32        mgcv_1.8-8         
-## [10] nlme_3.1-122        RSQLite_1.0.0       DBI_0.3.1          
-## [13] dplyr_0.4.3         limma_3.24.15       ggplot2_1.0.1      
-## [16] microbiome_0.99.65  RPA_1.24.0          affy_1.46.1        
-## [19] Biobase_2.28.0      BiocGenerics_0.14.0 phyloseq_1.12.2    
-## [22] knitcitations_1.0.7 knitr_1.11         
+##  [1] googleVis_0.5.10    rdryad_0.1.1        netresponse_1.18.0 
+##  [4] reshape_0.8.5       mclust_5.1          minet_3.26.0       
+##  [7] Rgraphviz_2.12.0    graph_1.46.0        gridExtra_2.0.0    
+## [10] sorvi_0.7.32        mgcv_1.8-8          nlme_3.1-122       
+## [13] RSQLite_1.0.0       DBI_0.3.1           dplyr_0.4.3        
+## [16] limma_3.24.15       ggplot2_1.0.1       microbiome_0.99.65 
+## [19] RPA_1.24.0          affy_1.46.1         Biobase_2.28.0     
+## [22] BiocGenerics_0.14.0 phyloseq_1.12.2     knitcitations_1.0.7
+## [25] knitr_1.11         
 ## 
 ## loaded via a namespace (and not attached):
 ##   [1] colorspace_1.2-6          dynamicTreeCut_1.62      
@@ -122,43 +123,42 @@ sessionInfo()
 ##  [33] assertthat_0.1            Matrix_1.2-2             
 ##  [35] formatR_1.2.1             acepack_1.3-3.3          
 ##  [37] tools_3.2.2               igraph_1.0.1             
-##  [39] rdryad_0.1.1              gtable_0.1.2             
-##  [41] reshape2_1.4.1            maps_3.0.0-2             
-##  [43] Rcpp_0.12.1               Biostrings_2.36.4        
-##  [45] RJSONIO_1.3-0             multtest_2.24.0          
-##  [47] biom_0.3.12               gdata_2.17.0             
-##  [49] ape_3.3                   preprocessCore_1.30.0    
-##  [51] iterators_1.0.8           lmtest_0.9-34            
-##  [53] fastcluster_1.1.16        stringr_1.0.0            
-##  [55] proto_0.3-10              gtools_3.5.0             
-##  [57] XML_3.98-1.3              zlibbioc_1.14.0          
-##  [59] MASS_7.3-44               zoo_1.7-12               
-##  [61] scales_0.3.0              BiocInstaller_1.18.5     
-##  [63] lambda.r_1.1.7            RColorBrewer_1.1-2       
-##  [65] fields_8.3-5              memoise_0.2.1            
-##  [67] rpart_4.1-10              latticeExtra_0.6-26      
-##  [69] stringi_1.0-1             maptree_1.4-7            
-##  [71] highr_0.5.1               genefilter_1.50.0        
-##  [73] S4Vectors_0.6.6           tseries_0.10-34          
-##  [75] foreach_1.4.3             nortest_1.0-4            
-##  [77] permute_0.8-4             boot_1.3-17              
-##  [79] BiocParallel_1.2.22       bibtex_0.4.0             
-##  [81] chron_2.3-47              GenomeInfoDb_1.4.3       
-##  [83] matrixStats_0.15.0        moments_0.14             
-##  [85] bitops_1.0-6              dmt_0.8.20               
-##  [87] rgl_0.95.1367             evaluate_0.8             
-##  [89] lattice_0.20-33           labeling_0.3             
-##  [91] plyr_1.8.3                magrittr_1.5             
-##  [93] DESeq2_1.8.2              R6_2.1.1                 
-##  [95] IRanges_2.2.9             earlywarnings_1.1.22     
-##  [97] Hmisc_3.17-0              foreign_0.8-66           
-##  [99] survival_2.38-3           RCurl_1.95-4.7           
-## [101] nnet_7.3-11               futile.options_1.0.0     
-## [103] KernSmooth_2.23-15        ellipse_0.3-8            
-## [105] locfit_1.5-9.1            data.table_1.9.6         
-## [107] vegan_2.3-1               digest_0.6.8             
-## [109] diptest_0.75-7            xtable_1.7-4             
-## [111] stats4_3.2.2              munsell_0.4.2            
-## [113] quadprog_1.5-5
+##  [39] gtable_0.1.2              reshape2_1.4.1           
+##  [41] maps_3.0.0-2              Rcpp_0.12.1              
+##  [43] Biostrings_2.36.4         RJSONIO_1.3-0            
+##  [45] multtest_2.24.0           biom_0.3.12              
+##  [47] gdata_2.17.0              ape_3.3                  
+##  [49] preprocessCore_1.30.0     iterators_1.0.8          
+##  [51] lmtest_0.9-34             fastcluster_1.1.16       
+##  [53] stringr_1.0.0             proto_0.3-10             
+##  [55] gtools_3.5.0              XML_3.98-1.3             
+##  [57] zlibbioc_1.14.0           MASS_7.3-44              
+##  [59] zoo_1.7-12                scales_0.3.0             
+##  [61] BiocInstaller_1.18.5      lambda.r_1.1.7           
+##  [63] RColorBrewer_1.1-2        fields_8.3-5             
+##  [65] memoise_0.2.1             rpart_4.1-10             
+##  [67] latticeExtra_0.6-26       stringi_1.0-1            
+##  [69] maptree_1.4-7             highr_0.5.1              
+##  [71] genefilter_1.50.0         S4Vectors_0.6.6          
+##  [73] tseries_0.10-34           foreach_1.4.3            
+##  [75] nortest_1.0-4             permute_0.8-4            
+##  [77] boot_1.3-17               BiocParallel_1.2.22      
+##  [79] bibtex_0.4.0              chron_2.3-47             
+##  [81] GenomeInfoDb_1.4.3        matrixStats_0.15.0       
+##  [83] moments_0.14              bitops_1.0-6             
+##  [85] dmt_0.8.20                rgl_0.95.1367            
+##  [87] evaluate_0.8              lattice_0.20-33          
+##  [89] labeling_0.3              plyr_1.8.3               
+##  [91] magrittr_1.5              DESeq2_1.8.2             
+##  [93] R6_2.1.1                  IRanges_2.2.9            
+##  [95] earlywarnings_1.1.22      Hmisc_3.17-0             
+##  [97] foreign_0.8-66            survival_2.38-3          
+##  [99] RCurl_1.95-4.7            nnet_7.3-11              
+## [101] futile.options_1.0.0      KernSmooth_2.23-15       
+## [103] ellipse_0.3-8             locfit_1.5-9.1           
+## [105] data.table_1.9.6          vegan_2.3-1              
+## [107] digest_0.6.8              diptest_0.75-7           
+## [109] xtable_1.7-4              stats4_3.2.2             
+## [111] munsell_0.4.2             quadprog_1.5-5
 ```
 

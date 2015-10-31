@@ -20,18 +20,7 @@ groups <- meta$gender
 
 # Compare the two groups with limma
 library(limma)
-```
 
-```
-## 
-## Attaching package: 'limma'
-## 
-## The following object is masked from 'package:BiocGenerics':
-## 
-##     plotMA
-```
-
-```r
 # Prepare the design matrix which states the groups for each sample
 # in the otu
 design <- cbind(intercept = 1, Grp2vs1 = groups)
@@ -116,30 +105,6 @@ data](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 ```r
 # Compare the two groups with t-test
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-## 
-## The following object is masked from 'package:Biobase':
-## 
-##     combine
-## 
-## The following objects are masked from 'package:BiocGenerics':
-## 
-##     combine, intersect, setdiff, union
-## 
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-## 
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 pvalues.ttest <- c()
 male.samples <- dplyr::filter(meta, gender == "male")$sample
 female.samples <- dplyr::filter(meta, gender == "female")$sample
