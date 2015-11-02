@@ -15,6 +15,12 @@ pseq0 <- download_microbiome("dietswap")
 pseq <- subset_samples(pseq0, group == "DI" & nationality == "AFR")
 ```
 
+# OK
+plot_composition(phyl1,taxonomic.level = "Phylum",relative.abundance = T,sort.by = "lesion")
+
+plot_composition(phyl1,taxonomic.level = "Phylum",relative.abundance = T,sort.by = "lesion",x.label = "lesion")
+
+
 Show OTU absolute abundance in each sample. Plot absolute taxon
 abundances (Note: on HITChip data the Phylum level is only
 approximate):
