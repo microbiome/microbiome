@@ -75,6 +75,7 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 1000,
 
 
 #' @title core.which
+#' @description Auxiliary function 
 #' @param data data matrix; phylotypes vs. samples
 #' @param intTr intTr
 #' @param prevalenceTr prevalenceTr
