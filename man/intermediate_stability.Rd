@@ -45,7 +45,9 @@ points into account as this may affect the comparison and is not taken
 into account by the straightforward correlation. Here the coefficients
 of the following linear model are used to assess stability:
 abs(change) ~ time + abs(start.reference.distance). Samples with missing
-data, and subjects with less than two time point are excluded.
+data, and subjects with less than two time point are excluded. The absolute
+count data x is logarithmized before the analysis with the log10(1 + x)
+trick to circumvent logarithmization of zeroes.
 }
 \examples{
 # Example data

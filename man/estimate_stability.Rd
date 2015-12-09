@@ -7,14 +7,16 @@
 estimate_stability(df, reference.point = NULL, method = "lm")
 }
 \arguments{
-\item{df}{Combined input data vector (samples x variables) and metadata data.frame (samples x features)
+\item{df}{Combined input data vector (samples x variables) and metadata
+data.frame (samples x features)
 with the 'data', 'subject' and 'time' field for each sample}
 
-\item{reference.point}{Optional. Calculate stability of the data w.r.t. this point. 
-By default the intermediate range is used (min + (max - min)/2)}
+\item{reference.point}{Optional. Calculate stability of the data w.r.t.
+this point. By default the intermediate range is
+used (min + (max - min)/2)}
 
-\item{method}{"lm" (linear model) or "correlation"; the linear model takes time into account 
-as a covariate}
+\item{method}{"lm" (linear model) or "correlation"; the linear model takes
+time into account as a covariate}
 }
 \value{
 A list with following elements: 

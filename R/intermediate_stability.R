@@ -31,7 +31,9 @@
 #' into account by the straightforward correlation. Here the coefficients
 #' of the following linear model are used to assess stability:
 #' abs(change) ~ time + abs(start.reference.distance). Samples with missing
-#' data, and subjects with less than two time point are excluded.	   
+#' data, and subjects with less than two time point are excluded. The absolute
+#' count data x is logarithmized before the analysis with the log10(1 + x)
+#' trick to circumvent logarithmization of zeroes.
 #'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @export
@@ -45,9 +47,9 @@
 #' @keywords utilities
 intermediate_stability <- function (x, reference.point = NULL, method = "correlation", output = "full") {
 
-  # Logarithmize the data
+  # Logarithmize the data with log10(1 + x) trick
   pseq <- x		       
-  x <- log10(t(otu_table(pseq)@.Data))
+  x <- log10(1 + t(otu_table(pseq)@.Data))
   meta <- sample_data(pseq)
 
   # Estimate stabilities for each OTU
