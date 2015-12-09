@@ -131,6 +131,7 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1,
      boot.which=mclapply(boot,function(x){
         if (is.null(I.max)) 
            I.max=max(apply(D[,x],1,min))
+        I.max = max(I.thr, I.max); 
         Insty=runif(1,I.thr,I.max)
         sum(rowSums(D[,x]>Insty) >= minprev)
      }, mc.cores = ncore)
@@ -138,6 +139,7 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1,
      boot.which=lapply(boot,function(x){ 
         if (is.null(I.max)) 
           I.max=max(apply(D[,x],1,min))
+        I.max = max(I.thr, I.max); 
         Insty=runif(1,I.thr,I.max)
         sum(rowSums(D[,x]>Insty) >= minprev)
      }) 
@@ -145,6 +147,7 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1,
      boot.which=lapply(boot,function(x){ 
         if (is.null(I.max)) 
            I.max=max(D[,x])
+        I.max = max(I.thr, I.max); 
         Insty=runif(1,I.thr,I.max)
         return(sum(D[,x]>=Insty))
      })
