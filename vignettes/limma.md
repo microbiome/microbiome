@@ -20,7 +20,20 @@ groups <- meta$gender
 
 # Compare the two groups with limma
 library(limma)
+```
 
+```
+## 
+## Attaching package: 'limma'
+```
+
+```
+## The following object is masked from 'package:BiocGenerics':
+## 
+##     plotMA
+```
+
+```r
 # Prepare the design matrix which states the groups for each sample
 # in the otu
 design <- cbind(intercept = 1, Grp2vs1 = groups)
@@ -70,14 +83,14 @@ qqt(fit$t[, coef.index], df = fit$df.residual + fit$df.prior)
 abline(0,1)
 ```
 
-![plot of chunk limma-example](figure/limma-example-1.png) 
+![plot of chunk limma-example](figure/limma-example-1.png)
 
 ```r
 # Volcano plot
 volcanoplot(fit, coef = coef.index, highlight = coef.index)
 ```
 
-![plot of chunk limma-example](figure/limma-example-2.png) 
+![plot of chunk limma-example](figure/limma-example-2.png)
 
 ```r
 # Adjusted p-values; show all significant ones
@@ -120,7 +133,7 @@ plot(pvalues.ttest[taxa], pvalues.limma[taxa])
 abline(0,1,lty = 2)
 ```
 
-![plot of chunk limma-compairson](figure/limma-compairson-1.png) 
+![plot of chunk limma-compairson](figure/limma-compairson-1.png)
 
 ### TODO
 

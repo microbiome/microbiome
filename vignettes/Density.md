@@ -25,7 +25,7 @@ x <- subset_samples(x, time == 0 & DNA_extraction_method == "r")
 plot_density(x, "Prevotella melaninogenica et rel.")
 ```
 
-![plot of chunk hist](figure/hist-1.png) 
+![plot of chunk hist](figure/hist-1.png)
 
 
 Same with log10 abundances:
@@ -35,7 +35,7 @@ Same with log10 abundances:
 plot_density(x, "Prevotella melaninogenica et rel.", log10 = TRUE)
 ```
 
-![plot of chunk hist2](figure/hist2-1.png) 
+![plot of chunk hist2](figure/hist2-1.png)
 
 
 Same with log10 relative abundances:
@@ -50,5 +50,5 @@ tax <- "Prevotella melaninogenica et rel."
 plot_density(x, tax, log10 = TRUE) + ggtitle(paste(tax, "(Rel. Ab. %)"))
 ```
 
-![plot of chunk hist3](figure/hist3-1.png) 
+![plot of chunk hist3](figure/hist3-1.png)
 

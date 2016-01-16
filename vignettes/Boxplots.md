@@ -15,4 +15,4 @@ p <- boxplot_abundance(pseq, x = "time", y = "Akkermansia", line = "subject", co
 print(p)
 ```
 
-![plot of chunk boxplot-example](figure/boxplot-example-1.png) 
+![plot of chunk boxplot-example](figure/boxplot-example-1.png)

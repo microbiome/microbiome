@@ -80,7 +80,7 @@ res$auc
 ```
 
 ```
-## NULL
+## Error in eval(expr, envir, enclos): object 'res' not found
 ```
 
 
@@ -92,5 +92,5 @@ plot(res)
 ```
 
 ```
-## Error in xy.coords(x, y, xlabel, ylabel, log): 'x' is a list, but does not have components 'x' and 'y'
+## Error in plot(res): object 'res' not found
 ```

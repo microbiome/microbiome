@@ -72,7 +72,7 @@ print(data.directory)
 ```
 
 ```
-## [1] "/home/lei/R/x86_64-pc-linux-gnu-library/3.2/microbiome/extdata"
+## [1] "/home/antagomir/R/x86_64-pc-linux-gnu-library/3.2/microbiome/extdata"
 ```
 
 ## HITChip to phyloseq format

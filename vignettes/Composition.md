@@ -23,6 +23,12 @@ pseq0 <- download_microbiome("dietswap")
 pseq <- subset_samples(pseq0, group == "DI" & nationality == "AFR")
 ```
 
+# OK
+plot_composition(phyl1,taxonomic.level = "Phylum",relative.abundance = T,sort.by = "lesion")
+
+plot_composition(phyl1,taxonomic.level = "Phylum",relative.abundance = T,sort.by = "lesion",x.label = "lesion")
+
+
 Show OTU absolute abundance in each sample. Plot absolute taxon
 abundances (Note: on HITChip data the Phylum level is only
 approximate):
@@ -32,7 +38,7 @@ approximate):
 plot_composition(pseq, taxonomic.level = "Phylum")
 ```
 
-![plot of chunk composition-example1b](figure/composition-example1b-1.png) 
+![plot of chunk composition-example1b](figure/composition-example1b-1.png)
 
 Same with relative abundances:
 
@@ -44,7 +50,7 @@ p <- p + theme(legend.position = "bottom")
 print(p)
 ```
 
-![plot of chunk composition-example3](figure/composition-example3-1.png) 
+![plot of chunk composition-example3](figure/composition-example3-1.png)
 
 
 Arrange by sample variable and use custom X axis labels. Africans have more Prevotella as expected:
@@ -61,7 +67,7 @@ p <- p + theme(legend.position = "bottom")
 print(p)
 ```
 
-![plot of chunk composition-example4](figure/composition-example4-1.png) 
+![plot of chunk composition-example4](figure/composition-example4-1.png)
 
 ### Coloured Barplots
 
@@ -73,15 +79,8 @@ sequence similarity, not exactly Phylum):
 ```r
 pseq <- subset_samples(pseq0, group == "DI")
 p <- plot_bar(pseq, x = "timepoint.within.group", fill = "Phylum", facet_grid = ~nationality)
-```
-
-```
-## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
-```
-
-```r
 print(p)
 ```
 
-![plot of chunk composition-example5](figure/composition-example5-1.png) 
+![plot of chunk composition-example5](figure/composition-example5-1.png)
 

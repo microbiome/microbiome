@@ -16,13 +16,28 @@ otu <- otu_table(pseq)@.Data
 # Bacteria that exceed this threshold are considered present
 # otherwise absent
 det.th <- quantile(otu, 0.15)
+```
 
+```
+## Error in quantile.default(otu, 0.15): missing values and NaN's not allowed if 'na.rm' is FALSE
+```
+
+```r
 # Visualize the detection threshold (at log10 scale for clarity)
 plot(density(log10(otu)), main = "Detection threshold", xlab = "Abundance (Log10)", ylab = "Frequency")
+```
+
+```
+## Error in density.default(log10(otu)): 'x' contains missing values
+```
+
+```r
 abline(v = log10(det.th))
 ```
 
-![plot of chunk rich-example](figure/rich-example-1.png) 
+```
+## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): object 'det.th' not found
+```
 
 ```r
 # Calculate richness.
@@ -30,10 +45,19 @@ abline(v = log10(det.th))
 # (exceed the detection threshold). This measure is sometimes used with
 # phylogenetic microarrays.
 ri <- estimate_diversity(pseq, det.th = det.th)$Observed
+```
+
+```
+## Error in if (d1fun(hi, S, N) < 0) hi <- 2 * hi: missing value where TRUE/FALSE needed
+```
+
+```r
 hist(ri, main = "Richness")
 ```
 
-![plot of chunk rich-example](figure/rich-example-2.png) 
+```
+## Error in hist(ri, main = "Richness"): error in evaluating the argument 'x' in selecting a method for function 'hist': Error: object 'ri' not found
+```
 
 
 ### Diversity 
@@ -45,6 +69,10 @@ Estimate diversity (table with various diversity measures):
 diversity <- estimate_diversity(pseq)
 ```
 
+```
+## Error in if (d1fun(hi, S, N) < 0) hi <- 2 * hi: missing value where TRUE/FALSE needed
+```
+
 Visualize diversity vs. discrete variable:
 
 
@@ -53,7 +81,7 @@ p <- plot_diversity(pseq, x = "bmi_group", measures = "Shannon")
 print(p)
 ```
 
-![plot of chunk div-example2](figure/div-example2-1.png) 
+![plot of chunk div-example2](figure/div-example2-1.png)
 
 Same with the phyloseq function:
 
@@ -64,7 +92,7 @@ p <- p + geom_boxplot()
 print(p)
 ```
 
-![plot of chunk div-example2b](figure/div-example2b-1.png) 
+![plot of chunk div-example2b](figure/div-example2b-1.png)
 
 
 Highlight specific groups:
@@ -82,6 +110,8 @@ print(p)
 ## Error in eval(expr, envir, enclos): object 'gender' not found
 ```
 
+![plot of chunk richness](figure/richness-1.png)
+
 Diversity vs. continuous variable:
 
 
@@ -90,7 +120,7 @@ p <- plot_diversity(pseq, x = "age", measures = "Shannon")
 print(p)
 ```
 
-![plot of chunk diversitywithmetadata2](figure/diversitywithmetadata2-1.png) 
+![plot of chunk diversitywithmetadata2](figure/diversitywithmetadata2-1.png)
 
 Same with the phyloseq function:
 
@@ -101,7 +131,7 @@ p <- p + geom_smooth()
 print(p)
 ```
 
-![plot of chunk diversitywithmetadata2b](figure/diversitywithmetadata2b-1.png) 
+![plot of chunk diversitywithmetadata2b](figure/diversitywithmetadata2b-1.png)
 
 
 Diversity vs. age with smoothed confidence intervals - manual version:
@@ -114,7 +144,13 @@ library(dplyr)
 
 # Add diversity into sample metadata
 sample_data(pseq)$diversity <- estimate_diversity(pseq)$Shannon
+```
 
+```
+## Error in if (d1fun(hi, S, N) < 0) hi <- 2 * hi: missing value where TRUE/FALSE needed
+```
+
+```r
 # Select a subset of samples
 pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
 
@@ -124,6 +160,6 @@ p <- sorvi::regression_plot(diversity ~ age, df)
 print(p)
 ```
 
-![plot of chunk diversity-example13](figure/diversity-example13-1.png) 
+![plot of chunk diversity-example13](figure/diversity-example13-1.png)
 
 

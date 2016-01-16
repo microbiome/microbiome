@@ -25,7 +25,7 @@ p <- res$plot
 print(p)
 ```
 
-![plot of chunk chyb](figure/chyb-1.png) 
+![plot of chunk chyb](figure/chyb-1.png)
 
 ```r
 # Organize the Crosshyb table
@@ -62,7 +62,7 @@ mytaxa <- levelmap("Dialister", from = "L2", to = "species", tax.table)[[1]]
 res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, tax.table)
 ```
 
-![plot of chunk chyb2](figure/chyb2-1.png) 
+![plot of chunk chyb2](figure/chyb2-1.png)
 
 ```r
 # Check the cross-hyb data as well

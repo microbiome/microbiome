@@ -38,7 +38,7 @@ print(paste("Reading data from:", data.path))
 ```
 
 ```
-## [1] "Reading data from: /home/lei/R/x86_64-pc-linux-gnu-library/3.2/microbiome/extdata"
+## [1] "Reading data from: /home/antagomir/R/x86_64-pc-linux-gnu-library/3.2/microbiome/extdata"
 ```
 
 
@@ -114,13 +114,13 @@ Visualize diversity vs. discrete metadata variable (here 'diet' but you can call
 plot_diversity(pseq.probe, x = "diet", measures = "Shannon")
 ```
 
-![plot of chunk example-7](figure/example-7-1.png) 
+![plot of chunk example-7](figure/example-7-1.png)
 
 ```r
 plot_diversity(pseq.probe, x = "diet", measures = "InvSimpson")
 ```
 
-![plot of chunk example-7](figure/example-7-2.png) 
+![plot of chunk example-7](figure/example-7-2.png)
 
 ### Wilcoxon test
 
@@ -155,7 +155,7 @@ ggplot(res, aes(x = p.value, y = fold.change.log10)) +
   xlim(0, 1)
 ```
 
-![plot of chunk example-9](figure/example-9-1.png) 
+![plot of chunk example-9](figure/example-9-1.png)
 
 Boxplots of the most significant groups:
 
@@ -168,7 +168,7 @@ for (tax in top.groups) {
 }
 ```
 
-![plot of chunk example-10](figure/example-10-1.png) ![plot of chunk example-10](figure/example-10-2.png) ![plot of chunk example-10](figure/example-10-3.png) ![plot of chunk example-10](figure/example-10-4.png) 
+![plot of chunk example-10](figure/example-10-1.png)![plot of chunk example-10](figure/example-10-2.png)![plot of chunk example-10](figure/example-10-3.png)![plot of chunk example-10](figure/example-10-4.png)
 
 
 ### Hierarchical clustering
@@ -185,7 +185,7 @@ hc <- hclust(as.dist(d), method = "complete")
 plot(hc, hang = -1)
 ```
 
-![plot of chunk example-](figure/example--1.png) 
+![plot of chunk example-](figure/example--1.png)
 
 
 

@@ -37,19 +37,33 @@ Visualize and highlight:
 ```r
 # Highlight gender
 p <- densityplot(proj, col = sample_data(pseq2)$gender, legend = T)
+```
+
+```
+## Error: Unknown parameters: stat_params, geom_params
+```
+
+```r
 print(p)
 ```
 
-![plot of chunk ordination4](figure/ordination4-1.png) 
+![plot of chunk ordination4](figure/ordination4-1.png)
 
 ```r
 # Highlight low/high Prevotella subjects
 prevotella.abundance  <- log10(x[, "Prevotella melaninogenica et rel."]) 
 p <- densityplot(proj, col = prevotella.abundance, legend = T)
+```
+
+```
+## Error: Unknown parameters: stat_params, geom_params
+```
+
+```r
 print(p)
 ```
 
-![plot of chunk ordination4](figure/ordination4-2.png) 
+![plot of chunk ordination4](figure/ordination4-2.png)
 
 Projection with sample names:
 
@@ -58,7 +72,7 @@ Projection with sample names:
 ggplot(aes(x = Comp.1, y = Comp.2, label = rownames(proj)), data = proj) + geom_text(size = 2)
 ```
 
-![plot of chunk visu-example2](figure/visu-example2-1.png) 
+![plot of chunk visu-example2](figure/visu-example2-1.png)
 
 
 ### Unifrac with PCoA
@@ -105,7 +119,7 @@ p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Genus", title = "t
 print(p)
 ```
 
-![plot of chunk pca-ordination21](figure/pca-ordination21-1.png) 
+![plot of chunk pca-ordination21](figure/pca-ordination21-1.png)
 
 Grouping the plots by Phylum
 
@@ -114,7 +128,7 @@ Grouping the plots by Phylum
 p + facet_wrap(~Phylum, 5)
 ```
 
-![plot of chunk pca-ordination22](figure/pca-ordination22-1.png) 
+![plot of chunk pca-ordination22](figure/pca-ordination22-1.png)
 
 
 ### Multidimensional scaling (MDS)
@@ -124,7 +138,7 @@ p + facet_wrap(~Phylum, 5)
 plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") + geom_point(size = 5)
 ```
 
-![plot of chunk ordinate23](figure/ordinate23-1.png) 
+![plot of chunk ordinate23](figure/ordinate23-1.png)
 
 
 ### Canonical correspondence analysis (CCA)
@@ -137,7 +151,7 @@ p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gen
 p + geom_point(size = 5)
 ```
 
-![plot of chunk ordinate24a](figure/ordinate24a-1.png) 
+![plot of chunk ordinate24a](figure/ordinate24a-1.png)
 
 ```r
 #p <- p + geom_polygon(aes(fill = gender))
@@ -152,7 +166,7 @@ p <- p + geom_point(size = 4)
 print(p)
 ```
 
-![plot of chunk ordinate24b](figure/ordinate24b-1.png) 
+![plot of chunk ordinate24b](figure/ordinate24b-1.png)
 
 
 ### Split plot
@@ -163,7 +177,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender",
     color = "Phylum", label = "gender")
 ```
 
-![plot of chunk ordinate25](figure/ordinate25-1.png) 
+![plot of chunk ordinate25](figure/ordinate25-1.png)
 
 
 ### Ordination biplot
@@ -173,7 +187,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender",
 plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
 ```
 
-![plot of chunk ordinate26](figure/ordinate26-1.png) 
+![plot of chunk ordinate26](figure/ordinate26-1.png)
 
 
 

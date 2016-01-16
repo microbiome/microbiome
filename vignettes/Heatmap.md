@@ -18,9 +18,7 @@ pseq <- download_microbiome("dietswap")
 plot_heatmap(pseq, sample.label = "sample")
 ```
 
-```
-## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
-```
+![plot of chunk heatmap-phyloseq1](figure/heatmap-phyloseq1-1.png)
 
 Pick subset of the data and plot ordered heatmap
 
@@ -36,9 +34,7 @@ plot_heatmap(pseq2, method = "NMDS", distance = "bray",
 	     sample.label = "sample", taxa.label = "Genus")
 ```
 
-```
-## Error in .Method(..., na.last = na.last, decreasing = decreasing): argument 1 is not a vector
-```
+![plot of chunk heatmap-phyloseq2](figure/heatmap-phyloseq2-1.png)
 
 
 ### Matrix heatmaps
@@ -57,7 +53,11 @@ x <- otu_table(pseqz)@.Data
 tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
 ```
 
-![plot of chunk heatmap-matvisu-example](figure/heatmap-matvisu-example-1.png) 
+```
+## Found more than one class "dist" in cache; using the first, from namespace 'BiocGenerics'
+```
+
+![plot of chunk heatmap-matvisu-example](figure/heatmap-matvisu-example-1.png)
 
 Finding visually appealing order for rows and columns:
 
@@ -74,7 +74,7 @@ tmp <- netresponse::plot_matrix(x[hm$rowInd, ], type = "twoway",
        			        mar = c(5, 12, 1, 1))
 ```
 
-![plot of chunk heatmap-crosscorrelate3](figure/heatmap-crosscorrelate3-1.png) 
+![plot of chunk heatmap-crosscorrelate3](figure/heatmap-crosscorrelate3-1.png)
 
 
 ### Cross-correlating data sets
@@ -131,7 +131,7 @@ p <- correlation.heatmap(correlation.table, "X1", "X2", fill = "Correlation", st
 print(p)
 ```
 
-![plot of chunk heatmap-example-stars3](figure/heatmap-example-stars3-1.png) 
+![plot of chunk heatmap-example-stars3](figure/heatmap-example-stars3-1.png)
 
 
 ### Heatmaps with ggplot2
@@ -173,7 +173,7 @@ p <- p + geom_text(data = subset(correlation.table, p.adj < 0.02),
 print(p)
 ```
 
-![plot of chunk heatmap-example-stars](figure/heatmap-example-stars-1.png) 
+![plot of chunk heatmap-example-stars](figure/heatmap-example-stars-1.png)
 
 ### Heatmap with text
 
@@ -198,7 +198,7 @@ p <- p + xlab("") + ylab("")
 print(p)
 ```
 
-![plot of chunk heatmap-example-text](figure/heatmap-example-text-1.png) 
+![plot of chunk heatmap-example-text](figure/heatmap-example-text-1.png)
 
 ### Links
 

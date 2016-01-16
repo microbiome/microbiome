@@ -49,7 +49,7 @@ pl <- ordihull(rdatest, meta$time, scaling = 3, label = TRUE)
 title("RDA")
 ```
 
-![plot of chunk rda4](figure/rda4-1.png) 
+![plot of chunk rda4](figure/rda4-1.png)
 
 ### Bagged RDA
 
@@ -60,7 +60,7 @@ Fitting bagged RDA on a phyloseq object:
 res <- bagged_rda(pseq, "group", sig.thresh=0.05, nboot=100)
 ```
 
-![plot of chunk rda5](figure/rda5-1.png) 
+![plot of chunk rda5](figure/rda5-1.png)
 
 Visualizing bagged RDA:
 
@@ -69,7 +69,7 @@ Visualizing bagged RDA:
 plot_bagged_rda(res)
 ```
 
-![plot of chunk rda6](figure/rda6-1.png) 
+![plot of chunk rda6](figure/rda6-1.png)
 
 
 ### Controlling confounding variables with RDA

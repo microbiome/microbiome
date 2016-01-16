@@ -26,7 +26,7 @@ m <- mixture.model(D, mixture.method = "vdp", pca.basis = FALSE)
 p <- PlotMixtureMultivariate(D, means = m$mu, sds = m$sd, ws = m$w, modes = apply(m$qofz,1,which.max))
 ```
 
-![plot of chunk LCA2](figure/LCA2-1.png) 
+![plot of chunk LCA2](figure/LCA2-1.png)
 
 ### Univariate (infinite) Gaussian mixture model
 
@@ -48,6 +48,6 @@ p <- PlotMixtureUnivariate(x, means = m$mu, sds = m$sd, ws = m$w, binwidth = 0.1
 print(p)
 ```
 
-![plot of chunk LCA1](figure/LCA1-1.png) 
+![plot of chunk LCA1](figure/LCA1-1.png)
 
 
