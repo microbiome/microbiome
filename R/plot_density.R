@@ -1,6 +1,5 @@
-#' @title plot_density
-#' @description Plot taxon density for samples
-#'
+#' @title Density plot
+#' @description Plot abundance density across samples for a given taxon
 #' @param x \code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)
 #' @param otu.name OTU name to visualize
 #' @param log10 Logical. Show log10 abundances or not.
@@ -25,14 +24,15 @@ plot_density <- function (x, otu.name = NULL, log10 = FALSE, adjust = 1, kernel 
     p <- p + geom_density(adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm, fill = fill)
     
     if (log10) {
-      #x <- log10(x)
       p <- p + scale_x_log10()
     }
 
   } else if (class(x) == "phyloseq") { 
 
-    x <- otu_table(x)@.Data[otu.name,]
-    p <- plot_density(x, log10 = log10, adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm) 
+    xx <- otu_table(x)@.Data
+    if (!taxa_are_rows(x)) { xx <- t(xx) }
+    
+    p <- plot_density(xx[otu.name,], log10 = log10, adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm) 
 
   }
 
