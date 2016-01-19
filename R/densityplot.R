@@ -52,9 +52,18 @@ densityplot <- function(mat, main = NULL, x.ticks = 10, rounding = 0,
     p <- p + scale_fill_gradient(low = "white", high = "black")
     
     if (add.points) {
+      if (length(unique(df$color)) == 1 && length(unique(df$size)) == 1) {
+        p <- p + geom_point(aes(x = x, y = y), col = unique(df$color), size = unique(df$size))
+	print(unique(color))
+      } else if (length(unique(df$color)) == 1 && length(unique(df$size)) > 1) {
+        p <- p + geom_point(aes(x = x, y = y, size = size), col = unique(df$color))
+      } else if (length(unique(df$color)) > 1 && length(unique(df$size)) == 1) {
+        p <- p + geom_point(aes(x = x, y = y, col = color), size = unique(df$size))
+      } else {
         p <- p + geom_point(aes(x = x, y = y, col = color, size = size))
+      }      
     }
-    
+
     p <- p + xlab(xvar) + ylab(yvar)
     
     if (!legend) {
@@ -64,11 +73,11 @@ densityplot <- function(mat, main = NULL, x.ticks = 10, rounding = 0,
     p <- p + scale_x_continuous(breaks = round(seq(floor(min(df[["x"]])), 
                    ceiling(max(df[["x"]])), 
                    length = x.ticks), rounding))
-    
+
     if (!is.null(main)) {
         p <- p + ggtitle(main)
     }
-    
+
     p
     
 }
