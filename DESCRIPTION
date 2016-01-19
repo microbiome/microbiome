@@ -1,7 +1,7 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.69
+Version: 0.99.70
 Date: 2015-01-19
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),

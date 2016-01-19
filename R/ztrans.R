@@ -28,7 +28,7 @@ ztransform_phyloseq <- function (x, which) {
     trans <- as.matrix(t(scale(ddd)))
 
     nullinds <- which(rowMeans(is.na(trans)) == 1)
-    if (length(nullinds) > 0) {
+    if (length(nullinds) > 0 & min(ddd) == 1) {
       warning("Setting undetected OTUs to zero in ztransform_phyloseq")
       # Some OTUs have minimum signal in all samples and scaling gives NA.
       # In these cases just give 0 signal for these OTUs in all samples
@@ -36,6 +36,7 @@ ztransform_phyloseq <- function (x, which) {
     }
     
     xz <- x
+    if (!taxa_are_rows(xz)) {trans <- t(trans)}
     otu_table(xz) <- otu_table(trans, taxa_are_rows=taxa_are_rows(xz))  
 
   } else if (which == "sample") {
