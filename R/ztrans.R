@@ -18,9 +18,14 @@ ztransform_phyloseq <- function (x, which) {
   taxa_are_rows <- NULL
 
   if (which == "OTU") {
-  
+
+    ddd <- log10(1 + otu_table(x)@.Data)
+    if (taxa_are_rows(x)) {
+      ddd <- t(ddd)
+    }
+
     # Z transform OTUs
-    trans <- as.matrix(t(scale(t(log10(1 + otu_table(x)@.Data)))))
+    trans <- as.matrix(t(scale(ddd)))
 
     nullinds <- which(rowMeans(is.na(trans)) == 1)
     if (length(nullinds) > 0) {
