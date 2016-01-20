@@ -8,14 +8,19 @@
 #' @param trim see stat_density
 #' @param na.rm see stat_density
 #' @param fill Fill color
-#'
 #' @return A \code{\link{ggplot}} plot object.
-#' 
-#' @import ggplot2
+#' @importFrom ggplot2 geom_density
+#' @importFrom ggplot2 geom_density
+#' @importFrom ggplot2 scale_x_log10
+#' @importFrom ggplot2 ggtitle
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 ylab
 #' @export
-#' @examples # 
+#' @examples # plot_density(x, otu.name = "Dialister")
 #' @keywords utilities
 plot_density <- function (x, otu.name = NULL, log10 = FALSE, adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray") {
+
+  taxa_are_rows <- NULL
 
   if (is.vector(x)) { 
 
@@ -30,9 +35,12 @@ plot_density <- function (x, otu.name = NULL, log10 = FALSE, adjust = 1, kernel 
   } else if (class(x) == "phyloseq") { 
 
     xx <- otu_table(x)@.Data
-    if (!taxa_are_rows(x)) { xx <- t(xx) }
+
+    if (!taxa_are_rows(x)) { xx <- t(xx)}
     
-    p <- plot_density(xx[otu.name,], log10 = log10, adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm) 
+    xxx <- as.vector(xx[otu.name,])
+    
+    p <- plot_density(xxx, log10 = log10, adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm) 
 
   }
 

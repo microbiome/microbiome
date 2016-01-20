@@ -12,6 +12,7 @@ Description: Various utilities for microbiome analysis.
 License: BSD_2_clause + file LICENSE
 Depends:
     R (>= 3.0.1),
+    ggplot2,
     phyloseq,
     RPA
 Imports:
@@ -19,7 +20,6 @@ Imports:
     diptest,
     dplyr,
     earlywarnings,
-    ggplot2,
     MASS,
     mixOmics,
     moments,
