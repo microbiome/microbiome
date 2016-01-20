@@ -2,10 +2,7 @@
 % Please edit documentation in R/Bagged.RDA.R
 \name{Bagged.RDA}
 \alias{Bagged.RDA}
-\title{BAGGED RDA Bootstrap solutions that follows the
-Jack-knife estimation of PLS by Martens and Martens, 2000.  Solves
-rotational invariance of latent space by orthogonal procrustes
-rotations}
+\title{Bagged RDA}
 \usage{
 Bagged.RDA(X, Y, boot = 1000)
 }
@@ -24,14 +21,10 @@ List with items:
 	     etc. TBA.
 }
 \description{
-BAGGED RDA Bootstrap solutions that follows the
-Jack-knife estimation of PLS by Martens and Martens, 2000.  Solves
-rotational invariance of latent space by orthogonal procrustes
-rotations
+Bootstrap solutions that follows the Jack-knife estimation of PLS by Martens and Martens, 2000.  Solves rotational invariance of latent space by orthogonal procrustes rotations
 }
 \examples{
-# NOT RUN data(peerj32); x <- as.matrix(peerj32$microbes)[1:20, 1:6]; y <- rnorm(nrow(x)); names(y) <- rownames(x); res <- Bagged.RDA(x, y , boot = 5)
-
+\dontrun{data(peerj32); x <- as.matrix(peerj32$microbes)[1:20, 1:6]; y <- rnorm(nrow(x)); names(y) <- rownames(x); res <- Bagged.RDA(x, y , boot = 5)}
 }
 \author{
 Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}

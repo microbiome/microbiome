@@ -2,12 +2,12 @@
 % Please edit documentation in R/bootstrap.microbes.R
 \name{core.which}
 \alias{core.which}
-\title{core.which}
+\title{Core which}
 \usage{
 core.which(data, intTr, prevalenceTr)
 }
 \arguments{
-\item{data}{data matrix; phylotypes vs. samples}
+\item{data}{phylotypes vs. samples data matrix}
 
 \item{intTr}{intTr}
 

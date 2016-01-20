@@ -2,7 +2,7 @@
 % Please edit documentation in R/bootstrap.microbes.R
 \name{bootstrap.microbes}
 \alias{bootstrap.microbes}
-\title{bootstrap.microbes}
+\title{Bootstrap microbes}
 \usage{
 bootstrap.microbes(D, Nsample = NULL, minPrev = 2, Nboot = 1000,
   I.thr = 1.8, ncore = 1, I.max = NULL)

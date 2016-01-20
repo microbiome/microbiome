@@ -1,19 +1,26 @@
-#' @title core_heatmap
-#' @description Core heatmap
-#'
+#' @title Core heatmap
+#' @description Core heatmap.
 #' @param x A \code{\link{phyloseq}} object or a core matrix
-#' @param detection.thresholds A vector or  a scalar indicating the number of intervals
-#'        in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.
+#' @param detection.thresholds A vector or a scalar indicating the number of intervals in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.
 #' @param palette palette for the plot.type = 'heatmap'
-#'  
 #' @return Used for its side effects
+#' @importFrom phyloseq transform_sample_counts
+#' @importFrom phyloseq otu_table
 #' @importFrom RColorBrewer brewer.pal
-#'
+#' @importFrom ggplot2 geom_boxplot
+#' @importFrom ggplot2 geom_line
+#' @importFrom ggplot2 geom_point
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 ggtitle
+#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 scale_x_log10
+#' @importFrom ggplot2 scale_fill_gradientn
+#' @importFrom ggplot2 geom_tile
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
 #'   analysis depth and health status. Clinical Microbiology and Infection 
 #'   18(S4):16 20, 2012. 
-#'
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

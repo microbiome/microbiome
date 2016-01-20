@@ -2,7 +2,7 @@
 % Please edit documentation in R/correlation.heatmap.R
 \name{correlation.heatmap}
 \alias{correlation.heatmap}
-\title{correlation.heatmap}
+\title{Correlation heatmap}
 \usage{
 correlation.heatmap(df, Xvar, Yvar, fill, star = "p.adj",
   p.adj.threshold = 1, correlation.threshold = 0, step = 0.2,
@@ -60,7 +60,6 @@ Visualizes n x m correlation table as heatmap.
   d2 <- peerj32$microbes[, 1:10]
   cc <- cross.correlate(d1, d2) 
   p <- correlation.heatmap(cc, 'X1', 'X2', 'Correlation')
-
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

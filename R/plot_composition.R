@@ -1,5 +1,5 @@
-#' @title plot_composition
-#' @description Plot taxon abundance for samples
+#' @title Plot composition
+#' @description Plot taxon abundance for samples.
 #' @param x \code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)
 #' @param taxonomic.level Merge the OTUs (for phyloseq object) into a higher taxonomic level. This has to be one from \code{colnames(tax_table(x))}.
 #' @param relative.abundance Logical. Show relative abundances or not.
@@ -7,7 +7,10 @@
 #' @param x.label Specify how to label the x axis. This should be one of the variables in 
 #'        \code{sample_variables(x)}
 #' @return A \code{\link{ggplot}} plot object.
-#' @import ggplot2
+#' @importFrom ggplot2 geom_bar
+#' @importFrom ggplot2 scale_x_discrete
+#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 theme
 #' @importFrom reshape2 melt
 #' @importFrom phyloseq tax_glom
 #' @export
@@ -74,7 +77,6 @@ plot_composition <- function (x, taxonomic.level = NULL, relative.abundance = FA
   } else {
     dfm$xlabel <- dfm$Sample
   }
-
 
   # Provide barplot of relative abundances
   p <- ggplot(dfm, aes(x = Sample, y = Abundance, fill = Taxon))

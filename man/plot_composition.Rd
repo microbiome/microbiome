@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_composition.R
 \name{plot_composition}
 \alias{plot_composition}
-\title{plot_composition}
+\title{Plot composition}
 \usage{
 plot_composition(x, taxonomic.level = NULL, relative.abundance = FALSE,
   sort.by = NULL, x.label = "sample")
@@ -23,7 +23,7 @@ plot_composition(x, taxonomic.level = NULL, relative.abundance = FALSE,
 A \code{\link{ggplot}} plot object.
 }
 \description{
-Plot taxon abundance for samples
+Plot taxon abundance for samples.
 }
 \examples{
 \dontrun{

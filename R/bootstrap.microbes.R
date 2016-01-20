@@ -1,4 +1,4 @@
-#' @title bootstrap.microbes
+#' @title Bootstrap microbes
 #' @description Bootstrap method for core microbiota estimation from Salonen et al. (2012)
 #' @param D data (phylotypes x samples)
 #' @param Nsample bootstrap sample size, default is the same size as data
@@ -14,7 +14,7 @@
 #' @examples data(peerj32); 
 #' 	     bs <- bootstrap.microbes(t(peerj32$microbes), Nboot = 5)
 #' @export 
-#' @import parallel
+#' @importFrom parallel mclapply
 #' @references 
 #' The core microbiota bootstrap method implemented with this function:
 #' Salonen A, Salojarvi J, Lahti L, de Vos WM. The adult intestinal
@@ -74,9 +74,9 @@ bootstrap.microbes <- function(D, Nsample = NULL, minPrev = 2, Nboot = 1000,
 
 
 
-#' @title core.which
+#' @title Core which
 #' @description Auxiliary function 
-#' @param data data matrix; phylotypes vs. samples
+#' @param data phylotypes vs. samples data matrix
 #' @param intTr intTr
 #' @param prevalenceTr prevalenceTr
 #' @return Number of OTUs.
@@ -95,8 +95,8 @@ core.which <- function(data, intTr, prevalenceTr) {
 }
 
 
-#' @title bootstrap.microbecount
-#' @description Auxiliary function for bootstrap.microbes
+#' @title Bootstrap microbecount
+#' @description Auxiliary function for bootstrap.microbes.
 #' @param D data
 #' @param Nsample sample size
 #' @param minprev minimum prevalence
@@ -108,7 +108,8 @@ core.which <- function(data, intTr, prevalenceTr) {
 #' @examples 
 #'   data(peerj32)
 #'   tmp <- bootstrap.microbecount(t(peerj32$microbes),	Nboot = 5)
-#' @export 
+#' @export
+#' @importFrom parallel mclapply
 #' @references 
 #' The core microbiota bootstrap method implemented with this function:
 #' Salonen A, Salojarvi J, Lahti L, de Vos WM. The adult intestinal
@@ -155,8 +156,5 @@ bootstrap.microbecount <- function(D, Nsample = NULL, minprev = 1,
 
    boot.prob <- as.matrix(as.data.frame(boot.which, check.names = FALSE))
    t1 <- quantile(boot.prob, probs = c(0.05, 0.5, 0.95))
-   #t1[2] <- mean(boot.prob)
-
-   #print(t1)
    return(t1[2])
 }

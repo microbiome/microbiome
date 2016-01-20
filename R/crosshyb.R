@@ -1,7 +1,5 @@
-#' @title CrosshybTable
-#' @description Cross-hybridization table between multimodal taxa as percentages of shared 
-#' probes. The number indicates how many percent of oligos for the row taxon 
-#' are also hybridizing the corresponding column taxon.
+#' @title Cross hybridization table
+#' @description Cross-hybridization table between multimodal taxa as percentages of shared probes. The number indicates how many percent of oligos for the row taxon are also hybridizing the corresponding column taxon.
 #' @param tax.level Taxonomic level to investigate
 #' @param chip Chip type (e.g. 'HITChip')
 #' @param selected.taxa Restrict cross-hyb analysis to the selected groups.
@@ -13,8 +11,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 CrosshybTable <- function(tax.level = "L1", chip = "HITChip", 
-    selected.taxa = NULL, 
-    tax.table = NULL) {
+    selected.taxa = NULL, tax.table = NULL) {
     
     # Get taxonomy table
     if (is.null(tax.table)) {
@@ -60,11 +57,8 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
 }
 
 
-
-#' Cross-hybridization between multimodal taxa as percentages of shared probes. 
-#' The number indicates how many percent of oligos for the row taxon are 
-#' also hybridizing the corresponding column taxon.
-#'
+#' @title Plot cross-hyb table
+#' @description Cross-hybridization between multimodal taxa as percentages of shared probes. The number indicates how many percent of oligos for the row taxon are also hybridizing the corresponding column taxon.
 #' @param tax.level Taxonomic level to investigate
 #' @param chip Chip type (e.g. 'HITChip')
 #' @param selected.taxa Restrict cross-hyb analysis to the selected groups.
@@ -76,15 +70,22 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
 #' @param tax.table tax.table 
 #' @param self.correlations Show self-correlations (always 100 percent); 
 #'                          or remove (indicate as 0 percent; default)
-#'
 #' @return A list containing cross-hybridization table and plot
-#'
 #' @examples 
-#'   # res <- PlotCrosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE)
-#' 
+#'   # res <- PlotCrosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE) 
 #' @export
-#' @import ggplot2
-#'
+#' @importFrom ggplot2 geom_boxplot
+#' @importFrom ggplot2 geom_line
+#' @importFrom ggplot2 geom_point
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 ggtitle
+#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 scale_x_log10
+#' @importFrom ggplot2 scale_fill_gradientn
+#' @importFrom ggplot2 geom_tile
+#' @importFrom ggplot2 geom_text
+#' @importFrom ggplot2 theme
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -156,8 +157,8 @@ PlotCrosshyb <- function(tax.level = "L1", chip = "HITChip",
     
     aes <- NULL
     p <- ggplot(df, aes(Taxon2, Taxon1, group = Taxon1))
-    p <- p + ggplot2::geom_tile(aes(fill = crosshyb))
-    p <- p + ggplot2::geom_text(aes(fill = crosshyb, label = labels, size = 4))
+    p <- p + geom_tile(aes(fill = crosshyb))
+    p <- p + geom_text(aes(fill = crosshyb, label = labels, size = 4))
     p <- p + scale_fill_gradient(low = "white", high = "red")
     p <- p + theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
     p <- p + xlab("") + ylab("")

@@ -2,7 +2,7 @@
 % Please edit documentation in R/multimodality_phyloseq.R
 \name{multimodality_phyloseq}
 \alias{multimodality_phyloseq}
-\title{multimodality_phyloseq}
+\title{Multimodality test for phyloseq objects}
 \usage{
 multimodality_phyloseq(x, detection.threshold = 1, bw.adjust = 1,
   bs.iterations = 100, detection.limit = 1, verbose = TRUE)
@@ -21,18 +21,16 @@ multimodality_phyloseq(x, detection.threshold = 1, bw.adjust = 1,
 \item{verbose}{Verbose}
 }
 \value{
-A list with following elements: 
-	  \itemize{
-	\item{score}{Fraction of bootstrap samples where multiple modes are observed}
-     	\item{nmodes}{The most frequently observed number of modes in bootrstrap sampling results}
-	\item{results}{Full results of potential_analysis_bootstrap for each row of the input matrix.}
-   }
+A list with following elements
+  \item{score}{Fraction of bootstrap samples where multiple modes are observed}
+  \item{nmodes}{The most frequently observed number of modes in bootrstrap sampling results}
+  \item{results}{Full results of potential_analysis_bootstrap for each row of the input matrix}
 }
 \description{
 Calculate multimodality score based on bootstrapped potential analysis
 }
 \details{
-This function repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the specified results.
+Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the specified results.
 }
 \examples{
   data(peerj32)

@@ -1,7 +1,5 @@
-#' @title correlation.heatmap
-#'
+#' @title Correlation heatmap
 #' @description Visualizes n x m correlation table as heatmap. 
-#'
 #' @param df Data frame. Each row corresponds to a pair of correlated 
 #'           variables. The columns give variable names, correlations and 
 #'           significance estimates.
@@ -23,19 +21,25 @@
 #' @param filter.significant Keep only the elements with at least one 
 #'                           significant entry
 #' @param star.size NULL Determine size of the highlight symbols
-#'
 #' @return ggplot2 object
-#'
-#' @import ggplot2 
-#'
 #' @examples 
 #'   data(peerj32)
 #'   d1 <- peerj32$lipids[, 1:10]
 #'   d2 <- peerj32$microbes[, 1:10]
 #'   cc <- cross.correlate(d1, d2) 
 #'   p <- correlation.heatmap(cc, 'X1', 'X2', 'Correlation')
-#'
 #' @export
+#' @importFrom ggplot2 geom_boxplot
+#' @importFrom ggplot2 geom_line
+#' @importFrom ggplot2 geom_point
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 ggtitle
+#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 scale_x_log10
+#' @importFrom ggplot2 scale_fill_gradientn
+#' @importFrom ggplot2 geom_tile
+#' @importFrom ggplot2 geom_text
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

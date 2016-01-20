@@ -1,4 +1,4 @@
-#' @title multimodality_phyloseq
+#' @title Multimodality test for phyloseq objects
 #' @description Calculate multimodality score based on bootstrapped potential analysis
 #' @param x Phyloseq object
 #' @param detection.threshold Mode detection threshold
@@ -6,15 +6,12 @@
 #' @param bs.iterations Bootstrap iterations
 #' @param detection.limit minimum accepted density for a maximum; as a multiple of kernel height
 #' @param verbose Verbose
-#' @return A list with following elements: 
-#' 	  \itemize{
-#'		\item{score}{Fraction of bootstrap samples where multiple modes are observed}
-#'	     	\item{nmodes}{The most frequently observed number of modes in bootrstrap sampling results}
-#'		\item{results}{Full results of potential_analysis_bootstrap for each row of the input matrix.}
-#'	   }
-#' @details This function repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the specified results.
+#' @return A list with following elements
+#'   \item{score}{Fraction of bootstrap samples where multiple modes are observed}
+#'   \item{nmodes}{The most frequently observed number of modes in bootrstrap sampling results}
+#'   \item{results}{Full results of potential_analysis_bootstrap for each row of the input matrix}
+#' @details Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the specified results.
 #' @export
-#' @import earlywarnings
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples 
 #'   data(peerj32)
@@ -26,7 +23,6 @@
 #'  }
 #' @keywords utilities
 multimodality_phyloseq <- function (x, detection.threshold = 1, bw.adjust = 1, bs.iterations = 100, detection.limit = 1, verbose = TRUE) {
-
   x <- log10(otu_table(x)@.Data)
   msc <- multimodality_score(x, detection.threshold, bw.adjust, bs.iterations, detection.limit, verbose)
   msc

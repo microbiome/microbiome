@@ -2,7 +2,7 @@
 % Please edit documentation in R/boxplot.R
 \name{boxplot_abundance}
 \alias{boxplot_abundance}
-\title{boxplot_abundance}
+\title{Abundance boxplot}
 \usage{
 boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = TRUE,
   title = NULL)
@@ -26,7 +26,7 @@ boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = TRUE,
 A \code{\link{ggplot}} plot object
 }
 \description{
-Plot abundances with ggplot2
+Plot phyloseq abundances
 }
 \examples{
 # 

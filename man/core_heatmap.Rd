@@ -2,15 +2,14 @@
 % Please edit documentation in R/core_heatmap.R
 \name{core_heatmap}
 \alias{core_heatmap}
-\title{core_heatmap}
+\title{Core heatmap}
 \usage{
 core_heatmap(x, detection.thresholds = 20, palette = "bw")
 }
 \arguments{
 \item{x}{A \code{\link{phyloseq}} object or a core matrix}
 
-\item{detection.thresholds}{A vector or  a scalar indicating the number of intervals
-in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.}
+\item{detection.thresholds}{A vector or a scalar indicating the number of intervals in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.}
 
 \item{palette}{palette for the plot.type = 'heatmap'}
 }
@@ -18,7 +17,7 @@ in (0, log10(max(data))). The detection thresholds are calculated for relative a
 Used for its side effects
 }
 \description{
-Core heatmap
+Core heatmap.
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
@@ -27,7 +26,6 @@ Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 A Salonen et al. The adult intestinal core microbiota is determined by 
   analysis depth and health status. Clinical Microbiology and Infection 
   18(S4):16 20, 2012. 
-
   To cite the microbiome R package, see citation('microbiome')
 }
 \keyword{utilities}

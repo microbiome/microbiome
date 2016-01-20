@@ -1,18 +1,20 @@
-#' @title boxplot_abundance
-#' @description Plot abundances with ggplot2
-#'
+#' @title Abundance boxplot
+#' @description Plot phyloseq abundances
 #' @param pseq \code{\link{phyloseq-class}} object
-#'
 #' @param x Metadata variable to map to the horizontal axis.
 #' @param y OTU to map on the vertical axis
 #' @param line The variable to map on lines
 #' @param color The variable to map on colors
 #' @param log10 show y axis on log scale
 #' @param title Optional title for the graphic.
-#'
 #' @return A \code{\link{ggplot}} plot object
-#' 
-#' @import ggplot2
+#' @importFrom ggplot2 geom_boxplot
+#' @importFrom ggplot2 geom_line
+#' @importFrom ggplot2 geom_point
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 ggtitle
+#' @importFrom ggplot2 ggplot
 #' @export
 #' @examples # 
 #' @keywords utilities

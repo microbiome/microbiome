@@ -2,9 +2,7 @@
 % Please edit documentation in R/crosshyb.R
 \name{PlotCrosshyb}
 \alias{PlotCrosshyb}
-\title{Cross-hybridization between multimodal taxa as percentages of shared probes. 
-The number indicates how many percent of oligos for the row taxon are 
-also hybridizing the corresponding column taxon.}
+\title{Plot cross-hyb table}
 \usage{
 PlotCrosshyb(tax.level = "L1", chip = "HITChip", selected.taxa = NULL,
   show.plot = TRUE, order.rows = TRUE, order.cols = TRUE,
@@ -37,13 +35,10 @@ or remove (indicate as 0 percent; default)}
 A list containing cross-hybridization table and plot
 }
 \description{
-Cross-hybridization between multimodal taxa as percentages of shared probes. 
-The number indicates how many percent of oligos for the row taxon are 
-also hybridizing the corresponding column taxon.
+Cross-hybridization between multimodal taxa as percentages of shared probes. The number indicates how many percent of oligos for the row taxon are also hybridizing the corresponding column taxon.
 }
 \examples{
-  # res <- PlotCrosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE)
-
+  # res <- PlotCrosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE) 
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

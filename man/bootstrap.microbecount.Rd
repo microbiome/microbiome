@@ -2,7 +2,7 @@
 % Please edit documentation in R/bootstrap.microbes.R
 \name{bootstrap.microbecount}
 \alias{bootstrap.microbecount}
-\title{bootstrap.microbecount}
+\title{Bootstrap microbecount}
 \usage{
 bootstrap.microbecount(D, Nsample = NULL, minprev = 1, Nboot = 1000,
   I.thr = 1.8, ncore = 1, I.max = NULL)
@@ -26,7 +26,7 @@ bootstrap.microbecount(D, Nsample = NULL, minprev = 1, Nboot = 1000,
 median microbe count in bootstrapped cores
 }
 \description{
-Auxiliary function for bootstrap.microbes
+Auxiliary function for bootstrap.microbes.
 }
 \examples{
   data(peerj32)

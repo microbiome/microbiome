@@ -2,7 +2,7 @@
 % Please edit documentation in R/potential_analysis_bootstrap.R
 \name{potential_analysis_bootstrap}
 \alias{potential_analysis_bootstrap}
-\title{potential_analysis_bootstrap}
+\title{Potential analysis bootstrap}
 \usage{
 potential_analysis_bootstrap(x, detection.threshold, bw.adjust = 1,
   bs.iterations = 100, detection.limit = 1)
@@ -20,21 +20,21 @@ potential_analysis_bootstrap(x, detection.threshold, bw.adjust = 1,
 }
 \value{
 List with following elements:
-modes:  Number of modes for the input data vector (the most frequent number of modes from bootstrap)
-minima: Average of potential minima across the bootstrap samples (for the most frequent number of modes)
-maxima: Average of potential maxima across the bootstrap samples (for the most frequent number of modes)
-unimodality.support Fraction of bootstrap samples exhibiting unimodality
+\itemize{
+  \item{modes}{Number of modes for the input data vector (the most frequent number of modes from bootstrap)}
+  \item{modes}{minima: Average of potential minima across the bootstrap samples (for the most frequent number of modes)}
+  \item{modes}{maxima: Average of potential maxima across the bootstrap samples (for the most frequent number of modes)}
+  \item{modes}{unimodality.support Fraction of bootstrap samples exhibiting unimodality}
+}
 }
 \description{
 Bootstrap analysis of multimodality based on potential
     analysis of Livina et al. (2010) as described in Lahti et al. (2014)
 }
 \references{
-Livina et al. (2010). Potential analysis 
-reveals changing number of climate states during the last 60
-kyr. \emph{Climate of the Past}, 6, 77-82.
-
-Lahti et al. (2014). Tipping elements of the human intestinal
-ecosystem. \emph{Nature Communications} 5:4344.
+\itemize{
+  \item{}{Livina et al. (2010). Potential analysis reveals changing number of climate states during the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
+  \item{}{Lahti et al. (2014). Tipping elements of the human intestinal ecosystem. \emph{Nature Communications} 5:4344.}
+ }
 }
 

@@ -1,6 +1,5 @@
-#' @title plot_diversity
+#' @title Plot diversity
 #' @description Plot alpha diversity with ggplot2
-#'
 #' This function estimates a number of alpha-diversity metrics using the 
 #' \code{\link{estimate_richness}} function,
 #' and returns a \code{ggplot} object. 
@@ -9,39 +8,36 @@
 #' through the argument to \code{x}, 
 #' and shaded according to the argument to \code{color} (see below).
 #' You must use untrimmed, non-normalized count data for meaningful results.
-#' 
 #' @param physeq \code{\link{phyloseq-class}} object
-#'
 #' @param x A variable to map to the horizontal axis. The vertical
 #'  axis will be mapped to the alpha diversity index/estimate
 #'  and have units of total taxa, and/or index value (dimensionless).
 #'  This parameter (\code{x}) is a character string indicating a
 #'  in the dataset (nsamples(physeq)).
-#'
 #' @param title Optional title for the graphic.
-#'
 #' @param measures Default is \code{NULL}. In this case
 #'  all available alpha-diversity measures will be included.
 #'  Alternatively, you can specify one or more measures
 #'  as a character vector. Values must be among those supported:
 #'  \code{c("Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher")}.
-#' 
 #' @param nrow Number of rows for plot faceting.
 #' @param scales scales for the plot
 #' @param det.th Detection threshold for the diversity measure 'Observed' 
 #'               (ie. species richness). See \code{\link{estimate_diversity}}
-#'
 #' @return A \code{\link{ggplot}} plot object summarizing
 #'  the richness estimates, and their standard error.
-#' 
 #' @seealso 
 #'  \code{\link{estimate_richness}}
 #'  \code{\link{estimate_diversity}}
 #'  \code{\link{plot_richness}}
 #'  \code{\link[vegan]{estimateR}}
 #'  \code{\link[vegan]{diversity}}
-#'
-#' @import ggplot2
+#' @importFrom ggplot2 geom_boxplot
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 facet_wrap
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 ggplot
 #' @importFrom reshape2 melt
 #' @importFrom sorvi regression_plot
 #' @export

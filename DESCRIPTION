@@ -1,8 +1,8 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.70
-Date: 2015-01-19
+Version: 0.99.71
+Date: 2015-01-20
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Salojarvi", "Jarkko" , role = "aut"))
@@ -12,17 +12,17 @@ Description: Various utilities for microbiome analysis.
 License: BSD_2_clause + file LICENSE
 Depends:
     R (>= 3.0.1),
-    ggplot2,
-    phyloseq,
     RPA
 Imports:
     ade4,
     diptest,
     dplyr,
     earlywarnings,
+    ggplot2,
     MASS,
     mixOmics,
     moments,
+    phyloseq,
     RColorBrewer,
     rdryad,
     reshape2,

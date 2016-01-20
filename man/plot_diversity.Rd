@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_diversity.R
 \name{plot_diversity}
 \alias{plot_diversity}
-\title{plot_diversity}
+\title{Plot diversity}
 \usage{
 plot_diversity(physeq, x = "group", title = "", measures = "Shannon",
   nrow = 1, scales = "free_y", det.th = 0)
@@ -37,7 +37,6 @@ A \code{\link{ggplot}} plot object summarizing
 }
 \description{
 Plot alpha diversity with ggplot2
-
 This function estimates a number of alpha-diversity metrics using the 
 \code{\link{estimate_richness}} function,
 and returns a \code{ggplot} object. 
