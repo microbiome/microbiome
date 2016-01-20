@@ -169,11 +169,19 @@ Pick sample metadata:
 meta <- sample_data(pseq)
 ```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "sample_data"
+```
+
 Pick taxonomy table
 
 
 ```r
 tax.table <- tax_table(pseq)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "tax_table"
 ```
 
 Pick taxa abundance data matrix. In this example the OTU level corresponds to genus-like groups (the function name otu_table is somewhat misleading):
@@ -183,11 +191,19 @@ Pick taxa abundance data matrix. In this example the OTU level corresponds to ge
 abundance.table <- otu_table(pseq)@.Data
 ```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "otu_table"
+```
+
 Aggregate the abundance matrix to higher-level taxa on HITChip:
 
 
 ```r
 pseq2 <- aggregate_taxa(pseq, "Phylum") # Aggregate into phyloseq object
 dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "otu_table"
 ```
 

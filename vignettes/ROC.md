@@ -23,26 +23,70 @@ pseq <- download_microbiome("dietswap")
 pseq1 <- subset_samples(pseq, nationality == "AFR" & 
 		     timepoint.within.group == 1 & 
 		     group == "DI")
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "subset_samples"
+```
+
+```r
 pseq2 <- subset_samples(pseq, nationality == "AFR" & 
 		     timepoint.within.group == 2 & 
 		     group == "DI")
+```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "subset_samples"
+```
+
+```r
 # Pick OTU matrix
 otu <- otu_table(pseq)@.Data
+```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "otu_table"
+```
+
+```r
 # Pick sample metadata
 meta <- sample_data(pseq)
+```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "sample_data"
+```
+
+```r
 # Define two sample groups for demonstration purpose
 g1 <- sample_names(pseq1)
-g2 <- sample_names(pseq2)
+```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "sample_names"
+```
+
+```r
+g2 <- sample_names(pseq2)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "sample_names"
+```
+
+```r
 # Compare the two groups with Wilcoxon test
 pvalues <- c()
 for (tax in rownames(otu)) {
   pvalues[[tax]] <- wilcox.test(otu[tax, g1], otu[tax, g2])$p.value
 }
+```
 
+```
+## Error in rownames(otu): error in evaluating the argument 'x' in selecting a method for function 'rownames': Error: object 'otu' not found
+```
+
+```r
 # Assume there are some known true positives 
 # Here for instance Bacteroidetes
 bacteroidetes <- levelmap("Bacteroidetes", from = "L1", to = "L2", GetPhylogeny("HITChip", "filtered"))$Bacteroidetes
@@ -80,7 +124,7 @@ res$auc
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'res' not found
+## NULL
 ```
 
 
@@ -92,5 +136,5 @@ plot(res)
 ```
 
 ```
-## Error in plot(res): object 'res' not found
+## Error in xy.coords(x, y, xlabel, ylabel, log): 'x' is a list, but does not have components 'x' and 'y'
 ```

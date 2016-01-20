@@ -18,7 +18,9 @@ pseq <- download_microbiome("dietswap")
 plot_heatmap(pseq, sample.label = "sample")
 ```
 
-![plot of chunk heatmap-phyloseq1](figure/heatmap-phyloseq1-1.png)
+```
+## Error in eval(expr, envir, enclos): could not find function "plot_heatmap"
+```
 
 Pick subset of the data and plot ordered heatmap
 
@@ -26,15 +28,37 @@ Pick subset of the data and plot ordered heatmap
 ```r
 bacteroidetes <- levelmap(from = "Phylum", to = "Genus",
 	      	 	   tax.table = tax_table(pseq))$Bacteroidetes
-pseq2 <- prune_taxa(bacteroidetes, pseq)
-pseq2 <- subset_samples(pseq2, group == "DI")
+```
 
+```
+## Error in levelmap(from = "Phylum", to = "Genus", tax.table = tax_table(pseq)): could not find function "tax_table"
+```
+
+```r
+pseq2 <- prune_taxa(bacteroidetes, pseq)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "prune_taxa"
+```
+
+```r
+pseq2 <- subset_samples(pseq2, group == "DI")
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "subset_samples"
+```
+
+```r
 # Plot heatmap ordered with NMDS
 plot_heatmap(pseq2, method = "NMDS", distance = "bray",
 	     sample.label = "sample", taxa.label = "Genus")
 ```
 
-![plot of chunk heatmap-phyloseq2](figure/heatmap-phyloseq2-1.png)
+```
+## Error in eval(expr, envir, enclos): could not find function "plot_heatmap"
+```
 
 
 ### Matrix heatmaps
@@ -47,23 +71,39 @@ all bacteria from their population mean (smaller: blue; higher: red):
 ```r
 # Z transform
 pseqz <- ztransform_phyloseq(pseq2, "OTU")
+```
+
+```
+## Error in otu_table(x): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq2' not found
+```
+
+```r
 # Pick OTU table
 x <- otu_table(pseqz)@.Data
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "otu_table"
+```
+
+```r
 # Plot heatmap
 tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
 ```
 
 ```
-## Found more than one class "dist" in cache; using the first, from namespace 'BiocGenerics'
+## Error in mat[rev(seq(nrow(mat))), ]: incorrect number of dimensions
 ```
-
-![plot of chunk heatmap-matvisu-example](figure/heatmap-matvisu-example-1.png)
 
 Finding visually appealing order for rows and columns:
 
 
 ```r
 hm <- heatmap(x) 
+```
+
+```
+## Error in heatmap(x): 'x' must be a numeric matrix
 ```
 
 Then plot the same matrix with ordered rows (keep column order):
@@ -74,7 +114,9 @@ tmp <- netresponse::plot_matrix(x[hm$rowInd, ], type = "twoway",
        			        mar = c(5, 12, 1, 1))
 ```
 
-![plot of chunk heatmap-crosscorrelate3](figure/heatmap-crosscorrelate3-1.png)
+```
+## Error in netresponse::plot_matrix(x[hm$rowInd, ], type = "twoway", mar = c(5, : object 'hm' not found
+```
 
 
 ### Cross-correlating data sets

@@ -37,7 +37,21 @@ Visualizing the standard RDA output:
 
 ```r
 plot(rdatest, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
+```
+
+```
+## Error in plot.xy(xy, type, ...): object 'meta' not found
+```
+
+```r
 points(rdatest, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
+```
+
+```
+## Error in plot.xy(xy.coords(x, y), type = type, ...): object 'meta' not found
+```
+
+```r
 pl <- ordihull(rdatest, meta$time, scaling = 3, label = TRUE)
 ```
 
@@ -80,10 +94,22 @@ For more complex scenarios, use the vegan package directly:
 ```r
 # Pick microbiota profiling data from the phyloseq object
 otu <- otu_table(pseq)@.Data
+```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "otu_table"
+```
+
+```r
 # Sample annotations
 meta <- sample_data(pseq)
+```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "sample_data"
+```
+
+```r
 # RDA with confounders
 rdatest2 <- rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))
 ```

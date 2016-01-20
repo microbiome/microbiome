@@ -47,7 +47,7 @@ fs <- sample(list.files(pattern = ".Rmd$"))
 #for (f in setdiff(fs, c("misc.Rmd"))) { 
 #for (f in setdiff(fs, c("Atlas.Rmd", "vignette.Rmd"))) {
 # Motionchart as the last one
-for (f in c(setdiff(fs, c("misc.Rmd", "Motionchart.Rmd")), "Motionchart.Rmd")) {
+for (f in setdiff(fs, "misc.Rmd")) {
     print(f)
     knit(f) 
     #rmarkdown::render(f, "md_document")

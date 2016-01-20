@@ -11,7 +11,13 @@ pseq <- download_microbiome("atlas1006")
 # (note the zero point has been moved to the detection threshold;
 #  typically signal 1.8 at HITChip log10 scale)
 otu <- otu_table(pseq)@.Data
+```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "otu_table"
+```
+
+```r
 # Determine detection threshold at the 0.15 quantile
 # Bacteria that exceed this threshold are considered present
 # otherwise absent
@@ -19,7 +25,7 @@ det.th <- quantile(otu, 0.15)
 ```
 
 ```
-## Error in quantile.default(otu, 0.15): missing values and NaN's not allowed if 'na.rm' is FALSE
+## Error in quantile(otu, 0.15): object 'otu' not found
 ```
 
 ```r
@@ -28,7 +34,8 @@ plot(density(log10(otu)), main = "Detection threshold", xlab = "Abundance (Log10
 ```
 
 ```
-## Error in density.default(log10(otu)): 'x' contains missing values
+## Error in plot(density(log10(otu)), main = "Detection threshold", xlab = "Abundance (Log10)", : error in evaluating the argument 'x' in selecting a method for function 'plot': Error in density(log10(otu)) : 
+##   error in evaluating the argument 'x' in selecting a method for function 'density': Error: object 'otu' not found
 ```
 
 ```r
@@ -48,7 +55,7 @@ ri <- estimate_diversity(pseq, det.th = det.th)$Observed
 ```
 
 ```
-## Error in if (d1fun(hi, S, N) < 0) hi <- 2 * hi: missing value where TRUE/FALSE needed
+## Error in is.data.frame(x): object 'det.th' not found
 ```
 
 ```r
@@ -69,10 +76,6 @@ Estimate diversity (table with various diversity measures):
 diversity <- estimate_diversity(pseq)
 ```
 
-```
-## Error in if (d1fun(hi, S, N) < 0) hi <- 2 * hi: missing value where TRUE/FALSE needed
-```
-
 Visualize diversity vs. discrete variable:
 
 
@@ -88,6 +91,13 @@ Same with the phyloseq function:
 
 ```r
 p <- plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "plot_richness"
+```
+
+```r
 p <- p + geom_boxplot()
 print(p)
 ```
@@ -102,12 +112,15 @@ Highlight specific groups:
 library(ggplot2)
 data.dietswap <- download_microbiome("dietswap")
 p <- plot_richness(data.dietswap, x = "gender", color = "group", measures = c("Shannon", "Simpson")) 
-p <- p + geom_boxplot()
-print(p)
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'gender' not found
+## Error in eval(expr, envir, enclos): could not find function "plot_richness"
+```
+
+```r
+p <- p + geom_boxplot()
+print(p)
 ```
 
 ![plot of chunk richness](figure/richness-1.png)
@@ -127,6 +140,13 @@ Same with the phyloseq function:
 
 ```r
 p <- plot_richness(pseq, x = "age", measures = "Shannon")
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "plot_richness"
+```
+
+```r
 p <- p + geom_smooth()
 print(p)
 ```
@@ -147,16 +167,36 @@ sample_data(pseq)$diversity <- estimate_diversity(pseq)$Shannon
 ```
 
 ```
-## Error in if (d1fun(hi, S, N) < 0) hi <- 2 * hi: missing value where TRUE/FALSE needed
+## Error in sample_data(pseq)$diversity <- estimate_diversity(pseq)$Shannon: could not find function "sample_data"
 ```
 
 ```r
 # Select a subset of samples
 pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
+```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "subset_samples"
+```
+
+```r
 # Visualize
 df <- sample_data(pseq0)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "sample_data"
+```
+
+```r
 p <- sorvi::regression_plot(diversity ~ age, df)
+```
+
+```
+## Error in data[[IV]]: object of type 'closure' is not subsettable
+```
+
+```r
 print(p)
 ```
 

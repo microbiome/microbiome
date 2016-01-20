@@ -14,10 +14,6 @@ library(devtools)
 install_github("microbiome/microbiome")
 ```
 
-```
-## Error: Command failed (3)
-```
-
 Load the tools:
 
 
@@ -61,6 +57,10 @@ pseq.L2 <- aggregate_taxa(pseq.species, level = "L2")
 pseq.probe <- hitchip2physeq(t(data$probedata), sample_data(data$pseq), detection.limit = 10^1.8)
 ```
 
+```
+## Error in hitchip2physeq(t(data$probedata), sample_data(data$pseq), detection.limit = 10^1.8): could not find function "sample_data"
+```
+
 ## Diversity 
 
 Use probe-level data (pseq.probe) to quantify diversity:
@@ -69,21 +69,21 @@ Use probe-level data (pseq.probe) to quantify diversity:
 ```r
 # Diversity estimation
 diversities <- estimate_diversity(pseq.probe)[, c("Shannon", "InvSimpson")]
+```
 
+```
+## Error in otu_table(physeq): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq.probe' not found
+```
+
+```r
 # Show diversity estimates for the first 5 samples:
 library(knitr)
 kable(diversities[1:5,])
 ```
 
-
-
-|         |  Shannon| InvSimpson|
-|:--------|--------:|----------:|
-|Sample.1 | 5.854566|   194.7215|
-|Sample.2 | 5.516757|   117.1191|
-|Sample.3 | 5.994427|   237.3818|
-|Sample.4 | 5.414883|   121.0294|
-|Sample.5 | 5.355688|   111.0888|
+```
+## Error in inherits(x, "list"): object 'diversities' not found
+```
 
 
 ## Richness
@@ -94,6 +94,13 @@ Estimate richness (probe count):
 ```r
 # Estimate richness
 res <- estimate_diversity(pseq.probe, det.th = 1)
+```
+
+```
+## Error in otu_table(physeq): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq.probe' not found
+```
+
+```r
 richness <- res$Observed
 names(richness) <- rownames(res)
 
@@ -102,8 +109,7 @@ richness[1:5]
 ```
 
 ```
-## Sample.1 Sample.2 Sample.3 Sample.4 Sample.5 
-##     1453     1254     1917     1138     1120
+## NULL
 ```
 
 
@@ -114,13 +120,17 @@ Visualize diversity vs. discrete metadata variable (here 'diet' but you can call
 plot_diversity(pseq.probe, x = "diet", measures = "Shannon")
 ```
 
-![plot of chunk example-7](figure/example-7-1.png)
+```
+## Error in otu_table(physeq): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq.probe' not found
+```
 
 ```r
 plot_diversity(pseq.probe, x = "diet", measures = "InvSimpson")
 ```
 
-![plot of chunk example-7](figure/example-7-2.png)
+```
+## Error in otu_table(physeq): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq.probe' not found
+```
 
 ### Wilcoxon test
 
@@ -179,13 +189,29 @@ Cluster the samples in probe-level data with hierarchical clustering:
 ```r
 # Calculate dissimilarity matrix
 d <- 1 - cor(as.matrix(otu_table(pseq.probe)@.Data), method = "spearman")
+```
+
+```
+## Error in as.matrix(otu_table(pseq.probe)@.Data): could not find function "otu_table"
+```
+
+```r
 # Perform hierarchical clustering
 hc <- hclust(as.dist(d), method = "complete")
+```
+
+```
+## Error in as.dist(d): object 'd' not found
+```
+
+```r
 # Show the plot
 plot(hc, hang = -1)
 ```
 
-![plot of chunk example-](figure/example--1.png)
+```
+## Error in curve(expr = x, from = from, to = to, xlim = xlim, ylab = ylab, : 'expr' did not evaluate to an object of length 'n'
+```
 
 
 

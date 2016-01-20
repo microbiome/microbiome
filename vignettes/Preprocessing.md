@@ -241,15 +241,11 @@ pseq <- read_hitchip(data.directory, method = "frpa")$pseq
 ```
 
 ```
-## Error in paste(data.dir, "/oligoprofile.tab", sep = ""): object 'data.directory' not found
+## Loading pre-calculated RPA preprocessing parameters
 ```
 
 ```r
 pseq.L2 <- aggregate_taxa(pseq, level = "L2")
-```
-
-```
-## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
 ```
 
 Merging phyloseq objects
@@ -265,11 +261,6 @@ merge_phyloseq(pseq1, pseq2)
 
 ```r
 pseq.rarified <- rarefy_even_depth(pseq)
-```
-
-```
-## Error in validObject(.Object): invalid class "otu_table" object: 
-##  OTU abundance data must have non-zero dimensions.
 ```
 
 

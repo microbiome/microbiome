@@ -16,11 +16,35 @@ pseq <- download_microbiome("dietswap")
 ```r
 # Define sample groups (gender + treatment group)
 meta <- sample_data(pseq)
-group <- meta$group
-names(group) <- meta$sample
+```
 
+```
+## Error in eval(expr, envir, enclos): could not find function "sample_data"
+```
+
+```r
+group <- meta$group
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'meta' not found
+```
+
+```r
+names(group) <- meta$sample
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'meta' not found
+```
+
+```r
 # Calculate 1-way ANOVA p-values for the multi-group comparison
 pvals <- check_anova(pseq, group, p.adjust.method = "BH", sort = TRUE)
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'group' not found
 ```
 
 
