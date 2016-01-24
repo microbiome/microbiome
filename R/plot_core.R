@@ -31,7 +31,15 @@ plot_core <- function(x, title = "Core", plot = TRUE,
 		       detection.thresholds = detection.thresholds) 
 
   } else if (plot.type == "heatmap") {
-    res <- core_heatmap(x, detection.thresholds = detection.thresholds, palette = palette)
+  
+    # Get OTU matrix
+    data <- otu_table(x)@.Data
+    if (!taxa_are_rows(x)) {data <- t(data)}
+
+    # Calculate relative abundances
+    data <- t(apply(data, 2, function(x) x/sum(x)))
+
+    res <- core_heatmap(data, detection.thresholds = detection.thresholds, palette = palette)
     p <- res$p
     # Data is available but not returned in current implementation
     prevalences <- res$prevalences

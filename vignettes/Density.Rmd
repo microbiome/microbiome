@@ -9,6 +9,8 @@ Visualize population densities for specific taxonomic group:
 
 ```{r hist, fig.width=16, fig.heigth=8, fig.path = "figure/"}
 library(microbiome)
+library(phyloseq)
+
 x <- download_microbiome("atlas1006")
 # Pick the subset of RBB-preprocessed samples from time point 0
 x <- subset_samples(x, time == 0 & DNA_extraction_method == "r")

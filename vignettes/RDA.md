@@ -94,22 +94,10 @@ For more complex scenarios, use the vegan package directly:
 ```r
 # Pick microbiota profiling data from the phyloseq object
 otu <- otu_table(pseq)@.Data
-```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "otu_table"
-```
-
-```r
 # Sample annotations
 meta <- sample_data(pseq)
-```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "sample_data"
-```
-
-```r
 # RDA with confounders
 rdatest2 <- rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))
 ```

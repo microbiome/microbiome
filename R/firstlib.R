@@ -1,6 +1,38 @@
+#' @importFrom dplyr summarise
+#' @importFrom dplyr n
+#' @importFrom dplyr mutate
+#' @importFrom ggplot2 geom_density
+#' @importFrom ggplot2 geom_density
+#' @importFrom ggplot2 scale_x_log10
+#' @importFrom ggplot2 scale_y_log10
+#' @importFrom ggplot2 ggtitle
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 stat_density2d
+#' @importFrom ggplot2 theme_set
+#' @importFrom ggplot2 theme_bw
+#' @importFrom ggplot2 scale_fill_gradient
+#' @importFrom ggplot2 guides
+#' @importFrom ggplot2 element_text
+#' @importFrom phyloseq transform_sample_counts
+#' @importFrom phyloseq otu_table
+#' @importFrom RColorBrewer brewer.pal
+#' @importFrom ggplot2 geom_boxplot
+#' @importFrom ggplot2 geom_line
+#' @importFrom ggplot2 geom_point
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 ggtitle
+#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 scale_x_log10
+#' @importFrom ggplot2 scale_fill_gradientn
+#' @importFrom ggplot2 geom_tile
+
+
 .onAttach <- function(lib, pkg) {
     packageStartupMessage("\nmicrobiome R package (microbiome.github.com)
-          \n\n\n Copyright (C) 2011-2015
+          \n\n\n Copyright (C) 2011-2016
           Leo Lahti and Jarkko Salojarvi \n\n        
           <microbiome-admin@googlegroups.com>\n")
 } 

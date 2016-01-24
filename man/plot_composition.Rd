@@ -16,8 +16,7 @@ plot_composition(x, taxonomic.level = NULL, relative.abundance = FALSE,
 
 \item{sort.by}{Sort by sample data column. Or provide vector of sample IDs.}
 
-\item{x.label}{Specify how to label the x axis. This should be one of the variables in 
-\code{sample_variables(x)}}
+\item{x.label}{Specify how to label the x axis. This should be one of the variables in \code{sample_variables(x)}}
 }
 \value{
 A \code{\link{ggplot}} plot object.

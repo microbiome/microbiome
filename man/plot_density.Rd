@@ -4,13 +4,13 @@
 \alias{plot_density}
 \title{Density plot}
 \usage{
-plot_density(x, otu.name = NULL, log10 = FALSE, adjust = 1,
+plot_density(x, variable = NULL, log10 = FALSE, adjust = 1,
   kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray")
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)}
 
-\item{otu.name}{OTU name to visualize}
+\item{variable}{OTU or metadata variable to visualize}
 
 \item{log10}{Logical. Show log10 abundances or not.}
 
@@ -31,7 +31,7 @@ A \code{\link{ggplot}} plot object.
 Plot abundance density across samples for a given taxon
 }
 \examples{
-# plot_density(x, otu.name = "Dialister")
+# plot_density(x, variable = "Dialister")
 }
 \keyword{utilities}
 

@@ -4,10 +4,10 @@
 \alias{core_heatmap}
 \title{Core heatmap}
 \usage{
-core_heatmap(x, detection.thresholds = 20, palette = "bw")
+core_heatmap(data, detection.thresholds = 20, palette = "bw")
 }
 \arguments{
-\item{x}{A \code{\link{phyloseq}} object or a core matrix}
+\item{data}{Core matrix}
 
 \item{detection.thresholds}{A vector or a scalar indicating the number of intervals in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.}
 

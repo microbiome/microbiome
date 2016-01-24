@@ -6,6 +6,7 @@ Load example data:
 
 ```{r ordination1, message=FALSE, warning=FALSE, eval=TRUE}
 library(microbiome)
+library(phyloseq)
 library(ggplot2)
 pseq <- download_microbiome("atlas1006")
 

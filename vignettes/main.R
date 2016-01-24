@@ -1,3 +1,5 @@
+library(microbiome)
+library(phyloseq)
 
 #library(rmarkdown)
 #rmarkdown::render("vignette.Rmd")

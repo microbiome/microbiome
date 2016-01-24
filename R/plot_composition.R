@@ -4,8 +4,7 @@
 #' @param taxonomic.level Merge the OTUs (for phyloseq object) into a higher taxonomic level. This has to be one from \code{colnames(tax_table(x))}.
 #' @param relative.abundance Logical. Show relative abundances or not.
 #' @param sort.by Sort by sample data column. Or provide vector of sample IDs.
-#' @param x.label Specify how to label the x axis. This should be one of the variables in 
-#'        \code{sample_variables(x)}
+#' @param x.label Specify how to label the x axis. This should be one of the variables in \code{sample_variables(x)}
 #' @return A \code{\link{ggplot}} plot object.
 #' @importFrom ggplot2 geom_bar
 #' @importFrom ggplot2 scale_x_discrete
@@ -24,6 +23,8 @@
 #' @keywords utilities
 plot_composition <- function (x, taxonomic.level = NULL, relative.abundance = FALSE, sort.by = NULL, x.label = "sample") {
 
+  # x <- pseq$healthy; taxonomic.level = NULL; relative.abundance = FALSE; sort.by = NULL; x.label = "sample"
+
   # Avoid warnings
   Sample <- Abundance <- Taxon <- horiz <- value <- NULL
 
@@ -36,6 +37,7 @@ plot_composition <- function (x, taxonomic.level = NULL, relative.abundance = FA
   # Pick the OTU data
   if (class(x) == "phyloseq") {
     otu <- otu_table(x)@.Data
+    if (!taxa_are_rows(x)) {otu <- t(otu)}
     # FIXME: Remove this when this has been fixed to phyloseq package - pending 5/2015
     if (!is.null(taxonomic.level)) {
       rownames(otu) <- as.vector(tax_table(x)[, taxonomic.level])

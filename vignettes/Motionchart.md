@@ -10,19 +10,7 @@ Prepare the data:
 
 ```r
 library(microbiome)  
-```
 
-```
-## Warning: replacing previous import by 'ggplot2::Position' when loading
-## 'phyloseq'
-```
-
-```
-## Warning: replacing previous import by 'scales::alpha' when loading
-## 'phyloseq'
-```
-
-```r
 # Folder containing simulated example data
 # (change your own path here)
 data.directory <- system.file("extdata", package = "microbiome")
@@ -32,13 +20,7 @@ res <- read_hitchip(data.directory, method = "frpa")
 
 # Pick the metadata (the meta.tab file in HITChip data folder)
 metadata.simulated <- sample_data(res$pseq)
-```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "sample_data"
-```
-
-```r
 # Species-level data in phyloseq format
 pseq <- res$pseq 
 
@@ -46,19 +28,9 @@ pseq <- res$pseq
 pseq.L2 <- aggregate_taxa(pseq, level = "L2")
 # Convert L2 to matrix format
 genus.matrix.log10.simulated <- log10(otu_table(pseq.L2)@.Data)
-```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "otu_table"
-```
-
-```r
 # Combine phylotype profiling data and sample metadata
 df <- cbind(metadata.simulated, t(genus.matrix.log10.simulated))  
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'metadata.simulated' not found
 ```
 
 Plot a Motion Chart using googleVis - package. Note: this requires
@@ -80,19 +52,9 @@ library(googleVis)
 
 # See help(gvisMotionChart) for further details
 mchart <- gvisMotionChart(df, idvar = "sample", timevar = "time")  
-```
 
-```
-## Error in data[, vars.pos]: object of type 'closure' is not subsettable
-```
-
-```r
 # Plot immediately (opens in browser, requires flash)
 plot(mchart)  
-```
-
-```
-## Error in plot(mchart): object 'mchart' not found
 ```
 
 Save as html (needs javascript to open!). NOTE: html file viewing does not work locally - store the html file on server and view through internet:
