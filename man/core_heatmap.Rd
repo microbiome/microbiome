@@ -2,9 +2,10 @@
 % Please edit documentation in R/core_heatmap.R
 \name{core_heatmap}
 \alias{core_heatmap}
-\title{Core heatmap}
+\title{OTU core heatmap}
 \usage{
-core_heatmap(data, detection.thresholds = 20, palette = "bw")
+core_heatmap(data, detection.thresholds = 20, palette = "bw",
+  min.prevalence = NULL)
 }
 \arguments{
 \item{data}{Core matrix}
@@ -12,6 +13,8 @@ core_heatmap(data, detection.thresholds = 20, palette = "bw")
 \item{detection.thresholds}{A vector or a scalar indicating the number of intervals in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.}
 
 \item{palette}{palette for the plot.type = 'heatmap'}
+
+\item{min.prevalence}{If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap.}
 }
 \value{
 Used for its side effects

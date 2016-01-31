@@ -1,12 +1,13 @@
 ## Ordination examples
 
-Here some examples with HITChip data. See also [phyloseq ordination tutorial](joey711.github.io/phyloseq/plot_ordination-examples.html).
+Some examples with HITChip data. See also [phyloseq ordination tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html).
 
 Load example data:
 
 
 ```r
 library(microbiome)
+library(phyloseq)
 library(ggplot2)
 pseq <- download_microbiome("atlas1006")
 
@@ -19,24 +20,54 @@ pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > .01) > (0.1*nsamples(pseq.rel
 ```
 
 
-### Principal component analysis (PCA)
+### Sample ordination
 
-Project data on the first two PCA axes:
+Project the samples with the given method and distance:
 
 
 ```r
 set.seed(423542)
-x <- t(otu_table(pseq2)@.Data)
-proj <- project.data(log10(x), type = "PCA") # MDS.classical etc.
+library(phyloseq)
+pseq.ord <- ordinate(pseq2, "NMDS", "bray")
+```
+
+```
+## Run 0 stress 0.2028826 
+## Run 1 stress 0.4204018 
+## Run 2 stress 0.2132288 
+## Run 3 stress 0.2078395 
+## Run 4 stress 0.2072215 
+## Run 5 stress 0.2189983 
+## Run 6 stress 0.2203689 
+## Run 7 stress 0.2280538 
+## Run 8 stress 0.2111716 
+## Run 9 stress 0.2202255 
+## Run 10 stress 0.2182107 
+## Run 11 stress 0.2082472 
+## Run 12 stress 0.2216505 
+## Run 13 stress 0.2122944 
+## Run 14 stress 0.2048463 
+## Run 15 stress 0.2160907 
+## Run 16 stress 0.2100183 
+## Run 17 stress 0.220414 
+## Run 18 stress 0.2216315 
+## Run 19 stress 0.207923 
+## Run 20 stress 0.2237309
+```
+
+```r
+# Just pick the projected data (first two columns + metadata)
+proj <- plot_ordination(pseq2, pseq.ord, justDF = T)
 ```
 
 
-Visualize and highlight:
+Visualize and highlight. In addition to densityplot, see plot_ordn from the microbiome package and plot_ordination from the phyloseq package.
 
 
 ```r
 # Highlight gender
-p <- densityplot(proj, col = sample_data(pseq2)$gender, legend = T)
+library(microbiome)
+p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
 print(p)
 ```
 
@@ -44,8 +75,8 @@ print(p)
 
 ```r
 # Highlight low/high Prevotella subjects
-prevotella.abundance  <- log10(x[, "Prevotella melaninogenica et rel."]) 
-p <- densityplot(proj, col = prevotella.abundance, legend = T)
+prevotella.abundance  <- as.vector(log10(otu_table(pseq2)["Prevotella melaninogenica et rel.",]) )
+p <- densityplot(proj[, 1:2], col = prevotella.abundance, legend = T)
 print(p)
 ```
 
@@ -55,47 +86,13 @@ Projection with sample names:
 
 
 ```r
-ggplot(aes(x = Comp.1, y = Comp.2, label = rownames(proj)), data = proj) + geom_text(size = 2)
+ax1 <- names(proj)[[1]]
+ax2 <- names(proj)[[2]]
+ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) + geom_text(size = 2)
 ```
 
 ![plot of chunk visu-example2](figure/visu-example2-1.png)
 
-
-### Unifrac with PCoA
-
-Not implemented with HITChip but popular with sequencing data. See [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). 
-
-
-### NMDS with Bray-Curtis distances
-
-
-```r
-pseq.ord <- ordinate(pseq2, "NMDS", "bray")
-```
-
-```
-## Run 0 stress 0.2028085 
-## Run 1 stress 0.2236351 
-## Run 2 stress 0.4205223 
-## Run 3 stress 0.2159774 
-## Run 4 stress 0.2131121 
-## Run 5 stress 0.2135156 
-## Run 6 stress 0.219663 
-## Run 7 stress 0.2202646 
-## Run 8 stress 0.2202117 
-## Run 9 stress 0.2179414 
-## Run 10 stress 0.213931 
-## Run 11 stress 0.420529 
-## Run 12 stress 0.2142954 
-## Run 13 stress 0.2198069 
-## Run 14 stress 0.2185281 
-## Run 15 stress 0.2098309 
-## Run 16 stress 0.2191812 
-## Run 17 stress 0.2115131 
-## Run 18 stress 0.2171189 
-## Run 19 stress 0.2164978 
-## Run 20 stress 0.2187442
-```
 
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
@@ -117,7 +114,7 @@ p + facet_wrap(~Phylum, 5)
 ![plot of chunk pca-ordination22](figure/pca-ordination22-1.png)
 
 
-### Multidimensional scaling (MDS)
+### Multidimensional scaling (MDS / PCoA)
 
 
 ```r
@@ -138,10 +135,6 @@ p + geom_point(size = 5)
 ```
 
 ![plot of chunk ordinate24a](figure/ordinate24a-1.png)
-
-```r
-#p <- p + geom_polygon(aes(fill = gender))
-```
 
 With taxa:
 

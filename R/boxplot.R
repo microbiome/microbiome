@@ -8,17 +8,9 @@
 #' @param log10 show y axis on log scale
 #' @param title Optional title for the graphic.
 #' @return A \code{\link{ggplot}} plot object
-#' @importFrom ggplot2 geom_boxplot
-#' @importFrom ggplot2 geom_line
-#' @importFrom ggplot2 geom_point
-#' @importFrom ggplot2 xlab
-#' @importFrom ggplot2 ylab
-#' @importFrom ggplot2 ggtitle
-#' @importFrom ggplot2 ggplot
 #' @export
 #' @examples # 
 #' @keywords utilities
-
 boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = TRUE, title = NULL) {
 
   xvar <- yvar <- linevar <- colorvar <- NULL

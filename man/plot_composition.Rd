@@ -5,7 +5,7 @@
 \title{Plot composition}
 \usage{
 plot_composition(x, taxonomic.level = NULL, relative.abundance = FALSE,
-  sort.by = NULL, x.label = "sample")
+  sort.by = NULL, x.label = "sample", relative = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)}
@@ -17,6 +17,8 @@ plot_composition(x, taxonomic.level = NULL, relative.abundance = FALSE,
 \item{sort.by}{Sort by sample data column. Or provide vector of sample IDs.}
 
 \item{x.label}{Specify how to label the x axis. This should be one of the variables in \code{sample_variables(x)}}
+
+\item{relative}{Show relative abundances}
 }
 \value{
 A \code{\link{ggplot}} plot object.

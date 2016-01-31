@@ -29,17 +29,6 @@
 #'   cc <- cross.correlate(d1, d2) 
 #'   p <- correlation.heatmap(cc, 'X1', 'X2', 'Correlation')
 #' @export
-#' @importFrom ggplot2 geom_boxplot
-#' @importFrom ggplot2 geom_line
-#' @importFrom ggplot2 geom_point
-#' @importFrom ggplot2 xlab
-#' @importFrom ggplot2 ylab
-#' @importFrom ggplot2 ggtitle
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 scale_x_log10
-#' @importFrom ggplot2 scale_fill_gradientn
-#' @importFrom ggplot2 geom_tile
-#' @importFrom ggplot2 geom_text
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

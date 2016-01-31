@@ -1,8 +1,6 @@
 #' @title densityplot
 #' @description Plots densities of data points in addition to cross-plot points.
-#'
-#' @param mat Data matrix to plot. The first two columns will be visualized 
-#'              as a cross-plot.
+#' @param mat Data matrix to plot. The first two columns will be visualized as a cross-plot.
 #' @param main title text
 #' @param x.ticks Number of ticks on the X axis
 #' @param rounding Rounding for X axis tick values
@@ -14,14 +12,6 @@
 #' @return ggplot2 object
 #' @examples p <- densityplot(cbind(rnorm(100), rnorm(100)))
 #' @export
-#' @importFrom ggplot2 geom_point
-#' @importFrom ggplot2 xlab
-#' @importFrom ggplot2 ylab
-#' @importFrom ggplot2 ggtitle
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 scale_x_log10
-#' @importFrom ggplot2 theme
-#' @importFrom MASS bandwidth.nrd
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

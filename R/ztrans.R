@@ -9,17 +9,19 @@
 #' @importFrom phyloseq transform_sample_counts
 #' @importFrom phyloseq otu_table
 #' @importFrom phyloseq otu_table<-
-#' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 ztransform_phyloseq <- function (x, which) {
 
-  taxa_are_rows <- NULL
+  taxa_are_rows <- y <- NULL
+
+  # Start with log10 transformation
+  x <- transform_phyloseq(x, "log10")
 
   if (which == "OTU") {
 
-    ddd <- log10(1 + otu_table(x)@.Data)
+    ddd <- otu_table(x)@.Data
     if (taxa_are_rows(x)) {
       ddd <- t(ddd)
     }
@@ -42,11 +44,8 @@ ztransform_phyloseq <- function (x, which) {
   } else if (which == "sample") {
 
     # Z transform samples
-    xz <- transform_sample_counts(x, function(x) {
-       	  	y <- log10(1 + x); (y - mean(y))/sd(y) })
+    xz <- transform_sample_counts(x, function(x) {(y - mean(y))/sd(y) })
 
-  } else {
-    stop("Specify the target for Z transformation: 'sample' or 'OTU'")
   }
   
   xz

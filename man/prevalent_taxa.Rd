@@ -2,7 +2,7 @@
 % Please edit documentation in R/prevalent.R
 \name{prevalent_taxa}
 \alias{prevalent_taxa}
-\title{prevalent_taxa}
+\title{Prevalent taxa}
 \usage{
 prevalent_taxa(x, detection.threshold, prevalence.threshold)
 }
@@ -13,20 +13,20 @@ prevalent_taxa(x, detection.threshold, prevalence.threshold)
 
 \item{prevalence.threshold}{Detection threshold for prevalence}
 }
+\value{
+Vector of prevalent taxa names
+}
 \description{
 List prevalent groups
 }
 \details{
 For phyloseq object, lists taxa that are more prevalent with the given detection
          threshold. For matrix, lists columns that satisfy these criteria.
-
-  @return Vector of prevalent taxa names
 }
 \examples{
   #peerj32 <- download_microbiome("peerj32")
   #prevalent_taxa(peerj32$data$microbes, 10^1.8 + 100, 0.2) # matrix
   #prevalent_taxa(peerj32$physeq, 100, 0.2) # phyloseq object
-
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

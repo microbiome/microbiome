@@ -4,19 +4,23 @@
 # Load example data
 library(microbiome)
 pseq <- download_microbiome("peerj32")$physeq
+
+# Calculate relative abundances
+pseq.rel <- transform_phyloseq(pseq, "relative.abundance", "OTU")
 ```
 
-List prevalence measure for each group with a given detection threshold:
+
+List prevalence for each group at 1 percent relative abundance abundance threshold:
 
 ```{r prevalence2, fig.path = "figure/"}
-head(prevalence(pseq, detection.threshold = 10, sort = FALSE))
+head(prevalence(pseq.rel, detection.threshold = 1, sort = FALSE))
 ```
 
-List the taxa that are present over detection threshold in given
-fraction of the samples:
+
+List the taxa that are present at the given detection threshold (2% relative abundance) at a given prevalence (20%) (fraction of the samples):
 
 ```{r prevalence3, fig.path = "figure/"}
-prevalent.taxa <- prevalent_taxa(pseq, detection.threshold = 50, prevalence.threshold = 0.2)
+prevalent.taxa <- prevalent_taxa(pseq.rel, detection.threshold = 2, prevalence.threshold = 20)
 ```
 
 
@@ -27,22 +31,67 @@ analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/ab
 based on various signal and prevalence thresholds.
  
 ```{r core-example, message=FALSE, warning=FALSE, fig.path = "figure/"}
-core <- core_matrix(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
+det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
+prev <- seq(10, 100, 10)
+core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds = det)
 ```
 
 ### Core 2D line plots
 
+
 ```{r core-example2, fig.width=8, fig.heigth=8, fig.path = "figure/"}
-p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)), plot.type = "lineplot")
+# Core lineplot with absolute read counts
+det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
+res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
+res$plot + xlab("Abundance (OTU count)")
+
+# Core lineplot with relative abundances
+det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
+res <- plot_core(pseq.rel, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
+res$plot + xlab("Relative Abundance (%)")
+
+# Retrieve the core count data matrix
+coremat <- res$data
+print(coremat)
 ```
+
 
 ### Core heatmaps
 
+Core with relative abundances:
+
 ```{r core-example3, fig.width=8, fig.heigth=13, fig.path = "figure/"}
-p <- plot_core(pseq, plot.type = "heatmap", palette = "bw")
+prevalence.intervals = seq(5, 100, 5)
+detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)		 
+res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
+print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
+
+
+# Retrieve the core prevalence data matrix
+prevalences <- res$data
 ```
 
+Core with absolute counts:
+
+```{r core-example3b, fig.width=8, fig.heigth=13, fig.path = "figure/"}
+prevalence.intervals = seq(5, 100, 5)
+detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
+res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds)
+print(res$plot)
+```
+
+Zoom in on the core region by filtering out rows and columns with zero prevalence:
+
+```{r core-example3b, fig.width=8, fig.heigth=13, fig.path = "figure/"}
+res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, min.prevalence = 0)
+print(res$plot)
+```
+
+
+Color scale core plot:
+
 ```{r core-example4, fig.width=8, fig.heigth=13, fig.path = "figure/"}
-p <- plot_core(pseq, plot.type = "heatmap", palette = "spectral")
+p <- plot_core(pseq, plot.type = "heatmap", palette = "spectral")$plot
+print(p)
 ```
 

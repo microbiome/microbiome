@@ -2,7 +2,7 @@
 % Please edit documentation in R/diversity.R
 \name{relative.abundance}
 \alias{relative.abundance}
-\title{relative.abundance}
+\title{Relative abundance}
 \usage{
 relative.abundance(dat, det.th = 0)
 }
@@ -22,7 +22,6 @@ with a given threshold '
 \examples{
   data(peerj32)
   relab <- relative.abundance(10^t(peerj32$microbes), det.th = 0)
-
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

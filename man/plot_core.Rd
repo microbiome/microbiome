@@ -2,11 +2,11 @@
 % Please edit documentation in R/plot_core.R
 \name{plot_core}
 \alias{plot_core}
-\title{plot_core}
+\title{Visualize OTU core}
 \usage{
 plot_core(x, title = "Core", plot = TRUE, prevalence.intervals = seq(5,
   100, 5), detection.thresholds = 20, plot.type = "lineplot",
-  palette = "bw")
+  palette = "bw", min.prevalence = NULL)
 }
 \arguments{
 \item{x}{A \code{\link{phyloseq}} object or a core matrix}
@@ -23,9 +23,11 @@ or a scalar indicating the number of intervals in the data range.}
 \item{plot.type}{Plot type ('lineplot' or 'heatmap')}
 
 \item{palette}{palette for the plot.type = 'heatmap'}
+
+\item{min.prevalence}{If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap. Only affects the plot.type = 'heatmap'.}
 }
 \value{
-Used for its side effects
+A list with three elements: the ggplot object and the data. The data has a different form for the lineplot and heatmap. Finally, the applied parameters are returned.
 }
 \description{
 Core visualization 2D

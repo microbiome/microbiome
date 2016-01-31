@@ -2,7 +2,7 @@
 % Please edit documentation in R/diversity.R
 \name{make.abundancy.table}
 \alias{make.abundancy.table}
-\title{make.abundancy.table}
+\title{Make abundance table}
 \usage{
 make.abundancy.table(dat, det.th, discretization.resolution = 1)
 }

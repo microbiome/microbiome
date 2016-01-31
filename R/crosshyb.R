@@ -74,17 +74,6 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
 #' @examples 
 #'   # res <- PlotCrosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE) 
 #' @export
-#' @importFrom ggplot2 geom_boxplot
-#' @importFrom ggplot2 geom_line
-#' @importFrom ggplot2 geom_point
-#' @importFrom ggplot2 xlab
-#' @importFrom ggplot2 ylab
-#' @importFrom ggplot2 ggtitle
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 scale_x_log10
-#' @importFrom ggplot2 scale_fill_gradientn
-#' @importFrom ggplot2 geom_tile
-#' @importFrom ggplot2 geom_text
 #' @importFrom ggplot2 theme
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -94,7 +83,9 @@ PlotCrosshyb <- function(tax.level = "L1", chip = "HITChip",
     show.plot = TRUE, order.rows = TRUE, order.cols = TRUE, 
     keep.empty = FALSE, rounding = 1, 
     tax.table = NULL, self.correlations = FALSE) {
-    
+
+    ID <- NULL
+
     # Get crosshyb matrix
     confusion.matrix <- CrosshybTable(tax.level = tax.level, chip = "HITChip", 
         selected.taxa = NULL, 
@@ -125,9 +116,13 @@ PlotCrosshyb <- function(tax.level = "L1", chip = "HITChip",
     }
     
     # Organize into data frame
-    df <- melt(confusion.matrix)
+    #df <- melt(confusion.matrix)
+    df <- as.data.frame(confusion.matrix)
+    df$ID <- rownames(confusion.matrix)
+    df <- aggregate(df, ID)
     names(df) <- c("Taxon1", "Taxon2", "crosshyb")
-    
+    df$crosshyb <- as.numeric(as.character(df$crosshyb))
+
     # Switch to percentages
     df[["crosshyb"]] <- 100 * df[["crosshyb"]]
     

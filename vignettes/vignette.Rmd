@@ -29,11 +29,8 @@ bib <- read.bibtex("bibliography.bib")
 microbiome R package
 ===========
 
-The microbiome package contains general-purpose tools for microarray-based analysis of microbiome profiling data sets in R `r citep(bib[["rcore13"]])`. 
+The microbiome package contains general-purpose tools for microarray-based analysis of microbiome profiling data sets in R `r citep(bib[["rcore13"]])`. The are based on the phyloseq class from the independent [phyloseq](https://github.com/joey711/phyloseq) R package. The microbiome package adds extra functionality for microbiomics data sets that can be represented in this format.
 
-The analyses are based on the phyloseq class from the independent [phyloseq](https://github.com/joey711/phyloseq) R package. Convert your data into phyloseq format before testing these examples.
-
-For probe-level summarization of phylogenetic microarray data we use and recommend Robust Probabilistic Averaging (RPA) [`r citep(citation("RPA"))`; `r citep("10.1109/TCBB.2009.38")`].
 
 ### How to start 
 

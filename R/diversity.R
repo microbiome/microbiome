@@ -1,19 +1,14 @@
 #' @title estimate_diversity
-#' @description Diversity estimation. Augments the estimate_richness function of the
-#' phyloseq package
-#'
+#' @description Diversity estimation. Augments the estimate_richness function of the phyloseq package
 #' @param x \code{\link{phyloseq-class}} object 
 #' @param split See help(phyloseq::estimate_richness)
 #' @param measures See help(phyloseq::estimate_richness)
 #' @param det.th detection threshold for observing taxa (absence / presence)
-#'
 #' @return Vector containing relative proportions for each phylotype in 
 #'         each sample 
-#'
 #' @examples 
 #'   #pseq <- download_microbiome("peerj32")$physeq
 #'   #d <- estimate_diversity(pseq, det.th = 0)
-#'
 #' @importFrom phyloseq estimate_richness
 #' @export
 #' @references See citation('microbiome') 
@@ -51,26 +46,20 @@ estimate_diversity <- function(x, split = TRUE, measures = NULL, det.th = 0) {
 }
 
 
-#' relative.abundance
-#'
-#' Estimate relative abundance for each phylotype in each sample 
+#' @title Relative abundance
+#' @description Estimate relative abundance for each phylotype in each sample 
 #' with a given threshold '
-#'
 #' @param dat data matrix (phylotypes x samples) in original (non-log) scale
 #' @param det.th detection threshold. 
-#'
 #' @return Vector containing relative proportions for each phylotype in 
 #'         each sample 
-#'
 #' @examples 
 #'   data(peerj32)
 #'   relab <- relative.abundance(10^t(peerj32$microbes), det.th = 0)
-#'
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 relative.abundance <- function(dat, det.th = 0) {
     
     # Specify detection threshold if not provided Use the 80% quantile
@@ -92,20 +81,16 @@ relative.abundance <- function(dat, det.th = 0) {
     
 }
 
-#' make.abundancy.table
-#'
-#' Calculate abundancies
+#' @title Make abundance table
+#' @description Calculate abundancies
 #' Discretize Hitchip matrix to form abundancy table
 #' of form j, nj where j is number of counts and nj is number
 #' of phylotypes with the corresponding counts
 #' this format is often required by richness estimation
-#'
 #' @param dat data matrix
 #' @param det.th detection threshold
 #' @param discretization.resolution discretization resolution
-#'
 #' @return abundancy table
-#'
 #' @examples 
 #'   data(peerj32)
 #'   abtab <- make.abundancy.table(10^t(peerj32$microbes), det.th = 0)
@@ -114,7 +99,6 @@ relative.abundance <- function(dat, det.th = 0) {
 #'    To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-
 make.abundancy.table <- function(dat, det.th, discretization.resolution = 1) {
     
     di <- 10^dat - 10^det.th

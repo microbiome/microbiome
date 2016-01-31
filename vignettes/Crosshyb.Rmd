@@ -46,6 +46,7 @@ mytaxa <- levelmap("Dialister", from = "L2", to = "species", tax.table)[[1]]
 res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, tax.table)
 
 # Check the cross-hyb data as well
-head(res$data)
+library(knitr)
+kable(head(res$data))
 ```
 

@@ -5,13 +5,10 @@
 #' @param relative.abundance Logical. Show relative abundances or not.
 #' @param sort.by Sort by sample data column. Or provide vector of sample IDs.
 #' @param x.label Specify how to label the x axis. This should be one of the variables in \code{sample_variables(x)}
+#' @param relative Show relative abundances
 #' @return A \code{\link{ggplot}} plot object.
-#' @importFrom ggplot2 geom_bar
-#' @importFrom ggplot2 scale_x_discrete
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 theme
-#' @importFrom reshape2 melt
 #' @importFrom phyloseq tax_glom
+#' @importFrom scales percent
 #' @export
 #' @examples \dontrun{
 #'   # Example data
@@ -21,12 +18,10 @@
 #'     plot_composition(pseq, taxonomic.level = "Phylum")
 #'           }
 #' @keywords utilities
-plot_composition <- function (x, taxonomic.level = NULL, relative.abundance = FALSE, sort.by = NULL, x.label = "sample") {
-
-  # x <- pseq$healthy; taxonomic.level = NULL; relative.abundance = FALSE; sort.by = NULL; x.label = "sample"
+plot_composition <- function (x, taxonomic.level = NULL, relative.abundance = FALSE, sort.by = NULL, x.label = "sample", relative = FALSE) {
 
   # Avoid warnings
-  Sample <- Abundance <- Taxon <- horiz <- value <- NULL
+  Sample <- Abundance <- Taxon <- horiz <- value <- scales <- ID <- NULL
 
   # Merge the taxa at a higher taxonomic level
   if (!is.null(taxonomic.level)) {	         
@@ -60,11 +55,15 @@ plot_composition <- function (x, taxonomic.level = NULL, relative.abundance = FA
   }
 
   # Prepare data.frame
-  dfm <- melt(otu)
+  #dfm <- melt(otu)
+  dfm <- as.data.frame(otu)
+  dfm$ID <- rownames(otu)
+  dfm <- aggregate(dfm, ID)    
   colnames(dfm) <- c("Taxon", "Sample", "Abundance")
+  dfm$Abundance <- as.numeric(as.character(dfm$Abundance))  
   dfm$Sample <- factor(as.character(dfm$Sample), levels = sort.by)
 
-  # SampleIDs used in plotting
+  # SampleIDs for plotting
   if (x.label %in% colnames(meta)) {
 
     dfm$xlabel <- as.vector(unlist(meta[as.character(dfm$Sample), x.label]))
@@ -80,7 +79,7 @@ plot_composition <- function (x, taxonomic.level = NULL, relative.abundance = FA
     dfm$xlabel <- dfm$Sample
   }
 
-  # Provide barplot of relative abundances
+  # Provide barplot
   p <- ggplot(dfm, aes(x = Sample, y = Abundance, fill = Taxon))
   p <- p + geom_bar(position = "stack", stat = "identity")
   p <- p + scale_x_discrete(labels = dfm$xlabel, breaks = dfm$Sample)
@@ -88,6 +87,12 @@ plot_composition <- function (x, taxonomic.level = NULL, relative.abundance = FA
   # Rotate horizontal axis labels, and adjust
   p <- p + theme(axis.text.x=element_text(angle=-90, vjust=0.5, hjust=0))
 
+  # Relabel y axis for relative abundance
+  if (relative.abundance) {
+    p <- p + scale_y_continuous(labels = percent) # scales::percent
+    p <- p + ylab("Relative abundance (%)")
+  }
+  
   p
 
 }

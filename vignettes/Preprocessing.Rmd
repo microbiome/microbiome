@@ -37,50 +37,47 @@ f1 <- filterfun_sample(topp(0.1))
 taxa <- genefilter_sample(pseq, f1, A = round(0.5 * nsamples(pseq)))
 ```
 
-### Estimating relative abundancies
+Select samples by specific metadata fields:
 
-Estimate relative abundance of the taxa in each sample. Note: the
-input data set needs to be in absolute scale (not logarithmic).
-
-
-Calculating relative abundances for a phyloseq object:
-
-```{r data10}
-pseq <- transform_sample_counts(pseq, function(x) x/sum(x))
+```{r data-subsetting}
+pseq.subset <- subset_samples(pseq, nationality == "AFR")
 ```
 
-Log transforming the sample counts
+
+### Data transformations
+
+The microbiome package provides a wrapper for standard sample/OTU transformations. For arbitrary transformations, use the transform_sample_counts function in the phyloseq package.
+
+Log10 transformation (log(1+x) if the data contains zeroes)
 
 ```{r preprocessing-logtrans}
-pseq.log <- transform_sample_counts(pseq, function(x) log10(1 + x))
+pseq.log <- transform_phyloseq(pseq, "log10")
 ```
 
-
-Z transforming the data
+Z transformation:
 
 ```{r preprocessing-ztrans}
-# Z transform samples
-pseq.z <- ztransform_phyloseq(pseq, "sample")
+# Z-transform OTUs
+pseq.zotu <- transform_phyloseq(pseq, "Z", "OTU")
 
-# Z transform OTUs
-pseq.z <- ztransform_phyloseq(pseq, "OTU")
+# Z-transform samples
+pseq.zsample <- transform_phyloseq(pseq, "Z", "sample")
 ```
 
+Relative abundances (the input data needs to be in absolute scale, not logarithmic!):
 
+```{r data10}
+pseq1 <- transform_phyloseq(pseq, "relative.abundance", "OTU")
+pseq2 <- transform_sample_counts(pseq, function(x) x/sum(x))
+```
 
-Calculating relative abundance for standard abundance matrix:
+Relative abundance for plain abundance matrix:
 
 ```{r diversity-example6}
 dat <- otu_table(pseq)@.Data
 rel <- relative.abundance(dat, det.th = 0)
 ```
 
-
-Pick samples by specific metadata fields
-
-```{r data-subsetting}
-pseq.subset <- subset_samples(pseq, nationality == "AFR")
-```
 
 
 ### Variable operations
@@ -117,7 +114,7 @@ taxa <- taxa_names(pseq)
 ```
 
 
-Prune taxa
+Prune taxa:
 
 ```{r preprocess3b, warning=FALSE, message=FALSE}
 taxa <- levelmap(NULL, "Phylum", "Genus", tax_table(pseq))$Bacteroidetes
@@ -129,14 +126,15 @@ ex2 <- prune_taxa(taxa, pseq)
 ex3 <- prune_taxa(taxa_sums(pseq) > 0, pseq)
 ```
 
-Subset taxa
+
+Subset taxa:
 
 ```{r preprocess3c, warning=FALSE, message=FALSE}
 pseq <- subset_taxa(pseq, Phylum == "Bacteroidetes")
 ```
 
 
-Filter by user-specified function values (here variance)
+Filter by user-specified function values (here variance):
 
 ```{r preprocess3d, warning=FALSE, message=FALSE}
 f <- filter_taxa(pseq, function(x) var(x) > 1e-05, TRUE)
@@ -164,7 +162,7 @@ head(taxa_sums(pseq))
 ```
 
 
-### Merging operations for phyloseq objects
+### Merging operations
 
 
 Aggregate OTUs to higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus). See also [merge_samples and and merge_taxa](http://joey711.github.io/phyloseq/merge.html):

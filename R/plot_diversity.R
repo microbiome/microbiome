@@ -32,14 +32,8 @@
 #'  \code{\link{plot_richness}}
 #'  \code{\link[vegan]{estimateR}}
 #'  \code{\link[vegan]{diversity}}
-#' @importFrom ggplot2 geom_boxplot
-#' @importFrom ggplot2 theme
-#' @importFrom ggplot2 facet_wrap
-#' @importFrom ggplot2 xlab
-#' @importFrom ggplot2 ylab
-#' @importFrom ggplot2 ggplot
-#' @importFrom reshape2 melt
 #' @importFrom sorvi regression_plot
+#' @importFrom reshape2 melt
 #' @export
 #' @examples # 
 #' @keywords utilities
@@ -71,7 +65,7 @@ plot_diversity <- function(physeq, x = "group", title = "", measures = "Shannon"
 
   # melt to display different alpha-measures separately
   mdf <- melt(DF, measure.vars = measures)
-
+  
   # Remove NAs
   mdf <- subset(mdf, !is.na(horiz))
 

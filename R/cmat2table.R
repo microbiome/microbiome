@@ -15,11 +15,14 @@
 #' @keywords utilities
 cmat2table <- function(res, verbose = FALSE) {
     
-    ctab <- NULL
+    ctab <- ID <- NULL
     
     if (!is.null(res$cor)) {
-        ctab <- melt(res$cor)
+  	ctab <- as.data.frame(res$cor)
+  	ctab$ID <- rownames(res$cor)
+  	ctab <- aggregate(ctab, ID)    
         colnames(ctab) <- c("X1", "X2", "Correlation")
+  	dfm$Correlation <- as.numeric(as.character(dfm$Correlation))  	
     }
     
     correlation <- NULL  # circumwent warning on globabl vars
@@ -29,7 +32,14 @@ cmat2table <- function(res, verbose = FALSE) {
         if (verbose) {
             message("Arranging the table")
         }
-        ctab <- cbind(ctab, melt(res$p.adj)$value)
+
+	ctab2 <- as.data.frame(res$p.adj)
+  	ctab2$ID <- rownames(res$p.adj)
+  	ctab2 <- aggregate(ctab2, ID)    
+        colnames(ctab2) <- c("X1", "X2", "p.adj")
+  	ctab2$p.adj <- as.numeric(as.character(ctab2$p.adj))  	
+
+        ctab <- cbind(ctab, ctab2$p.adj)
         colnames(ctab) <- c("X1", "X2", "Correlation", "p.adj")
         ctab <- ctab[order(ctab$p.adj), ]
         colnames(ctab) <- c("X1", "X2", "Correlation", "p.adj")
@@ -37,7 +47,14 @@ cmat2table <- function(res, verbose = FALSE) {
     } else {
         message("No significant adjusted p-values")
         if (!is.null(ctab)) {
-            ctab <- cbind(ctab, melt(res$pval)$value)
+	
+	    ctab2 <- as.data.frame(res$pval)
+  	    ctab2$ID <- rownames(res$pval)
+  	    ctab2 <- aggregate(ctab2, ID)    
+            colnames(ctab2) <- c("X1", "X2", "value")
+  	    ctab2$value <- as.numeric(as.character(ctab2$value))
+	
+            ctab <- cbind(ctab, ctab2$value)
             ctab <- ctab[order(-abs(ctab$Correlation)), ]
             colnames(ctab) <- c("X1", "X2", "Correlation", "pvalue")
         }

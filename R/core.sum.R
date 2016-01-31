@@ -1,9 +1,12 @@
 core.sum <- function(data, intTr, prevalenceTr) {
 
-    d.bin <- data > intTr
-    prevalences <- rowSums(d.bin)
+    # Prevalence for each OTU
+    prevalences <- rowSums(data > intTr)
+
+    # Number of OTUs above a given prevalence threshold
     nOTUs <- sum(prevalences >= prevalenceTr)
-    return(nOTUs)
+
+    nOTUs
 
 }
 

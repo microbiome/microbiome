@@ -19,6 +19,12 @@ pseq <- download_microbiome("atlas1006")
 ## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
 ```
 
+```
+## Warning in scan(file, what, nmax, sep, dec, quote, skip, nlines,
+## na.strings, : number of items read is not a multiple of the number of
+## columns
+```
+
 
 ### Diversity 
 

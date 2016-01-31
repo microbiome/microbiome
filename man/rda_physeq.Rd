@@ -13,9 +13,10 @@ rda_physeq(x, varname, scale = FALSE, na.action = na.fail)
 
 \item{scale}{See help(rda)}
 
-\item{na.action}{See help(rda)
-
-  @return rda result. See help(vegan::rda)}
+\item{na.action}{See help(rda)}
+}
+\value{
+rda result. See help(vegan::rda)
 }
 \description{
 RDA for phyloseq objects.
@@ -24,7 +25,6 @@ RDA for phyloseq objects.
 }
 \examples{
 #
-
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

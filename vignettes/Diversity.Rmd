@@ -9,6 +9,7 @@ pseq <- download_microbiome("atlas1006")
 # Pick the OTU data
 # (note the zero point has been moved to the detection threshold;
 #  typically signal 1.8 at HITChip log10 scale)
+library(phyloseq)
 otu <- otu_table(pseq)@.Data
 
 # Determine detection threshold at the 0.15 quantile

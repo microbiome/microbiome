@@ -1,8 +1,9 @@
-#' @title Core heatmap
+#' @title OTU core heatmap
 #' @description Core heatmap.
 #' @param data Core matrix
 #' @param detection.thresholds A vector or a scalar indicating the number of intervals in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.
 #' @param palette palette for the plot.type = 'heatmap'
+#' @param min.prevalence If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap.
 #' @return Used for its side effects
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
@@ -10,31 +11,36 @@
 #'   18(S4):16 20, 2012. 
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @importFrom tidyr gather
 #' @keywords utilities
-core_heatmap <- function(data, detection.thresholds = 20, palette = "bw") {
+core_heatmap <- function(data, detection.thresholds = 20, palette = "bw", min.prevalence = NULL) {
 
     DetectionThreshold <- Taxa <- Prevalence <- NULL
     
-    if (length(detection.thresholds) == 1) {
-      detection.thresholds <- 10^seq(log10(1e-3), log10(max(data)), length = detection.thresholds)
-   }
-    
     # Prevalences with varying detection thresholds
     prev <- lapply(detection.thresholds, function (th) {prevalence(data, detection.threshold = th)})
-    prev <- 100*do.call("cbind", prev)
+    prev <- do.call("cbind", prev)
     colnames(prev) <- as.character(detection.thresholds)
 
-    df <- melt(prev)
+    if (!is.null(min.prevalence) && min.prevalence == 0) {
+      prev <- prev[rowMeans(prev > 0) > 0, colMeans(prev > 0) > 0]
+    }
+    
+    df <- as.data.frame(prev)
+    df$ID <- rownames(prev)
+    df <- gather(df, "ID")
     names(df) <- c("Taxa", "DetectionThreshold", "Prevalence")
+    df$DetectionThreshold <- as.numeric(as.character(df$DetectionThreshold))
+    df$Prevalence <- as.numeric(as.character(df$Prevalence)) 
     o <- names(sort(rowSums(prev)))
     df$Taxa <- factor(df$Taxa, levels = o)
-    df$DetectionThreshold <- 100*df$DetectionThreshold
 
     theme_set(theme_bw(10))
     p <- ggplot(df, aes(x = DetectionThreshold, y = Taxa, fill = Prevalence))
-    p <- p + scale_x_log10()
     p <- p + geom_tile()
-    p <- p + xlab("Detection Threshold (Relative Abundance %)")
+    #p <- p + xlab("Detection Threshold (Relative Abundance %)")
+    p <- p + xlab("Detection Threshold")    
+    p <- p + scale_x_log10()
 
     if (palette == "bw") {
         colours <- c("black", "darkgray", "gray", "lightgray", "white")
@@ -44,9 +50,9 @@ core_heatmap <- function(data, detection.thresholds = 20, palette = "bw") {
     }
     
     p <- p + scale_fill_gradientn("Prevalence", 
-        breaks = seq(from = 0, to = 100, 
-        by = 10), colours = colours, limits = c(0, 100))
+        breaks = seq(from = 0, to = 100, by = 10), colours = colours, limits = c(0, 100))
     
-    return(list(plot = p, data = prev))
+    return(list(plot = p, data = df))
     
 } 
+
