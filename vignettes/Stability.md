@@ -6,13 +6,7 @@ Download example data - HITChip Atlas of 130 genus-like taxa across 1006 healthy
 ```r
 library(microbiome)
 pseq <- download_microbiome("atlas1006")
-```
 
-```
-## Error in curl::curl_fetch_memory(url, handle = handle): Timeout was reached
-```
-
-```r
 # Let us keep only prevalent taxa
 # (HITChip signal >3 in >20 percent of the samples)
 pseq <- filter_prevalent(pseq, detection.threshold = 10^3, prevalence.threshold = 0.2)
@@ -54,10 +48,6 @@ only the samples from the zero time point:
 pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'DNA_extraction_method' not found
-```
-
 
 Multimodality score using [potential analysis with
 bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
@@ -68,19 +58,11 @@ bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.h
 bimodality.pb <- bimodality(pseq0, method = "potential_bootstrap")
 ```
 
-```
-## Error in is.vector(x): object 'pseq0' not found
-```
-
 Sarle's bimodality coefficient (see help(coefficient_of_bimodality)):
 
 
 ```r
 bimodality.sarle <- bimodality(pseq0, method = "Sarle.finite.sample")
-```
-
-```
-## Error in is.vector(x): object 'pseq0' not found
 ```
 
 
@@ -91,10 +73,6 @@ DIP test for multimodality (from the [diptest](https://cran.r-project.org/web/pa
 bimodality.dip <- bimodality(pseq0, method = "dip")
 ```
 
-```
-## Error in is.vector(x): object 'pseq0' not found
-```
-
 
 Visualize population densities 
 
@@ -102,29 +80,9 @@ Visualize population densities
 ```r
 # Pick the most and least bimodal taxa as examples
 bimodality <- bimodality.pb
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'bimodality.pb' not found
-```
-
-```r
 unimodal <- names(which.min(bimodality))
-```
-
-```
-## Error in which.min(bimodality): cannot coerce type 'closure' to vector of type 'double'
-```
-
-```r
 bimodal  <- names(which.max(bimodality))
-```
 
-```
-## Error in which.max(bimodality): cannot coerce type 'closure' to vector of type 'double'
-```
-
-```r
 # Visualize population frequencies
 p1 <- plot_density(pseq, otu.name = unimodal, log10 = TRUE) 
 ```
@@ -159,31 +117,13 @@ The analysis suggests that bimodal population distribution across individuals is
 
 ```r
 taxa <- taxa_names(pseq0)
-```
-
-```
-## Error in taxa_names(pseq0): error in evaluating the argument 'physeq' in selecting a method for function 'taxa_names': Error: object 'pseq0' not found
-```
-
-```r
 df <- data.frame(group = taxa,
                  intermediate.stability = intermediate.stability[taxa],
 		 bimodality = bimodality.pb[taxa])
-```
-
-```
-## Error in data.frame(group = taxa, intermediate.stability = intermediate.stability[taxa], : object 'bimodality.pb' not found
-```
-
-```r
 theme_set(theme_bw(20))
 p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
 p <- p + geom_text(size = 3)
 p
-```
-
-```
-## Error: Aesthetics must be either length 1 or the same as the data (20): x, y, label
 ```
 
 ![plot of chunk bimodalitybistability](figure/bimodalitybistability-1.png)
@@ -214,12 +154,12 @@ sessionInfo()
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] gridExtra_2.0.0     rdryad_0.2.0        pROC_1.8           
-##  [4] sorvi_0.7.35        RSQLite_1.0.0       DBI_0.3.1          
-##  [7] ggplot2_2.0.0       dplyr_0.4.3         limma_3.26.5       
-## [10] googleVis_0.5.10    netresponse_1.21.14 reshape2_1.4.1     
-## [13] mclust_5.1          minet_3.28.0        Rgraphviz_2.14.0   
-## [16] graph_1.48.0        knitcitations_1.0.7 knitr_1.12         
+##  [1] gridExtra_2.0.0     RSQLite_1.0.0       DBI_0.3.1          
+##  [4] sorvi_0.7.35        rdryad_0.2.0        limma_3.26.5       
+##  [7] netresponse_1.21.14 reshape2_1.4.1      mclust_5.1         
+## [10] minet_3.28.0        Rgraphviz_2.14.0    graph_1.48.0       
+## [13] googleVis_0.5.10    dplyr_0.4.3         pROC_1.8           
+## [16] ggplot2_2.0.0       knitcitations_1.0.7 knitr_1.12         
 ## [19] phyloseq_1.14.0     microbiome_0.99.73  RPA_1.26.0         
 ## [22] affy_1.48.0         Biobase_2.30.0      BiocGenerics_0.16.1
 ## 

@@ -1,10 +1,7 @@
-#' @title download_microbiome
+#' @title Download microbiome data sets
 #' @description Download microbiome data sets
-#'
 #' @param id Data set name. For options, see download_microbiome()
-#'
 #' @return Data set
-#'
 #' @examples # x <- download_microbiome("peerj32")
 #' @export
 #' @references 
@@ -75,12 +72,10 @@ download_peerj32 <- function (...) {
 
 
 
-#' Download HITChip Atlas 
-#'
+#' @title Download HITChip Atlas
+#' @description Download HITChip Atlas 
 #' @param ... Arguments to be passed
-#'
 #' @return Data set
-#'
 #' @examples \dontrun{download_atlas()}
 #' @importFrom rdryad download_url
 #' @references 
@@ -143,9 +138,7 @@ download_atlas <- function (...) {
 #' Download Diet Swap Study
 #'
 #' @param ... Arguments to be passed
-#'
 #' @return Data set
-#'
 #' @examples \dontrun{download_dietswap()}
 #' @importFrom rdryad download_url
 #' @references 

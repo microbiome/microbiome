@@ -1,3 +1,13 @@
+
+Composition with relative abundances:
+
+```{r composition-example3, fig.path = "figure/", fig.width=8, fig.height=10}
+p <- plot_composition(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
+p <- p + guides(fill = guide_legend(nrow = 7, byrow = TRUE))
+p <- p + theme(legend.position = "bottom")
+print(p)
+```
+
 Read HITChip data from the specified folder and probe summarization
 method (returns the precalculated data matrices for all levels, sample
 metadata and taxonomy; without detection thresholding):

@@ -9,9 +9,14 @@ Data from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/20
 
 ```{r atlasdata}
 library(microbiome)
-data.atlas <- download_microbiome("atlas1006")
+atlas1006 <- download_microbiome("atlas1006")
 ```
 
+Also available as a ready-made example data set in microbiome package:
+
+```{r atlasdata2}
+data(atlas1006)
+```
 
 ### Diet swap data set
 
@@ -19,9 +24,14 @@ Data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/nco
 
 ```{r dietswapdata}
 library(microbiome)
-data.dietswap <- download_microbiome("dietswap")
+dietswap <- download_microbiome("dietswap")
 ```
 
+Also available as a ready-made example data set in microbiome package:
+
+```{r dietswap2}
+data(dietswap)
+```
 
 ### Intestinal microbiota and blood serum lipid metabolites
 
@@ -30,6 +40,13 @@ Data from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) chara
 ```{r peerjdata}
 library(microbiome)
 data.peerj32 <- download_microbiome("peerj32")
+```
+
+
+Also available as a ready-made example data set in microbiome package:
+
+```{r peerj2}
+data(peerj32)
 ```
 
 
@@ -132,3 +149,9 @@ pseq2 <- aggregate_taxa(pseq, "Phylum") # Aggregate into phyloseq object
 dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
 ```
 
+Melted data for plotting is readily obtained with the phyloseq psmelt function:
+
+```{r data25}
+df <- psmelt(pseq)
+kable(head(df))
+```

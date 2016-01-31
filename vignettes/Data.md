@@ -17,10 +17,6 @@ data.atlas <- download_microbiome("atlas1006")
 ## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
 ```
 
-```
-## Error in curl::curl_fetch_memory(url, handle = handle): Timeout was reached
-```
-
 
 ### Diet swap data set
 
@@ -34,10 +30,6 @@ data.dietswap <- download_microbiome("dietswap")
 
 ```
 ## Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n
-```
-
-```
-## Error in curl::curl_fetch_memory(url, handle = handle): Timeout was reached
 ```
 
 

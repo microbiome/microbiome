@@ -2,7 +2,7 @@
 % Please edit documentation in R/data.R
 \name{download_microbiome}
 \alias{download_microbiome}
-\title{download_microbiome}
+\title{Download microbiome data sets}
 \usage{
 download_microbiome(id = "datasets")
 }

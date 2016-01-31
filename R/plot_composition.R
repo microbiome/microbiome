@@ -1,14 +1,25 @@
 #' @title Plot composition
 #' @description Plot taxon abundance for samples.
 #' @param x \code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)
-#' @param taxonomic.level Merge the OTUs (for phyloseq object) into a higher taxonomic level. This has to be one from \code{colnames(tax_table(x))}.
-#' @param relative.abundance Logical. Show relative abundances or not.
-#' @param sort.by Sort by sample data column. Or provide vector of sample IDs.
-#' @param x.label Specify how to label the x axis. This should be one of the variables in \code{sample_variables(x)}
-#' @param relative Show relative abundances
+#' @param taxonomic.level Merge the OTUs (for phyloseq object) into a higher taxonomic level. This has to be one from colnames(tax_table(x)).
+#' @param sample.sort Order samples. Various criteria are available:
+#'   \itemize{
+#'     \item NULL or 'none': No sorting
+#'     \item A single character string: indicate the metadata field to be used for ordering
+#'     \item A character vector: sample IDs indicating the sample ordering.
+#'     \item 'neatmap' Order samples based on the neatmap approach. See \code{\link{order_neatmap}}. By default, 'NMDS' method with 'bray' distance is used. For other options, arrange the samples manually with the function.
+#'   }
+#' @param otu.sort Order taxa. Same options as for the sample.sort argument but instead of metadata, taxonomic table is used.
+#' @param x.label Specify how to label the x axis. This should be one of the variables in sample_variables(x).
+#' @param plot.type Plot type: 'barplot' or 'heatmap'
+#' @param verbose verbose
+#' @param transformation Data transformation to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform_phyloseq}} function.
+#' @param ... Arguments to be passed (for \code{\link{order_neatmap}} function)
 #' @return A \code{\link{ggplot}} plot object.
 #' @importFrom phyloseq tax_glom
+#' @importFrom phyloseq psmelt
 #' @importFrom scales percent
+#' @importFrom netresponse plot_matrix
 #' @export
 #' @examples \dontrun{
 #'   # Example data
@@ -18,52 +29,76 @@
 #'     plot_composition(pseq, taxonomic.level = "Phylum")
 #'           }
 #' @keywords utilities
-plot_composition <- function (x, taxonomic.level = NULL, relative.abundance = FALSE, sort.by = NULL, x.label = "sample", relative = FALSE) {
+plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu.sort = NULL, x.label = "sample", plot.type = "barplot", verbose = TRUE, transformation = NULL, ...) {
 
   # Avoid warnings
-  Sample <- Abundance <- Taxon <- horiz <- value <- scales <- ID <- NULL
+  Sample <- Abundance <- Taxon <- horiz <- value <- scales <- ID <- meta <- OTU <- NULL
 
   # Merge the taxa at a higher taxonomic level
-  if (!is.null(taxonomic.level)) {	         
+  if (!is.null(taxonomic.level)) {
+    if (verbose) {message("Aggregating the taxa.")}
     x <- tax_glom(x, taxonomic.level)
     # Fix the taxon names; tax_glom assigns wrong names
   }
 
-  # Pick the OTU data
-  if (class(x) == "phyloseq") {
-    otu <- otu_table(x)@.Data
-    if (!taxa_are_rows(x)) {otu <- t(otu)}
-    # FIXME: Remove this when this has been fixed to phyloseq package - pending 5/2015
-    if (!is.null(taxonomic.level)) {
-      rownames(otu) <- as.vector(tax_table(x)[, taxonomic.level])
-    }
-  } else {
-    otu <- t(x)
+
+
+  # Sort samples
+  if (is.null(sample.sort) || sample.sort == "none") {
+    # No sorting
+    sample.sort <- sample_names(x)    
+  } else if (length(sample.sort) == 1 && sample.sort %in% names(sample_data(x))) {
+    # Sort by metadata field
+    sample.sort <- rownames(sample_data(x))[order(sample_data(x)[[sample.sort]])]
+  } else if (all(sample.sort %in% sample_names(x))) {
+    # Use predefined order
+    sample.sort <- sample.sort
+  } else if (sample.sort == "neatmap") {
+    sample.sort <- order_neatmap(x, method = "NMDS", distance = "bray", target = "sites", first = NULL) 
   }
 
-  # Estimate relative abundances
-  if (relative.abundance) {
-    otu <- relative.abundance(otu)
+  # Sort taxa
+  if (is.null(otu.sort) || otu.sort == "none") {
+    # No sorting
+    otu.sort <- taxa_names(x)    
+  } else if (length(otu.sort) == 1 && otu.sort %in% names(tax_table(x))) {
+    # Sort by phylogenetic group
+    otu.sort <- rownames(sample_data(x))[order(tax_table(x)[[otu.sort]])]
+  } else if (all(otu.sort %in% sample_names(x))) {
+    # Use predefined order
+    otu.sort <- otu.sort
+  } else if (otu.sort == "neatmap") {
+    otu.sort <- order_neatmap(x, method = "NMDS", distance = "bray", target = "species", first = NULL) 
   }
+  
 
-  # Define sample ordering based on the sort.by column
-  meta <- sample_data(x)
-  if (is.null(sort.by)) {
-    sort.by <- rownames(meta)    
-  } else if (length(sort.by) == 1) {
-    sort.by <- rownames(meta)[order(meta[[sort.by]])]
+  if (verbose) {message("Check data transformations.")}
+  xorig <- x
+  if (is.null(transformation)) {
+    x <- x
+  } else if (transformation == "log10") {
+    x <- transform_phyloseq(x, "log10")
+  } else if (transformation == "Z-OTU") {
+    x <- transform_phyloseq(x, "Z", "OTU")
+  } else if (transformation == "Z-Sample") {
+    x <- transform_phyloseq(x, "Z", "Sample")
+  } else if (transformation == "relative.abundance") {
+    x <- transform_phyloseq(x, "relative.abundance", "OTU")
+  }   
+
+  
+  if (verbose) {message("Prepare data.frame.")}
+  
+  dfm <- psmelt(x)
+  if (!is.null(sample.sort)) {
+    dfm$Sample <- factor(dfm$Sample, levels = sample.sort)
   }
-
-  # Prepare data.frame
-  #dfm <- melt(otu)
-  dfm <- as.data.frame(otu)
-  dfm$ID <- rownames(otu)
-  dfm <- aggregate(dfm, ID)    
-  colnames(dfm) <- c("Taxon", "Sample", "Abundance")
-  dfm$Abundance <- as.numeric(as.character(dfm$Abundance))  
-  dfm$Sample <- factor(as.character(dfm$Sample), levels = sort.by)
+  if (!is.null(otu.sort)) {
+    dfm$OTU <- factor(dfm$OTU, levels = otu.sort)
+  }
 
   # SampleIDs for plotting
+  meta <- sample_data(x)
   if (x.label %in% colnames(meta)) {
 
     dfm$xlabel <- as.vector(unlist(meta[as.character(dfm$Sample), x.label]))
@@ -79,21 +114,37 @@ plot_composition <- function (x, taxonomic.level = NULL, relative.abundance = FA
     dfm$xlabel <- dfm$Sample
   }
 
-  # Provide barplot
-  p <- ggplot(dfm, aes(x = Sample, y = Abundance, fill = Taxon))
-  p <- p + geom_bar(position = "stack", stat = "identity")
-  p <- p + scale_x_discrete(labels = dfm$xlabel, breaks = dfm$Sample)
+  if (verbose) {message("Construct the plots")}
+  if (plot.type == "barplot") {
 
-  # Rotate horizontal axis labels, and adjust
-  p <- p + theme(axis.text.x=element_text(angle=-90, vjust=0.5, hjust=0))
+    # Provide barplot
+    p <- ggplot(dfm, aes(x = Sample, y = Abundance, fill = OTU))
+    p <- p + geom_bar(position = "stack", stat = "identity")
+    p <- p + scale_x_discrete(labels = dfm$xlabel, breaks = dfm$Sample)
 
-  # Relabel y axis for relative abundance
-  if (relative.abundance) {
-    p <- p + scale_y_continuous(labels = percent) # scales::percent
-    p <- p + ylab("Relative abundance (%)")
+    # Rotate horizontal axis labels, and adjust
+    p <- p + theme(axis.text.x=element_text(angle=-90, vjust=0.5, hjust=0))
+
+  } else if (plot.type == "heatmap") {
+
+    if (verbose) {message("Constructing the heatmap.")}
+
+    # Taxa x samples otu matrix
+    otu <- otu_table(x)@.Data
+    if (!taxa_are_rows(x)) {otu <- t(otu)}
+    # Remove NAs after the transformation
+    otu <- otu[rowMeans(is.na(otu)) < 1, colMeans(is.na(otu)) < 1]
+
+    otu.sort <- otu.sort[otu.sort %in% rownames(otu)]
+    sample.sort <- sample.sort[sample.sort %in% colnames(otu)]    
+
+    # Plot
+    # TODO: move it in here from netresponse and return the ggplot object as well
+    p <- plot_matrix(otu[otu.sort, sample.sort], type = "twoway", mar = c(5, 12, 1, 1))
+
   }
-  
-  p
+
+  list(plot = p, data = x)
 
 }
 

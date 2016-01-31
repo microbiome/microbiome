@@ -35,7 +35,7 @@
 #'  \code{\link[vegan]{diversity}}
 #' @importFrom sorvi regression_plot
 #' @export
-#' @examples # 
+#' @examples # plot_diversity(x, group = "bmi_group", "Shannon")
 #' @keywords utilities
 plot_diversity <- function(x, group = "group", title = "", measures = "Shannon", nrow = 1, scales = "free_y", det.th = 0){ 
 

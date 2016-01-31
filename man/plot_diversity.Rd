@@ -50,7 +50,7 @@ You must use untrimmed, non-normalized count data for meaningful results.
 If subject is among the metadata variables, the matched subjects across groups are indicated by lines.
 }
 \examples{
-# 
+# plot_diversity(x, group = "bmi_group", "Shannon")
 }
 \seealso{
 \code{\link{estimate_richness}}

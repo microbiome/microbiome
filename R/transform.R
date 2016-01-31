@@ -26,7 +26,7 @@ transform_phyloseq <- function (x, transformation = "relative.abundance", target
 
   y <- NULL
 
-  if (!all(sample(otu_table(x)@.Data, 1e3)%%1 == 0)) {
+  if (!all(sample(round(prod(dim(otu_table(x)))/10) ))%%1 == 0) {
     warning("The OTU abundances are not integers. Check that the OTU input data is given as original counts to avoid transformation errors!")
   }
 

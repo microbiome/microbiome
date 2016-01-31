@@ -19,10 +19,6 @@ pseq <- download_microbiome("atlas1006")
 ## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
 ```
 
-```
-## Error in curl::curl_fetch_memory(url, handle = handle): Timeout was reached
-```
-
 
 ### Diversity 
 
@@ -39,12 +35,12 @@ kable(head(div))
 
 |         | Observed|  Shannon|   Simpson|
 |:--------|--------:|--------:|---------:|
-|sample.1 |        5| 1.332441| 0.6886460|
-|sample.2 |        5| 1.474480| 0.7391192|
-|sample.3 |        5| 1.523999| 0.7624925|
-|sample.4 |        5| 1.560578| 0.7804036|
-|sample.5 |        5| 1.544700| 0.7721668|
-|sample.6 |        5| 1.542622| 0.7745688|
+|Sample.1 |      130| 3.189726| 0.9230387|
+|Sample.2 |      130| 3.396135| 0.9397719|
+|Sample.3 |      130| 2.866104| 0.8850959|
+|Sample.4 |      130| 3.058653| 0.9066459|
+|Sample.5 |      130| 3.076850| 0.9184565|
+|Sample.6 |      130| 2.945709| 0.8966565|
 
 
 ### Diversity vs. obesity
@@ -55,11 +51,15 @@ p <- plot_diversity(pseq, x = "bmi_group", measures = c("Observed", "Shannon", "
 ```
 
 ```
-## Error in `$<-.data.frame`(`*tmp*`, "horiz", value = structure(integer(0), .Label = character(0), class = "factor")): replacement has 0 rows, data has 44
+## Error in access(object, "otu_table", errorIfNULL): otu_table slot is empty.
 ```
 
 ```r
 print(p)
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'Correlation' not found
 ```
 
 ![plot of chunk div-example2](figure/div-example2-1.png)
@@ -71,23 +71,10 @@ print(p)
 ```r
 # Pick the subset of RBB-preprocessed samples from time point 0
 pseq <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
-```
 
-```
-## Error in eval(expr, envir, enclos): object 'DNA_extraction_method' not found
-```
-
-```r
 # Visualize
 library(sorvi)
 p <- sorvi::regression_plot(diversity~age, sample_data(pseq))
-```
-
-```
-## Error in eval(expr, envir, enclos): incorrect size (1), expecting : 44
-```
-
-```r
 print(p)
 ```
 

@@ -20,7 +20,20 @@ groups <- meta$gender
 
 # Compare the two groups with limma
 library(limma)
+```
 
+```
+## 
+## Attaching package: 'limma'
+```
+
+```
+## The following object is masked from 'package:BiocGenerics':
+## 
+##     plotMA
+```
+
+```r
 # Prepare the design matrix which states the groups for each sample
 # in the otu
 design <- cbind(intercept = 1, Grp2vs1 = groups)

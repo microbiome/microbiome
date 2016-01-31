@@ -119,7 +119,7 @@ res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw", prevalence.int
 ```
 
 ```
-## Error in names(df) <- c("Taxa", "DetectionThreshold", "Prevalence"): 'names' attribute [3] must be the same length as the vector [2]
+## Error in mean(x > detection.threshold): (list) object cannot be coerced to type 'double'
 ```
 
 ```r
@@ -143,7 +143,7 @@ res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.interva
 ```
 
 ```
-## Error in names(df) <- c("Taxa", "DetectionThreshold", "Prevalence"): 'names' attribute [3] must be the same length as the vector [2]
+## Error in mean(x > detection.threshold): (list) object cannot be coerced to type 'double'
 ```
 
 ```r
@@ -160,7 +160,7 @@ res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.interva
 ```
 
 ```
-## Error in names(df) <- c("Taxa", "DetectionThreshold", "Prevalence"): 'names' attribute [3] must be the same length as the vector [2]
+## Error in mean(x > detection.threshold): (list) object cannot be coerced to type 'double'
 ```
 
 ```r
@@ -178,15 +178,11 @@ p <- plot_core(pseq, plot.type = "heatmap", palette = "spectral")$plot
 ```
 
 ```
-## Error in max(data): invalid 'type' (closure) of argument
+## Error in max(data): invalid 'type' (list) of argument
 ```
 
 ```r
 print(p)
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'Correlation' not found
 ```
 
 ![plot of chunk core-example4](figure/core-example4-1.png)

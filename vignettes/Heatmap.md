@@ -14,10 +14,6 @@ pseq <- download_microbiome("dietswap")
 ## Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n
 ```
 
-```
-## Error in curl::curl_fetch_memory(url, handle = handle): Couldn't resolve host name
-```
-
 ```r
 plot_heatmap(pseq, sample.label = "sample")
 ```
@@ -30,30 +26,9 @@ Pick subset of the data and plot ordered heatmap
 ```r
 bacteroidetes <- levelmap(from = "Phylum", to = "Genus",
 	      	 	   tax.table = tax_table(pseq))$Bacteroidetes
-```
-
-```
-## Error in tax_table(as(x, "matrix")[i, j, drop = FALSE]): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error in as(x, "matrix")[i, j, drop = FALSE] : subscript out of bounds
-```
-
-```r
 pseq2 <- prune_taxa(bacteroidetes, pseq)
-```
-
-```
-## Error in validObject(.Object): invalid class "otu_table" object: 
-##  OTU abundance data must have non-zero dimensions.
-```
-
-```r
 pseq2 <- subset_samples(pseq2, group == "DI")
-```
 
-```
-## Error in validObject(.Object): invalid class "sample_data" object: Sample Data must have non-zero dimensions.
-```
-
-```r
 # Plot heatmap ordered with NMDS
 plot_heatmap(pseq2, method = "NMDS", distance = "bray",
 	     sample.label = "sample", taxa.label = "Genus")
@@ -170,10 +145,6 @@ p <- correlation.heatmap(correlation.table, "X1", "X2", fill = "Correlation", st
 print(p)
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'group' not found
-```
-
 ![plot of chunk heatmap-example-stars3](figure/heatmap-example-stars3-1.png)
 
 
@@ -246,10 +217,6 @@ p <- p + geom_text(data = subset(correlation.table, p.adj < 0.02),
 ```r
 # Plot
 print(p)
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'group' not found
 ```
 
 ![plot of chunk heatmap-example-stars](figure/heatmap-example-stars-1.png)

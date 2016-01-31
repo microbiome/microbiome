@@ -26,3 +26,17 @@ dimnames(lip2) <- dimnames(lip)
 # Write to file
 write.table(hit, file = "~/Rpackages/microbiome/microbiome/inst/extdata/ProvasI-L2.tab", sep = ";", quote = FALSE)
 write.table(lip2, file = "~/Rpackages/microbiome/microbiome/inst/extdata/ProvasI-Lipid.tab", sep = ";", quote = FALSE)
+
+# ........................
+
+data(peerj32)
+# lipids microbes meta
+# Taxonomy
+taxonomy <- GetPhylogeny("HITChip", "filtered")
+taxonomy <- unique(as.data.frame(taxonomy[, c("L1", "L2")]))
+rownames(taxonomy) <- as.vector(taxonomy[, "L2"])
+
+# Merging data matrices into phyloseq format:
+pseq <- hitchip2physeq(t(otu), meta, taxonomy)
+
+round(peerj32$microbes - min(peerj32$microbes))
