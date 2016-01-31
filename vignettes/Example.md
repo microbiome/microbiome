@@ -110,13 +110,17 @@ Visualize diversity vs. discrete metadata variable (here 'diet' but you can call
 plot_diversity(pseq.probe, x = "diet", measures = "Shannon")
 ```
 
-![plot of chunk example-7](figure/example-7-1.png)
+```
+## Error in access(object, "otu_table", errorIfNULL): otu_table slot is empty.
+```
 
 ```r
 plot_diversity(pseq.probe, x = "diet", measures = "InvSimpson")
 ```
 
-![plot of chunk example-7](figure/example-7-2.png)
+```
+## Error in access(object, "otu_table", errorIfNULL): otu_table slot is empty.
+```
 
 ### Wilcoxon test
 
