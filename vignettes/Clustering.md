@@ -30,7 +30,7 @@ p <- PlotMixtureMultivariate(D, means = m$mu, sds = m$sd, ws = m$w, modes = appl
 
 ### Univariate (infinite) Gaussian mixture model
 
-Fit and visualize Variational Dirichlet process univariate infinite Gaussian mixture. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short).
+Fit and visualize Variational Dirichlet process univariate infinite Gaussian mixture. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short) for the code.
 
 
 ```r

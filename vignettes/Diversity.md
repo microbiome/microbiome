@@ -6,10 +6,17 @@
 # Get example data in phyloseq format
 library(microbiome)
 pseq <- download_microbiome("atlas1006")
+```
 
+```
+## Error in curl::curl_fetch_memory(url, handle = handle): Timeout was reached
+```
+
+```r
 # Pick the OTU data
 # (note the zero point has been moved to the detection threshold;
 #  typically signal 1.8 at HITChip log10 scale)
+library(phyloseq)
 otu <- otu_table(pseq)@.Data
 
 # Determine detection threshold at the 0.15 quantile
@@ -50,7 +57,18 @@ Visualize diversity vs. discrete variable:
 
 ```r
 p <- plot_diversity(pseq, x = "bmi_group", measures = "Shannon")
+```
+
+```
+## Error in `$<-.data.frame`(`*tmp*`, "horiz", value = structure(integer(0), .Label = character(0), class = "factor")): replacement has 0 rows, data has 44
+```
+
+```r
 print(p)
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'Correlation' not found
 ```
 
 ![plot of chunk div-example2](figure/div-example2-1.png)
@@ -61,14 +79,11 @@ Same with the phyloseq function:
 ```r
 p <- plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
 p <- p + geom_boxplot()
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "geom_boxplot"
-```
-
-```r
 print(p)
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'bmi_group' not found
 ```
 
 ![plot of chunk div-example2b](figure/div-example2b-1.png)
@@ -80,13 +95,27 @@ Highlight specific groups:
 ```r
 library(ggplot2)
 data.dietswap <- download_microbiome("dietswap")
+```
+
+```
+## Error in curl::curl_fetch_memory(url, handle = handle): Timeout was reached
+```
+
+```r
 p <- plot_richness(data.dietswap, x = "gender", color = "group", measures = c("Shannon", "Simpson")) 
+```
+
+```
+## Error in otu_table(physeq): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'data.dietswap' not found
+```
+
+```r
 p <- p + geom_boxplot()
 print(p)
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'gender' not found
+## Error in eval(expr, envir, enclos): object 'bmi_group' not found
 ```
 
 ![plot of chunk richness](figure/richness-1.png)
@@ -96,7 +125,18 @@ Diversity vs. continuous variable:
 
 ```r
 p <- plot_diversity(pseq, x = "age", measures = "Shannon")
+```
+
+```
+## Error in `$<-.data.frame`(`*tmp*`, "horiz", value = structure(integer(0), .Label = character(0), class = "factor")): replacement has 0 rows, data has 44
+```
+
+```r
 print(p)
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'bmi_group' not found
 ```
 
 ![plot of chunk diversitywithmetadata2](figure/diversitywithmetadata2-1.png)
@@ -108,6 +148,10 @@ Same with the phyloseq function:
 p <- plot_richness(pseq, x = "age", measures = "Shannon")
 p <- p + geom_smooth()
 print(p)
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'age' not found
 ```
 
 ![plot of chunk diversitywithmetadata2b](figure/diversitywithmetadata2b-1.png)
@@ -126,11 +170,37 @@ sample_data(pseq)$diversity <- estimate_diversity(pseq)$Shannon
 
 # Select a subset of samples
 pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'DNA_extraction_method' not found
+```
+
+```r
 # Visualize
 df <- sample_data(pseq0)
+```
+
+```
+## Error in sample_data(pseq0): error in evaluating the argument 'object' in selecting a method for function 'sample_data': Error: object 'pseq0' not found
+```
+
+```r
 p <- sorvi::regression_plot(diversity ~ age, df)
+```
+
+```
+## Error: All select() inputs must resolve to integer column positions.
+## The following do not:
+## *  DV
+```
+
+```r
 print(p)
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'age' not found
 ```
 
 ![plot of chunk diversity-example13](figure/diversity-example13-1.png)

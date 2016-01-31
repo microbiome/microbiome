@@ -82,7 +82,7 @@ print(res$plot)
 
 Zoom in on the core region by filtering out rows and columns with zero prevalence:
 
-```{r core-example3b, fig.width=8, fig.heigth=13, fig.path = "figure/"}
+```{r core-example3bb, fig.width=8, fig.heigth=13, fig.path = "figure/"}
 res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, min.prevalence = 0)
 print(res$plot)
 ```

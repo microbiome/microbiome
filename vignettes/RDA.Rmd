@@ -28,6 +28,7 @@ library(phyloseq)
 meta <- sample_data(pseq.log10)
 plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
 points(rda.result, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
+library(vegan)
 pl <- ordihull(rda.result, meta$time, scaling = 3, label = TRUE)
 title("RDA")
 ```

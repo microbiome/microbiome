@@ -24,7 +24,6 @@ Imports:
     phyloseq,
     RColorBrewer,
     rdryad,
-    reshape2,
     scales,
     sorvi,
     tidyr,

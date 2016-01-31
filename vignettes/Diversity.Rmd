@@ -41,14 +41,22 @@ diversity <- estimate_diversity(pseq)
 Visualize diversity vs. discrete variable:
 
 ```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.heigth=6}
-p <- plot_diversity(pseq, x = "bmi_group", measures = "Shannon")
+p <- plot_diversity(pseq, "bmi_group", measures = c("Chao1", "Shannon"))
+print(p)
+
+# To indicate time as discrete variable, order it as a factor
+# If a subject column is available in sample data
+# the subjects will be indicated by lines across the groups
+psub <- subset_samples(pseq, group == "DI")
+sample_data(psub)$timepoint <- factor(sample_data(psub)$timepoint, levels = sort(unique(sample_data(psub)$timepoint)))
+p <- plot_diversity(psub, "timepoint", measures = c("Chao1", "Shannon"))
 print(p)
 ```
 
 Same with the phyloseq function:
 
 ```{r div-example2b, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.heigth=6}
-p <- plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
+p <- plot_richness(pseq, "bmi_group", measures = c("Chao1", "Shannon"))
 p <- p + geom_boxplot()
 print(p)
 ```

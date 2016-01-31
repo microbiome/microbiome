@@ -10,7 +10,13 @@ library(microbiome)
 library(phyloseq)
 library(ggplot2)
 pseq <- download_microbiome("atlas1006")
+```
 
+```
+## Error in curl::curl_fetch_memory(url, handle = handle): Timeout was reached
+```
+
+```r
 # Convert signal to relative abundances
 pseq.rel <- transform_sample_counts(pseq, function (x) {x/sum(x)})
 
@@ -32,27 +38,10 @@ pseq.ord <- ordinate(pseq2, "NMDS", "bray")
 ```
 
 ```
-## Run 0 stress 0.2028826 
-## Run 1 stress 0.4204018 
-## Run 2 stress 0.2132288 
-## Run 3 stress 0.2078395 
-## Run 4 stress 0.2072215 
-## Run 5 stress 0.2189983 
-## Run 6 stress 0.2203689 
-## Run 7 stress 0.2280538 
-## Run 8 stress 0.2111716 
-## Run 9 stress 0.2202255 
-## Run 10 stress 0.2182107 
-## Run 11 stress 0.2082472 
-## Run 12 stress 0.2216505 
-## Run 13 stress 0.2122944 
-## Run 14 stress 0.2048463 
-## Run 15 stress 0.2160907 
-## Run 16 stress 0.2100183 
-## Run 17 stress 0.220414 
-## Run 18 stress 0.2216315 
-## Run 19 stress 0.207923 
-## Run 20 stress 0.2237309
+## Run 0 stress 0.07127536 
+## Run 1 stress 0.07127536 
+## ... procrustes: rmse 4.481961e-07  max resid 1.931418e-06 
+## *** Solution reached
 ```
 
 ```r
@@ -76,6 +65,13 @@ print(p)
 ```r
 # Highlight low/high Prevotella subjects
 prevotella.abundance  <- as.vector(log10(otu_table(pseq2)["Prevotella melaninogenica et rel.",]) )
+```
+
+```
+## Error in as.vector(log10(otu_table(pseq2)["Prevotella melaninogenica et rel.", : error in evaluating the argument 'x' in selecting a method for function 'as.vector': Error in as(x, "matrix")[i, j, drop = FALSE] : subscript out of bounds
+```
+
+```r
 p <- densityplot(proj[, 1:2], col = prevotella.abundance, legend = T)
 print(p)
 ```

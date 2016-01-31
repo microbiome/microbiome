@@ -4,17 +4,17 @@
 \alias{plot_diversity}
 \title{Plot diversity}
 \usage{
-plot_diversity(physeq, x = "group", title = "", measures = "Shannon",
+plot_diversity(x, group = "group", title = "", measures = "Shannon",
   nrow = 1, scales = "free_y", det.th = 0)
 }
 \arguments{
-\item{physeq}{\code{\link{phyloseq-class}} object}
+\item{x}{\code{\link{phyloseq-class}} object}
 
-\item{x}{A variable to map to the horizontal axis. The vertical
+\item{group}{A variable to map to the horizontal axis. The vertical
 axis will be mapped to the alpha diversity index/estimate
 and have units of total taxa, and/or index value (dimensionless).
 This parameter (\code{x}) is a character string indicating a
-in the dataset (nsamples(physeq)).}
+in the dataset (nsamples(x)).}
 
 \item{title}{Optional title for the graphic.}
 
@@ -45,6 +45,9 @@ in \code{physeq}, but they can be further grouped on the horizontal axis
 through the argument to \code{x}, 
 and shaded according to the argument to \code{color} (see below).
 You must use untrimmed, non-normalized count data for meaningful results.
+}
+\details{
+If subject is among the metadata variables, the matched subjects across groups are indicated by lines.
 }
 \examples{
 # 

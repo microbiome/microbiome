@@ -11,6 +11,7 @@
 #' @importFrom ggplot2 geom_line
 #' @importFrom ggplot2 geom_point
 #' @importFrom ggplot2 geom_text
+#' @importFrom ggplot2 geom_segment
 #' @importFrom ggplot2 geom_tile
 #' @importFrom ggplot2 ggplot
 #' @importFrom ggplot2 ggtitle

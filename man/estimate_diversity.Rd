@@ -2,7 +2,7 @@
 % Please edit documentation in R/diversity.R
 \name{estimate_diversity}
 \alias{estimate_diversity}
-\title{estimate_diversity}
+\title{Estimate diversity}
 \usage{
 estimate_diversity(x, split = TRUE, measures = NULL, det.th = 0)
 }

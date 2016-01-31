@@ -1,13 +1,11 @@
 ## Example data sets
 
-This page shows how to import HITChip data in R, how to convert HITChip data into phyloseq format, and how to load some published example data sets for microbiome analyses in R. For further microbiome data sets in phyloseq format, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html).
-
-For examples on preprocessing the data (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md).
+This page shows how to import microbiome profiling data into phyloseq format and to load some published example data sets in R. For further microbiome data sets in phyloseq format, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html). For data preprocessing (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md).
 
 
 ### HITChip Atlas data 
 
-Data from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) contains large-scale profiling of 130 genus-like taxa across 1006 normal western adults. Some subjects have also short time series. This data set is available in [Data Dryad](http://doi.org/10.5061/dryad.pk75d). [Downloading the HITChip Atlas in R phyloseq format](Atlas.md):
+Data from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) contains large-scale profiling of 130 genus-like taxa across 1006 normal western adults. Some subjects have also short time series. This data set is available in [Data Dryad](http://doi.org/10.5061/dryad.pk75d). [Download the HITChip Atlas in R phyloseq format](Atlas.md):
 
 
 ```r
@@ -17,6 +15,10 @@ data.atlas <- download_microbiome("atlas1006")
 
 ```
 ## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
+```
+
+```
+## Error in curl::curl_fetch_memory(url, handle = handle): Timeout was reached
 ```
 
 
@@ -32,6 +34,10 @@ data.dietswap <- download_microbiome("dietswap")
 
 ```
 ## Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n
+```
+
+```
+## Error in curl::curl_fetch_memory(url, handle = handle): Timeout was reached
 ```
 
 
@@ -50,18 +56,11 @@ data.peerj32 <- download_microbiome("peerj32")
 ```
 
 
+## HITChip to phyloseq 
+
 ### Importing HITChip data
 
-Importing HITChip data from data folder. With HITChip,
-[fRPA](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)
-is the recommended preprocessing method. You can provide sample
-metadata by adding new fields in the template metadata file your
-HITChip data folder and exporting it again to tab-separated .tab
-format. Some standard, self-explanatory field names include 'sample',
-'time', 'subject', 'group', 'gender', 'diet', 'age'. You can leave
-these out or include further fields. See this [example
-file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/meta.tab).
-
+Define the data folder. 
 
 
 ```r
@@ -75,12 +74,15 @@ print(data.directory)
 ## [1] "/home/antagomir/R/x86_64-pc-linux-gnu-library/3.2/microbiome/extdata"
 ```
 
-## HITChip to phyloseq format
-
-The [phyloseq](https://github.com/joey711/phyloseq) R package provides
-many additional tools for microbiome analyses. See [phyloseq demo
-page](http://joey711.github.io/phyloseq-demo/).
-
+With HITChip,
+[fRPA](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)
+is the recommended preprocessing method. You can add new metadata
+fields in the template metadata file in your HITChip data folder and
+exporting it again to tab-separated .tab format. Some standard,
+self-explanatory field names include 'sample', 'time', 'subject',
+'group', 'gender', 'diet', 'age'. You can leave these out or include
+further fields. See this [example
+file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/meta.tab).
 Import HITChip phylotype-level data in
 [phyloseq](https://github.com/joey711/phyloseq) format (note: the
 precalculated matrices are calculated with detection.threshold = 0):
@@ -148,51 +150,29 @@ pseq <- hitchip2physeq(t(otu), meta, taxonomy)
 
 ### Picking data from phyloseq  
 
-Assuming your data is in the phyloseq format, many standard tools can directly operate on that data. If you need to pick specific data sets separately, you can mimic these examples.
-
-Get example data in phyloseq format:
+Assuming your data 'pseq' is in the phyloseq format, many standard tools can directly operate on that data. If you need to pick specific data sets separately, you can mimic these examples.
 
 
-```r
-library(microbiome)
-pseq <- download_microbiome("atlas1006")
-```
-
-```
-## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
-```
-
-Pick sample metadata:
+Sample metadata:
 
 
 ```r
+library(phyloseq)
 meta <- sample_data(pseq)
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "sample_data"
-```
-
-Pick taxonomy table
+Taxonomy table
 
 
 ```r
 tax.table <- tax_table(pseq)
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "tax_table"
-```
-
 Pick taxa abundance data matrix. In this example the OTU level corresponds to genus-like groups (the function name otu_table is somewhat misleading):
 
 
 ```r
-abundance.table <- otu_table(pseq)@.Data
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "otu_table"
+otu <- otu_table(pseq)@.Data
 ```
 
 Aggregate the abundance matrix to higher-level taxa on HITChip:
@@ -200,10 +180,13 @@ Aggregate the abundance matrix to higher-level taxa on HITChip:
 
 ```r
 pseq2 <- aggregate_taxa(pseq, "Phylum") # Aggregate into phyloseq object
-dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "otu_table"
+## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
+```
+
+```r
+dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
 ```
 

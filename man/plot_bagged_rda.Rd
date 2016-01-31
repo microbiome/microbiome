@@ -2,10 +2,10 @@
 % Please edit documentation in R/plot_bagged_rda.R
 \name{plot_bagged_rda}
 \alias{plot_bagged_rda}
-\title{plot_bagged_rda}
+\title{Plot bagged_rda output}
 \usage{
-plot_bagged_rda(x, which.bac = 1:nrow(Bag.res$loadings), ptype = "spider",
-  comp = 1:2, cex.bac = 0.5, plot.names = T,
+plot_bagged_rda(x, which.bac = 1:nrow(x$bagged.rda$loadings),
+  ptype = "spider", comp = 1:2, cex.bac = 0.5, plot.names = T,
   group.cols = as.numeric(unique(Y)), ...)
 }
 \arguments{
@@ -13,15 +13,15 @@ plot_bagged_rda(x, which.bac = 1:nrow(Bag.res$loadings), ptype = "spider",
 
 \item{which.bac}{TBA}
 
-\item{ptype}{TBA}
+\item{ptype}{Plot type. "spider" or "hull"}
 
 \item{comp}{TBA}
 
-\item{cex.bac}{TBA}
+\item{cex.bac}{Plot size.}
 
 \item{plot.names}{Plot names}
 
-\item{group.cols}{TBA}
+\item{group.cols}{Group colors.}
 
 \item{...}{Other arguments to be passed}
 }
@@ -29,7 +29,7 @@ plot_bagged_rda(x, which.bac = 1:nrow(Bag.res$loadings), ptype = "spider",
 TBA
 }
 \description{
-Bagged RDA visualization
+Bagged RDA visualization.
 }
 \examples{
 \dontrun{
