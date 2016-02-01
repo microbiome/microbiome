@@ -122,7 +122,7 @@ Zoom in on the core region by filtering out rows and columns not passing min pre
 
 ```r
 res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals,
-		detection.thresholds = detection.thresholds, min.prevalence = 1, plot = TRUE)
+		detection.thresholds = detection.thresholds, min.prevalence = 10, plot = TRUE)
 ```
 
 ![plot of chunk core-example3bb](figure/core-example3bb-1.png)
