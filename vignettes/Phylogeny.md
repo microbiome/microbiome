@@ -5,19 +5,26 @@ Check the overall HITChip taxonomy:
 
 ```r
 require(microbiome)
-tax.table <- GetPhylogeny("HITChip")
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
-```
-
-```r
+data("hitchip.taxonomy")
+tax.table <- hitchip.taxonomy$full
 head(tax.table)
 ```
 
 ```
-## Error in head(tax.table): error in evaluating the argument 'x' in selecting a method for function 'head': Error: object 'tax.table' not found
+##                 L1               L2                species
+## sp1 Actinobacteria Actinomycetaceae Actinomyces naeslundii
+## sp2 Actinobacteria Actinomycetaceae Actinomyces naeslundii
+## sp3 Actinobacteria Actinomycetaceae Actinomyces naeslundii
+## sp4 Actinobacteria Actinomycetaceae Actinomyces naeslundii
+## sp5 Actinobacteria Actinomycetaceae Actinomyces naeslundii
+## sp6 Actinobacteria Actinomycetaceae Actinomyces naeslundii
+##                   specimen  oligoID
+## sp1 Actinomyces naeslundii HIT 1134
+## sp2 Actinomyces naeslundii HIT 1158
+## sp3 Actinomyces naeslundii HIT 1194
+## sp4 Actinomyces naeslundii HIT 1589
+## sp5 Actinomyces naeslundii HIT 1590
+## sp6 Actinomyces naeslundii HIT 5644
 ```
 
 Conversion between taxonomic levels:
@@ -26,13 +33,7 @@ Conversion between taxonomic levels:
 ```r
 m <- levelmap(c("Akkermansia", "Bacteroides fragilis et rel."), 
               from = "L2", to = "L1", tax.table)
-```
 
-```
-## Error in levelmap(c("Akkermansia", "Bacteroides fragilis et rel."), from = "L2", : object 'tax.table' not found
-```
-
-```r
 # Another example
 data(GlobalPatterns)
 taxtable <- tax_table(GlobalPatterns)

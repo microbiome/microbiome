@@ -4,7 +4,8 @@ Check the overall HITChip taxonomy:
 
 ```{r phylogeny-example2, warning=FALSE, message=FALSE}
 require(microbiome)
-tax.table <- GetPhylogeny("HITChip")
+data("hitchip.taxonomy")
+tax.table <- hitchip.taxonomy$full
 head(tax.table)
 ```
 
