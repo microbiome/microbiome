@@ -30,11 +30,11 @@ head(prevalence(pseq.rel, detection.threshold = 1, sort = FALSE))
 ```
 
 
-List the taxa that are present at the given detection threshold (2% relative abundance) at a given prevalence (20%) (fraction of the samples):
+List the taxa that are present at the given detection threshold (1% relative abundance) at a given prevalence (80%) (fraction of the samples):
 
 
 ```r
-prevalent.taxa <- prevalent_taxa(pseq.rel, detection.threshold = 2, prevalence.threshold = 20)
+prevalent.taxa <- prevalent_taxa(pseq.rel, detection.threshold = 1, prevalence.threshold = 80)
 ```
 
 
@@ -58,30 +58,20 @@ core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds 
 ```r
 # Core lineplot with absolute read counts
 det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
-res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
+res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot", plot = FALSE)
+res$plot + xlab("Abundance (OTU read count)")
 ```
 
 ![plot of chunk core-example2](figure/core-example2-1.png)
 
 ```r
-res$plot + xlab("Abundance (OTU count)")
-```
-
-![plot of chunk core-example2](figure/core-example2-2.png)
-
-```r
 # Core lineplot with relative abundances
 det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
-res <- plot_core(pseq.rel, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
-```
-
-![plot of chunk core-example2](figure/core-example2-3.png)
-
-```r
+res <- plot_core(pseq.rel, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot", plot = FALSE)
 res$plot + xlab("Relative Abundance (%)")
 ```
 
-![plot of chunk core-example2](figure/core-example2-4.png)
+![plot of chunk core-example2](figure/core-example2-2.png)
 
 ```r
 # Retrieve the core count data matrix

@@ -6,6 +6,7 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(sorvi)
+library(limma)
 
 #library(rmarkdown)
 #rmarkdown::render("vignette.Rmd")
