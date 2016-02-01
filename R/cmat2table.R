@@ -1,4 +1,4 @@
-#' @title cmat2table
+#' @title Correlation results to table
 #' @description Arrange correlation matrices from cross.correlate into a table format
 #' @param res Output from cross.correlate
 #' @param verbose verbose
@@ -20,9 +20,9 @@ cmat2table <- function(res, verbose = FALSE) {
     if (!is.null(res$cor)) {
   	ctab <- as.data.frame(res$cor)
   	ctab$ID <- rownames(res$cor)
-  	ctab <- aggregate(ctab, ID)    
+  	ctab <- gather(ctab, ID)    
         colnames(ctab) <- c("X1", "X2", "Correlation")
-  	dfm$Correlation <- as.numeric(as.character(dfm$Correlation))  	
+  	ctab$Correlation <- as.numeric(as.character(ctab$Correlation))  	
     }
     
     correlation <- NULL  # circumwent warning on globabl vars
@@ -35,7 +35,7 @@ cmat2table <- function(res, verbose = FALSE) {
 
 	ctab2 <- as.data.frame(res$p.adj)
   	ctab2$ID <- rownames(res$p.adj)
-  	ctab2 <- aggregate(ctab2, ID)    
+  	ctab2 <- gather(ctab2, ID)    
         colnames(ctab2) <- c("X1", "X2", "p.adj")
   	ctab2$p.adj <- as.numeric(as.character(ctab2$p.adj))  	
 
@@ -50,7 +50,7 @@ cmat2table <- function(res, verbose = FALSE) {
 	
 	    ctab2 <- as.data.frame(res$pval)
   	    ctab2$ID <- rownames(res$pval)
-  	    ctab2 <- aggregate(ctab2, ID)    
+  	    ctab2 <- gather(ctab2, ID)    
             colnames(ctab2) <- c("X1", "X2", "value")
   	    ctab2$value <- as.numeric(as.character(ctab2$value))
 	

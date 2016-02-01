@@ -53,26 +53,8 @@ tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
 
 ![plot of chunk heatmap-matvisu-example](figure/heatmap-matvisu-example-1.png)
 
-Finding visually appealing order for rows and columns:
 
-
-```r
-# Use the original phyloseq object for ordering as negative values are not allowed
-order.sample <- order_neatmap(pseq2, method = "NMDS", distance = "bray", target = "sites", first = NULL) 
-order.otu <- order_neatmap(pseq2, method = "NMDS", distance = "bray", target = "species", first = NULL)
-```
-
-Then plot the same matrix with ordered rows (keep column order):
-
-
-```r
-tmp <- netresponse::plot_matrix(x[order.otu, order.sample], type = "twoway", mar = c(5, 12, 1, 1))
-```
-
-![plot of chunk heatmap-crosscorrelate3](figure/heatmap-crosscorrelate3-1.png)
-
-
-Neatmap sorting is available also for matrices
+Find visually appealing order for rows and columns with Neatmap sorting:
 
 
 ```r
@@ -86,19 +68,10 @@ sorted.rows <- neatsort(xz, "rows", method = "NMDS", distance = "euclidean")
 
 # Or just arrange the matrix directly
 xo <- neat(xz, method = "NMDS", distance = "euclidean") # Sorted matrix
-```
-
-```
-## Error in x[sc, ]: subscript out of bounds
-```
-
-```r
 tmp <- netresponse::plot_matrix(t(xo), type = "twoway", mar = c(5, 12, 1, 1))
 ```
 
-```
-## Error in t(xo): error in evaluating the argument 'x' in selecting a method for function 't': Error: object 'xo' not found
-```
+![plot of chunk neatmap3](figure/neatmap3-1.png)
 
 
 
@@ -130,19 +103,19 @@ Arrange the results in handy table format:
 
 ```r
 correlation.table <- cmat2table(correlations)
-```
-
-```
-## Error in match.fun(FUN): argument "FUN" is missing, with no default
-```
-
-```r
 kable(head(correlation.table))
 ```
 
-```
-## Error in head(correlation.table): error in evaluating the argument 'x' in selecting a method for function 'head': Error: object 'correlation.table' not found
-```
+
+
+|    |X1                               |X2         | Correlation|     p.adj|
+|:---|:--------------------------------|:----------|-----------:|---------:|
+|833 |Ruminococcus gnavus et rel.      |TG(54:5).2 |   0.7207818| 0.0017385|
+|547 |Ruminococcus gnavus et rel.      |TG(52:5)   |   0.6996301| 0.0031929|
+|141 |Eubacterium cylindroides et rel. |PC(40:3)   |  -0.6771286| 0.0038006|
+|144 |Helicobacter                     |PC(40:3)   |  -0.6838424| 0.0038006|
+|437 |Ruminococcus gnavus et rel.      |TG(50:4)   |   0.6852226| 0.0038006|
+|525 |Ruminococcus gnavus et rel.      |TG(52:4).1 |   0.6716223| 0.0038006|
 
 ### Correlation heatmaps
 
@@ -151,10 +124,6 @@ Rearrange the data and plot the heatmap and mark significant correlations with s
 
 ```r
 p <- correlation.heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
-```
-
-```
-## Error in correlation.heatmap(correlation.table, "X1", "X2", fill = "Correlation", : object 'correlation.table' not found
 ```
 
 ```r
@@ -172,21 +141,8 @@ The above examples provide handy shortcuts for heatmap visualization. You can al
 ```r
 # Order the rows and columns with levels argument if needed:
 correlation.table$X1 <- factor(correlation.table$X1, levels = unique(as.character(correlation.table$X1)))
-```
-
-```
-## Error in factor(correlation.table$X1, levels = unique(as.character(correlation.table$X1))): object 'correlation.table' not found
-```
-
-```r
 correlation.table$X2 <- factor(correlation.table$X2, levels = unique(as.character(correlation.table$X2)))
-```
 
-```
-## Error in factor(correlation.table$X2, levels = unique(as.character(correlation.table$X2))): object 'correlation.table' not found
-```
-
-```r
 # Set black-and-white theme
 library(ggplot2)
 theme_set(theme_bw())
@@ -195,22 +151,9 @@ theme_set(theme_bw())
 # Note: this will leave other cells empty
 library(dplyr)
 subtable <- filter(correlation.table, p.adj < 0.05)
-```
 
-```
-## Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object 'correlation.table' not found
-```
-
-```r
 # Arrange the figure
 p <- ggplot(subtable, aes(x = X1, y = X2, fill = Correlation))
-```
-
-```
-## Error in ggplot(subtable, aes(x = X1, y = X2, fill = Correlation)): object 'subtable' not found
-```
-
-```r
 p <- p + geom_tile() 
 p <- p + scale_fill_gradientn("Correlation", 
        	 		       breaks = seq(from = -1, to = 1, by = 0.2), 
@@ -224,19 +167,9 @@ p <- p + xlab("") + ylab("")
 # Mark the most significant cells with stars
 p <- p + geom_text(data = subset(correlation.table, p.adj < 0.02), 
        	 	   aes(x = X1, y = X2, label = "+"), col = "white", size = 5)
-```
 
-```
-## Error in subset(correlation.table, p.adj < 0.02): error in evaluating the argument 'x' in selecting a method for function 'subset': Error: object 'correlation.table' not found
-```
-
-```r
 # Plot
 print(p)
-```
-
-```
-## Error in data.frame(structure(list(x = c(-0.904241941590452, -0.018020706309709, : arguments imply differing number of rows: 400, 44
 ```
 
 ![plot of chunk heatmap-example-stars](figure/heatmap-example-stars-1.png)
@@ -250,29 +183,8 @@ top of the heatmap:
 ```r
 theme_set(theme_bw(20))
 df <- microbiome::cmat2table(correlations)
-```
-
-```
-## Error in match.fun(FUN): argument "FUN" is missing, with no default
-```
-
-```r
 df$X1 <- factor(df$X1)
-```
-
-```
-## Error in `$<-.data.frame`(S3Part(x, TRUE), name, value): replacement has 0 rows, data has 401
-```
-
-```r
 df$X2 <- factor(df$X2)
-```
-
-```
-## Error in `$<-.data.frame`(S3Part(x, TRUE), name, value): replacement has 0 rows, data has 401
-```
-
-```r
 p <- ggplot(df, aes(X1, X2, group=X2)) 
 p <- p + geom_tile(aes(fill = Correlation)) 
 p <- p + geom_text(aes(fill = df$Correlation, label = round(df$Correlation, 1)), size = 2) 
@@ -283,10 +195,6 @@ p <- p + scale_fill_gradientn("Correlation",
 p <- p + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) 
 p <- p + xlab("") + ylab("")
 print(p)
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'Correlation' not found
 ```
 
 ![plot of chunk heatmap-example-text](figure/heatmap-example-text-1.png)
