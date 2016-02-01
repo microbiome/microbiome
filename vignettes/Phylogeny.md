@@ -7,25 +7,19 @@ Check the overall HITChip taxonomy:
 require(microbiome)
 data("hitchip.taxonomy")
 tax.table <- hitchip.taxonomy$full
-head(tax.table)
+kable(head(tax.table))
 ```
 
-```
-##                 L1               L2                species
-## sp1 Actinobacteria Actinomycetaceae Actinomyces naeslundii
-## sp2 Actinobacteria Actinomycetaceae Actinomyces naeslundii
-## sp3 Actinobacteria Actinomycetaceae Actinomyces naeslundii
-## sp4 Actinobacteria Actinomycetaceae Actinomyces naeslundii
-## sp5 Actinobacteria Actinomycetaceae Actinomyces naeslundii
-## sp6 Actinobacteria Actinomycetaceae Actinomyces naeslundii
-##                   specimen  oligoID
-## sp1 Actinomyces naeslundii HIT 1134
-## sp2 Actinomyces naeslundii HIT 1158
-## sp3 Actinomyces naeslundii HIT 1194
-## sp4 Actinomyces naeslundii HIT 1589
-## sp5 Actinomyces naeslundii HIT 1590
-## sp6 Actinomyces naeslundii HIT 5644
-```
+
+
+|    |L1             |L2               |species                |specimen               |oligoID  |
+|:---|:--------------|:----------------|:----------------------|:----------------------|:--------|
+|sp1 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1134 |
+|sp2 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1158 |
+|sp3 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1194 |
+|sp4 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1589 |
+|sp5 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1590 |
+|sp6 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 5644 |
 
 Conversion between taxonomic levels:
 

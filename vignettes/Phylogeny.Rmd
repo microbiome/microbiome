@@ -6,7 +6,7 @@ Check the overall HITChip taxonomy:
 require(microbiome)
 data("hitchip.taxonomy")
 tax.table <- hitchip.taxonomy$full
-head(tax.table)
+kable(head(tax.table))
 ```
 
 Conversion between taxonomic levels:
