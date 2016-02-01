@@ -61,9 +61,6 @@ Z transformation:
 ```{r preprocessing-ztrans}
 # Z-transform OTUs
 pseq.zotu <- transform_phyloseq(pseq, "Z", "OTU")
-
-# Z-transform samples
-pseq.zsample <- transform_phyloseq(pseq, "Z", "sample")
 ```
 
 Relative abundances (the input data needs to be in absolute scale, not logarithmic!):
@@ -168,9 +165,8 @@ head(taxa_sums(pseq))
 
 Aggregate OTUs to higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus). See also [merge_samples and and merge_taxa](http://joey711.github.io/phyloseq/merge.html):
 
-```{r preprocessing-aggregate-taxa}
-pseq <- read_hitchip(data.directory, method = "frpa")$pseq
-pseq.L2 <- aggregate_taxa(pseq, level = "L2")
+```{r preprocessing-aggregate-taxa, eval=FALSE}
+pseq.L2 <- aggregate_taxa(pseq, level = "Genus")
 ```
 
 Merging phyloseq objects

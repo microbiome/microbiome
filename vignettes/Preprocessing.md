@@ -83,18 +83,6 @@ Z transformation:
 ```r
 # Z-transform OTUs
 pseq.zotu <- transform_phyloseq(pseq, "Z", "OTU")
-
-# Z-transform samples
-pseq.zsample <- transform_phyloseq(pseq, "Z", "sample")
-```
-
-```
-## Warning in mean.default(y): argument is not numeric or logical: returning
-## NA
-```
-
-```
-## Error in transform_sample_counts(x, function(x) {: `fun` not valid function.
 ```
 
 Relative abundances (the input data needs to be in absolute scale, not logarithmic!):
@@ -245,19 +233,7 @@ Aggregate OTUs to higher taxonomic levels, use (on HITChip we use L1/L2 instead 
 
 
 ```r
-pseq <- read_hitchip(data.directory, method = "frpa")$pseq
-```
-
-```
-## Error in paste(data.dir, "/oligoprofile.tab", sep = ""): object 'data.directory' not found
-```
-
-```r
-pseq.L2 <- aggregate_taxa(pseq, level = "L2")
-```
-
-```
-## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
+pseq.L2 <- aggregate_taxa(pseq, level = "Genus")
 ```
 
 Merging phyloseq objects
