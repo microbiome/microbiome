@@ -8,14 +8,10 @@ A basic example of ROC/AUC analysis.
 
 ```r
 library(microbiome)
-pseq <- download_microbiome("dietswap")
-```
+#pseq <- download_microbiome("dietswap")
+data("dietswap")
+pseq <- dietswap
 
-```
-## Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n
-```
-
-```r
 # Pick two groups of samples
 # African, DI group, time points 1 and 2
 # See the original publication for details: 
@@ -57,6 +53,24 @@ Based on the [xrobin/pROC](https://github.com/xrobin/pROC) package
 
 ```r
 library(pROC)
+```
+
+```
+## Type 'citation("pROC")' for a citation.
+```
+
+```
+## 
+## Attaching package: 'pROC'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     cov, smooth, var
+```
+
+```r
 res <- roc(names(pvalues) %in% bacteroidetes, pvalues)
 ```
 

@@ -12,14 +12,11 @@ Visualize population densities for specific taxonomic group:
 library(microbiome)
 library(phyloseq)
 
-x <- download_microbiome("atlas1006")
-```
+# Example data from
+# http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html
+data("atlas1006")
+x <- atlas1006
 
-```
-## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
-```
-
-```r
 # Pick the subset of RBB-preprocessed samples from time point 0
 x <- subset_samples(x, time == 0 & DNA_extraction_method == "r")
 
@@ -52,5 +49,7 @@ tax <- "Prevotella melaninogenica et rel."
 plot_density(x, tax, log10 = TRUE) + ggtitle(paste(tax, "(Rel. Ab. %)"))
 ```
 
-![plot of chunk hist3](figure/hist3-1.png)
+```
+## Error in eval(expr, envir, enclos): could not find function "ggtitle"
+```
 

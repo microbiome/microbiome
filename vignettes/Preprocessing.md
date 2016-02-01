@@ -7,11 +7,9 @@ Download example data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.do
 
 ```r
 library(microbiome)
-pseq <- download_microbiome("dietswap")
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
+#pseq <- download_microbiome("dietswap")
+data("dietswap")
+pseq <- dietswap
 ```
 
 
@@ -25,7 +23,7 @@ head(sample_names(pseq))
 ```
 
 ```
-## Error in sample_names(pseq): error in evaluating the argument 'physeq' in selecting a method for function 'sample_names': Error: object 'pseq' not found
+## [1] "Sample-1" "Sample-2" "Sample-3" "Sample-4" "Sample-5" "Sample-6"
 ```
 
 Sample sums
@@ -36,7 +34,8 @@ head(sample_sums(pseq))
 ```
 
 ```
-## Error in otu_table(x): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq' not found
+## Sample-1 Sample-2 Sample-3 Sample-4 Sample-5 Sample-6 
+##   533779  1330516  1822706   835998  1095023  1246234
 ```
 
 Abundance of a given species in each sample
@@ -47,7 +46,8 @@ head(get_sample(pseq, taxa_names(pseq)[1]))
 ```
 
 ```
-## Error in get_sample(pseq, taxa_names(pseq)[1]): error in evaluating the argument 'physeq' in selecting a method for function 'get_sample': Error: object 'pseq' not found
+## Sample-1 Sample-2 Sample-3 Sample-4 Sample-5 Sample-6 
+##       11       67       21       42       16       20
 ```
 
 Filter samples
@@ -58,19 +58,11 @@ f1 <- filterfun_sample(topp(0.1))
 taxa <- genefilter_sample(pseq, f1, A = round(0.5 * nsamples(pseq)))
 ```
 
-```
-## Error in genefilter_sample(pseq, f1, A = round(0.5 * nsamples(pseq))): error in evaluating the argument 'X' in selecting a method for function 'genefilter_sample': Error: object 'pseq' not found
-```
-
 Select samples by specific metadata fields:
 
 
 ```r
 pseq.subset <- subset_samples(pseq, nationality == "AFR")
-```
-
-```
-## Error in sample_data(physeq): error in evaluating the argument 'object' in selecting a method for function 'sample_data': Error: object 'pseq' not found
 ```
 
 
@@ -85,29 +77,24 @@ Log10 transformation (log(1+x) if the data contains zeroes)
 pseq.log <- transform_phyloseq(pseq, "log10")
 ```
 
-```
-## Error in otu_table(x): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq' not found
-```
-
 Z transformation:
 
 
 ```r
 # Z-transform OTUs
 pseq.zotu <- transform_phyloseq(pseq, "Z", "OTU")
-```
 
-```
-## Error in otu_table(x): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq' not found
-```
-
-```r
 # Z-transform samples
 pseq.zsample <- transform_phyloseq(pseq, "Z", "sample")
 ```
 
 ```
-## Error in otu_table(x): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq' not found
+## Warning in mean.default(y): argument is not numeric or logical: returning
+## NA
+```
+
+```
+## Error in transform_sample_counts(x, function(x) {: `fun` not valid function.
 ```
 
 Relative abundances (the input data needs to be in absolute scale, not logarithmic!):
@@ -115,18 +102,7 @@ Relative abundances (the input data needs to be in absolute scale, not logarithm
 
 ```r
 pseq1 <- transform_phyloseq(pseq, "relative.abundance", "OTU")
-```
-
-```
-## Error in otu_table(x): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq' not found
-```
-
-```r
 pseq2 <- transform_sample_counts(pseq, function(x) x/sum(x))
-```
-
-```
-## Error in taxa_are_rows(physeq): error in evaluating the argument 'physeq' in selecting a method for function 'taxa_are_rows': Error: object 'pseq' not found
 ```
 
 Relative abundance for plain abundance matrix:
@@ -134,13 +110,6 @@ Relative abundance for plain abundance matrix:
 
 ```r
 dat <- otu_table(pseq)@.Data
-```
-
-```
-## Error in otu_table(pseq): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq' not found
-```
-
-```r
 rel <- relative.abundance(dat, det.th = 0)
 ```
 
@@ -156,8 +125,10 @@ sample_variables(pseq)
 ```
 
 ```
-## Error in colnames(sample_data(physeq, errorIfNULL)): error in evaluating the argument 'x' in selecting a method for function 'colnames': Error in sample_data(physeq, errorIfNULL) : 
-##   error in evaluating the argument 'object' in selecting a method for function 'sample_data': Error: object 'pseq' not found
+## [1] "subject"                "sex"                   
+## [3] "nationality"            "group"                 
+## [5] "sample"                 "timepoint"             
+## [7] "timepoint.within.group" "bmi_group"
 ```
 
 Pick variable values for a given variable
@@ -168,7 +139,8 @@ head(get_variable(pseq, sample_variables(pseq)[1]))
 ```
 
 ```
-## Error in sample_data(physeq, FALSE): error in evaluating the argument 'object' in selecting a method for function 'sample_data': Error: object 'pseq' not found
+## [1] byn nms olt pku qjy riv
+## 38 Levels: azh azl byn byu cxj dwc dwk eve fua fud gtd gty hsf irh ... zaq
 ```
 
 ```r
@@ -187,7 +159,7 @@ ntaxa(pseq)
 ```
 
 ```
-## Error in ntaxa(pseq): error in evaluating the argument 'physeq' in selecting a method for function 'ntaxa': Error: object 'pseq' not found
+## [1] 130
 ```
 
 
@@ -196,19 +168,7 @@ Names
 
 ```r
 ranks <- rank_names(pseq)
-```
-
-```
-## Error in colnames(tax_table(physeq, errorIfNULL)): error in evaluating the argument 'x' in selecting a method for function 'colnames': Error in tax_table(physeq, errorIfNULL) : 
-##   error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error: object 'pseq' not found
-```
-
-```r
 taxa <- taxa_names(pseq)
-```
-
-```
-## Error in taxa_names(pseq): error in evaluating the argument 'physeq' in selecting a method for function 'taxa_names': Error: object 'pseq' not found
 ```
 
 
@@ -217,29 +177,12 @@ Prune taxa:
 
 ```r
 taxa <- levelmap(NULL, "Phylum", "Genus", tax_table(pseq))$Bacteroidetes
-```
 
-```
-## Error in tax_table(pseq): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error: object 'pseq' not found
-```
-
-```r
 # With given taxon names
 ex2 <- prune_taxa(taxa, pseq)
-```
 
-```
-## Error in prune_taxa(taxa, pseq): error in evaluating the argument 'taxa' in selecting a method for function 'prune_taxa': Error: object 'taxa' not found
-```
-
-```r
 # Taxa with positive sum across samples
 ex3 <- prune_taxa(taxa_sums(pseq) > 0, pseq)
-```
-
-```
-## Error in prune_taxa(taxa_sums(pseq) > 0, pseq): error in evaluating the argument 'taxa' in selecting a method for function 'prune_taxa': Error in otu_table(x) : 
-##   error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq' not found
 ```
 
 
@@ -250,20 +193,12 @@ Subset taxa:
 pseq <- subset_taxa(pseq, Phylum == "Bacteroidetes")
 ```
 
-```
-## Error in tax_table(physeq): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error: object 'pseq' not found
-```
-
 
 Filter by user-specified function values (here variance):
 
 
 ```r
 f <- filter_taxa(pseq, function(x) var(x) > 1e-05, TRUE)
-```
-
-```
-## Error in inherits(x, get.component.classes()): object 'pseq' not found
 ```
 
 
@@ -275,8 +210,7 @@ head(get_taxa_unique(pseq, "Phylum"))
 ```
 
 ```
-## Error in unique(as(tax_table(physeq, errorIfNULL)[, taxonomic.rank], "character")): error in evaluating the argument 'x' in selecting a method for function 'unique': Error in tax_table(physeq, errorIfNULL) : 
-##   error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error: object 'pseq' not found
+## [1] "Bacteroidetes"
 ```
 
 Pick detected taxa by sample name:
@@ -284,18 +218,7 @@ Pick detected taxa by sample name:
 
 ```r
 samplename <- sample_names(pseq)[[1]]
-```
-
-```
-## Error in sample_names(pseq): error in evaluating the argument 'physeq' in selecting a method for function 'sample_names': Error: object 'pseq' not found
-```
-
-```r
 tax.abundances <- get_taxa(pseq, samplename)
-```
-
-```
-## Error in get_taxa(pseq, samplename): error in evaluating the argument 'physeq' in selecting a method for function 'get_taxa': Error: object 'pseq' not found
 ```
 
 
@@ -307,7 +230,12 @@ head(taxa_sums(pseq))
 ```
 
 ```
-## Error in otu_table(x): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq' not found
+##               Allistipes et rel.     Bacteroides fragilis et rel. 
+##                          3513027                          2539567 
+## Bacteroides intestinalis et rel.       Bacteroides ovatus et rel. 
+##                           199684                          1516522 
+##     Bacteroides plebeius et rel.  Bacteroides splachnicus et rel. 
+##                           596972                           833871
 ```
 
 

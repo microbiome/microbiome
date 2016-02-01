@@ -6,14 +6,8 @@ Example of limma analysis. Identify most significantly different taxa between ma
 ```r
 # Get example data
 library(microbiome)
-pseq <- download_microbiome("peerj32")$physeq
-```
-
-```
-## Downloading data set from Lahti et al. PeerJ, 2013: https://peerj.com/articles/32/
-```
-
-```r
+data("peerj32")
+pseq <- peerj32$phyloseq
 otu <- log10(otu_table(pseq)@.Data)
 meta <- sample_data(pseq)
 groups <- meta$gender

@@ -10,13 +10,23 @@ Data from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/20
 
 ```r
 library(microbiome)
-data.atlas <- download_microbiome("atlas1006")
+atlas1006 <- download_microbiome("atlas1006")
 ```
 
 ```
 ## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
 ```
 
+```
+## Error in curl::curl_fetch_memory(url, handle = handle): Timeout was reached
+```
+
+Also available as a ready-made example data set in microbiome package:
+
+
+```r
+data(atlas1006)
+```
 
 ### Diet swap data set
 
@@ -25,13 +35,23 @@ Data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/nco
 
 ```r
 library(microbiome)
-data.dietswap <- download_microbiome("dietswap")
+dietswap <- download_microbiome("dietswap")
 ```
 
 ```
 ## Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n
 ```
 
+```
+## Error in curl::curl_fetch_memory(url, handle = handle): Timeout was reached
+```
+
+Also available as a ready-made example data set in microbiome package:
+
+
+```r
+data(dietswap)
+```
 
 ### Intestinal microbiota and blood serum lipid metabolites
 
@@ -45,6 +65,14 @@ data.peerj32 <- download_microbiome("peerj32")
 
 ```
 ## Downloading data set from Lahti et al. PeerJ, 2013: https://peerj.com/articles/32/
+```
+
+
+Also available as a ready-made example data set in microbiome package:
+
+
+```r
+data(peerj32)
 ```
 
 
@@ -182,3 +210,21 @@ pseq2 <- aggregate_taxa(pseq, "Phylum") # Aggregate into phyloseq object
 dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
 ```
 
+Melted data for plotting is readily obtained with the phyloseq psmelt function:
+
+
+```r
+df <- psmelt(pseq)
+kable(head(df))
+```
+
+
+
+|      |OTU                                    |Sample    | Abundance|sample    | time|      age|      bmi|subject     |group   |gender |diet      |L1                       |L2                            |species                                |
+|:-----|:--------------------------------------|:---------|---------:|:---------|----:|--------:|--------:|:-----------|:-------|:------|:---------|:------------------------|:-----------------------------|:--------------------------------------|
+|7452  |Streptococcus thermophilus             |Sample.7  |     47614|Sample.7  |    3| 88.21016| 37.25772|subjectID-3 |group-3 |male   |Beverages |Bacilli                  |Streptococcus bovis et rel.   |Streptococcus thermophilus             |
+|17298 |uncultured bacterium OLDB-A9           |Sample.2  |     46322|Sample.2  |    2| 94.62583| 23.11057|subjectID-2 |group-1 |male   |Beverages |Uncultured Clostridiales |Uncultured Clostridiales I    |uncultured bacterium OLDB-A9           |
+|13123 |uncultured bacterium HuCB26            |Sample.13 |     45990|Sample.13 |    1| 15.55381| 24.40662|subjectID-1 |group-4 |male   |Carrots   |Clostridium cluster XIVa |Eubacterium hallii et rel.    |uncultured bacterium HuCB26            |
+|17701 |uncultured bacterium OLDC-G5           |Sample.17 |     44860|Sample.17 |    1| 23.00535| 33.70202|subjectID-1 |group-4 |male   |Apricots  |Clostridium cluster IV   |Clostridium cellulosi et rel. |uncultured bacterium OLDC-G5           |
+|1878  |Bifidobacterium breve                  |Sample.14 |     44815|Sample.14 |    2| 73.46622| 38.54790|subjectID-2 |group-1 |female |Beverages |Actinobacteria           |Bifidobacterium               |Bifidobacterium breve                  |
+|9957  |Uncultured bacterium clone Eldhufec133 |Sample.5  |     42340|Sample.5  |    1| 23.24289| 28.46594|subjectID-1 |group-2 |female |Apricots  |Clostridium cluster XIVa |Ruminococcus obeum et rel.    |Uncultured bacterium clone Eldhufec133 |

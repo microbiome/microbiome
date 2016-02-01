@@ -9,7 +9,8 @@ Load example data:
 library(microbiome)
 library(phyloseq)
 library(ggplot2)
-pseq <- download_microbiome("atlas1006")
+data("atlas1006")
+pseq <- atlas1006
 
 # Convert signal to relative abundances
 pseq.rel <- transform_sample_counts(pseq, function (x) {x/sum(x)})
@@ -68,6 +69,13 @@ Visualize and highlight. In addition to densityplot, see plot_ordn from the micr
 # Highlight gender
 library(microbiome)
 p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
+```
+
+```
+## Error in UseMethod("densityplot"): no applicable method for 'densityplot' applied to an object of class "data.frame"
+```
+
+```r
 print(p)
 ```
 
@@ -77,6 +85,13 @@ print(p)
 # Highlight low/high Prevotella subjects
 prevotella.abundance  <- as.vector(log10(otu_table(pseq2)["Prevotella melaninogenica et rel.",]) )
 p <- densityplot(proj[, 1:2], col = prevotella.abundance, legend = T)
+```
+
+```
+## Error in UseMethod("densityplot"): no applicable method for 'densityplot' applied to an object of class "data.frame"
+```
+
+```r
 print(p)
 ```
 

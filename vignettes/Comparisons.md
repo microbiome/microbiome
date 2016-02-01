@@ -1,13 +1,13 @@
 
 ## Group-wise comparisons
 
-Read example data
+Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
 
 
 ```r
-# Example data
 library(microbiome)
-pseq <- download_microbiome("dietswap")
+data("dietswap")
+pseq <- dietswap
 ```
 
 ### Comparing of two or more groups with a parametric test (linear model; ANOVA)

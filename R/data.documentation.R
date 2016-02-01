@@ -54,3 +54,18 @@ NULL
 #' @format The data set in \code{\link{phyloseq-class}} format.  
 #' @keywords data
 NULL 
+
+
+#' @title HITChip taxonomy
+#' @description HITChip taxonomy table
+#' @name hitchip.taxonomy
+#' @docType data
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com} 
+#' @references 
+#'   Lahti et al. Tipping elements of the human intestinal ecosystem. 
+#'   Nature Communications 5:4344, 2014.
+#'   To cite the microbiome R package, see citation('microbiome') 
+#' @usage data(hitchip.taxonomy)
+#' @format List with the element 'filtered', including a simplified version of the HITChip taxonomy.
+#' @keywords data
+NULL 

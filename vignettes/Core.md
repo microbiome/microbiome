@@ -1,17 +1,13 @@
 ### Prevalence of taxonomic groups
 
 
+
 ```r
 # Load example data
 library(microbiome)
-pseq <- download_microbiome("peerj32")$physeq
-```
+data("peerj32")
+pseq <- peerj32$phyloseq
 
-```
-## Downloading data set from Lahti et al. PeerJ, 2013: https://peerj.com/articles/32/
-```
-
-```r
 # Calculate relative abundances
 pseq.rel <- transform_phyloseq(pseq, "relative.abundance", "OTU")
 ```

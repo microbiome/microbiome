@@ -6,28 +6,21 @@ Load the package and example data:
 ```r
 library(microbiome)
 # Data from https://peerj.com/articles/32/
-pseq <- download_microbiome("peerj32")$physeq
+#pseq <- download_microbiome("peerj32")$phyloseq
+data("peerj32")
+pseq <- peerj32$phyloseq
 ```
 
 ### Standard RDA 
 
-Standard RDA for microbiota profiles versus the 'time' variable from 
-sample metadata:
+Standard RDA for microbiota profiles versus the given (here 'time')
+variable from sample metadata:
 
 
 ```r
-rdatest <- rda_physeq(pseq, "time")
-```
-
-### RDA significance test
-
-
-```r
-permutest(rdatest) 
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "permutest"
+# If x has zeroes we can use log(1 + x) transformation
+pseq.log10 <- transform_sample_counts(pseq, function (x) {log10(x)})
+rda.result <- rda_physeq(pseq.log10, "time")
 ```
 
 ### RDA visualization
@@ -36,34 +29,41 @@ Visualizing the standard RDA output:
 
 
 ```r
-plot(rdatest, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
-```
-
-```
-## Error in plot.xy(xy, type, ...): object 'meta' not found
-```
-
-```r
-points(rdatest, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
-```
-
-```
-## Error in plot.xy(xy.coords(x, y), type = type, ...): object 'meta' not found
-```
-
-```r
-pl <- ordihull(rdatest, meta$time, scaling = 3, label = TRUE)
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ordihull"
-```
-
-```r
+library(phyloseq)
+meta <- sample_data(pseq.log10)
+plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
+points(rda.result, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
+library(vegan)
+pl <- ordihull(rda.result, meta$time, scaling = 3, label = TRUE)
 title("RDA")
 ```
 
 ![plot of chunk rda4](figure/rda4-1.png)
+
+See also the RDA method in phyloseq ordinate function, which is calculated without the formula.
+
+
+### RDA significance test
+
+
+```r
+library(vegan)
+permutest(rda.result) 
+```
+
+```
+## 
+## Permutation test for rda 
+## 
+## Permutation: free
+## Number of permutations: 99
+##  
+## Call: rda(formula = otu ~ annot, scale = scale, na.action =
+## na.action)
+## Permutation test for all constrained eigenvalues
+## Pseudo-F:	 0.6771816 (with 1, 42 Degrees of Freedom)
+## Significance:	 0.89
+```
 
 ### Bagged RDA
 
@@ -71,7 +71,7 @@ Fitting bagged RDA on a phyloseq object:
 
 
 ```r
-res <- bagged_rda(pseq, "group", sig.thresh=0.05, nboot=100)
+res <- bagged_rda(pseq.log10, "group", sig.thresh=0.05, nboot=100)
 ```
 
 ![plot of chunk rda5](figure/rda5-1.png)
@@ -93,17 +93,13 @@ For more complex scenarios, use the vegan package directly:
 
 ```r
 # Pick microbiota profiling data from the phyloseq object
-otu <- otu_table(pseq)@.Data
+otu <- otu_table(pseq.log10)@.Data
 
 # Sample annotations
-meta <- sample_data(pseq)
+meta <- sample_data(pseq.log10)
 
 # RDA with confounders
-rdatest2 <- rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "rda"
+rda.result2 <- rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))
 ```
 
 

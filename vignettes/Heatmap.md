@@ -2,25 +2,21 @@
 
 ### phyloseq heatmaps
 
-Download example data and plot heatmap
+Download example data and plot heatmap with phyloseq tools:
 
 
 ```r
 library(microbiome)
-pseq <- download_microbiome("dietswap")
-```
+data("dietswap")
+pseq <- dietswap
 
-```
-## Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n
-```
-
-```r
+library(phyloseq)
 plot_heatmap(pseq, sample.label = "sample")
 ```
 
 ![plot of chunk heatmap-phyloseq1](figure/heatmap-phyloseq1-1.png)
 
-Pick subset of the data and plot ordered heatmap
+Pick subset of the data and plot ordered heatmap:
 
 
 ```r
@@ -46,23 +42,11 @@ all bacteria from their population mean (smaller: blue; higher: red):
 
 ```r
 # Z transform
-pseqz <- ztransform_phyloseq(pseq2, "OTU")
-```
+pseqz <- transform_phyloseq(pseq2, "Z", "OTU")
 
-```
-## Error in eval(expr, envir, enclos): could not find function "ztransform_phyloseq"
-```
-
-```r
 # Pick OTU table
 x <- otu_table(pseqz)@.Data
-```
 
-```
-## Error in otu_table(pseqz): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseqz' not found
-```
-
-```r
 # Plot heatmap
 tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
 ```
@@ -73,15 +57,16 @@ Finding visually appealing order for rows and columns:
 
 
 ```r
-hm <- heatmap(x) 
+# Use the original phyloseq object for ordering as negative values are not allowed
+order.sample <- order_neatmap(pseq2, method = "NMDS", distance = "bray", target = "sites", first = NULL) 
+order.otu <- order_neatmap(pseq2, method = "NMDS", distance = "bray", target = "species", first = NULL)
 ```
 
 Then plot the same matrix with ordered rows (keep column order):
 
 
 ```r
-tmp <- netresponse::plot_matrix(x[hm$rowInd, ], type = "twoway",
-       			        mar = c(5, 12, 1, 1))
+tmp <- netresponse::plot_matrix(x[order.otu, order.sample], type = "twoway", mar = c(5, 12, 1, 1))
 ```
 
 ![plot of chunk heatmap-crosscorrelate3](figure/heatmap-crosscorrelate3-1.png)
@@ -97,8 +82,9 @@ The function returns correlations, raw p-values, and fdr estimates (not strictly
 ```r
 # Load example data 
 library(microbiome)
-data.peerj32.otu <- download_microbiome("peerj32")$data$microbes
-data.peerj32.lipids <- download_microbiome("peerj32")$data$lipids
+data(peerj32)
+data.peerj32.otu <- peerj32$microbes 
+data.peerj32.lipids <- peerj32$lipids 
 
 # Define data sets to cross-correlate
 # OTU Log10 matrix # Microbiota (44 samples x 130 bacteria)
@@ -241,7 +227,7 @@ df$X1 <- factor(df$X1)
 ```
 
 ```
-## Error in `$<-.data.frame`(`*tmp*`, "X1", value = structure(integer(0), .Label = character(0), class = "factor")): replacement has 0 rows, data has 20
+## Error in `$<-.data.frame`(`*tmp*`, "X1", value = structure(integer(0), .Label = character(0), class = "factor")): replacement has 0 rows, data has 95
 ```
 
 ```r
@@ -249,7 +235,7 @@ df$X2 <- factor(df$X2)
 ```
 
 ```
-## Error in `$<-.data.frame`(`*tmp*`, "X2", value = structure(integer(0), .Label = character(0), class = "factor")): replacement has 0 rows, data has 20
+## Error in `$<-.data.frame`(`*tmp*`, "X2", value = structure(integer(0), .Label = character(0), class = "factor")): replacement has 0 rows, data has 95
 ```
 
 ```r

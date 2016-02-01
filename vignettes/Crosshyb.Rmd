@@ -37,7 +37,8 @@ Investigate species-species cross-hybridization within the Dialister L2 group
 
 ```{r chyb2, warning=FALSE, fig.path = "figure/"}
 # Pick the phylogeny which was used to summarize probes to species level
-tax.table <- GetPhylogeny("HITChip", "filtered") 
+#tax.table <- GetPhylogeny("HITChip", "filtered") 
+tax.table <- as.data.frame(hitchip.taxonomy$filtered@.Data)
 
 # Select species belonging to Dialister L2 group
 mytaxa <- levelmap("Dialister", from = "L2", to = "species", tax.table)[[1]]
