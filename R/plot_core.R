@@ -29,16 +29,20 @@ plot_core <- function(x, title = "Core", plot = TRUE,
   if (length(detection.thresholds) == 1) {
     detection.thresholds <- 10^seq(log10(1e-3), log10(max(data)), length = detection.thresholds)
   }
-    
+
+
   if (plot.type == "lineplot") {
 
     # Calculate the core matrix (prevalence thresholds x abundance thresholds)
     coremat <- core_matrix(x, prevalence.intervals, detection.thresholds)
+
     res <- core_lineplot(coremat)
 
   } else if (plot.type == "heatmap") {
 
     # Here we use taxon x abundance thresholds table indicating prevalences
+    data <- otu_table(x)@.Data
+    if (taxa_are_rows(x)) {data <- t(data)}
     res <- core_heatmap(data, detection.thresholds = detection.thresholds, palette = palette, min.prevalence = min.prevalence)
     
   }

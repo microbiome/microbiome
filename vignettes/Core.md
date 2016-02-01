@@ -83,7 +83,7 @@ print(coremat)
 ## 20    0   0   0   0   0   0   0   0   0   0
 ```
 
-<img src="figure/core-example2-1.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="200px" /><img src="figure/core-example2-2.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="200px" />
+<img src="figure/core-example2-1.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="400px" /><img src="figure/core-example2-2.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="400px" />
 
 
 ### Core heatmaps
@@ -95,13 +95,6 @@ Core with relative abundances:
 prevalence.intervals <- seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)		 
 res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, plot = FALSE) 
-```
-
-```
-## Error in names(df) <- c("Taxa", "DetectionThreshold", "Prevalence"): 'names' attribute [3] must be the same length as the vector [2]
-```
-
-```r
 print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
 ```
 
@@ -121,9 +114,7 @@ detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length 
 res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds)$plot
 ```
 
-```
-## Error in names(df) <- c("Taxa", "DetectionThreshold", "Prevalence"): 'names' attribute [3] must be the same length as the vector [2]
-```
+![plot of chunk core-example3b](figure/core-example3b-1.png)
 
 Zoom in on the core region by filtering out rows and columns with zero prevalence:
 
@@ -132,9 +123,7 @@ Zoom in on the core region by filtering out rows and columns with zero prevalenc
 plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, min.prevalence = 0, plot = FALSE)$plot
 ```
 
-```
-## Error in names(df) <- c("Taxa", "DetectionThreshold", "Prevalence"): 'names' attribute [3] must be the same length as the vector [2]
-```
+![plot of chunk core-example3bb](figure/core-example3bb-1.png)
 
 
 Color scale core plot:
@@ -144,7 +133,5 @@ Color scale core plot:
 plot_core(pseq, plot.type = "heatmap", palette = "spectral")$plot
 ```
 
-```
-## Error in max(data): invalid 'type' (closure) of argument
-```
+![plot of chunk core-example4](figure/core-example4-1.png)![plot of chunk core-example4](figure/core-example4-2.png)
 
