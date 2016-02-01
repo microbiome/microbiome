@@ -31,7 +31,7 @@ res$plot + theme(legend.position = "bottom")
 
 ![plot of chunk composition-example1b](figure/composition-example1b-1.png)
 
-Arrange by sample variable and use custom X axis labels. Africans have more Prevotella as expected. Absolute counts:
+Arrange by sample variable and use custom X axis labels. Only consider the most abundant taxa. Africans have more Prevotella as expected. Absolute counts:
 
 
 ```r
@@ -42,7 +42,7 @@ pseq3 <- subset_samples(pseq3, group == "DI" & timepoint.within.group == 1)
 
 res <- plot_composition(pseq3, sample.sort = "nationality", x.label = "nationality")
 p <- res$plot
-p <- p + guides(fill = guide_legend(ncol = 1))
+p <- p + guides(fill = guide_legend(ncol = 3))
 p <- p + theme(legend.position = "bottom")
 print(p)
 ```
@@ -57,7 +57,7 @@ Same with relative abundances:
 res <- plot_composition(pseq3, sample.sort = "nationality", x.label = "nationality", transformation = "relative.abundance")
 p <- res$plot
 p <- p + guides(fill = guide_legend(ncol = 1))
-p <- p + theme(legend.position = "bottom")
+#p <- p + theme(legend.position = "bottom")
 p <- p + ylab("Relative Abundance (%)")
 print(p)
 ```
@@ -93,7 +93,8 @@ Same, but samples and OTUs sorted with the neatmap method
 
 
 ```r
-res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU", sample.sort = "neatmap", otu.sort = "neatmap")
+res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
+       			       sample.sort = "neatmap", otu.sort = "neatmap")
 ```
 
 ![plot of chunk composition-example7](figure/composition-example7-1.png)
@@ -105,12 +106,8 @@ Same, but samples and OTUs sorted manually
 ```r
 sample.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "sites", first = NULL) 
 otu.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "species", first = NULL)
-res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU", sample.sort = sample.sort, otu.sort = otu.sort)
-```
-
-```
-## Warning in if (otu.sort == "neatmap") {: the condition has length > 1 and
-## only the first element will be used
+res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
+       			       sample.sort = sample.sort, otu.sort = otu.sort)
 ```
 
 ![plot of chunk composition-example8](figure/composition-example8-1.png)

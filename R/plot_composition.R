@@ -53,7 +53,7 @@ plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu
   } else if (all(sample.sort %in% sample_names(x))) {
     # Use predefined order
     sample.sort <- sample.sort
-  } else if (sample.sort == "neatmap") {
+  } else if (length(sample.sort) == 1 && sample.sort == "neatmap") {
     sample.sort <- order_neatmap(x, method = "NMDS", distance = "bray", target = "sites", first = NULL) 
   }
 
@@ -67,7 +67,7 @@ plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu
   } else if (all(otu.sort %in% sample_names(x))) {
     # Use predefined order
     otu.sort <- otu.sort
-  } else if (otu.sort == "neatmap") {
+  } else if (length(otu.sort) == 1 && otu.sort == "neatmap") {
     otu.sort <- order_neatmap(x, method = "NMDS", distance = "bray", target = "species", first = NULL) 
   }
   
