@@ -40,7 +40,7 @@ core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds 
 
 ### Core 2D line plots
 
-```{r core-example2, fig.width=8, fig.heigth=6, fig.path = "figure/", fig.show='hold', out.width="450px"}
+```{r core-example2, fig.width=8, fig.heigth=6, fig.path = "figure/", fig.show='hold', out.width="430px"}
 # Core lineplot with absolute read counts
 det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
 res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot", plot = FALSE)
