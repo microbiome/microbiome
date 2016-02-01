@@ -102,7 +102,7 @@ plot_diversity <- function(x, variable = "group", title = "", measures = "Shanno
     }
 
     p <- regression_plot(value~horiz, mdf)
-    p <- p + xlab(x) 
+    p <- p + xlab(variable) 
 
   }
 

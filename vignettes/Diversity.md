@@ -105,10 +105,6 @@ p <- plot_diversity(atlas1006, "age", measures = "Shannon")
 print(p)
 ```
 
-```
-## Error in as.character.default(x$label): no method for coercing this S4 class to a vector
-```
-
 ![plot of chunk diversitywithmetadata2](figure/diversitywithmetadata2-1.png)
 
 Same with the phyloseq function:
