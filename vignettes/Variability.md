@@ -23,10 +23,6 @@ Heterogeneity across subjects within a group
 res <- estimate_homogeneity(x, "interindividual")
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "estimate_homogeneity"
-```
-
 
 Visualize
 
@@ -37,19 +33,8 @@ theme_set(theme_bw(20))
 p <- ggplot(res$data, aes(x = group, y = correlation))
 p <- p + geom_boxplot()
 p <- p + ggtitle(paste("Inter-individual homogeneity (p=", round(res$p.value, 6), ")"))
-```
-
-```
-## Error in round(res$p.value, 6): non-numeric argument to mathematical function
-```
-
-```r
 p <- p + ylab("Correlation")
 print(p)
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'group' not found
 ```
 
 ![plot of chunk homogeneity-example2d](figure/homogeneity-example2d-1.png)
@@ -64,10 +49,6 @@ Homogeneity within subjects over time (intra-individual stability). Assess 'intr
 res <- estimate_homogeneity(x, "intraindividual")
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "estimate_homogeneity"
-```
-
 
 Visualize
 
@@ -78,19 +59,12 @@ theme_set(theme_bw(20))
 p <- ggplot(res$data, aes(x = group, y = correlation))
 p <- p + geom_boxplot()
 p <- p + ggtitle(paste("Intra-individual homogeneity (p=", round(res$p.value, 6), ")"))
-```
-
-```
-## Error in round(res$p.value, 6): non-numeric argument to mathematical function
-```
-
-```r
 p <- p + ylab("Correlation")
 print(p)
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'group' not found
+## Warning: Removed 6 rows containing non-finite values (stat_boxplot).
 ```
 
 ![plot of chunk homogeneity-intra](figure/homogeneity-intra-1.png)
@@ -121,41 +95,42 @@ sessionInfo()
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] vegan_2.3-3         lattice_0.20-33     permute_0.8-4      
-##  [4] knitcitations_1.0.7 knitr_1.12          limma_3.26.5       
-##  [7] sorvi_0.7.35        ggplot2_2.0.0       tidyr_0.3.1        
-## [10] dplyr_0.4.3         MASS_7.3-45         netresponse_1.21.14
-## [13] reshape2_1.4.1      mclust_5.1          minet_3.28.0       
-## [16] Rgraphviz_2.14.0    graph_1.48.0        phyloseq_1.14.0    
-## [19] microbiome_0.99.73  RPA_1.26.0          affy_1.48.0        
-## [22] Biobase_2.30.0      BiocGenerics_0.16.1
+##  [1] microbiome_0.99.73  devtools_1.9.1      vegan_2.3-3        
+##  [4] lattice_0.20-33     permute_0.8-4       knitcitations_1.0.7
+##  [7] knitr_1.12          limma_3.26.5        sorvi_0.7.35       
+## [10] ggplot2_2.0.0       tidyr_0.3.1         dplyr_0.4.3        
+## [13] MASS_7.3-45         netresponse_1.21.14 reshape2_1.4.1     
+## [16] mclust_5.1          minet_3.28.0        Rgraphviz_2.14.0   
+## [19] graph_1.48.0        phyloseq_1.14.0     RPA_1.26.0         
+## [22] affy_1.48.0         Biobase_2.30.0      BiocGenerics_0.16.1
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] nlme_3.1-122          bitops_1.0-6          solr_0.1.6           
 ##  [4] lubridate_1.5.0       oai_0.1.0             RColorBrewer_1.1-2   
 ##  [7] httr_1.0.0            tools_3.2.2           R6_2.1.2             
 ## [10] affyio_1.40.0         rpart_4.1-10          KernSmooth_2.23-15   
-## [13] dmt_0.8.20            nortest_1.0-4         DBI_0.3.1            
-## [16] mgcv_1.8-10           colorspace_1.2-6      ade4_1.7-3           
-## [19] moments_0.14          preprocessCore_1.32.0 chron_2.3-47         
-## [22] rdryad_0.2.0          formatR_1.2.1         xml2_0.1.2           
-## [25] labeling_0.3          tseries_0.10-34       diptest_0.75-7       
-## [28] scales_0.3.0          lmtest_0.9-34         mvtnorm_1.0-3        
-## [31] quadprog_1.5-5        tgp_2.4-11            digest_0.6.9         
-## [34] stringr_1.0.0         earlywarnings_1.1.22  XVector_0.10.0       
-## [37] bibtex_0.4.0          highr_0.5.1           maps_3.0.2           
-## [40] BiocInstaller_1.20.1  zoo_1.7-12            RCurl_1.95-4.7       
-## [43] magrittr_1.5          Matrix_1.2-3          Rcpp_0.12.3          
-## [46] munsell_0.4.2         S4Vectors_0.8.7       maptree_1.4-7        
-## [49] ape_3.4               RefManageR_0.10.5     stringi_1.0-1        
-## [52] RJSONIO_1.3-0         zlibbioc_1.16.0       plyr_1.8.3           
-## [55] qvalue_2.2.2          Biostrings_2.38.3     splines_3.2.2        
-## [58] multtest_2.26.0       igraph_1.0.1          boot_1.3-17          
-## [61] rjson_0.2.15          codetools_0.2-14      stats4_3.2.2         
-## [64] XML_3.98-1.3          evaluate_0.8          biom_0.3.12          
-## [67] data.table_1.9.6      spam_1.3-0            foreach_1.4.3        
-## [70] gtable_0.1.2          assertthat_0.1        Kendall_2.2          
-## [73] survival_2.38-3       iterators_1.0.8       som_0.3-5            
-## [76] IRanges_2.4.6         fields_8.3-6          cluster_2.0.3
+## [13] dmt_0.8.20            lazyeval_0.1.10       nortest_1.0-4        
+## [16] DBI_0.3.1             mgcv_1.8-10           colorspace_1.2-6     
+## [19] ade4_1.7-3            moments_0.14          preprocessCore_1.32.0
+## [22] chron_2.3-47          rdryad_0.2.0          formatR_1.2.1        
+## [25] xml2_0.1.2            labeling_0.3          tseries_0.10-34      
+## [28] diptest_0.75-7        scales_0.3.0          lmtest_0.9-34        
+## [31] mvtnorm_1.0-3         quadprog_1.5-5        tgp_2.4-11           
+## [34] digest_0.6.9          stringr_1.0.0         earlywarnings_1.1.22 
+## [37] XVector_0.10.0        bibtex_0.4.0          highr_0.5.1          
+## [40] maps_3.0.2            BiocInstaller_1.20.1  zoo_1.7-12           
+## [43] RCurl_1.95-4.7        magrittr_1.5          Matrix_1.2-3         
+## [46] Rcpp_0.12.3           munsell_0.4.2         S4Vectors_0.8.7      
+## [49] maptree_1.4-7         ape_3.4               RefManageR_0.10.5    
+## [52] stringi_1.0-1         RJSONIO_1.3-0         zlibbioc_1.16.0      
+## [55] plyr_1.8.3            qvalue_2.2.2          Biostrings_2.38.3    
+## [58] splines_3.2.2         multtest_2.26.0       igraph_1.0.1         
+## [61] boot_1.3-17           rjson_0.2.15          codetools_0.2-14     
+## [64] stats4_3.2.2          XML_3.98-1.3          evaluate_0.8         
+## [67] biom_0.3.12           data.table_1.9.6      spam_1.3-0           
+## [70] foreach_1.4.3         gtable_0.1.2          assertthat_0.1       
+## [73] roxygen2_5.0.1        Kendall_2.2           survival_2.38-3      
+## [76] iterators_1.0.8       som_0.3-5             memoise_0.2.1        
+## [79] IRanges_2.4.6         fields_8.3-6          cluster_2.0.3
 ```
 
