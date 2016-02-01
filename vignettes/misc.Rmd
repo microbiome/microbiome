@@ -1,3 +1,23 @@
+
+
+# Dependence between homogeneity and sample size
+#dd <- otu_table(pseq)@.Data
+dd <- matrix(rnorm(100*1000), nrow = 100)
+cors <- c(1, 1)
+vec <- 2:(ncol(dd)/2)
+for (n in vec) {
+  print(n)
+  d <- dd[, sample(ncol(dd), n)]
+  cc <- as.vector(cor(d, matrix(rowMeans(d)), method = "spearman", use = "pairwise.complete.obs"))
+  cors <- rbind(cors, cbind(rep(n, n), cc))
+}
+colnames(cors) <- c("n", "r")
+plot(cors, main = cor(cors[,1], cors[,2]))
+
+
+
+
+
 ## Diversity 
 
 Use probe-level data (pseq.probe) to quantify diversity:

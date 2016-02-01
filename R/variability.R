@@ -69,7 +69,6 @@ estimate_homogeneity <- function(x, type, group_by = "group", method = "spearman
         dfs <- rbind(dfs, data.frame(group = rep(ds, length(cors)),
                    	             sample = rownames(dat1),
   		   		     correlation = cors))
-	#homogeneity[[ds]] <- list(correlations = cors, homogeneity = mean(cors))
       }
   
       pval <- anova(lm(correlation ~ group, data = dfs))[["Pr(>F)"]][[1]]

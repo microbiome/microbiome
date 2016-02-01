@@ -20,6 +20,8 @@
 
  * Heatmap: indicate groups with a color bar
 
+ * Homogeneity vs. sample size dependency. Normalize.
+
 # Also PERMANOVA shows the communities are significantly different
 # across groups
 #adonis(t(dat.full) ~ group, data=meta.full, permutations=99)
