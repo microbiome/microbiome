@@ -1,3 +1,6 @@
+#' @importFrom dplyr arrange
+#' @importFrom dplyr funs
+#' @importFrom dplyr summarize_each
 #' @importFrom dplyr summarise
 #' @importFrom dplyr n
 #' @importFrom dplyr mutate

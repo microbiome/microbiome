@@ -14,6 +14,8 @@
 #' @keywords utilities
 check_anova <- function (x, group, p.adjust.method = "BH") {
 
+  . <- p.anova <- NULL
+
   # We need taxa x samples matrix
   mydata <- otu_table(x)@.Data
   if (!taxa_are_rows(x)) {mydata <- t(mydata)}
