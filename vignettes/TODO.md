@@ -1,6 +1,8 @@
 ### TODO
 
- * Stability line plot ?
+ * Stability line plot: check from vignette
+
+ * Determining tipping point automatically for bistability figs
 
  * Tipping elements
 
@@ -22,6 +24,7 @@
 
  * Homogeneity vs. sample size dependency. Normalize.
 
-# Also PERMANOVA shows the communities are significantly different
-# across groups
-#adonis(t(dat.full) ~ group, data=meta.full, permutations=99)
+ * PERMANOVA shows the communities are significantly different across groups
+   adonis(t(dat.full) ~ group, data=meta.full, permutations=99)
+
+  * Licensing issues

@@ -1,5 +1,7 @@
 
 
+
+
 # Dependence between homogeneity and sample size
 #dd <- otu_table(pseq)@.Data
 dd <- matrix(rnorm(100*1000), nrow = 100)

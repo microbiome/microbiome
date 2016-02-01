@@ -78,8 +78,8 @@ unimodal <- names(which.min(bimodality))
 bimodal  <- names(which.max(bimodality))
 
 # Visualize population frequencies
-p1 <- plot_density(pseq, otu.name = unimodal, log10 = TRUE) 
-p2 <- plot_density(pseq, otu.name = bimodal,  log10 = TRUE) 
+p1 <- plot_density(pseq, variable = unimodal, log10 = TRUE) 
+p2 <- plot_density(pseq, variable = bimodal,  log10 = TRUE) 
 library(gridExtra)
 library(ggplot2)
 grid.arrange(p1, p2, nrow = 1)
@@ -100,6 +100,32 @@ p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
 p <- p + geom_text(size = 3)
 p
 ```
+
+
+### Variation plot
+
+Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation line plot for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
+
+```{r bimodalityplot, message=FALSE, warning=FALSE, fig.path = "figure/"}
+data("atlas1006")
+pseq <- atlas1006
+pseq <- subset_samples(pseq, DNA_extraction_method == "r")
+pseq <- transform_phyloseq(pseq, "relative.abundance")
+pv <- plot_variation(pseq, "Dialister", tipping.point = 1)
+```
+
+### Bimodality hotplot
+
+Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the bimodality with heatmap colors as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
+
+```{r bimodalityplot, message=FALSE, warning=FALSE, fig.path = "figure/", fig.width=5, fig.height=10}
+ph <- plot_bimodal(pseq, "Dialister", tipping.point = 1)
+
+# Let us overlay the two plots
+grid.arrange(pv, ph, nrow = 2)
+```
+
+
 
 
 ### Version information
