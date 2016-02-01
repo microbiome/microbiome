@@ -4,15 +4,12 @@
 \alias{PlotCrosshyb}
 \title{Plot cross-hyb table}
 \usage{
-PlotCrosshyb(tax.level = "L1", chip = "HITChip", selected.taxa = NULL,
-  show.plot = TRUE, order.rows = TRUE, order.cols = TRUE,
-  keep.empty = FALSE, rounding = 1, tax.table = NULL,
-  self.correlations = FALSE)
+PlotCrosshyb(tax.level = "L1", selected.taxa = NULL, show.plot = TRUE,
+  order.rows = TRUE, order.cols = TRUE, keep.empty = FALSE,
+  rounding = 1, tax.table = NULL, self.correlations = FALSE)
 }
 \arguments{
 \item{tax.level}{Taxonomic level to investigate}
-
-\item{chip}{Chip type (e.g. 'HITChip')}
 
 \item{selected.taxa}{Restrict cross-hyb analysis to the selected groups.}
 

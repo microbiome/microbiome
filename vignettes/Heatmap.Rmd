@@ -59,6 +59,19 @@ tmp <- netresponse::plot_matrix(x[order.otu, order.sample], type = "twoway", mar
 ```
 
 
+Neatmap sorting is available also for matrices
+
+```{r neatmap3, message=FALSE, warning=FALSE, fig.keep='none', fig.path = "figure/"}
+# Use the original phyloseq object for ordering as negative values are not allowed
+data(peerj32)
+x <- peerj32$microbes # Matrix
+xz <- scale(x) # Z-transformed matrix
+xo <- neat(xz, method = "NMDS", distance = "euclidean") # Sorted matrix
+tmp <- netresponse::plot_matrix(t(xo), type = "twoway", mar = c(5, 12, 1, 1))
+```
+
+
+
 ### Cross-correlating data sets
 
 Cross-correlate columns of two data sets from related to microbiome and blood serum lipids associations ([PeerJ 1:e32](https://peerj.com/articles/32/)).

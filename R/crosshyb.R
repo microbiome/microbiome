@@ -1,7 +1,6 @@
 #' @title Cross hybridization table
 #' @description Cross-hybridization table between multimodal taxa as percentages of shared probes. The number indicates how many percent of oligos for the row taxon are also hybridizing the corresponding column taxon.
 #' @param tax.level Taxonomic level to investigate
-#' @param chip Chip type (e.g. 'HITChip')
 #' @param selected.taxa Restrict cross-hyb analysis to the selected groups.
 #' @param tax.table tax.table 
 #' @return A list containing cross-hybridization table 
@@ -10,24 +9,21 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-CrosshybTable <- function(tax.level = "L1", chip = "HITChip", 
-    selected.taxa = NULL, tax.table = NULL) {
-    
-    # Get taxonomy table
-    if (is.null(tax.table)) {
-        tax.table <- GetPhylogeny(chip, "filtered")
-    }
+CrosshybTable <- function(tax.level = "L1", selected.taxa = NULL, tax.table) {
 
     # Pick necessary columns
     phi <- tax.table[, c(tax.level, "oligoID")]
-    
+
     # Include only selected groups (if any)
     if (!is.null(selected.taxa)) {
         phi <- phi[phi[, tax.level] %in% selected.taxa, ]
     }
-    
+
     # Create taxon-oligo mapping matrix
-    tax.oligos <- sapply(split(phi[, "oligoID"], phi[, tax.level]), function(x) {x})
+    spl <- split(as.character(phi[, "oligoID"]), as.character(phi[, tax.level]))
+
+    tax.oligos <- sapply(spl, function(x) {x})
+
     tax2oligo <- matrix(0, nrow = length(unique(phi[, tax.level])), 
                         ncol = length(unique(phi[, "oligoID"])))
     rownames(tax2oligo) <- unique(phi[, tax.level])
@@ -36,7 +32,7 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
         oligos <- tax.oligos[[tax]]
         tax2oligo[tax, oligos] <- 1
     }
-    
+
     # Confusion matrix: how many overlapping oligos between two taxa
     confusion.matrix <- matrix(NA, nrow = length(tax.oligos), 
                                ncol = length(tax.oligos))
@@ -45,22 +41,19 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
     for (tax1 in rownames(tax2oligo)) {
         for (tax2 in rownames(tax2oligo)) {
             to <- tax2oligo[c(tax1, tax2), ]
-            
             confusion.matrix[tax1, tax2] <- mean(to[tax2, to[tax1, ] == 1])
             confusion.matrix[tax2, tax1] <- mean(to[tax1, to[tax2, ] == 1])
             
         }
     }
     
-    confusion.matrix
-    
+    confusion.matrix   
 }
 
 
 #' @title Plot cross-hyb table
 #' @description Cross-hybridization between multimodal taxa as percentages of shared probes. The number indicates how many percent of oligos for the row taxon are also hybridizing the corresponding column taxon.
 #' @param tax.level Taxonomic level to investigate
-#' @param chip Chip type (e.g. 'HITChip')
 #' @param selected.taxa Restrict cross-hyb analysis to the selected groups.
 #' @param show.plot Produce the plot
 #' @param order.rows Order table rows
@@ -75,22 +68,19 @@ CrosshybTable <- function(tax.level = "L1", chip = "HITChip",
 #'   # res <- PlotCrosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE) 
 #' @export
 #' @importFrom ggplot2 theme
+#' @importFrom tidyr gather
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-PlotCrosshyb <- function(tax.level = "L1", chip = "HITChip", 
-    selected.taxa = NULL, 
-    show.plot = TRUE, order.rows = TRUE, order.cols = TRUE, 
-    keep.empty = FALSE, rounding = 1, 
-    tax.table = NULL, self.correlations = FALSE) {
+PlotCrosshyb <- function(tax.level = "L1",
+    selected.taxa = NULL, show.plot = TRUE, order.rows = TRUE, order.cols = TRUE, 
+    keep.empty = FALSE, rounding = 1, tax.table = NULL, self.correlations = FALSE) {
 
     ID <- NULL
 
     # Get crosshyb matrix
-    confusion.matrix <- CrosshybTable(tax.level = tax.level, chip = "HITChip", 
-        selected.taxa = NULL, 
-        tax.table = NULL)
-    
+    confusion.matrix <- CrosshybTable(tax.level = tax.level, selected.taxa = selected.taxa, tax.table = tax.table)
+
     # Remove self-correlations
     if (!self.correlations) {
         diag(confusion.matrix) <- 0
@@ -114,18 +104,17 @@ PlotCrosshyb <- function(tax.level = "L1", chip = "HITChip",
         message(paste("No cross-hybriziation at", tax.level, "level"))
         return(NULL)
     }
-    
+
     # Organize into data frame
-    #df <- melt(confusion.matrix)
     df <- as.data.frame(confusion.matrix)
     df$ID <- rownames(confusion.matrix)
-    df <- aggregate(df, ID)
+    df <- gather(df, ID)
     names(df) <- c("Taxon1", "Taxon2", "crosshyb")
     df$crosshyb <- as.numeric(as.character(df$crosshyb))
 
     # Switch to percentages
     df[["crosshyb"]] <- 100 * df[["crosshyb"]]
-    
+
     # Order rows and cols
     if (order.rows || order.cols) {
         

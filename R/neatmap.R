@@ -61,6 +61,90 @@ order_neatmap <- function (x, target, method = "NMDS", distance = "bray", first 
 
 
 
+
+#' @title Neatmap ordering for matrices
+#' @description Order rows or columns based on the neatmap approach.
+#' @param x A matrix.
+#' @param arrange Order "rows" or "cols" or "both".
+#' @param method Ordination method. Only NMDS implemented for now.
+#' @param distance Distance method. See \code{\link{vegdist}} function from the \pkg{vegan} package.
+#' @param first Optionally provide the name of the first sample/taxon to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.
+#' @param ... Arguments to pass.
+#' @return Vector of ordered elements
+#' @export
+#' @examples \dontrun{
+#'    data(peerj32)
+#'    x <- peerj32$microbes
+#'    x <- neat(x, "both", method = "NMDS", distance = "bray") 
+#'                   }
+#' @references This function is partially based on code derived from the \pkg{phyloseq} package. However for the original
+#'   neatmap approach for heatmap sorting, see (and cite):
+#'   Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map alternatives in R. BMC Bioinformatics, 11, 45.
+#'
+#' @details This function borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is there
+#' not available as a separate function at present, however, hindering reuse in other tools. Therefore I implemented this function to
+#' provide an independent method for easy sample/taxon reordering for phyloseq objects.
+#' @importFrom vegan scores
+#' @importFrom vegan vegdist
+#' @importFrom vegan metaMDS
+#' @keywords utilities
+neat <- function (x, arrange = "both", method = "NMDS", distance = "bray", first = NULL, ...) {
+
+  if (arrange == "both") {
+    x <- neat(x, "rows", method = method, distance = distance, first = first, ...)
+    x <- neat(x, "cols", method = method, distance = distance, first = first, ...)    
+    return(x)
+  }
+
+
+  if (arrange == "cols") {
+    x <- t(x)
+  }
+
+  # neatmap sorting for matrices with NMDS  
+  # Distance
+  d <- vegdist(x, distance)
+
+  # Order		     
+  # Capture the output to keep the screen clean
+  junk <- capture.output(
+    ord <- metaMDS(d, wascores = FALSE, autotransform = FALSE, noshare = FALSE), file=NULL)
+
+  # Order items with the  NeatMap procedure
+  # Reorder by the angle in radial coordinates on the 2-axis plane.
+  DF <- NULL
+
+  # Define new sample ordering based on the ordination
+  trash <- try({
+    DF <- scores(ord, choices = c(1, 2), display = "sites")}, silent = TRUE)
+
+  if(inherits(trash, "try-error")){
+    warning(paste("Ordering failed. Using default ordering.", sep = ""))
+  }
+  if(!is.null(DF)){
+    # If the score accession worked, replace order
+    ordering <- rownames(x)[order(RadialTheta(DF))] 
+  }
+  # Determine the starting item (OTU or sample)
+  if( !is.null(first) ){
+    ordering <- chunkReOrder(ordering, first)
+  }
+
+  x <- x[ordering,]
+
+  # Return to the original shape
+  if (arrange == "cols") {
+    x <- t(x)
+  }
+
+  x
+}
+
+
+
+
+
+
 #' @title Chunk reorder
 #' @description Chunk re-order a vector so that specified newstart is first. Different than relevel.
 #' @keywords internal

@@ -4,13 +4,10 @@
 \alias{CrosshybTable}
 \title{Cross hybridization table}
 \usage{
-CrosshybTable(tax.level = "L1", chip = "HITChip", selected.taxa = NULL,
-  tax.table = NULL)
+CrosshybTable(tax.level = "L1", selected.taxa = NULL, tax.table)
 }
 \arguments{
 \item{tax.level}{Taxonomic level to investigate}
-
-\item{chip}{Chip type (e.g. 'HITChip')}
 
 \item{selected.taxa}{Restrict cross-hyb analysis to the selected groups.}
 

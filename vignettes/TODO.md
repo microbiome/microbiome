@@ -16,8 +16,5 @@
 
  * SPIEC-EASE / SparCC network algorithms from the huge package -> Healthy vs other networks ?
 
-
  * Bagged and ordinary RDA for phyloseq objects with ggplot visualizations
-
- * make neatmap ordering available also for plain matrices
 
