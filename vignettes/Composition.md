@@ -13,7 +13,7 @@ Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342)
 # Example data
 library(microbiome)
 data(dietswap)
-theme_set(theme_bw(30))
+theme_set(theme_bw(25))
 pseq <- dietswap
 ```
 
@@ -74,6 +74,7 @@ Plain heatmap
 
 
 ```r
+theme_set(theme_bw(30))
 res <- plot_composition(pseq3, plot.type = "heatmap")
 ```
 
