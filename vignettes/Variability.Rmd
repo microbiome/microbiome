@@ -18,18 +18,18 @@ sample_data(x)$time <- sample_data(x)$timepoint.within.group
 Heterogeneity across subjects within a group
 
 ```{r heterogeneity-example2b, message=FALSE}
-res <- estimate_heterogeneity(x, "interindividual")
+res <- estimate_homogeneity(x, "interindividual")
 ```
 
 
 Visualize
 
-```{r heterogeneity-example2d, message=FALSE}
+```{r homogeneity-example2d, message=FALSE}
 library(ggplot2)
 theme_set(theme_bw(20))
 p <- ggplot(res$data, aes(x = group, y = correlation))
 p <- p + geom_boxplot()
-p <- p + ggtitle(paste("Inter-individual heterogeneity (p=", round(res$p.value, 6), ")"))
+p <- p + ggtitle(paste("Inter-individual homogeneity (p=", round(res$p.value, 6), ")"))
 p <- p + ylab("Correlation")
 print(p)
 ```
@@ -37,21 +37,21 @@ print(p)
 
 ### Intra-individual stability
 
-Heterogeneity within subjects over time (intra-individual stability). Assess 'intra-individual stability' as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between two time points within subjects, calculated separately within each group. For illustration, check intra-individual stability (heterogeneity) separately for Placebo and LGG groups.
+Homogeneity within subjects over time (intra-individual stability). Assess 'intra-individual stability' as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between two time points within subjects, calculated separately within each group. For illustration, check intra-individual stability (homogeneity) separately for Placebo and LGG groups.
 
-```{r heterogeneity-example2c, message=FALSE}
-res <- estimate_heterogeneity(x, "intraindividual")
+```{r homogeneity-example2c, message=FALSE}
+res <- estimate_homogeneity(x, "intraindividual")
 ```
 
 
 Visualize
 
-```{r heterogeneity-intra, message=FALSE, warnings=FALSE, fig.height=5, fig.height=5}
+```{r homogeneity-intra, message=FALSE, warnings=FALSE, fig.height=5, fig.height=5}
 library(ggplot2)
 theme_set(theme_bw(20))
 p <- ggplot(res$data, aes(x = group, y = correlation))
 p <- p + geom_boxplot()
-p <- p + ggtitle(paste("Intra-individual heterogeneity (p=", round(res$p.value, 6), ")"))
+p <- p + ggtitle(paste("Intra-individual homogeneity (p=", round(res$p.value, 6), ")"))
 p <- p + ylab("Correlation")
 print(p)
 ```

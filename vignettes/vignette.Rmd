@@ -85,7 +85,6 @@ Download some [example data sets](Data.md) to try these tools:
 
 
 ### Other statistical analysis
-* [ROC curves](ROC.md)
 * [RDA](RDA.md)
 
 

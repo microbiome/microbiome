@@ -1,23 +1,17 @@
-#' @title estimate_variability
-#' @description Variability analysis. 
-#'
-#' @details 
-#' Average correlation between samples in the input data within each
+#' @title Estimate homogeneity
+#' @description Homogeneity analysis. 
+#' @details Average correlation between samples in the input data within each
 #' group with the overall group-wise average. Picks the lower triangular
 #' matrix to avoid duplicating the correlations. Returns correlations and
 #' stability estimate (inter-individual; average of the
-#' correlations). Can also be used to calculate temporal variability
+#' correlations). Can also be used to calculate temporal homogeneity
 #' between two data sets (intra-individual), given appropriate sample
 #' metadata.
-#'
 #' @param x phyloseq object with the OTU matrix and sample metadata. The sample metadata should contain the fields "sample" and "group" (or another grouping variable specified in the group_by argument) for the "interindividual" method. For the "intraindividual" method, also provide "time", and "subject" fields.
-#' @param type Variability type: 'interindividual' or 'intraindividual'
+#' @param type Homogeneity type: 'interindividual' or 'intraindividual'
 #' @param group_by variable to be used in grouping. By default: "group"
 #' @param method correlation method (see ?cor)
-#'
-#' @return List with correlations, group-wise statistics, and ANOVA 
-#'         linear model p-value for group differences.
-#'
+#' @return List with correlations, group-wise statistics, and ANOVA linear model p-value for group differences.
 #' @export
 #' @importFrom dplyr group_by
 #' @importFrom dplyr summarize
@@ -28,19 +22,18 @@
 #' library(microbiome)
 #' x <- download_microbiome("dietswap")
 #' sample_data(x)$time <- sample_data(x)$timepoint.within.group
-#' # Estimate inter-individual variability
-#' res <- estimate_variability(x, "interindividual")
-#' # Estimate intra-individual variability
-#' res <- estimate_variability(x, "intraindividual")
+#' # Estimate inter-individual homogeneity
+#' res <- estimate_homogeneity(x, "interindividual")
+#' # Estimate intra-individual homogeneity
+#' res <- estimate_homogeneity(x, "intraindividual")
 #' }
 #' @references 
-#' The inter- and intra-individual variability are calculated
+#' The inter- and intra-individual homogeneity are calculated
 #' as described in Salonen et al. ISME J. 8:2218-30, 2014.
-#' To cite this R package, see citation('microbiome')
-#' 
+#' To cite this R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-estimate_variability <- function(x, type, group_by = "group", method = "spearman") {
+estimate_homogeneity <- function(x, type, group_by = "group", method = "spearman") {
 
     # Pick metadata		     
     meta <- sample_data(x)
@@ -61,7 +54,7 @@ estimate_variability <- function(x, type, group_by = "group", method = "spearman
     
       tmp <- setdiff(c("sample", group_by), names(meta))
       if (length(tmp) > 0) {
-        stop(paste("The following variables needed by estimate_variability function type=interindividual are missing from sample metadata:", paste(tmp, collapse = ",")))
+        stop(paste("The following variables needed by estimate_homogeneity function type=interindividual are missing from sample metadata:", paste(tmp, collapse = ",")))
       }
   
       # Within-matrix stability NOTE: earlier this was calculated as
@@ -76,25 +69,25 @@ estimate_variability <- function(x, type, group_by = "group", method = "spearman
         dfs <- rbind(dfs, data.frame(group = rep(ds, length(cors)),
                    	             sample = rownames(dat1),
   		   		     correlation = cors))
-	#variability[[ds]] <- list(correlations = cors, variability = mean(cors))
+	#homogeneity[[ds]] <- list(correlations = cors, homogeneity = mean(cors))
       }
   
       pval <- anova(lm(correlation ~ group, data = dfs))[["Pr(>F)"]][[1]]
       stats <- dfs %>% group_by(group) %>% summarize(mean = mean(correlation), sd = sd(correlation))
-      variability <- list(data = dfs, statistics = stats, p.value = pval)
+      homogeneity <- list(data = dfs, statistics = stats, p.value = pval)
 
     } else if (type == "intraindividual") {
 
       tmp <- setdiff(c("time", "subject", "sample", group_by), names(meta))
       if (length(tmp) > 0) {
-        stop(paste("The following variables needed by estimate_variability function type=intraindividual are missing from sample metadata:", paste(tmp, collapse = ",")))
+        stop(paste("The following variables needed by estimate_homogeneity function type=intraindividual are missing from sample metadata:", paste(tmp, collapse = ",")))
       }
 
       if (!all(sapply(split(meta$time, meta[[group_by]]), function (x) {length(unique(x))}) == 2)) {
         stop("Two time points needed for each group for the intraindividual type. Some groups are having a different number of time points.")
       }
 
-      variability <- list()
+      homogeneity <- list()
       dfs <- NULL
       for (ds in names(datasets)) {
       
@@ -121,11 +114,11 @@ estimate_variability <- function(x, type, group_by = "group", method = "spearman
       # and the mean over those correlations
       pval <- anova(lm(correlation ~ group, data = dfs))[["Pr(>F)"]][[1]]
       stats <- dfs %>% group_by(group) %>% summarize(mean = mean(correlation, na.rm = T), sd = sd(correlation, na.rm = T))
-      variability <- list(data = dfs, statistics = stats, p.value = pval)
+      homogeneity <- list(data = dfs, statistics = stats, p.value = pval)
 
     }
     
-    variability
+    homogeneity
     
 }
 

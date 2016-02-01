@@ -1,21 +1,16 @@
-#' @title estimate_stability
-#'
+#' @title Estimate stability
 #' @description Quantify intermediate stability with respect to a given reference point. 
-#'
 #' @param df Combined input data vector (samples x variables) and metadata
 #'           data.frame (samples x features)
 #'           with the 'data', 'subject' and 'time' field for each sample 
-#'           
 #' @param reference.point Optional. Calculate stability of the data w.r.t.
 #'                        this point. By default the intermediate range is
 #'                        used (min + (max - min)/2)
 #' @param method "lm" (linear model) or "correlation"; the linear model takes
 #'               time into account as a covariate 
-#' 
 #' @return A list with following elements: 
 #' 	     stability: estimated stability
 #'	     data: processed data set used in calculations	    
-#'
 #' @details Decomposes each column in x into differences between
 #' consecutive time points. For each variable and time point we calculate
 #' for the data values: (i) the distance from reference point; (ii)
@@ -29,7 +24,6 @@
 #' of the following linear model are used to assess stability:
 #' abs(change) ~ time + abs(start.reference.distance). 
 #' Samples with missing data, and subjects with less than two time point are excluded.	   
-#'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @export
 #' @examples 
