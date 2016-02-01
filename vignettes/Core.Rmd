@@ -83,7 +83,7 @@ res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.interva
 Zoom in on the core region by filtering out rows and columns with zero prevalence:
 
 ```{r core-example3bb, fig.width=8, fig.heigth=13, fig.path = "figure/"}
-plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals,
+res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals,
 		detection.thresholds = detection.thresholds, min.prevalence = 0, plot = TRUE)
 ```
 
@@ -91,7 +91,10 @@ plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = pr
 Color scale core plot:
 
 ```{r core-example4, fig.width=8, fig.heigth=13, fig.path = "figure/"}
-plot_core(pseq, plot.type = "heatmap", palette = "spectral", prevalence.intervals = prevalence.intervals,
+res <- plot_core(pseq, plot.type = "heatmap", palette = "spectral", prevalence.intervals = prevalence.intervals,
 		detection.thresholds = detection.thresholds, min.prevalence = 0, plot = TRUE)
+
+# Also check the data used for plotting
+kable(head(res$data))
 ```
 
