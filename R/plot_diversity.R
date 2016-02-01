@@ -9,7 +9,7 @@
 #' and shaded according to the argument to \code{color} (see below).
 #' You must use untrimmed, non-normalized count data for meaningful results.
 #' @param x \code{\link{phyloseq-class}} object
-#' @param group A variable to map to the horizontal axis. The vertical
+#' @param variable A variable to map to the horizontal axis. The vertical
 #'  axis will be mapped to the alpha diversity index/estimate
 #'  and have units of total taxa, and/or index value (dimensionless).
 #'  This parameter (\code{x}) is a character string indicating a
@@ -36,9 +36,9 @@
 #'  \code{\link[vegan]{diversity}}
 #' @importFrom sorvi regression_plot
 #' @export
-#' @examples # plot_diversity(x, group = "bmi_group", "Shannon")
+#' @examples # plot_diversity(x, variable = "bmi_group", "Shannon")
 #' @keywords utilities
-plot_diversity <- function(x, group = "group", title = "", measures = "Shannon", nrow = 1, scales = "free_y", det.th = 0, indicate.subjects = FALSE){ 
+plot_diversity <- function(x, variable = "group", title = "", measures = "Shannon", nrow = 1, scales = "free_y", det.th = 0, indicate.subjects = FALSE){ 
 
   ends_with <- horiz <- subject <- NULL
 
@@ -70,7 +70,7 @@ plot_diversity <- function(x, group = "group", title = "", measures = "Shannon",
 
   mdf <- gather(DF, "key", "value", ends_with(".diversity"))
   mdf$key <- gsub("\\.diversity$", "", mdf$key)
-  mdf$horiz <- mdf[[group]]
+  mdf$horiz <- mdf[[variable]]
 
   # Make the ggplot  
   theme_set(theme_bw(20))
@@ -98,7 +98,7 @@ plot_diversity <- function(x, group = "group", title = "", measures = "Shannon",
   } else if (is.vector(mdf$horiz)) {
 
     if (length(measures) > 1) {
-      stop(paste("The horizontal variable", group, "is numeric. Provide a single diversity measure."))
+      stop(paste("The horizontal variable", variable, "is numeric. Provide a single diversity measure."))
     }
 
     p <- regression_plot(value~horiz, mdf)
