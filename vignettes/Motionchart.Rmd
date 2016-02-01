@@ -10,21 +10,14 @@ Prepare the data:
 ```{r motionchart-example, fig.width=8, fig.height=8, message=FALSE}
 library(microbiome)  
 
-# Folder containing simulated example data
-# (change your own path here)
-data.directory <- system.file("extdata", package = "microbiome")
-
-# Read HITChip profiling results
-res <- read_hitchip(data.directory, method = "frpa")
-
-# Pick the metadata (the meta.tab file in HITChip data folder)
-metadata.simulated <- sample_data(res$pseq)
+data(peerj32)
 
 # Species-level data in phyloseq format
-pseq <- res$pseq 
+pseq <- peerj32$phyloseq
 
 # Retrieve L2 (genus-like) data in phyloseq format
 pseq.L2 <- aggregate_taxa(pseq, level = "L2")
+
 # Convert L2 to matrix format
 genus.matrix.log10.simulated <- log10(otu_table(pseq.L2)@.Data)
 
@@ -46,7 +39,6 @@ a constant to plot all in one figure using df$time <- rep(1, nrow(df))
 
 ```{r motionchart-example-2, fig.width=8, fig.height=8, message=FALSE}
 library(googleVis)  
-# install.packages("googleVis") # install the library if needde
 
 # See help(gvisMotionChart) for further details
 mchart <- gvisMotionChart(df, idvar = "sample", timevar = "time")  

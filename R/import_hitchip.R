@@ -1,18 +1,16 @@
-#' @title import_hitchip
-#' @description Import HITChip output into phyloseq format
-#'
+#' @title Import hitchip
+#' @description Import HITChip output into phyloseq format.
 #' @param data.dir Profiling script output directory for reading the data. 
 #' @param method Probe summarization method ("rpa" or "sum")
 #' @param detection.threshold Taxon absence/presence thresholds (typically 10^1.8 for HITChip)
 #' @param verbose verbose
-#' 
 #' @return data matrix (phylo x samples)
-#'
 #' @export
-#' @examples 
+#' @examples
+#'  \dontrun{
 #'   data.dir <- system.file("extdata", package = "microbiome")
 #'   dat <- import_hitchip(data.dir)
-#'
+#' }
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

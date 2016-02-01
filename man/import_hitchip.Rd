@@ -2,7 +2,7 @@
 % Please edit documentation in R/import_hitchip.R
 \name{import_hitchip}
 \alias{import_hitchip}
-\title{import_hitchip}
+\title{Import hitchip}
 \usage{
 import_hitchip(data.dir, method = "frpa", detection.threshold = 0,
   verbose = F)
@@ -20,12 +20,13 @@ import_hitchip(data.dir, method = "frpa", detection.threshold = 0,
 data matrix (phylo x samples)
 }
 \description{
-Import HITChip output into phyloseq format
+Import HITChip output into phyloseq format.
 }
 \examples{
+ \dontrun{
   data.dir <- system.file("extdata", package = "microbiome")
   dat <- import_hitchip(data.dir)
-
+}
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

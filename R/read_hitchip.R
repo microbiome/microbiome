@@ -1,24 +1,21 @@
-#' @title read_hitchip
+#' @title Read hitchip
 #' @description Read HITChip output and preprocess into phyloseq format
-#'
 #' @param data.dir Profiling script output directory for reading the data. 
 #' @param method Probe summarization method ("rpa", "frpa", or "sum")
 #' @param detection.threshold Taxon absence/presence thresholds (typically 10^1.8 for HITChip)
 #' @param verbose verbose
-#' 
-#' Converts the probe-level data matrix and probe-level taxonomy table to phylotype-level 
+#' @details Converts the probe-level data matrix and probe-level taxonomy table to phylotype-level 
 #' HITChip data. Returns the probe-level data (data matrix and taxonomies) and the phylotype-level 
 #' phyloseq object. There are two versions of probe-level taxonomy. The full version includes all probes 
 #' in the probe-level data. The filtered version includes those probes that have been used to aggregate
 #' probes into phylotype level.
-#'
 #' @return data matrix (phylo x samples)
-#'
 #' @export
-#' @examples 
+#' @examples
+#'  \dontrun{
 #'   data.dir <- system.file("extdata", package = "microbiome")
 #'   dat <- read_hitchip(data.dir)
-#'
+#' }
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

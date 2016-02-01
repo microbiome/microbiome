@@ -93,6 +93,7 @@ neat <- function (x, arrange = "both", method = "NMDS", distance = "bray", first
   if (arrange %in% c("rows", "both")) {
     sr <- neatsort(x, "rows", method = method, distance = distance, first = first, ...)  
     x <- x[sr,]
+  }
   if (arrange %in% c("cols", "both")) {
     sc <- neatsort(x, "cols", method = method, distance = distance, first = first, ...)
     x <- x[sc,]

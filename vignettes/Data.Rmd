@@ -70,9 +70,7 @@ fields in the template metadata file in your HITChip data folder and
 exporting it again to tab-separated .tab format. Some standard,
 self-explanatory field names include 'sample', 'time', 'subject',
 'group', 'gender', 'diet', 'age'. You can leave these out or include
-further fields. See this [example
-file](https://raw.github.com/microbiome/microbiome/master/inst/extdata/meta.tab).
-Import HITChip phylotype-level data in
+further fields. Import HITChip phylotype-level data in
 [phyloseq](https://github.com/joey711/phyloseq) format (note: the
 precalculated matrices are calculated with detection.threshold = 0):
 

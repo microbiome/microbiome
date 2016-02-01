@@ -1,17 +1,15 @@
-#' @title summarize_probedata
+#' @title Summarize probedata
 #' @description Summarize phylogenetic microarray probe-level data from given input folder.
-#' 
 #' @param data.dir Data folder.
 #' @param probedata probe-level data matrix
 #' @param taxonomy probe taxonomy
 #' @param level Summarization level
 #' @param method Summarization method
 #' @param probe.parameters Precalculater probe parameters. Optional.
-#'
 #' @return data matrix (taxa x samples)
-#'
 #' @export
-#' @examples #
+#' @examples
+#' \dontrun{
 #' library(microbiome)
 #' data.directory <- system.file("extdata", package = "microbiome")
 #' # Read oligo-level data (here: simulated example data)
@@ -26,6 +24,7 @@
 #'		 taxonomy = taxonomy, 
 #'                 method = "rpa",
 #'		 level = "species")
+#' }
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

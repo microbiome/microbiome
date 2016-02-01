@@ -21,10 +21,10 @@ neat(x, arrange = "both", method = "NMDS", distance = "bray",
 \item{...}{Arguments to pass.}
 }
 \value{
-Vector of ordered elements
+Sorted matrix
 }
 \description{
-Order rows or columns based on the neatmap approach.
+Order matrix based on the neatmap approach.
 }
 \details{
 This function borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is there

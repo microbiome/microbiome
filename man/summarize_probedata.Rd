@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarize_probedata.R
 \name{summarize_probedata}
 \alias{summarize_probedata}
-\title{summarize_probedata}
+\title{Summarize probedata}
 \usage{
 summarize_probedata(data.dir = NULL, probedata = NULL, taxonomy = NULL,
   level, method, probe.parameters = NULL)
@@ -27,7 +27,7 @@ data matrix (taxa x samples)
 Summarize phylogenetic microarray probe-level data from given input folder.
 }
 \examples{
-#
+\dontrun{
 library(microbiome)
 data.directory <- system.file("extdata", package = "microbiome")
 # Read oligo-level data (here: simulated example data)
@@ -42,6 +42,7 @@ dat <- summarize_probedata(
 	 taxonomy = taxonomy, 
                 method = "rpa",
 	 level = "species")
+}
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
