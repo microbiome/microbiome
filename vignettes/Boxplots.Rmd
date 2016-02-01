@@ -5,11 +5,10 @@
 library(microbiome)
 library(ggplot2)
 
-# Load example data:
-# From https://peerj.com/articles/32/
-pseq <- download_microbiome("peerj32")$physeq
+# Probiotics intervention example data from https://peerj.com/articles/32/
+data("peerj32")
 
 # Abundance boxplot
-p <- boxplot_abundance(pseq, x = "time", y = "Akkermansia", line = "subject", color = "gender")
+p <- boxplot_abundance(peerj32$phyloseq, x = "time", y = "Akkermansia", line = "subject", color = "gender")
 print(p)
 ```

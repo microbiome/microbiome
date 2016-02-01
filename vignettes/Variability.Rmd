@@ -1,4 +1,4 @@
-### Inter-individual variability (variability within group of samples)
+### Inter-individual heterogeneity (heterogeneity within group of samples)
 
 Assess 'inter-individual stability' as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between samples and their mean for a given samples vs phylotypes matrix. For the illustration, calculate inter-individual stability (heterogeneity) separately for Placebo and LGG groups.
 
@@ -6,7 +6,9 @@ Load example data
 
 ```{r heterogeneity-example2, message=FALSE}
 library(microbiome)
-x <- download_microbiome("dietswap")
+data("dietswap")
+x <- dietswap
+
 # Add time field (two time points needed within each group for the 
 # intraindividual method)
 sample_data(x)$time <- sample_data(x)$timepoint.within.group

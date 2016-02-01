@@ -6,7 +6,9 @@ Download example data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.do
 
 ```{r phyloseqdata, fig.width=10, fig.height=7, warning=FALSE, message=FALSE}
 library(microbiome)
-pseq <- download_microbiome("dietswap")
+#pseq <- download_microbiome("dietswap")
+data("dietswap")
+pseq <- dietswap
 ```
 
 

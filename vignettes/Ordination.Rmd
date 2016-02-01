@@ -8,7 +8,8 @@ Load example data:
 library(microbiome)
 library(phyloseq)
 library(ggplot2)
-pseq <- download_microbiome("atlas1006")
+data("atlas1006")
+pseq <- atlas1006
 
 # Convert signal to relative abundances
 pseq.rel <- transform_sample_counts(pseq, function (x) {x/sum(x)})

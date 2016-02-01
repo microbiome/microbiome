@@ -7,7 +7,9 @@ A basic example of ROC/AUC analysis.
 
 ```{r roc-example, warning=FALSE, fig.path = "figure/"}
 library(microbiome)
-pseq <- download_microbiome("dietswap")
+#pseq <- download_microbiome("dietswap")
+data("dietswap")
+pseq <- dietswap
 
 # Pick two groups of samples
 # African, DI group, time points 1 and 2

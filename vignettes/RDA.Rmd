@@ -5,7 +5,9 @@ Load the package and example data:
 ```{r rda, warning=FALSE, message=FALSE, fig.path = "figure/"}
 library(microbiome)
 # Data from https://peerj.com/articles/32/
-pseq <- download_microbiome("peerj32")$physeq
+#pseq <- download_microbiome("peerj32")$phyloseq
+data("peerj32")
+pseq <- peerj32$phyloseq
 ```
 
 ### Standard RDA 

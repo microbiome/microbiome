@@ -5,13 +5,14 @@
 
 Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html) and [HITChip Barplots](Barplots.md)
 
-Loading example data:
+
+Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
 
 ```{r composition-example1, fig.path = "figure/", fig.width=8, fig.height=5}
 # Example data
-#library(microbiome)
-#pseq0 <- download_microbiome("dietswap")
-data(dietswap) # Returns pseq object
+library(microbiome)
+data(dietswap)
+pseq <- dietswap
 ```
 
 Show OTU absolute abundance in each sample. Plot absolute taxon

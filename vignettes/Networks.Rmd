@@ -5,8 +5,8 @@ Load example data:
 
 ```{r networks1, message=FALSE, warning=FALSE}
 library(microbiome)
-# Get some HITChip data in phyloseq format
-pseq <- download_microbiome("dietswap")
+data("dietswap")
+pseq <- dietswap
 ```
 
 For more network examples, see [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-examples)

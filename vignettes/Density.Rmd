@@ -11,7 +11,11 @@ Visualize population densities for specific taxonomic group:
 library(microbiome)
 library(phyloseq)
 
-x <- download_microbiome("atlas1006")
+# Example data from
+# http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html
+data("atlas1006")
+x <- atlas1006
+
 # Pick the subset of RBB-preprocessed samples from time point 0
 x <- subset_samples(x, time == 0 & DNA_extraction_method == "r")
 

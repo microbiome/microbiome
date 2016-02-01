@@ -6,7 +6,8 @@ Download example data and plot heatmap with phyloseq tools:
 
 ```{r heatmap-phyloseq1, fig.width=16, fig.height=8, fig.path = "figure/"}
 library(microbiome)
-pseq <- download_microbiome("dietswap")
+data("dietswap")
+pseq <- dietswap
 
 library(phyloseq)
 plot_heatmap(pseq, sample.label = "sample")
@@ -67,8 +68,9 @@ The function returns correlations, raw p-values, and fdr estimates (not strictly
 ```{r heatmap-crosscorrelate4, message=FALSE, warning=FALSE, fig.keep='none', fig.path = "figure/"}
 # Load example data 
 library(microbiome)
-data.peerj32.otu <- download_microbiome("peerj32")$data$microbes
-data.peerj32.lipids <- download_microbiome("peerj32")$data$lipids
+data(peerj32)
+data.peerj32.otu <- peerj32$microbes 
+data.peerj32.lipids <- peerj32$lipids 
 
 # Define data sets to cross-correlate
 # OTU Log10 matrix # Microbiota (44 samples x 130 bacteria)
