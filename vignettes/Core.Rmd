@@ -87,10 +87,10 @@ res <- plot_core(pseq, plot.type = "heatmap", palette = "spectral", prevalence.i
 ```
 
 
-Color scale core plot:
+
+Retrieve the core prevalence data matrix
 
 ```{r core-example4, fig.width=8, fig.heigth=13, fig.path = "figure/"}
-# Retrieve the core prevalence data matrix
 prevalences <- res$data
 kable(head(prevalences))
 ```
