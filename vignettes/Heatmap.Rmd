@@ -1,5 +1,7 @@
 ## Heatmaps
 
+See also [Composition](Composition.md) page.
+
 ### phyloseq heatmaps
 
 Download example data and plot heatmap with phyloseq tools:
