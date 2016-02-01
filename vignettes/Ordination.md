@@ -13,11 +13,11 @@ data("atlas1006")
 pseq <- atlas1006
 
 # Convert signal to relative abundances
-pseq.rel <- transform_sample_counts(pseq, function (x) {x/sum(x)})
+pseq.rel <- transform_phyloseq(pseq, "relative.abundance")
 
 # Pick OTUs that are present with >1 percent relative abundance 
 # in >10 percent of the samples
-pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > .01) > (0.1*nsamples(pseq.rel)), TRUE)
+pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > 1) > (0.1*nsamples(pseq.rel)), TRUE)
 ```
 
 
@@ -30,33 +30,6 @@ Project the samples with the given method and distance:
 set.seed(423542)
 library(phyloseq)
 pseq.ord <- ordinate(pseq2, "NMDS", "bray")
-```
-
-```
-## Run 0 stress 0.2028085 
-## Run 1 stress 0.2236351 
-## Run 2 stress 0.4205223 
-## Run 3 stress 0.2159774 
-## Run 4 stress 0.2131121 
-## Run 5 stress 0.2135156 
-## Run 6 stress 0.219663 
-## Run 7 stress 0.2202646 
-## Run 8 stress 0.2202117 
-## Run 9 stress 0.2179414 
-## Run 10 stress 0.213931 
-## Run 11 stress 0.420529 
-## Run 12 stress 0.2142954 
-## Run 13 stress 0.2198069 
-## Run 14 stress 0.2185281 
-## Run 15 stress 0.2098309 
-## Run 16 stress 0.2191812 
-## Run 17 stress 0.2115131 
-## Run 18 stress 0.2171189 
-## Run 19 stress 0.2164978 
-## Run 20 stress 0.2187442
-```
-
-```r
 # Just pick the projected data (first two columns + metadata)
 proj <- plot_ordination(pseq2, pseq.ord, justDF = T)
 ```
@@ -123,6 +96,10 @@ plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") + 
 ```
 
 ![plot of chunk ordinate23](figure/ordinate23-1.png)
+
+### RDA
+
+See a separate page on [RDA](RDA.md).
 
 
 ### Canonical correspondence analysis (CCA)

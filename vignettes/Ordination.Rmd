@@ -12,11 +12,11 @@ data("atlas1006")
 pseq <- atlas1006
 
 # Convert signal to relative abundances
-pseq.rel <- transform_sample_counts(pseq, function (x) {x/sum(x)})
+pseq.rel <- transform_phyloseq(pseq, "relative.abundance")
 
 # Pick OTUs that are present with >1 percent relative abundance 
 # in >10 percent of the samples
-pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > .01) > (0.1*nsamples(pseq.rel)), TRUE)
+pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > 1) > (0.1*nsamples(pseq.rel)), TRUE)
 ```
 
 
@@ -24,7 +24,7 @@ pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > .01) > (0.1*nsamples(pseq.rel
 
 Project the samples with the given method and distance:
 
-```{r ordination2, message=FALSE, warning=FALSE, fig.path = "figure/", message=FALSE}
+```{r ordination2, message=FALSE, warning=FALSE, fig.path = "figure/", results="hide"}
 set.seed(423542)
 library(phyloseq)
 pseq.ord <- ordinate(pseq2, "NMDS", "bray")
@@ -58,14 +58,14 @@ ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) + geom_text(
 
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
-```{r pca-ordination21, message=FALSE, message=FALSE, fig.height=8, fig.width=15}
+```{r pca-ordination21, message=FALSE, message=FALSE, fig.height=6, fig.width=12}
 p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Phylum", title = "Taxa ordination")
 print(p)
 ```
 
 Grouping the plots by Phylum
 
-```{r pca-ordination22, message=FALSE, message=FALSE, fig.height=8, fig.width=15}
+```{r pca-ordination22, message=FALSE, message=FALSE, fig.height=10, fig.width=13}
 p + facet_wrap(~Phylum, 5)
 ```
 
