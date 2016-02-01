@@ -11,7 +11,12 @@ pseq <- dietswap
 
 ### Comparing of two or more groups with a parametric test (linear model; ANOVA)
 
+Note that in practice it will be necessary to check ANOVA modeling assumptions before testing:
+
 ```{r comparisons2}
+# Convert to relative abundances
+pseq <- transform_phyloseq(pseq, "relative.abundance")
+
 # 1-way ANOVA p-values for the multi-group comparison across time groups
 anova.results <- check_anova(pseq, "group", p.adjust.method = "BH")
 kable(head(anova.results))
