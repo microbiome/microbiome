@@ -29,7 +29,7 @@
 #'     plot_composition(pseq, taxonomic.level = "Phylum")
 #'           }
 #' @keywords utilities
-plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu.sort = NULL, x.label = "sample", plot.type = "barplot", verbose = TRUE, transformation = NULL, ...) {
+plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu.sort = NULL, x.label = "sample", plot.type = "barplot", verbose = FALSE, transformation = NULL, ...) {
 
   # Avoid warnings
   Sample <- Abundance <- Taxon <- horiz <- value <- scales <- ID <- meta <- OTU <- NULL

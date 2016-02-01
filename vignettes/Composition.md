@@ -25,38 +25,12 @@ approximate):
 # Pick sample subset
 library(phyloseq)
 pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
-plot_composition(pseq2, taxonomic.level = "Phylum")
+res <- plot_composition(pseq2, taxonomic.level = "Phylum")
+res$plot + theme(legend_position = "bottom")
 ```
 
 ```
-## Aggregating the taxa.
-```
-
-```
-## Check data transformations.
-```
-
-```
-## Prepare data.frame.
-```
-
-```
-## Construct the plots
-```
-
-```
-## $plot
-```
-
-![plot of chunk composition-example1b](figure/composition-example1b-1.png)
-
-```
-## 
-## $data
-## phyloseq-class experiment-level object
-## otu_table()   OTU Table:         [ 22 taxa and 32 samples ]
-## sample_data() Sample Data:       [ 32 samples by 8 sample variables ]
-## tax_table()   Taxonomy Table:    [ 22 taxa by 2 taxonomic ranks ]
+## Error in (function (el, elname) : "legend_position" is not a valid theme element name.
 ```
 
 Arrange by sample variable and use custom X axis labels. Africans have more Prevotella as expected. Absolute counts:
@@ -69,21 +43,6 @@ pseq3 <- prune_taxa(top, pseq)
 pseq3 <- subset_samples(pseq3, group == "DI" & timepoint.within.group == 1)
 
 res <- plot_composition(pseq3, sample.sort = "nationality", x.label = "nationality")
-```
-
-```
-## Check data transformations.
-```
-
-```
-## Prepare data.frame.
-```
-
-```
-## Construct the plots
-```
-
-```r
 p <- res$plot
 p <- p + guides(fill = guide_legend(ncol = 1))
 p <- p + theme(legend.position = "bottom")
@@ -98,21 +57,6 @@ Same with relative abundances:
 
 ```r
 res <- plot_composition(pseq3, sample.sort = "nationality", x.label = "nationality", transformation = "relative.abundance")
-```
-
-```
-## Check data transformations.
-```
-
-```
-## Prepare data.frame.
-```
-
-```
-## Construct the plots
-```
-
-```r
 p <- res$plot
 p <- p + guides(fill = guide_legend(ncol = 1))
 p <- p + theme(legend.position = "bottom")
@@ -134,22 +78,6 @@ Plain heatmap
 res <- plot_composition(pseq3, plot.type = "heatmap")
 ```
 
-```
-## Check data transformations.
-```
-
-```
-## Prepare data.frame.
-```
-
-```
-## Construct the plots
-```
-
-```
-## Constructing the heatmap.
-```
-
 ![plot of chunk composition-example5](figure/composition-example5-1.png)
 
 
@@ -160,22 +88,6 @@ Heatmap with Z-transformed OTUs
 res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU")
 ```
 
-```
-## Check data transformations.
-```
-
-```
-## Prepare data.frame.
-```
-
-```
-## Construct the plots
-```
-
-```
-## Constructing the heatmap.
-```
-
 ![plot of chunk composition-example6](figure/composition-example6-1.png)
 
 
@@ -184,22 +96,6 @@ Same, but samples and OTUs sorted with the neatmap method
 
 ```r
 res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU", sample.sort = "neatmap", otu.sort = "neatmap")
-```
-
-```
-## Check data transformations.
-```
-
-```
-## Prepare data.frame.
-```
-
-```
-## Construct the plots
-```
-
-```
-## Constructing the heatmap.
 ```
 
 ![plot of chunk composition-example7](figure/composition-example7-1.png)
@@ -217,22 +113,6 @@ res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU", 
 ```
 ## Warning in if (otu.sort == "neatmap") {: the condition has length > 1 and
 ## only the first element will be used
-```
-
-```
-## Check data transformations.
-```
-
-```
-## Prepare data.frame.
-```
-
-```
-## Construct the plots
-```
-
-```
-## Constructing the heatmap.
 ```
 
 ![plot of chunk composition-example8](figure/composition-example8-1.png)
