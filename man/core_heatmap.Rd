@@ -8,7 +8,7 @@ core_heatmap(data, detection.thresholds = 20, palette = "bw",
   min.prevalence = NULL)
 }
 \arguments{
-\item{data}{Core matrix}
+\item{data}{OTU matrix}
 
 \item{detection.thresholds}{A vector or a scalar indicating the number of intervals in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.}
 

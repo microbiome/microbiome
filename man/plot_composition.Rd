@@ -6,7 +6,7 @@
 \usage{
 plot_composition(x, taxonomic.level = NULL, sample.sort = NULL,
   otu.sort = NULL, x.label = "sample", plot.type = "barplot",
-  verbose = TRUE, transformation = NULL, ...)
+  verbose = FALSE, transformation = NULL, ...)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)}

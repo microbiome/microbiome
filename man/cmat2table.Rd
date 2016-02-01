@@ -2,7 +2,7 @@
 % Please edit documentation in R/cmat2table.R
 \name{cmat2table}
 \alias{cmat2table}
-\title{cmat2table}
+\title{Correlation results to table}
 \usage{
 cmat2table(res, verbose = FALSE)
 }

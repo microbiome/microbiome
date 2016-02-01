@@ -2,30 +2,27 @@
 % Please edit documentation in R/anova.R
 \name{check_anova}
 \alias{check_anova}
-\title{check_anova}
+\title{ANOVA for phyloseq}
 \usage{
-check_anova(x, group, p.adjust.method = "BH", sort = FALSE)
+check_anova(x, group, p.adjust.method = "BH")
 }
 \arguments{
-\item{x}{\code{\link{phyloseq-class}} object or a data matrix 
-(features x samples; eg. HITChip taxa vs. samples)}
+\item{x}{\code{\link{phyloseq-class}} object}
 
-\item{group}{Vector with specifying the groups}
+\item{group}{Metadata field specifying the groups.}
 
 \item{p.adjust.method}{p-value correction method for p.adjust function 
 (default 'BH'). For other options, see ?p.adjust}
-
-\item{sort}{sort the results}
 }
 \value{
-Corrected p-values for multi-group comparison.
+Corrected ANOVA p-values for multi-group comparison. Uncorrected post-hoc p-values for each pairwise comparison. Group-wise averages.
 }
 \description{
-Calculate ANOVA test (BH correction) for multi-group comparison
+ANOVA test for multi-group comparison for phyloseq objects.
 }
 \examples{
   data(peerj32)
-  pval <- check_anova(t(peerj32$microbes), peerj32$meta$time)
+  pval <- check_anova(peerj32$phyloseq, "group")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
