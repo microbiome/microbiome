@@ -12,7 +12,7 @@ Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342)
 # Example data
 library(microbiome)
 data(dietswap)
-theme_set(theme_bw(25))
+theme_set(theme_bw(22))
 pseq <- dietswap
 ```
 
@@ -62,7 +62,7 @@ print(p)
 
 Plain heatmap
 
-```{r composition-example5, fig.path = "figure/", fig.width=8, fig.height=4}
+```{r composition-example5, fig.path = "figure/", fig.width=8, fig.height=3}
 theme_set(theme_bw(30))
 res <- plot_composition(pseq3, plot.type = "heatmap")
 ```
@@ -70,14 +70,14 @@ res <- plot_composition(pseq3, plot.type = "heatmap")
 
 Heatmap with Z-transformed OTUs
 
-```{r composition-example6, fig.path = "figure/", fig.width=8, fig.height=4}
+```{r composition-example6, fig.path = "figure/", fig.width=8, fig.height=3}
 res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU")
 ```
 
 
 Same, but samples and OTUs sorted with the neatmap method
 
-```{r composition-example7, fig.path = "figure/", fig.width=8, fig.height=4}
+```{r composition-example7, fig.path = "figure/", fig.width=8, fig.height=3}
 res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
        			       sample.sort = "neatmap", otu.sort = "neatmap")
 ```
@@ -85,7 +85,7 @@ res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
 
 Same, but samples and OTUs sorted manually
 
-```{r composition-example8, fig.path = "figure/", fig.width=8, fig.height=4, warning=FALSE}
+```{r composition-example8, fig.path = "figure/", fig.width=8, fig.height=3, warning=FALSE}
 sample.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "sites", first = NULL) 
 otu.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "species", first = NULL)
 res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
