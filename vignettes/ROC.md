@@ -44,6 +44,10 @@ for (tax in rownames(otu)) {
 bacteroidetes <- levelmap("Bacteroidetes", from = "L1", to = "L2", GetPhylogeny("HITChip", "filtered"))$Bacteroidetes
 ```
 
+```
+## Error in file(file, "rt"): cannot open the connection
+```
+
 
 ### Overall ROC analysis 
 

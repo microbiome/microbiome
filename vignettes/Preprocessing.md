@@ -249,11 +249,15 @@ pseq <- read_hitchip(data.directory, method = "frpa")$pseq
 ```
 
 ```
-## Loading pre-calculated RPA preprocessing parameters
+## Error in paste(data.dir, "/oligoprofile.tab", sep = ""): object 'data.directory' not found
 ```
 
 ```r
 pseq.L2 <- aggregate_taxa(pseq, level = "L2")
+```
+
+```
+## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
 ```
 
 Merging phyloseq objects

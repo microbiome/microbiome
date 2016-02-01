@@ -80,8 +80,24 @@ Neatmap sorting is available also for matrices
 data(peerj32)
 x <- peerj32$microbes # Matrix
 xz <- scale(x) # Z-transformed matrix
+
+# Sorting rows (or columns) if just the sample order is needed rather than the matrix
+sorted.rows <- neatsort(xz, "rows", method = "NMDS", distance = "euclidean") 
+
+# Or just arrange the matrix directly
 xo <- neat(xz, method = "NMDS", distance = "euclidean") # Sorted matrix
+```
+
+```
+## Error in x[sc, ]: subscript out of bounds
+```
+
+```r
 tmp <- netresponse::plot_matrix(t(xo), type = "twoway", mar = c(5, 12, 1, 1))
+```
+
+```
+## Error in t(xo): error in evaluating the argument 'x' in selecting a method for function 't': Error: object 'xo' not found
 ```
 
 
@@ -125,7 +141,7 @@ kable(head(correlation.table))
 ```
 
 ```
-## Error in head(correlation.table): object 'correlation.table' not found
+## Error in head(correlation.table): error in evaluating the argument 'x' in selecting a method for function 'head': Error: object 'correlation.table' not found
 ```
 
 ### Correlation heatmaps
@@ -219,6 +235,10 @@ p <- p + geom_text(data = subset(correlation.table, p.adj < 0.02),
 print(p)
 ```
 
+```
+## Error in data.frame(structure(list(x = c(-0.904241941590452, -0.018020706309709, : arguments imply differing number of rows: 400, 44
+```
+
 ![plot of chunk heatmap-example-stars](figure/heatmap-example-stars-1.png)
 
 ### Heatmap with text
@@ -241,7 +261,7 @@ df$X1 <- factor(df$X1)
 ```
 
 ```
-## Error in df$X1: object of type 'closure' is not subsettable
+## Error in `$<-.data.frame`(S3Part(x, TRUE), name, value): replacement has 0 rows, data has 401
 ```
 
 ```r
@@ -249,18 +269,11 @@ df$X2 <- factor(df$X2)
 ```
 
 ```
-## Error in df$X2: object of type 'closure' is not subsettable
+## Error in `$<-.data.frame`(S3Part(x, TRUE), name, value): replacement has 0 rows, data has 401
 ```
 
 ```r
 p <- ggplot(df, aes(X1, X2, group=X2)) 
-```
-
-```
-## Error: ggplot2 doesn't know how to deal with data of class function
-```
-
-```r
 p <- p + geom_tile(aes(fill = Correlation)) 
 p <- p + geom_text(aes(fill = df$Correlation, label = round(df$Correlation, 1)), size = 2) 
 p <- p + scale_fill_gradientn("Correlation", 

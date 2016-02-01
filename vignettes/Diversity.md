@@ -62,15 +62,29 @@ print(p)
 # If a subject column is available in sample data
 # the subjects will be indicated by lines across the groups
 psub <- subset_samples(pseq, group == "DI")
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'group' not found
+```
+
+```r
 sample_data(psub)$timepoint <- factor(sample_data(psub)$timepoint, levels = sort(unique(sample_data(psub)$timepoint)))
 ```
 
 ```
-## Error in `$<-.data.frame`(S3Part(x, TRUE), name, value): replacement has 0 rows, data has 375
+## Error in sample_data(psub): error in evaluating the argument 'object' in selecting a method for function 'sample_data': Error: object 'psub' not found
 ```
 
 ```r
 p <- plot_diversity(psub, "timepoint", measures = c("Chao1", "Shannon"))
+```
+
+```
+## Error in otu_table(physeq): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'psub' not found
+```
+
+```r
 print(p)
 ```
 

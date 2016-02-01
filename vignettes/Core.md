@@ -67,9 +67,7 @@ res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, 
 res$plot + xlab("Abundance (OTU count)")
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "xlab"
-```
+![plot of chunk core-example2](figure/core-example2-2.png)
 
 ```r
 # Core lineplot with relative abundances
@@ -77,15 +75,13 @@ det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
 res <- plot_core(pseq.rel, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
 ```
 
-![plot of chunk core-example2](figure/core-example2-2.png)
+![plot of chunk core-example2](figure/core-example2-3.png)
 
 ```r
 res$plot + xlab("Relative Abundance (%)")
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "xlab"
-```
+![plot of chunk core-example2](figure/core-example2-4.png)
 
 ```r
 # Retrieve the core count data matrix
@@ -126,9 +122,7 @@ res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw", prevalence.int
 print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
 ```
 
-```
-## Error in print(res$plot + xlab("Detection Threshold (Relative Abundance (%))")): could not find function "xlab"
-```
+![plot of chunk core-example3](figure/core-example3-1.png)
 
 ```r
 # Retrieve the core prevalence data matrix
@@ -187,7 +181,5 @@ p <- plot_core(pseq, plot.type = "heatmap", palette = "spectral")$plot
 print(p)
 ```
 
-```
-## Error in print(p): object 'p' not found
-```
+![plot of chunk core-example4](figure/core-example4-1.png)
 

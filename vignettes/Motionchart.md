@@ -11,26 +11,35 @@ Prepare the data:
 ```r
 library(microbiome)  
 
-# Folder containing simulated example data
-# (change your own path here)
-data.directory <- system.file("extdata", package = "microbiome")
-
-# Read HITChip profiling results
-res <- read_hitchip(data.directory, method = "frpa")
-
-# Pick the metadata (the meta.tab file in HITChip data folder)
-metadata.simulated <- sample_data(res$pseq)
+data(peerj32)
 
 # Species-level data in phyloseq format
-pseq <- res$pseq 
+pseq <- peerj32$phyloseq
 
 # Retrieve L2 (genus-like) data in phyloseq format
 pseq.L2 <- aggregate_taxa(pseq, level = "L2")
+```
+
+```
+## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
+```
+
+```r
 # Convert L2 to matrix format
 genus.matrix.log10.simulated <- log10(otu_table(pseq.L2)@.Data)
+```
 
+```
+## Error in otu_table(pseq.L2): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq.L2' not found
+```
+
+```r
 # Combine phylotype profiling data and sample metadata
 df <- cbind(metadata.simulated, t(genus.matrix.log10.simulated))  
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'metadata.simulated' not found
 ```
 
 Plot a Motion Chart using googleVis - package. Note: this requires
@@ -48,13 +57,22 @@ a constant to plot all in one figure using df$time <- rep(1, nrow(df))
 
 ```r
 library(googleVis)  
-# install.packages("googleVis") # install the library if needde
 
 # See help(gvisMotionChart) for further details
 mchart <- gvisMotionChart(df, idvar = "sample", timevar = "time")  
+```
 
+```
+## Error in data[, vars.pos]: object of type 'closure' is not subsettable
+```
+
+```r
 # Plot immediately (opens in browser, requires flash)
 plot(mchart)  
+```
+
+```
+## Error in plot(mchart): error in evaluating the argument 'x' in selecting a method for function 'plot': Error: object 'mchart' not found
 ```
 
 Save as html (needs javascript to open!). NOTE: html file viewing does not work locally - store the html file on server and view through internet:

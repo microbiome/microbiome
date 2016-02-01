@@ -49,7 +49,5 @@ tax <- "Prevotella melaninogenica et rel."
 plot_density(x, tax, log10 = TRUE) + ggtitle(paste(tax, "(Rel. Ab. %)"))
 ```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "ggtitle"
-```
+![plot of chunk hist3](figure/hist3-1.png)
 
