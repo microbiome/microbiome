@@ -1,6 +1,6 @@
 ### Inter-individual homogeneity (within group of samples)
 
-Assess 'inter-individual stability', or homogeneity, as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between the samples and their mean for a given samples vs phylotypes matrix. For illustration, calculate inter-individual homogeneity separately for Placebo and LGG groups.
+Assess 'inter-individual stability', or homogeneity, as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between the samples and their mean for a given samples vs phylotypes matrix. For illustration, calculate inter-individual homogeneity separately for Placebo and LGG groups. Note that this homogeneity measure is affected by sample size.
 
 Load example data
 
@@ -32,7 +32,7 @@ library(ggplot2)
 theme_set(theme_bw(20))
 p <- ggplot(res$data, aes(x = group, y = correlation))
 p <- p + geom_boxplot()
-p <- p + ggtitle(paste("Inter-individual homogeneity (p=", round(res$p.value, 6), ")"))
+p <- p + ggtitle(paste("Inter-individual homogeneity (p=", round(res$p.value, 6), ")", sep = ""))
 p <- p + ylab("Correlation")
 print(p)
 ```
@@ -42,7 +42,7 @@ print(p)
 
 ### Intra-individual stability
 
-Homogeneity within subjects over time (intra-individual stability). Assess 'intra-individual stability' as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between two time points within subjects, calculated separately within each group. For illustration, check intra-individual stability (homogeneity) separately for Placebo and LGG groups.
+Homogeneity within subjects over time (also called intra-individual stability in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html)). Defined as the average correlation between two time points within subjects within each group. For illustration, check intra-individual stability (homogeneity) separately for Placebo and LGG groups.
 
 
 ```r
@@ -61,10 +61,6 @@ p <- p + geom_boxplot()
 p <- p + ggtitle(paste("Intra-individual homogeneity (p=", round(res$p.value, 6), ")"))
 p <- p + ylab("Correlation")
 print(p)
-```
-
-```
-## Warning: Removed 6 rows containing non-finite values (stat_boxplot).
 ```
 
 ![plot of chunk homogeneity-intra](figure/homogeneity-intra-1.png)
