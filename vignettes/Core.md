@@ -83,7 +83,7 @@ print(coremat)
 ## 20    0   0   0   0   0   0   0   0   0   0
 ```
 
-<img src="figure/core-example2-1.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="500px" /><img src="figure/core-example2-2.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="500px" />
+<img src="figure/core-example2-1.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="450px" /><img src="figure/core-example2-2.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="450px" />
 
 
 ### Core heatmaps
