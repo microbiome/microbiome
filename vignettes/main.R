@@ -1,5 +1,11 @@
 library(microbiome)
 library(phyloseq)
+library(netresponse)
+library(MASS)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(sorvi)
 
 #library(rmarkdown)
 #rmarkdown::render("vignette.Rmd")

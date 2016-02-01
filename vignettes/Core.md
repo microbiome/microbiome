@@ -67,7 +67,9 @@ res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, 
 res$plot + xlab("Abundance (OTU count)")
 ```
 
-![plot of chunk core-example2](figure/core-example2-2.png)
+```
+## Error in eval(expr, envir, enclos): could not find function "xlab"
+```
 
 ```r
 # Core lineplot with relative abundances
@@ -75,13 +77,15 @@ det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
 res <- plot_core(pseq.rel, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
 ```
 
-![plot of chunk core-example2](figure/core-example2-3.png)
+![plot of chunk core-example2](figure/core-example2-2.png)
 
 ```r
 res$plot + xlab("Relative Abundance (%)")
 ```
 
-![plot of chunk core-example2](figure/core-example2-4.png)
+```
+## Error in eval(expr, envir, enclos): could not find function "xlab"
+```
 
 ```r
 # Retrieve the core count data matrix
@@ -115,14 +119,16 @@ res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw", prevalence.int
 ```
 
 ```
-## Error in mean(x > detection.threshold): (list) object cannot be coerced to type 'double'
+## Error in names(df) <- c("Taxa", "DetectionThreshold", "Prevalence"): 'names' attribute [3] must be the same length as the vector [2]
 ```
 
 ```r
 print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
 ```
 
-![plot of chunk core-example3](figure/core-example3-1.png)
+```
+## Error in print(res$plot + xlab("Detection Threshold (Relative Abundance (%))")): could not find function "xlab"
+```
 
 ```r
 # Retrieve the core prevalence data matrix
@@ -139,7 +145,7 @@ res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.interva
 ```
 
 ```
-## Error in mean(x > detection.threshold): (list) object cannot be coerced to type 'double'
+## Error in names(df) <- c("Taxa", "DetectionThreshold", "Prevalence"): 'names' attribute [3] must be the same length as the vector [2]
 ```
 
 ```r
@@ -156,7 +162,7 @@ res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.interva
 ```
 
 ```
-## Error in mean(x > detection.threshold): (list) object cannot be coerced to type 'double'
+## Error in names(df) <- c("Taxa", "DetectionThreshold", "Prevalence"): 'names' attribute [3] must be the same length as the vector [2]
 ```
 
 ```r
@@ -174,12 +180,14 @@ p <- plot_core(pseq, plot.type = "heatmap", palette = "spectral")$plot
 ```
 
 ```
-## Error in max(data): invalid 'type' (list) of argument
+## Error in max(data): invalid 'type' (closure) of argument
 ```
 
 ```r
 print(p)
 ```
 
-![plot of chunk core-example4](figure/core-example4-1.png)
+```
+## Error in print(p): object 'p' not found
+```
 

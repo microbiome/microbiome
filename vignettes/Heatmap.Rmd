@@ -66,6 +66,11 @@ Neatmap sorting is available also for matrices
 data(peerj32)
 x <- peerj32$microbes # Matrix
 xz <- scale(x) # Z-transformed matrix
+
+# Sorting rows (or columns) if just the sample order is needed rather than the matrix
+sorted.rows <- neatsort(xz, "rows", method = "NMDS", distance = "euclidean") 
+
+# Or just arrange the matrix directly
 xo <- neat(xz, method = "NMDS", distance = "euclidean") # Sorted matrix
 tmp <- netresponse::plot_matrix(t(xo), type = "twoway", mar = c(5, 12, 1, 1))
 ```

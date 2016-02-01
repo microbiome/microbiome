@@ -72,6 +72,20 @@ tmp <- netresponse::plot_matrix(x[order.otu, order.sample], type = "twoway", mar
 ![plot of chunk heatmap-crosscorrelate3](figure/heatmap-crosscorrelate3-1.png)
 
 
+Neatmap sorting is available also for matrices
+
+
+```r
+# Use the original phyloseq object for ordering as negative values are not allowed
+data(peerj32)
+x <- peerj32$microbes # Matrix
+xz <- scale(x) # Z-transformed matrix
+xo <- neat(xz, method = "NMDS", distance = "euclidean") # Sorted matrix
+tmp <- netresponse::plot_matrix(t(xo), type = "twoway", mar = c(5, 12, 1, 1))
+```
+
+
+
 ### Cross-correlating data sets
 
 Cross-correlate columns of two data sets from related to microbiome and blood serum lipids associations ([PeerJ 1:e32](https://peerj.com/articles/32/)).
@@ -111,7 +125,7 @@ kable(head(correlation.table))
 ```
 
 ```
-## Error in head(correlation.table): error in evaluating the argument 'x' in selecting a method for function 'head': Error: object 'correlation.table' not found
+## Error in head(correlation.table): object 'correlation.table' not found
 ```
 
 ### Correlation heatmaps
@@ -227,7 +241,7 @@ df$X1 <- factor(df$X1)
 ```
 
 ```
-## Error in `$<-.data.frame`(`*tmp*`, "X1", value = structure(integer(0), .Label = character(0), class = "factor")): replacement has 0 rows, data has 95
+## Error in df$X1: object of type 'closure' is not subsettable
 ```
 
 ```r
@@ -235,11 +249,18 @@ df$X2 <- factor(df$X2)
 ```
 
 ```
-## Error in `$<-.data.frame`(`*tmp*`, "X2", value = structure(integer(0), .Label = character(0), class = "factor")): replacement has 0 rows, data has 95
+## Error in df$X2: object of type 'closure' is not subsettable
 ```
 
 ```r
 p <- ggplot(df, aes(X1, X2, group=X2)) 
+```
+
+```
+## Error: ggplot2 doesn't know how to deal with data of class function
+```
+
+```r
 p <- p + geom_tile(aes(fill = Correlation)) 
 p <- p + geom_text(aes(fill = df$Correlation, label = round(df$Correlation, 1)), size = 2) 
 p <- p + scale_fill_gradientn("Correlation", 

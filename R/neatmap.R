@@ -63,14 +63,14 @@ order_neatmap <- function (x, target, method = "NMDS", distance = "bray", first 
 
 
 #' @title Neatmap ordering for matrices
-#' @description Order rows or columns based on the neatmap approach.
+#' @description Order matrix based on the neatmap approach.
 #' @param x A matrix.
 #' @param arrange Order "rows" or "cols" or "both".
 #' @param method Ordination method. Only NMDS implemented for now.
 #' @param distance Distance method. See \code{\link{vegdist}} function from the \pkg{vegan} package.
 #' @param first Optionally provide the name of the first sample/taxon to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.
 #' @param ... Arguments to pass.
-#' @return Vector of ordered elements
+#' @return Sorted matrix
 #' @export
 #' @examples \dontrun{
 #'    data(peerj32)
@@ -90,12 +90,47 @@ order_neatmap <- function (x, target, method = "NMDS", distance = "bray", first 
 #' @keywords utilities
 neat <- function (x, arrange = "both", method = "NMDS", distance = "bray", first = NULL, ...) {
 
-  if (arrange == "both") {
-    x <- neat(x, "rows", method = method, distance = distance, first = first, ...)
-    x <- neat(x, "cols", method = method, distance = distance, first = first, ...)    
-    return(x)
+  if (arrange %in% c("rows", "both")) {
+    sr <- neatsort(x, "rows", method = method, distance = distance, first = first, ...)  
+    x <- x[sr,]
+  if (arrange %in% c("cols", "both")) {
+    sc <- neatsort(x, "cols", method = method, distance = distance, first = first, ...)
+    x <- x[sc,]
   }
 
+  x
+}
+
+
+
+#' @title Neatmap ordering for matrix rows or columns
+#' @description Order rows or columns based on the neatmap approach.
+#' @param x A matrix.
+#' @param arrange Order "rows" or "cols"
+#' @param method Ordination method. Only NMDS implemented for now.
+#' @param distance Distance method. See \code{\link{vegdist}} function from the \pkg{vegan} package.
+#' @param first Optionally provide the name of the first sample/taxon to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.
+#' @param ... Arguments to pass.
+#' @return Vector of ordered elements
+#' @export
+#' @examples \dontrun{
+#'    data(peerj32)
+#'    x <- peerj32$microbes
+#'    x <- neatsort(x, "rows", method = "NMDS", distance = "bray")
+#'                   }
+#' @references This function is partially based on code derived from the \pkg{phyloseq} package. However for the original
+#'   neatmap approach for heatmap sorting, see (and cite):
+#'   Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map alternatives in R. BMC Bioinformatics, 11, 45.
+#'
+#' @details This function borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is there
+#' not available as a separate function at present, however, hindering reuse in other tools. This function provides an independent
+#' method for easy row/column reordering for matrices. This a quick hack and using the ordination could be expanded further
+#' (now only NMDS is available, and the sorting is done independently for rows and columns).
+#' @importFrom vegan scores
+#' @importFrom vegan vegdist
+#' @importFrom vegan metaMDS
+#' @keywords utilities
+neatsort <- function (x, arrange, method = "NMDS", distance = "bray", first = NULL, ...) {
 
   if (arrange == "cols") {
     x <- t(x)
@@ -130,14 +165,8 @@ neat <- function (x, arrange = "both", method = "NMDS", distance = "bray", first
     ordering <- chunkReOrder(ordering, first)
   }
 
-  x <- x[ordering,]
-
-  # Return to the original shape
-  if (arrange == "cols") {
-    x <- t(x)
-  }
-
-  x
+  ordering
+  
 }
 
 
