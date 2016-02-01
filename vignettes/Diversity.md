@@ -75,7 +75,7 @@ Same with the phyloseq function:
 
 
 ```r
-p <- plot_richness(pseq, "bmi_group", measures = c("Chao1", "Shannon"))
+p <- plot_richness(pseq, "group", measures = c("Chao1", "Shannon"))
 p <- p + geom_boxplot()
 print(p)
 ```
@@ -90,13 +90,9 @@ Highlight specific groups:
 library(ggplot2)
 #data.dietswap <- download_microbiome("dietswap")
 data("dietswap")
-p <- plot_richness(dietswap, x = "gender", color = "group", measures = c("Shannon", "Simpson")) 
+p <- plot_richness(dietswap, x = "sex", color = "group", measures = c("Shannon", "Simpson")) 
 p <- p + geom_boxplot()
 print(p)
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'gender' not found
 ```
 
 ![plot of chunk richness](figure/richness-1.png)
@@ -114,10 +110,6 @@ p <- plot_diversity(pseq, x = "age", measures = "Shannon")
 
 ```r
 print(p)
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'gender' not found
 ```
 
 ![plot of chunk diversitywithmetadata2](figure/diversitywithmetadata2-1.png)

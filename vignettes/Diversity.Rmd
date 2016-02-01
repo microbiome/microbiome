@@ -59,7 +59,7 @@ print(p)
 Same with the phyloseq function:
 
 ```{r div-example2b, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.heigth=6}
-p <- plot_richness(pseq, "bmi_group", measures = c("Chao1", "Shannon"))
+p <- plot_richness(pseq, "group", measures = c("Chao1", "Shannon"))
 p <- p + geom_boxplot()
 print(p)
 ```
@@ -71,7 +71,7 @@ Highlight specific groups:
 library(ggplot2)
 #data.dietswap <- download_microbiome("dietswap")
 data("dietswap")
-p <- plot_richness(dietswap, x = "gender", color = "group", measures = c("Shannon", "Simpson")) 
+p <- plot_richness(dietswap, x = "sex", color = "group", measures = c("Shannon", "Simpson")) 
 p <- p + geom_boxplot()
 print(p)
 ```
