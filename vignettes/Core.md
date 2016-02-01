@@ -111,7 +111,8 @@ Core with absolute counts:
 ```r
 prevalence.intervals = seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
-res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds)$plot
+res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals,
+       		       detection.thresholds = detection.thresholds, min.prevalence = NULL)$plot
 ```
 
 ![plot of chunk core-example3b](figure/core-example3b-1.png)
