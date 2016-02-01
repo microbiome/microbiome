@@ -22,8 +22,9 @@ core_heatmap <- function(data, detection.thresholds = 20, palette = "bw", min.pr
     prev <- do.call("cbind", prev)
     colnames(prev) <- as.character(detection.thresholds)
 
-    if (!is.null(min.prevalence) && min.prevalence == 0) {
-      prev <- prev[rowMeans(prev > 0) > 0, colMeans(prev > 0) > 0]
+    # Exclude rows and cols that never exceed the given prevalence
+    if (!is.null(min.prevalence)) {
+      prev <- prev[rowMeans(prev > min.prevalence) > 0, colMeans(prev > min.prevalence) > 0]
     }
     
     df <- as.data.frame(prev)

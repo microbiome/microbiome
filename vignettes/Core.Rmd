@@ -40,7 +40,7 @@ core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds 
 
 ### Core 2D line plots
 
-```{r core-example2, fig.width=8, fig.heigth=6, fig.path = "figure/", fig.show='hold', out.width="400px"}
+```{r core-example2, fig.width=8, fig.heigth=6, fig.path = "figure/", fig.show='hold', out.width="500px"}
 # Core lineplot with absolute read counts
 det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
 res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot", plot = FALSE)
@@ -83,13 +83,15 @@ res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.interva
 Zoom in on the core region by filtering out rows and columns with zero prevalence:
 
 ```{r core-example3bb, fig.width=8, fig.heigth=13, fig.path = "figure/"}
-plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, min.prevalence = 0, plot = FALSE)$plot
+plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals,
+		detection.thresholds = detection.thresholds, min.prevalence = 0, plot = TRUE)
 ```
 
 
 Color scale core plot:
 
 ```{r core-example4, fig.width=8, fig.heigth=13, fig.path = "figure/"}
-plot_core(pseq, plot.type = "heatmap", palette = "spectral")$plot
+plot_core(pseq, plot.type = "heatmap", palette = "spectral", prevalence.intervals = prevalence.intervals,
+		detection.thresholds = detection.thresholds, min.prevalence = 0, plot = TRUE)
 ```
 
