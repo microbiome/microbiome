@@ -41,7 +41,7 @@ diversity <- estimate_diversity(pseq)
 
 Visualize diversity vs. discrete variable:
 
-```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.heigth=5}
+```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.heigth=4}
 p <- plot_diversity(pseq, "bmi_group", measures = c("Chao1", "Shannon"), indicate.subjects = FALSE)
 print(p)
 
@@ -58,7 +58,7 @@ print(p)
 
 Same with the phyloseq function:
 
-```{r div-example2b, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.heigth=5}
+```{r div-example2b, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.heigth=4}
 p <- plot_richness(pseq, "group", measures = c("Chao1", "Shannon"))
 p <- p + geom_boxplot()
 print(p)
@@ -78,14 +78,14 @@ print(p)
 
 Diversity vs. continuous variable:
 
-```{r diversitywithmetadata2, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=5, fig.path = "figure/"}
+```{r diversitywithmetadata2, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=4, fig.path = "figure/"}
 p <- plot_diversity(atlas1006, "age", measures = "Shannon")
 print(p)
 ```
 
 Same with the phyloseq function:
 
-```{r diversitywithmetadata2b, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=5, fig.path = "figure/"}
+```{r diversitywithmetadata2b, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=4, fig.path = "figure/"}
 p <- plot_richness(atlas1006, "age", measures = "Shannon")
 p <- p + geom_smooth()
 print(p)
