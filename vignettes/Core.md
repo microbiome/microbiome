@@ -54,26 +54,17 @@ core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds 
 ### Core 2D line plots
 
 
-
 ```r
 # Core lineplot with absolute read counts
 det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
 res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot", plot = FALSE)
 res$plot + xlab("Abundance (OTU read count)")
-```
 
-![plot of chunk core-example2](figure/core-example2-1.png)
-
-```r
 # Core lineplot with relative abundances
 det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
 res <- plot_core(pseq.rel, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot", plot = FALSE)
 res$plot + xlab("Relative Abundance (%)")
-```
 
-![plot of chunk core-example2](figure/core-example2-2.png)
-
-```r
 # Retrieve the core count data matrix
 coremat <- res$data
 print(coremat)
@@ -92,6 +83,8 @@ print(coremat)
 ## 20    0   0   0   0   0   0   0   0   0   0
 ```
 
+<img src="figure/core-example2-1.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="200px" /><img src="figure/core-example2-2.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="200px" />
+
 
 ### Core heatmaps
 
@@ -99,9 +92,9 @@ Core with relative abundances:
 
 
 ```r
-prevalence.intervals = seq(5, 100, 5)
+prevalence.intervals <- seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)		 
-res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
+res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, plot = FALSE) 
 ```
 
 ```
@@ -125,51 +118,33 @@ Core with absolute counts:
 ```r
 prevalence.intervals = seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
-res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds)
+res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds)$plot
 ```
 
 ```
 ## Error in names(df) <- c("Taxa", "DetectionThreshold", "Prevalence"): 'names' attribute [3] must be the same length as the vector [2]
 ```
-
-```r
-print(res$plot)
-```
-
-![plot of chunk core-example3b](figure/core-example3b-1.png)
 
 Zoom in on the core region by filtering out rows and columns with zero prevalence:
 
 
 ```r
-res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, min.prevalence = 0)
+plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, min.prevalence = 0, plot = FALSE)$plot
 ```
 
 ```
 ## Error in names(df) <- c("Taxa", "DetectionThreshold", "Prevalence"): 'names' attribute [3] must be the same length as the vector [2]
 ```
-
-```r
-print(res$plot)
-```
-
-![plot of chunk core-example3bb](figure/core-example3bb-1.png)
 
 
 Color scale core plot:
 
 
 ```r
-p <- plot_core(pseq, plot.type = "heatmap", palette = "spectral")$plot
+plot_core(pseq, plot.type = "heatmap", palette = "spectral")$plot
 ```
 
 ```
 ## Error in max(data): invalid 'type' (closure) of argument
 ```
-
-```r
-print(p)
-```
-
-![plot of chunk core-example4](figure/core-example4-1.png)
 

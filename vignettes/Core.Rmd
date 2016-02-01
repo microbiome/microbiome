@@ -40,8 +40,7 @@ core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds 
 
 ### Core 2D line plots
 
-
-```{r core-example2, fig.width=8, fig.heigth=8, fig.path = "figure/"}
+```{r core-example2, fig.width=8, fig.heigth=6, fig.path = "figure/", fig.show='hold', out.width="200px"}
 # Core lineplot with absolute read counts
 det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
 res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot", plot = FALSE)
@@ -63,9 +62,9 @@ print(coremat)
 Core with relative abundances:
 
 ```{r core-example3, fig.width=8, fig.heigth=13, fig.path = "figure/"}
-prevalence.intervals = seq(5, 100, 5)
+prevalence.intervals <- seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)		 
-res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
+res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, plot = FALSE) 
 print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
 
 
@@ -78,22 +77,19 @@ Core with absolute counts:
 ```{r core-example3b, fig.width=8, fig.heigth=13, fig.path = "figure/"}
 prevalence.intervals = seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
-res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds)
-print(res$plot)
+res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds)$plot
 ```
 
 Zoom in on the core region by filtering out rows and columns with zero prevalence:
 
 ```{r core-example3bb, fig.width=8, fig.heigth=13, fig.path = "figure/"}
-res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, min.prevalence = 0)
-print(res$plot)
+plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, min.prevalence = 0, plot = FALSE)$plot
 ```
 
 
 Color scale core plot:
 
 ```{r core-example4, fig.width=8, fig.heigth=13, fig.path = "figure/"}
-p <- plot_core(pseq, plot.type = "heatmap", palette = "spectral")$plot
-print(p)
+plot_core(pseq, plot.type = "heatmap", palette = "spectral")$plot
 ```
 
