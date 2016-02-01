@@ -26,12 +26,10 @@ approximate):
 library(phyloseq)
 pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
 res <- plot_composition(pseq2, taxonomic.level = "Phylum")
-res$plot + theme(legend_position = "bottom")
+res$plot + theme(legend.position = "bottom")
 ```
 
-```
-## Error in (function (el, elname) : "legend_position" is not a valid theme element name.
-```
+![plot of chunk composition-example1b](figure/composition-example1b-1.png)
 
 Arrange by sample variable and use custom X axis labels. Africans have more Prevotella as expected. Absolute counts:
 
