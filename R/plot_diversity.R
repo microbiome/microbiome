@@ -24,6 +24,7 @@
 #' @param scales scales for the plot
 #' @param det.th Detection threshold for the diversity measure 'Observed' 
 #'               (ie. species richness). See \code{\link{estimate_diversity}}
+#' @param indicate.subjects Indicate subjects by lines. The sample_data(x) must have 'subject' field.
 #' @return A \code{\link{ggplot}} plot object summarizing
 #'  the richness estimates, and their standard error.
 #' @details If subject is among the metadata variables, the matched subjects across groups are indicated by lines.
@@ -37,7 +38,7 @@
 #' @export
 #' @examples # plot_diversity(x, group = "bmi_group", "Shannon")
 #' @keywords utilities
-plot_diversity <- function(x, group = "group", title = "", measures = "Shannon", nrow = 1, scales = "free_y", det.th = 0){ 
+plot_diversity <- function(x, group = "group", title = "", measures = "Shannon", nrow = 1, scales = "free_y", det.th = 0, indicate.subjects = FALSE){ 
 
   ends_with <- horiz <- subject <- NULL
 
@@ -80,9 +81,11 @@ plot_diversity <- function(x, group = "group", title = "", measures = "Shannon",
     
     p <- p + geom_boxplot(na.rm=TRUE)
 
-    p <- p + geom_point()
-    p <- p + geom_line(aes(group = subject))
-
+    if (indicate.subjects) {
+      p <- p + geom_point()
+      p <- p + geom_line(aes(group = subject))
+    }
+    
     # Rotate horizontal axis labels, and adjust
     p <- p + theme(axis.text.x=element_text(angle=-90, vjust=0.5, hjust=0))
 	
