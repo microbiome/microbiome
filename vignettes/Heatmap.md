@@ -1,38 +1,20 @@
 ## Heatmaps
 
-See also [Composition](Composition.md) page.
-
-### phyloseq heatmaps
-
-Download example data and plot heatmap with phyloseq tools:
+See [Composition](Composition.md) page for phyloseq microbiota composition heatmaps. Load some example data:
 
 
 ```r
 library(microbiome)
 data("dietswap")
 pseq <- dietswap
-
 library(phyloseq)
-plot_heatmap(pseq, sample.label = "sample")
-```
 
-![plot of chunk heatmap-phyloseq1](figure/heatmap-phyloseq1-1.png)
-
-Pick subset of the data and plot ordered heatmap:
-
-
-```r
+# Pick data subset
 bacteroidetes <- levelmap(from = "Phylum", to = "Genus",
-	      	 	   tax.table = tax_table(pseq))$Bacteroidetes
+                   tax.table = tax_table(pseq))$Bacteroidetes
 pseq2 <- prune_taxa(bacteroidetes, pseq)
 pseq2 <- subset_samples(pseq2, group == "DI")
-
-# Plot heatmap ordered with NMDS
-plot_heatmap(pseq2, method = "NMDS", distance = "bray",
-	     sample.label = "sample", taxa.label = "Genus")
 ```
-
-![plot of chunk heatmap-phyloseq2](figure/heatmap-phyloseq2-1.png)
 
 
 ### Matrix heatmaps
