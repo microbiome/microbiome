@@ -88,34 +88,28 @@ print(coremat)
 
 ### Core heatmaps
 
-Core with relative abundances:
+
 
 
 ```r
+# Core with relative abundances:
 prevalence.intervals <- seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)		 
 res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, plot = FALSE) 
 print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
-```
 
-![plot of chunk core-example3](figure/core-example3-1.png)
-
-```r
-# Retrieve the core prevalence data matrix
-prevalences <- res$data
-```
-
-Core with absolute counts:
-
-
-```r
+# Core with absolute counts:
 prevalence.intervals = seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
 res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals,
        		       detection.thresholds = detection.thresholds, min.prevalence = NULL)$plot
+		       
+# Retrieve the core prevalence data matrix
+prevalences <- res$data
 ```
 
-![plot of chunk core-example3b](figure/core-example3b-1.png)
+<img src="figure/core-example3-1.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="430px" /><img src="figure/core-example3-2.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="430px" />
+
 
 Zoom in on the core region by filtering out rows and columns not passing min prevalence (given as percentages):
 
