@@ -103,9 +103,6 @@ prevalence.intervals = seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
 res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals,
        		       detection.thresholds = detection.thresholds, min.prevalence = NULL)$plot
-		       
-# Retrieve the core prevalence data matrix
-prevalences <- res$data
 ```
 
 <img src="figure/core-example3-1.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="430px" /><img src="figure/core-example3-2.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="430px" />
@@ -117,24 +114,21 @@ Zoom in on the core region by filtering out rows and columns not passing min pre
 ```r
 res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals,
 		detection.thresholds = detection.thresholds, min.prevalence = 10, plot = TRUE)
+
+res <- plot_core(pseq, plot.type = "heatmap", palette = "spectral", prevalence.intervals = prevalence.intervals,
+		detection.thresholds = detection.thresholds, min.prevalence = 0, plot = TRUE)
 ```
 
-![plot of chunk core-example3bb](figure/core-example3bb-1.png)
+<img src="figure/core-example3bb-1.png" title="plot of chunk core-example3bb" alt="plot of chunk core-example3bb" width="430px" /><img src="figure/core-example3bb-2.png" title="plot of chunk core-example3bb" alt="plot of chunk core-example3bb" width="430px" />
 
 
 Color scale core plot:
 
 
 ```r
-res <- plot_core(pseq, plot.type = "heatmap", palette = "spectral", prevalence.intervals = prevalence.intervals,
-		detection.thresholds = detection.thresholds, min.prevalence = 0, plot = TRUE)
-```
-
-![plot of chunk core-example4](figure/core-example4-1.png)
-
-```r
-# Also check the data used for plotting
-kable(head(res$data))
+# Retrieve the core prevalence data matrix
+prevalences <- res$data
+kable(head(prevalences))
 ```
 
 
