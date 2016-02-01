@@ -17,7 +17,7 @@ variable from sample metadata:
 
 ```{r rda2, warning=FALSE, message=FALSE}
 # If x has zeroes we can use log(1 + x) transformation
-pseq.log10 <- transform_sample_counts(pseq, function (x) {log10(x)})
+pseq.log10 <- transform_phyloseq(pseq, "log10")
 rda.result <- rda_physeq(pseq.log10, "time")
 ```
 
@@ -47,9 +47,9 @@ permutest(rda.result)
 
 ### Bagged RDA
 
-Fitting bagged RDA on a phyloseq object:
+Fitting bagged (bootstrap aggregated) RDA on a phyloseq object:
 
-```{r rda5, warning=FALSE, message=FALSE, fig.show='none'}
+```{r rda5, warning=FALSE, message=FALSE}
 res <- bagged_rda(pseq.log10, "group", sig.thresh=0.05, nboot=100)
 ```
 
@@ -60,9 +60,9 @@ plot_bagged_rda(res)
 ```
 
 
-### Controlling confounding variables with RDA
+### RDA with confounding variables 
 
-For more complex scenarios, use the vegan package directly:
+For more complex RDA scenarios, use the vegan package directly:
 
 ```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
 # Pick microbiota profiling data from the phyloseq object

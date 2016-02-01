@@ -19,7 +19,7 @@ variable from sample metadata:
 
 ```r
 # If x has zeroes we can use log(1 + x) transformation
-pseq.log10 <- transform_sample_counts(pseq, function (x) {log10(x)})
+pseq.log10 <- transform_phyloseq(pseq, "log10")
 rda.result <- rda_physeq(pseq.log10, "time")
 ```
 
@@ -61,13 +61,13 @@ permutest(rda.result)
 ## Call: rda(formula = otu ~ annot, scale = scale, na.action =
 ## na.action)
 ## Permutation test for all constrained eigenvalues
-## Pseudo-F:	 0.6771816 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.91
+## Pseudo-F:	 0.6049309 (with 1, 42 Degrees of Freedom)
+## Significance:	 0.95
 ```
 
 ### Bagged RDA
 
-Fitting bagged RDA on a phyloseq object:
+Fitting bagged (bootstrap aggregated) RDA on a phyloseq object:
 
 
 ```r
@@ -86,9 +86,9 @@ plot_bagged_rda(res)
 ![plot of chunk rda6](figure/rda6-1.png)
 
 
-### Controlling confounding variables with RDA
+### RDA with confounding variables 
 
-For more complex scenarios, use the vegan package directly:
+For more complex RDA scenarios, use the vegan package directly:
 
 
 ```r
