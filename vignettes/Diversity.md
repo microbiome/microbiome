@@ -101,7 +101,7 @@ Diversity vs. continuous variable:
 
 
 ```r
-p <- plot_diversity(pseq, x = "age", measures = "Shannon")
+p <- plot_diversity(atlas1006, x = "age", measures = "Shannon")
 ```
 
 ```
@@ -118,13 +118,9 @@ Same with the phyloseq function:
 
 
 ```r
-p <- plot_richness(pseq, x = "age", measures = "Shannon")
+p <- plot_richness(atlas1006, x = "age", measures = "Shannon")
 p <- p + geom_smooth()
 print(p)
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'age' not found
 ```
 
 ![plot of chunk diversitywithmetadata2b](figure/diversitywithmetadata2b-1.png)
@@ -138,40 +134,18 @@ library(microbiome)
 library(sorvi)
 library(dplyr)
 
+pseq <- atlas1006
+
 # Add diversity into sample metadata
 sample_data(pseq)$diversity <- estimate_diversity(pseq)$Shannon
 
 # Select a subset of samples
 pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
-```
 
-```
-## Error in time == 0: comparison (1) is possible only for atomic and list types
-```
-
-```r
 # Visualize
 df <- sample_data(pseq0)
-```
-
-```
-## Error in sample_data(pseq0): error in evaluating the argument 'object' in selecting a method for function 'sample_data': Error: object 'pseq0' not found
-```
-
-```r
 p <- sorvi::regression_plot(diversity ~ age, df)
-```
-
-```
-## Error in data[[IV]]: object of type 'closure' is not subsettable
-```
-
-```r
 print(p)
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'age' not found
 ```
 
 ![plot of chunk diversity-example13](figure/diversity-example13-1.png)

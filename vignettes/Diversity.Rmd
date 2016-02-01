@@ -79,14 +79,14 @@ print(p)
 Diversity vs. continuous variable:
 
 ```{r diversitywithmetadata2, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=6, fig.path = "figure/"}
-p <- plot_diversity(pseq, x = "age", measures = "Shannon")
+p <- plot_diversity(atlas1006, x = "age", measures = "Shannon")
 print(p)
 ```
 
 Same with the phyloseq function:
 
 ```{r diversitywithmetadata2b, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=6, fig.path = "figure/"}
-p <- plot_richness(pseq, x = "age", measures = "Shannon")
+p <- plot_richness(atlas1006, x = "age", measures = "Shannon")
 p <- p + geom_smooth()
 print(p)
 ```
@@ -98,6 +98,8 @@ Diversity vs. age with smoothed confidence intervals - manual version:
 library(microbiome)
 library(sorvi)
 library(dplyr)
+
+pseq <- atlas1006
 
 # Add diversity into sample metadata
 sample_data(pseq)$diversity <- estimate_diversity(pseq)$Shannon
