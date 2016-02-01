@@ -101,15 +101,12 @@ Diversity vs. continuous variable:
 
 
 ```r
-p <- plot_diversity(atlas1006, x = "age", measures = "Shannon")
-```
-
-```
-## Error in access(object, "otu_table", errorIfNULL): otu_table slot is empty.
-```
-
-```r
+p <- plot_diversity(atlas1006, "age", measures = "Shannon")
 print(p)
+```
+
+```
+## Error in as.character.default(x$label): no method for coercing this S4 class to a vector
 ```
 
 ![plot of chunk diversitywithmetadata2](figure/diversitywithmetadata2-1.png)
@@ -118,7 +115,7 @@ Same with the phyloseq function:
 
 
 ```r
-p <- plot_richness(atlas1006, x = "age", measures = "Shannon")
+p <- plot_richness(atlas1006, "age", measures = "Shannon")
 p <- p + geom_smooth()
 print(p)
 ```
