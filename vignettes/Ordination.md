@@ -99,7 +99,7 @@ Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
 
 ```r
-p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Genus", title = "taxa")
+p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Phylum", title = "Taxa ordination")
 print(p)
 ```
 
