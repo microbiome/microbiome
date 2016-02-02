@@ -70,7 +70,8 @@ plot_variation <- function (x, taxon, tipping.point = NULL, lims = NULL, shift =
   # p <- p + theme(title = element_text(size = 20), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text.x = element_text(size = 20), axis.text.y = element_blank(), axis.ticks.y = element_blank())
   p <- p + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) 
   #p <- p + scale_y_log10(limits = lims)
-  
+
+  # Assuming whatever abundances: broken
   #breaks <- c(seq(floor(min(lims)), ceiling(max(lims)), by = 1)) 
   #names(breaks) <- as.character(10^(breaks + shift))
   # Assuming relative abundances

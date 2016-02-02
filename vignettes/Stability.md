@@ -131,14 +131,14 @@ xlims <- otu_table(pseq)
 # Indicates the abundance variation range
 # for subjects with multiple time points
 pv <- plot_variation(pseq, "Dialister", tipping.point = 0.3)
-print(pv + xlim(values = c(0.01, 100)))
+print(pv + ylim(values = c(0.01, 100)))
 
 # Bimodality hotplot:
 # Only consider a unique sample from each subject
 # baseline time point for density plot
 pseq.baseline <- subset_samples(pseq, time == 0)
 ph <- plot_bimodal(pseq.baseline, "Dialister", tipping.point = 0.3)
-print(pv + ylim(values = c(0.01, 100)))
+print(pv + xlim(values = c(0.01, 100)))
 ```
 
 <img src="figure/stability-variationplot-1.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" /><img src="figure/stability-variationplot-2.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" />
