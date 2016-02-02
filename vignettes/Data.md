@@ -262,11 +262,11 @@ kable(head(df))
 
 
 
-|     |OTU                                  |Sample    | Abundance| time|gender |subject |sample    |group   |Phylum                 |Genus                                |
-|:----|:------------------------------------|:---------|---------:|----:|:------|:-------|:---------|:-------|:----------------------|:------------------------------------|
-|1049 |Bacteroides vulgatus et rel.         |sample-37 |      9735|    1|male   |S19     |sample-37 |LGG     |Bacteroidetes          |Bacteroides vulgatus et rel.         |
-|1055 |Bacteroides vulgatus et rel.         |sample-27 |      5884|    1|female |S14     |sample-27 |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |
-|1016 |Bacteroides vulgatus et rel.         |sample-16 |      5135|    2|female |S8      |sample-16 |LGG     |Bacteroidetes          |Bacteroides vulgatus et rel.         |
-|2846 |Faecalibacterium prausnitzii et rel. |sample-34 |      4912|    2|male   |S17     |sample-34 |Placebo |Clostridium cluster IV |Faecalibacterium prausnitzii et rel. |
-|1048 |Bacteroides vulgatus et rel.         |sample-17 |      4857|    1|male   |S9      |sample-17 |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |
-|1033 |Bacteroides vulgatus et rel.         |sample-1  |      4683|    1|female |S1      |sample-1  |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |
+|      |OTU                               |Sample     | Abundance|subject |sex    |nationality |group |sample     | timepoint| timepoint.within.group|bmi_group  |Phylum        |Genus                             |
+|:-----|:---------------------------------|:----------|---------:|:-------|:------|:-----------|:-----|:----------|---------:|----------------------:|:----------|:-------------|:---------------------------------|
+|21473 |Prevotella melaninogenica et rel. |Sample-187 |  77.01120|kpb     |Male   |AAM         |DI    |Sample-187 |         4|                      1|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21320 |Prevotella melaninogenica et rel. |Sample-182 |  76.08013|kpb     |Male   |AAM         |ED    |Sample-182 |         1|                      1|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21438 |Prevotella melaninogenica et rel. |Sample-210 |  75.05250|qjy     |Female |AFR         |ED    |Sample-210 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21315 |Prevotella melaninogenica et rel. |Sample-104 |  74.84138|vem     |Male   |AFR         |HE    |Sample-104 |         3|                      2|lean       |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21396 |Prevotella melaninogenica et rel. |Sample-168 |  74.73237|mnk     |Female |AAM         |HE    |Sample-168 |         3|                      2|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21487 |Prevotella melaninogenica et rel. |Sample-89  |  74.23023|vem     |Male   |AFR         |HE    |Sample-89  |         2|                      1|lean       |Bacteroidetes |Prevotella melaninogenica et rel. |

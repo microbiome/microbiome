@@ -20,7 +20,6 @@ plot_bimodal <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1
 
   Abundance <- ..density.. <- ..x.. <- NULL
 
-  m <- sample_data(x)
   otu <- otu_table(x)@.Data
   if (!taxa_are_rows(x)) {otu <- t(otu)}
   

@@ -105,13 +105,13 @@ Bioconductor extensions, including:
  * df2json (Caballero, 2013)
  * rjson (Couture-Beil, 2014)
  * ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007)
- * mixOmics (Cao, Gonzalez, Rohart, et al., 2015)
+ * mixOmics (Cao, Gonzalez, Rohart, Gautier, Monget, Coquery, Yao, and Liquet., 2015)
  * RCurl (Temple Lang and team, 2015)
- * vegan (Oksanen, Blanchet, Kindt, et al., 2016)
+ * vegan (Oksanen, Blanchet, Kindt, Legendre, Minchin, O'Hara, Simpson, Solymos, Stevens, and Wagner, 2016)
  * reshape (Wickham and Hadley, 2007)
  * WGCNA (Langfelder and Horvath, 2008; Langfelder and Horvath, 2012)
  * ggplot2 (Wickham, 2009)
- * RPA (Lahti, Torrente, Elo, et al., 2013; Lahti, Elo, Aittokallio, et al., 2011)
+ * RPA (Lahti, Torrente, Elo, Brazma, and Rung, 2013; Lahti, Elo, Aittokallio, and Kaski, 2011)
  * minet (Meyer, Lafitte, and Bontempi, 2008)
  * fastcluster (Müllner, 2013)
  * dplyr (Wickham and Francois, 2015)
@@ -227,16 +227,16 @@ sessionInfo()
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] gridExtra_2.0.0     googleVis_0.5.10    rdryad_0.2.0       
-##  [4] RSQLite_1.0.0       DBI_0.3.1           vegan_2.3-3        
-##  [7] lattice_0.20-33     permute_0.8-4       knitcitations_1.0.7
-## [10] knitr_1.12          devtools_1.9.1      limma_3.26.5       
-## [13] sorvi_0.7.35        ggplot2_2.0.0       tidyr_0.3.1        
-## [16] dplyr_0.4.3         MASS_7.3-45         netresponse_1.21.14
-## [19] reshape2_1.4.1      mclust_5.1          minet_3.28.0       
-## [22] Rgraphviz_2.14.0    graph_1.48.0        phyloseq_1.14.0    
-## [25] microbiome_0.99.73  RPA_1.26.0          affy_1.48.0        
-## [28] Biobase_2.30.0      BiocGenerics_0.16.1
+##  [1] RSQLite_1.0.0       DBI_0.3.1           rdryad_0.2.0       
+##  [4] vegan_2.3-3         lattice_0.20-33     permute_0.8-4      
+##  [7] gridExtra_2.0.0     knitcitations_1.0.7 knitr_1.12         
+## [10] devtools_1.9.1      limma_3.26.5        sorvi_0.7.35       
+## [13] ggplot2_2.0.0       tidyr_0.3.1         dplyr_0.4.3        
+## [16] MASS_7.3-45         netresponse_1.21.14 reshape2_1.4.1     
+## [19] mclust_5.1          minet_3.28.0        Rgraphviz_2.14.0   
+## [22] graph_1.48.0        phyloseq_1.14.0     microbiome_0.99.73 
+## [25] RPA_1.26.0          affy_1.48.0         Biobase_2.30.0     
+## [28] BiocGenerics_0.16.1
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] colorspace_1.2-6      rjson_0.2.15          dynamicTreeCut_1.62  

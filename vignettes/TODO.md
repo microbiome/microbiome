@@ -1,11 +1,5 @@
 ### TODO
 
- * Determining tipping point automatically for bistability figs
-
- * Tipping elements
-
- * Classification of the taxa into the distinct abundance types
-
  * Microbiota maturity index? Has previously been shown to differentiate between healthy children and those with health issues. Was calculated as the first principal coordinate from a PCoA using only significantly age-associated genus-level taxa in the control and early-life groups.
  
  * Negative binomial for sample comparisons

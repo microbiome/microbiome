@@ -103,13 +103,24 @@ p
 
 ## Detecting a tipping point
 
-```{r bimodalitybistability, message=FALSE, warning=FALSE, fig.path = "figure/"}
+Identify potential minima in cross-section population data as
+tipping point candidates. 
+
+```{r stability-tipping, message=FALSE, warning=FALSE, fig.path = "figure/"}
 # Pick example data
 data("atlas1006")
 pseq <- atlas1006
 pseq <- subset_samples(pseq, DNA_extraction_method == "r")
 pseq <- transform_phyloseq(pseq, "relative.abundance")
 
+# Dialister log10 relative abundance
+x <- log10(otu_table(x)@.Data["Dialister",])
+
+# Potential analysis to identify potential minima
+res <- livpotential_ews(x)
+
+# Identify the potential minimum location as a tipping point candidate 
+tipping.point <- log10(res$min.points)
 ```
 
 ## Variation lineplot and Bimodality hotplot
@@ -117,23 +128,17 @@ pseq <- transform_phyloseq(pseq, "relative.abundance")
 Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation lineplot (**Variation lineplot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
 
 ```{r stability-variationplot, message=FALSE, warning=FALSE, fig.path = "figure/", fig.show='hold', out.width="430px"}
-# Pick example data
-data("atlas1006")
-pseq <- atlas1006
-pseq <- subset_samples(pseq, DNA_extraction_method == "r")
-pseq <- transform_phyloseq(pseq, "relative.abundance")
-
 # Variation line plot:
 # Indicates the abundance variation range
 # for subjects with multiple time points
-pv <- plot_variation(pseq, "Dialister", tipping.point = 0.3)
+pv <- plot_variation(pseq, "Dialister", tipping.point = tipping.point)
 print(pv + ylim(values = c(0.01, 100)))
 
 # Bimodality hotplot:
 # Only consider a unique sample from each subject
 # baseline time point for density plot
 pseq.baseline <- subset_samples(pseq, time == 0)
-ph <- plot_bimodal(pseq.baseline, "Dialister", tipping.point = 0.3)
+ph <- plot_bimodal(pseq.baseline, "Dialister", tipping.point = tipping.point)
 print(pv + xlim(values = c(0.01, 100)))
 ```
 
