@@ -134,15 +134,15 @@ Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) 
 # Variation line plot:
 # Indicates the abundance variation range
 # for subjects with multiple time points
-pv <- plot_variation(pseq, "Dialister", tipping.point = tipping.point)
-print(pv + ylim(values = c(0.01, 100)))
+pv <- plot_variation(pseq, "Dialister", tipping.point = tipping.point, xlim = c(0.01, 100))
+print(pv)
 
 # Bimodality hotplot:
 # Only consider a unique sample from each subject
 # baseline time point for density plot
 pseq.baseline <- subset_samples(pseq, time == 0)
 ph <- plot_bimodal(pseq.baseline, "Dialister", tipping.point = tipping.point)
-print(pv + xlim(values = c(0.01, 100)))
+print(ph)
 ```
 
 

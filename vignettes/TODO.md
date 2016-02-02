@@ -4,19 +4,17 @@
  
  * Negative binomial for sample comparisons
 
- * pairwise comparisons with subject random effect term
-
  * gower distance for sample similarities
 
  * SPIEC-EASE / SparCC network algorithms from the huge package -> Healthy vs other networks ?
+
+ * Homogeneity vs. sample size dependence. Normalize.
 
  * Bagged and ordinary RDA for phyloseq objects with ggplot visualizations
 
  * Heatmap: indicate groups with a color bar
 
- * Homogeneity vs. sample size dependency. Normalize.
-
  * PERMANOVA shows the communities are significantly different across groups
    adonis(t(dat.full) ~ group, data=meta.full, permutations=99)
 
-  * Licensing issues
+  * Licensing issues with phyloseq

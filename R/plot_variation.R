@@ -5,6 +5,7 @@
 #' @param tipping.point Optional. Indicate critical point for abundance variations to be highlighted.
 #' @param lims Optional. Figure X axis limits.
 #' @param shift Small constant to avoid problems with zeroes in log10
+#' @param xlim Horizontal axis limits
 #' @return \code{\link{ggplot}} object
 #' @examples 
 #'   data("atlas1006")
@@ -18,7 +19,7 @@
 #' @keywords utilities
 #' @details Assuming the sample_data(x) has 'subject' field and
 #' some subjects have multiple time points.
-plot_variation <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1e-3) {
+plot_variation <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1e-3, xlim = NULL) {
 
   pos <- abundance <- NULL
 
@@ -78,7 +79,11 @@ plot_variation <- function (x, taxon, tipping.point = NULL, lims = NULL, shift =
   breaks <- 10^seq(-3,2,1) 
   names(breaks) <- as.character(breaks)
 
-  p <- p + scale_y_log10(breaks = breaks, labels = names(breaks), limits = lims)   
+  if (is.null(xlim)) {
+    p <- p + scale_y_log10(breaks = breaks, labels = names(breaks), limits = lims)
+  } else {
+    p <- p + scale_y_log10(breaks = breaks, labels = names(breaks), limits = xlim)
+  }
   p <- p + ggtitle(taxon)
   p
   
