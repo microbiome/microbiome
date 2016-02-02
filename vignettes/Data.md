@@ -150,7 +150,7 @@ pseq.L2 <- aggregate_taxa(pseq, level = "L2")
 ```
 
 ```
-## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
+## Error in inherits(x, get.component.classes()): object 'pseq' not found
 ```
 
 ```r
@@ -158,7 +158,7 @@ pseq.L1 <- aggregate_taxa(pseq, level = "L1")
 ```
 
 ```
-## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
+## Error in inherits(x, get.component.classes()): object 'pseq' not found
 ```
 
 Importing HITChip probe-level data and taxonomy from HITChip
@@ -230,11 +230,19 @@ library(phyloseq)
 meta <- sample_data(pseq)
 ```
 
+```
+## Error in sample_data(pseq): error in evaluating the argument 'object' in selecting a method for function 'sample_data': Error: object 'pseq' not found
+```
+
 Taxonomy table
 
 
 ```r
 tax.table <- tax_table(pseq)
+```
+
+```
+## Error in tax_table(pseq): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error: object 'pseq' not found
 ```
 
 Pick taxa abundance data matrix. In this example the OTU level corresponds to genus-like groups (the function name otu_table is somewhat misleading):
@@ -244,12 +252,27 @@ Pick taxa abundance data matrix. In this example the OTU level corresponds to ge
 otu <- otu_table(pseq)@.Data
 ```
 
+```
+## Error in otu_table(pseq): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq' not found
+```
+
 Aggregate the abundance matrix to higher-level taxa on HITChip:
 
 
 ```r
 pseq2 <- aggregate_taxa(pseq, "Phylum") # Aggregate into phyloseq object
+```
+
+```
+## Error in inherits(x, get.component.classes()): object 'pseq' not found
+```
+
+```r
 dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
+```
+
+```
+## Error in otu_table(pseq2): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq2' not found
 ```
 
 Melted data for plotting is readily obtained with the phyloseq psmelt function:
@@ -257,16 +280,23 @@ Melted data for plotting is readily obtained with the phyloseq psmelt function:
 
 ```r
 df <- psmelt(pseq)
+```
+
+```
+## Error in inherits(physeq, "phyloseq"): object 'pseq' not found
+```
+
+```r
 kable(head(df))
 ```
 
 
 
-|      |OTU                               |Sample     | Abundance|subject |sex    |nationality |group |sample     | timepoint| timepoint.within.group|bmi_group  |Phylum        |Genus                             |
-|:-----|:---------------------------------|:----------|---------:|:-------|:------|:-----------|:-----|:----------|---------:|----------------------:|:----------|:-------------|:---------------------------------|
-|21328 |Prevotella melaninogenica et rel. |Sample-208 |    900361|olt     |Male   |AFR         |ED    |Sample-208 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21418 |Prevotella melaninogenica et rel. |Sample-212 |    876341|shj     |Female |AFR         |ED    |Sample-212 |         1|                      1|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21457 |Prevotella melaninogenica et rel. |Sample-11  |    860615|olt     |Male   |AFR         |HE    |Sample-11  |         3|                      2|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21481 |Prevotella melaninogenica et rel. |Sample-125 |    852350|nmz     |Male   |AAM         |HE    |Sample-125 |         3|                      2|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21438 |Prevotella melaninogenica et rel. |Sample-210 |    845594|qjy     |Female |AFR         |ED    |Sample-210 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21319 |Prevotella melaninogenica et rel. |Sample-107 |    838487|byu     |Male   |AFR         |HE    |Sample-107 |         3|                      2|lean       |Bacteroidetes |Prevotella melaninogenica et rel. |
+|                                         |
+|:----------------------------------------|
+|function (x, df1, df2, ncp, log = FALSE) |
+|{                                        |
+|if (missing(ncp))                        |
+|.Call(C_df, x, df1, df2, log)            |
+|else .Call(C_dnf, x, df1, df2, ncp, log) |
+|}                                        |

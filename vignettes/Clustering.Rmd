@@ -44,4 +44,18 @@ p <- PlotMixtureUnivariate(x, means = m$mu, sds = m$sd, ws = m$w, binwidth = 0.1
 print(p)
 ```
 
+### Clustering samples with mixed variables
+
+Gower distance is useful for samples with mixed-type variables (binary, factor, numeric)):
+
+```{r clustering-gower, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, fig.path = "figure/"}
+# Example data
+data("dietswap")
+
+library(FD)
+d <- gowdis(as(sample_data(dietswap), "data.frame"))
+
+plot(hclust(d))
+```
+
 

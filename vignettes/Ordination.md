@@ -42,19 +42,37 @@ Visualize and highlight. In addition to densityplot, see plot_ordn from the micr
 # Highlight gender
 library(microbiome)
 p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
+```
+
+```
+## Error in UseMethod("densityplot"): no applicable method for 'densityplot' applied to an object of class "data.frame"
+```
+
+```r
 print(p)
 ```
 
-![plot of chunk ordination4](figure/ordination4-1.png)
+```
+## Error in print(p): object 'p' not found
+```
 
 ```r
 # Highlight low/high Prevotella subjects
 prevotella.abundance  <- as.vector(log10(otu_table(pseq2)["Prevotella melaninogenica et rel.",]) )
 p <- densityplot(proj[, 1:2], col = prevotella.abundance, legend = T)
+```
+
+```
+## Error in UseMethod("densityplot"): no applicable method for 'densityplot' applied to an object of class "data.frame"
+```
+
+```r
 print(p)
 ```
 
-![plot of chunk ordination4](figure/ordination4-2.png)
+```
+## Error in print(p): object 'p' not found
+```
 
 Projection with sample names:
 

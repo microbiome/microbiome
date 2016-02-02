@@ -50,4 +50,21 @@ print(p)
 
 ![plot of chunk LCA1](figure/LCA1-1.png)
 
+### Clustering samples with mixed variables
+
+Gower distance is useful for samples with mixed-type variables (binary, factor, numeric)):
+
+
+```r
+# Example data
+data("dietswap")
+
+library(FD)
+d <- gowdis(as(sample_data(dietswap), "data.frame"))
+
+plot(hclust(d))
+```
+
+![plot of chunk clustering-gower](figure/clustering-gower-1.png)
+
 

@@ -29,3 +29,46 @@ plot_net(pseq, maxdist = 0.2, point_label = "group")
 
 ![plot of chunk networks3](figure/networks3-1.png)
 
+### Network reconstruction for compositional data
+
+Also the SparCC implementation is available via the [SpiecEasi
+package](https://github.com/zdk123/SpiecEasi). The execution is slow.
+
+
+
+```r
+library(SpiecEasi) #install_github("zdk123/SpiecEasi")
+library(microbiome)
+library(phyloseq)
+
+# Pick example OTU matrix (samples x taxa)
+data("atlas1006")
+pseq <- subset_samples(atlas1006, time == 0 & DNA_extraction_method == "r")
+otu <- t(get_sample(pseq))
+
+# SPIEC-EASI network reconstruction
+# In practice, use more repetitions
+net <- spiec.easi(otu, method='mb', lambda.min.ratio=1e-2, 
+                  nlambda=20, icov.select.params=list(rep.num=20))
+
+## Create igraph object
+ig <- graph.adjacency(net$refit, mode='undirected')
+
+## set size of vertex to log2 mean abundance 
+vsize <- log2(apply(otu, 2, mean))
+
+# Network layout
+coord <- layout.fruchterman.reingold(ig)
+
+# Visualize the network
+plot(ig, layout=coord, vertex.size=vsize, vertex.label=names(vsize))
+```
+
+![plot of chunk networks4](figure/networks4-1.png)
+
+```r
+# Check degree distribution
+#dd <- degree.distribution(ig)
+#plot(0:(length(dd)-1), dd, ylim=c(0,.35), type='b', 
+#      ylab="Frequency", xlab="Degree", main="Degree Distributions")
+```
