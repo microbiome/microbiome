@@ -1,0 +1,38 @@
+#' @title Limma test for phyloseq
+#' @description Limma for a single continuous variable vs. OTUs with a phyloseq object.
+#' @param x \code{\link{phyloseq-class}} object 
+#' @param varname Metadata field specifying the investigated metadata variable.
+#' @param transformation Transformation for the original phyloseq values. By default a log10 transformation is done to better approximate the requirements of a linear model.
+#' @param p.adjust.method p-value correction method for p.adjust function 
+#'               (default 'BH'). For other options, see ?p.adjust
+#' @return Limma output table.
+#' @examples 
+#'  data("atlas1006")
+#'  tab <- lm_phyloseq(atlas1006, "age")
+#' @export
+#' @references See citation('microbiome') 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+lm_phyloseq <- function (x, varname, transformation = "log10", p.adj.method = "BH") {
+
+  # Transformation useful for linear models  
+  x <- transform_phyloseq(x, transformation)
+
+  # Limma significance analysis
+  # Prepare the design matrix which states the variable values for each sample
+  design <- cbind(intercept = 1, var = get_variable(pseq, varname))
+  rownames(design) <- rownames(sample_data(x)) 
+
+  # OTU matrix
+  otu <- otu_table(x)@.Data
+  if (!taxa_are_rows(x)) {otu <- t(otu)}
+
+  # Fit the limma model
+  fit <- lmFit(otu, design)
+  fit2 <- eBayes(fit)
+
+  # NOTE: results and p-values are given for all groupings in the design matrix
+  # Now focus on the second grouping ie. pairwise comparison
+  topTable(fit2, coef = 2)
+
+}

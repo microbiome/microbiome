@@ -58,22 +58,23 @@ Download some [example data sets](Data.md) to try these tools:
 * [Heatmaps](Heatmap.md)
 * [Motion charts](Motionchart.md)
 * [Networks](Networks.md)
+
+### Ordination  
+
+* [RDA](RDA.md)
 * [Ordination](Ordination.md)
 * [PCA](Ordination.md)
-* [Cross hybridization](Crosshyb.md)
-
 
 ### Clustering 
 * [Bimodality](Stability.md)
 * [Clustering](Clustering.md)
-
 
 ### Microbiota composition
 * [Bistability analysis](Stability.md)
 * [Composition](Composition.md)
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
-* [Probe level studies](Probelevel.md)
+* [Indices](Indices.md)
 * [Stability](Stability.md)
 * [Tipping elements](Stability.md)
 * [Variability](Variability.md) (Intra- and inter-individual 'stability')
@@ -84,15 +85,15 @@ Download some [example data sets](Data.md) to try these tools:
 * [Pairwise comparisons](Comparisons.md)
 
 
-### Other statistical analysis
-* [RDA](RDA.md)
+### Phylogenetic microarrays  
 
-
-### Output
-* [Generating output files/figures](Output.md)
+* [Cross hybridization](Crosshyb.md)
+* [Probe level studies](Probelevel.md)
 
 
 ### Misc
+
+* [Generating output files/figures](Output.md)
 * [Miscellaneous](misc.md)
 
 

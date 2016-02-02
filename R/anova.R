@@ -9,6 +9,7 @@
 #'   data(peerj32)
 #'   pval <- check_anova(peerj32$phyloseq, "group")
 #' @export
+#' @import limma
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

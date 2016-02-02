@@ -1,8 +1,11 @@
 ### TODO
 
- * Microbiota maturity index? Has previously been shown to differentiate between healthy children and those with health issues. Was calculated as the first principal coordinate from a PCoA using only significantly age-associated genus-level taxa in the control and early-life groups.
- 
  * Negative binomial for sample comparisons
+
+  library(MASS)
+  df <- sample_data(x)
+  df$signal <- get_sample(x, "Dialister")
+  summary(res <- glm.nb(daysabs ~ group + sex, data = df))
 
  * gower distance for sample similarities
 

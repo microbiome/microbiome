@@ -4,7 +4,8 @@
 \alias{plot_variation}
 \title{Variation line plot}
 \usage{
-plot_variation(x, taxon, tipping.point = NULL, lims = NULL, shift = 0.001)
+plot_variation(x, taxon, tipping.point = NULL, lims = NULL, shift = 0.001,
+  xlim = NULL)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -16,6 +17,8 @@ plot_variation(x, taxon, tipping.point = NULL, lims = NULL, shift = 0.001)
 \item{lims}{Optional. Figure X axis limits.}
 
 \item{shift}{Small constant to avoid problems with zeroes in log10}
+
+\item{xlim}{Horizontal axis limits}
 }
 \value{
 \code{\link{ggplot}} object
