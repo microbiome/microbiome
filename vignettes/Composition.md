@@ -115,3 +115,4 @@ res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
 ![plot of chunk composition-example8](figure/composition-example8-1.png)
 
 
+

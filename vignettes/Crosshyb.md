@@ -32,7 +32,7 @@ res <- PlotCrosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE, tax.table
 ```
 
 ```
-## Error in CrosshybTable(tax.level = tax.level, selected.taxa = selected.taxa, : object 'tax.table' not found
+## Error in tax_table(as(x, "matrix")[i, j, drop = FALSE]): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error in as(x, "matrix")[i, j, drop = FALSE] : subscript out of bounds
 ```
 
 ```r
@@ -72,8 +72,8 @@ print(p)
 ##         rgb(x[, 1L], x[, 2L], x[, 3L], x[, 4L], maxColorValue = 255)
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
-## <bytecode: 0x120809d8>
-## <environment: 0x1b125128>
+## <bytecode: 0x163e1a40>
+## <environment: 0x38ce8c90>
 ```
 
 ```r
@@ -114,7 +114,7 @@ mytaxa <- levelmap("Dialister", from = "L2", to = "species", tax.table)[[1]]
 ```
 
 ```
-## Error in levelmap("Dialister", from = "L2", to = "species", tax.table): object 'tax.table' not found
+## Error in tax_table(as(x, "matrix")[i, j, drop = FALSE]): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error in as(x, "matrix")[i, j, drop = FALSE] : subscript out of bounds
 ```
 
 ```r
@@ -123,7 +123,7 @@ res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0,
 ```
 
 ```
-## Error in CrosshybTable(tax.level = tax.level, selected.taxa = selected.taxa, : object 'tax.table' not found
+## Error in tax_table(as(x, "matrix")[i, j, drop = FALSE]): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error in as(x, "matrix")[i, j, drop = FALSE] : subscript out of bounds
 ```
 
 ```r

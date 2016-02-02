@@ -48,4 +48,27 @@ pval <- check_wilcoxon(pseq, "sex")
 ```
 
 
+### Comparison with random effect subject term
+
+
+```r
+pseq <- peerj32$phyloseq
+
+# We need taxa x samples matrix
+mydata <- otu_table(x)@.Data
+if (!taxa_are_rows(x)) {mydata <- t(mydata)}
+
+tax <- "Dialister"
+dfs <- sample_data(x)
+dfs$signal <- mydata[tax, rownames(dfs)]
+dfs$group <- dfs[[group]]
+
+# Paired comparison
+library(lme4)
+out <- lmer(signal ~ group + (1|subject), data = dfs)
+out0 <- lmer(signal ~ (1|subject), data = dfs)
+comp <- anova(out0, out)
+pv <- comp[["Pr(>Chisq)"]][[2]]
+```
+
 

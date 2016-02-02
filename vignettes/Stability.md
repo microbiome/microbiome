@@ -85,30 +85,14 @@ unimodal <- names(which.min(bimodality))
 bimodal  <- names(which.max(bimodality))
 
 # Visualize population frequencies
-p1 <- plot_density(pseq, otu.name = unimodal, log10 = TRUE) 
-```
-
-```
-## Error in plot_density(pseq, otu.name = unimodal, log10 = TRUE): unused argument (otu.name = unimodal)
-```
-
-```r
-p2 <- plot_density(pseq, otu.name = bimodal,  log10 = TRUE) 
-```
-
-```
-## Error in plot_density(pseq, otu.name = bimodal, log10 = TRUE): unused argument (otu.name = bimodal)
-```
-
-```r
+p1 <- plot_density(pseq, variable = unimodal, log10 = TRUE) 
+p2 <- plot_density(pseq, variable = bimodal,  log10 = TRUE) 
 library(gridExtra)
 library(ggplot2)
 grid.arrange(p1, p2, nrow = 1)
 ```
 
-```
-## Error in arrangeGrob(...): object 'p1' not found
-```
+![plot of chunk stability2](figure/stability2-1.png)
 
 
 ## Comparing bimodality and intermediate stability
@@ -128,6 +112,36 @@ p
 ```
 
 ![plot of chunk bimodalitybistability](figure/bimodalitybistability-1.png)
+
+
+### Variation plot
+
+Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation line plot for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
+
+
+```r
+data("atlas1006")
+pseq <- atlas1006
+pseq <- subset_samples(pseq, DNA_extraction_method == "r")
+pseq <- transform_phyloseq(pseq, "relative.abundance")
+pv <- plot_variation(pseq, "Dialister", tipping.point = 1)
+```
+
+### Bimodality hotplot
+
+Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the bimodality with heatmap colors as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
+
+
+```r
+ph <- plot_bimodal(pseq, "Dialister", tipping.point = 1)
+
+# Let us overlay the two plots
+grid.arrange(pv, ph, nrow = 2)
+```
+
+![plot of chunk stability-bimodalityplot](figure/stability-bimodalityplot-1.png)
+
+
 
 
 ### Version information
@@ -155,15 +169,16 @@ sessionInfo()
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] gridExtra_2.0.0     rdryad_0.2.0        RSQLite_1.0.0      
-##  [4] DBI_0.3.1           limma_3.26.5        googleVis_0.5.10   
-##  [7] knitcitations_1.0.7 knitr_1.12          sorvi_0.7.35       
-## [10] ggplot2_2.0.0       tidyr_0.3.1         dplyr_0.4.3        
-## [13] MASS_7.3-45         netresponse_1.21.14 reshape2_1.4.1     
-## [16] mclust_5.1          minet_3.28.0        Rgraphviz_2.14.0   
-## [19] graph_1.48.0        phyloseq_1.14.0     microbiome_0.99.73 
-## [22] RPA_1.26.0          affy_1.48.0         Biobase_2.30.0     
-## [25] BiocGenerics_0.16.1
+##  [1] gridExtra_2.0.0     googleVis_0.5.10    rdryad_0.2.0       
+##  [4] RSQLite_1.0.0       DBI_0.3.1           vegan_2.3-3        
+##  [7] lattice_0.20-33     permute_0.8-4       knitcitations_1.0.7
+## [10] knitr_1.12          devtools_1.9.1      limma_3.26.5       
+## [13] sorvi_0.7.35        ggplot2_2.0.0       tidyr_0.3.1        
+## [16] dplyr_0.4.3         MASS_7.3-45         netresponse_1.21.14
+## [19] reshape2_1.4.1      mclust_5.1          minet_3.28.0       
+## [22] Rgraphviz_2.14.0    graph_1.48.0        phyloseq_1.14.0    
+## [25] microbiome_0.99.73  RPA_1.26.0          affy_1.48.0        
+## [28] Biobase_2.30.0      BiocGenerics_0.16.1
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] colorspace_1.2-6      rjson_0.2.15          dynamicTreeCut_1.62  
@@ -184,19 +199,18 @@ sessionInfo()
 ## [46] fastcluster_1.1.16    stringr_1.0.0         XML_3.98-1.3         
 ## [49] zlibbioc_1.16.0       zoo_1.7-12            scales_0.3.0         
 ## [52] BiocInstaller_1.20.1  solr_0.1.6            RColorBrewer_1.1-2   
-## [55] fields_8.3-6          curl_0.9.5            rpart_4.1-10         
-## [58] latticeExtra_0.6-26   stringi_1.0-1         maptree_1.4-7        
-## [61] highr_0.5.1           S4Vectors_0.8.7       tseries_0.10-34      
-## [64] foreach_1.4.3         nortest_1.0-4         permute_0.8-4        
+## [55] fields_8.3-6          curl_0.9.5            memoise_0.2.1        
+## [58] rpart_4.1-10          latticeExtra_0.6-26   stringi_1.0-1        
+## [61] maptree_1.4-7         highr_0.5.1           S4Vectors_0.8.7      
+## [64] tseries_0.10-34       foreach_1.4.3         nortest_1.0-4        
 ## [67] boot_1.3-17           bibtex_0.4.0          chron_2.3-47         
 ## [70] moments_0.14          bitops_1.0-6          matrixStats_0.50.1   
-## [73] dmt_0.8.20            evaluate_0.8          lattice_0.20-33      
-## [76] labeling_0.3          plyr_1.8.3            magrittr_1.5         
-## [79] R6_2.1.2              IRanges_2.4.6         earlywarnings_1.1.22 
-## [82] Hmisc_3.17-1          foreign_0.8-66        mgcv_1.8-10          
-## [85] survival_2.38-3       RCurl_1.95-4.7        nnet_7.3-11          
-## [88] KernSmooth_2.23-15    data.table_1.9.6      vegan_2.3-3          
-## [91] digest_0.6.9          diptest_0.75-7        stats4_3.2.2         
-## [94] munsell_0.4.2         quadprog_1.5-5
+## [73] dmt_0.8.20            evaluate_0.8          labeling_0.3         
+## [76] plyr_1.8.3            magrittr_1.5          R6_2.1.2             
+## [79] IRanges_2.4.6         earlywarnings_1.1.22  Hmisc_3.17-1         
+## [82] foreign_0.8-66        mgcv_1.8-10           survival_2.38-3      
+## [85] RCurl_1.95-4.7        nnet_7.3-11           KernSmooth_2.23-15   
+## [88] data.table_1.9.6      digest_0.6.9          diptest_0.75-7       
+## [91] stats4_3.2.2          munsell_0.4.2         quadprog_1.5-5
 ```
 

@@ -106,7 +106,7 @@ p
 
 Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation line plot for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
 
-```{r bimodalityplot, message=FALSE, warning=FALSE, fig.path = "figure/"}
+```{r stability-variationplot, message=FALSE, warning=FALSE, fig.path = "figure/"}
 data("atlas1006")
 pseq <- atlas1006
 pseq <- subset_samples(pseq, DNA_extraction_method == "r")
@@ -118,7 +118,7 @@ pv <- plot_variation(pseq, "Dialister", tipping.point = 1)
 
 Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the bimodality with heatmap colors as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
 
-```{r bimodalityplot, message=FALSE, warning=FALSE, fig.path = "figure/", fig.width=5, fig.height=10}
+```{r stability-bimodalityplot, message=FALSE, warning=FALSE, fig.path = "figure/", fig.width=5, fig.height=10}
 ph <- plot_bimodal(pseq, "Dialister", tipping.point = 1)
 
 # Let us overlay the two plots

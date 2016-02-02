@@ -49,12 +49,6 @@ dietswap <- download_microbiome("dietswap")
 ```
 
 ```
-## Warning in scan(file, what, nmax, sep, dec, quote, skip, nlines,
-## na.strings, : number of items read is not a multiple of the number of
-## columns
-```
-
-```
 ## Warning in file(file, "rt"): cannot open file '/home/antagomir/R/x86_64-pc-
 ## linux-gnu-library/3.2/microbiome/extdata/taxonomy.full.tab': No such file
 ## or directory
@@ -268,11 +262,11 @@ kable(head(df))
 
 
 
-|      |OTU                               |Sample     | Abundance|subject |sex    |nationality |group |sample     | timepoint| timepoint.within.group|bmi_group  |Phylum        |Genus                             |
-|:-----|:---------------------------------|:----------|---------:|:-------|:------|:-----------|:-----|:----------|---------:|----------------------:|:----------|:-------------|:---------------------------------|
-|21328 |Prevotella melaninogenica et rel. |Sample-208 |    900361|olt     |Male   |AFR         |ED    |Sample-208 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21418 |Prevotella melaninogenica et rel. |Sample-212 |    876341|shj     |Female |AFR         |ED    |Sample-212 |         1|                      1|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21457 |Prevotella melaninogenica et rel. |Sample-11  |    860615|olt     |Male   |AFR         |HE    |Sample-11  |         3|                      2|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21481 |Prevotella melaninogenica et rel. |Sample-125 |    852350|nmz     |Male   |AAM         |HE    |Sample-125 |         3|                      2|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21438 |Prevotella melaninogenica et rel. |Sample-210 |    845594|qjy     |Female |AFR         |ED    |Sample-210 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21319 |Prevotella melaninogenica et rel. |Sample-107 |    838487|byu     |Male   |AFR         |HE    |Sample-107 |         3|                      2|lean       |Bacteroidetes |Prevotella melaninogenica et rel. |
+|     |OTU                                  |Sample    | Abundance| time|gender |subject |sample    |group   |Phylum                 |Genus                                |
+|:----|:------------------------------------|:---------|---------:|----:|:------|:-------|:---------|:-------|:----------------------|:------------------------------------|
+|1049 |Bacteroides vulgatus et rel.         |sample-37 |      9735|    1|male   |S19     |sample-37 |LGG     |Bacteroidetes          |Bacteroides vulgatus et rel.         |
+|1055 |Bacteroides vulgatus et rel.         |sample-27 |      5884|    1|female |S14     |sample-27 |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |
+|1016 |Bacteroides vulgatus et rel.         |sample-16 |      5135|    2|female |S8      |sample-16 |LGG     |Bacteroidetes          |Bacteroides vulgatus et rel.         |
+|2846 |Faecalibacterium prausnitzii et rel. |sample-34 |      4912|    2|male   |S17     |sample-34 |Placebo |Clostridium cluster IV |Faecalibacterium prausnitzii et rel. |
+|1048 |Bacteroides vulgatus et rel.         |sample-17 |      4857|    1|male   |S9      |sample-17 |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |
+|1033 |Bacteroides vulgatus et rel.         |sample-1  |      4683|    1|female |S1      |sample-1  |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |

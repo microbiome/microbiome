@@ -63,7 +63,7 @@ mchart <- gvisMotionChart(df, idvar = "sample", timevar = "time")
 ```
 
 ```
-## Error in data[, vars.pos]: object of type 'closure' is not subsettable
+## Error in gvisCheckMotionChartData(data, my.options): There is a missmatch between the idvar and timevar specified and the colnames of your data.
 ```
 
 ```r

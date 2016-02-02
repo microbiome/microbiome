@@ -20,12 +20,6 @@ pseq <- download_microbiome("atlas1006")
 ```
 
 ```
-## Warning in scan(file, what, nmax, sep, dec, quote, skip, nlines,
-## na.strings, : number of items read is not a multiple of the number of
-## columns
-```
-
-```
 ## Warning in file(file, "rt"): cannot open file '/home/antagomir/R/x86_64-pc-
 ## linux-gnu-library/3.2/microbiome/extdata/taxonomy.full.tab': No such file
 ## or directory
@@ -51,12 +45,12 @@ kable(head(div))
 
 |         | Observed|  Shannon|   Simpson|
 |:--------|--------:|--------:|---------:|
-|Sample.1 |      130| 2.942723| 0.8677771|
-|Sample.2 |      130| 2.824184| 0.8766237|
-|Sample.3 |      130| 2.409584| 0.7670464|
-|Sample.4 |      130| 2.994672| 0.8740136|
-|Sample.5 |      130| 2.108225| 0.6847733|
-|Sample.6 |      130| 2.073329| 0.6616150|
+|sample.1 |      130| 3.495764| 0.9431792|
+|sample.2 |      130| 3.689806| 0.9574569|
+|sample.3 |      130| 3.626883| 0.9547532|
+|sample.4 |      130| 3.676363| 0.9617840|
+|sample.5 |      130| 3.597394| 0.9532787|
+|sample.6 |      130| 3.661490| 0.9586719|
 
 
 ### Diversity vs. obesity
@@ -74,10 +68,6 @@ p <- plot_diversity(pseq, x = "bmi_group", measures = c("Observed", "Shannon", "
 print(p)
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'Correlation' not found
-```
-
 ![plot of chunk div-example2](figure/div-example2-1.png)
 
 
@@ -90,7 +80,7 @@ pseq <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
 ```
 
 ```
-## Error in time == 0: comparison (1) is possible only for atomic and list types
+## Error in eval(expr, envir, enclos): object 'DNA_extraction_method' not found
 ```
 
 ```r
@@ -100,15 +90,11 @@ p <- sorvi::regression_plot(diversity~age, sample_data(pseq))
 ```
 
 ```
-## Error in eval(expr, envir, enclos): incorrect size (1), expecting : 222
+## Error in eval(expr, envir, enclos): incorrect size (1), expecting : 44
 ```
 
 ```r
 print(p)
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'Correlation' not found
 ```
 
 ![plot of chunk atlas-example3](figure/atlas-example3-1.png)
