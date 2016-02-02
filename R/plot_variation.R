@@ -4,6 +4,7 @@
 #' @param taxon Taxonomic group to visualize.
 #' @param tipping.point Optional. Indicate critical point for abundance variations to be highlighted.
 #' @param lims Optional. Figure X axis limits.
+#' @param shift Small constant to avoid problems with zeroes in log10
 #' @return \code{\link{ggplot}} object
 #' @examples 
 #'   data("atlas1006")
@@ -17,7 +18,7 @@
 #' @keywords utilities
 #' @details Assuming the sample_data(x) has 'subject' field and
 #' some subjects have multiple time points.
-plot_variation <- function (x, taxon, tipping.point = NULL, lims = NULL) {
+plot_variation <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1e-3) {
 
   pos <- abundance <- NULL
 
@@ -33,7 +34,7 @@ plot_variation <- function (x, taxon, tipping.point = NULL, lims = NULL) {
 
   if (is.null(lims)) {
     lims <- round(10*range(d))/10
-    lims[[1]] <- lims[[1]] + 1e-3    
+    lims[[1]] <- lims[[1]] + shift
   }
   
   # Pick subjects with multiple timepoints
@@ -58,12 +59,12 @@ plot_variation <- function (x, taxon, tipping.point = NULL, lims = NULL) {
   p <- p + geom_linerange(data = df, aes(x = pos, ymin = min, ymax = max, color = switch))
   p <- p + scale_color_manual(values = c("black", "red"))
   p <- p + geom_hline(aes(yintercept = tipping.point), linetype = 2, size = 1)
-  #p <- p + ylab(bquote(paste("Relative Abundance (", Log[10], ")", sep = "")))
-  #p <- p + ylab(bquote("Relative Abundance (", Log[10], ")"))
   p <- p + ylab("Abundance")
   p <- p + xlab("Subjects")
   p <- p + guides(color = FALSE)
   #p <- p + ylim(lims[[1]], lims[[2]])
+  # TODO add shift also to the axis tick positions to be very exact
+  p <- p + ylim(values = range(d) + shift)  
   p <- p + coord_flip()
   p <- p + geom_point(data = dforig, aes(x = pos, y = abundance))
   # p <- p + theme(title = element_text(size = 20), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text.x = element_text(size = 20), axis.text.y = element_blank(), axis.ticks.y = element_blank())

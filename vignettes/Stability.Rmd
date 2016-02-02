@@ -112,6 +112,7 @@ data("atlas1006")
 pseq <- atlas1006
 pseq <- subset_samples(pseq, DNA_extraction_method == "r")
 pseq <- transform_phyloseq(pseq, "relative.abundance")
+xlims <- otu_table(pseq)
 
 # Variation line plot:
 # Indicates the abundance variation range

@@ -4,6 +4,7 @@
 #' @param taxon Taxonomic group to visualize.
 #' @param tipping.point Optional. Indicate critical point for abundance variations to be highlighted.
 #' @param lims Optional. Figure X axis limits.
+#' @param shift Small constant to avoid problems with zeroes in log10
 #' @return \code{\link{ggplot}} object
 #' @examples 
 #'   data("atlas1006")
@@ -15,7 +16,7 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-plot_bimodal <- function (x, taxon, tipping.point = NULL, lims = NULL) {
+plot_bimodal <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1e-3) {
 
   Abundance <- ..density.. <- ..x.. <- NULL
 
@@ -25,7 +26,6 @@ plot_bimodal <- function (x, taxon, tipping.point = NULL, lims = NULL) {
   
   # Add small shift to avoid problems with 0
   # Take log10 to enable useful visualization
-  shift <- 1e-3
   do <- log10(shift + otu[taxon, ])
   d <- do
   
