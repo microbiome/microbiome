@@ -114,9 +114,9 @@ p
 ![plot of chunk bimodalitybistability](figure/bimodalitybistability-1.png)
 
 
-### Variation plot and Bimodality hotplot
+### Variation lineplot and Bimodality hotplot
 
-Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation line plot and bimodality hotplot for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
+Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation lineplot (**Variation lineplot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
 
 
 ```r
@@ -126,12 +126,16 @@ pseq <- atlas1006
 pseq <- subset_samples(pseq, DNA_extraction_method == "r")
 pseq <- transform_phyloseq(pseq, "relative.abundance")
 pv <- plot_variation(pseq, "Dialister", tipping.point = 1)
+print(pv)
 
 # Only consider a unique sample from each subject
 # baseline time point for density plot
 pseq0 <- subset_samples(pseq, time == 0)
 ph <- plot_bimodal(pseq0, "Dialister", tipping.point = 1)
+print(pv)
 ```
+
+<img src="figure/stability-variationplot-1.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" /><img src="figure/stability-variationplot-2.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" />
 
 
 
