@@ -116,6 +116,29 @@ abline(0,1,lty = 2)
 
 ![plot of chunk limma-compairson](figure/limma-compairson-1.png)
 
+### Continuous variables
+
+A quick way to quantify associations is the lm_phyloseq function, which uses the limma model to generate a table of P-values and effect sizes (no confounding variables taken into account):
+
+
+```r
+data("atlas1006")
+tab <- lm_phyloseq(atlas1006, "age")
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "lm_phyloseq"
+```
+
+```r
+kable(head(tab))
+```
+
+```
+## Error in head(tab): error in evaluating the argument 'x' in selecting a method for function 'head': Error: object 'tab' not found
+```
+
+
 ### TODO
 
 Check relations to expressionSets. Could we use tools directly from that context by a suitable conversion.

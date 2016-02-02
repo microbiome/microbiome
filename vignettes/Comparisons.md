@@ -36,6 +36,21 @@ kable(head(anova.results))
 | 0.0708257| 0.6389312| 0.0043033| 0.0533601| 0.4995820| 0.6407194| 1.0016500|
 
 
+Negative binomial test example ([read more](http://www.ats.ucla.edu/stat/r/dae/nbreg.htm)):
+
+
+```r
+library(MASS)
+taxa <- taxa_names(x)[1:2]
+x <- atlas1006
+df <- as(sample_data(x), "data.frame")
+for (tax in taxa) {
+  df$signal <- get_sample(x, tax)
+  res <- glm.nb(signal ~ bmi_group + gender, data = df)
+  print(coef(summary(res)))
+}
+```
+
 ### Wilcoxon test (two-group comparisons)
 
 If the data remarkably violates Gaussian assumptions use

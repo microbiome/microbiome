@@ -1,13 +1,8 @@
 ### TODO
 
- * Negative binomial for sample comparisons
-
-  library(MASS)
-  df <- sample_data(x)
-  df$signal <- get_sample(x, "Dialister")
-  summary(res <- glm.nb(daysabs ~ group + sex, data = df))
-
  * gower distance for sample similarities
+   
+
 
  * SPIEC-EASE / SparCC network algorithms from the huge package -> Healthy vs other networks ?
 

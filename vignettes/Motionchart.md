@@ -60,19 +60,9 @@ library(googleVis)
 
 # See help(gvisMotionChart) for further details
 mchart <- gvisMotionChart(df, idvar = "sample", timevar = "time")  
-```
 
-```
-## Error in gvisCheckMotionChartData(data, my.options): There is a missmatch between the idvar and timevar specified and the colnames of your data.
-```
-
-```r
 # Plot immediately (opens in browser, requires flash)
 plot(mchart)  
-```
-
-```
-## Error in plot(mchart): error in evaluating the argument 'x' in selecting a method for function 'plot': Error: object 'mchart' not found
 ```
 
 Save as html (needs javascript to open!). NOTE: html file viewing does not work locally - store the html file on server and view through internet:
