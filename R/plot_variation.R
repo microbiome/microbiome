@@ -33,8 +33,9 @@ plot_variation <- function (x, taxon, tipping.point = NULL, lims = NULL, shift =
   }
 
   if (is.null(lims)) {
-    lims <- round(10*range(d))/10
-    lims[[1]] <- lims[[1]] + shift
+    #lims <- round(10*range(d))/10
+    #lims[[1]] <- lims[[1]] + shift
+    lims <- range(d) + shift
   }
   
   # Pick subjects with multiple timepoints
@@ -63,13 +64,20 @@ plot_variation <- function (x, taxon, tipping.point = NULL, lims = NULL, shift =
   p <- p + xlab("Subjects")
   p <- p + guides(color = FALSE)
   #p <- p + ylim(lims[[1]], lims[[2]])
-  # TODO add shift also to the axis tick positions to be very exact
-  p <- p + ylim(values = range(d) + shift)  
+  #p <- p + ylim(values = range(d) + shift)  
   p <- p + coord_flip()
   p <- p + geom_point(data = dforig, aes(x = pos, y = abundance))
   # p <- p + theme(title = element_text(size = 20), axis.title.x = element_text(size = 25), axis.title.y = element_text(size = 25), axis.text.x = element_text(size = 20), axis.text.y = element_blank(), axis.ticks.y = element_blank())
   p <- p + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) 
-  p <- p + scale_y_log10(limits = lims)
+  #p <- p + scale_y_log10(limits = lims)
+  
+  #breaks <- c(seq(floor(min(lims)), ceiling(max(lims)), by = 1)) 
+  #names(breaks) <- as.character(10^(breaks + shift))
+  # Assuming relative abundances
+  breaks <- 10^seq(-3,2,1) 
+  names(breaks) <- as.character(breaks)
+
+  p <- p + scale_y_log10(breaks = breaks, labels = names(breaks), limits = lims)   
   p <- p + ggtitle(taxon)
   p
   

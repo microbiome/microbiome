@@ -1,7 +1,5 @@
 ### TODO
 
- * Stability line plot: check from vignette
-
  * Determining tipping point automatically for bistability figs
 
  * Tipping elements
