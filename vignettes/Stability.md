@@ -121,18 +121,20 @@ Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) 
 
 ```r
 # Abundance variation line plot
+# Indicates the abundance variation range
+# for subjects with multiple time points
 data("atlas1006")
 pseq <- atlas1006
 pseq <- subset_samples(pseq, DNA_extraction_method == "r")
 pseq <- transform_phyloseq(pseq, "relative.abundance")
-pv <- plot_variation(pseq, "Dialister", tipping.point = 1)
+pv <- plot_variation(pseq, "Dialister", tipping.point = 0.3)
 print(pv)
 
 # Only consider a unique sample from each subject
 # baseline time point for density plot
 pseq0 <- subset_samples(pseq, time == 0)
-ph <- plot_bimodal(pseq0, "Dialister", tipping.point = 1)
-print(pv)
+ph <- plot_bimodal(pseq0, "Dialister", tipping.point = 0.3)
+print(ph)
 ```
 
 <img src="figure/stability-variationplot-1.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" /><img src="figure/stability-variationplot-2.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" />

@@ -121,7 +121,7 @@ print(pv)
 # baseline time point for density plot
 pseq0 <- subset_samples(pseq, time == 0)
 ph <- plot_bimodal(pseq0, "Dialister", tipping.point = 0.3)
-print(pv)
+print(ph)
 ```
 
 
