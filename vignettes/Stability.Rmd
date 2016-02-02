@@ -117,6 +117,7 @@ pseq <- transform_phyloseq(pseq, "relative.abundance")
 x <- log10(otu_table(x)@.Data["Dialister",])
 
 # Potential analysis to identify potential minima
+library(earlywarnings)
 res <- livpotential_ews(x)
 
 # Identify the potential minimum location as a tipping point candidate 
