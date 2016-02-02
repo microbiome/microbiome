@@ -124,11 +124,13 @@ res <- livpotential_ews(x)
 
 # Identify the potential minimum location as a tipping point candidate 
 tipping.point <- 10^res$min.points
+
+print(tipping.point)
 ```
 
 ## Variation lineplot and Bimodality hotplot
 
-Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation lineplot (**Variation lineplot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
+Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation lineplot (**Variation lineplot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). The bi-stable Dialister has bimodal population distribution and reduced temporal stability within subjects at intermediate abundances.
 
 ```{r stability-variationplot, message=FALSE, warning=FALSE, fig.path = "figure/", fig.show='hold', out.width="430px"}
 # Variation line plot:
