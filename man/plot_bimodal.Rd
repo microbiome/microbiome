@@ -4,7 +4,7 @@
 \alias{plot_bimodal}
 \title{Univariate bimodality plot}
 \usage{
-plot_bimodal(x, taxon, tipping.point = NULL, lims = NULL)
+plot_bimodal(x, taxon, tipping.point = NULL, lims = NULL, shift = 0.001)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -14,16 +14,14 @@ plot_bimodal(x, taxon, tipping.point = NULL, lims = NULL)
 \item{tipping.point}{Optional. Indicate critical point for abundance variations to be highlighted.}
 
 \item{lims}{Optional. Figure X axis limits.}
+
+\item{shift}{Small constant to avoid problems with zeroes in log10}
 }
 \value{
 \code{\link{ggplot}} object
 }
 \description{
 Coloured bimodality plot.
-}
-\details{
-Assuming the sample_data(x) has 'time' field. Uses data only from
-the baseline (0) time point.
 }
 \examples{
   data("atlas1006")

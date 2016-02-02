@@ -101,8 +101,18 @@ p <- p + geom_text(size = 3)
 p
 ```
 
+## Detecting a tipping point
 
-### Variation lineplot and Bimodality hotplot
+```{r bimodalitybistability, message=FALSE, warning=FALSE, fig.path = "figure/"}
+# Pick example data
+data("atlas1006")
+pseq <- atlas1006
+pseq <- subset_samples(pseq, DNA_extraction_method == "r")
+pseq <- transform_phyloseq(pseq, "relative.abundance")
+
+```
+
+## Variation lineplot and Bimodality hotplot
 
 Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation lineplot (**Variation lineplot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
 
@@ -112,7 +122,6 @@ data("atlas1006")
 pseq <- atlas1006
 pseq <- subset_samples(pseq, DNA_extraction_method == "r")
 pseq <- transform_phyloseq(pseq, "relative.abundance")
-xlims <- otu_table(pseq)
 
 # Variation line plot:
 # Indicates the abundance variation range

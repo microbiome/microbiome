@@ -4,7 +4,7 @@
 \alias{plot_variation}
 \title{Variation line plot}
 \usage{
-plot_variation(x, taxon, tipping.point = NULL, lims = NULL)
+plot_variation(x, taxon, tipping.point = NULL, lims = NULL, shift = 0.001)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -14,6 +14,8 @@ plot_variation(x, taxon, tipping.point = NULL, lims = NULL)
 \item{tipping.point}{Optional. Indicate critical point for abundance variations to be highlighted.}
 
 \item{lims}{Optional. Figure X axis limits.}
+
+\item{shift}{Small constant to avoid problems with zeroes in log10}
 }
 \value{
 \code{\link{ggplot}} object
