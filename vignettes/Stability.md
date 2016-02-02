@@ -129,20 +129,14 @@ pseq <- subset_samples(pseq, DNA_extraction_method == "r")
 pseq <- transform_phyloseq(pseq, "relative.abundance")
 
 # Dialister log10 relative abundance
-x <- log10(otu_table(x)@.Data["Dialister",])
-```
+x <- log10(get_sample(pseq, "Dialister"))
 
-```
-## Error in .nextMethod(.Object = .Object, ... = ...): argument "taxa_are_rows" is missing, with no default
-```
-
-```r
 # Potential analysis to identify potential minima
 library(earlywarnings)
 res <- livpotential_ews(x)
 
 # Identify the potential minimum location as a tipping point candidate 
-tipping.point <- log10(res$min.points)
+tipping.point <- 10^res$min.points
 ```
 
 ## Variation lineplot and Bimodality hotplot
@@ -155,39 +149,17 @@ Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) 
 # Indicates the abundance variation range
 # for subjects with multiple time points
 pv <- plot_variation(pseq, "Dialister", tipping.point = tipping.point)
-```
-
-```
-## Error in `$<-.data.frame`(`*tmp*`, "switch", value = logical(0)): replacement has 0 rows, data has 43
-```
-
-```r
 print(pv + ylim(values = c(0.01, 100)))
-```
 
-```
-## Error in print(pv + ylim(values = c(0.01, 100))): object 'pv' not found
-```
-
-```r
 # Bimodality hotplot:
 # Only consider a unique sample from each subject
 # baseline time point for density plot
 pseq.baseline <- subset_samples(pseq, time == 0)
 ph <- plot_bimodal(pseq.baseline, "Dialister", tipping.point = tipping.point)
-```
-
-```
-## Error: `breaks` and `labels` must have the same length
-```
-
-```r
 print(pv + xlim(values = c(0.01, 100)))
 ```
 
-```
-## Error in print(pv + xlim(values = c(0.01, 100))): object 'pv' not found
-```
+<img src="figure/stability-variationplot-1.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" /><img src="figure/stability-variationplot-2.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" />
 
 
 

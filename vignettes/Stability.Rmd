@@ -116,14 +116,14 @@ pseq <- subset_samples(pseq, DNA_extraction_method == "r")
 pseq <- transform_phyloseq(pseq, "relative.abundance")
 
 # Dialister log10 relative abundance
-x <- log10(otu_table(x)@.Data["Dialister",])
+x <- log10(get_sample(pseq, "Dialister"))
 
 # Potential analysis to identify potential minima
 library(earlywarnings)
 res <- livpotential_ews(x)
 
 # Identify the potential minimum location as a tipping point candidate 
-tipping.point <- log10(res$min.points)
+tipping.point <- 10^res$min.points
 ```
 
 ## Variation lineplot and Bimodality hotplot
