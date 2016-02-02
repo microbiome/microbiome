@@ -121,6 +121,8 @@ tipping point candidates.
 
 ```r
 # Pick example data
+library(phyloseq)
+library(microbiome)
 data("atlas1006")
 pseq <- atlas1006
 pseq <- subset_samples(pseq, DNA_extraction_method == "r")

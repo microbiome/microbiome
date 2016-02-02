@@ -108,6 +108,8 @@ tipping point candidates.
 
 ```{r stability-tipping, message=FALSE, warning=FALSE, fig.path = "figure/"}
 # Pick example data
+library(phyloseq)
+library(microbiome)
 data("atlas1006")
 pseq <- atlas1006
 pseq <- subset_samples(pseq, DNA_extraction_method == "r")
