@@ -90,9 +90,7 @@ pv <- comp[["Pr(>Chisq)"]][[2]]
 
 PERMANOVA is used to assess significance of community differences between groups. Here let us evaluate whether nationality has a significant effect on gut microbiota.
 
-
-```r
-# Example data
+```{r comparisons-permanova, fig.width=5, fig.heigh# Example data
 data("dietswap")
 x <- dietswap
 group <- "nationality"
@@ -110,13 +108,15 @@ pv <- as.data.frame(permanova$aov.tab)["group", "Pr(>F)"]
 
 # P-value
 print(pv)
-```
 
-```
-## [1] 0.01
-```
+# However note the assumption of similar
+# multivariate spread among the groups
+# ie. analogous to variance homogeneity
+# Here the groups have signif. different spreads and
+# permanova result may be explained by that.
+dist <- vegdist(t(otu))
+anova(betadisper(dist,meta$group))
 
-```r
 # Coefs for the top taxa separating the groups
 coef <- coefficients(permanova)["group1",]
 top.coef <- coef[rev(order(abs(coef)))[1:20]]
@@ -124,4 +124,3 @@ par(mar = c(3, 14, 2, 1))
 barplot(sort(top.coef), horiz = T, las = 1, main = "Top taxa")
 ```
 
-![plot of chunk comparisons-permanova](figure/comparisons-permanova-1.png)
