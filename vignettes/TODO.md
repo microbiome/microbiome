@@ -19,7 +19,8 @@ cc
 cor(x, y)
 sum((x - xm) * (y - xm)) / (sqrt(sum((x-xm)^2)) * sqrt(sum((y-xm)^2)))
 
-
- * Heatmap: indicate groups with a color bar
+  * Heatmap: indicate groups with a color bar
 
   * Licensing issues with phyloseq
+
+

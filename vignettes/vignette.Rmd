@@ -56,8 +56,12 @@ Download some [example data sets](Data.md) to try these tools:
 * [Boxplots](Boxplots.md)
 * [Density](Density.md)
 * [Heatmaps](Heatmap.md)
-* [Motion charts](Motionchart.md)
 * [Networks](Networks.md)
+
+### Interactive  
+
+* [Interactive](Interactive.md)
+* [Motion charts](Motionchart.md)
 
 ### Ordination  
 
