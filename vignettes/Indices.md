@@ -22,5 +22,41 @@ maturity.index <- maturity(pseq)
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "maturity"
+## Wisconsin double standardization
+## Run 0 stress 0.2536304 
+## Run 1 stress 0.253516 
+## ... New best solution
+## ... procrustes: rmse 0.007085436  max resid 0.09530197 
+## Run 2 stress 0.2747136 
+## Run 3 stress 0.2570603 
+## Run 4 stress 0.2535947 
+## ... procrustes: rmse 0.007484929  max resid 0.1099792 
+## Run 5 stress 0.2540275 
+## Run 6 stress 0.2536846 
+## ... procrustes: rmse 0.006069665  max resid 0.06947634 
+## Run 7 stress 0.253498 
+## ... New best solution
+## ... procrustes: rmse 0.006958935  max resid 0.1101667 
+## Run 8 stress 0.2535004 
+## ... procrustes: rmse 0.001213696  max resid 0.02143185 
+## Run 9 stress 0.254337 
+## Run 10 stress 0.2541912 
+## Run 11 stress 0.2537164 
+## ... procrustes: rmse 0.006747147  max resid 0.1105163 
+## Run 12 stress 0.2536039 
+## ... procrustes: rmse 0.003975626  max resid 0.07051828 
+## Run 13 stress 0.2549219 
+## Run 14 stress 0.2559363 
+## Run 15 stress 0.253836 
+## ... procrustes: rmse 0.01044807  max resid 0.1218678 
+## Run 16 stress 0.2549497 
+## Run 17 stress 0.2538858 
+## ... procrustes: rmse 0.01152555  max resid 0.1217394 
+## Run 18 stress 0.2540276 
+## Run 19 stress 0.2552395 
+## Run 20 stress 0.2738907
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'age' not found
 ```

@@ -3,13 +3,14 @@
 #' @param x \code{\link{phyloseq-class}} object 
 #' @param varname Metadata field specifying the investigated metadata variable.
 #' @param transformation Transformation for the original phyloseq values. By default a log10 transformation is done to better approximate the requirements of a linear model.
-#' @param p.adjust.method p-value correction method for p.adjust function 
+#' @param p.adj.method p-value correction method for p.adjust function 
 #'               (default 'BH'). For other options, see ?p.adjust
 #' @return Limma output table.
 #' @examples 
 #'  data("atlas1006")
 #'  tab <- lm_phyloseq(atlas1006, "age")
 #' @export
+#' @importFrom phyloseq get_variable
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -20,7 +21,7 @@ lm_phyloseq <- function (x, varname, transformation = "log10", p.adj.method = "B
 
   # Limma significance analysis
   # Prepare the design matrix which states the variable values for each sample
-  design <- cbind(intercept = 1, var = get_variable(pseq, varname))
+  design <- cbind(intercept = 1, var = get_variable(x, varname))
   rownames(design) <- rownames(sample_data(x)) 
 
   # OTU matrix

@@ -1,7 +1,7 @@
 ---
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
-date: "2016-02-02"
+date: "2016-02-03"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -228,13 +228,15 @@ sessionInfo()
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] knitcitations_1.0.7 knitr_1.12          devtools_1.9.1     
-##  [4] limma_3.26.5        sorvi_0.7.35        ggplot2_2.0.0      
-##  [7] tidyr_0.3.1         dplyr_0.4.3         MASS_7.3-45        
-## [10] netresponse_1.21.14 reshape2_1.4.1      mclust_5.1         
-## [13] minet_3.28.0        Rgraphviz_2.14.0    graph_1.48.0       
-## [16] phyloseq_1.14.0     microbiome_0.99.73  RPA_1.26.0         
-## [19] affy_1.48.0         Biobase_2.30.0      BiocGenerics_0.16.1
+##  [1] intergraph_2.0-2    sna_2.3-2           network_1.13.0     
+##  [4] ggnet_0.1.0         GGally_1.0.1        knitcitations_1.0.7
+##  [7] knitr_1.12          devtools_1.9.1      limma_3.26.5       
+## [10] sorvi_0.7.35        ggplot2_2.0.0       tidyr_0.3.1        
+## [13] dplyr_0.4.3         MASS_7.3-45         netresponse_1.21.14
+## [16] reshape2_1.4.1      mclust_5.1          minet_3.28.0       
+## [19] Rgraphviz_2.14.0    graph_1.48.0        phyloseq_1.14.0    
+## [22] microbiome_0.99.73  RPA_1.26.0          affy_1.48.0        
+## [25] Biobase_2.30.0      BiocGenerics_0.16.1
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] nlme_3.1-122          bitops_1.0-6          solr_0.1.6           
@@ -250,18 +252,18 @@ sessionInfo()
 ## [31] lmtest_0.9-34         mvtnorm_1.0-3         quadprog_1.5-5       
 ## [34] tgp_2.4-11            stringr_1.0.0         digest_0.6.9         
 ## [37] earlywarnings_1.1.22  XVector_0.10.0        bibtex_0.4.0         
-## [40] highr_0.5.1           maps_3.0.2            BiocInstaller_1.20.1 
-## [43] zoo_1.7-12            RCurl_1.95-4.7        magrittr_1.5         
-## [46] Matrix_1.2-3          Rcpp_0.12.3           munsell_0.4.2        
-## [49] S4Vectors_0.8.7       maptree_1.4-7         ape_3.4              
-## [52] RefManageR_0.10.5     stringi_1.0-1         RJSONIO_1.3-0        
-## [55] zlibbioc_1.16.0       plyr_1.8.3            qvalue_2.2.2         
-## [58] lattice_0.20-33       Biostrings_2.38.3     splines_3.2.2        
-## [61] multtest_2.26.0       igraph_1.0.1          boot_1.3-17          
-## [64] rjson_0.2.15          codetools_0.2-14      stats4_3.2.2         
-## [67] XML_3.98-1.3          evaluate_0.8          biom_0.3.12          
-## [70] data.table_1.9.6      spam_1.3-0            foreach_1.4.3        
-## [73] gtable_0.1.2          assertthat_0.1        Kendall_2.2          
+## [40] maps_3.0.2            BiocInstaller_1.20.1  zoo_1.7-12           
+## [43] RCurl_1.95-4.7        magrittr_1.5          Matrix_1.2-3         
+## [46] Rcpp_0.12.3           munsell_0.4.2         S4Vectors_0.8.7      
+## [49] maptree_1.4-7         ape_3.4               RefManageR_0.10.5    
+## [52] stringi_1.0-1         RJSONIO_1.3-0         zlibbioc_1.16.0      
+## [55] plyr_1.8.3            qvalue_2.2.2          lattice_0.20-33      
+## [58] Biostrings_2.38.3     splines_3.2.2         multtest_2.26.0      
+## [61] igraph_1.0.1          boot_1.3-17           rjson_0.2.15         
+## [64] codetools_0.2-14      stats4_3.2.2          XML_3.98-1.3         
+## [67] evaluate_0.8          biom_0.3.12           data.table_1.9.6     
+## [70] spam_1.3-0            foreach_1.4.3         gtable_0.1.2         
+## [73] reshape_0.8.5         assertthat_0.1        Kendall_2.2          
 ## [76] survival_2.38-3       iterators_1.0.8       som_0.3-5            
 ## [79] memoise_0.2.1         IRanges_2.4.6         fields_8.3-6         
 ## [82] cluster_2.0.3

@@ -32,33 +32,20 @@ res <- PlotCrosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE, tax.table
 ```
 
 ```
-## Error in CrosshybTable(tax.level = tax.level, selected.taxa = selected.taxa, : object 'tax.table' not found
+## Error in tax_table(as(x, "matrix")[i, j, drop = FALSE]): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error in as(x, "matrix")[i, j, drop = FALSE] : subscript out of bounds
 ```
 
 ```r
 # Pick the crosshyb table and figure
 crosshyb.table <- res$data
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'res' not found
-```
-
-```r
 p <- res$plot
-```
 
-```
-## Error in eval(expr, envir, enclos): object 'res' not found
-```
-
-```r
 # Plot the figure    
 print(p)
 ```
 
 ```
-## Error in print(p): object 'p' not found
+## NULL
 ```
 
 ```r
@@ -68,7 +55,7 @@ s <- filter(res$data, crosshyb > 0)
 ```
 
 ```
-## Error in filter_(.data, .dots = lazyeval::lazy_dots(...)): object 'res' not found
+## Error in UseMethod("filter_"): no applicable method for 'filter_' applied to an object of class "NULL"
 ```
 
 ```r
@@ -99,7 +86,7 @@ mytaxa <- levelmap("Dialister", from = "L2", to = "species", tax.table)[[1]]
 ```
 
 ```
-## Error in levelmap("Dialister", from = "L2", to = "species", tax.table): object 'tax.table' not found
+## Error in tax_table(as(x, "matrix")[i, j, drop = FALSE]): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error in as(x, "matrix")[i, j, drop = FALSE] : subscript out of bounds
 ```
 
 ```r
@@ -108,7 +95,7 @@ res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0,
 ```
 
 ```
-## Error in CrosshybTable(tax.level = tax.level, selected.taxa = selected.taxa, : object 'tax.table' not found
+## Error in tax_table(as(x, "matrix")[i, j, drop = FALSE]): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error in as(x, "matrix")[i, j, drop = FALSE] : subscript out of bounds
 ```
 
 ```r
@@ -118,6 +105,6 @@ kable(head(res$data))
 ```
 
 ```
-## Error in head(res$data): error in evaluating the argument 'x' in selecting a method for function 'head': Error: object 'res' not found
+## Error in kable_markdown(x = structure(character(0), .Dim = c(0L, 0L), .Dimnames = list(: the table must have a header (column names)
 ```
 

@@ -78,6 +78,8 @@ unimodal <- names(which.min(bimodality))
 bimodal  <- names(which.max(bimodality))
 
 # Visualize population frequencies
+library(ggplot2)
+theme_set(theme_bw(20))
 p1 <- plot_density(pseq, variable = unimodal, log10 = TRUE) 
 p2 <- plot_density(pseq, variable = bimodal,  log10 = TRUE) 
 library(gridExtra)

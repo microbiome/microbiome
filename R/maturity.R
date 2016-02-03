@@ -3,10 +3,10 @@
 #' @param x \code{\link{phyloseq-class}} object 
 #' @return Maturity index
 #' @examples
-#'  This is an artificial example based on readily available
-#'  adult data set whereas
-#'  the maturity index is typically calculated from and
-#'  used for babies/children:
+#'  #This is an artificial example based on readily available
+#'  #adult data set whereas
+#'  #the maturity index is typically calculated from and
+#'  #used for babies/children:
 #'   data("atlas1006")
 #'   pseq <- atlas1006
 #'   pseq <- subset_samples(pseq, DNA_extraction_method == "r" & time == 0)
@@ -18,11 +18,12 @@
 #' 
 #' Subramanian, S. et al. Persistent gut microbiota immaturity in malnourished Bangladeshi children. Nature 510, 417–421 (2014).
 #' 
-#' Dogra, S. et al. Dynamics of infant gut microbiota are influenced by delivery mode and gestational duration and are associated with subsequent adiposity. mBio 6, e02419–14 (2015). 
+#' Dogra, S. et al. Dynamics of infant gut microbiota are influenced by delivery mode and gestational duration and are associated with subsequent adiposity. mBio 6:e02419–14 (2015). 
 #'
 #' Korpela, K. et al. Intestinal microbiome is related to lifetime antibiotic use in Finnish pre-school children. Nat. Comm. 7:10410, 2016 doi:10.1038/ncomms10410
 #' 
 #' @details Microbiota maturity index has been shown to differentiate healthy children (see the references). In Korpela et al. (2016) this was calculated as the first principal coordinate from a PCoA (MDS) using only significantly age-associated genus-level taxa (all groups included). In this function NMDS is used instead. The maturity index is also adjusted for age.
+#' @importFrom phyloseq get_variable
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 maturity <- function (x) {

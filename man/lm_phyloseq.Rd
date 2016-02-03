@@ -13,7 +13,7 @@ lm_phyloseq(x, varname, transformation = "log10", p.adj.method = "BH")
 
 \item{transformation}{Transformation for the original phyloseq values. By default a log10 transformation is done to better approximate the requirements of a linear model.}
 
-\item{p.adjust.method}{p-value correction method for p.adjust function 
+\item{p.adj.method}{p-value correction method for p.adjust function 
 (default 'BH'). For other options, see ?p.adjust}
 }
 \value{

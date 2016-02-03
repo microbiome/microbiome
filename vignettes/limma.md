@@ -127,7 +127,7 @@ tab <- lm_phyloseq(atlas1006, "age")
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "lm_phyloseq"
+## Error in qr.default(x): NA/NaN/Inf in foreign function call (arg 1)
 ```
 
 ```r

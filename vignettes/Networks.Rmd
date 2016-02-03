@@ -43,8 +43,18 @@ otu <- t(get_sample(pseq))
 net <- spiec.easi(otu, method='mb', lambda.min.ratio=1e-2, 
                   nlambda=20, icov.select.params=list(rep.num=20))
 
-## Create igraph object
-ig <- graph.adjacency(net$refit, mode='undirected')
+## Create graph object
+n <- net$refit
+colnames(n) <- rownames(n) <- colnames(otu)
+
+# Network format
+netw <- network(as.matrix(n), directed = FALSE)
+
+
+
+
+# igraph format
+ig <- graph.adjacency(n, mode='undirected', add.rownames = TRUE)
 
 ## set size of vertex to log2 mean abundance 
 vsize <- log2(apply(otu, 2, mean))
@@ -53,10 +63,27 @@ vsize <- log2(apply(otu, 2, mean))
 coord <- layout.fruchterman.reingold(ig)
 
 # Visualize the network
-plot(ig, layout=coord, vertex.size=vsize, vertex.label=names(vsize))
+plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize))
 
 # Check degree distribution
 #dd <- degree.distribution(ig)
 #plot(0:(length(dd)-1), dd, ylim=c(0,.35), type='b', 
 #      ylab="Frequency", xlab="Degree", main="Degree Distributions")
+```
+
+
+Visualize the network with [ggnet2](https://briatte.github.io/ggnet):
+
+```{r networks5, warning=FALSE, message=FALSE, fig.width=10, fig.height=10}
+library(GGally)
+library(ggnet)
+library(network)
+library(sna)
+library(ggplot2)
+library(intergraph) # ggnet2 works also with igraph with this
+
+phyla <- levelmap(colnames(otu), from = "Genus", to = "Phylum", tax_table(pseq))
+netw %v% "Phylum" <- phyla
+p <- ggnet2(netw, color = "Phylum", label = TRUE, label.size = 2)
+print(p)
 ```

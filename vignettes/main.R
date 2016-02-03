@@ -8,6 +8,12 @@ library(ggplot2)
 library(sorvi)
 library(limma)
 library(devtools)
+library(GGally)
+library(ggnet)
+library(network)
+library(sna)
+library(ggplot2)
+library(intergraph) # ggnet2 works also with igraph with this
 
 #library(rmarkdown)
 #rmarkdown::render("vignette.Rmd")

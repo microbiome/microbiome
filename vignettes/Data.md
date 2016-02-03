@@ -150,7 +150,7 @@ pseq.L2 <- aggregate_taxa(pseq, level = "L2")
 ```
 
 ```
-## Error in inherits(x, get.component.classes()): object 'pseq' not found
+## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
 ```
 
 ```r
@@ -158,7 +158,7 @@ pseq.L1 <- aggregate_taxa(pseq, level = "L1")
 ```
 
 ```
-## Error in inherits(x, get.component.classes()): object 'pseq' not found
+## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
 ```
 
 Importing HITChip probe-level data and taxonomy from HITChip
@@ -230,19 +230,11 @@ library(phyloseq)
 meta <- sample_data(pseq)
 ```
 
-```
-## Error in sample_data(pseq): error in evaluating the argument 'object' in selecting a method for function 'sample_data': Error: object 'pseq' not found
-```
-
 Taxonomy table
 
 
 ```r
 tax.table <- tax_table(pseq)
-```
-
-```
-## Error in tax_table(pseq): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error: object 'pseq' not found
 ```
 
 Pick taxa abundance data matrix. In this example the OTU level corresponds to genus-like groups (the function name otu_table is somewhat misleading):
@@ -252,27 +244,12 @@ Pick taxa abundance data matrix. In this example the OTU level corresponds to ge
 otu <- otu_table(pseq)@.Data
 ```
 
-```
-## Error in otu_table(pseq): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq' not found
-```
-
 Aggregate the abundance matrix to higher-level taxa on HITChip:
 
 
 ```r
 pseq2 <- aggregate_taxa(pseq, "Phylum") # Aggregate into phyloseq object
-```
-
-```
-## Error in inherits(x, get.component.classes()): object 'pseq' not found
-```
-
-```r
 dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
-```
-
-```
-## Error in otu_table(pseq2): error in evaluating the argument 'object' in selecting a method for function 'otu_table': Error: object 'pseq2' not found
 ```
 
 Melted data for plotting is readily obtained with the phyloseq psmelt function:
@@ -280,23 +257,16 @@ Melted data for plotting is readily obtained with the phyloseq psmelt function:
 
 ```r
 df <- psmelt(pseq)
-```
-
-```
-## Error in inherits(physeq, "phyloseq"): object 'pseq' not found
-```
-
-```r
 kable(head(df))
 ```
 
 
 
-|                                         |
-|:----------------------------------------|
-|function (x, df1, df2, ncp, log = FALSE) |
-|{                                        |
-|if (missing(ncp))                        |
-|.Call(C_df, x, df1, df2, log)            |
-|else .Call(C_dnf, x, df1, df2, ncp, log) |
-|}                                        |
+|     |OTU                                  |Sample    | Abundance| time|gender |subject |sample    |group   |Phylum                 |Genus                                |
+|:----|:------------------------------------|:---------|---------:|----:|:------|:-------|:---------|:-------|:----------------------|:------------------------------------|
+|1049 |Bacteroides vulgatus et rel.         |sample-37 |      9735|    1|male   |S19     |sample-37 |LGG     |Bacteroidetes          |Bacteroides vulgatus et rel.         |
+|1055 |Bacteroides vulgatus et rel.         |sample-27 |      5884|    1|female |S14     |sample-27 |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |
+|1016 |Bacteroides vulgatus et rel.         |sample-16 |      5135|    2|female |S8      |sample-16 |LGG     |Bacteroidetes          |Bacteroides vulgatus et rel.         |
+|2846 |Faecalibacterium prausnitzii et rel. |sample-34 |      4912|    2|male   |S17     |sample-34 |Placebo |Clostridium cluster IV |Faecalibacterium prausnitzii et rel. |
+|1048 |Bacteroides vulgatus et rel.         |sample-17 |      4857|    1|male   |S9      |sample-17 |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |
+|1033 |Bacteroides vulgatus et rel.         |sample-1  |      4683|    1|female |S1      |sample-1  |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |
