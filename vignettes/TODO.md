@@ -20,11 +20,6 @@ cor(x, y)
 sum((x - xm) * (y - xm)) / (sqrt(sum((x-xm)^2)) * sqrt(sum((y-xm)^2)))
 
 
- * PERMANOVA: are communities significantly different across groups
-   adonis(t(dat.full) ~ group, data=meta.full, permutations=99)
-
-
-
  * Heatmap: indicate groups with a color bar
 
   * Licensing issues with phyloseq
