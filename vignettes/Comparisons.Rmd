@@ -74,7 +74,8 @@ pv <- comp[["Pr(>Chisq)"]][[2]]
 
 PERMANOVA is used to assess significance of community differences between groups. Here let us evaluate whether nationality has a significant effect on gut microbiota.
 
-```{r comparisons-permanova, fig.width=5, fig.heigh# Example data
+```{r comparisons-permanova, fig.width=5, fig.height=6, message=FALSE, warnings=FALSE}
+# Example data
 data("dietswap")
 x <- dietswap
 group <- "nationality"
