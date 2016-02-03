@@ -86,4 +86,42 @@ comp <- anova(out0, out)
 pv <- comp[["Pr(>Chisq)"]][[2]]
 ```
 
+### PERMANOVA
 
+PERMANOVA is used to assess significance of community differences between groups. Here let us evaluate whether nationality has a significant effect on gut microbiota.
+
+
+```r
+# Example data
+data("dietswap")
+x <- dietswap
+group <- "nationality"
+
+# Use relative abundances for simpler visualizations
+x <- transform_phyloseq(x, "relative.abundance")
+otu <- get_sample(x)
+meta <- as(sample_data(x), "data.frame")
+meta$group <- meta[[group]]
+
+# PERMANOVA: samples x species as input
+library(vegan)
+permanova <- adonis(t(otu) ~ group, data=meta, permutations=99)
+pv <- as.data.frame(permanova$aov.tab)["group", "Pr(>F)"]
+
+# P-value
+print(pv)
+```
+
+```
+## [1] 0.01
+```
+
+```r
+# Coefs for the top taxa separating the groups
+coef <- coefficients(permanova)["group1",]
+top.coef <- coef[rev(order(abs(coef)))[1:20]]
+par(mar = c(3, 14, 2, 1))
+barplot(sort(top.coef), horiz = T, las = 1, main = "Top taxa")
+```
+
+![plot of chunk comparisons-permanova](figure/comparisons-permanova-1.png)
