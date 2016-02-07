@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarize.sum.R
 \name{summarize.sum}
 \alias{summarize.sum}
-\title{summarize.sum}
+\title{Sum-based probe summarization}
 \usage{
 summarize.sum(taxonomy, level, probedata, verbose = TRUE,
   downweight.ambiguous.probes = TRUE)

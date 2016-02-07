@@ -1,7 +1,7 @@
 #' @title Summarize probedata
 #' @description Summarize phylogenetic microarray probe-level data from given input folder.
 #' @param data.dir Data folder.
-#' @param probedata probe-level data matrix
+#' @param probedata probe-level data matrix in absolute domain
 #' @param taxonomy probe taxonomy
 #' @param level Summarization level
 #' @param method Summarization method
@@ -63,7 +63,18 @@ summarize_probedata <- function(data.dir = NULL, probedata = NULL, taxonomy = NU
 
   # Summarize probes through species level
   if (method %in% c("rpa", "frpa")) {
-    otu <- summarize.rpa(taxonomy, level, probedata, verbose = TRUE, probe.parameters = probe.parameters)$abundance.table
+
+    # RPA at species or L6 level only
+    if ("species" %in% names(taxonomy)) {low <- "species"}
+    if ("L6" %in% names(taxonomy)) {low <- "L6"}    
+    otu <- summarize.rpa(taxonomy, level = low, probedata, verbose = TRUE, probe.parameters = probe.parameters)$abundance.table
+    otu.orig <- otu
+
+    # Then sum up to the higher level
+    higher <- levelmap(rownames(otu), from = low, to = level, taxonomy)
+    otu <- t(sapply(split(otu, higher), function (x) {colSums(matrix(x, ncol = ncol(otu)))}))
+    colnames(otu) <- colnames(otu.orig)
+
   } else if (method == "sum") {
     otu <- summarize.sum(taxonomy, level, probedata, verbose = TRUE, downweight.ambiguous.probes = TRUE)$abundance.table
   }

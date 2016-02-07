@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarize.rpa.R
 \name{summarize.rpa}
 \alias{summarize.rpa}
-\title{summarize.rpa}
+\title{RPA summarization}
 \usage{
 summarize.rpa(taxonomy, level, probedata, verbose = TRUE,
   probe.parameters = NULL)

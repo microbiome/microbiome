@@ -1,6 +1,5 @@
-#' @title summarize.rpa
-#' @description Probeset summarization with RPA
-#' 
+#' @title RPA summarization
+#' @description Probeset summarization with RPA 
 #' @param taxonomy oligo - phylotype matching data.frame
 #' @param level taxonomic level for the summarization. 
 #' @param probedata preprocessed probes x samples data matrix in absolute domain
@@ -10,11 +9,9 @@
 #' 	    estimated. A list. One element for each probeset with the following probe vectors: 
 #'	    affinities, variances
 #' @return List with two elements: abundance.table (summarized data matrix in absolute scale) and probe.parameters (RPA probe level parameter estimates)
-#'
 #' @export
 #' @importFrom RPA d.update.fast 
 #' @importFrom RPA rpa.fit
-#'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

@@ -10,7 +10,7 @@ summarize_probedata(data.dir = NULL, probedata = NULL, taxonomy = NULL,
 \arguments{
 \item{data.dir}{Data folder.}
 
-\item{probedata}{probe-level data matrix}
+\item{probedata}{probe-level data matrix in absolute domain}
 
 \item{taxonomy}{probe taxonomy}
 

@@ -1,4 +1,4 @@
-#' @title summarize.sum
+#' @title Sum-based probe summarization
 #' @description Probeset summarization with SUM
 #' @param taxonomy oligo - phylotype matching data.frame
 #' @param level taxonomic level for the summarization. 
@@ -48,8 +48,9 @@ summarize.sum <- function (taxonomy, level, probedata, verbose = TRUE, downweigh
       # However, set the minimum signal to 0 in log10 scale (1 in original scale)!
       rownames(dat) <- probes
       colnames(dat) <- colnames(oligo.data)
+      
       dat <- dat * probe.weights[rownames(dat)]
-      vec <- colSums(dat, na.rm = T)               
+      vec <- colSums(dat, na.rm = T)
     }
 
     summarized.matrix[set, ] <- vec
