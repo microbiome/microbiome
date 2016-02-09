@@ -1,6 +1,6 @@
 library(microbiome)
 library(phyloseq)
-library(netresponse)+
+library(netresponse)
 library(MASS)
 library(dplyr)
 library(tidyr)
@@ -31,35 +31,33 @@ library(knitcitations)
 # ---------------------------------------------
 
 library(knitr)
-#fs <- "vignette.Rmd"
-#fs <- sample(list.files(pattern = ".Rmd$"))
-#fs <- "Profiling.Rmd"
-#fs <- "SQL.Rmd"
-#fs <- "Heatmap.Rmd"
-#fs <- c("LatentClassAnalysis.Rmd", "NetResponse.Rmd")
-#fs <- c("RDA.Rmd")
-#fs <- c("Phyloseq.Rmd")
 #fs <- c("Barplots.Rmd")
 #fs <- c("Boxplots.Rmd")
-#fs <- c("RPA.Rmd")
 #fs <- c("Clustering.Rmd")
+#fs <- c("Comparisons.Rmd")
+#fs <- c("Core.Rmd")
+#fs <- c("Crosshyb.Rmd")
+#fs <- "Density.Rmd"
+#fs <- "Diversity.Rmd"
+#fs <- "Heatmap.Rmd"
+#fs <- "Profiling.Rmd"
+#fs <- "RDA.Rmd"
+#fs <- "SQL.Rmd"
+#fs <- c("LatentClassAnalysis.Rmd", "NetResponse.Rmd")
+#fs <- c("Phyloseq.Rmd")
+#fs <- c("RPA.Rmd")
 #fs <- c("wurcomputer.Rmd")
 #fs <- c("Heatmap.Rmd")
-#fs <- c("RDA.Rmd")
-#fs <- c("Comparisons.Rmd")
 #fs <- c("RPAtest.Rmd")
 #fs <- c("Stability.Rmd")
-#fs <- c("Core.Rmd")
-#fs <- "Diversity.Rmd"
-#fs <- "RDA.Rmd"
-#fs <- "Density.Rmd"
-#fs <- c("Crosshyb.Rmd")
 #fs <- c("Installation.Rmd")
 #fs <- c("ROC.Rmd")
 #fs <- c("limma.Rmd")
+fs <- c("Ordination.Rmd")
 #fs <- c("Phylogeny.Rmd")
-#for (f in setdiff(fs, "Installation.Rmd")) { 
-fs <- sample(list.files(pattern = ".Rmd$"))
+#fs <- "vignette.Rmd"
+#fs <- sample(list.files(pattern = ".Rmd$"))
+#fs <- sample(list.files(pattern = ".Rmd$"))
 #for (f in setdiff(fs, c("misc.Rmd"))) { 
 #for (f in setdiff(fs, c("Atlas.Rmd", "vignette.Rmd"))) {
 # Motionchart as the last one
