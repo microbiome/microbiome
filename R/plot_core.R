@@ -27,7 +27,7 @@ plot_core <- function(x, title = "Core", plot = TRUE,
 		   plot.type = "lineplot", palette = "bw", min.prevalence = NULL) {
 
   if (length(detection.thresholds) == 1) {
-    detection.thresholds <- 10^seq(log10(1e-3), log10(max(data)), length = detection.thresholds)
+    detection.thresholds <- 10^seq(log10(1e-3), log10(max(otu_table(x)@.Data, na.rm = T)), length = detection.thresholds)
   }
 
 

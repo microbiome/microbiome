@@ -4,6 +4,7 @@
 #' @param transformation Transformation to apply: 'relative.abundance', 'Z', or 'log10'.
 #' @param target Apply the transformation for 'sample' or 'OTU'. Does not affect the log transformation.
 #' @return Transformed \code{\link{phyloseq}} object
+#' @details The relative abunance are returned as percentages in [0, 100].
 #' @export
 #' @examples
 #' \dontrun{

@@ -19,6 +19,9 @@ Transformed \code{\link{phyloseq}} object
 \description{
 Transform phyloseq objects with standard transformations including log10(x), log10(1+x), z, relative abundance.
 }
+\details{
+The relative abunance are returned as percentages in [0, 100].
+}
 \examples{
 \dontrun{
 

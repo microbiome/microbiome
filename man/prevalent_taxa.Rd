@@ -11,13 +11,13 @@ prevalent_taxa(x, detection.threshold, prevalence.threshold)
 
 \item{detection.threshold}{Detection threshold for absence/presence.}
 
-\item{prevalence.threshold}{Detection threshold for prevalence}
+\item{prevalence.threshold}{Detection threshold for prevalence, provided as percentages [0, 100]}
 }
 \value{
 Vector of prevalent taxa names
 }
 \description{
-List prevalent groups
+List prevalent groups.
 }
 \details{
 For phyloseq object, lists taxa that are more prevalent with the given detection

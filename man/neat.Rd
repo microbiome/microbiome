@@ -5,7 +5,7 @@
 \title{Neatmap sorting for matrices}
 \usage{
 neat(x, arrange = "both", method = "NMDS", distance = "bray",
-  first = NULL, ...)
+  first.row = NULL, first.col = NULL, ...)
 }
 \arguments{
 \item{x}{A matrix.}
@@ -16,7 +16,9 @@ neat(x, arrange = "both", method = "NMDS", distance = "bray",
 
 \item{distance}{Distance method. See \code{\link{vegdist}} function from the \pkg{vegan} package.}
 
-\item{first}{Optionally provide the name of the first sample/taxon to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.}
+\item{first.row}{Optionally provide the name of the first row to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.}
+
+\item{first.col}{Optionally provide the name of the first col to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.}
 
 \item{...}{Arguments to pass.}
 }

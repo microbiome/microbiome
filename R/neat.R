@@ -4,7 +4,8 @@
 #' @param arrange Order "rows" or "cols" or "both".
 #' @param method Ordination method. Only NMDS implemented for now.
 #' @param distance Distance method. See \code{\link{vegdist}} function from the \pkg{vegan} package.
-#' @param first Optionally provide the name of the first sample/taxon to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.
+#' @param first.row Optionally provide the name of the first row to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.
+#' @param first.col Optionally provide the name of the first col to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.
 #' @param ... Arguments to pass.
 #' @return Sorted matrix
 #' @export
@@ -24,14 +25,14 @@
 #' @importFrom vegan vegdist
 #' @importFrom vegan metaMDS
 #' @keywords utilities
-neat <- function (x, arrange = "both", method = "NMDS", distance = "bray", first = NULL, ...) {
+neat <- function (x, arrange = "both", method = "NMDS", distance = "bray", first.row = NULL, first.col = NULL, ...) {
 
   if (arrange %in% c("rows", "both")) {
-    sr <- neatsort(x, "rows", method = method, distance = distance, first = first, ...)  
+    sr <- neatsort(x, "rows", method = method, distance = distance, first = first.row, ...)  
     x <- x[sr,]
   }
   if (arrange %in% c("cols", "both")) {
-    sc <- neatsort(x, "cols", method = method, distance = distance, first = first, ...)
+    sc <- neatsort(x, "cols", method = method, distance = distance, first = first.col, ...)
     x <- x[,sc]
   }
 

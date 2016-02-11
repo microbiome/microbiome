@@ -1,8 +1,8 @@
 #' @title Prevalent taxa
-#' @description List prevalent groups
+#' @description List prevalent groups.
 #' @param x A matrix or a x \code{\link{phyloseq}} object
 #' @param detection.threshold Detection threshold for absence/presence.
-#' @param prevalence.threshold Detection threshold for prevalence
+#' @param prevalence.threshold Detection threshold for prevalence, provided as percentages [0, 100]
 #' @details For phyloseq object, lists taxa that are more prevalent with the given detection
 #'          threshold. For matrix, lists columns that satisfy these criteria.
 #' @return Vector of prevalent taxa names
@@ -22,10 +22,13 @@ prevalent_taxa <- function (x, detection.threshold, prevalence.threshold) {
 
   if (class(x) == "phyloseq") {
     # Convert into OTU matrix
-    x <- t(otu_table(x)@.Data)    
+    otu <- otu_table(x)@.Data    
+    if (taxa_are_rows(x)) {
+      otu <- t(otu)
+    }
   } 
 
-  sort(names(which(prevalence(x, detection.threshold) > prevalence.threshold)))
+  sort(names(which(prevalence(otu, detection.threshold) > prevalence.threshold)))
 
 }
 
