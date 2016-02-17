@@ -1,6 +1,7 @@
 #' @title Download microbiome data sets
 #' @description Download microbiome data sets
 #' @param id Data set name. For options, see download_microbiome()
+#' @param format Data format ("phyloseq" or "original")
 #' @return Data set
 #' @examples # x <- download_microbiome("peerj32")
 #' @export
@@ -8,7 +9,7 @@
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-download_microbiome <- function (id = "datasets") {
+download_microbiome <- function (id = "datasets", format = NULL) {
 
   if (id == "datasets") {
     datasets <- c("atlas1006", "dietswap", "peerj32")
@@ -18,7 +19,7 @@ download_microbiome <- function (id = "datasets") {
 
   if (id == "atlas1006") {
 
-    data <- download_atlas()
+    data <- download_atlas(format)
 
   } else if (id == "dietswap") {
 
@@ -74,7 +75,7 @@ download_peerj32 <- function (...) {
 
 #' @title Download HITChip Atlas
 #' @description Download HITChip Atlas 
-#' @param ... Arguments to be passed
+#' @param format "phyloseq" or "original"
 #' @return Data set
 #' @examples \dontrun{download_atlas()}
 #' @importFrom rdryad download_url
@@ -84,9 +85,10 @@ download_peerj32 <- function (...) {
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords internal
-download_atlas <- function (...) {
+download_atlas <- function (format = "phyloseq") {
 
-  message("Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d")
+  message("Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from 
+  		       Data Dryad: http://doi.org/10.5061/dryad.pk75d")
 
   # Define the data URL
   url <- download_url('10255/dryad.64665')
@@ -126,10 +128,15 @@ download_atlas <- function (...) {
   # Harmonize field contents
   meta <- harmonize_fields(meta)
 
-  # Convert in phyloseq format
-  physeq <- hitchip2physeq(otu, meta)
-
-  physeq
+  if (format == "phyloseq") {
+    # Convert in phyloseq format
+    physeq <- hitchip2physeq(otu, meta)
+    res <- physeq 
+  } else {
+    res <- list(otu = otu, meta = meta)
+  }
+  
+  res
 
 }
 

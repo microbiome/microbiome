@@ -4,10 +4,12 @@
 \alias{download_microbiome}
 \title{Download microbiome data sets}
 \usage{
-download_microbiome(id = "datasets")
+download_microbiome(id = "datasets", format = NULL)
 }
 \arguments{
 \item{id}{Data set name. For options, see download_microbiome()}
+
+\item{format}{Data format ("phyloseq" or "original")}
 }
 \value{
 Data set

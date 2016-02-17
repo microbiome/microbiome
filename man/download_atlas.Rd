@@ -4,10 +4,10 @@
 \alias{download_atlas}
 \title{Download HITChip Atlas}
 \usage{
-download_atlas(...)
+download_atlas(format = "phyloseq")
 }
 \arguments{
-\item{...}{Arguments to be passed}
+\item{format}{"phyloseq" or "original"}
 }
 \value{
 Data set

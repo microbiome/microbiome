@@ -1,7 +1,5 @@
 #' @title hitchip2physeq
-#'
 #' @description Convert HITChip data into phyloseq format
-#'
 #' @param otu Sample x OTU absolute HITChip signal
 #' @param meta Sample x features metadata data.frame
 #' @param taxonomy OTU x Taxonomy data.frame (HITChip taxonomy used by default)
@@ -12,7 +10,6 @@
 #' @importFrom phyloseq phyloseq
 #' @importFrom phyloseq sample_data
 #' @importFrom phyloseq merge_phyloseq
-#'
 #' @examples 
 #'  \dontrun{
 #'   library(microbiome)

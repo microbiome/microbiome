@@ -2,7 +2,8 @@
 #' @description Diversity estimation. Augments the estimate_richness function of the phyloseq package
 #' @param x \code{\link{phyloseq-class}} object 
 #' @param split See help(phyloseq::estimate_richness)
-#' @param measures See help(phyloseq::estimate_richness)
+#' @param measures See help(phyloseq::estimate_richness). In addition,
+#'        the measure "Evenness" is provided (Pielou's index).
 #' @param det.th detection threshold for observing taxa (absence / presence)
 #' @return Vector containing relative proportions for each phylotype in 
 #'         each sample 
@@ -17,12 +18,28 @@
 estimate_diversity <- function(x, split = TRUE, measures = NULL, det.th = 0) {
 
   res <- NULL
-  measures1 <- setdiff(measures, "Richness")
+  measures1 <- setdiff(measures, c("Richness", "Evenness"))
   if (is.null(measures1) || length(measures1) > 0) {
 
     res <- estimate_richness(x, split = split, measures = measures1)
 
   } 
+
+  if (("Evenness" %in% measures) || is.null(measures)) {
+    # Shannon Diversity
+    d <- estimate_richness(x, split = split, measures = "Shannon")$Shannon
+    # normalize by Log richness to get Pielou's evenness
+    r <- estimate_diversity(x, split = split, measures = "Observed")$Observed
+    e <- d/log(r)
+
+    # Add to result data.frame
+    if (is.null(res)) {
+      res <- data.frame(Evenness = e)
+    } else {
+      res$Evenness <- e
+    }
+    
+  }
 
   if (("Observed" %in% measures) || is.null(measures)) {
 

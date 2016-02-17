@@ -11,7 +11,8 @@ estimate_diversity(x, split = TRUE, measures = NULL, det.th = 0)
 
 \item{split}{See help(phyloseq::estimate_richness)}
 
-\item{measures}{See help(phyloseq::estimate_richness)}
+\item{measures}{See help(phyloseq::estimate_richness). In addition,
+the measure "Evenness" is provided (Pielou's index).}
 
 \item{det.th}{detection threshold for observing taxa (absence / presence)}
 }
