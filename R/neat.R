@@ -28,12 +28,17 @@
 neat <- function (x, arrange = "both", method = "NMDS", distance = "bray", first.row = NULL, first.col = NULL, ...) {
 
   if (arrange %in% c("rows", "both")) {
-    sr <- neatsort(x, "rows", method = method, distance = distance, first = first.row, ...)  
-    x <- x[sr,]
+    if (nrow(x) > 2) {
+      sr <- neatsort(x, "rows", method = method, distance = distance, first = first.row, ...)
+      x <- x[sr,]
+    } 
+
   }
   if (arrange %in% c("cols", "both")) {
-    sc <- neatsort(x, "cols", method = method, distance = distance, first = first.col, ...)
-    x <- x[,sc]
+    if (ncol(x) > 2) {
+      sc <- neatsort(x, "cols", method = method, distance = distance, first = first.col, ...)
+      x <- x[,sc]
+    }
   }
 
   x
