@@ -21,6 +21,7 @@
 #' @param filter.significant Keep only the elements with at least one 
 #'                           significant entry
 #' @param star.size NULL Determine size of the highlight symbols
+#' @param plot.values Show values as text
 #' @return ggplot2 object
 #' @examples 
 #'   data(peerj32)
@@ -39,7 +40,7 @@ correlation.heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj",
               colours = c("darkblue", "blue", "white", "red", "darkred"), 
                limits = NULL, legend.text = "", 
                order.rows = TRUE, order.cols = TRUE, 
-    text.size = 10, filter.significant = TRUE, star.size = NULL) {
+    text.size = 10, filter.significant = TRUE, star.size = NULL, plot.values = FALSE) {
     
     if (is.null(limits)) {
         maxval <- max(abs(df[[fill]]))
@@ -74,7 +75,8 @@ correlation.heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj",
     
     df[[Xvar]] <- factor(df[[Xvar]])
     df[[Yvar]] <- factor(df[[Yvar]])
-    
+
+    # TODO neatmap
     if (order.rows || order.cols) {
         
         rnams <- unique(as.character(df[[Xvar]]))
@@ -93,10 +95,7 @@ correlation.heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj",
         if (nrow(mat) > 1 && ncol(mat) > 1) {
 	    rind <- hclust(as.dist(1-cor(t(mat), use = "pairwise.complete.obs")))$order
 	    cind <- hclust(as.dist(1-cor(mat, use = "pairwise.complete.obs")))$order
-            #hm <- heatmap(mat)
-            # dev.off()
-            #rind <- hm$rowInd
-            #cind <- hm$colInd
+
         }
         if (ncol(mat) > 1 && nrow(mat) == 1) {
             cind <- order(mat[1, ])
@@ -117,10 +116,7 @@ correlation.heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj",
         
     }
     
-    # ---------------------------------------------
-    
-    XXXX <- YYYY <- ffff <- NULL
-    
+    XXXX <- YYYY <- ffff <- NULL    
     df[["XXXX"]] <- df[[Xvar]]
     df[["YYYY"]] <- df[[Yvar]]
     df[["ffff"]] <- df[[fill]]
@@ -134,7 +130,6 @@ correlation.heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj",
         by = step), colours = colours, limits = limits)
     
     p <- p + xlab("") + ylab("")
-    
     p <- p + theme(axis.text.x = element_text(angle = 90))
     
     # Mark significant cells with stars
@@ -147,9 +142,14 @@ correlation.heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj",
             star.size <- max(1, floor(text.size/2))
         }
         
-        p <- p + geom_text(data = df.sub, aes(x = XXXX, y = YYYY, label = "+"), 
+        p <- p + geom_text(data = df.sub,
+	            aes(x = XXXX, y = YYYY, label = "+"), 
              col = "white", 
              size = star.size)
+    }
+
+    if (plot.values) {
+      p <- p + geom_text(aes(label = round(ffff, 2)), size = 3) 
     }
     
     p
