@@ -8,7 +8,8 @@ correlation.heatmap(df, Xvar, Yvar, fill, star = "p.adj",
   p.adj.threshold = 1, correlation.threshold = 0, step = 0.2,
   colours = c("darkblue", "blue", "white", "red", "darkred"), limits = NULL,
   legend.text = "", order.rows = TRUE, order.cols = TRUE,
-  text.size = 10, filter.significant = TRUE, star.size = NULL)
+  text.size = 10, filter.significant = TRUE, star.size = NULL,
+  plot.values = FALSE)
 }
 \arguments{
 \item{df}{Data frame. Each row corresponds to a pair of correlated 
@@ -47,6 +48,8 @@ correlation higher than this value}
 significant entry}
 
 \item{star.size}{NULL Determine size of the highlight symbols}
+
+\item{plot.values}{Show values as text}
 }
 \value{
 ggplot2 object
