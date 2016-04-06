@@ -1,5 +1,5 @@
-#' @title cross.correlate
-#' @description Cross-correlate columns of the input matrices
+#' @title Cross correlation wrapper
+#' @description Cross-correlate columns of the input matrices.
 #' @param x matrix (samples x features if annotation matrix)
 #' @param y matrix (samples x features if cross-correlated with annotations)
 #' @param method association method ('pearson', 'spearman', or 'bicor' 
@@ -49,7 +49,7 @@ cross.correlate <- function(x, y = NULL, method = "spearman",
 
     x <- as.data.frame(x)  # numeric or discrete
     y <- y  # numeric
-    
+
     if (is.null(colnames(y))) {
         colnames(y) <- paste("column-", 1:ncol(y), sep = "")
     }
@@ -79,7 +79,7 @@ cross.correlate <- function(x, y = NULL, method = "spearman",
     xnames <- inds
     x <- as.matrix(x[inds], ncol = length(inds))
     colnames(x) <- xnames
-    
+
     Pc <- matrix(NA, ncol(x), ncol(y))
     Cc <- matrix(NA, ncol(x), ncol(y))
     rownames(Cc) <- colnames(x)
@@ -95,6 +95,7 @@ cross.correlate <- function(x, y = NULL, method = "spearman",
                   res <- cor.test(xi, y[, j], method = method, 
                             use = "pairwise.complete.obs")
                   res <- c(res$estimate, res$p.value)
+
                 } else {
                   warning(paste("Not enough observations; \n   
                           (",  
@@ -109,7 +110,7 @@ cross.correlate <- function(x, y = NULL, method = "spearman",
             Pc[, j] <- jc[2, ]
             
         }
-       
+
     } else if (method == "bicor") {
 
         if (verbose) {
@@ -151,10 +152,8 @@ cross.correlate <- function(x, y = NULL, method = "spearman",
         }
     }
 
-
-    
     if (!all(is.na(Pc))) {
-        
+
         rownames(Pc) <- xnames
         colnames(Pc) <- ynames
         
@@ -168,7 +167,6 @@ cross.correlate <- function(x, y = NULL, method = "spearman",
 
     }
 
-    
     # Filter
     if (!is.null(p.adj.threshold) || !is.null(cth)) {
         
@@ -179,16 +177,18 @@ cross.correlate <- function(x, y = NULL, method = "spearman",
         
         # Filter by adjusted pvalues and correlations
         inds1.q <- inds2.q <- inds1.c <- inds2.c <- NULL
-        
+
         if (!is.null(p.adj.threshold)) {
+
             inds1.q <- apply(qv, 1, function(x) {
                 sum(x < p.adj.threshold) >= n.signif
             })
+
             inds2.q <- apply(qv, 2, function(x) {
                 sum(x < p.adj.threshold) >= n.signif
             })
         }
-        
+
         if (!is.null(cth)) {
             inds1.c <- apply(abs(Cc), 1, function(x) {
                 sum(x > cth) >= n.signif

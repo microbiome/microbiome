@@ -1,5 +1,5 @@
-#' @title densityplot
-#' @description Plots densities of data points in addition to cross-plot points.
+#' @title Density plot
+#' @description Density visualization for data points overlaid on cross-plot.
 #' @param mat Data matrix to plot. The first two columns will be visualized as a cross-plot.
 #' @param main title text
 #' @param x.ticks Number of ticks on the X axis
@@ -17,7 +17,7 @@
 #' @keywords utilities
 densityplot <- function(mat, main = NULL, x.ticks = 10, rounding = 0, 
                add.points = TRUE, 
-    col = "red", adjust = 1, size = 1, legend = FALSE) {
+    col = "black", adjust = 1, size = 1, legend = FALSE) {
 
     mat <- as.matrix(mat)
 
@@ -47,7 +47,6 @@ densityplot <- function(mat, main = NULL, x.ticks = 10, rounding = 0,
     if (add.points) {
       if (length(unique(df$color)) == 1 && length(unique(df$size)) == 1) {
         p <- p + geom_point(aes(x = x, y = y), col = unique(df$color), size = unique(df$size))
-	print(unique(color))
       } else if (length(unique(df$color)) == 1 && length(unique(df$size)) > 1) {
         p <- p + geom_point(aes(x = x, y = y, size = size), col = unique(df$color))
       } else if (length(unique(df$color)) > 1 && length(unique(df$size)) == 1) {

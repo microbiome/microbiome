@@ -2,10 +2,10 @@
 % Please edit documentation in R/densityplot.R
 \name{densityplot}
 \alias{densityplot}
-\title{densityplot}
+\title{Density plot}
 \usage{
 densityplot(mat, main = NULL, x.ticks = 10, rounding = 0,
-  add.points = TRUE, col = "red", adjust = 1, size = 1,
+  add.points = TRUE, col = "black", adjust = 1, size = 1,
   legend = FALSE)
 }
 \arguments{
@@ -31,7 +31,7 @@ densityplot(mat, main = NULL, x.ticks = 10, rounding = 0,
 ggplot2 object
 }
 \description{
-Plots densities of data points in addition to cross-plot points.
+Density visualization for data points overlaid on cross-plot.
 }
 \examples{
 p <- densityplot(cbind(rnorm(100), rnorm(100)))

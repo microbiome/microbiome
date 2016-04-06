@@ -2,7 +2,7 @@
 % Please edit documentation in R/cross.correlate.R
 \name{cross.correlate}
 \alias{cross.correlate}
-\title{cross.correlate}
+\title{Cross correlation wrapper}
 \usage{
 cross.correlate(x, y = NULL, method = "spearman", p.adj.threshold = Inf,
   cth = NULL, order = FALSE, n.signif = 0, mode = "table",
@@ -41,7 +41,7 @@ identical items.}
 List with cor, pval, pval.adjusted
 }
 \description{
-Cross-correlate columns of the input matrices
+Cross-correlate columns of the input matrices.
 }
 \details{
 As the method=categorical (discrete) association measure
