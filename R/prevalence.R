@@ -30,7 +30,7 @@ prevalence <- function (x, detection.threshold, sort = FALSE) {
   } else if (is.matrix(x)) {
     prev <- 100 * colMeans(x > detection.threshold)
   } else if (class(x) == "phyloseq") {
-    x <- t(otu_table(x)@.Data)
+    x <- otu_table(x)@.Data
     prev <- prevalence(x, detection.threshold = detection.threshold)
   }
 
