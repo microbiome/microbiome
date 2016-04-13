@@ -15,7 +15,7 @@ cmat2table(res, verbose = FALSE)
 Correlation table
 }
 \description{
-Arrange correlation matrices from cross.correlate into a table format
+Arrange correlation matrices from cross.correlate into a table format.
 }
 \examples{
   data(peerj32)

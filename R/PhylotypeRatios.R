@@ -1,18 +1,14 @@
-#' @title PhylotypeRatios
-#'
+#' @title Phylotype ratios
 #' @description Calculate phylotype ratios (eg. Bacteroides vs.
 #'          Prevotella etc.) for a given phylotypes vs. samples matrix
-#'
 #' @param dat phylotypes vs. samples data matrix in log10 scale
-#'
 #' @return phylotype pairs x samples matrix indicating the ratio 
 #'                 (in log10 domain) between each unique pair
 #' @export 
 #' @examples 
 #'   data(peerj32)
 #'   ratios <- PhylotypeRatios(peerj32$microbes)
-#' @references
-#' See citation('microbiome')
+#' @references See citation('microbiome')
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 PhylotypeRatios <- function(dat) {

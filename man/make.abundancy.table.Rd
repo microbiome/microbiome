@@ -2,7 +2,7 @@
 % Please edit documentation in R/make.abundancy.table.R
 \name{make.abundancy.table}
 \alias{make.abundancy.table}
-\title{Make abundance table}
+\title{Abundance table}
 \usage{
 make.abundancy.table(dat, det.th, discretization.resolution = 1)
 }
@@ -17,7 +17,7 @@ make.abundancy.table(dat, det.th, discretization.resolution = 1)
 abundancy table
 }
 \description{
-Calculate abundancies
+Calculate abundancies.
 Discretize Hitchip matrix to form abundancy table
 of form j, nj where j is number of counts and nj is number
 of phylotypes with the corresponding counts

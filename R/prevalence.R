@@ -1,5 +1,5 @@
 #' @title Prevalence for phyloseq OTUs
-#' @description Simple prevalence measure
+#' @description Simple prevalence measure.
 #' @param x A vector, data matrix or phyloseq object
 #' @param detection.threshold Detection threshold for absence/presence.
 #' @param sort Sort the groups by prevalence

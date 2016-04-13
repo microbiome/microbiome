@@ -1,12 +1,9 @@
-#' @title intermediate_stability
-#' @description Quantify intermediate stability with respect to a given
-#' reference point. 
-#'
+#' @title Intermediate stability
+#' @description Quantify intermediate stability with respect to a given reference point. 
 #' @param x \pkg{phyloseq} object.
 #'          Includes otu_table (variables x samples) and
 #' 	    sample_data data.frame (samples x features) with 'subject'
 #'	    and 'time' field for each sample.
-#'           
 #' @param reference.point Optional. Calculate stability of the
 #'                        data w.r.t. this point. By default the
 #'                        intermediate range is used (min + (max - min)/2)
@@ -14,7 +11,6 @@
 #'               the linear model takes time into account as a covariate 
 #' @param output Specify the return mode. Either the "full" set of stability
 #'        analysis outputs, or the "scores" of intermediate stability.
-#' 
 #' @return A list with following elements: 
 #' 	     stability: estimated stability
 #'	     data: processed data set used in calculations	    

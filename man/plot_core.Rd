@@ -6,7 +6,7 @@
 \usage{
 plot_core(x, title = "Core", plot = TRUE, prevalence.intervals = seq(5,
   100, 5), detection.thresholds = 20, plot.type = "lineplot",
-  palette = "bw", min.prevalence = NULL)
+  palette = "bw", min.prevalence = NULL, taxa.order = NULL)
 }
 \arguments{
 \item{x}{A \code{\link{phyloseq}} object or a core matrix}
@@ -25,12 +25,14 @@ or a scalar indicating the number of intervals in the data range.}
 \item{palette}{palette for the plot.type = 'heatmap'}
 
 \item{min.prevalence}{If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap. Only affects the plot.type = 'heatmap'.}
+
+\item{taxa.order}{Ordering of the taxa.}
 }
 \value{
 A list with three elements: the ggplot object and the data. The data has a different form for the lineplot and heatmap. Finally, the applied parameters are returned.
 }
 \description{
-Core visualization 2D
+Core visualization (2D).
 }
 \examples{
 #pseq <- download_microbiome("atlas1006")

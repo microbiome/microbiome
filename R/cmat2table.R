@@ -1,5 +1,5 @@
 #' @title Correlation results to table
-#' @description Arrange correlation matrices from cross.correlate into a table format
+#' @description Arrange correlation matrices from cross.correlate into a table format.
 #' @param res Output from cross.correlate
 #' @param verbose verbose
 #' @return Correlation table

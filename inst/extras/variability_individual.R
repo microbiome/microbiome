@@ -1,14 +1,10 @@
-#' @title variability_individual
-#' 
-#' @description Average CoV within individuals for each feature in the data matrix
-#'
+#' @title Individual variability
+#' @description Average coefficient of variation (CoV) within individuals for each feature in the data matrix.
 #' @param dat Data matrix (samples x features)
 #' @param meta Metadata (samples x variables) with the following
 #' 	       fields: subject, time
 #' @param method Method to calculate the variability within
 #'   	  	 individuals: sd (ignores time) or timevar (normalizes by time)
-#'
-#' 
 #' @return Vector. Average variability within individuals for each feature.
 #' @export
 #' @examples

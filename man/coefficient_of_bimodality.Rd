@@ -2,7 +2,7 @@
 % Please edit documentation in R/bimodality.R
 \name{coefficient_of_bimodality}
 \alias{coefficient_of_bimodality}
-\title{coefficient_of_bimodality}
+\title{Coefficient of bimodality}
 \usage{
 coefficient_of_bimodality(x, bs.iter = 1, na.rm = TRUE,
   type = "Sarle.finite.sample")
@@ -20,7 +20,7 @@ coefficient_of_bimodality(x, bs.iter = 1, na.rm = TRUE,
 Bimodality score
 }
 \description{
-Coefficient of bimodality (Sarle's bimodality coefficient b)
+Coefficient of bimodality (Sarle's bimodality coefficient b).
 }
 \details{
 The coefficient lies in (0, 1).

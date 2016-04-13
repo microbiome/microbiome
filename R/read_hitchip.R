@@ -1,5 +1,5 @@
-#' @title Read hitchip
-#' @description Read HITChip output and preprocess into phyloseq format
+#' @title Read HITChip
+#' @description Read HITChip output and preprocess into phyloseq format.
 #' @param data.dir Profiling script output directory for reading the data. 
 #' @param method Probe summarization method ("rpa", "frpa", or "sum")
 #' @param detection.threshold Taxon absence/presence thresholds (typically 10^1.8 for HITChip)

@@ -27,7 +27,7 @@ A list with following elements
   \item{results}{Full results of potential_analysis_bootstrap for each row of the input matrix}
 }
 \description{
-Calculate multimodality score based on bootstrapped potential analysis
+Calculate multimodality score based on bootstrapped potential analysis.
 }
 \details{
 Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the specified results.

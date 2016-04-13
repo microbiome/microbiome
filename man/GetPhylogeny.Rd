@@ -2,7 +2,7 @@
 % Please edit documentation in R/GetPhylogeny.R
 \name{GetPhylogeny}
 \alias{GetPhylogeny}
-\title{Get taxonomy table}
+\title{HITChip taxonomy table}
 \usage{
 GetPhylogeny(chip, phylogeny.version = "full", data.dir = NULL)
 }
@@ -18,7 +18,7 @@ GetPhylogeny(chip, phylogeny.version = "full", data.dir = NULL)
 phylogeny mapping table
 }
 \description{
-Get phylogeny for phylogenetic microarrays (mainly HITChip)
+Get taxonomy table for phylogenetic microarrays (mainly HITChip).
 }
 \examples{
 # tax.table <- GetPhylogeny('HITChip', 'full')

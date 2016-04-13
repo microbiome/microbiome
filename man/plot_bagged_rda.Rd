@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_bagged_rda.R
 \name{plot_bagged_rda}
 \alias{plot_bagged_rda}
-\title{Plot bagged_rda output}
+\title{Plot RDA}
 \usage{
 plot_bagged_rda(x, which.bac = 1:nrow(x$bagged.rda$loadings),
   ptype = "spider", comp = 1:2, cex.bac = 0.5, plot.names = T,
@@ -29,7 +29,7 @@ plot_bagged_rda(x, which.bac = 1:nrow(x$bagged.rda$loadings),
 TBA
 }
 \description{
-Bagged RDA visualization.
+bagged_rda output visualization.
 }
 \examples{
 \dontrun{

@@ -1,5 +1,5 @@
-#' @title lower.triangle
-#' @description Get lower triangle of a square matrix 
+#' @title Lower triangle of a matrix
+#' @description Get lower triangle of a square matrix.
 #' as a numeric vector such that
 #' row-by-row, picking elements in the order
 #' 2,1;3,1;3,2;4,1,...

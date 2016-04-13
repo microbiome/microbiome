@@ -1,4 +1,4 @@
-#' @title Import hitchip
+#' @title Import HITChip data
 #' @description Import HITChip output into phyloseq format.
 #' @param data.dir Profiling script output directory for reading the data. 
 #' @param method Probe summarization method ("rpa" or "sum")

@@ -1,5 +1,5 @@
-#' @title coefficient_of_bimodality
-#' @description Coefficient of bimodality (Sarle's bimodality coefficient b)
+#' @title Coefficient of bimodality
+#' @description Coefficient of bimodality (Sarle's bimodality coefficient b).
 #' @param x Data vector for which bimodality will be quantified
 #' @param bs.iter Bootstrap iterations
 #' @param na.rm Remove NAs

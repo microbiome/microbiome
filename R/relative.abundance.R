@@ -1,6 +1,6 @@
 #' @title Relative abundance
 #' @description Estimate relative abundance for each phylotype in each sample 
-#' with a given threshold '
+#' with a given threshold.
 #' @param dat data matrix (phylotypes x samples) in original (non-log) scale
 #' @param det.th detection threshold. 
 #' @return Vector containing relative proportions for each phylotype in 

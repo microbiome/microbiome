@@ -1,5 +1,5 @@
 #' @title Multimodality score
-#' @description Multimodality score based on bootstrapped potential analysis
+#' @description Multimodality score based on bootstrapped potential analysis.
 #' @param x A vector, or data matrix (variables x samples)
 #' @param detection.threshold Mode detection threshold
 #' @param bw.adjust Bandwidth adjustment

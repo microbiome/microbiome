@@ -46,8 +46,9 @@ core_matrix <- function(x,
     n <- length(i.seq) * length(p.seq)
     cnt <- 0
     for (i in i.seq) {
-      for (p in p.seq) {
-        coreMat[as.character(i), as.character(p)] <- core.sum(data, i, p)
+      for (p in p.seq) { 
+        # Number of OTUs above a given prevalence threshold     
+        coreMat[as.character(i), as.character(p)] <- sum(rowSums(data > i)>= p)
       }
     }
     

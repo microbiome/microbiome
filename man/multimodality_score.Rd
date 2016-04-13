@@ -29,7 +29,7 @@ A list with following elements:
 }
 }
 \description{
-Multimodality score based on bootstrapped potential analysis
+Multimodality score based on bootstrapped potential analysis.
 }
 \details{
 This function repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the specified results.

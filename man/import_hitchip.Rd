@@ -2,7 +2,7 @@
 % Please edit documentation in R/import_hitchip.R
 \name{import_hitchip}
 \alias{import_hitchip}
-\title{Import hitchip}
+\title{Import HITChip data}
 \usage{
 import_hitchip(data.dir, method = "frpa", detection.threshold = 0,
   verbose = F)

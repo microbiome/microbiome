@@ -1,15 +1,11 @@
-#' @title filter_prevalent
-#' @description Filter the phyloseq object to include only prevalent taxa
-#'
+#' @title Filter prevalent
+#' @description Filter the phyloseq object to include only prevalent taxa.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param detection.threshold Detection threshold for absence/presence.
 #' @param prevalence.threshold Prevalence threshold 
-#'
 #' @return Filtered phyloseq object including only prevalent taxa
-#'
 #' @references 
 #'   To cite the microbiome R package, see citation('microbiome') 
-#'
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' @export

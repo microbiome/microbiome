@@ -358,7 +358,7 @@ plot_ordn_prepare_df <- function (ordination, axes, physeq, type, color, shape) 
   if(type != "species"){
     # samples covariate data frame, `sdf`
     sdf = NULL
-    sdf = data.frame(access(physeq, slot="sam_data"), stringsAsFactors=FALSE)
+    sdf = data.frame(access(physeq, slot="sample_data"), stringsAsFactors=FALSE)
     if( !is_empty(sdf) & !is_empty(siteDF) ){
       # The first two axes should always be x and y, the ordination axes.
       siteDF <- cbind(siteDF, sdf[rownames(siteDF), ])

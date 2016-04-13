@@ -2,7 +2,7 @@
 % Please edit documentation in R/harmonize.R
 \name{harmonize_fields}
 \alias{harmonize_fields}
-\title{harmonize_fields}
+\title{Harmonize fields}
 \usage{
 harmonize_fields(x)
 }
@@ -13,7 +13,7 @@ harmonize_fields(x)
 data.frame with harmonized fields
 }
 \description{
-harmonize fields
+Harmonize metadata fields names and contents.
 }
 \examples{
 # m <- harmonize_fields(x)

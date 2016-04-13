@@ -1,19 +1,14 @@
-#' @title levelmap
-#' 
-#' @description Map taxa between hierarchy levels
-#'
+#' @title Map taxonomic levels
+#' @description Map taxa between hierarchy levels.
 #' @param taxa taxa to convert; 
 #' 	  if NULL then considering all taxa in the tax.table
 #' @param from convert from taxonomic level 
 #' @param to convert to taxonomic level
 #' @param tax.table tax.table
-#'
 #' @return mappings
-#'
 #' @examples 
 #'   tax.table <- GetPhylogeny('HITChip', 'filtered')
 #'   levelmap('Akkermansia', 'L2', 'L1', tax.table)
-#'
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

@@ -1,8 +1,9 @@
 #' @title Prevalent taxa
-#' @description List prevalent groups.
+#' @description List prevalent taxa.
 #' @param x A matrix or a x \code{\link{phyloseq}} object
 #' @param detection.threshold Detection threshold for absence/presence.
 #' @param prevalence.threshold Detection threshold for prevalence, provided as percentages [0, 100]
+#' @param sort Logical. Sort the taxa.
 #' @details For phyloseq object, lists taxa that are more prevalent with the given detection
 #'          threshold. For matrix, lists columns that satisfy these criteria.
 #' @return Vector of prevalent taxa names
@@ -18,7 +19,7 @@
 #'   #peerj32 <- download_microbiome("peerj32")
 #'   #prevalent_taxa(peerj32$data$microbes, 10^1.8 + 100, 0.2) # matrix
 #'   #prevalent_taxa(peerj32$physeq, 100, 0.2) # phyloseq object
-prevalent_taxa <- function (x, detection.threshold, prevalence.threshold) {
+prevalent_taxa <- function (x, detection.threshold, prevalence.threshold, sort = TRUE) {
 
   if (class(x) == "phyloseq") {
     # Convert into OTU matrix
@@ -28,7 +29,12 @@ prevalent_taxa <- function (x, detection.threshold, prevalence.threshold) {
     }
   } 
 
-  sort(names(which(prevalence(otu, detection.threshold) > prevalence.threshold)))
+  taxa = names(which(prevalence(otu, detection.threshold) > prevalence.threshold))
+  if (sort) {
+    taxa = sort(taxa)
+  }
+
+  taxa
 
 }
 

@@ -1,5 +1,5 @@
 #' @title Visualize OTU core
-#' @description Core visualization 2D
+#' @description Core visualization (2D).
 #' @param x A \code{\link{phyloseq}} object or a core matrix
 #' @param title title
 #' @param plot plot the figure 
@@ -9,6 +9,7 @@
 #' @param plot.type Plot type ('lineplot' or 'heatmap')
 #' @param palette palette for the plot.type = 'heatmap'
 #' @param min.prevalence If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap. Only affects the plot.type = 'heatmap'.
+#' @param taxa.order Ordering of the taxa.
 #' @return A list with three elements: the ggplot object and the data. The data has a different form for the lineplot and heatmap. Finally, the applied parameters are returned.
 #' @examples 
 #' #pseq <- download_microbiome("atlas1006")
@@ -24,7 +25,7 @@
 plot_core <- function(x, title = "Core", plot = TRUE, 
 		   prevalence.intervals = seq(5, 100, 5), 		   
 		   detection.thresholds = 20,
-		   plot.type = "lineplot", palette = "bw", min.prevalence = NULL) {
+		   plot.type = "lineplot", palette = "bw", min.prevalence = NULL, taxa.order = NULL) {
 
   if (length(detection.thresholds) == 1) {
     detection.thresholds <- 10^seq(log10(1e-3), log10(max(otu_table(x)@.Data, na.rm = T)), length = detection.thresholds)
@@ -43,7 +44,7 @@ plot_core <- function(x, title = "Core", plot = TRUE,
     # Here we use taxon x abundance thresholds table indicating prevalences
     data <- otu_table(x)@.Data
     if (taxa_are_rows(x)) {data <- t(data)}
-    res <- core_heatmap(data, detection.thresholds = detection.thresholds, palette = palette, min.prevalence = min.prevalence)
+    res <- core_heatmap(data, detection.thresholds = detection.thresholds, palette = palette, min.prevalence = min.prevalence, taxa.order = taxa.order)
     
   }
 

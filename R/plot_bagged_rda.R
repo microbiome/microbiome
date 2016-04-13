@@ -1,5 +1,5 @@
-#' @title Plot bagged_rda output
-#' @description Bagged RDA visualization.
+#' @title Plot RDA
+#' @description bagged_rda output visualization.
 #' @param x Output from bagged_rda
 #' @param which.bac TBA
 #' @param ptype Plot type. "spider" or "hull"

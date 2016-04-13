@@ -2,7 +2,7 @@
 % Please edit documentation in R/wilcoxon.R
 \name{check_wilcoxon}
 \alias{check_wilcoxon}
-\title{check_wilcoxon}
+\title{Check Wilcoxon}
 \usage{
 check_wilcoxon(x, group, p.adjust.method = "BH", sort = FALSE,
   paired = FALSE)
@@ -24,7 +24,7 @@ check_wilcoxon(x, group, p.adjust.method = "BH", sort = FALSE,
 Corrected p-values for two-group comparison.
 }
 \description{
-Calculate Wilcoxon test (with BH correction) for two-group comparison
+Calculate Wilcoxon test (with BH correction) for two-group comparison for phyloseq objects.
 }
 \examples{
   #pseq <- download_microbiome("peerj32")$physeq

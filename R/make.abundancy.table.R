@@ -1,5 +1,5 @@
-#' @title Make abundance table
-#' @description Calculate abundancies
+#' @title Abundance table
+#' @description Calculate abundancies.
 #' Discretize Hitchip matrix to form abundancy table
 #' of form j, nj where j is number of counts and nj is number
 #' of phylotypes with the corresponding counts

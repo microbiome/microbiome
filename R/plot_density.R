@@ -1,5 +1,5 @@
 #' @title Density plot
-#' @description Plot abundance density across samples for a given taxon
+#' @description Plot abundance density across samples for a given taxon.
 #' @param x \code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)
 #' @param variable OTU or metadata variable to visualize
 #' @param log10 Logical. Show log10 abundances or not.

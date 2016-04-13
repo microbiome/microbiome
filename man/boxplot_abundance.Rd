@@ -26,7 +26,7 @@ boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = TRUE,
 A \code{\link{ggplot}} plot object
 }
 \description{
-Plot phyloseq abundances
+Plot phyloseq abundances.
 }
 \examples{
 # 

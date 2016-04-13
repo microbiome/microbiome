@@ -2,7 +2,7 @@
 % Please edit documentation in R/PhylotypeRatios.R
 \name{PhylotypeRatios}
 \alias{PhylotypeRatios}
-\title{PhylotypeRatios}
+\title{Phylotype ratios}
 \usage{
 PhylotypeRatios(dat)
 }
