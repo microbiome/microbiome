@@ -1,5 +1,5 @@
-#' @title Estimate homogeneity
-#' @description Homogeneity analysis. 
+#' @title Homogeneity analysis
+#' @description Estimate homogeneity within or between sample groups.
 #' @details Average correlation between samples in the input data within each
 #' group with the overall group-wise average. Picks the lower triangular
 #' matrix to avoid duplicating the correlations. Returns correlations and
@@ -33,13 +33,27 @@
 #' To cite this R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-estimate_homogeneity <- function(x, type, group_by = "group", method = "spearman") {
+estimate_homogeneity <- function(x, type = "interindividual", group_by = "group", method = "spearman") {
 
     # Pick metadata		     
     meta <- sample_data(x)
-    
+
+    if (!"sample" %in% names(meta)) {
+      warning("Using the metadata rownames as the sample ID")
+      meta$sample = rownames(sample_data(x))
+    }
+
     # OTU data Log10
     otu <- log10(t(otu_table(x)@.Data))
+
+    # Ensure compatiblity
+    if (!nrow(otu) == nrow(meta)) {
+      otu = t(otu)
+    }
+
+    if (!all(rownames(otu) == rownames(meta))) {
+      stop("OTU table and metadata do not match.")
+    }
 
     correlation <- NULL
  		         
@@ -51,7 +65,7 @@ estimate_homogeneity <- function(x, type, group_by = "group", method = "spearman
     datasets <- split(as.data.frame(otu), meta[[group_by]], drop = TRUE)
 
     if (type == "interindividual") {
-    
+
       tmp <- setdiff(c("sample", group_by), names(meta))
       if (length(tmp) > 0) {
         stop(paste("The following variables needed by estimate_homogeneity function type=interindividual are missing from sample metadata:", paste(tmp, collapse = ",")))
