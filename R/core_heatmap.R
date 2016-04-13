@@ -32,8 +32,11 @@ core_heatmap <- function(data, detection.thresholds = 20, palette = "bw", min.pr
     df <- gather(df, "ID")
     names(df) <- c("Taxa", "DetectionThreshold", "Prevalence")
     df$DetectionThreshold <- as.numeric(as.character(df$DetectionThreshold))
-    df$Prevalence <- as.numeric(as.character(df$Prevalence)) 
+    df$Prevalence <- as.numeric(as.character(df$Prevalence))
+
     o <- names(sort(rowSums(prev)))
+
+    
     df$Taxa <- factor(df$Taxa, levels = o)
 
     theme_set(theme_bw(10))
