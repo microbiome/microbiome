@@ -1,5 +1,5 @@
 #' @title Multimodality test for phyloseq objects
-#' @description Calculate multimodality score based on bootstrapped potential analysis
+#' @description Calculate multimodality score based on bootstrapped potential analysis.
 #' @param x Phyloseq object
 #' @param detection.threshold Mode detection threshold
 #' @param bw.adjust Bandwidth adjustment

@@ -1,5 +1,5 @@
 #' @title Visualize OTU core
-#' @description Core visualization 2D
+#' @description Core visualization (2D).
 #' @param x A \code{\link{phyloseq}} object or a core matrix
 #' @param title title
 #' @param plot plot the figure 

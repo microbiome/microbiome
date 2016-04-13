@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_hitchip.R
 \name{read_hitchip}
 \alias{read_hitchip}
-\title{Read hitchip}
+\title{Read HITChip}
 \usage{
 read_hitchip(data.dir, method = "rpa", detection.threshold = 0,
   verbose = F)
@@ -20,7 +20,7 @@ read_hitchip(data.dir, method = "rpa", detection.threshold = 0,
 data matrix (phylo x samples)
 }
 \description{
-Read HITChip output and preprocess into phyloseq format
+Read HITChip output and preprocess into phyloseq format.
 }
 \details{
 Converts the probe-level data matrix and probe-level taxonomy table to phylotype-level 

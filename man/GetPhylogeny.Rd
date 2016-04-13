@@ -18,7 +18,7 @@ GetPhylogeny(chip, phylogeny.version = "full", data.dir = NULL)
 phylogeny mapping table
 }
 \description{
-Get taxonomy table for phylogenetic microarrays (mainly HITChip)
+Get taxonomy table for phylogenetic microarrays (mainly HITChip).
 }
 \examples{
 # tax.table <- GetPhylogeny('HITChip', 'full')

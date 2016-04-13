@@ -21,7 +21,7 @@ A list with two elements:
  }
 }
 \description{
-Plot relative frequencies of a given factor levels across various groups
+Plot relative frequencies of a given factor levels across various groups.
 }
 \examples{
 \dontrun{plot_frequencies(x, "HealthStatus", "Gender")}

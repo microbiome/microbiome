@@ -1,5 +1,5 @@
-#' @title hitchip2physeq
-#' @description Convert HITChip data into phyloseq format
+#' @title HITChip to phyloseq
+#' @description Convert HITChip data into phyloseq format.
 #' @param otu Sample x OTU absolute HITChip signal
 #' @param meta Sample x features metadata data.frame
 #' @param taxonomy OTU x Taxonomy data.frame (HITChip taxonomy used by default)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/lower.triangle.R
 \name{lower.triangle}
 \alias{lower.triangle}
-\title{lower.triangle}
+\title{Lower triangle of a matrix}
 \usage{
 lower.triangle(mat)
 }
@@ -13,7 +13,7 @@ lower.triangle(mat)
 lower triangle as vector
 }
 \description{
-Get lower triangle of a square matrix 
+Get lower triangle of a square matrix.
 as a numeric vector such that
 row-by-row, picking elements in the order
 2,1;3,1;3,2;4,1,...

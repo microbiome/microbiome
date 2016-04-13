@@ -28,7 +28,7 @@ plot_density(x, variable = NULL, log10 = FALSE, adjust = 1,
 A \code{\link{ggplot}} plot object.
 }
 \description{
-Plot abundance density across samples for a given taxon
+Plot abundance density across samples for a given taxon.
 }
 \examples{
 # plot_density(x, variable = "Dialister")

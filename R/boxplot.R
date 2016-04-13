@@ -1,5 +1,5 @@
 #' @title Abundance boxplot
-#' @description Plot phyloseq abundances
+#' @description Plot phyloseq abundances.
 #' @param pseq \code{\link{phyloseq-class}} object
 #' @param x Metadata variable to map to the horizontal axis.
 #' @param y OTU to map on the vertical axis

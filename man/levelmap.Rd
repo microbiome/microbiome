@@ -2,7 +2,7 @@
 % Please edit documentation in R/levelmap.R
 \name{levelmap}
 \alias{levelmap}
-\title{levelmap}
+\title{Map taxonomic levels}
 \usage{
 levelmap(taxa = NULL, from, to, tax.table)
 }
@@ -20,12 +20,11 @@ if NULL then considering all taxa in the tax.table}
 mappings
 }
 \description{
-Map taxa between hierarchy levels
+Map taxa between hierarchy levels.
 }
 \examples{
   tax.table <- GetPhylogeny('HITChip', 'filtered')
   levelmap('Akkermansia', 'L2', 'L1', tax.table)
-
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

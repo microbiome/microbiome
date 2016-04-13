@@ -1,5 +1,5 @@
-#' @title harmonize_fields
-#' @description harmonize fields
+#' @title Harmonize fields
+#' @description Harmonize metadata fields names and contents.
 #' @param x data.frame
 #' @return data.frame with harmonized fields
 #' @examples # m <- harmonize_fields(x)

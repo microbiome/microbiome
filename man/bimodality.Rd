@@ -34,7 +34,7 @@ A list with following elements:
   }
 }
 \description{
-Wrapper to calculate bimodality score based on various methods
+Wrapper to calculate bimodality score based on various methods.
 }
 \details{
 \itemize{

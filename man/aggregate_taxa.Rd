@@ -2,7 +2,7 @@
 % Please edit documentation in R/aggregate_taxa.R
 \name{aggregate_taxa}
 \alias{aggregate_taxa}
-\title{aggregate_taxa}
+\title{Aggregate taxa}
 \usage{
 aggregate_taxa(pseq, level)
 }
@@ -15,7 +15,7 @@ aggregate_taxa(pseq, level)
 Aggregated phyloseq object
 }
 \description{
-Aggregate phyloseq data into higher phylogenetic level
+Aggregate phyloseq data into higher phylogenetic level.
 when the phylogenetic tree is missing. If the tree is available, 
 uses the \code{\link{tax_glom}} function from the \pkg{phyloseq} package
 }

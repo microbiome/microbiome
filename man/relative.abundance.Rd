@@ -17,7 +17,7 @@ Vector containing relative proportions for each phylotype in
 }
 \description{
 Estimate relative abundance for each phylotype in each sample 
-with a given threshold '
+with a given threshold.
 }
 \examples{
   data(peerj32)

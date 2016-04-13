@@ -1,5 +1,5 @@
 #' @title Plot diversity
-#' @description Plot alpha diversity with ggplot2
+#' @description Plot alpha diversity.
 #' This function estimates a number of alpha-diversity metrics using the 
 #' \code{\link{estimate_richness}} function,
 #' and returns a \code{ggplot} object. 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/rda_physeq.R
 \name{rda_physeq}
 \alias{rda_physeq}
-\title{rda_physeq}
+\title{RDA for phyloseq}
 \usage{
 rda_physeq(x, varname, scale = FALSE, na.action = na.fail)
 }

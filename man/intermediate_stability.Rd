@@ -2,7 +2,7 @@
 % Please edit documentation in R/intermediate_stability.R
 \name{intermediate_stability}
 \alias{intermediate_stability}
-\title{intermediate_stability}
+\title{Intermediate stability}
 \usage{
 intermediate_stability(x, reference.point = NULL, method = "correlation",
   output = "full")
@@ -29,8 +29,7 @@ A list with following elements:
      data: processed data set used in calculations
 }
 \description{
-Quantify intermediate stability with respect to a given
-reference point.
+Quantify intermediate stability with respect to a given reference point.
 }
 \details{
 Decomposes each column in x into differences between

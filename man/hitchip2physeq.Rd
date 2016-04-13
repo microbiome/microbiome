@@ -2,7 +2,7 @@
 % Please edit documentation in R/hit2pseq.R
 \name{hitchip2physeq}
 \alias{hitchip2physeq}
-\title{hitchip2physeq}
+\title{HITChip to phyloseq}
 \usage{
 hitchip2physeq(otu, meta, taxonomy = NULL, detection.limit = 10^1.8)
 }
@@ -19,7 +19,7 @@ hitchip2physeq(otu, meta, taxonomy = NULL, detection.limit = 10^1.8)
 phyloseq object
 }
 \description{
-Convert HITChip data into phyloseq format
+Convert HITChip data into phyloseq format.
 }
 \examples{
  \dontrun{

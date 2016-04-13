@@ -1,5 +1,5 @@
 #' @title Plot frequencies
-#' @description Plot relative frequencies of a given factor levels across various groups
+#' @description Plot relative frequencies of a given factor levels across various groups.
 #' @param x \code{\link{data.frame}} 
 #' @param Groups Name of the grouping variable
 #' @param Factor Name of the frequency variable

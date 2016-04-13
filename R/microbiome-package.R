@@ -4,7 +4,7 @@
 #' Package: \tab microbiome\cr
 #' Type: \tab Package\cr
 #' Version: \tab See sessionInfo() or DESCRIPTION file\cr
-#' Date: \tab 2014\cr
+#' Date: \tab 2014-2016\cr
 #' License: \tab FreeBSD\cr
 #' LazyLoad: \tab yes\cr
 #' }

@@ -17,7 +17,7 @@ prevalence(x, detection.threshold, sort = FALSE)
 For each OTU, the fraction of samples where a given OTU is detected. The output is readily given as a percentage.
 }
 \description{
-Simple prevalence measure
+Simple prevalence measure.
 }
 \details{
 For vectors, calculates the fraction of samples that exceed the
