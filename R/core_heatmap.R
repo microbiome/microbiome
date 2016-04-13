@@ -4,6 +4,7 @@
 #' @param detection.thresholds A vector or a scalar indicating the number of intervals in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.
 #' @param palette palette for the plot.type = 'heatmap'
 #' @param min.prevalence If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap.
+#' @param taxa.order Ordering of the taxa.
 #' @return Used for its side effects
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
@@ -13,7 +14,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @importFrom tidyr gather
 #' @keywords utilities
-core_heatmap <- function(data, detection.thresholds = 20, palette = "bw", min.prevalence = NULL) {
+core_heatmap <- function(data, detection.thresholds = 20, palette = "bw", min.prevalence = NULL, taxa.order = NULL) {
 
     DetectionThreshold <- Taxa <- Prevalence <- NULL
     
@@ -32,8 +33,14 @@ core_heatmap <- function(data, detection.thresholds = 20, palette = "bw", min.pr
     df <- gather(df, "ID")
     names(df) <- c("Taxa", "DetectionThreshold", "Prevalence")
     df$DetectionThreshold <- as.numeric(as.character(df$DetectionThreshold))
-    df$Prevalence <- as.numeric(as.character(df$Prevalence)) 
-    o <- names(sort(rowSums(prev)))
+    df$Prevalence <- as.numeric(as.character(df$Prevalence))
+
+    if (is.null(taxa.order)) {
+      o <- names(sort(rowSums(prev)))
+    } else {
+      o = taxa.order
+    }
+    
     df$Taxa <- factor(df$Taxa, levels = o)
 
     theme_set(theme_bw(10))
