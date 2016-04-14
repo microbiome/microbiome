@@ -17,7 +17,7 @@ probedata <- read_hitchip(data.directory, method = "frpa")$probedata
 taxonomy <- GetPhylogeny("HITChip", "filtered")
 
 # Summarize oligos into higher level phylotypes
-dat <- summarize_probedata(
+dat <- RPA::summarize_probedata(
                  probedata = probedata,
 		 taxonomy = taxonomy, 
                  method = "rpa",
@@ -31,7 +31,7 @@ Get probes for each probeset:
 
 
 ```r
-sets <- retrieve.probesets(taxonomy, level = "species", name = NULL)
+sets <- RPA::retrieve.probesets(taxonomy, level = "species", name = NULL)
 ```
 
 
@@ -39,7 +39,7 @@ Get probeset data matrix/matrices:
 
 
 ```r
-set <- get.probeset("Actinomyces naeslundii", "species",
+set <- RPA::get.probeset("Actinomyces naeslundii", "species",
        		     taxonomy, probedata, log10 = TRUE)
 ```
 

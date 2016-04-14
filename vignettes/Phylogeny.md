@@ -12,14 +12,14 @@ kable(head(tax.table))
 
 
 
-|    |L1             |L2               |species                |specimen               |oligoID  |
-|:---|:--------------|:----------------|:----------------------|:----------------------|:--------|
-|sp1 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1134 |
-|sp2 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1158 |
-|sp3 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1194 |
-|sp4 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1589 |
-|sp5 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1590 |
-|sp6 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 5644 |
+|    |L1             |L2               |species                |specimen               |oligoID  |L0             |
+|:---|:--------------|:----------------|:----------------------|:----------------------|:--------|:--------------|
+|sp1 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1134 |Actinobacteria |
+|sp2 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1158 |Actinobacteria |
+|sp3 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1194 |Actinobacteria |
+|sp4 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1589 |Actinobacteria |
+|sp5 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1590 |Actinobacteria |
+|sp6 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 5644 |Actinobacteria |
 
 Conversion between taxonomic levels:
 

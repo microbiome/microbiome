@@ -14,17 +14,12 @@ atlas1006 <- download_microbiome("atlas1006")
 ```
 
 ```
-## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
+## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from 
+##   		       Data Dryad: http://doi.org/10.5061/dryad.pk75d
 ```
 
 ```
-## Warning in file(file, "rt"): cannot open file '/home/antagomir/R/x86_64-pc-
-## linux-gnu-library/3.2/microbiome/extdata/taxonomy.full.tab': No such file
-## or directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
+## Error in if (format == "phyloseq") {: argument is of length zero
 ```
 
 Also available as a ready-made example data set in microbiome package:
@@ -48,16 +43,6 @@ dietswap <- download_microbiome("dietswap")
 ## Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n
 ```
 
-```
-## Warning in file(file, "rt"): cannot open file '/home/antagomir/R/x86_64-pc-
-## linux-gnu-library/3.2/microbiome/extdata/taxonomy.full.tab': No such file
-## or directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
-```
-
 Also available as a ready-made example data set in microbiome package:
 
 
@@ -77,16 +62,6 @@ data.peerj32 <- download_microbiome("peerj32")
 
 ```
 ## Downloading data set from Lahti et al. PeerJ, 2013: https://peerj.com/articles/32/
-```
-
-```
-## Warning in file(file, "rt"): cannot open file '/home/antagomir/R/x86_64-pc-
-## linux-gnu-library/3.2/microbiome/extdata/taxonomy.full.tab': No such file
-## or directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
 ```
 
 
@@ -113,7 +88,7 @@ print(data.directory)
 ```
 
 ```
-## [1] "/home/antagomir/R/x86_64-pc-linux-gnu-library/3.2/microbiome/extdata"
+## [1] "/home/lei/R/x86_64-pc-linux-gnu-library/3.2/microbiome/extdata"
 ```
 
 With HITChip,
@@ -133,7 +108,7 @@ pseq <- read_hitchip(data.directory, method = "frpa")$pseq
 ```
 
 ```
-## Warning in file(file, "rt"): cannot open file '/home/antagomir/R/x86_64-pc-
+## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
 ## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
 ## directory
 ```
@@ -170,7 +145,7 @@ probedata <- read_hitchip(data.directory, method = "frpa")$probedata
 ```
 
 ```
-## Warning in file(file, "rt"): cannot open file '/home/antagomir/R/x86_64-pc-
+## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
 ## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
 ## directory
 ```
@@ -184,7 +159,7 @@ taxonomy.full <- read_hitchip(data.directory, method = "frpa")$taxonomy.full
 ```
 
 ```
-## Warning in file(file, "rt"): cannot open file '/home/antagomir/R/x86_64-pc-
+## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
 ## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
 ## directory
 ```
@@ -262,11 +237,11 @@ kable(head(df))
 
 
 
-|     |OTU                                  |Sample    | Abundance| time|gender |subject |sample    |group   |Phylum                 |Genus                                |
-|:----|:------------------------------------|:---------|---------:|----:|:------|:-------|:---------|:-------|:----------------------|:------------------------------------|
-|1049 |Bacteroides vulgatus et rel.         |sample-37 |      9735|    1|male   |S19     |sample-37 |LGG     |Bacteroidetes          |Bacteroides vulgatus et rel.         |
-|1055 |Bacteroides vulgatus et rel.         |sample-27 |      5884|    1|female |S14     |sample-27 |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |
-|1016 |Bacteroides vulgatus et rel.         |sample-16 |      5135|    2|female |S8      |sample-16 |LGG     |Bacteroidetes          |Bacteroides vulgatus et rel.         |
-|2846 |Faecalibacterium prausnitzii et rel. |sample-34 |      4912|    2|male   |S17     |sample-34 |Placebo |Clostridium cluster IV |Faecalibacterium prausnitzii et rel. |
-|1048 |Bacteroides vulgatus et rel.         |sample-17 |      4857|    1|male   |S9      |sample-17 |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |
-|1033 |Bacteroides vulgatus et rel.         |sample-1  |      4683|    1|female |S1      |sample-1  |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |
+|     |OTU                               |Sample     | Abundance|subject |sex    |nationality |group |sample     | timepoint| timepoint.within.group|bmi_group  |Phylum        |Genus                             |
+|:----|:---------------------------------|:----------|---------:|:-------|:------|:-----------|:-----|:----------|---------:|----------------------:|:----------|:-------------|:---------------------------------|
+|2310 |Prevotella melaninogenica et rel. |Sample-208 |    900361|olt     |Male   |AFR         |ED    |Sample-208 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
+|2269 |Prevotella melaninogenica et rel. |Sample-212 |    876341|shj     |Female |AFR         |ED    |Sample-212 |         1|                      1|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
+|2389 |Prevotella melaninogenica et rel. |Sample-11  |    860615|olt     |Male   |AFR         |HE    |Sample-11  |         3|                      2|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
+|2226 |Prevotella melaninogenica et rel. |Sample-125 |    852350|nmz     |Male   |AAM         |HE    |Sample-125 |         3|                      2|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
+|2250 |Prevotella melaninogenica et rel. |Sample-210 |    845594|qjy     |Female |AFR         |ED    |Sample-210 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
+|2341 |Prevotella melaninogenica et rel. |Sample-107 |    838487|byu     |Male   |AFR         |HE    |Sample-107 |         3|                      2|lean       |Bacteroidetes |Prevotella melaninogenica et rel. |
