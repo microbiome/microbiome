@@ -28,26 +28,24 @@ bib <- read.bibtex("bibliography.bib")
 microbiome R package
 ===========
 
-The microbiome package provides tools for microbiome analytics and
-visualization in R `r citep(bib[["rcore13"]])`. 
+Tools for microbiome analysis in R `r citep(bib[["rcore13"]])`.
 
 
 ### Getting started
 
-* [Installation instructions](Template.md) 
-* [Example data sets](Data.md)
-* [Data filtering and manipulation](Preprocessing.md)
+* [Installation](Template.md) 
+* [Example data](Data.md)
+* [Data manipulation](Preprocessing.md)
 
 
 ### Visualization and related tools
 
-* [Barplots](Composition.md)
-* [Boxplots](Boxplots.md)
-* [Density](Density.md)
+* [Community composition](Composition.md)
+* [Pairwise comparisons](Comparisons.md)
 * [Heatmaps](Heatmap.md)
 * [Networks](Networks.md)
-* [PCA, PCoA and other ordination techniques](Ordination.md)
-* [RDA](RDA.md)
+* [Ordination (PCA, PCoA, NMDS etc.)](Ordination.md)
+* [Density](Density.md)
 * [Interactive](Interactive.md)
 
 
@@ -56,17 +54,16 @@ visualization in R `r citep(bib[["rcore13"]])`.
 * [Bistability analysis](Stability.md)
 * [Variability](Variability.md) (Intra- and inter-individual 'stability')
 * [Tipping elements](Stability.md)
-* [Composition](Composition.md)
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
 
 
 ### Analysis
 
+* [Pairwise comparisons](Comparisons.md)
 * [Stability and bimodality](Stability.md)
 * [Clustering](Clustering.md)
 * [Linear models](limma.md)
-* [Pairwise comparisons](Comparisons.md)
 
 
 ### Misc
