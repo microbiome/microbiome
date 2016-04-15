@@ -1,21 +1,37 @@
-
 ## Group-wise comparisons
 
-Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
+
+### Boxplots
 
 
 ```r
+# Load libraries
 library(microbiome)
-data("dietswap")
-pseq <- dietswap
+library(ggplot2)
+
+# Probiotics intervention example data from
+# https://peerj.com/articles/32/
+data("peerj32")
+
+# Abundance boxplot
+p <- boxplot_abundance(peerj32$phyloseq, x = "time", y = "Akkermansia", line = "subject", color = "gender")
+print(p)
 ```
+
+![plot of chunk boxplot-example](figure/boxplot-example-1.png)
+
 
 ### Comparing of two or more groups with a parametric test (linear model; ANOVA)
 
-Note that in practice it will be necessary to check ANOVA modeling assumptions before testing:
+Note: check ANOVA modeling assumptions before testing. 
 
 
 ```r
+# Load example data from a 
+# [diet swap study](http://dx.doi.org/10.1038/ncomms7342)
+data("dietswap")
+pseq <- dietswap
+
 # Convert to relative abundances
 pseq <- transform_phyloseq(pseq, "relative.abundance")
 

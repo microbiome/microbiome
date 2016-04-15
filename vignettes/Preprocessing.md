@@ -1,17 +1,21 @@
-## Standard data processing operations
+## Preprocessing taxonomic profiling data
 
-The high-quality [phyloseq package](http://joey711.github.io/phyloseq/) provides a complete set of tools for data subsetting, aggregating and filtering.
+Here we show how to manipulate microbiome data sets using tools from
+the [phyloseq package](http://joey711.github.io/phyloseq/), including
+subsetting, aggregating and filtering.
 
-Download example data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling:
+
+### Standard data processing operations
+
+
+Let us use the example data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling:
 
 
 ```r
 library(microbiome)
-#pseq <- download_microbiome("dietswap")
 data("dietswap")
 pseq <- dietswap
 ```
-
 
 ### Sample operations
 
@@ -99,6 +103,10 @@ Relative abundance for plain abundance matrix:
 ```r
 dat <- otu_table(pseq)@.Data
 rel <- relative.abundance(dat, det.th = 0)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "relative.abundance"
 ```
 
 
@@ -249,6 +257,47 @@ merge_phyloseq(pseq1, pseq2)
 
 ```r
 pseq.rarified <- rarefy_even_depth(pseq)
+```
+
+
+### HITChip taxonomy
+
+Check the overall HITChip taxonomy:
+
+
+```r
+require(microbiome)
+data("hitchip.taxonomy")
+tax.table <- hitchip.taxonomy$full
+kable(head(tax.table))
+```
+
+
+
+|    |L1             |L2               |species                |specimen               |oligoID  |L0             |
+|:---|:--------------|:----------------|:----------------------|:----------------------|:--------|:--------------|
+|sp1 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1134 |Actinobacteria |
+|sp2 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1158 |Actinobacteria |
+|sp3 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1194 |Actinobacteria |
+|sp4 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1589 |Actinobacteria |
+|sp5 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1590 |Actinobacteria |
+|sp6 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 5644 |Actinobacteria |
+
+Conversion between taxonomic levels:
+
+
+```r
+m <- levelmap(c("Akkermansia", "Bacteroides fragilis et rel."), 
+              from = "L2", to = "L1", tax.table)
+
+# Another example
+data(GlobalPatterns)
+taxtable <- tax_table(GlobalPatterns)
+levelmap("Crenarchaeota", 'Phylum', 'Kingdom', taxtable)
+```
+
+```
+## [1] "Archaea"
 ```
 
 

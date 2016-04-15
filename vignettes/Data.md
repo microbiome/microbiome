@@ -1,76 +1,31 @@
-## Example data sets
+## Example data sets for microbiome analysis
 
-
-
-
-
-
-For further microbiome data sets in phyloseq format, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html). For data preprocessing (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md).
+Use [phyloseq](http://joey711.github.io/phyloseq/import-data) tools to import standard microbiome data formats (mothur, qiime etc.) into an R phyloseq object. Here we provide some published example data sets in R. For further microbiome data sets, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html). For data preprocessing (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md). 
 
 
 ### HITChip Atlas data 
 
-Data from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) contains large-scale profiling of 130 genus-like taxa across 1006 normal western adults. Some subjects have also short time series. This data set is available in [Data Dryad](http://doi.org/10.5061/dryad.pk75d). [Download the HITChip Atlas in R phyloseq format](Atlas.md):
+Data from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) contains large-scale profiling of 130 genus-like taxa across 1006 normal western adults. Some subjects have also short time series. This data set is available in [Data Dryad](http://doi.org/10.5061/dryad.pk75d) and can be downloaded with the download_microbiome function. However [the HITChip Atlas](Atlas.md) data set is also readily available via the microbiome R package in phyloseq format:
 
 
 ```r
 library(microbiome)
-atlas1006 <- download_microbiome("atlas1006")
-```
-
-```
-## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from 
-##   		       Data Dryad: http://doi.org/10.5061/dryad.pk75d
-```
-
-```
-## Error in if (format == "phyloseq") {: argument is of length zero
-```
-
-Also available as a ready-made example data set in microbiome package:
-
-
-```r
-data(atlas1006)
+data("atlas1006") 
+pseq <- atlas1006
 ```
 
 ### Diet swap data set
 
-Data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling.
+Data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling. 
 
 
 ```r
-library(microbiome)
-dietswap <- download_microbiome("dietswap")
-```
-
-```
-## Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n
-```
-
-Also available as a ready-made example data set in microbiome package:
-
-
-```r
-data(dietswap)
+data(dietswap) 
 ```
 
 ### Intestinal microbiota and blood serum lipid metabolites
 
 Data from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) characterizes associations between human intestinal microbiota and blood serum lipids. This data set is not readily provided in phyloseq format since it also contains additional data matrix of lipid species. Loading the data in R:
-
-
-```r
-library(microbiome)
-data.peerj32 <- download_microbiome("peerj32")
-```
-
-```
-## Downloading data set from Lahti et al. PeerJ, 2013: https://peerj.com/articles/32/
-```
-
-
-Also available as a ready-made example data set in microbiome package:
 
 
 ```r
@@ -242,11 +197,11 @@ kable(head(df))
 
 
 
-|     |OTU                               |Sample     | Abundance|subject |sex    |nationality |group |sample     | timepoint| timepoint.within.group|bmi_group  |Phylum        |Genus                             |
-|:----|:---------------------------------|:----------|---------:|:-------|:------|:-----------|:-----|:----------|---------:|----------------------:|:----------|:-------------|:---------------------------------|
-|2310 |Prevotella melaninogenica et rel. |Sample-208 |    900361|olt     |Male   |AFR         |ED    |Sample-208 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|2269 |Prevotella melaninogenica et rel. |Sample-212 |    876341|shj     |Female |AFR         |ED    |Sample-212 |         1|                      1|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
-|2389 |Prevotella melaninogenica et rel. |Sample-11  |    860615|olt     |Male   |AFR         |HE    |Sample-11  |         3|                      2|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|2226 |Prevotella melaninogenica et rel. |Sample-125 |    852350|nmz     |Male   |AAM         |HE    |Sample-125 |         3|                      2|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
-|2250 |Prevotella melaninogenica et rel. |Sample-210 |    845594|qjy     |Female |AFR         |ED    |Sample-210 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|2341 |Prevotella melaninogenica et rel. |Sample-107 |    838487|byu     |Male   |AFR         |HE    |Sample-107 |         3|                      2|lean       |Bacteroidetes |Prevotella melaninogenica et rel. |
+|       |OTU                               |Sample     | Abundance| age|gender |nationality   |DNA_extraction_method |project | diversity|bmi_group   |subject | time|sample     |Phylum        |Genus                             |
+|:------|:---------------------------------|:----------|---------:|---:|:------|:-------------|:---------------------|:-------|---------:|:-----------|:-------|----:|:----------|:-------------|:---------------------------------|
+|113110 |Prevotella melaninogenica et rel. |Sample-448 |    944002|  54|female |CentralEurope |o                     |18      |      5.98|lean        |448     |    0|Sample-448 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|113015 |Prevotella melaninogenica et rel. |Sample-360 |    902034|  45|female |CentralEurope |o                     |13      |      5.49|severeobese |360     |    0|Sample-360 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|112747 |Prevotella melaninogenica et rel. |Sample-190 |    862870|  34|female |CentralEurope |r                     |7       |      6.06|lean        |190     |    0|Sample-190 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|113109 |Prevotella melaninogenica et rel. |Sample-743 |    852350|  52|male   |US            |NA                    |19      |      5.21|obese       |743     |    0|Sample-743 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|112944 |Prevotella melaninogenica et rel. |Sample-366 |    851147|  52|female |CentralEurope |o                     |15      |      5.63|obese       |366     |    0|Sample-366 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|113639 |Prevotella melaninogenica et rel. |Sample-375 |    844482|  45|female |CentralEurope |o                     |16      |      5.64|severeobese |375     |    0|Sample-375 |Bacteroidetes |Prevotella melaninogenica et rel. |

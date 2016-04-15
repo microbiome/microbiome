@@ -1,5 +1,8 @@
 ## Interactive plots
 
+See also [motion chart examples](Motionchart.md).
+
+
 
 ```r
 library(ggplot2)
@@ -54,3 +57,4 @@ ggiraph(code = {print(gg_point_1 + mytheme_main)}, width = 7, height = 6)
 ```
 ## Error in eval(expr, envir, enclos): could not find function "ggiraph"
 ```
+

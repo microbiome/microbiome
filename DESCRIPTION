@@ -25,7 +25,6 @@ Imports:
     netresponse,
     phyloseq,
     RColorBrewer,
-    rdryad,
     scales,
     sorvi,
     tidyr,

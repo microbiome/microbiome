@@ -10,18 +10,9 @@ Let us investigate an example data set from [Lahti et al. Nat. Comm. 5:4344, 201
 
 ```r
 # Download the required R packages and then the HITChip Atlas data set
-library("rdryad")
 library("microbiome")
-pseq <- download_microbiome("atlas1006")
-```
-
-```
-## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from 
-##   		       Data Dryad: http://doi.org/10.5061/dryad.pk75d
-```
-
-```
-## Error in if (format == "phyloseq") {: argument is of length zero
+data("atlas1006")
+pseq <- atlas1006
 ```
 
 
@@ -38,14 +29,14 @@ kable(head(div))
 
 
 
-|         | Observed|   Shannon|   Simpson|
-|:--------|--------:|---------:|---------:|
-|Sample.1 |       16| 1.5480650| 0.6362939|
-|Sample.2 |       16| 0.6408117| 0.2881798|
-|Sample.3 |       16| 0.6171970| 0.2854109|
-|Sample.4 |       16| 1.7280468| 0.6839380|
-|Sample.5 |       16| 0.6235029| 0.2930380|
-|Sample.6 |       16| 0.4597322| 0.2264956|
+|         | Observed|  Shannon|   Simpson|
+|:--------|--------:|--------:|---------:|
+|Sample.1 |      130| 3.189726| 0.9230387|
+|Sample.2 |      130| 3.396135| 0.9397719|
+|Sample.3 |      130| 2.866104| 0.8850959|
+|Sample.4 |      130| 3.058653| 0.9066459|
+|Sample.5 |      130| 3.076850| 0.9184565|
+|Sample.6 |      130| 2.945709| 0.8966565|
 
 
 ### Diversity vs. obesity
@@ -72,29 +63,13 @@ print(p)
 ```r
 # Pick the subset of RBB-preprocessed samples from time point 0
 pseq <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
-```
 
-```
-## Error in time == 0: comparison (1) is possible only for atomic and list types
-```
-
-```r
 # Visualize
 library(sorvi)
 p <- sorvi::regression_plot(diversity~age, sample_data(pseq))
-```
-
-```
-## Error in eval(expr, envir, enclos): incorrect size (1), expecting : 222
-```
-
-```r
 print(p)
 ```
 
 ![plot of chunk atlas-example3](figure/atlas-example3-1.png)
 
 
-## Further resources
-
-For further examples, see [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
