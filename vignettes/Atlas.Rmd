@@ -9,9 +9,9 @@ Let us investigate an example data set from [Lahti et al. Nat. Comm. 5:4344, 201
 
 ```{r data2}
 # Download the required R packages and then the HITChip Atlas data set
-library("rdryad")
 library("microbiome")
-pseq <- download_microbiome("atlas1006")
+data("atlas1006")
+pseq <- atlas1006
 ```
 
 
@@ -47,6 +47,3 @@ print(p)
 ```
 
 
-## Further resources
-
-For further examples, see [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)

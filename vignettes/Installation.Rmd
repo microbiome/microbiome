@@ -28,7 +28,8 @@ biocLite("reshape2")
 biocLite("vegan")
 biocLite("phyloseq")
 biocLite("rpart")
-```		   
+```
+
 If some of these installations fail, ensure from the RStudio tools
 panel that you have access to CRAN and Bioconductor repositories. If
 you cannot install some packages, some functionality in microbiome may

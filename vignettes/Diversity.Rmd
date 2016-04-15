@@ -4,7 +4,7 @@
 ```{r rich-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
 # Get example data in phyloseq format
 library(microbiome)
-data("atlas1006")
+data(atlas1006)
 pseq <- atlas1006
 
 # Pick the OTU data
@@ -69,7 +69,6 @@ Highlight specific groups:
 
 ```{r richness, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
 library(ggplot2)
-#data.dietswap <- download_microbiome("dietswap")
 data("dietswap")
 p <- plot_richness(dietswap, x = "sex", color = "group", measures = c("Shannon", "Simpson")) 
 p <- p + geom_boxplot()

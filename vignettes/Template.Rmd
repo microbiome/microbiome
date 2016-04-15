@@ -1,12 +1,14 @@
 Minimal example
 ===========
 
-### Try out microbiome analysis
 
- [Install the microbiome package and test the analysis functions](Installation.md) 
+### Installation
+
+ * [Installing the R tools](Installation.md)
+ * [Example workflow](Atlas.md)
 
 
-### Set up reproducible document generation
+### Reproducible document generation
 
 To test reproducible document generation:
 

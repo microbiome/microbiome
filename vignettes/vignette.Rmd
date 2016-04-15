@@ -25,7 +25,6 @@ bib <- read.bibtex("bibliography.bib")
 #knitr::opts_chunk$set(fig.path = "figure/")
 ```
 
-
 microbiome R package
 ===========
 
@@ -33,25 +32,17 @@ Microbiome analytics for R `r citep(bib[["rcore13"]])`.
 
 The microbiome package utilizes the [phyloseq data
 format](https://github.com/joey711/phyloseq), adding extra
-functionality for microbiome analytics and visualization.
-
-
-### How to start 
-
-Example on reproducible document generation:  
-
- * [Installing R tools](Installation.md)
- * [How to get started](Template.md)  
- * [Example workflow](Atlas.md)
-
+functionality for microbiome analytics and visualization. See
+[installation instructions](Template.md) to get started.
 
 ### Data
 
-* [Download example data sets](Data.md)
-* [Extract data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
+
+* [Downloading example data](Data.md)
 * [Taxonomy](Phylogeny.md)
 * [Preprocessing and Filtering](Preprocessing.md)
 * [Importing data from different formats](Import.md)
+
 
 ### Visualization and related tools
 
@@ -63,20 +54,24 @@ Download some [example data sets](Data.md) to try these tools:
 * [Heatmaps](Heatmap.md)
 * [Networks](Networks.md)
 
+
 ### Interactive  
 
 * [Interactive](Interactive.md)
 * [Motion charts](Motionchart.md)
 
+
 ### Ordination  
 
-* [RDA](RDA.md)
 * [Ordination](Ordination.md)
 * [PCA](Ordination.md)
+* [RDA](RDA.md)
+
 
 ### Clustering 
 * [Bimodality](Stability.md)
 * [Clustering](Clustering.md)
+
 
 ### Microbiota composition
 * [Bistability analysis](Stability.md)
@@ -104,6 +99,7 @@ Download some [example data sets](Data.md) to try these tools:
 
 * [Generating output files/figures](Output.md)
 * [Miscellaneous](misc.md)
+* [Extract data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
 
 
 ### Licensing and Citations
