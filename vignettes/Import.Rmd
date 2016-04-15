@@ -1,3 +1,0 @@
-## Data import
-
-The independent [phyloseq package](http://joey711.github.io/phyloseq/import-data) provides a complete set of tools for importing data from various standard formats (mothur, qiime etc.) into an R phyloseq object. 

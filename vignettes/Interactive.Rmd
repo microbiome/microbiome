@@ -1,5 +1,8 @@
 ## Interactive plots
 
+See also [motion chart examples](Motionchart.md).
+
+
 ```{r interactive-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, fig.path = "figure/"}
 library(ggplot2)
 library(rvg)
@@ -29,3 +32,4 @@ gg_point_1 <- ggplot(df, aes(x = Prevotella, y = Dialister,
 # htmlwidget call
 ggiraph(code = {print(gg_point_1 + mytheme_main)}, width = 7, height = 6)
 ```
+

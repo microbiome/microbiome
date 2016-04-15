@@ -1,6 +1,11 @@
 ## Example data sets
 
-This page shows how to import microbiome profiling data into phyloseq format and to load some published example data sets in R. For further microbiome data sets in phyloseq format, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html). For data preprocessing (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md).
+
+
+
+
+
+For further microbiome data sets in phyloseq format, check [this](http://joey711.github.io/phyloseq/download-microbio.me.html). For data preprocessing (filtering, subsetting etc.), see the [preprocessing tutorial](Preprocessing.md).
 
 
 ### HITChip Atlas data 

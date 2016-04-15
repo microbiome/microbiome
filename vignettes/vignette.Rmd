@@ -28,78 +28,54 @@ bib <- read.bibtex("bibliography.bib")
 microbiome R package
 ===========
 
-Microbiome analytics for R `r citep(bib[["rcore13"]])`.
-
-The microbiome package utilizes the [phyloseq data
-format](https://github.com/joey711/phyloseq), adding extra
-functionality for microbiome analytics and visualization. See
-[installation instructions](Template.md) to get started.
-
-### Data
+The microbiome package provides tools for microbiome analytics and
+visualization in R `r citep(bib[["rcore13"]])`. 
 
 
-* [Downloading example data](Data.md)
-* [Taxonomy](Phylogeny.md)
-* [Preprocessing and Filtering](Preprocessing.md)
-* [Importing data from different formats](Import.md)
+### Getting started
+
+* [Installation instructions](Template.md) 
+* [Example data sets](Data.md)
+* [Data filtering and manipulation](Preprocessing.md)
 
 
 ### Visualization and related tools
-
-Download some [example data sets](Data.md) to try these tools:
 
 * [Barplots](Composition.md)
 * [Boxplots](Boxplots.md)
 * [Density](Density.md)
 * [Heatmaps](Heatmap.md)
 * [Networks](Networks.md)
-
-
-### Interactive  
-
-* [Interactive](Interactive.md)
-* [Motion charts](Motionchart.md)
-
-
-### Ordination  
-
-* [Ordination](Ordination.md)
-* [PCA](Ordination.md)
+* [PCA, PCoA and other ordination techniques](Ordination.md)
 * [RDA](RDA.md)
-
-
-### Clustering 
-* [Bimodality](Stability.md)
-* [Clustering](Clustering.md)
+* [Interactive](Interactive.md)
 
 
 ### Microbiota composition
+
 * [Bistability analysis](Stability.md)
+* [Variability](Variability.md) (Intra- and inter-individual 'stability')
+* [Tipping elements](Stability.md)
 * [Composition](Composition.md)
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
-* [Indices](Indices.md)
-* [Stability](Stability.md)
-* [Tipping elements](Stability.md)
-* [Variability](Variability.md) (Intra- and inter-individual 'stability')
 
 
-### Linear models, comparisons, and association studies
+### Analysis
+
+* [Stability and bimodality](Stability.md)
+* [Clustering](Clustering.md)
 * [Linear models](limma.md)
 * [Pairwise comparisons](Comparisons.md)
-
-
-### Phylogenetic microarrays  
-
-* [Cross hybridization](Crosshyb.md)
-* [Probe level studies](Probelevel.md)
 
 
 ### Misc
 
 * [Generating output files/figures](Output.md)
+* [Extracting data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
+* [Cross hybridization (phylogenetic microarrays)](Crosshyb.md)
+* [Probe level studies (phylogenetic microarrays)](Probelevel.md)
 * [Miscellaneous](misc.md)
-* [Extract data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
 
 
 ### Licensing and Citations
@@ -108,7 +84,7 @@ This work can be freely used, modified and distributed under the
 [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
 
 Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
-(2014). microbiome R package. URL: http://microbiome.github.com'.
+(2014-2016). microbiome R package. URL: http://microbiome.github.com'.
 
 
 ### Dependencies
@@ -116,19 +92,20 @@ Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
 The package utilizes tools from a number of other CRAN and
 Bioconductor extensions, including:
 
- * df2json `r citep(citation("df2json"))`
- * rjson `r citep(citation("rjson"))`
  * ade4 `r citep(citation("ade4"))`
+ * df2json `r citep(citation("df2json"))`
+ * dplyr `r citep(citation("dplyr"))`  
+ * fastcluster `r citep(citation("fastcluster"))`
+ * ggplot2 `r citep(citation("ggplot2"))`
+ * minet `r citep(citation("minet"))` 
  * mixOmics `r citep(citation("mixOmics"))`
+ * phyloseq `r citep(citation("phyloseq"))`
+ * RPA `r citep(citation("RPA"))` 
+ * reshape `r citep(citation("reshape"))` 
+ * rjson `r citep(citation("rjson"))`
  * RCurl `r citep(citation("RCurl"))`
  * vegan `r citep(citation("vegan"))`
- * reshape `r citep(citation("reshape"))`
  * WGCNA `r citep(citation("WGCNA"))`
- * ggplot2 `r citep(citation("ggplot2"))`
- * RPA `r citep(citation("RPA"))`
- * minet `r citep(citation("minet"))`
- * fastcluster `r citep(citation("fastcluster"))`
- * dplyr `r citep(citation("dplyr"))`
 
 
 ### References

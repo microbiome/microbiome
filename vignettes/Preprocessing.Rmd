@@ -187,3 +187,27 @@ pseq.rarified <- rarefy_even_depth(pseq)
 ```
 
 
+### HITChip taxonomy
+
+Check the overall HITChip taxonomy:
+
+```{r phylogeny-example2, warning=FALSE, message=FALSE}
+require(microbiome)
+data("hitchip.taxonomy")
+tax.table <- hitchip.taxonomy$full
+kable(head(tax.table))
+```
+
+Conversion between taxonomic levels:
+
+```{r phylogeny-example2b, warning=FALSE, message=FALSE}
+m <- levelmap(c("Akkermansia", "Bacteroides fragilis et rel."), 
+              from = "L2", to = "L1", tax.table)
+
+# Another example
+data(GlobalPatterns)
+taxtable <- tax_table(GlobalPatterns)
+levelmap("Crenarchaeota", 'Phylum', 'Kingdom', taxtable)
+```
+
+
