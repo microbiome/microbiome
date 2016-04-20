@@ -56,8 +56,8 @@ library(knitr)
 #fs <- c("Ordination.Rmd")
 #fs <- c("Phylogeny.Rmd")
 #fs <- "vignette.Rmd"
-
-fs <- sample(list.files(pattern = ".Rmd$"))
+fs <- c("Networks.Rmd")
+#fs <- sample(list.files(pattern = ".Rmd$"))
 
 #for (f in setdiff(fs, c("Atlas.Rmd", "vignette.Rmd"))) {
 for (f in c(setdiff(fs, c("misc.Rmd", "Motionchart")), "Motionchart")) {
