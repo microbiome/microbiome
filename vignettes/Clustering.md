@@ -60,26 +60,11 @@ Gower distance is useful for samples with mixed-type variables (binary, factor, 
 data("dietswap")
 
 library(FD)
-```
-
-```
-## Error in library(FD): there is no package called 'FD'
-```
-
-```r
 d <- gowdis(as(sample_data(dietswap), "data.frame"))
-```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "gowdis"
-```
-
-```r
 plot(hclust(d))
 ```
 
-```
-## Error in plot(hclust(d)): error in evaluating the argument 'x' in selecting a method for function 'plot': Error in hclust(d) : object 'd' not found
-```
+![plot of chunk clustering-gower](figure/clustering-gower-1.png)
 
 

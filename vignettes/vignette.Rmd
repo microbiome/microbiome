@@ -41,7 +41,6 @@ Tools for microbiome analysis in R `r citep(bib[["rcore13"]])`.
 ### Visualization and related tools
 
 * [Community composition](Composition.md)
-* [Pairwise comparisons](Comparisons.md)
 * [Heatmaps](Heatmap.md)
 * [Networks](Networks.md)
 * [Ordination (PCA, PCoA, NMDS etc.)](Ordination.md)
@@ -53,7 +52,6 @@ Tools for microbiome analysis in R `r citep(bib[["rcore13"]])`.
 
 * [Bistability analysis](Stability.md)
 * [Variability](Variability.md) (Intra- and inter-individual 'stability')
-* [Tipping elements](Stability.md)
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
 
@@ -61,18 +59,11 @@ Tools for microbiome analysis in R `r citep(bib[["rcore13"]])`.
 ### Analysis
 
 * [Pairwise comparisons](Comparisons.md)
-* [Stability and bimodality](Stability.md)
+* [Stability, bimodality, tipping elements](Stability.md)
 * [Clustering](Clustering.md)
 * [Linear models](limma.md)
+* [Phylogenetic microarrays](HITChip.Rmd)
 
-
-### Misc
-
-* [Generating output files/figures](Output.md)
-* [Extracting data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
-* [Cross hybridization (phylogenetic microarrays)](Crosshyb.md)
-* [Probe level studies (phylogenetic microarrays)](Probelevel.md)
-* [Miscellaneous](misc.md)
 
 
 ### Licensing and Citations

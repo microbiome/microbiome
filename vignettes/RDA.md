@@ -61,7 +61,7 @@ permutest(rda.result)
 ## na.action)
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.6049309 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.91
+## Significance:	 0.96
 ```
 
 ### Bagged RDA

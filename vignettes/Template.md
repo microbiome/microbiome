@@ -6,6 +6,7 @@ Minimal example
 
  * [Installing the R tools](Installation.md)
  * [Example workflow](Atlas.md)
+ * [Generating output files/figures](Output.md)
 
 
 ### Reproducible document generation

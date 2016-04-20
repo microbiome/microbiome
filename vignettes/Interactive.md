@@ -7,13 +7,6 @@ See also [motion chart examples](Motionchart.md).
 ```r
 library(ggplot2)
 library(rvg)
-```
-
-```
-## Error in library(rvg): there is no package called 'rvg'
-```
-
-```r
 library(ggiraph)
 ```
 
