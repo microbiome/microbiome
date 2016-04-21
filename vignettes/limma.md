@@ -128,18 +128,18 @@ detailed analyses.
 ```r
 data("atlas1006")
 tab <- lm_phyloseq(atlas1006, "age")
-```
-
-```
-## Error in qr.default(x): NA/NaN/Inf in foreign function call (arg 1)
-```
-
-```r
 kable(head(tab))
 ```
 
-```
-## Error in head(tab): error in evaluating the argument 'x' in selecting a method for function 'head': Error: object 'tab' not found
-```
+
+
+|                                   |      logFC|  AveExpr|          t| P.Value| adj.P.Val|        B|
+|:----------------------------------|----------:|--------:|----------:|-------:|---------:|--------:|
+|Bifidobacterium                    | -0.0149134| 3.701659| -12.507229|       0|         0| 63.50172|
+|Clostridium difficile et rel.      | -0.0088134| 3.229483|  -9.889625|       0|         0| 37.15674|
+|Oscillospira guillermondii et rel. |  0.0122499| 4.534695|   9.827636|       0|         0| 36.59406|
+|Bacteroides splachnicus et rel.    |  0.0061346| 3.219159|   9.552466|       0|         0| 34.13236|
+|Collinsella                        | -0.0094340| 2.828267|  -9.106874|       0|         0| 30.27255|
+|Tannerella et rel.                 |  0.0070961| 3.161755|   8.976724|       0|         0| 29.17508|
 
 
