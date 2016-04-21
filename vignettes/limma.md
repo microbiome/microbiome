@@ -1,6 +1,15 @@
-### Limma analysis
+## Linear models with limma
 
-Example of limma analysis. Identify most significantly different taxa between males and females. For further details, see [limma homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For discussion on why limma is preferred over t-test, see [this article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
+
+### Discrete variables: sex
+
+Identify most significantly different taxa between males and females.
+
+For further details, see [limma
+homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's
+guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For
+discussion on why limma is preferred over t-test, see [this
+article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
 
 ```r
@@ -30,7 +39,7 @@ fit <- lmFit(otu, design)
 fit <- eBayes(fit)
 
 # Summarise 
-kable(topTable(fit, coef = coef.index), digits = 2)
+kable(topTable(fit, coef = coef.index, p.value=0.25), digits = 2)
 ```
 
 
@@ -47,23 +56,6 @@ kable(topTable(fit, coef = coef.index), digits = 2)
 |Clostridium (sensu stricto)    | -0.43|    0.73| -2.70|    0.01|      0.16| -2.74|
 |Eubacterium rectale et rel.    |  0.14|    2.64|  2.62|    0.01|      0.16| -2.91|
 |Oxalobacter formigenes et rel. | -0.22|    2.18| -2.62|    0.01|      0.16| -2.91|
-
-
-Adjusted p-values; show all significant ones:
-
-
-```r
-pvalues.limma <- p.adjust(fit$p.value[, coef.index], method = "fdr")
-names(pvalues.limma) <- rownames(fit$p.value)
-print(sort(pvalues.limma[pvalues.limma < 0.1]))
-```
-
-```
-##     Clostridium nexile et rel.    Eubacterium siraeum et rel. 
-##                     0.05934123                     0.05934123 
-##    Uncultured Clostridiales II Sutterella wadsworthia et rel. 
-##                     0.05934123                     0.09872173
-```
 
 
 ### Q-Q plot
@@ -128,18 +120,18 @@ detailed analyses.
 ```r
 data("atlas1006")
 tab <- lm_phyloseq(atlas1006, "age")
-kable(head(tab))
+kable(head(tab), digits = 3)
 ```
 
 
 
-|                                   |      logFC|  AveExpr|          t| P.Value| adj.P.Val|        B|
-|:----------------------------------|----------:|--------:|----------:|-------:|---------:|--------:|
-|Bifidobacterium                    | -0.0149134| 3.701659| -12.507229|       0|         0| 63.50172|
-|Clostridium difficile et rel.      | -0.0088134| 3.229483|  -9.889625|       0|         0| 37.15674|
-|Oscillospira guillermondii et rel. |  0.0122499| 4.534695|   9.827636|       0|         0| 36.59406|
-|Bacteroides splachnicus et rel.    |  0.0061346| 3.219159|   9.552466|       0|         0| 34.13236|
-|Collinsella                        | -0.0094340| 2.828267|  -9.106874|       0|         0| 30.27255|
-|Tannerella et rel.                 |  0.0070961| 3.161755|   8.976724|       0|         0| 29.17508|
+|                                   |  logFC| AveExpr|       t| P.Value| adj.P.Val|      B|
+|:----------------------------------|------:|-------:|-------:|-------:|---------:|------:|
+|Bifidobacterium                    | -0.015|   3.702| -12.507|       0|         0| 63.502|
+|Clostridium difficile et rel.      | -0.009|   3.229|  -9.890|       0|         0| 37.157|
+|Oscillospira guillermondii et rel. |  0.012|   4.535|   9.828|       0|         0| 36.594|
+|Bacteroides splachnicus et rel.    |  0.006|   3.219|   9.552|       0|         0| 34.132|
+|Collinsella                        | -0.009|   2.828|  -9.107|       0|         0| 30.273|
+|Tannerella et rel.                 |  0.007|   3.162|   8.977|       0|         0| 29.175|
 
 

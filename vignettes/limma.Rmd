@@ -1,6 +1,15 @@
-### Limma analysis
+## Linear models with limma
 
-Example of limma analysis. Identify most significantly different taxa between males and females. For further details, see [limma homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For discussion on why limma is preferred over t-test, see [this article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
+
+### Discrete variables: sex
+
+Identify most significantly different taxa between males and females.
+
+For further details, see [limma
+homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's
+guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For
+discussion on why limma is preferred over t-test, see [this
+article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
 ```{r limma-example, warning=FALSE, fig.path = "figure/"}
 # Get example data
@@ -29,16 +38,7 @@ fit <- lmFit(otu, design)
 fit <- eBayes(fit)
 
 # Summarise 
-kable(topTable(fit, coef = coef.index), digits = 2)
-```
-
-
-Adjusted p-values; show all significant ones:
-
-```{r limma-padj, warning=FALSE, fig.path = "figure/"}
-pvalues.limma <- p.adjust(fit$p.value[, coef.index], method = "fdr")
-names(pvalues.limma) <- rownames(fit$p.value)
-print(sort(pvalues.limma[pvalues.limma < 0.1]))
+kable(topTable(fit, coef = coef.index, p.value=0.25), digits = 2)
 ```
 
 
