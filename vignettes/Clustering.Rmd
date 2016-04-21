@@ -2,7 +2,7 @@
 
 Fit and visualize Variational Dirichlet process multivariate infinite Gaussian mixture. This variational version has been partially written in C and it is relatively fast. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short). Note that the implementation uses diagonal covariances on the Gaussian modes. The C code was partially derived from [Honkela et al. 2008](http://www.sciencedirect.com/science/article/pii/S0925231208000659).
 
-```{r LCA2, fig.width=8, fig.height=8, warning=FALSE, message=FALSE, fig.path = "figure/"}
+```{r LCA2, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.path = "figure/"}
 library(netresponse)
 
 # Generate simulated data
@@ -29,7 +29,7 @@ p <- PlotMixtureMultivariate(D, means = m$mu, sds = m$sd, ws = m$w, modes = appl
 
 Fit and visualize Variational Dirichlet process univariate infinite Gaussian mixture. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short) for the code.
 
-```{r LCA1, fig.width=8, fig.height=8, warning=FALSE, message=FALSE, fig.path = "figure/"}
+```{r LCA1, fig.width=7, fig.height=5, warning=FALSE, message=FALSE, fig.path = "figure/"}
 library(netresponse)
 
 # Generate simulated bimodal univariate data

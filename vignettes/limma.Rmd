@@ -38,7 +38,7 @@ fit <- lmFit(otu, design)
 fit <- eBayes(fit)
 
 # Summarise 
-kable(topTable(fit, coef = coef.index, p.value=0.25), digits = 2)
+kable(topTable(fit, coef = coef.index, p.value=0.05), digits = 2)
 ```
 
 
