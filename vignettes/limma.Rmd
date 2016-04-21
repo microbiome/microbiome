@@ -94,7 +94,7 @@ detailed analyses.
 ```{r limma-lm-phyloseq, warning=FALSE, fig.path = "figure/"}
 data("atlas1006")
 tab <- lm_phyloseq(atlas1006, "age")
-kable(head(tab))
+kable(head(tab), digits = 3)
 ```
 
 
