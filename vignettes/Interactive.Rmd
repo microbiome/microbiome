@@ -1,9 +1,6 @@
 ## Interactive plots
 
-See also [motion chart examples](Motionchart.md).
-
-
-```{r interactive-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, fig.path = "figure/"}
+```{r interactive-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, eval = FALSE, fig.path = "figure/"}
 library(ggplot2)
 library(rvg)
 library(ggiraph)
