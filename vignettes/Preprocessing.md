@@ -5,6 +5,62 @@ the [phyloseq package](http://joey711.github.io/phyloseq/), including
 subsetting, aggregating and filtering.
 
 
+### Picking data from phyloseq  
+
+Assuming your data ('pseq' below) is in the phyloseq format, many
+standard tools are available.
+
+
+Sample metadata:
+
+
+```r
+library(phyloseq)
+meta <- sample_data(pseq)
+```
+
+Taxonomy table
+
+
+```r
+tax.table <- tax_table(pseq)
+```
+
+Pick taxa abundance data matrix. In this example the OTU level corresponds to genus-like groups (the function name otu_table is somewhat misleading):
+
+
+```r
+otu <- otu_table(pseq)@.Data
+```
+
+Aggregate the abundance matrix to higher-level taxa on HITChip:
+
+
+```r
+pseq2 <- aggregate_taxa(pseq, "Phylum") # Aggregate into phyloseq object
+dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
+```
+
+Melted data for plotting is readily obtained with the phyloseq psmelt function:
+
+
+```r
+df <- psmelt(pseq)
+kable(head(df))
+```
+
+
+
+|      |OTU                               |Sample     | Abundance|subject |sex    |nationality |group |sample     | timepoint| timepoint.within.group|bmi_group  |Phylum        |Genus                             |
+|:-----|:---------------------------------|:----------|---------:|:-------|:------|:-----------|:-----|:----------|---------:|----------------------:|:----------|:-------------|:---------------------------------|
+|21473 |Prevotella melaninogenica et rel. |Sample-187 |  77.01120|kpb     |Male   |AAM         |DI    |Sample-187 |         4|                      1|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21320 |Prevotella melaninogenica et rel. |Sample-182 |  76.08013|kpb     |Male   |AAM         |ED    |Sample-182 |         1|                      1|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21438 |Prevotella melaninogenica et rel. |Sample-210 |  75.05250|qjy     |Female |AFR         |ED    |Sample-210 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21315 |Prevotella melaninogenica et rel. |Sample-104 |  74.84138|vem     |Male   |AFR         |HE    |Sample-104 |         3|                      2|lean       |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21396 |Prevotella melaninogenica et rel. |Sample-168 |  74.73237|mnk     |Female |AAM         |HE    |Sample-168 |         3|                      2|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21487 |Prevotella melaninogenica et rel. |Sample-89  |  74.23023|vem     |Male   |AFR         |HE    |Sample-89  |         2|                      1|lean       |Bacteroidetes |Prevotella melaninogenica et rel. |
+
+
 ### Standard data processing operations
 
 

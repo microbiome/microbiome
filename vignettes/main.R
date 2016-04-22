@@ -58,8 +58,6 @@ library(knitr)
 #fs <- "vignette.Rmd"
 #fs <- c("Networks.Rmd")
 fs <- sample(list.files(pattern = ".Rmd$"))
-
-#for (f in setdiff(fs, c("Atlas.Rmd", "vignette.Rmd"))) {
 for (f in fs) {
     print(f)
     knit(f) 

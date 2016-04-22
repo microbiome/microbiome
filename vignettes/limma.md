@@ -39,23 +39,12 @@ fit <- lmFit(otu, design)
 fit <- eBayes(fit)
 
 # Summarise 
-kable(topTable(fit, coef = coef.index, p.value=0.25), digits = 2)
+kable(topTable(fit, coef = coef.index, p.value=0.05), digits = 2)
 ```
 
-
-
-|                               | logFC| AveExpr|     t| P.Value| adj.P.Val|     B|
-|:------------------------------|-----:|-------:|-----:|-------:|---------:|-----:|
-|Uncultured Clostridiales II    | -0.41|    1.37| -3.72|    0.00|      0.06| -0.24|
-|Eubacterium siraeum et rel.    | -0.34|    1.67| -3.52|    0.00|      0.06| -0.77|
-|Clostridium nexile et rel.     |  0.18|    2.84|  3.41|    0.00|      0.06| -1.04|
-|Sutterella wadsworthia et rel. | -0.33|    1.50| -3.13|    0.00|      0.10| -1.74|
-|Uncultured Clostridiales I     | -0.68|    1.42| -2.89|    0.01|      0.13| -2.30|
-|Allistipes et rel.             | -0.25|    2.27| -2.87|    0.01|      0.13| -2.34|
-|Aerococcus                     |  0.42|    0.58|  2.77|    0.01|      0.15| -2.58|
-|Clostridium (sensu stricto)    | -0.43|    0.73| -2.70|    0.01|      0.16| -2.74|
-|Eubacterium rectale et rel.    |  0.14|    2.64|  2.62|    0.01|      0.16| -2.91|
-|Oxalobacter formigenes et rel. | -0.22|    2.18| -2.62|    0.01|      0.16| -2.91|
+```
+## Error in kable_markdown(x = structure(character(0), .Dim = c(0L, 0L), .Dimnames = list(: the table must have a header (column names)
+```
 
 
 ### Q-Q plot
@@ -103,10 +92,19 @@ pvalues.ttest <- p.adjust(pvalues.ttest, method = "fdr")
 # Compare p-values between limma and t-test
 taxa <- rownames(otu)
 plot(pvalues.ttest[taxa], pvalues.limma[taxa])
+```
+
+```
+## Error in plot(pvalues.ttest[taxa], pvalues.limma[taxa]): object 'pvalues.limma' not found
+```
+
+```r
 abline(0,1,lty = 2)
 ```
 
-![plot of chunk limma-compairson](figure/limma-compairson-1.png)
+```
+## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
+```
 
 ### Continuous variables
 

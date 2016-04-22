@@ -18,6 +18,10 @@ p <- boxplot_abundance(peerj32$phyloseq, x = "time", y = "Akkermansia", line = "
 print(p)
 ```
 
+```
+## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
+```
+
 ![plot of chunk boxplot-example](figure/boxplot-example-1.png)
 
 

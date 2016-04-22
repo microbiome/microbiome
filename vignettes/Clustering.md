@@ -26,6 +26,10 @@ m <- mixture.model(D, mixture.method = "vdp", pca.basis = FALSE)
 p <- PlotMixtureMultivariate(D, means = m$mu, sds = m$sd, ws = m$w, modes = apply(m$qofz,1,which.max))
 ```
 
+```
+## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 15 could not be loaded
+```
+
 ![plot of chunk LCA2](figure/LCA2-1.png)
 
 ### Univariate (infinite) Gaussian mixture model

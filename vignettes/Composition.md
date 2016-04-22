@@ -30,6 +30,10 @@ res <- plot_composition(pseq2, taxonomic.level = "Phylum")
 res$plot + theme(legend.position = "bottom")
 ```
 
+```
+## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 22 could not be loaded
+```
+
 ![plot of chunk composition-example1b](figure/composition-example1b-1.png)
 
 Arrange by sample variable and use custom X axis labels. Only consider the most abundant taxa. Africans have more Prevotella as expected. Absolute counts:
@@ -48,6 +52,10 @@ p <- p + theme(legend.position = "bottom")
 print(p)
 ```
 
+```
+## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 22 could not be loaded
+```
+
 ![plot of chunk composition-example4](figure/composition-example4-1.png)
 
 
@@ -61,6 +69,10 @@ p <- p + guides(fill = guide_legend(ncol = 1))
 #p <- p + theme(legend.position = "bottom")
 p <- p + ylab("Relative Abundance (%)")
 print(p)
+```
+
+```
+## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 22 could not be loaded
 ```
 
 ![plot of chunk composition-example4b](figure/composition-example4b-1.png)

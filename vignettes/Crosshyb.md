@@ -31,6 +31,10 @@ p <- res$plot
 print(p)
 ```
 
+```
+## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 15 could not be loaded
+```
+
 ![plot of chunk chyb](figure/chyb-1.png)
 
 ```r
@@ -65,6 +69,10 @@ mytaxa <- levelmap("Dialister", from = "L2", to = "species", tax.table)[[1]]
 res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, tax.table = tax.table)
 ```
 
+```
+## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 15 could not be loaded
+```
+
 ![plot of chunk chyb2](figure/chyb2-1.png)
 
 ```r
@@ -75,12 +83,12 @@ kable(head(res$data))
 
 
 
-|Taxon1                                 |Taxon2            | crosshyb|
-|:--------------------------------------|:-----------------|--------:|
-|Dialister invisus                      |Dialister invisus |        0|
-|Dialister pneumosintes                 |Dialister invisus |       50|
-|Uncultured bacterium clone Eldhufec089 |Dialister invisus |      100|
-|Uncultured bacterium clone Eldhufec093 |Dialister invisus |      100|
-|Uncultured bacterium clone Eldhufec096 |Dialister invisus |      100|
-|uncultured bacterium MG10              |Dialister invisus |       40|
+|Taxon1                       |Taxon2           | crosshyb|
+|:----------------------------|:----------------|--------:|
+|Actinomycetaceae             |Actinomycetaceae |  0.00000|
+|Aerococcus                   |Actinomycetaceae |  0.00000|
+|Aeromonas                    |Actinomycetaceae |  0.00000|
+|Akkermansia                  |Actinomycetaceae | 23.07692|
+|Alcaligenes faecalis et rel. |Actinomycetaceae |  0.00000|
+|Allistipes et rel.           |Actinomycetaceae |  0.00000|
 
