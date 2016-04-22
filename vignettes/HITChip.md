@@ -34,11 +34,54 @@ precalculated matrices are calculated with detection.threshold = 0):
 
 
 ```r
-pseq <- read_hitchip(data.directory, method = "frpa")$pseq
+library(HITChipDB)
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "read_hitchip"
+## Loading required package: DBI
+```
+
+```
+## Loading required package: preprocessCore
+```
+
+```
+## Loading required package: RMySQL
+```
+
+```
+## Loading required package: tcltk
+```
+
+```
+## 
+## HITChipDB R package (microbiome.github.com)
+## (C) 2011-2016 Leo Lahti and Jarkko Salojarvi <microbiome-admin@googlegroups.com>
+```
+
+```
+## 
+## Attaching package: 'HITChipDB'
+```
+
+```
+## The following objects are masked from 'package:RPA':
+## 
+##     n.phylotypes.per.oligo, summarize.rpa, summarize.sum
+```
+
+```r
+pseq <- HITChipDB::read_hitchip(data.directory, method = "frpa")$pseq
+```
+
+```
+## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
+## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
+## directory
+```
+
+```
+## Error in file(file, "rt"): cannot open the connection
 ```
 
 Get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
@@ -65,19 +108,31 @@ output directory (these are not available in the phyloseq object):
 
 
 ```r
-probedata <- read_hitchip(data.directory, method = "frpa")$probedata
+probedata <- HITChipDB::read_hitchip(data.directory, method = "frpa")$probedata
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "read_hitchip"
+## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
+## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
+## directory
+```
+
+```
+## Error in file(file, "rt"): cannot open the connection
 ```
 
 ```r
-taxonomy.full <- read_hitchip(data.directory, method = "frpa")$taxonomy.full
+taxonomy.full <- HITChipDB::read_hitchip(data.directory, method = "frpa")$taxonomy.full
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "read_hitchip"
+## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
+## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
+## directory
+```
+
+```
+## Error in file(file, "rt"): cannot open the connection
 ```
 
 Convert your own data into phyloseq format as follows:
@@ -100,7 +155,7 @@ taxonomy <- unique(as.data.frame(taxonomy[, c("L1", "L2", "species")]))
 rownames(taxonomy) <- as.vector(taxonomy[, "species"])
 
 # Merging data matrices into phyloseq format:
-pseq <- hitchip2physeq(t(otu), meta, taxonomy)
+pseq <- HITChipDB::hitchip2physeq(t(otu), meta, taxonomy)
 ```
 
 

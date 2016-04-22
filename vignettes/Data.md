@@ -2,7 +2,7 @@
 
 
 
-### HITChip Atlas of 1000 Western adults
+### Intestinal microbiota profiling of 1000 Western adults
 
 [The HITChip Atlas](Atlas.md) data set is available via the microbiome
 R package in phyloseq format, and also in [Data
@@ -52,12 +52,13 @@ data(peerj32)
 
 ## Importing and preprocessing microbiome data in R
 
-Use [phyloseq](http://joey711.github.io/phyloseq/import-data) tools to
-import standard microbiome data formats (mothur, qiime etc.) into an R
-phyloseq object.
+To import standard microbiome data formats (mothur, qiime etc.) into R
+as phyloseq object, use the
+[phyloseq](http://joey711.github.io/phyloseq/import-data) R package.
 
-For data preprocessing (filtering, subsetting etc.), see the
-[preprocessing tutorial](Preprocessing.md).
+Examples on data preprocessing (filtering, subsetting etc.) are
+available in the [preprocessing tutorial](Preprocessing.md).
+
 
 
 

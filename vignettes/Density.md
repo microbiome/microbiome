@@ -25,7 +25,7 @@ plot_density(x, "Prevotella melaninogenica et rel.")
 ```
 
 ```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
+## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 9 could not be loaded
 ```
 
 ![plot of chunk hist](figure/hist-1.png)
@@ -39,7 +39,7 @@ plot_density(x, "Prevotella melaninogenica et rel.", log10 = TRUE)
 ```
 
 ```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
+## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 9 could not be loaded
 ```
 
 ![plot of chunk hist2](figure/hist2-1.png)
@@ -58,7 +58,7 @@ plot_density(x, tax, log10 = TRUE) + ggtitle(paste(tax, "(Rel. Ab. %)"))
 ```
 
 ```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
+## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 9 could not be loaded
 ```
 
 ![plot of chunk hist3](figure/hist3-1.png)
