@@ -1,11 +1,11 @@
 ## Intestinal microbiota diversity in 1006 western adults
 
-Let us investigate an example data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). This contains microbiota profiling of 130 genus-like taxa across 1006 normal western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d).
+The data set from [Lahti et al. Nat. Comm. 5:4344,
+2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
+has microbiota profiling of 130 genus-like taxa across 1006 normal
+western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d).
 
-
-### Download HITChip Atlas data
-
-[Load the HITChip Atlas microbiome profiling data in R](Data.md)
+Download the data in R:
 
 ```{r data2}
 # Download the required R packages and then the HITChip Atlas data set
@@ -29,7 +29,7 @@ kable(head(div))
 ### Diversity vs. obesity
 
 ```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.height=5}
-p <- plot_diversity(pseq, x = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250)
+p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250)
 print(p)
 ```
 
