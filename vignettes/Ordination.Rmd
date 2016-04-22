@@ -49,7 +49,7 @@ print(p)
 
 Projection with sample names:
 
-```{r visu-example2, message=FALSE, message=FALSE, fig.height=8, fig.width=8, fig.path = "figure/"}
+```{r visu-example2, message=FALSE, message=FALSE, fig.height=7, fig.width=5, fig.path = "figure/"}
 ax1 <- names(proj)[[1]]
 ax2 <- names(proj)[[2]]
 ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) + geom_text(size = 2)
