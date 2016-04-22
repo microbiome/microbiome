@@ -114,14 +114,6 @@ pseq1 <- transform_phyloseq(pseq, "relative.abundance", "OTU")
 pseq2 <- transform_sample_counts(pseq, function(x) x/sum(x))
 ```
 
-Relative abundance for plain abundance matrix:
-
-```{r diversity-example6}
-dat <- otu_table(pseq)@.Data
-rel <- relative.abundance(dat, det.th = 0)
-```
-
-
 
 ### Variable operations
 
