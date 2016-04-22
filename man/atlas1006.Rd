@@ -12,7 +12,7 @@ data(atlas1006)
 This data set contains genus-level microbiota profiling with HITChip for 1006 western adults with no reported health complications, reported in Lahti et al. (2014) \url{http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html}.
 }
 \details{
-The data is also available for download from the Data Dryad repository \url{http://doi.org/10.5061/dryad.pk75d}. See \code{\link{download_atlas}}.
+The data is also available for download from the Data Dryad repository \url{http://doi.org/10.5061/dryad.pk75d}.
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}
