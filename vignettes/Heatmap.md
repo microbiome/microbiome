@@ -181,10 +181,6 @@ p <- p + xlab("") + ylab("")
 print(p)
 ```
 
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
-```
-
 ![plot of chunk heatmap-example-text](figure/heatmap-example-text-1.png)
 
 ### Links

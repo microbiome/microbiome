@@ -55,10 +55,6 @@ p <- plot_diversity(pseq, "bmi_group", measures = c("Chao1", "Shannon"), indicat
 print(p)
 ```
 
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
-```
-
 ![plot of chunk div-example2](figure/div-example2-1.png)
 
 ```r
@@ -73,9 +69,7 @@ p <- plot_diversity(psub, "timepoint", measures = c("Chao1", "Shannon"), indicat
 print(p)
 ```
 
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
-```
+![plot of chunk div-example2](figure/div-example2-2.png)
 
 Same with the phyloseq function:
 
@@ -84,10 +78,6 @@ Same with the phyloseq function:
 p <- plot_richness(pseq, "group", measures = c("Chao1", "Shannon"))
 p <- p + geom_boxplot()
 print(p)
-```
-
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
 ```
 
 ![plot of chunk div-example2b](figure/div-example2b-1.png)
@@ -102,10 +92,6 @@ data("dietswap")
 p <- plot_richness(dietswap, x = "sex", color = "group", measures = c("Shannon", "Simpson")) 
 p <- p + geom_boxplot()
 print(p)
-```
-
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
 ```
 
 ![plot of chunk richness](figure/richness-1.png)
@@ -127,10 +113,6 @@ Same with the phyloseq function:
 p <- plot_richness(atlas1006, "age", measures = "Shannon")
 p <- p + geom_smooth()
 print(p)
-```
-
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
 ```
 
 ![plot of chunk diversitywithmetadata2b](figure/diversitywithmetadata2b-1.png)

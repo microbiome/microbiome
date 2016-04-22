@@ -52,10 +52,6 @@ p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
 print(p)
 ```
 
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
-```
-
 ![plot of chunk ordination4](figure/ordination4-1.png)
 
 ```r
@@ -72,9 +68,7 @@ p <- densityplot(proj[, 1:2], col = prevotella.abundance, legend = T)
 print(p)
 ```
 
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
-```
+![plot of chunk ordination4](figure/ordination4-2.png)
 
 Projection with sample names:
 
@@ -83,10 +77,6 @@ Projection with sample names:
 ax1 <- names(proj)[[1]]
 ax2 <- names(proj)[[2]]
 ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) + geom_text(size = 2)
-```
-
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
 ```
 
 ![plot of chunk visu-example2](figure/visu-example2-1.png)
@@ -100,10 +90,6 @@ p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Phylum", title = "
 print(p)
 ```
 
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
-```
-
 ![plot of chunk pca-ordination21](figure/pca-ordination21-1.png)
 
 Grouping the plots by Phylum
@@ -111,10 +97,6 @@ Grouping the plots by Phylum
 
 ```r
 p + facet_wrap(~Phylum, 5)
-```
-
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
 ```
 
 ![plot of chunk pca-ordination22](figure/pca-ordination22-1.png)
@@ -125,10 +107,6 @@ p + facet_wrap(~Phylum, 5)
 
 ```r
 plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") + geom_point(size = 5)
-```
-
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
 ```
 
 ![plot of chunk ordinate23](figure/ordinate23-1.png)
@@ -148,10 +126,6 @@ p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gen
 p + geom_point(size = 5)
 ```
 
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
-```
-
 ![plot of chunk ordinate24a](figure/ordinate24a-1.png)
 
 With taxa:
@@ -161,10 +135,6 @@ With taxa:
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "taxa", color = "Phylum")
 p <- p + geom_point(size = 4)
 print(p)
-```
-
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
 ```
 
 ![plot of chunk ordinate24b](figure/ordinate24b-1.png)
@@ -178,10 +148,6 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender",
     color = "Phylum", label = "gender")
 ```
 
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
-```
-
 ![plot of chunk ordinate25](figure/ordinate25-1.png)
 
 
@@ -190,10 +156,6 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender",
 
 ```r
 plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
-```
-
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
 ```
 
 ![plot of chunk ordinate26](figure/ordinate26-1.png)

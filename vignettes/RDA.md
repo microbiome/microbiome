@@ -61,7 +61,7 @@ permutest(rda.result)
 ## na.action)
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.6049309 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.95
+## Significance:	 0.91
 ```
 
 ### Bagged RDA
@@ -80,10 +80,6 @@ Visualizing bagged RDA:
 
 ```r
 plot_bagged_rda(res)
-```
-
-```
-## Error in text.default(scaled.scores, rownames(scaled.scores), cex = 0.5, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 6 could not be loaded
 ```
 
 ![plot of chunk rda6](figure/rda6-1.png)

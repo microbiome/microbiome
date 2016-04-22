@@ -51,14 +51,14 @@ kable(head(df))
 
 
 
-|     |OTU                                  |Sample    | Abundance| time|gender |subject |sample    |group   |Phylum                 |Genus                                |
-|:----|:------------------------------------|:---------|---------:|----:|:------|:-------|:---------|:-------|:----------------------|:------------------------------------|
-|1049 |Bacteroides vulgatus et rel.         |sample-37 |      9735|    1|male   |S19     |sample-37 |LGG     |Bacteroidetes          |Bacteroides vulgatus et rel.         |
-|1055 |Bacteroides vulgatus et rel.         |sample-27 |      5884|    1|female |S14     |sample-27 |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |
-|1016 |Bacteroides vulgatus et rel.         |sample-16 |      5135|    2|female |S8      |sample-16 |LGG     |Bacteroidetes          |Bacteroides vulgatus et rel.         |
-|2846 |Faecalibacterium prausnitzii et rel. |sample-34 |      4912|    2|male   |S17     |sample-34 |Placebo |Clostridium cluster IV |Faecalibacterium prausnitzii et rel. |
-|1048 |Bacteroides vulgatus et rel.         |sample-17 |      4857|    1|male   |S9      |sample-17 |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |
-|1033 |Bacteroides vulgatus et rel.         |sample-1  |      4683|    1|female |S1      |sample-1  |Placebo |Bacteroidetes          |Bacteroides vulgatus et rel.         |
+|      |OTU                               |Sample     | Abundance| age|gender |nationality   |DNA_extraction_method |project | diversity|bmi_group   |subject | time|sample     |Phylum                 |Genus                             |
+|:-----|:---------------------------------|:----------|---------:|---:|:------|:-------------|:---------------------|:-------|---------:|:-----------|:-------|----:|:----------|:----------------------|:---------------------------------|
+|50954 |Prevotella melaninogenica et rel. |Sample-149 |  68.01487|  30|female |CentralEurope |r                     |7       |      5.81|underweight |149     |    0|Sample-149 |Bacteroidetes          |Prevotella melaninogenica et rel. |
+|19302 |Clostridium difficile et rel.     |Sample-293 |  67.48385|  26|male   |CentralEurope |r                     |9       |      4.87|lean        |293     |    0|Sample-293 |Clostridium cluster XI |Clostridium difficile et rel.     |
+|51129 |Prevotella melaninogenica et rel. |Sample-193 |  62.30726|  22|male   |CentralEurope |r                     |7       |      5.93|lean        |193     |    0|Sample-193 |Bacteroidetes          |Prevotella melaninogenica et rel. |
+|51095 |Prevotella melaninogenica et rel. |Sample-852 |  60.28698|  26|male   |UKIE          |r                     |24      |      5.77|overweight  |852     |    0|Sample-852 |Bacteroidetes          |Prevotella melaninogenica et rel. |
+|51035 |Prevotella melaninogenica et rel. |Sample-89  |  57.65584|  25|male   |SouthEurope   |r                     |6       |      5.83|lean        |89      |    0|Sample-89  |Bacteroidetes          |Prevotella melaninogenica et rel. |
+|50910 |Prevotella melaninogenica et rel. |Sample-844 |  57.43696|  44|male   |Scandinavia   |r                     |23      |      5.85|lean        |844     |    0|Sample-844 |Bacteroidetes          |Prevotella melaninogenica et rel. |
 
 
 ### Standard data processing operations
@@ -159,6 +159,10 @@ Relative abundance for plain abundance matrix:
 ```r
 dat <- otu_table(pseq)@.Data
 rel <- relative.abundance(dat, det.th = 0)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "relative.abundance"
 ```
 
 

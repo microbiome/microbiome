@@ -24,6 +24,8 @@ pseq <- atlas1006
 ```r
 library(phyloseq)
 div <- estimate_diversity(pseq, measures = c("Observed", "Shannon", "Simpson"))
+
+library(knitr)
 kable(head(div))
 ```
 
@@ -45,10 +47,6 @@ kable(head(div))
 ```r
 p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250)
 print(p)
-```
-
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
 ```
 
 ![plot of chunk div-example2](figure/div-example2-1.png)

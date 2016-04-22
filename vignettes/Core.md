@@ -55,24 +55,12 @@ core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds 
 det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
 res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot", plot = FALSE)
 res$plot + xlab("Abundance (OTU read count)")
-```
 
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
-```
-
-```r
 # Core lineplot with relative abundances
 det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
 res <- plot_core(pseq.rel, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot", plot = FALSE)
 res$plot + xlab("Relative Abundance (%)")
-```
 
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
-```
-
-```r
 # Retrieve the core count data matrix
 coremat <- res$data
 print(coremat)
@@ -91,7 +79,7 @@ print(coremat)
 ## 20    0   0   0   0   0   0   0   0   0   0
 ```
 
-<img src="figure/core-example2-1.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="430px" />
+<img src="figure/core-example2-1.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="430px" /><img src="figure/core-example2-2.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="430px" />
 
 
 ### Core heatmaps

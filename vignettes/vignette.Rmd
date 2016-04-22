@@ -15,7 +15,7 @@ output:
   %\usepackage[utf8]{inputenc}
 -->
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE, warnings=FALSE}
 # Handle citations
 require(knitcitations)
 cleanbib()
@@ -28,7 +28,7 @@ bib <- read.bibtex("bibliography.bib")
 microbiome R package
 ===========
 
-Tools for microbiome analysis in R `r citep(bib[["rcore13"]])`.
+Tools for microbiome analysis in R (`r citep(bib[["rcore13"]])`).
 
 
 ### Getting started

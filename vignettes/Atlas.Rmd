@@ -22,6 +22,8 @@ pseq <- atlas1006
 ```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
 library(phyloseq)
 div <- estimate_diversity(pseq, measures = c("Observed", "Shannon", "Simpson"))
+
+library(knitr)
 kable(head(div))
 ```
 

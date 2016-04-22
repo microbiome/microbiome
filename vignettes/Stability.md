@@ -94,9 +94,7 @@ library(ggplot2)
 grid.arrange(p1, p2, nrow = 1)
 ```
 
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
-```
+![plot of chunk stability2](figure/stability2-1.png)
 
 
 ## Comparing bimodality and intermediate stability
@@ -113,10 +111,6 @@ theme_set(theme_bw(20))
 p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
 p <- p + geom_text(size = 3)
 p
-```
-
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
 ```
 
 ![plot of chunk bimodalitybistability](figure/bimodalitybistability-1.png)
@@ -164,13 +158,7 @@ Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) 
 # for subjects with multiple time points
 pv <- plot_variation(pseq, "Dialister", tipping.point = tipping.point, xlim = c(0.01, 100))
 print(pv)
-```
 
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
-```
-
-```r
 # Bimodality hotplot:
 # Only consider a unique sample from each subject
 # baseline time point for density plot
@@ -179,11 +167,7 @@ ph <- plot_bimodal(pseq.baseline, "Dialister", tipping.point = tipping.point)
 print(ph)
 ```
 
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 16 could not be loaded
-```
-
-<img src="figure/stability-variationplot-1.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" />
+<img src="figure/stability-variationplot-1.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" /><img src="figure/stability-variationplot-2.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" />
 
 
 
@@ -209,23 +193,21 @@ sessionInfo()
 ## [11] LC_MEASUREMENT=de_BE.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
-##  [1] splines   stats4    grid      parallel  stats     graphics  grDevices
-##  [8] utils     datasets  methods   base     
+## [1] grid      parallel  stats     graphics  grDevices utils     datasets 
+## [8] methods   base     
 ## 
 ## other attached packages:
 ##  [1] earlywarnings_1.1.22 tseries_0.10-34      tgp_2.4-14          
-##  [4] moments_0.14         gridExtra_2.2.1      scales_0.4.0        
-##  [7] SpiecEasi_0.1        VGAM_1.0-1           huge_1.2.7          
-## [10] igraph_1.0.1         lattice_0.20-33      Matrix_1.2-5        
-## [13] knitcitations_1.0.7  knitr_1.12.3         intergraph_2.0-2    
-## [16] sna_2.3-2            network_1.13.0       ggnet_0.1.0         
-## [19] GGally_1.0.1         devtools_1.11.0      limma_3.26.9        
-## [22] sorvi_0.7.41         ggplot2_2.1.0        tidyr_0.4.1         
-## [25] dplyr_0.4.3          MASS_7.3-45          netresponse_1.20.15 
-## [28] reshape2_1.4.1       mclust_5.2           minet_3.28.0        
-## [31] Rgraphviz_2.14.0     graph_1.48.0         microbiome_0.99.79  
-## [34] RPA_1.27.41          phyloseq_1.14.0      affy_1.48.0         
-## [37] Biobase_2.30.0       BiocGenerics_0.16.1 
+##  [4] moments_0.14         gridExtra_2.2.1      knitcitations_1.0.7 
+##  [7] knitr_1.12.3         intergraph_2.0-2     sna_2.3-2           
+## [10] network_1.13.0       ggnet_0.1.0          GGally_1.0.1        
+## [13] devtools_1.11.0      limma_3.26.9         sorvi_0.7.41        
+## [16] ggplot2_2.1.0        tidyr_0.4.1          dplyr_0.4.3         
+## [19] MASS_7.3-45          netresponse_1.20.15  reshape2_1.4.1      
+## [22] mclust_5.2           minet_3.28.0         Rgraphviz_2.14.0    
+## [25] graph_1.48.0         microbiome_0.99.79   RPA_1.27.41         
+## [28] phyloseq_1.14.0      affy_1.48.0          Biobase_2.30.0      
+## [31] BiocGenerics_0.16.1 
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] nlme_3.1-127          bitops_1.0-6          lubridate_1.5.6      
@@ -236,20 +218,22 @@ sessionInfo()
 ## [16] colorspace_1.2-6      permute_0.9-0         ade4_1.7-4           
 ## [19] withr_1.0.1           preprocessCore_1.32.0 chron_2.3-47         
 ## [22] formatR_1.3           labeling_0.3          diptest_0.75-7       
-## [25] lmtest_0.9-34         mvtnorm_1.0-5         quadprog_1.5-5       
-## [28] stringr_1.0.0         digest_0.6.9          XVector_0.10.0       
-## [31] bibtex_0.4.0          maps_3.1.0            BiocInstaller_1.20.1 
-## [34] zoo_1.7-12            RCurl_1.95-4.8        magrittr_1.5         
-## [37] Rcpp_0.12.4           munsell_0.4.3         S4Vectors_0.8.11     
-## [40] maptree_1.4-7         ape_3.4               RefManageR_0.10.13   
-## [43] stringi_1.0-1         RJSONIO_1.3-0         zlibbioc_1.16.0      
-## [46] plyr_1.8.3            qvalue_2.2.2          Biostrings_2.38.4    
-## [49] multtest_2.26.0       boot_1.3-18           codetools_0.2-14     
-## [52] XML_3.98-1.4          evaluate_0.8.3        biom_0.3.12          
-## [55] data.table_1.9.6      spam_1.3-0            foreach_1.4.3        
-## [58] gtable_0.2.0          reshape_0.8.5         assertthat_0.1       
-## [61] Kendall_2.2           survival_2.39-2       iterators_1.0.8      
-## [64] som_0.3-5             memoise_1.0.0         IRanges_2.4.8        
-## [67] fields_8.3-6          cluster_2.0.4
+## [25] scales_0.4.0          lmtest_0.9-34         mvtnorm_1.0-5        
+## [28] quadprog_1.5-5        stringr_1.0.0         digest_0.6.9         
+## [31] XVector_0.10.0        bibtex_0.4.0          maps_3.1.0           
+## [34] BiocInstaller_1.20.1  zoo_1.7-12            RCurl_1.95-4.8       
+## [37] magrittr_1.5          Matrix_1.2-5          Rcpp_0.12.4          
+## [40] munsell_0.4.3         S4Vectors_0.8.11      maptree_1.4-7        
+## [43] ape_3.4               RefManageR_0.10.13    stringi_1.0-1        
+## [46] RJSONIO_1.3-0         zlibbioc_1.16.0       plyr_1.8.3           
+## [49] qvalue_2.2.2          lattice_0.20-33       Biostrings_2.38.4    
+## [52] splines_3.2.5         multtest_2.26.0       igraph_1.0.1         
+## [55] boot_1.3-18           codetools_0.2-14      stats4_3.2.5         
+## [58] XML_3.98-1.4          evaluate_0.8.3        biom_0.3.12          
+## [61] data.table_1.9.6      spam_1.3-0            foreach_1.4.3        
+## [64] gtable_0.2.0          reshape_0.8.5         assertthat_0.1       
+## [67] Kendall_2.2           survival_2.39-2       iterators_1.0.8      
+## [70] som_0.3-5             memoise_1.0.0         IRanges_2.4.8        
+## [73] fields_8.3-6          cluster_2.0.4
 ```
 

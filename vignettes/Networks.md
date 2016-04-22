@@ -18,10 +18,6 @@ ig <- make_network(pseq, max.dist = 0.2)
 plot_network(ig, pseq, color = "nationality", shape = "group", line_weight = 0.4, label = "sample")
 ```
 
-```
-## Error in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 6 could not be loaded
-```
-
 ![plot of chunk networks2](figure/networks2-1.png)
 
 Another example:
@@ -29,10 +25,6 @@ Another example:
 
 ```r
 plot_net(pseq, maxdist = 0.2, point_label = "group")
-```
-
-```
-## Error in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 6 could not be loaded
 ```
 
 ![plot of chunk networks3](figure/networks3-1.png)
@@ -107,10 +99,6 @@ phyla <- levelmap(colnames(otu), from = "Genus", to = "Phylum", tax_table(pseq))
 netw %v% "Phylum" <- phyla
 p <- ggnet2(netw, color = "Phylum", label = TRUE, label.size = 2)
 print(p)
-```
-
-```
-## Error in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, : X11 font -adobe-helvetica-%s-%s-*-*-%d-*-*-*-*-*-*-*, face 1 at size 9 could not be loaded
 ```
 
 ![plot of chunk networks5](figure/networks5-1.png)

@@ -28,7 +28,7 @@ output:
 microbiome R package
 ===========
 
-Tools for microbiome analysis in R (R Core Team, 2013).
+Tools for microbiome analysis in R ((R Core Team, 2013)).
 
 
 ### Getting started
@@ -207,23 +207,21 @@ sessionInfo()
 ## [11] LC_MEASUREMENT=de_BE.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
-##  [1] splines   stats4    grid      parallel  stats     graphics  grDevices
-##  [8] utils     datasets  methods   base     
+## [1] grid      parallel  stats     graphics  grDevices utils     datasets 
+## [8] methods   base     
 ## 
 ## other attached packages:
 ##  [1] earlywarnings_1.1.22 tseries_0.10-34      tgp_2.4-14          
-##  [4] moments_0.14         gridExtra_2.2.1      scales_0.4.0        
-##  [7] SpiecEasi_0.1        VGAM_1.0-1           huge_1.2.7          
-## [10] igraph_1.0.1         lattice_0.20-33      Matrix_1.2-5        
-## [13] knitcitations_1.0.7  knitr_1.12.3         intergraph_2.0-2    
-## [16] sna_2.3-2            network_1.13.0       ggnet_0.1.0         
-## [19] GGally_1.0.1         devtools_1.11.0      limma_3.26.9        
-## [22] sorvi_0.7.41         ggplot2_2.1.0        tidyr_0.4.1         
-## [25] dplyr_0.4.3          MASS_7.3-45          netresponse_1.20.15 
-## [28] reshape2_1.4.1       mclust_5.2           minet_3.28.0        
-## [31] Rgraphviz_2.14.0     graph_1.48.0         microbiome_0.99.79  
-## [34] RPA_1.27.41          phyloseq_1.14.0      affy_1.48.0         
-## [37] Biobase_2.30.0       BiocGenerics_0.16.1 
+##  [4] moments_0.14         gridExtra_2.2.1      knitcitations_1.0.7 
+##  [7] knitr_1.12.3         intergraph_2.0-2     sna_2.3-2           
+## [10] network_1.13.0       ggnet_0.1.0          GGally_1.0.1        
+## [13] devtools_1.11.0      limma_3.26.9         sorvi_0.7.41        
+## [16] ggplot2_2.1.0        tidyr_0.4.1          dplyr_0.4.3         
+## [19] MASS_7.3-45          netresponse_1.20.15  reshape2_1.4.1      
+## [22] mclust_5.2           minet_3.28.0         Rgraphviz_2.14.0    
+## [25] graph_1.48.0         microbiome_0.99.79   RPA_1.27.41         
+## [28] phyloseq_1.14.0      affy_1.48.0          Biobase_2.30.0      
+## [31] BiocGenerics_0.16.1 
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] nlme_3.1-127          bitops_1.0-6          lubridate_1.5.6      
@@ -234,22 +232,24 @@ sessionInfo()
 ## [16] mgcv_1.8-12           colorspace_1.2-6      permute_0.9-0        
 ## [19] ade4_1.7-4            withr_1.0.1           preprocessCore_1.32.0
 ## [22] chron_2.3-47          formatR_1.3           labeling_0.3         
-## [25] diptest_0.75-7        lmtest_0.9-34         mvtnorm_1.0-5        
-## [28] quadprog_1.5-5        stringr_1.0.0         digest_0.6.9         
-## [31] XVector_0.10.0        bibtex_0.4.0          highr_0.5.1          
-## [34] maps_3.1.0            BiocInstaller_1.20.1  zoo_1.7-12           
-## [37] RCurl_1.95-4.8        magrittr_1.5          Rcpp_0.12.4          
-## [40] munsell_0.4.3         S4Vectors_0.8.11      maptree_1.4-7        
-## [43] ape_3.4               RefManageR_0.10.13    stringi_1.0-1        
-## [46] RJSONIO_1.3-0         zlibbioc_1.16.0       plyr_1.8.3           
-## [49] qvalue_2.2.2          Biostrings_2.38.4     multtest_2.26.0      
-## [52] boot_1.3-18           codetools_0.2-14      XML_3.98-1.4         
-## [55] evaluate_0.8.3        biom_0.3.12           data.table_1.9.6     
-## [58] spam_1.3-0            foreach_1.4.3         gtable_0.2.0         
-## [61] reshape_0.8.5         assertthat_0.1        Kendall_2.2          
-## [64] survival_2.39-2       iterators_1.0.8       som_0.3-5            
-## [67] memoise_1.0.0         IRanges_2.4.8         fields_8.3-6         
-## [70] cluster_2.0.4
+## [25] diptest_0.75-7        scales_0.4.0          lmtest_0.9-34        
+## [28] mvtnorm_1.0-5         quadprog_1.5-5        stringr_1.0.0        
+## [31] digest_0.6.9          XVector_0.10.0        bibtex_0.4.0         
+## [34] highr_0.5.1           maps_3.1.0            BiocInstaller_1.20.1 
+## [37] zoo_1.7-12            RCurl_1.95-4.8        magrittr_1.5         
+## [40] Matrix_1.2-5          Rcpp_0.12.4           munsell_0.4.3        
+## [43] S4Vectors_0.8.11      maptree_1.4-7         ape_3.4              
+## [46] RefManageR_0.10.13    stringi_1.0-1         RJSONIO_1.3-0        
+## [49] zlibbioc_1.16.0       plyr_1.8.3            qvalue_2.2.2         
+## [52] lattice_0.20-33       Biostrings_2.38.4     splines_3.2.5        
+## [55] multtest_2.26.0       igraph_1.0.1          boot_1.3-18          
+## [58] codetools_0.2-14      stats4_3.2.5          XML_3.98-1.4         
+## [61] evaluate_0.8.3        biom_0.3.12           data.table_1.9.6     
+## [64] spam_1.3-0            foreach_1.4.3         gtable_0.2.0         
+## [67] reshape_0.8.5         assertthat_0.1        Kendall_2.2          
+## [70] survival_2.39-2       iterators_1.0.8       som_0.3-5            
+## [73] memoise_1.0.0         IRanges_2.4.8         fields_8.3-6         
+## [76] cluster_2.0.4
 ```
 
 
