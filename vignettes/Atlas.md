@@ -1,32 +1,18 @@
 ## Intestinal microbiota diversity in 1006 western adults
 
-Let us investigate an example data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). This contains microbiota profiling of 130 genus-like taxa across 1006 normal western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d).
+The data set from [Lahti et al. Nat. Comm. 5:4344,
+2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
+has microbiota profiling of 130 genus-like taxa across 1006 normal
+western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d).
 
-
-### Download HITChip Atlas data
-
-[Load the HITChip Atlas microbiome profiling data in R](Data.md)
+Download the data in R:
 
 
 ```r
 # Download the required R packages and then the HITChip Atlas data set
-library("rdryad")
 library("microbiome")
-pseq <- download_microbiome("atlas1006")
-```
-
-```
-## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
-```
-
-```
-## Warning in file(file, "rt"): cannot open file '/home/antagomir/R/x86_64-pc-
-## linux-gnu-library/3.2/microbiome/extdata/taxonomy.full.tab': No such file
-## or directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
+data("atlas1006")
+pseq <- atlas1006
 ```
 
 
@@ -38,6 +24,8 @@ pseq <- download_microbiome("atlas1006")
 ```r
 library(phyloseq)
 div <- estimate_diversity(pseq, measures = c("Observed", "Shannon", "Simpson"))
+
+library(knitr)
 kable(head(div))
 ```
 
@@ -57,20 +45,11 @@ kable(head(div))
 
 
 ```r
-p <- plot_diversity(pseq, x = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250)
-```
-
-```
-## Error in access(object, "otu_table", errorIfNULL): otu_table slot is empty.
-```
-
-```r
+p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250)
 print(p)
 ```
 
-```
-## NULL
-```
+![plot of chunk div-example2](figure/div-example2-1.png)
 
 
 ### Diversity vs. age
@@ -89,6 +68,3 @@ print(p)
 ![plot of chunk atlas-example3](figure/atlas-example3-1.png)
 
 
-## Further resources
-
-For further examples, see [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)

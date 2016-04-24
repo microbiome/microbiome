@@ -17,25 +17,12 @@ library(dplyr)
 
 # Pick the phylogeny which was used to summarize probes to species level
 tax.table <- GetPhylogeny("HITChip", "full")
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
-```
-
-```r
 #data("hitchip.taxonomy")
 #tax.table <- as.data.frame(hitchip.taxonomy$filtered@.Data)
 
 # Check cross-hyb between all L2 groups
 res <- PlotCrosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE, tax.table = tax.table)
-```
-
-```
-## Error in tax_table(as(x, "matrix")[i, j, drop = FALSE]): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error in as(x, "matrix")[i, j, drop = FALSE] : subscript out of bounds
-```
-
-```r
+    
 # Pick the crosshyb table and figure
 crosshyb.table <- res$data
 p <- res$plot
@@ -44,34 +31,24 @@ p <- res$plot
 print(p)
 ```
 
-```
-## NULL
-```
+![plot of chunk chyb](figure/chyb-1.png)
 
 ```r
 # Organize the Crosshyb table
 suppressMessages(library(dplyr))
 s <- filter(res$data, crosshyb > 0)
-```
-
-```
-## Error in UseMethod("filter_"): no applicable method for 'filter_' applied to an object of class "NULL"
-```
-
-```r
 s <- s[rev(order(s$crosshyb)),]
-```
-
-```
-## Error in eval(expr, envir, enclos): object 's' not found
-```
-
-```r
 head(s)
 ```
 
 ```
-## Error in head(s): error in evaluating the argument 'x' in selecting a method for function 'head': Error: object 's' not found
+##                          Taxon1                         Taxon2  crosshyb
+## 886    Uncultured Bacteroidetes   Bacteroides plebeius et rel. 100.00000
+## 244    Uncultured Bacteroidetes             Allistipes et rel.  96.42857
+## 6539   Uncultured Bacteroidetes             Tannerella et rel.  92.85714
+## 7043                Leminorella               Yersinia et rel.  91.30435
+## 780  Bacteroides ovatus et rel.   Bacteroides fragilis et rel.  90.90909
+## 4703               Burkholderia Oxalobacter formigenes et rel.  90.00000
 ```
 
 
@@ -83,20 +60,12 @@ Investigate species-species cross-hybridization within the Dialister L2 group
 ```r
 # Select species belonging to Dialister L2 group
 mytaxa <- levelmap("Dialister", from = "L2", to = "species", tax.table)[[1]]
-```
 
-```
-## Error in tax_table(as(x, "matrix")[i, j, drop = FALSE]): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error in as(x, "matrix")[i, j, drop = FALSE] : subscript out of bounds
-```
-
-```r
 # Check cross-hyb between Dialister species
 res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, tax.table = tax.table)
 ```
 
-```
-## Error in tax_table(as(x, "matrix")[i, j, drop = FALSE]): error in evaluating the argument 'object' in selecting a method for function 'tax_table': Error in as(x, "matrix")[i, j, drop = FALSE] : subscript out of bounds
-```
+![plot of chunk chyb2](figure/chyb2-1.png)
 
 ```r
 # Check the cross-hyb data as well
@@ -104,7 +73,14 @@ library(knitr)
 kable(head(res$data))
 ```
 
-```
-## Error in kable_markdown(x = structure(character(0), .Dim = c(0L, 0L), .Dimnames = list(: the table must have a header (column names)
-```
+
+
+|Taxon1                                 |Taxon2            | crosshyb|
+|:--------------------------------------|:-----------------|--------:|
+|Dialister invisus                      |Dialister invisus |        0|
+|Dialister pneumosintes                 |Dialister invisus |       50|
+|Uncultured bacterium clone Eldhufec089 |Dialister invisus |      100|
+|Uncultured bacterium clone Eldhufec093 |Dialister invisus |      100|
+|Uncultured bacterium clone Eldhufec096 |Dialister invisus |      100|
+|uncultured bacterium MG10              |Dialister invisus |       40|
 

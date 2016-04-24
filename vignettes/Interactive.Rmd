@@ -1,6 +1,6 @@
 ## Interactive plots
 
-```{r interactive-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, fig.path = "figure/"}
+```{r interactive-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, eval = FALSE, fig.path = "figure/"}
 library(ggplot2)
 library(rvg)
 library(ggiraph)
@@ -29,3 +29,4 @@ gg_point_1 <- ggplot(df, aes(x = Prevotella, y = Dialister,
 # htmlwidget call
 ggiraph(code = {print(gg_point_1 + mytheme_main)}, width = 7, height = 6)
 ```
+

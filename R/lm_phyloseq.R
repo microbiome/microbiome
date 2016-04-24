@@ -28,6 +28,17 @@ lm_phyloseq <- function (x, varname, transformation = "log10", p.adj.method = "B
   otu <- otu_table(x)@.Data
   if (!taxa_are_rows(x)) {otu <- t(otu)}
 
+  # Remove missing vals
+  keep = which(rowSums(is.na(design)) == 0)
+
+  if (length(keep) > 0) {
+    otu = otu[,keep]
+    design = design[keep,]
+  } else {
+    warning("All samples have missing values in the metadata design matrix. Halting the computation.")
+    return(NULL)
+  }
+  
   # Fit the limma model
   fit <- lmFit(otu, design)
   fit2 <- eBayes(fit)

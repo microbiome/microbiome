@@ -4,7 +4,7 @@
 \alias{levelmap}
 \title{Map taxonomic levels}
 \usage{
-levelmap(taxa = NULL, from, to, tax.table)
+levelmap(taxa = NULL, from, to, data)
 }
 \arguments{
 \item{taxa}{taxa to convert; 
@@ -14,7 +14,7 @@ if NULL then considering all taxa in the tax.table}
 
 \item{to}{convert to taxonomic level}
 
-\item{tax.table}{tax.table}
+\item{data}{Either a \code{\link{phyloseq}} object or \code{\link{taxonomyTable}}, see the \pkg{phyloseq} package.}
 }
 \value{
 mappings

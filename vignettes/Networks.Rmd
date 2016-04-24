@@ -74,7 +74,7 @@ plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize))
 
 Visualize the network with [ggnet2](https://briatte.github.io/ggnet):
 
-```{r networks5, warning=FALSE, message=FALSE, fig.width=10, fig.height=10}
+```{r networks5, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
 library(GGally)
 library(ggnet)
 library(network)

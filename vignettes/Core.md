@@ -21,12 +21,8 @@ head(prevalence(pseq.rel, detection.threshold = 1, sort = FALSE))
 ```
 
 ```
-##             Actinomycetaceae                   Aerococcus 
-##                      0.00000                      0.00000 
-##                    Aeromonas                  Akkermansia 
-##                      0.00000                     52.27273 
-## Alcaligenes faecalis et rel.           Allistipes et rel. 
-##                      0.00000                     34.09091
+## sample-1 sample-2 sample-3 sample-4 sample-5 sample-6 
+## 20.76923 19.23077 20.00000 20.00000 20.00000 20.76923
 ```
 
 

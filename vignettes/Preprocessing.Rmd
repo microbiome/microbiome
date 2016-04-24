@@ -1,16 +1,60 @@
-## Standard data processing operations
+## Preprocessing taxonomic profiling data
 
-The high-quality [phyloseq package](http://joey711.github.io/phyloseq/) provides a complete set of tools for data subsetting, aggregating and filtering.
+Here we show how to manipulate microbiome data sets using tools from
+the [phyloseq package](http://joey711.github.io/phyloseq/), including
+subsetting, aggregating and filtering.
 
-Download example data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling:
+
+### Picking data from phyloseq  
+
+Assuming your data ('pseq' below) is in the phyloseq format, many
+standard tools are available.
+
+
+Sample metadata:
+
+```{r data21}
+library(phyloseq)
+meta <- sample_data(pseq)
+```
+
+Taxonomy table
+
+```{r data22}
+tax.table <- tax_table(pseq)
+```
+
+Pick taxa abundance data matrix. In this example the OTU level corresponds to genus-like groups (the function name otu_table is somewhat misleading):
+
+```{r data23}
+otu <- otu_table(pseq)@.Data
+```
+
+Aggregate the abundance matrix to higher-level taxa on HITChip:
+
+```{r data24}
+pseq2 <- aggregate_taxa(pseq, "Phylum") # Aggregate into phyloseq object
+dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
+```
+
+Melted data for plotting is readily obtained with the phyloseq psmelt function:
+
+```{r data25}
+df <- psmelt(pseq)
+kable(head(df))
+```
+
+
+### Standard data processing operations
+
+
+Let us use the example data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling:
 
 ```{r phyloseqdata, fig.width=10, fig.height=7, warning=FALSE, message=FALSE}
 library(microbiome)
-#pseq <- download_microbiome("dietswap")
 data("dietswap")
 pseq <- dietswap
 ```
-
 
 ### Sample operations
 
@@ -69,14 +113,6 @@ Relative abundances (the input data needs to be in absolute scale, not logarithm
 pseq1 <- transform_phyloseq(pseq, "relative.abundance", "OTU")
 pseq2 <- transform_sample_counts(pseq, function(x) x/sum(x))
 ```
-
-Relative abundance for plain abundance matrix:
-
-```{r diversity-example6}
-dat <- otu_table(pseq)@.Data
-rel <- relative.abundance(dat, det.th = 0)
-```
-
 
 
 ### Variable operations
@@ -180,6 +216,30 @@ merge_phyloseq(pseq1, pseq2)
 
 ```{r preprocess-rarify, warning=FALSE, message=FALSE}
 pseq.rarified <- rarefy_even_depth(pseq)
+```
+
+
+### HITChip taxonomy
+
+Check the overall HITChip taxonomy:
+
+```{r phylogeny-example2, warning=FALSE, message=FALSE}
+require(microbiome)
+data("hitchip.taxonomy")
+tax.table <- hitchip.taxonomy$full
+kable(head(tax.table))
+```
+
+Conversion between taxonomic levels:
+
+```{r phylogeny-example2b, warning=FALSE, message=FALSE}
+m <- levelmap(c("Akkermansia", "Bacteroides fragilis et rel."), 
+              from = "L2", to = "L1", tax.table)
+
+# Another example
+data(GlobalPatterns)
+taxtable <- tax_table(GlobalPatterns)
+levelmap("Crenarchaeota", 'Phylum', 'Kingdom', taxtable)
 ```
 
 

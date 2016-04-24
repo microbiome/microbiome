@@ -6,10 +6,11 @@ Summarize (preprocessed) oligo-level data into phylotype level; examples with si
 
 ```r
 library(microbiome)
+library(HITChipDB)
 data.directory <- system.file("extdata", package = "microbiome")
 
 # Read oligo-level data (here: simulated example data)
-probedata <- read_hitchip(data.directory, method = "frpa")$probedata
+probedata <- HITChipDB::read_hitchip(data.directory, method = "frpa")$probedata
 
 # Read phylogeny map
 # NOTE: use phylogeny.filtered for species/L1/L2 summarization
@@ -17,7 +18,7 @@ probedata <- read_hitchip(data.directory, method = "frpa")$probedata
 taxonomy <- GetPhylogeny("HITChip", "filtered")
 
 # Summarize oligos into higher level phylotypes
-dat <- summarize_probedata(
+dat <- RPA::summarize_probedata(
                  probedata = probedata,
 		 taxonomy = taxonomy, 
                  method = "rpa",
@@ -31,7 +32,7 @@ Get probes for each probeset:
 
 
 ```r
-sets <- retrieve.probesets(taxonomy, level = "species", name = NULL)
+sets <- RPA::retrieve.probesets(taxonomy, level = "species", name = NULL)
 ```
 
 
@@ -39,7 +40,7 @@ Get probeset data matrix/matrices:
 
 
 ```r
-set <- get.probeset("Actinomyces naeslundii", "species",
+set <- RPA::get.probeset("Actinomyces naeslundii", "species",
        		     taxonomy, probedata, log10 = TRUE)
 ```
 

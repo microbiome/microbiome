@@ -15,7 +15,7 @@ output:
   %\usepackage[utf8]{inputenc}
 -->
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE, warnings=FALSE}
 # Handle citations
 require(knitcitations)
 cleanbib()
@@ -25,81 +25,45 @@ bib <- read.bibtex("bibliography.bib")
 #knitr::opts_chunk$set(fig.path = "figure/")
 ```
 
-
 microbiome R package
 ===========
 
-The microbiome package contains general-purpose tools for microarray-based analysis of microbiome profiling data sets in R `r citep(bib[["rcore13"]])`. The are based on the phyloseq class from the independent [phyloseq](https://github.com/joey711/phyloseq) R package. The microbiome package adds extra functionality for microbiomics data sets that can be represented in this format.
+Tools for microbiome analysis in R (`r citep(bib[["rcore13"]])`).
 
 
-### How to start 
+### Getting started
 
-Example on reproducible document generation:  
+* [Installation](Template.md) 
+* [Example data](Data.md)
+* [Data manipulation](Preprocessing.md)
 
- * [Installing R tools](Installation.md)
- * [How to get started](Template.md)  
- * [Example workflow](Atlas.md)
-
-
-### Data
-
-* [Download example data sets](Data.md)
-* [Extract data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
-* [Taxonomy](Phylogeny.md)
-* [Preprocessing and Filtering](Preprocessing.md)
-* [Importing data from different formats](Import.md)
 
 ### Visualization and related tools
 
-Download some [example data sets](Data.md) to try these tools:
-
-* [Barplots](Composition.md)
-* [Boxplots](Boxplots.md)
-* [Density](Density.md)
+* [Community composition](Composition.md)
 * [Heatmaps](Heatmap.md)
 * [Networks](Networks.md)
-
-### Interactive  
-
+* [Ordination (PCA, PCoA, NMDS etc.)](Ordination.md)
+* [Density](Density.md)
 * [Interactive](Interactive.md)
-* [Motion charts](Motionchart.md)
 
-### Ordination  
-
-* [RDA](RDA.md)
-* [Ordination](Ordination.md)
-* [PCA](Ordination.md)
-
-### Clustering 
-* [Bimodality](Stability.md)
-* [Clustering](Clustering.md)
 
 ### Microbiota composition
+
 * [Bistability analysis](Stability.md)
-* [Composition](Composition.md)
+* [Variability](Variability.md) (Intra- and inter-individual 'stability')
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
-* [Indices](Indices.md)
-* [Stability](Stability.md)
-* [Tipping elements](Stability.md)
-* [Variability](Variability.md) (Intra- and inter-individual 'stability')
 
 
-### Linear models, comparisons, and association studies
-* [Linear models](limma.md)
+### Analysis
+
 * [Pairwise comparisons](Comparisons.md)
+* [Stability, bimodality, tipping elements](Stability.md)
+* [Clustering](Clustering.md)
+* [Linear models](limma.md)
+* [Phylogenetic microarrays](HITChip.Rmd)
 
-
-### Phylogenetic microarrays  
-
-* [Cross hybridization](Crosshyb.md)
-* [Probe level studies](Probelevel.md)
-
-
-### Misc
-
-* [Generating output files/figures](Output.md)
-* [Miscellaneous](misc.md)
 
 
 ### Licensing and Citations
@@ -108,7 +72,7 @@ This work can be freely used, modified and distributed under the
 [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
 
 Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
-(2014). microbiome R package. URL: http://microbiome.github.com'.
+(2014-2016). microbiome R package. URL: http://microbiome.github.com'.
 
 
 ### Dependencies
@@ -116,19 +80,20 @@ Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
 The package utilizes tools from a number of other CRAN and
 Bioconductor extensions, including:
 
- * df2json `r citep(citation("df2json"))`
- * rjson `r citep(citation("rjson"))`
  * ade4 `r citep(citation("ade4"))`
+ * df2json `r citep(citation("df2json"))`
+ * dplyr `r citep(citation("dplyr"))`  
+ * fastcluster `r citep(citation("fastcluster"))`
+ * ggplot2 `r citep(citation("ggplot2"))`
+ * minet `r citep(citation("minet"))` 
  * mixOmics `r citep(citation("mixOmics"))`
+ * phyloseq `r citep(citation("phyloseq"))`
+ * RPA `r citep(citation("RPA"))` 
+ * reshape `r citep(citation("reshape"))` 
+ * rjson `r citep(citation("rjson"))`
  * RCurl `r citep(citation("RCurl"))`
  * vegan `r citep(citation("vegan"))`
- * reshape `r citep(citation("reshape"))`
  * WGCNA `r citep(citation("WGCNA"))`
- * ggplot2 `r citep(citation("ggplot2"))`
- * RPA `r citep(citation("RPA"))`
- * minet `r citep(citation("minet"))`
- * fastcluster `r citep(citation("fastcluster"))`
- * dplyr `r citep(citation("dplyr"))`
 
 
 ### References

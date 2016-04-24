@@ -7,7 +7,7 @@ absolute or logarithmic abundances.
 
 Visualize population densities for specific taxonomic group:
 
-```{r hist, fig.width=16, fig.heigth=8, fig.path = "figure/"}
+```{r hist, fig.width=10, fig.heigth=5, fig.path = "figure/"}
 library(microbiome)
 library(phyloseq)
 
@@ -26,14 +26,14 @@ plot_density(x, "Prevotella melaninogenica et rel.")
 
 Same with log10 abundances:
 
-```{r hist2, fig.width=16, fig.heigth=8, fig.path = "figure/"}
+```{r hist2, fig.width=10, fig.heigth=5, fig.path = "figure/"}
 plot_density(x, "Prevotella melaninogenica et rel.", log10 = TRUE)
 ```
 
 
 Same with log10 relative abundances:
 
-```{r hist3, fig.width=16, fig.heigth=8, fig.path = "figure/"}
+```{r hist3, fig.width=10, fig.heigth=5, fig.path = "figure/"}
 # Convert to relative abundances
 x <- transform_sample_counts(x, function (x) {100 * x/sum(x)})
 

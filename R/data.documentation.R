@@ -26,7 +26,7 @@ NULL
 #' @description The diet swap data set represents a study with African and African American groups undergoing a two-week diet swap.
 #' For details, see \url{http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html}.
 #' @name dietswap
-#' @details The data is also available for download from the Data Dryad repository \url{http://datadryad.org/resource/doi:10.5061/dryad.1mn1n}. See \code{\link{download_dietswap}}.
+#' @details The data is also available for download from the Data Dryad repository \url{http://datadryad.org/resource/doi:10.5061/dryad.1mn1n}. 
 #' @docType data
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com} 
 #' @references 
@@ -43,7 +43,7 @@ NULL
 #' @title HITChip Atlas data (n = 1006)
 #' @description This data set contains genus-level microbiota profiling with HITChip for 1006 western adults with no reported health complications, reported in Lahti et al. (2014) \url{http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html}.
 #' @name atlas1006
-#' @details The data is also available for download from the Data Dryad repository \url{http://doi.org/10.5061/dryad.pk75d}. See \code{\link{download_atlas}}.
+#' @details The data is also available for download from the Data Dryad repository \url{http://doi.org/10.5061/dryad.pk75d}. 
 #' @docType data
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com} 
 #' @references 

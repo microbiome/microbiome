@@ -13,7 +13,7 @@ The diet swap data set represents a study with African and African American grou
 For details, see \url{http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html}.
 }
 \details{
-The data is also available for download from the Data Dryad repository \url{http://datadryad.org/resource/doi:10.5061/dryad.1mn1n}. See \code{\link{download_dietswap}}.
+The data is also available for download from the Data Dryad repository \url{http://datadryad.org/resource/doi:10.5061/dryad.1mn1n}.
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}

@@ -1,17 +1,77 @@
-## Standard data processing operations
+## Preprocessing taxonomic profiling data
 
-The high-quality [phyloseq package](http://joey711.github.io/phyloseq/) provides a complete set of tools for data subsetting, aggregating and filtering.
+Here we show how to manipulate microbiome data sets using tools from
+the [phyloseq package](http://joey711.github.io/phyloseq/), including
+subsetting, aggregating and filtering.
 
-Download example data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling:
+
+### Picking data from phyloseq  
+
+Assuming your data ('pseq' below) is in the phyloseq format, many
+standard tools are available.
+
+
+Sample metadata:
+
+
+```r
+library(phyloseq)
+meta <- sample_data(pseq)
+```
+
+Taxonomy table
+
+
+```r
+tax.table <- tax_table(pseq)
+```
+
+Pick taxa abundance data matrix. In this example the OTU level corresponds to genus-like groups (the function name otu_table is somewhat misleading):
+
+
+```r
+otu <- otu_table(pseq)@.Data
+```
+
+Aggregate the abundance matrix to higher-level taxa on HITChip:
+
+
+```r
+pseq2 <- aggregate_taxa(pseq, "Phylum") # Aggregate into phyloseq object
+dat <- otu_table(pseq2)@.Data # Pick aggregated abundance table
+```
+
+Melted data for plotting is readily obtained with the phyloseq psmelt function:
+
+
+```r
+df <- psmelt(pseq)
+kable(head(df))
+```
+
+
+
+|      |OTU                               |Sample     | Abundance| age|gender |nationality   |DNA_extraction_method |project | diversity|bmi_group   |subject | time|sample     |Phylum                 |Genus                             |
+|:-----|:---------------------------------|:----------|---------:|---:|:------|:-------------|:---------------------|:-------|---------:|:-----------|:-------|----:|:----------|:----------------------|:---------------------------------|
+|50954 |Prevotella melaninogenica et rel. |Sample-149 |  68.01487|  30|female |CentralEurope |r                     |7       |      5.81|underweight |149     |    0|Sample-149 |Bacteroidetes          |Prevotella melaninogenica et rel. |
+|19302 |Clostridium difficile et rel.     |Sample-293 |  67.48385|  26|male   |CentralEurope |r                     |9       |      4.87|lean        |293     |    0|Sample-293 |Clostridium cluster XI |Clostridium difficile et rel.     |
+|51129 |Prevotella melaninogenica et rel. |Sample-193 |  62.30726|  22|male   |CentralEurope |r                     |7       |      5.93|lean        |193     |    0|Sample-193 |Bacteroidetes          |Prevotella melaninogenica et rel. |
+|51095 |Prevotella melaninogenica et rel. |Sample-852 |  60.28698|  26|male   |UKIE          |r                     |24      |      5.77|overweight  |852     |    0|Sample-852 |Bacteroidetes          |Prevotella melaninogenica et rel. |
+|51035 |Prevotella melaninogenica et rel. |Sample-89  |  57.65584|  25|male   |SouthEurope   |r                     |6       |      5.83|lean        |89      |    0|Sample-89  |Bacteroidetes          |Prevotella melaninogenica et rel. |
+|50910 |Prevotella melaninogenica et rel. |Sample-844 |  57.43696|  44|male   |Scandinavia   |r                     |23      |      5.85|lean        |844     |    0|Sample-844 |Bacteroidetes          |Prevotella melaninogenica et rel. |
+
+
+### Standard data processing operations
+
+
+Let us use the example data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling:
 
 
 ```r
 library(microbiome)
-#pseq <- download_microbiome("dietswap")
 data("dietswap")
 pseq <- dietswap
 ```
-
 
 ### Sample operations
 
@@ -99,6 +159,10 @@ Relative abundance for plain abundance matrix:
 ```r
 dat <- otu_table(pseq)@.Data
 rel <- relative.abundance(dat, det.th = 0)
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "relative.abundance"
 ```
 
 
@@ -249,6 +313,47 @@ merge_phyloseq(pseq1, pseq2)
 
 ```r
 pseq.rarified <- rarefy_even_depth(pseq)
+```
+
+
+### HITChip taxonomy
+
+Check the overall HITChip taxonomy:
+
+
+```r
+require(microbiome)
+data("hitchip.taxonomy")
+tax.table <- hitchip.taxonomy$full
+kable(head(tax.table))
+```
+
+
+
+|    |L1             |L2               |species                |specimen               |oligoID  |L0             |
+|:---|:--------------|:----------------|:----------------------|:----------------------|:--------|:--------------|
+|sp1 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1134 |Actinobacteria |
+|sp2 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1158 |Actinobacteria |
+|sp3 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1194 |Actinobacteria |
+|sp4 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1589 |Actinobacteria |
+|sp5 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 1590 |Actinobacteria |
+|sp6 |Actinobacteria |Actinomycetaceae |Actinomyces naeslundii |Actinomyces naeslundii |HIT 5644 |Actinobacteria |
+
+Conversion between taxonomic levels:
+
+
+```r
+m <- levelmap(c("Akkermansia", "Bacteroides fragilis et rel."), 
+              from = "L2", to = "L1", tax.table)
+
+# Another example
+data(GlobalPatterns)
+taxtable <- tax_table(GlobalPatterns)
+levelmap("Crenarchaeota", 'Phylum', 'Kingdom', taxtable)
+```
+
+```
+## [1] "Archaea"
 ```
 
 

@@ -5,10 +5,11 @@ Summarize (preprocessed) oligo-level data into phylotype level; examples with si
 
 ```{r probelevel-ex, eval = FALSE}
 library(microbiome)
+library(HITChipDB)
 data.directory <- system.file("extdata", package = "microbiome")
 
 # Read oligo-level data (here: simulated example data)
-probedata <- read_hitchip(data.directory, method = "frpa")$probedata
+probedata <- HITChipDB::read_hitchip(data.directory, method = "frpa")$probedata
 
 # Read phylogeny map
 # NOTE: use phylogeny.filtered for species/L1/L2 summarization

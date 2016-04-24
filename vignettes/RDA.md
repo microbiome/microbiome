@@ -1,4 +1,4 @@
-### RDA analysis and visualization. 
+## RDA analysis and visualization. 
 
 Load the package and example data:
 
@@ -6,7 +6,6 @@ Load the package and example data:
 ```r
 library(microbiome)
 # Data from https://peerj.com/articles/32/
-#pseq <- download_microbiome("peerj32")$phyloseq
 data("peerj32")
 pseq <- peerj32$phyloseq
 ```
@@ -62,7 +61,7 @@ permutest(rda.result)
 ## na.action)
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.6049309 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.94
+## Significance:	 0.91
 ```
 
 ### Bagged RDA

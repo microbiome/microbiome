@@ -1,5 +1,5 @@
 #' @title Estimate diversity
-#' @description Diversity estimation. Augments the estimate_richness function of the phyloseq package
+#' @description Diversity estimation. Augments the estimate_richness function of the phyloseq package.
 #' @param x \code{\link{phyloseq-class}} object 
 #' @param split See help(phyloseq::estimate_richness)
 #' @param measures See help(phyloseq::estimate_richness). In addition,

@@ -5,7 +5,7 @@
 \title{Intermediate stability}
 \usage{
 intermediate_stability(x, reference.point = NULL, method = "correlation",
-  output = "full")
+  output = "scores")
 }
 \arguments{
 \item{x}{\pkg{phyloseq} object.
@@ -13,9 +13,7 @@ intermediate_stability(x, reference.point = NULL, method = "correlation",
     sample_data data.frame (samples x features) with 'subject'
 and 'time' field for each sample.}
 
-\item{reference.point}{Optional. Calculate stability of the
-data w.r.t. this point. By default the
-intermediate range is used (min + (max - min)/2)}
+\item{reference.point}{Calculate stability of the data w.r.t. this point. By default the intermediate range is used (min + (max - min)/2). If a vector of points is provided, then the scores will be calculated for every point and a data.frame is returned.}
 
 \item{method}{'lm' (linear model) or 'correlation';
 the linear model takes time into account as a covariate}

@@ -35,7 +35,7 @@ proj <- plot_ordination(pseq2, pseq.ord, justDF = T)
 
 Visualize and highlight. In addition to densityplot, see plot_ordn from the microbiome package and plot_ordination from the phyloseq package.
 
-```{r ordination4, message=FALSE, warning=FALSE, fig.width=11, fig.height=8, fig.path = "figure/"}
+```{r ordination4, message=FALSE, warning=FALSE, fig.width=7, fig.height=5, fig.path = "figure/"}
 # Highlight gender
 library(microbiome)
 p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
@@ -49,7 +49,7 @@ print(p)
 
 Projection with sample names:
 
-```{r visu-example2, message=FALSE, message=FALSE, fig.height=8, fig.width=8, fig.path = "figure/"}
+```{r visu-example2, message=FALSE, message=FALSE, fig.height=7, fig.width=5, fig.path = "figure/"}
 ax1 <- names(proj)[[1]]
 ax2 <- names(proj)[[2]]
 ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) + geom_text(size = 2)
@@ -85,14 +85,14 @@ See a separate page on [RDA](RDA.md).
 
 With samples:
 
-```{r ordinate24a, warning=FALSE, message=FALSE, fig.width=9, fig.height=7}
+```{r ordinate24a, warning=FALSE, message=FALSE, fig.width=9, fig.height=5}
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gender")
 p + geom_point(size = 5)
 ```
 
 With taxa:
 
-```{r ordinate24b, warning=FALSE, message=FALSE, fig.width=15, fig.height=7}
+```{r ordinate24b, warning=FALSE, message=FALSE, fig.width=10, fig.height=5}
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "taxa", color = "Phylum")
 p <- p + geom_point(size = 4)
 print(p)
@@ -101,7 +101,7 @@ print(p)
 
 ### Split plot
 
-```{r ordinate25, warning=FALSE, message=FALSE, fig.width=15, fig.height=7}
+```{r ordinate25, warning=FALSE, message=FALSE, fig.width=10, fig.height=5}
 plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender", 
     color = "Phylum", label = "gender")
 ```
@@ -109,7 +109,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender",
 
 ### Ordination biplot
 
-```{r ordinate26, warning=FALSE, message=FALSE, fig.width=12, fig.height=7}
+```{r ordinate26, warning=FALSE, message=FALSE, fig.width=10, fig.height=5}
 plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
 ```
 
