@@ -4,7 +4,7 @@
 #' 	  if NULL then considering all taxa in the tax.table
 #' @param from convert from taxonomic level 
 #' @param to convert to taxonomic level
-#' @param tax.table tax.table
+#' @param data Either a \code{\link{phyloseq}} object or \code{\link{taxonomyTable}}, see the \pkg{phyloseq} package.
 #' @return mappings
 #' @examples 
 #'   tax.table <- GetPhylogeny('HITChip', 'filtered')
@@ -13,13 +13,19 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-levelmap <- function(taxa = NULL, from, to, tax.table) {
+levelmap <- function(taxa = NULL, from, to, data) {
 
-  # If taxonomy table is from phyloseq, pick the data matrix separately	 
-  if (class(tax.table) == "taxonomyTable") {
-    tax.table <- as.data.frame(tax_table(tax.table))
+  if (class(data) == "phyloseq") {
+    data <- tax_table(data)
   }
 
+  # If taxonomy table is from phyloseq, pick the data matrix separately	 
+  if (class(data) == "taxonomyTable") {
+    data <- tax_table(data)
+  }
+  
+  df <- data
+  
   if (from == to) {
     df <- list()
     df[[to]] <- factor(taxa)
@@ -27,8 +33,6 @@ levelmap <- function(taxa = NULL, from, to, tax.table) {
     return(df)
   }
 
-  df <- tax_table(as.matrix(tax.table))    
-  
   if (is.null(taxa)) {
     taxa <- as.character(unique(df[, from]))
   }

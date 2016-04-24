@@ -43,6 +43,7 @@
 #' @importFrom ggplot2 xlab
 #' @importFrom ggplot2 ylab
 #' @importFrom MASS bandwidth.nrd
+#' @importFrom phyloseq get_taxa
 #' @importFrom phyloseq otu_table
 #' @importFrom phyloseq sample_names
 #' @importFrom phyloseq taxa_names

@@ -34,7 +34,6 @@
 #'   # s <- estimate_stability_single(df, reference.point = NULL, method = "lm")
 #'
 #' @keywords utilities
-
 estimate_stability <- function (df, reference.point = NULL, method = "lm") {
 
   # Remove NAs and Infinities

@@ -116,7 +116,7 @@ taxa <- taxa_names(pseq)
 Prune taxa:
 
 ```{r preprocess3b, warning=FALSE, message=FALSE}
-taxa <- levelmap(NULL, "Phylum", "Genus", tax_table(pseq))$Bacteroidetes
+taxa <- levelmap(NULL, "Phylum", "Genus", pseq)$Bacteroidetes
 
 # With given taxon names
 ex2 <- prune_taxa(taxa, pseq)

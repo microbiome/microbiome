@@ -4,9 +4,7 @@
 #'          Includes otu_table (variables x samples) and
 #' 	    sample_data data.frame (samples x features) with 'subject'
 #'	    and 'time' field for each sample.
-#' @param reference.point Optional. Calculate stability of the
-#'                        data w.r.t. this point. By default the
-#'                        intermediate range is used (min + (max - min)/2)
+#' @param reference.point Calculate stability of the data w.r.t. this point. By default the intermediate range is used (min + (max - min)/2). If a vector of points is provided, then the scores will be calculated for every point and a data.frame is returned.
 #' @param method 'lm' (linear model) or 'correlation';
 #'               the linear model takes time into account as a covariate 
 #' @param output Specify the return mode. Either the "full" set of stability
@@ -41,7 +39,26 @@
 #' #res <- intermediate_stability(x, reference.point = NULL)
 #' #s <- sapply(res, function (x) {x$stability})
 #' @keywords utilities
-intermediate_stability <- function (x, reference.point = NULL, method = "correlation", output = "full") {
+intermediate_stability <- function (x, reference.point = NULL, method = "correlation", output = "scores") {
+
+  if (length(reference.point) > 1 && output == "scores") {
+    scores <- c()
+    for (i in 1:length(reference.point)) {
+      scores[[i]] <- intermediate_stability(x, reference.point = reference.point[[i]], method = method, output = output)
+     }
+
+     if (ntaxa(x) > 1) {
+       scores <- as.data.frame(scores, nrow = ntaxa(x))
+     } else {
+       scores <- as.data.frame(t(as.matrix(scores, ncol = length(reference.point))))
+     }
+
+     colnames(scores) <- as.character(reference.point)
+     rownames(scores) <- taxa_names(x)
+
+     return(scores)
+  }
+  
 
   # Logarithmize the data with log10(1 + x) trick
   pseq <- x		       
