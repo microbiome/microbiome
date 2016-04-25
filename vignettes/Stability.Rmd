@@ -61,12 +61,10 @@ Sarle's bimodality coefficient (see help(coefficient_of_bimodality)):
 bimodality.sarle <- bimodality(pseq0, method = "Sarle.finite.sample")
 ```
 
+Some other standard multimodality tests include the DIP test from the
+[diptest](https://cran.r-project.org/web/packages/diptest/index.html)
+package.
 
-DIP test for multimodality (from the [diptest](https://cran.r-project.org/web/packages/diptest/index.html) package):
-
-```{r bimodality-dip, message=FALSE, warning=FALSE, fig.path = "figure/"}
-bimodality.dip <- bimodality(pseq0, method = "dip")
-```
 
 
 Visualize population densities 

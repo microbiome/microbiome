@@ -1,5 +1,7 @@
 #' @title Longitudinal time series plot
 #' @description Plot longitudinal time series.
+#' @details Assuming the sample_data(x) has 'time' field and possible
+#' subject field.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param taxon Selected taxonomic group.
 #' @param subjectID Selected subject.
@@ -12,13 +14,12 @@
 #'   #pseq <- transform_phyloseq(pseq, "relative.abundance")
 #'   #p <- plot_longitudinal(pseq, "Dialister")}
 #' @export
-#' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-#' @details Assuming the sample_data(x) has 'subject' field and
-#' some subjects have multiple time points.
-plot_longitudinal <- function (x, taxon, subjectID = NULL, tipping.point = NULL, shift = 1e-3) {
+plot_timeseries <- function (x, taxon, subjectID = NULL, tipping.point = NULL, shift = 1e-3) {
 
+  Abundance <- NULL
+ 
   m <- sample_data(x)
   
   if (is.null(subjectID) && "subject" %in% colnames(m) && length(unique(m[, "subject"])) == 1) {

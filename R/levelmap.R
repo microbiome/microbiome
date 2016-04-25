@@ -4,7 +4,7 @@
 #' 	  if NULL then considering all taxa in the tax.table
 #' @param from convert from taxonomic level 
 #' @param to convert to taxonomic level
-#' @param data Either a \code{\link{phyloseq}} object or \code{\link{taxonomyTable}}, see the \pkg{phyloseq} package.
+#' @param data Either a \code{\link{phyloseq}} object or its code{\link{taxonomyTable-class}} , see the \pkg{phyloseq} package.
 #' @return mappings
 #' @examples 
 #'   tax.table <- GetPhylogeny('HITChip', 'filtered')

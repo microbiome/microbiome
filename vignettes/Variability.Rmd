@@ -64,7 +64,7 @@ data("atlas1006")
 pseq <- atlas1006
 pseq <- subset_samples(pseq, DNA_extraction_method == "r")
 pseq <- transform_phyloseq(pseq, "relative.abundance")
-p <- plot_longitudinal(pseq, "Dialister", subject = "831", tipping.point = 0.5)
+p <- plot_timeseries(pseq, "Dialister", subject = "831", tipping.point = 0.5)
 print(p)
 ```
 

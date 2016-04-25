@@ -1,3 +1,4 @@
+#' @import limma
 #' @importFrom dplyr arrange
 #' @importFrom dplyr funs
 #' @importFrom dplyr summarize_each
@@ -44,17 +45,20 @@
 #' @importFrom ggplot2 ylab
 #' @importFrom MASS bandwidth.nrd
 #' @importFrom phyloseq get_taxa
+#' @importFrom phyloseq merge_phyloseq
+#' @importFrom phyloseq ntaxa
 #' @importFrom phyloseq otu_table
+#' @importFrom phyloseq phyloseq
 #' @importFrom phyloseq psmelt
+#' @importFrom phyloseq prune_samples
+#' @importFrom phyloseq prune_taxa
 #' @importFrom phyloseq sample_data
 #' @importFrom phyloseq sample_names
-#' @importFrom phyloseq prune_taxa
 #' @importFrom phyloseq taxa_names
 #' @importFrom phyloseq taxa_are_rows
 #' @importFrom phyloseq tax_table
 #' @importFrom phyloseq transform_sample_counts
 #' @importFrom RColorBrewer brewer.pal
-#' @importFrom RPA summarize_probedata
 .onAttach <- function(lib, pkg) {
     packageStartupMessage("\nmicrobiome R package (microbiome.github.com)
           \n\n\n Copyright (C) 2011-2016

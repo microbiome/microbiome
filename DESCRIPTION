@@ -1,8 +1,8 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.79
-Date: 2016-04-23
+Version: 0.99.80
+Date: 2016-04-24
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Salojarvi", "Jarkko" , role = "aut"))
@@ -12,23 +12,21 @@ Description: Various utilities for microbiome analysis.
 License: BSD_2_clause + file LICENSE
 Depends:
     R (>= 3.0.1),
-    RPA
+    phyloseq
 Imports:
     ade4,
-    diptest,
     dplyr,
     earlywarnings,
     ggplot2,
     MASS,
-    limma,
     moments,
-    netresponse,
-    phyloseq,
     RColorBrewer,
     scales,
     sorvi,
     tidyr,
-    vegan
+    vegan,
+    limma,    
+    netresponse    
 Suggests:
     BiocGenerics,
     BiocStyle,

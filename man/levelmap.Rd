@@ -14,7 +14,7 @@ if NULL then considering all taxa in the tax.table}
 
 \item{to}{convert to taxonomic level}
 
-\item{data}{Either a \code{\link{phyloseq}} object or \code{\link{taxonomyTable}}, see the \pkg{phyloseq} package.}
+\item{data}{Either a \code{\link{phyloseq}} object or its code{\link{taxonomyTable-class}} , see the \pkg{phyloseq} package.}
 }
 \value{
 mappings

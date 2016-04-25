@@ -41,7 +41,6 @@ Wrapper to calculate bimodality score based on various methods.
     \item{Sarle.finite.sample}{Coefficient of bimodality for finite sample. See SAS 2012.}
     \item{Sarle.asymptotic}{Coefficient of bimodality, used and described in Shade et al. (2014) and Ellison AM (1987).}
     \item{potential_bootstrap}{Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the bootstrap score.}
-    \item{dip}{DIP test from the package \pkg{diptest}. See help(dip.test). The DIP test quantifies unimodality and varies between [0,1]. To quantify multimodality, this function returns the inverse score: 1-x. }
   }
 }
 \examples{
