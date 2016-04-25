@@ -6,11 +6,11 @@
 #' @param tipping.point Optional. Indicate critical point for abundance variations to be highlighted.
 #' @param shift Small constant to avoid problems with zeroes in log10
 #' @return \code{\link{ggplot}} object
-#' @examples 
-#'   data("atlas1006")
-#'   pseq <- atlas1006
-#'   pseq <- transform_phyloseq(pseq, "relative.abundance")
-#'   p <- plot_longitudinal(pseq, "Dialister")
+#' @examples \dontrun{
+#'   #data("atlas1006")
+#'   #pseq <- atlas1006
+#'   #pseq <- transform_phyloseq(pseq, "relative.abundance")
+#'   #p <- plot_longitudinal(pseq, "Dialister")}
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
