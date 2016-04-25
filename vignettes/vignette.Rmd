@@ -68,11 +68,11 @@ Tools for microbiome analysis in R (`r citep(bib[["rcore13"]])`).
 
 ### Licensing and Citations
 
-This work can be freely used, modified and distributed under the 
-[Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
-
-Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
-(2014-2016). microbiome R package. URL: http://microbiome.github.com'.
+This work can be freely used, modified and distributed under the
+[Two-clause FreeBSD
+license](http://en.wikipedia.org/wiki/BSD\_licenses). Kindly cite as
+'Leo Lahti and Jarkko Salojarvi (2014-2016). microbiome R
+package. URL: http://microbiome.github.com'.
 
 
 ### Dependencies

@@ -89,9 +89,6 @@ plot_diversity <- function(x, variable = "group", title = "", measures = "Shanno
     # Rotate horizontal axis labels, and adjust
     p <- p + theme(axis.text.x=element_text(angle=-90, vjust=0.5, hjust=0))
 	
-    # Add y-label 
-    p <- p + ylab('Alpha Diversity Measure') 
-
     # Facet wrap using user-options
     p <- p + facet_wrap(~key, nrow = nrow, scales = scales)
 	
@@ -105,6 +102,9 @@ plot_diversity <- function(x, variable = "group", title = "", measures = "Shanno
     p <- p + xlab(variable) 
 
   }
+
+  # Add y-label 
+  p <- p + ylab('Diversity') 
 
   p <- p + ggtitle(title)
 

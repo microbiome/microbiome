@@ -21,8 +21,8 @@ abundance distributions with distinct peaks at low and high
 abundances, and an instable intermediate abundance range. Instability
 at the intermediate abundance range is hence one indicator of
 bi-stability. [Lahti et
-al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html))
-use straightforward correlation analysis to quantify how the distance
+al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
+used straightforward correlation analysis to quantify how the distance
 from the intermediate abundance region (50% quantile) is associated
 with the observed shifts between consecutive time points. This can be
 calculated with:
@@ -99,8 +99,16 @@ df <- data.frame(group = taxa,
 		 bimodality = bimodality.pb[taxa])
 theme_set(theme_bw(20))
 p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
-p <- p + geom_text(size = 3)
-p
+
+# Repel overlapping labels
+# Install ggrepel package if needed
+# install.packages("devtools")
+# devtools::install_github("slowkow/ggrepel")
+# See https://github.com/slowkow/ggrepel/blob/master/vignettes/ggrepel.md
+library(ggrepel)
+p <- p + geom_text_repel(size = 3)
+
+print(p)
 ```
 
 ## Detecting a tipping point

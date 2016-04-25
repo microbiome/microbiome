@@ -57,6 +57,17 @@ print(p)
 ```
 
 
+### Time series
+
+```{r homogeneity-timeseries, message=FALSE, warning=FALSE, fig.height=5, fig.height=5}
+data("atlas1006")
+pseq <- atlas1006
+pseq <- subset_samples(pseq, DNA_extraction_method == "r")
+pseq <- transform_phyloseq(pseq, "relative.abundance")
+p <- plot_longitudinal(pseq, "Dialister", subject = "831", tipping.point = 0.5)
+print(p)
+```
+
 ### Version information
 
 ```{r stabilitysessioninfo}

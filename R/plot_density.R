@@ -7,12 +7,13 @@
 #' @param kernel see stat_density
 #' @param trim see stat_density
 #' @param na.rm see stat_density
+#' @param tipping.point Optional. Indicate critical point for abundance variations to be highlighted.
 #' @param fill Fill color
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
 #' @examples # plot_density(x, variable = "Dialister")
 #' @keywords utilities
-plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray") {
+plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray", tipping.point = NULL) {
 
   x <- pickdata(x, variable) 	     	   
 
@@ -30,6 +31,10 @@ plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel 
   }
 
   p <- p + ylab("Frequency")
+
+  if (!is.null(tipping.point)) {
+    p <- p + geom_vline(aes(xintercept = tipping.point), linetype = 2, size = 1)
+  }
 
   p
 

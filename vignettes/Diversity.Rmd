@@ -11,7 +11,7 @@ pseq <- atlas1006
 # (note the zero point has been moved to the detection threshold;
 #  typically signal 1.8 at HITChip log10 scale)
 library(phyloseq)
-otu <- otu_table(pseq)@.Data
+otu <- get_taxa(pseq)
 
 # Determine detection threshold at the 0.15 quantile
 # Bacteria that exceed this threshold are considered present
@@ -56,37 +56,11 @@ p <- plot_diversity(psub, "timepoint", measures = c("Chao1", "Shannon"), indicat
 print(p)
 ```
 
-Same with the phyloseq function:
-
-```{r div-example2b, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.height=4}
-p <- plot_richness(pseq, "group", measures = c("Chao1", "Shannon"))
-p <- p + geom_boxplot()
-print(p)
-```
-
-
-Highlight specific groups:
-
-```{r richness, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
-library(ggplot2)
-data("dietswap")
-p <- plot_richness(dietswap, x = "sex", color = "group", measures = c("Shannon", "Simpson")) 
-p <- p + geom_boxplot()
-print(p)
-```
 
 Diversity vs. continuous variable:
 
 ```{r diversitywithmetadata2, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.path = "figure/"}
 p <- plot_diversity(atlas1006, "age", measures = "Shannon")
-print(p)
-```
-
-Same with the phyloseq function:
-
-```{r diversitywithmetadata2b, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.path = "figure/"}
-p <- plot_richness(atlas1006, "age", measures = "Shannon")
-p <- p + geom_smooth()
 print(p)
 ```
 
