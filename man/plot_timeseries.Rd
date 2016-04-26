@@ -33,7 +33,7 @@ subject field.
   #data("atlas1006")
   #pseq <- atlas1006
   #pseq <- transform_phyloseq(pseq, "relative.abundance")
-  #p <- plot_longitudinal(pseq, "Dialister")}
+  #p <- plot_timeseries(pseq, "Dialister")}
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
