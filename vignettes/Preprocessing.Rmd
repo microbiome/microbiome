@@ -228,3 +228,15 @@ print(m)
 ```
 
 
+### Metadata
+
+Visualize frequencies of given factor (sex) levels within the
+indicated groups (group):
+
+```{r phylogeny-example3, warning=FALSE, message=FALSE}
+data(dietswap)
+res <- plot_frequencies(sample_data(dietswap), "group", "sex")
+print(res$plot)
+kable(res$data, digits = 2)
+```
+

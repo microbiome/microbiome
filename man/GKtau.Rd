@@ -27,8 +27,7 @@ additional level.  In practice, this is sometimes very important since
 missing values in one variable may be strongly associated with either
 missing values in another variable or specific non-missing levels of
 that variable. An important characteristic of Goodman and Kruskal's tau 
-measure is
-its asymmetry: because the variables x and y enter this expression
+measure is its asymmetry: because the variables x and y enter this expression
 differently, the value of a(y,x) is not the same as the value of
 a(x, y), in general.  This stands in marked contrast to either the
 product-moment correlation coefficient or the Spearman rank
@@ -51,7 +50,7 @@ Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
 Code modified from the original source:
-  r-bloggers.com/measuring-associations-between-non-numeric-variables/
+  \url{http://r-bloggers.com/measuring-associations-between-non-numeric-variables/}
   To cite the microbiome R package, see citation('microbiome')
 }
 \keyword{utilities}

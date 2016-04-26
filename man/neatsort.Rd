@@ -34,9 +34,9 @@ method for easy row/column reordering for matrices. This a quick hack and using 
 }
 \examples{
 \dontrun{
-   data(peerj32)
-   x <- peerj32$microbes
-   x <- neatsort(x, "rows", method = "NMDS", distance = "bray")
+  data(peerj32)
+  x <- peerj32$microbes
+  x <- neatsort(x, "rows", method = "NMDS", distance = "bray")
                   }
 }
 \references{

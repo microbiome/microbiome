@@ -9,8 +9,7 @@
 #' missing values in one variable may be strongly associated with either
 #' missing values in another variable or specific non-missing levels of
 #' that variable. An important characteristic of Goodman and Kruskal's tau 
-#' measure is
-#' its asymmetry: because the variables x and y enter this expression
+#' measure is its asymmetry: because the variables x and y enter this expression
 #' differently, the value of a(y,x) is not the same as the value of
 #' a(x, y), in general.  This stands in marked contrast to either the
 #' product-moment correlation coefficient or the Spearman rank
@@ -35,25 +34,25 @@
 #' @export
 #' @references 
 #'   Code modified from the original source:
-#'   r-bloggers.com/measuring-associations-between-non-numeric-variables/
+#'   \url{http://r-bloggers.com/measuring-associations-between-non-numeric-variables/}
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 GKtau <- function(x, y) {
     
     # First, compute the IxJ contingency table between x and y
-    Nij = table(x, y, useNA = "ifany")
+    Nij <- table(x, y, useNA = "ifany")
     # Next, convert this table into a joint probability estimate
-    PIij = Nij/sum(Nij)
+    PIij <- Nij/sum(Nij)
     # Compute the marginal probability estimates
-    PIiPlus = apply(PIij, MARGIN = 1, sum)
-    PIPlusj = apply(PIij, MARGIN = 2, sum)
+    PIiPlus <- apply(PIij, MARGIN = 1, sum)
+    PIPlusj <- apply(PIij, MARGIN = 2, sum)
     # Compute the marginal variation of y
-    Vy = 1 - sum(PIPlusj^2)
+    Vy <- 1 - sum(PIPlusj^2)
     # Compute the expected conditional variation of y given x
-    InnerSum = apply(PIij^2, MARGIN = 1, sum)
-    VyBarx = 1 - sum(InnerSum/PIiPlus)
+    InnerSum <- apply(PIij^2, MARGIN = 1, sum)
+    VyBarx <- 1 - sum(InnerSum/PIiPlus)
     # Compute and return Goodman and Kruskal's tau measure
-    tau = (Vy - VyBarx)/Vy
+    tau <- (Vy - VyBarx)/Vy
     tau
 }

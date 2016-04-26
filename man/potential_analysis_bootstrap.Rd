@@ -29,7 +29,7 @@ List with following elements:
 }
 \description{
 Bootstrap analysis of multimodality based on potential
-    analysis of Livina et al. (2010) as described in Lahti et al. (2014)
+   analysis of Livina et al. (2010) as described in Lahti et al. (2014).
 }
 \references{
 \itemize{

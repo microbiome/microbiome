@@ -7,6 +7,7 @@
 #' @param sig.thresh signal p-value threshold, default 0.1
 #' @param nboot Number of bootstrap iterations
 #' @param verbose verbose
+#' @param plot Also show a diagnostic plot of the result
 #' @return List with items:
 #'   \itemize{
 #'     \item{loadings}{bagged loadings}
@@ -29,13 +30,13 @@
 #' @references See citation("microbiome") 
 #' @author Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-bagged_rda <- function(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T){
+bagged_rda <- function(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T, plot = FALSE){
 
   if (class(x) == "phyloseq") {
     # Pick OTU matrix and the indicated annotation field
     y <- factor(sample_data(x)[[y]])
     names(y) <- sample_data(x)$sample
-    x <- otu_table(x)@.Data
+    x <- get_taxa(x)
   }
 
   stop.run=F
@@ -67,9 +68,11 @@ bagged_rda <- function(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T){
   Bag.res$Err.selection=mean.err
   Bag.res$dropped=dropped
 
-  plot(mean.err,xlab="x dimension")
-  points(best.res,mean.err[best.res],col="red")
-
+  if (plot) {
+    plot(mean.err,xlab="x dimension")
+    points(best.res,mean.err[best.res],col="red")
+  }
+  
   list(bagged.rda = Bag.res, variable = y)
 
 }

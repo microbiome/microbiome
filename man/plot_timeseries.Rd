@@ -30,10 +30,10 @@ subject field.
 }
 \examples{
 \dontrun{
-  #data("atlas1006")
-  #pseq <- atlas1006
-  #pseq <- transform_phyloseq(pseq, "relative.abundance")
-  #p <- plot_timeseries(pseq, "Dialister")}
+  data("atlas1006")
+  pseq <- atlas1006
+  pseq <- transform_phyloseq(pseq, "relative.abundance")
+  p <- plot_timeseries(pseq, "Dialister")}
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

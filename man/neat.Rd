@@ -29,16 +29,12 @@ Sorted matrix
 Order matrix based on the neatmap approach.
 }
 \details{
-This function borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is there
-not available as a separate function at present, however, hindering reuse in other tools. Therefore I implemented this function to
-provide an independent method for easy sample/taxon reordering for phyloseq objects.
+Borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is not available there as a separate function. Therefore I implemented this function to provide an independent method for easy sample/taxon reordering for phyloseq objects.
 }
 \examples{
-\dontrun{
-   data(peerj32)
-   x <- peerj32$microbes
-   x <- neat(x, "both", method = "NMDS", distance = "bray") 
-                  }
+  data(peerj32)
+  x <- peerj32$microbes
+  xo <- neat(x, "both", method = "NMDS", distance = "bray") 
 }
 \references{
 This function is partially based on code derived from the \pkg{phyloseq} package. However for the original

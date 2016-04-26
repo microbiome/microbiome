@@ -49,17 +49,15 @@
 #' @return A \code{\link{ggplot}} plot object, graphically summarizing
 #'  the ordination result for the specified axes.
 #' @seealso Many related examples are included in the phyloseq plot_ordination page \href{http://joey711.github.io/phyloseq/plot_ordination-examples}{phyloseq online tutorials}.
-#'
-#' @importFrom vegan wascores
-#' @importFrom MASS bandwidth.nrd
 #' @export
 #' @examples 
 #' # See other examples at
 #' # http://joey711.github.io/phyloseq/plot_ordination-examples
-#' data(GlobalPatterns)
-#' GP = prune_taxa(names(sort(taxa_sums(GlobalPatterns), TRUE)[1:50]), GlobalPatterns)
-#' gp_bray_pcoa = ordinate(GP, "CCA", "bray")
-#' plot_ordn(GP, gp_bray_pcoa, "samples", color="SampleType")
+#'   data(GlobalPatterns)
+#'   taxa <- names(sort(taxa_sums(GlobalPatterns), TRUE)[1:50])
+#'   GP <- prune_taxa(taxa, GlobalPatterns)
+#'   gp_bray_pcoa = ordinate(GP, "CCA", "bray")
+#'   plot_ordn(GP, gp_bray_pcoa, "samples", color="SampleType")
 plot_ordn = function(physeq, ordination, type="samples", axes=1:2,
                             color=NULL, shape=NULL, label=NULL, title=NULL, show.density = TRUE){
 
@@ -103,10 +101,11 @@ plot_ordn = function(physeq, ordination, type="samples", axes=1:2,
   p <- p  + geom_point(na.rm=TRUE)
 
   # split/facet color and shape can be anything in one or other.
-  if( type=="split" ){
+  if (type == "split") {
     # split-option requires a facet_wrap
     p <- p + facet_wrap(~id.type, nrow=1)
   }
+  
   # If biplot, adjust scales
   if( type=="biplot" ){	
     if( is.null(color) ){
@@ -116,6 +115,7 @@ plot_ordn = function(physeq, ordination, type="samples", axes=1:2,
     # Adjust size so that samples are bigger than taxa by default.
     p <- p + scale_size_manual("type", values=c(Samples=5, Taxa=2))
   }
+  
   # Add text labels to points
   if( !is.null(label) ){
     label_map <- aes_string(x=x, y=y, label=label, na.rm=TRUE)

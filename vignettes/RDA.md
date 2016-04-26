@@ -61,7 +61,7 @@ permutest(rda.result)
 ## na.action)
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.6049309 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.91
+## Significance:	 0.94
 ```
 
 ### Bagged RDA
@@ -72,8 +72,6 @@ Fitting bagged (bootstrap aggregated) RDA on a phyloseq object:
 ```r
 res <- bagged_rda(pseq.log10, "group", sig.thresh=0.05, nboot=100)
 ```
-
-![plot of chunk rda5](figure/rda5-1.png)
 
 Visualizing bagged RDA:
 

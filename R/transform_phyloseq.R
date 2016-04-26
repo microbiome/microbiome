@@ -1,5 +1,5 @@
-#' @title Standard phyloseq transformations
-#' @description Transform phyloseq objects with standard transformations including log10(x), log10(1+x), z, relative abundance.
+#' @title Standard data transformations for phyloseq objects
+#' @description Provides phyloseq transformations with log10(x), log10(1+x), z transformation, and relative abundance.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param transformation Transformation to apply: 'relative.abundance', 'Z', or 'log10'.
 #' @param target Apply the transformation for 'sample' or 'OTU'. Does not affect the log transformation.

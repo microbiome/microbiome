@@ -2,7 +2,7 @@
 % Please edit documentation in R/transform_phyloseq.R
 \name{transform_phyloseq}
 \alias{transform_phyloseq}
-\title{Standard phyloseq transformations}
+\title{Standard data transformations for phyloseq objects}
 \usage{
 transform_phyloseq(x, transformation = "relative.abundance", target = "OTU")
 }
@@ -17,7 +17,7 @@ transform_phyloseq(x, transformation = "relative.abundance", target = "OTU")
 Transformed \code{\link{phyloseq}} object
 }
 \description{
-Transform phyloseq objects with standard transformations including log10(x), log10(1+x), z, relative abundance.
+Provides phyloseq transformations with log10(x), log10(1+x), z transformation, and relative abundance.
 }
 \details{
 The relative abunance are returned as percentages in [0, 100].

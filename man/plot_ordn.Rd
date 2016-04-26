@@ -75,10 +75,11 @@ Modified from phyloseq::plot_ordination to add some features. For useful example
 \examples{
 # See other examples at
 # http://joey711.github.io/phyloseq/plot_ordination-examples
-data(GlobalPatterns)
-GP = prune_taxa(names(sort(taxa_sums(GlobalPatterns), TRUE)[1:50]), GlobalPatterns)
-gp_bray_pcoa = ordinate(GP, "CCA", "bray")
-plot_ordn(GP, gp_bray_pcoa, "samples", color="SampleType")
+  data(GlobalPatterns)
+  taxa <- names(sort(taxa_sums(GlobalPatterns), TRUE)[1:50])
+  GP <- prune_taxa(taxa, GlobalPatterns)
+  gp_bray_pcoa = ordinate(GP, "CCA", "bray")
+  plot_ordn(GP, gp_bray_pcoa, "samples", color="SampleType")
 }
 \seealso{
 Many related examples are included in the phyloseq plot_ordination page \href{http://joey711.github.io/phyloseq/plot_ordination-examples}{phyloseq online tutorials}.

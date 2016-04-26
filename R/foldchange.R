@@ -7,8 +7,8 @@
 #' @param paired Paired comparison (Default: FALSE)
 #' @return Fold change information for two-group comparison.
 #' @examples 
-#'   #pseq <- download_microbiome("peerj32")$physeq
-#'   #fc <- check_foldchange(pseq, "gender")
+#'   data("dietswap")
+#'   fc <- check_foldchange(dietswap, "sex")
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

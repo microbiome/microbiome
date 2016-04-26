@@ -16,7 +16,7 @@ article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 library(microbiome)
 data("peerj32")
 pseq <- peerj32$phyloseq
-otu <- log10(otu_table(pseq)@.Data)
+otu <- transform_phyloseq(get_taxa(pseq), "log10")
 meta <- sample_data(pseq)
 groups <- meta$gender
 
@@ -93,6 +93,7 @@ detailed analyses.
 
 ```{r limma-lm-phyloseq, warning=FALSE, fig.path = "figure/"}
 data("atlas1006")
+source(system.file("extdata/lm_phyloseq.R", package = "microbiome"))
 tab <- lm_phyloseq(atlas1006, "age")
 kable(head(tab), digits = 3)
 ```

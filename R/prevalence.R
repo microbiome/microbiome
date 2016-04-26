@@ -18,11 +18,11 @@
 #' @keywords utilities
 #' @export
 #' @examples
-#'   #peerj32 <- download_microbiome("peerj32")
+#'   data(peerj32)     
 #'   ## With matrix
-#'   #prevalence(peerj32$data$microbes, detection.threshold = 200, sort = TRUE)
+#'   prevalence(peerj32$data$microbes, detection.threshold = 200, sort = TRUE)
 #'   ## With phyloseq
-#'   #prevalence(peerj32$physeq, detection.threshold = 200, sort = TRUE)
+#'   prevalence(peerj32$physeq, detection.threshold = 200, sort = TRUE)
 prevalence <- function (x, detection.threshold, sort = FALSE) {
 
   if (is.vector(x)) {
@@ -30,7 +30,7 @@ prevalence <- function (x, detection.threshold, sort = FALSE) {
   } else if (is.matrix(x)) {
     prev <- 100 * colMeans(x > detection.threshold)
   } else if (class(x) == "phyloseq") {
-    x <- otu_table(x)@.Data
+    x <- get_taxa(x)
     prev <- prevalence(x, detection.threshold = detection.threshold)
   }
 

@@ -11,7 +11,8 @@ prevalent_taxa(x, detection.threshold, prevalence.threshold, sort = TRUE)
 
 \item{detection.threshold}{Detection threshold for absence/presence.}
 
-\item{prevalence.threshold}{Detection threshold for prevalence, provided as percentages [0, 100]}
+\item{prevalence.threshold}{Detection threshold for prevalence,
+provided as percentages [0, 100]}
 
 \item{sort}{Logical. Sort the taxa.}
 }
@@ -22,8 +23,9 @@ Vector of prevalent taxa names
 List prevalent taxa.
 }
 \details{
-For phyloseq object, lists taxa that are more prevalent with the given detection
-         threshold. For matrix, lists columns that satisfy these criteria.
+For phyloseq object, lists taxa that are more prevalent with the
+  given detection threshold. For matrix, lists columns that satisfy
+  these criteria.
 }
 \examples{
   #peerj32 <- download_microbiome("peerj32")

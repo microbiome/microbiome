@@ -47,11 +47,12 @@ count data x is logarithmized before the analysis with the log10(1 + x)
 trick to circumvent logarithmization of zeroes.
 }
 \examples{
-# Example data
-#library(microbiome)
-#x <- download_microbiome("atlas1006")
-#res <- intermediate_stability(x, reference.point = NULL)
-#s <- sapply(res, function (x) {x$stability})
+  \dontrun{
+    library(microbiome)
+    data(atlas1006)
+    res <- intermediate_stability(x, reference.point = NULL)
+    s <- sapply(res, function (x) {x$stability})
+  }
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

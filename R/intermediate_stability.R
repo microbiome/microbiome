@@ -12,7 +12,6 @@
 #' @return A list with following elements: 
 #' 	     stability: estimated stability
 #'	     data: processed data set used in calculations	    
-#'
 #' @details Decomposes each column in x into differences between
 #' consecutive time points. For each variable and time point we calculate
 #' for the data values: (i) the distance from reference point; (ii)
@@ -28,16 +27,16 @@
 #' data, and subjects with less than two time point are excluded. The absolute
 #' count data x is logarithmized before the analysis with the log10(1 + x)
 #' trick to circumvent logarithmization of zeroes.
-#'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @export
 #' @examples
-#' # Example data
-#' #library(microbiome)
-#' #x <- download_microbiome("atlas1006")
-#  #x <- prune_taxa(c("Akkermansia", "Dialister"), x)
-#' #res <- intermediate_stability(x, reference.point = NULL)
-#' #s <- sapply(res, function (x) {x$stability})
+#'   \dontrun{
+#'     library(microbiome)
+#'     data(atlas1006)
+#      x <- prune_taxa(c("Akkermansia", "Dialister"), atlas1006)
+#'     res <- intermediate_stability(x, reference.point = NULL)
+#'     s <- sapply(res, function (x) {x$stability})
+#'   }
 #' @keywords utilities
 intermediate_stability <- function (x, reference.point = NULL, method = "correlation", output = "scores") {
 

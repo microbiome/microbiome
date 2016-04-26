@@ -4,7 +4,8 @@
 \alias{bagged_rda}
 \title{Bagged RDA}
 \usage{
-bagged_rda(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T)
+bagged_rda(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T,
+  plot = FALSE)
 }
 \arguments{
 \item{x}{a matrix, samples on columns, variables (bacteria) on rows. 
@@ -18,6 +19,8 @@ Or name of phyloseq sample data variable name.}
 \item{nboot}{Number of bootstrap iterations}
 
 \item{verbose}{verbose}
+
+\item{plot}{Also show a diagnostic plot of the result}
 }
 \value{
 List with items:

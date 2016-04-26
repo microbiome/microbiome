@@ -24,7 +24,7 @@ multimodality_score(x, detection.threshold = 1, bw.adjust = 1,
 A list with following elements: 
   \itemize{
     \item{score}{Fraction of bootstrap samples where multiple modes are observed}
-    \item{nmodes}{The most frequently observed number of modes in bootrstrap sampling results}
+    \item{nmodes}{The most frequently observed number of modes in bootstrap sampling results}
     \item{results}{Full results of potential_analysis_bootstrap for each row of the input matrix.}
 }
 }
@@ -32,7 +32,7 @@ A list with following elements:
 Multimodality score based on bootstrapped potential analysis.
 }
 \details{
-This function repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the specified results.
+Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the specified results.
 }
 \examples{
   data(peerj32)

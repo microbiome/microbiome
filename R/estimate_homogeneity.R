@@ -13,9 +13,6 @@
 #' @param method correlation method (see ?cor)
 #' @return List with correlations, group-wise statistics, and ANOVA linear model p-value for group differences.
 #' @export
-#' @importFrom dplyr group_by
-#' @importFrom dplyr summarize
-#' @importFrom dplyr %>%
 #' @examples 
 #' \dontrun{
 #' # Example data
@@ -86,18 +83,21 @@ estimate_homogeneity <- function(x, type = "interindividual", group_by = "group"
       }
   
       pval <- anova(lm(correlation ~ group, data = dfs))[["Pr(>F)"]][[1]]
-      stats <- dfs %>% group_by(group) %>% summarize(mean = mean(correlation), sd = sd(correlation))
+      stats <- dfs %>% group_by(group) %>%
+                       summarize(mean = mean(correlation), sd = sd(correlation))
       homogeneity <- list(data = dfs, statistics = stats, p.value = pval)
 
     } else if (type == "intraindividual") {
 
       tmp <- setdiff(c("time", "subject", "sample", group_by), names(meta))
       if (length(tmp) > 0) {
-        stop(paste("The following variables needed by estimate_homogeneity function type=intraindividual are missing from sample metadata:", paste(tmp, collapse = ",")))
+        stop(paste("The following variables needed by estimate_homogeneity function 
+               type=intraindividual are missing from sample metadata:", paste(tmp, collapse = ",")))
       }
 
       if (!all(sapply(split(meta$time, meta[[group_by]]), function (x) {length(unique(x))}) == 2)) {
-        stop("Two time points needed for each group for the intraindividual type. Some groups are having a different number of time points.")
+        stop("Two time points needed for each group for the intraindividual type. 
+              Some groups are having a different number of time points.")
       }
 
       homogeneity <- list()
@@ -114,7 +114,8 @@ estimate_homogeneity <- function(x, type = "interindividual", group_by = "group"
 	cors <- c()
         for (subj in names(datasets2)) {
           dats <- datasets2[[subj]]
-          cors[[subj]] <- cor(unlist(dats[1,]), unlist(dats[2,]), method = method, use = "pairwise.complete.obs")
+          cors[[subj]] <- cor(unlist(dats[1,]), unlist(dats[2,]),
+	                      method = method, use = "pairwise.complete.obs")
         }
 
         dfs <- rbind(dfs, data.frame(group = rep(ds, length(cors)),
@@ -126,7 +127,11 @@ estimate_homogeneity <- function(x, type = "interindividual", group_by = "group"
       # Between time point correlations within subjects
       # and the mean over those correlations
       pval <- anova(lm(correlation ~ group, data = dfs))[["Pr(>F)"]][[1]]
-      stats <- dfs %>% group_by(group) %>% summarize(mean = mean(correlation, na.rm = T), sd = sd(correlation, na.rm = T))
+      stats <- dfs %>%
+                 group_by(group) %>%
+                 summarize(mean = mean(correlation, na.rm = T),
+		           sd = sd(correlation, na.rm = T))
+			   
       homogeneity <- list(data = dfs, statistics = stats, p.value = pval)
 
     }

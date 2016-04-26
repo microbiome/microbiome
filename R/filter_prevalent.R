@@ -9,18 +9,12 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' @export
-#' @importFrom phyloseq prune_taxa
 #' @examples
-#'   #peerj32 <- download_microbiome("peerj32")
-#'   #filter_prevalent(peerj32$physeq, 200, 0.2)
-
+#'   data("peerj32")
+#'   filter_prevalent(peerj32$physeq, 200, 0.2)
 filter_prevalent <- function (x, detection.threshold, prevalence.threshold) {
-
   taxa <- prevalent_taxa(x, detection.threshold, prevalence.threshold)
-  x <- prune_taxa(taxa, x)
-
-  x
-  
+  prune_taxa(taxa, x)
 }
 
 

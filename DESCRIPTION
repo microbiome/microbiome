@@ -1,8 +1,8 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.80
-Date: 2016-04-24
+Version: 0.99.81
+Date: 2016-04-26
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Salojarvi", "Jarkko" , role = "aut"))
@@ -22,10 +22,9 @@ Imports:
     moments,
     RColorBrewer,
     scales,
-    sorvi,
+    stats,    
     tidyr,
     vegan,
-    limma,    
     netresponse    
 Suggests:
     BiocGenerics,

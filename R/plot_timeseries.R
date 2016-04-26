@@ -9,10 +9,10 @@
 #' @param shift Small constant to avoid problems with zeroes in log10
 #' @return \code{\link{ggplot}} object
 #' @examples \dontrun{
-#'   #data("atlas1006")
-#'   #pseq <- atlas1006
-#'   #pseq <- transform_phyloseq(pseq, "relative.abundance")
-#'   #p <- plot_timeseries(pseq, "Dialister")}
+#'   data("atlas1006")
+#'   pseq <- atlas1006
+#'   pseq <- transform_phyloseq(pseq, "relative.abundance")
+#'   p <- plot_timeseries(pseq, "Dialister")}
 #' @export
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

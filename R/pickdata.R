@@ -6,7 +6,7 @@ pickdata <- function (x, otu.name) {
     xxx <- x
   } else if (class(x) == "phyloseq") { 
 
-    xx <- otu_table(x)@.Data
+    xx <- get_taxa(x)
     meta <- sample_data(x)
       
     if (!taxa_are_rows(x)) { xx <- t(xx)}

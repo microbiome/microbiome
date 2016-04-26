@@ -7,8 +7,7 @@
 levelmap(taxa = NULL, from, to, data)
 }
 \arguments{
-\item{taxa}{taxa to convert; 
-if NULL then considering all taxa in the tax.table}
+\item{taxa}{taxa to convert; if NULL then considering all taxa in the tax.table}
 
 \item{from}{convert from taxonomic level}
 

@@ -8,7 +8,7 @@ rounded as indicated by the rounding argument. The percentage
 indicates which fraction of probes for a row taxon overlaps with
 probes of a column taxon. This is not symmetric if the row and col
 taxon have a different total number of probes. For details, see
-help(PlotCrosshyb).
+help(plot_crosshyb).
 
 
 ```r
@@ -16,12 +16,10 @@ library(microbiome, quietly = TRUE)
 library(dplyr)
 
 # Pick the phylogeny which was used to summarize probes to species level
-tax.table <- GetPhylogeny("HITChip", "full")
-#data("hitchip.taxonomy")
-#tax.table <- as.data.frame(hitchip.taxonomy$filtered@.Data)
+tax.table <- get_hitchip_taxonomy("HITChip", "full")
 
 # Check cross-hyb between all L2 groups
-res <- PlotCrosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE, tax.table = tax.table)
+res <- plot_crosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE, tax.table = tax.table)
     
 # Pick the crosshyb table and figure
 crosshyb.table <- res$data
@@ -60,12 +58,20 @@ Investigate species-species cross-hybridization within the Dialister L2 group
 ```r
 # Select species belonging to Dialister L2 group
 mytaxa <- levelmap("Dialister", from = "L2", to = "species", tax.table)[[1]]
-
-# Check cross-hyb between Dialister species
-res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, tax.table = tax.table)
 ```
 
-![plot of chunk chyb2](figure/chyb2-1.png)
+```
+## Error in eval(expr, envir, enclos): could not find function "levelmap"
+```
+
+```r
+# Check cross-hyb between Dialister species
+res <- plot_crosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, tax.table = tax.table)
+```
+
+```
+## Error in crosshyb_table(tax.level = tax.level, selected.taxa = selected.taxa, : object 'mytaxa' not found
+```
 
 ```r
 # Check the cross-hyb data as well
@@ -75,12 +81,12 @@ kable(head(res$data))
 
 
 
-|Taxon1                                 |Taxon2            | crosshyb|
-|:--------------------------------------|:-----------------|--------:|
-|Dialister invisus                      |Dialister invisus |        0|
-|Dialister pneumosintes                 |Dialister invisus |       50|
-|Uncultured bacterium clone Eldhufec089 |Dialister invisus |      100|
-|Uncultured bacterium clone Eldhufec093 |Dialister invisus |      100|
-|Uncultured bacterium clone Eldhufec096 |Dialister invisus |      100|
-|uncultured bacterium MG10              |Dialister invisus |       40|
+|Taxon1                       |Taxon2           | crosshyb|
+|:----------------------------|:----------------|--------:|
+|Actinomycetaceae             |Actinomycetaceae |  0.00000|
+|Aerococcus                   |Actinomycetaceae |  0.00000|
+|Aeromonas                    |Actinomycetaceae |  0.00000|
+|Akkermansia                  |Actinomycetaceae | 23.07692|
+|Alcaligenes faecalis et rel. |Actinomycetaceae |  0.00000|
+|Allistipes et rel.           |Actinomycetaceae |  0.00000|
 

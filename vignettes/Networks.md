@@ -96,6 +96,13 @@ library(ggplot2)
 library(intergraph) # ggnet2 works also with igraph with this
 
 phyla <- levelmap(colnames(otu), from = "Genus", to = "Phylum", tax_table(pseq))
+```
+
+```
+## Error in eval(expr, envir, enclos): could not find function "levelmap"
+```
+
+```r
 netw %v% "Phylum" <- phyla
 p <- ggnet2(netw, color = "Phylum", label = TRUE, label.size = 2)
 print(p)

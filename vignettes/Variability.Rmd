@@ -68,6 +68,18 @@ p <- plot_timeseries(pseq, "Dialister", subject = "831", tipping.point = 0.5)
 print(p)
 ```
 
+
+## Further visualization tools
+
+Draw regression curve with smoothed error bars based on
+the [Visually-Weighted Regression](http://www.fight-entropy.com/2012/07/visually-weighted-regression.html) by Solomon M. Hsiang. The sorvi implementation extends [Felix Schonbrodt's original code](http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/).
+
+```{r regressionline, message=FALSE, eval=TRUE, fig.width=10, fig.height=5}
+data(atlas1006)
+p <- regression_plot(diversity ~ age, atlas1006) 
+print(p)
+```
+
 ### Version information
 
 ```{r stabilitysessioninfo}

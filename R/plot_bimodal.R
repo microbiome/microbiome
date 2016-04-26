@@ -52,11 +52,11 @@ plot_bimodal <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1
 
   # Data
   df <- data.frame(Abundance = d)
-
   p <- ggplot(df, aes(x = Abundance, y = ..density.., fill = ..x..)) 
   p <- p + geom_histogram(col = "black", binwidth = .12)
   p <- p + ylab("Frequency") 
   p <- p + xlab("")
+  
   # bquote(paste("Signal (", Log[10], ")", sep = ""))
   p <- p + scale_fill_gradientn("Signal",   
                 breaks = breaks - tipping.point, 

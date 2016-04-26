@@ -9,21 +9,15 @@
 #' @param ... Arguments to pass.
 #' @return Sorted matrix
 #' @export
-#' @examples \dontrun{
-#'    data(peerj32)
-#'    x <- peerj32$microbes
-#'    x <- neat(x, "both", method = "NMDS", distance = "bray") 
-#'                   }
+#' @examples 
+#'   data(peerj32)
+#'   x <- peerj32$microbes
+#'   xo <- neat(x, "both", method = "NMDS", distance = "bray") 
 #' @references This function is partially based on code derived from the \pkg{phyloseq} package. However for the original
 #'   neatmap approach for heatmap sorting, see (and cite):
 #'   Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map alternatives in R. BMC Bioinformatics, 11, 45.
 #'
-#' @details This function borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is there
-#' not available as a separate function at present, however, hindering reuse in other tools. Therefore I implemented this function to
-#' provide an independent method for easy sample/taxon reordering for phyloseq objects.
-#' @importFrom vegan scores
-#' @importFrom vegan vegdist
-#' @importFrom vegan metaMDS
+#' @details Borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is not available there as a separate function. Therefore I implemented this function to provide an independent method for easy sample/taxon reordering for phyloseq objects.
 #' @keywords utilities
 neat <- function (x, arrange = "both", method = "NMDS", distance = "bray", first.row = NULL, first.col = NULL, ...) {
 

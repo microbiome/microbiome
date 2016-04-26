@@ -4,16 +4,14 @@
 \alias{plot_core}
 \title{Visualize OTU core}
 \usage{
-plot_core(x, title = "Core", plot = TRUE, prevalence.intervals = seq(5,
-  100, 5), detection.thresholds = 20, plot.type = "lineplot",
-  palette = "bw", min.prevalence = NULL, taxa.order = NULL)
+plot_core(x, title = "Core", prevalence.intervals = seq(5, 100, 5),
+  detection.thresholds = 20, plot.type = "lineplot", palette = "bw",
+  min.prevalence = NULL, taxa.order = NULL)
 }
 \arguments{
 \item{x}{A \code{\link{phyloseq}} object or a core matrix}
 
 \item{title}{title}
-
-\item{plot}{plot the figure}
 
 \item{prevalence.intervals}{a vector of prevalence percentages in [0,100]}
 
@@ -35,8 +33,8 @@ A list with three elements: the ggplot object and the data. The data has a diffe
 Core visualization (2D).
 }
 \examples{
-#pseq <- download_microbiome("atlas1006")
-#p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
+data("atlas1006")
+p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

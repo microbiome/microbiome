@@ -41,7 +41,7 @@ The coefficient lies in (0, 1).
          excess kurtosis).
 }
 \examples{
-# coefficient_of_bimodality(rnorm(100), type = "Sarle.finite.sample")
+coefficient_of_bimodality(rnorm(100), type = "Sarle.finite.sample")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
@@ -53,6 +53,10 @@ Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
     \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
     \item{}{To cite the microbiome R package, see citation('microbiome')}
  }
+}
+\seealso{
+Check the dip.test from the \pkg{DIP} package for a
+classical test of multimodality.
 }
 \keyword{utilities}
 

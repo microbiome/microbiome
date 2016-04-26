@@ -30,7 +30,8 @@ prevalent.taxa <- prevalent_taxa(pseq.rel, detection.threshold = 1, prevalence.t
 
 Determine core microbiota with the [blanket
 analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract)
-based on various signal and prevalence thresholds.
+based on various signal and prevalence thresholds. See also the the
+bootstrap_microbes function.
  
 ```{r core-example, message=FALSE, warning=FALSE, fig.path = "figure/"}
 det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)

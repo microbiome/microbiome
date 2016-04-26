@@ -17,6 +17,10 @@ Z-transformed phyloseq object
 \description{
 Z transform phyloseq objects.
 }
+\details{
+Performs centering (to zero) and scaling (to unit
+variance) across samples for each taxa.
+}
 \examples{
   pseq <- download_microbiome("peerj32")$physeq
   pseqz <- ztransform_phyloseq(pseq, "OTU")

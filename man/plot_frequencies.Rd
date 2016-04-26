@@ -16,15 +16,17 @@ plot_frequencies(x, Groups, Factor)
 \value{
 A list with two elements:
  \itemize{
-   \item{table}{Table with the indicated frequencies.}
+   \item{data}{Table with the indicated frequencies.}
    \item{plot}{\code{\link{ggplot}} plot object.}
  }
 }
 \description{
-Plot relative frequencies of a given factor levels across various groups.
+Plot relative frequencies within each Group for the
+levels of the given Factor.
 }
 \examples{
-\dontrun{plot_frequencies(x, "HealthStatus", "Gender")}
+  data(dietswap)
+  p <- plot_frequencies(sample_data(dietswap), "group", "sex")
 }
 \keyword{utilities}
 

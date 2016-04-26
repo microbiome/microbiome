@@ -2,10 +2,12 @@
 #' @description List prevalent taxa.
 #' @param x A matrix or a x \code{\link{phyloseq}} object
 #' @param detection.threshold Detection threshold for absence/presence.
-#' @param prevalence.threshold Detection threshold for prevalence, provided as percentages [0, 100]
+#' @param prevalence.threshold Detection threshold for prevalence,
+#'        provided as percentages [0, 100]
 #' @param sort Logical. Sort the taxa.
-#' @details For phyloseq object, lists taxa that are more prevalent with the given detection
-#'          threshold. For matrix, lists columns that satisfy these criteria.
+#' @details For phyloseq object, lists taxa that are more prevalent with the
+#'   given detection threshold. For matrix, lists columns that satisfy
+#'   these criteria.
 #' @return Vector of prevalent taxa names
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
@@ -29,9 +31,9 @@ prevalent_taxa <- function (x, detection.threshold, prevalence.threshold, sort =
     }
   } 
 
-  taxa = names(which(prevalence(otu, detection.threshold) > prevalence.threshold))
+  taxa <- names(which(prevalence(otu, detection.threshold) > prevalence.threshold))
   if (sort) {
-    taxa = sort(taxa)
+    taxa <- sort(taxa)
   }
 
   taxa

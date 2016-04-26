@@ -12,7 +12,7 @@ pseq <- atlas1006
 # (note the zero point has been moved to the detection threshold;
 #  typically signal 1.8 at HITChip log10 scale)
 library(phyloseq)
-otu <- otu_table(pseq)@.Data
+otu <- get_taxa(pseq)
 
 # Determine detection threshold at the 0.15 quantile
 # Bacteria that exceed this threshold are considered present
@@ -71,30 +71,6 @@ print(p)
 
 ![plot of chunk div-example2](figure/div-example2-2.png)
 
-Same with the phyloseq function:
-
-
-```r
-p <- plot_richness(pseq, "group", measures = c("Chao1", "Shannon"))
-p <- p + geom_boxplot()
-print(p)
-```
-
-![plot of chunk div-example2b](figure/div-example2b-1.png)
-
-
-Highlight specific groups:
-
-
-```r
-library(ggplot2)
-data("dietswap")
-p <- plot_richness(dietswap, x = "sex", color = "group", measures = c("Shannon", "Simpson")) 
-p <- p + geom_boxplot()
-print(p)
-```
-
-![plot of chunk richness](figure/richness-1.png)
 
 Diversity vs. continuous variable:
 
@@ -105,17 +81,6 @@ print(p)
 ```
 
 ![plot of chunk diversitywithmetadata2](figure/diversitywithmetadata2-1.png)
-
-Same with the phyloseq function:
-
-
-```r
-p <- plot_richness(atlas1006, "age", measures = "Shannon")
-p <- p + geom_smooth()
-print(p)
-```
-
-![plot of chunk diversitywithmetadata2b](figure/diversitywithmetadata2b-1.png)
 
 
 Diversity vs. age with smoothed confidence intervals - manual version:

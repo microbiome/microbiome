@@ -18,8 +18,6 @@
 #'   plot_bagged_rda(res)
 #'  }
 #' @export
-#' @importFrom ade4 s.class
-#'
 #' @references See citation("microbiome") 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

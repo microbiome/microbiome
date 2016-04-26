@@ -36,6 +36,7 @@ pseq <- dietswap
 pseq <- transform_phyloseq(pseq, "relative.abundance")
 
 # 1-way ANOVA p-values for the multi-group comparison across time groups
+source(system.file("extdata/check_anova.R", package = "microbiome"))
 anova.results <- check_anova(pseq, "group", p.adjust.method = "BH")
 kable(head(anova.results))
 ```
@@ -71,10 +72,13 @@ for (tax in taxa) {
 
 If the data remarkably violates Gaussian assumptions use
 non-parametric test. Wilcoxon is one option for two group
-comparison. Here we compare males and females in the example data.
+comparison. Here we compare males and females in the example data. The
+check_wilcoxon function is experimental and not included in the
+microbiome R package but is available as a supplementary file:
 
 
 ```r
+source(system.file("extdata/check_wilcoxon.R", package = "microbiome"))
 pval <- check_wilcoxon(pseq, "sex")
 ```
 

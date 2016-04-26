@@ -1,5 +1,6 @@
 #' @title Estimate diversity
-#' @description Diversity estimation. Augments the estimate_richness function of the phyloseq package.
+#' @description Diversity estimation. Augments the estimate_richness function of the phyloseq
+#' package.
 #' @param x \code{\link{phyloseq-class}} object 
 #' @param split See help(phyloseq::estimate_richness)
 #' @param measures See help(phyloseq::estimate_richness). In addition,
@@ -8,9 +9,8 @@
 #' @return Vector containing relative proportions for each phylotype in 
 #'         each sample 
 #' @examples 
-#'   #pseq <- download_microbiome("peerj32")$physeq
-#'   #d <- estimate_diversity(pseq, det.th = 0)
-#' @importFrom phyloseq estimate_richness
+#'   data(dietswap)
+#'   d <- estimate_diversity(dietswap)
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

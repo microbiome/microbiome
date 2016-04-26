@@ -14,17 +14,24 @@ Bagged.RDA(X, Y, boot = 1000)
 \item{boot}{Number of bootstrap iterations}
 }
 \value{
-List with items:
-  	     loadings: bagged loadings
-	     scores: bagged scores
-	     significance: significances of X variables
-	     etc. TBA.
+List with elements:
+  \itemize{
+    \item{loadings}{bagged loadings}
+    \item{scores}{bagged scores}
+    \item{significance}{significances of X variables}
+  }
 }
 \description{
 Bootstrap solutions that follows the Jack-knife estimation of PLS by Martens and Martens, 2000.  Solves rotational invariance of latent space by orthogonal procrustes rotations
 }
 \examples{
-\dontrun{data(peerj32); x <- as.matrix(peerj32$microbes)[1:20, 1:6]; y <- rnorm(nrow(x)); names(y) <- rownames(x); res <- Bagged.RDA(x, y , boot = 5)}
+ \dontrun{
+   data(peerj32)
+   x <- as.matrix(peerj32$microbes)[1:20, 1:6]
+   y <- rnorm(nrow(x))
+   names(y) <- rownames(x)
+   res <- Bagged.RDA(x, y , boot = 5)
+}
 }
 \author{
 Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}

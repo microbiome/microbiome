@@ -3,17 +3,21 @@
 #' @param X a matrix, samples on columns, variables (bacteria) on rows.
 #' @param Y vector with names(Y)=rownames(X), for example
 #' @param boot Number of bootstrap iterations
-#' @return List with items:
-#'   	     loadings: bagged loadings
-#' 	     scores: bagged scores
-#' 	     significance: significances of X variables
-#' 	     etc. TBA.	    
+#' @return List with elements:
+#'   \itemize{
+#'     \item{loadings}{bagged loadings}
+#'     \item{scores}{bagged scores}
+#'     \item{significance}{significances of X variables}
+#'   }
 #' @export
-#' @importFrom vegan scores
-#' @importFrom vegan rda
-#' @importFrom vegan procrustes
-#' @importFrom stats dist
-#' @examples \dontrun{data(peerj32); x <- as.matrix(peerj32$microbes)[1:20, 1:6]; y <- rnorm(nrow(x)); names(y) <- rownames(x); res <- Bagged.RDA(x, y , boot = 5)}
+#' @examples
+#'  \dontrun{
+#'    data(peerj32)
+#'    x <- as.matrix(peerj32$microbes)[1:20, 1:6]
+#'    y <- rnorm(nrow(x))
+#'    names(y) <- rownames(x)
+#'    res <- Bagged.RDA(x, y , boot = 5)
+#' }
 #' @references See citation("microbiome") 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

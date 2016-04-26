@@ -9,9 +9,9 @@
 #' @return Vector of ordered elements
 #' @export
 #' @examples \dontrun{
-#'    data(peerj32)
-#'    x <- peerj32$microbes
-#'    x <- neatsort(x, "rows", method = "NMDS", distance = "bray")
+#'   data(peerj32)
+#'   x <- peerj32$microbes
+#'   x <- neatsort(x, "rows", method = "NMDS", distance = "bray")
 #'                   }
 #' @references This function is partially based on code derived from the \pkg{phyloseq} package. However for the original
 #'   neatmap approach for heatmap sorting, see (and cite):
@@ -21,9 +21,6 @@
 #' not available as a separate function at present, however, hindering reuse in other tools. This function provides an independent
 #' method for easy row/column reordering for matrices. This a quick hack and using the ordination could be expanded further
 #' (now only NMDS is available, and the sorting is done independently for rows and columns).
-#' @importFrom vegan scores
-#' @importFrom vegan vegdist
-#' @importFrom vegan metaMDS
 #' @keywords utilities
 neatsort <- function (x, arrange, method = "NMDS", distance = "bray", first = NULL, ...) {
 
@@ -45,19 +42,19 @@ neatsort <- function (x, arrange, method = "NMDS", distance = "bray", first = NU
   DF <- NULL
 
   # Define new sample ordering based on the ordination
-  trash <- try({
+  tmp <- try({
     DF <- scores(ord, choices = c(1, 2), display = "sites")}, silent = TRUE)
 
-  if(inherits(trash, "try-error")){
-    warning(paste("Ordering failed. Using default ordering.", sep = ""))
+  if(inherits(tmp, "try-error")){
+    warning(paste("Order failed. Using default ordering.", sep = ""))
   }
   if(!is.null(DF)){
     # If the score accession worked, replace order
-    ordering <- rownames(x)[order(RadialTheta(DF))] 
+    ordering <- rownames(x)[order(radial_theta(DF))] 
   }
   # Determine the starting item (OTU or sample)
   if( !is.null(first) ){
-    ordering <- chunkReOrder(ordering, first)
+    ordering <- chunk_reorder(ordering, first)
   }
 
   ordering

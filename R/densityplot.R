@@ -18,7 +18,6 @@
 densityplot <- function(mat, main = NULL, x.ticks = 10, rounding = 0, 
                add.points = TRUE, 
     col = "black", adjust = 1, size = 1, legend = FALSE) {
-
     mat <- as.matrix(mat)
 
     # Avoid warnings

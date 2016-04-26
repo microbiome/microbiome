@@ -19,16 +19,12 @@ core_matrix <- function(x,
           prevalence.intervals = seq(5, 100, 5), 
           detection.thresholds = NULL) {
 
+    data <- x	  
     if (class(x) == "phyloseq") {
-  
       # Convert into OTU matrix
-      data <- otu_table(x)@.Data
-
+      data <- get_taxa(x)
       # Taxa must be on rows
       if (!taxa_are_rows(x)) {data <- t(data)}
-
-    } else {
-      data <- x
     }
 
     # Convert prevalences from percentages to sample counts

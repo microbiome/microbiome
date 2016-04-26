@@ -33,10 +33,10 @@ provide an independent method for easy sample/taxon reordering for phyloseq obje
 }
 \examples{
 \dontrun{
-   data(peerj32)
-   pseq <- peerj32$phyloseq
-   order.sample <- order_neatmap(pseq, target = "sites", method = "NMDS", distance = "bray", first = NULL) 
-   order.otu <- order_neatmap(pseq, target = "species", method = "NMDS", distance = "bray", first = NULL)
+  data(peerj32)
+  pseq <- peerj32$phyloseq
+  order.sample <- order_neatmap(pseq, target = "sites", method = "NMDS", distance = "bray", first = NULL) 
+  order.otu <- order_neatmap(pseq, target = "species", method = "NMDS", distance = "bray", first = NULL)
                   }
 }
 \references{

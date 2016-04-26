@@ -12,7 +12,6 @@
 #'   18(S4):16 20, 2012. 
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @importFrom tidyr gather
 #' @keywords utilities
 core_heatmap <- function(data, detection.thresholds = 20, palette = "bw", min.prevalence = NULL, taxa.order = NULL) {
 
@@ -38,27 +37,26 @@ core_heatmap <- function(data, detection.thresholds = 20, palette = "bw", min.pr
     if (is.null(taxa.order)) {
       o <- names(sort(rowSums(prev)))
     } else {
-      o = taxa.order
+      o <- taxa.order
     }
-    
     df$Taxa <- factor(df$Taxa, levels = o)
 
     theme_set(theme_bw(10))
     p <- ggplot(df, aes(x = DetectionThreshold, y = Taxa, fill = Prevalence))
     p <- p + geom_tile()
-    #p <- p + xlab("Detection Threshold (Relative Abundance %)")
     p <- p + xlab("Detection Threshold")    
     p <- p + scale_x_log10()
 
     if (palette == "bw") {
-        colours <- c("black", "darkgray", "gray", "lightgray", "white")
+      colours <- c("black", "darkgray", "gray", "lightgray", "white")
     } else if (palette == "spectral") {
-        myPalette <- colorRampPalette(rev(brewer.pal(11, "Spectral")))
-        colours <- myPalette(5)
+      myPalette <- colorRampPalette(rev(brewer.pal(11, "Spectral")))
+      colours <- myPalette(5)
     }
     
     p <- p + scale_fill_gradientn("Prevalence", 
-        breaks = seq(from = 0, to = 100, by = 10), colours = colours, limits = c(0, 100))
+        breaks = seq(from = 0, to = 100, by = 10),
+	colours = colours, limits = c(0, 100))
     
     return(list(plot = p, data = df))
     

@@ -1,6 +1,6 @@
 #' @title Potential analysis bootstrap
 #' @description Bootstrap analysis of multimodality based on potential
-#'     analysis of Livina et al. (2010) as described in Lahti et al. (2014)
+#'    analysis of Livina et al. (2010) as described in Lahti et al. (2014).
 #' @param x Data vector
 #' @param detection.threshold Mode detection threshold
 #' @param bw.adjust Bandwidth adjustment
@@ -13,7 +13,6 @@
 #'   \item{modes}{maxima: Average of potential maxima across the bootstrap samples (for the most frequent number of modes)}
 #'   \item{modes}{unimodality.support Fraction of bootstrap samples exhibiting unimodality}
 #' }
-#' @importFrom earlywarnings livpotential_ews
 #' @export
 #' @references
 #'  \itemize{
@@ -26,7 +25,7 @@ potential_analysis_bootstrap <- function (x, detection.threshold, bw.adjust = 1,
   minpoints <- list()
   maxpoints <- list()
   bws <- c()
-  #s <- list()
+
   for (r in 1:bs.iterations) {
   
     # Bootstrap

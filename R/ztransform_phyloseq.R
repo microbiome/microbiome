@@ -1,14 +1,13 @@
 #' @title Phyloseq z transformation
 #' @description Z transform phyloseq objects.
+#' @details Performs centering (to zero) and scaling (to unit
+#' variance) across samples for each taxa.
 #' @param x \code{\link{phyloseq-class}} object 
 #' @param which Specify Z transformation for "sample" or "OTU"
 #' @return Z-transformed phyloseq object
 #' @examples
 #'   pseq <- download_microbiome("peerj32")$physeq
 #'   pseqz <- ztransform_phyloseq(pseq, "OTU")
-#' @importFrom phyloseq transform_sample_counts
-#' @importFrom phyloseq otu_table
-#' @importFrom phyloseq otu_table<-
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -21,7 +20,7 @@ ztransform_phyloseq <- function (x, which) {
 
   if (which == "OTU") {
 
-    ddd <- otu_table(x)@.Data
+    ddd <- get_taxa(x)
     if (taxa_are_rows(x)) {
       ddd <- t(ddd)
     }
@@ -39,7 +38,7 @@ ztransform_phyloseq <- function (x, which) {
     
     xz <- x
     if (!taxa_are_rows(xz)) {trans <- t(trans)}
-    otu_table(xz) <- otu_table(trans, taxa_are_rows=taxa_are_rows(xz))  
+    otu_table(xz) <- otu_table(trans, taxa_are_rows = taxa_are_rows(xz))  
 
   } else if (which == "sample") {
 

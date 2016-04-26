@@ -16,10 +16,6 @@
 #' @param transformation Data transformation to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform_phyloseq}} function.
 #' @param ... Arguments to be passed (for \code{\link{order_neatmap}} function)
 #' @return A \code{\link{ggplot}} plot object.
-#' @importFrom phyloseq tax_glom
-#' @importFrom phyloseq psmelt
-#' @importFrom scales percent
-#' @importFrom netresponse plot_matrix
 #' @export
 #' @examples \dontrun{
 #'   # Example data
@@ -38,10 +34,8 @@ plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu
   if (!is.null(taxonomic.level)) {
     if (verbose) {message("Aggregating the taxa.")}
     x <- tax_glom(x, taxonomic.level)
-    # Fix the taxon names; tax_glom assigns wrong names
+    # Fix the taxon names; tax_glom assigns wrong names now
   }
-
-
 
   # Sort samples
   if (is.null(sample.sort) || sample.sort == "none") {
@@ -130,7 +124,7 @@ plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu
     if (verbose) {message("Constructing the heatmap.")}
 
     # Taxa x samples otu matrix
-    otu <- otu_table(x)@.Data
+    otu <- get_taxa(x)
     if (!taxa_are_rows(x)) {otu <- t(otu)}
     # Remove NAs after the transformation
     otu <- otu[rowMeans(is.na(otu)) < 1, colMeans(is.na(otu)) < 1]

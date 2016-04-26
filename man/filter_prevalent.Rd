@@ -20,8 +20,8 @@ Filtered phyloseq object including only prevalent taxa
 Filter the phyloseq object to include only prevalent taxa.
 }
 \examples{
-  #peerj32 <- download_microbiome("peerj32")
-  #filter_prevalent(peerj32$physeq, 200, 0.2)
+  data("peerj32")
+  filter_prevalent(peerj32$physeq, 200, 0.2)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

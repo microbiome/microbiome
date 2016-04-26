@@ -18,7 +18,7 @@ print(data.directory)
 ```
 
 ```
-## [1] "/home/lei/R/x86_64-pc-linux-gnu-library/3.2/microbiome/extdata"
+## [1] "/home/antagomir/Rpackages/microbiome/microbiome/inst/extdata"
 ```
 
 With HITChip,
@@ -50,13 +50,125 @@ library(HITChipDB)
 ```
 
 ```
+## Loading required package: RPA
+```
+
+```
+## Loading required package: affy
+```
+
+```
+## Loading required package: BiocGenerics
+```
+
+```
+## Loading required package: parallel
+```
+
+```
+## 
+## Attaching package: 'BiocGenerics'
+```
+
+```
+## The following objects are masked from 'package:parallel':
+## 
+##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+##     clusterExport, clusterMap, parApply, parCapply, parLapply,
+##     parLapplyLB, parRapply, parSapply, parSapplyLB
+```
+
+```
+## The following object is masked from 'package:ade4':
+## 
+##     score
+```
+
+```
+## The following object is masked from 'package:gridExtra':
+## 
+##     combine
+```
+
+```
+## The following objects are masked from 'package:igraph':
+## 
+##     normalize, union
+```
+
+```
+## The following object is masked from 'package:Matrix':
+## 
+##     as.vector
+```
+
+```
+## The following object is masked from 'package:limma':
+## 
+##     plotMA
+```
+
+```
+## The following objects are masked from 'package:dplyr':
+## 
+##     combine, intersect, setdiff, union
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     IQR, mad, xtabs
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     anyDuplicated, append, as.data.frame, as.vector, cbind,
+##     colnames, do.call, duplicated, eval, evalq, Filter, Find, get,
+##     grep, grepl, intersect, is.unsorted, lapply, lengths, Map,
+##     mapply, match, mget, order, paste, pmax, pmax.int, pmin,
+##     pmin.int, Position, rank, rbind, Reduce, rownames, sapply,
+##     setdiff, sort, table, tapply, union, unique, unlist, unsplit
+```
+
+```
+## Loading required package: Biobase
+```
+
+```
+## Welcome to Bioconductor
+## 
+##     Vignettes contain introductory material; view with
+##     'browseVignettes()'. To cite Bioconductor, see
+##     'citation("Biobase")', and for packages 'citation("pkgname")'.
+```
+
+```
+## 
+## Attaching package: 'Biobase'
+```
+
+```
+## The following object is masked from 'package:phyloseq':
+## 
+##     sampleNames
+```
+
+```
+## 
+## RPA Copyright (C) 2008-2016 Leo Lahti.
+## This program comes with ABSOLUTELY NO WARRANTY.
+## This is free software, and you are welcome to redistribute it under the FreeBSD open source license.
+```
+
+```
 ## Loading required package: tcltk
 ```
 
 ```
 ## 
 ## HITChipDB R package (microbiome.github.com)
-## (C) 2011-2016 Leo Lahti and Jarkko Salojarvi <microbiome-admin@googlegroups.com>
+## (C) 2011-2015 Leo Lahti and Jarkko Salojarvi <microbiome-admin@googlegroups.com>
 ```
 
 ```
@@ -75,13 +187,7 @@ pseq <- HITChipDB::read_hitchip(data.directory, method = "frpa")$pseq
 ```
 
 ```
-## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
-## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
-## directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
+## Error: 'read_hitchip' is not an exported object from 'namespace:HITChipDB'
 ```
 
 Get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
@@ -92,7 +198,7 @@ pseq.L2 <- aggregate_taxa(pseq, level = "L2")
 ```
 
 ```
-## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
+## Error in eval(expr, envir, enclos): could not find function "aggregate_taxa"
 ```
 
 ```r
@@ -100,7 +206,7 @@ pseq.L1 <- aggregate_taxa(pseq, level = "L1")
 ```
 
 ```
-## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
+## Error in eval(expr, envir, enclos): could not find function "aggregate_taxa"
 ```
 
 Importing HITChip probe-level data and taxonomy from HITChip
@@ -112,13 +218,7 @@ probedata <- HITChipDB::read_hitchip(data.directory, method = "frpa")$probedata
 ```
 
 ```
-## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
-## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
-## directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
+## Error: 'read_hitchip' is not an exported object from 'namespace:HITChipDB'
 ```
 
 ```r
@@ -126,13 +226,7 @@ taxonomy.full <- HITChipDB::read_hitchip(data.directory, method = "frpa")$taxono
 ```
 
 ```
-## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
-## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
-## directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
+## Error: 'read_hitchip' is not an exported object from 'namespace:HITChipDB'
 ```
 
 Convert your own data into phyloseq format as follows:

@@ -34,7 +34,6 @@
 #'  \code{\link{plot_richness}}
 #'  \code{\link[vegan]{estimateR}}
 #'  \code{\link[vegan]{diversity}}
-#' @importFrom sorvi regression_plot
 #' @export
 #' @examples # plot_diversity(x, variable = "bmi_group", "Shannon")
 #' @keywords utilities
@@ -103,9 +102,8 @@ plot_diversity <- function(x, variable = "group", title = "", measures = "Shanno
 
   }
 
-  # Add y-label 
+  # Add y-label and title
   p <- p + ylab('Diversity') 
-
   p <- p + ggtitle(title)
 
   p

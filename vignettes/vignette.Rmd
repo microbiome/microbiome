@@ -65,7 +65,6 @@ Tools for microbiome analysis in R (`r citep(bib[["rcore13"]])`).
 * [Phylogenetic microarrays](HITChip.Rmd)
 
 
-
 ### Licensing and Citations
 
 This work can be freely used, modified and distributed under the
