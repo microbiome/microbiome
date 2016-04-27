@@ -100,7 +100,6 @@ pseq.log <- transform_phyloseq(pseq, "log10")
 Z transformation:
 
 ```{r preprocessing-ztrans}
-# Z-transform OTUs
 pseq.zotu <- transform_phyloseq(pseq, "Z", "OTU")
 ```
 
@@ -124,7 +123,7 @@ Pick variable values for a given variable
 
 ```{r preprocess4b, warning=FALSE, message=FALSE}
 head(get_variable(pseq, sample_variables(pseq)[1]))
-# Assign fields to sample metadata
+# .. or assigning fields to metadata:
 # sample_data(GP)$human <- ..
 ```
 
@@ -223,7 +222,7 @@ Convert between taxonomic levels (here from Genus (Akkermansia) to
 Phylum (Verrucomicrobia)):
 
 ```{r phylogeny-example2, warning=FALSE, message=FALSE}
-data("atlas1006")
+data(atlas1006)
 m <- map_levels("Akkermansia", "Genus", "Phylum", tax_table(atlas1006))
 print(m)
 ```
