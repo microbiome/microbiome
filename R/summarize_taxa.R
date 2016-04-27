@@ -20,6 +20,7 @@ summarize_taxa <- function (pseq, level) {
 
     # Split the OTUs in tax_table by the given taxonomic level	       
     otus <- split(rownames(tax_table(pseq)), tax_table(pseq)[, level])
+    
     ab <- matrix(NA, nrow = length(otus), ncol = nsamples(pseq))
     rownames(ab) <- names(otus)
     colnames(ab) <- sample_names(pseq)

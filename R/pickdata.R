@@ -1,9 +1,9 @@
 pickdata <- function (x, otu.name) {
 
-  taxa_are_rows <- NULL
-
-  if (is.vector(x)) { 
+  if (is.vector(x)) {
+  
     xxx <- x
+    
   } else if (class(x) == "phyloseq") { 
 
     xx <- taxa_abundances(x)

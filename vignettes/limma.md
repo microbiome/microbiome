@@ -36,41 +36,26 @@ library(limma)
 design <- cbind(intercept = 1, Grp2vs1 = groups)
 rownames(design) <- rownames(meta)
 design <- design[colnames(otu), ]
-```
 
-```
-## Error in is.data.frame(x): object 'otu' not found
-```
-
-```r
 # NOTE: results and p-values are given for all groupings in the design matrix
 # Now focus on the second grouping ie. pairwise comparison
 coef.index <- 2
      
 # Fit the limma model
 fit <- lmFit(otu, design)
-```
-
-```
-## Error in is(object, "list"): object 'otu' not found
-```
-
-```r
 fit <- eBayes(fit)
-```
 
-```
-## Error in ebayes(fit = fit, proportion = proportion, stdev.coef.lim = stdev.coef.lim, : object 'fit' not found
-```
-
-```r
 # Summarise 
 kable(topTable(fit, coef = coef.index, p.value=0.05), digits = 2)
 ```
 
-```
-## Error in is(fit, "MArrayLM"): object 'fit' not found
-```
+
+
+|                            | logFC| AveExpr|     t| P.Value| adj.P.Val|     B|
+|:---------------------------|-----:|-------:|-----:|-------:|---------:|-----:|
+|Uncultured Clostridiales II | -0.38|    1.39| -3.69|       0|      0.05| -0.32|
+|Eubacterium siraeum et rel. | -0.32|    1.68| -3.57|       0|      0.05| -0.63|
+|Clostridium nexile et rel.  |  0.18|    2.84|  3.47|       0|      0.05| -0.89|
 
 
 ### Q-Q plot
@@ -79,19 +64,10 @@ kable(topTable(fit, coef = coef.index, p.value=0.05), digits = 2)
 
 ```r
 qqt(fit$t[, coef.index], df = fit$df.residual + fit$df.prior)
-```
-
-```
-## Error in qqt(fit$t[, coef.index], df = fit$df.residual + fit$df.prior): object 'fit' not found
-```
-
-```r
 abline(0,1)
 ```
 
-```
-## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
-```
+![plot of chunk limma-qq](figure/limma-qq-1.png)
 
 ### Volcano plot
 
@@ -100,9 +76,7 @@ abline(0,1)
 volcanoplot(fit, coef = coef.index, highlight = coef.index)
 ```
 
-```
-## Error in is(fit, "MArrayLM"): object 'fit' not found
-```
+![plot of chunk limma-volcano](figure/limma-volcano-1.png)
 
 
 
@@ -123,25 +97,11 @@ female.samples <- dplyr::filter(meta, gender == "female")$sample
 for (tax in rownames(otu)) {
   pvalues.ttest[[tax]] <- t.test(otu[tax, male.samples], otu[tax, female.samples])$p.value
 }
-```
-
-```
-## Error in rownames(otu): object 'otu' not found
-```
-
-```r
 # Multiple testing correction
 pvalues.ttest <- p.adjust(pvalues.ttest, method = "fdr")
 
 # Compare p-values between limma and t-test
 taxa <- rownames(otu)
-```
-
-```
-## Error in rownames(otu): object 'otu' not found
-```
-
-```r
 plot(pvalues.ttest[taxa], pvalues.limma[taxa])
 ```
 

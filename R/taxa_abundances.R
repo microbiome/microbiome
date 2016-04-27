@@ -14,11 +14,17 @@ taxa_abundances <- function (x) {
   # Pick OTU matrix
   otu <- get_taxa(x)
 
+  if (ntaxa(x) == 1) {
+    otu = matrix(otu, nrow = 1)
+    rownames(otu) = taxa_names(x)
+    colnames(otu) = sample_names(x)
+  }
+
   # Ensure that taxa are on the rows
-  if (!taxa_are_rows(x)) {
+  if (!taxa_are_rows(x) && ntaxa > 1) {
     otu <- t(otu)
   }
-  
+
   otu
 
 }
