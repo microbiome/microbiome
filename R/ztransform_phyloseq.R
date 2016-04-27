@@ -20,13 +20,10 @@ ztransform_phyloseq <- function (x, which) {
 
   if (which == "OTU") {
 
-    ddd <- get_taxa(x)
-    if (taxa_are_rows(x)) {
-      ddd <- t(ddd)
-    }
+    ddd <- taxa_abundances(x)
 
     # Z transform OTUs
-    trans <- as.matrix(t(scale(ddd)))
+    trans <- as.matrix(scale(t(ddd)))
 
     nullinds <- which(rowMeans(is.na(trans)) == 1)
     if (length(nullinds) > 0 & min(ddd) == 1) {

@@ -25,10 +25,20 @@ bib <- read.bibtex("bibliography.bib")
 #knitr::opts_chunk$set(fig.path = "figure/")
 ```
 
+
 microbiome R package
 ===========
 
 Tools for microbiome analysis in R (`r citep(bib[["rcore13"]])`).
+
+The microbiome R package provides analysis tools, diagnostic plots,
+and other utilities for microbiome analyses, as well as multiple
+example data sets.
+
+We use the [phyloseq](http://joey711.github.io/phyloseq/import-data)
+class, a standard representation format in R for taxonomic
+profiling. This package provides extensions and convenient wrappers
+for many standard tasks encountered in microbiome studies. 
 
 
 ### Getting started
@@ -76,23 +86,21 @@ package. URL: http://microbiome.github.com'.
 
 ### Dependencies
 
-The package utilizes tools from a number of other CRAN and
-Bioconductor extensions, including:
+The package utilizes tools from a number of other R extensions,
+including:
 
  * ade4 `r citep(citation("ade4"))`
- * df2json `r citep(citation("df2json"))`
  * dplyr `r citep(citation("dplyr"))`  
- * fastcluster `r citep(citation("fastcluster"))`
  * ggplot2 `r citep(citation("ggplot2"))`
- * minet `r citep(citation("minet"))` 
- * mixOmics `r citep(citation("mixOmics"))`
+ * MASS `r citep(citation("MASS"))`
+ * moments `r citep(citation("moments"))`
+ * netresponse `r citep(citation("netresponse"))` 
  * phyloseq `r citep(citation("phyloseq"))`
- * RPA `r citep(citation("RPA"))` 
- * reshape `r citep(citation("reshape"))` 
- * rjson `r citep(citation("rjson"))`
- * RCurl `r citep(citation("RCurl"))`
+ * RColorBrewer `r citep(citation("RColorBrewer"))`
+ * scales `r citep(citation("scales"))`
+ * stats `r citep(citation("stats"))`
+ * tidyr `r citep(citation("tidyr"))`
  * vegan `r citep(citation("vegan"))`
- * WGCNA `r citep(citation("WGCNA"))`
 
 
 ### References

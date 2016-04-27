@@ -124,8 +124,7 @@ plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu
     if (verbose) {message("Constructing the heatmap.")}
 
     # Taxa x samples otu matrix
-    otu <- get_taxa(x)
-    if (!taxa_are_rows(x)) {otu <- t(otu)}
+    otu <- taxa_abundances(x)
     # Remove NAs after the transformation
     otu <- otu[rowMeans(is.na(otu)) < 1, colMeans(is.na(otu)) < 1]
 

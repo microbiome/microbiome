@@ -24,8 +24,7 @@ plot_variation <- function (x, taxon, tipping.point = NULL, lims = NULL, shift =
   pos <- abundance <- NULL
 
   m <- sample_data(x)
-  otu <- get_taxa(x)
-  if (!taxa_are_rows(x)) {otu <- t(otu)}
+  otu <- taxa_abundances(x)
 
   d <- otu[taxon, ]
 

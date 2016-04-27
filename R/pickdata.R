@@ -6,11 +6,9 @@ pickdata <- function (x, otu.name) {
     xxx <- x
   } else if (class(x) == "phyloseq") { 
 
-    xx <- get_taxa(x)
+    xx <- taxa_abundances(x)
     meta <- sample_data(x)
       
-    if (!taxa_are_rows(x)) { xx <- t(xx)}
-
     # If OTU name not in otu data then try metadata
     if (otu.name %in% rownames(xx)) {
       xxx <- as.vector(xx[otu.name,])

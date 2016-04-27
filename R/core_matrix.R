@@ -21,10 +21,8 @@ core_matrix <- function(x,
 
     data <- x	  
     if (class(x) == "phyloseq") {
-      # Convert into OTU matrix
-      data <- get_taxa(x)
-      # Taxa must be on rows
-      if (!taxa_are_rows(x)) {data <- t(data)}
+      # Pick abundance matrix
+      data <- taxa_abundances(x)
     }
 
     # Convert prevalences from percentages to sample counts

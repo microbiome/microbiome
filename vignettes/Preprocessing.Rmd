@@ -25,10 +25,11 @@ tax.table <- tax_table(pseq)
 ```
 
 
-Abundances for taxonomic groups:
+Abundances for taxonomic groups ('OTU table') as a taxa x samples
+matrix:
 
 ```{r data23}
-otu <- get_taxa(pseq)
+otu <- taxa_abundances(pseq)
 ```
 
 

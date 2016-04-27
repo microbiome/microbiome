@@ -81,6 +81,7 @@
 #' @importFrom vegan scores
 #' @importFrom vegan vegdist
 #' @importFrom vegan wascores
+#' @importFrom WGCNA bicorAndPvalue
 .onAttach <- function(lib, pkg) {
     packageStartupMessage("\nmicrobiome R package (microbiome.github.com)
           \n\n\n Copyright (C) 2011-2016

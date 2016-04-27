@@ -27,9 +27,10 @@ plot_core <- function(x, title = "Core",
 		   plot.type = "lineplot", palette = "bw", min.prevalence = NULL, taxa.order = NULL) {
 
   if (length(detection.thresholds) == 1) {
-    detection.thresholds <- 10^seq(log10(1e-3), log10(max(get_taxa(x), na.rm = T)), length = detection.thresholds)
+    detection.thresholds <- 10^seq(log10(1e-3),
+      log10(max(taxa_abundances(x), na.rm = T)),
+      length = detection.thresholds)
   }
-
 
   if (plot.type == "lineplot") {
 

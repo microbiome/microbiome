@@ -1,5 +1,7 @@
 ## Group-wise comparisons
 
+Some examples on standard pairwise comparison tests.
+
 
 ### Boxplots
 
@@ -66,15 +68,14 @@ pval <- check_wilcoxon(pseq, "sex")
 ```
 
 
-### Comparison with random effect subject term
+### Comparisons with random effect subject term
 
 ```{r comparisons-lmer, eval=FALSE}
-pseq <- peerj32$phyloseq
+# Get taxa x samples abundance matrix
+x <- peerj32$phyloseq
 
-# We need taxa x samples matrix
-mydata <- otu_table(x)@.Data
-if (!taxa_are_rows(x)) {mydata <- t(mydata)}
-
+# Get the data
+mydata <- get_taxa(x)
 tax <- "Dialister"
 dfs <- sample_data(x)
 dfs$signal <- mydata[tax, rownames(dfs)]

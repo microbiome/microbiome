@@ -18,20 +18,15 @@
 #' @keywords utilities
 #' @export
 #' @examples
-#'   #peerj32 <- download_microbiome("peerj32")
-#'   #prevalent_taxa(peerj32$data$microbes, 10^1.8 + 100, 0.2) # matrix
-#'   #prevalent_taxa(peerj32$physeq, 100, 0.2) # phyloseq object
+#'   data("peerj32")
+#'   prevalent_taxa(peerj32$data$microbes, 10^1.8 + 100, 0.2) # for matrix
+#'   prevalent_taxa(peerj32$physeq, 100, 0.2) # for phyloseq object
 prevalent_taxa <- function (x, detection.threshold, prevalence.threshold, sort = TRUE) {
 
   if (class(x) == "phyloseq") {
-    # Convert into OTU matrix
-    otu <- otu_table(x)@.Data    
-    if (taxa_are_rows(x)) {
-      otu <- t(otu)
-    }
+    x <- taxa_abundances(x)
   } 
-
-  taxa <- names(which(prevalence(otu, detection.threshold) > prevalence.threshold))
+  taxa <- names(which(prevalence(x, detection.threshold) > prevalence.threshold))
   if (sort) {
     taxa <- sort(taxa)
   }

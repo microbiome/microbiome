@@ -25,12 +25,12 @@ Imports:
     stats,    
     tidyr,
     vegan,
-    netresponse    
+    netresponse,
+    WGCNA
 Suggests:
     BiocGenerics,
     BiocStyle,
-    knitr,
-    WGCNA
+    knitr
 URL: http://microbiome.github.com
 MailingList: microbiome <microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues

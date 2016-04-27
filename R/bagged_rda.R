@@ -36,7 +36,7 @@ bagged_rda <- function(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T, plot =
     # Pick OTU matrix and the indicated annotation field
     y <- factor(sample_data(x)[[y]])
     names(y) <- sample_data(x)$sample
-    x <- get_taxa(x)
+    x <- taxa_abundances(x) 
   }
 
   stop.run=F
