@@ -127,20 +127,20 @@ sessionInfo()
 ##  [8] datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] scales_0.4.0         SpiecEasi_0.1        VGAM_1.0-1          
-##  [4] huge_1.2.7           igraph_1.0.1         Matrix_1.2-5        
-##  [7] earlywarnings_1.1.22 tseries_0.10-34      tgp_2.4-14          
-## [10] moments_0.14         ggrepel_0.5.1        gridExtra_2.2.1     
-## [13] FD_1.0-12            vegan_2.3-5          lattice_0.20-33     
-## [16] permute_0.9-0        geometry_0.3-6       magic_1.5-6         
-## [19] abind_1.4-3          ape_3.4              ade4_1.7-4          
-## [22] knitcitations_1.0.7  knitr_1.12.3         intergraph_2.0-2    
-## [25] sna_2.3-2            network_1.13.0       ggnet_0.1.0         
-## [28] GGally_1.0.1         limma_3.26.9         sorvi_0.7.45        
-## [31] tibble_1.0           ggplot2_2.1.0        tidyr_0.4.1         
-## [34] dplyr_0.4.3          MASS_7.3-45          netresponse_1.20.15 
-## [37] reshape2_1.4.1       mclust_5.2           minet_3.28.0        
-## [40] Rgraphviz_2.14.0     graph_1.48.0         microbiome_0.99.81  
+##  [1] microbiome_0.99.81   scales_0.4.0         SpiecEasi_0.1       
+##  [4] VGAM_1.0-1           huge_1.2.7           igraph_1.0.1        
+##  [7] Matrix_1.2-5         earlywarnings_1.1.22 tseries_0.10-34     
+## [10] tgp_2.4-14           moments_0.14         ggrepel_0.5.1       
+## [13] gridExtra_2.2.1      FD_1.0-12            vegan_2.3-5         
+## [16] lattice_0.20-33      permute_0.9-0        geometry_0.3-6      
+## [19] magic_1.5-6          abind_1.4-3          ape_3.4             
+## [22] ade4_1.7-4           knitcitations_1.0.7  knitr_1.12.3        
+## [25] intergraph_2.0-2     sna_2.3-2            network_1.13.0      
+## [28] ggnet_0.1.0          GGally_1.0.1         limma_3.26.9        
+## [31] sorvi_0.7.45         tibble_1.0           ggplot2_2.1.0       
+## [34] tidyr_0.4.1          dplyr_0.4.3          MASS_7.3-45         
+## [37] netresponse_1.20.15  reshape2_1.4.1       mclust_5.2          
+## [40] minet_3.28.0         Rgraphviz_2.14.0     graph_1.48.0        
 ## [43] devtools_1.11.0      RSQLite_1.0.0        DBI_0.3.1           
 ## [46] phyloseq_1.14.0     
 ## 

@@ -28,7 +28,7 @@ prevalence <- function (x, detection.threshold, sort = FALSE) {
   if (is.vector(x)) {
     prev <- 100 * mean(x > detection.threshold)
   } else if (is.matrix(x)) {
-    prev <- 100 * colMeans(x > detection.threshold)
+    prev <- 100 * rowMeans(x > detection.threshold)
   } else if (class(x) == "phyloseq") {
     x <- taxa_abundances(x)
     prev <- prevalence(x, detection.threshold = detection.threshold)
