@@ -96,7 +96,8 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
     # compute median and CI limits of bootstrap
     CI.boot <- t(apply(l0.boot, 1, function(x) quantile(x, prob=c(.025, .5, .975, pnorm(c(-3, -2, -1, 0, 1, 2, 3))), na.rm=TRUE)))
     colnames(CI.boot)[1:10] <- c("LL", "M", "UL", paste0("SD", 1:7))
-    CI.boot <- as_data_frame(CI.boot)
+
+    CI.boot <- as.data.frame(CI.boot)
     CI.boot$x <- newx[, 1]
     CI.boot$width <- CI.boot$UL - CI.boot$LL
 
@@ -108,7 +109,8 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
     # Alternative to melt
     #b2 <- melt(l0.boot)
     b2 <- tolong(l0.boot)
-    b2$x <- newx[,1]
+    # b2$x <- rep(unname(unlist(newx[,1])), B)
+    b2$x <- rep(unname(unlist(newx[,1])), each = slices)    
     colnames(b2) <- c("index", "B", "value", "x")
     b2$value = as.numeric(as.character(b2$value))
 
@@ -133,9 +135,11 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
       	                group_by(x) %>%
 	do(data_frame(density(.$value, na.rm = TRUE,
 		n = slices, from=ylim[[1]], to=ylim[[2]])[c("x", "y")]))
-      d2 <- data_frame(d2)
+      d2 <- data.frame(d2)
       names(d2) <- c("y", "dens")
-      d2$x <- rep(unique(b2$x), each = slices)
+
+      #d2$x <- rep(unique(b2$x), each = slices)
+      d2$x <- unique(b2$x)
       d2 <- d2[, c("x", "y", "dens")]
 
       maxdens <- max(d2$dens)
