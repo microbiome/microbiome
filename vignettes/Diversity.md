@@ -76,13 +76,6 @@ Diversity vs. continuous variable:
 
 ```r
 p <- plot_diversity(atlas1006, "age", measures = "Shannon")
-```
-
-```
-## Error in plot_diversity(atlas1006, "age", measures = "Shannon"): could not find function "regression_plot"
-```
-
-```r
 print(p)
 ```
 

@@ -28,7 +28,7 @@ For phyloseq object, lists taxa that are more prevalent with the
   these criteria.
 }
 \examples{
-  data("peerj32")
+  data(peerj32)
   prevalent_taxa(peerj32$data$microbes, 10^1.8 + 100, 0.2) # for matrix
   prevalent_taxa(peerj32$physeq, 100, 0.2) # for phyloseq object
 }

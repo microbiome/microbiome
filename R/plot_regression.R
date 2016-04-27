@@ -67,8 +67,8 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
 
   data <- arrange(data, IV) %>%
           select(IV, DV) %>%
-	  filter(!is.na(IV) & !is.na(DV)) %>%
-	  filter(!is.infinite(IV) & !is.infinite(DV))
+	  dplyr::filter(!is.na(IV) & !is.na(DV)) %>%
+	  dplyr::filter(!is.infinite(IV) & !is.infinite(DV))
 
   if (bw) {
     palette <- colorRampPalette(c("#EEEEEE", "#999999", "#333333"), bias=2)(20)

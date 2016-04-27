@@ -96,7 +96,7 @@ plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1
       stop(paste("The horizontal variable", variable, "is numeric. Provide a single diversity measure."))
     }
 
-    p <- regression_plot(value~horiz, mdf)
+    p <- plot_regression(value~horiz, mdf)
     p <- p + xlab(variable) 
 
   }

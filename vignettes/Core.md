@@ -91,19 +91,12 @@ print(coremat)
 
 
 
-
 ```r
 # Core with relative abundances:
 prevalence.intervals <- seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)
-res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, plot = FALSE) 
-```
-
-```
-## Error in plot_core(pseq.rel, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, : unused argument (plot = FALSE)
-```
-
-```r
+res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw",
+    prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
 print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
 
 # Core with absolute counts:

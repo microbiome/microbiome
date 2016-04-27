@@ -61,12 +61,12 @@ print(coremat)
 ### Core heatmaps
 
 
-
 ```{r core-example3, fig.width=8, fig.heigth=13, fig.path = "figure/", fig.show='hold', out.width = '430px'}
 # Core with relative abundances:
 prevalence.intervals <- seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)
-res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, plot = FALSE) 
+res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw",
+    prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
 print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
 
 # Core with absolute counts:

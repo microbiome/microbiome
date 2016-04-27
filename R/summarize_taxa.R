@@ -12,10 +12,8 @@
 summarize_taxa <- function (pseq, level) {
 
   if (!is.null(pseq@phy_tree)) {
-
     # Agglomerate taxa
     pseq2 <- tax_glom(pseq, level) 
-    
   } else {
 
     # Split the OTUs in tax_table by the given taxonomic level	       

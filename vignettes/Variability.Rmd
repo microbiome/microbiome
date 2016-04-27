@@ -76,7 +76,7 @@ the [Visually-Weighted Regression](http://www.fight-entropy.com/2012/07/visually
 
 ```{r regressionline, message=FALSE, eval=TRUE, fig.width=10, fig.height=5}
 data(atlas1006)
-p <- plot_regression(diversity ~ age, atlas1006) 
+p <- plot_regression(diversity ~ age, sample_data(atlas1006))
 print(p)
 ```
 
