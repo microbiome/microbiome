@@ -28,9 +28,9 @@ For phyloseq object, lists taxa that are more prevalent with the
   these criteria.
 }
 \examples{
-  #peerj32 <- download_microbiome("peerj32")
-  #prevalent_taxa(peerj32$data$microbes, 10^1.8 + 100, 0.2) # matrix
-  #prevalent_taxa(peerj32$physeq, 100, 0.2) # phyloseq object
+  data("peerj32")
+  prevalent_taxa(peerj32$data$microbes, 10^1.8 + 100, 0.2) # for matrix
+  prevalent_taxa(peerj32$physeq, 100, 0.2) # for phyloseq object
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/foldchange.R
 \name{check_foldchange}
 \alias{check_foldchange}
-\title{Check fold change}
+\title{Fold change for phyloseq objects}
 \usage{
 check_foldchange(x, group, sort = FALSE, paired = FALSE)
 }
@@ -23,7 +23,7 @@ Fold change information for two-group comparison.
 Calculate Log10 Fold Change for two-group comparison with phyloseq objects.
 }
 \examples{
-  data("dietswap")
+  data(dietswap)
   fc <- check_foldchange(dietswap, "sex")
 }
 \author{

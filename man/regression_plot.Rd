@@ -2,22 +2,18 @@
 % Please edit documentation in R/regression_plot.R
 \name{regression_plot}
 \alias{regression_plot}
-\alias{vwReg}
-\title{regression_plot}
+\title{Visually weighted regression plot}
 \usage{
-regression_plot(formula, data, main = NULL, B = 1000, shade = TRUE,
-  shade.alpha = 0.1, spag = FALSE, mweight = TRUE, show.lm = FALSE,
-  show.median = TRUE, median.col = "white", show.CI = FALSE,
-  method = loess, bw = FALSE, slices = 200,
-  palette = colorRampPalette(c("#FFEDA0", "#DD0000"), bias = 2)(20),
-  ylim = NULL, quantize = "continuous", ...)
+regression_plot(formula, data, B = 1000, shade = TRUE, shade.alpha = 0.1,
+  spag = FALSE, mweight = TRUE, show.lm = FALSE, show.median = TRUE,
+  median.col = "white", show.CI = FALSE, method = loess, bw = FALSE,
+  slices = 200, palette = colorRampPalette(c("#FFEDA0", "#DD0000"), bias =
+  2)(20), ylim = NULL, quantize = "continuous", ...)
 }
 \arguments{
 \item{formula}{formula}
 
 \item{data}{data}
-
-\item{main}{figure title}
 
 \item{B}{number bootstrapped smoothers}
 
@@ -63,15 +59,16 @@ ggplot2 object
 }
 \description{
 Draw regression curve with smoothed error bars 
-based on the Visually-Weighted Regression by Solomon M. Hsiang; see
-http://www.fight-entropy.com/2012/07/visually-weighted-regression.html
-The R implementation is based on Felix Schonbrodt's code from 
-http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/
+with Visually-Weighted Regression by Solomon M. Hsiang; see
+\url{http://www.fight-entropy.com/2012/07/visually-weighted-regression.html}
+The R is modified from Felix Schonbrodt's original code at
+\url{http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote}
 }
 \examples{
-\dontrun{library(dplyr); library(RColorBrewer); 
-  	     	      library(ggplot2); data(iris); 
-	      p <- regression_plot(Sepal.Length ~ Sepal.Width, iris)}
+  \dontrun{
+    data(atlas1006)
+    p <- regression_plot(diversity ~ age, sample_data(atlas1006))
+  }
 }
 \author{
 Based on the original version from Felix Schonbrodt. 
