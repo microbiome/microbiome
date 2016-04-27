@@ -21,7 +21,7 @@ taxa_abundances <- function (x) {
   }
 
   # Ensure that taxa are on the rows
-  if (!taxa_are_rows(x) && ntaxa > 1) {
+  if (!taxa_are_rows(x) && ntaxa(x) > 1) {
     otu <- t(otu)
   }
 
