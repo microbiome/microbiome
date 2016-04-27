@@ -88,7 +88,12 @@ Heatmap with Z-transformed OTUs
 res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU")
 ```
 
-![plot of chunk composition-example6](figure/composition-example6-1.png)
+```
+## Error in validObject(.Object): invalid class "phyloseq" object: 
+##  Component taxa/OTU names do not match.
+##  Taxa indices are critical to analysis.
+##  Try taxa_names()
+```
 
 
 Same, but samples and OTUs sorted with the neatmap method
@@ -99,7 +104,12 @@ res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
        			       sample.sort = "neatmap", otu.sort = "neatmap")
 ```
 
-![plot of chunk composition-example7](figure/composition-example7-1.png)
+```
+## Error in validObject(.Object): invalid class "phyloseq" object: 
+##  Component taxa/OTU names do not match.
+##  Taxa indices are critical to analysis.
+##  Try taxa_names()
+```
 
 
 Same, but samples and OTUs sorted manually
@@ -112,7 +122,12 @@ res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
        			       sample.sort = sample.sort, otu.sort = otu.sort)
 ```
 
-![plot of chunk composition-example8](figure/composition-example8-1.png)
+```
+## Error in validObject(.Object): invalid class "phyloseq" object: 
+##  Component taxa/OTU names do not match.
+##  Taxa indices are critical to analysis.
+##  Try taxa_names()
+```
 
 
 

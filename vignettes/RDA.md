@@ -22,6 +22,10 @@ pseq.log10 <- transform_phyloseq(pseq, "log10")
 rda.result <- rda_physeq(pseq.log10, "time")
 ```
 
+```
+## Error in qr.fitted(Q, Xbar): 'qr' and 'y' must have the same number of rows
+```
+
 ### RDA visualization
 
 Visualizing the standard RDA output:
@@ -31,13 +35,36 @@ Visualizing the standard RDA output:
 library(phyloseq)
 meta <- sample_data(pseq.log10)
 plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
+```
+
+```
+## Error in plot(rda.result, choices = c(1, 2), type = "points", pch = 15, : object 'rda.result' not found
+```
+
+```r
 points(rda.result, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
+```
+
+```
+## Error in points(rda.result, choices = c(1, 2), pch = 15, scaling = 3, : object 'rda.result' not found
+```
+
+```r
 library(vegan)
 pl <- ordihull(rda.result, meta$time, scaling = 3, label = TRUE)
+```
+
+```
+## Error in scores(ord, display = display, ...): object 'rda.result' not found
+```
+
+```r
 title("RDA")
 ```
 
-![plot of chunk rda4](figure/rda4-1.png)
+```
+## Error in title("RDA"): plot.new has not been called yet
+```
 
 See also the RDA method in phyloseq ordinate function, which is calculated without the formula.
 
@@ -51,17 +78,7 @@ permutest(rda.result)
 ```
 
 ```
-## 
-## Permutation test for rda 
-## 
-## Permutation: free
-## Number of permutations: 99
-##  
-## Call: rda(formula = otu ~ annot, scale = scale, na.action =
-## na.action)
-## Permutation test for all constrained eigenvalues
-## Pseudo-F:	 0.6049309 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.94
+## Error in permutest(rda.result): object 'rda.result' not found
 ```
 
 ### Bagged RDA

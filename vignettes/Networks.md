@@ -104,6 +104,13 @@ phyla <- levelmap(colnames(otu), from = "Genus", to = "Phylum", tax_table(pseq))
 
 ```r
 netw %v% "Phylum" <- phyla
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'phyla' not found
+```
+
+```r
 p <- ggnet2(netw, color = "Phylum", label = TRUE, label.size = 2)
 print(p)
 ```

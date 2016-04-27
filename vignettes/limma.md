@@ -139,7 +139,7 @@ plot(pvalues.ttest[taxa], pvalues.limma[taxa])
 ```
 
 ```
-## Error in plot(pvalues.ttest[taxa], pvalues.limma[taxa]): error in evaluating the argument 'y' in selecting a method for function 'plot': Error: object 'pvalues.limma' not found
+## Error in plot(pvalues.ttest[taxa], pvalues.limma[taxa]): object 'pvalues.limma' not found
 ```
 
 ```r

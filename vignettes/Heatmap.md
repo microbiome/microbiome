@@ -23,11 +23,15 @@ pseq2 <- prune_taxa(bacteroidetes, pseq)
 ```
 
 ```
-## Error in prune_taxa(bacteroidetes, pseq): error in evaluating the argument 'taxa' in selecting a method for function 'prune_taxa': Error: object 'bacteroidetes' not found
+## Error in prune_taxa(bacteroidetes, pseq): object 'bacteroidetes' not found
 ```
 
 ```r
 pseq2 <- subset_samples(pseq2, group == "DI")
+```
+
+```
+## Error in sample_data(physeq): object 'pseq2' not found
 ```
 
 
@@ -41,16 +45,28 @@ all bacteria from their population mean (smaller: blue; higher: red):
 ```r
 # Z transform
 pseqz <- transform_phyloseq(pseq2, "Z", "OTU")
+```
 
+```
+## Error in otu_table(x): object 'pseq2' not found
+```
+
+```r
 # Pick OTU table
 x <- otu_table(pseqz)@.Data
+```
 
+```
+## Error in otu_table(pseqz): object 'pseqz' not found
+```
+
+```r
 # Plot heatmap
 tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
 ```
 
 ```
-## Error in seq.default(interval/2, mm, interval): 'to' cannot be NA, NaN or infinite
+## Error in netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, : object 'x' not found
 ```
 
 
@@ -118,7 +134,7 @@ kable(head(correlation.table))
 ```
 
 ```
-## Error in head(correlation.table): error in evaluating the argument 'x' in selecting a method for function 'head': Error: object 'correlation.table' not found
+## Error in head(correlation.table): object 'correlation.table' not found
 ```
 
 ### Correlation heatmaps
@@ -138,7 +154,9 @@ p <- correlation_heatmap(correlation.table, "X1", "X2", fill = "Correlation", st
 print(p)
 ```
 
-![plot of chunk heatmap-example-stars3](figure/heatmap-example-stars3-1.png)
+```
+## Error in print(p): object 'p' not found
+```
 
 
 ### Heatmaps with ggplot2
@@ -189,22 +207,48 @@ p <- ggplot(subtable, aes(x = X1, y = X2, fill = Correlation))
 
 ```r
 p <- p + geom_tile() 
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'p' not found
+```
+
+```r
 p <- p + scale_fill_gradientn("Correlation", 
        	 		       breaks = seq(from = -1, to = 1, by = 0.2), 
 			       colours = c("darkblue", "blue", "white", "red", "darkred"), 
 			       limits = c(-1,1)) 
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'p' not found
+```
+
+```r
 # Polish texts
 p <- p + theme(axis.text.x=element_text(angle = 90))
-p <- p + xlab("") + ylab("")
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'p' not found
+```
+
+```r
+p <- p + xlab("") + ylab("")
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'p' not found
+```
+
+```r
 # Mark the most significant cells with stars
 p <- p + geom_text(data = subset(correlation.table, p.adj < 0.02), 
        	 	   aes(x = X1, y = X2, label = "+"), col = "white", size = 5)
 ```
 
 ```
-## Error in subset(correlation.table, p.adj < 0.02): object 'correlation.table' not found
+## Error in eval(expr, envir, enclos): object 'p' not found
 ```
 
 ```r
@@ -212,7 +256,9 @@ p <- p + geom_text(data = subset(correlation.table, p.adj < 0.02),
 print(p)
 ```
 
-![plot of chunk heatmap-example-stars](figure/heatmap-example-stars-1.png)
+```
+## Error in print(p): object 'p' not found
+```
 
 ### Heatmap with text
 
@@ -234,7 +280,7 @@ df$X1 <- factor(df$X1)
 ```
 
 ```
-## Error in `$<-.data.frame`(S3Part(x, TRUE), name, value): replacement has 0 rows, data has 401
+## Error in df$X1: object of type 'closure' is not subsettable
 ```
 
 ```r
@@ -242,7 +288,7 @@ df$X2 <- factor(df$X2)
 ```
 
 ```
-## Error in `$<-.data.frame`(S3Part(x, TRUE), name, value): replacement has 0 rows, data has 401
+## Error in df$X2: object of type 'closure' is not subsettable
 ```
 
 ```r
@@ -259,7 +305,7 @@ print(p)
 ```
 
 ```
-## Error in eval(expr, envir, enclos): object 'Correlation' not found
+## Error in if (is.waive(data) || empty(data)) return(cbind(data, PANEL = integer(0))): missing value where TRUE/FALSE needed
 ```
 
 ![plot of chunk heatmap-example-text](figure/heatmap-example-text-1.png)

@@ -18,7 +18,7 @@ print(data.directory)
 ```
 
 ```
-## [1] "/home/antagomir/Rpackages/microbiome/microbiome/inst/extdata"
+## [1] "/home/lei/R/x86_64-pc-linux-gnu-library/3.2/microbiome/extdata"
 ```
 
 With HITChip,
@@ -38,15 +38,22 @@ library(HITChipDB)
 ```
 
 ```
-## Loading required package: DBI
-```
-
-```
 ## Loading required package: preprocessCore
 ```
 
 ```
 ## Loading required package: RMySQL
+```
+
+```
+## 
+## Attaching package: 'RMySQL'
+```
+
+```
+## The following object is masked from 'package:RSQLite':
+## 
+##     isIdCurrent
 ```
 
 ```
@@ -76,18 +83,6 @@ library(HITChipDB)
 ##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
 ##     clusterExport, clusterMap, parApply, parCapply, parLapply,
 ##     parLapplyLB, parRapply, parSapply, parSapplyLB
-```
-
-```
-## The following object is masked from 'package:ade4':
-## 
-##     score
-```
-
-```
-## The following object is masked from 'package:gridExtra':
-## 
-##     combine
 ```
 
 ```
@@ -168,7 +163,7 @@ library(HITChipDB)
 ```
 ## 
 ## HITChipDB R package (microbiome.github.com)
-## (C) 2011-2015 Leo Lahti and Jarkko Salojarvi <microbiome-admin@googlegroups.com>
+## (C) 2011-2016 Leo Lahti and Jarkko Salojarvi <microbiome-admin@googlegroups.com>
 ```
 
 ```
@@ -187,7 +182,13 @@ pseq <- HITChipDB::read_hitchip(data.directory, method = "frpa")$pseq
 ```
 
 ```
-## Error: 'read_hitchip' is not an exported object from 'namespace:HITChipDB'
+## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
+## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
+## directory
+```
+
+```
+## Error in file(file, "rt"): cannot open the connection
 ```
 
 Get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
@@ -218,7 +219,13 @@ probedata <- HITChipDB::read_hitchip(data.directory, method = "frpa")$probedata
 ```
 
 ```
-## Error: 'read_hitchip' is not an exported object from 'namespace:HITChipDB'
+## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
+## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
+## directory
+```
+
+```
+## Error in file(file, "rt"): cannot open the connection
 ```
 
 ```r
@@ -226,7 +233,13 @@ taxonomy.full <- HITChipDB::read_hitchip(data.directory, method = "frpa")$taxono
 ```
 
 ```
-## Error: 'read_hitchip' is not an exported object from 'namespace:HITChipDB'
+## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
+## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
+## directory
+```
+
+```
+## Error in file(file, "rt"): cannot open the connection
 ```
 
 Convert your own data into phyloseq format as follows:

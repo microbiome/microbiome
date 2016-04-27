@@ -53,7 +53,7 @@ data(peerj32)
 ## Importing and preprocessing microbiome data in R
 
 To import standard microbiome data formats (mothur, qiime etc.) into R
-as phyloseq object, use the
+as phyloseq object, use the tools from the
 [phyloseq](http://joey711.github.io/phyloseq/import-data) R package.
 
 Examples on data preprocessing (filtering, subsetting etc.) are

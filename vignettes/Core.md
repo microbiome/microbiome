@@ -66,7 +66,7 @@ res$plot + xlab("Abundance (OTU read count)")
 ```
 
 ```
-## Error in res$plot + xlab("Abundance (OTU read count)"): non-numeric argument to binary operator
+## Error in eval(expr, envir, enclos): object 'res' not found
 ```
 
 ```r
@@ -84,17 +84,24 @@ res$plot + xlab("Relative Abundance (%)")
 ```
 
 ```
-## Error in res$plot + xlab("Relative Abundance (%)"): non-numeric argument to binary operator
+## Error in eval(expr, envir, enclos): object 'res' not found
 ```
 
 ```r
 # Retrieve the core count data matrix
 coremat <- res$data
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'res' not found
+```
+
+```r
 print(coremat)
 ```
 
 ```
-## NULL
+## Error in print(coremat): object 'coremat' not found
 ```
 
 
@@ -119,8 +126,7 @@ print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
 ```
 
 ```
-## Error in print(res$plot + xlab("Detection Threshold (Relative Abundance (%))")): error in evaluating the argument 'x' in selecting a method for function 'print': Error in res$plot + xlab("Detection Threshold (Relative Abundance (%))") : 
-##   non-numeric argument to binary operator
+## Error in print(res$plot + xlab("Detection Threshold (Relative Abundance (%))")): object 'res' not found
 ```
 
 ```r
