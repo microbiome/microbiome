@@ -46,14 +46,14 @@ kable(head(df))
 
 
 
-|      |OTU                               |Sample     | Abundance|subject |sex    |nationality |group |sample     | timepoint| timepoint.within.group|bmi_group  |Phylum        |Genus                             |
-|:-----|:---------------------------------|:----------|---------:|:-------|:------|:-----------|:-----|:----------|---------:|----------------------:|:----------|:-------------|:---------------------------------|
-|21328 |Prevotella melaninogenica et rel. |Sample-208 |    900361|olt     |Male   |AFR         |ED    |Sample-208 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21418 |Prevotella melaninogenica et rel. |Sample-212 |    876341|shj     |Female |AFR         |ED    |Sample-212 |         1|                      1|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21457 |Prevotella melaninogenica et rel. |Sample-11  |    860615|olt     |Male   |AFR         |HE    |Sample-11  |         3|                      2|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21481 |Prevotella melaninogenica et rel. |Sample-125 |    852350|nmz     |Male   |AAM         |HE    |Sample-125 |         3|                      2|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21438 |Prevotella melaninogenica et rel. |Sample-210 |    845594|qjy     |Female |AFR         |ED    |Sample-210 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21319 |Prevotella melaninogenica et rel. |Sample-107 |    838487|byu     |Male   |AFR         |HE    |Sample-107 |         3|                      2|lean       |Bacteroidetes |Prevotella melaninogenica et rel. |
+|      |OTU                               |Sample     | Abundance| age|gender |nationality   |DNA_extraction_method |project | diversity|bmi_group   |subject | time|sample     |Phylum        |Genus                             |
+|:-----|:---------------------------------|:----------|---------:|---:|:------|:-------------|:---------------------|:-------|---------:|:-----------|:-------|----:|:----------|:-------------|:---------------------------------|
+|38836 |Prevotella melaninogenica et rel. |Sample-190 |    862870|  34|female |CentralEurope |r                     |7       |      6.06|lean        |190     |    0|Sample-190 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|38693 |Prevotella melaninogenica et rel. |Sample-136 |    833119|  51|female |CentralEurope |r                     |7       |      6.18|lean        |136     |    0|Sample-136 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|38599 |Prevotella melaninogenica et rel. |Sample-149 |    813581|  30|female |CentralEurope |r                     |7       |      5.81|underweight |149     |    0|Sample-149 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|38637 |Prevotella melaninogenica et rel. |Sample-89  |    804371|  25|male   |SouthEurope   |r                     |6       |      5.83|lean        |89      |    0|Sample-89  |Bacteroidetes |Prevotella melaninogenica et rel. |
+|38536 |Prevotella melaninogenica et rel. |Sample-852 |    753785|  26|male   |UKIE          |r                     |24      |      5.77|overweight  |852     |    0|Sample-852 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|38858 |Prevotella melaninogenica et rel. |Sample-193 |    736260|  22|male   |CentralEurope |r                     |7       |      5.93|lean        |193     |    0|Sample-193 |Bacteroidetes |Prevotella melaninogenica et rel. |
 
 
 ### Standard data processing operations
@@ -141,13 +141,6 @@ Z transformation:
 pseq.zotu <- transform_phyloseq(pseq, "Z", "OTU")
 ```
 
-```
-## Error in validObject(.Object): invalid class "phyloseq" object: 
-##  Component taxa/OTU names do not match.
-##  Taxa indices are critical to analysis.
-##  Try taxa_names()
-```
-
 Relative abundances (the input data needs to be in absolute scale, not logarithmic!):
 
 
@@ -214,14 +207,8 @@ Prune taxa:
 
 
 ```r
-taxa <- levelmap(NULL, "Phylum", "Genus", pseq)$Bacteroidetes
-```
+taxa <- map_levels(NULL, "Phylum", "Genus", pseq)$Bacteroidetes
 
-```
-## Error in eval(expr, envir, enclos): could not find function "levelmap"
-```
-
-```r
 # With given taxon names
 ex2 <- prune_taxa(taxa, pseq)
 
@@ -317,19 +304,12 @@ Phylum (Verrucomicrobia)):
 
 ```r
 data("atlas1006")
-m <- levelmap("Akkermansia", "Genus", "Phylum", tax_table(atlas1006))
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "levelmap"
-```
-
-```r
+m <- map_levels("Akkermansia", "Genus", "Phylum", tax_table(atlas1006))
 print(m)
 ```
 
 ```
-## Error in print(m): object 'm' not found
+## [1] "Verrucomicrobia"
 ```
 
 

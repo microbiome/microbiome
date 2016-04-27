@@ -1,4 +1,3 @@
-
 ## Networks
 
 Load example data:
@@ -95,22 +94,8 @@ library(sna)
 library(ggplot2)
 library(intergraph) # ggnet2 works also with igraph with this
 
-phyla <- levelmap(colnames(otu), from = "Genus", to = "Phylum", tax_table(pseq))
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "levelmap"
-```
-
-```r
+phyla <- map_levels(colnames(otu), from = "Genus", to = "Phylum", tax_table(pseq))
 netw %v% "Phylum" <- phyla
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'phyla' not found
-```
-
-```r
 p <- ggnet2(netw, color = "Phylum", label = TRUE, label.size = 2)
 print(p)
 ```

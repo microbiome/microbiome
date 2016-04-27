@@ -1,10 +1,10 @@
 # Microbiome stability analysis
 
-Get example data - HITChip Atlas of 130 genus-like taxa across 1006 healthy western adults from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). A subset of 76 subjects have also short time series available for temporal stability analysis:
+Get example data - [HITChip Atlas of 130 genus-like taxa across 1006 healthy western adults](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). A subset of 76 subjects have also short time series available for temporal stability analysis:
 
 ```{r bistability, message=FALSE}
 library(microbiome)
-data("atlas1006")
+data(atlas1006)
 pseq <- atlas1006
 
 # Let us keep only prevalent taxa

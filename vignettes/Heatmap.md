@@ -10,12 +10,12 @@ pseq <- dietswap
 library(phyloseq)
 
 # Pick data subset
-bacteroidetes <- levelmap(from = "Phylum", to = "Genus",
+bacteroidetes <- map_levels(from = "Phylum", to = "Genus",
                    tax.table = tax_table(pseq))$Bacteroidetes
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "levelmap"
+## Error in map_levels(from = "Phylum", to = "Genus", tax.table = tax_table(pseq)): unused argument (tax.table = tax_table(pseq))
 ```
 
 ```r
@@ -28,6 +28,10 @@ pseq2 <- prune_taxa(bacteroidetes, pseq)
 
 ```r
 pseq2 <- subset_samples(pseq2, group == "DI")
+```
+
+```
+## Error in sample_data(physeq): object 'pseq2' not found
 ```
 
 
@@ -44,10 +48,7 @@ pseqz <- transform_phyloseq(pseq2, "Z", "OTU")
 ```
 
 ```
-## Error in validObject(.Object): invalid class "phyloseq" object: 
-##  Component taxa/OTU names do not match.
-##  Taxa indices are critical to analysis.
-##  Try taxa_names()
+## Error in otu_table(x): object 'pseq2' not found
 ```
 
 ```r
@@ -65,7 +66,7 @@ tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
 ```
 
 ```
-## Error in mat - midpoint: non-numeric argument to binary operator
+## Error in mat[rev(seq(nrow(mat))), ]: incorrect number of dimensions
 ```
 
 

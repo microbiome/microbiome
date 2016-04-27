@@ -14,7 +14,7 @@ probedata <- HITChipDB::read_hitchip(data.directory, method = "frpa")$probedata
 # Read phylogeny map
 # NOTE: use phylogeny.filtered for species/L1/L2 summarization
 # Load taxonomy from output directory
-taxonomy <- GetPhylogeny("HITChip", "filtered")
+taxonomy <- get_hitchip_taxonomy("HITChip", "filtered")
 
 # Summarize oligos into higher level phylotypes
 dat <- RPA::summarize_probedata(

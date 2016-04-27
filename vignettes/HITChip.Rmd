@@ -61,7 +61,7 @@ otu <- otu_table(res$pseq)@.Data
 meta <- res$meta
 
 # Taxonomy
-taxonomy <- GetPhylogeny("HITChip", "filtered")
+taxonomy <- get_hitchip_taxonomy("HITChip", "filtered")
 taxonomy <- unique(as.data.frame(taxonomy[, c("L1", "L2", "species")]))
 rownames(taxonomy) <- as.vector(taxonomy[, "species"])
 

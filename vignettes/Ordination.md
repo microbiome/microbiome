@@ -52,10 +52,6 @@ p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
 print(p)
 ```
 
-```
-## Error in round(df$Correlation, 1): non-numeric argument to mathematical function
-```
-
 ![plot of chunk ordination4](figure/ordination4-1.png)
 
 ```r
@@ -72,9 +68,7 @@ p <- densityplot(proj[, 1:2], col = prevotella.abundance, legend = T)
 print(p)
 ```
 
-```
-## Error in round(df$Correlation, 1): non-numeric argument to mathematical function
-```
+![plot of chunk ordination4](figure/ordination4-2.png)
 
 Projection with sample names:
 
