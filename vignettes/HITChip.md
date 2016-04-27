@@ -86,6 +86,18 @@ library(HITChipDB)
 ```
 
 ```
+## The following object is masked from 'package:gridExtra':
+## 
+##     combine
+```
+
+```
+## The following object is masked from 'package:ade4':
+## 
+##     score
+```
+
+```
 ## The following objects are masked from 'package:igraph':
 ## 
 ##     normalize, union

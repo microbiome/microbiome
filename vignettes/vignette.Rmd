@@ -29,7 +29,7 @@ bib <- read.bibtex("bibliography.bib")
 microbiome R package
 ===========
 
-Tools for microbiome analysis in R (`r citep(bib[["rcore13"]])`).
+Tools for microbiome analysis in R `r citep(bib[["rcore13"]])`.
 
 The microbiome R package provides analysis tools, diagnostic plots,
 and other utilities for microbiome analyses, as well as multiple

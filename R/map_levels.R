@@ -6,8 +6,8 @@
 #' @param data Either a \code{\link{phyloseq}} object or its code{\link{taxonomyTable-class}} , see the \pkg{phyloseq} package.
 #' @return mappings
 #' @examples 
-#'   tax.table <- GetPhylogeny('HITChip', 'filtered')
-#'   levelmap('Akkermansia', 'L2', 'L1', tax.table)
+#'   tax.table <- get_hitchip_taxonomy('HITChip', 'filtered')
+#'   map_levels('Akkermansia', 'L2', 'L1', tax.table)
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

@@ -23,7 +23,7 @@ ztransform_phyloseq <- function (x, which) {
     ddd <- taxa_abundances(x)
 
     # Z transform OTUs
-    trans <- as.matrix(scale(t(ddd)))
+    trans <- as.matrix(scale(ddd))
 
     nullinds <- which(rowMeans(is.na(trans)) == 1)
     if (length(nullinds) > 0 & min(ddd) == 1) {

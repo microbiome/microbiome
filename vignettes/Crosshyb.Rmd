@@ -41,7 +41,7 @@ Investigate species-species cross-hybridization within the Dialister L2 group
 
 ```{r chyb2, warning=FALSE, fig.path = "figure/"}
 # Select species belonging to Dialister L2 group
-mytaxa <- levelmap("Dialister", from = "L2", to = "species", tax.table)[[1]]
+mytaxa <- map_levels("Dialister", from = "L2", to = "species", tax.table)[[1]]
 
 # Check cross-hyb between Dialister species
 res <- plot_crosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, tax.table = tax.table)

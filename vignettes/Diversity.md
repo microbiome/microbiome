@@ -1,4 +1,3 @@
-
 ### Richness 
 
 
@@ -80,7 +79,7 @@ p <- plot_diversity(atlas1006, "age", measures = "Shannon")
 ```
 
 ```
-## Error in density.default(.$value, na.rm = TRUE, n = slices, from = ylim[[1]], : argument 'x' must be numeric
+## Error in plot_diversity(atlas1006, "age", measures = "Shannon"): could not find function "regression_plot"
 ```
 
 ```r
@@ -108,14 +107,7 @@ pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
 
 # Visualize
 df <- sample_data(pseq0)
-p <- sorvi::regression_plot(diversity ~ age, df)
-```
-
-```
-## Error: 'regression_plot' is not an exported object from 'namespace:sorvi'
-```
-
-```r
+p <- plot_regression(diversity ~ age, df)
 print(p)
 ```
 

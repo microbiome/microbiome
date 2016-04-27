@@ -61,11 +61,11 @@ pseq <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
 
 # Visualize
 library(sorvi)
-p <- sorvi::regression_plot(diversity~age, sample_data(pseq))
+p <- sorvi::plot_regression(diversity~age, sample_data(pseq))
 ```
 
 ```
-## Error: 'regression_plot' is not an exported object from 'namespace:sorvi'
+## Error: 'plot_regression' is not an exported object from 'namespace:sorvi'
 ```
 
 ```r

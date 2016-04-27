@@ -34,13 +34,13 @@
 #' @examples
 #'   \dontrun{
 #'     data(atlas1006)
-#'     p <- regression_plot(diversity ~ age, sample_data(atlas1006))
+#'     p <- plot_regression(diversity ~ age, sample_data(atlas1006))
 #'   }
 #' @references See citation("microbiome") 
 #' @author Based on the original version from Felix Schonbrodt. 
 #'         Modified by Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-regression_plot <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous", ...) {
+plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous", ...) {
 
   # Circumvent global variable binding warnings
   . <- NULL
@@ -58,19 +58,21 @@ regression_plot <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
 
   # ------------------
 
-  IV <- all.vars(formula)[2]
-  DV <- all.vars(formula)[1]
+  IV <- all.vars(formula)[[2]]
+  DV <- all.vars(formula)[[1]]
 
   data$IV <- data[[IV]]
   data$DV <- data[[DV]]
   data[[IV]] <- data[[DV]] <- NULL
 
-  data <- arrange(data, IV) %>% 
+  data <- arrange(data, IV) %>%
           select(IV, DV) %>%
 	  filter(!is.na(IV) & !is.na(DV)) %>%
 	  filter(!is.infinite(IV) & !is.infinite(DV))
-  if (bw) palette <- colorRampPalette(c("#EEEEEE", "#999999", "#333333"), bias=2)(20)
 
+  if (bw) {
+    palette <- colorRampPalette(c("#EEEEEE", "#999999", "#333333"), bias=2)(20)
+  }
 
   message("Computing boostrapped smoothers ...")
   newx <- data.frame(seq(min(data$IV), max(data$IV), length=slices))
@@ -109,6 +111,7 @@ regression_plot <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
     b2 <- tolong(l0.boot)
     b2$x <- newx[,1]
     colnames(b2) <- c("index", "B", "value", "x")
+    b2$value = as.numeric(as.character(b2$value))
 
     p1 <- ggplot(data, aes_string(x = "IV", y = "DV"))
     p1 <- p1 + theme_bw()
@@ -126,9 +129,9 @@ regression_plot <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
           ylim <- c(min_value, max_value)
       }
 
-      message("vertical cross-sectional density estimate")
-      d2 <- b2[, c("x", "value")] %>%
-      	              group_by(x) %>%
+      message("Vertical cross-sectional density estimate")
+      d2 <- b2 %>% select(x, value) %>%
+      	                group_by(x) %>%
 	do(data.frame(density(.$value, na.rm = TRUE,
 		n = slices, from=ylim[[1]], to=ylim[[2]])[c("x", "y")]))
       d2 <- data.frame(d2)

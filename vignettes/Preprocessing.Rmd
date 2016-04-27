@@ -149,7 +149,7 @@ taxa <- taxa_names(pseq)
 Prune taxa:
 
 ```{r preprocess3b, warning=FALSE, message=FALSE}
-taxa <- levelmap(NULL, "Phylum", "Genus", pseq)$Bacteroidetes
+taxa <- map_levels(NULL, "Phylum", "Genus", pseq)$Bacteroidetes
 
 # With given taxon names
 ex2 <- prune_taxa(taxa, pseq)
@@ -224,7 +224,7 @@ Phylum (Verrucomicrobia)):
 
 ```{r phylogeny-example2, warning=FALSE, message=FALSE}
 data("atlas1006")
-m <- levelmap("Akkermansia", "Genus", "Phylum", tax_table(atlas1006))
+m <- map_levels("Akkermansia", "Genus", "Phylum", tax_table(atlas1006))
 print(m)
 ```
 

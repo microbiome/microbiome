@@ -44,12 +44,12 @@ core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds 
 ```{r core-example2, fig.width=8, fig.heigth=6, fig.path = "figure/", fig.show='hold', out.width="430px"}
 # Core lineplot with absolute read counts
 det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
-res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot", plot = FALSE)
+res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
 res$plot + xlab("Abundance (OTU read count)")
 
 # Core lineplot with relative abundances
 det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
-res <- plot_core(pseq.rel, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot", plot = FALSE)
+res <- plot_core(pseq.rel, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
 res$plot + xlab("Relative Abundance (%)")
 
 # Retrieve the core count data matrix
@@ -65,28 +65,35 @@ print(coremat)
 ```{r core-example3, fig.width=8, fig.heigth=13, fig.path = "figure/", fig.show='hold', out.width = '430px'}
 # Core with relative abundances:
 prevalence.intervals <- seq(5, 100, 5)
-detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)		 
+detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)
 res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds, plot = FALSE) 
 print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
 
 # Core with absolute counts:
 prevalence.intervals = seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
-res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals,
-       		       detection.thresholds = detection.thresholds, min.prevalence = NULL)$plot
+res <- plot_core(pseq, plot.type = "heatmap", palette = "bw",
+       		 prevalence.intervals = prevalence.intervals,
+       		 detection.thresholds = detection.thresholds,
+		 min.prevalence = NULL)$plot
 ```
 
 
 Zoom in on the core region by filtering out rows and columns not passing min prevalence (given as percentages):
 
 ```{r core-example3bb, fig.width=8, fig.heigth=13, fig.path = "figure/", fig.show='hold', out.width='430px'}
-res <- plot_core(pseq, plot.type = "heatmap", palette = "bw", prevalence.intervals = prevalence.intervals,
-		detection.thresholds = detection.thresholds, min.prevalence = 10, plot = TRUE)
+res <- plot_core(pseq, plot.type = "heatmap", palette = "bw",
+                 prevalence.intervals = prevalence.intervals,
+		 detection.thresholds = detection.thresholds,
+		 min.prevalence = 10)
+print(res$plot)		 
 
-res <- plot_core(pseq, plot.type = "heatmap", palette = "spectral", prevalence.intervals = prevalence.intervals,
-		detection.thresholds = detection.thresholds, min.prevalence = 0, plot = TRUE)
+res <- plot_core(pseq, plot.type = "heatmap", palette = "spectral",
+                 prevalence.intervals = prevalence.intervals,
+		 detection.thresholds = detection.thresholds,
+		 min.prevalence = 0)		 
+print(res$plot)		 
 ```
-
 
 
 Retrieve the core prevalence data matrix

@@ -1,4 +1,3 @@
-
 ### Richness 
 
 ```{r rich-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
@@ -82,7 +81,7 @@ pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
 
 # Visualize
 df <- sample_data(pseq0)
-p <- sorvi::regression_plot(diversity ~ age, df)
+p <- plot_regression(diversity ~ age, df)
 print(p)
 ```
 

@@ -9,7 +9,7 @@ pseq <- dietswap
 library(phyloseq)
 
 # Pick data subset
-bacteroidetes <- levelmap(from = "Phylum", to = "Genus",
+bacteroidetes <- map_levels(from = "Phylum", to = "Genus",
                    tax.table = tax_table(pseq))$Bacteroidetes
 pseq2 <- prune_taxa(bacteroidetes, pseq)
 pseq2 <- subset_samples(pseq2, group == "DI")

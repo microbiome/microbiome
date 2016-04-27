@@ -14,7 +14,6 @@
 #'  and have units of total taxa, and/or index value (dimensionless).
 #'  This parameter (\code{x}) is a character string indicating a
 #'  in the dataset (nsamples(x)).
-#' @param title Optional title for the graphic.
 #' @param measures Default is \code{NULL}. In this case
 #'  all available alpha-diversity measures will be included.
 #'  Alternatively, you can specify one or more measures
@@ -37,7 +36,7 @@
 #' @export
 #' @examples # plot_diversity(x, variable = "bmi_group", "Shannon")
 #' @keywords utilities
-plot_diversity <- function(x, variable = "group", title = "", measures = "Shannon", nrow = 1, scales = "free_y", det.th = 0, indicate.subjects = FALSE){ 
+plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1, scales = "free_y", det.th = 0, indicate.subjects = FALSE){ 
 
   ends_with <- horiz <- subject <- NULL
 
@@ -104,7 +103,6 @@ plot_diversity <- function(x, variable = "group", title = "", measures = "Shanno
 
   # Add y-label and title
   p <- p + ylab('Diversity') 
-  p <- p + ggtitle(title)
 
   p
 
