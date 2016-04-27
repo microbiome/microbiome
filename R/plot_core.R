@@ -42,9 +42,10 @@ plot_core <- function(x, title = "Core",
   } else if (plot.type == "heatmap") {
 
     # Here we use taxon x abundance thresholds table indicating prevalences
-    data <- otu_table(x)@.Data
-    if (taxa_are_rows(x)) {data <- t(data)}
-    res <- core_heatmap(data, detection.thresholds = detection.thresholds, palette = palette, min.prevalence = min.prevalence, taxa.order = taxa.order)
+    res <- core_heatmap(taxa_abundances(x),
+    	                detection.thresholds = detection.thresholds,
+			palette = palette, min.prevalence = min.prevalence,
+			taxa.order = taxa.order)
     
   }
 

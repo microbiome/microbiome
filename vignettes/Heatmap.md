@@ -30,10 +30,6 @@ pseq2 <- prune_taxa(bacteroidetes, pseq)
 pseq2 <- subset_samples(pseq2, group == "DI")
 ```
 
-```
-## Error in validObject(.Object): invalid class "sample_data" object: Sample Data must have non-zero dimensions.
-```
-
 
 ### Matrix heatmaps
 

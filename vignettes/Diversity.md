@@ -76,6 +76,13 @@ Diversity vs. continuous variable:
 
 ```r
 p <- plot_diversity(atlas1006, "age", measures = "Shannon")
+```
+
+```
+## Error in `$<-.data.frame`(`*tmp*`, "x", value = structure(list(IV = c(18, : replacement has 200 rows, data has 200000
+```
+
+```r
 print(p)
 ```
 
@@ -101,6 +108,13 @@ pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
 # Visualize
 df <- sample_data(pseq0)
 p <- plot_regression(diversity ~ age, df)
+```
+
+```
+## Error in `$<-.data.frame`(`*tmp*`, "x", value = structure(list(IV = c(18, : replacement has 200 rows, data has 200000
+```
+
+```r
 print(p)
 ```
 

@@ -75,7 +75,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
   }
 
   message("Computing boostrapped smoothers ...")
-  newx <- data.frame(seq(min(data$IV), max(data$IV), length=slices))
+  newx <- data_frame(seq(min(data$IV), max(data$IV), length=slices))
   colnames(newx) <- "IV"
 
   l0.boot <- matrix(NA, nrow=nrow(newx), ncol=B)
@@ -96,12 +96,11 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
     # compute median and CI limits of bootstrap
     CI.boot <- t(apply(l0.boot, 1, function(x) quantile(x, prob=c(.025, .5, .975, pnorm(c(-3, -2, -1, 0, 1, 2, 3))), na.rm=TRUE)))
     colnames(CI.boot)[1:10] <- c("LL", "M", "UL", paste0("SD", 1:7))
-    CI.boot <- as.data.frame(CI.boot)
+    CI.boot <- as_data_frame(CI.boot)
     CI.boot$x <- newx[, 1]
     CI.boot$width <- CI.boot$UL - CI.boot$LL
 
-    # scale the CI width to the range 0 to 1 and flip it
-    # (bigger numbers = narrower CI)
+    # scale the CI width to the range 0 to 1 and flip it (bigger numbers = narrower CI)
     CI.boot$w2 <- (CI.boot$width - min(CI.boot$width))
     CI.boot$w3 <- 1-(CI.boot$w2/max(CI.boot$w2))
 
@@ -132,9 +131,9 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
       message("Vertical cross-sectional density estimate")
       d2 <- b2 %>% select(x, value) %>%
       	                group_by(x) %>%
-	do(data.frame(density(.$value, na.rm = TRUE,
+	do(data_frame(density(.$value, na.rm = TRUE,
 		n = slices, from=ylim[[1]], to=ylim[[2]])[c("x", "y")]))
-      d2 <- data.frame(d2)
+      d2 <- data_frame(d2)
       names(d2) <- c("y", "dens")
       d2$x <- rep(unique(b2$x), each = slices)
       d2 <- d2[, c("x", "y", "dens")]
@@ -155,7 +154,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
       #SDs <- melt(CI.boot[, c("x", paste0("SD", 1:7))], id.vars="x")
       SDs <- tolong(CI.boot[, c("x", paste0("SD", 1:7))], id.vars="x")      
       count <- 0
-      d3 <- data.frame()
+      d3 <- data_frame()
       col <- c(1,2,3,3,2,1)
       for (i in 1:6) {
         seg1 <- SDs[SDs$variable == paste0("SD", i), ]

@@ -141,12 +141,12 @@ kable(head(prevalences))
 
 
 
-|Taxa     | DetectionThreshold| Prevalence|
-|:--------|------------------:|----------:|
-|sample-1 |                  1|   72.30769|
-|sample-2 |                  1|   83.07692|
-|sample-3 |                  1|   90.00000|
-|sample-4 |                  1|   82.30769|
-|sample-5 |                  1|   72.30769|
-|sample-6 |                  1|   77.69231|
+|Taxa                         | DetectionThreshold| Prevalence|
+|:----------------------------|------------------:|----------:|
+|Actinomycetaceae             |                  1|   61.36364|
+|Aerococcus                   |                  1|   61.36364|
+|Aeromonas                    |                  1|   65.90909|
+|Akkermansia                  |                  1|  100.00000|
+|Alcaligenes faecalis et rel. |                  1|   13.63636|
+|Allistipes et rel.           |                  1|  100.00000|
 

@@ -146,7 +146,7 @@ plot(pvalues.ttest[taxa], pvalues.limma[taxa])
 ```
 
 ```
-## Error in plot(pvalues.ttest[taxa], pvalues.limma[taxa]): object 'taxa' not found
+## Error in plot(pvalues.ttest[taxa], pvalues.limma[taxa]): object 'pvalues.limma' not found
 ```
 
 ```r
