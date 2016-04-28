@@ -116,52 +116,55 @@ sessionInfo()
 ## [11] LC_MEASUREMENT=de_BE.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
-## [1] grid      stats     graphics  grDevices utils     datasets  methods  
-## [8] base     
+##  [1] splines   stats4    tcltk     parallel  grid      stats     graphics 
+##  [8] grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] knitcitations_1.0.7 knitr_1.12.3        intergraph_2.0-2   
-##  [4] sna_2.3-2           network_1.13.0      ggnet_0.1.0        
-##  [7] GGally_1.0.1        devtools_1.11.0     limma_3.26.9       
-## [10] sorvi_0.7.45        tibble_1.0          ggplot2_2.1.0      
-## [13] tidyr_0.4.1         dplyr_0.4.3         MASS_7.3-45        
-## [16] netresponse_1.20.15 reshape2_1.4.1      mclust_5.2         
-## [19] minet_3.28.0        Rgraphviz_2.14.0    graph_1.48.0       
-## [22] microbiome_0.99.81  RSQLite_1.0.0       DBI_0.3.1          
-## [25] phyloseq_1.14.0    
+##  [1] FD_1.0-12             vegan_2.3-5           permute_0.9-0        
+##  [4] geometry_0.3-6        magic_1.5-6           abind_1.4-3          
+##  [7] ape_3.4               ade4_1.7-4            earlywarnings_1.1.22 
+## [10] tseries_0.10-34       tgp_2.4-14            moments_0.14         
+## [13] ggrepel_0.5.1         gridExtra_2.2.1       scales_0.4.0         
+## [16] SpiecEasi_0.1         VGAM_1.0-1            huge_1.2.7           
+## [19] igraph_1.0.1          lattice_0.20-33       Matrix_1.2-5         
+## [22] HITChipDB_0.6.30      RPA_1.27.41           affy_1.48.0          
+## [25] Biobase_2.30.0        BiocGenerics_0.16.1   RMySQL_0.10.8        
+## [28] preprocessCore_1.32.0 knitcitations_1.0.7   knitr_1.12.3         
+## [31] intergraph_2.0-2      sna_2.3-2             network_1.13.0       
+## [34] ggnet_0.1.0           GGally_1.0.1          devtools_1.11.0      
+## [37] limma_3.26.9          sorvi_0.7.45          tibble_1.0           
+## [40] ggplot2_2.1.0         tidyr_0.4.1           dplyr_0.4.3          
+## [43] MASS_7.3-45           netresponse_1.20.15   reshape2_1.4.1       
+## [46] mclust_5.2            minet_3.28.0          Rgraphviz_2.14.0     
+## [49] graph_1.48.0          microbiome_0.99.82    RSQLite_1.0.0        
+## [52] DBI_0.3.1             phyloseq_1.14.0      
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] nlme_3.1-127          bitops_1.0-6          matrixStats_0.50.2   
-##  [4] lubridate_1.5.6       httr_1.1.0            doParallel_1.0.10    
-##  [7] RColorBrewer_1.1-2    dynamicTreeCut_1.63-1 tools_3.2.5          
-## [10] R6_2.1.2              vegan_2.3-5           rpart_4.1-10         
-## [13] KernSmooth_2.23-15    dmt_0.8.20            lazyeval_0.1.10      
-## [16] Hmisc_3.17-3          nortest_1.0-4         BiocGenerics_0.16.1  
-## [19] mgcv_1.8-12           colorspace_1.2-6      permute_0.9-0        
-## [22] ade4_1.7-4            nnet_7.3-12           withr_1.0.1          
-## [25] gridExtra_2.2.1       moments_0.14          preprocessCore_1.32.0
-## [28] chron_2.3-47          WGCNA_1.51            Biobase_2.30.0       
-## [31] formatR_1.3           Cairo_1.5-9           labeling_0.3         
-## [34] tseries_0.10-34       scales_0.4.0          lmtest_0.9-34        
-## [37] mvtnorm_1.0-5         quadprog_1.5-5        tgp_2.4-14           
-## [40] stringr_1.0.0         digest_0.6.9          foreign_0.8-66       
-## [43] earlywarnings_1.1.22  XVector_0.10.0        bibtex_0.4.0         
-## [46] maps_3.1.0            impute_1.44.0         zoo_1.7-12           
-## [49] acepack_1.3-3.3       RCurl_1.95-4.8        magrittr_1.5         
-## [52] GO.db_3.2.2           Formula_1.2-1         Matrix_1.2-5         
-## [55] Rcpp_0.12.4           munsell_0.4.3         S4Vectors_0.8.11     
-## [58] maptree_1.4-7         RefManageR_0.10.13    ape_3.4              
-## [61] stringi_1.0-1         RJSONIO_1.3-0         zlibbioc_1.16.0      
-## [64] plyr_1.8.3            qvalue_2.2.2          parallel_3.2.5       
-## [67] lattice_0.20-33       Biostrings_2.38.4     splines_3.2.5        
-## [70] multtest_2.26.0       igraph_1.0.1          fastcluster_1.1.20   
-## [73] boot_1.3-18           codetools_0.2-14      stats4_3.2.5         
-## [76] XML_3.98-1.4          evaluate_0.8.3        latticeExtra_0.6-28  
-## [79] biom_0.3.12           data.table_1.9.6      spam_1.3-0           
-## [82] foreach_1.4.3         gtable_0.2.0          reshape_0.8.5        
-## [85] assertthat_0.1        Kendall_2.2           survival_2.39-2      
-## [88] iterators_1.0.8       som_0.3-5             AnnotationDbi_1.32.3 
-## [91] memoise_1.0.0         IRanges_2.4.8         fields_8.3-6         
-## [94] cluster_2.0.4
+##  [1] colorspace_1.2-6      dynamicTreeCut_1.63-1 som_0.3-5            
+##  [4] qvalue_2.2.2          XVector_0.10.0        affyio_1.40.0        
+##  [7] AnnotationDbi_1.32.3  mvtnorm_1.0-5         lubridate_1.5.6      
+## [10] RefManageR_0.10.13    codetools_0.2-14      doParallel_1.0.10    
+## [13] impute_1.44.0         spam_1.3-0            Formula_1.2-1        
+## [16] Cairo_1.5-9           WGCNA_1.51            cluster_2.0.4        
+## [19] GO.db_3.2.2           Kendall_2.2           httr_1.1.0           
+## [22] lazyeval_0.1.10       assertthat_0.1        formatR_1.3          
+## [25] acepack_1.3-3.3       tools_3.2.5           gtable_0.2.0         
+## [28] maps_3.1.0            Rcpp_0.12.4           Biostrings_2.38.4    
+## [31] RJSONIO_1.3-0         multtest_2.26.0       biom_0.3.12          
+## [34] nlme_3.1-127          iterators_1.0.8       lmtest_0.9-34        
+## [37] fastcluster_1.1.20    stringr_1.0.0         XML_3.98-1.4         
+## [40] zlibbioc_1.16.0       zoo_1.7-12            BiocInstaller_1.20.1 
+## [43] RColorBrewer_1.1-2    fields_8.3-6          memoise_1.0.0        
+## [46] rpart_4.1-10          reshape_0.8.5         latticeExtra_0.6-28  
+## [49] stringi_1.0-1         maptree_1.4-7         highr_0.5.1          
+## [52] S4Vectors_0.8.11      foreach_1.4.3         nortest_1.0-4        
+## [55] boot_1.3-18           bibtex_0.4.0          chron_2.3-47         
+## [58] matrixStats_0.50.2    bitops_1.0-6          dmt_0.8.20           
+## [61] evaluate_0.8.3        labeling_0.3          plyr_1.8.3           
+## [64] magrittr_1.5          R6_2.1.2              IRanges_2.4.8        
+## [67] Hmisc_3.17-3          foreign_0.8-66        withr_1.0.1          
+## [70] mgcv_1.8-12           survival_2.39-2       RCurl_1.95-4.8       
+## [73] nnet_7.3-12           KernSmooth_2.23-15    data.table_1.9.6     
+## [76] digest_0.6.9          munsell_0.4.3         quadprog_1.5-5
 ```
 

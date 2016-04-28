@@ -57,7 +57,6 @@
 #' @importFrom MASS bandwidth.nrd
 #' @importFrom moments skewness
 #' @importFrom moments kurtosis
-#' @importFrom netresponse plot_matrix
 #' @importFrom parallel mclapply
 #' @importFrom phyloseq estimate_richness
 #' @importFrom phyloseq get_taxa

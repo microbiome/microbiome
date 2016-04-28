@@ -26,7 +26,6 @@ Imports:
     stats,    
     tidyr,
     vegan,
-    netresponse,
     WGCNA
 Suggests:
     BiocGenerics,

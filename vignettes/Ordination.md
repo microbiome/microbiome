@@ -40,6 +40,13 @@ Then visualize the projected data:
 ```r
 # Highlighting gender
 p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
+```
+
+```
+## Error in UseMethod("densityplot"): no applicable method for 'densityplot' applied to an object of class "data.frame"
+```
+
+```r
 print(p)
 
 # Projection with sample names:
