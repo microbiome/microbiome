@@ -32,16 +32,11 @@ proj <- plot_ordination(pseq2, pseq.ord, justDF = T)
 ```
 
 
-Visualize and highlight. In addition to densityplot, see plot_ordn from the microbiome package and plot_ordination from the phyloseq package.
+See also plot_ordination from the phyloseq package.
 
 ```{r ordination4, message=FALSE, warning=FALSE, fig.width=7, fig.height=5}
 # Highlighting gender
 p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
-print(p)
-
-# Highlighting subjects with low / high Prevotella 
-prevotella.abundance  <- as.vector(log10(otu_table(pseq2)["Prevotella melaninogenica et rel.",]) )
-p <- densityplot(proj[, 1:2], col = prevotella.abundance, legend = T)
 print(p)
 ```
 
@@ -58,7 +53,7 @@ print(p)
 
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
-```{r ordination-pca-ordination21, message=FALSE, message=FALSE, fig.height=6, fig.width=10}
+```{r ordination-pca-ordination21, message=FALSE, message=FALSE, fig.height=6, fig.width=9}
 p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Phylum", title = "Taxa ordination")
 print(p)
 ```
@@ -101,7 +96,7 @@ print(p)
 
 ### Split plot
 
-```{r ordination-ordinate25, warning=FALSE, message=FALSE, fig.width=12, fig.height=6}
+```{r ordination-ordinate25, warning=FALSE, message=FALSE, fig.width=14, fig.height=5}
 plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender", 
     color = "Phylum", label = "gender")
 ```
@@ -109,7 +104,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender",
 
 ### Ordination biplot
 
-```{r ordination-ordinate26, warning=FALSE, message=FALSE, fig.width=12, fig.height=5}
+```{r ordination-ordinate26, warning=FALSE, message=FALSE, fig.width=10, fig.height=5}
 plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
 ```
 

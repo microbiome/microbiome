@@ -34,7 +34,7 @@ proj <- plot_ordination(pseq2, pseq.ord, justDF = T)
 ```
 
 
-Visualize and highlight. In addition to densityplot, see plot_ordn from the microbiome package and plot_ordination from the phyloseq package.
+See also plot_ordination from the phyloseq package.
 
 
 ```r
@@ -44,15 +44,6 @@ print(p)
 ```
 
 ![plot of chunk ordination4](figure/ordination4-1.png)
-
-```r
-# Highlighting subjects with low / high Prevotella 
-prevotella.abundance  <- as.vector(log10(otu_table(pseq2)["Prevotella melaninogenica et rel.",]) )
-p <- densityplot(proj[, 1:2], col = prevotella.abundance, legend = T)
-print(p)
-```
-
-![plot of chunk ordination4](figure/ordination4-2.png)
 
 Projection with sample names:
 
