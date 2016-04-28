@@ -11,22 +11,17 @@ library(phyloseq)
 
 # Pick data subset
 bacteroidetes <- map_levels(from = "Phylum", to = "Genus",
-                   tax.table = tax_table(pseq))$Bacteroidetes
+                   data = tax_table(pseq))$Bacteroidetes
 ```
 
 ```
-## Error in map_levels(from = "Phylum", to = "Genus", tax.table = tax_table(pseq)): unused argument (tax.table = tax_table(pseq))
+## Warning: 'levelmap' is deprecated.
+## Use 'map_levels' instead.
+## See help("Deprecated")
 ```
 
 ```r
 pseq2 <- prune_taxa(bacteroidetes, pseq)
-```
-
-```
-## Error in prune_taxa(bacteroidetes, pseq): object 'bacteroidetes' not found
-```
-
-```r
 pseq2 <- subset_samples(pseq2, group == "DI")
 ```
 
@@ -43,7 +38,7 @@ all bacteria from their population mean (smaller: blue; higher: red):
 pseqz <- transform_phyloseq(pseq2, "Z", "OTU")
 
 # Pick OTU table
-x <- otu_table(pseqz)@.Data
+x <- taxa_abundances(pseqz)
 
 # Plot heatmap
 tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))

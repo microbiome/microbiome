@@ -1,7 +1,5 @@
 ## Group-wise comparisons
 
-Some examples on standard pairwise comparison tests.
-
 
 ### Boxplots
 

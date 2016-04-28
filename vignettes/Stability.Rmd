@@ -69,7 +69,7 @@ package.
 
 Visualize population densities 
 
-```{r stability2, message=FALSE, warning=FALSE, fig.width=10, fig.height=5}
+```{r stability2, message=FALSE, warning=FALSE, fig.width=12, fig.height=5}
 # Pick the most and least bimodal taxa as examples
 bimodality <- bimodality.pb
 unimodal <- names(which.min(bimodality))

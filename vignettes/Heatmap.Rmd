@@ -10,7 +10,7 @@ library(phyloseq)
 
 # Pick data subset
 bacteroidetes <- map_levels(from = "Phylum", to = "Genus",
-                   tax.table = tax_table(pseq))$Bacteroidetes
+                   data = tax_table(pseq))$Bacteroidetes
 pseq2 <- prune_taxa(bacteroidetes, pseq)
 pseq2 <- subset_samples(pseq2, group == "DI")
 ```
@@ -27,7 +27,7 @@ all bacteria from their population mean (smaller: blue; higher: red):
 pseqz <- transform_phyloseq(pseq2, "Z", "OTU")
 
 # Pick OTU table
-x <- otu_table(pseqz)@.Data
+x <- taxa_abundances(pseqz)
 
 # Plot heatmap
 tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))

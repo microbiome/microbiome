@@ -39,6 +39,7 @@ library(knitr)
 #fs <- "SQL.Rmd"
 #fs <- "vignette.Rmd"
 fs <- sample(list.files(pattern = ".Rmd$"))
+knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
 for (f in fs) {
     print(f)
     knit(f) 

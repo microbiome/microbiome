@@ -1,4 +1,4 @@
-## Tools focusing on the HITChip phylogenetic microarray analysis
+## HITChip and other phylogenetic microarrays
 
   * [Extracting data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
   * [Cross hybridization (phylogenetic microarrays)](Crosshyb.md)

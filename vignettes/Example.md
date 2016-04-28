@@ -14,6 +14,12 @@ library(devtools)
 install_github("microbiome/microbiome")
 ```
 
+```
+## 
+## The downloaded source packages are in
+## 	'/tmp/RtmpigvPTF/downloaded_packages'
+```
+
 Load the tools and example data
 
 

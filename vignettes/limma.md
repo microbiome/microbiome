@@ -39,7 +39,7 @@ design <- design[colnames(otu), ]
 ```
 
 ```
-## Error in colnames(otu): object 'otu' not found
+## Error in design[colnames(otu), ]: subscript out of bounds
 ```
 
 ```r
@@ -52,7 +52,7 @@ fit <- lmFit(otu, design)
 ```
 
 ```
-## Error in is(object, "list"): object 'otu' not found
+## Error in lmFit(otu, design): row dimension of design doesn't match column dimension of data object
 ```
 
 ```r
@@ -126,7 +126,7 @@ for (tax in rownames(otu)) {
 ```
 
 ```
-## Error in rownames(otu): object 'otu' not found
+## Error in otu[tax, male.samples]: subscript out of bounds
 ```
 
 ```r
@@ -135,18 +135,11 @@ pvalues.ttest <- p.adjust(pvalues.ttest, method = "fdr")
 
 # Compare p-values between limma and t-test
 taxa <- rownames(otu)
-```
-
-```
-## Error in rownames(otu): object 'otu' not found
-```
-
-```r
 plot(pvalues.ttest[taxa], pvalues.limma[taxa])
 ```
 
 ```
-## Error in plot(pvalues.ttest[taxa], pvalues.limma[taxa]): object 'taxa' not found
+## Error in plot(pvalues.ttest[taxa], pvalues.limma[taxa]): object 'pvalues.limma' not found
 ```
 
 ```r

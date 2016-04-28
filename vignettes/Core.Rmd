@@ -60,7 +60,7 @@ print(coremat)
 
 ### Core heatmaps
 
-```{r core-example3, fig.width=8, fig.heigth=13, fig.path = "figure/", fig.show='hold', out.width = '430px'}
+```{r core-example3, fig.width=8, fig.heigth=15, fig.path = "figure/", fig.show='hold', out.width = '430px'}
 # Core with relative abundances:
 prevalence.intervals <- seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)
@@ -80,7 +80,7 @@ plot_core(pseq, plot.type = "heatmap", palette = "bw",
 
 Zoom in on the core region by filtering out rows and columns not passing min prevalence (given as percentages):
 
-```{r core-example3bb, fig.width=8, fig.heigth=13, fig.path = "figure/", fig.show='hold', out.width='430px'}
+```{r core-example3bb, fig.width=8, fig.heigth=15, fig.path = "figure/", fig.show='hold', out.width='430px'}
 res <- plot_core(pseq, plot.type = "heatmap", palette = "bw",
                  prevalence.intervals = prevalence.intervals,
 		 detection.thresholds = detection.thresholds,
