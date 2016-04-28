@@ -14,6 +14,7 @@
 #' @param plot.type Plot type: 'barplot' or 'heatmap'
 #' @param verbose verbose
 #' @param transformation Data transformation to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform_phyloseq}} function.
+#' @param mar Figure margins
 #' @param ... Arguments to be passed (for \code{\link{order_neatmap}} function)
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
@@ -25,7 +26,7 @@
 #'     plot_composition(pseq, taxonomic.level = "Phylum")
 #'           }
 #' @keywords utilities
-plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu.sort = NULL, x.label = "sample", plot.type = "barplot", verbose = FALSE, transformation = NULL, ...) {
+plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu.sort = NULL, x.label = "sample", plot.type = "barplot", verbose = FALSE, transformation = NULL, mar = c(5, 12, 1, 1), ...) {
 
   # Avoid warnings
   Sample <- Abundance <- Taxon <- horiz <- value <- scales <- ID <- meta <- OTU <- NULL
@@ -133,7 +134,7 @@ plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu
 
     # Plot
     # TODO: move it in here from netresponse and return the ggplot object as well
-    p <- plot_matrix(otu[otu.sort, sample.sort], type = "twoway", mar = c(5, 12, 1, 1))
+    p <- plot_matrix(otu[otu.sort, sample.sort], type = "twoway", mar = mar)
 
   }
 

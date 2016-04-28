@@ -27,7 +27,7 @@ approximate):
 library(phyloseq)
 pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
 res <- plot_composition(pseq2, taxonomic.level = "Phylum")
-res$plot + theme(legend.position = "bottom")
+res$plot + theme(legend.position = "bottom") + guides(fill=guide_legend(nrow=10,byrow=TRUE))
 ```
 
 ![plot of chunk composition-example1b](figure/composition-example1b-1.png)
@@ -44,7 +44,7 @@ pseq3 <- subset_samples(pseq3, group == "DI" & timepoint.within.group == 1)
 res <- plot_composition(pseq3, sample.sort = "nationality", x.label = "nationality")
 p <- res$plot
 p <- p + guides(fill = guide_legend(ncol = 3))
-p <- p + theme(legend.position = "bottom")
+p <- p + theme(legend.position = "bottom") + guides(fill=guide_legend(nrow=5,byrow=TRUE))
 print(p)
 ```
 
@@ -75,7 +75,7 @@ Plain heatmap
 
 ```r
 theme_set(theme_bw(30))
-res <- plot_composition(pseq3, plot.type = "heatmap")
+res <- plot_composition(pseq3, plot.type = "heatmap", mar = c(6, 13, 1, 1))
 ```
 
 ![plot of chunk composition-example5](figure/composition-example5-1.png)
@@ -85,7 +85,7 @@ Heatmap with Z-transformed OTUs
 
 
 ```r
-res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU")
+res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU", mar = c(6, 13, 1, 1))
 ```
 
 ![plot of chunk composition-example6](figure/composition-example6-1.png)
@@ -96,7 +96,8 @@ Same, but samples and OTUs sorted with the neatmap method
 
 ```r
 res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
-       			       sample.sort = "neatmap", otu.sort = "neatmap")
+       			       sample.sort = "neatmap", otu.sort = "neatmap",
+			       mar = c(6, 13, 1, 1))
 ```
 
 ![plot of chunk composition-example7](figure/composition-example7-1.png)
@@ -108,8 +109,10 @@ Same, but samples and OTUs sorted manually
 ```r
 sample.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "sites", first = NULL) 
 otu.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "species", first = NULL)
+
 res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
-       			       sample.sort = sample.sort, otu.sort = otu.sort)
+       			       sample.sort = sample.sort, otu.sort = otu.sort,
+			       mar = c(6, 13, 1, 1))
 ```
 
 ![plot of chunk composition-example8](figure/composition-example8-1.png)
