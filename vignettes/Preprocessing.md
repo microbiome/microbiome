@@ -46,14 +46,14 @@ kable(head(df))
 
 
 
-|       |OTU                               |Sample     | Abundance| age|gender |nationality   |DNA_extraction_method |project | diversity|bmi_group   |subject | time|sample     |Phylum        |Genus                             |
-|:------|:---------------------------------|:----------|---------:|---:|:------|:-------------|:---------------------|:-------|---------:|:-----------|:-------|----:|:----------|:-------------|:---------------------------------|
-|113110 |Prevotella melaninogenica et rel. |Sample-448 |    944002|  54|female |CentralEurope |o                     |18      |  2.037185|lean        |448     |    0|Sample-448 |Bacteroidetes |Prevotella melaninogenica et rel. |
-|113015 |Prevotella melaninogenica et rel. |Sample-360 |    902034|  45|female |CentralEurope |o                     |13      |  1.545135|severeobese |360     |    0|Sample-360 |Bacteroidetes |Prevotella melaninogenica et rel. |
-|112747 |Prevotella melaninogenica et rel. |Sample-190 |    862870|  34|female |CentralEurope |r                     |7       |  2.038446|lean        |190     |    0|Sample-190 |Bacteroidetes |Prevotella melaninogenica et rel. |
-|113109 |Prevotella melaninogenica et rel. |Sample-743 |    852350|  52|male   |US            |NA                    |19      |  1.559172|obese       |743     |    0|Sample-743 |Bacteroidetes |Prevotella melaninogenica et rel. |
-|112944 |Prevotella melaninogenica et rel. |Sample-366 |    851147|  52|female |CentralEurope |o                     |15      |  1.572581|obese       |366     |    0|Sample-366 |Bacteroidetes |Prevotella melaninogenica et rel. |
-|113639 |Prevotella melaninogenica et rel. |Sample-375 |    844482|  45|female |CentralEurope |o                     |16      |  1.786021|severeobese |375     |    0|Sample-375 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|      |OTU                               |Sample     | Abundance| age|gender |nationality   |DNA_extraction_method |project | diversity|bmi_group   |subject | time|sample     |Phylum        |Genus                             |
+|:-----|:---------------------------------|:----------|---------:|---:|:------|:-------------|:---------------------|:-------|---------:|:-----------|:-------|----:|:----------|:-------------|:---------------------------------|
+|38836 |Prevotella melaninogenica et rel. |Sample-190 |    862870|  34|female |CentralEurope |r                     |7       |      6.06|lean        |190     |    0|Sample-190 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|38693 |Prevotella melaninogenica et rel. |Sample-136 |    833119|  51|female |CentralEurope |r                     |7       |      6.18|lean        |136     |    0|Sample-136 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|38599 |Prevotella melaninogenica et rel. |Sample-149 |    813581|  30|female |CentralEurope |r                     |7       |      5.81|underweight |149     |    0|Sample-149 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|38637 |Prevotella melaninogenica et rel. |Sample-89  |    804371|  25|male   |SouthEurope   |r                     |6       |      5.83|lean        |89      |    0|Sample-89  |Bacteroidetes |Prevotella melaninogenica et rel. |
+|38536 |Prevotella melaninogenica et rel. |Sample-852 |    753785|  26|male   |UKIE          |r                     |24      |      5.77|overweight  |852     |    0|Sample-852 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|38858 |Prevotella melaninogenica et rel. |Sample-193 |    736260|  22|male   |CentralEurope |r                     |7       |      5.93|lean        |193     |    0|Sample-193 |Bacteroidetes |Prevotella melaninogenica et rel. |
 
 
 ### Standard data processing operations

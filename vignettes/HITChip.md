@@ -104,12 +104,6 @@ library(HITChipDB)
 ```
 
 ```
-## The following object is masked from 'package:ade4':
-## 
-##     score
-```
-
-```
 ## The following object is masked from 'package:limma':
 ## 
 ##     plotMA
