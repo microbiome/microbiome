@@ -23,7 +23,8 @@ pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > 1) > (0.1*nsamples(pseq.rel))
 
 ### Sample ordination
 
-Project the samples with the given method and distance:
+Project the samples with the given method and distance. See also plot_ordination from the phyloseq package.
+
 
 
 ```r
@@ -34,21 +35,13 @@ proj <- plot_ordination(pseq2, pseq.ord, justDF = T)
 ```
 
 
-See also plot_ordination from the phyloseq package.
-
 
 ```r
 # Highlighting gender
 p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
 print(p)
-```
 
-![plot of chunk ordination4](figure/ordination4-1.png)
-
-Projection with sample names:
-
-
-```r
+# Projection with sample names:
 ax1 <- names(proj)[[1]]
 ax2 <- names(proj)[[2]]
 p <- ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) +
@@ -56,7 +49,7 @@ p <- ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) +
 print(p)
 ```
 
-![plot of chunk ordination-visu-example2](figure/ordination-visu-example2-1.png)
+<img src="figure/ordination4-1.png" title="plot of chunk ordination4" alt="plot of chunk ordination4" width="400px" /><img src="figure/ordination4-2.png" title="plot of chunk ordination4" alt="plot of chunk ordination4" width="400px" />
 
 
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
@@ -95,26 +88,20 @@ See a separate page on [RDA](RDA.md).
 
 ### Canonical correspondence analysis (CCA)
 
-With samples:
 
 
 ```r
+# With samples
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gender")
 p + geom_point(size = 5)
-```
 
-![plot of chunk ordination-ordinate24a](figure/ordination-ordinate24a-1.png)
-
-With taxa:
-
-
-```r
+# With taxa:
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "taxa", color = "Phylum")
 p <- p + geom_point(size = 4)
 print(p)
 ```
 
-![plot of chunk ordination-ordinate24b](figure/ordination-ordinate24b-1.png)
+<img src="figure/ordination-ordinate24a-1.png" title="plot of chunk ordination-ordinate24a" alt="plot of chunk ordination-ordinate24a" width="400px" /><img src="figure/ordination-ordinate24a-2.png" title="plot of chunk ordination-ordinate24a" alt="plot of chunk ordination-ordinate24a" width="400px" />
 
 
 ### Split plot

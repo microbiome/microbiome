@@ -22,7 +22,8 @@ pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > 1) > (0.1*nsamples(pseq.rel))
 
 ### Sample ordination
 
-Project the samples with the given method and distance:
+Project the samples with the given method and distance. See also plot_ordination from the phyloseq package.
+
 
 ```{r ordination2, message=FALSE, warning=FALSE, results="hide"}
 set.seed(423542)
@@ -32,17 +33,12 @@ proj <- plot_ordination(pseq2, pseq.ord, justDF = T)
 ```
 
 
-See also plot_ordination from the phyloseq package.
-
-```{r ordination4, message=FALSE, warning=FALSE, fig.width=7, fig.height=5}
+```{r ordination4, message=FALSE, warning=FALSE, fig.width=7, fig.height=5, fig.show="hold", out.width="400px"}
 # Highlighting gender
 p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
 print(p)
-```
 
-Projection with sample names:
-
-```{r ordination-visu-example2, message=FALSE, message=FALSE, fig.height=6, fig.width=7}
+# Projection with sample names:
 ax1 <- names(proj)[[1]]
 ax2 <- names(proj)[[2]]
 p <- ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) +
@@ -78,16 +74,13 @@ See a separate page on [RDA](RDA.md).
 
 ### Canonical correspondence analysis (CCA)
 
-With samples:
 
-```{r ordination-ordinate24a, warning=FALSE, message=FALSE, fig.width=7, fig.height=6}
+```{r ordination-ordinate24a, warning=FALSE, message=FALSE, fig.width=12, fig.height=6, fig.show="hold", out.width="400px"}
+# With samples
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gender")
 p + geom_point(size = 5)
-```
 
-With taxa:
-
-```{r ordination-ordinate24b, warning=FALSE, message=FALSE, fig.width=12, fig.height=6}
+# With taxa:
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "taxa", color = "Phylum")
 p <- p + geom_point(size = 4)
 print(p)
