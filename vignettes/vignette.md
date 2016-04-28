@@ -71,7 +71,7 @@ package. URL: http://microbiome.github.com'.
 ### Dependencies
 
 The package utilizes tools from a number of other R extensions,
-including ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007), dplyr (Wickham and Francois, 2015), ggplot2 (Wickham, 2009), MASS (Venables and Ripley, 2002), moments (Komsta and Novomestky, 2015), netresponse (Lahti, Knuuttila, and Kaski, 2010), phyloseq (McMurdie and Holmes, 2013), RColorBrewer (Neuwirth, 2014), scales (Wickham, 2016), stats (R Core Team, 2016), tidyr (Wickham, 2016), vegan (Oksanen, Blanchet, Kindt, Legendre, Minchin, O'Hara, Simpson, Solymos, Stevens, and Wagner, 2016).
+including ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007), dplyr (Wickham and Francois, 2015), ggplot2 (Wickham, 2009), MASS (Venables and Ripley, 2002), moments (Komsta and Novomestky, 2015), phyloseq (McMurdie and Holmes, 2013), RColorBrewer (Neuwirth, 2014), scales (Wickham, 2016), stats (R Core Team, 2016), tidyr (Wickham, 2016), vegan (Oksanen, Blanchet, Kindt, Legendre, Minchin, O'Hara, Simpson, Solymos, Stevens, and Wagner, 2016).
 
 
 ### References
@@ -93,49 +93,45 @@ Two-table and K-table methods." In: _R News_ 7.2 (2007), pp.
 skewness, kurtosis and related tests_. R package version 0.14.
 2015. <URL: https://CRAN.R-project.org/package=moments>.
 
-[5] L. Lahti, J. E. Knuuttila and S. Kaski. "Global modeling of
-transcriptional responses in interaction networks". In:
-_Bioinformatics_ 26 (21 2010), pp. 2713-20.
-
-[6] P. J. McMurdie and S. Holmes. "phyloseq: An R package for
+[5] P. J. McMurdie and S. Holmes. "phyloseq: An R package for
 reproducible interactive analysis and graphics of microbiome
 census data". In: _PLoS ONE_ 8.4 (2013), p. e61217. <URL:
 http://dx.plos.org/10.1371/journal.pone.0061217>.
 
-[7] E. Neuwirth. _RColorBrewer: ColorBrewer Palettes_. R package
+[6] E. Neuwirth. _RColorBrewer: ColorBrewer Palettes_. R package
 version 1.1-2. 2014. <URL:
 https://CRAN.R-project.org/package=RColorBrewer>.
 
-[8] J. Oksanen, F. G. Blanchet, R. Kindt, et al. _vegan: Community
+[7] J. Oksanen, F. G. Blanchet, R. Kindt, et al. _vegan: Community
 Ecology Package_. R package version 2.3-5. 2016. <URL:
 https://CRAN.R-project.org/package=vegan>.
 
-[9] R Core Team. _R: A language and environment for statistical
+[8] R Core Team. _R: A language and environment for statistical
 computing_. Vienna, Austria: R Foundation for Statistical
 Computing, 2013. ISBN: ISBN 3-900051-07-0. <URL:
 http://www.R-project.org/>.
 
-[10] R Core Team. _R: A Language and Environment for Statistical
+[9] R Core Team. _R: A Language and Environment for Statistical
 Computing_. R Foundation for Statistical Computing. Vienna,
 Austria, 2016. <URL: https://www.R-project.org/>.
 
-[11] W. N. Venables and B. D. Ripley. _Modern Applied Statistics
+[10] W. N. Venables and B. D. Ripley. _Modern Applied Statistics
 with S_. Fourth. ISBN 0-387-95457-0. New York: Springer, 2002.
 <URL: http://www.stats.ox.ac.uk/pub/MASS4>.
 
-[12] H. Wickham. _ggplot2: Elegant Graphics for Data Analysis_.
+[11] H. Wickham. _ggplot2: Elegant Graphics for Data Analysis_.
 Springer-Verlag New York, 2009. ISBN: 978-0-387-98140-6. <URL:
 http://ggplot2.org>.
 
-[13] H. Wickham. _scales: Scale Functions for Visualization_. R
+[12] H. Wickham. _scales: Scale Functions for Visualization_. R
 package version 0.4.0. 2016. <URL:
 https://CRAN.R-project.org/package=scales>.
 
-[14] H. Wickham. _tidyr: Easily Tidy Data with `spread()` and
+[13] H. Wickham. _tidyr: Easily Tidy Data with `spread()` and
 `gather()` Functions_. R package version 0.4.1. 2016. <URL:
 https://CRAN.R-project.org/package=tidyr>.
 
-[15] H. Wickham and R. Francois. _dplyr: A Grammar of Data
+[14] H. Wickham and R. Francois. _dplyr: A Grammar of Data
 Manipulation_. R package version 0.4.3. 2015. <URL:
 https://CRAN.R-project.org/package=dplyr>.
 

@@ -32,7 +32,7 @@ pseqz <- transform_phyloseq(pseq2, "Z", "OTU")
 x <- taxa_abundances(pseqz)
 
 # Plot heatmap
-tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
+tmp <- plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
 ```
 
 ![plot of chunk heatmap-matvisu-example](figure/heatmap-matvisu-example-1.png)
@@ -52,7 +52,7 @@ sorted.rows <- neatsort(xz, "rows", method = "NMDS", distance = "euclidean")
 
 # Or just arrange the matrix directly
 xo <- neat(xz, method = "NMDS", distance = "euclidean") # Sorted matrix
-tmp <- netresponse::plot_matrix(t(xo), type = "twoway", mar = c(5, 12, 1, 1))
+tmp <- plot_matrix(t(xo), type = "twoway", mar = c(5, 12, 1, 1))
 ```
 
 ![plot of chunk neatmap3](figure/neatmap3-1.png)

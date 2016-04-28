@@ -94,27 +94,15 @@ print(coremat)
 # Core with relative abundances:
 prevalence.intervals <- seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)
+# Also define gray color palette
+gray <- colorRampPalette(gray(c(0,1)))
 res <- plot_core(pseq.rel, plot.type = "heatmap", palette = gray,
     prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
-```
-
-```
-## [1] "#000000" "#404040" "#808080" "#BFBFBF" "#FFFFFF"
-```
-
-```r
 print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
-
 
 res <- plot_core(pseq.rel, plot.type = "heatmap", palette = gray, ncolor = 5,
     prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
-```
 
-```
-## [1] "#000000" "#404040" "#808080" "#BFBFBF" "#FFFFFF"
-```
-
-```r
 # Core with absolute counts:
 prevalence.intervals = seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
@@ -122,10 +110,6 @@ plot_core(pseq, plot.type = "heatmap", palette = gray,
        		 prevalence.intervals = prevalence.intervals,
        		 detection.thresholds = detection.thresholds,
 		 min.prevalence = NULL)$plot
-```
-
-```
-## [1] "#000000" "#404040" "#808080" "#BFBFBF" "#FFFFFF"
 ```
 
 <img src="figure/core-example3-1.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="430px" /><img src="figure/core-example3-2.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="430px" />
@@ -139,13 +123,6 @@ res <- plot_core(pseq, plot.type = "heatmap", palette = gray,
                  prevalence.intervals = prevalence.intervals,
 		 detection.thresholds = detection.thresholds,
 		 min.prevalence = 10)
-```
-
-```
-## [1] "#000000" "#404040" "#808080" "#BFBFBF" "#FFFFFF"
-```
-
-```r
 print(res$plot)		 
 
 
@@ -155,22 +132,6 @@ res <- plot_core(pseq, plot.type = "heatmap",
                  prevalence.intervals = prevalence.intervals,
 		 detection.thresholds = detection.thresholds,
 		 min.prevalence = 0)		 
-```
-
-```
-## Warning in seq.int(0, 1, length.out = n): first element used of
-## 'length.out' argument
-```
-
-```
-## character(0)
-```
-
-```
-## Error in colour_ramp(colours): Must provide at least one color to create a color ramp
-```
-
-```r
 print(res$plot)		 
 ```
 

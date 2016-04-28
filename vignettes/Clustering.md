@@ -34,8 +34,6 @@ Fit and visualize Variational Dirichlet process univariate infinite Gaussian mix
 
 
 ```r
-library(netresponse)
-
 # Generate simulated bimodal univariate data
 x <- c(rnorm(200), rnorm(200, mean = 5))
 
