@@ -58,8 +58,8 @@ Same with relative abundances:
 res <- plot_composition(pseq3, sample.sort = "nationality", x.label = "nationality", transformation = "relative.abundance")
 p <- res$plot
 p <- p + guides(fill = guide_legend(ncol = 1))
-#p <- p + theme(legend.position = "bottom")
 p <- p + ylab("Relative Abundance (%)")
+#p <- p + theme(legend.position = "bottom")
 print(p)
 ```
 
