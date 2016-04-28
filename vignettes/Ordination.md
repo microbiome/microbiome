@@ -94,7 +94,7 @@ See a separate page on [RDA](RDA.md).
 ```r
 # With samples
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gender")
-p + geom_point(size = 5)
+p <- p + geom_point(size = 4)
 print(p)
 
 # With taxa:
@@ -103,7 +103,7 @@ p <- p + geom_point(size = 4)
 print(p)
 ```
 
-<img src="figure/ordination-ordinate24a-1.png" title="plot of chunk ordination-ordinate24a" alt="plot of chunk ordination-ordinate24a" width="400px" /><img src="figure/ordination-ordinate24a-2.png" title="plot of chunk ordination-ordinate24a" alt="plot of chunk ordination-ordinate24a" width="400px" /><img src="figure/ordination-ordinate24a-3.png" title="plot of chunk ordination-ordinate24a" alt="plot of chunk ordination-ordinate24a" width="400px" />
+<img src="figure/ordination-ordinate24a-1.png" title="plot of chunk ordination-ordinate24a" alt="plot of chunk ordination-ordinate24a" width="400px" /><img src="figure/ordination-ordinate24a-2.png" title="plot of chunk ordination-ordinate24a" alt="plot of chunk ordination-ordinate24a" width="400px" />
 
 
 ### Split plot
