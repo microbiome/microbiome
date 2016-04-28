@@ -74,7 +74,7 @@ print(p)
 Draw regression curve with smoothed error bars based on
 the [Visually-Weighted Regression](http://www.fight-entropy.com/2012/07/visually-weighted-regression.html) by Solomon M. Hsiang. The sorvi implementation extends [Felix Schonbrodt's original code](http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/).
 
-```{r variability-regressionline, message=FALSE, eval=TRUE, fig.width=10, fig.height=5, warning=FALSE}
+```{r variability-regressionline, message=FALSE, eval=TRUE, fig.width=10, fig.height=5, warning=FALSE, dev="CairoPNG"}
 data(atlas1006)
 p <- plot_regression(diversity ~ age, sample_data(atlas1006))
 print(p)
