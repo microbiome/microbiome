@@ -17,7 +17,7 @@ x <- subset_samples(atlas1006, time == 0 & DNA_extraction_method == "r")
 # Visualize population densities for specific taxa
 plot_density(x, "Dialister") + ggtitle("Absolute abundance")
 
-# Same with log10 abundances:
+# Same with log10 scaled X axis
 plot_density(x, "Dialister", log10 = TRUE) + ggtitle("Log10")
 
 # Same with log10 relative abundances
@@ -26,5 +26,5 @@ tax <- "Dialister"
 plot_density(x, tax, log10 = TRUE) + ggtitle("Relative abundance")
 ```
 
-<img src="figure/hist-1.png" title="plot of chunk hist" alt="plot of chunk hist" width="230px" /><img src="figure/hist-2.png" title="plot of chunk hist" alt="plot of chunk hist" width="230px" /><img src="figure/hist-3.png" title="plot of chunk hist" alt="plot of chunk hist" width="230px" />
+<img src="figure/hist-1.png" title="plot of chunk hist" alt="plot of chunk hist" width="300px" /><img src="figure/hist-2.png" title="plot of chunk hist" alt="plot of chunk hist" width="300px" /><img src="figure/hist-3.png" title="plot of chunk hist" alt="plot of chunk hist" width="300px" />
 
