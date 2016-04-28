@@ -21,6 +21,7 @@ Imports:
     MASS,
     moments,
     RColorBrewer,
+    reshape2,
     scales,
     stats,    
     tidyr,

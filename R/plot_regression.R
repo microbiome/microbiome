@@ -42,6 +42,9 @@
 #' @keywords utilities
 plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous", ...) {
 
+  # Some transparency problems solved with:		
+  # http://tinyheero.github.io/2015/09/15/semi-transparency-r.html
+
   # Circumvent global variable binding warnings
   . <- NULL
   aes <- NULL  
@@ -75,7 +78,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
   }
 
   message("Computing boostrapped smoothers ...")
-  newx <- data_frame(seq(min(data$IV), max(data$IV), length=slices))
+  newx <- data.frame(seq(min(data$IV), max(data$IV), length=slices))
   colnames(newx) <- "IV"
 
   l0.boot <- matrix(NA, nrow=nrow(newx), ncol=B)
@@ -91,7 +94,8 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
       m1 <- method(formula, data2, ...)
     }
       l0.boot[, i] <- predict(m1, newdata=newx)
-    }
+  }
+
 
     # compute median and CI limits of bootstrap
     CI.boot <- t(apply(l0.boot, 1, function(x) quantile(x, prob=c(.025, .5, .975, pnorm(c(-3, -2, -1, 0, 1, 2, 3))), na.rm=TRUE)))
@@ -105,18 +109,14 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
     CI.boot$w2 <- (CI.boot$width - min(CI.boot$width))
     CI.boot$w3 <- 1-(CI.boot$w2/max(CI.boot$w2))
 
-    message("Convert to long")
-    # Alternative to melt
-    #b2 <- melt(l0.boot)
-    b2 <- tolong(l0.boot)
-    # b2$x <- rep(unname(unlist(newx[,1])), B)
-    b2$x <- rep(unname(unlist(newx[,1])), each = slices)    
-    colnames(b2) <- c("index", "B", "value", "x")
-    b2$value = as.numeric(as.character(b2$value))
-
-    p1 <- ggplot(data, aes_string(x = "IV", y = "DV"))
-    p1 <- p1 + theme_bw()
-
+  message("Convert to long")
+  b2 <- melt(l0.boot, id.vars = "x")
+  b2$x <- newx[,1] 
+  colnames(b2) <- c("index", "B", "value", "x")
+  b2$value = as.numeric(as.character(b2$value))
+  p1 <- ggplot(data, aes_string(x = "IV", y = "DV"))
+  p1 <- p1 + theme_bw()
+  
     if (shade) {
     
        quantize <- match.arg(quantize, c("continuous", "SD"))
@@ -125,23 +125,23 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
        	  message("Computing density estimates for the vertical cuts ...")
       	  flush.console()
       	  if (is.null(ylim)) {
-          min_value <- min(min(l0.boot, na.rm=TRUE), min(data$DV, na.rm=TRUE))
-          max_value <- max(max(l0.boot, na.rm=TRUE), max(data$DV, na.rm=TRUE))
-          ylim <- c(min_value, max_value)
-      }
+            min_value <- min(min(l0.boot, na.rm=TRUE), min(data$DV, na.rm=TRUE))
+            max_value <- max(max(l0.boot, na.rm=TRUE), max(data$DV, na.rm=TRUE))
+            ylim <- c(min_value, max_value)
+	  }
+       }
 
       message("Vertical cross-sectional density estimate")
       d2 <- b2 %>% select(x, value) %>%
       	                group_by(x) %>%
-	do(data_frame(density(.$value, na.rm = TRUE,
+	do(data.frame(density(.$value, na.rm = TRUE,
 		n = slices, from=ylim[[1]], to=ylim[[2]])[c("x", "y")]))
       d2 <- data.frame(d2)
       names(d2) <- c("y", "dens")
-
-      #d2$x <- rep(unique(b2$x), each = slices)
-      d2$x <- unique(b2$x)
+      d2$x <- rep(unique(b2$x), each = slices)
+      #d2$x <- rep(b2$x, each = slices)
+      #d2$x <- b2$x
       d2 <- d2[, c("x", "y", "dens")]
-
       maxdens <- max(d2$dens)
       mindens <- min(d2$dens)
       d2$dens.scaled <- (d2$dens - mindens)/maxdens
@@ -151,14 +151,14 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
       p1 <- p1 + geom_tile(data=d2, aes(x=x, y=y, fill=dens.scaled, alpha=alpha.factor)) 
       p1 <- p1 + scale_fill_gradientn("dens.scaled", colours=palette) 
       p1 <- p1 + scale_alpha_continuous(range = c(0.001, 1))
-    }   
+      
+    }  
 
     if (quantize == "SD") {
       message("Polygon approach")
-      #SDs <- melt(CI.boot[, c("x", paste0("SD", 1:7))], id.vars="x")
-      SDs <- tolong(CI.boot[, c("x", paste0("SD", 1:7))], id.vars="x")      
+      SDs <- melt(CI.boot[, c("x", paste0("SD", 1:7))], id.vars="x")      
       count <- 0
-      d3 <- data_frame()
+      d3 <- data.frame()
       col <- c(1,2,3,3,2,1)
       for (i in 1:6) {
         seg1 <- SDs[SDs$variable == paste0("SD", i), ]
@@ -172,9 +172,9 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
 
      p1 <- p1 + geom_polygon(data=d3, aes(x = x, y = value, color = NULL, fill = col, group = group))
      p1 <- p1 + scale_fill_gradientn("dens.scaled", colours = palette, values = seq(-1, 3, 1))
-     }
-  }
-
+     
+   }
+  
   message("Build ggplot...")
   flush.console()
   if (spag) {
@@ -198,7 +198,6 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
   if (show.lm) {
     p1 <- p1 + geom_smooth(method = "lm", color = "darkgreen", se = FALSE)
   }
-
   p <- p1 + geom_point(size=1, shape=21, fill="white", color="black")
   p <- p + xlab(IV)
   p <- p + ylab(DV)

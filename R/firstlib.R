@@ -80,6 +80,7 @@
 #' @importFrom phyloseq tax_table
 #' @importFrom phyloseq transform_sample_counts
 #' @importFrom RColorBrewer brewer.pal
+#' @importFrom reshape2 melt
 #' @importFrom scales percent
 #' @importFrom stats dist
 #' @importFrom tidyr gather
