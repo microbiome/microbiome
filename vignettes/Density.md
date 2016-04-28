@@ -14,40 +14,30 @@ library(phyloseq)
 
 # Example data from
 # http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html
-data("atlas1006")
-x <- atlas1006
+data(atlas1006)
 
 # Pick the subset of RBB-preprocessed samples from time point 0
-x <- subset_samples(x, time == 0 & DNA_extraction_method == "r")
+x <- subset_samples(atlas1006, time == 0 & DNA_extraction_method == "r")
 
 # Visualize population densities for specific taxa
-plot_density(x, "Dialister")
+plot_density(x, "Dialister") + ggtitle("Absolute abundance")
 ```
 
 ![plot of chunk hist](figure/hist-1.png)
 
-
-Same with log10 abundances:
-
-
 ```r
-plot_density(x, "Dialister", log10 = TRUE)
+# Same with log10 abundances:
+plot_density(x, "Dialister", log10 = TRUE) + ggtitle("Log10")
 ```
 
-![plot of chunk hist2](figure/hist2-1.png)
-
-
-Same with log10 relative abundances:
-
+![plot of chunk hist](figure/hist-2.png)
 
 ```r
-# Convert to relative abundances
+# Same with log10 relative abundances
 x <- transform_sample_counts(x, function (x) {100 * x/sum(x)})
-
-# Visualize
 tax <- "Dialister"
-plot_density(x, tax, log10 = TRUE) + ggtitle(paste(tax, "(Rel. Ab. %)"))
+plot_density(x, tax, log10 = TRUE) + ggtitle("Relative abundance")
 ```
 
-![plot of chunk hist3](figure/hist3-1.png)
+![plot of chunk hist](figure/hist-3.png)
 
