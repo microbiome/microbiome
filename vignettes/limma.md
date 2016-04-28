@@ -37,6 +37,7 @@ coef.index <- 2
 # Fit the limma model
 fit <- lmFit(otu, design)
 fit <- eBayes(fit)
+limma.pvalues = fit$p.value[, 2]
 
 # Summarise 
 kable(topTable(fit, coef = coef.index, p.value=0.05), digits = 2)
