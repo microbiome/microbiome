@@ -1,7 +1,7 @@
 ### Prevalence of taxonomic groups
 
 
-```{r prevalence, fig.path = "figure/"}
+```{r core-prevalence, fig.path = "figure/"}
 # Load example data
 library(microbiome)
 data("peerj32")
@@ -14,14 +14,14 @@ pseq.rel <- transform_phyloseq(pseq, "relative.abundance", "OTU")
 
 List prevalence for each group at 1 percent relative abundance abundance threshold:
 
-```{r prevalence2, fig.path = "figure/"}
+```{r core-prevalence2, fig.path = "figure/"}
 head(prevalence(pseq.rel, detection.threshold = 1, sort = FALSE))
 ```
 
 
 List the taxa that are present at the given detection threshold (1% relative abundance) at a given prevalence (80%) (fraction of the samples):
 
-```{r prevalence3, fig.path = "figure/"}
+```{r core-prevalence3, fig.path = "figure/"}
 prevalent.taxa <- prevalent_taxa(pseq.rel, detection.threshold = 1, prevalence.threshold = 80)
 ```
 
@@ -42,12 +42,12 @@ core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds 
 ### Core 2D line plots
 
 ```{r core-example2, fig.width=8, fig.heigth=6, fig.path = "figure/", fig.show='hold', out.width="430px"}
-# Core lineplot with absolute read counts
+# With absolute read counts
 det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
 res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
 res$plot + xlab("Abundance (OTU read count)")
 
-# Core lineplot with relative abundances
+# With relative abundances
 det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
 res <- plot_core(pseq.rel, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
 res$plot + xlab("Relative Abundance (%)")
@@ -60,7 +60,6 @@ print(coremat)
 
 ### Core heatmaps
 
-
 ```{r core-example3, fig.width=8, fig.heigth=13, fig.path = "figure/", fig.show='hold', out.width = '430px'}
 # Core with relative abundances:
 prevalence.intervals <- seq(5, 100, 5)
@@ -72,7 +71,7 @@ print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
 # Core with absolute counts:
 prevalence.intervals = seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
-res <- plot_core(pseq, plot.type = "heatmap", palette = "bw",
+plot_core(pseq, plot.type = "heatmap", palette = "bw",
        		 prevalence.intervals = prevalence.intervals,
        		 detection.thresholds = detection.thresholds,
 		 min.prevalence = NULL)$plot

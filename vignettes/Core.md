@@ -56,12 +56,12 @@ core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds 
 
 
 ```r
-# Core lineplot with absolute read counts
+# With absolute read counts
 det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
 res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
 res$plot + xlab("Abundance (OTU read count)")
 
-# Core lineplot with relative abundances
+# With relative abundances
 det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
 res <- plot_core(pseq.rel, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
 res$plot + xlab("Relative Abundance (%)")
@@ -90,7 +90,6 @@ print(coremat)
 ### Core heatmaps
 
 
-
 ```r
 # Core with relative abundances:
 prevalence.intervals <- seq(5, 100, 5)
@@ -102,13 +101,13 @@ print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
 # Core with absolute counts:
 prevalence.intervals = seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
-res <- plot_core(pseq, plot.type = "heatmap", palette = "bw",
+plot_core(pseq, plot.type = "heatmap", palette = "bw",
        		 prevalence.intervals = prevalence.intervals,
        		 detection.thresholds = detection.thresholds,
 		 min.prevalence = NULL)$plot
 ```
 
-<img src="figure/core-example3-1.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="430px" />
+<img src="figure/core-example3-1.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="430px" /><img src="figure/core-example3-2.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="430px" />
 
 
 Zoom in on the core region by filtering out rows and columns not passing min prevalence (given as percentages):

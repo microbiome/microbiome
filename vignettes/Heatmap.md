@@ -30,10 +30,6 @@ pseq2 <- prune_taxa(bacteroidetes, pseq)
 pseq2 <- subset_samples(pseq2, group == "DI")
 ```
 
-```
-## Error in sample_data(physeq): object 'pseq2' not found
-```
-
 
 ### Matrix heatmaps
 
@@ -45,29 +41,15 @@ all bacteria from their population mean (smaller: blue; higher: red):
 ```r
 # Z transform
 pseqz <- transform_phyloseq(pseq2, "Z", "OTU")
-```
 
-```
-## Error in otu_table(x): object 'pseq2' not found
-```
-
-```r
 # Pick OTU table
 x <- otu_table(pseqz)@.Data
-```
 
-```
-## Error in otu_table(pseqz): object 'pseqz' not found
-```
-
-```r
 # Plot heatmap
 tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
 ```
 
-```
-## Error in netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, : object 'x' not found
-```
+![plot of chunk heatmap-matvisu-example](figure/heatmap-matvisu-example-1.png)
 
 
 Find visually appealing order for rows and columns with Neatmap sorting:

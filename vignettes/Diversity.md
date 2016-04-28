@@ -11,30 +11,19 @@ pseq <- atlas1006
 # (note the zero point has been moved to the detection threshold;
 #  typically signal 1.8 at HITChip log10 scale)
 library(phyloseq)
-otu <- get_taxa(pseq)
+otu <- taxa_abundances(pseq)
 
 # Determine detection threshold at the 0.15 quantile
-# Bacteria that exceed this threshold are considered present
-# otherwise absent
-det.th <- quantile(otu, 0.15)
-
-# Visualize the detection threshold (at log10 scale for clarity)
-plot(density(log10(otu)), main = "Detection threshold", xlab = "Abundance (Log10)", ylab = "Frequency")
-abline(v = log10(det.th))
-```
-
-![plot of chunk rich-example](figure/rich-example-1.png)
-
-```r
-# Calculate richness.
+# Then Calculate richness.
 # This simply indicates how many taxa are present in each sample
 # (exceed the detection threshold). This measure is sometimes used with
 # phylogenetic microarrays.
+det.th <- quantile(otu, 0.15)
 ri <- estimate_diversity(pseq, det.th = det.th)$Observed
 hist(ri, main = "Richness")
 ```
 
-![plot of chunk rich-example](figure/rich-example-2.png)
+![plot of chunk rich-example](figure/rich-example-1.png)
 
 
 ### Diversity 

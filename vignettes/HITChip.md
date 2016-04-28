@@ -86,12 +86,6 @@ library(HITChipDB)
 ```
 
 ```
-## The following object is masked from 'package:ade4':
-## 
-##     score
-```
-
-```
 ## The following objects are masked from 'package:igraph':
 ## 
 ##     normalize, union
@@ -101,6 +95,12 @@ library(HITChipDB)
 ## The following object is masked from 'package:Matrix':
 ## 
 ##     as.vector
+```
+
+```
+## The following object is masked from 'package:ade4':
+## 
+##     score
 ```
 
 ```

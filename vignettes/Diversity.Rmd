@@ -1,6 +1,6 @@
 ### Richness 
 
-```{r rich-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
+```{r rich-example, warning=FALSE, message=FALSE, fig.path = "figure/", fig.height=3, fig.width=5}
 # Get example data in phyloseq format
 library(microbiome)
 data(atlas1006)
@@ -10,21 +10,14 @@ pseq <- atlas1006
 # (note the zero point has been moved to the detection threshold;
 #  typically signal 1.8 at HITChip log10 scale)
 library(phyloseq)
-otu <- get_taxa(pseq)
+otu <- taxa_abundances(pseq)
 
 # Determine detection threshold at the 0.15 quantile
-# Bacteria that exceed this threshold are considered present
-# otherwise absent
-det.th <- quantile(otu, 0.15)
-
-# Visualize the detection threshold (at log10 scale for clarity)
-plot(density(log10(otu)), main = "Detection threshold", xlab = "Abundance (Log10)", ylab = "Frequency")
-abline(v = log10(det.th))
-
-# Calculate richness.
+# Then Calculate richness.
 # This simply indicates how many taxa are present in each sample
 # (exceed the detection threshold). This measure is sometimes used with
 # phylogenetic microarrays.
+det.th <- quantile(otu, 0.15)
 ri <- estimate_diversity(pseq, det.th = det.th)$Observed
 hist(ri, main = "Richness")
 ```
@@ -58,7 +51,7 @@ print(p)
 
 Diversity vs. continuous variable:
 
-```{r diversitywithmetadata2, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.path = "figure/"}
+```{r diversitywithmetadata2, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.path = "figure/", dev="CairoPNG"}
 p <- plot_diversity(atlas1006, "age", measures = "Shannon")
 print(p)
 ```
@@ -66,7 +59,7 @@ print(p)
 
 Diversity vs. age with smoothed confidence intervals - manual version:
 
-```{r diversity-example13, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/"}
+```{r diversity-example13, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/", dev="CairoPNG"}
 library(microbiome)
 library(sorvi)
 library(dplyr)
