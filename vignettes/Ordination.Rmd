@@ -53,7 +53,7 @@ print(p)
 
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
-```{r ordination-pca-ordination21, message=FALSE, message=FALSE, fig.height=6, fig.width=9}
+```{r ordination-pca-ordination21, message=FALSE, message=FALSE, fig.height=8, fig.width=8}
 p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Phylum", title = "Taxa ordination")
 print(p)
 ```
@@ -104,7 +104,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender",
 
 ### Ordination biplot
 
-```{r ordination-ordinate26, warning=FALSE, message=FALSE, fig.width=10, fig.height=5}
+```{r ordination-ordinate26, warning=FALSE, message=FALSE, fig.width=11, fig.height=5}
 plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
 ```
 
