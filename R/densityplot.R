@@ -1,6 +1,6 @@
 #' @title Density plot
 #' @description Density visualization for data points overlaid on cross-plot.
-#' @param mat Data matrix to plot. The first two columns will be visualized as a cross-plot.
+#' @param x Data matrix to plot. The first two columns will be visualized as a cross-plot.
 #' @param main title text
 #' @param x.ticks Number of ticks on the X axis
 #' @param rounding Rounding for X axis tick values
@@ -15,11 +15,11 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-densityplot <- function(mat, main = NULL, x.ticks = 10, rounding = 0, 
+densityplot <- function(x, main = NULL, x.ticks = 10, rounding = 0, 
                add.points = TRUE, 
     col = "black", adjust = 1, size = 1, legend = FALSE) {
 
-    df = mat
+    df = x
     if (!is.data.frame(df)) {
       df <- as.data.frame(as.matrix(df))
     }
@@ -28,8 +28,8 @@ densityplot <- function(mat, main = NULL, x.ticks = 10, rounding = 0,
     x <- y <- ..density.. <- color <- NULL
     
     theme_set(theme_bw(20))
-    xvar <- colnames(mat)[[1]]
-    yvar <- colnames(mat)[[2]]
+    xvar <- colnames(df)[[1]]
+    yvar <- colnames(df)[[2]]
     df[["x"]] <- df[, 1]
     df[["y"]] <- df[, 2]
     df[["color"]] <- col

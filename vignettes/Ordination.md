@@ -9,7 +9,7 @@ Load example data:
 library(microbiome)
 library(phyloseq)
 library(ggplot2)
-data("atlas1006")
+data(atlas1006)
 pseq <- atlas1006
 
 # Convert signal to relative abundances
@@ -28,7 +28,6 @@ Project the samples with the given method and distance:
 
 ```r
 set.seed(423542)
-library(phyloseq)
 pseq.ord <- ordinate(pseq2, "NMDS", "bray")
 # Just pick the projected data (first two columns + metadata)
 proj <- plot_ordination(pseq2, pseq.ord, justDF = T)
@@ -40,15 +39,7 @@ Visualize and highlight. In addition to densityplot, see plot_ordn from the micr
 
 ```r
 # Highlighting gender
-library(microbiome)
 p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
-```
-
-```
-## Error in UseMethod("densityplot"): no applicable method for 'densityplot' applied to an object of class "data.frame"
-```
-
-```r
 print(p)
 ```
 
@@ -58,13 +49,6 @@ print(p)
 # Highlighting subjects with low / high Prevotella 
 prevotella.abundance  <- as.vector(log10(otu_table(pseq2)["Prevotella melaninogenica et rel.",]) )
 p <- densityplot(proj[, 1:2], col = prevotella.abundance, legend = T)
-```
-
-```
-## Error in UseMethod("densityplot"): no applicable method for 'densityplot' applied to an object of class "data.frame"
-```
-
-```r
 print(p)
 ```
 
@@ -81,7 +65,7 @@ p <- ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) +
 print(p)
 ```
 
-![plot of chunk visu-example2](figure/visu-example2-1.png)
+![plot of chunk ordination-visu-example2](figure/ordination-visu-example2-1.png)
 
 
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
@@ -92,7 +76,7 @@ p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Phylum", title = "
 print(p)
 ```
 
-![plot of chunk pca-ordination21](figure/pca-ordination21-1.png)
+![plot of chunk ordination-pca-ordination21](figure/ordination-pca-ordination21-1.png)
 
 Grouping the plots by Phylum
 
@@ -101,7 +85,7 @@ Grouping the plots by Phylum
 p + facet_wrap(~Phylum, 5)
 ```
 
-![plot of chunk pca-ordination22](figure/pca-ordination22-1.png)
+![plot of chunk ordination-pca-ordination22](figure/ordination-pca-ordination22-1.png)
 
 
 ### Multidimensional scaling (MDS / PCoA)
@@ -111,7 +95,7 @@ p + facet_wrap(~Phylum, 5)
 plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") + geom_point(size = 5)
 ```
 
-![plot of chunk ordinate23](figure/ordinate23-1.png)
+![plot of chunk ordination-ordinate23](figure/ordination-ordinate23-1.png)
 
 ### RDA
 
@@ -128,7 +112,7 @@ p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gen
 p + geom_point(size = 5)
 ```
 
-![plot of chunk ordinate24a](figure/ordinate24a-1.png)
+![plot of chunk ordination-ordinate24a](figure/ordination-ordinate24a-1.png)
 
 With taxa:
 
@@ -139,7 +123,7 @@ p <- p + geom_point(size = 4)
 print(p)
 ```
 
-![plot of chunk ordinate24b](figure/ordinate24b-1.png)
+![plot of chunk ordination-ordinate24b](figure/ordination-ordinate24b-1.png)
 
 
 ### Split plot
@@ -150,7 +134,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender",
     color = "Phylum", label = "gender")
 ```
 
-![plot of chunk ordinate25](figure/ordinate25-1.png)
+![plot of chunk ordination-ordinate25](figure/ordination-ordinate25-1.png)
 
 
 ### Ordination biplot
@@ -160,7 +144,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender",
 plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
 ```
 
-![plot of chunk ordinate26](figure/ordinate26-1.png)
+![plot of chunk ordination-ordinate26](figure/ordination-ordinate26-1.png)
 
 
 

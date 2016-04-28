@@ -2,7 +2,7 @@
 
 See [Composition](Composition.md) page for phyloseq microbiota composition heatmaps. Load some example data:
 
-```{r heatmap-example-data, fig.width=16, fig.height=5, fig.path = "figure/"}
+```{r heatmap-example-data, fig.width=16, fig.height=5, warning=FALSE}
 library(microbiome)
 data("dietswap")
 pseq <- dietswap

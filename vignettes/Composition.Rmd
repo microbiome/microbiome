@@ -8,7 +8,7 @@ Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-
 
 Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
 
-```{r composition-example1, fig.path = "figure/", fig.width=8, fig.height=5}
+```{r composition-example1}
 # Example data
 library(microbiome)
 data(dietswap)
@@ -20,7 +20,7 @@ Show OTU absolute abundance in each sample. Plot absolute taxon
 abundances (Note: on HITChip data the Phylum level is only
 approximate):
 
-```{r composition-example1b, fig.path = "figure/", fig.width=12, fig.height=5, message=FALSE}
+```{r composition-example1b, fig.width=15, fig.height=5, message=FALSE}
 # Pick sample subset
 library(phyloseq)
 pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
@@ -62,7 +62,7 @@ print(p)
 
 Plain heatmap
 
-```{r composition-example5, fig.path = "figure/", fig.width=8, fig.height=3}
+```{r composition-example5, fig.width=8, fig.height=3}
 theme_set(theme_bw(30))
 res <- plot_composition(pseq3, plot.type = "heatmap")
 ```
@@ -70,7 +70,7 @@ res <- plot_composition(pseq3, plot.type = "heatmap")
 
 Heatmap with Z-transformed OTUs
 
-```{r composition-example6, fig.path = "figure/", fig.width=8, fig.height=3}
+```{r composition-example6, fig.width=9, fig.height=3}
 res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU")
 ```
 
@@ -85,7 +85,7 @@ res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
 
 Same, but samples and OTUs sorted manually
 
-```{r composition-example8, fig.path = "figure/", fig.width=8, fig.height=3, warning=FALSE}
+```{r composition-example8, fig.width=9, fig.height=3, warning=FALSE}
 sample.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "sites", first = NULL) 
 otu.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "species", first = NULL)
 res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
