@@ -92,6 +92,18 @@ library(HITChipDB)
 ```
 
 ```
+## The following objects are masked from 'package:igraph':
+## 
+##     normalize, union
+```
+
+```
+## The following object is masked from 'package:Matrix':
+## 
+##     as.vector
+```
+
+```
 ## The following object is masked from 'package:limma':
 ## 
 ##     plotMA
