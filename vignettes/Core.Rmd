@@ -64,10 +64,11 @@ print(coremat)
 # Core with relative abundances:
 prevalence.intervals <- seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)
+# Also define gray color palette
+gray <- colorRampPalette(gray(c(0,1)))
 res <- plot_core(pseq.rel, plot.type = "heatmap", palette = gray,
     prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
 print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
-
 
 res <- plot_core(pseq.rel, plot.type = "heatmap", palette = gray, ncolor = 5,
     prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 

@@ -5,6 +5,7 @@
 #' @param palette palette for the plot.type = 'heatmap'
 #' @param min.prevalence If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap.
 #' @param taxa.order Ordering of the taxa.
+#' @param ncolor Number of colors to use in the palette
 #' @return Used for its side effects
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
@@ -47,8 +48,7 @@ core_heatmap <- function(data, detection.thresholds = 20, palette = "gray", min.
     p <- p + xlab("Detection Threshold")    
     p <- p + scale_x_log10()
 
-
-    colours = palette(seq(0, 1, length = ncolor))
+    colours = palette(ncolor)
     #if (palette == "bw") {
     #  #colours <- c("black", "darkgray", "gray", "lightgray", "white")
     #} else if (palette == "spectral") {

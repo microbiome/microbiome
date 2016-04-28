@@ -4,8 +4,8 @@
 \alias{core_heatmap}
 \title{OTU core heatmap}
 \usage{
-core_heatmap(data, detection.thresholds = 20, palette = "bw",
-  min.prevalence = NULL, taxa.order = NULL)
+core_heatmap(data, detection.thresholds = 20, palette = "gray",
+  min.prevalence = NULL, taxa.order = NULL, ncolor = 5)
 }
 \arguments{
 \item{data}{OTU matrix}
@@ -17,6 +17,8 @@ core_heatmap(data, detection.thresholds = 20, palette = "bw",
 \item{min.prevalence}{If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap.}
 
 \item{taxa.order}{Ordering of the taxa.}
+
+\item{ncolor}{Number of colors to use in the palette}
 }
 \value{
 Used for its side effects
