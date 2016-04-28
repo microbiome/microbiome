@@ -37,7 +37,7 @@ coef.index <- 2
 # Fit the limma model
 fit <- lmFit(otu, design)
 fit <- eBayes(fit)
-limma.pvalues = fit$p.value[, 2]
+pvalues.limma = fit$p.value[, 2]
 
 # Summarise 
 kable(topTable(fit, coef = coef.index, p.value=0.05), digits = 2)
@@ -97,19 +97,10 @@ pvalues.ttest <- p.adjust(pvalues.ttest, method = "fdr")
 # Compare p-values between limma and t-test
 taxa <- rownames(otu)
 plot(pvalues.ttest[taxa], pvalues.limma[taxa])
-```
-
-```
-## Error in plot(pvalues.ttest[taxa], pvalues.limma[taxa]): object 'pvalues.limma' not found
-```
-
-```r
 abline(0,1,lty = 2)
 ```
 
-```
-## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
-```
+![plot of chunk limma-compairson](figure/limma-compairson-1.png)
 
 ### Continuous variables
 
