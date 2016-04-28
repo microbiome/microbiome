@@ -1,13 +1,8 @@
 ### Abundance histograms
 
-Different sample sets have different population distributions in
-microbial abundance. It is also important to consider whether to use
-absolute or logarithmic abundances.
+Population densities for Dialister:
 
-
-Visualize population densities for specific taxonomic group:
-
-```{r hist, fig.width=6, fig.heigth=3}
+```{r hist, fig.width=6, fig.heigth=3, fig.show="hold"}
 library(microbiome)
 library(phyloseq)
 
