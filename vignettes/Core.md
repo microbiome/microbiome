@@ -124,14 +124,22 @@ res <- plot_core(pseq, plot.type = "heatmap", palette = gray,
 		 min.prevalence = 10)
 print(res$plot)		 
 
-res <- plot_core(pseq, plot.type = "heatmap", palette = colorRampPalette(rev(brewer.pal(11, "Spectral"))),
+
+library(RColorBrewer)
+res <- plot_core(pseq, plot.type = "heatmap",
+                 palette = colorRampPalette(rev(brewer.pal(11, "Spectral"))),
                  prevalence.intervals = prevalence.intervals,
 		 detection.thresholds = detection.thresholds,
 		 min.prevalence = 0)		 
 ```
 
 ```
-## Error in rev(brewer.pal(11, "Spectral")): could not find function "brewer.pal"
+## Warning in seq.int(0, 1, length.out = n): first element used of
+## 'length.out' argument
+```
+
+```
+## Error in colour_ramp(colours): Must provide at least one color to create a color ramp
 ```
 
 ```r

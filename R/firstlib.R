@@ -78,7 +78,6 @@
 #' @importFrom phyloseq tax_glom
 #' @importFrom phyloseq tax_table
 #' @importFrom phyloseq transform_sample_counts
-#' @importFrom RColorBrewer brewer.pal
 #' @importFrom reshape2 melt
 #' @importFrom scales percent
 #' @importFrom tidyr gather

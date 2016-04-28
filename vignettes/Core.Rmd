@@ -91,7 +91,10 @@ res <- plot_core(pseq, plot.type = "heatmap", palette = gray,
 		 min.prevalence = 10)
 print(res$plot)		 
 
-res <- plot_core(pseq, plot.type = "heatmap", palette = colorRampPalette(rev(brewer.pal(11, "Spectral"))),
+
+library(RColorBrewer)
+res <- plot_core(pseq, plot.type = "heatmap",
+                 palette = colorRampPalette(rev(brewer.pal(11, "Spectral"))),
                  prevalence.intervals = prevalence.intervals,
 		 detection.thresholds = detection.thresholds,
 		 min.prevalence = 0)		 
