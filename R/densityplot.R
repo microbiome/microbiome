@@ -18,13 +18,16 @@
 densityplot <- function(mat, main = NULL, x.ticks = 10, rounding = 0, 
                add.points = TRUE, 
     col = "black", adjust = 1, size = 1, legend = FALSE) {
-    mat <- as.matrix(mat)
 
+    df = mat
+    if (!is.data.frame(df)) {
+      df <- as.data.frame(as.matrix(df))
+    }
+    
     # Avoid warnings
     x <- y <- ..density.. <- color <- NULL
     
     theme_set(theme_bw(20))
-    df <- as.data.frame(mat)
     xvar <- colnames(mat)[[1]]
     yvar <- colnames(mat)[[2]]
     df[["x"]] <- df[, 1]

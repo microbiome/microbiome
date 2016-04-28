@@ -39,7 +39,7 @@ Visualize and highlight. In addition to densityplot, see plot_ordn from the micr
 
 
 ```r
-# Highlight gender
+# Highlighting gender
 library(microbiome)
 p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
 ```
@@ -55,7 +55,7 @@ print(p)
 ![plot of chunk ordination4](figure/ordination4-1.png)
 
 ```r
-# Highlight low/high Prevotella subjects
+# Highlighting subjects with low / high Prevotella 
 prevotella.abundance  <- as.vector(log10(otu_table(pseq2)["Prevotella melaninogenica et rel.",]) )
 p <- densityplot(proj[, 1:2], col = prevotella.abundance, legend = T)
 ```
@@ -76,7 +76,9 @@ Projection with sample names:
 ```r
 ax1 <- names(proj)[[1]]
 ax2 <- names(proj)[[2]]
-ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) + geom_text(size = 2)
+p <- ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) +
+       geom_text(size = 2)
+print(p)
 ```
 
 ![plot of chunk visu-example2](figure/visu-example2-1.png)

@@ -24,7 +24,7 @@ pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > 1) > (0.1*nsamples(pseq.rel))
 
 Project the samples with the given method and distance:
 
-```{r ordination2, message=FALSE, warning=FALSE, fig.path = "figure/", results="hide"}
+```{r ordination2, message=FALSE, warning=FALSE, results="hide"}
 set.seed(423542)
 library(phyloseq)
 pseq.ord <- ordinate(pseq2, "NMDS", "bray")
@@ -35,13 +35,13 @@ proj <- plot_ordination(pseq2, pseq.ord, justDF = T)
 
 Visualize and highlight. In addition to densityplot, see plot_ordn from the microbiome package and plot_ordination from the phyloseq package.
 
-```{r ordination4, message=FALSE, warning=FALSE, fig.width=7, fig.height=5, fig.path = "figure/"}
-# Highlight gender
+```{r ordination4, message=FALSE, warning=FALSE, fig.width=7, fig.height=5}
+# Highlighting gender
 library(microbiome)
 p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
 print(p)
 
-# Highlight low/high Prevotella subjects
+# Highlighting subjects with low / high Prevotella 
 prevotella.abundance  <- as.vector(log10(otu_table(pseq2)["Prevotella melaninogenica et rel.",]) )
 p <- densityplot(proj[, 1:2], col = prevotella.abundance, legend = T)
 print(p)
@@ -49,10 +49,12 @@ print(p)
 
 Projection with sample names:
 
-```{r visu-example2, message=FALSE, message=FALSE, fig.height=7, fig.width=5, fig.path = "figure/"}
+```{r visu-example2, message=FALSE, message=FALSE, fig.height=7, fig.width=5}
 ax1 <- names(proj)[[1]]
 ax2 <- names(proj)[[2]]
-ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) + geom_text(size = 2)
+p <- ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) +
+       geom_text(size = 2)
+print(p)
 ```
 
 
