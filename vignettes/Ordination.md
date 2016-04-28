@@ -40,13 +40,6 @@ Visualize and highlight. In addition to densityplot, see plot_ordn from the micr
 ```r
 # Highlighting gender
 p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
-```
-
-```
-## Error in UseMethod("densityplot"): no applicable method for 'densityplot' applied to an object of class "data.frame"
-```
-
-```r
 print(p)
 ```
 
@@ -56,13 +49,6 @@ print(p)
 # Highlighting subjects with low / high Prevotella 
 prevotella.abundance  <- as.vector(log10(otu_table(pseq2)["Prevotella melaninogenica et rel.",]) )
 p <- densityplot(proj[, 1:2], col = prevotella.abundance, legend = T)
-```
-
-```
-## Error in UseMethod("densityplot"): no applicable method for 'densityplot' applied to an object of class "data.frame"
-```
-
-```r
 print(p)
 ```
 
