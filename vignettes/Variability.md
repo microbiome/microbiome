@@ -93,7 +93,7 @@ p <- plot_regression(diversity ~ age, sample_data(atlas1006))
 print(p)
 ```
 
-![plot of chunk variability-regressionline](figure/variability-regressionline-1.png)
+![plot of chunk variability-regression](figure/variability-regression-1.png)
 
 ### Version information
 
