@@ -78,7 +78,7 @@ print(p)
 
 ![plot of chunk ordination-pca-ordination21](figure/ordination-pca-ordination21-1.png)
 
-Grouping the plots by Phylum
+Grouping by Phyla
 
 
 ```r

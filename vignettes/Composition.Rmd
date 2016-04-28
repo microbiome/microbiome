@@ -20,7 +20,7 @@ Show OTU absolute abundance in each sample. Plot absolute taxon
 abundances (Note: on HITChip data the Phylum level is only
 approximate):
 
-```{r composition-example1b, fig.width=15, fig.height=5, message=FALSE}
+```{r composition-example1b, fig.width=16, fig.height=5, message=FALSE}
 # Pick sample subset
 library(phyloseq)
 pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
@@ -50,8 +50,8 @@ Same with relative abundances:
 res <- plot_composition(pseq3, sample.sort = "nationality", x.label = "nationality", transformation = "relative.abundance")
 p <- res$plot
 p <- p + guides(fill = guide_legend(ncol = 1))
-#p <- p + theme(legend.position = "bottom")
 p <- p + ylab("Relative Abundance (%)")
+#p <- p + theme(legend.position = "bottom")
 print(p)
 ```
 
@@ -62,7 +62,7 @@ print(p)
 
 Plain heatmap
 
-```{r composition-example5, fig.width=8, fig.height=3}
+```{r composition-example5, fig.width=10, fig.height=3}
 theme_set(theme_bw(30))
 res <- plot_composition(pseq3, plot.type = "heatmap")
 ```
@@ -70,14 +70,14 @@ res <- plot_composition(pseq3, plot.type = "heatmap")
 
 Heatmap with Z-transformed OTUs
 
-```{r composition-example6, fig.width=9, fig.height=3}
+```{r composition-example6, fig.width=10, fig.height=3}
 res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU")
 ```
 
 
 Same, but samples and OTUs sorted with the neatmap method
 
-```{r composition-example7, fig.path = "figure/", fig.width=8, fig.height=3}
+```{r composition-example7, fig.width=10, fig.height=3}
 res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
        			       sample.sort = "neatmap", otu.sort = "neatmap")
 ```
@@ -85,7 +85,7 @@ res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
 
 Same, but samples and OTUs sorted manually
 
-```{r composition-example8, fig.width=9, fig.height=3, warning=FALSE}
+```{r composition-example8, fig.width=10, fig.height=3, warning=FALSE}
 sample.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "sites", first = NULL) 
 otu.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "species", first = NULL)
 res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
