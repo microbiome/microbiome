@@ -11,8 +11,8 @@
 #' @param taxa.order Ordering of the taxa.
 #' @return A list with three elements: the ggplot object and the data. The data has a different form for the lineplot and heatmap. Finally, the applied parameters are returned.
 #' @examples 
-#' data("atlas1006")
-#' p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
+#'   data(atlas1006)
+#'   p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
 #' @export 
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
@@ -24,7 +24,7 @@
 plot_core <- function(x, title = "Core", 
 		   prevalence.intervals = seq(5, 100, 5), 		   
 		   detection.thresholds = 20,
-		   plot.type = "lineplot", palette = "bw", min.prevalence = NULL, taxa.order = NULL) {
+		   plot.type = "lineplot", palette = "bw", min.prevalence = NULL, taxa.order = NULL, ncolor = 5) {
 
   if (length(detection.thresholds) == 1) {
     detection.thresholds <- 10^seq(log10(1e-3),
@@ -45,7 +45,7 @@ plot_core <- function(x, title = "Core",
     res <- core_heatmap(taxa_abundances(x),
     	                detection.thresholds = detection.thresholds,
 			palette = palette, min.prevalence = min.prevalence,
-			taxa.order = taxa.order)
+			taxa.order = taxa.order, ncolor = ncolor)
     
   }
 

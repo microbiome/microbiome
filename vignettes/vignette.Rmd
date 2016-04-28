@@ -79,7 +79,7 @@ package. URL: http://microbiome.github.com'.
 ### Dependencies
 
 The package utilizes tools from a number of other R extensions,
-including ade4 `r citep(citation("ade4"))`, dplyr `r citep(citation("dplyr"))`, ggplot2 `r citep(citation("ggplot2"))`, MASS `r citep(citation("MASS"))`, moments `r citep(citation("moments"))`, netresponse `r citep(citation("netresponse"))`, phyloseq `r citep(citation("phyloseq"))`, RColorBrewer `r citep(citation("RColorBrewer"))`, scales `r citep(citation("scales"))`, stats `r citep(citation("stats"))`, tidyr `r citep(citation("tidyr"))`, vegan `r citep(citation("vegan"))`.
+including ade4 `r citep(citation("ade4"))`, dplyr `r citep(citation("dplyr"))`, ggplot2 `r citep(citation("ggplot2"))`, MASS `r citep(citation("MASS"))`, moments `r citep(citation("moments"))`, phyloseq `r citep(citation("phyloseq"))`, RColorBrewer `r citep(citation("RColorBrewer"))`, scales `r citep(citation("scales"))`, stats `r citep(citation("stats"))`, tidyr `r citep(citation("tidyr"))`, vegan `r citep(citation("vegan"))`.
 
 
 ### References

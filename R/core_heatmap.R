@@ -13,7 +13,7 @@
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-core_heatmap <- function(data, detection.thresholds = 20, palette = "bw", min.prevalence = NULL, taxa.order = NULL) {
+core_heatmap <- function(data, detection.thresholds = 20, palette = "gray", min.prevalence = NULL, taxa.order = NULL, ncolor = 5) {
 
     DetectionThreshold <- Taxa <- Prevalence <- NULL
     
@@ -47,12 +47,14 @@ core_heatmap <- function(data, detection.thresholds = 20, palette = "bw", min.pr
     p <- p + xlab("Detection Threshold")    
     p <- p + scale_x_log10()
 
-    if (palette == "bw") {
-      colours <- c("black", "darkgray", "gray", "lightgray", "white")
-    } else if (palette == "spectral") {
-      myPalette <- colorRampPalette(rev(brewer.pal(11, "Spectral")))
-      colours <- myPalette(5)
-    }
+
+    colours = palette(seq(0, 1, length = ncolor))
+    #if (palette == "bw") {
+    #  #colours <- c("black", "darkgray", "gray", "lightgray", "white")
+    #} else if (palette == "spectral") {
+    #  myPalette <- colorRampPalette(rev(brewer.pal(11, "Spectral")))
+    #  colours <- myPalette(5)
+    #}
     
     p <- p + scale_fill_gradientn("Prevalence", 
         breaks = seq(from = 0, to = 100, by = 10),

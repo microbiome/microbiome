@@ -81,7 +81,6 @@
 #' @importFrom RColorBrewer brewer.pal
 #' @importFrom reshape2 melt
 #' @importFrom scales percent
-#' @importFrom stats dist
 #' @importFrom tidyr gather
 #' @importFrom vegan metaMDS
 #' @importFrom vegan procrustes

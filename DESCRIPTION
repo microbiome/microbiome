@@ -23,7 +23,6 @@ Imports:
     RColorBrewer,
     reshape2,
     scales,
-    stats,    
     tidyr,
     vegan,
     WGCNA

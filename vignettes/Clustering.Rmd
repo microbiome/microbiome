@@ -30,8 +30,6 @@ p <- PlotMixtureMultivariate(D, means = m$mu, sds = m$sd, ws = m$w, modes = appl
 Fit and visualize Variational Dirichlet process univariate infinite Gaussian mixture. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short) for the code.
 
 ```{r LCA1, fig.width=7, fig.height=5, warning=FALSE, message=FALSE, fig.path = "figure/"}
-library(netresponse)
-
 # Generate simulated bimodal univariate data
 x <- c(rnorm(200), rnorm(200, mean = 5))
 

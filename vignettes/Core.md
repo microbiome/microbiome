@@ -94,14 +94,18 @@ print(coremat)
 # Core with relative abundances:
 prevalence.intervals <- seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)
-res <- plot_core(pseq.rel, plot.type = "heatmap", palette = "bw",
+res <- plot_core(pseq.rel, plot.type = "heatmap", palette = gray,
     prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
 print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
+
+
+res <- plot_core(pseq.rel, plot.type = "heatmap", palette = gray, ncolor = 5,
+    prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
 
 # Core with absolute counts:
 prevalence.intervals = seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
-plot_core(pseq, plot.type = "heatmap", palette = "bw",
+plot_core(pseq, plot.type = "heatmap", palette = gray,
        		 prevalence.intervals = prevalence.intervals,
        		 detection.thresholds = detection.thresholds,
 		 min.prevalence = NULL)$plot
@@ -114,16 +118,23 @@ Zoom in on the core region by filtering out rows and columns not passing min pre
 
 
 ```r
-res <- plot_core(pseq, plot.type = "heatmap", palette = "bw",
+res <- plot_core(pseq, plot.type = "heatmap", palette = gray,
                  prevalence.intervals = prevalence.intervals,
 		 detection.thresholds = detection.thresholds,
 		 min.prevalence = 10)
 print(res$plot)		 
 
-res <- plot_core(pseq, plot.type = "heatmap", palette = "spectral",
+res <- plot_core(pseq, plot.type = "heatmap", palette = colorRampPalette(rev(brewer.pal(11, "Spectral"))),
                  prevalence.intervals = prevalence.intervals,
 		 detection.thresholds = detection.thresholds,
 		 min.prevalence = 0)		 
+```
+
+```
+## Error in rev(brewer.pal(11, "Spectral")): could not find function "brewer.pal"
+```
+
+```r
 print(res$plot)		 
 ```
 
