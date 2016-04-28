@@ -32,8 +32,9 @@ pseq.ord <- ordinate(pseq2, "NMDS", "bray")
 proj <- plot_ordination(pseq2, pseq.ord, justDF = T)
 ```
 
+Then visualize the projected data:
 
-```{r ordination4, message=FALSE, warning=FALSE, fig.width=7, fig.height=5, fig.show="hold", out.width="400px"}
+```{r ordination4, message=FALSE, warning=FALSE, fig.width=7, fig.height=6, fig.show="hold", out.width="400px"}
 # Highlighting gender
 p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
 print(p)
@@ -49,14 +50,14 @@ print(p)
 
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
-```{r ordination-pca-ordination21, message=FALSE, message=FALSE, fig.height=8, fig.width=8}
+```{r ordination-pca-ordination21, message=FALSE, message=FALSE, fig.height=6, fig.width=8}
 p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Phylum", title = "Taxa ordination")
 print(p)
 ```
 
 Grouping by Phyla
 
-```{r ordination-pca-ordination22, message=FALSE, message=FALSE, fig.height=10, fig.width=13}
+```{r ordination-pca-ordination22, message=FALSE, message=FALSE, fig.height=10, fig.width=10}
 p + facet_wrap(~Phylum, 5)
 ```
 
@@ -75,10 +76,11 @@ See a separate page on [RDA](RDA.md).
 ### Canonical correspondence analysis (CCA)
 
 
-```{r ordination-ordinate24a, warning=FALSE, message=FALSE, fig.width=12, fig.height=6, fig.show="hold", out.width="400px"}
+```{r ordination-ordinate24a, warning=FALSE, message=FALSE, fig.width=6, fig.height=6, fig.show="hold", out.width="400px"}
 # With samples
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gender")
 p + geom_point(size = 5)
+print(p)
 
 # With taxa:
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "taxa", color = "Phylum")

@@ -6,7 +6,7 @@
 \usage{
 plot_composition(x, taxonomic.level = NULL, sample.sort = NULL,
   otu.sort = NULL, x.label = "sample", plot.type = "barplot",
-  verbose = FALSE, transformation = NULL, ...)
+  verbose = FALSE, transformation = NULL, mar = c(5, 12, 1, 1), ...)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)}
@@ -30,6 +30,8 @@ plot_composition(x, taxonomic.level = NULL, sample.sort = NULL,
 \item{verbose}{verbose}
 
 \item{transformation}{Data transformation to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform_phyloseq}} function.}
+
+\item{mar}{Figure margins}
 
 \item{...}{Arguments to be passed (for \code{\link{order_neatmap}} function)}
 }
