@@ -4,12 +4,12 @@
 \alias{densityplot}
 \title{Density plot}
 \usage{
-densityplot(mat, main = NULL, x.ticks = 10, rounding = 0,
+densityplot(x, main = NULL, x.ticks = 10, rounding = 0,
   add.points = TRUE, col = "black", adjust = 1, size = 1,
   legend = FALSE)
 }
 \arguments{
-\item{mat}{Data matrix to plot. The first two columns will be visualized as a cross-plot.}
+\item{x}{Data matrix to plot. The first two columns will be visualized as a cross-plot.}
 
 \item{main}{title text}
 

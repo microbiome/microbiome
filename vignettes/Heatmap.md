@@ -12,15 +12,6 @@ library(phyloseq)
 # Pick data subset
 bacteroidetes <- map_levels(from = "Phylum", to = "Genus",
                    data = tax_table(pseq))$Bacteroidetes
-```
-
-```
-## Warning: 'levelmap' is deprecated.
-## Use 'map_levels' instead.
-## See help("Deprecated")
-```
-
-```r
 pseq2 <- prune_taxa(bacteroidetes, pseq)
 pseq2 <- subset_samples(pseq2, group == "DI")
 ```

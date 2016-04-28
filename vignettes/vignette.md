@@ -47,24 +47,16 @@ for many standard tasks encountered in microbiome studies.
 * [Networks](Networks.md)
 * [Ordination (PCA, PCoA, NMDS etc.)](Ordination.md)
 * [Density](Density.md)
-* [Interactive](Interactive.md)
 
 
-### Microbiota composition
+### Microbiota analysis
 
-* [Bistability analysis](Stability.md)
-* [Variability](Variability.md) (Intra- and inter-individual 'stability')
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
-
-
-### Analysis
-
 * [Pairwise comparisons](Comparisons.md)
 * [Stability, bimodality, tipping elements](Stability.md)
-* [Clustering](Clustering.md)
-* [Linear models](limma.md)
-* [Phylogenetic microarrays](HITChip.Rmd)
+* [Variability](Variability.md)
+* [Experimental](Experimental.Rmd)
 
 
 ### Licensing and Citations
@@ -79,20 +71,7 @@ package. URL: http://microbiome.github.com'.
 ### Dependencies
 
 The package utilizes tools from a number of other R extensions,
-including:
-
- * ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007)
- * dplyr (Wickham and Francois, 2015)  
- * ggplot2 (Wickham, 2009)
- * MASS (Venables and Ripley, 2002)
- * moments (Komsta and Novomestky, 2015)
- * netresponse (Lahti, Knuuttila, and Kaski, 2010) 
- * phyloseq (McMurdie and Holmes, 2013)
- * RColorBrewer (Neuwirth, 2014)
- * scales (Wickham, 2016)
- * stats (R Core Team, 2016)
- * tidyr (Wickham, 2016)
- * vegan (Oksanen, Blanchet, Kindt, Legendre, Minchin, O'Hara, Simpson, Solymos, Stevens, and Wagner, 2016)
+including ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007), dplyr (Wickham and Francois, 2015), ggplot2 (Wickham, 2009), MASS (Venables and Ripley, 2002), moments (Komsta and Novomestky, 2015), netresponse (Lahti, Knuuttila, and Kaski, 2010), phyloseq (McMurdie and Holmes, 2013), RColorBrewer (Neuwirth, 2014), scales (Wickham, 2016), stats (R Core Team, 2016), tidyr (Wickham, 2016), vegan (Oksanen, Blanchet, Kindt, Legendre, Minchin, O'Hara, Simpson, Solymos, Stevens, and Wagner, 2016).
 
 
 ### References
@@ -159,82 +138,4 @@ https://CRAN.R-project.org/package=tidyr>.
 [15] H. Wickham and R. Francois. _dplyr: A Grammar of Data
 Manipulation_. R package version 0.4.3. 2015. <URL:
 https://CRAN.R-project.org/package=dplyr>.
-
-### Session info
-
-This vignette was created with
-
-
-```r
-sessionInfo()
-```
-
-```
-## R version 3.2.5 (2016-04-14)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 16.04 LTS
-## 
-## locale:
-##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
-##  [3] LC_TIME=de_BE.UTF-8        LC_COLLATE=en_US.UTF-8    
-##  [5] LC_MONETARY=de_BE.UTF-8    LC_MESSAGES=en_US.UTF-8   
-##  [7] LC_PAPER=de_BE.UTF-8       LC_NAME=C                 
-##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-## [11] LC_MEASUREMENT=de_BE.UTF-8 LC_IDENTIFICATION=C       
-## 
-## attached base packages:
-##  [1] tcltk     parallel  splines   stats4    grid      stats     graphics 
-##  [8] grDevices utils     datasets  methods   base     
-## 
-## other attached packages:
-##  [1] FD_1.0-12             geometry_0.3-6        magic_1.5-6          
-##  [4] abind_1.4-3           ape_3.4               ade4_1.7-4           
-##  [7] earlywarnings_1.1.22  tseries_0.10-34       tgp_2.4-14           
-## [10] moments_0.14          ggrepel_0.5.1         gridExtra_2.2.1      
-## [13] vegan_2.3-5           permute_0.9-0         HITChipDB_0.6.30     
-## [16] RPA_1.27.41           affy_1.48.0           Biobase_2.30.0       
-## [19] BiocGenerics_0.16.1   RMySQL_0.10.8         preprocessCore_1.32.0
-## [22] scales_0.4.0          SpiecEasi_0.1         VGAM_1.0-1           
-## [25] huge_1.2.7            igraph_1.0.1          lattice_0.20-33      
-## [28] Matrix_1.2-5          knitcitations_1.0.7   knitr_1.12.3         
-## [31] intergraph_2.0-2      sna_2.3-2             network_1.13.0       
-## [34] ggnet_0.1.0           GGally_1.0.1          devtools_1.11.0      
-## [37] limma_3.26.9          sorvi_0.7.45          tibble_1.0           
-## [40] ggplot2_2.1.0         tidyr_0.4.1           dplyr_0.4.3          
-## [43] MASS_7.3-45           netresponse_1.20.15   reshape2_1.4.1       
-## [46] mclust_5.2            minet_3.28.0          Rgraphviz_2.14.0     
-## [49] graph_1.48.0          microbiome_0.99.81    RSQLite_1.0.0        
-## [52] DBI_0.3.1             phyloseq_1.14.0      
-## 
-## loaded via a namespace (and not attached):
-##  [1] colorspace_1.2-6      dynamicTreeCut_1.63-1 som_0.3-5            
-##  [4] qvalue_2.2.2          XVector_0.10.0        affyio_1.40.0        
-##  [7] AnnotationDbi_1.32.3  mvtnorm_1.0-5         lubridate_1.5.6      
-## [10] RefManageR_0.10.13    codetools_0.2-14      doParallel_1.0.10    
-## [13] impute_1.44.0         spam_1.3-0            Formula_1.2-1        
-## [16] Cairo_1.5-9           WGCNA_1.51            cluster_2.0.4        
-## [19] GO.db_3.2.2           Kendall_2.2           httr_1.1.0           
-## [22] assertthat_0.1        lazyeval_0.1.10       formatR_1.3          
-## [25] acepack_1.3-3.3       tools_3.2.5           gtable_0.2.0         
-## [28] maps_3.1.0            Rcpp_0.12.4           Biostrings_2.38.4    
-## [31] RJSONIO_1.3-0         multtest_2.26.0       biom_0.3.12          
-## [34] nlme_3.1-127          iterators_1.0.8       lmtest_0.9-34        
-## [37] fastcluster_1.1.20    stringr_1.0.0         XML_3.98-1.4         
-## [40] zlibbioc_1.16.0       zoo_1.7-12            BiocInstaller_1.20.1 
-## [43] RColorBrewer_1.1-2    fields_8.3-6          memoise_1.0.0        
-## [46] rpart_4.1-10          reshape_0.8.5         latticeExtra_0.6-28  
-## [49] stringi_1.0-1         maptree_1.4-7         highr_0.5.1          
-## [52] S4Vectors_0.8.11      foreach_1.4.3         nortest_1.0-4        
-## [55] boot_1.3-18           bibtex_0.4.0          chron_2.3-47         
-## [58] matrixStats_0.50.2    bitops_1.0-6          dmt_0.8.20           
-## [61] evaluate_0.8.3        labeling_0.3          plyr_1.8.3           
-## [64] magrittr_1.5          R6_2.1.2              IRanges_2.4.8        
-## [67] Hmisc_3.17-3          foreign_0.8-66        withr_1.0.1          
-## [70] mgcv_1.8-12           survival_2.39-2       RCurl_1.95-4.8       
-## [73] nnet_7.3-12           KernSmooth_2.23-15    data.table_1.9.6     
-## [76] digest_0.6.9          munsell_0.4.3         quadprog_1.5-5
-```
-
-
-
 
