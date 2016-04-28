@@ -2,7 +2,7 @@
 
 Population densities for Dialister:
 
-```{r hist, fig.width=6, fig.heigth=3, fig.show="hold"}
+```{r hist, fig.width=6, fig.heigth=3, fig.show="hold", out.width="230px"}
 library(microbiome)
 library(phyloseq)
 

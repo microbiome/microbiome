@@ -26,5 +26,5 @@ tax <- "Dialister"
 plot_density(x, tax, log10 = TRUE) + ggtitle("Relative abundance")
 ```
 
-![plot of chunk hist](figure/hist-1.png)![plot of chunk hist](figure/hist-2.png)![plot of chunk hist](figure/hist-3.png)
+<img src="figure/hist-1.png" title="plot of chunk hist" alt="plot of chunk hist" width="230px" /><img src="figure/hist-2.png" title="plot of chunk hist" alt="plot of chunk hist" width="230px" /><img src="figure/hist-3.png" title="plot of chunk hist" alt="plot of chunk hist" width="230px" />
 
