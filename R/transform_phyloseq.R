@@ -38,10 +38,12 @@ transform_phyloseq <- function (x, transformation = "relative.abundance", target
       stop(paste("transform_phyloseq not implemented for transformation", transformation, "with target", target))
     }
   } else if (transformation == "Z") {
+
     # Z transformation for sample or OTU
     xt <- ztransform_phyloseq(x, target)
 
-  } else if (transformation == "log10") {  
+  } else if (transformation == "log10") {
+  
     # Log transformation:
     if (min(otu_table(x)) == 0) {
       warning("OTU table contains zeroes. Using log10(1 + x) transformation.")

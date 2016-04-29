@@ -27,7 +27,7 @@ plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel 
     p <- p + xlab("Abundance (Log10)")
   } else {
     p <- p + ggtitle(paste(variable))
-    p <- p + xlab("Abundance (Abs.)")
+    p <- p + xlab("Abundance")
   }
 
   p <- p + ylab("Frequency")
