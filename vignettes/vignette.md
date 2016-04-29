@@ -1,7 +1,7 @@
 ---
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
-date: "2016-04-28"
+date: "2016-04-29"
 bibliography: 
 - bibliography.bib
 - references.bib

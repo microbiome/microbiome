@@ -5,8 +5,8 @@
 \title{Visualize OTU core}
 \usage{
 plot_core(x, title = "Core", prevalence.intervals = seq(5, 100, 5),
-  detection.thresholds = 20, plot.type = "lineplot", palette = "bw",
-  min.prevalence = NULL, taxa.order = NULL, ncolor = 5)
+  detection.thresholds = 20, plot.type = "lineplot", colours = gray(seq(0,
+  1, length = 5)), min.prevalence = NULL, taxa.order = NULL)
 }
 \arguments{
 \item{x}{A \code{\link{phyloseq}} object or a core matrix}
@@ -20,13 +20,11 @@ or a scalar indicating the number of intervals in the data range.}
 
 \item{plot.type}{Plot type ('lineplot' or 'heatmap')}
 
-\item{palette}{palette for the plot.type = 'heatmap'}
+\item{colours}{colours for the heatmap}
 
 \item{min.prevalence}{If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap. Only affects the plot.type = 'heatmap'.}
 
 \item{taxa.order}{Ordering of the taxa.}
-
-\item{ncolor}{Number of colors to use in the palette.}
 }
 \value{
 A list with three elements: the ggplot object and the data. The data has a different form for the lineplot and heatmap. Finally, the applied parameters are returned.

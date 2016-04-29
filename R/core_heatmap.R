@@ -2,10 +2,9 @@
 #' @description Core heatmap.
 #' @param data OTU matrix
 #' @param detection.thresholds A vector or a scalar indicating the number of intervals in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.
-#' @param palette palette for the plot.type = 'heatmap'
+#' @param colours colours for the heatmap
 #' @param min.prevalence If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap.
 #' @param taxa.order Ordering of the taxa.
-#' @param ncolor Number of colors to use in the palette
 #' @return Used for its side effects
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
@@ -14,7 +13,7 @@
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-core_heatmap <- function(data, detection.thresholds = 20, palette = "gray", min.prevalence = NULL, taxa.order = NULL, ncolor = 5) {
+core_heatmap <- function(data, detection.thresholds = 20, colours = gray(seq(0,1,length=5)), min.prevalence = NULL, taxa.order = NULL) {
 
     DetectionThreshold <- Taxa <- Prevalence <- NULL
     
@@ -48,14 +47,6 @@ core_heatmap <- function(data, detection.thresholds = 20, palette = "gray", min.
     p <- p + xlab("Detection Threshold")    
     p <- p + scale_x_log10()
 
-    colours = palette(ncolor)
-    #if (palette == "bw") {
-    #  #colours <- c("black", "darkgray", "gray", "lightgray", "white")
-    #} else if (palette == "spectral") {
-    #  myPalette <- colorRampPalette(rev(brewer.pal(11, "Spectral")))
-    #  colours <- myPalette(5)
-    #}
-    
     p <- p + scale_fill_gradientn("Prevalence", 
         breaks = seq(from = 0, to = 100, by = 10),
 	colours = colours, limits = c(0, 100))

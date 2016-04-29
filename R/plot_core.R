@@ -6,10 +6,9 @@
 #' @param detection.thresholds a vector of intensities around the data range,
 #'          or a scalar indicating the number of intervals in the data range.
 #' @param plot.type Plot type ('lineplot' or 'heatmap')
-#' @param palette palette for the plot.type = 'heatmap'
+#' @param colours colours for the heatmap
 #' @param min.prevalence If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap. Only affects the plot.type = 'heatmap'.
 #' @param taxa.order Ordering of the taxa.
-#' @param ncolor Number of colors to use in the palette.
 #' @return A list with three elements: the ggplot object and the data. The data has a different form for the lineplot and heatmap. Finally, the applied parameters are returned.
 #' @examples 
 #'   data(atlas1006)
@@ -25,8 +24,10 @@
 plot_core <- function(x, title = "Core", 
 		   prevalence.intervals = seq(5, 100, 5), 		   
 		   detection.thresholds = 20,
-		   plot.type = "lineplot", palette = "bw", min.prevalence = NULL,
-		   taxa.order = NULL, ncolor = 5) {
+		   plot.type = "lineplot",
+		   colours = gray(seq(0,1,length=5)), 		   
+		   min.prevalence = NULL,
+		   taxa.order = NULL) {
 
   if (length(detection.thresholds) == 1) {
     detection.thresholds <- 10^seq(log10(1e-3),
@@ -46,8 +47,8 @@ plot_core <- function(x, title = "Core",
     # Here we use taxon x abundance thresholds table indicating prevalences
     res <- core_heatmap(taxa_abundances(x),
     	                detection.thresholds = detection.thresholds,
-			palette = palette, min.prevalence = min.prevalence,
-			taxa.order = taxa.order, ncolor = ncolor)
+			colours = colours, min.prevalence = min.prevalence,
+			taxa.order = taxa.order)
     
   }
 
