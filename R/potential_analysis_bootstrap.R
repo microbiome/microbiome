@@ -33,7 +33,7 @@ potential_analysis_bootstrap <- function (x, detection.threshold, bw.adjust = 1,
 
     xbs <- na.omit(unname(x[rs]))
 
-    a <- livpotential_ews(xbs, grid.size = floor(.2*length(x)), 
+    a <- livpotential(xbs, grid.size = floor(.2*length(x)), 
       	 		     detection.threshold = detection.threshold, 
 			     bw.adjust = bw.adjust, 
 			     detection.limit = detection.limit)

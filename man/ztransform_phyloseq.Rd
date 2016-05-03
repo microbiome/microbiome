@@ -22,8 +22,8 @@ Performs centering (to zero) and scaling (to unit
 variance) across samples for each taxa.
 }
 \examples{
-  pseq <- download_microbiome("peerj32")$physeq
-  pseqz <- ztransform_phyloseq(pseq, "OTU")
+  data(peerj32)
+  pseqz <- ztransform_phyloseq(peerj32$physeq)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

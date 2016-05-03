@@ -6,8 +6,8 @@
 #' @param which Specify Z transformation for "sample" or "OTU"
 #' @return Z-transformed phyloseq object
 #' @examples
-#'   pseq <- download_microbiome("peerj32")$physeq
-#'   pseqz <- ztransform_phyloseq(pseq, "OTU")
+#'   data(peerj32)
+#'   pseqz <- ztransform_phyloseq(peerj32$physeq)
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -15,7 +15,7 @@ ztransform_phyloseq <- function (x, which) {
 
   taxa_are_rows <- y <- NULL
 
-  if (!all(sample(taxa_abundances(pseq$healthy), 100)%%1 == 0)) {
+  if (!all(sample(taxa_abundances(x), 100)%%1 == 0)) {
     warning("phyloseq object may already have been log transformed - the abundances are not counts - log10 omitted in Z transformation. Perform manually if needed.")
   } else {
     # Start with log10 transformation

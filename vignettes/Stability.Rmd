@@ -157,6 +157,27 @@ print(ph)
 
 
 
+### Potential analysis
+
+Potential analysis, used for instance in [Hirota et al. Science, 334, 232-235.](http://www.sciencemag.org/content/334/6053/232.long)
+
+```{r movpotential, message=FALSE, warning=FALSE, fig.width=5, fig.height=5}
+# Create simulated example data
+X <- c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), 
+ 	           rnorm(1000, mean = 2))
+param <- seq(0,5,length=3000) 
+
+# Run potential analysis
+res <- movpotential(X, param)
+
+# Visualize
+p <- plot_potential(res$res, title = '', 
+	       	   xlab.text = '', ylab.text = '', 
+		   cutoff = 0.5, plot.contours = TRUE, binwidth = 0.2)
+print(p)
+```
+
+
 
 ### Version information
 

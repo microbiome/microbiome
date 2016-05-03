@@ -1,8 +1,8 @@
 Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
-Version: 0.99.82
-Date: 2016-04-28
+Version: 0.99.83
+Date: 2016-05-03
 Authors@R: c(
     person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Salojarvi", "Jarkko" , role = "aut"))
@@ -16,12 +16,11 @@ Depends:
 Imports:
     ade4,
     dplyr,
-    earlywarnings,
     ggplot2,
     MASS,
     moments,
     reshape2,
-    scales,
+    tgp,
     tidyr,
     vegan,
     WGCNA
