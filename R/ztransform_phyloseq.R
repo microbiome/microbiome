@@ -16,7 +16,7 @@ ztransform_phyloseq <- function (x, which) {
   taxa_are_rows <- y <- NULL
 
   if (!all(sample(taxa_abundances(pseq$healthy), 100)%%1 == 0)) {
-    warning("phyloseq object may already have been log transformed - the abundances are not counts - log10 omitted in Z transformation.")
+    warning("phyloseq object may already have been log transformed - the abundances are not counts - log10 omitted in Z transformation. Perform manually if needed.")
   } else {
     # Start with log10 transformation
     x <- transform_phyloseq(x, "log10")
@@ -38,9 +38,10 @@ ztransform_phyloseq <- function (x, which) {
       trans[names(which(rowMeans(is.na(trans)) == 1)),] <- 0
     }
 
-    # Use the same matrix format than in original data (taxa x samples or samples x taca)
+    # Use the same matrix format than in original data
+    # (taxa x samples or samples x taca)
     xz <- x
-    if (taxa_are_rows(x)) {trans = t(trans)}
+    if (taxa_are_rows(x)) { trans = t(trans) }
     otu_table(xz) <- otu_table(trans, taxa_are_rows = taxa_are_rows(x))  
 
   } else if (which == "sample") {

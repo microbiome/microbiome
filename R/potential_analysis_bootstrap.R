@@ -42,6 +42,7 @@ potential_analysis_bootstrap <- function (x, detection.threshold, bw.adjust = 1,
     minpoints[[r]] <- a$min.points
     maxpoints[[r]] <- a$max.points
     bws[[r]] <- a$bw
+    
   }
 
   # Most frequently observed number of modes
