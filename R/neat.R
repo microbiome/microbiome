@@ -21,6 +21,14 @@
 #' @keywords utilities
 neat <- function (x, arrange = "both", method = "NMDS", distance = "bray", first.row = NULL, first.col = NULL, ...) {
 
+  if (is.null(rownames(x))) {
+    rownames(x) = as.character(1:nrow(x))
+  }
+
+  if (is.null(colnames(x))) {
+    colnames(x) = as.character(1:ncol(x))
+  }
+
   if (arrange %in% c("rows", "both")) {
     if (nrow(x) > 2) {
       sr <- neatsort(x, "rows", method = method, distance = distance, first = first.row, ...)
