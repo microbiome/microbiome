@@ -2,7 +2,7 @@
 % Please edit documentation in R/multimodality_score.R
 \name{multimodality_score}
 \alias{multimodality_score}
-\title{Multimodality score}
+\title{Multimodality Score}
 \usage{
 multimodality_score(x, detection.threshold = 1, bw.adjust = 1,
   bs.iterations = 100, detection.limit = 1, verbose = TRUE)

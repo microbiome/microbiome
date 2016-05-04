@@ -2,13 +2,13 @@
 % Please edit documentation in R/potential_analysis_bootstrap.R
 \name{potential_analysis_bootstrap}
 \alias{potential_analysis_bootstrap}
-\title{Potential analysis bootstrap}
+\title{Bootstrapped Potential Analysis}
 \usage{
 potential_analysis_bootstrap(x, detection.threshold, bw.adjust = 1,
   bs.iterations = 100, detection.limit = 1)
 }
 \arguments{
-\item{x}{Data vector}
+\item{x}{Input data vector}
 
 \item{detection.threshold}{Mode detection threshold}
 
@@ -28,7 +28,7 @@ List with following elements:
 }
 }
 \description{
-Bootstrap analysis of multimodality based on potential
+Analysis of multimodality based on bootstrapped potential
    analysis of Livina et al. (2010) as described in Lahti et al. (2014).
 }
 \references{

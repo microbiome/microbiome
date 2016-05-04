@@ -1,65 +1,92 @@
-#' @title Coefficient of bimodality
-#' @description Coefficient of bimodality (Sarle's bimodality coefficient b).
-#' @param x Data vector for which bimodality will be quantified
-#' @param bs.iter Bootstrap iterations
-#' @param na.rm Remove NAs
-#' @param type Bimodality score type ("Sarle.finite.sample" or "Sarle.asymptotic")
-#' @return Bimodality score
-#' @examples coefficient_of_bimodality(rnorm(100), type = "Sarle.finite.sample")
-#' @export
-#' @details The coefficient lies in (0, 1).
-#' 
-#'	    The 'Sarle.asymptotic' version is defined as
-#'          \deqn{b = (g^2 + 1) / k}.
-#'          This is coefficient of bimodality from Ellison AM Am. J. Bot. 1987, 
-#'          for microbiome analysis it has been used for instance in
-#'          Shade et al. 2014.
-#'
-#'          The formula for 'Sarle.finite.sample' (SAS 2012):
-#'
-#' 	    \deqn{b = \frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
-#'          where n is sample size and 
-#' 
-#'          In both formulas, \eqn{g} is sample skewness and \eqn{k} is the kth
-#'          standardized moment (also called the sample kurtosis, or
-#'          excess kurtosis).
-#'
-#' @references
+#' @title Bimodality Detection
+#' @description A wrapper to calculate bimodality scores.
+#' @param x A vector, matrix, or a phyloseq object
+#' @param method bimodality quantification method ('potential_bootstrap'
+#' 	  or one of the methods in coefficient_of_bimodality)
+#' @param detection.threshold Mode detection threshold
+#' @param bw.adjust Bandwidth adjustment
+#' @param bs.iterations Bootstrap iterations
+#' @param detection.limit minimum accepted density for a maximum; 
+#'        as a multiple of kernel height
+#' @param verbose Verbose
+#' @return A list with following elements: 
 #'   \itemize{
-#'     \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
-#'     \item{}{Ellison AM (1987) Am J Botany 74(8):1280-1288.}
-#'     \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
-#'     \item{}{To cite the microbiome R package, see citation('microbiome')}
-#'  }
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @seealso Check the dip.test from the \pkg{DIP} package for a
-#' classical test of multimodality.
+#'     \item{score}{Fraction of bootstrap samples where multiple modes are observed}
+#'     \item{nmodes}{The most frequently observed number of modes in bootrstrap sampling results}
+#'     \item{results}{Full results of potential_analysis_bootstrap for each row of the input matrix.}
+#'   }
+#' @details
+#'   \itemize{
+#'     \item{Sarle.finite.sample}{Coefficient of bimodality for finite sample. See SAS 2012.}
+#'     \item{Sarle.asymptotic}{Coefficient of bimodality, used and described in Shade et al. (2014) and Ellison AM (1987).}
+#'     \item{potential_bootstrap}{Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the bootstrap score.}
+#'   }
+#' @seealso coefficient_of_bimodality
+#' @references
+#' \itemize{
+#'   \item{}{Livina et al. (2010). Potential analysis 
+#'         reveals changing number of climate states during the last 60
+#' 	   kyr. \emph{Climate of the Past}, 6, 77-82.}
+#'   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
+#'         ecosystem. \emph{Nature Communications} 5:4344.}
+#'   \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
+#'   \item{}{AM Ellison, Am. J. Bot 74:1280-8, 1987.}
+#'   \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
+#' }
+#' @export
+#' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @examples bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
 #' @keywords utilities
-coefficient_of_bimodality <- function(x, bs.iter = 1, na.rm = TRUE, type = "Sarle.finite.sample") {
+bimodality <- function (x, method = "potential_bootstrap", detection.threshold = 1, bw.adjust = 1, bs.iterations = 100, detection.limit = 1, verbose = TRUE) {
 
-    g <- skewness(x, na.rm)
-    k <- kurtosis(x, na.rm)      
+  if (is.vector(x)) {
 
-    if (type == "Sarle.asymptotic") {
+    if (method %in% c("Sarle.finite.sample", "Sarle.asymptotic")) {
 
-      s <- (1 + g^2)/(k + 3)
+      s <- coefficient_of_bimodality(x, type = method)
 
-    } else if (type == "Sarle.finite.sample") {
-    
-      n <- length(x)
-      s <- (g^2 + 1) / (k + (3*(n-1)^2)/((n-2)*(n-3)))
-      
-    }
+    } else if (method == "potential_bootstrap") {
 
-    if (bs.iter > 1) {
-      s <- c()
-      for (i in 1:bs.iter) {
-        xbs <- sample(x, replace = TRUE)
-	s[[i]] <- coefficient_of_bimodality(xbs, type = type)
+      if (length(unique(x)) == 1) {
+
+        s <- 0
+
+      } else {
+
+        s <- multimodality_score(x, detection.threshold, 
+      	   		       bw.adjust, bs.iterations, 
+     			       detection.limit, verbose)$score
       }
-      s <- mean(s)
     }
+    #else if (method == "dip") {
+    #
+    # # Pick OTU log10 data
+    #  score <- dip.test(x, simulate.p.value = TRUE, B = 200)$statistic
+    #  #data.frame(t(sapply(dip, function (x) {c(x$statistic, x$p.value)})))
+    #  #colnames(dip2) <- c("score", "p.value")
+    #  #dip2$tax <- names(dip)#
+    #
+    #  # Dip quantifies unimodality. Values range between 0 to 1. 
+    #  # Values less than 0.05 indicate significant deviation from unimodality. 
+    #  # To score multimodality, use the inverse:
+    #  s <- 1 - score
+    #}
 
-    s
-    
+  } else if (is.matrix(x)) {
+
+    s <- apply(x, 1, function (xi) {bimodality(xi, method = method, detection.threshold = detection.threshold, bw.adjust = bw.adjust, bs.iterations = bs.iterations, detection.limit = detection.limit, verbose = verbose)})
+
+  } else if (class(x) == "phyloseq") {
+
+    # Pick the data from phyloseq object
+    x <- taxa_abundances(transform_phyloseq(x, "log10"))
+    s <- bimodality(x, method = method, detection.threshold = detection.threshold, bw.adjust = bw.adjust, bs.iterations = bs.iterations, detection.limit = detection.limit, verbose = verbose)
+
+  }
+  
+  s 
+
 }
+
+
+  

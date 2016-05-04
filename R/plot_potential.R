@@ -1,29 +1,27 @@
 #' @title Plot Potential
-#' @description Visualization of the potential function from the movpotential function
-#' @param res output from movpotential function
-#' @param title title text
-#' @param xlab.text xlab text
-#' @param ylab.text ylab text
+#' @description Visualization of the potential function from the potential_slidingaverage function
+#' @param res output from potential_slidingaverage function
 #' @param cutoff parameter determining the upper limit of potential for visualizations
 #' @param plot.contours Plot contour lines.
 #' @param binwidth binwidth for contour plot
 #' @param bins bins for contour plot. Overrides binwidth if given
-#' @return \item{ggplot2}{potential plotted}
+#' @return A ggplot2 visualization of the potential landscape.
 #' @export
 #' @references Lahti et al. (2014). Tipping elements of the human intestinal ecosystem. \emph{Nature Communications} 5:4344.
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples   X = c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), 
-#'   	             rnorm(1000, mean = 2))
-#'	       param = seq(0,5,length=3000); 
-#'	       res <- movpotential(X, param); 
-#'	       plot_potential(res$res, title = '', 
-#'	       	             xlab.text = '', ylab.text = '', 
-#'			     cutoff = 0.5, 
-#'			     plot.contours = TRUE, binwidth = 0.2)
+#' @examples
+#'   X <- c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), 
+#'   	    rnorm(1000, mean = 2))
+#'   param <- seq(0,5,length=3000); 
+#'   res <- potential_slidingaverage(X, param); 
+#'   plot_potential(res$res, title = '', 
+#'	       	    xlab.text = '', ylab.text = '', 
+#'		    cutoff = 0.5, plot.contours = TRUE,
+#'		    binwidth = 0.2)
 #' @keywords utils
-plot_potential <- function(res, title = "", xlab.text, ylab.text, cutoff = 0.5, plot.contours = TRUE, 
+plot_potential <- function(res, cutoff = 0.5, plot.contours = TRUE, 
     binwidth = 0.2, bins = NULL) {
-
+    
     scale_fill_gradient <- NULL # Avoid build warnings
     
     cut.potential <- max(apply(res$pots, 1, min)) + cutoff * abs(max(apply(res$pots, 
@@ -55,8 +53,6 @@ plot_potential <- function(res, title = "", xlab.text, ylab.text, cutoff = 0.5, 
             p <- p + stat_contour(binwidth = binwidth, aes(x = bg.var, y = phylotype, z = potential, fill = potential))
         }
     }
-    
-    p <- p + xlab(xlab.text) + ylab(ylab.text) + labs(title = title)
     
     p
     

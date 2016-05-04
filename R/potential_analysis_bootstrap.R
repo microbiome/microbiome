@@ -1,7 +1,7 @@
-#' @title Potential analysis bootstrap
-#' @description Bootstrap analysis of multimodality based on potential
+#' @title Bootstrapped Potential Analysis 
+#' @description Analysis of multimodality based on bootstrapped potential
 #'    analysis of Livina et al. (2010) as described in Lahti et al. (2014).
-#' @param x Data vector
+#' @param x Input data vector
 #' @param detection.threshold Mode detection threshold
 #' @param bw.adjust Bandwidth adjustment
 #' @param bs.iterations Bootstrap iterations
@@ -33,7 +33,7 @@ potential_analysis_bootstrap <- function (x, detection.threshold, bw.adjust = 1,
 
     xbs <- na.omit(unname(x[rs]))
 
-    a <- livpotential(xbs, grid.size = floor(.2*length(x)), 
+    a <- potential_univariate(xbs, grid.size = floor(.2*length(x)), 
       	 		     detection.threshold = detection.threshold, 
 			     bw.adjust = bw.adjust, 
 			     detection.limit = detection.limit)
@@ -54,7 +54,8 @@ potential_analysis_bootstrap <- function (x, detection.threshold, bw.adjust = 1,
   # Return the most frequent number of modes and
   # the corresponding tipping points
   # from the bootstrap analysis
-  list(modes = top.modes, minima = min.points, maxima = max.points, unimodality.support = unimodality.support, bws = bws)
+  list(modes = top.modes, minima = min.points, maxima = max.points,
+       unimodality.support = unimodality.support, bws = bws)
   
 }
 

@@ -1,4 +1,4 @@
-#' @title Multimodality score
+#' @title Multimodality Score
 #' @description Multimodality score based on bootstrapped potential analysis.
 #' @param x A vector, or data matrix (variables x samples)
 #' @param detection.threshold Mode detection threshold
@@ -28,7 +28,8 @@ multimodality_score <- function (x, detection.threshold = 1, bw.adjust = 1, bs.i
 
   if (is.vector(x)) {
   
-    # Add small noise to enable robust density estimation (identical values may cause failure)
+    # Add small noise to enable robust density estimation
+    # (identical values may cause failure)
     x <- x + rnorm(length(x), sd = sd(x)/100)
     m <- potential_analysis_bootstrap(x, detection.threshold = detection.threshold, bw.adjust = bw.adjust, bs.iterations = bs.iterations, detection.limit = detection.limit)
     ret <- list(score = 1 - m$unimodality.support, modes = m$modes, results = m)

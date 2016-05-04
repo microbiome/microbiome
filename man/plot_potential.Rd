@@ -4,17 +4,11 @@
 \alias{plot_potential}
 \title{Plot Potential}
 \usage{
-plot_potential(res, title = "", xlab.text, ylab.text, cutoff = 0.5,
-  plot.contours = TRUE, binwidth = 0.2, bins = NULL)
+plot_potential(res, cutoff = 0.5, plot.contours = TRUE, binwidth = 0.2,
+  bins = NULL)
 }
 \arguments{
-\item{res}{output from movpotential function}
-
-\item{title}{title text}
-
-\item{xlab.text}{xlab text}
-
-\item{ylab.text}{ylab text}
+\item{res}{output from potential_slidingaverage function}
 
 \item{cutoff}{parameter determining the upper limit of potential for visualizations}
 
@@ -25,20 +19,20 @@ plot_potential(res, title = "", xlab.text, ylab.text, cutoff = 0.5,
 \item{bins}{bins for contour plot. Overrides binwidth if given}
 }
 \value{
-\item{ggplot2}{potential plotted}
+A ggplot2 visualization of the potential landscape.
 }
 \description{
-Visualization of the potential function from the movpotential function
+Visualization of the potential function from the potential_slidingaverage function
 }
 \examples{
-  X = c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), 
-  	             rnorm(1000, mean = 2))
-       param = seq(0,5,length=3000); 
-       res <- movpotential(X, param); 
-       plot_potential(res$res, title = '', 
-       	             xlab.text = '', ylab.text = '', 
-		     cutoff = 0.5, 
-		     plot.contours = TRUE, binwidth = 0.2)
+  X <- c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), 
+  	    rnorm(1000, mean = 2))
+  param <- seq(0,5,length=3000); 
+  res <- potential_slidingaverage(X, param); 
+  plot_potential(res$res, title = '', 
+       	    xlab.text = '', ylab.text = '', 
+	    cutoff = 0.5, plot.contours = TRUE,
+	    binwidth = 0.2)
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

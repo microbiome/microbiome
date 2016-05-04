@@ -1,4 +1,4 @@
-#' @title Find optima
+#' @title Find Optima
 #' @description Detect optima, excluding very local optima below detection.threshold. 
 #' @param f density
 #' @param detection.threshold detection threshold for peaks
@@ -33,7 +33,8 @@ find_optima <- function(f, detection.threshold = 0, bw, detection.limit = 1) {
     # Remove minima and maxima that are too shallow
     delmini <- logical(length(minima))
     delmaxi <- logical(length(maxima))
-    for (j in 1:length(maxima)) {
+    if (length(maxima) > 0) {
+      for (j in 1:length(maxima)) {
         
         # Calculate distance of this maximum to all minima
         s <- minima - maxima[[j]]
@@ -94,8 +95,10 @@ find_optima <- function(f, detection.threshold = 0, bw, detection.limit = 1) {
         } else {
             # if both i1 and i2 are NULL, do nothing
         }
+      }
+    } else {
+      # Skip
     }
-    
     # Delete the shallow minima and maxima
     if (length(minima) > 0 && sum(delmini) > 0) {
         minima <- minima[!delmini]
