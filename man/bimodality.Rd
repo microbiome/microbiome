@@ -2,7 +2,7 @@
 % Please edit documentation in R/bimodality.R
 \name{bimodality}
 \alias{bimodality}
-\title{Bimodality Detection}
+\title{Bimodality Analysis}
 \usage{
 bimodality(x, method = "potential_bootstrap", detection.threshold = 1,
   bw.adjust = 1, bs.iterations = 100, detection.limit = 1,
@@ -26,7 +26,7 @@ as a multiple of kernel height}
 \item{verbose}{Verbose}
 }
 \value{
-A list with following elements: 
+A list with following elements:
   \itemize{
     \item{score}{Fraction of bootstrap samples where multiple modes are observed}
     \item{nmodes}{The most frequently observed number of modes in bootrstrap sampling results}
@@ -44,7 +44,12 @@ A wrapper to calculate bimodality scores.
   }
 }
 \examples{
-bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
+  bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
+ # 
+ # See also the classical DIP test:
+ # Dip quantifies unimodality. Values range between 0 to 1. 
+ # dip.test(x, simulate.p.value = TRUE, B = 200)$statistic
+ # Values less than 0.05 indicate significant deviation from unimodality. 
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
@@ -62,7 +67,7 @@ Leo Lahti \email{leo.lahti@iki.fi}
 }
 }
 \seealso{
-coefficient_of_bimodality
+coefficient_of_bimodality, dip.test
 }
 \keyword{utilities}
 
