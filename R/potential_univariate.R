@@ -1,15 +1,15 @@
-#' @title Potential Analysis for univariate data
-#' @description \code{livpotential} performs one-dimensional potential estimation derived from a uni-variate timeseries.
+#' @title Potential Analysis for Univariate Data
+#' @description One-dimensional potential estimation for univariate timeseries.
 #' @param x Univariate data (vector) for which the potentials shall be estimated
 #' @param std Standard deviation of the noise (defaults to 1; this will set scaled potentials)
 #' @param bw kernel bandwidth estimation method 
-#' @param weights optional weights in ksdensity (used by movpotentials).
+#' @param weights optional weights in ksdensity (used by potential_slidingaverages).
 #' @param grid.size Grid size for potential estimation.
 #' @param detection.threshold maximum detection threshold as fraction of density kernel height dnorm(0, sd = bandwidth)/N
 #' @param bw.adjust The real bandwidth will be bw.adjust*bw; defaults to 1
 #' @param density.smoothing Add a small constant density across the whole observation range to regularize density estimation (and to avoid zero probabilities within the observation range). This parameter adds uniform density across the observation range, scaled by density.smoothing.
 #' @param detection.limit minimum accepted density for a maximum; as a multiple of kernel height
-#' @return \code{livpotential} returns a list with the following elements:
+#' @return \code{potential_univariate} returns a list with the following elements:
 #'   \itemize{
 #'     \item{xi}{the grid of points on which the potential is estimated}
 #'     \item{pot}{The estimated potential: -log(f)*std^2/2, where f is the density.}
@@ -27,10 +27,10 @@
 #'   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal ecosystem. \emph{Nature Communications} 5:4344.}
 #'  }
 #' @author Based on Matlab code from Egbert van Nes modified by Leo Lahti. Extended from the initial version in the \pkg{earlywarnings} R package.
-#' @seealso \code{\link{movpotential}}
-#' @examples \dontrun{res <- livpotential(x)}
+#' @seealso \code{\link{potential_slidingaverage}}
+#' @examples \dontrun{res <- potential_univariate(x)}
 #' @keywords early-warning
-livpotential <- function(x, std = 1, bw = "nrd", weights = c(), grid.size = NULL, 
+potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(), grid.size = NULL, 
     detection.threshold = 1, bw.adjust = 1, density.smoothing = 0, detection.limit = 1) {
     
     if (is.null(grid.size)) {

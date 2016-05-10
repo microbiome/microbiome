@@ -2,7 +2,7 @@
 % Please edit documentation in R/find_optima.R
 \name{find_optima}
 \alias{find_optima}
-\title{Find optima}
+\title{Find Optima}
 \usage{
 find_optima(f, detection.threshold = 0, bw, detection.limit = 1)
 }

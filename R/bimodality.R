@@ -1,5 +1,5 @@
-#' @title Bimodality
-#' @description Wrapper to calculate bimodality score based on various methods.
+#' @title Bimodality Analysis
+#' @description A wrapper to calculate bimodality scores.
 #' @param x A vector, matrix, or a phyloseq object
 #' @param method bimodality quantification method ('potential_bootstrap'
 #' 	  or one of the methods in coefficient_of_bimodality)
@@ -9,7 +9,7 @@
 #' @param detection.limit minimum accepted density for a maximum; 
 #'        as a multiple of kernel height
 #' @param verbose Verbose
-#' @return A list with following elements: 
+#' @return A list with following elements:
 #'   \itemize{
 #'     \item{score}{Fraction of bootstrap samples where multiple modes are observed}
 #'     \item{nmodes}{The most frequently observed number of modes in bootrstrap sampling results}
@@ -64,7 +64,7 @@ bimodality <- function (x, method = "potential_bootstrap", detection.threshold =
      			       detection.limit, verbose)$score
       }
     }
-    
+
   } else if (is.matrix(x)) {
 
     s <- apply(x, 1, function (xi) {bimodality(xi, method = method, detection.threshold = detection.threshold, bw.adjust = bw.adjust, bs.iterations = bs.iterations, detection.limit = detection.limit, verbose = verbose)})

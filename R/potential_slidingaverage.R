@@ -27,13 +27,13 @@
 #'   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal ecosystem. \emph{Nature Communications} 5:4344.}
 #'  }
 #' @author Leo Lahti, adapted from original Matlab code by Egbert van Nes.
-#' @seealso \code{livpotential}
+#' @seealso \code{potential_univariate}
 #' @examples
 #'   X = c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), rnorm(1000, mean = 2));
 #'	     param = seq(0,5,length=3000); 
-#'	     res <- movpotential(X, param)
+#'	     res <- potential_slidingaverage(X, param)
 #' @keywords utils
-movpotential <- function(X, param = NULL, bw = "nrd", bw.adjust = 1, detection.threshold = 0.1, std = 1, grid.size = 50, plot.cutoff = 0.5, plot.contours = TRUE, binwidth = 0.2, 
+potential_slidingaverage <- function(X, param = NULL, bw = "nrd", bw.adjust = 1, detection.threshold = 0.1, std = 1, grid.size = 50, plot.cutoff = 0.5, plot.contours = TRUE, binwidth = 0.2, 
     bins = NULL) {
     
     if (is.null(param)) {
@@ -72,7 +72,7 @@ movpotential <- function(X, param = NULL, bw = "nrd", bw.adjust = 1, detection.t
         weights <- weights/sum(weights)
         
         # Calculate the potential
-        tmp <- livpotential(x = X, std = std, bw = bw, bw.adjust = bw.adjust, 
+        tmp <- potential_univariate(x = X, std = std, bw = bw, bw.adjust = bw.adjust, 
             weights = weights, grid.size = grid.size)
         
         # Store variables
@@ -86,10 +86,9 @@ movpotential <- function(X, param = NULL, bw = "nrd", bw.adjust = 1, detection.t
     
     res <- list(pars = pars, xis = xis, pots = pots, mins = mins, maxs = maxs, std = std)
     
-    p <- plot_potential(res, title = "Moving Average Potential", "parameter/time", 
-        "state variable", cutoff = plot.cutoff, plot.contours = plot.contours, binwidth = binwidth, 
-        bins = bins)
-    
+    p <- plot_potential(res, cutoff = plot.cutoff, plot.contours = plot.contours, binwidth = binwidth, bins = bins)
+    p <- p + xlab("parameter/time") + ylab("state variable")
+        
     list(res = res, plot = p)
     
 }
