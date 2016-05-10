@@ -1,6 +1,6 @@
-#' @title Potential analysis bootstrap
-#' @description Bootstrap analysis of multimodality based on potential
-#'    analysis of Livina et al. (2010) as described in Lahti et al. (2014).
+#' @title Bootstrapoed Potential Analysis 
+#' @description Bootstrapped version of the potential
+#'    analysis of Livina et al. (2010), as described in Lahti et al. (2014).
 #' @param x Data vector
 #' @param detection.threshold Mode detection threshold
 #' @param bw.adjust Bandwidth adjustment
@@ -27,7 +27,7 @@ potential_analysis_bootstrap <- function (x, detection.threshold, bw.adjust = 1,
   bws <- c()
 
   for (r in 1:bs.iterations) {
-  
+
     # Bootstrap
     rs <- sample(length(x), replace = TRUE) 
 
