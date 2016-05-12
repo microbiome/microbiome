@@ -9,11 +9,12 @@
 #' @param na.rm see stat_density
 #' @param tipping.point Optional. Indicate critical point for abundance variations to be highlighted.
 #' @param fill Fill color
+#' @param xlim X axis limits
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
 #' @examples # plot_density(x, variable = "Dialister")
 #' @keywords utilities
-plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray", tipping.point = NULL) {
+plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray", tipping.point = NULL, xlim = NULL) {
 
   x <- pickdata(x, variable) 	     	   
 
@@ -22,7 +23,7 @@ plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel 
   p <- p + geom_density(adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm, fill = fill) 
 
   if (log10) {
-    p <- p + scale_x_log10()  
+    p <- p + scale_x_log10(limits = xlim)  
     p <- p + ggtitle(paste(variable))
     p <- p + xlab("Abundance (Log10)")
   } else {
