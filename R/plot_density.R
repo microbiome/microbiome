@@ -23,7 +23,7 @@ plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel 
   p <- p + geom_density(adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm, fill = fill) 
 
   if (log10) {
-    p <- p + scale_x_log10(limits = xlim)  
+    p <- p + scale_x_log10() 
     p <- p + ggtitle(paste(variable))
     p <- p + xlab("Abundance (Log10)")
   } else {
@@ -35,6 +35,10 @@ plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel 
 
   if (!is.null(tipping.point)) {
     p <- p + geom_vline(aes(xintercept = tipping.point), linetype = 2, size = 1)
+  }
+
+  if (!is.null(xlim)) {
+    p = p + coord_cartesian(xlims)
   }
 
   p
