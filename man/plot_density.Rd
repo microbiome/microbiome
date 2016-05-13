@@ -6,7 +6,7 @@
 \usage{
 plot_density(x, variable = NULL, log10 = FALSE, adjust = 1,
   kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray",
-  tipping.point = NULL)
+  tipping.point = NULL, xlim = NULL)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)}
@@ -26,6 +26,8 @@ plot_density(x, variable = NULL, log10 = FALSE, adjust = 1,
 \item{fill}{Fill color}
 
 \item{tipping.point}{Optional. Indicate critical point for abundance variations to be highlighted.}
+
+\item{xlim}{X axis limits}
 }
 \value{
 A \code{\link{ggplot}} plot object.
