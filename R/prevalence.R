@@ -22,17 +22,19 @@
 #'   ## With matrix
 #'   prevalence(peerj32$data$microbes, detection.threshold = 200, sort = TRUE)
 #'   ## With phyloseq
-#'   prevalence(peerj32$physeq, detection.threshold = 200, sort = TRUE)
+#'   prevalence(peerj32$phyloseq, detection.threshold = 200, sort = TRUE)
 prevalence <- function (x, detection.threshold, sort = FALSE) {
 
   if (is.vector(x)) {
     prev <- 100 * mean(x > detection.threshold)
-  } else if (is.matrix(x)) {
+  } else if (is.matrix(x) || is.data.frame(x)) {
     prev <- 100 * rowMeans(x > detection.threshold)
   } else if (class(x) == "phyloseq") {
     x <- taxa_abundances(x)
     prev <- prevalence(x, detection.threshold = detection.threshold)
-  }
+  } else {}
+
+
 
   if (sort) {
     prev <- rev(sort(prev))
