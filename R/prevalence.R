@@ -25,6 +25,11 @@
 #'   prevalence(peerj32$phyloseq, detection.threshold = 200, sort = TRUE)
 prevalence <- function (x, detection.threshold, sort = FALSE) {
 
+  if (is.null(x)) {
+    warning("x is NULL - returning NULL")
+    return(NULL)
+  }
+
   if (is.vector(x)) {
     prev <- 100 * mean(x > detection.threshold)
   } else if (is.matrix(x) || is.data.frame(x)) {

@@ -1,7 +1,6 @@
 ### Prevalence of taxonomic groups
 
-
-```{r core-prevalence, fig.path = "figure/"}
+```{r core-prevalence}
 # Load example data
 library(microbiome)
 data("peerj32")
@@ -14,7 +13,7 @@ pseq.rel <- transform_phyloseq(pseq, "relative.abundance", "OTU")
 
 List prevalence for each group at 1 percent relative abundance abundance threshold:
 
-```{r core-prevalence2, fig.path = "figure/"}
+```{r core-prevalence2}
 head(prevalence(pseq.rel, detection.threshold = 1, sort = FALSE))
 ```
 
@@ -38,6 +37,20 @@ det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
 prev <- seq(10, 100, 10)
 core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds = det)
 ```
+
+A shortcut to determine the core taxa with a given detection and prevalence thresholds:
+
+```{r core-members, message=FALSE, warning=FALSE}
+core.taxa <- core(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
+```
+
+Total core abundance:
+
+```{r core-members, message=FALSE, warning=FALSE}
+total.core.abundance <- core_abundance(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
+```
+
+
 
 ### Core 2D line plots
 

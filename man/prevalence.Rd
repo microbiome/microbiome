@@ -31,7 +31,7 @@ exceed the detection threshold
   ## With matrix
   prevalence(peerj32$data$microbes, detection.threshold = 200, sort = TRUE)
   ## With phyloseq
-  prevalence(peerj32$physeq, detection.threshold = 200, sort = TRUE)
+  prevalence(peerj32$phyloseq, detection.threshold = 200, sort = TRUE)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
