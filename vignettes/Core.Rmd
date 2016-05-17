@@ -14,13 +14,13 @@ pseq.rel <- transform_phyloseq(pseq, "relative.abundance", "OTU")
 Taxa prevalences at 1 percent relative abundance abundance threshold:
 
 ```{r core-prevalence2}
-head(prevalence(pseq.rel, detection.threshold = 1, sort = FALSE))
+head(prevalence(pseq.rel, detection.threshold = 1, sort = TRUE))
 ```
 
 
 ### Core microbiota
 
-List the core taxa above a given detection and prevalence thresholds:
+Core taxa above a given detection and prevalence thresholds:
 
 ```{r core-members, message=FALSE, warning=FALSE}
 core.taxa <- core(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
