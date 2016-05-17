@@ -1,7 +1,8 @@
 ### Prevalence of taxonomic groups
 
+Load example data:
+
 ```{r core-prevalence}
-# Load example data
 library(microbiome)
 data("peerj32")
 pseq <- peerj32$phyloseq
@@ -10,35 +11,16 @@ pseq <- peerj32$phyloseq
 pseq.rel <- transform_phyloseq(pseq, "relative.abundance", "OTU")
 ```
 
-
-List prevalence for each group at 1 percent relative abundance abundance threshold:
+Taxa prevalences at 1 percent relative abundance abundance threshold:
 
 ```{r core-prevalence2}
 head(prevalence(pseq.rel, detection.threshold = 1, sort = FALSE))
 ```
 
 
-List the taxa that are present at the given detection threshold (1% relative abundance) at a given prevalence (80%) (fraction of the samples):
-
-```{r core-prevalence3, fig.path = "figure/"}
-prevalent.taxa <- prevalent_taxa(pseq.rel, detection.threshold = 1, prevalence.threshold = 80)
-```
-
-
 ### Core microbiota
 
-Determine core microbiota with the [blanket
-analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract)
-based on various signal and prevalence thresholds. See also the the
-bootstrap_microbes function.
- 
-```{r core-example, message=FALSE, warning=FALSE, fig.path = "figure/"}
-det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
-prev <- seq(10, 100, 10)
-core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds = det)
-```
-
-A shortcut to determine the core taxa with a given detection and prevalence thresholds:
+List the core taxa above a given detection and prevalence thresholds:
 
 ```{r core-members, message=FALSE, warning=FALSE}
 core.taxa <- core(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
@@ -47,14 +29,18 @@ core.taxa <- core(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
 Total core abundance:
 
 ```{r core-ab, message=FALSE, warning=FALSE}
-total.core.abundance <- core_abundance(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
+core.abundance <- core_abundance(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
 ```
-
 
 
 ### Core 2D line plots
 
-```{r core-example2, fig.width=8, fig.heigth=6, fig.show='hold', out.width="430px"}
+Determine core microbiota across various abundance/prevalence
+thresholds with the [blanket
+analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) based on various signal and prevalence thresholds. See also the the
+bootstrap_microbes function.
+
+```{r core-example2, fig.width=9, fig.heigth=6, fig.show='hold', out.width="430px"}
 # With absolute read counts
 det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
 res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
@@ -67,7 +53,6 @@ res$plot + xlab("Relative Abundance (%)")
 
 # Retrieve the core count data matrix
 coremat <- res$data
-print(coremat)
 ```
 
 
@@ -109,7 +94,7 @@ print(res$plot)
 library(RColorBrewer)
 res <- plot_core(pseq, plot.type = "heatmap",
                  #colours = colorRampPalette(rev(brewer.pal(11, "Spectral")))(5),
-		 colours = brewer.pal(5, "Spectral"),
+		 colours = rev(brewer.pal(5, "Spectral")),
                  prevalence.intervals = prevalence.intervals,
 		 detection.thresholds = detection.thresholds,
 		 min.prevalence = 0)		 
@@ -121,6 +106,6 @@ Retrieve the core prevalence data matrix
 
 ```{r core-example4, fig.width=8, fig.heigth=13, fig.path = "figure/"}
 prevalences <- res$data
-kable(head(prevalences))
+kable(head(prevalences), digits = 2)
 ```
 

@@ -1,8 +1,9 @@
 ### Prevalence of taxonomic groups
 
+Load example data:
+
 
 ```r
-# Load example data
 library(microbiome)
 data("peerj32")
 pseq <- peerj32$phyloseq
@@ -11,8 +12,7 @@ pseq <- peerj32$phyloseq
 pseq.rel <- transform_phyloseq(pseq, "relative.abundance", "OTU")
 ```
 
-
-List prevalence for each group at 1 percent relative abundance abundance threshold:
+Taxa prevalences at 1 percent relative abundance abundance threshold:
 
 
 ```r
@@ -29,29 +29,9 @@ head(prevalence(pseq.rel, detection.threshold = 1, sort = FALSE))
 ```
 
 
-List the taxa that are present at the given detection threshold (1% relative abundance) at a given prevalence (80%) (fraction of the samples):
-
-
-```r
-prevalent.taxa <- prevalent_taxa(pseq.rel, detection.threshold = 1, prevalence.threshold = 80)
-```
-
-
 ### Core microbiota
 
-Determine core microbiota with the [blanket
-analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract)
-based on various signal and prevalence thresholds. See also the the
-bootstrap_microbes function.
- 
-
-```r
-det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
-prev <- seq(10, 100, 10)
-core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds = det)
-```
-
-A shortcut to determine the core taxa with a given detection and prevalence thresholds:
+List the core taxa above a given detection and prevalence thresholds:
 
 
 ```r
@@ -62,7 +42,7 @@ Total core abundance:
 
 
 ```r
-total.core.abundance <- core_abundance(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
+core.abundance <- core_abundance(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
 ```
 
 ```
@@ -70,8 +50,12 @@ total.core.abundance <- core_abundance(pseq.rel, detection.threshold = 1, preval
 ```
 
 
-
 ### Core 2D line plots
+
+Determine core microbiota across various abundance/prevalence
+thresholds with the [blanket
+analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) based on various signal and prevalence thresholds. See also the the
+bootstrap_microbes function.
 
 
 ```r
@@ -87,20 +71,6 @@ res$plot + xlab("Relative Abundance (%)")
 
 # Retrieve the core count data matrix
 coremat <- res$data
-print(coremat)
-```
-
-```
-##     0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9   1
-## 0   130 130 130 130 130 130 130 130 130 130
-## 0.1  89  75  71  69  64  59  58  53  49  41
-## 0.2  74  67  62  56  53  50  47  45  40  28
-## 0.5  55  49  45  41  39  36  33  31  25  15
-## 1    41  37  32  30  27  25  23  17  11   3
-## 2    29  24  18  15  12   9   8   4   2   1
-## 5     9   6   4   4   4   2   1   1   0   0
-## 10    3   3   1   0   0   0   0   0   0   0
-## 20    0   0   0   0   0   0   0   0   0   0
 ```
 
 <img src="figure/core-example2-1.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="430px" /><img src="figure/core-example2-2.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="430px" />
@@ -148,7 +118,7 @@ print(res$plot)
 library(RColorBrewer)
 res <- plot_core(pseq, plot.type = "heatmap",
                  #colours = colorRampPalette(rev(brewer.pal(11, "Spectral")))(5),
-		 colours = brewer.pal(5, "Spectral"),
+		 colours = rev(brewer.pal(5, "Spectral")),
                  prevalence.intervals = prevalence.intervals,
 		 detection.thresholds = detection.thresholds,
 		 min.prevalence = 0)		 
@@ -163,17 +133,17 @@ Retrieve the core prevalence data matrix
 
 ```r
 prevalences <- res$data
-kable(head(prevalences))
+kable(head(prevalences), digits = 2)
 ```
 
 
 
 |Taxa                         | DetectionThreshold| Prevalence|
 |:----------------------------|------------------:|----------:|
-|Actinomycetaceae             |                  1|   61.36364|
-|Aerococcus                   |                  1|   61.36364|
-|Aeromonas                    |                  1|   65.90909|
-|Akkermansia                  |                  1|  100.00000|
-|Alcaligenes faecalis et rel. |                  1|   13.63636|
-|Allistipes et rel.           |                  1|  100.00000|
+|Actinomycetaceae             |                  1|      61.36|
+|Aerococcus                   |                  1|      61.36|
+|Aeromonas                    |                  1|      65.91|
+|Akkermansia                  |                  1|     100.00|
+|Alcaligenes faecalis et rel. |                  1|      13.64|
+|Allistipes et rel.           |                  1|     100.00|
 

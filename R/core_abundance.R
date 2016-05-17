@@ -20,7 +20,7 @@ core_abundance <- function(x, detection.threshold = 1, prevalence.threshold = 95
   xx <- taxa_abundances(prune_taxa(core.taxa, x))
 
   # Total sum of core abundances
-  ab <- colSums(xx, na.rm = TRUE)[rownames(meta2)]
+  ab <- colSums(xx, na.rm = TRUE)[rownames(xx)]
 
   ab
 

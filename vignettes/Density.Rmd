@@ -20,7 +20,7 @@ plot_density(x, "Dialister") + ggtitle("Absolute abundance")
 plot_density(x, "Dialister", log10 = TRUE) + ggtitle("Log10")
 
 # Same with log10 relative abundances
-x <- transform_sample_counts(x, function (x) {100 * x/sum(x)})
+x <- transform_phyloseq(x, "relative.abundance")
 tax <- "Dialister"
 plot_density(x, tax, log10 = TRUE) + ggtitle("Relative abundance")
 ```
