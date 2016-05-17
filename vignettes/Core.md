@@ -1,7 +1,6 @@
 ### Prevalence of taxonomic groups
 
 
-
 ```r
 # Load example data
 library(microbiome)
@@ -51,6 +50,26 @@ det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
 prev <- seq(10, 100, 10)
 core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds = det)
 ```
+
+A shortcut to determine the core taxa with a given detection and prevalence thresholds:
+
+
+```r
+core.taxa <- core(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
+```
+
+Total core abundance:
+
+
+```r
+total.core.abundance <- core_abundance(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
+```
+
+```
+## Error in rownames(meta2): object 'meta2' not found
+```
+
+
 
 ### Core 2D line plots
 

@@ -46,7 +46,7 @@ core.taxa <- core(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
 
 Total core abundance:
 
-```{r core-members, message=FALSE, warning=FALSE}
+```{r core-ab, message=FALSE, warning=FALSE}
 total.core.abundance <- core_abundance(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
 ```
 
