@@ -45,10 +45,6 @@ Total core abundance:
 core.abundance <- core_abundance(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
 ```
 
-```
-## Error in rownames(meta2): object 'meta2' not found
-```
-
 
 ### Core 2D line plots
 
