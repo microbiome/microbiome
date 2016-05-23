@@ -1,4 +1,4 @@
-#' @title RDA for phyloseq
+#' @title RDA for phyloseq objects
 #' @description RDA for phyloseq objects based on the \code{\link{rda}} function from the \pkg{vegan} package.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param varname Variable to apply in RDA visualization.
@@ -13,7 +13,7 @@
 rda_physeq <- function (x, varname, scale = FALSE, na.action = na.fail) {
 
   # Microbiota profiling data (44 samples x 130 bacteria)
-  otu <- taxa_abundances(x)
+  otu <- t(taxa_abundances(x))
   
   # Sample annotations
   annot <- sample_data(x)[[varname]]

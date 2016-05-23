@@ -34,7 +34,7 @@ pl <- ordihull(rda.result, meta$time, scaling = 3, label = TRUE)
 title("RDA")
 ```
 
-See also the RDA method in phyloseq ordinate function, which is calculated without the formula.
+See also the RDA method in phyloseq::ordinate, which is calculated without the formula.
 
 
 ### RDA significance test
@@ -61,11 +61,11 @@ plot_bagged_rda(res)
 
 ### RDA with confounding variables 
 
-For more complex RDA scenarios, use the vegan package directly:
+For more complex RDA scenarios, use the vegan package:
 
 ```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
 # Pick microbiota profiling data from the phyloseq object
-otu <- otu_table(pseq.log10)@.Data
+otu <- taxa_abundances(pseq.log10)
 
 # Sample annotations
 meta <- sample_data(pseq.log10)

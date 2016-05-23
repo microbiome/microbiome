@@ -22,10 +22,6 @@ pseq.log10 <- transform_phyloseq(pseq, "log10")
 rda.result <- rda_physeq(pseq.log10, "time")
 ```
 
-```
-## Error in qr.fitted(Q, Xbar): 'qr' and 'y' must have the same number of rows
-```
-
 ### RDA visualization
 
 Visualizing the standard RDA output:
@@ -35,38 +31,15 @@ Visualizing the standard RDA output:
 library(phyloseq)
 meta <- sample_data(pseq.log10)
 plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
-```
-
-```
-## Error in plot(rda.result, choices = c(1, 2), type = "points", pch = 15, : object 'rda.result' not found
-```
-
-```r
 points(rda.result, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
-```
-
-```
-## Error in points(rda.result, choices = c(1, 2), pch = 15, scaling = 3, : object 'rda.result' not found
-```
-
-```r
 library(vegan)
 pl <- ordihull(rda.result, meta$time, scaling = 3, label = TRUE)
-```
-
-```
-## Error in scores(ord, display = display, ...): object 'rda.result' not found
-```
-
-```r
 title("RDA")
 ```
 
-```
-## Error in title("RDA"): plot.new has not been called yet
-```
+![plot of chunk rda4](figure/rda4-1.png)
 
-See also the RDA method in phyloseq ordinate function, which is calculated without the formula.
+See also the RDA method in phyloseq::ordinate, which is calculated without the formula.
 
 
 ### RDA significance test
@@ -78,7 +51,17 @@ permutest(rda.result)
 ```
 
 ```
-## Error in permutest(rda.result): object 'rda.result' not found
+## 
+## Permutation test for rda 
+## 
+## Permutation: free
+## Number of permutations: 99
+##  
+## Call: rda(formula = otu ~ annot, scale = scale, na.action =
+## na.action)
+## Permutation test for all constrained eigenvalues
+## Pseudo-F:	 0.6049309 (with 1, 42 Degrees of Freedom)
+## Significance:	 0.95
 ```
 
 ### Bagged RDA
@@ -102,12 +85,12 @@ plot_bagged_rda(res)
 
 ### RDA with confounding variables 
 
-For more complex RDA scenarios, use the vegan package directly:
+For more complex RDA scenarios, use the vegan package:
 
 
 ```r
 # Pick microbiota profiling data from the phyloseq object
-otu <- otu_table(pseq.log10)@.Data
+otu <- taxa_abundances(pseq.log10)
 
 # Sample annotations
 meta <- sample_data(pseq.log10)
