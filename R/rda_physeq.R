@@ -4,13 +4,14 @@
 #' @param varname Variable to apply in RDA visualization.
 #' @param scale See help(rda)
 #' @param na.action See help(rda)
+#' @param ... Other arguments to be passed
 #' @return rda result. See help(vegan::rda)
 #' @export
 #' @examples #
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-rda_physeq <- function (x, varname, scale = FALSE, na.action = na.fail) {
+rda_physeq <- function (x, varname, scale = FALSE, na.action = na.fail, ...) {
 
   # Microbiota profiling data (44 samples x 130 bacteria)
   otu <- t(taxa_abundances(x))
@@ -19,7 +20,7 @@ rda_physeq <- function (x, varname, scale = FALSE, na.action = na.fail) {
   annot <- sample_data(x)[[varname]]
 
   # Run RDA
-  rdatest <- rda(otu ~ annot, scale = scale, na.action = na.action) 
+  rdatest <- rda(otu ~ annot, scale = scale, na.action = na.action, ...) 
   
   rdatest
 

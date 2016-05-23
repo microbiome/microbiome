@@ -82,6 +82,7 @@
 #' @importFrom reshape2 melt
 #' @importFrom tgp interp.loess
 #' @importFrom tidyr gather
+#' @importFrom vegan decostand
 #' @importFrom vegan metaMDS
 #' @importFrom vegan procrustes
 #' @importFrom vegan rda

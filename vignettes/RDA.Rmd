@@ -15,9 +15,11 @@ Standard RDA for microbiota profiles versus the given (here 'time')
 variable from sample metadata:
 
 ```{r rda2, warning=FALSE, message=FALSE}
-# If x has zeroes we can use log(1 + x) transformation
-pseq.log10 <- transform_phyloseq(pseq, "log10")
-rda.result <- rda_physeq(pseq.log10, "time")
+pseq.trans <- transform_phyloseq(pseq, "hell") # Hellinger transformation
+rda.result <- rda_physeq(pseq.trans, "time", scale = TRUE)
+
+# Proportion explained by the contraints
+summary(rda.result)$constr.chi/summary(rda.result)$tot.chi
 ```
 
 ### RDA visualization
@@ -26,7 +28,7 @@ Visualizing the standard RDA output:
 
 ```{r rda4, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
 library(phyloseq)
-meta <- sample_data(pseq.log10)
+meta <- sample_data(pseq.trans)
 plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
 points(rda.result, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
 library(vegan)
@@ -49,7 +51,7 @@ permutest(rda.result)
 Fitting bagged (bootstrap aggregated) RDA on a phyloseq object:
 
 ```{r rda5, warning=FALSE, message=FALSE}
-res <- bagged_rda(pseq.log10, "group", sig.thresh=0.05, nboot=100)
+res <- bagged_rda(pseq.trans, "group", sig.thresh=0.05, nboot=100)
 ```
 
 Visualizing bagged RDA:
@@ -65,10 +67,10 @@ For more complex RDA scenarios, use the vegan package:
 
 ```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/"}
 # Pick microbiota profiling data from the phyloseq object
-otu <- taxa_abundances(pseq.log10)
+otu <- taxa_abundances(pseq.trans)
 
 # Sample annotations
-meta <- sample_data(pseq.log10)
+meta <- sample_data(pseq.trans)
 
 # RDA with confounders
 rda.result2 <- rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))
