@@ -29,6 +29,7 @@ plot_variation <- function (x, taxon, tipping.point = NULL, lims = NULL, shift =
   d <- otu[taxon, ]
 
   if (is.null(tipping.point)) {
+    message("No tipping point given, indicating the median by dashed line.")
     tipping.point <- median(d)
   }
 

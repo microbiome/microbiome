@@ -11,11 +11,20 @@ pseq <- peerj32$phyloseq
 pseq.rel <- transform_phyloseq(pseq, "relative.abundance", "OTU")
 ```
 
-Taxa prevalences at 1 percent relative abundance abundance threshold:
+
+Taxa prevalences (population frequency %) at 1 percent relative abundance abundance threshold:
 
 ```{r core-prevalence2}
 head(prevalence(pseq.rel, detection.threshold = 1, sort = TRUE))
 ```
+
+
+Alternatively, return the corresponding sample count instead of population frequency (relative = FALSE):
+
+```{r core-prevalence2}
+head(prevalence(pseq.rel, detection.threshold = 1, sort = TRUE, relative = FALSE))
+```
+
 
 
 ### Core microbiota

@@ -4,7 +4,7 @@
 \alias{core}
 \title{Core Taxa}
 \usage{
-core(x, detection.threshold = 1, prevalence.threshold = 95)
+core(x, detection.threshold = 1, prevalence.threshold = 95, sort = TRUE)
 }
 \arguments{
 \item{x}{phyloseq object}
@@ -12,12 +12,19 @@ core(x, detection.threshold = 1, prevalence.threshold = 95)
 \item{detection.threshold}{Detection threshold (non-negative real)}
 
 \item{prevalence.threshold}{Prevalence threshold (in [0, 100])}
+
+\item{sort}{Logical. Sort the taxa.}
 }
 \value{
 Vector of core members
 }
 \description{
 Determine members of the core microbiota with given abundance and prevalence thresholds.
+}
+\details{
+For phyloseq object, lists taxa that are more prevalent with the
+  given detection threshold. For matrix, lists columns that satisfy
+  these criteria.
 }
 \examples{
   data(dietswap)
@@ -27,7 +34,10 @@ Determine members of the core microbiota with given abundance and prevalence thr
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-See citation("microbiome")
+A Salonen et al. The adult intestinal core microbiota is determined by 
+  analysis depth and health status. Clinical Microbiology and Infection 
+  18(S4):16 20, 2012. 
+  To cite the microbiome R package, see citation('microbiome')
 }
 \keyword{utilities}
 

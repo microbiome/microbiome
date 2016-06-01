@@ -5,6 +5,7 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @export
+#' @aliases ab
 #' @examples
 #'   data(dietswap)
 #'   taxa_abundances(dietswap)
@@ -20,9 +21,20 @@ taxa_abundances <- function (x) {
     colnames(otu) = sample_names(x)
   }
 
+  if (nsamples(x) == 1) {
+    otu = matrix(otu, ncol = 1)
+    rownames(otu) = taxa_names(x)
+    colnames(otu) = sample_names(x)
+  }
+
   # Ensure that taxa are on the rows
-  if (!taxa_are_rows(x) && ntaxa(x) > 1) {
+  if (!taxa_are_rows(x) && nrow(otu) > 1 && nsamples(x) > 1) {
     otu <- t(otu)
+  }
+
+  if (nrow(otu) == 1) {
+    rownames(otu) = taxa_names(x)
+    colnames(otu) = sample_names(x)    
   }
 
   otu

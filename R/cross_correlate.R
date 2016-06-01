@@ -88,16 +88,18 @@ cross_correlate <- function(x, y = NULL, method = "spearman",
     colnames(Pc) <- colnames(y)
 
     if (method %in% c("pearson", "spearman")) {
-        
+
+        minobs = 8
+
         for (j in 1:ncol(y)) {
             jc <- apply(x, 2, function(xi) {
-                if (sum(!is.na(xi)) >= 8) {
+                if (sum(!is.na(xi)) >= minobs) {
                   res <- cor.test(xi, y[, j], method = method, 
                             use = "pairwise.complete.obs")
                   res <- c(res$estimate, res$p.value)
 
                 } else {
-                  warning(paste("Not enough observations; \n   
+                  warning(paste("Not enough observations (", minobs, "required); \n   
                           (",  
                     sum(!is.na(xi)), ") \n \n 
                            - skipping correlation estimation"))

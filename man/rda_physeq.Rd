@@ -2,9 +2,9 @@
 % Please edit documentation in R/rda_physeq.R
 \name{rda_physeq}
 \alias{rda_physeq}
-\title{RDA for phyloseq}
+\title{RDA for phyloseq objects}
 \usage{
-rda_physeq(x, varname, scale = FALSE, na.action = na.fail)
+rda_physeq(x, varname, scale = FALSE, na.action = na.fail, ...)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -14,6 +14,8 @@ rda_physeq(x, varname, scale = FALSE, na.action = na.fail)
 \item{scale}{See help(rda)}
 
 \item{na.action}{See help(rda)}
+
+\item{...}{Other arguments to be passed}
 }
 \value{
 rda result. See help(vegan::rda)

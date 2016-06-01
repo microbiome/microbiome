@@ -1,5 +1,9 @@
 pickdata <- function (x, otu.name) {
 
+  if (!class("a") == "character") {
+    stop("Provide proper variable name for pickdata function.")
+  }
+
   if (is.vector(x)) {
   
     xxx <- x
@@ -8,7 +12,7 @@ pickdata <- function (x, otu.name) {
 
     xx <- taxa_abundances(x)
     meta <- sample_data(x)
-      
+
     # If OTU name not in otu data then try metadata
     if (otu.name %in% rownames(xx)) {
       xxx <- as.vector(xx[otu.name,])

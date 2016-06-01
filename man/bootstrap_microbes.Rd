@@ -2,7 +2,7 @@
 % Please edit documentation in R/bootstrap_microbes.R
 \name{bootstrap_microbes}
 \alias{bootstrap_microbes}
-\title{Bootstrap microbes}
+\title{Bootstrap Microbes}
 \usage{
 bootstrap_microbes(D, Nsample = NULL, minPrev = 2, Nboot = 1000,
   I.thr = 1.8, ncore = 1, I.max = NULL)
@@ -29,7 +29,7 @@ data frame with microbes and their frequency of presence in
   	     the core
 }
 \description{
-Bootstrap method for core microbiota estimation from Salonen et al. (2012)
+Bootstrap analysis of the core microbiota
 }
 \examples{
   data(peerj32)

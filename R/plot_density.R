@@ -18,8 +18,14 @@ plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel 
 
   x <- pickdata(x, variable) 	     	   
 
+  if (log10 && min(x) == 0) {
+    warning("The minimum abundance is 0. To avoid singularities with log10, the abundances are shifted up by a small constant (minimum non-zero value).")
+    x = x + min(x[!is.na(x) & (x > 0)])
+  }
+
   df <- data.frame(x = x)
   p <- ggplot(df, aes(x = x))
+
   p <- p + geom_density(adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm, fill = fill) 
 
   if (log10) {

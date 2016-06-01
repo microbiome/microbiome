@@ -40,7 +40,11 @@ densityplot <- function(x, main = NULL, x.ticks = 10, rounding = 0,
     
     # Determine bandwidth for density estimation
     bw <- adjust * c(bandwidth.nrd(df[["x"]]), bandwidth.nrd(df[["y"]]))
-    
+    if (any(bw == 0)) {
+      warning("Zero bandwidths (possibly due to small number of observations). Using minimal bandwidth.")
+      bw[bw == 0] = bw[bw == 0] + min(bw[!bw == 0])
+    }
+
     # Construct the figure
     p <- ggplot(df)
     p <- p + stat_density2d(aes(x, y, fill = ..density..), geom = "raster", h = bw, contour = FALSE)
