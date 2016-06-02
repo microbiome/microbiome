@@ -2,6 +2,7 @@
 % Please edit documentation in R/core.R
 \name{core}
 \alias{core}
+\alias{prevalent_taxa}
 \title{Core Taxa}
 \usage{
 core(x, detection.threshold = 1, prevalence.threshold = 95, sort = TRUE)

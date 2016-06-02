@@ -4,7 +4,7 @@
 \alias{prevalence}
 \title{Prevalence for phyloseq OTUs}
 \usage{
-prevalence(x, detection.threshold, sort = FALSE, relative = TRUE)
+prevalence(x, detection.threshold = 0, sort = FALSE, relative = TRUE)
 }
 \arguments{
 \item{x}{A vector, data matrix or phyloseq object}
