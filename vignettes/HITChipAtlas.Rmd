@@ -1,0 +1,90 @@
+---
+title: "HITChip Atlas Overview"
+author: "Leo Lahti, Jarkko Salojarvi, Anne Salonen, Willem M de Vos"
+date: "`r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  md_document:
+    variant: markdown_github
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial}
+  %\usepackage[utf8]{inputenc}
+-->
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Handle citations
+require(knitcitations)
+cleanbib()
+#options("citation_format" = "pandoc")
+bib <- read.bibtex("bibliography.bib")
+#opts_chunk$set(fig.width=4, fig.height=3, par=TRUE, out.width='2in', fig.pos='H')
+knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
+```
+
+
+HITChip Atlas Overview
+===========
+
+We use the [phyloseq](http://joey711.github.io/phyloseq/import-data)
+class, a standard representation format in R for taxonomic
+profiling. This package provides extensions and convenient wrappers
+for many standard tasks encountered in microbiome studies. 
+
+
+## Intestinal microbiota diversity 
+
+This data set has microbiota profiling of 130 genus-like taxa across over 10,000 samples.
+
+Download the data in R:
+
+```{r data2}
+# Download the required R packages and then the HITChip Atlas data set
+library("microbiome")
+#data("atlas1006")
+#pseq <- atlas1006
+# Load the data (not yet public)
+atlas = readRDS("/home/lei/proj/hitchip-atlas-annotation-scripts/Atlas.RData") # atlas
+```
+
+
+### Diversity vs. age
+
+```{r atlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/"}
+# Pick the subset of RBB-preprocessed samples from time point 0
+pseq <- subset_samples(atlas, time == 0 & DNA_extraction_method == "rbb")
+
+# Visualize
+p <- plot_regression(diversity~age, sample_data(pseq))
+print(p)
+```
+
+
+
+### Licensing and Citations
+
+This material can be freely used, modified and distributed under the
+[Two-clause FreeBSD
+license](http://en.wikipedia.org/wiki/BSD\_licenses). Kindly cite as
+'Leo Lahti, Jarkko Salojarvi, Anne Salonen and Willem M de
+Vos. HITChip Atlas. URL: http://microbiome.github.com'.
+
+
+### References
+
+```{r, echo=FALSE, message=FALSE}
+#You can embed citations, for example: `r citep(bib[["lahti14natcomm"]])`
+#You can embed citations, for example2: @lahti14natcomm
+#Cite with DOI: `r citep("10.1890/11-0011.1")`
+#Cite URL `r citep("http://knowledgeblog.org/greycite")`
+#For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). 
+#write.bibtex(file="references.bib")
+```
+
+```{r, echo=FALSE, message=FALSE, results='asis'}
+bibliography()
+```
+
