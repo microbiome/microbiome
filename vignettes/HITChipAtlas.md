@@ -37,35 +37,34 @@ Download the data in R:
 ```r
 # Download the required R packages and then the HITChip Atlas data set
 library("microbiome")
-```
-
-```
-## Loading required package: phyloseq
-```
-
-```
-## 
-```
-
-```
-## 
-## microbiome R package (microbiome.github.com)
-##           
-## 
-## 
-##  Copyright (C) 2011-2016
-##           Leo Lahti and Jarkko Salojarvi 
-## 
-##         
-##           <microbiome-admin@googlegroups.com>
-```
-
-```r
 #data("atlas1006")
 #pseq <- atlas1006
 # Load the data (not yet public)
 atlas = readRDS("/home/lei/proj/hitchip-atlas-annotation-scripts/Atlas.RData") # atlas
 ```
+
+
+### Data overview
+
+ * ``10866`` samples
+ * ``4995`` unique subjects
+
+
+```r
+ggplot(sample_data(atlas), aes(x = sample_type)) + geom_bar() + coord_flip() + ggtitle("Sample type")
+ggplot(sample_data(atlas), aes(x = DNA_extraction_method)) + geom_bar() + coord_flip() + ggtitle("DNA extraction method")
+ggplot(sample_data(atlas), aes(x = gender)) + geom_bar() + coord_flip() + ggtitle("Sex")
+ggplot(sample_data(atlas), aes(x = health_status)) + geom_bar() + coord_flip() + ggtitle("Health status")
+ggplot(sample_data(atlas), aes(x = health_info)) + geom_bar() + coord_flip() + ggtitle("Health info")
+ggplot(sample_data(atlas), aes(x = antibio)) + geom_bar() + coord_flip() + ggtitle("Antibiotics use")
+ggplot(sample_data(atlas), aes(x = probiotics)) + geom_bar() + coord_flip() + ggtitle("Probiotics")
+ggplot(sample_data(atlas), aes(x = medication)) + geom_bar() + coord_flip() + ggtitle("Medication")
+ggplot(sample_data(atlas), aes(x = nationality)) + geom_bar() + coord_flip() + ggtitle("Nationality")
+ggplot(sample_data(atlas), aes(x = age)) + geom_histogram() + ggtitle("Age") + xlab("Age")
+ggplot(sample_data(atlas), aes(x = bmi_group)) + geom_bar() + ggtitle("BMI group") + xlab("BMI")
+```
+
+<img src="figure/hatlas-sampletype-1.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-2.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-3.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-4.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-5.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-6.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-7.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-8.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-9.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-10.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-11.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" />
 
 
 ### Diversity vs. age
@@ -80,7 +79,7 @@ p <- plot_regression(diversity~age, sample_data(pseq))
 print(p)
 ```
 
-![plot of chunk atlas-example3](figure/atlas-example3-1.png)
+![plot of chunk hatlas-example3](figure/hatlas-example3-1.png)
 
 
 

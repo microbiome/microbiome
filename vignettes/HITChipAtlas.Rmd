@@ -41,7 +41,7 @@ This data set has microbiota profiling of 130 genus-like taxa across over 10,000
 
 Download the data in R:
 
-```{r data2}
+```{r hatlas-data2}
 # Download the required R packages and then the HITChip Atlas data set
 library("microbiome")
 #data("atlas1006")
@@ -51,9 +51,29 @@ atlas = readRDS("/home/lei/proj/hitchip-atlas-annotation-scripts/Atlas.RData") #
 ```
 
 
+### Data overview
+
+ * ```r nsamples(atlas)``` samples
+ * ```r length(unique(sample_data(atlas)$subject))``` unique subjects
+
+```{r hatlas-sampletype, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.show = "hold", out.width = "200px"}
+ggplot(sample_data(atlas), aes(x = sample_type)) + geom_bar() + coord_flip() + ggtitle("Sample type")
+ggplot(sample_data(atlas), aes(x = DNA_extraction_method)) + geom_bar() + coord_flip() + ggtitle("DNA extraction method")
+ggplot(sample_data(atlas), aes(x = gender)) + geom_bar() + coord_flip() + ggtitle("Sex")
+ggplot(sample_data(atlas), aes(x = health_status)) + geom_bar() + coord_flip() + ggtitle("Health status")
+ggplot(sample_data(atlas), aes(x = health_info)) + geom_bar() + coord_flip() + ggtitle("Health info")
+ggplot(sample_data(atlas), aes(x = antibio)) + geom_bar() + coord_flip() + ggtitle("Antibiotics use")
+ggplot(sample_data(atlas), aes(x = probiotics)) + geom_bar() + coord_flip() + ggtitle("Probiotics")
+ggplot(sample_data(atlas), aes(x = medication)) + geom_bar() + coord_flip() + ggtitle("Medication")
+ggplot(sample_data(atlas), aes(x = nationality)) + geom_bar() + coord_flip() + ggtitle("Nationality")
+ggplot(sample_data(atlas), aes(x = age)) + geom_histogram() + ggtitle("Age") + xlab("Age")
+ggplot(sample_data(atlas), aes(x = bmi_group)) + geom_bar() + ggtitle("BMI group") + xlab("BMI")
+```
+
+
 ### Diversity vs. age
 
-```{r atlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/"}
+```{r hatlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE}
 # Pick the subset of RBB-preprocessed samples from time point 0
 pseq <- subset_samples(atlas, time == 0 & DNA_extraction_method == "rbb")
 
