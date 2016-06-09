@@ -1,7 +1,7 @@
 ---
 title: "HITChip Atlas Overview"
 author: "Leo Lahti, Jarkko Salojarvi, Anne Salonen, Willem M de Vos"
-date: "2016-06-08"
+date: "2016-06-09"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -37,6 +37,30 @@ Download the data in R:
 ```r
 # Download the required R packages and then the HITChip Atlas data set
 library("microbiome")
+```
+
+```
+## Loading required package: phyloseq
+```
+
+```
+## 
+```
+
+```
+## 
+## microbiome R package (microbiome.github.com)
+##           
+## 
+## 
+##  Copyright (C) 2011-2016
+##           Leo Lahti and Jarkko Salojarvi 
+## 
+##         
+##           <microbiome-admin@googlegroups.com>
+```
+
+```r
 #data("atlas1006")
 #pseq <- atlas1006
 # Load the data (not yet public)
