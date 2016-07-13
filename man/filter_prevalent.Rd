@@ -2,7 +2,7 @@
 % Please edit documentation in R/filter_prevalent.R
 \name{filter_prevalent}
 \alias{filter_prevalent}
-\title{Filter prevalent}
+\title{Filter Prevalent}
 \usage{
 filter_prevalent(x, detection.threshold, prevalence.threshold)
 }

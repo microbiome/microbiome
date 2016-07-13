@@ -15,6 +15,7 @@
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 aes_string
 #' @importFrom ggplot2 coord_flip
+#' @importFrom ggplot2 coord_cartesian
 #' @importFrom ggplot2 element_blank
 #' @importFrom ggplot2 element_text
 #' @importFrom ggplot2 facet_wrap

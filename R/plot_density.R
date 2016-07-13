@@ -44,7 +44,7 @@ plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel 
   }
 
   if (!is.null(xlim)) {
-    p = p + coord_cartesian(xlims)
+    p <- p + coord_cartesian(xlim)
   }
 
   p
