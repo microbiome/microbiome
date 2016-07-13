@@ -21,8 +21,8 @@
 #' @examples \dontrun{
 #'   # Example data
 #'     library(microbiome)
-#'     pseq0 <- download_microbiome("dietswap")
-#'     pseq <- subset_samples(pseq0, group == "DI" & nationality == "AFR")
+#'     data("dietswap")
+#'     pseq <- subset_samples(dietswap, group == "DI" & nationality == "AFR")
 #'     plot_composition(pseq, taxonomic.level = "Phylum")
 #'           }
 #' @keywords utilities
@@ -117,8 +117,16 @@ plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu
     p <- p + geom_bar(position = "stack", stat = "identity")
     p <- p + scale_x_discrete(labels = dfm$xlabel, breaks = dfm$Sample)
 
+    # Name the exis appropriately
+    if (!is.null(transformation) && transformation == "relative.abundance") {
+      p <- p + ylab("Relative abundance")
+    } else {
+      p <- p + ylab("Abundance")
+    }
+
     # Rotate horizontal axis labels, and adjust
     p <- p + theme(axis.text.x=element_text(angle=-90, vjust=0.5, hjust=0))
+    p <- p + guides(fill = guide_legend(reverse = TRUE, title = "")) 
 
   } else if (plot.type == "heatmap") {
 
