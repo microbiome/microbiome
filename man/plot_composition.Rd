@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_composition.R
 \name{plot_composition}
 \alias{plot_composition}
-\title{Plot composition}
+\title{Taxonomic Composition Plot}
 \usage{
 plot_composition(x, taxonomic.level = NULL, sample.sort = NULL,
   otu.sort = NULL, x.label = "sample", plot.type = "barplot",

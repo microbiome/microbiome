@@ -24,8 +24,9 @@ approximate):
 # Pick sample subset
 library(phyloseq)
 pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
-res <- plot_composition(pseq2, taxonomic.level = "Phylum")
-res$plot + theme(legend.position = "bottom") + guides(fill=guide_legend(nrow=10,byrow=TRUE))
+p <- plot_composition(pseq2, taxonomic.level = "Phylum") +
+       theme(legend.position = "bottom") +
+       guides(fill = guide_legend(nrow = 10, byrow = TRUE))
 ```
 
 Arrange by sample variable and use custom X axis labels. Only consider the most abundant taxa. Africans have more Prevotella as expected. Absolute counts:
@@ -36,10 +37,11 @@ top <- names(sort(taxa_sums(pseq), TRUE)[1:10])
 pseq3 <- prune_taxa(top, pseq)
 pseq3 <- subset_samples(pseq3, group == "DI" & timepoint.within.group == 1)
 
-res <- plot_composition(pseq3, sample.sort = "nationality", x.label = "nationality")
-p <- res$plot
-p <- p + guides(fill = guide_legend(ncol = 3))
-p <- p + theme(legend.position = "bottom") + guides(fill=guide_legend(nrow=5,byrow=TRUE))
+p <- plot_composition(pseq3, sample.sort = "nationality", x.label = "nationality") +
+  guides(fill = guide_legend(ncol = 3)) +
+  theme(legend.position = "bottom") +
+  guides(fill = guide_legend(nrow = 5, byrow = TRUE))
+
 print(p)
 ```
 
@@ -47,11 +49,8 @@ print(p)
 Same with relative abundances:
 
 ```{r composition-example4b, fig.width=12, fig.height=5}
-res <- plot_composition(pseq3, sample.sort = "nationality", x.label = "nationality", transformation = "relative.abundance")
-p <- res$plot
-p <- p + guides(fill = guide_legend(ncol = 1))
-p <- p + ylab("Relative Abundance (%)")
-#p <- p + theme(legend.position = "bottom")
+p <- plot_composition(pseq3, sample.sort = "nationality", x.label = "nationality", transformation = "relative.abundance") +
+       guides(fill = guide_legend(ncol = 1))
 print(p)
 ```
 
@@ -64,21 +63,21 @@ Plain heatmap
 
 ```{r composition-example5, fig.width=10, fig.height=3}
 theme_set(theme_bw(30))
-res <- plot_composition(pseq3, plot.type = "heatmap", mar = c(6, 13, 1, 1))
+p <- plot_composition(pseq3, plot.type = "heatmap", mar = c(6, 13, 1, 1))
 ```
 
 
 Heatmap with Z-transformed OTUs
 
 ```{r composition-example6, fig.width=10, fig.height=3}
-res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU", mar = c(6, 13, 1, 1))
+p <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU", mar = c(6, 13, 1, 1))
 ```
 
 
 Same, but samples and OTUs sorted with the neatmap method
 
 ```{r composition-example7, fig.width=10, fig.height=3}
-res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
+p <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
        			       sample.sort = "neatmap", otu.sort = "neatmap",
 			       mar = c(6, 13, 1, 1))
 ```
@@ -90,7 +89,7 @@ Same, but samples and OTUs sorted manually
 sample.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "sites", first = NULL) 
 otu.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "species", first = NULL)
 
-res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
+p <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
        			       sample.sort = sample.sort, otu.sort = otu.sort,
 			       mar = c(6, 13, 1, 1))
 ```

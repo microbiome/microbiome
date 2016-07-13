@@ -1,4 +1,4 @@
-#' @title Plot composition
+#' @title Taxonomic Composition Plot
 #' @description Plot taxon abundance for samples.
 #' @param x \code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)
 #' @param taxonomic.level Merge the OTUs (for phyloseq object) into a higher taxonomic level. This has to be one from colnames(tax_table(x)).
@@ -66,7 +66,6 @@ plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu
     otu.sort <- order_neatmap(x, method = "NMDS", distance = "bray", target = "species", first = NULL) 
   }
   
-
   if (verbose) {message("Check data transformations.")}
   xorig <- x
   if (is.null(transformation)) {
@@ -80,7 +79,6 @@ plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu
   } else if (transformation == "relative.abundance") {
     x <- transform_phyloseq(x, "relative.abundance", "OTU")
   }   
-
   
   if (verbose) {message("Prepare data.frame.")}
   
@@ -119,13 +117,13 @@ plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu
 
     # Name the exis appropriately
     if (!is.null(transformation) && transformation == "relative.abundance") {
-      p <- p + ylab("Relative abundance")
+      p <- p + ylab("Relative abundance (%)")
     } else {
       p <- p + ylab("Abundance")
     }
 
     # Rotate horizontal axis labels, and adjust
-    p <- p + theme(axis.text.x=element_text(angle=-90, vjust=0.5, hjust=0))
+    p <- p + theme(axis.text.x = element_text(angle=-90, vjust=0.5, hjust=0))
     p <- p + guides(fill = guide_legend(reverse = TRUE, title = "")) 
 
   } else if (plot.type == "heatmap") {
@@ -146,7 +144,8 @@ plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu
 
   }
 
-  list(plot = p, data = x)
+  #list(plot = p, data = x)
+  p
 
 }
 
