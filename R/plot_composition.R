@@ -83,12 +83,8 @@ plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu
   if (verbose) {message("Prepare data.frame.")}
   
   dfm <- psmelt(x)
-  if (!is.null(sample.sort)) {
-    dfm$Sample <- factor(dfm$Sample, levels = sample.sort)
-  }
-  if (!is.null(otu.sort)) {
-    dfm$OTU <- factor(dfm$OTU, levels = otu.sort)
-  }
+  dfm$Sample <- factor(dfm$Sample, levels = sample.sort)
+  dfm$OTU <- factor(dfm$OTU, levels = otu.sort)
 
   # SampleIDs for plotting
   meta <- sample_data(x)
@@ -124,7 +120,8 @@ plot_composition <- function (x, taxonomic.level = NULL, sample.sort = NULL, otu
 
     # Rotate horizontal axis labels, and adjust
     p <- p + theme(axis.text.x = element_text(angle=-90, vjust=0.5, hjust=0))
-    p <- p + guides(fill = guide_legend(reverse = TRUE, title = "")) 
+    #p <- p + guides(fill = guide_legend(reverse = TRUE, title = ""))
+    p <- p + guides(fill = guide_legend(title = ""))     
 
   } else if (plot.type == "heatmap") {
 
