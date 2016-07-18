@@ -1,4 +1,4 @@
-#' @title Abundance boxplot
+#' @title Abundance Boxplot
 #' @description Plot phyloseq abundances.
 #' @param pseq \code{\link{phyloseq-class}} object
 #' @param x Metadata variable to map to the horizontal axis.
