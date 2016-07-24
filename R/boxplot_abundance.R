@@ -6,7 +6,7 @@
 #' @param line The variable to map on lines
 #' @param color The variable to map on colors
 #' @param log10 show y axis on log scale
-#' @param title Optional title for the graphic.
+#' @details The directionality of change in paired boxplot is indicated by the colors of the connecting lines.
 #' @return A \code{\link{ggplot}} plot object
 #' @export
 #' @examples
@@ -14,9 +14,9 @@
 #'   p <- boxplot_abundance(peerj32$phyloseq, x = "time", y = "Akkermansia",
 #'       	  		    line = "subject", color = "gender")
 #' @keywords utilities
-boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = TRUE, title = NULL) {
+boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = TRUE) {
 
-  xvar <- yvar <- linevar <- colorvar <- NULL
+  change <- xvar <- yvar <- linevar <- colorvar <- NULL
 
   # Construct example data (df). Ensure that samples are given in same order
   # in metadata and HITChip data.
@@ -35,18 +35,41 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = TR
   # Add also subjects as lines and points
   if (!is.null(line)) {
     df$linevar <- factor(df[[line]])
-    p <- p + geom_line(aes(group = linevar), data = df)
+
+    # Calculate change directionality
+    df2 <- suppressWarnings(df %>% arrange(linevar, xvar) %>%
+    	   		           group_by(linevar) %>%
+				   summarise(change = diff(yvar)))
+    
+    # Map back to data
+    df$change <- df2$change[match(df$linevar, df2$linevar)]
+    # Log10 for line colors
+    #df$change <- sign(df$change) * log10(1 + abs(df$change))
+    # Only show the sign of change for clarity
+    df$change <- sign(df$change) 
+    p <- p + geom_line(data = df, aes(group = linevar, color = change), size = 1)
+
+    p <- p + scale_colour_gradient2(low = "blue",
+      	     			    mid = "black",
+				    high = "red",
+      	                            midpoint = 0,
+				    na.value = "grey50",
+				    guide = "none")
+   
   }
+
 
   if (!is.null(color)) {
   
     df$colorvar <- factor(df[[color]])
-    p <- p + geom_point(aes(color = colorvar), data = df, size = 4)
-    
+    # p <- p + geom_point(data = df, aes(color = colorvar), size = 4)
+
     # Add legend label
-    p <- p + guides(color=guide_legend(title=color))
+    # p <- p + guides(color = guide_legend(title = color))
+    
   }
-  
+
+
   if (log10) {
     p <- p + scale_y_log10()
   }
@@ -56,9 +79,8 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = TR
   if (is.null(title)) {
     title <- y
   }
-  p <- p + ggtitle(title)
 
-  # Plot the image
+  # Return ggplot object
   p
 
 }

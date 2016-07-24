@@ -40,6 +40,7 @@
 #' @importFrom ggplot2 guide_legend
 #' @importFrom ggplot2 labs
 #' @importFrom ggplot2 scale_alpha_continuous
+#' @importFrom ggplot2 scale_colour_gradient2
 #' @importFrom ggplot2 scale_x_log10
 #' @importFrom ggplot2 scale_y_log10
 #' @importFrom ggplot2 scale_fill_gradientn

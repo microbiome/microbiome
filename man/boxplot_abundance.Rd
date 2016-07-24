@@ -2,10 +2,9 @@
 % Please edit documentation in R/boxplot_abundance.R
 \name{boxplot_abundance}
 \alias{boxplot_abundance}
-\title{Abundance boxplot}
+\title{Abundance Boxplot}
 \usage{
-boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = TRUE,
-  title = NULL)
+boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = TRUE)
 }
 \arguments{
 \item{pseq}{\code{\link{phyloseq-class}} object}
@@ -19,14 +18,15 @@ boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = TRUE,
 \item{color}{The variable to map on colors}
 
 \item{log10}{show y axis on log scale}
-
-\item{title}{Optional title for the graphic.}
 }
 \value{
 A \code{\link{ggplot}} plot object
 }
 \description{
 Plot phyloseq abundances.
+}
+\details{
+The directionality of change in paired boxplot is indicated by the colors of the connecting lines.
 }
 \examples{
   data(peerj32)

@@ -81,7 +81,7 @@ plot_matrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL,
 
     # if mycolors is provided it overrides palette
     if (is.null(colors)) {
-        colors <- palette(length(col.breaks) - 1)
+      colors <- palette(length(col.breaks) - 1)
     }
     
     # transpose and revert row order to plot matrix in the same way it
