@@ -60,51 +60,36 @@ The data contains:
 
  * ```r nsamples(atlas)``` samples
  * ```r length(unique(sample_data(atlas)$subject))``` unique subjects
+ * ```r round(100 * prop.table(table(subset(sample_data(atlas), gender %in% c("male", "female"))$gender))[["female"]], 1)```% female ratio. Altogether, gender information is available for ```round(100 * sum(table(subset(sample_data(atlas))$gender)[c("male", "female")])/nsamples(atlas), 1)```% of the samples.
+ * ```r nsamples(subset_samples(atlas, health_status == "compromised"))``` samples (```r round(100 * nsamples(subset_samples(atlas, health_status == "compromised"))/nsamples(atlas), 1)```%) from ```r length(unique(sample_data(subset_samples(atlas,  health_status == "compromised"))$subject))``` unique subjects with reported health problems ('compromised')
+ * ```r nsamples(subset_samples(atlas, antibio == 1))``` samples from ```r length(unique(sample_data(subset_samples(atlas, antibio == 1))$subject))``` unique subjects with reported antibiotics use.
+ * ```r nsamples(subset_samples(atlas, probiotics == 1))``` samples from ```r length(unique(sample_data(subset_samples(atlas, probiotics == 1))$subject))``` subjects with reported probiotics use.
+ * ```r nsamples(subset_samples(atlas, medication == 1))``` samples from ```r length(unique(sample_data(subset_samples(atlas, medication == 1))$subject))``` subjects with reported medication.  
+ 
 
 ```{r hatlas-sampletype, fig.width=7, fig.height=6, message=FALSE, warning=FALSE, fig.show = "hold", out.width = "280px", echo=FALSE}
-p = ggplot(sample_data(atlas), aes(x = sample_type)) + geom_bar() + coord_flip() + ggtitle("Sample type")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = DNA_extraction_method)) + geom_bar() + coord_flip() + ggtitle("DNA extraction method")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = gender)) + geom_bar() + coord_flip() + ggtitle("Sex")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = health_status)) + geom_bar() + coord_flip() + ggtitle("Health status")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = health_info)) + geom_bar() + coord_flip() + ggtitle("Health info")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = antibio)) + geom_bar() + coord_flip() + ggtitle("Antibiotics use")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = probiotics)) + geom_bar() + coord_flip() + ggtitle("Probiotics")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = medication)) + geom_bar() + coord_flip() + ggtitle("Medication")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = nationality)) + geom_bar() + coord_flip() + ggtitle("Nationality")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = age)) + geom_histogram() + ggtitle("Age") + xlab("Age")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = bmi_group)) + geom_bar() + ggtitle("BMI group") + xlab("BMI")
-print(p)
+meta <- sample_data(atlas)
+for (varname in c("sample_type", "DNA_extraction_method", "nationality", "age", "bmi", "bmi_group")) {
+  meta$varname <- meta[[varname]]
+  if (is.factor(meta$varname)) {
+    meta$varname <- factor(meta$varname, levels = names(sort(table(meta$varname))))
+  }
+  p <- ggplot(meta, aes(x = varname)) + geom_bar() + coord_flip() + ggtitle(varname) + ylab("Samples (n)")
+  print(p)
+}
 ```
 
 
-### Diversity vs. age
+### Diversity vs. host variables
 
-```{r hatlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE}
+```{r hatlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, show="hold", out.width="400px"}
 # Pick the subset of RBB-preprocessed samples from time point 0
 pseq <- subset_samples(atlas, time == 0 & DNA_extraction_method == "rbb")
 
-# Visualize
 p <- plot_regression(diversity~age, sample_data(pseq))
+print(p)
+
+p <- plot_regression(diversity~bmi, sample_data(pseq))
 print(p)
 ```
 

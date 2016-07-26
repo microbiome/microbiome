@@ -1,7 +1,7 @@
 ---
 title: "HITChip Atlas Overview"
 author: "Leo Lahti, Jarkko Salojarvi, Anne Salonen, Willem M de Vos"
-date: "2016-07-26"
+date: "2016-07-27"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -53,23 +53,42 @@ The data contains:
 
  * ``10763`` samples
  * ``5007`` unique subjects
+ * ``51.6``% female ratio. Altogether, gender information is available for ```round(100 * sum(table(subset(sample_data(atlas))$gender)[c("male", "female")])/nsamples(atlas), 1)```% of the samples.
+ * ``3765`` samples (``35``%) from ``1785`` unique subjects with reported health problems ('compromised')
+ * ``455`` samples from ``208`` unique subjects with reported antibiotics use.
+ * ``112`` samples from ``77`` subjects with reported probiotics use.
+ * ``1150`` samples from ``813`` subjects with reported medication.  
+ 
 
-<img src="figure/hatlas-sampletype-1.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-2.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-3.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-4.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-5.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-6.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-7.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-8.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-9.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-10.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-11.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" />
+<img src="figure/hatlas-sampletype-1.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-2.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-3.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-4.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-5.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-6.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" />
 
 
-### Diversity vs. age
+### Diversity vs. host variables
 
 
 ```r
 # Pick the subset of RBB-preprocessed samples from time point 0
 pseq <- subset_samples(atlas, time == 0 & DNA_extraction_method == "rbb")
 
-# Visualize
 p <- plot_regression(diversity~age, sample_data(pseq))
 print(p)
 ```
 
-![plot of chunk hatlas-example3](figure/hatlas-example3-1.png)
+<img src="figure/hatlas-example3-1.png" title="plot of chunk hatlas-example3" alt="plot of chunk hatlas-example3" width="400px" />
+
+```r
+p <- plot_regression(diversity~bmi, sample_data(pseq))
+```
+
+```
+## Error in eval(expr, envir, enclos): incorrect size (1), expecting : 2823
+```
+
+```r
+print(p)
+```
+
+<img src="figure/hatlas-example3-2.png" title="plot of chunk hatlas-example3" alt="plot of chunk hatlas-example3" width="400px" />
 
 
 
