@@ -21,17 +21,23 @@ output:
 HITChip Atlas Overview
 ===========
 
-We use the [phyloseq](http://joey711.github.io/phyloseq/import-data)
-class, a standard representation format in R for taxonomic
-profiling. This package provides extensions and convenient wrappers
-for many standard tasks encountered in microbiome studies. 
+
+The HITChip Atlas data collection covers microbial abundance profiles
+for 130 genus-like taxa across over 10,000 samples, measured with 16S
+rRNA phylogenetic microarrays. This page contains a reproducible
+summary and overview of this data collection.
+
+The analyses are based on the microbiome R package, which provides
+convenient wrappers for many standard tasks encountered in microbiome
+studies. The microbiome R package extends the
+[phyloseq](http://joey711.github.io/phyloseq/import-data) class, a
+standard representation format in R for taxonomic profiling.
 
 
-## Intestinal microbiota diversity 
 
-This data set has microbiota profiling of 130 genus-like taxa across over 10,000 samples.
+### Data overview
 
-Download the data in R:
+Downloading the data in R:
 
 
 ```r
@@ -43,49 +49,12 @@ library("microbiome")
 atlas = readRDS("/home/lei/proj/hitchip-atlas-annotation-scripts/Atlas.RData") # atlas
 ```
 
-
-### Data overview
+The data contains:
 
  * ``10763`` samples
  * ``5007`` unique subjects
 
-
-```r
-p = ggplot(sample_data(atlas), aes(x = sample_type)) + geom_bar() + coord_flip() + ggtitle("Sample type")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = DNA_extraction_method)) + geom_bar() + coord_flip() + ggtitle("DNA extraction method")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = gender)) + geom_bar() + coord_flip() + ggtitle("Sex")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = health_status)) + geom_bar() + coord_flip() + ggtitle("Health status")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = health_info)) + geom_bar() + coord_flip() + ggtitle("Health info")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = antibio)) + geom_bar() + coord_flip() + ggtitle("Antibiotics use")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = probiotics)) + geom_bar() + coord_flip() + ggtitle("Probiotics")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = medication)) + geom_bar() + coord_flip() + ggtitle("Medication")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = nationality)) + geom_bar() + coord_flip() + ggtitle("Nationality")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = age)) + geom_histogram() + ggtitle("Age") + xlab("Age")
-print(p)
-
-p = ggplot(sample_data(atlas), aes(x = bmi_group)) + geom_bar() + ggtitle("BMI group") + xlab("BMI")
-print(p)
-```
-
-<img src="figure/hatlas-sampletype-1.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-2.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-3.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-4.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-5.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-6.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-7.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-8.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-9.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-10.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" /><img src="figure/hatlas-sampletype-11.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="200px" />
+<img src="figure/hatlas-sampletype-1.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-2.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-3.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-4.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-5.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-6.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-7.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-8.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-9.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-10.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" /><img src="figure/hatlas-sampletype-11.png" title="plot of chunk hatlas-sampletype" alt="plot of chunk hatlas-sampletype" width="280px" />
 
 
 ### Diversity vs. age
