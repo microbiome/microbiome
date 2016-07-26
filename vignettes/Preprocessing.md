@@ -46,14 +46,14 @@ kable(head(df))
 
 
 
-|      |OTU                               |Sample     | Abundance|subject |sex    |nationality |group |sample     | timepoint| timepoint.within.group|bmi_group  |Phylum        |Genus                             |
-|:-----|:---------------------------------|:----------|---------:|:-------|:------|:-----------|:-----|:----------|---------:|----------------------:|:----------|:-------------|:---------------------------------|
-|21473 |Prevotella melaninogenica et rel. |Sample-187 |  77.01120|kpb     |Male   |AAM         |DI    |Sample-187 |         4|                      1|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21320 |Prevotella melaninogenica et rel. |Sample-182 |  76.08013|kpb     |Male   |AAM         |ED    |Sample-182 |         1|                      1|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21438 |Prevotella melaninogenica et rel. |Sample-210 |  75.05250|qjy     |Female |AFR         |ED    |Sample-210 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21315 |Prevotella melaninogenica et rel. |Sample-104 |  74.84138|vem     |Male   |AFR         |HE    |Sample-104 |         3|                      2|lean       |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21396 |Prevotella melaninogenica et rel. |Sample-168 |  74.73237|mnk     |Female |AAM         |HE    |Sample-168 |         3|                      2|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21487 |Prevotella melaninogenica et rel. |Sample-89  |  74.23023|vem     |Male   |AFR         |HE    |Sample-89  |         2|                      1|lean       |Bacteroidetes |Prevotella melaninogenica et rel. |
+|      |OTU                               |Sample     | Abundance| age|gender |nationality   |DNA_extraction_method |project | diversity|bmi_group   |subject | time|sample     |Phylum                 |Genus                             |
+|:-----|:---------------------------------|:----------|---------:|---:|:------|:-------------|:---------------------|:-------|---------:|:-----------|:-------|----:|:----------|:----------------------|:---------------------------------|
+|50954 |Prevotella melaninogenica et rel. |Sample-149 |  68.01487|  30|female |CentralEurope |r                     |7       |      5.81|underweight |149     |    0|Sample-149 |Bacteroidetes          |Prevotella melaninogenica et rel. |
+|19302 |Clostridium difficile et rel.     |Sample-293 |  67.48385|  26|male   |CentralEurope |r                     |9       |      4.87|lean        |293     |    0|Sample-293 |Clostridium cluster XI |Clostridium difficile et rel.     |
+|51129 |Prevotella melaninogenica et rel. |Sample-193 |  62.30726|  22|male   |CentralEurope |r                     |7       |      5.93|lean        |193     |    0|Sample-193 |Bacteroidetes          |Prevotella melaninogenica et rel. |
+|51095 |Prevotella melaninogenica et rel. |Sample-852 |  60.28698|  26|male   |UKIE          |r                     |24      |      5.77|overweight  |852     |    0|Sample-852 |Bacteroidetes          |Prevotella melaninogenica et rel. |
+|51035 |Prevotella melaninogenica et rel. |Sample-89  |  57.65584|  25|male   |SouthEurope   |r                     |6       |      5.83|lean        |89      |    0|Sample-89  |Bacteroidetes          |Prevotella melaninogenica et rel. |
+|50910 |Prevotella melaninogenica et rel. |Sample-844 |  57.43696|  44|male   |Scandinavia   |r                     |23      |      5.85|lean        |844     |    0|Sample-844 |Bacteroidetes          |Prevotella melaninogenica et rel. |
 
 
 ### Standard data processing operations

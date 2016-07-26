@@ -1,7 +1,7 @@
 ---
 title: "HITChip Atlas Overview"
 author: "Leo Lahti, Jarkko Salojarvi, Anne Salonen, Willem M de Vos"
-date: "2016-06-15"
+date: "2016-07-26"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -46,119 +46,42 @@ atlas = readRDS("/home/lei/proj/hitchip-atlas-annotation-scripts/Atlas.RData") #
 
 ### Data overview
 
- * ``10866`` samples
- * ``4995`` unique subjects
+ * ``10763`` samples
+ * ``5007`` unique subjects
 
 
 ```r
 p = ggplot(sample_data(atlas), aes(x = sample_type)) + geom_bar() + coord_flip() + ggtitle("Sample type")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ggplot"
-```
-
-```r
 print(p)
 
 p = ggplot(sample_data(atlas), aes(x = DNA_extraction_method)) + geom_bar() + coord_flip() + ggtitle("DNA extraction method")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ggplot"
-```
-
-```r
 print(p)
 
 p = ggplot(sample_data(atlas), aes(x = gender)) + geom_bar() + coord_flip() + ggtitle("Sex")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ggplot"
-```
-
-```r
 print(p)
 
 p = ggplot(sample_data(atlas), aes(x = health_status)) + geom_bar() + coord_flip() + ggtitle("Health status")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ggplot"
-```
-
-```r
 print(p)
 
 p = ggplot(sample_data(atlas), aes(x = health_info)) + geom_bar() + coord_flip() + ggtitle("Health info")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ggplot"
-```
-
-```r
 print(p)
 
 p = ggplot(sample_data(atlas), aes(x = antibio)) + geom_bar() + coord_flip() + ggtitle("Antibiotics use")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ggplot"
-```
-
-```r
 print(p)
 
 p = ggplot(sample_data(atlas), aes(x = probiotics)) + geom_bar() + coord_flip() + ggtitle("Probiotics")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ggplot"
-```
-
-```r
 print(p)
 
 p = ggplot(sample_data(atlas), aes(x = medication)) + geom_bar() + coord_flip() + ggtitle("Medication")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ggplot"
-```
-
-```r
 print(p)
 
 p = ggplot(sample_data(atlas), aes(x = nationality)) + geom_bar() + coord_flip() + ggtitle("Nationality")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ggplot"
-```
-
-```r
 print(p)
 
 p = ggplot(sample_data(atlas), aes(x = age)) + geom_histogram() + ggtitle("Age") + xlab("Age")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ggplot"
-```
-
-```r
 print(p)
 
 p = ggplot(sample_data(atlas), aes(x = bmi_group)) + geom_bar() + ggtitle("BMI group") + xlab("BMI")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "ggplot"
-```
-
-```r
 print(p)
 ```
 

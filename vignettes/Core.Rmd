@@ -21,7 +21,7 @@ head(prevalence(pseq.rel, detection.threshold = 1, sort = TRUE))
 
 Alternatively, return the corresponding sample count instead of population frequency (relative = FALSE):
 
-```{r core-prevalence2}
+```{r core-prevalence2b}
 head(prevalence(pseq.rel, detection.threshold = 1, sort = TRUE, relative = FALSE))
 ```
 

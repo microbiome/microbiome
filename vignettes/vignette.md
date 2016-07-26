@@ -1,7 +1,7 @@
 ---
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
-date: "2016-05-17"
+date: "2016-07-26"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -71,7 +71,7 @@ package. URL: http://microbiome.github.com'.
 ### Dependencies
 
 The package utilizes tools from a number of other R extensions,
-including ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007), dplyr (Wickham and Francois, 2015), ggplot2 (Wickham, 2009), MASS (Venables and Ripley, 2002), moments (Komsta and Novomestky, 2015), phyloseq (McMurdie and Holmes, 2013), RColorBrewer (Neuwirth, 2014), scales (Wickham, 2016b), stats (R Core Team, 2016), tidyr (Wickham, 2016a), vegan (Oksanen, Blanchet, Kindt, et al., 2016).
+including ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007), dplyr (Wickham and Francois, 2016), ggplot2 (Wickham, 2009), MASS (Venables and Ripley, 2002), moments (Komsta and Novomestky, 2015), phyloseq (McMurdie and Holmes, 2013), RColorBrewer (Neuwirth, 2014), scales (Wickham, 2016), stats (R Core Team, 2016), tidyr (Wickham, 2016), vegan (Oksanen, Blanchet, Friendly, Kindt, Legendre, McGlinn, Minchin, O'Hara, Simpson, Solymos, Stevens, Szoecs, and Wagner, 2016).
 
 
 ### References
@@ -102,8 +102,8 @@ http://dx.plos.org/10.1371/journal.pone.0061217>.
 version 1.1-2. 2014. <URL:
 https://CRAN.R-project.org/package=RColorBrewer>.
 
-[7] J. Oksanen, F. G. Blanchet, R. Kindt, et al. _vegan: Community
-Ecology Package_. R package version 2.3-5. 2016. <URL:
+[7] J. Oksanen, F. G. Blanchet, M. Friendly, et al. _vegan:
+Community Ecology Package_. R package version 2.4-0. 2016. <URL:
 https://CRAN.R-project.org/package=vegan>.
 
 [8] R Core Team. _R: A language and environment for statistical
@@ -128,10 +128,10 @@ package version 0.4.0. 2016. <URL:
 https://CRAN.R-project.org/package=scales>.
 
 [13] H. Wickham. _tidyr: Easily Tidy Data with `spread()` and
-`gather()` Functions_. R package version 0.4.1. 2016. <URL:
+`gather()` Functions_. R package version 0.5.1. 2016. <URL:
 https://CRAN.R-project.org/package=tidyr>.
 
 [14] H. Wickham and R. Francois. _dplyr: A Grammar of Data
-Manipulation_. R package version 0.4.3. 2015. <URL:
+Manipulation_. R package version 0.5.0. 2016. <URL:
 https://CRAN.R-project.org/package=dplyr>.
 

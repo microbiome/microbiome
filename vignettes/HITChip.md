@@ -18,7 +18,7 @@ print(data.directory)
 ```
 
 ```
-## [1] "/home/lei/R/x86_64-pc-linux-gnu-library/3.2/microbiome/extdata"
+## [1] "/home/lei/R/x86_64-pc-linux-gnu-library/3.3/microbiome/extdata"
 ```
 
 With HITChip,
@@ -35,12 +35,86 @@ precalculated matrices are calculated with detection.threshold = 0):
 
 ```r
 library(HITChipDB)
+```
+
+```
+## Loading required package: DBI
+```
+
+```
+## Loading required package: preprocessCore
+```
+
+```
+## Loading required package: RMySQL
+```
+
+```
+## Loading required package: RPA
+```
+
+```
+## Loading required package: affy
+```
+
+```
+## Loading required package: Biobase
+```
+
+```
+## Welcome to Bioconductor
+## 
+##     Vignettes contain introductory material; view with
+##     'browseVignettes()'. To cite Bioconductor, see
+##     'citation("Biobase")', and for packages 'citation("pkgname")'.
+```
+
+```
+## 
+## Attaching package: 'Biobase'
+```
+
+```
+## The following object is masked from 'package:phyloseq':
+## 
+##     sampleNames
+```
+
+```
+## 
+## RPA Copyright (C) 2008-2016 Leo Lahti.
+## This program comes with ABSOLUTELY NO WARRANTY.
+## This is free software, and you are welcome to redistribute it under the FreeBSD open source license.
+```
+
+```
+## Loading required package: tcltk
+```
+
+```
+## 
+## HITChipDB R package (microbiome.github.com)
+## (C) 2011-2016 Leo Lahti and Jarkko Salojarvi <microbiome-admin@googlegroups.com>
+```
+
+```
+## 
+## Attaching package: 'HITChipDB'
+```
+
+```
+## The following objects are masked from 'package:RPA':
+## 
+##     n.phylotypes.per.oligo, summarize.rpa, summarize.sum
+```
+
+```r
 pseq <- HITChipDB::read_hitchip(data.directory, method = "frpa")$pseq
 ```
 
 ```
 ## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
-## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
+## linux-gnu-library/3.3/microbiome/extdata/oligoprofile.tab': No such file or
 ## directory
 ```
 
@@ -77,7 +151,7 @@ probedata <- HITChipDB::read_hitchip(data.directory, method = "frpa")$probedata
 
 ```
 ## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
-## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
+## linux-gnu-library/3.3/microbiome/extdata/oligoprofile.tab': No such file or
 ## directory
 ```
 
@@ -91,7 +165,7 @@ taxonomy.full <- HITChipDB::read_hitchip(data.directory, method = "frpa")$taxono
 
 ```
 ## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
-## linux-gnu-library/3.2/microbiome/extdata/oligoprofile.tab': No such file or
+## linux-gnu-library/3.3/microbiome/extdata/oligoprofile.tab': No such file or
 ## directory
 ```
 

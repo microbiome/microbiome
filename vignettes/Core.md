@@ -12,26 +12,45 @@ pseq <- peerj32$phyloseq
 pseq.rel <- transform_phyloseq(pseq, "relative.abundance", "OTU")
 ```
 
-Taxa prevalences at 1 percent relative abundance abundance threshold:
+
+Taxa prevalences (population frequency %) at 1 percent relative abundance abundance threshold:
 
 
 ```r
-head(prevalence(pseq.rel, detection.threshold = 1, sort = FALSE))
+head(prevalence(pseq.rel, detection.threshold = 1, sort = TRUE))
 ```
 
 ```
-##             Actinomycetaceae                   Aerococcus 
-##                      0.00000                      0.00000 
-##                    Aeromonas                  Akkermansia 
-##                      0.00000                     52.27273 
-## Alcaligenes faecalis et rel.           Allistipes et rel. 
-##                      0.00000                     34.09091
+## Roseburia intestinalis et rel.     Eubacterium hallii et rel. 
+##                      100.00000                      100.00000 
+##     Clostridium nexile et rel.     Ruminococcus obeum et rel. 
+##                      100.00000                       97.72727 
+##   Coprococcus eutactus et rel.  Ruminococcus lactaris et rel. 
+##                       97.72727                       95.45455
 ```
+
+
+Alternatively, return the corresponding sample count instead of population frequency (relative = FALSE):
+
+
+```r
+head(prevalence(pseq.rel, detection.threshold = 1, sort = TRUE, relative = FALSE))
+```
+
+```
+## Roseburia intestinalis et rel.     Eubacterium hallii et rel. 
+##                             44                             44 
+##     Clostridium nexile et rel.     Ruminococcus obeum et rel. 
+##                             44                             43 
+##   Coprococcus eutactus et rel.  Ruminococcus lactaris et rel. 
+##                             43                             42
+```
+
 
 
 ### Core microbiota
 
-List the core taxa above a given detection and prevalence thresholds:
+Core taxa above a given detection and prevalence thresholds:
 
 
 ```r
@@ -58,18 +77,42 @@ bootstrap_microbes function.
 # With absolute read counts
 det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
 res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
-res$plot + xlab("Abundance (OTU read count)")
+```
 
+```
+## Error in core_matrix(x, prevalence.intervals, detection.thresholds): object 'prev' not found
+```
+
+```r
+res$plot + xlab("Abundance (OTU read count)")
+```
+
+```
+## Error in res$plot + xlab("Abundance (OTU read count)"): non-numeric argument to binary operator
+```
+
+```r
 # With relative abundances
 det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
 res <- plot_core(pseq.rel, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
-res$plot + xlab("Relative Abundance (%)")
+```
 
+```
+## Error in core_matrix(x, prevalence.intervals, detection.thresholds): object 'prev' not found
+```
+
+```r
+res$plot + xlab("Relative Abundance (%)")
+```
+
+```
+## Error in res$plot + xlab("Relative Abundance (%)"): non-numeric argument to binary operator
+```
+
+```r
 # Retrieve the core count data matrix
 coremat <- res$data
 ```
-
-<img src="figure/core-example2-1.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="430px" /><img src="figure/core-example2-2.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="430px" />
 
 
 ### Core heatmaps
