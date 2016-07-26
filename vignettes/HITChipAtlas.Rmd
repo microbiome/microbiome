@@ -61,7 +61,7 @@ The data contains:
  * ```r nsamples(atlas)``` samples
  * ```r length(unique(sample_data(atlas)$subject))``` unique subjects
 
-```{r hatlas-sampletype, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.show = "hold", out.width = "280px", echo=FALSE}
+```{r hatlas-sampletype, fig.width=7, fig.height=6, message=FALSE, warning=FALSE, fig.show = "hold", out.width = "280px", echo=FALSE}
 p = ggplot(sample_data(atlas), aes(x = sample_type)) + geom_bar() + coord_flip() + ggtitle("Sample type")
 print(p)
 

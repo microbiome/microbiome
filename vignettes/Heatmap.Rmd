@@ -153,6 +153,20 @@ p <- p + xlab("") + ylab("")
 print(p)
 ```
 
+### ggcorr
+
+An alternative way to visualize correlation matrices is provided by the [ggcorr package](https://briatte.github.io/ggcorr/). Note: this toy example does not consider the compositionality effect in microbial abundance correlations. See the package site for more detailed examples and many more options.
+
+```{r ggcorr1, message=FALSE, warning=FALSE, fig.width=10, fig.height=10, fig.path = "figure/", fig.show="hold", out.width="400px"}
+library(GGally)
+ggcorr(x[, 1:10], method = c("pairwise", "spearman"), nbreaks = 20, hjust = 0.75)
+ggcorr(x[, 1:10], method = c("pairwise", "spearman"), nbreaks = 20, geom = "circle")
+ggcorr(x[, 1:10], method = c("pairwise", "spearman"), nbreaks = 20, label = TRUE, label_alpha = TRUE)
+ggcorr(data = NULL, cor_matrix = cor(x[, 1:10], use = "everything"), low = "steelblue", mid = "white", high = "darkred", midpoint = 0)
+```
+
+
+
 ### Links
 
 For further examples, see [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_heatmap-examples.html) and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45)

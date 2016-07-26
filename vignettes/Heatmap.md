@@ -183,6 +183,23 @@ print(p)
 
 ![plot of chunk heatmap-example-text](figure/heatmap-example-text-1.png)
 
+### ggcorr
+
+An alternative way to visualize correlation matrices is provided by the [ggcorr package](https://briatte.github.io/ggcorr/). Note: this toy example does not consider the compositionality effect in microbial abundance correlations. See the package site for more detailed examples and many more options.
+
+
+```r
+library(GGally)
+ggcorr(x[, 1:10], method = c("pairwise", "spearman"), nbreaks = 20, hjust = 0.75)
+ggcorr(x[, 1:10], method = c("pairwise", "spearman"), nbreaks = 20, geom = "circle")
+ggcorr(x[, 1:10], method = c("pairwise", "spearman"), nbreaks = 20, label = TRUE, label_alpha = TRUE)
+ggcorr(data = NULL, cor_matrix = cor(x[, 1:10], use = "everything"), low = "steelblue", mid = "white", high = "darkred", midpoint = 0)
+```
+
+<img src="figure/ggcorr1-1.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" /><img src="figure/ggcorr1-2.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" /><img src="figure/ggcorr1-3.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" /><img src="figure/ggcorr1-4.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" />
+
+
+
 ### Links
 
 For further examples, see [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_heatmap-examples.html) and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45)
