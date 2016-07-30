@@ -15,7 +15,9 @@ normalize_time <- function (x) {
   # Shift the times such that the first time point is always 0
   for (subj in unique(meta$subject)) {
     inds <- which(meta$subject == subj & !is.na(meta$time))
-    meta[inds, "time"] <- meta[inds, "time"] - min(meta[inds, "time"])
+    if (length(inds)>0) {
+      meta[inds, "time"] <- meta[inds, "time"] - min(meta[inds, "time"])
+    }
   }
 
   # Fix this to sample metadata
