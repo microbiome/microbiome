@@ -50,10 +50,9 @@ Downloading the data in R:
 ```{r hatlas-data2}
 # Download the required R packages and then the HITChip Atlas data set
 library("microbiome")
-#data("atlas1006")
-#pseq <- atlas1006
+
 # Load the data (not yet public)
-atlas = readRDS("/home/lei/proj/hitchip-atlas-annotation-scripts/Atlas.RData") # atlas
+atlas <- readRDS("/home/lei/proj/hitchip-atlas-annotation-scripts/Atlas.RData")
 ```
 
 The data contains:
@@ -69,7 +68,7 @@ The data contains:
 
 ```{r hatlas-sampletype, fig.width=7, fig.height=6, message=FALSE, warning=FALSE, fig.show = "hold", out.width = "280px", echo=FALSE}
 meta <- sample_data(atlas)
-for (varname in c("sample_type", "DNA_extraction_method", "nationality", "age", "bmi", "bmi_group")) {
+for (varname in c("sample_type", "DNA_extraction_method", "nationality", "age", "bmi_group")) {
   meta$varname <- meta[[varname]]
   if (is.factor(meta$varname)) {
     meta$varname <- factor(meta$varname, levels = names(sort(table(meta$varname))))
@@ -82,15 +81,15 @@ for (varname in c("sample_type", "DNA_extraction_method", "nationality", "age", 
 
 ### Diversity vs. host variables
 
-```{r hatlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, show="hold", out.width="400px"}
+```{r hatlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, out.width="800px"}
 # Pick the subset of RBB-preprocessed samples from time point 0
 pseq <- subset_samples(atlas, time == 0 & DNA_extraction_method == "rbb")
 
 p <- plot_regression(diversity~age, sample_data(pseq))
 print(p)
 
-p <- plot_regression(diversity~bmi, sample_data(pseq))
-print(p)
+#p <- boxplot_abundance(pseq, x = "bmi_group", y = "Dialister")
+#print(p)
 ```
 
 

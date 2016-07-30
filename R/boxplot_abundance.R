@@ -6,6 +6,8 @@
 #' @param line The variable to map on lines
 #' @param color The variable to map on colors
 #' @param log10 show y axis on log scale
+#' @param violin Use violin version of the boxplot
+#' @param na.rm Remove NAs
 #' @details The directionality of change in paired boxplot is indicated by the colors of the connecting lines.
 #' @return A \code{\link{ggplot}} plot object
 #' @export
@@ -14,7 +16,7 @@
 #'   p <- boxplot_abundance(peerj32$phyloseq, x = "time", y = "Akkermansia",
 #'       	  		    line = "subject", color = "gender")
 #' @keywords utilities
-boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = TRUE) {
+boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = TRUE, violin = FALSE, na.rm = FALSE) {
 
   change <- xvar <- yvar <- linevar <- colorvar <- NULL
 
@@ -25,12 +27,34 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = TR
   #df <- harmonize_fields(sample_data(pseq))
   df <- sample_data(pseq)
   df$xvar <- factor(as.character(df[[x]]))
-  df$yvar <- as.vector(otu_table(pseq)[y, ])
+
+  if (y %in% taxa_names(pseq)) {
+    df$yvar <- as.vector(otu_table(pseq)[y, ])
+  } else {
+    df$yvar <- as.vector(sample_data(pseq)[, y])
+  }
+
+  if (na.rm) {
+    df <- subset(df, !is.na(xvar))
+    df <- subset(df, !is.na(yvar))    
+  }
 
   # Visualize example data with a boxplot
   theme_set(theme_bw(20))
   p <- ggplot(df, aes(x = xvar, y = yvar))
-  p <- p + geom_boxplot(fill = "gray") 
+
+  # Box or Violin plot ?
+  if (!violin) {
+    p <- p + geom_boxplot(fill = NA)
+  } else {
+    p <- p + geom_violin(fill = NA) 
+  }
+
+  # Jittering the points
+  p <- p + geom_point(size = 1, alpha = 0.3,
+                position = position_jitter(width = 0.3)) 
+
+
 
   # Add also subjects as lines and points
   if (!is.null(line)) {
@@ -75,7 +99,7 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = TR
   }
 
   # Add axis tests
-  p <- p + xlab(x) + ylab("Signal")
+  p <- p + xlab(x) + ylab(y)
   if (is.null(title)) {
     title <- y
   }

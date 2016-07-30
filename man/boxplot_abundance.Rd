@@ -4,7 +4,8 @@
 \alias{boxplot_abundance}
 \title{Abundance Boxplot}
 \usage{
-boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = TRUE)
+boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = TRUE,
+  violin = FALSE, na.rm = FALSE)
 }
 \arguments{
 \item{pseq}{\code{\link{phyloseq-class}} object}
@@ -18,6 +19,10 @@ boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = TRUE)
 \item{color}{The variable to map on colors}
 
 \item{log10}{show y axis on log scale}
+
+\item{violin}{Use violin version of the boxplot}
+
+\item{na.rm}{Remove NAs}
 }
 \value{
 A \code{\link{ggplot}} plot object
