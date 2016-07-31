@@ -1,6 +1,6 @@
 #' @title Normalize Phyloseq Metadata Time Field
 #' @description Shift the time field in phyloseq sample_data such that the first time point of each subject is always 0.
-#' @param x phyloseq object
+#' @param x phyloseq object. The sample_data(x) should contain the following fields: subject, time
 #' @return Phyloseq object with a normalized time field
 #' @export
 #' @examples

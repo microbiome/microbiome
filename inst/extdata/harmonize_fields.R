@@ -51,14 +51,14 @@ harmonize_fields <- function (x) {
     x$time <- as.numeric(as.character(x$time))
   }
 
-  if ("gender" %in% colnames(x)) {
-    x$gender <- tolower(x$gender)
-    x$gender <- gsub("^f$", "female", x$gender)    
-    x$gender <- gsub("^m$", "male", x$gender)    
-    x$gender <- gsub("^o$", "other", x$gender)    
+  if ("sex" %in% colnames(x)) {
+    x$sex <- tolower(x$sex)
+    x$sex <- gsub("^f$", "female", x$sex)    
+    x$sex <- gsub("^m$", "male", x$sex)    
+    x$sex <- gsub("^o$", "other", x$sex)    
     levels <- c("female", "male", "other")
-    levels <- levels[levels %in% unique(x$gender)]
-    x$gender <- factor(tolower(as.character(x$gender)), levels = levels)
+    levels <- levels[levels %in% unique(x$sex)]
+    x$sex <- factor(tolower(as.character(x$sex)), levels = levels)
   }
 
   x
@@ -84,7 +84,7 @@ harmonize_fieldnames <- function (x) {
   x <- harmonize_terms(x, "nationality", 
        c("nationality", "Nationality", "nationalityID", "NationalityID", "Nationality_ID", "nationality_ID"))
 
-  x <- harmonize_terms(x, "gender", 
+  x <- harmonize_terms(x, "sex", 
        c("gender", "Gender", "genderID", "GenderID", "Gender_ID", "gender_ID", "sex", "Sex"))
 
   x <- harmonize_terms(x, "platform", 

@@ -7,7 +7,7 @@
 normalize_time(x)
 }
 \arguments{
-\item{x}{phyloseq object}
+\item{x}{phyloseq object. The sample_data(x) should contain the following fields: subject, time}
 }
 \value{
 Phyloseq object with a normalized time field
