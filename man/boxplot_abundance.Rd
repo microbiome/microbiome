@@ -4,7 +4,7 @@
 \alias{boxplot_abundance}
 \title{Abundance Boxplot}
 \usage{
-boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = TRUE,
+boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = FALSE,
   violin = FALSE, na.rm = FALSE)
 }
 \arguments{

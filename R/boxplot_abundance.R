@@ -16,7 +16,7 @@
 #'   p <- boxplot_abundance(peerj32$phyloseq, x = "time", y = "Akkermansia",
 #'       	  		    line = "subject", color = "gender")
 #' @keywords utilities
-boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = TRUE, violin = FALSE, na.rm = FALSE) {
+boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = FALSE, violin = FALSE, na.rm = FALSE) {
 
   change <- xvar <- yvar <- linevar <- colorvar <- NULL
 
@@ -24,14 +24,18 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = TR
   # in metadata and HITChip data.
   # FIXME: this can be removed when official phyloseq package
   # is fixed so as to retain the factor level ordering
-  #df <- harmonize_fields(sample_data(pseq))
-  df <- sample_data(pseq)
-  df$xvar <- factor(as.character(df[[x]]))
 
+  df <- sample_data(pseq)
+
+  df$xvar <- df[[x]]
+  if (!is.factor(df[[x]])) {
+    df$xvar <- factor(as.character(df$xvar))
+  }
+  
   if (y %in% taxa_names(pseq)) {
-    df$yvar <- as.vector(otu_table(pseq)[y, ])
+    df$yvar <- as.vector(unlist(otu_table(pseq)[y, ]))
   } else {
-    df$yvar <- as.vector(sample_data(pseq)[, y])
+    df$yvar <- as.vector(unlist(sample_data(pseq)[, y]))
   }
 
   if (na.rm) {
@@ -53,7 +57,6 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = TR
   # Jittering the points
   p <- p + geom_point(size = 1, alpha = 0.3,
                 position = position_jitter(width = 0.3)) 
-
 
 
   # Add also subjects as lines and points
@@ -93,16 +96,12 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = TR
     
   }
 
-
   if (log10) {
     p <- p + scale_y_log10()
   }
 
   # Add axis tests
   p <- p + xlab(x) + ylab(y)
-  if (is.null(title)) {
-    title <- y
-  }
 
   # Return ggplot object
   p
