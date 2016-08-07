@@ -9,7 +9,7 @@ transform_phyloseq(x, transformation = "relative.abundance", target = "OTU")
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{transformation}{Transformation to apply: 'relative.abundance', 'Z', 'log10', or any method from the vegan::decostand function.}
+\item{transformation}{Transformation to apply: 'relative.abundance', 'Z', 'log10', 'hellinger', or any method from the vegan::decostand function.}
 
 \item{target}{Apply the transformation for 'sample' or 'OTU'. Does not affect the log transformation.}
 }
@@ -20,7 +20,7 @@ Transformed \code{\link{phyloseq}} object
 Provides phyloseq transformations with log10(x), log10(1+x), z transformation, and relative abundance.
 }
 \details{
-The relative abunance are returned as percentages in [0, 100].
+The relative abunance are returned as percentages in [0, 100]. The Hellinger transformation is square root of the relative abundance but instead given at the scale [0,1].
 }
 \examples{
 \dontrun{

@@ -20,6 +20,10 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = FA
 
   change <- xvar <- yvar <- linevar <- colorvar <- NULL
 
+  otu <- taxa_abundances(pseq)
+  #otu <- otu_table(pseq)
+  #if (!taxa_are_rows(pseq)) {otu <- t(otu)}
+
   # Construct example data (df). Ensure that samples are given in same order
   # in metadata and HITChip data.
   # FIXME: this can be removed when official phyloseq package
@@ -33,7 +37,7 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = FA
   }
   
   if (y %in% taxa_names(pseq)) {
-    df$yvar <- as.vector(unlist(otu_table(pseq)[y, ]))
+    df$yvar <- as.vector(unlist(otu[y, ]))
   } else {
     df$yvar <- as.vector(unlist(sample_data(pseq)[, y]))
   }
