@@ -57,14 +57,16 @@ transform_phyloseq <- function (x, transformation = "relative.abundance", target
     if (target == "OTU") {
     
       xt <- x
-
-      a <- try(otu_table(xt)@.Data <- decostand(taxa_abundances(xt), MARGIN = 2, transformation))
-      
+      a <- try(xx <- decostand(taxa_abundances(xt), method = transformation, MARGIN = 2))
+            
       if (class(a) == "try-error") {
         xt <- NULL
         stop(paste("Transformation", transformation, "not defined."))
       }
-      
+
+      if (!taxa_are_rows(xt)) {xx <- t(xx)}
+      otu_table(xt)@.Data <- xx
+
     } else {
     
       stop(paste("Transformation", transformation, "not defined for", target))

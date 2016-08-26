@@ -19,14 +19,23 @@
 #'   }
 #' @examples \dontrun{
 #'   library(microbiome)
+#'
+#'   # Example with abundance matrix
 #'   data(peerj32)
-#'   x <- t(peerj32$microbes)
-#'   y <- factor(peerj32$meta$time); names(y) <- rownames(peerj32$meta)
-#'   res <- bagged_rda(x, y, sig.thresh=0.05, nboot=100)
+#'   phy <- peerj32$phyloseq
+#'   x <- taxa_abundances(phy) 
+#'   y <- factor(sample_data(phy)$gender);
+#'   names(y) <- rownames(sample_data(phy))
+#'   res <- bagged_rda(x, y, sig.thresh=0.05, nboot=20)
 #'   plot_bagged_rda(res, y)
+#'
+#'   # Example with phyloseq object
+#'   res <- bagged_rda(phy, "gender", sig.thresh=0.05, nboot=20)
+#'   plot_bagged_rda(res, y)
+#'
 #'  }
 #' @export
-#' @details Bagging ie. Bootstrap aggregation is expected to improve the stability of the results. The results over several modeling runs with different boostrap samples of the data are averaged to produce the final summary,
+#' @details Bootstrap aggregation (bagging) is expected to improve the stability of the results. Aggregating results over several modeling runs with different boostrap samples of the data are averaged to produce the final summary.
 #' @references See citation("microbiome") 
 #' @author Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -34,6 +43,10 @@ bagged_rda <- function(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T, plot =
 
   if (class(x) == "phyloseq") {
     # Pick OTU matrix and the indicated annotation field
+    if (!y %in% names(sample_data(x))) {
+      stop(paste("The variable y ('", y, "') is not available in the phyloseq object i.e. sample_data(x). Only use variables listed in names(sample_data(x)) ie. one of the following: ", paste(names(sample_data(x)), collapse = " / "), sep = ""))
+    }
+
     y <- factor(sample_data(x)[[y]])
     names(y) <- sample_data(x)$sample
     x <- taxa_abundances(x) 
