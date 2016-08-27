@@ -3,7 +3,8 @@
 #' @param x a matrix, samples on columns, variables (bacteria) on rows. 
 #'        Or a \code{\link{phyloseq-class}} object
 #' @param y vector with names(y)=rownames(X). 
-#'            Or name of phyloseq sample data variable name.
+#'            Or name of phyloseq sample data variable name
+#'            (one of sample_variables(x)).
 #' @param sig.thresh signal p-value threshold, default 0.1
 #' @param nboot Number of bootstrap iterations
 #' @param verbose verbose
@@ -43,13 +44,20 @@ bagged_rda <- function(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T, plot =
 
   if (class(x) == "phyloseq") {
     # Pick OTU matrix and the indicated annotation field
-    if (!y %in% names(sample_data(x))) {
-      stop(paste("The variable y ('", y, "') is not available in the phyloseq object i.e. sample_data(x). Only use variables listed in names(sample_data(x)) ie. one of the following: ", paste(names(sample_data(x)), collapse = " / "), sep = ""))
+    if (!y %in% sample_variables(x)) {
+    
+      stop(paste("The variable y ('", y, "') is not available in the phyloseq object i.e. sample_data(x). Only use variables listed in sample_variables(x) ie. one of the following: ", paste(names(sample_data(x)), collapse = " / "), sep = ""))
+    }
+
+    if (!"sample" %in% sample_variables(x)) {
+      warning("The sample_data(x) does not contain 'sample' field; using the rownames(sample_data(x)) as sample ID.")
+      sample_data(x)$sample <- rownames(sample_data(x))
     }
 
     y <- factor(sample_data(x)[[y]])
     names(y) <- sample_data(x)$sample
-    x <- taxa_abundances(x) 
+    x <- taxa_abundances(x)
+    
   }
 
   stop.run=F
