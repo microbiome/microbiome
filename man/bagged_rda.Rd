@@ -12,7 +12,8 @@ bagged_rda(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T,
 Or a \code{\link{phyloseq-class}} object}
 
 \item{y}{vector with names(y)=rownames(X). 
-Or name of phyloseq sample data variable name.}
+Or name of phyloseq sample data variable name
+(one of sample_variables(x)).}
 
 \item{sig.thresh}{signal p-value threshold, default 0.1}
 
