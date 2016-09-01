@@ -8,7 +8,7 @@ plot_regression(formula, data, B = 1000, shade = TRUE, shade.alpha = 0.1,
   spag = FALSE, mweight = TRUE, show.lm = FALSE, show.median = TRUE,
   median.col = "white", show.CI = FALSE, method = loess, bw = FALSE,
   slices = 200, palette = colorRampPalette(c("#FFEDA0", "#DD0000"), bias =
-  2)(20), ylim = NULL, quantize = "continuous", ...)
+  2)(20), ylim = NULL, quantize = "continuous", show.points = TRUE, ...)
 }
 \arguments{
 \item{formula}{formula}
@@ -49,6 +49,8 @@ draw. I wouldn'T go beyond 500}
 
 \item{quantize}{either "continuous", or "SD". In the latter case, 
 we get three color regions for 1, 2, and 3 SD (an idea of John Mashey)}
+
+\item{show.points}{Show points.}
 
 \item{...}{further parameters passed to the fitting function, 
 in the case of loess, for example, "span = .9", or 
