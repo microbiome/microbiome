@@ -12,7 +12,7 @@ pseq.rel <- transform_phyloseq(pseq, "relative.abundance", "OTU")
 ```
 
 
-Taxa prevalences (population frequency %) at 1 percent relative abundance abundance threshold:
+Taxa prevalences (population frequency) at 1% relative abundance abundance threshold:
 
 ```{r core-prevalence2}
 head(prevalence(pseq.rel, detection.threshold = 1, sort = TRUE))
@@ -76,10 +76,6 @@ p <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray,
     prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
 print(p + xlab("Detection Threshold (Relative Abundance (%))"))
 
-res <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray, 
-    prevalence.intervals = prevalence.intervals,
-    detection.thresholds = detection.thresholds) 
-
 # Core with absolute counts and horizontal view:
 detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
 plot_core(pseq, plot.type = "heatmap", colours = gray,
@@ -108,11 +104,4 @@ p <- plot_core(pseq, plot.type = "heatmap",
 print(p)
 ```
 
-
-Retrieve the core prevalence data matrix
-
-```{r core-example4, fig.width=8, fig.heigth=13, fig.path = "figure/"}
-prevalences <- res$data
-kable(head(prevalences), digits = 2)
-```
 
