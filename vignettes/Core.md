@@ -76,43 +76,17 @@ bootstrap_microbes function.
 ```r
 # With absolute read counts
 det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
-res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
-```
+prevalence.intervals <- seq(5, 100, 5)
+p <- plot_core(pseq, prevalence.intervals = prevalence.intervals, detection.thresholds = det, plot.type = "lineplot")
+p + xlab("Abundance (OTU read count)")
 
-```
-## Error in core_matrix(x, prevalence.intervals, detection.thresholds): object 'prev' not found
-```
-
-```r
-res$plot + xlab("Abundance (OTU read count)")
-```
-
-```
-## Error in res$plot + xlab("Abundance (OTU read count)"): non-numeric argument to binary operator
-```
-
-```r
 # With relative abundances
 det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
-res <- plot_core(pseq.rel, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
+p <- plot_core(pseq.rel, prevalence.intervals = prevalence.intervals, detection.thresholds = det, plot.type = "lineplot")
+p + xlab("Relative Abundance (%)")
 ```
 
-```
-## Error in core_matrix(x, prevalence.intervals, detection.thresholds): object 'prev' not found
-```
-
-```r
-res$plot + xlab("Relative Abundance (%)")
-```
-
-```
-## Error in res$plot + xlab("Relative Abundance (%)"): non-numeric argument to binary operator
-```
-
-```r
-# Retrieve the core count data matrix
-coremat <- res$data
-```
+<img src="figure/core-example2-1.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="430px" /><img src="figure/core-example2-2.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="430px" />
 
 
 ### Core heatmaps
@@ -122,22 +96,23 @@ coremat <- res$data
 # Core with relative abundances:
 prevalence.intervals <- seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)
+
 # Also define gray color palette
 gray <- gray(seq(0,1,length=5))
-res <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray,
+p <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray,
     prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
-print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
+print(p + xlab("Detection Threshold (Relative Abundance (%))"))
 
 res <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray, 
-    prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
+    prevalence.intervals = prevalence.intervals,
+    detection.thresholds = detection.thresholds) 
 
-# Core with absolute counts:
-prevalence.intervals = seq(5, 100, 5)
+# Core with absolute counts and horizontal view:
 detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
 plot_core(pseq, plot.type = "heatmap", colours = gray,
        		 prevalence.intervals = prevalence.intervals,
        		 detection.thresholds = detection.thresholds,
-		 min.prevalence = NULL)$plot
+		 min.prevalence = NULL, horizontal = TRUE)
 ```
 
 <img src="figure/core-example3-1.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="430px" /><img src="figure/core-example3-2.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="430px" />
@@ -147,21 +122,20 @@ Zoom in on the core region by filtering out rows and columns not passing min pre
 
 
 ```r
-res <- plot_core(pseq, plot.type = "heatmap", colours = gray,
+p <- plot_core(pseq, plot.type = "heatmap", colours = gray,
                  prevalence.intervals = prevalence.intervals,
 		 detection.thresholds = detection.thresholds,
 		 min.prevalence = 10)
-print(res$plot)		 
+print(p)		 
 
 
 library(RColorBrewer)
-res <- plot_core(pseq, plot.type = "heatmap",
-                 #colours = colorRampPalette(rev(brewer.pal(11, "Spectral")))(5),
+p <- plot_core(pseq, plot.type = "heatmap",
 		 colours = rev(brewer.pal(5, "Spectral")),
                  prevalence.intervals = prevalence.intervals,
 		 detection.thresholds = detection.thresholds,
 		 min.prevalence = 0)		 
-print(res$plot)		 
+print(p)
 ```
 
 <img src="figure/core-example3bb-1.png" title="plot of chunk core-example3bb" alt="plot of chunk core-example3bb" width="430px" /><img src="figure/core-example3bb-2.png" title="plot of chunk core-example3bb" alt="plot of chunk core-example3bb" width="430px" />
@@ -179,10 +153,10 @@ kable(head(prevalences), digits = 2)
 
 |Taxa                         | DetectionThreshold| Prevalence|
 |:----------------------------|------------------:|----------:|
-|Actinomycetaceae             |                  1|      61.36|
-|Aerococcus                   |                  1|      61.36|
-|Aeromonas                    |                  1|      65.91|
-|Akkermansia                  |                  1|     100.00|
-|Alcaligenes faecalis et rel. |                  1|      13.64|
-|Allistipes et rel.           |                  1|     100.00|
+|Actinomycetaceae             |                  0|        100|
+|Aerococcus                   |                  0|        100|
+|Aeromonas                    |                  0|        100|
+|Akkermansia                  |                  0|        100|
+|Alcaligenes faecalis et rel. |                  0|        100|
+|Allistipes et rel.           |                  0|        100|
 
