@@ -68,6 +68,13 @@ p <- plot_timeseries(pseq, "Dialister", subject = "831", tipping.point = 0.5)
 print(p)
 ```
 
+Pick samples at the baseline time points only:
+
+```{r baseline, message=FALSE, warning=FALSE}
+data("atlas1006")
+pseq0 <- pick_baseline(atlas1006)
+```
+
 
 ## Further visualization tools
 
