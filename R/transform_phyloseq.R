@@ -1,7 +1,7 @@
 #' @title Standard data transformations for phyloseq objects
 #' @description Provides phyloseq transformations with log10(x), log10(1+x), z transformation, and relative abundance.
 #' @param x \code{\link{phyloseq-class}} object
-#' @param transformation Transformation to apply: 'relative.abundance', 'Z', 'log10', 'hellinger', or any method from the vegan::decostand function.
+#' @param transformation Transformation to apply: 'relative.abundance', 'Z', 'log10', 'hellinger', 'identity', or any method from the vegan::decostand function.
 #' @param target Apply the transformation for 'sample' or 'OTU'. Does not affect the log transformation.
 #' @return Transformed \code{\link{phyloseq}} object
 #' @details The relative abunance are returned as percentages in [0, 100]. The Hellinger transformation is square root of the relative abundance but instead given at the scale [0,1].
@@ -53,7 +53,13 @@ transform_phyloseq <- function (x, transformation = "relative.abundance", target
       xt <- transform_sample_counts(x, function(x) log10(x))      
     }
 
+  } else if (transformation == "identity") {
+
+    # No transformation
+    xt <- x
+    
   } else {
+  
     if (target == "OTU") {
     
       xt <- x
@@ -67,7 +73,9 @@ transform_phyloseq <- function (x, transformation = "relative.abundance", target
       if (!taxa_are_rows(xt)) {xx <- t(xx)}
       otu_table(xt)@.Data <- xx
 
-    } else {
+
+
+     } else {
     
       stop(paste("Transformation", transformation, "not defined for", target))
       
