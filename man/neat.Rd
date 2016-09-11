@@ -8,7 +8,7 @@ neat(x, arrange = "both", method = "NMDS", distance = "bray",
   first.feature = NULL, first.sample = NULL, ...)
 }
 \arguments{
-\item{x}{A matrix or \link{\class{phyloseq}} object.}
+\item{x}{A matrix or phyloseq object.}
 
 \item{arrange}{Order "features", "samples" or "both" (for matrices). For matrices, it is assumed that the samples are on the columns and features are on the rows. For phyloseq objects, features are the taxa of the OTU table.}
 
@@ -26,7 +26,7 @@ neat(x, arrange = "both", method = "NMDS", distance = "bray",
 Sorted matrix
 }
 \description{
-Order matrix or \link{\class{phyloseq}} OTU table based on the neatmap approach.
+Order matrix or phyloseq OTU table based on the neatmap approach.
 }
 \details{
 Borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is not available there as a separate function. Therefore I implemented this function to provide an independent method for easy sample/taxon reordering for phyloseq objects. The ordering is cyclic so we can start at any point. The choice of the first sample may somewhat affect the overall ordering

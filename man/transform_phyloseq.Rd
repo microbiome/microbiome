@@ -9,7 +9,7 @@ transform_phyloseq(x, transformation = "relative.abundance", target = "OTU")
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{transformation}{Transformation to apply: 'relative.abundance', 'Z', 'log10', 'hellinger', or any method from the vegan::decostand function.}
+\item{transformation}{Transformation to apply: 'relative.abundance', 'Z', 'log10', 'hellinger', 'identity', or any method from the vegan::decostand function.}
 
 \item{target}{Apply the transformation for 'sample' or 'OTU'. Does not affect the log transformation.}
 }

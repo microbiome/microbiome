@@ -1,6 +1,6 @@
 #' @title Pick Baseline Timepoint Samples
-#' @description Identify and select the baseline timepoint samples in a \class{\link{phyloseq}} object.
-#' @param x \class{\link{phyloseq}} object. Assuming that the sample_data(x) has the fields "time", "sample" and "subject"
+#' @description Identify and select the baseline timepoint samples in a phyloseq object.
+#' @param x phyloseq object. Assuming that the sample_data(x) has the fields "time", "sample" and "subject"
 #' @param na.omit Logical. Ignore samples with no time point information. If this is FALSE, the first sample for each subject is selected even when there is no time information.
 #' @return Phyloseq object with only baseline time point samples selected.
 #' @details Arranges the samples by time and picks the first sample for each subject.
@@ -20,14 +20,15 @@ pick_baseline <- function (x, na.omit = TRUE) {
     stop("The phyloseq sample_data(x) should contain the following fields: time, sample, subject.")
   }
 
-  m <- m %>% arrange(time)
-
   if (na.omit) {
-    m <- m %>% filter(!is.na(time))
+    m <- subset(m, !is.na(time))
   }
 
-  s <- m$sample[match(unique(m$subject), m$subject)]
-  x <- subset_samples(x, sample %in% s)
+  suppressWarnings(m <- m %>% arrange(time))
+  ss <- m$subject
+  s <- m$sample[match(unique(ss), ss)]
 
-  x
+  xx <- prune_samples(s, x)
+
+  xx
 }

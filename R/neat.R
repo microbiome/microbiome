@@ -1,6 +1,6 @@
 #' @title Neatmap Sorting
-#' @description Order matrix or \link{\class{phyloseq}} OTU table based on the neatmap approach.
-#' @param x A matrix or \link{\class{phyloseq}} object.
+#' @description Order matrix or phyloseq OTU table based on the neatmap approach.
+#' @param x A matrix or phyloseq object.
 #' @param arrange Order "features", "samples" or "both" (for matrices). For matrices, it is assumed that the samples are on the columns and features are on the rows. For phyloseq objects, features are the taxa of the OTU table. 
 #' @param method Ordination method. Only NMDS implemented for now.
 #' @param distance Distance method. See \code{\link{vegdist}} function from the \pkg{vegan} package.
