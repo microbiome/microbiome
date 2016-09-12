@@ -13,7 +13,7 @@ pseq.rel <- transform_phyloseq(pseq, "relative.abundance", "OTU")
 ```
 
 
-Taxa prevalences (population frequency %) at 1 percent relative abundance abundance threshold:
+Taxa prevalences (population frequency) at 1% relative abundance abundance threshold:
 
 
 ```r
@@ -103,10 +103,6 @@ p <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray,
     prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
 print(p + xlab("Detection Threshold (Relative Abundance (%))"))
 
-res <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray, 
-    prevalence.intervals = prevalence.intervals,
-    detection.thresholds = detection.thresholds) 
-
 # Core with absolute counts and horizontal view:
 detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
 plot_core(pseq, plot.type = "heatmap", colours = gray,
@@ -140,23 +136,4 @@ print(p)
 
 <img src="figure/core-example3bb-1.png" title="plot of chunk core-example3bb" alt="plot of chunk core-example3bb" width="430px" /><img src="figure/core-example3bb-2.png" title="plot of chunk core-example3bb" alt="plot of chunk core-example3bb" width="430px" />
 
-
-Retrieve the core prevalence data matrix
-
-
-```r
-prevalences <- res$data
-kable(head(prevalences), digits = 2)
-```
-
-
-
-|Taxa                         | DetectionThreshold| Prevalence|
-|:----------------------------|------------------:|----------:|
-|Actinomycetaceae             |                  0|        100|
-|Aerococcus                   |                  0|        100|
-|Aeromonas                    |                  0|        100|
-|Akkermansia                  |                  0|        100|
-|Alcaligenes faecalis et rel. |                  0|        100|
-|Allistipes et rel.           |                  0|        100|
 

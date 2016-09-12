@@ -59,7 +59,7 @@ The data contains:
 
  * ```r nsamples(atlas)``` samples
  * ```r length(unique(sample_data(atlas)$subject))``` unique subjects
- * ```r round(100 * prop.table(table(subset(sample_data(atlas), gender %in% c("male", "female"))$gender))[["female"]], 1)```% female ratio. Altogether, gender information is available for ```round(100 * sum(table(subset(sample_data(atlas))$gender)[c("male", "female")])/nsamples(atlas), 1)```% of the samples.
+ * ```r round(100 * prop.table(table(subset(sample_data(atlas), sex %in% c("male", "female"))$sex))[["female"]], 1)```% female ratio. Altogether, sex information is available for ```round(100 * sum(table(subset(sample_data(atlas))$sex)[c("male", "female")])/nsamples(atlas), 1)```% of the samples.
  * ```r nsamples(subset_samples(atlas, health_status == "compromised"))``` samples (```r round(100 * nsamples(subset_samples(atlas, health_status == "compromised"))/nsamples(atlas), 1)```%) from ```r length(unique(sample_data(subset_samples(atlas,  health_status == "compromised"))$subject))``` unique subjects with reported health problems ('compromised')
  * ```r nsamples(subset_samples(atlas, antibio == 1))``` samples from ```r length(unique(sample_data(subset_samples(atlas, antibio == 1))$subject))``` unique subjects with reported antibiotics use.
  * ```r nsamples(subset_samples(atlas, probiotics == 1))``` samples from ```r length(unique(sample_data(subset_samples(atlas, probiotics == 1))$subject))``` subjects with reported probiotics use.

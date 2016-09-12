@@ -35,6 +35,11 @@ x <- taxa_abundances(pseqz)
 tmp <- plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
 ```
 
+```
+## Warning: The plot_matrix function development has been moved to microbiome
+## package.
+```
+
 ![plot of chunk heatmap-matvisu-example](figure/heatmap-matvisu-example-1.png)
 
 

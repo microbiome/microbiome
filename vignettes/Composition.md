@@ -63,6 +63,17 @@ print(p)
 ![plot of chunk composition-example4b](figure/composition-example4b-1.png)
 
 
+Averaged by group:
+
+
+```r
+p <- plot_composition(pseq3, average_by = "nationality", transformation = "relative.abundance")
+print(p)
+```
+
+![plot of chunk composition-example4c](figure/composition-example4c-1.png)
+
+
 
 ### Heatmaps for composition
 
@@ -97,7 +108,9 @@ p <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
 			       mar = c(6, 13, 1, 1))
 ```
 
-![plot of chunk composition-example7](figure/composition-example7-1.png)
+```
+## Error in ordinate(x, method, distance, ...): Expected a phyloseq object or otu_table object.
+```
 
 
 Same, but samples and OTUs sorted manually
