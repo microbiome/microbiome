@@ -55,6 +55,14 @@ print(p)
 ```
 
 
+Averaged by group:
+
+```{r composition-example4c, fig.width=12, fig.height=5}
+p <- plot_composition(pseq3, average_by = "nationality", transformation = "relative.abundance")
+print(p)
+```
+
+
 
 ### Heatmaps for composition
 

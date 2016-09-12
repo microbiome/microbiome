@@ -19,6 +19,7 @@ Imports:
     ggplot2,
     MASS,
     moments,
+    plyr,
     reshape2,
     tgp,
     tidyr,

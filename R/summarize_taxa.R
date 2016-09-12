@@ -19,7 +19,9 @@ summarize_taxa <- function (pseq, level) {
   } else {
 
     # Split the OTUs in tax_table by the given taxonomic level	       
-    otus <- split(rownames(tax_table(pseq)), tax_table(pseq)[, level])
+    #otus <- split(rownames(tax_table(pseq)), tax_table(pseq)[, level])
+    current.level <- names(which(apply(tax_table(pseq), 2, function (x) {length(unique(x))}) == ntaxa(pseq)))
+    otus <- map_levels(data = pseq, to = current.level, from = level)
     
     ab <- matrix(NA, nrow = length(otus), ncol = nsamples(pseq))
     rownames(ab) <- names(otus)
@@ -28,7 +30,7 @@ summarize_taxa <- function (pseq, level) {
     d <- taxa_abundances(pseq)
     for (nam in names(otus)) {
       taxa <- otus[[nam]]
-      ab[nam,] <- colSums(as.matrix(d[taxa,], nrow = length(taxa)))
+      ab[nam,] <- colSums(matrix(d[taxa,], ncol = nsamples(pseq)))
     }
 
     # Create phyloseq object
