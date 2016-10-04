@@ -15,7 +15,7 @@
 #' @param verbose verbose
 #' @param transformation Data transformation to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform_phyloseq}} function.
 #' @param mar Figure margins
-#' @param average_by Average the sample by the average_by variable 
+#' @param average_by Average the samples by the average_by variable 
 #' @param ... Arguments to be passed (for \code{\link{order_neatmap}} function)
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
@@ -94,12 +94,12 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
   if (is.null(otu.sort) || otu.sort == "none") {
     # No sorting
     otu.sort <- taxa_names(x)
-  } else if (otu.sort == "abundance") {
+  } else if (length(otu.sort) ==1 && otu.sort == "abundance") {
     otu.sort <- rev(names(sort(rowSums(abu))))
   } else if (length(otu.sort) == 1 && otu.sort %in% names(tax_table(x))) {
     # Sort by phylogenetic group
     otu.sort <- rownames(sample_data(x))[order(tax_table(x)[[otu.sort]])]
-  } else if (all(otu.sort %in% sample_names(x))) {
+  } else if (all(otu.sort %in% taxa_names(x))) {
     # Use predefined order
     otu.sort <- otu.sort
   } else if (length(otu.sort) == 1 && otu.sort == "neatmap") {

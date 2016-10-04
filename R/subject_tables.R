@@ -1,5 +1,7 @@
 subject_tables <- function (x, meta) {
 
+  stop("TODO: replaced now with timesort_subjects.R")
+
   # Focus on the signal from specific taxon
   meta$signal <- x
 
@@ -9,6 +11,8 @@ subject_tables <- function (x, meta) {
   tabs <- list()
   cnt <- 0 
   for (subj in names(spl)) {
+
+    print(subj)
 
     times <- as.numeric(spl[[subj]]$time)
     signal <- as.numeric(spl[[subj]]$signal)
