@@ -44,16 +44,20 @@ plot_matrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL,
     mat <- mat - midpoint
     
     if (length(col.breaks) == 0) {
-        m <- max(round(max(abs(mat)), limit.trunc) - interval, 0)
-        
-        mm <- m + interval/2
-        
-        vals <- seq(interval/2, mm, interval)
-        
+
+        mmm <- round(max(abs(mat)))
+	if (mmm > limit.trunc) {mmm <- limit.trunc}
+
         # Set col.breaks evenly around zero
-        col.breaks <- c(-(m + 1e+06), c(-rev(vals), vals), m + 1e+06)
+	vals <- seq(-mmm, mmm, interval)
+        col.breaks <- c(-mmm - 1e6, vals, mmm + 1e6)
+
+        #m <- max(mmm - interval, 0)        
+        #vals <- seq(interval/2, m + interval/2, interval)
+        ## Set col.breaks evenly around zero
+        #col.breaks <- c(-(m + 1e+06), c(-rev(vals), vals), m + 1e+06)
     }
-    
+
     my.palette <- palette
     if (is.null(palette)) {
         my.palette <- colorRampPalette(c("blue", "white", "red"), 
