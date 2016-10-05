@@ -94,7 +94,7 @@ plot_crosshyb <- function(tax.level = "L1",
     p <- p + theme(legend.position = "none")
     
     if (show.plot) {
-        print(p)
+      print(p)
     }
     
     list(data = df[, 1:3], plot = p)

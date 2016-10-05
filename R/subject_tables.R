@@ -12,8 +12,6 @@ subject_tables <- function (x, meta) {
   cnt <- 0 
   for (subj in names(spl)) {
 
-    print(subj)
-
     times <- as.numeric(spl[[subj]]$time)
     signal <- as.numeric(spl[[subj]]$signal)
     mintime <- which.min(times)
