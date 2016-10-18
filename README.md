@@ -9,15 +9,15 @@ For installation and usage instructions, see the
 The package is currently under development and unstable.
 
 * [Issue Tracker](https://github.com/microbiome/microbiome/issues)
-* Email list (discussion): microbiome-devel@googlegroups.com (join by sending a request to microbiome-admin@googlegroups.com)
-* Email (admin): microbiome-admin@googlegroups.com 
+* Email list: join by sending a request to microbiome-devel@googlegroups.com
 
 
 ### Acknowledgements
 
+* [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics
 * [Molecular Ecology group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology, Wageningen University, Netherlands
 * [Department of Veterinary Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm), University of Helsinki, Finland.
-* Academy of Finland (grant 256950)
+* Academy of Finland (grants 256950 and 295741)
 
 
 
