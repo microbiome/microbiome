@@ -3,13 +3,12 @@ microbiome R package (beta)
 
 [![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)
 
- * Author: [Leo Lahti](https://github.com/antagomir/)
- * Contributors: Jarkko Salojarvi
+ * Main developer: [Leo Lahti](https://github.com/antagomir/); Contributors: Jarkko Salojarvi
  * License: BSD-2-clause
  * [Issue Tracker](https://github.com/microbiome/microbiome/issues) 
  * Subscribe to the [mailing list](https://groups.google.com/forum/#!forum/microbiome-devel) (microbiome-devel@googlegroups.com)
 
-The ´´´microbiome´´´ R package provides tools for the exploration and
+The '''microbiome''' R package provides tools for the exploration and
 analysis of microbiome profiling data. The package is currently
 unstable and under development; feedback, suggestions and bug reports
 are welcome.
@@ -17,7 +16,7 @@ are welcome.
 
 ### Installation and use
 
-See the [vignette](vignettes/vignette.md)
+See the package [vignette](vignettes/vignette.md).
 
 
 ### Acknowledgements
