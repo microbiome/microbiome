@@ -23,6 +23,8 @@ See the package [vignette](vignettes/vignette.md).
 
 ### Publications using the microbiome package
 
+The list is not exhaustive. 
+
 [Tipping elements in the human intestinal ecosystem](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) Leo Lahti, Jarkko Salojärvi, Anne Salonen, Marten Scheffer, Willem M. de Vos. _Nature Communications_ 5:4344, 2014. 
 
 [Fat, Fiber and Cancer Risk in African, Americans and Rural Africans](http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html)  Stephen O’Keefe, Jia V. Li, Leo Lahti, Junhai Ou, Franck
