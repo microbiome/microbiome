@@ -8,7 +8,7 @@ microbiome R package (beta)
  * [Issue Tracker](https://github.com/microbiome/microbiome/issues) 
  * Subscribe to the [mailing list](https://groups.google.com/forum/#!forum/microbiome-devel) (microbiome-devel@googlegroups.com)
 
-The '''microbiome''' R package provides tools for the exploration and
+The microbiome R package provides tools for the exploration and
 analysis of microbiome profiling data. The package is currently
 unstable and under development; feedback, suggestions and bug reports
 are welcome.
