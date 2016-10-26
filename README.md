@@ -3,15 +3,17 @@ microbiome R package (beta)
 
 [![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)
 
- * Main developer: [Leo Lahti](https://github.com/antagomir/); Contributors: Jarkko Salojarvi
+ * Main developer: [Leo Lahti](https://github.com/antagomir/); Contributors: Jarkko Salojärvi
  * License: BSD-2-clause
  * [Issue Tracker](https://github.com/microbiome/microbiome/issues) 
  * Subscribe to the [mailing list](https://groups.google.com/forum/#!forum/microbiome-devel) (microbiome-devel@googlegroups.com)
 
 The microbiome R package provides tools for the exploration and
-analysis of microbiome profiling data. The package is currently
-unstable and under development; feedback, suggestions and bug reports
-are welcome.
+analysis of microbiome profiling data. It is an independent package
+that extends the capabilities of the
+[phyloseq](https://github.com/joey711/phyloseq) framework in R. The
+microbiome package is currently unstable and under development;
+feedback, suggestions and bug reports are welcome.
 
 
 ### Installation and use
