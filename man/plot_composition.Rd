@@ -34,7 +34,7 @@ plot_composition(x, taxonomic.level = "OTU", sample.sort = NULL,
 
 \item{mar}{Figure margins}
 
-\item{average_by}{Average the sample by the average_by variable}
+\item{average_by}{Average the samples by the average_by variable}
 
 \item{...}{Arguments to be passed (for \code{\link{order_neatmap}} function)}
 }

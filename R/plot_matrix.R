@@ -1,4 +1,4 @@
-#' @title Matrix Heatmap Visualization
+#' @title Matrix Heatmap
 #' @description Fast investigation of matrix objects; standard visualization choices made automatically.
 #' @param mat matrix
 #' @param type String. Specifies visualization type. Options: 'oneway' 
@@ -59,7 +59,7 @@ plot_matrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL,
 
         # Set col.breaks evenly around zero
         col.breaks <- c(-(m + 1e+06), c(-rev(vals), vals), m + 1e+06)
-	
+
     }
 
     my.palette <- palette
