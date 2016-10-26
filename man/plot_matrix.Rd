@@ -2,12 +2,13 @@
 % Please edit documentation in R/plot_matrix.R
 \name{plot_matrix}
 \alias{plot_matrix}
-\title{Visualize a matrix with one or two-way color scale.}
+\title{Matrix Heatmap}
 \usage{
 plot_matrix(mat, type = "twoway", midpoint = 0, palette = NULL,
   colors = NULL, col.breaks = NULL, interval = 0.1, plot_axes = "both",
   row.tick = 1, col.tick = 1, cex.xlab = 0.9, cex.ylab = 0.9,
-  xlab = NULL, ylab = NULL, limit.trunc = 0, mar = c(5, 4, 4, 2), ...)
+  xlab = NULL, ylab = NULL, limit.trunc = 0, cap = NULL, mar = c(5, 4,
+  4, 2), ...)
 }
 \arguments{
 \item{mat}{matrix}
@@ -46,7 +47,9 @@ x-axis ('x'), y-axis ('y'), or both ('both').}
 
 \item{ylab}{optional y axis labels}
 
-\item{limit.trunc}{color scale limit breakpoint}
+\item{limit.trunc}{color scale rounding}
+
+\item{cap}{Color scale end point}
 
 \item{mar}{image margins}
 
@@ -57,7 +60,7 @@ A list with the color palette (colors),
        color breakpoints (breaks), and palette function (palette.function)
 }
 \description{
-Fast investigation of matrix objects; standard visualization choices are made automatically; fast and easy-to-use but does not necessarily provide optimal visualization.
+Fast investigation of matrix objects; standard visualization choices made automatically.
 }
 \examples{
   mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2))

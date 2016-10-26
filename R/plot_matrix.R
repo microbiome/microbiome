@@ -39,7 +39,7 @@ plot_matrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL,
                        colors = NULL, 
     col.breaks = NULL, interval = 0.1, plot_axes = "both", row.tick = 1, 
     col.tick = 1, cex.xlab = 0.9, cex.ylab = 0.9, xlab = NULL, ylab = NULL, 
-    limit.trunc = 0, cap = NULL, rounding = 1, mar = c(5, 4, 4, 2), ...) {
+    limit.trunc = 0, cap = NULL, mar = c(5, 4, 4, 2), ...) {
     
     # Center the data and color breakpoints around the specified midpoint
     mat <- mat - midpoint
