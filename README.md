@@ -5,6 +5,7 @@ microbiome R package (beta)
 
  * Author: Leo Lahti
  * Contributors: Jarkko Salojarvi
+ * License: BSD-2-clause
  * [Issue Tracker](https://github.com/microbiome/microbiome/issues) 
  * Email list: join by sending a request to microbiome-devel@googlegroups.com
 
