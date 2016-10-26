@@ -7,7 +7,7 @@ microbiome R package (beta)
  * Contributors: Jarkko Salojarvi
  * License: BSD-2-clause
  * [Issue Tracker](https://github.com/microbiome/microbiome/issues) 
- * Email list: join by sending a request to microbiome-devel@googlegroups.com
+ * Subscribe to the [mailing list](https://groups.google.com/forum/#!forum/microbiome-devel) (microbiome-devel@googlegroups.com)
 
 The ´´´microbiome´´´ R package provides tools for the exploration and
 analysis of microbiome profiling data. The package is currently
