@@ -9,6 +9,9 @@ before_install:
   
 r_packages:
   - Cairo
+
+bioc_packages:
+  - BiocInstaller
       
 after_success:
   - bash <(curl -s https://codecov.io/bash)
