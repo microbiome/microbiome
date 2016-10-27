@@ -2,10 +2,9 @@ Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
 Version: 0.99.87
-Date: 2016-08-26
 Authors@R: c(
-    person("Lahti", "Leo", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
-    person("Salojarvi", "Jarkko" , role = "aut"))
+    person("Leo", "Lahti", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
+    person("Jarkko", "Salojarvi", role = "aut"))
 biocViews: Microarray, Preprocessing, SystemsBiology, Visualization,
     Microbiome, Clustering
 Description: Various utilities for microbiome analysis.
