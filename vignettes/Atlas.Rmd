@@ -6,8 +6,6 @@ bibliography:
 - bibliography.bib
 - references.bib
 output: 
-  md_document:
-    variant: markdown_github
   rmarkdown::html_vignette
 ---
 <!--
