@@ -1,3 +1,22 @@
+---
+title: "HITChip Atlas"
+author: "Leo Lahti, Willem M de Vos et al."
+date: "`r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  md_document:
+    variant: markdown_github
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - atlas}
+  %\usepackage[utf8]{inputenc}
+-->    
+
+
 ## Intestinal microbiota diversity in 1006 western adults
 
 The data set from [Lahti et al. Nat. Comm. 5:4344,
