@@ -7,7 +7,7 @@ Authors@R: c(
     person("Jarkko", "Salojarvi", role = "aut"))
 biocViews: Microarray, Preprocessing, SystemsBiology, Visualization,
     Microbiome, Clustering
-Description: Various utilities for microbiome analysis.
+Description: Utilities for microbiome analysis.
 License: BSD_2_clause + file LICENSE
 Depends:
     R (>= 3.0.1),
@@ -27,7 +27,8 @@ Imports:
 Suggests:
     BiocGenerics,
     BiocStyle,
-    knitr
+    knitr,
+    rmarkdown
 URL: http://microbiome.github.com
 MailingList: microbiome <microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues
