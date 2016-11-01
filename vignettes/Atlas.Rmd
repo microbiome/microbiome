@@ -12,7 +12,7 @@ output:
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{microbiome tutorial - atlas}
   %\usepackage[utf8]{inputenc}
--->    
+-->
 
 
 ## Intestinal microbiota diversity in 1006 western adults

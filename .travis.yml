@@ -13,6 +13,7 @@ r_packages:
   - Cairo
   - rmarkdown
   - knitcitations
+  - dplyr
 
 bioc_packages:
   - BiocInstaller
