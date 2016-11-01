@@ -17,7 +17,10 @@ r_packages:
 
 bioc_packages:
   - BiocInstaller
-      
+
+gh_packages:
+  - ropengov/sorvi
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - ./.push_gh_pages.sh
