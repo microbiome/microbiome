@@ -18,7 +18,7 @@ r_packages:
 bioc_packages:
   - BiocInstaller
 
-gh_packages:
+github_packages:
   - ropengov/sorvi
 
 after_success:
