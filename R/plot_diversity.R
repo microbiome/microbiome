@@ -66,7 +66,7 @@ plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1
    names(DF) <- gsub(nam, paste(nam, ".diversity", sep = ""), names(DF))
   }
 
-  mdf <- gather(DF, "key", "value", ends_with(".diversity"))
+  mdf <- gather(DF, "key", "value", dplyr::ends_with(".diversity"))
   mdf$key <- gsub("\\.diversity$", "", mdf$key)
   mdf$horiz <- mdf[[variable]]
 
