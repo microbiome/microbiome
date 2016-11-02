@@ -16,7 +16,7 @@ Depends:
 Imports:
     dplyr,
     ggplot2,
-    magrittr,    
+    magrittr,
     MASS,
     moments,
     plyr,

@@ -24,6 +24,7 @@ output:
 # Load libraries
 library(microbiome)
 library(ggplot2)
+library(dplyr)
 
 # Probiotics intervention example data from
 # https://peerj.com/articles/32/
