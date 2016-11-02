@@ -30,6 +30,7 @@ Suggests:
     BiocStyle,
     FD,
     Hmisc,
+    magrittr,
     knitcitations,
     knitr,
     netresponse,
