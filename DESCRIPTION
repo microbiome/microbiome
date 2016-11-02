@@ -16,6 +16,7 @@ Depends:
 Imports:
     dplyr,
     ggplot2,
+    magrittr,    
     MASS,
     moments,
     plyr,
@@ -30,7 +31,6 @@ Suggests:
     BiocStyle,
     FD,
     Hmisc,
-    magrittr,
     knitcitations,
     knitr,
     netresponse,

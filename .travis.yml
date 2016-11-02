@@ -11,6 +11,7 @@ before_install:
   
 r_packages:
   - Cairo
+  - magrittr
   - rmarkdown
   - survival
 
