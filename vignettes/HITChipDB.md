@@ -1,3 +1,21 @@
+---
+title: "HITChipDB"
+author: "Leo Lahti"
+date: "2016-11-02"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - HITChipDB}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 ## Install HITChipDB package 
 
 The HITChipDB package contains additional routines to fetch and

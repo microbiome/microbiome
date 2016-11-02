@@ -14,6 +14,7 @@ Depends:
     R (>= 3.0.1),
     phyloseq
 Imports:
+    ade4,
     dplyr,
     ggplot2,
     magrittr,
@@ -26,7 +27,6 @@ Imports:
     vegan,
     WGCNA
 Suggests:
-    ade4,
     BiocGenerics,
     BiocStyle,
     FD,

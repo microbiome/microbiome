@@ -1,3 +1,20 @@
+---
+title: "Core"
+author: "Leo Lahti"
+date: "2016-11-02"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - core}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
 ### Prevalence of taxonomic groups
 
 Load example data:

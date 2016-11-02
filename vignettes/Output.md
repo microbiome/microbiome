@@ -1,3 +1,21 @@
+---
+title: "Output"
+author: "Leo Lahti"
+date: "2016-11-02"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - output}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 ### Writing diversity table into file
 
 

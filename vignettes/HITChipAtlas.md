@@ -1,19 +1,22 @@
 ---
 title: "HITChip Atlas Overview"
 author: "Leo Lahti, Jarkko Salojarvi, Anne Salonen, Willem M de Vos"
-date: "2016-09-13"
+date: "2016-11-02"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
   md_document:
     variant: markdown_github
+  rmarkdown::html_vignette
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{microbiome tutorial}
   %\usepackage[utf8]{inputenc}
--->
+-->    
+
+
 
 
 

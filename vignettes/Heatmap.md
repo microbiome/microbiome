@@ -1,3 +1,20 @@
+---
+title: "Heatmaps"
+author: "Leo Lahti"
+date: "2016-11-02"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - heatmap}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
 ## Heatmaps
 
 See [Composition](Composition.md) page for phyloseq microbiota composition heatmaps. Load some example data:
@@ -33,11 +50,6 @@ x <- taxa_abundances(pseqz)
 
 # Plot heatmap
 tmp <- plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
-```
-
-```
-## Warning: The plot_matrix function development has been moved to microbiome
-## package.
 ```
 
 ![plot of chunk heatmap-matvisu-example](figure/heatmap-matvisu-example-1.png)

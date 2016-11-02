@@ -1,3 +1,20 @@
+---
+title: "Comparisons"
+author: "Leo Lahti"
+date: "2016-11-02"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - comparisons}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
 ## Group-wise comparisons
 
 
@@ -8,6 +25,7 @@
 # Load libraries
 library(microbiome)
 library(ggplot2)
+library(dplyr)
 
 # Probiotics intervention example data from
 # https://peerj.com/articles/32/

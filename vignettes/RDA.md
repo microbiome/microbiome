@@ -1,3 +1,21 @@
+---
+title: "RDA"
+author: "Leo Lahti"
+date: "2016-11-02"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - rda}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 ## RDA analysis and visualization. 
 
 Load the package and example data:
@@ -67,7 +85,7 @@ permutest(rda.result)
 ## na.action)
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.6572996 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.93
+## Significance:	 0.88
 ```
 
 ### Bagged RDA

@@ -1,3 +1,21 @@
+---
+title: "Composition"
+author: "Leo Lahti"
+date: "2016-11-02"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - composition}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 ## Microbiota composition
 
 
@@ -99,7 +117,7 @@ p <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU", ma
 ![plot of chunk composition-example6](figure/composition-example6-1.png)
 
 
-Same, but samples and OTUs sorted with the neatmap method
+Same, but samples and OTUs sorted with the neatmap method:
 
 
 ```r

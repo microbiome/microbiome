@@ -1,3 +1,21 @@
+---
+title: "HITChip"
+author: "Leo Lahti"
+date: "2016-11-02"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - hitchip}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 ## HITChip and other phylogenetic microarrays
 
   * [Extracting data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
@@ -35,6 +53,80 @@ precalculated matrices are calculated with detection.threshold = 0):
 
 ```r
 library(HITChipDB)
+```
+
+```
+## Loading required package: DBI
+```
+
+```
+## Loading required package: preprocessCore
+```
+
+```
+## Loading required package: RMySQL
+```
+
+```
+## Loading required package: RPA
+```
+
+```
+## Loading required package: affy
+```
+
+```
+## Loading required package: Biobase
+```
+
+```
+## Welcome to Bioconductor
+## 
+##     Vignettes contain introductory material; view with
+##     'browseVignettes()'. To cite Bioconductor, see
+##     'citation("Biobase")', and for packages 'citation("pkgname")'.
+```
+
+```
+## 
+## Attaching package: 'Biobase'
+```
+
+```
+## The following object is masked from 'package:phyloseq':
+## 
+##     sampleNames
+```
+
+```
+## 
+## RPA Copyright (C) 2008-2016 Leo Lahti.
+## This program comes with ABSOLUTELY NO WARRANTY.
+## This is free software, and you are welcome to redistribute it under the FreeBSD open source license.
+```
+
+```
+## Loading required package: tcltk
+```
+
+```
+## 
+## HITChipDB R package (microbiome.github.com)
+## (C) 2011-2016 Leo Lahti and Jarkko Salojarvi <microbiome-admin@googlegroups.com>
+```
+
+```
+## 
+## Attaching package: 'HITChipDB'
+```
+
+```
+## The following objects are masked from 'package:RPA':
+## 
+##     n.phylotypes.per.oligo, summarize.rpa, summarize.sum
+```
+
+```r
 pseq <- HITChipDB::read_hitchip(data.directory, method = "frpa")$pseq
 ```
 
