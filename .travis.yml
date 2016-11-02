@@ -12,9 +12,6 @@ before_install:
 r_packages:
   - Cairo
   - rmarkdown
-  - knitcitations
-  - dplyr
-  - Hmisc
 
 bioc_packages:
   - BiocInstaller
