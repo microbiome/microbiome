@@ -2,7 +2,7 @@
 % Please edit documentation in R/neatmap.R
 \name{order_neatmap}
 \alias{order_neatmap}
-\title{Neatmap ordering}
+\title{Neatmap Ordering}
 \usage{
 order_neatmap(x, target, method = "NMDS", distance = "bray", first = NULL,
   ...)
@@ -12,11 +12,16 @@ order_neatmap(x, target, method = "NMDS", distance = "bray", first = NULL,
 
 \item{target}{Order "sites" (samples) or "species" (taxa/OTUs)}
 
-\item{method}{Ordination method. See \code{\link{ordinate}} from \pkg{phyloseq} package.}
+\item{method}{Ordination method. See \code{\link{ordinate}}
+from \pkg{phyloseq} package.}
 
-\item{distance}{Distance method. See \code{\link{ordinate}} from \pkg{phyloseq} package.}
+\item{distance}{Distance method. See \code{\link{ordinate}}
+from \pkg{phyloseq} package.}
 
-\item{first}{Optionally provide the name of the first sample/taxon to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.}
+\item{first}{Optionally provide the name of the first sample/taxon to
+start the ordering (the ordering is cyclic so we can start at any
+point). The choice of the first sample may somewhat affect the
+overall ordering.}
 
 \item{...}{Arguments to be passed.}
 }

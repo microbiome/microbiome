@@ -84,7 +84,8 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
     # Use predefined order
     sample.sort <- sample.sort
   } else if (length(sample.sort) == 1 && sample.sort == "neatmap") {
-    sample.sort <- order_neatmap(abu, method = "NMDS", distance = "bray", target = "sites", first = NULL) 
+    sample.sort <- order_neatmap(x, method = "NMDS", distance = "bray", target = "sites", first = NULL)
+
   } else if (!sample.sort %in% names(sample_data(x))) {
     warning(paste("The sample.sort argument", sample.sort, "is not included in sample_data(x). Using original sample ordering."))
     sample.sort <- sample_names(x)
@@ -103,7 +104,7 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
     # Use predefined order
     otu.sort <- otu.sort
   } else if (length(otu.sort) == 1 && otu.sort == "neatmap") {
-    otu.sort <- order_neatmap(x, method = "NMDS", distance = "bray", target = "species", first = NULL) 
+    otu.sort <- order_neatmap(x, method = "NMDS", distance = "bray", target = "species", first = NULL)
   }
 
   if (verbose) {message("Prepare data.frame.")}
@@ -139,7 +140,9 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
     
   }
 
-  if (verbose) {message("Construct the plots")}
+  if (verbose) {
+    message("Construct the plots")
+  }
   
   if (plot.type == "barplot") {
 
@@ -166,6 +169,7 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
 
     # Taxa x samples otu matrix
     otu <- taxa_abundances(x)
+    
     # Remove NAs after the transformation
     otu <- otu[rowMeans(is.na(otu)) < 1, colMeans(is.na(otu)) < 1]
 

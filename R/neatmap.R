@@ -1,10 +1,15 @@
-#' @title Neatmap ordering
+#' @title Neatmap Ordering
 #' @description Order samples or taxa based on the neatmap approach.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param target Order "sites" (samples) or "species" (taxa/OTUs)
-#' @param method Ordination method. See \code{\link{ordinate}} from \pkg{phyloseq} package.
-#' @param distance Distance method. See \code{\link{ordinate}} from \pkg{phyloseq} package.
-#' @param first Optionally provide the name of the first sample/taxon to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.
+#' @param method Ordination method. See \code{\link{ordinate}}
+#'                 from \pkg{phyloseq} package.
+#' @param distance Distance method. See \code{\link{ordinate}}
+#'                 from \pkg{phyloseq} package.
+#' @param first Optionally provide the name of the first sample/taxon to
+#'        start the ordering (the ordering is cyclic so we can start at any
+#'        point). The choice of the first sample may somewhat affect the
+#'        overall ordering.
 #' @param ... Arguments to be passed.
 #' @return Vector of ordered elements
 #' @export
@@ -39,14 +44,36 @@ order_neatmap <- function (x, target, method = "NMDS", distance = "bray", first 
   if(inherits(tmp, "try-error")){
     warning(paste("Order failed with ", target, ". Using default ordering.", sep = ""))
   }
+
+
   if(!is.null(DF)){
     # If the score accession worked, replace order
     if (target == "sites") {
       ordering <- sample_names(x)[order(radial_theta(DF))] 
     } else if (target == "species") {
       ordering <- taxa_names(x)[order(radial_theta(DF))] 
+    } else {
+      stop("Target should be either sites or species")
+    }
+  } else if (length(DF) > 1) {
+
+    if (target == "sites") {
+      ordering <- sample_names(x)[order(DF)] # 1:nsamples(x)
+    } else if (target == "species") {
+      ordering <- taxa_names(x)[order(DF)] # 1:ntaxa(x)
+    } else {
+      stop("Target should be either sites or species")
+    }
+  } else {
+    if (target == "sites") {
+      ordering <- sample_names(x)
+    } else if (target == "species") {
+      ordering <- taxa_names(x)
+    } else {
+      stop("Target should be either sites or species")
     }
   }
+
   # Determine the starting item (OTU or sample)
   if( !is.null(first) ){
     ordering <- chunk_reorder(ordering, first)
