@@ -1,3 +1,5 @@
+../OAtoken
+*.html
 Atlas.RData
 Example.html
 *cache*
