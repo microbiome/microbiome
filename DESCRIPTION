@@ -29,6 +29,7 @@ Suggests:
     BiocGenerics,
     BiocStyle,
     knitr,
+    netresponse,
     rmarkdown
 URL: http://microbiome.github.com
 MailingList: microbiome <microbiome-devel@googlegroups.com>
