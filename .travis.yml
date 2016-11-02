@@ -12,6 +12,7 @@ before_install:
 r_packages:
   - Cairo
   - rmarkdown
+  - survival
 
 bioc_packages:
   - BiocInstaller
