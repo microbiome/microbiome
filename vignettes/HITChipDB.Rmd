@@ -26,7 +26,6 @@ admins. Install the package in R with:
 
 
 ```{r HITChipDBinstall, message=FALSE, warning=FALSE, eval=FALSE}
-
 # Install additional dependencies
 source("http://www.bioconductor.org/biocLite.R")
 biocLite("DBI")
