@@ -1,7 +1,6 @@
 #' @importFrom ade4 s.class
 #' @importFrom dplyr arrange
 #' @importFrom dplyr do
-#' @importFrom dplyr ends_with
 #' @importFrom dplyr filter
 #' @importFrom dplyr funs
 #' @importFrom dplyr group_by

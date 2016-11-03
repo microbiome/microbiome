@@ -1,7 +1,7 @@
 ---
 title: "Composition"
 author: "Leo Lahti"
-date: "2016-11-02"
+date: "2016-11-03"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -30,6 +30,7 @@ Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342)
 ```r
 # Example data
 library(microbiome)
+library(ggplot2)
 data(dietswap)
 theme_set(theme_bw(22))
 pseq <- dietswap

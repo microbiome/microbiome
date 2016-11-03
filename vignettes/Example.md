@@ -1,7 +1,7 @@
 ---
 title: "Example"
 author: "Leo Lahti"
-date: "2016-11-02"
+date: "2016-11-03"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -30,6 +30,12 @@ Run this to make sure you have the latest version of the microbiome package:
 # Updating microbiome package
 library(devtools)
 install_github("microbiome/microbiome")
+```
+
+```
+## 
+## The downloaded source packages are in
+## 	'/tmp/RtmpigvPTF/downloaded_packages'
 ```
 
 Load the tools and example data

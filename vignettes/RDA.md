@@ -1,7 +1,7 @@
 ---
 title: "RDA"
 author: "Leo Lahti"
-date: "2016-11-02"
+date: "2016-11-03"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -85,7 +85,7 @@ permutest(rda.result)
 ## na.action)
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.6572996 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.88
+## Significance:	 0.85
 ```
 
 ### Bagged RDA

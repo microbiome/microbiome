@@ -1,7 +1,7 @@
 ---
 title: "HITChip Atlas Overview"
 author: "Leo Lahti, Jarkko Salojarvi, Anne Salonen, Willem M de Vos"
-date: "2016-11-02"
+date: "2016-11-03"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -99,4 +99,7 @@ Vos. HITChip Atlas. URL: http://microbiome.github.com'.
 
 
 
+```
+## Warning in is.na(x): is.na() applied to non-(list or vector) of type 'NULL'
+```
 

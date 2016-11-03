@@ -1,7 +1,7 @@
 ---
 title: "HITChip Atlas"
 author: "Leo Lahti, Willem M de Vos et al."
-date: "2016-11-02"
+date: "2016-11-03"
 bibliography: 
 - bibliography.bib
 - references.bib

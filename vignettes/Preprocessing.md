@@ -1,7 +1,7 @@
 ---
 title: "Preprocessing"
 author: "Leo Lahti"
-date: "2016-11-02"
+date: "2016-11-03"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -67,7 +67,7 @@ kable(head(df))
 |      |OTU                               |Sample     | Abundance| age|gender |nationality   |DNA_extraction_method |project | diversity|bmi_group   |subject | time|sample     |Phylum                 |Genus                             |
 |:-----|:---------------------------------|:----------|---------:|---:|:------|:-------------|:---------------------|:-------|---------:|:-----------|:-------|----:|:----------|:----------------------|:---------------------------------|
 |50954 |Prevotella melaninogenica et rel. |Sample-149 |  68.01487|  30|female |CentralEurope |r                     |7       |      5.81|underweight |149     |    0|Sample-149 |Bacteroidetes          |Prevotella melaninogenica et rel. |
-|19302 |Clostridium difficile et rel.     |Sample-293 |  67.48385|  26|male   |CentralEurope |r                     |9       |      4.87|lean        |293     |    0|Sample-293 |Clostridium cluster XI |Clostridium difficile et rel.     |
+|18772 |Clostridium difficile et rel.     |Sample-293 |  67.48385|  26|male   |CentralEurope |r                     |9       |      4.87|lean        |293     |    0|Sample-293 |Clostridium cluster XI |Clostridium difficile et rel.     |
 |51129 |Prevotella melaninogenica et rel. |Sample-193 |  62.30726|  22|male   |CentralEurope |r                     |7       |      5.93|lean        |193     |    0|Sample-193 |Bacteroidetes          |Prevotella melaninogenica et rel. |
 |51095 |Prevotella melaninogenica et rel. |Sample-852 |  60.28698|  26|male   |UKIE          |r                     |24      |      5.77|overweight  |852     |    0|Sample-852 |Bacteroidetes          |Prevotella melaninogenica et rel. |
 |51035 |Prevotella melaninogenica et rel. |Sample-89  |  57.65584|  25|male   |SouthEurope   |r                     |6       |      5.83|lean        |89      |    0|Sample-89  |Bacteroidetes          |Prevotella melaninogenica et rel. |
