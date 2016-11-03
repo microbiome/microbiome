@@ -19,6 +19,7 @@ r_packages:
 
 bioc_packages:
   - BiocInstaller
+  - limma
 
 r_github_packages:
   - ropengov/sorvi
