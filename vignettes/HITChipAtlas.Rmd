@@ -8,12 +8,6 @@ bibliography:
 output: 
   rmarkdown::html_vignette
 ---
-<!--
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{microbiome tutorial}
-  %\usepackage[utf8]{inputenc}
--->    
-
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -29,7 +23,6 @@ bib <- read.bibtex("bibliography.bib")
 
 HITChip Atlas Overview
 ===========
-
 
 The HITChip Atlas data collection covers microbial abundance profiles
 for 130 genus-like taxa across over 10,000 samples, measured with 16S
@@ -48,12 +41,12 @@ standard representation format in R for taxonomic profiling.
 
 Downloading the data in R:
 
-```{r hatlas-data2}
+```{r hatlas-data2, eval=TRUE}
 # Download the required R packages and then the HITChip Atlas data set
 library("microbiome")
 
 # Load the data (not yet public)
-atlas <- readRDS("/home/lei/proj/hitchip-atlas-annotation-scripts/Atlas.RData")
+atlas <- readRDS("Atlas.RData")
 ```
 
 The data contains:
