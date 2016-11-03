@@ -21,6 +21,7 @@ bioc_packages:
 
 r_github_packages:
   - ropengov/sorvi
+  - microbiome/microbiome  
   - microbiome/HITChipDB  
 
 after_success:
