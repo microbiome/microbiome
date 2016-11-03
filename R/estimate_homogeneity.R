@@ -126,7 +126,7 @@ estimate_homogeneity <- function(x, type = "interindividual", group_by = "group"
 
       # Between time point correlations within subjects
       # and the mean over those correlations
-      pval <- anova(lm(correlation ~ group, data = dfs))[["Pr(>F)"]][[1]]
+      pval <- anova(lm(correlation ~ group, data = dfs))[["Pr(>F)"]][[1]]      
       stats <- dfs %>%
                  group_by(group) %>%
                  summarize(mean = mean(correlation, na.rm = T),
