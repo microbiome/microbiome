@@ -21,6 +21,7 @@ bioc_packages:
 
 r_github_packages:
   - ropengov/sorvi
+  - microbiome/HITChipDB  
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

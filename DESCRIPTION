@@ -30,6 +30,7 @@ Suggests:
     BiocGenerics,
     BiocStyle,
     FD,
+    HITChipDB,
     Hmisc,
     knitcitations,
     knitr,
