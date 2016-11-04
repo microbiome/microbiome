@@ -65,10 +65,8 @@ n <- net$refit
 colnames(n) <- rownames(n) <- colnames(otu)
 
 # Network format
+library(network)
 netw <- network(as.matrix(n), directed = FALSE)
-
-
-
 
 # igraph format
 ig <- graph.adjacency(n, mode='undirected', add.rownames = TRUE)
