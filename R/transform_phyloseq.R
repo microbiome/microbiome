@@ -1,10 +1,15 @@
-#' @title Standard data transformations for phyloseq objects
-#' @description Provides phyloseq transformations with log10(x), log10(1+x), z transformation, and relative abundance.
+#' @title Data Transformations for phyloseq Objects
+#' @description Standard transformations for \code{\link{phyloseq-class}}.
 #' @param x \code{\link{phyloseq-class}} object
-#' @param transformation Transformation to apply: 'relative.abundance', 'Z', 'log10', 'hellinger', 'identity', or any method from the vegan::decostand function.
-#' @param target Apply the transformation for 'sample' or 'OTU'. Does not affect the log transformation.
+#' @param transformation Transformation to apply. The options include:
+#'   'relative.abundance', 'Z', 'log10', 'hellinger', 'identity',
+#'    or any method from the vegan::decostand function.
+#' @param target Apply the transformation for 'sample' or 'OTU'.
+#'               Does not affect the log transformation.
 #' @return Transformed \code{\link{phyloseq}} object
-#' @details The relative abunance are returned as percentages in [0, 100]. The Hellinger transformation is square root of the relative abundance but instead given at the scale [0,1].
+#' @details The relative abunance are returned as percentages in [0,
+#'   100]. The Hellinger transformation is square root of the relative
+#'   abundance but instead given at the scale [0,1].
 #' @export
 #' @examples
 #' \dontrun{
@@ -23,19 +28,23 @@
 #'
 #' }
 #' @keywords utilities
-transform_phyloseq <- function (x, transformation = "relative.abundance", target = "OTU") {
+transform_phyloseq <- function (x, transformation = "relative.abundance",
+                                   target = "OTU") {
 
   y <- NULL
 
   if (!all(sample(round(prod(dim(otu_table(x)))/10) ))%%1 == 0) {
-    warning("The OTU abundances are not integers. Check that the OTU input data is given as original counts to avoid transformation errors!")
+    warning("The OTU abundances are not integers. 
+             Check that the OTU input data is given as original counts 
+	     to avoid transformation errors!")
   }
 
   if (transformation == "relative.abundance") {
     if (target == "OTU") {
       xt <- transform_sample_counts(x, function (x) {100 * x/sum(x)})
     } else {
-      stop(paste("transform_phyloseq not implemented for transformation", transformation, "with target", target))
+      stop(paste("transform_phyloseq not implemented for transformation",
+      				     transformation, "with target", target))
     }
   } else if (transformation == "Z") {
 
@@ -63,7 +72,8 @@ transform_phyloseq <- function (x, transformation = "relative.abundance", target
     if (target == "OTU") {
     
       xt <- x
-      a <- try(xx <- decostand(taxa_abundances(xt), method = transformation, MARGIN = 2))
+      a <- try(xx <- decostand(taxa_abundances(xt),
+      	                       method = transformation, MARGIN = 2))
             
       if (class(a) == "try-error") {
         xt <- NULL
@@ -83,4 +93,5 @@ transform_phyloseq <- function (x, transformation = "relative.abundance", target
   }
 
   xt
+
 }
