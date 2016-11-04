@@ -18,6 +18,7 @@ r_packages:
   - magrittr
   - network
   - rmarkdown
+  - RUnit
   - survival
 
 bioc_packages:
