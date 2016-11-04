@@ -33,6 +33,9 @@ Sample metadata:
 
 ```{r data21}
 library(phyloseq)
+library(microbiome)
+data("atlas1006") 
+pseq <- atlas1006
 meta <- sample_data(pseq)
 ```
 
@@ -216,7 +219,7 @@ head(taxa_sums(pseq))
 Aggregate taxa to higher taxonomic levels. This is particularly useful if the phylogenetic tree is missing. When it is available, see [merge_samples, merge_taxa and tax_glom](http://joey711.github.io/phyloseq/merge.html))
 
 ```{r data24}
-pseq2 <- summarize_taxa(pseq, "Genus") 
+pseq2 <- summarize_taxa(pseq, "Phylum") 
 ```
 
 
@@ -241,7 +244,8 @@ Phylum (Verrucomicrobia)):
 
 ```{r phylogeny-example2, warning=FALSE, message=FALSE}
 data(atlas1006)
-m <- map_levels("Akkermansia", "Genus", "Phylum", tax_table(atlas1006))
+pseq <- atlas1006
+m <- map_levels("Akkermansia", "Genus", "Phylum", tax_table(pseq))
 print(m)
 ```
 
