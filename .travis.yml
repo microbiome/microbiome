@@ -16,6 +16,7 @@ r_packages:
   - magrittr
   - rmarkdown
   - survival
+  - SpiecEasi
 
 bioc_packages:
   - BiocInstaller
