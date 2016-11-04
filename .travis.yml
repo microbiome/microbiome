@@ -16,7 +16,6 @@ r_packages:
   - magrittr
   - rmarkdown
   - survival
-  - SpiecEasi
 
 bioc_packages:
   - BiocInstaller
@@ -25,8 +24,9 @@ bioc_packages:
 r_github_packages:
   - ropengov/sorvi
   - microbiome/microbiome  
-  - microbiome/HITChipDB  
-
+  - microbiome/HITChipDB
+  - zdk123/SpiecEasi
+  
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - ./.push_gh_pages.sh
