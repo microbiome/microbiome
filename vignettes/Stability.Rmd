@@ -46,6 +46,7 @@ with the observed shifts between consecutive time points. This can be
 calculated with:
 
 ```{r bistability2}
+pseq <- subset_taxa(pseq, Phylum == "Bacteroides")
 intermediate.stability <- intermediate_stability(pseq, output = "scores")
 ```
 
@@ -89,7 +90,7 @@ Visualize population densities
 
 ```{r stability2, message=FALSE, warning=FALSE, fig.width=12, fig.height=5}
 # Pick the most and least bimodal taxa as examples
-bimodality <- bimodality.pb
+bimodality <- bimodality.sarle
 unimodal <- names(which.min(bimodality))
 bimodal  <- names(which.max(bimodality))
 

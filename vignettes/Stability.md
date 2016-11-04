@@ -48,6 +48,14 @@ calculated with:
 
 
 ```r
+pseq <- subset_taxa(pseq, Phylum == "Bacteroides")
+```
+
+```
+## Error in `rownames<-`(`*tmp*`, value = c("sp1", "sp0")): length of 'dimnames' [1] not equal to array extent
+```
+
+```r
 intermediate.stability <- intermediate_stability(pseq, output = "scores")
 ```
 
@@ -95,7 +103,7 @@ Visualize population densities
 
 ```r
 # Pick the most and least bimodal taxa as examples
-bimodality <- bimodality.pb
+bimodality <- bimodality.sarle
 unimodal <- names(which.min(bimodality))
 bimodal  <- names(which.max(bimodality))
 
@@ -122,6 +130,13 @@ taxa <- taxa_names(pseq0)
 df <- data.frame(group = taxa,
                  intermediate.stability = intermediate.stability[taxa],
 		 bimodality = bimodality.pb[taxa])
+```
+
+```
+## Error in data.frame(group = taxa, intermediate.stability = intermediate.stability[taxa], : object 'bimodality.pb' not found
+```
+
+```r
 theme_set(theme_bw(20))
 p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
 
@@ -134,6 +149,10 @@ library(ggrepel)
 p <- p + geom_text_repel(size = 3)
 
 print(p)
+```
+
+```
+## Error in if (is.waive(data) || empty(data)) return(cbind(data, PANEL = integer(0))): missing value where TRUE/FALSE needed
 ```
 
 ![plot of chunk bimodalitybistability](figure/bimodalitybistability-1.png)
