@@ -27,6 +27,7 @@ r_github_packages:
   - microbiome/microbiome  
   - microbiome/HITChipDB
   - zdk123/SpiecEasi
+  - briatte/ggnet  
   
 after_success:
   - bash <(curl -s https://codecov.io/bash)
