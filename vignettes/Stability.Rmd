@@ -189,8 +189,6 @@ param <- seq(0,5,length=3000)
 res <- movpotential_ews(X, param)
 
 # Visualize
-p <- plot_potential(res$res, title = '', 
-	       	   xlab.text = '', ylab.text = '', 
-		   cutoff = 0.5, plot.contours = TRUE, binwidth = 0.2)
+p <- plot_potential(res$res)
 print(p)
 ```
