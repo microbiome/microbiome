@@ -1,3 +1,15 @@
+- Use variance stabilizing transformation instead of log (DEseq2); how
+  relates to Hellinger? Add to microbiome transformations
+  ps_dds <- phyloseq_to_deseq2(ps, ~ age_binned + family_relationship)
+  varianceStabilizingTransformation(ps_dds, blind = TRUE, fitType = "parametric")
+  ps_dds <- estimateSizeFactors(ps_dds)
+  ps_dds <- estimateDispersions(ps_dds)
+  abund <- getVarianceStabilizedData(ps_dds)
+
+- structSSI: Multiple Testing for Hypotheses with Hierarchical or Group Structure
+.
+
+
 Gini index and wealth coefficient from Sudarshan-2016 ?
 
 rdryad and phyloseq depend on RJSONIO:

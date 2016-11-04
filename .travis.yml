@@ -13,6 +13,7 @@ before_install:
 r_packages:
   - Cairo
   - GGally
+  - ggrepel
   - intergraph
   - magrittr
   - network
