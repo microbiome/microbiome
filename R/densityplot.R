@@ -1,4 +1,4 @@
-#' @title Density plot
+#' @title Density Plot
 #' @description Density visualization for data points overlaid on cross-plot.
 #' @param x Data matrix to plot. The first two columns will be visualized as a cross-plot.
 #' @param main title text
@@ -23,7 +23,7 @@ densityplot <- function(x, main = NULL, x.ticks = 10, rounding = 0,
     if (!is.data.frame(df)) {
       df <- as.data.frame(as.matrix(df))
     }
-    
+
     # Avoid warnings
     x <- y <- ..density.. <- color <- NULL
     
@@ -49,7 +49,8 @@ densityplot <- function(x, main = NULL, x.ticks = 10, rounding = 0,
     p <- ggplot(df)
     p <- p + stat_density2d(aes(x, y, fill = ..density..), geom = "raster", h = bw, contour = FALSE)
     p <- p + scale_fill_gradient(low = "white", high = "black")
-    
+
+
     if (add.points) {
       if (length(unique(df$color)) == 1 && length(unique(df$size)) == 1) {
         p <- p + geom_point(aes(x = x, y = y), col = unique(df$color), size = unique(df$size))
@@ -67,7 +68,8 @@ densityplot <- function(x, main = NULL, x.ticks = 10, rounding = 0,
     if (!legend) {
         p <- p + theme(legend.position = "none")
     }
-    
+
+
     p <- p + scale_x_continuous(breaks = round(seq(floor(min(df[["x"]])), 
                    ceiling(max(df[["x"]])), 
                    length = x.ticks), rounding))

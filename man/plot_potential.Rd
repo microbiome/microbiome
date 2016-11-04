@@ -10,7 +10,8 @@ plot_potential(res, cutoff = 0.5, plot.contours = TRUE, binwidth = 0.2,
 \arguments{
 \item{res}{output from potential_slidingaverage function}
 
-\item{cutoff}{parameter determining the upper limit of potential for visualizations}
+\item{cutoff}{parameter determining the upper limit of potential for
+visualizations}
 
 \item{plot.contours}{Plot contour lines.}
 
@@ -22,7 +23,11 @@ plot_potential(res, cutoff = 0.5, plot.contours = TRUE, binwidth = 0.2,
 A ggplot2 visualization of the potential landscape.
 }
 \description{
-Visualization of the potential function from the potential_slidingaverage function
+Visualization of the potential function.
+}
+\details{
+Applied on the output of the
+         \code{\link{potential_slidingaverage}} function.
 }
 \examples{
   X <- c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), 
@@ -38,7 +43,8 @@ Visualization of the potential function from the potential_slidingaverage functi
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \references{
-Lahti et al. (2014). Tipping elements of the human intestinal ecosystem. \emph{Nature Communications} 5:4344.
+Lahti et al. Tipping elements of the human intestinal ecosystem.
+            \emph{Nature Communications} 5:4344, 2014.
 }
 \keyword{utils}
 

@@ -69,7 +69,7 @@ Multimodality score using [potential analysis with
 bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
 
 
-```{r bimodality2, message=FALSE, warning=FALSE, fig.path = "figure/"}
+```{r bimodality2, message=FALSE, warning=FALSE, fig.path = "figure/", eval=FALSE}
 bimodality.pb <- bimodality(pseq0, method = "potential_bootstrap")
 ```
 

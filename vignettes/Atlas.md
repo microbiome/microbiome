@@ -1,7 +1,7 @@
 ---
 title: "HITChip Atlas"
 author: "Leo Lahti, Willem M de Vos et al."
-date: "2016-11-03"
+date: "2016-11-04"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -41,7 +41,6 @@ pseq <- atlas1006
 ```r
 library(phyloseq)
 div <- estimate_diversity(pseq, measures = c("Observed", "Shannon", "Simpson"))
-
 library(knitr)
 kable(head(div))
 ```

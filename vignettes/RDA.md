@@ -1,7 +1,7 @@
 ---
 title: "RDA"
 author: "Leo Lahti"
-date: "2016-11-03"
+date: "2016-11-04"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -42,10 +42,6 @@ rda.result <- rda_physeq(pseq.trans, "time", scale = TRUE)
 summary(rda.result)$constr.chi/summary(rda.result)$tot.chi
 ```
 
-```
-## [1] 0.01540884
-```
-
 ### RDA visualization
 
 Visualizing the standard RDA output:
@@ -61,8 +57,6 @@ pl <- ordihull(rda.result, meta$time, scaling = 3, label = TRUE)
 title("RDA")
 ```
 
-![plot of chunk rda4](figure/rda4-1.png)
-
 See also the RDA method in phyloseq::ordinate, which is calculated without the formula.
 
 
@@ -72,20 +66,6 @@ See also the RDA method in phyloseq::ordinate, which is calculated without the f
 ```r
 library(vegan)
 permutest(rda.result) 
-```
-
-```
-## 
-## Permutation test for rda 
-## 
-## Permutation: free
-## Number of permutations: 99
-##  
-## Call: rda(formula = otu ~ annot, scale = scale, na.action =
-## na.action)
-## Permutation test for all constrained eigenvalues
-## Pseudo-F:	 0.6572996 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.85
 ```
 
 ### Bagged RDA
@@ -103,8 +83,6 @@ Visualizing bagged RDA:
 ```r
 plot_bagged_rda(res)
 ```
-
-![plot of chunk rda6](figure/rda6-1.png)
 
 
 ### RDA with confounding variables 

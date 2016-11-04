@@ -1,7 +1,7 @@
 ---
 title: "Networks"
 author: "Leo Lahti"
-date: "2016-11-03"
+date: "2016-11-04"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -27,12 +27,14 @@ data("dietswap")
 pseq <- dietswap
 ```
 
-For more network examples, see [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
+For more network examples, see
+[phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
 
 
 ```r
 ig <- make_network(pseq, max.dist = 0.2)
-plot_network(ig, pseq, color = "nationality", shape = "group", line_weight = 0.4, label = "sample")
+plot_network(ig, pseq, color = "nationality", shape = "group",
+		 line_weight = 0.4, label = "sample")
 ```
 
 ![plot of chunk networks2](figure/networks2-1.png)
@@ -55,12 +57,7 @@ package](https://github.com/zdk123/SpiecEasi). The execution is slow.
 
 ```r
 library(SpiecEasi) #install_github("zdk123/SpiecEasi")
-library(microbiome)
 library(phyloseq)
-
-# Pick example OTU matrix (samples x taxa)
-data("atlas1006")
-pseq <- subset_samples(atlas1006, time == 0 & DNA_extraction_method == "r")
 otu <- t(get_sample(pseq))
 
 # SPIEC-EASI network reconstruction
@@ -73,12 +70,11 @@ n <- net$refit
 colnames(n) <- rownames(n) <- colnames(otu)
 
 # Network format
+library(network)
 netw <- network(as.matrix(n), directed = FALSE)
 
-
-
-
 # igraph format
+library(igraph)
 ig <- graph.adjacency(n, mode='undirected', add.rownames = TRUE)
 
 ## set size of vertex to log2 mean abundance 
@@ -112,7 +108,8 @@ library(sna)
 library(ggplot2)
 library(intergraph) # ggnet2 works also with igraph with this
 
-phyla <- map_levels(colnames(otu), from = "Genus", to = "Phylum", tax_table(pseq))
+phyla <- map_levels(colnames(otu), from = "Genus", to = "Phylum",
+           tax_table(pseq))
 netw %v% "Phylum" <- phyla
 p <- ggnet2(netw, color = "Phylum", label = TRUE, label.size = 2)
 print(p)

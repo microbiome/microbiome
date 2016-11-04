@@ -1,7 +1,7 @@
 ---
 title: "Composition"
 author: "Leo Lahti"
-date: "2016-11-03"
+date: "2016-11-04"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -128,8 +128,31 @@ p <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
 ```
 
 ```
-## Error in ordinate(x, method, distance, ...): Expected a phyloseq object or otu_table object.
+## Warning in metaMDS(veganifyOTU(physeq), distance, ...): 'comm' has negative
+## data: 'autotransform', 'noshare' and 'wascores' set to FALSE
 ```
+
+```
+## Warning in distfun(comm, method = distance, ...): results may be
+## meaningless because data have negative entries in method "bray"
+```
+
+```
+## Warning in metaMDS(veganifyOTU(physeq), distance, ...): 'comm' has negative
+## data: 'autotransform', 'noshare' and 'wascores' set to FALSE
+```
+
+```
+## Warning in distfun(comm, method = distance, ...): results may be
+## meaningless because data have negative entries in method "bray"
+```
+
+```
+## Warning in order_neatmap(x, method = "NMDS", distance = "bray", target =
+## "species", : Order failed with species. Using default ordering.
+```
+
+![plot of chunk composition-example7](figure/composition-example7-1.png)
 
 
 Same, but samples and OTUs sorted manually

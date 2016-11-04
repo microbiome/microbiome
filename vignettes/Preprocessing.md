@@ -35,26 +35,6 @@ Sample metadata:
 ```r
 library(phyloseq)
 library(microbiome)
-```
-
-```
-## 
-```
-
-```
-## 
-## microbiome R package (microbiome.github.com)
-##           
-## 
-## 
-##  Copyright (C) 2011-2016
-##           Leo Lahti and Jarkko Salojarvi 
-## 
-##         
-##           <microbiome-admin@googlegroups.com>
-```
-
-```r
 data("atlas1006") 
 pseq <- atlas1006
 meta <- sample_data(pseq)
@@ -316,14 +296,7 @@ Aggregate taxa to higher taxonomic levels. This is particularly useful if the ph
 
 
 ```r
-pseq2 <- summarize_taxa(pseq, "Genus") 
-```
-
-```
-## Error in validObject(.Object): invalid class "phyloseq" object: 
-##  Component taxa/OTU names do not match.
-##  Taxa indices are critical to analysis.
-##  Try taxa_names()
+pseq2 <- summarize_taxa(pseq, "Phylum") 
 ```
 
 
@@ -351,7 +324,8 @@ Phylum (Verrucomicrobia)):
 
 ```r
 data(atlas1006)
-m <- map_levels("Akkermansia", "Genus", "Phylum", tax_table(atlas1006))
+pseq <- atlas1006
+m <- map_levels("Akkermansia", "Genus", "Phylum", tax_table(pseq))
 print(m)
 ```
 

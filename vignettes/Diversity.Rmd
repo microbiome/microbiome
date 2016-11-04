@@ -77,11 +77,10 @@ print(p)
 
 Diversity vs. age with smoothed confidence intervals - manual version:
 
-```{r diversity-example13, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/", dev="CairoPNG"}
+```{r diversity-example13, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/", dev="CairoPNG", eval=FALSE}
 library(microbiome)
 library(sorvi)
 library(dplyr)
-
 pseq <- atlas1006
 
 # Add diversity into sample metadata

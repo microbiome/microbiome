@@ -1,7 +1,7 @@
 ---
 title: "HITChip"
 author: "Leo Lahti"
-date: "2016-11-03"
+date: "2016-11-04"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -36,7 +36,7 @@ print(data.directory)
 ```
 
 ```
-## [1] "/home/lei/R/x86_64-pc-linux-gnu-library/3.3/microbiome/extdata"
+## [1] "/home/lei/Rpackages/microbiome/inst/extdata"
 ```
 
 With HITChip,
@@ -53,91 +53,7 @@ precalculated matrices are calculated with detection.threshold = 0):
 
 ```r
 library(HITChipDB)
-```
-
-```
-## Loading required package: DBI
-```
-
-```
-## Loading required package: preprocessCore
-```
-
-```
-## Loading required package: RMySQL
-```
-
-```
-## Loading required package: RPA
-```
-
-```
-## Loading required package: affy
-```
-
-```
-## Loading required package: Biobase
-```
-
-```
-## Welcome to Bioconductor
-## 
-##     Vignettes contain introductory material; view with
-##     'browseVignettes()'. To cite Bioconductor, see
-##     'citation("Biobase")', and for packages 'citation("pkgname")'.
-```
-
-```
-## 
-## Attaching package: 'Biobase'
-```
-
-```
-## The following object is masked from 'package:phyloseq':
-## 
-##     sampleNames
-```
-
-```
-## 
-## RPA Copyright (C) 2008-2016 Leo Lahti.
-## This program comes with ABSOLUTELY NO WARRANTY.
-## This is free software, and you are welcome to redistribute it under the FreeBSD open source license.
-```
-
-```
-## Loading required package: tcltk
-```
-
-```
-## 
-## HITChipDB R package (microbiome.github.com)
-## (C) 2011-2016 Leo Lahti and Jarkko Salojarvi <microbiome-admin@googlegroups.com>
-```
-
-```
-## 
-## Attaching package: 'HITChipDB'
-```
-
-```
-## The following objects are masked from 'package:RPA':
-## 
-##     n.phylotypes.per.oligo, summarize.rpa, summarize.sum
-```
-
-```r
 pseq <- HITChipDB::read_hitchip(data.directory, method = "frpa")$pseq
-```
-
-```
-## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
-## linux-gnu-library/3.3/microbiome/extdata/oligoprofile.tab': No such file or
-## directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
 ```
 
 Get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
@@ -145,18 +61,7 @@ Get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genu
 
 ```r
 pseq.L2 <- aggregate_taxa(pseq, level = "L2")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "aggregate_taxa"
-```
-
-```r
 pseq.L1 <- aggregate_taxa(pseq, level = "L1")
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "aggregate_taxa"
 ```
 
 Importing HITChip probe-level data and taxonomy from HITChip
@@ -165,30 +70,7 @@ output directory (these are not available in the phyloseq object):
 
 ```r
 probedata <- HITChipDB::read_hitchip(data.directory, method = "frpa")$probedata
-```
-
-```
-## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
-## linux-gnu-library/3.3/microbiome/extdata/oligoprofile.tab': No such file or
-## directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
-```
-
-```r
 taxonomy.full <- HITChipDB::read_hitchip(data.directory, method = "frpa")$taxonomy.full
-```
-
-```
-## Warning in file(file, "rt"): cannot open file '/home/lei/R/x86_64-pc-
-## linux-gnu-library/3.3/microbiome/extdata/oligoprofile.tab': No such file or
-## directory
-```
-
-```
-## Error in file(file, "rt"): cannot open the connection
 ```
 
 Convert your own data into phyloseq format as follows:
