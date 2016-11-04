@@ -55,12 +55,7 @@ print(p)
 ### Diversity vs. age
 
 ```{r atlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/", eval=FALSE}
-# Pick the subset of RBB-preprocessed samples from time point 0
-pseq <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
-
-# Visualize
-p <- plot_regression(diversity~age, sample_data(pseq))
-print(p)
+plot_regression(diversity~age, sample_data(pseq))
 ```
 
 
