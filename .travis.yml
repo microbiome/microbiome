@@ -18,7 +18,6 @@ r_packages:
   - magrittr
   - network
   - rmarkdown
-  - RUnit
   - survival
 
 bioc_packages:
@@ -26,6 +25,7 @@ bioc_packages:
   - limma
 
 r_github_packages:
+  - cran/RUnit
   - ropengov/sorvi
   - microbiome/microbiome  
   - microbiome/HITChipDB
