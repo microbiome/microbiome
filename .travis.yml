@@ -2,11 +2,9 @@ xlanguage: r
 sudo: true
 cache: packages
 
-
 warnings_are_errors: false
 
 before_install:
-  - chmod 755 ./.push_gh_pages.sh
   - sudo apt-get install -y tcl tk tk-dev
 
 r_packages:
@@ -32,8 +30,6 @@ r_github_packages:
   - briatte/ggnet
   - earlywarningtoolbox/earlywarnings-R/earlywarnings
   
-
-
 env:
    global:
      - WARNINGS_ARE_ERRORS=1
