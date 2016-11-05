@@ -4,9 +4,6 @@ cache: packages
 
 warnings_are_errors: false
 
-before_install:
-  - sudo apt-get install -y tcl tk tk-dev
-
 r_packages:
   - Cairo
   - GGally
