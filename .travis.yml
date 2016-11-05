@@ -32,8 +32,7 @@ r_github_packages:
   - briatte/ggnet
   - earlywarningtoolbox/earlywarnings-R/earlywarnings
   
-after_success:
-  - ./.push_gh_pages.sh
+
 
 env:
    global:
