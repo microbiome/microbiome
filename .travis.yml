@@ -1,4 +1,4 @@
-language: r
+xlanguage: r
 sudo: true
 cache: packages
 

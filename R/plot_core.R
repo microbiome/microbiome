@@ -1,4 +1,4 @@
-#' @title Visualize OTU core
+#' @title Visualize OTU Core
 #' @description Core visualization (2D).
 #' @param x A \code{\link{phyloseq}} object or a core matrix
 #' @param prevalence.intervals a vector of prevalence percentages in [0,100]
@@ -6,14 +6,20 @@
 #'          or a scalar indicating the number of intervals in the data range.
 #' @param plot.type Plot type ('lineplot' or 'heatmap')
 #' @param colours colours for the heatmap
-#' @param min.prevalence If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap. Only affects the plot.type = 'heatmap'.
+#' @param min.prevalence If minimum prevalence is set, then filter out those
+#'    rows (taxa) and columns (detection thresholds) that never exceed this
+#'    prevalence threshold. This helps to zoom in on the actual core region
+#'    of the heatmap. Only affects the plot.type = 'heatmap'.
 #' @param taxa.order Ordering of the taxa.
 #' @param horizontal Logical. Horizontal figure.
-#' @return A list with three elements: the ggplot object and the data. The data has a different form for the lineplot and heatmap. Finally, the applied parameters are returned.
+#' @return A list with three elements: the ggplot object and the data.
+#'         The data has a different form for the lineplot and heatmap.
+#'         Finally, the applied parameters are returned.
 #' @examples 
 #'   data(atlas1006)
 #'   pseq <- atlas1006
-#'   p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
+#'   p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10),
+#'                        detection.thresholds = c(0, 10^(0:4)))
 #' @export 
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 

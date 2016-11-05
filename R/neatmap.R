@@ -16,18 +16,26 @@
 #' @examples \dontrun{
 #'   data(peerj32)
 #'   pseq <- peerj32$phyloseq
-#'   order.sample <- order_neatmap(pseq, target = "sites", method = "NMDS", distance = "bray", first = NULL) 
-#'   order.otu <- order_neatmap(pseq, target = "species", method = "NMDS", distance = "bray", first = NULL)
-#'                   }
-#' @references This function is partially based on code derived from the \pkg{phyloseq} package. However for the original
-#'   neatmap approach for heatmap sorting, see (and cite):
-#'   Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map alternatives in R. BMC Bioinformatics, 11, 45.
+#'   order.sample <- order_neatmap(pseq, target = "sites",
+#'                                 method = "NMDS", distance = "bray",
+#'				   first = NULL) 
+#'   order.otu <- order_neatmap(pseq, target = "species", method = "NMDS",
+#'     	       	                distance = "bray", first = NULL)
+#'                   
+#' @references This function is partially based on code derived from the
+#'             \pkg{phyloseq} package. However for the original
+#'             neatmap approach for heatmap sorting, see (and cite):
+#'   Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map
+#'   alternatives in R. BMC Bioinformatics, 11, 45.
 #'
-#' @details This function borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is there
-#' not available as a separate function at present, however, hindering reuse in other tools. Therefore I implemented this function to
-#' provide an independent method for easy sample/taxon reordering for phyloseq objects.
+#' @details This function borrows elements from the heatmap implementation in
+#' the \pkg{phyloseq} package. The row/column sorting is there not available
+#' as a separate function at present, however, hindering reuse in other tools.
+#' Implemented in the microbiome package to provide an independent method for
+#' easy sample/taxon reordering for phyloseq objects.
 #' @keywords utilities
-order_neatmap <- function (x, target, method = "NMDS", distance = "bray", first = NULL, ...) {
+order_neatmap <- function (x, target, method = "NMDS", distance = "bray",
+	      	           first = NULL, ...) {
 
   # Capture the output to keep the screen clean
   junk <- capture.output(
@@ -42,7 +50,8 @@ order_neatmap <- function (x, target, method = "NMDS", distance = "bray", first 
     DF <- scores(ord, choices = c(1, 2), display = target)}, silent = TRUE)
 
   if(inherits(tmp, "try-error")){
-    warning(paste("Order failed with ", target, ". Using default ordering.", sep = ""))
+    warning(paste("Order failed with ", target, ". 
+    			 Using default ordering.", sep = ""))
   }
 
 
