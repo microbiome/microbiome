@@ -34,7 +34,8 @@ Suggests:
     knitr,
     magrittr,    
     netresponse,
-    rmarkdown
+    rmarkdown,
+    RUnit
 URL: http://microbiome.github.com
 MailingList: microbiome <microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues
