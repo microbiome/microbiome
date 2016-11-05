@@ -6,7 +6,6 @@ cache: packages
 warnings_are_errors: false
 
 before_install:
-  - pip install --user codecov
   - chmod 755 ./.push_gh_pages.sh
   - sudo apt-get install -y tcl tk tk-dev
 
