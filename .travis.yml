@@ -33,7 +33,6 @@ r_github_packages:
   - earlywarningtoolbox/earlywarnings-R/earlywarnings
   
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
   - ./.push_gh_pages.sh
 
 env:
