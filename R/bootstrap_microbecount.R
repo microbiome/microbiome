@@ -1,4 +1,4 @@
-#' @title Bootstrap microbecount
+#' @title Bootstrap Microbe Count Data
 #' @description Auxiliary function for bootstrap_microbes.
 #' @param D data
 #' @param Nsample sample size
@@ -8,9 +8,12 @@
 #' @param ncore number of nodes for parallelization
 #' @param I.max max intensity threshold
 #' @return median microbe count in bootstrapped cores
-#' @examples 
-#'   data(peerj32)
-#'   tmp <- bootstrap_microbecount(t(peerj32$microbes),	Nboot = 5)
+#' @examples
+#'   \dontrun{
+#'     library(microbiome)
+#'     data(peerj32)
+#'     tmp <- bootstrap_microbecount(t(peerj32$microbes), Nboot = 5)
+#'  }
 #' @export
 #' @references 
 #' The core microbiota bootstrap method implemented with this function:
