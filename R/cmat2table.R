@@ -8,7 +8,7 @@
 #'   data(peerj32)
 #'   d1 <- peerj32$microbes[1:20, 1:10]
 #'   d2 <- peerj32$lipids[1:20,1:10]
-#'   cc <- cross_correlate(d1, d2, mode = 'matrix')
+#'   cc <- cross_correlate(d1, d2, mode = 'matrix', method = "pearson")
 #'   cmat <- cmat2table(cc)
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

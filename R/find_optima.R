@@ -1,18 +1,23 @@
 #' @title Find Optima
-#' @description Detect optima, excluding very local optima below detection.threshold. 
+#' @description Detect optima, excluding local optima below
+#'              detection.threshold. 
 #' @param f density
 #' @param detection.threshold detection threshold for peaks
 #' @param bw bandwidth
 #' @param detection.limit Minimun accepted density for a maximum; 
 #'                           as a multiple of kernel height
-#' @return A list with min (minima), max (maxima), and detection.density (minimum detection density)
+#' @return A list with min (minima), max (maxima), and
+#'         detection.density (minimum detection density)
 #' @export
 #' @references See citation('microbiome') 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples find_optima(rnorm(100))
+#' @examples find_optima(rnorm(100), bw = 1)
 #' @keywords utilities
-find_optima <- function(f, detection.threshold = 0, bw, detection.limit = 1) {
-   
+find_optima <- function(f, detection.threshold = 0, bw = 1, detection.limit = 1) {
+
+   # FIXME bw is now assumed to be 1. This may be far from
+   # optimal. Should be determined automatically.
+
     # multiple of kernel height 
     kernel.height <- dnorm(0, sd = bw) / length(f) 
     deth <- detection.threshold * kernel.height 
