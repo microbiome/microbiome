@@ -13,17 +13,19 @@
 #' @param ... Arguments to be passed.
 #' @return Vector of ordered elements
 #' @export
-#' @examples \dontrun{
-#'   data(peerj32)
-#'   pseq <- peerj32$phyloseq
-#'   order.sample <- order_neatmap(pseq, target = "sites",
+#' @examples
+#'   \dontrun{
+#'     library(microbiome)
+#'     data(peerj32)
+#'     pseq <- peerj32$phyloseq
+#'     order.sample <- order_neatmap(pseq, target = "sites",
 #'                                 method = "NMDS", distance = "bray",
 #'				   first = NULL) 
-#'   order.otu <- order_neatmap(pseq, target = "species", method = "NMDS",
+#'     order.otu <- order_neatmap(pseq, target = "species", method = "NMDS",
 #'     	       	                distance = "bray", first = NULL)
-#'                   
+#'   }  
 #' @references This function is partially based on code derived from the
-#'             \pkg{phyloseq} package. However for the original
+#'             \pkg{phyloseq} package. For the original
 #'             neatmap approach for heatmap sorting, see (and cite):
 #'   Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map
 #'   alternatives in R. BMC Bioinformatics, 11, 45.

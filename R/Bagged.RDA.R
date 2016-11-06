@@ -1,5 +1,7 @@
 #' @title Bagged RDA
-#' @description Bootstrap solutions that follows the Jack-knife estimation of PLS by Martens and Martens, 2000.  Solves rotational invariance of latent space by orthogonal procrustes rotations
+#' @description Bootstrap solutions that follows the Jack-knife estimation of
+#'              PLS by Martens and Martens, 2000.  Solves rotational
+#'              invariance of latent space by orthogonal procrustes rotations.
 #' @param X a matrix, samples on columns, variables (bacteria) on rows.
 #' @param Y vector with names(Y)=rownames(X), for example
 #' @param boot Number of bootstrap iterations
@@ -113,6 +115,13 @@ Bagged.RDA <- function(X, Y, boot = 1000){
     names(Rsquare)=colnames(bagged.scores)
     Rsquare.variable=t(can.cor.R/apply(X,1,var))
     colnames(Rsquare.variable)=colnames(bagged.scores)
-    list(loadings=bagged.loadings,scores=bagged.scores,significance=sig.prob,error=bagged.R2,group.centers=Group.center,bootstrapped=Tx,err.random=mean(err.random),err.significance=sum(err.random>bagged.R2)/nboot,R2=Rsquare,R2.variables=Rsquare.variable)
+
+    # The CRAN/BioC recommendations do not allow lines over 100 chars
+    list(loadings = bagged.loadings, scores = bagged.scores,
+    	 significance = sig.prob,
+	 error=bagged.R2,group.centers=Group.center,
+	 bootstrapped=Tx,err.random=mean(err.random),
+	 err.significance=sum(err.random>bagged.R2)/nboot,
+	 R2=Rsquare,R2.variables=Rsquare.variable)
 }
 

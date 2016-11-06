@@ -29,7 +29,7 @@ data frame with microbes and their frequency of presence in
   	     the core
 }
 \description{
-Bootstrap analysis of the core microbiota
+Bootstrap analysis of the core microbiota.
 }
 \examples{
   data(peerj32)
