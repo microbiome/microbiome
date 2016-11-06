@@ -1,5 +1,6 @@
 #' @title Core Taxa
-#' @description Determine members of the core microbiota with given abundance and prevalence thresholds.
+#' @description Determine members of the core microbiota with given abundance
+#''             and prevalence thresholds.
 #' @param x phyloseq object
 #' @param detection.threshold Detection threshold (non-negative real)
 #' @param prevalence.threshold Prevalence threshold (in [0, 100])
@@ -20,7 +21,8 @@
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-core <- function(x, detection.threshold = 1, prevalence.threshold = 95, sort = TRUE)  {
+core <- function(x, detection.threshold = 1, prevalence.threshold = 95,
+                    sort = TRUE)  {
 
   if (class(x) == "phyloseq") {
     x <- taxa_abundances(x)

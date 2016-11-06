@@ -20,7 +20,8 @@ core(x, detection.threshold = 1, prevalence.threshold = 95, sort = TRUE)
 Vector of core members
 }
 \description{
-Determine members of the core microbiota with given abundance and prevalence thresholds.
+Determine members of the core microbiota with given abundance
+'             and prevalence thresholds.
 }
 \details{
 For phyloseq object, lists taxa that are more prevalent with the
