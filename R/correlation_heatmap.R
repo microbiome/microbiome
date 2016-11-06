@@ -36,10 +36,11 @@
 correlation_heatmap <- function(df, Xvar, Yvar, fill, star, 
                             p.adj.threshold = 1, 
                             correlation.threshold = 0, step = 0.2, 
-              colours = c("darkblue", "blue", "white", "red", "darkred"), 
+               colours = c("darkblue", "blue", "white", "red", "darkred"), 
                limits = NULL, legend.text = "", 
                order.rows = TRUE, order.cols = TRUE, 
-    text.size = 10, filter.significant = TRUE, star.size = NULL, plot.values = FALSE) {
+    	       text.size = 10, filter.significant = TRUE, star.size = NULL,
+	       plot.values = FALSE) {
     
     if (is.null(limits)) {
         maxval <- max(abs(df[[fill]]))
@@ -92,8 +93,10 @@ correlation_heatmap <- function(df, Xvar, Yvar, fill, star,
         rind <- 1:nrow(mat)
         cind <- 1:ncol(mat)
         if (nrow(mat) > 1 && ncol(mat) > 1) {
-	    rind <- hclust(as.dist(1-cor(t(mat), use = "pairwise.complete.obs")))$order
-	    cind <- hclust(as.dist(1-cor(mat, use = "pairwise.complete.obs")))$order
+	  rind <- hclust(as.dist(1-cor(t(mat),
+	       use = "pairwise.complete.obs")))$order
+	  cind <- hclust(as.dist(1-cor(mat,
+	       use = "pairwise.complete.obs")))$order
 
         }
         if (ncol(mat) > 1 && nrow(mat) == 1) {

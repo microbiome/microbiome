@@ -4,7 +4,7 @@
 \alias{find_optima}
 \title{Find Optima}
 \usage{
-find_optima(f, detection.threshold = 0, bw, detection.limit = 1)
+find_optima(f, detection.threshold = 0, bw = 1, detection.limit = 1)
 }
 \arguments{
 \item{f}{density}
@@ -17,13 +17,15 @@ find_optima(f, detection.threshold = 0, bw, detection.limit = 1)
 as a multiple of kernel height}
 }
 \value{
-A list with min (minima), max (maxima), and detection.density (minimum detection density)
+A list with min (minima), max (maxima), and
+        detection.density (minimum detection density)
 }
 \description{
-Detect optima, excluding very local optima below detection.threshold.
+Detect optima, excluding local optima below
+             detection.threshold.
 }
 \examples{
-find_optima(rnorm(100))
+find_optima(rnorm(100), bw = 1)
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
