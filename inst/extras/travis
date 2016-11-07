@@ -1,12 +1,4 @@
-
-
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - ./.push_gh_pages.sh
 
-env:
-   global:
-     - WARNINGS_ARE_ERRORS=1
-     - R_BUILD_ARGS="--no-manual"
-     - R_CHECK_ARGS="--no-manual --as-cran"
-     - secure: "RzcTXPJ0qxNYSd/38GAgknrmRRdRc+ISolJfnALXkwHm5tuMtpyDdUT6FH2oTLg9MUwAPvfDISqX6wAr/Jk9QN71xvU7QU8DQQbCBP40P5MYIZ8rfzSCCXNjX39egv3458YdvYjWSyHU5R31QZrKEqKKRFBGJzTiQDZT+PLACRg="
