@@ -3,13 +3,14 @@
 \docType{data}
 \name{hitchip.taxonomy}
 \alias{hitchip.taxonomy}
-\title{HITChip taxonomy}
-\format{List with the element 'filtered', including a simplified version of the HITChip taxonomy.}
+\title{HITChip Taxonomy}
+\format{List with the element 'filtered', including a simplified version
+        of the HITChip taxonomy.}
 \usage{
 data(hitchip.taxonomy)
 }
 \description{
-HITChip taxonomy table
+HITChip taxonomy table.
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}

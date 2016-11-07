@@ -3,8 +3,9 @@
 \docType{data}
 \name{peerj32}
 \alias{peerj32}
-\title{Probiotics intervention data documentation}
-\format{List of the following data matrices as described in detail in Lahti et al. (2013):
+\title{Probiotics Intervention Data}
+\format{List of the following data matrices as described in detail in
+   Lahti et al. (2013):
 \itemize{
   \item lipids: Quantification of 389 blood serum lipids across 44 samples
   \item microbes: Quantification of 130 genus-like taxa across 44 samples
@@ -26,7 +27,8 @@ For details, see \url{http://dx.doi.org/10.7717/peerj.32}.
 Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-Lahti et al. (2013) PeerJ 1:e32 \url{http://dx.doi.org/10.7717/peerj.32}
+Lahti et al. (2013) PeerJ 1:e32
+   \url{http://dx.doi.org/10.7717/peerj.32}
 }
 \keyword{data}
 
