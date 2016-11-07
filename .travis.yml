@@ -32,6 +32,10 @@ before_install:
   - chmod 755 ./.push_gh_pages.sh
   - sudo apt-get install -y tcl tk tk-dev
 
+after_success:	
+  - bash <(curl -s https://codecov.io/bash)
+  - ./.push_gh_pages.sh
+
 env:
    global:
      - WARNINGS_ARE_ERRORS=1
