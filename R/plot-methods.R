@@ -69,7 +69,7 @@ plot_ordn <- function(physeq, ordination, type="samples", axes=1:2,
                       color=NULL, shape=NULL, label=NULL, title=NULL,
 		      show.density = TRUE){
 
-  x <- y <- size <- ..density.. <- update_labels <- rm.na.phyloseq <- NULL
+  x <- y <- size <- ..density.. <- update_labels <- extract_eigenvalue <- rm.na.phyloseq <- NULL
 
   # Check input validity			    
   check <- plot_ordn_inputcheck(physeq, type, color, shape, label)

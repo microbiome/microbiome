@@ -1,5 +1,6 @@
 #' @title Matrix Heatmap
-#' @description Fast investigation of matrix objects; standard visualization choices made automatically.
+#' @description Fast investigation of matrix objects;
+#'    standard visualization choices made automatically.
 #' @param mat matrix
 #' @param type String. Specifies visualization type. Options: 'oneway' 
 #'                       (color scale ranges from white to dark red; 
@@ -33,7 +34,7 @@
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @examples 
 #'   mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2))
-#'   plot_matrix(mat, 'twoway', midpoint = 3) 
+#'   res <- plot_matrix(mat, 'twoway', midpoint = 3) 
 #' @keywords utilities
 plot_matrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL, 
                        colors = NULL, 

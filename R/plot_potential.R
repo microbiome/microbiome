@@ -18,10 +18,7 @@
 #'   	    rnorm(1000, mean = 2))
 #'   param <- seq(0,5,length=3000); 
 #'   res <- potential_slidingaverage(X, param); 
-#'   plot_potential(res$res, title = '', 
-#'	       	    xlab.text = '', ylab.text = '', 
-#'		    cutoff = 0.5, plot.contours = TRUE,
-#'		    binwidth = 0.2)
+#'   plot_potential(res$res, cutoff = 0.5)
 #' @keywords utils
 plot_potential <- function(res,
 			   cutoff = 0.5,
