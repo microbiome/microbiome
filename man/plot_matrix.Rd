@@ -60,11 +60,12 @@ A list with the color palette (colors),
        color breakpoints (breaks), and palette function (palette.function)
 }
 \description{
-Fast investigation of matrix objects; standard visualization choices made automatically.
+Fast investigation of matrix objects;
+   standard visualization choices made automatically.
 }
 \examples{
   mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2))
-  plot_matrix(mat, 'twoway', midpoint = 3) 
+  res <- plot_matrix(mat, 'twoway', midpoint = 3) 
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}
