@@ -2,7 +2,7 @@
 % Please edit documentation in R/ztransform_phyloseq.R
 \name{ztransform_phyloseq}
 \alias{ztransform_phyloseq}
-\title{Phyloseq z transformation}
+\title{Phyloseq Z Transformation}
 \usage{
 ztransform_phyloseq(x, which)
 }
@@ -23,7 +23,7 @@ variance) across samples for each taxa.
 }
 \examples{
   data(peerj32)
-  pseqz <- ztransform_phyloseq(peerj32$physeq)
+  pseqz <- ztransform_phyloseq(peerj32$phyloseq)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

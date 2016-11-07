@@ -2,7 +2,7 @@
 % Please edit documentation in R/filter_prevalent.R
 \name{filter_prevalent}
 \alias{filter_prevalent}
-\title{Filter Prevalent}
+\title{Filter Prevalent Taxa}
 \usage{
 filter_prevalent(x, detection.threshold, prevalence.threshold)
 }
@@ -21,7 +21,7 @@ Filter the phyloseq object to include only prevalent taxa.
 }
 \examples{
   data("peerj32")
-  filter_prevalent(peerj32$physeq, 200, 0.2)
+  filter_prevalent(peerj32$phyloseq, 200, 0.2)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

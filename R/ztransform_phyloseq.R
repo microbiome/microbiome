@@ -1,4 +1,4 @@
-#' @title Phyloseq z transformation
+#' @title Phyloseq Z Transformation
 #' @description Z transform phyloseq objects.
 #' @details Performs centering (to zero) and scaling (to unit
 #' variance) across samples for each taxa.
@@ -7,7 +7,7 @@
 #' @return Z-transformed phyloseq object
 #' @examples
 #'   data(peerj32)
-#'   pseqz <- ztransform_phyloseq(peerj32$physeq)
+#'   pseqz <- ztransform_phyloseq(peerj32$phyloseq)
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
