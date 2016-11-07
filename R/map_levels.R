@@ -1,4 +1,4 @@
-#' @title Map taxonomic levels
+#' @title Map Taxonomic Levels
 #' @description Map taxa between hierarchy levels.
 #' @param taxa taxa to convert; if NULL then considering all taxa in the tax.table
 #' @param from convert from taxonomic level 

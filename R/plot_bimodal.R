@@ -1,4 +1,4 @@
-#' @title Univariate bimodality plot
+#' @title Univariate Bimodality Plot
 #' @description Coloured bimodality plot.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param taxon Taxonomic group to visualize.

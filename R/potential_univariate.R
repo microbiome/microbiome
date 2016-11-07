@@ -3,13 +3,21 @@
 #' @param x Univariate data (vector) for which the potentials shall be estimated
 #' @param std Standard deviation of the noise (defaults to 1; this will set scaled potentials)
 #' @param bw kernel bandwidth estimation method 
-#' @param weights optional weights in ksdensity (used by potential_slidingaverages).
+#' @param weights optional weights in ksdensity (used by
+#' potential_slidingaverages).
 #' @param grid.size Grid size for potential estimation.
-#' @param detection.threshold maximum detection threshold as fraction of density kernel height dnorm(0, sd = bandwidth)/N
+#' @param detection.threshold maximum detection threshold as fraction
+#' of density kernel height dnorm(0, sd = bandwidth)/N
 #' @param bw.adjust The real bandwidth will be bw.adjust*bw; defaults to 1
-#' @param density.smoothing Add a small constant density across the whole observation range to regularize density estimation (and to avoid zero probabilities within the observation range). This parameter adds uniform density across the observation range, scaled by density.smoothing.
-#' @param detection.limit minimum accepted density for a maximum; as a multiple of kernel height
-#' @return \code{potential_univariate} returns a list with the following elements:
+#' @param density.smoothing Add a small constant density across the
+#' whole observation range to regularize density estimation (and to
+#' avoid zero probabilities within the observation range). This
+#' parameter adds uniform density across the observation range, scaled
+#' by density.smoothing.
+#' @param detection.limit minimum accepted density for a maximum; as a
+#' multiple of kernel height
+#' @return \code{potential_univariate} returns a list with the
+#' following elements:
 #'   \itemize{
 #'     \item{xi}{the grid of points on which the potential is estimated}
 #'     \item{pot}{The estimated potential: -log(f)*std^2/2, where f is the density.}
@@ -30,8 +38,10 @@
 #' @seealso \code{\link{potential_slidingaverage}}
 #' @examples \dontrun{res <- potential_univariate(x)}
 #' @keywords early-warning
-potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(), grid.size = NULL, 
-    detection.threshold = 1, bw.adjust = 1, density.smoothing = 0, detection.limit = 1) {
+potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
+		     grid.size = NULL, 
+    		     detection.threshold = 1, bw.adjust = 1,
+		     density.smoothing = 0, detection.limit = 1) {
     
     if (is.null(grid.size)) {
         grid.size <- floor(0.2 * length(x))
@@ -45,7 +55,8 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(), grid.siz
 		  cut = 3, na.rm = FALSE))
     if (class(tmp) == "try-error") {
       # Just use default parameters if failing otherwise
-      warning("Density estimation with custom parameters failed. Using the defaults.")
+      warning("Density estimation with custom parameters failed. 
+      		       Using the defaults.")
       de <- density(x)
     }
 
@@ -76,7 +87,10 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(), grid.siz
     max.points <- grid.points[ops$max]
     det.th <- ops$detection.threshold
     
-    list(grid.points = grid.points, pot = U, density = f, min.inds = ops$min, max.inds = ops$max, bw = bw, min.points = min.points, max.points = max.points, detection.threshold = det.th)
+    list(grid.points = grid.points, pot = U, density = f, min.inds = ops$min,
+         max.inds = ops$max, bw = bw,
+	 min.points = min.points, max.points = max.points,
+	 detection.threshold = det.th)
     
 }
 

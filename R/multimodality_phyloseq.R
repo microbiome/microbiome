@@ -1,4 +1,4 @@
-#' @title Multimodality test for phyloseq objects
+#' @title Phyloseq Multimodality Test
 #' @description Calculate multimodality score based on bootstrapped
 #' potential analysis.
 #' @param x Phyloseq object

@@ -1,4 +1,4 @@
-#' @title Plot diversity
+#' @title Plot Diversity
 #' @description Plot alpha diversity.
 #' This function estimates a number of alpha-diversity metrics using the 
 #' \code{\link{estimate_richness}} function,

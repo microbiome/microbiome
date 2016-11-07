@@ -1,4 +1,4 @@
-#' @title Cross hybridization table
+#' @title Cross Hybridization Table
 #' @description Cross-hybridization table between multimodal taxa as
 #'              percentages of shared probes.
 #' The number indicates how many percent of oligos for the row taxon are

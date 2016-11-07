@@ -1,4 +1,4 @@
-#' @title Homogeneity analysis
+#' @title Homogeneity Analysis
 #' @description Estimate homogeneity within or between sample groups.
 #' @details Average correlation between samples in the input data within each
 #' group with the overall group-wise average. Picks the lower triangular
@@ -7,7 +7,11 @@
 #' correlations). Can also be used to calculate temporal homogeneity
 #' between two data sets (intra-individual), given appropriate sample
 #' metadata.
-#' @param x phyloseq object with the OTU matrix and sample metadata. The sample metadata should contain the fields "sample" and "group" (or another grouping variable specified in the group_by argument) for the "interindividual" method. For the "intraindividual" method, also provide "time", and "subject" fields.
+#' @param x phyloseq object with the OTU matrix and sample
+#' metadata. The sample metadata should contain the fields "sample" and
+#' "group" (or another grouping variable specified in the group_by
+#' argument) for the "interindividual" method. For the "intraindividual"
+#' method, also provide "time", and "subject" fields.
 #' @param type Homogeneity type: 'interindividual' or 'intraindividual'
 #' @param group_by variable to be used in grouping. By default: "group"
 #' @param method correlation method (see ?cor)

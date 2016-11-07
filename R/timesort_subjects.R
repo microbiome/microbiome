@@ -1,6 +1,8 @@
 #' @title Temporal Sorting Within Subjects
-#' @description Within each subject, sort samples by time and calculate distance from the baseline point (minimum time).
-#' @param x A metadata data.frame including the following columns: time, subject, sample, signal
+#' @description Within each subject, sort samples by time and calculate
+#'              distance from the baseline point (minimum time).
+#' @param x A metadata data.frame including the following columns:
+#'          time, subject, sample, signal
 #' @return A list with metadata (data.frame) for each subject.
 #' @references See citation("microbiome")
 #' @export
@@ -19,7 +21,8 @@ timesort_subjects <- function (x) {
   spl <- split(x, as.character(x$subject))
 
   # Keep only subjects with multiple time points
-  spl <- spl[names(which(sapply(spl, function (s) {length(unique(na.omit(s$time)))}) > 1))]
+  spl <- spl[names(which(sapply(spl,
+      	   function (s) {length(unique(na.omit(s$time)))}) > 1))]
 
   # Ignore NA times
   spl <- lapply(spl, function (s) {s[!is.na(s$time),]})

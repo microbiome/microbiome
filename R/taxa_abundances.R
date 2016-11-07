@@ -1,5 +1,7 @@
 #' @title Abundance matrix from phyloseq object
-#' @description Retrieves the taxon abundance table from \code{\link{phyloseq-class}} object and ensures it is returned as taxa x samples matrix.
+#' @description Retrieves the taxon abundance table from
+#'    \code{\link{phyloseq-class}} object and ensures it is returned as
+#'    taxa x samples matrix.
 #' @param x \code{\link{phyloseq}} object
 #' @return Abundance matrix.
 #' @references See citation('microbiome') 
@@ -33,8 +35,8 @@ taxa_abundances <- function (x) {
   }
 
   if (nrow(otu) == 1) {
-    rownames(otu) = taxa_names(x)
-    colnames(otu) = sample_names(x)    
+    rownames(otu) <- taxa_names(x)
+    colnames(otu) <- sample_names(x)    
   }
 
   otu

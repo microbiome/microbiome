@@ -1,4 +1,4 @@
-#' @title Visually weighted regression plot
+#' @title Visually Weighted Regression Plot
 #' @description Draw regression curve with smoothed error bars 
 #' with Visually-Weighted Regression by Solomon M. Hsiang; see
 #' \url{http://www.fight-entropy.com/2012/07/visually-weighted-regression.html}

@@ -1,4 +1,4 @@
-#' @title Fold change for phyloseq objects
+#' @title Fold Change for phyloseq Objects
 #' @description Calculate Log10 Fold Change for two-group comparison with phyloseq objects.
 #' @param x \code{\link{phyloseq-class}} object or a data matrix 
 #'            (features x samples; eg. HITChip taxa vs. samples)
