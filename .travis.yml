@@ -26,4 +26,9 @@ r_github_packages:
   - zdk123/SpiecEasi
   - briatte/ggnet
   - earlywarningtoolbox/earlywarnings-R/earlywarnings
-  
+
+before_install:
+  - pip install --user codecov
+  - chmod 755 ./.push_gh_pages.sh
+  - sudo apt-get install -y tcl tk tk-dev
+
