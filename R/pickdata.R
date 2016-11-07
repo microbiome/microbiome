@@ -19,7 +19,8 @@ pickdata <- function (x, otu.name) {
     } else if (otu.name %in% colnames(meta)) {
       xxx <- unlist(meta[, otu.name])
     } else {   
-      stop(paste("The provided variable name", otu.name, "cannot be found from OTUs or metadata"))
+      stop(paste("The provided variable name", otu.name,
+      		      	       "cannot be found from OTUs or metadata"))
     }
   }
   xxx

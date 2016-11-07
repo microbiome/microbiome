@@ -1,4 +1,4 @@
-#' @title Neatmap ordering for matrix features or samples
+#' @title Neatmap Ordering for Matrix Features or Samples
 #' @description Order features or samples based on the neatmap approach.
 #' @param x A matrix.
 #' @param arrange Order "features" or "samples". For matrices, it is assumed that the samples are on the columns and features are on the rows. For phyloseq objects, features are the taxa of the OTU table.

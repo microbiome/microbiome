@@ -16,7 +16,13 @@
 #' @references This function is partially based on code derived from the \pkg{phyloseq} package. However for the original
 #'   neatmap approach for heatmap sorting, see (and cite):
 #'   Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map alternatives in R. BMC Bioinformatics, 11, 45.
-#' @details Borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is not available there as a separate function. Therefore I implemented this function to provide an independent method for easy sample/taxon reordering for phyloseq objects. The ordering is cyclic so we can start at any point. The choice of the first sample may somewhat affect the overall ordering
+#' @details Borrows elements from the heatmap implementation in the
+#' \pkg{phyloseq} package. The row/column sorting is not available there
+#' as a separate function. Therefore I implemented this function to
+#' provide an independent method for easy sample/taxon reordering for
+#' phyloseq objects. The ordering is cyclic so we can start at any
+#' point. The choice of the first sample may somewhat affect the overall
+#' ordering
 #' @keywords utilities
 neat <- function (x, arrange = "both", method = "NMDS", distance = "bray", first.feature = NULL, first.sample = NULL, ...) {
 

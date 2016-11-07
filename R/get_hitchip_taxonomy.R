@@ -1,4 +1,4 @@
-#' @title HITChip taxonomy table
+#' @title HITChip Taxonomy Table
 #' @description Get taxonomy table for phylogenetic microarrays (mainly HITChip).
 #' @param chip chip type (e.g. 'HITChip')
 #' @param phylogeny.version 'full' or 'filtered' 

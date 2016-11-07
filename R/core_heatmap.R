@@ -1,4 +1,4 @@
-#' @title OTU core heatmap
+#' @title Core Heatmap
 #' @description Core heatmap.
 #' @param data OTU matrix
 #' @param detection.thresholds A vector or a scalar indicating the number of intervals in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.

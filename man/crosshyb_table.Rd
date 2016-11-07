@@ -17,9 +17,10 @@ crosshyb_table(tax.level = "L1", selected.taxa = NULL, tax.table)
 A list containing cross-hybridization table
 }
 \description{
-Cross-hybridization table between multimodal taxa as percentages of shared probes.
-The number indicates how many percent of oligos for the row taxon are also hybridizing the
-corresponding column taxon.
+Cross-hybridization table between multimodal taxa as
+             percentages of shared probes.
+The number indicates how many percent of oligos for the row taxon are
+also hybridizing the corresponding column taxon.
 }
 \examples{
 \dontrun{ch <- crosshyb_table(tax.level = 'L1')}

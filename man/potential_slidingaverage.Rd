@@ -13,7 +13,8 @@ potential_slidingaverage(X, param = NULL, bw = "nrd", bw.adjust = 1,
 
 \item{param}{parameter values corresponding to the observations in X}
 
-\item{bw}{Bandwidth for smoothing kernels. Automatically determined by default.}
+\item{bw}{Bandwidth for smoothing kernels. Automatically determined
+by default.}
 
 \item{bw.adjust}{Bandwidth adjustment constant}
 
@@ -21,7 +22,8 @@ potential_slidingaverage(X, param = NULL, bw = "nrd", bw.adjust = 1,
 
 \item{std}{Standard deviation.}
 
-\item{grid.size}{number of evaluation points; number of steps between min and max potential; also used as kernel window size}
+\item{grid.size}{number of evaluation points; number of steps between
+min and max potential; also used as kernel window size}
 
 \item{plot.cutoff}{cuttoff for potential minima and maxima in visualization}
 
@@ -43,20 +45,26 @@ A list with the following elements:
   }
 }
 \description{
-This function reconstructs a potential derived from data along a gradient of a given parameter.
+This function reconstructs a potential derived from data
+             along a gradient of a given parameter.
 }
 \examples{
-  X = c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), rnorm(1000, mean = 2));
-     param = seq(0,5,length=3000); 
-     res <- potential_slidingaverage(X, param)
+  X <- c(rnorm(1000, mean = 0),
+           rnorm(1000, mean = -2),
+           rnorm(1000, mean = 2));
+      param = seq(0,5,length=3000); 
+    res <- potential_slidingaverage(X, param)
 }
 \author{
 Leo Lahti, adapted from original Matlab code by Egbert van Nes.
 }
 \references{
 \itemize{
-  \item{}{Hirota, M., Holmgren, M., van Nes, E.H. & Scheffer, M. (2011). Global resilience of tropical forest and savanna to critical transitions. \emph{Science}, 334, 232-235.}
-  \item{}{Lahti et al. (2014). Tipping elements of the human intestinal ecosystem. \emph{Nature Communications} 5:4344.}
+  \item{}{Hirota, M., Holmgren, M., van Nes, E.H. & Scheffer, M. (2011).
+          Global resilience of tropical forest and savanna to critical
+          transitions. \emph{Science}, 334, 232-235.}
+  \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
+          ecosystem. \emph{Nature Communications} 5:4344.}
  }
 }
 \seealso{

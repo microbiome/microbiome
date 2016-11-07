@@ -1,4 +1,4 @@
-#' @title Plot frequencies
+#' @title Plot Frequencies
 #' @description Plot relative frequencies within each Group for the
 #' levels of the given Factor.
 #' @param x \code{\link{data.frame}} 

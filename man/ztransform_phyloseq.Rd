@@ -19,11 +19,13 @@ Z transform phyloseq objects.
 }
 \details{
 Performs centering (to zero) and scaling (to unit
-variance) across samples for each taxa.
+  variance) across samples for each taxa.
 }
 \examples{
+\dontrun{
   data(peerj32)
   pseqz <- ztransform_phyloseq(peerj32$phyloseq)
+}
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
@@ -31,5 +33,5 @@ Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 \references{
 See citation('microbiome')
 }
-\keyword{utilities}
+\keyword{internal}
 

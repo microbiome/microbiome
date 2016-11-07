@@ -1,4 +1,4 @@
-#' @title Cross correlation wrapper
+#' @title Cross Correlation Wrapper
 #' @description Cross-correlate columns of the input matrices.
 #' @param x matrix (samples x features if annotation matrix)
 #' @param y matrix (samples x features if cross-correlated with annotations)

@@ -1,12 +1,20 @@
-#' @title Prevalence for phyloseq OTUs
+#' @title Prevalence for Phyloseq OTUs
 #' @description Simple prevalence measure.
 #' @param x A vector, data matrix or phyloseq object
 #' @param detection.threshold Detection threshold for absence/presence.
 #' @param sort Sort the groups by prevalence
-#' @param relative Logical. Indicate prevalence as fraction of samples (in percentage [0, 100]; default); or in absolute counts indicating the number of samples where the OTU is detected above the given abundance threshold.
-#' @details For vectors, calculates the fraction (mode relative) or number (mode absolute) of samples that exceed the
-#' detection threshold. For matrices, calculates this for each matrix column. For phyloseq objects, calculates this for each OTU. The relative prevalence (relative = TRUE) is simply the absolute prevalence (relative = FALSE) divided by the number of samples.
-#' @return For each OTU, the fraction of samples where a given OTU is detected. The output is readily given as a percentage.
+#' @param relative Logical. Indicate prevalence as fraction of samples
+#' (in percentage [0, 100]; default); or in absolute counts indicating
+#' the number of samples where the OTU is detected above the given
+#' abundance threshold.
+#' @details For vectors, calculates the fraction (mode relative) or
+#' number (mode absolute) of samples that exceed the
+#' detection threshold. For matrices, calculates this for each matrix
+#' column. For phyloseq objects, calculates this for each OTU. The
+#' relative prevalence (relative = TRUE) is simply the absolute
+#' prevalence (relative = FALSE) divided by the number of samples.
+#' @return For each OTU, the fraction of samples where a given OTU is
+#' detected. The output is readily given as a percentage.
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
 #'   analysis depth and health status. Clinical Microbiology and Infection 
@@ -34,7 +42,8 @@ prevalence <- function (x, detection.threshold = 0, sort = FALSE, relative = TRU
     prev <- rowSums(x > detection.threshold)
   } else if (class(x) == "phyloseq") {
     # At this point necessary to have relative = FALSE
-    prev <- prevalence(taxa_abundances(x), detection.threshold = detection.threshold, relative = FALSE)
+    prev <- prevalence(taxa_abundances(x),
+    	      detection.threshold = detection.threshold, relative = FALSE)
   } 
 
   if (relative) {

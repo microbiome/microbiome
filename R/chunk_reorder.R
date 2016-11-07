@@ -1,4 +1,4 @@
-#' @title Chunk reorder
+#' @title Chunk Reorder
 #' @description Chunk re-order a vector so that specified newstart is first. Different than relevel.
 #' @keywords internal
 #' @details Borrowed from \pkg{phyloseq} package as needed here and not exported there.

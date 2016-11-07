@@ -18,7 +18,8 @@ validate_phyloseq <- function (x) {
 
   if (length(coms) < 2) {
     validated <- FALSE
-    warning("Check that the otu_table and sample_data have more than 1 samples in common")
+    warning("Check that the otu_table and sample_data have more than 1 samples 
+             in common")
     return(validated)
   } else {
     # Include only the common samples    

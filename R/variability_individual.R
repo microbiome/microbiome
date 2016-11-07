@@ -1,7 +1,10 @@
 #' @title Individual Variability
-#' @description Average coefficient of variation (CoV) within individuals for each taxa.
+#' @description Average coefficient of variation (CoV) within individuals
+#'              for each taxa.
 #' @param x phyloseq object
-#' @param method "CoV" (coef. of variation ie. std/mean) or "std" (standard deviation) or "timevar" (average shift normalized by time)
+#' @param method "CoV" (coef. of variation ie. std/mean) or
+#'               "std" (standard deviation) or
+#'               "timevar" (average shift normalized by time)
 #' @details The sample metadata should contain the subject and time fields
 #' @return A vector of average variability within individuals for each taxa.
 #' @export

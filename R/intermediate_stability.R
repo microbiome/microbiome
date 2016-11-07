@@ -1,4 +1,4 @@
-#' @title Intermediate stability
+#' @title Intermediate Stability
 #' @description Quantify intermediate stability with respect to a given reference point. 
 #' @param x \pkg{phyloseq} object.
 #'          Includes otu_table (variables x samples) and
