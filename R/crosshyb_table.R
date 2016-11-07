@@ -1,7 +1,8 @@
 #' @title Cross hybridization table
-#' @description Cross-hybridization table between multimodal taxa as percentages of shared probes.
-#' The number indicates how many percent of oligos for the row taxon are also hybridizing the
-#' corresponding column taxon.
+#' @description Cross-hybridization table between multimodal taxa as
+#'              percentages of shared probes.
+#' The number indicates how many percent of oligos for the row taxon are
+#' also hybridizing the corresponding column taxon.
 #' @param tax.level Taxonomic level to investigate
 #' @param selected.taxa Restrict cross-hyb analysis to the selected groups.
 #' @param tax.table tax.table 

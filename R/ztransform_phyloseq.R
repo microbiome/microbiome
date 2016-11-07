@@ -1,22 +1,25 @@
 #' @title Phyloseq Z Transformation
 #' @description Z transform phyloseq objects.
 #' @details Performs centering (to zero) and scaling (to unit
-#' variance) across samples for each taxa.
+#'   variance) across samples for each taxa.
 #' @param x \code{\link{phyloseq-class}} object 
 #' @param which Specify Z transformation for "sample" or "OTU"
 #' @return Z-transformed phyloseq object
-#' @examples
+#' @examples \dontrun{
 #'   data(peerj32)
 #'   pseqz <- ztransform_phyloseq(peerj32$phyloseq)
+#' }
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
+#' @keywords internal
 ztransform_phyloseq <- function (x, which) {
 
   taxa_are_rows <- y <- NULL
 
   if (!all(sample(taxa_abundances(x), 100)%%1 == 0)) {
-    warning("phyloseq object may already have been log transformed - the abundances are not counts - log10 omitted in Z transformation. Perform manually if needed.")
+    warning("phyloseq object may already have been log transformed - the 
+             abundances are not counts - log10 omitted in Z transformation. 
+	     Perform manually if needed.")
   } else {
     # Start with log10 transformation
     x <- transform_phyloseq(x, "log10")
