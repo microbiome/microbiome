@@ -5,8 +5,10 @@
 
 # Completely overwrites gh-pages
 # would be also possible to pull and modify instead
-rm -rf out || exit 0;
+rm -rf out; || exit 0;
+echo "testing\n"
 mkdir out;
+
 
 GH_REPO="@github.com/microbiome/microbiome.git"
 
@@ -27,3 +29,4 @@ cp ../microbiome/vignettes/vignette.html index.html
 git add .
 git commit -m "deployed to github pages"
 git push --force --quiet $FULL_REPO master:gh-pages
+echo "PUSH OK\n"
