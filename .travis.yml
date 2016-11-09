@@ -32,7 +32,7 @@ env:
      - WARNINGS_ARE_ERRORS=1
      - R_BUILD_ARGS="--no-manual"
      - R_CHECK_ARGS="--no-manual --as-cran"
-     - secure: "g2A6DMbAb1ZsJZzACj4rtiIS7h0MD5AZU63GEIPX+Zm/owkkKvY0U7XW4+NbnvqzAoTVKjnhK4eRJ0UD+NPwn++uN4dSRkv+4ZmVdauz3VsSqKBcTSkvXDNt+0YMPwccdwSj9vt0k8Xc6ga0rsWvbtPLYZeLvPmKJxg8m0GxS04="     
+     - secure: "XpIG+tvtIxZLmB3n/ohm8GvBd+kdeqjvxokB+zayIONWTdkyYtur6/SwUgd9NMtFE1QFjWUv3VSphuSanr1kbA7x02p5QH1P5/PGo8xHesQP1aINSPWFB9n0oC7JudX/EwxCqaWeLlWJLPELZHar6ZlKXOkBqzF96l2h+XW8RVM="     
 
 before_install:
   - pip install --user codecov
