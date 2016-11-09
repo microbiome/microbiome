@@ -23,14 +23,13 @@ r_github_packages:
 - zdk123/SpiecEasi
 - briatte/ggnet
 - earlywarningtoolbox/earlywarnings-R/earlywarnings
-
 env:
   global:
   - WARNINGS_ARE_ERRORS=1
   - R_BUILD_ARGS="--no-manual"
   - R_CHECK_ARGS="--no-manual --as-cran"
-  - secure: iSnVJR2U43EKiR0KPRdK9GfMx/9ys0q/E35mY7DNTc9Evd1bnGp7+yB3/W1CiWG1ztVZI65qaq6oaBH2CDDq98bB2MgqtO8Z6+ytRlcJf5ze7t7Ib9RnT5thPfV+uKNkgABcTcvLkWnmpyzn80fiwbsfo0jPh325GR9zQUcnBuQ=
-
+  - GITHUB_REPO: microbiome/microbiome
+  - secure: kivwIFvX65gp1xOYQyfdXwr4/FuUFfS27Aqug19K7euNbz8oEuwDiIId+VNBdiTJ+Wyn267gepf/Uc9cqyimvx4d+r2LMveNTBhAfN5cXt3gqEzqszZYwWlTbBojHsz03LMDgzNtEXto98KCB8zaghAP2Zdq42RBjuzGa28F650=
 before_install:
 - pip install --user codecov
 - chmod 755 ./.push_gh_pages.sh
