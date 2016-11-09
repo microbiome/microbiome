@@ -1,45 +1,40 @@
 language: r
 sudo: true
 cache: packages
-
 warnings_are_errors: false
-
 r_packages:
-  - Cairo
-  - GGally
-  - ggrepel
-  - intergraph
-  - magrittr
-  - network
-  - rmarkdown
-  - survival
-
+- Cairo
+- GGally
+- ggrepel
+- intergraph
+- magrittr
+- network
+- rmarkdown
+- scales
+- survival
 bioc_packages:
-  - BiocInstaller
-  - limma
-
+- BiocInstaller
+- limma
 r_github_packages:
-  - cran/RUnit
-  - ropengov/sorvi
-  - microbiome/microbiome  
-  - microbiome/HITChipDB
-  - zdk123/SpiecEasi
-  - briatte/ggnet
-  - earlywarningtoolbox/earlywarnings-R/earlywarnings
+- cran/RUnit
+- ropengov/sorvi
+- microbiome/microbiome
+- microbiome/HITChipDB
+- zdk123/SpiecEasi
+- briatte/ggnet
+- earlywarningtoolbox/earlywarnings-R/earlywarnings
 
 env:
-   global:
-     - WARNINGS_ARE_ERRORS=1
-     - R_BUILD_ARGS="--no-manual"
-     - R_CHECK_ARGS="--no-manual --as-cran"
-     - secure: "XpIG+tvtIxZLmB3n/ohm8GvBd+kdeqjvxokB+zayIONWTdkyYtur6/SwUgd9NMtFE1QFjWUv3VSphuSanr1kbA7x02p5QH1P5/PGo8xHesQP1aINSPWFB9n0oC7JudX/EwxCqaWeLlWJLPELZHar6ZlKXOkBqzF96l2h+XW8RVM="     
+  global:
+  - WARNINGS_ARE_ERRORS=1
+  - R_BUILD_ARGS="--no-manual"
+  - R_CHECK_ARGS="--no-manual --as-cran"
+  - secure: iSnVJR2U43EKiR0KPRdK9GfMx/9ys0q/E35mY7DNTc9Evd1bnGp7+yB3/W1CiWG1ztVZI65qaq6oaBH2CDDq98bB2MgqtO8Z6+ytRlcJf5ze7t7Ib9RnT5thPfV+uKNkgABcTcvLkWnmpyzn80fiwbsfo0jPh325GR9zQUcnBuQ=
 
 before_install:
-  - pip install --user codecov
-  - chmod 755 ./.push_gh_pages.sh
-  - sudo apt-get install -y tcl tk tk-dev
-
-after_success:	
-  - bash <(curl -s https://codecov.io/bash)
-  - ./.push_gh_pages.sh
-
+- pip install --user codecov
+- chmod 755 ./.push_gh_pages.sh
+- sudo apt-get install -y tcl tk tk-dev
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+- "./.push_gh_pages.sh"
