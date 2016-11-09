@@ -5,9 +5,7 @@
 
 # Completely overwrites gh-pages
 # would be also possible to pull and modify instead
-echo "HEREWEGO"
 rm -rf out; || exit 0;
-echo "testing\n"
 mkdir out;
 
 
