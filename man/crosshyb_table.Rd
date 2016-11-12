@@ -2,7 +2,7 @@
 % Please edit documentation in R/crosshyb_table.R
 \name{crosshyb_table}
 \alias{crosshyb_table}
-\title{Cross hybridization table}
+\title{Cross Hybridization Table}
 \usage{
 crosshyb_table(tax.level = "L1", selected.taxa = NULL, tax.table)
 }

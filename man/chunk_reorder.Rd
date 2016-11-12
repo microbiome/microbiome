@@ -2,7 +2,7 @@
 % Please edit documentation in R/chunk_reorder.R
 \name{chunk_reorder}
 \alias{chunk_reorder}
-\title{Chunk reorder}
+\title{Chunk Reorder}
 \usage{
 chunk_reorder(x, newstart = x[[1]])
 }

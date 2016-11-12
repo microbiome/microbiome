@@ -15,20 +15,28 @@ potential_univariate(x, std = 1, bw = "nrd", weights = c(),
 
 \item{bw}{kernel bandwidth estimation method}
 
-\item{weights}{optional weights in ksdensity (used by potential_slidingaverages).}
+\item{weights}{optional weights in ksdensity (used by
+potential_slidingaverages).}
 
 \item{grid.size}{Grid size for potential estimation.}
 
-\item{detection.threshold}{maximum detection threshold as fraction of density kernel height dnorm(0, sd = bandwidth)/N}
+\item{detection.threshold}{maximum detection threshold as fraction
+of density kernel height dnorm(0, sd = bandwidth)/N}
 
 \item{bw.adjust}{The real bandwidth will be bw.adjust*bw; defaults to 1}
 
-\item{density.smoothing}{Add a small constant density across the whole observation range to regularize density estimation (and to avoid zero probabilities within the observation range). This parameter adds uniform density across the observation range, scaled by density.smoothing.}
+\item{density.smoothing}{Add a small constant density across the
+whole observation range to regularize density estimation (and to
+avoid zero probabilities within the observation range). This
+parameter adds uniform density across the observation range, scaled
+by density.smoothing.}
 
-\item{detection.limit}{minimum accepted density for a maximum; as a multiple of kernel height}
+\item{detection.limit}{minimum accepted density for a maximum; as a
+multiple of kernel height}
 }
 \value{
-\code{potential_univariate} returns a list with the following elements:
+\code{potential_univariate} returns a list with the
+following elements:
   \itemize{
     \item{xi}{the grid of points on which the potential is estimated}
     \item{pot}{The estimated potential: -log(f)*std^2/2, where f is the density.}

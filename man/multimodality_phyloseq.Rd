@@ -2,7 +2,7 @@
 % Please edit documentation in R/multimodality_phyloseq.R
 \name{multimodality_phyloseq}
 \alias{multimodality_phyloseq}
-\title{Multimodality test for phyloseq objects}
+\title{Phyloseq Multimodality Test}
 \usage{
 multimodality_phyloseq(x, detection.threshold = 1, bw.adjust = 1,
   bs.iterations = 100, detection.limit = 1, verbose = TRUE)

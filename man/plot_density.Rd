@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_density.R
 \name{plot_density}
 \alias{plot_density}
-\title{Density plot}
+\title{Plot Density}
 \usage{
 plot_density(x, variable = NULL, log10 = FALSE, adjust = 1,
   kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray",

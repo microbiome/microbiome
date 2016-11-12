@@ -2,7 +2,7 @@
 % Please edit documentation in R/core_heatmap.R
 \name{core_heatmap}
 \alias{core_heatmap}
-\title{OTU core heatmap}
+\title{Core Heatmap}
 \usage{
 core_heatmap(data, detection.thresholds = 20, colours = gray(seq(0, 1,
   length = 5)), min.prevalence = NULL, taxa.order = NULL)

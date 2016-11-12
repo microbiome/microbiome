@@ -7,13 +7,15 @@
 timesort_subjects(x)
 }
 \arguments{
-\item{x}{A metadata data.frame including the following columns: time, subject, sample, signal}
+\item{x}{A metadata data.frame including the following columns:
+time, subject, sample, signal}
 }
 \value{
 A list with metadata (data.frame) for each subject.
 }
 \description{
-Within each subject, sort samples by time and calculate distance from the baseline point (minimum time).
+Within each subject, sort samples by time and calculate
+             distance from the baseline point (minimum time).
 }
 \examples{
 \dontrun{timesort_subjects(x) }

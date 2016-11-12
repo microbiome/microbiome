@@ -2,7 +2,7 @@
 % Please edit documentation in R/core_matrix.R
 \name{core_matrix}
 \alias{core_matrix}
-\title{Core OTU matrix}
+\title{Core Matrix}
 \usage{
 core_matrix(x, prevalence.intervals = seq(5, 100, 5),
   detection.thresholds = NULL)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/map_levels.R
 \name{map_levels}
 \alias{map_levels}
-\title{Map taxonomic levels}
+\title{Map Taxonomic Levels}
 \usage{
 map_levels(taxa = NULL, from, to, data)
 }

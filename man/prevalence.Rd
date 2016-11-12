@@ -2,7 +2,7 @@
 % Please edit documentation in R/prevalence.R
 \name{prevalence}
 \alias{prevalence}
-\title{Prevalence for phyloseq OTUs}
+\title{Prevalence for Phyloseq OTUs}
 \usage{
 prevalence(x, detection.threshold = 0, sort = FALSE, relative = TRUE)
 }
@@ -13,17 +13,25 @@ prevalence(x, detection.threshold = 0, sort = FALSE, relative = TRUE)
 
 \item{sort}{Sort the groups by prevalence}
 
-\item{relative}{Logical. Indicate prevalence as fraction of samples (in percentage [0, 100]; default); or in absolute counts indicating the number of samples where the OTU is detected above the given abundance threshold.}
+\item{relative}{Logical. Indicate prevalence as fraction of samples
+(in percentage [0, 100]; default); or in absolute counts indicating
+the number of samples where the OTU is detected above the given
+abundance threshold.}
 }
 \value{
-For each OTU, the fraction of samples where a given OTU is detected. The output is readily given as a percentage.
+For each OTU, the fraction of samples where a given OTU is
+detected. The output is readily given as a percentage.
 }
 \description{
 Simple prevalence measure.
 }
 \details{
-For vectors, calculates the fraction (mode relative) or number (mode absolute) of samples that exceed the
-detection threshold. For matrices, calculates this for each matrix column. For phyloseq objects, calculates this for each OTU. The relative prevalence (relative = TRUE) is simply the absolute prevalence (relative = FALSE) divided by the number of samples.
+For vectors, calculates the fraction (mode relative) or
+number (mode absolute) of samples that exceed the
+detection threshold. For matrices, calculates this for each matrix
+column. For phyloseq objects, calculates this for each OTU. The
+relative prevalence (relative = TRUE) is simply the absolute
+prevalence (relative = FALSE) divided by the number of samples.
 }
 \examples{
   data(peerj32)     

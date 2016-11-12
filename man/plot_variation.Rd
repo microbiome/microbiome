@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_variation.R
 \name{plot_variation}
 \alias{plot_variation}
-\title{Variation line plot}
+\title{Variation Line Plot}
 \usage{
 plot_variation(x, taxon, tipping.point = NULL, lims = NULL, shift = 0.001,
   xlim = NULL)

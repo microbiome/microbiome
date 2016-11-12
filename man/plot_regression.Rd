@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_regression.R
 \name{plot_regression}
 \alias{plot_regression}
-\title{Visually weighted regression plot}
+\title{Visually Weighted Regression Plot}
 \usage{
 plot_regression(formula, data, B = 1000, shade = TRUE, shade.alpha = 0.1,
   spag = FALSE, mweight = TRUE, show.lm = FALSE, show.median = TRUE,

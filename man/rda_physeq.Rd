@@ -21,7 +21,8 @@ rda_physeq(x, varname, scale = FALSE, na.action = na.fail, ...)
 rda result. See help(vegan::rda)
 }
 \description{
-RDA for phyloseq objects based on the \code{\link{rda}} function from the \pkg{vegan} package.
+RDA for phyloseq objects based on the \code{\link{rda}}
+   function from the \pkg{vegan} package.
 }
 \examples{
 #

@@ -14,7 +14,9 @@ taxa_abundances(x)
 Abundance matrix.
 }
 \description{
-Retrieves the taxon abundance table from \code{\link{phyloseq-class}} object and ensures it is returned as taxa x samples matrix.
+Retrieves the taxon abundance table from
+   \code{\link{phyloseq-class}} object and ensures it is returned as
+   taxa x samples matrix.
 }
 \examples{
   data(dietswap)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarize_taxa.R
 \name{summarize_taxa}
 \alias{summarize_taxa}
-\title{Summarize taxa}
+\title{Summarize Taxa}
 \usage{
 summarize_taxa(pseq, level)
 }
@@ -18,10 +18,15 @@ Summarized phyloseq object
 Summarize phyloseq data into a higher phylogenetic level.
 }
 \details{
-This provides a convenient way to aggregate phyloseq OTUs (or other taxa) when the phylogenetic tree is missing. Calculates the sum of OTU abundances over all OTUs that map to the same higher-level group. Removes ambiguous levels from the taxonomy table. Returns a phyloseq object with the summarized abundances.
+This provides a convenient way to aggregate phyloseq OTUs
+  (or other taxa) when the phylogenetic tree is missing. Calculates the
+  sum of OTU abundances over all OTUs that map to the same higher-level
+  group. Removes ambiguous levels from the taxonomy table. Returns a
+  phyloseq object with the summarized abundances.
 }
 \examples{
-# summarize_taxa(pseq, "Genus")
+  data(dietswap)
+  s <- summarize_taxa(dietswap, "Phylum")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

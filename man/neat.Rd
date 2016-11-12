@@ -29,7 +29,13 @@ Sorted matrix
 Order matrix or phyloseq OTU table based on the neatmap approach.
 }
 \details{
-Borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is not available there as a separate function. Therefore I implemented this function to provide an independent method for easy sample/taxon reordering for phyloseq objects. The ordering is cyclic so we can start at any point. The choice of the first sample may somewhat affect the overall ordering
+Borrows elements from the heatmap implementation in the
+\pkg{phyloseq} package. The row/column sorting is not available there
+as a separate function. Therefore I implemented this function to
+provide an independent method for easy sample/taxon reordering for
+phyloseq objects. The ordering is cyclic so we can start at any
+point. The choice of the first sample may somewhat affect the overall
+ordering
 }
 \examples{
   data(peerj32)

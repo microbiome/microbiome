@@ -2,7 +2,7 @@
 % Please edit documentation in R/neatsort.R
 \name{neatsort}
 \alias{neatsort}
-\title{Neatmap ordering for matrix features or samples}
+\title{Neatmap Ordering for Matrix Features or Samples}
 \usage{
 neatsort(x, arrange, method = "NMDS", distance = "bray", first = NULL,
   ...)

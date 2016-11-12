@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_hitchip_taxonomy.R
 \name{get_hitchip_taxonomy}
 \alias{get_hitchip_taxonomy}
-\title{HITChip taxonomy table}
+\title{HITChip Taxonomy Table}
 \usage{
 get_hitchip_taxonomy(chip, phylogeny.version = "full", data.dir = NULL)
 }

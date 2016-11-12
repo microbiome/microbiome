@@ -2,7 +2,7 @@
 % Please edit documentation in R/cross_correlate.R
 \name{cross_correlate}
 \alias{cross_correlate}
-\title{Cross correlation wrapper}
+\title{Cross Correlation Wrapper}
 \usage{
 cross_correlate(x, y = NULL, method = "spearman", p.adj.threshold = Inf,
   cth = NULL, order = FALSE, n.signif = 0, mode = "table",

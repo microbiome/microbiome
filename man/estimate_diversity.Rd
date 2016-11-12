@@ -2,7 +2,7 @@
 % Please edit documentation in R/diversity.R
 \name{estimate_diversity}
 \alias{estimate_diversity}
-\title{Estimate diversity}
+\title{Estimate Diversity}
 \usage{
 estimate_diversity(x, split = TRUE, measures = NULL, det.th = 0)
 }
@@ -21,8 +21,8 @@ Vector containing relative proportions for each phylotype in
         each sample
 }
 \description{
-Diversity estimation. Augments the estimate_richness function of the phyloseq
-package.
+Diversity estimation.
+   Augments the estimate_richness function of the phyloseq package.
 }
 \examples{
   data(dietswap)

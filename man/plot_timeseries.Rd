@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_timeseries.R
 \name{plot_timeseries}
 \alias{plot_timeseries}
-\title{Longitudinal time series plot}
+\title{Longitudinal Time Series Plot}
 \usage{
 plot_timeseries(x, taxon, subjectID = NULL, tipping.point = NULL,
   shift = 0.001)

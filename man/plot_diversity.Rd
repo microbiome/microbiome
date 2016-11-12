@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_diversity.R
 \name{plot_diversity}
 \alias{plot_diversity}
-\title{Plot diversity}
+\title{Plot Diversity}
 \usage{
 plot_diversity(x, variable = "group", measures = "Shannon", nrow = 1,
   scales = "free_y", det.th = 0, indicate.subjects = FALSE)

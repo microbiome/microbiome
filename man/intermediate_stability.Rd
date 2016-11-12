@@ -2,7 +2,7 @@
 % Please edit documentation in R/intermediate_stability.R
 \name{intermediate_stability}
 \alias{intermediate_stability}
-\title{Intermediate stability}
+\title{Intermediate Stability}
 \usage{
 intermediate_stability(x, reference.point = NULL, method = "correlation",
   output = "scores")
