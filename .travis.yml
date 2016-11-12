@@ -18,6 +18,7 @@ bioc_packages:
 r_github_packages:
 - cran/RUnit
 - ropengov/sorvi
+- hadley/ggplot2
 - microbiome/microbiome
 - microbiome/HITChipDB
 - zdk123/SpiecEasi
