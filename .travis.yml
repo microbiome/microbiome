@@ -15,10 +15,10 @@ r_packages:
 bioc_packages:
 - BiocInstaller
 - limma
-r_github_packages:
+r_github_packages
+- slowkow/ggrepel
 - cran/RUnit
 - ropengov/sorvi
-- hadley/ggplot2
 - microbiome/microbiome
 - microbiome/HITChipDB
 - zdk123/SpiecEasi
