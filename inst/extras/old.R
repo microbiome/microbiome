@@ -1,3 +1,37 @@
+### Comparing of two or more groups with a parametric test (linear model; ANOVA)
+
+Note: check ANOVA modeling assumptions before testing. 
+
+```{r comparisons2}
+# Load example data from a 
+# [diet swap study](http://dx.doi.org/10.1038/ncomms7342)
+data("dietswap")
+pseq <- dietswap
+
+# Convert to relative abundances
+pseq <- transform_phyloseq(pseq, "relative.abundance")
+
+# 1-way ANOVA p-values for the multi-group comparison across time groups
+source(system.file("extdata/check_anova.R", package = "microbiome"))
+anova.results <- check_anova(pseq, "group", p.adjust.method = "BH")
+kable(head(anova.results))
+```
+
+### Wilcoxon test (two-group comparisons)
+
+If the data remarkably violates Gaussian assumptions, try
+non-parametric test. Wilcoxon is one option for two group
+comparison. Here we compare males and females in the example data. The
+check_wilcoxon function is experimental and not included in the
+microbiome R package but is available as a supplementary file:
+
+```{r comparisons-exampless}
+source(system.file("extdata/check_wilcoxon.R", package = "microbiome"))
+pval <- check_wilcoxon(pseq, "sex")
+```
+
+
+
 #' read_profiling
 #' 
 #' Read run.profiling.script output into R

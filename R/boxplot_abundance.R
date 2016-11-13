@@ -8,6 +8,7 @@
 #' @param log10 show y axis on log scale
 #' @param violin Use violin version of the boxplot
 #' @param na.rm Remove NAs
+#' @param show.points Include data points in the figure
 #' @details The directionality of change in paired boxplot is indicated by the colors of the connecting lines.
 #' @return A \code{\link{ggplot}} plot object
 #' @export
@@ -16,7 +17,7 @@
 #'   p <- boxplot_abundance(peerj32$phyloseq, x = "time", y = "Akkermansia",
 #'       	  		    line = "subject", color = "gender")
 #' @keywords utilities
-boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = FALSE, violin = FALSE, na.rm = FALSE) {
+boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = FALSE, violin = FALSE, na.rm = FALSE, show.points = TRUE) {
 
   change <- xvar <- yvar <- linevar <- colorvar <- NULL
 
@@ -47,9 +48,25 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = FA
     df <- subset(df, !is.na(yvar))    
   }
 
+  if (nrow(df) == 0) {
+    warning("No sufficient data for plotting available. Returning an empty plot.")
+    return(ggplot())
+  }
+
+  # Factorize the group variable
+  df$xvar <- factor(df$xvar)
+
   # Visualize example data with a boxplot
   theme_set(theme_bw(20))
   p <- ggplot(df, aes(x = xvar, y = yvar))
+
+  if (show.points) {
+    p <- p + geom_point(
+           size = 2,
+      	   position = position_jitter(width = 0.3),
+	   alpha = 0.5
+	   )
+  }
 
   # Box or Violin plot ?
   if (!violin) {
@@ -57,11 +74,6 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = FA
   } else {
     p <- p + geom_violin(fill = NA) 
   }
-
-  # Jittering the points
-  p <- p + geom_point(size = 1, alpha = 0.3,
-                position = position_jitter(width = 0.3)) 
-
 
   # Add also subjects as lines and points
   if (!is.null(line)) {
@@ -71,7 +83,7 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = FA
     df2 <- suppressWarnings(df %>% arrange(linevar, xvar) %>%
     	   		           group_by(linevar) %>%
 				   summarise(change = diff(yvar)))
-    
+
     # Map back to data
     df$change <- df2$change[match(df$linevar, df2$linevar)]
     # Log10 for line colors

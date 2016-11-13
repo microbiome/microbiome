@@ -61,10 +61,12 @@ for many standard tasks encountered in microbiome studies.
 
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
+* [Linear models](linearmodels.md)
 * [Pairwise comparisons](Comparisons.md)
 * [Stability, bimodality, tipping elements](Stability.md)
 * [Variability](Variability.md)
-* [Experimental](Experimental.Rmd)
+* [Experimental](Experimental.md)
+
 
 
 ### Licensing and Citations
