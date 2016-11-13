@@ -1,7 +1,7 @@
 ---
 title: "HITChip Atlas"
 author: "Leo Lahti, Willem M de Vos et al."
-date: "2016-11-04"
+date: "2016-11-13"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -72,14 +72,7 @@ print(p)
 
 
 ```r
-# Pick the subset of RBB-preprocessed samples from time point 0
-pseq <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
-
-# Visualize
-p <- plot_regression(diversity~age, sample_data(pseq))
-print(p)
+plot_regression(diversity~age, sample_data(pseq))
 ```
-
-![plot of chunk atlas-example3](figure/atlas-example3-1.png)
 
 

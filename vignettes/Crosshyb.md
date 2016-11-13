@@ -1,7 +1,7 @@
 ---
 title: "Crosshyb"
 author: "Leo Lahti"
-date: "2016-11-04"
+date: "2016-11-13"
 bibliography: 
 - bibliography.bib
 - references.bib

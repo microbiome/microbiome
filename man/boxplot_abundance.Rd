@@ -5,7 +5,7 @@
 \title{Abundance Boxplot}
 \usage{
 boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = FALSE,
-  violin = FALSE, na.rm = FALSE)
+  violin = FALSE, na.rm = FALSE, show.points = TRUE)
 }
 \arguments{
 \item{pseq}{\code{\link{phyloseq-class}} object}
@@ -23,6 +23,8 @@ boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = FALSE,
 \item{violin}{Use violin version of the boxplot}
 
 \item{na.rm}{Remove NAs}
+
+\item{show.points}{Include data points in the figure}
 }
 \value{
 A \code{\link{ggplot}} plot object

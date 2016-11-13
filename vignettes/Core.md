@@ -1,7 +1,7 @@
 ---
 title: "Core"
 author: "Leo Lahti"
-date: "2016-11-04"
+date: "2016-11-13"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -96,11 +96,25 @@ det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
 prevalence.intervals <- seq(5, 100, 5)
 p <- plot_core(pseq, prevalence.intervals = prevalence.intervals, detection.thresholds = det, plot.type = "lineplot")
 p + xlab("Abundance (OTU read count)")
+```
 
+```
+## Warning: Transformation introduced infinite values in continuous x-axis
+
+## Warning: Transformation introduced infinite values in continuous x-axis
+```
+
+```r
 # With relative abundances
 det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
 p <- plot_core(pseq.rel, prevalence.intervals = prevalence.intervals, detection.thresholds = det, plot.type = "lineplot")
 p + xlab("Relative Abundance (%)")
+```
+
+```
+## Warning: Transformation introduced infinite values in continuous x-axis
+
+## Warning: Transformation introduced infinite values in continuous x-axis
 ```
 
 <img src="figure/core-example2-1.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="430px" /><img src="figure/core-example2-2.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="430px" />

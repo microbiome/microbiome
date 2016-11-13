@@ -1,7 +1,7 @@
 ---
 title: "Composition"
 author: "Leo Lahti"
-date: "2016-11-04"
+date: "2016-11-13"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -148,8 +148,8 @@ p <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
 ```
 
 ```
-## Warning in order_neatmap(x, method = "NMDS", distance = "bray", target =
-## "species", : Order failed with species. Using default ordering.
+## Warning in order_neatmap(x, method = "NMDS", distance = "bray", target = "species", : Order failed with species. 
+##     			 Using default ordering.
 ```
 
 ![plot of chunk composition-example7](figure/composition-example7-1.png)

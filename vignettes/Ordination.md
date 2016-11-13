@@ -1,7 +1,7 @@
 ---
 title: "Ordination"
 author: "Leo Lahti"
-date: "2016-11-04"
+date: "2016-11-13"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -59,6 +59,13 @@ Then visualize the projected data:
 ```r
 # Highlighting nationality
 p <- densityplot(as.matrix(proj[, 1:2]), col = proj$nationality, legend = T)
+```
+
+```
+## Error in (function (x, darg, groups = NULL, weights = NULL, subscripts = TRUE, : (list) object cannot be coerced to type 'double'
+```
+
+```r
 print(p)
 
 # Projection with sample names:

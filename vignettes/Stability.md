@@ -1,7 +1,7 @@
 ---
 title: "Stability"
 author: "Leo Lahti"
-date: "2016-11-05"
+date: "2016-11-13"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -26,11 +26,18 @@ library(microbiome)
 data(atlas1006)
 pseq <- atlas1006
 
-# Let us keep only prevalent taxa
+# Let us keep only prevalent taxa from Bacteroides Phylum
 # (HITChip signal >3 in >20 percent of the samples)
-pseq <- filter_prevalent(pseq, detection.threshold = 10^3, prevalence.threshold = 0.2)
-```
+pseq <- subset_taxa(pseq, Phylum == "Bacteroidetes")
+pseq <- filter_prevalent(pseq, detection.threshold = 10^3, prevalence.threshold = 0.95)
 
+# Let us only consider RBB extracted samples
+pseq <- subset_samples(pseq, DNA_extraction_method == "r")
+
+# For cross-sectional analysis, include
+# only the zero time point:
+pseq0 <- subset_samples(pseq, time == 0)
+```
 
 
 ## Quantify intermediate stability 
@@ -48,14 +55,6 @@ calculated with:
 
 
 ```r
-pseq <- subset_taxa(pseq, Phylum == "Bacteroides")
-```
-
-```
-## Error in `rownames<-`(`*tmp*`, value = c("sp1", "sp0")): length of 'dimnames' [1] not equal to array extent
-```
-
-```r
 intermediate.stability <- intermediate_stability(pseq, output = "scores")
 ```
 
@@ -66,15 +65,6 @@ Bimodality of the abundance distribution provides another (indirect)
 indicator of bistability, although other explanations such as sampling
 biases etc. should be controlled. Multiple bimodality scores are
 available.
-
-Let is stick to cross-sectional analysis of bimodality and include
-only the samples from the zero time point:
-
-
-```r
-pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
-```
-
 
 Multimodality score using [potential analysis with
 bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
@@ -129,14 +119,7 @@ The analysis suggests that bimodal population distribution across individuals is
 taxa <- taxa_names(pseq0)
 df <- data.frame(group = taxa,
                  intermediate.stability = intermediate.stability[taxa],
-		 bimodality = bimodality.pb[taxa])
-```
-
-```
-## Error in data.frame(group = taxa, intermediate.stability = intermediate.stability[taxa], : object 'bimodality.pb' not found
-```
-
-```r
+		 bimodality = bimodality[taxa])
 theme_set(theme_bw(20))
 p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
 
@@ -147,12 +130,15 @@ p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
 # See https://github.com/slowkow/ggrepel/blob/master/vignettes/ggrepel.md
 library(ggrepel)
 p <- p + geom_text_repel(size = 3)
+```
 
+```
+## Error: GeomTextRepel was built with an incompatible version of ggproto.
+## Please reinstall the package that provides this extension.
+```
+
+```r
 print(p)
-```
-
-```
-## Error in if (is.waive(data) || empty(data)) return(cbind(data, PANEL = integer(0))): missing value where TRUE/FALSE needed
 ```
 
 ![plot of chunk bimodalitybistability](figure/bimodalitybistability-1.png)
@@ -166,14 +152,11 @@ tipping point candidates.
 ```r
 # Pick example data
 library(phyloseq)
-library(microbiome)
-data("atlas1006")
-pseq <- atlas1006
-pseq <- subset_samples(pseq, DNA_extraction_method == "r")
 pseq <- transform_phyloseq(pseq, "relative.abundance")
 
-# Dialister log10 relative abundance
-x <- log10(get_sample(pseq, "Dialister"))
+# Log10 for given group
+tax <- "Prevotella oralis et rel."
+x <- log10(get_sample(pseq, tax))
 
 # Potential analysis to identify potential minima
 library(earlywarnings)
@@ -186,7 +169,7 @@ print(tipping.point)
 ```
 
 ```
-## [1] 0.2491531
+## [1] 4.981252
 ```
 
 ## Variation lineplot and Bimodality hotplot
@@ -198,14 +181,13 @@ Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) 
 # Variation line plot:
 # Indicates the abundance variation range
 # for subjects with multiple time points
-pv <- plot_variation(pseq, "Dialister", tipping.point = tipping.point, xlim = c(0.01, 100))
+pv <- plot_variation(pseq, tax, tipping.point = tipping.point, xlim = c(0.01, 100))
 print(pv)
 
 # Bimodality hotplot:
 # Only consider a unique sample from each subject
 # baseline time point for density plot
-pseq.baseline <- subset_samples(pseq, time == 0)
-ph <- plot_bimodal(pseq.baseline, "Dialister", tipping.point = tipping.point)
+ph <- plot_bimodal(pseq0, tax, tipping.point = tipping.point)
 print(ph)
 ```
 

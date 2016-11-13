@@ -1,7 +1,7 @@
 ---
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
-date: "2016-11-04"
+date: "2016-11-13"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -53,10 +53,12 @@ for many standard tasks encountered in microbiome studies.
 
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
+* [Linear models](linearmodels.md)
 * [Pairwise comparisons](Comparisons.md)
 * [Stability, bimodality, tipping elements](Stability.md)
 * [Variability](Variability.md)
-* [Experimental](Experimental.Rmd)
+* [Experimental](Experimental.md)
+
 
 
 ### Licensing and Citations
@@ -93,7 +95,7 @@ citation('microbiome')
 ### Dependencies
 
 The package utilizes tools from a number of other R extensions,
-including ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007), dplyr (Wickham and Francois, 2016), ggplot2 (Wickham, 2009), MASS (Venables and Ripley, 2002), moments (Komsta and Novomestky, 2015), phyloseq (McMurdie and Holmes, 2013), RColorBrewer (Neuwirth, 2014), scales (Wickham, 2016b), stats (R Core Team, 2016), tidyr (Wickham, 2016a), vegan (Oksanen, Blanchet, Friendly, et al., 2016).
+including ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007), dplyr (Wickham and Francois, 2016), ggplot2 (Wickham, 2009), MASS (Venables and Ripley, 2002), moments (Komsta and Novomestky, 2015), phyloseq (McMurdie and Holmes, 2013), RColorBrewer (Neuwirth, 2014), scales (Wickham, 2016), stats (R Core Team, 2016), tidyr (Wickham, 2016), vegan (Oksanen, Blanchet, Friendly, Kindt, Legendre, McGlinn, Minchin, O'Hara, Simpson, Solymos, Stevens, Szoecs, and Wagner, 2016).
 
 
 ### References
@@ -146,7 +148,7 @@ Springer-Verlag New York, 2009. ISBN: 978-0-387-98140-6. <URL:
 http://ggplot2.org>.
 
 [12] H. Wickham. _scales: Scale Functions for Visualization_. R
-package version 0.4.0. 2016. <URL:
+package version 0.4.1. 2016. <URL:
 https://CRAN.R-project.org/package=scales>.
 
 [13] H. Wickham. _tidyr: Easily Tidy Data with `spread()` and

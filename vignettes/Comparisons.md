@@ -1,7 +1,7 @@
 ---
 title: "Comparisons"
 author: "Leo Lahti"
-date: "2016-11-04"
+date: "2016-11-13"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -15,8 +15,8 @@ output:
   %\VignetteEncoding{UTF-8}  
 -->
 
-## Group-wise comparisons
 
+## Group-wise comparisons
 
 ### Boxplots
 
@@ -39,39 +39,14 @@ print(p)
 ![plot of chunk boxplot-example](figure/boxplot-example-1.png)
 
 
-### Comparing of two or more groups with a parametric test (linear model; ANOVA)
-
-Note: check ANOVA modeling assumptions before testing. 
-
-
-```r
-# Load example data from a 
-# [diet swap study](http://dx.doi.org/10.1038/ncomms7342)
-data("dietswap")
-pseq <- dietswap
-
-# Convert to relative abundances
-pseq <- transform_phyloseq(pseq, "relative.abundance")
-
-# 1-way ANOVA p-values for the multi-group comparison across time groups
-source(system.file("extdata/check_anova.R", package = "microbiome"))
-anova.results <- check_anova(pseq, "group", p.adjust.method = "BH")
-kable(head(anova.results))
-```
 
 
 
-|   p.anova|   p.ED-DI|   p.HE-DI|   p.HE-ED|    ave.DI|    ave.ED|    ave.HE|
-|---------:|---------:|---------:|---------:|---------:|---------:|---------:|
-| 0.0010594| 0.9545821| 0.0001572| 0.0000392| 1.4442650| 1.3639240| 2.5845650|
-| 0.0029303| 0.8320058| 0.0010983| 0.0001006| 0.5039235| 0.4327322| 0.9486485|
-| 0.0336511| 0.9979732| 0.0038676| 0.0028199| 0.0376643| 0.0379573| 0.0219853|
-| 0.0336511| 0.9646245| 0.0026158| 0.0054579| 0.1825854| 0.1921543| 0.3084474|
-| 0.0706163| 0.0382707| 0.6660798| 0.0026381| 0.4153172| 0.7268781| 0.3066399|
-| 0.0708257| 0.6389312| 0.0043033| 0.0533601| 0.4995820| 0.6407194| 1.0016500|
 
 
-Negative binomial test example ([read more](http://www.ats.ucla.edu/stat/r/dae/nbreg.htm)):
+### Negative binomial example
+
+[Read more](http://www.ats.ucla.edu/stat/r/dae/nbreg.htm)
 
 
 ```r
@@ -86,22 +61,8 @@ for (tax in taxa) {
 }
 ```
 
-### Wilcoxon test (two-group comparisons)
 
-If the data remarkably violates Gaussian assumptions use
-non-parametric test. Wilcoxon is one option for two group
-comparison. Here we compare males and females in the example data. The
-check_wilcoxon function is experimental and not included in the
-microbiome R package but is available as a supplementary file:
-
-
-```r
-source(system.file("extdata/check_wilcoxon.R", package = "microbiome"))
-pval <- check_wilcoxon(pseq, "sex")
-```
-
-
-### Comparisons with random effect subject term
+### Comparisons for individual taxa with random effect subject term
 
 
 ```r
@@ -123,9 +84,88 @@ comp <- anova(out0, out)
 pv <- comp[["Pr(>Chisq)"]][[2]]
 ```
 
+
+## Linear models with limma
+
+Identify most significantly different taxa between males and females.
+
+For further details, see [limma
+homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's
+guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For
+discussion on why limma is preferred over t-test, see [this
+article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
+
+
+```r
+# Get example data
+library(microbiome)
+data("peerj32")
+pseq <- peerj32$phyloseq
+otu <- taxa_abundances(transform_phyloseq(pseq, "log10"))
+meta <- sample_data(pseq)
+grouping.variable <- "gender" 
+
+# Compare the two groups with limma
+library(limma)
+
+# Prepare the design matrix which states the groups for each sample
+# in the otu
+design <- cbind(intercept = 1, Grp2vs1 = meta[[grouping.variable]])
+rownames(design) <- rownames(meta)
+design <- design[colnames(otu), ]
+
+# NOTE: results and p-values are given for all groupings in the design matrix
+# Now focus on the second grouping ie. pairwise comparison
+coef.index <- 2
+     
+# Fit the limma model
+fit <- lmFit(otu, design)
+fit <- eBayes(fit)
+
+# Limma P-values
+pvalues.limma = fit$p.value[, 2]
+
+# Limma effect sizes
+efs.limma <-  fit$coefficients[, "Grp2vs1"]
+
+# Summarise 
+kable(topTable(fit, coef = coef.index, p.value=0.1), digits = 2)
+```
+
+
+
+|                               | logFC| AveExpr|     t| P.Value| adj.P.Val|     B|
+|:------------------------------|-----:|-------:|-----:|-------:|---------:|-----:|
+|Uncultured Clostridiales II    | -0.41|    1.37| -3.72|       0|      0.06| -0.24|
+|Eubacterium siraeum et rel.    | -0.34|    1.67| -3.52|       0|      0.06| -0.77|
+|Clostridium nexile et rel.     |  0.18|    2.84|  3.41|       0|      0.06| -1.04|
+|Sutterella wadsworthia et rel. | -0.33|    1.50| -3.13|       0|      0.10| -1.74|
+
+**Q-Q plot for limma**
+
+
+```r
+qqt(fit$t[, coef.index], df = fit$df.residual + fit$df.prior)
+abline(0,1)
+```
+
+![plot of chunk limma-qq](figure/limma-qq-1.png)
+
+**Volcano plot for limma**
+
+
+```r
+volcanoplot(fit, coef = coef.index, highlight = coef.index)
+```
+
+![plot of chunk limma-volcano](figure/limma-volcano-1.png)
+
+
 ### PERMANOVA
 
-PERMANOVA is used to assess significance of community differences between groups. Here let us evaluate whether nationality has a significant effect on gut microbiota.
+PERMANOVA can be also used to assess community-level differences
+between groups. Here let us evaluate whether nationality has a
+significant effect on gut microbiota.
 
 
 ```r
@@ -142,7 +182,7 @@ meta$group <- meta[[group]]
 
 # PERMANOVA: samples x species as input
 library(vegan)
-permanova <- adonis(t(otu) ~ group, data=meta, permutations=99)
+permanova <- adonis(t(otu) ~ group, data=meta, permutations=99, method = "bray")
 pv <- as.data.frame(permanova$aov.tab)["group", "Pr(>F)"]
 
 # P-value
@@ -154,7 +194,7 @@ print(pv)
 ```
 
 ```r
-# However note the assumption of similar
+# Note the assumption of similar
 # multivariate spread among the groups
 # ie. analogous to variance homogeneity
 # Here the groups have signif. different spreads and

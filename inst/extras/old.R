@@ -30,6 +30,31 @@ source(system.file("extdata/check_wilcoxon.R", package = "microbiome"))
 pval <- check_wilcoxon(pseq, "sex")
 ```
 
+### Comparing limma and t-test
+
+Order the taxa with t-test for comparison and validation purposes. The
+differences are small in this simulated example, but [can be
+considerable in real
+data](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
+
+```{r limma-compairson, warning=FALSE, fig.path = "figure/"}
+# Compare the two groups with t-test
+library(dplyr)
+pvalues.ttest <- c()
+male.samples <- suppressWarnings(dplyr::filter(meta, gender == "male")$sample)
+female.samples <- suppressWarnings(dplyr::filter(meta, gender == "female")$sample)
+for (tax in rownames(otu)) {
+  pvalues.ttest[[tax]] <- t.test(otu[tax, male.samples], otu[tax, female.samples])$p.value
+}
+# Multiple testing correction
+pvalues.ttest <- p.adjust(pvalues.ttest, method = "fdr")
+
+# Compare p-values between limma and t-test
+taxa <- rownames(otu)
+plot(pvalues.ttest[taxa], pvalues.limma[taxa])
+abline(0,1,lty = 2)
+```
+
 
 
 #' read_profiling
