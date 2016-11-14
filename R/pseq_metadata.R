@@ -10,5 +10,7 @@ pseq_metadata <- function (x) {
   #df2 <- as.data.frame(df@.Data)
   #names(df2) <- df@names
   #df2
-  as(sample_data(x), "data.frame")
+  df <- as(sample_data(x), "data.frame")
+  rownames(df) <- sample_names(x)
+  df
 }
