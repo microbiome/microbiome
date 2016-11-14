@@ -38,7 +38,7 @@
 #' @keywords utilities
 plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1, scales = "free_y", det.th = 0, indicate.subjects = FALSE){ 
 
-  ends_with <- horiz <- subject <- NULL
+  horiz <- subject <- NULL
 
   # Calculate alpha-diversity measures
   erDF <- estimate_diversity(x, split = TRUE, measures = measures, det.th = det.th)
