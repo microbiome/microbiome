@@ -58,15 +58,12 @@ transform_phyloseq <- function (x, transformation = "compositional",
   } else if (transformation == "clr") {
 
     xt <- x
-    xt@otu_table@.Data <- apply(clr(taxa_abundances(
-       	    transform_phyloseq(xt, "compositional"))), 2, identity)
-	    
-  } else if (transformation == "ilr") {
+    a <- t(taxa_abundances(transform_phyloseq(xt, "compositional")))
+    d <- apply(compositions::clr(a), 2, identity)
+    rownames(d) <- sample_names(xt)
+    colnames(d) <- taxa_names(xt)	        
+    xt@otu_table@.Data <- d
 
-    xt <- x
-    xt@otu_table@.Data <- apply(ilr(taxa_abundances(
-       	    transform_phyloseq(xt, "compositional"))), 2, identity) 
-    
   } else if (transformation == "log10") {
   
     # Log transformation:
