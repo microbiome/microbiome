@@ -81,7 +81,7 @@ print(p)
 data("atlas1006")
 pseq <- atlas1006
 pseq <- subset_samples(pseq, DNA_extraction_method == "r")
-pseq <- transform_phyloseq(pseq, "relative.abundance")
+pseq <- transform_phyloseq(pseq, "compositional")
 p <- plot_timeseries(pseq, "Dialister", subject = "831", tipping.point = 0.5)
 print(p)
 ```

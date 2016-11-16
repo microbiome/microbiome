@@ -4,13 +4,14 @@
 \alias{transform_phyloseq}
 \title{Data Transformations for phyloseq Objects}
 \usage{
-transform_phyloseq(x, transformation = "relative.abundance", target = "OTU")
+transform_phyloseq(x, transformation = "compositional", target = "OTU")
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
 \item{transformation}{Transformation to apply. The options include:
-'relative.abundance', 'Z', 'log10', 'hellinger', 'identity',
+'compositional' (ie relative abundance), 'Z', 'log10', 'hellinger',
+'identity', 'clr', 'ilr',
  or any method from the vegan::decostand function.}
 
 \item{target}{Apply the transformation for 'sample' or 'OTU'.

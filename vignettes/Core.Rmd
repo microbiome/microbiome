@@ -25,7 +25,7 @@ data("peerj32")
 pseq <- peerj32$phyloseq
 
 # Calculate relative abundances
-pseq.rel <- transform_phyloseq(pseq, "relative.abundance", "OTU")
+pseq.rel <- transform_phyloseq(pseq, "compositional", "OTU")
 ```
 
 

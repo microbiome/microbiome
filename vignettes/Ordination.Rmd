@@ -30,7 +30,7 @@ data(dietswap)
 pseq <- dietswap
 
 # Convert signal to relative abundances
-pseq.rel <- transform_phyloseq(pseq, "relative.abundance")
+pseq.rel <- transform_phyloseq(pseq, "compositional")
 
 # Pick OTUs that are present with >1 percent relative abundance 
 # in >10 percent of the samples

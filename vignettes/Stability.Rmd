@@ -134,7 +134,7 @@ tipping point candidates.
 ```{r stability-tipping, message=FALSE, warning=FALSE, fig.path = "figure/"}
 # Pick example data
 library(phyloseq)
-pseq <- transform_phyloseq(pseq, "relative.abundance")
+pseq <- transform_phyloseq(pseq, "compositional")
 
 # Log10 for given group
 tax <- "Prevotella oralis et rel."

@@ -1,4 +1,6 @@
 #' @importFrom ade4 s.class
+#' @importFrom compositions clr
+#' @importFrom compositions ilr
 #' @importFrom dplyr arrange
 #' @importFrom dplyr do
 #' @importFrom dplyr filter

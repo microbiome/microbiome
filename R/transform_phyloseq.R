@@ -2,7 +2,8 @@
 #' @description Standard transformations for \code{\link{phyloseq-class}}.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param transformation Transformation to apply. The options include:
-#'   'relative.abundance', 'Z', 'log10', 'hellinger', 'identity',
+#'   'compositional' (ie relative abundance), 'Z', 'log10', 'hellinger',
+#'   'identity', 'clr', 'ilr',
 #'    or any method from the vegan::decostand function.
 #' @param target Apply the transformation for 'sample' or 'OTU'.
 #'               Does not affect the log transformation.
@@ -28,10 +29,13 @@
 #'
 #' }
 #' @keywords utilities
-transform_phyloseq <- function (x, transformation = "relative.abundance",
+transform_phyloseq <- function (x, transformation = "compositional",
                                    target = "OTU") {
 
   y <- NULL
+  if (transformation == "relative.abundance") {
+    transformation <- "compositional"
+  }
 
   if (!all(sample(round(prod(dim(otu_table(x)))/10) ))%%1 == 0) {
     warning("The OTU abundances are not integers. 
@@ -39,7 +43,7 @@ transform_phyloseq <- function (x, transformation = "relative.abundance",
 	     to avoid transformation errors!")
   }
 
-  if (transformation == "relative.abundance") {
+  if (transformation == "compositional") {
     if (target == "OTU") {
       xt <- transform_sample_counts(x, function (x) {100 * x/sum(x)})
     } else {
@@ -51,6 +55,18 @@ transform_phyloseq <- function (x, transformation = "relative.abundance",
     # Z transformation for sample or OTU
     xt <- ztransform_phyloseq(x, target)
 
+  } else if (transformation == "clr") {
+
+    xt <- x
+    xt@otu_table@.Data <- apply(clr(taxa_abundances(
+       	    transform_phyloseq(xt, "compositional"))), 2, identity)
+	    
+  } else if (transformation == "ilr") {
+
+    xt <- x
+    xt@otu_table@.Data <- apply(ilr(taxa_abundances(
+       	    transform_phyloseq(xt, "compositional"))), 2, identity) 
+    
   } else if (transformation == "log10") {
   
     # Log transformation:
@@ -82,8 +98,6 @@ transform_phyloseq <- function (x, transformation = "relative.abundance",
 
       if (!taxa_are_rows(xt)) {xx <- t(xx)}
       otu_table(xt)@.Data <- xx
-
-
 
      } else {
     

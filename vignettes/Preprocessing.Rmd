@@ -127,7 +127,7 @@ pseq.zotu <- transform_phyloseq(pseq, "Z", "OTU")
 Relative abundances (the input data needs to be in absolute scale, not logarithmic!):
 
 ```{r data10}
-pseq1 <- transform_phyloseq(pseq, "relative.abundance", "OTU")
+pseq1 <- transform_phyloseq(pseq, "compositional", "OTU")
 pseq2 <- transform_sample_counts(pseq, function(x) x/sum(x))
 ```
 
