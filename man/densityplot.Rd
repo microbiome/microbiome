@@ -19,7 +19,7 @@ densityplot(x, main = NULL, x.ticks = 10, rounding = 0,
 
 \item{add.points}{Plot the data points as well}
 
-\item{col}{Color of the data points}
+\item{col}{Color of the data points. NAs are marked with darkgray.}
 
 \item{adjust}{Kernel width adjustment}
 

@@ -5,7 +5,7 @@
 #' @param x.ticks Number of ticks on the X axis
 #' @param rounding Rounding for X axis tick values
 #' @param add.points Plot the data points as well
-#' @param col Color of the data points
+#' @param col Color of the data points. NAs are marked with darkgray.
 #' @param adjust Kernel width adjustment
 #' @param size point size
 #' @param legend plot legend TRUE/FALSE
@@ -15,18 +15,28 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-densityplot <- function(x, main = NULL, x.ticks = 10, rounding = 0, 
-               add.points = TRUE, 
-    col = "black", adjust = 1, size = 1, legend = FALSE) {
+densityplot <- function(x,
+	       main = NULL,
+	       x.ticks = 10,
+	       rounding = 0, 
+               add.points = TRUE,
+	       col = "black",
+	       adjust = 1,
+	       size = 1,
+	       legend = FALSE) {
 
-    df = x
+    df <- x
     if (!is.data.frame(df)) {
       df <- as.data.frame(as.matrix(df))
     }
 
     # Avoid warnings
     x <- y <- ..density.. <- color <- NULL
-    
+
+    # If colors are NA:
+    col <- as.character(col)
+    col[unname(which(is.na(col)))] <- "darkgray"
+
     theme_set(theme_bw(20))
     xvar <- colnames(df)[[1]]
     yvar <- colnames(df)[[2]]
@@ -34,7 +44,7 @@ densityplot <- function(x, main = NULL, x.ticks = 10, rounding = 0,
     df[["y"]] <- df[, 2]
     df[["color"]] <- col
     df[["size"]] <- size
-    
+
     # Remove NAs
     df <- df[!(is.na(df[["x"]]) | is.na(df[["y"]])), ]
     
@@ -53,6 +63,7 @@ densityplot <- function(x, main = NULL, x.ticks = 10, rounding = 0,
 
     if (add.points) {
       if (length(unique(df$color)) == 1 && length(unique(df$size)) == 1) {
+
         p <- p + geom_point(aes(x = x, y = y), col = unique(df$color), size = unique(df$size))
       } else if (length(unique(df$color)) == 1 && length(unique(df$size)) > 1) {
         p <- p + geom_point(aes(x = x, y = y, size = size), col = unique(df$color))
