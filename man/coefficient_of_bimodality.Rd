@@ -2,7 +2,7 @@
 % Please edit documentation in R/bimodality.R
 \name{coefficient_of_bimodality}
 \alias{coefficient_of_bimodality}
-\title{coefficient_of_bimodality}
+\title{Coefficient of bimodality}
 \usage{
 coefficient_of_bimodality(x, bs.iter = 1, na.rm = TRUE,
   type = "Sarle.finite.sample")
@@ -20,7 +20,7 @@ coefficient_of_bimodality(x, bs.iter = 1, na.rm = TRUE,
 Bimodality score
 }
 \description{
-Coefficient of bimodality (Sarle's bimodality coefficient b)
+Coefficient of bimodality (Sarle's bimodality coefficient b).
 }
 \details{
 The coefficient lies in (0, 1).
@@ -41,7 +41,7 @@ The coefficient lies in (0, 1).
          excess kurtosis).
 }
 \examples{
-# coefficient_of_bimodality(rnorm(100), type = "Sarle.finite.sample")
+coefficient_of_bimodality(rnorm(100), type = "Sarle.finite.sample")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
@@ -53,6 +53,10 @@ Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
     \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
     \item{}{To cite the microbiome R package, see citation('microbiome')}
  }
+}
+\seealso{
+Check the dip.test from the \pkg{DIP} package for a
+classical test of multimodality.
 }
 \keyword{utilities}
 

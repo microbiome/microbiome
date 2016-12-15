@@ -1,12 +1,22 @@
-### Limma analysis
+## Linear models with limma
 
-Example of limma analysis. Identify most significantly different taxa between males and females. For further details, see [limma homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For discussion on why limma is preferred over t-test, see [this article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
+
+### Discrete variables: sex
+
+Identify most significantly different taxa between males and females.
+
+For further details, see [limma
+homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's
+guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For
+discussion on why limma is preferred over t-test, see [this
+article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
 ```{r limma-example, warning=FALSE, fig.path = "figure/"}
 # Get example data
 library(microbiome)
-pseq <- download_microbiome("peerj32")$physeq
-otu <- log10(otu_table(pseq)@.Data)
+data("peerj32")
+pseq <- peerj32$phyloseq
+otu <- taxa_abundances(transform_phyloseq(pseq, "log10"))
 meta <- sample_data(pseq)
 groups <- meta$gender
 
@@ -26,22 +36,27 @@ coef.index <- 2
 # Fit the limma model
 fit <- lmFit(otu, design)
 fit <- eBayes(fit)
+pvalues.limma = fit$p.value[, 2]
 
-# Summarise or plot the results
-topTable(fit, coef = coef.index)
+# Summarise 
+kable(topTable(fit, coef = coef.index, p.value=0.05), digits = 2)
+```
 
-# Q-Q plot
+
+### Q-Q plot
+
+
+```{r limma-qq, warning=FALSE, fig.path = "figure/"}
 qqt(fit$t[, coef.index], df = fit$df.residual + fit$df.prior)
 abline(0,1)
-
-# Volcano plot
-volcanoplot(fit, coef = coef.index, highlight = coef.index)
-
-# Adjusted p-values; show all significant ones
-pvalues.limma <- p.adjust(fit$p.value[, coef.index], method = "fdr")
-names(pvalues.limma) <- rownames(fit$p.value)
-print(sort(pvalues.limma[pvalues.limma < 0.1]))
 ```
+
+### Volcano plot
+
+```{r limma-volcano, warning=FALSE, fig.path = "figure/"}
+volcanoplot(fit, coef = coef.index, highlight = coef.index)
+```
+
 
 
 ### Comparison between limma and t-test
@@ -69,6 +84,19 @@ plot(pvalues.ttest[taxa], pvalues.limma[taxa])
 abline(0,1,lty = 2)
 ```
 
-### TODO
+### Continuous variables
 
-Check relations to expressionSets. Could we use tools directly from that context by a suitable conversion.
+Quantify continuous associations with lm_phyloseq function. This uses
+the limma model to generate a table of P-values and effect sizes. Note
+that no confounding variables taken into account in this wrapper. See
+the [limma homepage](http://bioinf.wehi.edu.au/limma/) for more
+detailed analyses.
+
+```{r limma-lm-phyloseq, warning=FALSE, fig.path = "figure/"}
+data("atlas1006")
+source(system.file("extdata/lm_phyloseq.R", package = "microbiome"))
+tab <- lm_phyloseq(atlas1006, "age")
+kable(head(tab), digits = 3)
+```
+
+

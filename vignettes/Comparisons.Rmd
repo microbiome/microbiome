@@ -1,35 +1,128 @@
-
 ## Group-wise comparisons
 
-Read example data
 
-```{r comparisons-example, warning=FALSE, message=FALSE}
-# Example data
+### Boxplots
+
+```{r boxplot-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, fig.path = "figure/"}
+# Load libraries
 library(microbiome)
-pseq <- download_microbiome("dietswap")
+library(ggplot2)
+
+# Probiotics intervention example data from
+# https://peerj.com/articles/32/
+data("peerj32")
+
+# Abundance boxplot
+p <- boxplot_abundance(peerj32$phyloseq, x = "time", y = "Akkermansia", line = "subject", color = "gender")
+print(p)
 ```
+
 
 ### Comparing of two or more groups with a parametric test (linear model; ANOVA)
 
-```{r comparisons2}
-# Define sample groups (gender + treatment group)
-meta <- sample_data(pseq)
-group <- meta$group
-names(group) <- meta$sample
+Note: check ANOVA modeling assumptions before testing. 
 
-# Calculate 1-way ANOVA p-values for the multi-group comparison
-pvals <- check_anova(pseq, group, p.adjust.method = "BH", sort = TRUE)
+```{r comparisons2}
+# Load example data from a 
+# [diet swap study](http://dx.doi.org/10.1038/ncomms7342)
+data("dietswap")
+pseq <- dietswap
+
+# Convert to relative abundances
+pseq <- transform_phyloseq(pseq, "relative.abundance")
+
+# 1-way ANOVA p-values for the multi-group comparison across time groups
+source(system.file("extdata/check_anova.R", package = "microbiome"))
+anova.results <- check_anova(pseq, "group", p.adjust.method = "BH")
+kable(head(anova.results))
 ```
 
+
+Negative binomial test example ([read more](http://www.ats.ucla.edu/stat/r/dae/nbreg.htm)):
+
+```{r comparisons2b, eval=FALSE}
+library(MASS)
+taxa <- taxa_names(x)[1:2]
+x <- atlas1006
+df <- as(sample_data(x), "data.frame")
+for (tax in taxa) {
+  df$signal <- get_sample(x, tax)
+  res <- glm.nb(signal ~ bmi_group + gender, data = df)
+  print(coef(summary(res)))
+}
+```
 
 ### Wilcoxon test (two-group comparisons)
 
-If the data remarkably violates Gaussian assumptions, you need to use
+If the data remarkably violates Gaussian assumptions use
 non-parametric test. Wilcoxon is one option for two group
-comparison. Here we compare males and females in the example data. 
+comparison. Here we compare males and females in the example data. The
+check_wilcoxon function is experimental and not included in the
+microbiome R package but is available as a supplementary file:
 
 ```{r comparisons-exampless}
-pval <- check_wilcoxon(pseq, "gender")
+source(system.file("extdata/check_wilcoxon.R", package = "microbiome"))
+pval <- check_wilcoxon(pseq, "sex")
 ```
 
+
+### Comparisons with random effect subject term
+
+```{r comparisons-lmer, eval=FALSE}
+# Get taxa x samples abundance matrix
+x <- peerj32$phyloseq
+
+# Get the data
+mydata <- get_taxa(x)
+tax <- "Dialister"
+dfs <- sample_data(x)
+dfs$signal <- mydata[tax, rownames(dfs)]
+dfs$group <- dfs[[group]]
+
+# Paired comparison
+library(lme4)
+out <- lmer(signal ~ group + (1|subject), data = dfs)
+out0 <- lmer(signal ~ (1|subject), data = dfs)
+comp <- anova(out0, out)
+pv <- comp[["Pr(>Chisq)"]][[2]]
+```
+
+### PERMANOVA
+
+PERMANOVA is used to assess significance of community differences between groups. Here let us evaluate whether nationality has a significant effect on gut microbiota.
+
+```{r comparisons-permanova, fig.width=5, fig.height=6, message=FALSE, warnings=FALSE}
+# Example data
+data("dietswap")
+x <- dietswap
+group <- "nationality"
+
+# Use relative abundances for simpler visualizations
+x <- transform_phyloseq(x, "relative.abundance")
+otu <- get_sample(x)
+meta <- as(sample_data(x), "data.frame")
+meta$group <- meta[[group]]
+
+# PERMANOVA: samples x species as input
+library(vegan)
+permanova <- adonis(t(otu) ~ group, data=meta, permutations=99)
+pv <- as.data.frame(permanova$aov.tab)["group", "Pr(>F)"]
+
+# P-value
+print(pv)
+
+# However note the assumption of similar
+# multivariate spread among the groups
+# ie. analogous to variance homogeneity
+# Here the groups have signif. different spreads and
+# permanova result may be explained by that.
+dist <- vegdist(t(otu))
+anova(betadisper(dist,meta$group))
+
+# Coefs for the top taxa separating the groups
+coef <- coefficients(permanova)["group1",]
+top.coef <- coef[rev(order(abs(coef)))[1:20]]
+par(mar = c(3, 14, 2, 1))
+barplot(sort(top.coef), horiz = T, las = 1, main = "Top taxa")
+```
 

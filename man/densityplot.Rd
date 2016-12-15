@@ -2,15 +2,14 @@
 % Please edit documentation in R/densityplot.R
 \name{densityplot}
 \alias{densityplot}
-\title{densityplot}
+\title{Density plot}
 \usage{
-densityplot(mat, main = NULL, x.ticks = 10, rounding = 0,
-  add.points = TRUE, col = "red", adjust = 1, size = 1,
+densityplot(x, main = NULL, x.ticks = 10, rounding = 0,
+  add.points = TRUE, col = "black", adjust = 1, size = 1,
   legend = FALSE)
 }
 \arguments{
-\item{mat}{Data matrix to plot. The first two columns will be visualized 
-as a cross-plot.}
+\item{x}{Data matrix to plot. The first two columns will be visualized as a cross-plot.}
 
 \item{main}{title text}
 
@@ -32,11 +31,10 @@ as a cross-plot.}
 ggplot2 object
 }
 \description{
-Plots densities of data points in addition to cross-plot points.
+Density visualization for data points overlaid on cross-plot.
 }
 \examples{
 p <- densityplot(cbind(rnorm(100), rnorm(100)))
-
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

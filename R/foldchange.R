@@ -1,5 +1,5 @@
-#' @title check_foldchange
-#' @description Calculate Log10 Fold Change for two-group comparison 
+#' @title Fold change for phyloseq objects
+#' @description Calculate Log10 Fold Change for two-group comparison with phyloseq objects.
 #' @param x \code{\link{phyloseq-class}} object or a data matrix 
 #'            (features x samples; eg. HITChip taxa vs. samples)
 #' @param group Vector with specifying the groups
@@ -7,8 +7,8 @@
 #' @param paired Paired comparison (Default: FALSE)
 #' @return Fold change information for two-group comparison.
 #' @examples 
-#'   #pseq <- download_microbiome("peerj32")$physeq
-#'   #fc <- check_foldchange(pseq, "gender")
+#'   data(dietswap)
+#'   fc <- check_foldchange(dietswap, "sex")
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -31,17 +31,17 @@ check_foldchange <- function (x, group, sort = FALSE, paired = FALSE) {
   }
 
   if (class(x) == "phyloseq") {    
-    x <- otu_table(x)@.Data
+    x <- taxa_abundances(x)
   }
 
   # Calculate fold changes
   if (paired) {
     fc <- apply(x, 1, function (xi) {spl <- split(xi, g);
-     		 log10(mean(spl[[2]] - spl[[1]], na.rm = T))
+      log10(mean(spl[[2]] - spl[[1]], na.rm = T))
 		 })
   } else {
     fc <- apply(x, 1, function (xi) {spl <- split(xi, g);
-     		 log10(mean(spl[[2]], na.rm = T)) - log10(mean(spl[[1]], na.rm = T))
+      log10(mean(spl[[2]], na.rm = T)) - log10(mean(spl[[1]], na.rm = T))
 		 })
 
   }

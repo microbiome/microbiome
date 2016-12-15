@@ -1,29 +1,23 @@
-
 ### Richness 
 
-```{r rich-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
+```{r rich-example, warning=FALSE, message=FALSE, fig.path = "figure/", fig.height=3, fig.width=5}
 # Get example data in phyloseq format
 library(microbiome)
-pseq <- download_microbiome("atlas1006")
+data(atlas1006)
+pseq <- atlas1006
 
 # Pick the OTU data
 # (note the zero point has been moved to the detection threshold;
 #  typically signal 1.8 at HITChip log10 scale)
-otu <- otu_table(pseq)@.Data
+library(phyloseq)
+otu <- taxa_abundances(pseq)
 
 # Determine detection threshold at the 0.15 quantile
-# Bacteria that exceed this threshold are considered present
-# otherwise absent
-det.th <- quantile(otu, 0.15)
-
-# Visualize the detection threshold (at log10 scale for clarity)
-plot(density(log10(otu)), main = "Detection threshold", xlab = "Abundance (Log10)", ylab = "Frequency")
-abline(v = log10(det.th))
-
-# Calculate richness.
+# Then Calculate richness.
 # This simply indicates how many taxa are present in each sample
 # (exceed the detection threshold). This measure is sometimes used with
 # phylogenetic microarrays.
+det.th <- quantile(otu, 0.15)
 ri <- estimate_diversity(pseq, det.th = det.th)$Observed
 hist(ri, main = "Richness")
 ```
@@ -39,52 +33,38 @@ diversity <- estimate_diversity(pseq)
 
 Visualize diversity vs. discrete variable:
 
-```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.heigth=6}
-p <- plot_diversity(pseq, x = "bmi_group", measures = "Shannon")
+```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.height=4}
+p <- plot_diversity(pseq, "bmi_group", measures = c("Chao1", "Shannon"), indicate.subjects = FALSE)
+print(p)
+
+# To indicate time as discrete variable, order it as a factor
+# If a subject column is available in sample data
+# the subjects will be indicated by lines across the groups
+data(dietswap)
+pseq <- dietswap
+psub <- subset_samples(pseq, group == "DI")
+sample_data(psub)$timepoint <- factor(sample_data(psub)$timepoint, levels = sort(unique(sample_data(psub)$timepoint)))
+p <- plot_diversity(psub, "timepoint", measures = c("Chao1", "Shannon"), indicate.subject = TRUE)
 print(p)
 ```
 
-Same with the phyloseq function:
-
-```{r div-example2b, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.heigth=6}
-p <- plot_richness(pseq, x = "bmi_group", measures = c("Chao1", "Shannon"))
-p <- p + geom_boxplot()
-print(p)
-```
-
-
-Highlight specific groups:
-
-```{r richness, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
-library(ggplot2)
-data.dietswap <- download_microbiome("dietswap")
-p <- plot_richness(data.dietswap, x = "gender", color = "group", measures = c("Shannon", "Simpson")) 
-p <- p + geom_boxplot()
-print(p)
-```
 
 Diversity vs. continuous variable:
 
-```{r diversitywithmetadata2, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=6, fig.path = "figure/"}
-p <- plot_diversity(pseq, x = "age", measures = "Shannon")
-print(p)
-```
-
-Same with the phyloseq function:
-
-```{r diversitywithmetadata2b, warning=FALSE, message=FALSE, fig.width=8, fig.heigth=6, fig.path = "figure/"}
-p <- plot_richness(pseq, x = "age", measures = "Shannon")
-p <- p + geom_smooth()
+```{r diversitywithmetadata2, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.path = "figure/", dev="CairoPNG"}
+p <- plot_diversity(atlas1006, "age", measures = "Shannon")
 print(p)
 ```
 
 
 Diversity vs. age with smoothed confidence intervals - manual version:
 
-```{r diversity-example13, fig.width=8, fig.height=6, message=FALSE, warning=FALSE, fig.path = "figure/"}
+```{r diversity-example13, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/", dev="CairoPNG"}
 library(microbiome)
 library(sorvi)
 library(dplyr)
+
+pseq <- atlas1006
 
 # Add diversity into sample metadata
 sample_data(pseq)$diversity <- estimate_diversity(pseq)$Shannon
@@ -94,8 +74,11 @@ pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
 
 # Visualize
 df <- sample_data(pseq0)
-p <- sorvi::regression_plot(diversity ~ age, df)
+p <- plot_regression(diversity ~ age, df)
 print(p)
 ```
+
+
+
 
 

@@ -2,18 +2,16 @@
 % Please edit documentation in R/plot_core.R
 \name{plot_core}
 \alias{plot_core}
-\title{plot_core}
+\title{Visualize OTU core}
 \usage{
-plot_core(x, title = "Core", plot = TRUE, prevalence.intervals = seq(5,
-  100, 5), detection.thresholds = 20, plot.type = "lineplot",
-  palette = "bw")
+plot_core(x, title = "Core", prevalence.intervals = seq(5, 100, 5),
+  detection.thresholds = 20, plot.type = "lineplot", palette = "bw",
+  min.prevalence = NULL, taxa.order = NULL, ncolor = 5)
 }
 \arguments{
 \item{x}{A \code{\link{phyloseq}} object or a core matrix}
 
 \item{title}{title}
-
-\item{plot}{plot the figure}
 
 \item{prevalence.intervals}{a vector of prevalence percentages in [0,100]}
 
@@ -23,16 +21,22 @@ or a scalar indicating the number of intervals in the data range.}
 \item{plot.type}{Plot type ('lineplot' or 'heatmap')}
 
 \item{palette}{palette for the plot.type = 'heatmap'}
+
+\item{min.prevalence}{If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap. Only affects the plot.type = 'heatmap'.}
+
+\item{taxa.order}{Ordering of the taxa.}
+
+\item{ncolor}{Number of colors to use in the palette.}
 }
 \value{
-Used for its side effects
+A list with three elements: the ggplot object and the data. The data has a different form for the lineplot and heatmap. Finally, the applied parameters are returned.
 }
 \description{
-Core visualization 2D
+Core visualization (2D).
 }
 \examples{
-#pseq <- download_microbiome("atlas1006")
-#p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
+  data(atlas1006)
+  p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10), detection.thresholds = c(0, 10^(0:4)))
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

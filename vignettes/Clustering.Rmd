@@ -2,7 +2,7 @@
 
 Fit and visualize Variational Dirichlet process multivariate infinite Gaussian mixture. This variational version has been partially written in C and it is relatively fast. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short). Note that the implementation uses diagonal covariances on the Gaussian modes. The C code was partially derived from [Honkela et al. 2008](http://www.sciencedirect.com/science/article/pii/S0925231208000659).
 
-```{r LCA2, fig.width=8, fig.height=8, warning=FALSE, message=FALSE, fig.path = "figure/"}
+```{r LCA2, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.path = "figure/"}
 library(netresponse)
 
 # Generate simulated data
@@ -27,11 +27,9 @@ p <- PlotMixtureMultivariate(D, means = m$mu, sds = m$sd, ws = m$w, modes = appl
 
 ### Univariate (infinite) Gaussian mixture model
 
-Fit and visualize Variational Dirichlet process univariate infinite Gaussian mixture. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short).
+Fit and visualize Variational Dirichlet process univariate infinite Gaussian mixture. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short) for the code.
 
-```{r LCA1, fig.width=8, fig.height=8, warning=FALSE, message=FALSE, fig.path = "figure/"}
-library(netresponse)
-
+```{r LCA1, fig.width=7, fig.height=5, warning=FALSE, message=FALSE, fig.path = "figure/"}
 # Generate simulated bimodal univariate data
 x <- c(rnorm(200), rnorm(200, mean = 5))
 
@@ -42,6 +40,20 @@ m <- mixture.model(x, mixture.method = "vdp", max.responses = 10)
 p <- PlotMixtureUnivariate(x, means = m$mu, sds = m$sd, ws = m$w, binwidth = 0.1, qofz = m$qofz)
 
 print(p)
+```
+
+### Clustering samples with mixed variables
+
+Gower distance is useful for samples with mixed-type variables (binary, factor, numeric)):
+
+```{r clustering-gower, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, fig.path = "figure/"}
+# Example data
+data("dietswap")
+
+library(FD)
+d <- gowdis(as(sample_data(dietswap), "data.frame"))
+
+plot(hclust(d))
 ```
 
 

@@ -1,8 +1,11 @@
+Gini index and wealth coefficient from Sudarshan-2016 ?
+
 rdryad and phyloseq depend on RJSONIO:
 library("tools")
 dependsOnPkgs("RJSONIO")
 This causes the BioC warnings in build/check
 Could be replaced by custom copies of the necessary functions to get rid of this. Postponing for now.
+
 
 
 

@@ -8,13 +8,17 @@ rounded as indicated by the rounding argument. The percentage
 indicates which fraction of probes for a row taxon overlaps with
 probes of a column taxon. This is not symmetric if the row and col
 taxon have a different total number of probes. For details, see
-help(PlotCrosshyb).
+help(plot_crosshyb).
 
 ```{r chyb, warning=FALSE, fig.path = "figure/", fig.width=20, fig.height=20}
 library(microbiome, quietly = TRUE)
+library(dplyr)
 
-# Check cross-hyb between all L1 groups
-res <- PlotCrosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE)
+# Pick the phylogeny which was used to summarize probes to species level
+tax.table <- get_hitchip_taxonomy("HITChip", "full")
+
+# Check cross-hyb between all L2 groups
+res <- plot_crosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE, tax.table = tax.table)
     
 # Pick the crosshyb table and figure
 crosshyb.table <- res$data
@@ -36,16 +40,14 @@ head(s)
 Investigate species-species cross-hybridization within the Dialister L2 group
 
 ```{r chyb2, warning=FALSE, fig.path = "figure/"}
-# Pick the phylogeny which was used to summarize probes to species level
-tax.table <- GetPhylogeny("HITChip", "filtered") 
-
 # Select species belonging to Dialister L2 group
-mytaxa <- levelmap("Dialister", from = "L2", to = "species", tax.table)[[1]]
+mytaxa <- map_levels("Dialister", from = "L2", to = "species", tax.table)[[1]]
 
 # Check cross-hyb between Dialister species
-res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, tax.table)
+res <- plot_crosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, tax.table = tax.table)
 
 # Check the cross-hyb data as well
-head(res$data)
+library(knitr)
+kable(head(res$data))
 ```
 

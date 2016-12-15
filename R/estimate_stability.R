@@ -1,21 +1,16 @@
-#' @title estimate_stability
-#'
+#' @title Estimate stability
 #' @description Quantify intermediate stability with respect to a given reference point. 
-#'
 #' @param df Combined input data vector (samples x variables) and metadata
 #'           data.frame (samples x features)
 #'           with the 'data', 'subject' and 'time' field for each sample 
-#'           
 #' @param reference.point Optional. Calculate stability of the data w.r.t.
 #'                        this point. By default the intermediate range is
 #'                        used (min + (max - min)/2)
 #' @param method "lm" (linear model) or "correlation"; the linear model takes
 #'               time into account as a covariate 
-#' 
 #' @return A list with following elements: 
 #' 	     stability: estimated stability
 #'	     data: processed data set used in calculations	    
-#'
 #' @details Decomposes each column in x into differences between
 #' consecutive time points. For each variable and time point we calculate
 #' for the data values: (i) the distance from reference point; (ii)
@@ -29,23 +24,21 @@
 #' of the following linear model are used to assess stability:
 #' abs(change) ~ time + abs(start.reference.distance). 
 #' Samples with missing data, and subjects with less than two time point are excluded.	   
-#'
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @export
-#' @examples 
-#'   #df <- data.frame(list(
-#'   #	  subject = rep(paste("subject", 1:50, sep = "-"), each = 2), 
-#'   #	  time = rep(1:2, 50),
-#'   #	  data = rnorm(100)))
-#'   # s <- estimate_stability_single(df, reference.point = NULL, method = "lm")
-#'
+#' @examples
+#'  \dontrun{
+#'   df <- data.frame(list(
+#'   	  subject = rep(paste("subject", 1:50, sep = "-"), each = 2), 
+#'   	  time = rep(1:2, 50),
+#'   	  data = rnorm(100)))
+#'   s <- estimate_stability_single(df, reference.point = NULL, method = "lm")
+#' }
 #' @keywords utilities
-
 estimate_stability <- function (df, reference.point = NULL, method = "lm") {
 
   # Remove NAs and Infinities
   df <- df[!is.na(df$data),]
-  # df <- df[!is.infinite(df$data),]  
 
   # Ensure time is numeric
   df$time <- as.numeric(as.character(df$time))
@@ -58,7 +51,9 @@ estimate_stability <- function (df, reference.point = NULL, method = "lm") {
   # Remove subjects with only one measurement
   df <- df[df$subject %in% names(which(table(df$subject) > 1)),]
 
-  if (nrow(df) < 2) {warning("No subjects with time series in estimate_stability. Returninng NULL"); return(NULL)} 
+  if (nrow(df) < 2) {
+    warning("No subjects with time series in estimate_stability. Returninng NULL"); return(NULL)
+  } 
 
   # Split data by subject
   spl <- split(df, as.character(df$subject))
@@ -79,7 +74,9 @@ estimate_stability <- function (df, reference.point = NULL, method = "lm") {
     start.reference.distance <- start.points - reference.point
 
     # Organize into data frame
-    dfi <- data.frame(change = data.difs, time = time.difs, start = start.points, start.reference.distance = start.reference.distance)
+    dfi <- data.frame(change = data.difs, time = time.difs,
+    	     start = start.points,
+	     start.reference.distance = start.reference.distance)
 
     # Add to the collection
     dfis <- rbind(dfis, dfi)

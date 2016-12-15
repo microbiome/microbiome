@@ -1,39 +1,29 @@
-### Limma analysis
+## Linear models with limma
 
-Example of limma analysis. Identify most significantly different taxa between males and females. For further details, see [limma homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For discussion on why limma is preferred over t-test, see [this article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
+
+### Discrete variables: sex
+
+Identify most significantly different taxa between males and females.
+
+For further details, see [limma
+homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's
+guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For
+discussion on why limma is preferred over t-test, see [this
+article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
 
 ```r
 # Get example data
 library(microbiome)
-pseq <- download_microbiome("peerj32")$physeq
-```
-
-```
-## Downloading data set from Lahti et al. PeerJ, 2013: https://peerj.com/articles/32/
-```
-
-```r
-otu <- log10(otu_table(pseq)@.Data)
+data("peerj32")
+pseq <- peerj32$phyloseq
+otu <- taxa_abundances(transform_phyloseq(pseq, "log10"))
 meta <- sample_data(pseq)
 groups <- meta$gender
 
 # Compare the two groups with limma
 library(limma)
-```
 
-```
-## 
-## Attaching package: 'limma'
-```
-
-```
-## The following object is masked from 'package:BiocGenerics':
-## 
-##     plotMA
-```
-
-```r
 # Prepare the design matrix which states the groups for each sample
 # in the otu
 design <- cbind(intercept = 1, Grp2vs1 = groups)
@@ -47,64 +37,41 @@ coef.index <- 2
 # Fit the limma model
 fit <- lmFit(otu, design)
 fit <- eBayes(fit)
+pvalues.limma = fit$p.value[, 2]
 
-# Summarise or plot the results
-topTable(fit, coef = coef.index)
+# Summarise 
+kable(topTable(fit, coef = coef.index, p.value=0.05), digits = 2)
 ```
 
-```
-##                                     logFC   AveExpr         t      P.Value
-## Uncultured Clostridiales II    -0.4121655 1.3673693 -3.721676 0.0005453139
-## Eubacterium siraeum et rel.    -0.3361407 1.6705368 -3.518974 0.0009997625
-## Clostridium nexile et rel.      0.1821841 2.8405046  3.411676 0.0013694131
-## Sutterella wadsworthia et rel. -0.3274127 1.4996997 -3.132421 0.0030375918
-## Uncultured Clostridiales I     -0.6792917 1.4208331 -2.892738 0.0058532773
-## Allistipes et rel.             -0.2514321 2.2670680 -2.874970 0.0061381919
-## Aerococcus                      0.4209949 0.5788959  2.769463 0.0081131928
-## Clostridium (sensu stricto)    -0.4319492 0.7262054 -2.696675 0.0098022788
-## Eubacterium rectale et rel.     0.1365560 2.6448705  2.618545 0.0119712074
-## Oxalobacter formigenes et rel. -0.2244230 2.1803707 -2.615543 0.0120627017
-##                                 adj.P.Val          B
-## Uncultured Clostridiales II    0.05934123 -0.2396518
-## Eubacterium siraeum et rel.    0.05934123 -0.7698536
-## Clostridium nexile et rel.     0.05934123 -1.0441290
-## Sutterella wadsworthia et rel. 0.09872173 -1.7350274
-## Uncultured Clostridiales I     0.13299416 -2.2988134
-## Allistipes et rel.             0.13299416 -2.3394452
-## Aerococcus                     0.15067358 -2.5772357
-## Clostridium (sensu stricto)    0.15681512 -2.7377198
-## Eubacterium rectale et rel.    0.15681512 -2.9066313
-## Oxalobacter formigenes et rel. 0.15681512 -2.9130498
-```
+
+
+|                            | logFC| AveExpr|     t| P.Value| adj.P.Val|     B|
+|:---------------------------|-----:|-------:|-----:|-------:|---------:|-----:|
+|Uncultured Clostridiales II | -0.38|    1.39| -3.69|       0|      0.05| -0.32|
+|Eubacterium siraeum et rel. | -0.32|    1.68| -3.57|       0|      0.05| -0.63|
+|Clostridium nexile et rel.  |  0.18|    2.84|  3.47|       0|      0.05| -0.89|
+
+
+### Q-Q plot
+
+
 
 ```r
-# Q-Q plot
 qqt(fit$t[, coef.index], df = fit$df.residual + fit$df.prior)
 abline(0,1)
 ```
 
-![plot of chunk limma-example](figure/limma-example-1.png)
+![plot of chunk limma-qq](figure/limma-qq-1.png)
+
+### Volcano plot
+
 
 ```r
-# Volcano plot
 volcanoplot(fit, coef = coef.index, highlight = coef.index)
 ```
 
-![plot of chunk limma-example](figure/limma-example-2.png)
+![plot of chunk limma-volcano](figure/limma-volcano-1.png)
 
-```r
-# Adjusted p-values; show all significant ones
-pvalues.limma <- p.adjust(fit$p.value[, coef.index], method = "fdr")
-names(pvalues.limma) <- rownames(fit$p.value)
-print(sort(pvalues.limma[pvalues.limma < 0.1]))
-```
-
-```
-##     Clostridium nexile et rel.    Eubacterium siraeum et rel. 
-##                     0.05934123                     0.05934123 
-##    Uncultured Clostridiales II Sutterella wadsworthia et rel. 
-##                     0.05934123                     0.09872173
-```
 
 
 ### Comparison between limma and t-test
@@ -135,6 +102,31 @@ abline(0,1,lty = 2)
 
 ![plot of chunk limma-compairson](figure/limma-compairson-1.png)
 
-### TODO
+### Continuous variables
 
-Check relations to expressionSets. Could we use tools directly from that context by a suitable conversion.
+Quantify continuous associations with lm_phyloseq function. This uses
+the limma model to generate a table of P-values and effect sizes. Note
+that no confounding variables taken into account in this wrapper. See
+the [limma homepage](http://bioinf.wehi.edu.au/limma/) for more
+detailed analyses.
+
+
+```r
+data("atlas1006")
+source(system.file("extdata/lm_phyloseq.R", package = "microbiome"))
+tab <- lm_phyloseq(atlas1006, "age")
+kable(head(tab), digits = 3)
+```
+
+
+
+|                                   |  logFC| AveExpr|       t| P.Value| adj.P.Val|      B|
+|:----------------------------------|------:|-------:|-------:|-------:|---------:|------:|
+|Bifidobacterium                    | -0.015|   3.702| -12.507|       0|         0| 63.502|
+|Clostridium difficile et rel.      | -0.009|   3.229|  -9.890|       0|         0| 37.157|
+|Oscillospira guillermondii et rel. |  0.012|   4.535|   9.828|       0|         0| 36.594|
+|Bacteroides splachnicus et rel.    |  0.006|   3.219|   9.552|       0|         0| 34.132|
+|Collinsella                        | -0.009|   2.828|  -9.107|       0|         0| 30.273|
+|Tannerella et rel.                 |  0.007|   3.162|   8.977|       0|         0| 29.175|
+
+

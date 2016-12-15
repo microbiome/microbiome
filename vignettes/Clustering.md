@@ -30,12 +30,10 @@ p <- PlotMixtureMultivariate(D, means = m$mu, sds = m$sd, ws = m$w, modes = appl
 
 ### Univariate (infinite) Gaussian mixture model
 
-Fit and visualize Variational Dirichlet process univariate infinite Gaussian mixture. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short).
+Fit and visualize Variational Dirichlet process univariate infinite Gaussian mixture. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short) for the code.
 
 
 ```r
-library(netresponse)
-
 # Generate simulated bimodal univariate data
 x <- c(rnorm(200), rnorm(200, mean = 5))
 
@@ -49,5 +47,22 @@ print(p)
 ```
 
 ![plot of chunk LCA1](figure/LCA1-1.png)
+
+### Clustering samples with mixed variables
+
+Gower distance is useful for samples with mixed-type variables (binary, factor, numeric)):
+
+
+```r
+# Example data
+data("dietswap")
+
+library(FD)
+d <- gowdis(as(sample_data(dietswap), "data.frame"))
+
+plot(hclust(d))
+```
+
+![plot of chunk clustering-gower](figure/clustering-gower-1.png)
 
 

@@ -1,212 +1,71 @@
-#' @title download_microbiome
-#' @description Download microbiome data sets
-#'
-#' @param id Data set name. For options, see download_microbiome()
-#'
-#' @return Data set
-#'
-#' @examples # x <- download_microbiome("peerj32")
-#' @export
+#' @title Probiotics intervention data documentation 
+#' @description The peerj32 data set contains high-through profiling data from 
+#' 389 human blood serum lipids and 130 intestinal genus-level bacteria from 
+#' 44 samples (22 subjects from 2 time points; before and after 
+#' probiotic/placebo intervention). The data set can be used to investigate 
+#' associations between intestinal bacteria and host lipid metabolism. 
+#' For details, see \url{http://dx.doi.org/10.7717/peerj.32}.
+#' @name peerj32
+#' @docType data
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com} 
+#' @references Lahti et al. (2013) PeerJ 1:e32 \url{http://dx.doi.org/10.7717/peerj.32}
+#' @usage data(peerj32)
+#' @format List of the following data matrices as described in detail in Lahti et al. (2013):
+#' \itemize{
+#'   \item lipids: Quantification of 389 blood serum lipids across 44 samples
+#'   \item microbes: Quantification of 130 genus-like taxa across 44 samples
+#'   \item meta: Sample metadata including time point, gender, subjectID, sampleID and treatment group (probiotic LGG / Placebo)
+#'   \item phyloseq The microbiome data set converted into a \code{\link{phyloseq-class}} object.
+#' }
+#'   
+#' @keywords data
+NULL 
+
+
+#' @title Diet swap study data 
+#' @description The diet swap data set represents a study with African and African American groups undergoing a two-week diet swap.
+#' For details, see \url{http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html}.
+#' @name dietswap
+#' @details The data is also available for download from the Data Dryad repository \url{http://datadryad.org/resource/doi:10.5061/dryad.1mn1n}. 
+#' @docType data
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com} 
 #' @references 
+#'   O'Keefe et al. Nature Communications 6:6342, 2015.
+#'   \url{http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html}
 #'   To cite the microbiome R package, see citation('microbiome') 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-download_microbiome <- function (id = "datasets") {
-
-  if (id == "datasets") {
-    datasets <- c("atlas1006", "dietswap", "peerj32")
-    message(paste("The available data sets ids are: ", paste(datasets, collapse = ", ")))
-    return(datasets)
-  }
-
-  if (id == "atlas1006") {
-
-    data <- download_atlas()
-
-  } else if (id == "dietswap") {
-
-    data <- download_dietswap()
-  
-  } else if (id == "peerj32") {
-
-    data <- download_peerj32()
-
-  }
-
-  data
-
-}
-
-
-download_peerj32 <- function (...) {
-
-    message("Downloading data set from Lahti et al. PeerJ, 2013: https://peerj.com/articles/32/")
-
-    peerj32 <- list()
-    data.dir <- system.file("extdata", package = "microbiome")
-    for (nam in c("lipids", "microbes", "meta")) {
-      peerj32[[nam]] <- read.table(paste0(data.dir, "/peerj32_", nam, ".csv"), sep = "\t", header = T, row.names = 1)
-    }
-
-    data <- peerj32
-
-    # The formatting of taxon names needs to be harmonized for microbiome package:
-    colnames(data$microbes) <- gsub("\\.", " ", colnames(data$microbes))
-    # Put back 'rel.' periods
-    colnames(data$microbes) <- gsub("rel $", "rel.", colnames(data$microbes))
-    colnames(data$microbes) <- gsub("Clostridium  sensu stricto ", "Clostridium (sensu stricto)", colnames(data$microbes))
-    # Convert to matrix 
-    data$microbes <- as.matrix(data$microbes)
-
-    # Harmonize the field names etc.
-    data$meta <- harmonize_fieldnames(data$meta)
-
-    # Harmonize field contents
-    data$meta <- suppressWarnings(harmonize_fields(data$meta))
-
-    # Convert in phyloseq format
-    physeq <- hitchip2physeq(data$microbes, data$meta)
-
-    list(physeq = physeq, data = data)
-
-}
+#' @usage data(dietswap) 
+#' @format The data set in \code{\link{phyloseq-class}} format.  
+#' @keywords data
+NULL 
 
 
 
-
-
-#' Download HITChip Atlas 
-#'
-#' @param ... Arguments to be passed
-#'
-#' @return Data set
-#'
-#' @examples \dontrun{download_atlas()}
-#' @importFrom rdryad download_url
+#' @title HITChip Atlas data (n = 1006)
+#' @description This data set contains genus-level microbiota profiling with HITChip for 1006 western adults with no reported health complications, reported in Lahti et al. (2014) \url{http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html}.
+#' @name atlas1006
+#' @details The data is also available for download from the Data Dryad repository \url{http://doi.org/10.5061/dryad.pk75d}. 
+#' @docType data
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com} 
 #' @references 
 #'   Lahti et al. Tipping elements of the human intestinal ecosystem. 
 #'   Nature Communications 5:4344, 2014.
 #'   To cite the microbiome R package, see citation('microbiome') 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords internal
-download_atlas <- function (...) {
-
-  message("Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d")
-
-  # Define the data URL
-  url <- download_url('10255/dryad.64665')
-
-  # Download the data
-  data <- read.table(url, sep = "\t", row.names = 1, header = TRUE)
-
-  # The data comes from public repository (Dryad). 
-  # The formatting of taxon names needs to be harmonized for microbiome package:
-  # Fix some broken names from the original release..
-  # ie. replace 'Clostridium..sensu.stricto.les' with 'Clostridiales'
-  colnames(data) <- gsub("Clostridium..sensu.stricto.les", "Clostridiales", colnames(data))
-  # Remove periods
-  colnames(data) <- gsub("\\.", " ", colnames(data))
-  # Put back 'rel.' periods
-  colnames(data) <- gsub("rel $", "rel.", colnames(data))
-  colnames(data) <- gsub("Clostridium  sensu stricto ", "Clostridium (sensu stricto)", colnames(data))
-
-  # Convert to matrix 
-  otu <- as.matrix(data)
-
-  # -------------------------------------------
-
-  url <- download_url('10255/dryad.64666')
-  meta <- read.table(url, sep = "\t", row.names = 1, header = TRUE)
-
-  # Add SampleIDs as a separate column from rownames
-  meta$sample <- rownames(meta)
-
-  # Order BMI groups in correct order
-  # (see README at http://datadryad.org/resource/doi:10.5061/dryad.pk75d 
-  # for details)
-
-  # Harmonize the field names etc.
-  colnames(meta) <- harmonize_fieldnames(colnames(meta))
-
-  # Harmonize field contents
-  meta <- harmonize_fields(meta)
-
-  # Convert in phyloseq format
-  physeq <- hitchip2physeq(otu, meta)
-
-  physeq
-
-}
+#' @usage data(atlas1006) 
+#' @format The data set in \code{\link{phyloseq-class}} format.  
+#' @keywords data
+NULL 
 
 
-
-#' Download Diet Swap Study
-#'
-#' @param ... Arguments to be passed
-#'
-#' @return Data set
-#'
-#' @examples \dontrun{download_dietswap()}
-#' @importFrom rdryad download_url
+#' @title HITChip taxonomy
+#' @description HITChip taxonomy table
+#' @name hitchip.taxonomy
+#' @docType data
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com} 
 #' @references 
-#'   O'Keefe et al. Nature Communications 6:6342, 2015.
+#'   Lahti et al. Tipping elements of the human intestinal ecosystem. 
+#'   Nature Communications 5:4344, 2014.
 #'   To cite the microbiome R package, see citation('microbiome') 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords internal
-download_dietswap <- function (...) {
-
-  message("Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n")
-
-  # Define the data URL
-  url <- download_url('10255/dryad.78878')
-
-  # Download the data
-  data <- read.table(url, sep = ",", row.names = 1, header = TRUE)
-
-  # The data comes from public repository (Dryad). 
-  # The formatting of taxon names needs to be harmonized for microbiome package:
-  # Fix some broken names from the original release..
-  # ie. replace 'Clostridium..sensu.stricto.les' with 'Clostridiales'
-  colnames(data) <- gsub("^Clostridia$", "Clostridium (sensu stricto)", colnames(data))
-  # Remove periods
-  colnames(data) <- gsub("\\.", " ", colnames(data))
-  # Put back 'rel.' periods
-  colnames(data) <- gsub("rel $", "rel.", colnames(data))
-
-  # Convert to matrix 
-  data <- as.matrix(data)
-
-  # -------------------------------------------
-
-  url <- download_url('10255/dryad.78880')
-  meta <- read.table(url, sep = ",", row.names = 1, header = TRUE)
-
-  # Add SampleIDs as a separate column from rownames
-  meta$sample <- rownames(meta)
-
-  # Order BMI groups in correct order
-  # (see README at http://datadryad.org/resource/doi:10.5061/dryad.pk75d 
-  # for details)
-
-  # Harmonize time
-  meta$timepoint <- meta$timepoint.total
-  meta$timepoint.total <- NULL
-
-  meta$timepoint.within.group <- meta$timepoint.group
-  meta$timepoint.group <- NULL
-
-  # Harmonize the field names etc.
-  # colnames(meta) <- suppressWarnings(harmonize_fieldnames(colnames(meta)))
-
-  # Harmonize field contents
-  meta <- suppressWarnings(harmonize_fields(meta))
-
-  # Collect the atlas data and metadata into a single object
-  atlas <- list(microbes = data, meta = meta)
-
-  # Convert in phyloseq format
-  pseq <- hitchip2physeq(data, meta)
-
-  pseq
-
-}
+#' @usage data(hitchip.taxonomy)
+#' @format List with the element 'filtered', including a simplified version of the HITChip taxonomy.
+#' @keywords data
+NULL 

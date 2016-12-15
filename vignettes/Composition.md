@@ -1,33 +1,21 @@
 ## Microbiota composition
 
 
-### Barplot visualizations
+### Barplots for composition
 
 Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html) and [HITChip Barplots](Barplots.md)
 
-Loading example data:
+
+Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
 
 
 ```r
 # Example data
 library(microbiome)
-pseq0 <- download_microbiome("dietswap")
+data(dietswap)
+theme_set(theme_bw(22))
+pseq <- dietswap
 ```
-
-```
-## Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n
-```
-
-```r
-# Pick sample subset
-pseq <- subset_samples(pseq0, group == "DI" & nationality == "AFR")
-```
-
-# OK
-plot_composition(phyl1,taxonomic.level = "Phylum",relative.abundance = T,sort.by = "lesion")
-
-plot_composition(phyl1,taxonomic.level = "Phylum",relative.abundance = T,sort.by = "lesion",x.label = "lesion")
-
 
 Show OTU absolute abundance in each sample. Plot absolute taxon
 abundances (Note: on HITChip data the Phylum level is only
@@ -35,52 +23,99 @@ approximate):
 
 
 ```r
-plot_composition(pseq, taxonomic.level = "Phylum")
+# Pick sample subset
+library(phyloseq)
+pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
+res <- plot_composition(pseq2, taxonomic.level = "Phylum")
+res$plot + theme(legend.position = "bottom") + guides(fill=guide_legend(nrow=10,byrow=TRUE))
 ```
 
 ![plot of chunk composition-example1b](figure/composition-example1b-1.png)
 
-Same with relative abundances:
+Arrange by sample variable and use custom X axis labels. Only consider the most abundant taxa. Africans have more Prevotella as expected. Absolute counts:
 
 
 ```r
-p <- plot_composition(pseq, taxonomic.level = "Phylum", relative.abundance = TRUE)
-p <- p + guides(fill = guide_legend(nrow = 12, byrow = TRUE))
-p <- p + theme(legend.position = "bottom")
-print(p)
-```
-
-![plot of chunk composition-example3](figure/composition-example3-1.png)
-
-
-Arrange by sample variable and use custom X axis labels. Africans have more Prevotella as expected:
-
-
-```r
-# Subset taxa and samples
-pseq <- subset_samples(pseq0, group == "DI" & timepoint.within.group == 1)
 # Pick the top OTUs only
-pseq <- prune_taxa(names(sort(taxa_sums(pseq), TRUE)[1:5]), pseq)
-p <- plot_composition(pseq, relative.abundance = TRUE, sort.by = "nationality", x.label = "nationality")
-p <- p + guides(fill = guide_legend(ncol = 1))
-p <- p + theme(legend.position = "bottom")
+top <- names(sort(taxa_sums(pseq), TRUE)[1:10])
+pseq3 <- prune_taxa(top, pseq)
+pseq3 <- subset_samples(pseq3, group == "DI" & timepoint.within.group == 1)
+
+res <- plot_composition(pseq3, sample.sort = "nationality", x.label = "nationality")
+p <- res$plot
+p <- p + guides(fill = guide_legend(ncol = 3))
+p <- p + theme(legend.position = "bottom") + guides(fill=guide_legend(nrow=5,byrow=TRUE))
 print(p)
 ```
 
 ![plot of chunk composition-example4](figure/composition-example4-1.png)
 
-### Coloured Barplots
 
-The following example visualizes samples, colored by Phylum
-percentages (in this example data the Phylum is approximated by 16S
-sequence similarity, not exactly Phylum):
+Same with relative abundances:
 
 
 ```r
-pseq <- subset_samples(pseq0, group == "DI")
-p <- plot_bar(pseq, x = "timepoint.within.group", fill = "Phylum", facet_grid = ~nationality)
+res <- plot_composition(pseq3, sample.sort = "nationality", x.label = "nationality", transformation = "relative.abundance")
+p <- res$plot
+p <- p + guides(fill = guide_legend(ncol = 1))
+p <- p + ylab("Relative Abundance (%)")
+#p <- p + theme(legend.position = "bottom")
 print(p)
 ```
 
+![plot of chunk composition-example4b](figure/composition-example4b-1.png)
+
+
+
+### Heatmaps for composition
+
+
+Plain heatmap
+
+
+```r
+theme_set(theme_bw(30))
+res <- plot_composition(pseq3, plot.type = "heatmap", mar = c(6, 13, 1, 1))
+```
+
 ![plot of chunk composition-example5](figure/composition-example5-1.png)
+
+
+Heatmap with Z-transformed OTUs
+
+
+```r
+res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU", mar = c(6, 13, 1, 1))
+```
+
+![plot of chunk composition-example6](figure/composition-example6-1.png)
+
+
+Same, but samples and OTUs sorted with the neatmap method
+
+
+```r
+res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
+       			       sample.sort = "neatmap", otu.sort = "neatmap",
+			       mar = c(6, 13, 1, 1))
+```
+
+![plot of chunk composition-example7](figure/composition-example7-1.png)
+
+
+Same, but samples and OTUs sorted manually
+
+
+```r
+sample.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "sites", first = NULL) 
+otu.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "species", first = NULL)
+
+res <- plot_composition(pseq3, plot.type = "heatmap", transformation = "Z-OTU",
+       			       sample.sort = sample.sort, otu.sort = otu.sort,
+			       mar = c(6, 13, 1, 1))
+```
+
+![plot of chunk composition-example8](figure/composition-example8-1.png)
+
+
 

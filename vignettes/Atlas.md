@@ -1,128 +1,18 @@
 ## Intestinal microbiota diversity in 1006 western adults
 
-Let us investigate an example data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). This contains microbiota profiling of 130 genus-like taxa across 1006 normal western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d).
+The data set from [Lahti et al. Nat. Comm. 5:4344,
+2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
+has microbiota profiling of 130 genus-like taxa across 1006 normal
+western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d).
 
-
-### Download HITChip Atlas data
-
-[Load the HITChip Atlas microbiome profiling data in R](Data.md)
+Download the data in R:
 
 
 ```r
 # Download the required R packages and then the HITChip Atlas data set
-library("rdryad")
 library("microbiome")
-```
-
-```
-## Loading required package: phyloseq
-```
-
-```
-## Warning: replacing previous import by 'ggplot2::Position' when loading
-## 'phyloseq'
-```
-
-```
-## Warning: replacing previous import by 'scales::alpha' when loading
-## 'phyloseq'
-```
-
-```
-## Loading required package: RPA
-```
-
-```
-## Loading required package: parallel
-```
-
-```
-## Loading required package: affy
-```
-
-```
-## Loading required package: BiocGenerics
-```
-
-```
-## 
-## Attaching package: 'BiocGenerics'
-```
-
-```
-## The following objects are masked from 'package:parallel':
-## 
-##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
-##     clusterExport, clusterMap, parApply, parCapply, parLapply,
-##     parLapplyLB, parRapply, parSapply, parSapplyLB
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     IQR, mad, xtabs
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     anyDuplicated, append, as.data.frame, as.vector, cbind,
-##     colnames, do.call, duplicated, eval, evalq, Filter, Find, get,
-##     grep, grepl, intersect, is.unsorted, lapply, lengths, Map,
-##     mapply, match, mget, order, paste, pmax, pmax.int, pmin,
-##     pmin.int, Position, rank, rbind, Reduce, rownames, sapply,
-##     setdiff, sort, table, tapply, union, unique, unlist, unsplit
-```
-
-```
-## Loading required package: Biobase
-```
-
-```
-## Welcome to Bioconductor
-## 
-##     Vignettes contain introductory material; view with
-##     'browseVignettes()'. To cite Bioconductor, see
-##     'citation("Biobase")', and for packages 'citation("pkgname")'.
-```
-
-```
-## 
-## Attaching package: 'Biobase'
-```
-
-```
-## The following object is masked from 'package:phyloseq':
-## 
-##     sampleNames
-```
-
-```
-## 
-## RPA Copyright (C) 2008-2014 Leo Lahti.
-## This program comes with ABSOLUTELY NO WARRANTY.
-## This is free software, and you are welcome to redistribute it under the FreeBSD open source license.
-```
-
-```
-## 
-## microbiome R package (microbiome.github.com)
-##           
-## 
-## 
-##  Copyright (C) 2011-2015
-##           Leo Lahti and Jarkko Salojarvi 
-## 
-##         
-##           <microbiome-admin@googlegroups.com>
-```
-
-```r
-pseq <- download_microbiome("atlas1006")
-```
-
-```
-## Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from Data Dryad: http://doi.org/10.5061/dryad.pk75d
+data("atlas1006")
+pseq <- atlas1006
 ```
 
 
@@ -134,6 +24,8 @@ pseq <- download_microbiome("atlas1006")
 ```r
 library(phyloseq)
 div <- estimate_diversity(pseq, measures = c("Observed", "Shannon", "Simpson"))
+
+library(knitr)
 kable(head(div))
 ```
 
@@ -153,7 +45,7 @@ kable(head(div))
 
 
 ```r
-p <- plot_diversity(pseq, x = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250)
+p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250)
 print(p)
 ```
 
@@ -169,13 +61,17 @@ pseq <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
 
 # Visualize
 library(sorvi)
-p <- sorvi::regression_plot(diversity~age, sample_data(pseq))
+p <- sorvi::plot_regression(diversity~age, sample_data(pseq))
+```
+
+```
+## Error: 'plot_regression' is not an exported object from 'namespace:sorvi'
+```
+
+```r
 print(p)
 ```
 
 ![plot of chunk atlas-example3](figure/atlas-example3-1.png)
 
 
-## Further resources
-
-For further examples, see [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)

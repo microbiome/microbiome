@@ -15,118 +15,71 @@ output:
   %\usepackage[utf8]{inputenc}
 -->
 
-```{r, echo=FALSE, message=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Handle citations
 require(knitcitations)
 cleanbib()
 #options("citation_format" = "pandoc")
 bib <- read.bibtex("bibliography.bib")
 #opts_chunk$set(fig.width=4, fig.height=3, par=TRUE, out.width='2in', fig.pos='H')
-#knitr::opts_chunk$set(fig.path = "figure/")
+knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
 ```
 
 
 microbiome R package
 ===========
 
-The microbiome package contains general-purpose tools for microarray-based analysis of microbiome profiling data sets in R `r citep(bib[["rcore13"]])`. 
+Tools for microbiome analysis in R `r citep(bib[["rcore13"]])`.
 
-The analyses are based on the phyloseq class from the independent [phyloseq](https://github.com/joey711/phyloseq) R package. Convert your data into phyloseq format before testing these examples.
+The microbiome R package provides analysis tools, diagnostic plots,
+and other utilities for microbiome analyses, as well as multiple
+example data sets.
 
-For probe-level summarization of phylogenetic microarray data we use and recommend Robust Probabilistic Averaging (RPA) [`r citep(citation("RPA"))`; `r citep("10.1109/TCBB.2009.38")`].
-
-### How to start 
-
-Example on reproducible document generation:  
-
- * [Installing R tools](Installation.md)
- * [How to get started](Template.md)  
- * [Example workflow](Atlas.md)
+We use the [phyloseq](http://joey711.github.io/phyloseq/import-data)
+class, a standard representation format in R for taxonomic
+profiling. This package provides extensions and convenient wrappers
+for many standard tasks encountered in microbiome studies. 
 
 
-### Data
+### Getting started
 
-* [Download example data sets](Data.md)
-* [Extract data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
-* [Taxonomy](Phylogeny.md)
-* [Preprocessing and Filtering](Preprocessing.md)
+* [Installation](Template.md) 
+* [Example data](Data.md)
+* [Data manipulation](Preprocessing.md)
+
 
 ### Visualization and related tools
 
-Download some [example data sets](Data.md) to try these tools:
-
-* [Barplots](Composition.md)
-* [Boxplots](Boxplots.md)
-* [Density](Density.md)
+* [Community composition](Composition.md)
 * [Heatmaps](Heatmap.md)
-* [Motion charts](Motionchart.md)
 * [Networks](Networks.md)
-* [Ordination](Ordination.md)
-* [PCA](Ordination.md)
-* [Cross hybridization](Crosshyb.md)
+* [Ordination (PCA, PCoA, NMDS etc.)](Ordination.md)
+* [Density](Density.md)
 
 
-### Clustering 
-* [Bimodality](Stability.md)
-* [Clustering](Clustering.md)
+### Microbiota analysis
 
-
-### Microbiota composition
-* [Bistability analysis](Stability.md)
-* [Composition](Composition.md)
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
-* [Probe level studies](Probelevel.md)
-* [Stability](Stability.md)
-* [Tipping elements](Stability.md)
-* [Variability](Variability.md) (Intra- and inter-individual 'stability')
-
-
-### Linear models, comparisons, and association studies
-* [Linear models](limma.md)
 * [Pairwise comparisons](Comparisons.md)
-
-
-### Other statistical analysis
-* [ROC curves](ROC.md)
-* [RDA](RDA.md)
-
-
-### Output
-* [Generating output files/figures](Output.md)
-
-
-### Misc
-* [Miscellaneous](misc.md)
+* [Stability, bimodality, tipping elements](Stability.md)
+* [Variability](Variability.md)
+* [Experimental](Experimental.Rmd)
 
 
 ### Licensing and Citations
 
-This work can be freely used, modified and distributed under the 
-[Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
-
-Kindly cite the work as 'Leo Lahti and Jarkko Salojarvi
-(2014). microbiome R package. URL: http://microbiome.github.com'.
+This work can be freely used, modified and distributed under the
+[Two-clause FreeBSD
+license](http://en.wikipedia.org/wiki/BSD\_licenses). Kindly cite as
+'Leo Lahti and Jarkko Salojarvi (2014-2016). microbiome R
+package. URL: http://microbiome.github.com'.
 
 
 ### Dependencies
 
-The package utilizes tools from a number of other CRAN and
-Bioconductor extensions, including:
-
- * df2json `r citep(citation("df2json"))`
- * rjson `r citep(citation("rjson"))`
- * ade4 `r citep(citation("ade4"))`
- * mixOmics `r citep(citation("mixOmics"))`
- * RCurl `r citep(citation("RCurl"))`
- * vegan `r citep(citation("vegan"))`
- * reshape `r citep(citation("reshape"))`
- * WGCNA `r citep(citation("WGCNA"))`
- * ggplot2 `r citep(citation("ggplot2"))`
- * RPA `r citep(citation("RPA"))`
- * minet `r citep(citation("minet"))`
- * fastcluster `r citep(citation("fastcluster"))`
- * dplyr `r citep(citation("dplyr"))`
+The package utilizes tools from a number of other R extensions,
+including ade4 `r citep(citation("ade4"))`, dplyr `r citep(citation("dplyr"))`, ggplot2 `r citep(citation("ggplot2"))`, MASS `r citep(citation("MASS"))`, moments `r citep(citation("moments"))`, phyloseq `r citep(citation("phyloseq"))`, RColorBrewer `r citep(citation("RColorBrewer"))`, scales `r citep(citation("scales"))`, stats `r citep(citation("stats"))`, tidyr `r citep(citation("tidyr"))`, vegan `r citep(citation("vegan"))`.
 
 
 ### References
@@ -143,15 +96,4 @@ Bioconductor extensions, including:
 ```{r, echo=FALSE, message=FALSE, results='asis'}
 bibliography()
 ```
-
-### Session info
-
-This vignette was created with
-
-```{r sessioninfo}
-sessionInfo()
-```
-
-
-
 

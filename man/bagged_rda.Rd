@@ -2,9 +2,10 @@
 % Please edit documentation in R/bagged_rda.R
 \name{bagged_rda}
 \alias{bagged_rda}
-\title{bagged_rda}
+\title{Bagged RDA}
 \usage{
-bagged_rda(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T)
+bagged_rda(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T,
+  plot = FALSE)
 }
 \arguments{
 \item{x}{a matrix, samples on columns, variables (bacteria) on rows. 
@@ -18,6 +19,8 @@ Or name of phyloseq sample data variable name.}
 \item{nboot}{Number of bootstrap iterations}
 
 \item{verbose}{verbose}
+
+\item{plot}{Also show a diagnostic plot of the result}
 }
 \value{
 List with items:
@@ -31,7 +34,10 @@ List with items:
   }
 }
 \description{
-Bagged RDA feature selection
+Bagged (or Bootstrap Aggregated) RDA feature selection
+}
+\details{
+Bagging ie. Bootstrap aggregation is expected to improve the stability of the results. The results over several modeling runs with different boostrap samples of the data are averaged to produce the final summary,
 }
 \examples{
 \dontrun{
@@ -40,7 +46,7 @@ Bagged RDA feature selection
   x <- t(peerj32$microbes)
   y <- factor(peerj32$meta$time); names(y) <- rownames(peerj32$meta)
   res <- bagged_rda(x, y, sig.thresh=0.05, nboot=100)
-  PlotBaggedRDA(res, y)
+  plot_bagged_rda(res, y)
  }
 }
 \author{

@@ -1,99 +1,88 @@
 ## Ordination examples
 
-Here some examples with HITChip data. See also [phyloseq ordination tutorial](joey711.github.io/phyloseq/plot_ordination-examples.html).
+Some examples with HITChip data. See also [phyloseq ordination tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html).
 
 Load example data:
 
 ```{r ordination1, message=FALSE, warning=FALSE, eval=TRUE}
 library(microbiome)
+library(phyloseq)
 library(ggplot2)
-pseq <- download_microbiome("atlas1006")
+data(atlas1006)
+pseq <- atlas1006
 
 # Convert signal to relative abundances
-pseq.rel <- transform_sample_counts(pseq, function (x) {x/sum(x)})
+pseq.rel <- transform_phyloseq(pseq, "relative.abundance")
 
 # Pick OTUs that are present with >1 percent relative abundance 
 # in >10 percent of the samples
-pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > .01) > (0.1*nsamples(pseq.rel)), TRUE)
+pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > 1) > (0.1*nsamples(pseq.rel)), TRUE)
 ```
 
 
-### Principal component analysis (PCA)
+### Sample ordination
 
-Project data on the first two PCA axes:
+Project the samples with the given method and distance. See also plot_ordination from the phyloseq package.
 
-```{r ordination2, message=FALSE, warning=FALSE, fig.path = "figure/"}
+
+```{r ordination2, message=FALSE, warning=FALSE, results="hide"}
 set.seed(423542)
-x <- t(otu_table(pseq2)@.Data)
-proj <- project.data(log10(x), type = "PCA") # MDS.classical etc.
-```
-
-
-Visualize and highlight:
-
-```{r ordination4, message=FALSE, warning=FALSE, fig.width=11, fig.height=8, fig.path = "figure/"}
-# Highlight gender
-p <- densityplot(proj, col = sample_data(pseq2)$gender, legend = T)
-print(p)
-
-# Highlight low/high Prevotella subjects
-prevotella.abundance  <- log10(x[, "Prevotella melaninogenica et rel."]) 
-p <- densityplot(proj, col = prevotella.abundance, legend = T)
-print(p)
-```
-
-Projection with sample names:
-
-```{r visu-example2, message=FALSE, message=FALSE, fig.height=8, fig.width=8, fig.path = "figure/"}
-ggplot(aes(x = Comp.1, y = Comp.2, label = rownames(proj)), data = proj) + geom_text(size = 2)
-```
-
-
-### Unifrac with PCoA
-
-Not implemented with HITChip but popular with sequencing data. See [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). 
-
-
-### NMDS with Bray-Curtis distances
-
-```{r ordination3, message=FALSE, warning=FALSE, fig.width=15, fig.height=8}
 pseq.ord <- ordinate(pseq2, "NMDS", "bray")
+# Just pick the projected data (first two columns + metadata)
+proj <- plot_ordination(pseq2, pseq.ord, justDF = T)
 ```
+
+Then visualize the projected data:
+
+```{r ordination4, message=FALSE, warning=FALSE, fig.width=7, fig.height=6, fig.show="hold", out.width="400px"}
+# Highlighting gender
+p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
+print(p)
+
+# Projection with sample names:
+ax1 <- names(proj)[[1]]
+ax2 <- names(proj)[[2]]
+p <- ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) +
+       geom_text(size = 2)
+print(p)
+```
+
 
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
-```{r pca-ordination21, message=FALSE, message=FALSE, fig.height=8, fig.width=12}
-p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Genus", title = "taxa")
+```{r ordination-pca-ordination21, message=FALSE, message=FALSE, fig.height=5, fig.width=8}
+p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Phylum", title = "Taxa ordination")
 print(p)
 ```
 
-Grouping the plots by Phylum
+Grouping by Phyla
 
-```{r pca-ordination22, message=FALSE, message=FALSE, fig.height=8, fig.width=10}
+```{r ordination-pca-ordination22, message=FALSE, message=FALSE, fig.height=10, fig.width=9}
 p + facet_wrap(~Phylum, 5)
 ```
 
 
-### Multidimensional scaling (MDS)
+### Multidimensional scaling (MDS / PCoA)
 
-```{r ordinate23, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
+```{r ordination-ordinate23, warning=FALSE, message=FALSE, fig.width=10, fig.height=6}
 plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") + geom_point(size = 5)
 ```
+
+### RDA
+
+See a separate page on [RDA](RDA.md).
 
 
 ### Canonical correspondence analysis (CCA)
 
-With samples:
 
-```{r ordinate24a, warning=FALSE, message=FALSE, fig.width=9, fig.height=7}
+```{r ordination-ordinate24a, warning=FALSE, message=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
+# With samples
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gender")
-p + geom_point(size = 5)
-#p <- p + geom_polygon(aes(fill = gender))
-```
+p <- p + geom_point(size = 4)
+print(p)
 
-With taxa:
-
-```{r ordinate24b, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
+# With taxa:
 p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "taxa", color = "Phylum")
 p <- p + geom_point(size = 4)
 print(p)
@@ -102,7 +91,7 @@ print(p)
 
 ### Split plot
 
-```{r ordinate25, warning=FALSE, message=FALSE, fig.width=12, fig.height=7}
+```{r ordination-ordinate25, warning=FALSE, message=FALSE, fig.width=14, fig.height=5}
 plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender", 
     color = "Phylum", label = "gender")
 ```
@@ -110,7 +99,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender",
 
 ### Ordination biplot
 
-```{r ordinate26, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
+```{r ordination-ordinate26, warning=FALSE, message=FALSE, fig.width=11, fig.height=5}
 plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
 ```
 

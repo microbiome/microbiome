@@ -8,14 +8,18 @@ rounded as indicated by the rounding argument. The percentage
 indicates which fraction of probes for a row taxon overlaps with
 probes of a column taxon. This is not symmetric if the row and col
 taxon have a different total number of probes. For details, see
-help(PlotCrosshyb).
+help(plot_crosshyb).
 
 
 ```r
 library(microbiome, quietly = TRUE)
+library(dplyr)
 
-# Check cross-hyb between all L1 groups
-res <- PlotCrosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE)
+# Pick the phylogeny which was used to summarize probes to species level
+tax.table <- get_hitchip_taxonomy("HITChip", "full")
+
+# Check cross-hyb between all L2 groups
+res <- plot_crosshyb(tax.level = "L2", rounding = 1, show.plot = FALSE, tax.table = tax.table)
     
 # Pick the crosshyb table and figure
 crosshyb.table <- res$data
@@ -36,13 +40,13 @@ head(s)
 ```
 
 ```
-##                          Taxon1                       Taxon2 crosshyb
-## 379                    Serratia                       Vibrio      100
-## 257 Uncultured Selenomonadaceae Megasphaera elsdenii et rel.      100
-## 200                    Serratia                  Haemophilus      100
-## 166                    Serratia     Escherichia coli et rel.      100
-## 39     Uncultured Bacteroidetes Bacteroides plebeius et rel.      100
-## 11     Uncultured Bacteroidetes           Allistipes et rel.      100
+##                          Taxon1                         Taxon2  crosshyb
+## 886    Uncultured Bacteroidetes   Bacteroides plebeius et rel. 100.00000
+## 244    Uncultured Bacteroidetes             Allistipes et rel.  96.42857
+## 6539   Uncultured Bacteroidetes             Tannerella et rel.  92.85714
+## 7043                Leminorella               Yersinia et rel.  91.30435
+## 780  Bacteroides ovatus et rel.   Bacteroides fragilis et rel.  90.90909
+## 4703               Burkholderia Oxalobacter formigenes et rel.  90.00000
 ```
 
 
@@ -52,30 +56,29 @@ Investigate species-species cross-hybridization within the Dialister L2 group
 
 
 ```r
-# Pick the phylogeny which was used to summarize probes to species level
-tax.table <- GetPhylogeny("HITChip", "filtered") 
-
 # Select species belonging to Dialister L2 group
-mytaxa <- levelmap("Dialister", from = "L2", to = "species", tax.table)[[1]]
+mytaxa <- map_levels("Dialister", from = "L2", to = "species", tax.table)[[1]]
 
 # Check cross-hyb between Dialister species
-res <- PlotCrosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, tax.table)
+res <- plot_crosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, tax.table = tax.table)
 ```
 
 ![plot of chunk chyb2](figure/chyb2-1.png)
 
 ```r
 # Check the cross-hyb data as well
-head(res$data)
+library(knitr)
+kable(head(res$data))
 ```
 
-```
-##                                   Taxon1                 Taxon2  crosshyb
-## 1                      Dialister invisus      Dialister invisus   0.00000
-## 2                 Dialister pneumosintes      Dialister invisus  20.00000
-## 3 Uncultured bacterium clone Eldhufec089      Dialister invisus 100.00000
-## 4 Uncultured bacterium clone Eldhufec093      Dialister invisus 100.00000
-## 5              uncultured bacterium MG10      Dialister invisus   0.00000
-## 6                      Dialister invisus Dialister pneumosintes  33.33333
-```
+
+
+|Taxon1                                 |Taxon2            | crosshyb|
+|:--------------------------------------|:-----------------|--------:|
+|Dialister invisus                      |Dialister invisus |        0|
+|Dialister pneumosintes                 |Dialister invisus |       50|
+|Uncultured bacterium clone Eldhufec089 |Dialister invisus |      100|
+|Uncultured bacterium clone Eldhufec093 |Dialister invisus |      100|
+|Uncultured bacterium clone Eldhufec096 |Dialister invisus |      100|
+|uncultured bacterium MG10              |Dialister invisus |       40|
 

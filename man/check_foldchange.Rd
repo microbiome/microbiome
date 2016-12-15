@@ -2,7 +2,7 @@
 % Please edit documentation in R/foldchange.R
 \name{check_foldchange}
 \alias{check_foldchange}
-\title{check_foldchange}
+\title{Fold change for phyloseq objects}
 \usage{
 check_foldchange(x, group, sort = FALSE, paired = FALSE)
 }
@@ -20,11 +20,11 @@ check_foldchange(x, group, sort = FALSE, paired = FALSE)
 Fold change information for two-group comparison.
 }
 \description{
-Calculate Log10 Fold Change for two-group comparison
+Calculate Log10 Fold Change for two-group comparison with phyloseq objects.
 }
 \examples{
-  #pseq <- download_microbiome("peerj32")$physeq
-  #fc <- check_foldchange(pseq, "gender")
+  data(dietswap)
+  fc <- check_foldchange(dietswap, "sex")
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

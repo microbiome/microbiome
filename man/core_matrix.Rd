@@ -2,25 +2,23 @@
 % Please edit documentation in R/core_matrix.R
 \name{core_matrix}
 \alias{core_matrix}
-\title{core_matrix}
+\title{Core OTU matrix}
 \usage{
 core_matrix(x, prevalence.intervals = seq(5, 100, 5),
-  detection.thresholds = NULL, verbose = FALSE)
+  detection.thresholds = NULL)
 }
 \arguments{
-\item{x}{\code{\link{phyloseq}} object}
+\item{x}{\code{\link{phyloseq}} object or a taxa x samples abundance matrix}
 
 \item{prevalence.intervals}{a vector of prevalence percentages in [0,100]}
 
 \item{detection.thresholds}{a vector of intensities around the data range}
-
-\item{verbose}{verbose}
 }
 \value{
 Estimated core microbiota
 }
 \description{
-create core matrix
+Creates the core matrix.
 }
 \examples{
   #pseq <- download_microbiome("peerj32")$physeq

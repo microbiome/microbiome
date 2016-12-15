@@ -1,17 +1,16 @@
 core_lineplot <- function (x, title = "Common core",  
                    xlabel = "Abundance", 
-                   ylabel = "Core size (number of taxa)", 
-		   prevalence.intervals = NULL, 
-		   detection.thresholds = NULL) {
-
-    if (class(x) == "phyloseq") {
-      x <- core_matrix(x, prevalence.intervals, detection.thresholds)
-    }
+                   ylabel = "Core size (N)") {
 
     Abundance <- Prevalence <- Count <- NULL
     
-    df <- melt(x)
+    df <- as.data.frame(x)
+    df$ID <- rownames(x)
+    df <- gather(df, "ID")
     names(df) <- c("Abundance", "Prevalence", "Count")
+    df$Abundance <- as.numeric(as.character(df$Abundance))
+    df$Prevalence <- as.numeric(as.character(df$Prevalence))
+    df$Count <- as.numeric(as.character(df$Count))    
 
     theme_set(theme_bw(20))
     p <- ggplot(df, aes(x = Abundance,
@@ -26,7 +25,7 @@ core_lineplot <- function (x, title = "Common core",
     p <- p + ylab(ylabel)
     p <- p + ggtitle(title)
         
-    return(p)
+    list(plot = p, data = x)
 }
 
 

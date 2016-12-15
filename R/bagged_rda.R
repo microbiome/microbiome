@@ -1,5 +1,5 @@
-#' @title bagged_rda
-#' @description Bagged RDA feature selection
+#' @title Bagged RDA
+#' @description Bagged (or Bootstrap Aggregated) RDA feature selection
 #' @param x a matrix, samples on columns, variables (bacteria) on rows. 
 #'        Or a \code{\link{phyloseq-class}} object
 #' @param y vector with names(y)=rownames(X). 
@@ -7,6 +7,7 @@
 #' @param sig.thresh signal p-value threshold, default 0.1
 #' @param nboot Number of bootstrap iterations
 #' @param verbose verbose
+#' @param plot Also show a diagnostic plot of the result
 #' @return List with items:
 #'   \itemize{
 #'     \item{loadings}{bagged loadings}
@@ -22,19 +23,20 @@
 #'   x <- t(peerj32$microbes)
 #'   y <- factor(peerj32$meta$time); names(y) <- rownames(peerj32$meta)
 #'   res <- bagged_rda(x, y, sig.thresh=0.05, nboot=100)
-#'   PlotBaggedRDA(res, y)
+#'   plot_bagged_rda(res, y)
 #'  }
 #' @export
+#' @details Bagging ie. Bootstrap aggregation is expected to improve the stability of the results. The results over several modeling runs with different boostrap samples of the data are averaged to produce the final summary,
 #' @references See citation("microbiome") 
 #' @author Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-bagged_rda <- function(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T){
+bagged_rda <- function(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T, plot = FALSE){
 
   if (class(x) == "phyloseq") {
     # Pick OTU matrix and the indicated annotation field
     y <- factor(sample_data(x)[[y]])
     names(y) <- sample_data(x)$sample
-    x <- otu_table(x)@.Data
+    x <- taxa_abundances(x) 
   }
 
   stop.run=F
@@ -66,9 +68,11 @@ bagged_rda <- function(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T){
   Bag.res$Err.selection=mean.err
   Bag.res$dropped=dropped
 
-  plot(mean.err,xlab="x dimension")
-  points(best.res,mean.err[best.res],col="red")
-
+  if (plot) {
+    plot(mean.err,xlab="x dimension")
+    points(best.res,mean.err[best.res],col="red")
+  }
+  
   list(bagged.rda = Bag.res, variable = y)
 
 }

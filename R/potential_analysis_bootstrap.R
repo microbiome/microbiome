@@ -1,45 +1,37 @@
-
-#' @title potential_analysis_bootstrap
-#'
+#' @title Potential analysis bootstrap
 #' @description Bootstrap analysis of multimodality based on potential
-#'     analysis of Livina et al. (2010) as described in Lahti et al. (2014)
-#' 
+#'    analysis of Livina et al. (2010) as described in Lahti et al. (2014).
 #' @param x Data vector
 #' @param detection.threshold Mode detection threshold
 #' @param bw.adjust Bandwidth adjustment
 #' @param bs.iterations Bootstrap iterations
 #' @param detection.limit minimum accepted density for a maximum; as a multiple of kernel height
-#'
 #' @return List with following elements:
-#' modes:  Number of modes for the input data vector (the most frequent number of modes from bootstrap)
-#' minima: Average of potential minima across the bootstrap samples (for the most frequent number of modes)
-#' maxima: Average of potential maxima across the bootstrap samples (for the most frequent number of modes)
-#' unimodality.support Fraction of bootstrap samples exhibiting unimodality	   
-#'
-#' @import earlywarnings
+#' \itemize{
+#'   \item{modes}{Number of modes for the input data vector (the most frequent number of modes from bootstrap)}
+#'   \item{modes}{minima: Average of potential minima across the bootstrap samples (for the most frequent number of modes)}
+#'   \item{modes}{maxima: Average of potential maxima across the bootstrap samples (for the most frequent number of modes)}
+#'   \item{modes}{unimodality.support Fraction of bootstrap samples exhibiting unimodality}
+#' }
 #' @export
-#' @references 
-#' Livina et al. (2010). Potential analysis 
-#' reveals changing number of climate states during the last 60
-#' kyr. \emph{Climate of the Past}, 6, 77-82.
-#'
-#' Lahti et al. (2014). Tipping elements of the human intestinal
-#' ecosystem. \emph{Nature Communications} 5:4344.
-#'
+#' @references
+#'  \itemize{
+#'   \item{}{Livina et al. (2010). Potential analysis reveals changing number of climate states during the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
+#'   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal ecosystem. \emph{Nature Communications} 5:4344.}
+#'  }
 potential_analysis_bootstrap <- function (x, detection.threshold, bw.adjust = 1, bs.iterations = 100, detection.limit = 1) {
 
   nmodes <- c()
   minpoints <- list()
   maxpoints <- list()
   bws <- c()
-  #s <- list()
+
   for (r in 1:bs.iterations) {
   
     # Bootstrap
     rs <- sample(length(x), replace = TRUE) 
 
     xbs <- na.omit(unname(x[rs]))
-    #s[[r]] <- xbs
 
     a <- livpotential_ews(xbs, grid.size = floor(.2*length(x)), 
       	 		     detection.threshold = detection.threshold, 

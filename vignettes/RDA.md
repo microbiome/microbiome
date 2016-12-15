@@ -1,4 +1,4 @@
-### RDA analysis and visualization. 
+## RDA analysis and visualization. 
 
 Load the package and example data:
 
@@ -6,28 +6,24 @@ Load the package and example data:
 ```r
 library(microbiome)
 # Data from https://peerj.com/articles/32/
-pseq <- download_microbiome("peerj32")$physeq
+data("peerj32")
+pseq <- peerj32$phyloseq
 ```
 
 ### Standard RDA 
 
-Standard RDA for microbiota profiles versus the 'time' variable from 
-sample metadata:
+Standard RDA for microbiota profiles versus the given (here 'time')
+variable from sample metadata:
 
 
 ```r
-rdatest <- rda_physeq(pseq, "time")
-```
-
-### RDA significance test
-
-
-```r
-permutest(rdatest) 
+# If x has zeroes we can use log(1 + x) transformation
+pseq.log10 <- transform_phyloseq(pseq, "log10")
+rda.result <- rda_physeq(pseq.log10, "time")
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "permutest"
+## Error in qr.fitted(Q, Xbar): 'qr' and 'y' must have the same number of rows
 ```
 
 ### RDA visualization
@@ -36,31 +32,63 @@ Visualizing the standard RDA output:
 
 
 ```r
-plot(rdatest, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
-points(rdatest, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
-pl <- ordihull(rdatest, meta$time, scaling = 3, label = TRUE)
+library(phyloseq)
+meta <- sample_data(pseq.log10)
+plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
 ```
 
 ```
-## Error in eval(expr, envir, enclos): could not find function "ordihull"
+## Error in plot(rda.result, choices = c(1, 2), type = "points", pch = 15, : object 'rda.result' not found
+```
+
+```r
+points(rda.result, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
+```
+
+```
+## Error in points(rda.result, choices = c(1, 2), pch = 15, scaling = 3, : object 'rda.result' not found
+```
+
+```r
+library(vegan)
+pl <- ordihull(rda.result, meta$time, scaling = 3, label = TRUE)
+```
+
+```
+## Error in scores(ord, display = display, ...): object 'rda.result' not found
 ```
 
 ```r
 title("RDA")
 ```
 
-![plot of chunk rda4](figure/rda4-1.png)
+```
+## Error in title("RDA"): plot.new has not been called yet
+```
 
-### Bagged RDA
+See also the RDA method in phyloseq ordinate function, which is calculated without the formula.
 
-Fitting bagged RDA on a phyloseq object:
+
+### RDA significance test
 
 
 ```r
-res <- bagged_rda(pseq, "group", sig.thresh=0.05, nboot=100)
+library(vegan)
+permutest(rda.result) 
 ```
 
-![plot of chunk rda5](figure/rda5-1.png)
+```
+## Error in permutest(rda.result): object 'rda.result' not found
+```
+
+### Bagged RDA
+
+Fitting bagged (bootstrap aggregated) RDA on a phyloseq object:
+
+
+```r
+res <- bagged_rda(pseq.log10, "group", sig.thresh=0.05, nboot=100)
+```
 
 Visualizing bagged RDA:
 
@@ -72,24 +100,20 @@ plot_bagged_rda(res)
 ![plot of chunk rda6](figure/rda6-1.png)
 
 
-### Controlling confounding variables with RDA
+### RDA with confounding variables 
 
-For more complex scenarios, use the vegan package directly:
+For more complex RDA scenarios, use the vegan package directly:
 
 
 ```r
 # Pick microbiota profiling data from the phyloseq object
-otu <- otu_table(pseq)@.Data
+otu <- otu_table(pseq.log10)@.Data
 
 # Sample annotations
-meta <- sample_data(pseq)
+meta <- sample_data(pseq.log10)
 
 # RDA with confounders
-rdatest2 <- rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "rda"
+rda.result2 <- rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))
 ```
 
 

@@ -1,28 +1,20 @@
-#' @title rda_physeq
-#' @description RDA for phyloseq objects.
-#'           Based on the \code{\link{rda}} function 
-#' 	     from the \pkg{vegan} package.
-#'
+#' @title RDA for phyloseq
+#' @description RDA for phyloseq objects based on the \code{\link{rda}} function from the \pkg{vegan} package.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param varname Variable to apply in RDA visualization.
 #' @param scale See help(rda)
 #' @param na.action See help(rda)
-#'
-#'   @return rda result. See help(vegan::rda)
-#'
+#' @return rda result. See help(vegan::rda)
 #' @export
-#' @importFrom vegan rda
-#'
 #' @examples #
-#'
 #' @references See citation("microbiome") 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 rda_physeq <- function (x, varname, scale = FALSE, na.action = na.fail) {
 
   # Microbiota profiling data (44 samples x 130 bacteria)
-  otu <- t(otu_table(x)@.Data)
-
+  otu <- taxa_abundances(x)
+  
   # Sample annotations
   annot <- sample_data(x)[[varname]]
 
@@ -32,5 +24,3 @@ rda_physeq <- function (x, varname, scale = FALSE, na.action = na.fail) {
   rdatest
 
 }
-
-

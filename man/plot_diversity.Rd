@@ -2,21 +2,19 @@
 % Please edit documentation in R/plot_diversity.R
 \name{plot_diversity}
 \alias{plot_diversity}
-\title{plot_diversity}
+\title{Plot diversity}
 \usage{
-plot_diversity(physeq, x = "group", title = "", measures = "Shannon",
-  nrow = 1, scales = "free_y", det.th = 0)
+plot_diversity(x, variable = "group", measures = "Shannon", nrow = 1,
+  scales = "free_y", det.th = 0, indicate.subjects = FALSE)
 }
 \arguments{
-\item{physeq}{\code{\link{phyloseq-class}} object}
+\item{x}{\code{\link{phyloseq-class}} object}
 
-\item{x}{A variable to map to the horizontal axis. The vertical
+\item{variable}{A variable to map to the horizontal axis. The vertical
 axis will be mapped to the alpha diversity index/estimate
 and have units of total taxa, and/or index value (dimensionless).
 This parameter (\code{x}) is a character string indicating a
-in the dataset (nsamples(physeq)).}
-
-\item{title}{Optional title for the graphic.}
+in the dataset (nsamples(x)).}
 
 \item{measures}{Default is \code{NULL}. In this case
 all available alpha-diversity measures will be included.
@@ -30,14 +28,15 @@ as a character vector. Values must be among those supported:
 
 \item{det.th}{Detection threshold for the diversity measure 'Observed' 
 (ie. species richness). See \code{\link{estimate_diversity}}}
+
+\item{indicate.subjects}{Indicate subjects by lines. The sample_data(x) must have 'subject' field.}
 }
 \value{
 A \code{\link{ggplot}} plot object summarizing
  the richness estimates, and their standard error.
 }
 \description{
-Plot alpha diversity with ggplot2
-
+Plot alpha diversity.
 This function estimates a number of alpha-diversity metrics using the 
 \code{\link{estimate_richness}} function,
 and returns a \code{ggplot} object. 
@@ -47,8 +46,11 @@ through the argument to \code{x},
 and shaded according to the argument to \code{color} (see below).
 You must use untrimmed, non-normalized count data for meaningful results.
 }
+\details{
+If subject is among the metadata variables, the matched subjects across groups are indicated by lines.
+}
 \examples{
-# 
+# plot_diversity(x, variable = "bmi_group", "Shannon")
 }
 \seealso{
 \code{\link{estimate_richness}}

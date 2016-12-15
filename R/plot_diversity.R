@@ -1,6 +1,5 @@
-#' @title plot_diversity
-#' @description Plot alpha diversity with ggplot2
-#'
+#' @title Plot diversity
+#' @description Plot alpha diversity.
 #' This function estimates a number of alpha-diversity metrics using the 
 #' \code{\link{estimate_richness}} function,
 #' and returns a \code{ggplot} object. 
@@ -9,48 +8,40 @@
 #' through the argument to \code{x}, 
 #' and shaded according to the argument to \code{color} (see below).
 #' You must use untrimmed, non-normalized count data for meaningful results.
-#' 
-#' @param physeq \code{\link{phyloseq-class}} object
-#'
-#' @param x A variable to map to the horizontal axis. The vertical
+#' @param x \code{\link{phyloseq-class}} object
+#' @param variable A variable to map to the horizontal axis. The vertical
 #'  axis will be mapped to the alpha diversity index/estimate
 #'  and have units of total taxa, and/or index value (dimensionless).
 #'  This parameter (\code{x}) is a character string indicating a
-#'  in the dataset (nsamples(physeq)).
-#'
-#' @param title Optional title for the graphic.
-#'
+#'  in the dataset (nsamples(x)).
 #' @param measures Default is \code{NULL}. In this case
 #'  all available alpha-diversity measures will be included.
 #'  Alternatively, you can specify one or more measures
 #'  as a character vector. Values must be among those supported:
 #'  \code{c("Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher")}.
-#' 
 #' @param nrow Number of rows for plot faceting.
 #' @param scales scales for the plot
 #' @param det.th Detection threshold for the diversity measure 'Observed' 
 #'               (ie. species richness). See \code{\link{estimate_diversity}}
-#'
+#' @param indicate.subjects Indicate subjects by lines. The sample_data(x) must have 'subject' field.
 #' @return A \code{\link{ggplot}} plot object summarizing
 #'  the richness estimates, and their standard error.
-#' 
+#' @details If subject is among the metadata variables, the matched subjects across groups are indicated by lines.
 #' @seealso 
 #'  \code{\link{estimate_richness}}
 #'  \code{\link{estimate_diversity}}
 #'  \code{\link{plot_richness}}
 #'  \code{\link[vegan]{estimateR}}
 #'  \code{\link[vegan]{diversity}}
-#'
-#' @import ggplot2
-#' @importFrom reshape2 melt
-#' @importFrom sorvi regression_plot
 #' @export
-#' @examples # 
+#' @examples # plot_diversity(x, variable = "bmi_group", "Shannon")
 #' @keywords utilities
-plot_diversity <- function(physeq, x = "group", title = "", measures = "Shannon", nrow = 1, scales = "free_y", det.th = 0){ 
+plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1, scales = "free_y", det.th = 0, indicate.subjects = FALSE){ 
 
-  # Calculate the relevant alpha-diversity measures
-  erDF <- estimate_diversity(physeq, split = TRUE, measures = measures, det.th = det.th)
+  ends_with <- horiz <- subject <- NULL
+
+  # Calculate alpha-diversity measures
+  erDF <- estimate_diversity(x, split = TRUE, measures = measures, det.th = det.th)
 
   # Measures may have been renamed in `erDF`. Replace it with the name from erDF
   measures <- colnames(erDF)
@@ -61,55 +52,57 @@ plot_diversity <- function(physeq, x = "group", title = "", measures = "Shannon"
   # Remove any S.E. from `measures`
   measures <- measures[!measures %in% ses]
 
-  # This coerces to data.frame, required for reliable output from reshape2::melt()
-  if( !is.null(sample_data(physeq, errorIfNULL=FALSE)) ){
+  # Coerce to data.frame
+  if( !is.null(sample_data(x, errorIfNULL=FALSE)) ){
     # Include the sample data, if it is there.
-    DF <- data.frame(erDF, sample_data(physeq))
+    DF <- data.frame(erDF, sample_data(x))
   } else {
     # If no sample data, leave it out.
     DF <- data.frame(erDF)
   }
 
-  horiz <- value <- NULL
-  DF$horiz <- as.factor(DF[[x]])
+  value <- NULL
+  for (nam in measures) {
+   names(DF) <- gsub(nam, paste(nam, ".diversity", sep = ""), names(DF))
+  }
 
-  # melt to display different alpha-measures separately
-  mdf <- melt(DF, measure.vars = measures)
-
-  # Remove NAs
-  mdf <- subset(mdf, !is.na(horiz))
+  mdf <- gather(DF, "key", "value", ends_with(".diversity"))
+  mdf$key <- gsub("\\.diversity$", "", mdf$key)
+  mdf$horiz <- mdf[[variable]]
 
   # Make the ggplot  
   theme_set(theme_bw(20))
 
   if (is.factor(mdf$horiz)) {
   
-    p <- ggplot(mdf, aes(x = horiz, y = value)) 
+    p <- ggplot(mdf, aes(x = horiz, y = value))
+    
     p <- p + geom_boxplot(na.rm=TRUE)
 
+    if (indicate.subjects) {
+      p <- p + geom_point()
+      p <- p + geom_line(aes(group = subject))
+    }
+    
     # Rotate horizontal axis labels, and adjust
     p <- p + theme(axis.text.x=element_text(angle=-90, vjust=0.5, hjust=0))
 	
-    # Add y-label 
-    p <- p + ylab('Alpha Diversity Measure') 
-
     # Facet wrap using user-options
-    p <- p + facet_wrap(~variable, nrow = nrow, scales = scales)
-
+    p <- p + facet_wrap(~key, nrow = nrow, scales = scales)
 	
   } else if (is.vector(mdf$horiz)) {
 
     if (length(measures) > 1) {
-      stop("Provide a single diversity measure.")
+      stop(paste("The horizontal variable", variable, "is numeric. Provide a single diversity measure."))
     }
 
-    p <- regression_plot(value~horiz, mdf)
-    p <- p + xlab(x) 
+    p <- plot_regression(value~horiz, mdf)
+    p <- p + xlab(variable) 
 
   }
 
-  p <- p + ggtitle(title)
-  p <- p + ylab(measures) 
+  # Add y-label and title
+  p <- p + ylab('Diversity') 
 
   p
 

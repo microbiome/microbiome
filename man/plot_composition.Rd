@@ -2,28 +2,44 @@
 % Please edit documentation in R/plot_composition.R
 \name{plot_composition}
 \alias{plot_composition}
-\title{plot_composition}
+\title{Plot composition}
 \usage{
-plot_composition(x, taxonomic.level = NULL, relative.abundance = FALSE,
-  sort.by = NULL, x.label = "sample")
+plot_composition(x, taxonomic.level = NULL, sample.sort = NULL,
+  otu.sort = NULL, x.label = "sample", plot.type = "barplot",
+  verbose = FALSE, transformation = NULL, mar = c(5, 12, 1, 1), ...)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)}
 
-\item{taxonomic.level}{Merge the OTUs (for phyloseq object) into a higher taxonomic level. This has to be one from \code{colnames(tax_table(x))}.}
+\item{taxonomic.level}{Merge the OTUs (for phyloseq object) into a higher taxonomic level. This has to be one from colnames(tax_table(x)).}
 
-\item{relative.abundance}{Logical. Show relative abundances or not.}
+\item{sample.sort}{Order samples. Various criteria are available:
+\itemize{
+  \item NULL or 'none': No sorting
+  \item A single character string: indicate the metadata field to be used for ordering
+  \item A character vector: sample IDs indicating the sample ordering.
+  \item 'neatmap' Order samples based on the neatmap approach. See \code{\link{order_neatmap}}. By default, 'NMDS' method with 'bray' distance is used. For other options, arrange the samples manually with the function.
+}}
 
-\item{sort.by}{Sort by sample data column. Or provide vector of sample IDs.}
+\item{otu.sort}{Order taxa. Same options as for the sample.sort argument but instead of metadata, taxonomic table is used.}
 
-\item{x.label}{Specify how to label the x axis. This should be one of the variables in 
-\code{sample_variables(x)}}
+\item{x.label}{Specify how to label the x axis. This should be one of the variables in sample_variables(x).}
+
+\item{plot.type}{Plot type: 'barplot' or 'heatmap'}
+
+\item{verbose}{verbose}
+
+\item{transformation}{Data transformation to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform_phyloseq}} function.}
+
+\item{mar}{Figure margins}
+
+\item{...}{Arguments to be passed (for \code{\link{order_neatmap}} function)}
 }
 \value{
 A \code{\link{ggplot}} plot object.
 }
 \description{
-Plot taxon abundance for samples
+Plot taxon abundance for samples.
 }
 \examples{
 \dontrun{

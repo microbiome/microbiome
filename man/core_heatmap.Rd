@@ -2,23 +2,29 @@
 % Please edit documentation in R/core_heatmap.R
 \name{core_heatmap}
 \alias{core_heatmap}
-\title{core_heatmap}
+\title{OTU core heatmap}
 \usage{
-core_heatmap(x, detection.thresholds = 20, palette = "bw")
+core_heatmap(data, detection.thresholds = 20, palette = "gray",
+  min.prevalence = NULL, taxa.order = NULL, ncolor = 5)
 }
 \arguments{
-\item{x}{A \code{\link{phyloseq}} object or a core matrix}
+\item{data}{OTU matrix}
 
-\item{detection.thresholds}{A vector or  a scalar indicating the number of intervals
-in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.}
+\item{detection.thresholds}{A vector or a scalar indicating the number of intervals in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.}
 
 \item{palette}{palette for the plot.type = 'heatmap'}
+
+\item{min.prevalence}{If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap.}
+
+\item{taxa.order}{Ordering of the taxa.}
+
+\item{ncolor}{Number of colors to use in the palette}
 }
 \value{
 Used for its side effects
 }
 \description{
-Core heatmap
+Core heatmap.
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
@@ -27,7 +33,6 @@ Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 A Salonen et al. The adult intestinal core microbiota is determined by 
   analysis depth and health status. Clinical Microbiology and Infection 
   18(S4):16 20, 2012. 
-
   To cite the microbiome R package, see citation('microbiome')
 }
 \keyword{utilities}

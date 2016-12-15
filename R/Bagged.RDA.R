@@ -1,25 +1,23 @@
-#' BAGGED RDA Bootstrap solutions that follows the
-#' Jack-knife estimation of PLS by Martens and Martens, 2000.  Solves
-#' rotational invariance of latent space by orthogonal procrustes
-#' rotations
-#'
+#' @title Bagged RDA
+#' @description Bootstrap solutions that follows the Jack-knife estimation of PLS by Martens and Martens, 2000.  Solves rotational invariance of latent space by orthogonal procrustes rotations
 #' @param X a matrix, samples on columns, variables (bacteria) on rows.
 #' @param Y vector with names(Y)=rownames(X), for example
 #' @param boot Number of bootstrap iterations
-#'
-#' @return List with items:
-#'   	     loadings: bagged loadings
-#' 	     scores: bagged scores
-#' 	     significance: significances of X variables
-#' 	     etc. TBA.	    
-#'
+#' @return List with elements:
+#'   \itemize{
+#'     \item{loadings}{bagged loadings}
+#'     \item{scores}{bagged scores}
+#'     \item{significance}{significances of X variables}
+#'   }
 #' @export
-#' @importFrom vegan scores
-#' @importFrom vegan rda
-#' @importFrom vegan procrustes
-#'
-#' @examples # NOT RUN data(peerj32); x <- as.matrix(peerj32$microbes)[1:20, 1:6]; y <- rnorm(nrow(x)); names(y) <- rownames(x); res <- Bagged.RDA(x, y , boot = 5)
-#'
+#' @examples
+#'  \dontrun{
+#'    data(peerj32)
+#'    x <- as.matrix(peerj32$microbes)[1:20, 1:6]
+#'    y <- rnorm(nrow(x))
+#'    names(y) <- rownames(x)
+#'    res <- Bagged.RDA(x, y , boot = 5)
+#' }
 #' @references See citation("microbiome") 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -33,13 +31,13 @@ Bagged.RDA <- function(X, Y, boot = 1000){
 
       boot=replicate(boot,unlist(sapply(class.split,function(x) sample(x,length(x),replace=T))),simplify=F)
    }
-   nboot=length(boot)
-   n.lev=length(levels(Y))
-   TT=scores(rda(t(X)~Y),choices=1:max(n.lev-1,2),display="sites")
-   nRDA=ncol(TT) 
+   nboot <- length(boot)
+   n.lev <- length(levels(Y))
+   TT <- scores(rda(t(X)~Y),choices=1:max(n.lev-1,2),display="sites")
+   nRDA <- ncol(TT) 
    # rotate 
-   rotateMat=function(M,TT,x){
-      M.rot=procrustes(TT[x,],M)
+   rotateMat <- function(M,TT,x){
+      M.rot <- procrustes(TT[x,],M)
       return(M.rot$Yrot)
    }
    nearest.centers=function(xx,cc){

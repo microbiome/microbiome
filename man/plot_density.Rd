@@ -2,15 +2,16 @@
 % Please edit documentation in R/plot_density.R
 \name{plot_density}
 \alias{plot_density}
-\title{plot_density}
+\title{Density plot}
 \usage{
-plot_density(x, otu.name = NULL, log10 = FALSE, adjust = 1,
-  kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray")
+plot_density(x, variable = NULL, log10 = FALSE, adjust = 1,
+  kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray",
+  tipping.point = NULL)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)}
 
-\item{otu.name}{OTU name to visualize}
+\item{variable}{OTU or metadata variable to visualize}
 
 \item{log10}{Logical. Show log10 abundances or not.}
 
@@ -23,15 +24,17 @@ plot_density(x, otu.name = NULL, log10 = FALSE, adjust = 1,
 \item{na.rm}{see stat_density}
 
 \item{fill}{Fill color}
+
+\item{tipping.point}{Optional. Indicate critical point for abundance variations to be highlighted.}
 }
 \value{
 A \code{\link{ggplot}} plot object.
 }
 \description{
-Plot taxon density for samples
+Plot abundance density across samples for a given taxon.
 }
 \examples{
-# 
+# plot_density(x, variable = "Dialister")
 }
 \keyword{utilities}
 

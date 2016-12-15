@@ -1,12 +1,11 @@
-
 ## Networks
 
 Load example data:
 
 ```{r networks1, message=FALSE, warning=FALSE}
 library(microbiome)
-# Get some HITChip data in phyloseq format
-pseq <- download_microbiome("dietswap")
+data("dietswap")
+pseq <- dietswap
 ```
 
 For more network examples, see [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
@@ -22,3 +21,68 @@ Another example:
 plot_net(pseq, maxdist = 0.2, point_label = "group")
 ```
 
+### Network reconstruction for compositional data
+
+Also the SparCC implementation is available via the [SpiecEasi
+package](https://github.com/zdk123/SpiecEasi). The execution is slow.
+
+
+```{r networks4, warning=FALSE, message=FALSE, fig.width=10, fig.height=10}
+library(SpiecEasi) #install_github("zdk123/SpiecEasi")
+library(microbiome)
+library(phyloseq)
+
+# Pick example OTU matrix (samples x taxa)
+data("atlas1006")
+pseq <- subset_samples(atlas1006, time == 0 & DNA_extraction_method == "r")
+otu <- t(get_sample(pseq))
+
+# SPIEC-EASI network reconstruction
+# In practice, use more repetitions
+net <- spiec.easi(otu, method='mb', lambda.min.ratio=1e-2, 
+                  nlambda=20, icov.select.params=list(rep.num=20))
+
+## Create graph object
+n <- net$refit
+colnames(n) <- rownames(n) <- colnames(otu)
+
+# Network format
+netw <- network(as.matrix(n), directed = FALSE)
+
+
+
+
+# igraph format
+ig <- graph.adjacency(n, mode='undirected', add.rownames = TRUE)
+
+## set size of vertex to log2 mean abundance 
+vsize <- log2(apply(otu, 2, mean))
+
+# Network layout
+coord <- layout.fruchterman.reingold(ig)
+
+# Visualize the network
+plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize))
+
+# Check degree distribution
+#dd <- degree.distribution(ig)
+#plot(0:(length(dd)-1), dd, ylim=c(0,.35), type='b', 
+#      ylab="Frequency", xlab="Degree", main="Degree Distributions")
+```
+
+
+Visualize the network with [ggnet2](https://briatte.github.io/ggnet):
+
+```{r networks5, warning=FALSE, message=FALSE, fig.width=10, fig.height=7}
+library(GGally)
+library(ggnet)
+library(network)
+library(sna)
+library(ggplot2)
+library(intergraph) # ggnet2 works also with igraph with this
+
+phyla <- map_levels(colnames(otu), from = "Genus", to = "Phylum", tax_table(pseq))
+netw %v% "Phylum" <- phyla
+p <- ggnet2(netw, color = "Phylum", label = TRUE, label.size = 2)
+print(p)
+```

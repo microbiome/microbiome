@@ -1,40 +1,20 @@
 ## Heatmaps
 
-### phyloseq heatmaps
-
-Download example data and plot heatmap
+See [Composition](Composition.md) page for phyloseq microbiota composition heatmaps. Load some example data:
 
 
 ```r
 library(microbiome)
-pseq <- download_microbiome("dietswap")
-```
+data("dietswap")
+pseq <- dietswap
+library(phyloseq)
 
-```
-## Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n
-```
-
-```r
-plot_heatmap(pseq, sample.label = "sample")
-```
-
-![plot of chunk heatmap-phyloseq1](figure/heatmap-phyloseq1-1.png)
-
-Pick subset of the data and plot ordered heatmap
-
-
-```r
-bacteroidetes <- levelmap(from = "Phylum", to = "Genus",
-	      	 	   tax.table = tax_table(pseq))$Bacteroidetes
+# Pick data subset
+bacteroidetes <- map_levels(from = "Phylum", to = "Genus",
+                   data = tax_table(pseq))$Bacteroidetes
 pseq2 <- prune_taxa(bacteroidetes, pseq)
 pseq2 <- subset_samples(pseq2, group == "DI")
-
-# Plot heatmap ordered with NMDS
-plot_heatmap(pseq2, method = "NMDS", distance = "bray",
-	     sample.label = "sample", taxa.label = "Genus")
 ```
-
-![plot of chunk heatmap-phyloseq2](figure/heatmap-phyloseq2-1.png)
 
 
 ### Matrix heatmaps
@@ -46,35 +26,37 @@ all bacteria from their population mean (smaller: blue; higher: red):
 
 ```r
 # Z transform
-pseqz <- ztransform_phyloseq(pseq2, "OTU")
-# Pick OTU table
-x <- otu_table(pseqz)@.Data
-# Plot heatmap
-tmp <- netresponse::plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
-```
+pseqz <- transform_phyloseq(pseq2, "Z", "OTU")
 
-```
-## Found more than one class "dist" in cache; using the first, from namespace 'BiocGenerics'
+# Pick OTU table
+x <- taxa_abundances(pseqz)
+
+# Plot heatmap
+tmp <- plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
 ```
 
 ![plot of chunk heatmap-matvisu-example](figure/heatmap-matvisu-example-1.png)
 
-Finding visually appealing order for rows and columns:
+
+Find visually appealing order for rows and columns with Neatmap sorting:
 
 
 ```r
-hm <- heatmap(x) 
+# Use the original phyloseq object for ordering as negative values are not allowed
+data(peerj32)
+x <- peerj32$microbes # Matrix
+xz <- scale(x) # Z-transformed matrix
+
+# Sorting rows (or columns) if just the sample order is needed rather than the matrix
+sorted.rows <- neatsort(xz, "rows", method = "NMDS", distance = "euclidean") 
+
+# Or just arrange the matrix directly
+xo <- neat(xz, method = "NMDS", distance = "euclidean") # Sorted matrix
+tmp <- plot_matrix(t(xo), type = "twoway", mar = c(5, 12, 1, 1))
 ```
 
-Then plot the same matrix with ordered rows (keep column order):
+![plot of chunk neatmap3](figure/neatmap3-1.png)
 
-
-```r
-tmp <- netresponse::plot_matrix(x[hm$rowInd, ], type = "twoway",
-       			        mar = c(5, 12, 1, 1))
-```
-
-![plot of chunk heatmap-crosscorrelate3](figure/heatmap-crosscorrelate3-1.png)
 
 
 ### Cross-correlating data sets
@@ -87,8 +69,9 @@ The function returns correlations, raw p-values, and fdr estimates (not strictly
 ```r
 # Load example data 
 library(microbiome)
-data.peerj32.otu <- download_microbiome("peerj32")$data$microbes
-data.peerj32.lipids <- download_microbiome("peerj32")$data$lipids
+data(peerj32)
+data.peerj32.otu <- peerj32$microbes 
+data.peerj32.lipids <- peerj32$lipids 
 
 # Define data sets to cross-correlate
 # OTU Log10 matrix # Microbiota (44 samples x 130 bacteria)
@@ -96,7 +79,7 @@ x <- log10(data.peerj32.otu)
 y <- as.matrix(data.peerj32.lipids) # Lipids (44 samples x 389 lipids)
 
 # Cross correlate data sets
-correlations <- cross.correlate(x, y, method = "bicor", mode = "matrix", p.adj.threshold = 0.05, n.signif = 1)
+correlations <- cross_correlate(x, y, method = "bicor", mode = "matrix", p.adj.threshold = 0.05, n.signif = 1)
 ```
 
 Arrange the results in handy table format: 
@@ -111,12 +94,12 @@ kable(head(correlation.table))
 
 |    |X1                               |X2         | Correlation|     p.adj|
 |:---|:--------------------------------|:----------|-----------:|---------:|
-|833 |Ruminococcus gnavus et rel.      |TG.54.5..2 |   0.7207818| 0.0017385|
-|547 |Ruminococcus gnavus et rel.      |TG.52.5.   |   0.6996301| 0.0031929|
-|141 |Eubacterium cylindroides et rel. |PC.40.3.   |  -0.6771286| 0.0038006|
-|144 |Helicobacter                     |PC.40.3.   |  -0.6838424| 0.0038006|
-|437 |Ruminococcus gnavus et rel.      |TG.50.4.   |   0.6852226| 0.0038006|
-|525 |Ruminococcus gnavus et rel.      |TG.52.4..1 |   0.6716223| 0.0038006|
+|833 |Ruminococcus gnavus et rel.      |TG(54:5).2 |   0.7207818| 0.0017385|
+|547 |Ruminococcus gnavus et rel.      |TG(52:5)   |   0.6996301| 0.0031929|
+|141 |Eubacterium cylindroides et rel. |PC(40:3)   |  -0.6771286| 0.0038006|
+|144 |Helicobacter                     |PC(40:3)   |  -0.6838424| 0.0038006|
+|437 |Ruminococcus gnavus et rel.      |TG(50:4)   |   0.6852226| 0.0038006|
+|525 |Ruminococcus gnavus et rel.      |TG(52:4).1 |   0.6716223| 0.0038006|
 
 ### Correlation heatmaps
 
@@ -124,7 +107,7 @@ Rearrange the data and plot the heatmap and mark significant correlations with s
 
 
 ```r
-p <- correlation.heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
+p <- correlation_heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
 ```
 
 ```r

@@ -1,15 +1,73 @@
-## Standard data processing operations
+## Preprocessing taxonomic profiling data
 
-The high-quality [phyloseq package](http://joey711.github.io/phyloseq/) provides a complete set of tools for data subsetting, aggregating and filtering.
+Here we show how to manipulate microbiome data sets using tools from
+the [phyloseq package](http://joey711.github.io/phyloseq/), including
+subsetting, aggregating and filtering.
 
-Download example data from [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342) from [Data Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets including microbiota profiling:
+
+### Picking data from phyloseq  
+
+Assuming your data ('pseq' below) is in the phyloseq format, many
+standard tools are available.
+
+
+Sample metadata:
+
+
+```r
+library(phyloseq)
+meta <- sample_data(pseq)
+```
+
+Taxonomy table:
+
+
+```r
+tax.table <- tax_table(pseq)
+```
+
+
+Abundances for taxonomic groups ('OTU table') as a taxa x samples
+matrix:
+
+
+```r
+otu <- taxa_abundances(pseq)
+```
+
+
+Melted data for plotting:
+
+
+```r
+df <- psmelt(pseq)
+kable(head(df))
+```
+
+
+
+|      |OTU                               |Sample     | Abundance|subject |sex    |nationality |group |sample     | timepoint| timepoint.within.group|bmi_group  |Phylum        |Genus                             |
+|:-----|:---------------------------------|:----------|---------:|:-------|:------|:-----------|:-----|:----------|---------:|----------------------:|:----------|:-------------|:---------------------------------|
+|21328 |Prevotella melaninogenica et rel. |Sample-208 |    900361|olt     |Male   |AFR         |ED    |Sample-208 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21418 |Prevotella melaninogenica et rel. |Sample-212 |    876341|shj     |Female |AFR         |ED    |Sample-212 |         1|                      1|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21457 |Prevotella melaninogenica et rel. |Sample-11  |    860615|olt     |Male   |AFR         |HE    |Sample-11  |         3|                      2|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21481 |Prevotella melaninogenica et rel. |Sample-125 |    852350|nmz     |Male   |AAM         |HE    |Sample-125 |         3|                      2|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21438 |Prevotella melaninogenica et rel. |Sample-210 |    845594|qjy     |Female |AFR         |ED    |Sample-210 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
+|21319 |Prevotella melaninogenica et rel. |Sample-107 |    838487|byu     |Male   |AFR         |HE    |Sample-107 |         3|                      2|lean       |Bacteroidetes |Prevotella melaninogenica et rel. |
+
+
+### Standard data processing operations
+
+Let us look at [a two-week diet swap
+study](http://dx.doi.org/10.1038/ncomms7342) between western (USA) and
+traditional (rural Africa) diets including microbiota profiling:
 
 
 ```r
 library(microbiome)
-pseq <- download_microbiome("dietswap")
+data("dietswap")
+pseq <- dietswap
 ```
-
 
 ### Sample operations
 
@@ -56,54 +114,38 @@ f1 <- filterfun_sample(topp(0.1))
 taxa <- genefilter_sample(pseq, f1, A = round(0.5 * nsamples(pseq)))
 ```
 
-### Estimating relative abundancies
-
-Estimate relative abundance of the taxa in each sample. Note: the
-input data set needs to be in absolute scale (not logarithmic).
-
-
-Calculating relative abundances for a phyloseq object:
-
-
-```r
-pseq <- transform_sample_counts(pseq, function(x) x/sum(x))
-```
-
-Log transforming the sample counts
-
-
-```r
-pseq.log <- transform_sample_counts(pseq, function(x) log10(1 + x))
-```
-
-
-Z transforming the data
-
-
-```r
-# Z transform samples
-pseq.z <- ztransform_phyloseq(pseq, "sample")
-
-# Z transform OTUs
-pseq.z <- ztransform_phyloseq(pseq, "OTU")
-```
-
-
-
-Calculating relative abundance for standard abundance matrix:
-
-
-```r
-dat <- otu_table(pseq)@.Data
-rel <- relative.abundance(dat, det.th = 0)
-```
-
-
-Pick samples by specific metadata fields
+Select samples by specific metadata fields:
 
 
 ```r
 pseq.subset <- subset_samples(pseq, nationality == "AFR")
+```
+
+
+### Data transformations
+
+The microbiome package provides a wrapper for standard sample/OTU transformations. For arbitrary transformations, use the transform_sample_counts function in the phyloseq package.
+
+Log10 transformation (log(1+x) if the data contains zeroes)
+
+
+```r
+pseq.log <- transform_phyloseq(pseq, "log10")
+```
+
+Z transformation:
+
+
+```r
+pseq.zotu <- transform_phyloseq(pseq, "Z", "OTU")
+```
+
+Relative abundances (the input data needs to be in absolute scale, not logarithmic!):
+
+
+```r
+pseq1 <- transform_phyloseq(pseq, "relative.abundance", "OTU")
+pseq2 <- transform_sample_counts(pseq, function(x) x/sum(x))
 ```
 
 
@@ -136,7 +178,7 @@ head(get_variable(pseq, sample_variables(pseq)[1]))
 ```
 
 ```r
-# Assign fields to sample metadata
+# .. or assigning fields to metadata:
 # sample_data(GP)$human <- ..
 ```
 
@@ -147,11 +189,7 @@ Number of taxa
 
 
 ```r
-ntaxa(pseq)
-```
-
-```
-## [1] 130
+n <- ntaxa(pseq)
 ```
 
 
@@ -164,11 +202,11 @@ taxa <- taxa_names(pseq)
 ```
 
 
-Prune taxa
+Prune taxa:
 
 
 ```r
-taxa <- levelmap(NULL, "Phylum", "Genus", tax_table(pseq))$Bacteroidetes
+taxa <- map_levels(NULL, "Phylum", "Genus", pseq)$Bacteroidetes
 
 # With given taxon names
 ex2 <- prune_taxa(taxa, pseq)
@@ -177,7 +215,8 @@ ex2 <- prune_taxa(taxa, pseq)
 ex3 <- prune_taxa(taxa_sums(pseq) > 0, pseq)
 ```
 
-Subset taxa
+
+Subset taxa:
 
 
 ```r
@@ -185,7 +224,7 @@ pseq <- subset_taxa(pseq, Phylum == "Bacteroidetes")
 ```
 
 
-Filter by user-specified function values (here variance)
+Filter by user-specified function values (here variance):
 
 
 ```r
@@ -222,41 +261,29 @@ head(taxa_sums(pseq))
 
 ```
 ##               Allistipes et rel.     Bacteroides fragilis et rel. 
-##                        4.8226896                        3.4909888 
+##                          3513027                          2539567 
 ## Bacteroides intestinalis et rel.       Bacteroides ovatus et rel. 
-##                        0.3137315                        2.0882334 
+##                           199684                          1516522 
 ##     Bacteroides plebeius et rel.  Bacteroides splachnicus et rel. 
-##                        0.8411087                        1.0741668
+##                           596972                           833871
 ```
 
 
-### Merging operations for phyloseq objects
+### Merging operations
 
-
-Aggregate OTUs to higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus). See also [merge_samples and and merge_taxa](http://joey711.github.io/phyloseq/merge.html):
+Aggregate taxa to higher taxonomic levels. This is particularly useful if the phylogenetic tree is missing. When it is available, see [merge_samples, merge_taxa and tax_glom](http://joey711.github.io/phyloseq/merge.html))
 
 
 ```r
-pseq <- read_hitchip(data.directory, method = "frpa")$pseq
+pseq2 <- summarize_taxa(pseq, "Genus") 
 ```
 
-```
-## Error in paste(data.dir, "/oligoprofile.tab", sep = ""): object 'data.directory' not found
-```
-
-```r
-pseq.L2 <- aggregate_taxa(pseq, level = "L2")
-```
-
-```
-## Error in tax_glom(pseq, level): Bad taxrank argument. Must be among the values of rank_names(physeq)
-```
 
 Merging phyloseq objects
 
 
 ```r
-merge_phyloseq(pseq1, pseq2)
+merge_phyloseq(pseqA, pseqB)
 ```
 
 
@@ -267,9 +294,50 @@ merge_phyloseq(pseq1, pseq2)
 pseq.rarified <- rarefy_even_depth(pseq)
 ```
 
-```
-## Error in validObject(.Object): invalid class "otu_table" object: 
-##  OTU abundance data must have non-zero dimensions.
+
+### Taxonomy 
+
+Convert between taxonomic levels (here from Genus (Akkermansia) to
+Phylum (Verrucomicrobia)):
+
+
+```r
+data(atlas1006)
+m <- map_levels("Akkermansia", "Genus", "Phylum", tax_table(atlas1006))
+print(m)
 ```
 
+```
+## [1] "Verrucomicrobia"
+```
+
+
+### Metadata
+
+Visualize frequencies of given factor (sex) levels within the
+indicated groups (group):
+
+
+```r
+data(dietswap)
+res <- plot_frequencies(sample_data(dietswap), "group", "sex")
+print(res$plot)
+```
+
+![plot of chunk phylogeny-example3](figure/phylogeny-example3-1.png)
+
+```r
+kable(res$data, digits = 2)
+```
+
+
+
+|Groups |Factor |  n|   pct|
+|:------|:------|--:|-----:|
+|DI     |Female | 34| 47.22|
+|DI     |Male   | 38| 52.78|
+|ED     |Female | 34| 45.33|
+|ED     |Male   | 41| 54.67|
+|HE     |Female | 34| 45.33|
+|HE     |Male   | 41| 54.67|
 

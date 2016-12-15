@@ -2,10 +2,10 @@
 % Please edit documentation in R/intermediate_stability.R
 \name{intermediate_stability}
 \alias{intermediate_stability}
-\title{intermediate_stability}
+\title{Intermediate stability}
 \usage{
 intermediate_stability(x, reference.point = NULL, method = "correlation",
-  output = "full")
+  output = "scores")
 }
 \arguments{
 \item{x}{\pkg{phyloseq} object.
@@ -13,9 +13,7 @@ intermediate_stability(x, reference.point = NULL, method = "correlation",
     sample_data data.frame (samples x features) with 'subject'
 and 'time' field for each sample.}
 
-\item{reference.point}{Optional. Calculate stability of the
-data w.r.t. this point. By default the
-intermediate range is used (min + (max - min)/2)}
+\item{reference.point}{Calculate stability of the data w.r.t. this point. By default the intermediate range is used (min + (max - min)/2). If a vector of points is provided, then the scores will be calculated for every point and a data.frame is returned.}
 
 \item{method}{'lm' (linear model) or 'correlation';
 the linear model takes time into account as a covariate}
@@ -29,8 +27,7 @@ A list with following elements:
      data: processed data set used in calculations
 }
 \description{
-Quantify intermediate stability with respect to a given
-reference point.
+Quantify intermediate stability with respect to a given reference point.
 }
 \details{
 Decomposes each column in x into differences between
@@ -50,11 +47,12 @@ count data x is logarithmized before the analysis with the log10(1 + x)
 trick to circumvent logarithmization of zeroes.
 }
 \examples{
-# Example data
-#library(microbiome)
-#x <- download_microbiome("atlas1006")
-#res <- intermediate_stability(x, reference.point = NULL)
-#s <- sapply(res, function (x) {x$stability})
+  \dontrun{
+    library(microbiome)
+    data(atlas1006)
+    res <- intermediate_stability(x, reference.point = NULL)
+    s <- sapply(res, function (x) {x$stability})
+  }
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

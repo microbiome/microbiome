@@ -1,10 +1,26 @@
 ### TODO
 
- * tipping element heatmap
+ * Homogeneity vs. sample size dependence. Normalize.
 
- * stability line plot
+Mean squared error.
 
- * classification of the taxa into the distinct abundance types
+x^2/n
 
- * SPIEC-ESAE / SparCC network algorithms from the huge package
+((x - mean(x))^2)/(x^2 * mean(x))
+
+n <- 1000
+x <- rnorm(n)
+xm <- mean(x)
+y <- rnorm(n)
+ym <- mean(y)
+# Correlation is normalized difference
+cc <- sum((x - xm) * (y - ym)) / (sqrt(sum((x-xm)^2)) * sqrt(sum((y-ym)^2)))
+cc
+cor(x, y)
+sum((x - xm) * (y - xm)) / (sqrt(sum((x-xm)^2)) * sqrt(sum((y-xm)^2)))
+
+  * Heatmap: indicate groups with a color bar
+
+  * Licensing issues with phyloseq
+
 

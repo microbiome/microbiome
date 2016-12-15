@@ -2,7 +2,7 @@
 % Please edit documentation in R/diversity.R
 \name{estimate_diversity}
 \alias{estimate_diversity}
-\title{estimate_diversity}
+\title{Estimate diversity}
 \usage{
 estimate_diversity(x, split = TRUE, measures = NULL, det.th = 0)
 }
@@ -11,7 +11,8 @@ estimate_diversity(x, split = TRUE, measures = NULL, det.th = 0)
 
 \item{split}{See help(phyloseq::estimate_richness)}
 
-\item{measures}{See help(phyloseq::estimate_richness)}
+\item{measures}{See help(phyloseq::estimate_richness). In addition,
+the measure "Evenness" is provided (Pielou's index).}
 
 \item{det.th}{detection threshold for observing taxa (absence / presence)}
 }
@@ -20,13 +21,12 @@ Vector containing relative proportions for each phylotype in
         each sample
 }
 \description{
-Diversity estimation. Augments the estimate_richness function of the
-phyloseq package
+Diversity estimation. Augments the estimate_richness function of the phyloseq
+package.
 }
 \examples{
-  #pseq <- download_microbiome("peerj32")$physeq
-  #d <- estimate_diversity(pseq, det.th = 0)
-
+  data(dietswap)
+  d <- estimate_diversity(dietswap)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

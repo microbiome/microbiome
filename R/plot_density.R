@@ -1,50 +1,40 @@
-#' @title plot_density
-#' @description Plot taxon density for samples
-#'
+#' @title Density plot
+#' @description Plot abundance density across samples for a given taxon.
 #' @param x \code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)
-#' @param otu.name OTU name to visualize
+#' @param variable OTU or metadata variable to visualize
 #' @param log10 Logical. Show log10 abundances or not.
 #' @param adjust see stat_density
 #' @param kernel see stat_density
 #' @param trim see stat_density
 #' @param na.rm see stat_density
+#' @param tipping.point Optional. Indicate critical point for abundance variations to be highlighted.
 #' @param fill Fill color
-#'
 #' @return A \code{\link{ggplot}} plot object.
-#' 
-#' @import ggplot2
 #' @export
-#' @examples # 
+#' @examples # plot_density(x, variable = "Dialister")
 #' @keywords utilities
-plot_density <- function (x, otu.name = NULL, log10 = FALSE, adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray") {
+plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray", tipping.point = NULL) {
 
-  if (is.vector(x)) { 
+  x <- pickdata(x, variable) 	     	   
 
-    df <- data.frame(x = x)
-    p <- ggplot(df, aes(x = x))
-    p <- p + geom_density(adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm, fill = fill)
-    
-    if (log10) {
-      #x <- log10(x)
-      p <- p + scale_x_log10()
-    }
-
-  } else if (class(x) == "phyloseq") { 
-
-    x <- otu_table(x)@.Data[otu.name,]
-    p <- plot_density(x, log10 = log10, adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm) 
-
-  }
+  df <- data.frame(x = x)
+  p <- ggplot(df, aes(x = x))
+  p <- p + geom_density(adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm, fill = fill) 
 
   if (log10) {
-    p <- p + ggtitle(paste(otu.name))
+    p <- p + scale_x_log10()  
+    p <- p + ggtitle(paste(variable))
     p <- p + xlab("Abundance (Log10)")
   } else {
-    p <- p + ggtitle(paste(otu.name))
+    p <- p + ggtitle(paste(variable))
     p <- p + xlab("Abundance (Abs.)")
   }
 
   p <- p + ylab("Frequency")
+
+  if (!is.null(tipping.point)) {
+    p <- p + geom_vline(aes(xintercept = tipping.point), linetype = 2, size = 1)
+  }
 
   p
 
