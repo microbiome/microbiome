@@ -1,7 +1,7 @@
 ---
 title: "Ordination"
 author: "Leo Lahti"
-date: "2016-11-13"
+date: "2016-12-15"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -31,7 +31,7 @@ data(dietswap)
 pseq <- dietswap
 
 # Convert signal to relative abundances
-pseq.rel <- transform_phyloseq(pseq, "relative.abundance")
+pseq.rel <- transform_phyloseq(pseq, "compositional")
 
 # Pick OTUs that are present with >1 percent relative abundance 
 # in >10 percent of the samples
@@ -59,13 +59,6 @@ Then visualize the projected data:
 ```r
 # Highlighting nationality
 p <- densityplot(as.matrix(proj[, 1:2]), col = proj$nationality, legend = T)
-```
-
-```
-## Error in (function (x, darg, groups = NULL, weights = NULL, subscripts = TRUE, : (list) object cannot be coerced to type 'double'
-```
-
-```r
 print(p)
 
 # Projection with sample names:

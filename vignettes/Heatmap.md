@@ -1,7 +1,7 @@
 ---
 title: "Heatmaps"
 author: "Leo Lahti"
-date: "2016-11-13"
+date: "2016-12-15"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -118,13 +118,13 @@ kable(head(correlation.table))
 |437 |Ruminococcus gnavus et rel.      |TG(50:4)   |   0.6852226| 0.0038006|
 |525 |Ruminococcus gnavus et rel.      |TG(52:4).1 |   0.6716223| 0.0038006|
 
-### Correlation heatmaps
+### Association heatmaps
 
 Rearrange the data and plot the heatmap and mark significant correlations with stars to reproduce microbiota-lipidome heatmap from [this article](https://peerj.com/articles/32/) (the ordering of rows and columns may be different): 
 
 
 ```r
-p <- correlation_heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
+p <- association_heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
 ```
 
 ```r

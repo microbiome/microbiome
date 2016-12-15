@@ -1,7 +1,7 @@
 ---
 title: "Core"
 author: "Leo Lahti"
-date: "2016-11-13"
+date: "2016-12-15"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -26,7 +26,7 @@ data("peerj32")
 pseq <- peerj32$phyloseq
 
 # Calculate relative abundances
-pseq.rel <- transform_phyloseq(pseq, "relative.abundance", "OTU")
+pseq.rel <- transform_phyloseq(pseq, "compositional", "OTU")
 ```
 
 

@@ -1,7 +1,7 @@
 ---
 title: "Density"
 author: "Leo Lahti"
-date: "2016-11-13"
+date: "2016-12-15"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -38,7 +38,7 @@ plot_density(x, "Dialister") + ggtitle("Absolute abundance")
 plot_density(x, "Dialister", log10 = TRUE) + ggtitle("Log10")
 
 # Same with log10 relative abundances
-x <- transform_phyloseq(x, "relative.abundance")
+x <- transform_phyloseq(x, "compositional")
 tax <- "Dialister"
 plot_density(x, tax, log10 = TRUE) + ggtitle("Relative abundance")
 ```

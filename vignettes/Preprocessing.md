@@ -1,7 +1,7 @@
 ---
 title: "Preprocessing"
 author: "Leo Lahti"
-date: "2016-11-13"
+date: "2016-12-15"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -165,7 +165,7 @@ Relative abundances (the input data needs to be in absolute scale, not logarithm
 
 
 ```r
-pseq1 <- transform_phyloseq(pseq, "relative.abundance", "OTU")
+pseq1 <- transform_phyloseq(pseq, "compositional", "OTU")
 pseq2 <- transform_sample_counts(pseq, function(x) x/sum(x))
 ```
 

@@ -1,7 +1,7 @@
 ---
 title: "Stability"
 author: "Leo Lahti"
-date: "2016-11-13"
+date: "2016-12-15"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -130,14 +130,7 @@ p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
 # See https://github.com/slowkow/ggrepel/blob/master/vignettes/ggrepel.md
 library(ggrepel)
 p <- p + geom_text_repel(size = 3)
-```
 
-```
-## Error: GeomTextRepel was built with an incompatible version of ggproto.
-## Please reinstall the package that provides this extension.
-```
-
-```r
 print(p)
 ```
 
@@ -152,7 +145,7 @@ tipping point candidates.
 ```r
 # Pick example data
 library(phyloseq)
-pseq <- transform_phyloseq(pseq, "relative.abundance")
+pseq <- transform_phyloseq(pseq, "compositional")
 
 # Log10 for given group
 tax <- "Prevotella oralis et rel."

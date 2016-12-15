@@ -1,7 +1,7 @@
 ---
 title: "microbiome vignette"
 author: "Leo Lahti and Jarkko Salojarvi"
-date: "2016-11-13"
+date: "2016-12-15"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -78,7 +78,7 @@ citation('microbiome')
 ## To cite package 'microbiome' in publications use:
 ## 
 ##   Leo Lahti (2014). microbiome: Tools for microbiome analysis. R
-##   package version 0.99.87. http://microbiome.github.com
+##   package version 0.99.88. http://microbiome.github.com
 ## 
 ## A BibTeX entry for LaTeX users is
 ## 
@@ -86,7 +86,7 @@ citation('microbiome')
 ##     title = {microbiome: Tools for microbiome analysis},
 ##     author = {Leo Lahti},
 ##     year = {2014},
-##     note = {R package version 0.99.87},
+##     note = {R package version 0.99.88},
 ##     url = {http://microbiome.github.com},
 ##   }
 ```

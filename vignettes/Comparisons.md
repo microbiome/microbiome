@@ -1,7 +1,7 @@
 ---
 title: "Comparisons"
 author: "Leo Lahti"
-date: "2016-11-13"
+date: "2016-12-15"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -175,7 +175,7 @@ x <- dietswap
 group <- "nationality"
 
 # Use relative abundances for simpler visualizations
-x <- transform_phyloseq(x, "relative.abundance")
+x <- transform_phyloseq(x, "compositional")
 otu <- get_sample(x)
 meta <- as(sample_data(x), "data.frame")
 meta$group <- meta[[group]]

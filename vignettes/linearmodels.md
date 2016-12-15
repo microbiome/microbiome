@@ -1,7 +1,7 @@
 ---
 title: "Linear models"
 author: "Leo Lahti"
-date: "2016-11-13"
+date: "2016-12-15"
 bibliography: 
 - bibliography.bib
 - references.bib

@@ -1,7 +1,7 @@
 ---
 title: "Interactive"
 author: "Leo Lahti"
-date: "2016-11-13"
+date: "2016-12-15"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -23,7 +23,7 @@ output:
 library(ggplot2)
 library(rvg)
 library(ggiraph)
-x <- transform_phyloseq(atlas1006, "relative.abundance")
+x <- transform_phyloseq(atlas1006, "compositional")
 
 mytheme_main <- theme( panel.background = element_blank(), 
   panel.grid.major = element_line(colour = "#dddddd"), 
