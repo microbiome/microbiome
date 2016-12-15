@@ -3,7 +3,8 @@
 #' @param x a matrix, samples on columns, variables (bacteria) on rows. 
 #'        Or a \code{\link{phyloseq-class}} object
 #' @param y vector with names(y)=rownames(X). 
-#'            Or name of phyloseq sample data variable name.
+#'            Or name of phyloseq sample data variable name
+#'            (one of sample_variables(x)).
 #' @param sig.thresh signal p-value threshold, default 0.1
 #' @param nboot Number of bootstrap iterations
 #' @param verbose verbose
@@ -19,14 +20,23 @@
 #'   }
 #' @examples \dontrun{
 #'   library(microbiome)
+#'
+#'   # Example with abundance matrix
 #'   data(peerj32)
-#'   x <- t(peerj32$microbes)
-#'   y <- factor(peerj32$meta$time); names(y) <- rownames(peerj32$meta)
-#'   res <- bagged_rda(x, y, sig.thresh=0.05, nboot=100)
+#'   phy <- peerj32$phyloseq
+#'   x <- taxa_abundances(phy) 
+#'   y <- factor(sample_data(phy)$gender);
+#'   names(y) <- rownames(sample_data(phy))
+#'   res <- bagged_rda(x, y, sig.thresh=0.05, nboot=20)
 #'   plot_bagged_rda(res, y)
+#'
+#'   # Example with phyloseq object
+#'   res <- bagged_rda(phy, "gender", sig.thresh=0.05, nboot=20)
+#'   plot_bagged_rda(res, y)
+#'
 #'  }
 #' @export
-#' @details Bagging ie. Bootstrap aggregation is expected to improve the stability of the results. The results over several modeling runs with different boostrap samples of the data are averaged to produce the final summary,
+#' @details Bootstrap aggregation (bagging) is expected to improve the stability of the results. Aggregating results over several modeling runs with different boostrap samples of the data are averaged to produce the final summary.
 #' @references See citation("microbiome") 
 #' @author Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -34,9 +44,20 @@ bagged_rda <- function(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T, plot =
 
   if (class(x) == "phyloseq") {
     # Pick OTU matrix and the indicated annotation field
+    if (!y %in% sample_variables(x)) {
+    
+      stop(paste("The variable y ('", y, "') is not available in the phyloseq object i.e. sample_data(x). Only use variables listed in sample_variables(x) ie. one of the following: ", paste(names(sample_data(x)), collapse = " / "), sep = ""))
+    }
+
+    if (!"sample" %in% sample_variables(x)) {
+      warning("The sample_data(x) does not contain 'sample' field; using the rownames(sample_data(x)) as sample ID.")
+      sample_data(x)$sample <- rownames(sample_data(x))
+    }
+
     y <- factor(sample_data(x)[[y]])
     names(y) <- sample_data(x)$sample
-    x <- taxa_abundances(x) 
+    x <- taxa_abundances(x)
+    
   }
 
   stop.run=F

@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_frequencies.R
 \name{plot_frequencies}
 \alias{plot_frequencies}
-\title{Plot frequencies}
+\title{Plot Frequencies}
 \usage{
 plot_frequencies(x, Groups, Factor)
 }

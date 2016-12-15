@@ -1,3 +1,21 @@
+---
+title: "Diversity"
+author: "Leo Lahti"
+date: "`r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - diversity}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 ### Richness 
 
 ```{r rich-example, warning=FALSE, message=FALSE, fig.path = "figure/", fig.height=3, fig.width=5}
@@ -59,11 +77,10 @@ print(p)
 
 Diversity vs. age with smoothed confidence intervals - manual version:
 
-```{r diversity-example13, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/", dev="CairoPNG"}
+```{r diversity-example13, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/", dev="CairoPNG", eval=FALSE}
 library(microbiome)
 library(sorvi)
 library(dplyr)
-
 pseq <- atlas1006
 
 # Add diversity into sample metadata

@@ -1,14 +1,19 @@
-#' @title Prevalent taxa
-#' @description List prevalent taxa.
-#' @param x A matrix or a x \code{\link{phyloseq}} object
-#' @param detection.threshold Detection threshold for absence/presence.
-#' @param prevalence.threshold Detection threshold for prevalence,
-#'        provided as percentages [0, 100]
+#' @title Core Taxa
+#' @description Determine members of the core microbiota with given abundance
+#''             and prevalence thresholds.
+#' @param x phyloseq object
+#' @param detection.threshold Detection threshold (non-negative real)
+#' @param prevalence.threshold Prevalence threshold (in [0, 100])
 #' @param sort Logical. Sort the taxa.
+#' @return Vector of core members
 #' @details For phyloseq object, lists taxa that are more prevalent with the
 #'   given detection threshold. For matrix, lists columns that satisfy
 #'   these criteria.
-#' @return Vector of prevalent taxa names
+#' @examples
+#'   data(dietswap)
+#'   a <- core(dietswap, 1, 95)
+#' @export
+#' @aliases prevalent_taxa
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
 #'   analysis depth and health status. Clinical Microbiology and Infection 
@@ -16,12 +21,8 @@
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-#' @export
-#' @examples
-#'   data(peerj32)
-#'   prevalent_taxa(peerj32$data$microbes, 10^1.8 + 100, 0.2) # for matrix
-#'   prevalent_taxa(peerj32$physeq, 100, 0.2) # for phyloseq object
-prevalent_taxa <- function (x, detection.threshold, prevalence.threshold, sort = TRUE) {
+core <- function(x, detection.threshold = 1, prevalence.threshold = 95,
+                    sort = TRUE)  {
 
   if (class(x) == "phyloseq") {
     x <- taxa_abundances(x)
@@ -35,5 +36,3 @@ prevalent_taxa <- function (x, detection.threshold, prevalence.threshold, sort =
   taxa
 
 }
-
-

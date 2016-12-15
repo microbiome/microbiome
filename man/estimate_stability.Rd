@@ -2,7 +2,7 @@
 % Please edit documentation in R/estimate_stability.R
 \name{estimate_stability}
 \alias{estimate_stability}
-\title{Estimate stability}
+\title{Estimate Stability}
 \usage{
 estimate_stability(df, reference.point = NULL, method = "lm")
 }

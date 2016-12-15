@@ -1,5 +1,22 @@
-## Linear models with limma
+---
+title: "Limma"
+author: "Leo Lahti"
+date: "`r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - limma}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
 
+
+## Linear models with limma
 
 ### Discrete variables: sex
 

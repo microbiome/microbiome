@@ -1,16 +1,40 @@
-language: c
-
+language: r
+sudo: true
+cache: packages
+warnings_are_errors: false
+r_packages:
+- Cairo
+- GGally
+- ggrepel
+- intergraph
+- magrittr
+- network
+- rmarkdown
+- scales
+- survival
+bioc_packages:
+- BiocInstaller
+- limma
+r_github_packages:
+- slowkow/ggrepel
+- cran/RUnit
+- ropengov/sorvi
+- microbiome/microbiome
+- microbiome/HITChipDB
+- zdk123/SpiecEasi
+- briatte/ggnet
+- earlywarningtoolbox/earlywarnings-R/earlywarnings
 env:
-   global:
-     - WARNINGS_ARE_ERRORS=1
-     - R_BUILD_ARGS="--no-manual"
-     - R_CHECK_ARGS="--no-manual --as-cran"
-
-script: ./travis-tool.sh run_tests
-
-before_script:
-- curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-- chmod 755 ./travis-tool.sh
-- ./travis-tool.sh bootstrap
-- ./travis-tool.sh install_deps
-
+  global:
+  - WARNINGS_ARE_ERRORS=1
+  - R_BUILD_ARGS="--no-manual"
+  - R_CHECK_ARGS="--no-manual --as-cran"
+  - GITHUB_REPO: microbiome/microbiome
+  - secure: kivwIFvX65gp1xOYQyfdXwr4/FuUFfS27Aqug19K7euNbz8oEuwDiIId+VNBdiTJ+Wyn267gepf/Uc9cqyimvx4d+r2LMveNTBhAfN5cXt3gqEzqszZYwWlTbBojHsz03LMDgzNtEXto98KCB8zaghAP2Zdq42RBjuzGa28F650=
+before_install:
+- pip install --user codecov
+- chmod 755 ./.push_gh_pages.sh
+- sudo apt-get install -y tcl tk tk-dev
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+- ./.push_gh_pages.sh

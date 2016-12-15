@@ -1,4 +1,4 @@
-#' @title Visually weighted regression plot
+#' @title Visually Weighted Regression Plot
 #' @description Draw regression curve with smoothed error bars 
 #' with Visually-Weighted Regression by Solomon M. Hsiang; see
 #' \url{http://www.fight-entropy.com/2012/07/visually-weighted-regression.html}
@@ -26,6 +26,7 @@
 #' @param ylim restrict range of the watercoloring
 #' @param quantize either "continuous", or "SD". In the latter case, 
 #'     we get three color regions for 1, 2, and 3 SD (an idea of John Mashey)
+#' @param show.points Show points.
 #' @param ... further parameters passed to the fitting function, 
 #'     in the case of loess, for example, "span = .9", or 
 #'     "family = 'symmetric'"
@@ -40,7 +41,7 @@
 #' @author Based on the original version from Felix Schonbrodt. 
 #'         Modified by Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous", ...) {
+plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous", show.points = TRUE, ...) {
 
   # Some transparency problems solved with:		
   # http://tinyheero.github.io/2015/09/15/semi-transparency-r.html
@@ -198,7 +199,12 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
   if (show.lm) {
     p1 <- p1 + geom_smooth(method = "lm", color = "darkgreen", se = FALSE)
   }
-  p <- p1 + geom_point(size=1, shape=21, fill="white", color="black")
+
+  if (show.points) {
+    p1 <- p1 + geom_point(size=1, shape=21, fill="white", color="black")
+  }
+
+  p <- p1
   p <- p + xlab(IV)
   p <- p + ylab(DV)
 

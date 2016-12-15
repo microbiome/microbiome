@@ -1,11 +1,11 @@
-#' @title Neatmap sorting for matrices
-#' @description Order matrix based on the neatmap approach.
-#' @param x A matrix.
-#' @param arrange Order "rows" or "cols" or "both".
+#' @title Neatmap Sorting
+#' @description Order matrix or phyloseq OTU table based on the neatmap approach.
+#' @param x A matrix or phyloseq object.
+#' @param arrange Order "features", "samples" or "both" (for matrices). For matrices, it is assumed that the samples are on the columns and features are on the rows. For phyloseq objects, features are the taxa of the OTU table. 
 #' @param method Ordination method. Only NMDS implemented for now.
 #' @param distance Distance method. See \code{\link{vegdist}} function from the \pkg{vegan} package.
-#' @param first.row Optionally provide the name of the first row to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.
-#' @param first.col Optionally provide the name of the first col to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.
+#' @param first.feature Optionally provide the name of the first feature to start the ordering 
+#' @param first.sample Optionally provide the name of the first sample to start the ordering 
 #' @param ... Arguments to pass.
 #' @return Sorted matrix
 #' @export
@@ -16,21 +16,38 @@
 #' @references This function is partially based on code derived from the \pkg{phyloseq} package. However for the original
 #'   neatmap approach for heatmap sorting, see (and cite):
 #'   Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map alternatives in R. BMC Bioinformatics, 11, 45.
-#'
-#' @details Borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is not available there as a separate function. Therefore I implemented this function to provide an independent method for easy sample/taxon reordering for phyloseq objects.
+#' @details Borrows elements from the heatmap implementation in the
+#' \pkg{phyloseq} package. The row/column sorting is not available there
+#' as a separate function. Therefore I implemented this function to
+#' provide an independent method for easy sample/taxon reordering for
+#' phyloseq objects. The ordering is cyclic so we can start at any
+#' point. The choice of the first sample may somewhat affect the overall
+#' ordering
 #' @keywords utilities
-neat <- function (x, arrange = "both", method = "NMDS", distance = "bray", first.row = NULL, first.col = NULL, ...) {
+neat <- function (x, arrange = "both", method = "NMDS", distance = "bray", first.feature = NULL, first.sample = NULL, ...) {
 
-  if (arrange %in% c("rows", "both")) {
+  if (class(x) == "phyloseq") {
+    x <- taxa_abundances(x)
+  }
+
+  if (is.null(rownames(x))) {
+    rownames(x) = as.character(1:nrow(x))
+  }
+
+  if (is.null(colnames(x))) {
+    colnames(x) = as.character(1:ncol(x))
+  }
+
+  if (arrange %in% c("features", "both")) {
     if (nrow(x) > 2) {
-      sr <- neatsort(x, "rows", method = method, distance = distance, first = first.row, ...)
+      sr <- neatsort(x, "features", method = method, distance = distance, first = first.feature, ...)
       x <- x[sr,]
     } 
 
   }
-  if (arrange %in% c("cols", "both")) {
+  if (arrange %in% c("samples", "both")) {
     if (ncol(x) > 2) {
-      sc <- neatsort(x, "cols", method = method, distance = distance, first = first.col, ...)
+      sc <- neatsort(x, "samples", method = method, distance = distance, first = first.sample, ...)
       x <- x[,sc]
     }
   }

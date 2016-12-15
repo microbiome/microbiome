@@ -1,4 +1,4 @@
-#' @title Filter prevalent
+#' @title Filter Prevalent Taxa
 #' @description Filter the phyloseq object to include only prevalent taxa.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param detection.threshold Detection threshold for absence/presence.
@@ -11,9 +11,9 @@
 #' @export
 #' @examples
 #'   data("peerj32")
-#'   filter_prevalent(peerj32$physeq, 200, 0.2)
+#'   filter_prevalent(peerj32$phyloseq, 200, 0.2)
 filter_prevalent <- function (x, detection.threshold, prevalence.threshold) {
-  taxa <- prevalent_taxa(x, detection.threshold, prevalence.threshold)
+  taxa <- core(x, detection.threshold, prevalence.threshold)
   prune_taxa(taxa, x)
 }
 

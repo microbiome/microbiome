@@ -2,7 +2,7 @@
 % Please edit documentation in R/neatmap.R
 \name{order_neatmap}
 \alias{order_neatmap}
-\title{Neatmap ordering}
+\title{Neatmap Ordering}
 \usage{
 order_neatmap(x, target, method = "NMDS", distance = "bray", first = NULL,
   ...)
@@ -12,11 +12,16 @@ order_neatmap(x, target, method = "NMDS", distance = "bray", first = NULL,
 
 \item{target}{Order "sites" (samples) or "species" (taxa/OTUs)}
 
-\item{method}{Ordination method. See \code{\link{ordinate}} from \pkg{phyloseq} package.}
+\item{method}{Ordination method. See \code{\link{ordinate}}
+from \pkg{phyloseq} package.}
 
-\item{distance}{Distance method. See \code{\link{ordinate}} from \pkg{phyloseq} package.}
+\item{distance}{Distance method. See \code{\link{ordinate}}
+from \pkg{phyloseq} package.}
 
-\item{first}{Optionally provide the name of the first sample/taxon to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.}
+\item{first}{Optionally provide the name of the first sample/taxon to
+start the ordering (the ordering is cyclic so we can start at any
+point). The choice of the first sample may somewhat affect the
+overall ordering.}
 
 \item{...}{Arguments to be passed.}
 }
@@ -27,22 +32,30 @@ Vector of ordered elements
 Order samples or taxa based on the neatmap approach.
 }
 \details{
-This function borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is there
-not available as a separate function at present, however, hindering reuse in other tools. Therefore I implemented this function to
-provide an independent method for easy sample/taxon reordering for phyloseq objects.
+This function borrows elements from the heatmap implementation in
+the \pkg{phyloseq} package. The row/column sorting is there not available
+as a separate function at present, however, hindering reuse in other tools.
+Implemented in the microbiome package to provide an independent method for
+easy sample/taxon reordering for phyloseq objects.
 }
 \examples{
-\dontrun{
-  data(peerj32)
-  pseq <- peerj32$phyloseq
-  order.sample <- order_neatmap(pseq, target = "sites", method = "NMDS", distance = "bray", first = NULL) 
-  order.otu <- order_neatmap(pseq, target = "species", method = "NMDS", distance = "bray", first = NULL)
-                  }
+  \dontrun{
+    library(microbiome)
+    data(peerj32)
+    pseq <- peerj32$phyloseq
+    order.sample <- order_neatmap(pseq, target = "sites",
+                                method = "NMDS", distance = "bray",
+			   first = NULL) 
+    order.otu <- order_neatmap(pseq, target = "species", method = "NMDS",
+    	       	                distance = "bray", first = NULL)
+  }  
 }
 \references{
-This function is partially based on code derived from the \pkg{phyloseq} package. However for the original
-  neatmap approach for heatmap sorting, see (and cite):
-  Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map alternatives in R. BMC Bioinformatics, 11, 45.
+This function is partially based on code derived from the
+            \pkg{phyloseq} package. For the original
+            neatmap approach for heatmap sorting, see (and cite):
+  Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map
+  alternatives in R. BMC Bioinformatics, 11, 45.
 }
 \keyword{utilities}
 

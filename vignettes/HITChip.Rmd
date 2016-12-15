@@ -1,3 +1,21 @@
+---
+title: "HITChip"
+author: "Leo Lahti"
+date: "`r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - hitchip}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 ## HITChip and other phylogenetic microarrays
 
   * [Extracting data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
@@ -27,14 +45,14 @@ further fields. Import HITChip phylotype-level data in
 [phyloseq](https://github.com/joey711/phyloseq) format (note: the
 precalculated matrices are calculated with detection.threshold = 0):
 
-```{r pseqconversion}
+```{r pseqconversion, eval=FALSE}
 library(HITChipDB)
 pseq <- HITChipDB::read_hitchip(data.directory, method = "frpa")$pseq
 ```
 
 Get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
 
-```{r pseqconversion4}
+```{r pseqconversion4, eval=FALSE}
 pseq.L2 <- aggregate_taxa(pseq, level = "L2")
 pseq.L1 <- aggregate_taxa(pseq, level = "L1")
 ```
@@ -42,7 +60,7 @@ pseq.L1 <- aggregate_taxa(pseq, level = "L1")
 Importing HITChip probe-level data and taxonomy from HITChip
 output directory (these are not available in the phyloseq object):
 
-```{r pseqconversion3}
+```{r pseqconversion3, eval=FALSE}
 probedata <- HITChipDB::read_hitchip(data.directory, method = "frpa")$probedata
 taxonomy.full <- HITChipDB::read_hitchip(data.directory, method = "frpa")$taxonomy.full
 ```

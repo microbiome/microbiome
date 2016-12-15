@@ -2,12 +2,12 @@
 % Please edit documentation in R/cmat2table.R
 \name{cmat2table}
 \alias{cmat2table}
-\title{Convert cross correlation results to a table}
+\title{Convert Cross Correlation Results To Table}
 \usage{
 cmat2table(res, verbose = FALSE)
 }
 \arguments{
-\item{res}{Output from cross.correlate}
+\item{res}{Output from cross_correlate}
 
 \item{verbose}{verbose}
 }
@@ -15,13 +15,13 @@ cmat2table(res, verbose = FALSE)
 Correlation table
 }
 \description{
-Arrange correlation matrices from cross.correlate into a table format.
+Arrange correlation matrices from cross_correlate into a table format.
 }
 \examples{
   data(peerj32)
   d1 <- peerj32$microbes[1:20, 1:10]
   d2 <- peerj32$lipids[1:20,1:10]
-  cc <- cross.correlate(d1, d2, mode = 'matrix')
+  cc <- cross_correlate(d1, d2, mode = 'matrix', method = "pearson")
   cmat <- cmat2table(cc)
 }
 \author{

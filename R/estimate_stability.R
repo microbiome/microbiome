@@ -1,4 +1,4 @@
-#' @title Estimate stability
+#' @title Estimate Stability
 #' @description Quantify intermediate stability with respect to a given reference point. 
 #' @param df Combined input data vector (samples x variables) and metadata
 #'           data.frame (samples x features)

@@ -1,4 +1,4 @@
-#' @title Cross correlation wrapper
+#' @title Cross Correlation Wrapper
 #' @description Cross-correlate columns of the input matrices.
 #' @param x matrix (samples x features if annotation matrix)
 #' @param y matrix (samples x features if cross-correlated with annotations)
@@ -22,7 +22,7 @@
 #'   data(peerj32)
 #'   d1 <- peerj32$microbes[1:20, 1:10]
 #'   d2 <- peerj32$lipids[1:20,1:10]
-#'   cc <- cross_correlate(d1, d2)
+#'   cc <- cross_correlate(d1, d2, method = "pearson")
 #' @export
 #' @details As the method=categorical (discrete) association measure
 #'          for nominal (no order for levels) variables we use Goodman and
@@ -88,16 +88,18 @@ cross_correlate <- function(x, y = NULL, method = "spearman",
     colnames(Pc) <- colnames(y)
 
     if (method %in% c("pearson", "spearman")) {
-        
+
+        minobs = 8
+
         for (j in 1:ncol(y)) {
             jc <- apply(x, 2, function(xi) {
-                if (sum(!is.na(xi)) >= 8) {
+                if (sum(!is.na(xi)) >= minobs) {
                   res <- cor.test(xi, y[, j], method = method, 
                             use = "pairwise.complete.obs")
                   res <- c(res$estimate, res$p.value)
 
                 } else {
-                  warning(paste("Not enough observations; \n   
+                  warning(paste("Not enough observations (", minobs, "required); \n   
                           (",  
                     sum(!is.na(xi)), ") \n \n 
                            - skipping correlation estimation"))

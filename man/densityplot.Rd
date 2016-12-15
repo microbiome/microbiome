@@ -2,7 +2,7 @@
 % Please edit documentation in R/densityplot.R
 \name{densityplot}
 \alias{densityplot}
-\title{Density plot}
+\title{Density Plot}
 \usage{
 densityplot(x, main = NULL, x.ticks = 10, rounding = 0,
   add.points = TRUE, col = "black", adjust = 1, size = 1,
@@ -19,7 +19,7 @@ densityplot(x, main = NULL, x.ticks = 10, rounding = 0,
 
 \item{add.points}{Plot the data points as well}
 
-\item{col}{Color of the data points}
+\item{col}{Color of the data points. NAs are marked with darkgray.}
 
 \item{adjust}{Kernel width adjustment}
 

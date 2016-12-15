@@ -1,3 +1,21 @@
+---
+title: "Limma"
+author: "Leo Lahti"
+date: "2016-11-04"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - limma}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 ## Linear models with limma
 
 
@@ -43,13 +61,9 @@ pvalues.limma = fit$p.value[, 2]
 kable(topTable(fit, coef = coef.index, p.value=0.05), digits = 2)
 ```
 
-
-
-|                            | logFC| AveExpr|     t| P.Value| adj.P.Val|     B|
-|:---------------------------|-----:|-------:|-----:|-------:|---------:|-----:|
-|Uncultured Clostridiales II | -0.38|    1.39| -3.69|       0|      0.05| -0.32|
-|Eubacterium siraeum et rel. | -0.32|    1.68| -3.57|       0|      0.05| -0.63|
-|Clostridium nexile et rel.  |  0.18|    2.84|  3.47|       0|      0.05| -0.89|
+```
+## Error in kable_markdown(x = structure(character(0), .Dim = c(0L, 0L), .Dimnames = list(: the table must have a header (column names)
+```
 
 
 ### Q-Q plot
@@ -122,11 +136,11 @@ kable(head(tab), digits = 3)
 
 |                                   |  logFC| AveExpr|       t| P.Value| adj.P.Val|      B|
 |:----------------------------------|------:|-------:|-------:|-------:|---------:|------:|
-|Bifidobacterium                    | -0.015|   3.702| -12.507|       0|         0| 63.502|
-|Clostridium difficile et rel.      | -0.009|   3.229|  -9.890|       0|         0| 37.157|
-|Oscillospira guillermondii et rel. |  0.012|   4.535|   9.828|       0|         0| 36.594|
-|Bacteroides splachnicus et rel.    |  0.006|   3.219|   9.552|       0|         0| 34.132|
-|Collinsella                        | -0.009|   2.828|  -9.107|       0|         0| 30.273|
-|Tannerella et rel.                 |  0.007|   3.162|   8.977|       0|         0| 29.175|
+|Bifidobacterium                    | -0.015|   3.701| -12.507|       0|         0| 63.548|
+|Clostridium difficile et rel.      | -0.009|   3.229|  -9.890|       0|         0| 37.203|
+|Oscillospira guillermondii et rel. |  0.012|   4.535|   9.827|       0|         0| 36.635|
+|Bacteroides splachnicus et rel.    |  0.006|   3.219|   9.551|       0|         0| 34.167|
+|Collinsella                        | -0.009|   2.827|  -9.111|       0|         0| 30.348|
+|Tannerella et rel.                 |  0.007|   3.161|   8.975|       0|         0| 29.203|
 
 

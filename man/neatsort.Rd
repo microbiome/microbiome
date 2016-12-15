@@ -2,7 +2,7 @@
 % Please edit documentation in R/neatsort.R
 \name{neatsort}
 \alias{neatsort}
-\title{Neatmap ordering for matrix rows or columns}
+\title{Neatmap Ordering for Matrix Features or Samples}
 \usage{
 neatsort(x, arrange, method = "NMDS", distance = "bray", first = NULL,
   ...)
@@ -10,13 +10,13 @@ neatsort(x, arrange, method = "NMDS", distance = "bray", first = NULL,
 \arguments{
 \item{x}{A matrix.}
 
-\item{arrange}{Order "rows" or "cols"}
+\item{arrange}{Order "features" or "samples". For matrices, it is assumed that the samples are on the columns and features are on the rows. For phyloseq objects, features are the taxa of the OTU table.}
 
 \item{method}{Ordination method. Only NMDS implemented for now.}
 
 \item{distance}{Distance method. See \code{\link{vegdist}} function from the \pkg{vegan} package.}
 
-\item{first}{Optionally provide the name of the first sample/taxon to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.}
+\item{first}{Optionally provide the name of the first sample (or feature) to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample/feature may somewhat affect the overall ordering.}
 
 \item{...}{Arguments to pass.}
 }
@@ -24,19 +24,19 @@ neatsort(x, arrange, method = "NMDS", distance = "bray", first = NULL,
 Vector of ordered elements
 }
 \description{
-Order rows or columns based on the neatmap approach.
+Order features or samples based on the neatmap approach.
 }
 \details{
 This function borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is there
 not available as a separate function at present, however, hindering reuse in other tools. This function provides an independent
 method for easy row/column reordering for matrices. This a quick hack and using the ordination could be expanded further
-(now only NMDS is available, and the sorting is done independently for rows and columns).
+(now only NMDS is available, and the sorting is done independently for features and samples).
 }
 \examples{
 \dontrun{
   data(peerj32)
   x <- peerj32$microbes
-  x <- neatsort(x, "rows", method = "NMDS", distance = "bray")
+  x <- neatsort(x, "features", method = "NMDS", distance = "bray")
                   }
 }
 \references{

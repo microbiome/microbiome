@@ -22,7 +22,9 @@ List with elements:
   }
 }
 \description{
-Bootstrap solutions that follows the Jack-knife estimation of PLS by Martens and Martens, 2000.  Solves rotational invariance of latent space by orthogonal procrustes rotations
+Bootstrap solutions that follows the Jack-knife estimation of
+             PLS by Martens and Martens, 2000.  Solves rotational
+             invariance of latent space by orthogonal procrustes rotations.
 }
 \examples{
  \dontrun{

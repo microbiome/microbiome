@@ -1,3 +1,21 @@
+---
+title: "Installation"
+author: "Leo Lahti"
+date: "2016-12-15"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - Installation}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 ### Installing R
 
 **If you do not already have R/RStudio installed**, do the

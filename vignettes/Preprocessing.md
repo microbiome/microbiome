@@ -1,3 +1,21 @@
+---
+title: "Preprocessing"
+author: "Leo Lahti"
+date: "2016-12-15"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - Preprocessing}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 ## Preprocessing taxonomic profiling data
 
 Here we show how to manipulate microbiome data sets using tools from
@@ -16,6 +34,9 @@ Sample metadata:
 
 ```r
 library(phyloseq)
+library(microbiome)
+data("atlas1006") 
+pseq <- atlas1006
 meta <- sample_data(pseq)
 ```
 
@@ -46,14 +67,14 @@ kable(head(df))
 
 
 
-|      |OTU                               |Sample     | Abundance|subject |sex    |nationality |group |sample     | timepoint| timepoint.within.group|bmi_group  |Phylum        |Genus                             |
-|:-----|:---------------------------------|:----------|---------:|:-------|:------|:-----------|:-----|:----------|---------:|----------------------:|:----------|:-------------|:---------------------------------|
-|21328 |Prevotella melaninogenica et rel. |Sample-208 |    900361|olt     |Male   |AFR         |ED    |Sample-208 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21418 |Prevotella melaninogenica et rel. |Sample-212 |    876341|shj     |Female |AFR         |ED    |Sample-212 |         1|                      1|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21457 |Prevotella melaninogenica et rel. |Sample-11  |    860615|olt     |Male   |AFR         |HE    |Sample-11  |         3|                      2|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21481 |Prevotella melaninogenica et rel. |Sample-125 |    852350|nmz     |Male   |AAM         |HE    |Sample-125 |         3|                      2|obese      |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21438 |Prevotella melaninogenica et rel. |Sample-210 |    845594|qjy     |Female |AFR         |ED    |Sample-210 |         1|                      1|overweight |Bacteroidetes |Prevotella melaninogenica et rel. |
-|21319 |Prevotella melaninogenica et rel. |Sample-107 |    838487|byu     |Male   |AFR         |HE    |Sample-107 |         3|                      2|lean       |Bacteroidetes |Prevotella melaninogenica et rel. |
+|       |OTU                               |Sample     | Abundance| age|gender |nationality   |DNA_extraction_method |project | diversity|bmi_group   |subject | time|sample     |Phylum        |Genus                             |
+|:------|:---------------------------------|:----------|---------:|---:|:------|:-------------|:---------------------|:-------|---------:|:-----------|:-------|----:|:----------|:-------------|:---------------------------------|
+|113110 |Prevotella melaninogenica et rel. |Sample-448 |    944002|  54|female |CentralEurope |o                     |18      |      5.98|lean        |448     |    0|Sample-448 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|113015 |Prevotella melaninogenica et rel. |Sample-360 |    902034|  45|female |CentralEurope |o                     |13      |      5.49|severeobese |360     |    0|Sample-360 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|112747 |Prevotella melaninogenica et rel. |Sample-190 |    862870|  34|female |CentralEurope |r                     |7       |      6.06|lean        |190     |    0|Sample-190 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|113109 |Prevotella melaninogenica et rel. |Sample-743 |    852350|  52|male   |US            |NA                    |19      |      5.21|obese       |743     |    0|Sample-743 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|112944 |Prevotella melaninogenica et rel. |Sample-366 |    851147|  52|female |CentralEurope |o                     |15      |      5.63|obese       |366     |    0|Sample-366 |Bacteroidetes |Prevotella melaninogenica et rel. |
+|113639 |Prevotella melaninogenica et rel. |Sample-375 |    844482|  45|female |CentralEurope |o                     |16      |      5.64|severeobese |375     |    0|Sample-375 |Bacteroidetes |Prevotella melaninogenica et rel. |
 
 
 ### Standard data processing operations
@@ -144,7 +165,7 @@ Relative abundances (the input data needs to be in absolute scale, not logarithm
 
 
 ```r
-pseq1 <- transform_phyloseq(pseq, "relative.abundance", "OTU")
+pseq1 <- transform_phyloseq(pseq, "compositional", "OTU")
 pseq2 <- transform_sample_counts(pseq, function(x) x/sum(x))
 ```
 
@@ -275,7 +296,7 @@ Aggregate taxa to higher taxonomic levels. This is particularly useful if the ph
 
 
 ```r
-pseq2 <- summarize_taxa(pseq, "Genus") 
+pseq2 <- summarize_taxa(pseq, "Phylum") 
 ```
 
 
@@ -303,7 +324,8 @@ Phylum (Verrucomicrobia)):
 
 ```r
 data(atlas1006)
-m <- map_levels("Akkermansia", "Genus", "Phylum", tax_table(atlas1006))
+pseq <- atlas1006
+m <- map_levels("Akkermansia", "Genus", "Phylum", tax_table(pseq))
 print(m)
 ```
 

@@ -2,13 +2,17 @@
 % Please edit documentation in R/estimate_homogeneity.R
 \name{estimate_homogeneity}
 \alias{estimate_homogeneity}
-\title{Homogeneity analysis}
+\title{Homogeneity Analysis}
 \usage{
 estimate_homogeneity(x, type = "interindividual", group_by = "group",
   method = "spearman")
 }
 \arguments{
-\item{x}{phyloseq object with the OTU matrix and sample metadata. The sample metadata should contain the fields "sample" and "group" (or another grouping variable specified in the group_by argument) for the "interindividual" method. For the "intraindividual" method, also provide "time", and "subject" fields.}
+\item{x}{phyloseq object with the OTU matrix and sample
+metadata. The sample metadata should contain the fields "sample" and
+"group" (or another grouping variable specified in the group_by
+argument) for the "interindividual" method. For the "intraindividual"
+method, also provide "time", and "subject" fields.}
 
 \item{type}{Homogeneity type: 'interindividual' or 'intraindividual'}
 
@@ -20,7 +24,7 @@ estimate_homogeneity(x, type = "interindividual", group_by = "group",
 List with correlations, group-wise statistics, and ANOVA linear model p-value for group differences.
 }
 \description{
-Estimate homogeneity within or between sample groups.
+Quantify homogeneity within or between sample groups.
 }
 \details{
 Average correlation between samples in the input data within each

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ztransform_phyloseq.R
 \name{ztransform_phyloseq}
 \alias{ztransform_phyloseq}
-\title{Phyloseq z transformation}
+\title{Phyloseq Z Transformation}
 \usage{
 ztransform_phyloseq(x, which)
 }
@@ -19,11 +19,13 @@ Z transform phyloseq objects.
 }
 \details{
 Performs centering (to zero) and scaling (to unit
-variance) across samples for each taxa.
+  variance) across samples for each taxa.
 }
 \examples{
-  pseq <- download_microbiome("peerj32")$physeq
-  pseqz <- ztransform_phyloseq(pseq, "OTU")
+\dontrun{
+  data(peerj32)
+  pseqz <- ztransform_phyloseq(peerj32$phyloseq)
+}
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
@@ -31,5 +33,5 @@ Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 \references{
 See citation('microbiome')
 }
-\keyword{utilities}
+\keyword{internal}
 

@@ -1,10 +1,16 @@
-#' @title Standard data transformations for phyloseq objects
-#' @description Provides phyloseq transformations with log10(x), log10(1+x), z transformation, and relative abundance.
+#' @title Data Transformations for phyloseq Objects
+#' @description Standard transformations for \code{\link{phyloseq-class}}.
 #' @param x \code{\link{phyloseq-class}} object
-#' @param transformation Transformation to apply: 'relative.abundance', 'Z', or 'log10'.
-#' @param target Apply the transformation for 'sample' or 'OTU'. Does not affect the log transformation.
+#' @param transformation Transformation to apply. The options include:
+#'   'compositional' (ie relative abundance), 'Z', 'log10', 'hellinger',
+#'   'identity', 'clr', 'ilr',
+#'    or any method from the vegan::decostand function.
+#' @param target Apply the transformation for 'sample' or 'OTU'.
+#'               Does not affect the log transformation.
 #' @return Transformed \code{\link{phyloseq}} object
-#' @details The relative abunance are returned as percentages in [0, 100].
+#' @details The relative abunance are returned as percentages in [0,
+#'   100]. The Hellinger transformation is square root of the relative
+#'   abundance but instead given at the scale [0,1].
 #' @export
 #' @examples
 #' \dontrun{
@@ -23,32 +29,80 @@
 #'
 #' }
 #' @keywords utilities
-transform_phyloseq <- function (x, transformation = "relative.abundance", target = "OTU") {
+transform_phyloseq <- function (x, transformation = "compositional",
+                                   target = "OTU") {
 
   y <- NULL
-
-  if (!all(sample(round(prod(dim(otu_table(x)))/10) ))%%1 == 0) {
-    warning("The OTU abundances are not integers. Check that the OTU input data is given as original counts to avoid transformation errors!")
+  if (transformation == "relative.abundance") {
+    transformation <- "compositional"
   }
 
-  if (transformation == "relative.abundance") {
+  if (!all(sample(round(prod(dim(otu_table(x)))/10) ))%%1 == 0) {
+    warning("The OTU abundances are not integers. 
+             Check that the OTU input data is given as original counts 
+	     to avoid transformation errors!")
+  }
+
+  if (transformation == "compositional") {
     if (target == "OTU") {
       xt <- transform_sample_counts(x, function (x) {100 * x/sum(x)})
     } else {
-      stop(paste("transform_phyloseq not implemented for transformation", transformation, "with target", target))
+      stop(paste("transform_phyloseq not implemented for transformation",
+      				     transformation, "with target", target))
     }
   } else if (transformation == "Z") {
+
     # Z transformation for sample or OTU
     xt <- ztransform_phyloseq(x, target)
 
-  } else if (transformation == "log10") {  
+  } else if (transformation == "clr") {
+
+    xt <- x
+    a <- t(taxa_abundances(transform_phyloseq(xt, "compositional")))
+    d <- apply(compositions::clr(a), 2, identity)
+    rownames(d) <- sample_names(xt)
+    colnames(d) <- taxa_names(xt)	        
+    xt@otu_table@.Data <- d
+
+  } else if (transformation == "log10") {
+  
     # Log transformation:
     if (min(otu_table(x)) == 0) {
       warning("OTU table contains zeroes. Using log10(1 + x) transformation.")
+      # target does not affect the log transformation 
+      xt <- transform_sample_counts(x, function(x) log10(1 + x))      
+    } else {
+      xt <- transform_sample_counts(x, function(x) log10(x))      
     }
-    # target does not affect the log transformation 
-    xt <- transform_sample_counts(x, function(x) log10(1 + x))      
-  }
+
+  } else if (transformation == "identity") {
+
+    # No transformation
+    xt <- x
+    
+  } else {
   
+    if (target == "OTU") {
+    
+      xt <- x
+      a <- try(xx <- decostand(taxa_abundances(xt),
+      	                       method = transformation, MARGIN = 2))
+            
+      if (class(a) == "try-error") {
+        xt <- NULL
+        stop(paste("Transformation", transformation, "not defined."))
+      }
+
+      if (!taxa_are_rows(xt)) {xx <- t(xx)}
+      otu_table(xt)@.Data <- xx
+
+     } else {
+    
+      stop(paste("Transformation", transformation, "not defined for", target))
+      
+    }    
+  }
+
   xt
+
 }

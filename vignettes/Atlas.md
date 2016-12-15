@@ -1,3 +1,20 @@
+---
+title: "HITChip Atlas"
+author: "Leo Lahti, Willem M de Vos et al."
+date: "2016-12-15"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - atlas}
+  %\usepackage[utf8]{inputenc}
+-->
+
+
 ## Intestinal microbiota diversity in 1006 western adults
 
 The data set from [Lahti et al. Nat. Comm. 5:4344,
@@ -24,7 +41,6 @@ pseq <- atlas1006
 ```r
 library(phyloseq)
 div <- estimate_diversity(pseq, measures = c("Observed", "Shannon", "Simpson"))
-
 library(knitr)
 kable(head(div))
 ```
@@ -56,22 +72,7 @@ print(p)
 
 
 ```r
-# Pick the subset of RBB-preprocessed samples from time point 0
-pseq <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
-
-# Visualize
-library(sorvi)
-p <- sorvi::plot_regression(diversity~age, sample_data(pseq))
+plot_regression(diversity~age, sample_data(pseq))
 ```
-
-```
-## Error: 'plot_regression' is not an exported object from 'namespace:sorvi'
-```
-
-```r
-print(p)
-```
-
-![plot of chunk atlas-example3](figure/atlas-example3-1.png)
 
 

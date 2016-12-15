@@ -2,9 +2,9 @@
 % Please edit documentation in R/prevalence.R
 \name{prevalence}
 \alias{prevalence}
-\title{Prevalence for phyloseq OTUs}
+\title{Prevalence for Phyloseq OTUs}
 \usage{
-prevalence(x, detection.threshold, sort = FALSE)
+prevalence(x, detection.threshold = 0, sort = FALSE, relative = TRUE)
 }
 \arguments{
 \item{x}{A vector, data matrix or phyloseq object}
@@ -12,26 +12,33 @@ prevalence(x, detection.threshold, sort = FALSE)
 \item{detection.threshold}{Detection threshold for absence/presence.}
 
 \item{sort}{Sort the groups by prevalence}
+
+\item{relative}{Logical. Indicate prevalence as fraction of samples
+(in percentage [0, 100]; default); or in absolute counts indicating
+the number of samples where the OTU is detected above the given
+abundance threshold.}
 }
 \value{
-For each OTU, the fraction of samples where a given OTU is detected. The output is readily given as a percentage.
+For each OTU, the fraction of samples where a given OTU is
+detected. The output is readily given as a percentage.
 }
 \description{
 Simple prevalence measure.
 }
 \details{
-For vectors, calculates the fraction of samples that exceed the
-detection threshold. For matrices, calculates for each matrix column
-the fraction of entries that #' exceed the detection threshold. For
-phyloseq object, calculates for each OTU the fraction of samples that
-exceed the detection threshold
+For vectors, calculates the fraction (mode relative) or
+number (mode absolute) of samples that exceed the
+detection threshold. For matrices, calculates this for each matrix
+column. For phyloseq objects, calculates this for each OTU. The
+relative prevalence (relative = TRUE) is simply the absolute
+prevalence (relative = FALSE) divided by the number of samples.
 }
 \examples{
   data(peerj32)     
   ## With matrix
   prevalence(peerj32$data$microbes, detection.threshold = 200, sort = TRUE)
   ## With phyloseq
-  prevalence(peerj32$physeq, detection.threshold = 200, sort = TRUE)
+  prevalence(peerj32$phyloseq, detection.threshold = 200, sort = TRUE)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

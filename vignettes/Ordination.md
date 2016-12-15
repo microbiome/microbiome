@@ -1,3 +1,21 @@
+---
+title: "Ordination"
+author: "Leo Lahti"
+date: "2016-12-15"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - ordination}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 ## Ordination examples
 
 Some examples with HITChip data. See also [phyloseq ordination tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html).
@@ -9,15 +27,16 @@ Load example data:
 library(microbiome)
 library(phyloseq)
 library(ggplot2)
-data(atlas1006)
-pseq <- atlas1006
+data(dietswap)
+pseq <- dietswap
 
 # Convert signal to relative abundances
-pseq.rel <- transform_phyloseq(pseq, "relative.abundance")
+pseq.rel <- transform_phyloseq(pseq, "compositional")
 
 # Pick OTUs that are present with >1 percent relative abundance 
 # in >10 percent of the samples
-pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > 1) > (0.1*nsamples(pseq.rel)), TRUE)
+pseq2 <- filter_taxa(pseq.rel,
+           function(x) sum(x > 1) > (0.1*nsamples(pseq.rel)), TRUE)
 ```
 
 
@@ -38,15 +57,8 @@ Then visualize the projected data:
 
 
 ```r
-# Highlighting gender
-p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
-```
-
-```
-## Error in UseMethod("densityplot"): no applicable method for 'densityplot' applied to an object of class "data.frame"
-```
-
-```r
+# Highlighting nationality
+p <- densityplot(as.matrix(proj[, 1:2]), col = proj$nationality, legend = T)
 print(p)
 
 # Projection with sample names:
@@ -84,7 +96,8 @@ p + facet_wrap(~Phylum, 5)
 
 
 ```r
-plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") + geom_point(size = 5)
+plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") +
+                geom_point(size = 5)
 ```
 
 ![plot of chunk ordination-ordinate23](figure/ordination-ordinate23-1.png)
@@ -100,12 +113,14 @@ See a separate page on [RDA](RDA.md).
 
 ```r
 # With samples
-p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gender")
+p <- plot_ordination(pseq, ordinate(pseq, "CCA"),
+       type = "samples", color = "nationality")
 p <- p + geom_point(size = 4)
 print(p)
 
 # With taxa:
-p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "taxa", color = "Phylum")
+p <- plot_ordination(pseq, ordinate(pseq, "CCA"),
+       type = "taxa", color = "Phylum")
 p <- p + geom_point(size = 4)
 print(p)
 ```
@@ -117,8 +132,9 @@ print(p)
 
 
 ```r
-plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender", 
-    color = "Phylum", label = "gender")
+plot_ordination(pseq, ordinate(pseq, "CCA"),
+		      type = "split", shape = "nationality", 
+    		      color = "Phylum", label = "nationality")
 ```
 
 ![plot of chunk ordination-ordinate25](figure/ordination-ordinate25-1.png)

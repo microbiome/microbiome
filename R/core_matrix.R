@@ -1,4 +1,4 @@
-#' @title Core OTU matrix 
+#' @title Core Matrix 
 #' @description Creates the core matrix.
 #' @param x \code{\link{phyloseq}} object or a taxa x samples abundance matrix
 #' @param prevalence.intervals a vector of prevalence percentages in [0,100]

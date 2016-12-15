@@ -1,3 +1,21 @@
+---
+title: "Variability"
+author: "Leo Lahti"
+date: "`r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - variability}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 ### Inter-individual homogeneity (within group of samples)
 
 Assess 'inter-individual stability', or homogeneity, as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html). This is defined as the average correlation between the samples and their mean for a given samples vs phylotypes matrix. For illustration, calculate inter-individual homogeneity separately for Placebo and LGG groups. Note that this homogeneity measure is affected by sample size.
@@ -63,9 +81,16 @@ print(p)
 data("atlas1006")
 pseq <- atlas1006
 pseq <- subset_samples(pseq, DNA_extraction_method == "r")
-pseq <- transform_phyloseq(pseq, "relative.abundance")
+pseq <- transform_phyloseq(pseq, "compositional")
 p <- plot_timeseries(pseq, "Dialister", subject = "831", tipping.point = 0.5)
 print(p)
+```
+
+Pick samples at the baseline time points only:
+
+```{r baseline, message=FALSE, warning=FALSE}
+data("atlas1006")
+pseq0 <- pick_baseline(atlas1006)
 ```
 
 

@@ -2,23 +2,23 @@
 % Please edit documentation in R/neat.R
 \name{neat}
 \alias{neat}
-\title{Neatmap sorting for matrices}
+\title{Neatmap Sorting}
 \usage{
 neat(x, arrange = "both", method = "NMDS", distance = "bray",
-  first.row = NULL, first.col = NULL, ...)
+  first.feature = NULL, first.sample = NULL, ...)
 }
 \arguments{
-\item{x}{A matrix.}
+\item{x}{A matrix or phyloseq object.}
 
-\item{arrange}{Order "rows" or "cols" or "both".}
+\item{arrange}{Order "features", "samples" or "both" (for matrices). For matrices, it is assumed that the samples are on the columns and features are on the rows. For phyloseq objects, features are the taxa of the OTU table.}
 
 \item{method}{Ordination method. Only NMDS implemented for now.}
 
 \item{distance}{Distance method. See \code{\link{vegdist}} function from the \pkg{vegan} package.}
 
-\item{first.row}{Optionally provide the name of the first row to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.}
+\item{first.feature}{Optionally provide the name of the first feature to start the ordering}
 
-\item{first.col}{Optionally provide the name of the first col to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample may somewhat affect the overall ordering.}
+\item{first.sample}{Optionally provide the name of the first sample to start the ordering}
 
 \item{...}{Arguments to pass.}
 }
@@ -26,10 +26,16 @@ neat(x, arrange = "both", method = "NMDS", distance = "bray",
 Sorted matrix
 }
 \description{
-Order matrix based on the neatmap approach.
+Order matrix or phyloseq OTU table based on the neatmap approach.
 }
 \details{
-Borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is not available there as a separate function. Therefore I implemented this function to provide an independent method for easy sample/taxon reordering for phyloseq objects.
+Borrows elements from the heatmap implementation in the
+\pkg{phyloseq} package. The row/column sorting is not available there
+as a separate function. Therefore I implemented this function to
+provide an independent method for easy sample/taxon reordering for
+phyloseq objects. The ordering is cyclic so we can start at any
+point. The choice of the first sample may somewhat affect the overall
+ordering
 }
 \examples{
   data(peerj32)

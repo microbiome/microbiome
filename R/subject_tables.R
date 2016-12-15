@@ -1,5 +1,7 @@
 subject_tables <- function (x, meta) {
 
+  stop("TODO: replaced now with timesort_subjects.R")
+
   # Focus on the signal from specific taxon
   meta$signal <- x
 

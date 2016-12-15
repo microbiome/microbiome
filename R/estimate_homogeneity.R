@@ -1,5 +1,5 @@
-#' @title Homogeneity analysis
-#' @description Estimate homogeneity within or between sample groups.
+#' @title Homogeneity Analysis
+#' @description Quantify homogeneity within or between sample groups.
 #' @details Average correlation between samples in the input data within each
 #' group with the overall group-wise average. Picks the lower triangular
 #' matrix to avoid duplicating the correlations. Returns correlations and
@@ -7,7 +7,11 @@
 #' correlations). Can also be used to calculate temporal homogeneity
 #' between two data sets (intra-individual), given appropriate sample
 #' metadata.
-#' @param x phyloseq object with the OTU matrix and sample metadata. The sample metadata should contain the fields "sample" and "group" (or another grouping variable specified in the group_by argument) for the "interindividual" method. For the "intraindividual" method, also provide "time", and "subject" fields.
+#' @param x phyloseq object with the OTU matrix and sample
+#' metadata. The sample metadata should contain the fields "sample" and
+#' "group" (or another grouping variable specified in the group_by
+#' argument) for the "interindividual" method. For the "intraindividual"
+#' method, also provide "time", and "subject" fields.
 #' @param type Homogeneity type: 'interindividual' or 'intraindividual'
 #' @param group_by variable to be used in grouping. By default: "group"
 #' @param method correlation method (see ?cor)
@@ -45,7 +49,7 @@ estimate_homogeneity <- function(x, type = "interindividual", group_by = "group"
 
     # Ensure compatiblity
     if (!nrow(otu) == nrow(meta)) {
-      otu = t(otu)
+      otu <- t(otu)
     }
 
     if (!all(rownames(otu) == rownames(meta))) {
@@ -57,7 +61,8 @@ estimate_homogeneity <- function(x, type = "interindividual", group_by = "group"
     # Split the data by group
     group <- NULL
     if (!group_by %in% names(meta)) {
-      meta[[group_by]] <- rep("completedata", nrow(meta))
+      stop(paste("The group_by variable", group_by, "is not included in sample_data(x)."))
+      #meta[[group_by]] <- rep("completedata", nrow(meta))
     }
     datasets <- split(as.data.frame(otu), meta[[group_by]], drop = TRUE)
 
@@ -65,7 +70,8 @@ estimate_homogeneity <- function(x, type = "interindividual", group_by = "group"
 
       tmp <- setdiff(c("sample", group_by), names(meta))
       if (length(tmp) > 0) {
-        stop(paste("The following variables needed by estimate_homogeneity function type=interindividual are missing from sample metadata:", paste(tmp, collapse = ",")))
+        stop(paste("The following variables needed by estimate_homogeneity function type=interindividual are 
+	            missing from sample metadata:", paste(tmp, collapse = ",")))
       }
   
       # Within-matrix stability NOTE: earlier this was calculated as
@@ -126,7 +132,7 @@ estimate_homogeneity <- function(x, type = "interindividual", group_by = "group"
 
       # Between time point correlations within subjects
       # and the mean over those correlations
-      pval <- anova(lm(correlation ~ group, data = dfs))[["Pr(>F)"]][[1]]
+      pval <- anova(lm(correlation ~ group, data = dfs))[["Pr(>F)"]][[1]]      
       stats <- dfs %>%
                  group_by(group) %>%
                  summarize(mean = mean(correlation, na.rm = T),

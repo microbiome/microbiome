@@ -2,7 +2,7 @@
 % Please edit documentation in R/radial_theta.R
 \name{radial_theta}
 \alias{radial_theta}
-\title{Radial theta function.}
+\title{Radial Theta Function}
 \usage{
 radial_theta(x)
 }
@@ -10,7 +10,10 @@ radial_theta(x)
 \item{x}{position parameter}
 }
 \description{
-Adapted from \pkg{NeatMap} and \pkg{phyloseq} packages but not exported and hence not available via phyloseq. Completely rewritten to avoid license conflicts. Vectorized to gain efficiency; only calculates theta and omits r.
+Adapted from \pkg{NeatMap} and \pkg{phyloseq} packages
+  but not exported and hence not available via phyloseq. Completely
+  rewritten to avoid license conflicts. Vectorized to gain efficiency;
+  only calculates theta and omits r.
 }
 \keyword{internal}
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/crosshyb_table.R
 \name{crosshyb_table}
 \alias{crosshyb_table}
-\title{Cross hybridization table}
+\title{Cross Hybridization Table}
 \usage{
 crosshyb_table(tax.level = "L1", selected.taxa = NULL, tax.table)
 }
@@ -17,9 +17,10 @@ crosshyb_table(tax.level = "L1", selected.taxa = NULL, tax.table)
 A list containing cross-hybridization table
 }
 \description{
-Cross-hybridization table between multimodal taxa as percentages of shared probes.
-The number indicates how many percent of oligos for the row taxon are also hybridizing the
-corresponding column taxon.
+Cross-hybridization table between multimodal taxa as
+             percentages of shared probes.
+The number indicates how many percent of oligos for the row taxon are
+also hybridizing the corresponding column taxon.
 }
 \examples{
 \dontrun{ch <- crosshyb_table(tax.level = 'L1')}

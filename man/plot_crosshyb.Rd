@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_crosshyb.R
 \name{plot_crosshyb}
 \alias{plot_crosshyb}
-\title{Plot cross-hyb table}
+\title{Plot Cross-Hyb Table}
 \usage{
 plot_crosshyb(tax.level = "L1", selected.taxa = NULL, show.plot = TRUE,
   order.rows = TRUE, order.cols = TRUE, keep.empty = FALSE,

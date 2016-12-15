@@ -1,3 +1,21 @@
+---
+title: "Ordination"
+author: "Leo Lahti"
+date: "`r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - ordination}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 ## Ordination examples
 
 Some examples with HITChip data. See also [phyloseq ordination tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html).
@@ -8,15 +26,16 @@ Load example data:
 library(microbiome)
 library(phyloseq)
 library(ggplot2)
-data(atlas1006)
-pseq <- atlas1006
+data(dietswap)
+pseq <- dietswap
 
 # Convert signal to relative abundances
-pseq.rel <- transform_phyloseq(pseq, "relative.abundance")
+pseq.rel <- transform_phyloseq(pseq, "compositional")
 
 # Pick OTUs that are present with >1 percent relative abundance 
 # in >10 percent of the samples
-pseq2 <- filter_taxa(pseq.rel, function(x) sum(x > 1) > (0.1*nsamples(pseq.rel)), TRUE)
+pseq2 <- filter_taxa(pseq.rel,
+           function(x) sum(x > 1) > (0.1*nsamples(pseq.rel)), TRUE)
 ```
 
 
@@ -35,8 +54,8 @@ proj <- plot_ordination(pseq2, pseq.ord, justDF = T)
 Then visualize the projected data:
 
 ```{r ordination4, message=FALSE, warning=FALSE, fig.width=7, fig.height=6, fig.show="hold", out.width="400px"}
-# Highlighting gender
-p <- densityplot(proj[, 1:2], col = proj$gender, legend = T)
+# Highlighting nationality
+p <- densityplot(as.matrix(proj[, 1:2]), col = proj$nationality, legend = T)
 print(p)
 
 # Projection with sample names:
@@ -65,7 +84,8 @@ p + facet_wrap(~Phylum, 5)
 ### Multidimensional scaling (MDS / PCoA)
 
 ```{r ordination-ordinate23, warning=FALSE, message=FALSE, fig.width=10, fig.height=6}
-plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") + geom_point(size = 5)
+plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") +
+                geom_point(size = 5)
 ```
 
 ### RDA
@@ -78,12 +98,14 @@ See a separate page on [RDA](RDA.md).
 
 ```{r ordination-ordinate24a, warning=FALSE, message=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
 # With samples
-p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "samples", color = "gender")
+p <- plot_ordination(pseq, ordinate(pseq, "CCA"),
+       type = "samples", color = "nationality")
 p <- p + geom_point(size = 4)
 print(p)
 
 # With taxa:
-p <- plot_ordination(pseq, ordinate(pseq, "CCA"), type = "taxa", color = "Phylum")
+p <- plot_ordination(pseq, ordinate(pseq, "CCA"),
+       type = "taxa", color = "Phylum")
 p <- p + geom_point(size = 4)
 print(p)
 ```
@@ -92,8 +114,9 @@ print(p)
 ### Split plot
 
 ```{r ordination-ordinate25, warning=FALSE, message=FALSE, fig.width=14, fig.height=5}
-plot_ordination(pseq, ordinate(pseq, "CCA"), type = "split", shape = "gender", 
-    color = "Phylum", label = "gender")
+plot_ordination(pseq, ordinate(pseq, "CCA"),
+		      type = "split", shape = "nationality", 
+    		      color = "Phylum", label = "nationality")
 ```
 
 

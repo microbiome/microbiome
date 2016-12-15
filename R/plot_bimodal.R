@@ -1,4 +1,4 @@
-#' @title Univariate bimodality plot
+#' @title Univariate Bimodality Plot
 #' @description Coloured bimodality plot.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param taxon Taxonomic group to visualize.
@@ -20,9 +20,8 @@ plot_bimodal <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1
 
   Abundance <- ..density.. <- ..x.. <- NULL
 
-  otu <- otu_table(x)@.Data
-  if (!taxa_are_rows(x)) {otu <- t(otu)}
-  
+  otu <- taxa_abundances(x)
+
   # Add small shift to avoid problems with 0
   # Take log10 to enable useful visualization
   do <- log10(shift + otu[taxon, ])
@@ -39,8 +38,8 @@ plot_bimodal <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1
   } else {
     lims <- lims
   }
-  lims[[1]] <- floor(lims[[1]])
-  lims[[2]] <- ceiling(lims[[2]])  
+  lims[[1]] <- floor(100 * lims[[1]])/100
+  lims[[2]] <- ceiling(100 * lims[[2]])/100
   lims <- lims + shift
   lim <- max(abs(lims)) 
 

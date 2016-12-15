@@ -1,5 +1,5 @@
-#' @title Bootstrap microbes
-#' @description Bootstrap method for core microbiota estimation from Salonen et al. (2012)
+#' @title Bootstrap Microbes
+#' @description Bootstrap analysis of the core microbiota.
 #' @param D data (phylotypes x samples)
 #' @param Nsample bootstrap sample size, default is the same size as data
 #' @param minPrev Lower limit for number of samples where microbe needs 

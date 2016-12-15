@@ -28,6 +28,7 @@ vignettes/.RData
 
 # Travis scripts
 .travis.yml
+.push_gh_pages.sh
 
 # Misc
 .*~

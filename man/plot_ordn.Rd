@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot-methods.R
 \name{plot_ordn}
 \alias{plot_ordn}
-\title{Ordination plot}
+\title{Ordination Plot}
 \usage{
 plot_ordn(physeq, ordination, type = "samples", axes = 1:2, color = NULL,
   shape = NULL, label = NULL, title = NULL, show.density = TRUE)
@@ -18,7 +18,11 @@ supported here. There is no default, as the expectation is that the
 ordination will be performed and saved prior to calling this plot function.}
 
 \item{type}{(Optional). The plot type. Default is \code{"samples"}. The
-currently supported options are \code{c("samples", "sites", "species", "taxa", "biplot", "split", "scree")}. The option ``taxa'' is equivalent to ``species'' in this case, and similarly, ``samples'' is equivalent to ``sites''.  The options \code{"sites"} and \code{"species"} result in a single-plot of just the 
+currently supported options are
+\code{c("samples", "sites", "species", "taxa", "biplot", "split", "scree")}.
+The option ``taxa'' is equivalent to ``species'' in this case, and
+similarly, ``samples'' is equivalent to ``sites''.  The options
+\code{"sites"} and \code{"species"} result in a single-plot of just the 
 sites/samples or species/taxa of the ordination, respectively.
 The \code{"biplot"} and \code{"split"} options result in a combined
 plot with both taxa and samples, either combined into one plot (``biplot'')
@@ -67,10 +71,12 @@ A \code{\link{ggplot}} plot object, graphically summarizing
  the ordination result for the specified axes.
 }
 \description{
-General ordination plotting.
+General visualization for ordination.
 }
 \details{
-Modified from phyloseq::plot_ordination to add some features. For useful examples of phyloseq ordination graphics, see \href{http://joey711.github.io/phyloseq/plot_ordination-examples}{phyloseq online tutorials}.
+Modified from phyloseq::plot_ordination to add some features.
+         For examples of phyloseq ordination graphics, see
+\href{http://joey711.github.io/phyloseq/plot_ordination-examples}{phyloseq online tutorials}.
 }
 \examples{
 # See other examples at
@@ -78,10 +84,11 @@ Modified from phyloseq::plot_ordination to add some features. For useful example
   data(GlobalPatterns)
   taxa <- names(sort(taxa_sums(GlobalPatterns), TRUE)[1:50])
   GP <- prune_taxa(taxa, GlobalPatterns)
-  gp_bray_pcoa = ordinate(GP, "CCA", "bray")
+  gp_bray_pcoa <- ordinate(GP, "CCA", "bray")
   plot_ordn(GP, gp_bray_pcoa, "samples", color="SampleType")
 }
 \seealso{
-Many related examples are included in the phyloseq plot_ordination page \href{http://joey711.github.io/phyloseq/plot_ordination-examples}{phyloseq online tutorials}.
+Many related examples are included in the phyloseq plot_ordination
+page \href{http://joey711.github.io/phyloseq/plot_ordination-examples}{phyloseq online tutorials}.
 }
 

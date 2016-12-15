@@ -15,6 +15,9 @@ library(sna)
 library(ggplot2)
 library(intergraph) # ggnet2 works also with igraph with this
 
+library(devtools)
+load_all()
+
 #library(rmarkdown)
 #rmarkdown::render("vignette.Rmd")
 #rmarkdown::render("Template.Rmd")
@@ -40,11 +43,15 @@ library(knitr)
 #fs <- "vignette.Rmd"
 fs <- sample(list.files(pattern = ".Rmd$"))
 knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
-for (f in fs) {
-    print(f)
-    knit(f) 
-    #rmarkdown::render(f, "md_document")
+times <- c()
+for (myfile in fs) {
+    print(myfile)
+    times[[myfile]] <- system.time(knit(myfile))[["elapsed"]]
+    #rmarkdown::render(myfile, "md_document")
 }
+
+# Time per vignette page
+par(mar = c(2, 10, 1, 1)); barplot(sort(times), horiz = T, las = 2)
 
 system("git add *.md")
 system("git add figure/*")

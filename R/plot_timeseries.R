@@ -1,4 +1,4 @@
-#' @title Longitudinal time series plot
+#' @title Longitudinal Time Series Plot
 #' @description Plot longitudinal time series.
 #' @details Assuming the sample_data(x) has 'time' field and possible
 #' subject field.

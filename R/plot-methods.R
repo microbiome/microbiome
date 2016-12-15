@@ -1,6 +1,8 @@
-#' @title Ordination plot
-#' @description General ordination plotting. 
-#' @details Modified from phyloseq::plot_ordination to add some features. For useful examples of phyloseq ordination graphics, see \href{http://joey711.github.io/phyloseq/plot_ordination-examples}{phyloseq online tutorials}.
+#' @title Ordination Plot
+#' @description General visualization for ordination.
+#' @details Modified from phyloseq::plot_ordination to add some features.
+#'          For examples of phyloseq ordination graphics, see
+#' \href{http://joey711.github.io/phyloseq/plot_ordination-examples}{phyloseq online tutorials}.
 #' @param physeq (Required). \code{\link{phyloseq-class}}. 
 #'  The data about which you want to plot and annotate the ordination.
 #' @param ordination (Required). An ordination object. Many different classes
@@ -9,7 +11,11 @@
 #'  supported here. There is no default, as the expectation is that the 
 #'  ordination will be performed and saved prior to calling this plot function.
 #' @param type (Optional). The plot type. Default is \code{"samples"}. The
-#'  currently supported options are \code{c("samples", "sites", "species", "taxa", "biplot", "split", "scree")}. The option ``taxa'' is equivalent to ``species'' in this case, and similarly, ``samples'' is equivalent to ``sites''.  The options \code{"sites"} and \code{"species"} result in a single-plot of just the 
+#'  currently supported options are
+#'  \code{c("samples", "sites", "species", "taxa", "biplot", "split", "scree")}.
+#'  The option ``taxa'' is equivalent to ``species'' in this case, and
+#'  similarly, ``samples'' is equivalent to ``sites''.  The options
+#'  \code{"sites"} and \code{"species"} result in a single-plot of just the 
 #'  sites/samples or species/taxa of the ordination, respectively.
 #'  The \code{"biplot"} and \code{"split"} options result in a combined
 #'  plot with both taxa and samples, either combined into one plot (``biplot'')
@@ -48,7 +54,8 @@
 #' @param show.density Show point density
 #' @return A \code{\link{ggplot}} plot object, graphically summarizing
 #'  the ordination result for the specified axes.
-#' @seealso Many related examples are included in the phyloseq plot_ordination page \href{http://joey711.github.io/phyloseq/plot_ordination-examples}{phyloseq online tutorials}.
+#' @seealso Many related examples are included in the phyloseq plot_ordination
+#' page \href{http://joey711.github.io/phyloseq/plot_ordination-examples}{phyloseq online tutorials}.
 #' @export
 #' @examples 
 #' # See other examples at
@@ -56,12 +63,13 @@
 #'   data(GlobalPatterns)
 #'   taxa <- names(sort(taxa_sums(GlobalPatterns), TRUE)[1:50])
 #'   GP <- prune_taxa(taxa, GlobalPatterns)
-#'   gp_bray_pcoa = ordinate(GP, "CCA", "bray")
+#'   gp_bray_pcoa <- ordinate(GP, "CCA", "bray")
 #'   plot_ordn(GP, gp_bray_pcoa, "samples", color="SampleType")
-plot_ordn = function(physeq, ordination, type="samples", axes=1:2,
-                            color=NULL, shape=NULL, label=NULL, title=NULL, show.density = TRUE){
+plot_ordn <- function(physeq, ordination, type="samples", axes=1:2,
+                      color=NULL, shape=NULL, label=NULL, title=NULL,
+		      show.density = TRUE){
 
-  x <- y <- size <- ..density.. <- extract_eigenvalue <- update_labels <- rm.na.phyloseq <- NULL
+  x <- y <- size <- ..density.. <- update_labels <- extract_eigenvalue <- rm.na.phyloseq <- NULL
 
   # Check input validity			    
   check <- plot_ordn_inputcheck(physeq, type, color, shape, label)
@@ -92,11 +100,11 @@ plot_ordn = function(physeq, ordination, type="samples", axes=1:2,
   # Point density
   if (show.density) {
     bw.adjust <- 1
-    bw <- bw.adjust * c(bandwidth.nrd(DF[[x]]), bandwidth.nrd(DF[[y]]))  
+    bw <- bw.adjust * c(bandwidth.nrd(DF[,1]), bandwidth.nrd(DF[,2]))
     p <- p + stat_density2d(aes(fill = ..density.., color = NULL, shape = NULL), geom = "raster", h = 1, contour = FALSE)
     p <- p + scale_fill_gradient(low = "white", high = "black")
   }
-  
+
   # Add points
   p <- p  + geom_point(na.rm=TRUE)
 
@@ -127,12 +135,16 @@ plot_ordn = function(physeq, ordination, type="samples", axes=1:2,
   if( !is.null(title) ){
     p <- p + ggtitle(title)
   }
-  
+
+  # FIXME extract_eigenvalue is missing often and this fails then
+  # incuding the example case.
+  skip <- TRUE # extract_eigenvalue is missing
+  if (!skip) {
   # Add fraction variability to axis labels, if available
-  if( length(extract_eigenvalue(ordination)[axes]) > 0 ){
+  if(length(extract_eigenvalue(ordination)[axes]) > 0 ){
     # Only attempt to add fraction variability
     # if extract_eigenvalue returns something
-    eigvec = extract_eigenvalue(ordination)
+    eigvec <- extract_eigenvalue(ordination)
     # Fraction variability, fracvar
     fracvar = eigvec[axes] / sum(eigvec)
     # Percent variability, percvar
@@ -144,6 +156,7 @@ plot_ordn = function(physeq, ordination, type="samples", axes=1:2,
     strivar = paste0(strivar, "   [", percvar, "%]")
     # Update the x-label and y-label
     p <- p + xlab(strivar[1]) + ylab(strivar[2])
+  }
   }
   
   # Return the ggplot object
@@ -158,21 +171,21 @@ check_variable_availability <- function (DF, color, shape, label) {
   # Check variable availability 
   if(!is.null(color)){ 
     if(!color %in% names(DF)){
-      warning("Color variable was not found in the available data you provided.",
+      warning("Color variable was not in the data you provided.",
               "No color mapped.")
       color <- NULL
     }
   }
   if(!is.null(shape)){ 
     if(!shape %in% names(DF)){
-      warning("Shape variable was not found in the available data you provided.",
+      warning("Shape variable not in the data.",
               "No shape mapped.")
       shape <- NULL
     }
   }
   if(!is.null(label)){ 
     if(!label %in% names(DF)){
-      warning("Label variable was not found in the available data you provided.",
+      warning("Label variable not in the data.",
               "No label mapped.")
       label <- NULL
     }
@@ -196,7 +209,8 @@ ordination_map <- function (DF, type, color, shape, size) {
   } else if( type %in% c("sites", "species", "split") ){
     ord_map = aes_string(x=x, y=y, color=color, shape=shape, na.rm=TRUE)
   } else if(type=="biplot"){
-    # biplot, `id.type` should try to map to color and size. Only size if color specified.
+    # biplot, `id.type` should try to map to color and size.
+    # Only size if color specified.
     if( is.null(color) ){
       ord_map = aes_string(x=x, y=y, size="id.type", color="id.type", shape=shape, na.rm=TRUE)
     } else {
@@ -357,8 +371,8 @@ plot_ordn_prepare_df <- function (ordination, axes, physeq, type, color, shape) 
   }
   if(type != "species"){
     # samples covariate data frame, `sdf`
-    sdf = NULL
-    sdf = data.frame(access(physeq, slot="sample_data"), stringsAsFactors=FALSE)
+    sdf <- NULL
+    sdf <- data.frame(sample_data(physeq), stringsAsFactors=FALSE)
     if( !is_empty(sdf) & !is_empty(siteDF) ){
       # The first two axes should always be x and y, the ordination axes.
       siteDF <- cbind(siteDF, sdf[rownames(siteDF), ])
@@ -367,7 +381,7 @@ plot_ordn_prepare_df <- function (ordination, axes, physeq, type, color, shape) 
   if(type != "sites"){
     # taxonomy data frame `tdf`
     tdf = NULL
-    tdf = data.frame(access(physeq, slot="tax_table"), stringsAsFactors=FALSE)
+    tdf = data.frame(tax_table(physeq), stringsAsFactors=FALSE)
     if( !is_empty(tdf) & !is_empty(specDF) ){
       # The first two axes should always be x and y, the ordination axes.
       specDF = cbind(specDF, tdf[rownames(specDF), ])

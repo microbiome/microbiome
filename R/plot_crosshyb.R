@@ -1,4 +1,4 @@
-#' @title Plot cross-hyb table
+#' @title Plot Cross-Hyb Table
 #' @description Cross-hybridization between multimodal taxa as percentages of shared probes. The number indicates how many percent of oligos for the row taxon are also hybridizing the corresponding column taxon.
 #' @param tax.level Taxonomic level to investigate
 #' @param selected.taxa Restrict cross-hyb analysis to the selected groups.
@@ -94,7 +94,7 @@ plot_crosshyb <- function(tax.level = "L1",
     p <- p + theme(legend.position = "none")
     
     if (show.plot) {
-        print(p)
+      print(p)
     }
     
     list(data = df[, 1:3], plot = p)

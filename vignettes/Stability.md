@@ -1,3 +1,21 @@
+---
+title: "Stability"
+author: "Leo Lahti"
+date: "2016-12-15"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - stability}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 # Microbiome stability analysis
 
 Get example data - [HITChip Atlas of 130 genus-like taxa across 1006 healthy western adults](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). A subset of 76 subjects have also short time series available for temporal stability analysis:
@@ -8,11 +26,18 @@ library(microbiome)
 data(atlas1006)
 pseq <- atlas1006
 
-# Let us keep only prevalent taxa
+# Let us keep only prevalent taxa from Bacteroides Phylum
 # (HITChip signal >3 in >20 percent of the samples)
-pseq <- filter_prevalent(pseq, detection.threshold = 10^3, prevalence.threshold = 0.2)
-```
+pseq <- subset_taxa(pseq, Phylum == "Bacteroidetes")
+pseq <- filter_prevalent(pseq, detection.threshold = 10^3, prevalence.threshold = 0.95)
 
+# Let us only consider RBB extracted samples
+pseq <- subset_samples(pseq, DNA_extraction_method == "r")
+
+# For cross-sectional analysis, include
+# only the zero time point:
+pseq0 <- subset_samples(pseq, time == 0)
+```
 
 
 ## Quantify intermediate stability 
@@ -41,15 +66,6 @@ indicator of bistability, although other explanations such as sampling
 biases etc. should be controlled. Multiple bimodality scores are
 available.
 
-Let is stick to cross-sectional analysis of bimodality and include
-only the samples from the zero time point:
-
-
-```r
-pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
-```
-
-
 Multimodality score using [potential analysis with
 bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
 
@@ -77,7 +93,7 @@ Visualize population densities
 
 ```r
 # Pick the most and least bimodal taxa as examples
-bimodality <- bimodality.pb
+bimodality <- bimodality.sarle
 unimodal <- names(which.min(bimodality))
 bimodal  <- names(which.max(bimodality))
 
@@ -103,7 +119,7 @@ The analysis suggests that bimodal population distribution across individuals is
 taxa <- taxa_names(pseq0)
 df <- data.frame(group = taxa,
                  intermediate.stability = intermediate.stability[taxa],
-		 bimodality = bimodality.pb[taxa])
+		 bimodality = bimodality[taxa])
 theme_set(theme_bw(20))
 p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
 
@@ -129,14 +145,11 @@ tipping point candidates.
 ```r
 # Pick example data
 library(phyloseq)
-library(microbiome)
-data("atlas1006")
-pseq <- atlas1006
-pseq <- subset_samples(pseq, DNA_extraction_method == "r")
-pseq <- transform_phyloseq(pseq, "relative.abundance")
+pseq <- transform_phyloseq(pseq, "compositional")
 
-# Dialister log10 relative abundance
-x <- log10(get_sample(pseq, "Dialister"))
+# Log10 for given group
+tax <- "Prevotella oralis et rel."
+x <- log10(get_sample(pseq, tax))
 
 # Potential analysis to identify potential minima
 library(earlywarnings)
@@ -149,7 +162,7 @@ print(tipping.point)
 ```
 
 ```
-## [1] 0.2491531
+## [1] 4.981252
 ```
 
 ## Variation lineplot and Bimodality hotplot
@@ -161,14 +174,13 @@ Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) 
 # Variation line plot:
 # Indicates the abundance variation range
 # for subjects with multiple time points
-pv <- plot_variation(pseq, "Dialister", tipping.point = tipping.point, xlim = c(0.01, 100))
+pv <- plot_variation(pseq, tax, tipping.point = tipping.point, xlim = c(0.01, 100))
 print(pv)
 
 # Bimodality hotplot:
 # Only consider a unique sample from each subject
 # baseline time point for density plot
-pseq.baseline <- subset_samples(pseq, time == 0)
-ph <- plot_bimodal(pseq.baseline, "Dialister", tipping.point = tipping.point)
+ph <- plot_bimodal(pseq0, tax, tipping.point = tipping.point)
 print(ph)
 ```
 
@@ -176,74 +188,23 @@ print(ph)
 
 
 
+### Potential analysis
 
-### Version information
+Potential analysis (following [Hirota et al. Science, 334, 232-235.](http://www.sciencemag.org/content/334/6053/232.long))
 
 
 ```r
-sessionInfo()
+# Create simulated example data
+X <- c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), 
+ 	           rnorm(1000, mean = 2))
+param <- seq(0,5,length=3000) 
+
+# Run potential analysis
+res <- movpotential_ews(X, param)
+
+# Visualize
+p <- plot_potential(res$res)
+print(p)
 ```
 
-```
-## R version 3.2.5 (2016-04-14)
-## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 16.04 LTS
-## 
-## locale:
-##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
-##  [3] LC_TIME=de_BE.UTF-8        LC_COLLATE=en_US.UTF-8    
-##  [5] LC_MONETARY=de_BE.UTF-8    LC_MESSAGES=en_US.UTF-8   
-##  [7] LC_PAPER=de_BE.UTF-8       LC_NAME=C                 
-##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-## [11] LC_MEASUREMENT=de_BE.UTF-8 LC_IDENTIFICATION=C       
-## 
-## attached base packages:
-##  [1] splines   stats4    grid      stats     graphics  grDevices utils    
-##  [8] datasets  methods   base     
-## 
-## other attached packages:
-##  [1] earlywarnings_1.1.22 tseries_0.10-34      tgp_2.4-14          
-##  [4] moments_0.14         ggrepel_0.5.1        gridExtra_2.2.1     
-##  [7] RColorBrewer_1.1-2   scales_0.4.0         SpiecEasi_0.1       
-## [10] VGAM_1.0-1           huge_1.2.7           igraph_1.0.1        
-## [13] lattice_0.20-33      Matrix_1.2-5         knitcitations_1.0.7 
-## [16] knitr_1.12.3         intergraph_2.0-2     sna_2.3-2           
-## [19] network_1.13.0       ggnet_0.1.0          GGally_1.0.1        
-## [22] devtools_1.11.0      limma_3.26.9         sorvi_0.7.45        
-## [25] tibble_1.0           ggplot2_2.1.0        tidyr_0.4.1         
-## [28] dplyr_0.4.3          MASS_7.3-45          netresponse_1.20.15 
-## [31] reshape2_1.4.1       mclust_5.2           minet_3.28.0        
-## [34] Rgraphviz_2.14.0     graph_1.48.0         microbiome_0.99.82  
-## [37] RSQLite_1.0.0        DBI_0.3.1            phyloseq_1.14.0     
-## 
-## loaded via a namespace (and not attached):
-##  [1] colorspace_1.2-6      dynamicTreeCut_1.63-1 som_0.3-5            
-##  [4] qvalue_2.2.2          XVector_0.10.0        AnnotationDbi_1.32.3 
-##  [7] mvtnorm_1.0-5         lubridate_1.5.6       RefManageR_0.10.13   
-## [10] codetools_0.2-14      doParallel_1.0.10     impute_1.44.0        
-## [13] ade4_1.7-4            spam_1.3-0            Formula_1.2-1        
-## [16] Cairo_1.5-9           WGCNA_1.51            cluster_2.0.4        
-## [19] GO.db_3.2.2           Kendall_2.2           httr_1.1.0           
-## [22] lazyeval_0.1.10       assertthat_0.1        formatR_1.3          
-## [25] acepack_1.3-3.3       tools_3.2.5           gtable_0.2.0         
-## [28] maps_3.1.0            Rcpp_0.12.4           Biobase_2.30.0       
-## [31] Biostrings_2.38.4     RJSONIO_1.3-0         multtest_2.26.0      
-## [34] biom_0.3.12           ape_3.4               preprocessCore_1.32.0
-## [37] nlme_3.1-127          iterators_1.0.8       lmtest_0.9-34        
-## [40] fastcluster_1.1.20    stringr_1.0.0         XML_3.98-1.4         
-## [43] zlibbioc_1.16.0       zoo_1.7-12            parallel_3.2.5       
-## [46] fields_8.3-6          memoise_1.0.0         rpart_4.1-10         
-## [49] reshape_0.8.5         latticeExtra_0.6-28   stringi_1.0-1        
-## [52] maptree_1.4-7         highr_0.5.1           S4Vectors_0.8.11     
-## [55] foreach_1.4.3         nortest_1.0-4         permute_0.9-0        
-## [58] BiocGenerics_0.16.1   boot_1.3-18           bibtex_0.4.0         
-## [61] chron_2.3-47          matrixStats_0.50.2    bitops_1.0-6         
-## [64] dmt_0.8.20            evaluate_0.8.3        labeling_0.3         
-## [67] plyr_1.8.3            magrittr_1.5          R6_2.1.2             
-## [70] IRanges_2.4.8         Hmisc_3.17-3          foreign_0.8-66       
-## [73] withr_1.0.1           mgcv_1.8-12           survival_2.39-2      
-## [76] RCurl_1.95-4.8        nnet_7.3-12           KernSmooth_2.23-15   
-## [79] data.table_1.9.6      vegan_2.3-5           digest_0.6.9         
-## [82] munsell_0.4.3         quadprog_1.5-5
-```
-
+![plot of chunk movpotential](figure/movpotential-1.png)

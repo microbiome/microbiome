@@ -2,7 +2,7 @@
 % Please edit documentation in R/foldchange.R
 \name{check_foldchange}
 \alias{check_foldchange}
-\title{Fold change for phyloseq objects}
+\title{Fold Change for phyloseq Objects}
 \usage{
 check_foldchange(x, group, sort = FALSE, paired = FALSE)
 }

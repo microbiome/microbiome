@@ -2,7 +2,7 @@
 % Please edit documentation in R/bootstrap_microbecount.R
 \name{bootstrap_microbecount}
 \alias{bootstrap_microbecount}
-\title{Bootstrap microbecount}
+\title{Bootstrap Microbe Count Data}
 \usage{
 bootstrap_microbecount(D, Nsample = NULL, minprev = 1, Nboot = 1000,
   I.thr = 1.8, ncore = 1, I.max = NULL)
@@ -29,8 +29,11 @@ median microbe count in bootstrapped cores
 Auxiliary function for bootstrap_microbes.
 }
 \examples{
-  data(peerj32)
-  tmp <- bootstrap_microbecount(t(peerj32$microbes),	Nboot = 5)
+  \dontrun{
+    library(microbiome)
+    data(peerj32)
+    tmp <- bootstrap_microbecount(t(peerj32$microbes), Nboot = 5)
+ }
 }
 \author{
 Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}

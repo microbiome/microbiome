@@ -1,4 +1,4 @@
-#' @title Plot diversity
+#' @title Plot Diversity
 #' @description Plot alpha diversity.
 #' This function estimates a number of alpha-diversity metrics using the 
 #' \code{\link{estimate_richness}} function,
@@ -38,7 +38,7 @@
 #' @keywords utilities
 plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1, scales = "free_y", det.th = 0, indicate.subjects = FALSE){ 
 
-  ends_with <- horiz <- subject <- NULL
+  horiz <- subject <- NULL
 
   # Calculate alpha-diversity measures
   erDF <- estimate_diversity(x, split = TRUE, measures = measures, det.th = det.th)
@@ -66,7 +66,7 @@ plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1
    names(DF) <- gsub(nam, paste(nam, ".diversity", sep = ""), names(DF))
   }
 
-  mdf <- gather(DF, "key", "value", ends_with(".diversity"))
+  mdf <- gather(DF, "key", "value", dplyr::ends_with(".diversity"))
   mdf$key <- gsub("\\.diversity$", "", mdf$key)
   mdf$horiz <- mdf[[variable]]
 

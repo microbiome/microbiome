@@ -2,23 +2,21 @@
 % Please edit documentation in R/core_heatmap.R
 \name{core_heatmap}
 \alias{core_heatmap}
-\title{OTU core heatmap}
+\title{Core Heatmap}
 \usage{
-core_heatmap(data, detection.thresholds = 20, palette = "gray",
-  min.prevalence = NULL, taxa.order = NULL, ncolor = 5)
+core_heatmap(data, detection.thresholds = 20, colours = gray(seq(0, 1,
+  length = 5)), min.prevalence = NULL, taxa.order = NULL)
 }
 \arguments{
 \item{data}{OTU matrix}
 
 \item{detection.thresholds}{A vector or a scalar indicating the number of intervals in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.}
 
-\item{palette}{palette for the plot.type = 'heatmap'}
+\item{colours}{colours for the heatmap}
 
 \item{min.prevalence}{If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap.}
 
 \item{taxa.order}{Ordering of the taxa.}
-
-\item{ncolor}{Number of colors to use in the palette}
 }
 \value{
 Used for its side effects

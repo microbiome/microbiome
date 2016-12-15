@@ -1,3 +1,21 @@
+---
+title: "Interactive"
+author: "Leo Lahti"
+date: "2016-12-15"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - Interactive}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
 ## Interactive plots
 
 
@@ -5,7 +23,7 @@
 library(ggplot2)
 library(rvg)
 library(ggiraph)
-x <- transform_phyloseq(atlas1006, "relative.abundance")
+x <- transform_phyloseq(atlas1006, "compositional")
 
 mytheme_main <- theme( panel.background = element_blank(), 
   panel.grid.major = element_line(colour = "#dddddd"), 

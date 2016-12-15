@@ -6,13 +6,13 @@ bibliography:
 - bibliography.bib
 - references.bib
 output: 
-  md_document:
-    variant: markdown_github
+  rmarkdown::html_vignette
 ---
 <!--
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{microbiome tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
 -->
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -61,19 +61,24 @@ for many standard tasks encountered in microbiome studies.
 
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
+* [Linear models](linearmodels.md)
 * [Pairwise comparisons](Comparisons.md)
 * [Stability, bimodality, tipping elements](Stability.md)
 * [Variability](Variability.md)
-* [Experimental](Experimental.Rmd)
+* [Experimental](Experimental.md)
+
 
 
 ### Licensing and Citations
 
 This work can be freely used, modified and distributed under the
-[Two-clause FreeBSD
-license](http://en.wikipedia.org/wiki/BSD\_licenses). Kindly cite as
-'Leo Lahti and Jarkko Salojarvi (2014-2016). microbiome R
-package. URL: http://microbiome.github.com'.
+[Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
+
+Kindly cite this work as follows:
+
+```{r sotkanetIndicators, warning=FALSE, message=FALSE, eval=TRUE}
+citation('microbiome')
+```
 
 
 ### Dependencies

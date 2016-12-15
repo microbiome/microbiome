@@ -1,3 +1,20 @@
+---
+title: "HITChip Atlas"
+author: "Leo Lahti, Willem M de Vos et al."
+date: "`r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - atlas}
+  %\usepackage[utf8]{inputenc}
+-->
+
+
 ## Intestinal microbiota diversity in 1006 western adults
 
 The data set from [Lahti et al. Nat. Comm. 5:4344,
@@ -22,7 +39,6 @@ pseq <- atlas1006
 ```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
 library(phyloseq)
 div <- estimate_diversity(pseq, measures = c("Observed", "Shannon", "Simpson"))
-
 library(knitr)
 kable(head(div))
 ```
@@ -38,14 +54,8 @@ print(p)
 
 ### Diversity vs. age
 
-```{r atlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/"}
-# Pick the subset of RBB-preprocessed samples from time point 0
-pseq <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")
-
-# Visualize
-library(sorvi)
-p <- sorvi::plot_regression(diversity~age, sample_data(pseq))
-print(p)
+```{r atlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/", eval=FALSE}
+plot_regression(diversity~age, sample_data(pseq))
 ```
 
 

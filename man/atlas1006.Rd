@@ -3,16 +3,20 @@
 \docType{data}
 \name{atlas1006}
 \alias{atlas1006}
-\title{HITChip Atlas data (n = 1006)}
+\title{HITChip Atlas with 1006 Western Adults}
 \format{The data set in \code{\link{phyloseq-class}} format.}
 \usage{
 data(atlas1006)
 }
 \description{
-This data set contains genus-level microbiota profiling with HITChip for 1006 western adults with no reported health complications, reported in Lahti et al. (2014) \url{http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html}.
+This data set contains genus-level microbiota profiling with
+   HITChip for 1006 western adults with no reported health complications,
+   reported in Lahti et al. (2014)
+\url{http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html}.
 }
 \details{
-The data is also available for download from the Data Dryad repository \url{http://doi.org/10.5061/dryad.pk75d}.
+The data is also available for download from the Data Dryad
+  \url{http://doi.org/10.5061/dryad.pk75d}.
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}

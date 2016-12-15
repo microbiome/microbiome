@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_bimodal.R
 \name{plot_bimodal}
 \alias{plot_bimodal}
-\title{Univariate bimodality plot}
+\title{Univariate Bimodality Plot}
 \usage{
 plot_bimodal(x, taxon, tipping.point = NULL, lims = NULL, shift = 0.001)
 }

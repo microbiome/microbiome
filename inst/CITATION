@@ -7,29 +7,12 @@ citEntry(entry="misc",
 	 	person(given ="Jarkko", family="Salojarvi")
 	 	  ),
 	 journal = "",
-	 year = "2012",
+	 year = "2012-2016",
          textVersion =
-         paste("Leo Lahti and Jarkko Salojarvi (University of Helsinki / Wageningen University 2012).",
-               "microbiome R package",
-               sep=" ")
+         paste("Leo Lahti and Jarkko Salojarvi. 
+	        microbiome R package. 
+	        URL: http://microbiome.github.io",
+                sep=" ")
          )
 
-
-citEntry(entry="misc",
-         title = "Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data",
-         author = personList(
-	 	person(given ="Leo", family="Lahti", email = "leo.lahti@iki.fi"),
-	 	person(given ="Anne", family="Salonen"),
-	 	person(given ="Riina", family="Kekkonen"),
-	 	person(given ="Jarkko", family="Salojarvi"),
-	 	person(given ="Jonna", family="Jalanka-Tuovinen"),
-	 	person(given ="Airi", family="Palva"),
-	 	person(given ="Matej", family="Oresic"),
-	 	person(given ="Willem", family="de Vos")
-	 	  ),
-	 journal = "PeerJ",
-	 year = "2013",
-         textVersion = "L. Lahti et al. Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data. PeerJ 1:e32, 2013. URL: http://dx.doi.org/10.7717/peerj.32"
-
-         )
 

@@ -1,60 +1,82 @@
+---
+title: "Core"
+author: "Leo Lahti"
+date: "`r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - core}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
 ### Prevalence of taxonomic groups
 
+Load example data:
 
-```{r core-prevalence, fig.path = "figure/"}
-# Load example data
+```{r core-prevalence}
 library(microbiome)
 data("peerj32")
 pseq <- peerj32$phyloseq
 
 # Calculate relative abundances
-pseq.rel <- transform_phyloseq(pseq, "relative.abundance", "OTU")
+pseq.rel <- transform_phyloseq(pseq, "compositional", "OTU")
 ```
 
 
-List prevalence for each group at 1 percent relative abundance abundance threshold:
+Taxa prevalences (population frequency) at 1% relative abundance abundance threshold:
 
-```{r core-prevalence2, fig.path = "figure/"}
-head(prevalence(pseq.rel, detection.threshold = 1, sort = FALSE))
+```{r core-prevalence2}
+head(prevalence(pseq.rel, detection.threshold = 1, sort = TRUE))
 ```
 
 
-List the taxa that are present at the given detection threshold (1% relative abundance) at a given prevalence (80%) (fraction of the samples):
+Alternatively, return the corresponding sample count instead of population frequency (relative = FALSE):
 
-```{r core-prevalence3, fig.path = "figure/"}
-prevalent.taxa <- prevalent_taxa(pseq.rel, detection.threshold = 1, prevalence.threshold = 80)
+```{r core-prevalence2b}
+head(prevalence(pseq.rel, detection.threshold = 1, sort = TRUE, relative = FALSE))
 ```
+
 
 
 ### Core microbiota
 
-Determine core microbiota with the [blanket
-analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract)
-based on various signal and prevalence thresholds. See also the the
-bootstrap_microbes function.
- 
-```{r core-example, message=FALSE, warning=FALSE, fig.path = "figure/"}
-det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
-prev <- seq(10, 100, 10)
-core <- core_matrix(pseq.rel, prevalence.intervals = prev, detection.thresholds = det)
+Core taxa above a given detection and prevalence thresholds:
+
+```{r core-members, message=FALSE, warning=FALSE}
+core.taxa <- core(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
 ```
+
+Total core abundance:
+
+```{r core-ab, message=FALSE, warning=FALSE}
+core.abundance <- core_abundance(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
+```
+
 
 ### Core 2D line plots
 
-```{r core-example2, fig.width=8, fig.heigth=6, fig.show='hold', out.width="430px"}
+Determine core microbiota across various abundance/prevalence
+thresholds with the [blanket
+analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) based on various signal and prevalence thresholds. See also the the
+bootstrap_microbes function.
+
+```{r core-example2, fig.width=9, fig.heigth=6, fig.show='hold', out.width="430px"}
 # With absolute read counts
 det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 1e4)
-res <- plot_core(pseq, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
-res$plot + xlab("Abundance (OTU read count)")
+prevalence.intervals <- seq(5, 100, 5)
+p <- plot_core(pseq, prevalence.intervals = prevalence.intervals, detection.thresholds = det, plot.type = "lineplot")
+p + xlab("Abundance (OTU read count)")
 
 # With relative abundances
 det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
-res <- plot_core(pseq.rel, prevalence.intervals = prev, detection.thresholds = det, plot.type = "lineplot")
-res$plot + xlab("Relative Abundance (%)")
-
-# Retrieve the core count data matrix
-coremat <- res$data
-print(coremat)
+p <- plot_core(pseq.rel, prevalence.intervals = prevalence.intervals, detection.thresholds = det, plot.type = "lineplot")
+p + xlab("Relative Abundance (%)")
 ```
 
 
@@ -64,49 +86,39 @@ print(coremat)
 # Core with relative abundances:
 prevalence.intervals <- seq(5, 100, 5)
 detection.thresholds <- 10^seq(log10(1e-3), log10(20), length = 20)
+
 # Also define gray color palette
-gray <- colorRampPalette(gray(c(0,1)))
-res <- plot_core(pseq.rel, plot.type = "heatmap", palette = gray,
+gray <- gray(seq(0,1,length=5))
+p <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray,
     prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
-print(res$plot + xlab("Detection Threshold (Relative Abundance (%))"))
+print(p + xlab("Detection Threshold (Relative Abundance (%))"))
 
-res <- plot_core(pseq.rel, plot.type = "heatmap", palette = gray, ncolor = 5,
-    prevalence.intervals = prevalence.intervals, detection.thresholds = detection.thresholds) 
-
-# Core with absolute counts:
-prevalence.intervals = seq(5, 100, 5)
+# Core with absolute counts and horizontal view:
 detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)		 
-plot_core(pseq, plot.type = "heatmap", palette = gray,
+plot_core(pseq, plot.type = "heatmap", colours = gray,
        		 prevalence.intervals = prevalence.intervals,
        		 detection.thresholds = detection.thresholds,
-		 min.prevalence = NULL)$plot
+		 min.prevalence = NULL, horizontal = TRUE)
 ```
 
 
 Zoom in on the core region by filtering out rows and columns not passing min prevalence (given as percentages):
 
 ```{r core-example3bb, fig.width=8, fig.heigth=15, fig.path = "figure/", fig.show='hold', out.width='430px'}
-res <- plot_core(pseq, plot.type = "heatmap", palette = gray,
+p <- plot_core(pseq, plot.type = "heatmap", colours = gray,
                  prevalence.intervals = prevalence.intervals,
 		 detection.thresholds = detection.thresholds,
 		 min.prevalence = 10)
-print(res$plot)		 
+print(p)		 
 
 
 library(RColorBrewer)
-res <- plot_core(pseq, plot.type = "heatmap",
-                 palette = colorRampPalette(rev(brewer.pal(11, "Spectral"))),
+p <- plot_core(pseq, plot.type = "heatmap",
+		 colours = rev(brewer.pal(5, "Spectral")),
                  prevalence.intervals = prevalence.intervals,
 		 detection.thresholds = detection.thresholds,
 		 min.prevalence = 0)		 
-print(res$plot)		 
+print(p)
 ```
 
-
-Retrieve the core prevalence data matrix
-
-```{r core-example4, fig.width=8, fig.heigth=13, fig.path = "figure/"}
-prevalences <- res$data
-kable(head(prevalences))
-```
 

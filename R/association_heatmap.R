@@ -1,16 +1,16 @@
-#' @title Correlation heatmap
-#' @description Visualizes n x m correlation table as heatmap. 
-#' @param df Data frame. Each row corresponds to a pair of correlated 
-#'           variables. The columns give variable names, correlations and 
+#' @title Association Heatmap
+#' @description Visualizes n x m association table as heatmap. 
+#' @param df Data frame. Each row corresponds to a pair of associated 
+#'           variables. The columns give variable names, association scores and 
 #'           significance estimates.
 #' @param Xvar X axis variable column name. For instance 'X'.
 #' @param Yvar Y axis variable column name. For instance 'Y'.
 #' @param fill Column to be used for heatmap coloring. 
-#'             For instance 'correlation'.
+#'             For instance 'association'.
 #' @param star Column to be used for cell highlighting. For instance 'p.adj'.
 #' @param p.adj.threshold Significance threshold for the stars.
-#' @param correlation.threshold Include only elements that have absolute 
-#'                         	correlation higher than this value
+#' @param association.threshold Include only elements that have absolute 
+#'                         	association higher than this value
 #' @param step color interval
 #' @param colours heatmap colours
 #' @param limits colour scale limits
@@ -27,19 +27,20 @@
 #'   data(peerj32)
 #'   d1 <- peerj32$lipids[, 1:10]
 #'   d2 <- peerj32$microbes[, 1:10]
-#'   cc <- cross.correlate(d1, d2) 
-#'   p <- correlation_heatmap(cc, 'X1', 'X2', 'Correlation')
+#'   cc <- cross_correlate(d1, d2, method = "pearson") 
+#'   p <- association_heatmap(cc, 'X1', 'X2', 'Association', star = "p.adj")
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-correlation_heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj", 
+association_heatmap <- function(df, Xvar, Yvar, fill, star, 
                             p.adj.threshold = 1, 
-                            correlation.threshold = 0, step = 0.2, 
-              colours = c("darkblue", "blue", "white", "red", "darkred"), 
+                            association.threshold = 0, step = 0.2, 
+               colours = c("darkblue", "blue", "white", "red", "darkred"), 
                limits = NULL, legend.text = "", 
                order.rows = TRUE, order.cols = TRUE, 
-    text.size = 10, filter.significant = TRUE, star.size = NULL, plot.values = FALSE) {
+    	       text.size = 10, filter.significant = TRUE, star.size = NULL,
+	       plot.values = FALSE) {
     
     if (is.null(limits)) {
         maxval <- max(abs(df[[fill]]))
@@ -50,24 +51,22 @@ correlation_heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj",
         }
     }
     
-    
     if (nrow(df) == 0) {
         warning("Input data frame is empty.")
         return(NULL)
     }
-    
+
     if (filter.significant) {
         keep.X <- as.character(unique(df[((df[[star]] < p.adj.threshold) 
                      & (abs(df[[fill]]) > 
-            correlation.threshold)), Xvar]))
+            association.threshold)), Xvar]))
         keep.Y <- as.character(unique(df[((df[[star]] < p.adj.threshold) 
                      & (abs(df[[fill]]) > 
-            correlation.threshold)), Yvar]))
+            association.threshold)), Yvar]))
         df <- df[((df[[Xvar]] %in% keep.X) & (df[[Yvar]] %in% keep.Y)), ]
     }
-    
-    theme_set(theme_bw(text.size))
-    
+
+    theme_set(theme_bw(text.size))    
     if (any(c("XXXX", "YYYY", "ffff") %in% names(df))) {
         stop("XXXX, YYYY, ffff are not allowed in df")
     }
@@ -85,15 +84,19 @@ correlation_heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj",
         rownames(mat) <- rnams
         colnames(mat) <- cnams
         for (i in 1:nrow(df)) {
+
             mat[as.character(df[i, Xvar]), 
                 as.character(df[i, Yvar])] <- df[i, fill]
+
         }
         
         rind <- 1:nrow(mat)
         cind <- 1:ncol(mat)
         if (nrow(mat) > 1 && ncol(mat) > 1) {
-	    rind <- hclust(as.dist(1-cor(t(mat), use = "pairwise.complete.obs")))$order
-	    cind <- hclust(as.dist(1-cor(mat, use = "pairwise.complete.obs")))$order
+	  rind <- hclust(as.dist(1-cor(t(mat),
+	       use = "pairwise.complete.obs")))$order
+	  cind <- hclust(as.dist(1-cor(mat,
+	       use = "pairwise.complete.obs")))$order
 
         }
         if (ncol(mat) > 1 && nrow(mat) == 1) {
@@ -133,7 +136,7 @@ correlation_heatmap <- function(df, Xvar, Yvar, fill, star = "p.adj",
     
     # Mark significant cells with stars
     inds <- which((df[[star]] < p.adj.threshold) 
-        & (abs(df[[fill]]) > correlation.threshold))
+        & (abs(df[[fill]]) > association.threshold))
     if (!is.null(star) & length(inds) > 0) {
         df.sub <- df[inds, ]
         

@@ -1,3 +1,20 @@
+---
+title: "Heatmaps"
+author: "Leo Lahti"
+date: "2016-12-15"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - heatmap}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
 ## Heatmaps
 
 See [Composition](Composition.md) page for phyloseq microbiota composition heatmaps. Load some example data:
@@ -101,13 +118,13 @@ kable(head(correlation.table))
 |437 |Ruminococcus gnavus et rel.      |TG(50:4)   |   0.6852226| 0.0038006|
 |525 |Ruminococcus gnavus et rel.      |TG(52:4).1 |   0.6716223| 0.0038006|
 
-### Correlation heatmaps
+### Association heatmaps
 
 Rearrange the data and plot the heatmap and mark significant correlations with stars to reproduce microbiota-lipidome heatmap from [this article](https://peerj.com/articles/32/) (the ordering of rows and columns may be different): 
 
 
 ```r
-p <- correlation_heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
+p <- association_heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
 ```
 
 ```r
@@ -182,6 +199,23 @@ print(p)
 ```
 
 ![plot of chunk heatmap-example-text](figure/heatmap-example-text-1.png)
+
+### ggcorr
+
+An alternative way to visualize correlation matrices is provided by the [ggcorr package](https://briatte.github.io/ggcorr/). Note: this toy example does not consider the compositionality effect in microbial abundance correlations. See the package site for more detailed examples and many more options.
+
+
+```r
+library(GGally)
+ggcorr(x[, 1:10], method = c("pairwise", "spearman"), nbreaks = 20, hjust = 0.75)
+ggcorr(x[, 1:10], method = c("pairwise", "spearman"), nbreaks = 20, geom = "circle")
+ggcorr(x[, 1:10], method = c("pairwise", "spearman"), nbreaks = 20, label = TRUE, label_alpha = TRUE)
+ggcorr(data = NULL, cor_matrix = cor(x[, 1:10], use = "everything"), low = "steelblue", mid = "white", high = "darkred", midpoint = 0)
+```
+
+<img src="figure/ggcorr1-1.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" /><img src="figure/ggcorr1-2.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" /><img src="figure/ggcorr1-3.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" /><img src="figure/ggcorr1-4.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" />
+
+
 
 ### Links
 
