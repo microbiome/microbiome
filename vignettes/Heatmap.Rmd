@@ -98,12 +98,12 @@ correlation.table <- cmat2table(correlations)
 kable(head(correlation.table))
 ```
 
-### Correlation heatmaps
+### Association heatmaps
 
 Rearrange the data and plot the heatmap and mark significant correlations with stars to reproduce microbiota-lipidome heatmap from [this article](https://peerj.com/articles/32/) (the ordering of rows and columns may be different): 
 
 ```{r heatmap-example-stars2, message=FALSE, warning=FALSE, fig.keep='none', fig.path = "figure/"}
-p <- correlation_heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
+p <- association_heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
 ```
 ```{r heatmap-example-stars3, fig.width=12, fig.height=8, message=FALSE, warning=FALSE, fig.path = "figure/"}
 print(p)
