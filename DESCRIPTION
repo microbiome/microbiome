@@ -5,6 +5,7 @@ Encoding: UTF-8
 Version: 0.99.88
 Authors@R: c(
     person("Leo", "Lahti", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
+    person("Tineka", "Blake", role = "ctb"),
     person("Jarkko", "Salojarvi", role = "ctb"))
 biocViews: Microarray, Preprocessing, SystemsBiology, Visualization,
     Microbiome, Clustering
