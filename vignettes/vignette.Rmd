@@ -1,6 +1,6 @@
 ---
 title: "microbiome vignette"
-author: "Leo Lahti and Jarkko Salojarvi"
+author: "Leo Lahti, Tineka Blake and Jarkko Salojarvi"
 date: "`r Sys.Date()`"
 bibliography: 
 - bibliography.bib
