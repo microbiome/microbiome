@@ -62,7 +62,7 @@ transform_phyloseq <- function (x, transformation = "compositional",
     d <- apply(compositions::clr(a), 2, identity)
     rownames(d) <- sample_names(xt)
     colnames(d) <- taxa_names(xt)	        
-    xt@otu_table@.Data <- d
+    xt@otu_table@.Data <- t(d)
 
   } else if (transformation == "log10") {
   
