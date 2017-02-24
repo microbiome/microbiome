@@ -7,12 +7,6 @@ microbiome R package (beta)
 <!--[![Follow](https://img.shields.io/twitter/follow/ropengov.svg?style=social)](https://twitter.com/intent/follow?screen_name=ropengov)-->
 
 
-
- * Main developer: [Leo Lahti](https://github.com/antagomir/); Contributors: Jarkko Salojärvi
- * License: BSD-2-clause
- * [Issue Tracker](https://github.com/microbiome/microbiome/issues) 
- * Subscribe to the [mailing list](https://groups.google.com/forum/#!forum/microbiome-devel) (microbiome-devel@googlegroups.com)
-
 The microbiome R package provides tools for the exploration and
 analysis of microbiome profiling data. It is an independent package
 that extends the capabilities of the
@@ -26,9 +20,26 @@ feedback, suggestions and bug reports are welcome.
 See the package [vignette](vignettes/vignette.md).
 
 
+### Contribute
+
+Contributions are very welcome:
+
+  * [Issue Tracker](https://github.com/microbiome/microbiome/issues) 
+  * [Pull requests](https://github.com/microbiome/microbiome/)
+  * Subscribe to the [mailing list](https://groups.google.com/forum/#!forum/microbiome-devel) (microbiome-devel@googlegroups.com)
+  * [Star us on the Github page](https://github.com/microbiome/microbiome)
+
+Kindly cite this work as follows:
+
+```{r cite, warning=FALSE, message=FALSE, eval=TRUE}
+citation('microbiome')
+```
+
 ### Publications using the microbiome package
 
 The list is not exhaustive. 
+
+[Metagenomics meets time series analysis: unraveling microbial community dynamics](http://dx.doi.org/10.1016/j.mib.2015.04.004) Karoline Faust, Leo Lahti, Didier Gonze, Willem M de Vos, Jeroen Raes. _Current Opinion in Microbiology_ 15:56-66 2015.
 
 [Tipping elements in the human intestinal ecosystem](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) Leo Lahti, Jarkko Salojärvi, Anne Salonen, Marten Scheffer, Willem M. de Vos. _Nature Communications_ 5:4344, 2014. 
 
@@ -46,6 +57,8 @@ _Nature Communications_ 6:6342, 2015.
 
 
 ### Acknowledgements
+
+Author: [Leo Lahti](https://github.com/antagomir/); [Contributors](https://github.com/microbiome/microbiome/graphs/contributors): Jarkko Salojärvi, Tineka Blake. 
 
 The project has been supported by the following bodies:
 
