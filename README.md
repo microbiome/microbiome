@@ -29,28 +29,9 @@ Contributions are very welcome:
   * Subscribe to the [mailing list](https://groups.google.com/forum/#!forum/microbiome-devel) (microbiome-devel@googlegroups.com)
   * [Star us on the Github page](https://github.com/microbiome/microbiome)
 
-Kindly cite this work as follows:
+Kindly cite this work as follows: Leo Lahti et al. (2017) microbiome R
+package. URL: http://microbiome.github.io
 
-
-```r
-citation('microbiome')
-```
-
-```
-## 
-## Please cite the package as follows:
-## 
-##   Leo Lahti et al.  microbiome R package.  URL:
-##   http://microbiome.github.io
-## 
-## A BibTeX entry for LaTeX users is
-## 
-##   @Misc{,
-##     title = {microbiome R package},
-##     author = {Leo Lahti and Tineka Blake and Jarkko Salojarvi},
-##     year = {2012-2017},
-##   }
-```
 
 ### Publications using the microbiome package
 
@@ -81,7 +62,7 @@ Author: [Leo Lahti](https://github.com/antagomir/)
 
 The project has been supported by the following bodies:
 
-  * Academy of Finland (grants 256950 and 295741)
+  * Academy of Finland (grants [256950](http://webfocus.aka.fi/ibi_apps/WFServlet?IBIF_ex=x_HakKuvaus&CLICKED_ON=&HAKNRO1=256950&UILANG=en) and [295741](http://webfocus.aka.fi/ibi_apps/WFServlet?IBIF_ex=x_HakKuvaus&CLICKED_ON=&HAKNRO1=295741&UILANG=en&IBIAPP_app=aka_ext&TULOSTE=HTML))
   * [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics
   * [VIB lab for Bioinformatics and (eco-)systems biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx), VIB/KULeuven, Belgium
   * [Molecular Ecology group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology, Wageningen University, Netherlands

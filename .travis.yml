@@ -27,10 +27,11 @@ r_github_packages:
 env:
   global:
   - WARNINGS_ARE_ERRORS=1
-  - R_BUILD_ARGS="--no-manual"
-  - R_CHECK_ARGS="--no-manual --as-cran"
+  - R_BUILD_ARGS="--no-manual --no-vignettes"
+  - R_CHECK_ARGS="--no-manual --no-vignettes --as-cran"
   - GITHUB_REPO: microbiome/microbiome
   - secure: kivwIFvX65gp1xOYQyfdXwr4/FuUFfS27Aqug19K7euNbz8oEuwDiIId+VNBdiTJ+Wyn267gepf/Uc9cqyimvx4d+r2LMveNTBhAfN5cXt3gqEzqszZYwWlTbBojHsz03LMDgzNtEXto98KCB8zaghAP2Zdq42RBjuzGa28F650=
+
 before_install:
 - pip install --user codecov
 - chmod 755 ./.push_gh_pages.sh
