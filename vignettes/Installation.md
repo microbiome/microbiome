@@ -1,100 +1,76 @@
----
-title: "Installation"
-author: "Leo Lahti"
-date: "2016-12-15"
-bibliography: 
-- bibliography.bib
-- references.bib
-output: 
-  rmarkdown::html_vignette
----
 <!--
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{microbiome tutorial - Installation}
   %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}  
 -->
-
-
 ### Installing R
 
-**If you do not already have R/RStudio installed**, do the
-following. 
+**If you do not already have R/RStudio installed**, do the following.
 
-  1. Install [R](http://www.r-project.org/) 
-  1. Consider installing [RStudio](http://rstudio.org); GUI for R
-  1. With Windows, install [RTools](http://cran.r-project.org/bin/windows/Rtools/) (version corresponding to your R version)
-
+1.  Install [R](http://www.r-project.org/)
+2.  Consider installing [RStudio](http://rstudio.org); GUI for R
+3.  With Windows, install
+    [RTools](http://cran.r-project.org/bin/windows/Rtools/) (version
+    corresponding to your R version)
 
 ### Install dependencies
 
 Open R and install dependencies from the Tools panel, or run the
 following commands:
 
+    source("http://www.bioconductor.org/biocLite.R")
+    biocLite("ade4")
+    biocLite("fastcluster")
+    biocLite("devtools")
+    biocLite("ggplot2")
+    biocLite("Matrix")
+    biocLite("minet")
+    biocLite("mixOmics")
+    biocLite("dplyr")
+    biocLite("qvalue")
+    biocLite("reshape2")
+    biocLite("vegan")
+    biocLite("phyloseq")
+    biocLite("rpart")
 
-```r
-source("http://www.bioconductor.org/biocLite.R")
-biocLite("ade4")
-biocLite("fastcluster")
-biocLite("devtools")
-biocLite("ggplot2")
-biocLite("Matrix")
-biocLite("minet")
-biocLite("mixOmics")
-biocLite("dplyr")
-biocLite("qvalue")
-biocLite("reshape2")
-biocLite("vegan")
-biocLite("phyloseq")
-biocLite("rpart")
-```
-
-If some of these installations fail, ensure from the RStudio tools
-panel that you have access to CRAN and Bioconductor repositories. If
-you cannot install some packages, some functionality in microbiome may
-not work.
-
+If some of these installations fail, ensure from the RStudio tools panel
+that you have access to CRAN and Bioconductor repositories. If you
+cannot install some packages, some functionality in microbiome may not
+work.
 
 ### Install/update the microbiome package
 
 To install microbiome package and recommended dependencies, run in R:
 
-
-```r
-library(devtools) # Load the devtools package
-install_github("microbiome/microbiome") # Install the package
-install_github("ropensci/rdryad") # Install proposed package
-install_github("antagomir/netresponse") # Install proposed package
-```
+    library(devtools) # Load the devtools package
+    install_github("microbiome/microbiome") # Install the package
+    install_github("ropensci/rdryad") # Install proposed package
+    install_github("antagomir/netresponse") # Install proposed package
 
 ### Loading the package
 
 Once the package has been installed, you can load it in R with:
 
+    library(microbiome)  
 
-```r
-library(microbiome)  
-```
+See further usage examples in [microbiome
+tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
-See further usage examples in [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
+General installation instructions
+---------------------------------
 
+R packages are maintained in three distinct repositories: CRAN,
+Bioconductor and Github. You need to somehow find out which repository
+your desired package is in, or just try out the three alternatives:
 
+    # Installing from Bioconductor
+    source("http://www.bioconductor.org/biocLite.R")
+    biocLite("MASS")
 
-## General installation instructions
+    # Installing from CRAN
+    install.packages("sorvi")
 
-R packages are maintained in three distinct repositories: CRAN, Bioconductor and Github. You need to somehow find out which repository your desired package is in, or just try out the three alternatives:
-
-
-```r
-# Installing from Bioconductor
-source("http://www.bioconductor.org/biocLite.R")
-biocLite("MASS")
-
-# Installing from CRAN
-install.packages("sorvi")
-
-# Installing from Github
-library(devtools)
-install_github("antagomir/netresponse")
-```
-
+    # Installing from Github
+    library(devtools)
+    install_github("antagomir/netresponse")

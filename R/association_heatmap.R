@@ -28,7 +28,7 @@
 #'   d1 <- peerj32$lipids[, 1:10]
 #'   d2 <- peerj32$microbes[, 1:10]
 #'   cc <- cross_correlate(d1, d2, method = "pearson") 
-#'   p <- association_heatmap(cc, 'X1', 'X2', 'Association', star = "p.adj")
+#'   p <- association_heatmap(cc, 'X1', 'X2', 'Correlation', star = "p.adj")
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

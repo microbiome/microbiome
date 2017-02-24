@@ -1,118 +1,88 @@
----
-title: "Networks"
-author: "Leo Lahti"
-date: "2016-12-15"
-bibliography: 
-- bibliography.bib
-- references.bib
-output: 
-  rmarkdown::html_vignette
----
 <!--
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{microbiome tutorial - networks}
   %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}  
 -->
-
-
-## Networks
+Networks
+--------
 
 Load example data:
 
+    library(microbiome)
+    data("dietswap")
+    pseq <- dietswap
 
-```r
-library(microbiome)
-data("dietswap")
-pseq <- dietswap
-```
+For more network examples, see [phyloseq
+tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
 
-For more network examples, see
-[phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
+    ig <- make_network(pseq, max.dist = 0.2)
+    plot_network(ig, pseq, color = "nationality", shape = "group",
+             line_weight = 0.4, label = "sample")
 
-
-```r
-ig <- make_network(pseq, max.dist = 0.2)
-plot_network(ig, pseq, color = "nationality", shape = "group",
-		 line_weight = 0.4, label = "sample")
-```
-
-![plot of chunk networks2](figure/networks2-1.png)
+![](Networks_files/figure-markdown_strict/networks2-1.png)
 
 Another example:
 
+    plot_net(pseq, maxdist = 0.2, point_label = "group")
 
-```r
-plot_net(pseq, maxdist = 0.2, point_label = "group")
-```
-
-![plot of chunk networks3](figure/networks3-1.png)
+![](Networks_files/figure-markdown_strict/networks3-1.png)
 
 ### Network reconstruction for compositional data
 
 Also the SparCC implementation is available via the [SpiecEasi
 package](https://github.com/zdk123/SpiecEasi). The execution is slow.
 
+    library(SpiecEasi) #install_github("zdk123/SpiecEasi")
+    library(phyloseq)
+    otu <- t(get_sample(pseq))
 
+    # SPIEC-EASI network reconstruction
+    # In practice, use more repetitions
+    net <- spiec.easi(otu, method='mb', lambda.min.ratio=1e-2, 
+                      nlambda=20, icov.select.params=list(rep.num=20))
 
-```r
-library(SpiecEasi) #install_github("zdk123/SpiecEasi")
-library(phyloseq)
-otu <- t(get_sample(pseq))
+    ## Create graph object
+    n <- net$refit
+    colnames(n) <- rownames(n) <- colnames(otu)
 
-# SPIEC-EASI network reconstruction
-# In practice, use more repetitions
-net <- spiec.easi(otu, method='mb', lambda.min.ratio=1e-2, 
-                  nlambda=20, icov.select.params=list(rep.num=20))
+    # Network format
+    library(network)
+    netw <- network(as.matrix(n), directed = FALSE)
 
-## Create graph object
-n <- net$refit
-colnames(n) <- rownames(n) <- colnames(otu)
+    # igraph format
+    library(igraph)
+    ig <- graph.adjacency(n, mode='undirected', add.rownames = TRUE)
 
-# Network format
-library(network)
-netw <- network(as.matrix(n), directed = FALSE)
+    ## set size of vertex to log2 mean abundance 
+    vsize <- log2(apply(otu, 2, mean))
 
-# igraph format
-library(igraph)
-ig <- graph.adjacency(n, mode='undirected', add.rownames = TRUE)
+    # Network layout
+    coord <- layout.fruchterman.reingold(ig)
 
-## set size of vertex to log2 mean abundance 
-vsize <- log2(apply(otu, 2, mean))
+    # Visualize the network
+    plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize))
 
-# Network layout
-coord <- layout.fruchterman.reingold(ig)
+![](Networks_files/figure-markdown_strict/networks4-1.png)
 
-# Visualize the network
-plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize))
-```
-
-![plot of chunk networks4](figure/networks4-1.png)
-
-```r
-# Check degree distribution
-#dd <- degree.distribution(ig)
-#plot(0:(length(dd)-1), dd, ylim=c(0,.35), type='b', 
-#      ylab="Frequency", xlab="Degree", main="Degree Distributions")
-```
-
+    # Check degree distribution
+    #dd <- degree.distribution(ig)
+    #plot(0:(length(dd)-1), dd, ylim=c(0,.35), type='b', 
+    #      ylab="Frequency", xlab="Degree", main="Degree Distributions")
 
 Visualize the network with [ggnet2](https://briatte.github.io/ggnet):
 
+    library(GGally)
+    library(ggnet)
+    library(network)
+    library(sna)
+    library(ggplot2)
+    library(intergraph) # ggnet2 works also with igraph with this
 
-```r
-library(GGally)
-library(ggnet)
-library(network)
-library(sna)
-library(ggplot2)
-library(intergraph) # ggnet2 works also with igraph with this
+    phyla <- map_levels(colnames(otu), from = "Genus", to = "Phylum",
+               tax_table(pseq))
+    netw %v% "Phylum" <- phyla
+    p <- ggnet2(netw, color = "Phylum", label = TRUE, label.size = 2)
+    print(p)
 
-phyla <- map_levels(colnames(otu), from = "Genus", to = "Phylum",
-           tax_table(pseq))
-netw %v% "Phylum" <- phyla
-p <- ggnet2(netw, color = "Phylum", label = TRUE, label.size = 2)
-print(p)
-```
-
-![plot of chunk networks5](figure/networks5-1.png)
+![](Networks_files/figure-markdown_strict/networks5-1.png)
