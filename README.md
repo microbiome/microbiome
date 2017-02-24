@@ -38,19 +38,17 @@ citation('microbiome')
 
 ```
 ## 
-## To cite package 'microbiome' in publications use:
+## Please cite the package as follows:
 ## 
-##   Leo Lahti (2017). microbiome: Tools for microbiome analysis. R
-##   package version 0.99.90. http://microbiome.github.com
+##   Leo Lahti et al.  microbiome R package.  URL:
+##   http://microbiome.github.io
 ## 
 ## A BibTeX entry for LaTeX users is
 ## 
-##   @Manual{,
-##     title = {microbiome: Tools for microbiome analysis},
-##     author = {Leo Lahti},
-##     year = {2017},
-##     note = {R package version 0.99.90},
-##     url = {http://microbiome.github.com},
+##   @Misc{,
+##     title = {microbiome R package},
+##     author = {Leo Lahti and Tineka Blake and Jarkko Salojarvi},
+##     year = {2012-2017},
 ##   }
 ```
 
@@ -77,7 +75,9 @@ _Nature Communications_ 6:6342, 2015.
 
 ### Acknowledgements
 
-Author: [Leo Lahti](https://github.com/antagomir/); [Contributors](https://github.com/microbiome/microbiome/graphs/contributors): Jarkko Salojärvi, Tineka Blake. 
+Author: [Leo Lahti](https://github.com/antagomir/)
+
+[Contributors](https://github.com/microbiome/microbiome/graphs/contributors): Jarkko Salojärvi, Tineka Blake. 
 
 The project has been supported by the following bodies:
 
@@ -87,6 +87,6 @@ The project has been supported by the following bodies:
   * [Molecular Ecology group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology, Wageningen University, Netherlands
   * [Department of Veterinary Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm), University of Helsinki, Finland.
 
-
+Many thanks for Paul McMurdie and Susan Holmes for providing the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis.
 
 
