@@ -142,7 +142,5 @@
 #' @importFrom WGCNA bicorAndPvalue
 .onAttach <- function(lib, pkg) {
     packageStartupMessage("\nmicrobiome R package (microbiome.github.com)
-          \n\n\n Copyright (C) 2011-2016
-          Leo Lahti and Jarkko Salojarvi \n\n        
-          <microbiome-admin@googlegroups.com>\n")
+          \n\n\n Copyright (C) 2011-2017 Leo Lahti et al. <microbiome.github.io>\n")
 } 
