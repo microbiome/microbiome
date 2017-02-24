@@ -2,6 +2,11 @@ microbiome R package (beta)
 ==========
 
 [![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)
+[![codecov.io](https://codecov.io/github/microbiome/microbiome/coverage.svg?branch=master)](https://codecov.io/github/microbiome/microbiome?branch=master)
+
+<!--[![Follow](https://img.shields.io/twitter/follow/ropengov.svg?style=social)](https://twitter.com/intent/follow?screen_name=ropengov)-->
+
+
 
  * Main developer: [Leo Lahti](https://github.com/antagomir/); Contributors: Jarkko Salojärvi
  * License: BSD-2-clause
