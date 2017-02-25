@@ -1,0 +1,104 @@
+## ----bistability, message=FALSE------------------------------------------
+library(microbiome)
+data(atlas1006)
+pseq <- atlas1006
+
+# Let us keep only prevalent taxa from Bacteroides Phylum
+# (HITChip signal >3 in >20 percent of the samples)
+pseq <- subset_taxa(pseq, Phylum == "Bacteroidetes")
+pseq <- filter_prevalent(pseq, detection.threshold = 10^3, prevalence.threshold = 0.95)
+
+# Let us only consider RBB extracted samples
+pseq <- subset_samples(pseq, DNA_extraction_method == "r")
+
+# For cross-sectional analysis, include
+# only the zero time point:
+pseq0 <- subset_samples(pseq, time == 0)
+
+## ----bistability2--------------------------------------------------------
+intermediate.stability <- intermediate_stability(pseq, output = "scores")
+
+## ----bimodality2, message=FALSE, warning=FALSE, fig.path = "figure/", eval=FALSE----
+## bimodality.pb <- bimodality(pseq0, method = "potential_bootstrap")
+
+## ----bimodality3, message=FALSE, warning=FALSE, fig.path = "figure/"-----
+bimodality.sarle <- bimodality(pseq0, method = "Sarle.finite.sample")
+
+## ----stability2, message=FALSE, warning=FALSE, fig.width=12, fig.height=5----
+# Pick the most and least bimodal taxa as examples
+bimodality <- bimodality.sarle
+unimodal <- names(which.min(bimodality))
+bimodal  <- names(which.max(bimodality))
+
+# Visualize population frequencies
+library(ggplot2)
+theme_set(theme_bw(20))
+p1 <- plot_density(pseq, variable = unimodal, log10 = TRUE) 
+p2 <- plot_density(pseq, variable = bimodal,  log10 = TRUE) 
+library(gridExtra)
+library(ggplot2)
+grid.arrange(p1, p2, nrow = 1)
+
+## ----bimodalitybistability, message=FALSE, warning=FALSE, fig.path = "figure/"----
+taxa <- taxa_names(pseq0)
+df <- data.frame(group = taxa,
+                 intermediate.stability = intermediate.stability[taxa],
+		 bimodality = bimodality[taxa])
+theme_set(theme_bw(20))
+p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
+
+# Repel overlapping labels
+# Install ggrepel package if needed
+# install.packages("devtools")
+# devtools::install_github("slowkow/ggrepel")
+# See https://github.com/slowkow/ggrepel/blob/master/vignettes/ggrepel.md
+library(ggrepel)
+p <- p + geom_text_repel(size = 3)
+
+print(p)
+
+## ----stability-tipping, message=FALSE, warning=FALSE, fig.path = "figure/"----
+# Pick example data
+library(phyloseq)
+library(microbiome)
+pseq <- transform_phyloseq(pseq, "relative.abundance")
+
+# Dialister log10 relative abundance
+x <- log10(get_sample(pseq, "Dialister"))
+
+# Potential analysis to identify potential minima
+library(earlywarnings)
+res <- livpotential_ews(x)
+
+# Identify the potential minimum location as a tipping point candidate 
+tipping.point <- 10^res$min.points
+
+print(tipping.point)
+
+## ----stability-variationplot, message=FALSE, warning=FALSE, fig.path = "figure/", fig.show='hold', out.width="430px"----
+# Variation line plot:
+# Indicates the abundance variation range
+# for subjects with multiple time points
+pv <- plot_variation(pseq, "Dialister", tipping.point = tipping.point, xlim = c(0.01, 100))
+print(pv)
+
+# Bimodality hotplot:
+# Only consider a unique sample from each subject
+# baseline time point for density plot
+pseq.baseline <- subset_samples(pseq, time == 0)
+ph <- plot_bimodal(pseq.baseline, "Dialister", tipping.point = tipping.point)
+print(ph)
+
+## ----movpotential, message=FALSE, warning=FALSE, fig.width=5, fig.height=5----
+# Create simulated example data
+X <- c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), 
+ 	           rnorm(1000, mean = 2))
+param <- seq(0,5,length=3000) 
+
+# Run potential analysis
+res <- movpotential_ews(X, param)
+
+# Visualize
+p <- plot_potential(res$res)
+print(p)
+

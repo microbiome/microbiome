@@ -1,0 +1,201 @@
+---
+title: "Comparisons"
+author: "Leo Lahti"
+date: "`r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - comparisons}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
+## Group-wise comparisons
+
+### Boxplots
+
+```{r boxplot-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, fig.path = "figure/"}
+# Load libraries
+library(microbiome)
+library(ggplot2)
+library(dplyr)
+
+# Probiotics intervention example data from
+# https://peerj.com/articles/32/
+data("peerj32")
+
+# Abundance boxplot
+p <- boxplot_abundance(peerj32$phyloseq, x = "time", y = "Akkermansia", line = "subject", color = "gender")
+print(p)
+```
+
+
+
+
+
+
+
+### Negative binomial example
+
+[Read more](http://www.ats.ucla.edu/stat/r/dae/nbreg.htm)
+
+```{r comparisons2b, eval=FALSE}
+library(MASS)
+taxa <- taxa_names(x)[1:2]
+x <- atlas1006
+df <- as(sample_data(x), "data.frame")
+for (tax in taxa) {
+  df$signal <- get_sample(x, tax)
+  res <- glm.nb(signal ~ bmi_group + gender, data = df)
+  print(coef(summary(res)))
+}
+```
+
+
+### Comparisons for individual taxa with random effect subject term
+
+```{r comparisons-lmer, eval=FALSE}
+# Get taxa x samples abundance matrix
+x <- peerj32$phyloseq
+
+# Get the data
+mydata <- get_taxa(x)
+tax <- "Dialister"
+dfs <- sample_data(x)
+dfs$signal <- mydata[tax, rownames(dfs)]
+dfs$group <- dfs[[group]]
+
+# Paired comparison
+library(lme4)
+out <- lmer(signal ~ group + (1|subject), data = dfs)
+out0 <- lmer(signal ~ (1|subject), data = dfs)
+comp <- anova(out0, out)
+pv <- comp[["Pr(>Chisq)"]][[2]]
+```
+
+### PERMANOVA
+
+PERMANOVA is used to assess significance of community differences between groups. Here let us evaluate whether nationality has a significant effect on gut microbiota.
+
+```{r comparisons-permanova, fig.width=5, fig.height=6, message=FALSE, warnings=FALSE}
+# Example data
+data("dietswap")
+x <- dietswap
+group <- "nationality"
+
+# Use relative abundances for simpler visualizations
+x <- transform_phyloseq(x, "relative.abundance")
+otu <- get_sample(x)
+meta <- as(sample_data(x), "data.frame")
+meta$group <- meta[[group]]
+
+# PERMANOVA: samples x species as input
+library(vegan)
+permanova <- adonis(t(otu) ~ group, data=meta, permutations=99, method = "bray")
+pv <- as.data.frame(permanova$aov.tab)["group", "Pr(>F)"]
+
+# P-value
+print(pv)
+
+# However note the assumption of similar
+# multivariate spread among the groups
+# ie. analogous to variance homogeneity
+# Here the groups have signif. different spreads and
+# permanova result may be explained by that.
+dist <- vegdist(t(otu))
+anova(betadisper(dist,meta$group))
+
+# Coefs for the top taxa separating the groups
+coef <- coefficients(permanova)["group1",]
+top.coef <- coef[rev(order(abs(coef)))[1:20]]
+par(mar = c(3, 14, 2, 1))
+barplot(sort(top.coef), horiz = T, las = 1, main = "Top taxa")
+```
+
+
+## Linear models with limma
+
+Identify most significantly different taxa between males and females.
+
+For further details, see [limma
+homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's
+guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For
+discussion on why limma is preferred over t-test, see [this
+article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
+
+```{r limma-example, warning=FALSE, fig.path = "figure/"}
+# Get example data
+library(microbiome)
+data("peerj32")
+pseq <- peerj32$phyloseq
+otu <- taxa_abundances(transform_phyloseq(pseq, "log10"))
+meta <- sample_data(pseq)
+groups <- meta$gender
+
+# Compare the two groups with limma
+library(limma)
+
+# Prepare the design matrix which states the groups for each sample
+# in the otu
+design <- cbind(intercept = 1, Grp2vs1 = groups)
+rownames(design) <- rownames(meta)
+design <- design[colnames(otu), ]
+
+# NOTE: results and p-values are given for all groupings in the design matrix
+# Now focus on the second grouping ie. pairwise comparison
+coef.index <- 2
+     
+# Fit the limma model
+fit <- lmFit(otu, design)
+fit <- eBayes(fit)
+pvalues.limma = fit$p.value[, 2]
+
+# Summarise 
+kable(topTable(fit, coef = coef.index, p.value=0.1), digits = 2)
+```
+
+**Q-Q plot for limma**
+
+```{r limma-qq, warning=FALSE, fig.path = "figure/"}
+qqt(fit$t[, coef.index], df = fit$df.residual + fit$df.prior)
+abline(0,1)
+```
+
+**Volcano plot for limma**
+
+```{r limma-volcano, warning=FALSE, fig.path = "figure/"}
+volcanoplot(fit, coef = coef.index, highlight = coef.index)
+```
+
+
+### Comparison between limma and t-test
+
+Order the taxa with t-test for comparison and validation purposes. The
+differences are small in this simulated example, but [can be
+considerable in real
+data](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
+
+```{r limma-compairson, warning=FALSE, fig.path = "figure/"}
+# Compare the two groups with t-test
+library(dplyr)
+pvalues.ttest <- c()
+male.samples <- suppressWarnings(dplyr::filter(meta, gender == "male")$sample)
+female.samples <- suppressWarnings(dplyr::filter(meta, gender == "female")$sample)
+for (tax in rownames(otu)) {
+  pvalues.ttest[[tax]] <- t.test(otu[tax, male.samples], otu[tax, female.samples])$p.value
+}
+# Multiple testing correction
+pvalues.ttest <- p.adjust(pvalues.ttest, method = "fdr")
+
+# Compare p-values between limma and t-test
+taxa <- rownames(otu)
+plot(pvalues.ttest[taxa], pvalues.limma[taxa])
+abline(0,1,lty = 2)
+```
+
