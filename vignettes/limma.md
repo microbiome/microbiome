@@ -16,18 +16,12 @@ output:
 -->
 
 
-## Linear models with limma
+
 
 
 ### Discrete variables: sex
 
 Identify most significantly different taxa between males and females.
-
-For further details, see [limma
-homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's
-guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For
-discussion on why limma is preferred over t-test, see [this
-article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
 
 ```r

@@ -13,10 +13,11 @@
 #' @keywords utilities
 core_abundance <- function(x, detection.threshold = 1, prevalence.threshold = 95) {
 	      
-  core.taxa <- core(x, detection.threshold = detection.threshold,
+  core.taxa <- core_members(x, detection.threshold = detection.threshold,
   	               prevalence.threshold = prevalence.threshold)
 
-  # Core matrix		       
+  # Core matrix
+  # FIXME: directly use the core function
   xx <- taxa_abundances(prune_taxa(core.taxa, x))
 
   # Total sum of core abundances

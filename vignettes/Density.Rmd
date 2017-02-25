@@ -15,11 +15,15 @@ output:
   %\VignetteEncoding{UTF-8}  
 -->
 
+
+## Population frequency analysis
+
 ### Abundance histograms
 
 Population densities for Dialister:
 
 ```{r hist, fig.width=6, fig.heigth=3, fig.show="hold", out.width="280px"}
+# Load libraries
 library(microbiome)
 library(phyloseq)
 

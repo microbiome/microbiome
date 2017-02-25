@@ -36,7 +36,7 @@ otu <- taxa_abundances(pseq)
 # (exceed the detection threshold). This measure is sometimes used with
 # phylogenetic microarrays.
 det.th <- quantile(otu, 0.15)
-ri <- estimate_diversity(pseq, det.th = det.th)$Observed
+ri <- diversity_table(pseq, det.th = det.th)$Observed
 hist(ri, main = "Richness")
 ```
 
@@ -46,7 +46,7 @@ hist(ri, main = "Richness")
 Estimate diversity (table with various diversity measures):
 
 ```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
-diversity <- estimate_diversity(pseq)
+diversity <- diversity_table(pseq)
 ```
 
 Visualize diversity vs. discrete variable:
@@ -84,7 +84,7 @@ library(dplyr)
 pseq <- atlas1006
 
 # Add diversity into sample metadata
-sample_data(pseq)$diversity <- estimate_diversity(pseq)$Shannon
+sample_data(pseq)$diversity <- diversity_table(pseq)$Shannon
 
 # Select a subset of samples
 pseq0 <- subset_samples(pseq, time == 0 & DNA_extraction_method == "r")

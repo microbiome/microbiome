@@ -15,13 +15,19 @@ output:
   %\VignetteEncoding{UTF-8}  
 -->
 
+## Core microbiota analysis
+
+
 ### Prevalence of taxonomic groups
 
 Load example data:
 
 ```{r core-prevalence}
+# Load data
 library(microbiome)
-data("peerj32")
+data(peerj32)
+
+# Rename the data
 pseq <- peerj32$phyloseq
 
 # Calculate relative abundances
@@ -49,17 +55,27 @@ head(prevalence(pseq.rel, detection.threshold = 1, sort = TRUE, relative = FALSE
 Core taxa above a given detection and prevalence thresholds:
 
 ```{r core-members, message=FALSE, warning=FALSE}
-core.taxa <- core(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
+core.taxa <- core_members(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
 ```
 
-Total core abundance:
+
+Pick the core microbiota subset of the data:
+
+```{r core-data, message=FALSE, warning=FALSE}c
+pseq.core <- core(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
+```
+
+
+Total core abundance (sum of abundances of the core members):
 
 ```{r core-ab, message=FALSE, warning=FALSE}
 core.abundance <- core_abundance(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
 ```
 
 
-### Core 2D line plots
+## Core visualization
+
+### 2D line plots
 
 Determine core microbiota across various abundance/prevalence
 thresholds with the [blanket

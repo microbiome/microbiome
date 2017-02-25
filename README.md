@@ -58,7 +58,7 @@ _Nature Communications_ 6:6342, 2015.
 
 Author: [Leo Lahti](https://github.com/antagomir/)
 
-[Contributors](https://github.com/microbiome/microbiome/graphs/contributors): Jarkko Salojärvi, Tineka Blake. 
+[Contributors](https://github.com/microbiome/microbiome/graphs/contributors): Jarkko Salojärvi, Tineka Blake.
 
 The project has been supported by the following bodies:
 

@@ -47,7 +47,7 @@ prevalence <- function (x, detection.threshold = 0, sort = FALSE, relative = TRU
   } 
 
   if (relative) {
-    prev = 100 * prev/prevalence_nsamples(x)
+    prev <- 100 * prev/prevalence_nsamples(x)
   }
 
   if (sort) {

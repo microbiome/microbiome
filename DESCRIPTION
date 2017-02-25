@@ -2,8 +2,8 @@ Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
 Encoding: UTF-8
-Version: 0.99.90
-Date: 2017-02-24
+Version: 0.99.91
+Date: 2017-02-25
 Authors@R: c(
     person("Leo", "Lahti", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Tineka", "Blake", role = "ctb"),
@@ -38,7 +38,7 @@ Suggests:
     magrittr,    
     netresponse,
     rmarkdown,
-    RUnit
+    testthat
 URL: http://microbiome.github.com
 MailingList: microbiome <microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues

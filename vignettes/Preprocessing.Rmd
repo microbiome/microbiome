@@ -16,10 +16,10 @@ output:
 -->
 
 
-## Preprocessing taxonomic profiling data
+## Processing taxonomic profiling data
 
-Here we show how to manipulate microbiome data sets using tools from
-the [phyloseq package](http://joey711.github.io/phyloseq/), including
+Instructions to manipulate microbiome data sets using the
+[phyloseq package](http://joey711.github.io/phyloseq/), including
 subsetting, aggregating and filtering.
 
 
@@ -29,20 +29,27 @@ Assuming your data ('pseq' below) is in the phyloseq format, many
 standard tools are available.
 
 
-Sample metadata:
+Load example data:
 
 ```{r data21}
 library(phyloseq)
 library(microbiome)
-data("atlas1006") 
-pseq <- atlas1006
+
+data(atlas1006)   # Load the data
+pseq <- atlas1006 # Rename the data
+```
+
+
+Pick metadata:
+
+```{r data21}
 meta <- sample_data(pseq)
 ```
 
 Taxonomy table:
 
 ```{r data22}
-tax.table <- tax_table(pseq)
+taxonomy <- tax_table(pseq)
 ```
 
 

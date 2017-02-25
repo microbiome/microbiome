@@ -26,19 +26,12 @@ knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
 ```
 
 
-microbiome R package
+Introduction to the microbiome R package
 ===========
 
-Tools for microbiome analysis in R `r citep(bib[["rcore13"]])`.
-
-The microbiome R package provides analysis tools, diagnostic plots,
-and other utilities for microbiome analyses, as well as multiple
-example data sets.
-
-We use the [phyloseq](http://joey711.github.io/phyloseq/import-data)
-class, a standard representation format in R for taxonomic
-profiling. This package provides extensions and convenient wrappers
-for many standard tasks encountered in microbiome studies. 
+Tools for common analysis tasks in microbiome profiling studies;
+illustrated with multiple example data sets from published studies;
+extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 
 
 ### Getting started
@@ -48,25 +41,28 @@ for many standard tasks encountered in microbiome studies.
 * [Data manipulation](Preprocessing.md)
 
 
-### Visualization and related tools
+### Microbiome processing
 
 * [Community composition](Composition.md)
+* [Core microbiota](Core.md)
+* [Diversity](Diversity.md)
+* [Stability, bimodality, tipping elements](Stability.md)
+* [Variability](Variability.md)
+
+
+### Visualization and related tools
+
+* [Population densities](Density.md)
 * [Heatmaps](Heatmap.md)
 * [Networks](Networks.md)
 * [Ordination (PCA, PCoA, NMDS etc.)](Ordination.md)
-* [Density](Density.md)
 
 
-### Microbiota analysis
+### Statistical analysis
 
-* [Core microbiota](Core.md)
-* [Diversity](Diversity.md)
-* [Linear models](linearmodels.md)
+* [Linear models](limma.md)
 * [Pairwise comparisons](Comparisons.md)
-* [Stability, bimodality, tipping elements](Stability.md)
-* [Variability](Variability.md)
-* [Experimental](Experimental.md)
-
+* [Experimental tools](Experimental.md)
 
 
 ### Licensing and Citations

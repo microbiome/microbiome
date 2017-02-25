@@ -16,19 +16,23 @@ output:
 -->
 
 
-# Microbiome stability analysis
+## Microbiome stability analysis
 
 Get example data - [HITChip Atlas of 130 genus-like taxa across 1006 healthy western adults](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). A subset of 76 subjects have also short time series available for temporal stability analysis:
 
 ```{r bistability, message=FALSE}
+# Load the example data
 library(microbiome)
 data(atlas1006)
+
+# Rename the example data
 pseq <- atlas1006
 
-# Let us keep only prevalent taxa from Bacteroides Phylum
-# (HITChip signal >3 in >20 percent of the samples)
+# Focus on Bacteroides Phylum
 pseq <- subset_taxa(pseq, Phylum == "Bacteroidetes")
-pseq <- filter_prevalent(pseq, detection.threshold = 10^3, prevalence.threshold = 0.95)
+
+# Keep prevalent taxa (HITChip signal >3 in >95 percent of the samples)
+pseq <- filter_prevalent(pseq, detection.threshold = 10^3, prevalence.threshold = 95)
 
 # Let us only consider RBB extracted samples
 pseq <- subset_samples(pseq, DNA_extraction_method == "r")
@@ -39,7 +43,7 @@ pseq0 <- subset_samples(pseq, time == 0)
 ```
 
 
-## Quantify intermediate stability 
+### Intermediate stability quantification
 
 It has been reported that certain microbial groups exhibit bi-stable
 abundance distributions with distinct peaks at low and high
@@ -57,7 +61,7 @@ intermediate.stability <- intermediate_stability(pseq, output = "scores")
 ```
 
 
-## Quantify bimodality 
+### Bimodality quantification
 
 Bimodality of the abundance distribution provides another (indirect)
 indicator of bistability, although other explanations such as sampling
@@ -103,7 +107,7 @@ grid.arrange(p1, p2, nrow = 1)
 ```
 
 
-## Comparing bimodality and intermediate stability
+### Comparing bimodality and intermediate stability
 
 The analysis suggests that bimodal population distribution across individuals is often associated with instable intermediate abundances within individuals. The specific bi-stable groups in the upper left corner were suggested to constitute bistable tipping elements of the human intestinal microbiota in [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
 
@@ -126,7 +130,8 @@ p <- p + geom_text_repel(size = 3)
 print(p)
 ```
 
-## Detecting a tipping point
+
+## Tipping point detection
 
 Identify potential minima in cross-section population data as
 tipping point candidates. 
@@ -149,6 +154,7 @@ tipping.point <- 10^res$min.points
 
 print(tipping.point)
 ```
+
 
 ## Variation lineplot and Bimodality hotplot
 

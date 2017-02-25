@@ -4,9 +4,10 @@
 #' @param prevalence.intervals a vector of prevalence percentages in [0,100]
 #' @param detection.thresholds a vector of intensities around the data range
 #' @return Estimated core microbiota
-#' @examples 
-#'   #pseq <- download_microbiome("peerj32")$physeq
-#'   #core <- core_matrix(pseq)
+#' @examples
+#'   library(microbiome)
+#'   data(peerj32)
+#'   core <- core_matrix(peerj32$phyloseq)
 #' @export 
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 

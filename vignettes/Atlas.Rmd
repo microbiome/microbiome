@@ -18,43 +18,44 @@ output:
 ## Intestinal microbiota diversity in 1006 western adults
 
 The data set from [Lahti et al. Nat. Comm. 5:4344,
-2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
-has microbiota profiling of 130 genus-like taxa across 1006 normal
-western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d).
-
-Download the data in R:
+2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) has microbiota profiling of 130 genus-like taxa across 1006 normal western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d). Load the data in R:
 
 ```{r data2}
 # Download the required R packages and then the HITChip Atlas data set
-library("microbiome")
-data("atlas1006")
+library(microbiome)
+data(atlas1006)
+
+# Let us give a generic name for this phyloseq data object,
+# to be used further analysis
 pseq <- atlas1006
 ```
 
 
-### Diversity 
 
-### Estimating microbial diversity with different diversity measures
+### Estimating microbial diversity 
 
-```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
+```{r div-example, warning=FALSE, message=FALSE}
 library(phyloseq)
-div <- estimate_diversity(pseq, measures = c("Observed", "Shannon", "Simpson"))
+div <- diversity_table(pseq, measures = c("Observed", "Shannon", "Simpson"))
+
 library(knitr)
 kable(head(div))
 ```
 
 
-### Diversity vs. obesity
+### Diversity vs. obesity (discrete factor)
 
-```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.height=5}
-p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250)
+```{r div-example2, warning=FALSE, message=FALSE, fig.width=10, fig.height=8}
+p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250, na.rm = TRUE)
 print(p)
 ```
 
 
-### Diversity vs. age
+### Diversity vs. age (continuous factor)
 
-```{r atlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/", eval=FALSE}
+Output figure not shown due to slowness of calculation:
+
+```{r atlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, eval=FALSE}
 plot_regression(diversity~age, sample_data(pseq))
 ```
 
