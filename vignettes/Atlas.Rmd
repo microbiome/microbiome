@@ -56,7 +56,8 @@ print(p)
 Output figure not shown due to slowness of calculation:
 
 ```{r atlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, eval=FALSE}
-plot_regression(diversity~age, sample_data(pseq))
+p <- plot_regression(diversity~age, sample_data(pseq))
+print(p)
 ```
 
 
