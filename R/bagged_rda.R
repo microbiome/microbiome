@@ -24,7 +24,7 @@
 #'   # Example with abundance matrix
 #'   data(peerj32)
 #'   phy <- peerj32$phyloseq
-#'   x <- taxa_abundances(phy) 
+#'   x <- abundances(phy) 
 #'   y <- factor(sample_data(phy)$gender);
 #'   names(y) <- rownames(sample_data(phy))
 #'   res <- bagged_rda(x, y, sig.thresh=0.05, nboot=20)
@@ -56,7 +56,7 @@ bagged_rda <- function(x, y, sig.thresh = 0.1, nboot = 1000, verbose = T, plot =
 
     y <- factor(sample_data(x)[[y]])
     names(y) <- sample_data(x)$sample
-    x <- taxa_abundances(x)
+    x <- abundances(x)
     
   }
 

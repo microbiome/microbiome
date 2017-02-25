@@ -16,7 +16,7 @@ ztransform_phyloseq <- function (x, which) {
 
   taxa_are_rows <- y <- NULL
 
-  if (!all(sample(taxa_abundances(x), 100)%%1 == 0)) {
+  if (!all(sample(abundances(x), 100)%%1 == 0)) {
     warning("phyloseq object may already have been log transformed - the 
              abundances are not counts - log10 omitted in Z transformation. 
 	     Perform manually if needed.")
@@ -28,7 +28,7 @@ ztransform_phyloseq <- function (x, which) {
   if (which == "OTU") {
 
     # taxa x samples
-    ddd <- taxa_abundances(x)
+    ddd <- abundances(x)
 
     # Z transform OTUs
     trans <- as.matrix(scale(t(ddd)))

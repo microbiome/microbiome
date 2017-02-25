@@ -16,7 +16,7 @@ core <- function (x, detection.threshold, prevalence.threshold) {
   # TODO: add optional renormalization such that the core member
   # abundances would sum up to 100 ?
 
-  taxa <- core_taxa(x, detection.threshold, prevalence.threshold)
+  taxa <- core_members(x, detection.threshold, prevalence.threshold)
   prune_taxa(taxa, x)
 }
 

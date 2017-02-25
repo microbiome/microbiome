@@ -16,7 +16,7 @@ A validated and polished phyloseq object
 Validate phyloseq object.
 }
 \details{
-Checks that the otu_table and sample_data have exactly same samples.
+Checks that the abundances and sample_data have exactly same samples.
 }
 \examples{
   library(microbiome)

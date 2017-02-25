@@ -29,9 +29,30 @@ Contributions are very welcome:
   * Subscribe to the [mailing list](https://groups.google.com/forum/#!forum/microbiome-devel) (microbiome-devel@googlegroups.com)
   * [Star us on the Github page](https://github.com/microbiome/microbiome)
 
-Kindly cite this work as follows: Leo Lahti et al. (2017) microbiome R
-package. URL: http://microbiome.github.io
+Kindly cite this work as follows:
 
+
+```r
+citation('microbiome')
+```
+
+```
+## 
+## To cite package 'microbiome' in publications use:
+## 
+##   Leo Lahti (2017). microbiome: Tools for microbiome analysis. R
+##   package version 0.99.91. http://microbiome.github.com
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {microbiome: Tools for microbiome analysis},
+##     author = {Leo Lahti},
+##     year = {2017},
+##     note = {R package version 0.99.91},
+##     url = {http://microbiome.github.com},
+##   }
+```
 
 ### Publications using the microbiome package
 
@@ -58,16 +79,17 @@ _Nature Communications_ 6:6342, 2015.
 
 Author: [Leo Lahti](https://github.com/antagomir/)
 
-[Contributors](https://github.com/microbiome/microbiome/graphs/contributors): Jarkko Salojärvi, Tineka Blake.
+[Contributors](https://github.com/microbiome/microbiome/graphs/contributors): Jarkko Salojärvi, Tineka Blake. 
 
 The project has been supported by the following bodies:
 
-  * Academy of Finland (grants [256950](http://webfocus.aka.fi/ibi_apps/WFServlet?IBIF_ex=x_HakKuvaus&CLICKED_ON=&HAKNRO1=256950&UILANG=en) and [295741](http://webfocus.aka.fi/ibi_apps/WFServlet?IBIF_ex=x_HakKuvaus&CLICKED_ON=&HAKNRO1=295741&UILANG=en&IBIAPP_app=aka_ext&TULOSTE=HTML))
+  * Academy of Finland (grants 256950 and 295741)
   * [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics
   * [VIB lab for Bioinformatics and (eco-)systems biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx), VIB/KULeuven, Belgium
   * [Molecular Ecology group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology, Wageningen University, Netherlands
   * [Department of Veterinary Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm), University of Helsinki, Finland.
 
-Many thanks for Paul McMurdie and Susan Holmes for providing the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis.
+This work critically relies on the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis developed by Paul McMurdie and Susan Holmes. 
+
 
 

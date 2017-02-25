@@ -27,7 +27,7 @@ probes of a column taxon. This is not symmetric if the row and col
 taxon have a different total number of probes. For details, see
 help(plot_crosshyb).
 
-```{r chyb, warning=FALSE, fig.path = "figure/", fig.width=20, fig.height=20}
+```{r chyb, warning=FALSE, fig.width=20, fig.height=20}
 library(microbiome, quietly = TRUE)
 library(dplyr)
 
@@ -56,7 +56,7 @@ head(s)
 
 Investigate species-species cross-hybridization within the Dialister L2 group
 
-```{r chyb2, warning=FALSE, fig.path = "figure/"}
+```{r chyb2, warning=FALSE}
 # Select species belonging to Dialister L2 group
 mytaxa <- map_levels("Dialister", from = "L2", to = "species", tax.table)[[1]]
 

@@ -23,7 +23,7 @@ core_matrix <- function(x,
     data <- x	  
     if (class(x) == "phyloseq") {
       # Pick abundance matrix
-      data <- taxa_abundances(x)
+      data <- abundances(x)
     }
 
     # Convert prevalences from percentages to sample counts

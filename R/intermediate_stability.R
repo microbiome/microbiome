@@ -1,7 +1,7 @@
 #' @title Intermediate Stability
 #' @description Quantify intermediate stability with respect to a given reference point. 
 #' @param x \pkg{phyloseq} object.
-#'          Includes otu_table (variables x samples) and
+#'          Includes abundances (variables x samples) and
 #' 	    sample_data data.frame (samples x features) with 'subject'
 #'	    and 'time' field for each sample.
 #' @param reference.point Calculate stability of the data w.r.t. this point. By default the intermediate range is used (min + (max - min)/2). If a vector of points is provided, then the scores will be calculated for every point and a data.frame is returned.
@@ -61,7 +61,7 @@ intermediate_stability <- function (x, reference.point = NULL, method = "correla
 
   # Logarithmize the data with log10(1 + x) trick
   pseq <- x		       
-  x <- log10(1 + t(otu_table(pseq)@.Data))
+  x <- log10(1 + t(abundances(pseq)@.Data))
   meta <- sample_data(pseq)
 
   # Estimate stabilities for each OTU

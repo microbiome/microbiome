@@ -17,14 +17,16 @@ For more network examples, see [phyloseq
 tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
 
     ig <- make_network(pseq, max.dist = 0.2)
-    plot_network(ig, pseq, color = "nationality", shape = "group",
+    p <- plot_network(ig, pseq, color = "nationality", shape = "group",
              line_weight = 0.4, label = "sample")
+    print(p)         
 
 ![](Networks_files/figure-markdown_strict/networks2-1.png)
 
 Another example:
 
-    plot_net(pseq, maxdist = 0.2, point_label = "group")
+    p <- plot_net(pseq, maxdist = 0.2, point_label = "group")
+    print(p)         
 
 ![](Networks_files/figure-markdown_strict/networks3-1.png)
 
@@ -61,9 +63,11 @@ package](https://github.com/zdk123/SpiecEasi). The execution is slow.
     coord <- layout.fruchterman.reingold(ig)
 
     # Visualize the network
-    plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize))
+    print(plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize)))
 
 ![](Networks_files/figure-markdown_strict/networks4-1.png)
+
+    ## NULL
 
     # Check degree distribution
     #dd <- degree.distribution(ig)

@@ -72,7 +72,7 @@ bimodality <- function (x, method = "potential_bootstrap", detection.threshold =
   } else if (class(x) == "phyloseq") {
 
     # Pick the data from phyloseq object
-    x <- taxa_abundances(transform_phyloseq(x, "log10"))
+    x <- abundances(transform_phyloseq(x, "log10"))
     s <- bimodality(x, method = method, detection.threshold = detection.threshold, bw.adjust = bw.adjust, bs.iterations = bs.iterations, detection.limit = detection.limit, verbose = verbose)
 
   }

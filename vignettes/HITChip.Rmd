@@ -73,7 +73,7 @@ Convert your own data into phyloseq format as follows:
 res <- read_hitchip(method = "frpa", data.dir = data.directory)
 
 # Species-level data matrix
-otu <- otu_table(res$pseq)@.Data 
+otu <- abundances(res$pseq)@.Data 
 
 # Corresponding sample metadata
 meta <- res$meta

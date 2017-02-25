@@ -4,10 +4,14 @@
   %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}  
 -->
+Population frequency analysis
+-----------------------------
+
 ### Abundance histograms
 
 Population densities for Dialister:
 
+    # Load libraries
     library(microbiome)
     library(phyloseq)
 

@@ -16,7 +16,7 @@ variability_individual <- function (x, method = "CoV") {
 
   # TODO speed up calculations
 
-  dat <- t(taxa_abundances(x))
+  dat <- t(abundances(x))
   meta <- sample_data(x)		         
 
   coms <- intersect(rownames(dat), rownames(meta))

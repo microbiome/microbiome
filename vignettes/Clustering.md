@@ -35,7 +35,7 @@ modes. The C code was partially derived from [Honkela et al.
     # Gaussian modes are parallel to the coordinate axes.)
     p <- PlotMixtureMultivariate(D, means = m$mu, sds = m$sd, ws = m$w, modes = apply(m$qofz,1,which.max))
 
-![](figure/LCA2-1.png)
+![](Clustering_files/figure-markdown_strict/LCA2-1.png)
 
 ### Univariate (infinite) Gaussian mixture model
 
@@ -55,7 +55,7 @@ for the code.
 
     print(p)
 
-![](figure/LCA1-1.png)
+![](Clustering_files/figure-markdown_strict/LCA1-1.png)
 
 ### Clustering samples with mixed variables
 
@@ -70,4 +70,4 @@ factor, numeric)):
 
     plot(hclust(d))
 
-![](figure/clustering-gower-1.png)
+![](Clustering_files/figure-markdown_strict/clustering-gower-1.png)

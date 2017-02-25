@@ -10,20 +10,21 @@ The data set from [Lahti et al. Nat. Comm. 5:4344,
 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
 has microbiota profiling of 130 genus-like taxa across 1006 normal
 western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d).
-
-Download the data in R:
+Load the data in R:
 
     # Download the required R packages and then the HITChip Atlas data set
-    library("microbiome")
-    data("atlas1006")
+    library(microbiome)
+    data(atlas1006)
+
+    # Let us give a generic name for this phyloseq data object,
+    # to be used further analysis
     pseq <- atlas1006
 
-### Diversity
-
-### Estimating microbial diversity with different diversity measures
+### Estimating microbial diversity
 
     library(phyloseq)
-    div <- estimate_diversity(pseq, measures = c("Observed", "Shannon", "Simpson"))
+    div <- diversity_table(pseq, measures = c("Observed", "Shannon", "Simpson"))
+
     library(knitr)
     kable(head(div))
 
@@ -76,13 +77,15 @@ Download the data in R:
 </tbody>
 </table>
 
-### Diversity vs. obesity
+### Diversity vs. obesity (discrete factor)
 
-    p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250)
+    p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250, na.rm = TRUE)
     print(p)
 
-![](figure/div-example2-1.png)
+![](Atlas_files/figure-markdown_strict/div-example2-1.png)
 
-### Diversity vs. age
+### Diversity vs. age (continuous factor)
+
+Output figure not shown due to slowness of calculation:
 
     plot_regression(diversity~age, sample_data(pseq))

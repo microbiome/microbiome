@@ -32,7 +32,7 @@ total number of probes. For details, see help(plot\_crosshyb).
     # Plot the figure    
     print(p)
 
-![](figure/chyb-1.png)
+![](Crosshyb_files/figure-markdown_strict/chyb-1.png)
 
     # Organize the Crosshyb table
     suppressMessages(library(dplyr))
@@ -59,7 +59,7 @@ group
     # Check cross-hyb between Dialister species
     res <- plot_crosshyb(tax.level = "species", selected.taxa = mytaxa, rounding = 0, tax.table = tax.table)
 
-![](figure/chyb2-1.png)
+![](Crosshyb_files/figure-markdown_strict/chyb2-1.png)
 
     # Check the cross-hyb data as well
     library(knitr)

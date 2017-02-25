@@ -42,7 +42,7 @@ prevalence <- function (x, detection.threshold = 0, sort = FALSE, relative = TRU
     prev <- rowSums(x > detection.threshold)
   } else if (class(x) == "phyloseq") {
     # At this point necessary to have relative = FALSE
-    prev <- prevalence(taxa_abundances(x),
+    prev <- prevalence(abundances(x),
     	      detection.threshold = detection.threshold, relative = FALSE)
   } 
 

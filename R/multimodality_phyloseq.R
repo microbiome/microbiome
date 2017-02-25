@@ -36,7 +36,7 @@
 multimodality_phyloseq <- function (x, detection.threshold = 1, bw.adjust = 1,
                                     bs.iterations = 100, detection.limit = 1,
 				    verbose = TRUE) {
-  x <- taxa_abundances(transform_phyloseq(x, "log10"))
+  x <- abundances(transform_phyloseq(x, "log10"))
   msc <- multimodality_score(x, detection.threshold,
       	   bw.adjust, bs.iterations, detection.limit, verbose)
   msc

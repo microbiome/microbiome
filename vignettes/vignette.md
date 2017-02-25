@@ -4,19 +4,13 @@
   %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}
 -->
-microbiome R package
-====================
+Introduction to the microbiome R package
+========================================
 
-Tools for microbiome analysis in R (R Core Team, 2013).
-
-The microbiome R package provides analysis tools, diagnostic plots, and
-other utilities for microbiome analyses, as well as multiple example
-data sets.
-
-We use the [phyloseq](http://joey711.github.io/phyloseq/import-data)
-class, a standard representation format in R for taxonomic profiling.
-This package provides extensions and convenient wrappers for many
-standard tasks encountered in microbiome studies.
+Tools for common analysis tasks in microbiome profiling studies;
+illustrated with multiple example data sets from published studies;
+extending the [phyloseq](http://joey711.github.io/phyloseq/import-data)
+class.
 
 ### Getting started
 
@@ -24,23 +18,26 @@ standard tasks encountered in microbiome studies.
 -   [Example data](Data.md)
 -   [Data manipulation](Preprocessing.md)
 
-### Visualization and related tools
+### Microbiome processing
 
 -   [Community composition](Composition.md)
+-   [Core microbiota](Core.md)
+-   [Diversity](Diversity.md)
+-   [Stability, bimodality, tipping elements](Stability.md)
+-   [Variability](Variability.md)
+
+### Visualization and related tools
+
+-   [Population densities](Density.md)
 -   [Heatmaps](Heatmap.md)
 -   [Networks](Networks.md)
 -   [Ordination (PCA, PCoA, NMDS etc.)](Ordination.md)
--   [Density](Density.md)
 
-### Microbiota analysis
+### Statistical analysis
 
--   [Core microbiota](Core.md)
--   [Diversity](Diversity.md)
--   [Linear models](linearmodels.md)
+-   [Linear models](limma.md)
 -   [Pairwise comparisons](Comparisons.md)
--   [Stability, bimodality, tipping elements](Stability.md)
--   [Variability](Variability.md)
--   [Experimental](Experimental.md)
+-   [Experimental tools](Experimental.md)
 
 ### Licensing and Citations
 
@@ -55,7 +52,7 @@ Kindly cite this work as follows:
     ## To cite package 'microbiome' in publications use:
     ## 
     ##   Leo Lahti (2017). microbiome: Tools for microbiome analysis. R
-    ##   package version 0.99.90. http://microbiome.github.com
+    ##   package version 0.99.91. http://microbiome.github.com
     ## 
     ## A BibTeX entry for LaTeX users is
     ## 
@@ -63,7 +60,7 @@ Kindly cite this work as follows:
     ##     title = {microbiome: Tools for microbiome analysis},
     ##     author = {Leo Lahti},
     ##     year = {2017},
-    ##     note = {R package version 0.99.90},
+    ##     note = {R package version 0.99.91},
     ##     url = {http://microbiome.github.com},
     ##   }
 
@@ -107,31 +104,26 @@ version 1.1-2. 2014. &lt;URL:
 Ecology Package*. R package version 2.4-2. 2017. &lt;URL:
 <https://CRAN.R-project.org/package=vegan>&gt;.
 
-\[8\] R Core Team. *R: A language and environment for statistical
-computing*. Vienna, Austria: R Foundation for Statistical Computing,
-2013. ISBN: ISBN 3-900051-07-0. &lt;URL:
-<http://www.R-project.org/>&gt;.
-
-\[9\] R Core Team. *R: A Language and Environment for Statistical
+\[8\] R Core Team. *R: A Language and Environment for Statistical
 Computing*. R Foundation for Statistical Computing. Vienna, Austria,
 2016. &lt;URL: <https://www.R-project.org/>&gt;.
 
-\[10\] W. N. Venables and B. D. Ripley. *Modern Applied Statistics with
+\[9\] W. N. Venables and B. D. Ripley. *Modern Applied Statistics with
 S*. Fourth. ISBN 0-387-95457-0. New York: Springer, 2002. &lt;URL:
 <http://www.stats.ox.ac.uk/pub/MASS4>&gt;.
 
-\[11\] H. Wickham. *ggplot2: Elegant Graphics for Data Analysis*.
+\[10\] H. Wickham. *ggplot2: Elegant Graphics for Data Analysis*.
 Springer-Verlag New York, 2009. ISBN: 978-0-387-98140-6. &lt;URL:
 <http://ggplot2.org>&gt;.
 
-\[12\] H. Wickham. *scales: Scale Functions for Visualization*. R
+\[11\] H. Wickham. *scales: Scale Functions for Visualization*. R
 package version 0.4.1. 2016. &lt;URL:
 <https://CRAN.R-project.org/package=scales>&gt;.
 
-\[13\] H. Wickham. *tidyr: Easily Tidy Data with 'spread()' and
+\[12\] H. Wickham. *tidyr: Easily Tidy Data with 'spread()' and
 'gather()' Functions*. R package version 0.6.1. 2017. &lt;URL:
 <https://CRAN.R-project.org/package=tidyr>&gt;.
 
-\[14\] H. Wickham and R. Francois. *dplyr: A Grammar of Data
+\[13\] H. Wickham and R. Francois. *dplyr: A Grammar of Data
 Manipulation*. R package version 0.5.0. 2016. &lt;URL:
 <https://CRAN.R-project.org/package=dplyr>&gt;.

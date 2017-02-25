@@ -22,7 +22,7 @@ Group-wise comparisons
     p <- boxplot_abundance(peerj32$phyloseq, x = "time", y = "Akkermansia", line = "subject", color = "gender")
     print(p)
 
-![](figure/boxplot-example-1.png)
+![](Comparisons_files/figure-markdown_strict/boxplot-example-1.png)
 
 ### Negative binomial example
 
@@ -72,7 +72,7 @@ article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
     library(microbiome)
     data("peerj32")
     pseq <- peerj32$phyloseq
-    otu <- taxa_abundances(transform_phyloseq(pseq, "log10"))
+    otu <- abundances(transform_phyloseq(pseq, "log10"))
     meta <- sample_data(pseq)
     grouping.variable <- "gender" 
 
@@ -159,13 +159,13 @@ article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
     qqt(fit$t[, coef.index], df = fit$df.residual + fit$df.prior)
     abline(0,1)
 
-![](figure/limma-qq-1.png)
+![](Comparisons_files/figure-markdown_strict/limma-qq-1.png)
 
 **Volcano plot for limma**
 
     volcanoplot(fit, coef = coef.index, highlight = coef.index)
 
-![](figure/limma-volcano-1.png)
+![](Comparisons_files/figure-markdown_strict/limma-volcano-1.png)
 
 ### PERMANOVA
 

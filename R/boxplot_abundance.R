@@ -21,8 +21,8 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = FA
 
   change <- xvar <- yvar <- linevar <- colorvar <- NULL
 
-  otu <- taxa_abundances(pseq)
-  #otu <- otu_table(pseq)
+  otu <- abundances(pseq)
+  #otu <- abundances(pseq)
   #if (!taxa_are_rows(pseq)) {otu <- t(otu)}
 
   # Construct example data (df). Ensure that samples are given in same order

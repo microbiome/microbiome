@@ -16,11 +16,12 @@ examples](http://joey711.github.io/phyloseq/plot_bar-examples.html) and
 Read example data from a [diet swap
 study](http://dx.doi.org/10.1038/ncomms7342):
 
+    theme_set(theme_bw(22))
+
     # Example data
     library(microbiome)
     library(ggplot2)
     data(dietswap)
-    theme_set(theme_bw(22))
     pseq <- dietswap
 
 Show OTU absolute abundance in each sample. Plot absolute taxon

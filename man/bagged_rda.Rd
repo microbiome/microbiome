@@ -47,7 +47,7 @@ Bootstrap aggregation (bagging) is expected to improve the stability of the resu
   # Example with abundance matrix
   data(peerj32)
   phy <- peerj32$phyloseq
-  x <- taxa_abundances(phy) 
+  x <- abundances(phy) 
   y <- factor(sample_data(phy)$gender);
   names(y) <- rownames(sample_data(phy))
   res <- bagged_rda(x, y, sig.thresh=0.05, nboot=20)

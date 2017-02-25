@@ -9,7 +9,7 @@ intermediate_stability(x, reference.point = NULL, method = "correlation",
 }
 \arguments{
 \item{x}{\pkg{phyloseq} object.
-     Includes otu_table (variables x samples) and
+     Includes abundances (variables x samples) and
     sample_data data.frame (samples x features) with 'subject'
 and 'time' field for each sample.}
 

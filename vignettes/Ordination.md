@@ -66,7 +66,7 @@ Grouping by Phyla
 
 ### Multidimensional scaling (MDS / PCoA)
 
-    plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") +
+    plot_ordination(pseq, ordinate(pseq, "MDS"), color = "nationality") +
                     geom_point(size = 5)
 
 ![](Ordination_files/figure-markdown_strict/ordination-ordinate23-1.png)

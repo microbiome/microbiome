@@ -60,7 +60,7 @@ Visualizing bagged RDA:
 For more complex RDA scenarios, use the vegan package:
 
     # Pick microbiota profiling data from the phyloseq object
-    otu <- taxa_abundances(pseq.trans)
+    otu <- abundances(pseq.trans)
 
     # Sample annotations
     meta <- sample_data(pseq.trans)

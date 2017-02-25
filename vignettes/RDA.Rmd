@@ -20,7 +20,7 @@ output:
 
 Load the package and example data:
 
-```{r rda, warning=FALSE, message=FALSE, fig.path = "figure/", eval = FALSE}
+```{r rda, warning=FALSE, message=FALSE, eval = FALSE}
 library(microbiome)
 # Data from https://peerj.com/articles/32/
 data("peerj32")
@@ -44,7 +44,7 @@ summary(rda.result)$constr.chi/summary(rda.result)$tot.chi
 
 Visualizing the standard RDA output:
 
-```{r rda4, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/", eval = FALSE}
+```{r rda4, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval = FALSE}
 library(phyloseq)
 meta <- sample_data(pseq.trans)
 plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
@@ -83,9 +83,9 @@ plot_bagged_rda(res)
 
 For more complex RDA scenarios, use the vegan package:
 
-```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, fig.path = "figure/", eval = FALSE}
+```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval = FALSE}
 # Pick microbiota profiling data from the phyloseq object
-otu <- taxa_abundances(pseq.trans)
+otu <- abundances(pseq.trans)
 
 # Sample annotations
 meta <- sample_data(pseq.trans)

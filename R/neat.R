@@ -27,7 +27,7 @@
 neat <- function (x, arrange = "both", method = "NMDS", distance = "bray", first.feature = NULL, first.sample = NULL, ...) {
 
   if (class(x) == "phyloseq") {
-    x <- taxa_abundances(x)
+    x <- abundances(x)
   }
 
   if (is.null(rownames(x))) {

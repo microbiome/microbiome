@@ -45,7 +45,7 @@ estimate_homogeneity <- function(x, type = "interindividual", group_by = "group"
     }
 
     # OTU data Log10
-    otu <- log10(t(otu_table(x)@.Data))
+    otu <- log10(t(abundances(x)@.Data))
 
     # Ensure compatiblity
     if (!nrow(otu) == nrow(meta)) {

@@ -4,55 +4,50 @@
   %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}  
 -->
-Heatmaps
---------
+Heatmaps for microbiome analysis
+--------------------------------
 
 See [Composition](Composition.md) page for phyloseq microbiota
 composition heatmaps. Load some example data:
 
-    library(microbiome)
-    data("dietswap")
-    pseq <- dietswap
+    library(microbiome) # Load libraries
     library(phyloseq)
+    data(peerj32)
+    pseq <- peerj32$phyloseq    # Rename data
 
-    # Pick data subset
-    bacteroidetes <- map_levels(from = "Phylum", to = "Genus",
-                       data = tax_table(pseq))$Bacteroidetes
-    pseq2 <- prune_taxa(bacteroidetes, pseq)
-    pseq2 <- subset_samples(pseq2, group == "DI")
+    # Pick data subset (DI samples from Phylum Bacteroidetes)
+    pseq2 <- pseq %>%
+             subset_taxa(Phylum == "Bacteroidetes") %>%
+             subset_samples(group == "LGG")
 
 ### Matrix heatmaps
 
-Alternatively, pick abundance matrix separately and use matrix
-visualization tools. Z-transforming OTUs ie. visualize deviation of all
-bacteria from their population mean (smaller: blue; higher: red):
+Pick abundance matrix separately and use matrix visualization tools.
+Z-transforming OTUs ie. visualize deviation of all bacteria from their
+population mean (smaller: blue; higher: red):
 
     # Z transform
-    pseqz <- transform_phyloseq(pseq2, "Z", "OTU")
+    pseqz <- transform_phyloseq(pseq2, "Z")
 
     # Pick OTU table
-    x <- taxa_abundances(pseqz)
+    x <- abundances(pseqz)
 
     # Plot heatmap
     tmp <- plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
 
-![](figure/heatmap-matvisu-example-1.png)
+![](Heatmap_files/figure-markdown_strict/heatmap-matvisu-example-1.png)
 
-Find visually appealing order for rows and columns with Neatmap sorting:
+Find visually appealing order for rows and columns with the Neatmap
+approach:
 
-    # Use the original phyloseq object for ordering as negative values are not allowed
-    data(peerj32)
-    x <- peerj32$microbes # Matrix
-    xz <- scale(x) # Z-transformed matrix
+    # Sort the matrix rows and cols directly
+    xo <- neat(x, method = "NMDS", distance = "euclidean") # Sorted matrix
+    tmp <- plot_matrix(xo, type = "twoway", mar = c(5, 12, 1, 1))
 
-    # Sorting rows (or columns) if just the sample order is needed rather than the matrix
-    sorted.rows <- neatsort(xz, "rows", method = "NMDS", distance = "euclidean") 
+![](Heatmap_files/figure-markdown_strict/neatmap3-1.png)
 
-    # Or just arrange the matrix directly
-    xo <- neat(xz, method = "NMDS", distance = "euclidean") # Sorted matrix
-    tmp <- plot_matrix(t(xo), type = "twoway", mar = c(5, 12, 1, 1))
-
-![](figure/neatmap3-1.png)
+    # or use a shortcut to sorting rows (or columns) if just the order was needed 
+    sorted.rows <- neatsort(x, "rows", method = "NMDS", distance = "euclidean") 
 
 ### Cross-correlating data sets
 
@@ -68,15 +63,12 @@ Keep only those elements that have at least only one significant
 correlation (n.signif):
 
     # Load example data 
-    library(microbiome)
-    data(peerj32)
-    data.peerj32.otu <- peerj32$microbes 
-    data.peerj32.lipids <- peerj32$lipids 
+    otu <- peerj32$microbes 
+    lipids <- peerj32$lipids 
 
     # Define data sets to cross-correlate
-    # OTU Log10 matrix # Microbiota (44 samples x 130 bacteria)
-    x <- log10(data.peerj32.otu)
-    y <- as.matrix(data.peerj32.lipids) # Lipids (44 samples x 389 lipids)
+    x <- log10(otu) # OTU Log10 (44 samples x 130 genera)
+    y <- as.matrix(lipids) # Lipids (44 samples x 389 lipids)
 
     # Cross correlate data sets
     correlations <- cross_correlate(x, y, method = "bicor", mode = "matrix", p.adj.threshold = 0.05, n.signif = 1)
@@ -146,14 +138,14 @@ Arrange the results in handy table format:
 
 Rearrange the data and plot the heatmap and mark significant
 correlations with stars to reproduce microbiota-lipidome heatmap from
-[this article](https://peerj.com/articles/32/) (the ordering of rows and
-columns may be different):
+[Lahti et al. PeerJ (2013)](https://peerj.com/articles/32/) (the
+ordering of rows and columns may be different):
 
     p <- association_heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
 
     print(p)
 
-![](figure/heatmap-example-stars3-1.png)
+![](Heatmap_files/figure-markdown_strict/heatmap-example-stars3-1.png)
 
 ### Heatmaps with ggplot2
 
@@ -193,7 +185,7 @@ q-value threshold also for cell coloring:
     # Plot
     print(p)
 
-![](figure/heatmap-example-stars-1.png)
+![](Heatmap_files/figure-markdown_strict/heatmap-example-stars-1.png)
 
 ### Heatmap with text
 
@@ -215,7 +207,7 @@ top of the heatmap:
     p <- p + xlab("") + ylab("")
     print(p)
 
-![](figure/heatmap-example-text-1.png)
+![](Heatmap_files/figure-markdown_strict/heatmap-example-text-1.png)
 
 ### ggcorr
 
@@ -231,7 +223,7 @@ and many more options.
     ggcorr(x[, 1:10], method = c("pairwise", "spearman"), nbreaks = 20, label = TRUE, label_alpha = TRUE)
     ggcorr(data = NULL, cor_matrix = cor(x[, 1:10], use = "everything"), low = "steelblue", mid = "white", high = "darkred", midpoint = 0)
 
-<img src="figure/ggcorr1-1.png" width="400px" /><img src="figure/ggcorr1-2.png" width="400px" /><img src="figure/ggcorr1-3.png" width="400px" /><img src="figure/ggcorr1-4.png" width="400px" />
+<img src="Heatmap_files/figure-markdown_strict/ggcorr1-1.png" width="400px" /><img src="Heatmap_files/figure-markdown_strict/ggcorr1-2.png" width="400px" /><img src="Heatmap_files/figure-markdown_strict/ggcorr1-3.png" width="400px" /><img src="Heatmap_files/figure-markdown_strict/ggcorr1-4.png" width="400px" />
 
 ### Links
 

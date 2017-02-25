@@ -31,7 +31,7 @@ check_foldchange <- function (x, group, sort = FALSE, paired = FALSE) {
   }
 
   if (class(x) == "phyloseq") {    
-    x <- taxa_abundances(x)
+    x <- abundances(x)
   }
 
   # Calculate fold changes

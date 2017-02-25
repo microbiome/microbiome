@@ -10,7 +10,7 @@ pickdata <- function (x, otu.name) {
     
   } else if (class(x) == "phyloseq") { 
 
-    xx <- taxa_abundances(x)
+    xx <- abundances(x)
     meta <- sample_data(x)
 
     # If OTU name not in otu data then try metadata

@@ -56,7 +56,7 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
 
   # Pick the abundance matrix
   # taxa x samples
-  abu <- taxa_abundances(x)
+  abu <- abundances(x)
 
   # Average the samples by group
   group <- NULL
@@ -168,7 +168,7 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
     if (verbose) {message("Constructing the heatmap.")}
 
     # Taxa x samples otu matrix
-    otu <- taxa_abundances(x)
+    otu <- abundances(x)
     
     # Remove NAs after the transformation
     otu <- otu[rowMeans(is.na(otu)) < 1, colMeans(is.na(otu)) < 1]

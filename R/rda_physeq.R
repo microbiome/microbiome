@@ -15,7 +15,7 @@
 rda_physeq <- function (x, varname, scale = FALSE, na.action = na.fail, ...) {
 
   # Microbiota profiling data (44 samples x 130 bacteria)
-  otu <- t(taxa_abundances(x))
+  otu <- t(abundances(x))
   
   # Sample annotations
   annot <- sample_data(x)[[varname]]

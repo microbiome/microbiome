@@ -4,12 +4,18 @@
   %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}  
 -->
+Core microbiota analysis
+------------------------
+
 ### Prevalence of taxonomic groups
 
 Load example data:
 
+    # Load data
     library(microbiome)
-    data("peerj32")
+    data(peerj32)
+
+    # Rename the data
     pseq <- peerj32$phyloseq
 
     # Calculate relative abundances
@@ -43,13 +49,20 @@ population frequency (relative = FALSE):
 
 Core taxa above a given detection and prevalence thresholds:
 
-    core.taxa <- core(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
+    core.taxa <- core_members(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
 
-Total core abundance:
+Pick the core microbiota subset of the data:
+
+`{r core-data, message=FALSE, warning=FALSE}c pseq.core <- core(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)`
+
+Total core abundance (sum of abundances of the core members):
 
     core.abundance <- core_abundance(pseq.rel, detection.threshold = 1, prevalence.threshold = 95)
 
-### Core 2D line plots
+Core visualization
+------------------
+
+### 2D line plots
 
 Determine core microbiota across various abundance/prevalence thresholds
 with the [blanket
@@ -91,7 +104,7 @@ bootstrap\_microbes function.
     print(p + xlab("Detection Threshold (Relative Abundance (%))"))
 
     # Core with absolute counts and horizontal view:
-    detection.thresholds <- 10^seq(log10(1), log10(max(otu_table(pseq))/10), length = 20)        
+    detection.thresholds <- 10^seq(log10(1), log10(max(abundances(pseq))/10), length = 20)       
     plot_core(pseq, plot.type = "heatmap", colours = gray,
                  prevalence.intervals = prevalence.intervals,
                  detection.thresholds = detection.thresholds,
@@ -117,4 +130,4 @@ min prevalence (given as percentages):
              min.prevalence = 0)         
     print(p)
 
-<img src="figure/core-example3bb-1.png" width="430px" /><img src="figure/core-example3bb-2.png" width="430px" />
+<img src="Core_files/figure-markdown_strict/core-example3bb-1.png" width="430px" /><img src="Core_files/figure-markdown_strict/core-example3bb-2.png" width="430px" />

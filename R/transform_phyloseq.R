@@ -37,7 +37,7 @@ transform_phyloseq <- function (x, transformation = "compositional",
     transformation <- "compositional"
   }
 
-  if (!all(sample(round(prod(dim(otu_table(x)))/10) ))%%1 == 0) {
+  if (!all(sample(round(prod(dim(abundances(x)))/10) ))%%1 == 0) {
     warning("The OTU abundances are not integers. 
              Check that the OTU input data is given as original counts 
 	     to avoid transformation errors!")
@@ -59,9 +59,9 @@ transform_phyloseq <- function (x, transformation = "compositional",
 
     xt <- x
     if (taxa_are_rows(xt)) {
-      a <- t(taxa_abundances(transform_phyloseq(xt, "compositional")))
+      a <- t(abundances(transform_phyloseq(xt, "compositional")))
     } else {
-      a <- taxa_abundances(transform_phyloseq(xt, "compositional"))
+      a <- abundances(transform_phyloseq(xt, "compositional"))
     }
 
     if (!ncol(a) == nsamples(xt)) {stop("Something wrong with clr transform.")}
@@ -76,7 +76,7 @@ transform_phyloseq <- function (x, transformation = "compositional",
   } else if (transformation == "log10") {
   
     # Log transformation:
-    if (min(otu_table(x)) == 0) {
+    if (min(abundances(x)) == 0) {
       warning("OTU table contains zeroes. Using log10(1 + x) transformation.")
       # target does not affect the log transformation 
       xt <- transform_sample_counts(x, function(x) log10(1 + x))      
@@ -94,7 +94,7 @@ transform_phyloseq <- function (x, transformation = "compositional",
     if (target == "OTU") {
     
       xt <- x
-      a <- try(xx <- decostand(taxa_abundances(xt),
+      a <- try(xx <- decostand(abundances(xt),
       	                       method = transformation, MARGIN = 2))
             
       if (class(a) == "try-error") {

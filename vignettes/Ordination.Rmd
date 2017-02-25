@@ -84,7 +84,7 @@ p + facet_wrap(~Phylum, 5)
 ### Multidimensional scaling (MDS / PCoA)
 
 ```{r ordination-ordinate23, warning=FALSE, message=FALSE, fig.width=10, fig.height=6}
-plot_ordination(pseq, ordinate(pseq, "MDS"), color = "DNA_extraction_method") +
+plot_ordination(pseq, ordinate(pseq, "MDS"), color = "nationality") +
                 geom_point(size = 5)
 ```
 

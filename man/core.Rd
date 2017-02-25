@@ -2,44 +2,32 @@
 % Please edit documentation in R/core.R
 \name{core}
 \alias{core}
-\alias{prevalent_taxa}
-\title{Core Taxa}
+\title{Filter Prevalent Taxa}
 \usage{
-core(x, detection.threshold = 1, prevalence.threshold = 95, sort = TRUE)
+core(x, detection.threshold, prevalence.threshold)
 }
 \arguments{
-\item{x}{phyloseq object}
+\item{x}{\code{\link{phyloseq-class}} object}
 
 \item{detection.threshold}{Detection threshold (non-negative real)}
 
 \item{prevalence.threshold}{Prevalence threshold (in [0, 100])}
-
-\item{sort}{Logical. Sort the taxa.}
 }
 \value{
-Vector of core members
+Filtered phyloseq object including only prevalent taxa
 }
 \description{
-Determine members of the core microbiota with given abundance
-'             and prevalence thresholds.
-}
-\details{
-For phyloseq object, lists taxa that are more prevalent with the
-  given detection threshold. For matrix, lists columns that satisfy
-  these criteria.
+Filter the phyloseq object to include only prevalent taxa.
 }
 \examples{
-  data(dietswap)
-  a <- core(dietswap, 1, 95)
+  data(peerj32)
+  core(peerj32$phyloseq, 200, 20)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \references{
-A Salonen et al. The adult intestinal core microbiota is determined by 
-  analysis depth and health status. Clinical Microbiology and Infection 
-  18(S4):16 20, 2012. 
-  To cite the microbiome R package, see citation('microbiome')
+To cite the microbiome R package, see citation('microbiome')
 }
 \keyword{utilities}
 

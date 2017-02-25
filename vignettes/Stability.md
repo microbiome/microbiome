@@ -5,7 +5,7 @@
   %\VignetteEncoding{UTF-8}  
 -->
 Microbiome stability analysis
-=============================
+-----------------------------
 
 Get example data - [HITChip Atlas of 130 genus-like taxa across 1006
 healthy western
@@ -13,24 +13,26 @@ adults](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html
 A subset of 76 subjects have also short time series available for
 temporal stability analysis:
 
+    # Load the example data
     library(microbiome)
     data(atlas1006)
+
+    # Rename the example data
     pseq <- atlas1006
 
-    # Let us keep only prevalent taxa from Bacteroides Phylum
-    # (HITChip signal >3 in >20 percent of the samples)
-    pseq <- subset_taxa(pseq, Phylum == "Bacteroidetes")
-    pseq <- filter_prevalent(pseq, detection.threshold = 10^3, prevalence.threshold = 0.95)
+    # Focus on Bacteroides Phylum and specific DNA extraction method
+    pseq <- pseq %>%
+            subset_taxa(Phylum == "Bacteroidetes") %>%
+            subset_samples(DNA_extraction_method == "r")
 
-    # Let us only consider RBB extracted samples
-    pseq <- subset_samples(pseq, DNA_extraction_method == "r")
+    # Keep prevalent taxa (HITChip signal >3 in >95 percent of the samples)
+    pseq <- core(pseq, detection.threshold = 10^3, prevalence.threshold = 20)
 
     # For cross-sectional analysis, include
     # only the zero time point:
     pseq0 <- subset_samples(pseq, time == 0)
 
-Quantify intermediate stability
--------------------------------
+### Intermediate stability quantification
 
 It has been reported that certain microbial groups exhibit bi-stable
 abundance distributions with distinct peaks at low and high abundances,
@@ -45,8 +47,7 @@ calculated with:
 
     intermediate.stability <- intermediate_stability(pseq, output = "scores")
 
-Quantify bimodality
--------------------
+### Bimodality quantification
 
 Bimodality of the abundance distribution provides another (indirect)
 indicator of bistability, although other explanations such as sampling
@@ -84,8 +85,7 @@ Visualize population densities
 
 ![](Stability_files/figure-markdown_strict/stability2-1.png)
 
-Comparing bimodality and intermediate stability
------------------------------------------------
+### Comparing bimodality and intermediate stability
 
 The analysis suggests that bimodal population distribution across
 individuals is often associated with instable intermediate abundances
@@ -111,10 +111,10 @@ human intestinal microbiota in [Lahti et al. Nat. Comm. 5:4344,
 
     print(p)
 
-![](figure/bimodalitybistability-1.png)
+![](Stability_files/figure-markdown_strict/bimodalitybistability-1.png)
 
-Detecting a tipping point
--------------------------
+Tipping point detection
+-----------------------
 
 Identify potential minima in cross-section population data as tipping
 point candidates.
@@ -136,7 +136,7 @@ point candidates.
 
     print(tipping.point)
 
-    ## [1] 4.981252
+    ## [1] 5.034405
 
 Variation lineplot and Bimodality hotplot
 -----------------------------------------
@@ -161,7 +161,7 @@ temporal stability within subjects at intermediate abundances.
     ph <- plot_bimodal(pseq0, tax, tipping.point = tipping.point)
     print(ph)
 
-<img src="figure/stability-variationplot-1.png" width="430px" /><img src="figure/stability-variationplot-2.png" width="430px" />
+<img src="Stability_files/figure-markdown_strict/stability-variationplot-1.png" width="430px" /><img src="Stability_files/figure-markdown_strict/stability-variationplot-2.png" width="430px" />
 
 ### Potential analysis
 

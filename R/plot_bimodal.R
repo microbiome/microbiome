@@ -20,7 +20,7 @@ plot_bimodal <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1
 
   Abundance <- ..density.. <- ..x.. <- NULL
 
-  otu <- taxa_abundances(x)
+  otu <- abundances(x)
 
   # Add small shift to avoid problems with 0
   # Take log10 to enable useful visualization

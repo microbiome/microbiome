@@ -29,12 +29,13 @@ summarize_taxa <- function (pseq, level) {
     current.level <- names(which(apply(tax_table(pseq), 2,
                        function (x) {length(unique(x))}) == ntaxa(pseq)))
     otus <- map_levels(data = pseq, to = current.level, from = level)
-    
+
     ab <- matrix(NA, nrow = length(otus), ncol = nsamples(pseq))
     rownames(ab) <- names(otus)
     colnames(ab) <- sample_names(pseq)
 
-    d <- taxa_abundances(pseq)
+    d <- abundances(pseq)
+
     for (nam in names(otus)) {
       taxa <- otus[[nam]]
       ab[nam,] <- colSums(matrix(d[taxa,], ncol = nsamples(pseq)))

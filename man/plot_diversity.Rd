@@ -5,7 +5,8 @@
 \title{Plot Diversity}
 \usage{
 plot_diversity(x, variable = "group", measures = "Shannon", nrow = 1,
-  scales = "free_y", det.th = 0, indicate.subjects = FALSE)
+  scales = "free_y", det.th = 0, indicate.subjects = FALSE,
+  na.rm = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -27,9 +28,11 @@ as a character vector. Values must be among those supported:
 \item{scales}{scales for the plot}
 
 \item{det.th}{Detection threshold for the diversity measure 'Observed' 
-(ie. species richness). See \code{\link{estimate_diversity}}}
+(ie. species richness). See \code{\link{diversity_table}}}
 
 \item{indicate.subjects}{Indicate subjects by lines. The sample_data(x) must have 'subject' field.}
+
+\item{na.rm}{Remove samples with missing metadata (NA)}
 }
 \value{
 A \code{\link{ggplot}} plot object summarizing
@@ -54,7 +57,7 @@ If subject is among the metadata variables, the matched subjects across groups a
 }
 \seealso{
 \code{\link{estimate_richness}}
- \code{\link{estimate_diversity}}
+ \code{\link{diversity_table}}
  \code{\link{plot_richness}}
  \code{\link[vegan]{estimateR}}
  \code{\link[vegan]{diversity}}

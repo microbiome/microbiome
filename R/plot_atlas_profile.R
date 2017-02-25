@@ -25,8 +25,8 @@ plot_atlas_profile <- function (pseq, x, y, ncol = 2) {
 
   if (y %in% names(sample_data(pseq))) {
     df$signal <- sample_data(pseq)[[y]]
-  } else if (y %in% rownames(otu_table(pseq))) {
-    df$signal <- as.vector(otu_table(pseq)[y,])
+  } else if (y %in% rownames(abundances(pseq))) {
+    df$signal <- as.vector(abundances(pseq)[y,])
   }
 
   # Randomize sample order to avoid visualization biases

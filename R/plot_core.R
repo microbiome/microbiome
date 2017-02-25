@@ -39,7 +39,7 @@ plot_core <- function(x,
 
   if (length(detection.thresholds) == 1) {
     detection.thresholds <- 10^seq(log10(1e-3),
-      log10(max(taxa_abundances(x), na.rm = T)),
+      log10(max(abundances(x), na.rm = T)),
       length = detection.thresholds)
   }
 
@@ -53,7 +53,7 @@ plot_core <- function(x,
   } else if (plot.type == "heatmap") {
 
     # Here we use taxon x abundance thresholds table indicating prevalences
-    res <- core_heatmap(taxa_abundances(x),
+    res <- core_heatmap(abundances(x),
     	                detection.thresholds = detection.thresholds,
 			colours = colours, min.prevalence = min.prevalence,
 			taxa.order = taxa.order)

@@ -1,7 +1,7 @@
 #' @title Validate Phyloseq
 #' @description Validate phyloseq object.
 #' @param x phyloseq object
-#' @details Checks that the otu_table and sample_data have exactly same samples.
+#' @details Checks that the abundances and sample_data have exactly same samples.
 #' @return A validated and polished phyloseq object
 #' @export
 #' @examples
@@ -12,13 +12,13 @@ validate_phyloseq <- function (x) {
 
   validated <- TRUE		  
 
-  dat <- t(taxa_abundances(x))
+  dat <- t(abundances(x))
   meta <- sample_data(x)		         
   coms <- intersect(rownames(dat), rownames(meta))
 
   if (length(coms) < 2) {
     validated <- FALSE
-    warning("Check that the otu_table and sample_data have more than 1 samples 
+    warning("Check that the abundances and sample_data have more than 1 samples 
              in common")
     return(validated)
   } else {

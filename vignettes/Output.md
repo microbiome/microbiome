@@ -9,8 +9,7 @@
     output.dir <- "./"
     write.table(div.table, file = "DiversityTable.tab", sep = "\t")
 
-Save clustering image to a file
--------------------------------
+### Save clustering image to a file
 
 Save in PDF:
 

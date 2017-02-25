@@ -18,7 +18,7 @@ output:
 
 ### Richness 
 
-```{r rich-example, warning=FALSE, message=FALSE, fig.path = "figure/", fig.height=3, fig.width=5}
+```{r rich-example, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
 # Get example data in phyloseq format
 library(microbiome)
 data(atlas1006)
@@ -28,7 +28,7 @@ pseq <- atlas1006
 # (note the zero point has been moved to the detection threshold;
 #  typically signal 1.8 at HITChip log10 scale)
 library(phyloseq)
-otu <- taxa_abundances(pseq)
+otu <- abundances(pseq)
 
 # Determine detection threshold at the 0.15 quantile
 # Then Calculate richness.
@@ -45,13 +45,13 @@ hist(ri, main = "Richness")
 
 Estimate diversity (table with various diversity measures):
 
-```{r div-example, warning=FALSE, message=FALSE, fig.path = "figure/"}
+```{r div-example, warning=FALSE, message=FALSE}
 diversity <- diversity_table(pseq)
 ```
 
 Visualize diversity vs. discrete variable:
 
-```{r div-example2, warning=FALSE, message=FALSE, fig.path = "figure/", fig.width=8, fig.height=4}
+```{r div-example2, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
 p <- plot_diversity(pseq, "bmi_group", measures = c("Chao1", "Shannon"), indicate.subjects = FALSE)
 print(p)
 
@@ -69,7 +69,7 @@ print(p)
 
 Diversity vs. continuous variable:
 
-```{r diversitywithmetadata2, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, fig.path = "figure/", dev="CairoPNG"}
+```{r diversitywithmetadata2, warning=FALSE, message=FALSE, fig.width=8, fig.height=4, dev="CairoPNG"}
 p <- plot_diversity(atlas1006, "age", measures = "Shannon")
 print(p)
 ```
@@ -77,7 +77,7 @@ print(p)
 
 Diversity vs. age with smoothed confidence intervals - manual version:
 
-```{r diversity-example13, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, fig.path = "figure/", dev="CairoPNG", eval=FALSE}
+```{r diversity-example13, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, dev="CairoPNG", eval=FALSE}
 library(microbiome)
 library(sorvi)
 library(dplyr)
