@@ -3,7 +3,7 @@
 #' @param x A vector, matrix, or a phyloseq object
 #' @param method bimodality quantification method ('potential_bootstrap'
 #' 	  or one of the methods in coefficient_of_bimodality)
-#' @param detection.threshold Mode detection threshold
+#' @param detection Mode detection
 #' @param bw.adjust Bandwidth adjustment
 #' @param bs.iterations Bootstrap iterations
 #' @param detection.limit minimum accepted density for a maximum; 
@@ -43,7 +43,7 @@
 #'  # dip.test(x, simulate.p.value = TRUE, B = 200)$statistic
 #'  # Values less than 0.05 indicate significant deviation from unimodality. 
 #' @keywords utilities
-bimodality <- function (x, method = "potential_bootstrap", detection.threshold = 1, bw.adjust = 1, bs.iterations = 100, detection.limit = 1, verbose = TRUE) {
+bimodality <- function (x, method = "potential_bootstrap", detection = 1, bw.adjust = 1, bs.iterations = 100, detection.limit = 1, verbose = TRUE) {
 
   if (is.vector(x)) {
 
@@ -59,7 +59,7 @@ bimodality <- function (x, method = "potential_bootstrap", detection.threshold =
 
       } else {
 
-        s <- multimodality_score(x, detection.threshold, 
+        s <- multimodality_score(x, detection, 
       	   		       bw.adjust, bs.iterations, 
      			       detection.limit, verbose)$score
       }
@@ -67,13 +67,13 @@ bimodality <- function (x, method = "potential_bootstrap", detection.threshold =
 
   } else if (is.matrix(x)) {
 
-    s <- apply(x, 1, function (xi) {bimodality(xi, method = method, detection.threshold = detection.threshold, bw.adjust = bw.adjust, bs.iterations = bs.iterations, detection.limit = detection.limit, verbose = verbose)})
+    s <- apply(x, 1, function (xi) {bimodality(xi, method = method, detection = detection, bw.adjust = bw.adjust, bs.iterations = bs.iterations, detection.limit = detection.limit, verbose = verbose)})
 
   } else if (class(x) == "phyloseq") {
 
     # Pick the data from phyloseq object
     x <- abundances(transform_phyloseq(x, "log10"))
-    s <- bimodality(x, method = method, detection.threshold = detection.threshold, bw.adjust = bw.adjust, bs.iterations = bs.iterations, detection.limit = detection.limit, verbose = verbose)
+    s <- bimodality(x, method = method, detection = detection, bw.adjust = bw.adjust, bs.iterations = bs.iterations, detection.limit = detection.limit, verbose = verbose)
 
   }
   

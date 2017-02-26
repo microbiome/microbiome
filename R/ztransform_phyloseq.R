@@ -3,7 +3,7 @@
 #' @details Performs centering (to zero) and scaling (to unit
 #'   variance) across samples for each taxa.
 #' @param x \code{\link{phyloseq-class}} object 
-#' @param which Specify Z transformation for "sample" or "OTU"
+#' @param which Specify Z transform for "sample" or "OTU"
 #' @return Z-transformed phyloseq object
 #' @examples \dontrun{
 #'   data(peerj32)
@@ -18,10 +18,10 @@ ztransform_phyloseq <- function (x, which) {
 
   if (!all(sample(abundances(x), 100)%%1 == 0)) {
     warning("phyloseq object may already have been log transformed - the 
-             abundances are not counts - log10 omitted in Z transformation. 
+             abundances are not counts - log10 omitted in Z transform. 
 	     Perform manually if needed.")
   } else {
-    # Start with log10 transformation
+    # Start with log10 transform
     x <- transform_phyloseq(x, "log10")
   }
   

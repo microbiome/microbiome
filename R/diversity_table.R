@@ -5,7 +5,7 @@
 #' @param split See help(phyloseq::estimate_richness)
 #' @param measures See help(phyloseq::estimate_richness). In addition,
 #'        the measure "Evenness" is provided (Pielou's index).
-#' @param det.th detection threshold for observing taxa (absence / presence)
+#' @param det.th detection for observing taxa (absence / presence)
 #' @return Vector containing relative proportions for each phylotype in 
 #'         each sample 
 #' @examples 
@@ -51,7 +51,7 @@ diversity_table <- function(x, split = TRUE, measures = NULL, det.th = 0) {
 
     # Calculate richness.
     # This simply indicates how many taxa are present in each sample
-    # (exceed the detection threshold). This measure is sometimes used with
+    # (exceed the detection). This measure is sometimes used with
     # phylogenetic microarrays.
     ri <- colSums(otu > det.th)
 

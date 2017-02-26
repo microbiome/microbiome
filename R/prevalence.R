@@ -1,7 +1,7 @@
 #' @title Prevalence for Phyloseq OTUs
 #' @description Simple prevalence measure.
 #' @param x A vector, data matrix or phyloseq object
-#' @param detection.threshold Detection threshold for absence/presence.
+#' @param detection Detection threshold for absence/presence.
 #' @param sort Sort the groups by prevalence
 #' @param relative Logical. Indicate prevalence as fraction of samples
 #' (in percentage [0, 100]; default); or in absolute counts indicating
@@ -9,7 +9,7 @@
 #' abundance threshold.
 #' @details For vectors, calculates the fraction (mode relative) or
 #' number (mode absolute) of samples that exceed the
-#' detection threshold. For matrices, calculates this for each matrix
+#' detection. For matrices, calculates this for each matrix
 #' column. For phyloseq objects, calculates this for each OTU. The
 #' relative prevalence (relative = TRUE) is simply the absolute
 #' prevalence (relative = FALSE) divided by the number of samples.
@@ -26,10 +26,10 @@
 #' @examples
 #'   data(peerj32)     
 #'   ## With matrix
-#'   prevalence(peerj32$data$microbes, detection.threshold = 200, sort = TRUE)
+#'   prevalence(peerj32$data$microbes, detection = 200, sort = TRUE)
 #'   ## With phyloseq
-#'   prevalence(peerj32$phyloseq, detection.threshold = 200, sort = TRUE)
-prevalence <- function (x, detection.threshold = 0, sort = FALSE, relative = TRUE) {
+#'   prevalence(peerj32$phyloseq, detection = 200, sort = TRUE)
+prevalence <- function (x, detection = 0, sort = FALSE, relative = TRUE) {
 
   if (is.null(x)) {
     warning("x is NULL - returning NULL")
@@ -37,13 +37,13 @@ prevalence <- function (x, detection.threshold = 0, sort = FALSE, relative = TRU
   }
 
   if (is.vector(x)) {
-    prev <- sum(x > detection.threshold)
+    prev <- sum(x > detection)
   } else if (is.matrix(x) || is.data.frame(x)) {
-    prev <- rowSums(x > detection.threshold)
+    prev <- rowSums(x > detection)
   } else if (class(x) == "phyloseq") {
     # At this point necessary to have relative = FALSE
     prev <- prevalence(abundances(x),
-    	      detection.threshold = detection.threshold, relative = FALSE)
+    	      detection = detection, relative = FALSE)
   } 
 
   if (relative) {

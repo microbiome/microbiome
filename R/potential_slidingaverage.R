@@ -6,7 +6,7 @@
 #' @param bw Bandwidth for smoothing kernels. Automatically determined
 #'           by default.
 #' @param bw.adjust Bandwidth adjustment constant
-#' @param detection.threshold Threshold for local optima to be discarded.
+#' @param detection Threshold for local optima to be discarded.
 #' @param std Standard deviation.
 #' @param grid.size number of evaluation points; number of steps between
 #'           min and max potential; also used as kernel window size
@@ -42,7 +42,7 @@
 #'	    res <- potential_slidingaverage(X, param)
 #' @keywords utils
 potential_slidingaverage <- function(X, param = NULL, bw = "nrd",
-                                     bw.adjust = 1, detection.threshold = 0.1,
+                                     bw.adjust = 1, detection = 0.1,
 				     std = 1, grid.size = 50,
 				     plot.cutoff = 0.5,
 				     plot.contours = TRUE, binwidth = 0.2, 

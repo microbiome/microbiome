@@ -2,7 +2,7 @@
 #' @description Analysis of multimodality based on bootstrapped potential
 #'    analysis of Livina et al. (2010) as described in Lahti et al. (2014).
 #' @param x Input data vector
-#' @param detection.threshold Mode detection threshold
+#' @param detection Mode detection
 #' @param bw.adjust Bandwidth adjustment
 #' @param bs.iterations Bootstrap iterations
 #' @param detection.limit minimum accepted density for a maximum; as a multiple of kernel height
@@ -19,7 +19,7 @@
 #'   \item{}{Livina et al. (2010). Potential analysis reveals changing number of climate states during the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
 #'   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal ecosystem. \emph{Nature Communications} 5:4344.}
 #'  }
-potential_analysis_bootstrap <- function (x, detection.threshold, bw.adjust = 1, bs.iterations = 100, detection.limit = 1) {
+potential_analysis_bootstrap <- function (x, detection, bw.adjust = 1, bs.iterations = 100, detection.limit = 1) {
 
   nmodes <- c()
   minpoints <- list()
@@ -34,7 +34,7 @@ potential_analysis_bootstrap <- function (x, detection.threshold, bw.adjust = 1,
     xbs <- na.omit(unname(x[rs]))
 
     a <- potential_univariate(xbs, grid.size = floor(.2*length(x)), 
-      	 		     detection.threshold = detection.threshold, 
+      	 		     detection = detection, 
 			     bw.adjust = bw.adjust, 
 			     detection.limit = detection.limit)
 

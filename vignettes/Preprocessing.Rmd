@@ -107,12 +107,12 @@ pseq.subset <- subset_samples(pseq, nationality == "US")
 ```
 
 
-### Data transformations
+### Data transforms
 
-The microbiome package provides a wrapper for standard sample/OTU transformations. For arbitrary transformations, use the transform_sample_counts function in the phyloseq package.
+The microbiome package provides a wrapper for standard sample/OTU transforms. For arbitrary transforms, use the transform_sample_counts function in the phyloseq package.
 
-Log10 transformation (log(1+x) if the data contains zeroes). Also "Z",
-"clr", and "hellinger" are available as common transformations.
+Log10 transform (log(1+x) if the data contains zeroes). Also "Z",
+"clr", and "hellinger" are available as common transforms.
 
 ```{r preprocessing-logtrans}
 pseq.log <- transform_phyloseq(pseq, "log10")
@@ -157,6 +157,13 @@ Number of taxa
 
 ```{r preprocess3e, warning=FALSE, message=FALSE}
 n <- ntaxa(pseq)
+```
+
+
+Most abundant taxa
+
+```{r toptaxa, warning=FALSE, message=FALSE}
+topx <- top_taxa(pseq, n = 10)
 ```
 
 

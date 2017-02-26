@@ -13,7 +13,7 @@
 #' @param x.label Specify how to label the x axis. This should be one of the variables in sample_variables(x).
 #' @param plot.type Plot type: 'barplot' or 'heatmap'
 #' @param verbose verbose
-#' @param transformation Data transformation to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform_phyloseq}} function.
+#' @param transform Data transform to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform_phyloseq}} function.
 #' @param mar Figure margins
 #' @param average_by Average the samples by the average_by variable 
 #' @param ... Arguments to be passed (for \code{\link{order_neatmap}} function)
@@ -27,7 +27,7 @@
 #'     plot_composition(pseq, taxonomic.level = "Phylum")
 #'           }
 #' @keywords utilities
-plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, otu.sort = NULL, x.label = "sample", plot.type = "barplot", verbose = FALSE, transformation = NULL, mar = c(5, 12, 1, 1), average_by = NULL, ...) {
+plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, otu.sort = NULL, x.label = "sample", plot.type = "barplot", verbose = FALSE, transform = NULL, mar = c(5, 12, 1, 1), average_by = NULL, ...) {
 
   # Avoid warnings
   Sample <- Abundance <- Taxon <- horiz <- value <- scales <- ID <- meta <- OTU <- NULL
@@ -38,17 +38,17 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
     x <- summarize_taxa(x, taxonomic.level)
   }
 
-  if (verbose) {message("Check data transformations.")}
+  if (verbose) {message("Check data transforms.")}
   xorig <- x
-  if (is.null(transformation)) {
+  if (is.null(transform)) {
     x <- x
-  } else if (transformation == "log10") {
+  } else if (transform == "log10") {
     x <- transform_phyloseq(x, "log10")
-  } else if (transformation == "Z-OTU") {
+  } else if (transform == "Z-OTU") {
     x <- transform_phyloseq(x, "Z", "OTU")
-  } else if (transformation == "Z-Sample") {
+  } else if (transform == "Z-Sample") {
     x <- transform_phyloseq(x, "Z", "Sample")
-  } else if (transformation == "relative.abundance") {
+  } else if (transform == "relative.abundance") {
     x <- transform_phyloseq(x, "relative.abundance", "OTU")
   }   
 
@@ -153,7 +153,7 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
     p <- p + scale_x_discrete(labels = dfm$xlabel, breaks = dfm$Sample)
 
     # Name appropriately
-    if (!is.null(transformation) && transformation == "relative.abundance") {
+    if (!is.null(transform) && transform == "relative.abundance") {
       p <- p + ylab("Relative abundance (%)")
     } else {
       p <- p + ylab("Abundance")
@@ -170,7 +170,7 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
     # Taxa x samples otu matrix
     otu <- abundances(x)
     
-    # Remove NAs after the transformation
+    # Remove NAs after the transform
     otu <- otu[rowMeans(is.na(otu)) < 1, colMeans(is.na(otu)) < 1]
 
     otu.sort <- otu.sort[otu.sort %in% rownames(otu)]

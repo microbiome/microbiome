@@ -6,7 +6,7 @@
 #' @param weights optional weights in ksdensity (used by
 #' potential_slidingaverages).
 #' @param grid.size Grid size for potential estimation.
-#' @param detection.threshold maximum detection threshold as fraction
+#' @param detection maximum detection as fraction
 #' of density kernel height dnorm(0, sd = bandwidth)/N
 #' @param bw.adjust The real bandwidth will be bw.adjust*bw; defaults to 1
 #' @param density.smoothing Add a small constant density across the
@@ -40,7 +40,7 @@
 #' @keywords early-warning
 potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
 		     grid.size = NULL, 
-    		     detection.threshold = 1, bw.adjust = 1,
+    		     detection = 1, bw.adjust = 1,
 		     density.smoothing = 0, detection.limit = 1) {
     
     if (is.null(grid.size)) {
@@ -82,15 +82,15 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
 
     # Note mins and maxs for density given # here (not for potential,
     # which has the opposite signs)
-    ops <- find_optima(f, detection.threshold = detection.threshold, bw = bw, detection.limit = detection.limit)
+    ops <- find_optima(f, detection = detection, bw = bw, detection.limit = detection.limit)
     min.points <- grid.points[ops$min]
     max.points <- grid.points[ops$max]
-    det.th <- ops$detection.threshold
+    det.th <- ops$detection
     
     list(grid.points = grid.points, pot = U, density = f, min.inds = ops$min,
          max.inds = ops$max, bw = bw,
 	 min.points = min.points, max.points = max.points,
-	 detection.threshold = det.th)
+	 detection = det.th)
     
 }
 

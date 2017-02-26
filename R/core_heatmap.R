@@ -1,9 +1,9 @@
 #' @title Core Heatmap
 #' @description Core heatmap.
 #' @param data OTU matrix
-#' @param detection.thresholds A vector or a scalar indicating the number of intervals in (0, log10(max(data))). The detection thresholds are calculated for relative abundancies.
+#' @param detections A vector or a scalar indicating the number of intervals in (0, log10(max(data))). The detections are calculated for relative abundancies.
 #' @param colours colours for the heatmap
-#' @param min.prevalence If minimum prevalence is set, then filter out those rows (taxa) and columns (detection thresholds) that never exceed this prevalence threshold. This helps to zoom in on the actual core region of the heatmap.
+#' @param min.prevalence If minimum prevalence is set, then filter out those rows (taxa) and columns (detections) that never exceed this prevalence. This helps to zoom in on the actual core region of the heatmap.
 #' @param taxa.order Ordering of the taxa.
 #' @return Used for its side effects
 #' @references 
@@ -13,14 +13,14 @@
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-core_heatmap <- function(data, detection.thresholds = 20, colours = gray(seq(0,1,length=5)), min.prevalence = NULL, taxa.order = NULL) {
+core_heatmap <- function(data, detections = 20, colours = gray(seq(0,1,length=5)), min.prevalence = NULL, taxa.order = NULL) {
 
     DetectionThreshold <- Taxa <- Prevalence <- NULL
     
-    # Prevalences with varying detection thresholds
-    prev <- lapply(detection.thresholds, function (th) {prevalence(data, detection.threshold = th)})
+    # Prevalences with varying detections
+    prev <- lapply(detections, function (th) {prevalence(data, detection = th)})
     prev <- do.call("cbind", prev)
-    colnames(prev) <- as.character(detection.thresholds)
+    colnames(prev) <- as.character(detections)
 
     # Exclude rows and cols that never exceed the given prevalence
     if (!is.null(min.prevalence)) {

@@ -2,7 +2,7 @@
 #' @description Calculate multimodality score based on bootstrapped
 #' potential analysis.
 #' @param x Phyloseq object
-#' @param detection.threshold Mode detection threshold
+#' @param detection Mode detection
 #' @param bw.adjust Bandwidth adjustment
 #' @param bs.iterations Bootstrap iterations
 #' @param detection.limit minimum accepted density for a maximum;
@@ -33,11 +33,11 @@
 #'           ecosystem. \emph{Nature Communications} 5:4344.}
 #'  }
 #' @keywords utilities
-multimodality_phyloseq <- function (x, detection.threshold = 1, bw.adjust = 1,
+multimodality_phyloseq <- function (x, detection = 1, bw.adjust = 1,
                                     bs.iterations = 100, detection.limit = 1,
 				    verbose = TRUE) {
   x <- abundances(transform_phyloseq(x, "log10"))
-  msc <- multimodality_score(x, detection.threshold,
+  msc <- multimodality_score(x, detection,
       	   bw.adjust, bs.iterations, detection.limit, verbose)
   msc
   

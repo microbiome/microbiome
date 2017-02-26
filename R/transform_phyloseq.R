@@ -1,15 +1,15 @@
 #' @title Data Transformations for phyloseq Objects
-#' @description Standard transformations for \code{\link{phyloseq-class}}.
+#' @description Standard transforms for \code{\link{phyloseq-class}}.
 #' @param x \code{\link{phyloseq-class}} object
-#' @param transformation Transformation to apply. The options include:
+#' @param transform Transformation to apply. The options include:
 #'   'compositional' (ie relative abundance), 'Z', 'log10', 'hellinger',
 #'   'identity', 'clr', 'ilr',
 #'    or any method from the vegan::decostand function.
-#' @param target Apply the transformation for 'sample' or 'OTU'.
-#'               Does not affect the log transformation.
+#' @param target Apply the transform for 'sample' or 'OTU'.
+#'               Does not affect the log transform.
 #' @return Transformed \code{\link{phyloseq}} object
 #' @details The relative abunance are returned as percentages in [0,
-#'   100]. The Hellinger transformation is square root of the relative
+#'   100]. The Hellinger transform is square root of the relative
 #'   abundance but instead given at the scale [0,1].
 #' @export
 #' @examples
@@ -18,45 +18,45 @@
 #'   # OTU relative abundances
 #'   xt <- transform_phyloseq(x, "relative.abundance", "OTU")
 #' 
-#'   # Z-transformation for OTUs
+#'   # Z-transform for OTUs
 #'   xt <- transform_phyloseq(x, "Z", "OTU")
 #'
-#'   # Z-transformation for samples
+#'   # Z-transform for samples
 #'   xt <- transform_phyloseq(x, "Z", "sample")
 #'
-#'   # Log10 transformation (log(1+x) if the data contains zeroes)
+#'   # Log10 transform (log(1+x) if the data contains zeroes)
 #'   xt <- transform_phyloseq(x, "log10")
 #'
 #' }
 #' @keywords utilities
-transform_phyloseq <- function (x, transformation = "identity",
+transform_phyloseq <- function (x, transform = "identity",
                                    target = "OTU") {
 
   y <- NULL
 
-  if (transformation == "relative.abundance") {
-    transformation <- "compositional"
+  if (transform == "relative.abundance") {
+    transform <- "compositional"
   }
 
   if (!all(sample(round(prod(dim(abundances(x)))/10) ))%%1 == 0) {
     warning("The OTU abundances are not integers. 
              Check that the OTU input data is given as original counts 
-	     to avoid transformation errors!")
+	     to avoid transform errors!")
   }
 
-  if (transformation == "compositional") {
+  if (transform == "compositional") {
     if (target == "OTU") {
       xt <- transform_sample_counts(x, function (x) {100 * x/sum(x)})
     } else {
-      stop(paste("transform_phyloseq not implemented for transformation",
-      				     transformation, "with target", target))
+      stop(paste("transform_phyloseq not implemented for transform",
+      				     transform, "with target", target))
     }
-  } else if (transformation == "Z") {
+  } else if (transform == "Z") {
 
-    # Z transformation for sample or OTU
+    # Z transform for sample or OTU
     xt <- ztransform_phyloseq(x, target)
 
-  } else if (transformation == "clr") {
+  } else if (transform == "clr") {
 
     xt <- x
     if (taxa_are_rows(xt)) {
@@ -74,20 +74,20 @@ transform_phyloseq <- function (x, transformation = "identity",
 
     xt@otu_table@.Data <- t(d)
 
-  } else if (transformation == "log10") {
+  } else if (transform == "log10") {
   
-    # Log transformation:
+    # Log transform:
     if (min(abundances(x)) == 0) {
-      warning("OTU table contains zeroes. Using log10(1 + x) transformation.")
-      # target does not affect the log transformation 
+      warning("OTU table contains zeroes. Using log10(1 + x) transform.")
+      # target does not affect the log transform 
       xt <- transform_sample_counts(x, function(x) log10(1 + x))      
     } else {
       xt <- transform_sample_counts(x, function(x) log10(x))      
     }
 
-  } else if (transformation == "identity") {
+  } else if (transform == "identity") {
 
-    # No transformation
+    # No transform
     xt <- x
     
   } else {
@@ -96,11 +96,11 @@ transform_phyloseq <- function (x, transformation = "identity",
     
       xt <- x
       a <- try(xx <- decostand(abundances(xt),
-      	                       method = transformation, MARGIN = 2))
+      	                       method = transform, MARGIN = 2))
             
       if (class(a) == "try-error") {
         xt <- NULL
-        stop(paste("Transformation", transformation, "not defined."))
+        stop(paste("Transformation", transform, "not defined."))
       }
 
       if (!taxa_are_rows(xt)) {xx <- t(xx)}
@@ -108,7 +108,7 @@ transform_phyloseq <- function (x, transformation = "identity",
 
      } else {
     
-      stop(paste("Transformation", transformation, "not defined for", target))
+      stop(paste("Transformation", transform, "not defined for", target))
       
     }    
   }

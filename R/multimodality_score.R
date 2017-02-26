@@ -1,7 +1,7 @@
 #' @title Multimodality Score
 #' @description Multimodality score based on bootstrapped potential analysis.
 #' @param x A vector, or data matrix (variables x samples)
-#' @param detection.threshold Mode detection threshold
+#' @param detection Mode detection
 #' @param bw.adjust Bandwidth adjustment
 #' @param bs.iterations Bootstrap iterations
 #' @param detection.limit minimum accepted density for a maximum;
@@ -32,7 +32,7 @@
 #'     	     ecosystem. \emph{Nature Communications} 5:4344.}
 #'  }
 #' @keywords utilities
-multimodality_score <- function (x, detection.threshold = 1, bw.adjust = 1, bs.iterations = 100, detection.limit = 1, verbose = TRUE) {
+multimodality_score <- function (x, detection = 1, bw.adjust = 1, bs.iterations = 100, detection.limit = 1, verbose = TRUE) {
 
   if (is.vector(x)) {
   
@@ -40,7 +40,7 @@ multimodality_score <- function (x, detection.threshold = 1, bw.adjust = 1, bs.i
     # (identical values may cause failure)
     x <- x + rnorm(length(x), sd = sd(x)/100)
     m <- potential_analysis_bootstrap(x,
-      	   detection.threshold = detection.threshold, bw.adjust = bw.adjust,
+      	   detection = detection, bw.adjust = bw.adjust,
 	   bs.iterations = bs.iterations, detection.limit = detection.limit)
     ret <- list(score = 1 - m$unimodality.support, modes = m$modes, results = m)
     return(ret)
@@ -57,7 +57,7 @@ multimodality_score <- function (x, detection.threshold = 1, bw.adjust = 1, bs.i
     for (tax in rownames(x)) {
       if (verbose) { message(tax) }
       m <- multimodality_score(as.numeric(x[tax, ]),
-      	   		       detection.threshold, bw.adjust,
+      	   		       detection, bw.adjust,
 			       bs.iterations, detection.limit, verbose)
       nmodes[[tax]] <- m$modes 
       potential.results[[tax]] <- m

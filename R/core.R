@@ -10,13 +10,13 @@
 #' @examples
 #'   data(peerj32)
 #'   core(peerj32$phyloseq, 200, 20)
-core <- function (x, detection.threshold, prevalence.threshold) {
+core <- function (x, detection, prevalence) {
   # Was: filter_prevalent
 
   # TODO: add optional renormalization such that the core member
   # abundances would sum up to 100 ?
 
-  taxa <- core_members(x, detection.threshold, prevalence.threshold)
+  taxa <- core_members(x, detection, prevalence)
   prune_taxa(taxa, x)
 }
 
