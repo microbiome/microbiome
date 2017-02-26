@@ -24,6 +24,8 @@ variable from sample metadata:
     # Proportion explained by the contraints
     summary(rda.result)$constr.chi/summary(rda.result)$tot.chi
 
+    ## [1] 0.01540884
+
 ### RDA visualization
 
 Visualizing the standard RDA output:
@@ -36,6 +38,8 @@ Visualizing the standard RDA output:
     pl <- ordihull(rda.result, meta$time, scaling = 3, label = TRUE)
     title("RDA")
 
+![](RDA_files/figure-markdown_strict/rda4-1.png)
+
 See also the RDA method in phyloseq::ordinate, which is calculated
 without the formula.
 
@@ -43,6 +47,18 @@ without the formula.
 
     library(vegan)
     permutest(rda.result) 
+
+    ## 
+    ## Permutation test for rda 
+    ## 
+    ## Permutation: free
+    ## Number of permutations: 99
+    ##  
+    ## Call: rda(formula = otu ~ annot, scale = scale, na.action =
+    ## na.action)
+    ## Permutation test for all constrained eigenvalues
+    ## Pseudo-F:     0.6572996 (with 1, 42 Degrees of Freedom)
+    ## Significance:     0.9
 
 ### Bagged RDA
 
@@ -53,6 +69,8 @@ Fitting bagged (bootstrap aggregated) RDA on a phyloseq object:
 Visualizing bagged RDA:
 
     plot_bagged_rda(res)
+
+![](RDA_files/figure-markdown_strict/rda6-1.png)
 
 ### RDA with confounding variables
 

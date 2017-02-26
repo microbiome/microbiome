@@ -48,7 +48,7 @@ Visualize the microbiome landscape (sample similarities on two-dimensional proje
 p <- plot_landscape(pseq.core, "NMDS", "bray", col = "nationality")
 ```
 
-```{r landscape3b, message=FALSE, warning=FALSE, fig.width=11, fig.height=6, fig.show="hold", out.width="400px"}
+```{r landscape3b, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
 print(p)
 ```
 
