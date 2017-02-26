@@ -29,12 +29,10 @@ Contributions are very welcome:
   * Subscribe to the [mailing list](https://groups.google.com/forum/#!forum/microbiome-devel) (microbiome-devel@googlegroups.com)
   * [Star us on the Github page](https://github.com/microbiome/microbiome)
 
-Kindly cite this work as follows: Leo Lahti [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). microbiome: Tools for microbiome analysis. R package version 0.99.91. http://microbiome.github.com
-
 
 ### Publications using the microbiome package
 
-The list is not exhaustive. 
+**Kindly cite this work** as follows: Leo Lahti [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). microbiome: Tools for microbiome analysis. R package version 0.99.91. http://microbiome.github.com or citing the references below if appropriate (the references introduce or take advantage of some of these methods). The list of publications is not exhaustive. Let us know if you know of further publications using the microbiome package; we are collecting these on the website.
 
 [Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Sudarshan Shetty, Floor Hugenholtz, Leo Lahti, Hauke Smidt, Willem M de Vos, Antoine Danchin. _FEMS Microbiology Reviews_ fuw045, 2017.
 
