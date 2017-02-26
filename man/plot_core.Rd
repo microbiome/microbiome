@@ -4,14 +4,14 @@
 \alias{plot_core}
 \title{Visualize OTU Core}
 \usage{
-plot_core(x, prevalence.intervals = seq(5, 100, 5), detections = 20,
+plot_core(x, prevalences = seq(5, 100, 5), detections = 20,
   plot.type = "lineplot", colours = gray(seq(0, 1, length = 5)),
   min.prevalence = NULL, taxa.order = NULL, horizontal = FALSE)
 }
 \arguments{
 \item{x}{A \code{\link{phyloseq}} object or a core matrix}
 
-\item{prevalence.intervals}{a vector of prevalence percentages in [0,100]}
+\item{prevalences}{a vector of prevalence percentages in [0,100]}
 
 \item{detections}{a vector of intensities around the data range,
 or a scalar indicating the number of intervals in the data range.}
@@ -40,7 +40,7 @@ Core visualization (2D).
 \examples{
   data(atlas1006)
   pseq <- atlas1006
-  p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10),
+  p <- plot_core(pseq, prevalences = seq(10, 100, 10),
                        detections = c(0, 10^(0:4)))
 }
 \author{

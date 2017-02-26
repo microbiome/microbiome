@@ -59,16 +59,74 @@ Total core abundance (sum of abundances of the core members):
 
     core.abundance <- core_abundance(pseq.rel, detection = 1, prevalence = 95)
 
+Bootstrap analysis of the core members (for added robustness; see
+[Salonen et al. CMI
+(2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract).
+The core members may be sensitive to sampling effects; bootstrap aims to
+estimate how frequently a particular group is determined to be a core
+member in random bootstrap subsets of the data.
+
+    bs <- core_bootstrap(pseq.rel, Nboot = 100)
+    knitr::kable(head(bs))
+
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">Microbe</th>
+<th align="right">Frequency</th>
+<th align="right">suggested.core</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>109</td>
+<td align="left">Ruminococcus obeum et rel.</td>
+<td align="right">0.77</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td>65</td>
+<td align="left">Faecalibacterium prausnitzii et rel.</td>
+<td align="right">0.67</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td>60</td>
+<td align="left">Eubacterium hallii et rel.</td>
+<td align="right">0.65</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td>24</td>
+<td align="left">Bacteroides vulgatus et rel.</td>
+<td align="right">0.62</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td>49</td>
+<td align="left">Coprococcus eutactus et rel.</td>
+<td align="right">0.27</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td>105</td>
+<td align="left">Ruminococcus bromii et rel.</td>
+<td align="right">0.21</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+
 Core visualization
 ------------------
 
 ### Core line plots
 
 Determine core microbiota across various abundance/prevalence thresholds
-with the [blanket
-analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract)
-based on various signal and prevalences. See also the the
-bootstrap\_microbes function.
+with the blanket analysis [(Salonen et al. CMI,
+2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract)
+based on various signal and prevalences.
 
     # With absolute read counts
     det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000)
@@ -110,6 +168,6 @@ Shetty et al. *FEMS Microbiology Reviews* fuw045, 2017.
                  prevalences = prevalences,
                  detections = detections,
              colours = rev(brewer.pal(5, "Spectral")),
-             min.prevalence = 10, horizontal = TRUE)
+             min.prevalence = 20, horizontal = TRUE)
 
 <img src="Core_files/figure-markdown_strict/core-example3-1.png" width="430px" /><img src="Core_files/figure-markdown_strict/core-example3-2.png" width="430px" />

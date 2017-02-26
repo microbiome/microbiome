@@ -7,7 +7,7 @@
 core_abundance(x, detection = 1, prevalence = 95)
 }
 \arguments{
-\item{x}{phyloseq object}
+\item{x}{\code{\link{phyloseq-class}} object}
 
 \item{detection}{Detection threshold (non-negative real)}
 

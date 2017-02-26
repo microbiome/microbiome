@@ -45,18 +45,8 @@ kable(head(div))
 
 ### Diversity vs. obesity (discrete factor)
 
-```{r div-example2, warning=FALSE, message=FALSE, fig.width=10, fig.height=8}
+```{r div-example2, warning=FALSE, message=FALSE, fig.width=15, fig.height=5}
 p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250, na.rm = TRUE)
-print(p)
-```
-
-
-### Diversity vs. age (continuous factor)
-
-Output figure not shown due to slowness of calculation:
-
-```{r atlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, eval=FALSE}
-p <- plot_regression(diversity~age, sample_data(pseq))
 print(p)
 ```
 

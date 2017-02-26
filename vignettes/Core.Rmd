@@ -75,14 +75,22 @@ core.abundance <- core_abundance(pseq.rel, detection = 1, prevalence = 95)
 ```
 
 
+Bootstrap analysis of the core members (for added robustness; see [Salonen et al. CMI (2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract). The core members may be sensitive to sampling effects; bootstrap aims to estimate how frequently a particular group is determined to be a core member in random bootstrap subsets of the data.
+
+```{r core_bootstrap, message=FALSE, warning=FALSE}
+bs <- core_bootstrap(pseq.rel, Nboot = 100)
+knitr::kable(head(bs))
+```
+
+
+
+
 ## Core visualization
 
 ### Core line plots
 
 Determine core microbiota across various abundance/prevalence
-thresholds with the [blanket
-analysis](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) based on various signal and prevalences. See also the the
-bootstrap_microbes function.
+thresholds with the blanket analysis [(Salonen et al. CMI, 2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) based on various signal and prevalences.
 
 ```{r core-example2, fig.width=9, fig.heigth=6, fig.show='hold', out.width="430px", warning=FALSE}
 # With absolute read counts
@@ -122,7 +130,7 @@ plot_core(pseq, plot.type = "heatmap",
        		 prevalences = prevalences,
        		 detections = detections,
 		 colours = rev(brewer.pal(5, "Spectral")),
-		 min.prevalence = 10, horizontal = TRUE)
+		 min.prevalence = 20, horizontal = TRUE)
 ```
 
 

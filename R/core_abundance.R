@@ -1,6 +1,6 @@
 #' @title Core Abundance
 #' @description Calculate total core abundance
-#' @param x phyloseq object
+#' @param x \code{\link{phyloseq-class}} object
 #' @param detection Detection threshold (non-negative real)
 #' @param prevalence Prevalence threshold (in [0, 100])
 #' @return Total core abunance vector.

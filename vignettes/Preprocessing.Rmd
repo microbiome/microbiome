@@ -23,14 +23,6 @@ Instructions to manipulate microbiome data sets using the
 subsetting, aggregating and filtering.
 
 
-### Retrieving specific data elements from phyloseq  
-
-A phyloseq object contains OTU table (taxa abundances), sample
-metadata, taxonomy table (mapping between OTUs and higher-level
-taxonomic classifications), and phylogenetic tree (relations between
-the taxa). Some of these are optional.
-
-
 Load example data:
 
 ```{r data21}
@@ -40,6 +32,14 @@ library(microbiome)
 data(atlas1006)   # Load the data
 pseq <- atlas1006 # Rename the data
 ```
+
+
+### Retrieving data elements from a phyloseq object  
+
+A phyloseq object contains OTU table (taxa abundances), sample
+metadata, taxonomy table (mapping between OTUs and higher-level
+taxonomic classifications), and phylogenetic tree (relations between
+the taxa). Some of these are optional.
 
 
 Pick metadata:

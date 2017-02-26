@@ -4,7 +4,7 @@
 \alias{prevalence}
 \title{Prevalence for Phyloseq OTUs}
 \usage{
-prevalence(x, detection = 0, sort = FALSE, relative = TRUE)
+prevalence(x, detection = 0, sort = FALSE, count = FALSE)
 }
 \arguments{
 \item{x}{A vector, data matrix or phyloseq object}
@@ -13,7 +13,7 @@ prevalence(x, detection = 0, sort = FALSE, relative = TRUE)
 
 \item{sort}{Sort the groups by prevalence}
 
-\item{relative}{Logical. Indicate prevalence as fraction of samples
+\item{count}{Logical. Indicate prevalence as fraction of samples
 (in percentage [0, 100]; default); or in absolute counts indicating
 the number of samples where the OTU is detected above the given
 abundance threshold.}
@@ -26,12 +26,12 @@ detected. The output is readily given as a percentage.
 Simple prevalence measure.
 }
 \details{
-For vectors, calculates the fraction (mode relative) or
-number (mode absolute) of samples that exceed the
+For vectors, calculates the fraction (count = FALSE) or
+number (count = TRUE) of samples that exceed the
 detection. For matrices, calculates this for each matrix
 column. For phyloseq objects, calculates this for each OTU. The
-relative prevalence (relative = TRUE) is simply the absolute
-prevalence (relative = FALSE) divided by the number of samples.
+relative prevalence (count = FALSE) is simply the absolute
+prevalence (count = TRUE) divided by the number of samples.
 }
 \examples{
   data(peerj32)     
@@ -39,6 +39,7 @@ prevalence (relative = FALSE) divided by the number of samples.
   prevalence(peerj32$data$microbes, detection = 200, sort = TRUE)
   ## With phyloseq
   prevalence(peerj32$phyloseq, detection = 200, sort = TRUE)
+  prevalence(peerj32$phyloseq, detection = 200, sort = TRUE, count = TRUE)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
