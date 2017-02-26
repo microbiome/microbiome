@@ -13,7 +13,7 @@
 #' @keywords utilities
 plot_landscape <- function (x, method = "NMDS", distance = "bray", col = NULL, ...) {
 
-  proj <- get_ordination(x, method, distance)
+  quiet(proj <- get_ordination(x, method, distance))
 
   if (is.null(col)) {
     proj$col <- as.factor("black")

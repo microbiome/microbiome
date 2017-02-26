@@ -36,7 +36,7 @@ A \code{\link{ggplot}} plot object.
 Plot abundance density across samples for a given taxon.
 }
 \examples{
-# plot_density(x, variable = "Dialister")
+\dontrun{p <- plot_density(x, variable = "Dialister")}
 }
 \keyword{utilities}
 
