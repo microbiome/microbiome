@@ -43,7 +43,7 @@ pseq.core <- core(pseq.rel, detection = 1, prevalence = 10)
 
 Visualize the microbiome landscape (sample similarities on two-dimensional projection):
 
-```{r landscape3, message=FALSE, warning=FALSE, fig.width=11, fig.height=6, fig.show="hold", out.width="400px", echo=FALSE}
+```{r landscape3, message=FALSE, warning=FALSE, fig.width=11, fig.height=6, fig.show="hold", out.width="400px", echo=FALSE, quietly=TRUE}
 # Landscape plot directly from phyloseq object
 p <- plot_landscape(pseq.core, "NMDS", "bray", col = "nationality")
 ```
