@@ -39,7 +39,7 @@ two-dimensional projection):
 
 <img src="Landscaping_files/figure-markdown_strict/landscape3-1.png" width="400px" />
 
-For a direct access to the ordination coordinates, use the following:
+For direct access to the ordination coordinates, use the following:
 
     # Project the samples with the given method and dissimilarity measure. 
     # Ordinate the data; note that some ordinations are sensitive to random seed
@@ -85,6 +85,6 @@ Population densities for Dialister:
     # Same with log10 compositionals
     x <- transform_phyloseq(x, "compositional")
     tax <- "Dialister"
-    plot_density(x, tax, log10 = TRUE) + ggtitle("Relative abundance")
+    plot_density(x, tax, log10 = TRUE) + ggtitle("Relative abundance") + xlab("Relative abundance (%)")
 
 <img src="Landscaping_files/figure-markdown_strict/hist-1.png" width="280px" /><img src="Landscaping_files/figure-markdown_strict/hist-2.png" width="280px" /><img src="Landscaping_files/figure-markdown_strict/hist-3.png" width="280px" />
