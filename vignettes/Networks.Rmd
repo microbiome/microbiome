@@ -30,6 +30,9 @@ data(dietswap)
 pseq <- dietswap
 ```
 
+
+### Sample similarities
+
 Connect samples with sufficiently similar microbiota composition, and highlight sample groups:
 
 ```{r networks2, warning=FALSE, message=FALSE}
@@ -49,12 +52,13 @@ p <- plot_net(pseq, maxdist = 0.2,
 print(p)		 
 ```
 
-### Network reconstruction for compositional data
 
-The compositionality bias in similarity measures can be fixed with
-SpiecEasi or SparCC; the implementations are available via the
-[SpiecEasi package](https://github.com/zdk123/SpiecEasi). Note that
-the execution is slow.
+### Taxonomic network reconstruction 
+
+The widely reported compositionality bias in similarity measures can
+be fixed with SpiecEasi or SparCC; the implementations are available
+via the [SpiecEasi package](https://github.com/zdk123/SpiecEasi). Note
+that the execution is slow.
 
 
 ```{r networks4, warning=FALSE, message=FALSE, fig.width=10, fig.height=10}

@@ -7,16 +7,11 @@
 Processing taxonomic profiling data
 -----------------------------------
 
-Instructions to manipulate microbiome data sets using the [phyloseq
-package](http://joey711.github.io/phyloseq/), including subsetting,
-aggregating and filtering.
-
-### Retrieving specific data elements from phyloseq
-
-A phyloseq object contains OTU table (taxa abundances), sample metadata,
-taxonomy table (mapping between OTUs and higher-level taxonomic
-classifications), and phylogenetic tree (relations between the taxa).
-Some of these are optional.
+Instructions to manipulate microbiome data sets using tools from the
+[phyloseq package](http://joey711.github.io/phyloseq/) and some
+extensions from the [microbiome
+package](https://github.com/microbiome/microbiome), including
+subsetting, aggregating and filtering.
 
 Load example data:
 
@@ -26,6 +21,13 @@ Load example data:
     data(atlas1006)   # Load the data
     pseq <- atlas1006 # Rename the data
 
+### Retrieving data elements from a phyloseq object
+
+A phyloseq object contains OTU table (taxa abundances), sample metadata,
+taxonomy table (mapping between OTUs and higher-level taxonomic
+classifications), and phylogenetic tree (relations between the taxa).
+Some of these are optional.
+
 Pick metadata:
 
     meta <- sample_data(pseq)
@@ -34,13 +36,15 @@ Taxonomy table:
 
     taxonomy <- tax_table(pseq)
 
-Abundances for taxonomic groups ('OTU table') as a taxa x samples
-matrix; optionally transform the abundances:
+Abundances for taxonomic groups ('OTU table') as a TaxaxSamples matrix:
 
+    # Absolute abundances
     otu.absolute <- abundances(pseq)
+
+    # Relative abundances
     otu.relative <- abundances(pseq, "compositional")
 
-Melting phyloseq data for easier plotting:
+Melt phyloseq data for easier plotting:
 
     df <- psmelt(pseq)
     kable(head(df))
@@ -209,7 +213,7 @@ Select samples by specific metadata fields
 
     pseq.subset <- subset_samples(pseq, nationality == "US")
 
-### Data transforms
+### Data transformations
 
 The microbiome package provides a wrapper for standard sample/OTU
 transforms. For arbitrary transforms, use the transform\_sample\_counts
@@ -223,8 +227,8 @@ and "hellinger" are available as common transforms.
 Relative abundances (the input data needs to be in absolute scale, not
 logarithmic!):
 
-    pseq1 <- transform_phyloseq(pseq, "compositional", "OTU")
-    pseq2 <- transform_sample_counts(pseq, function(x) x/sum(x))
+    pseq1 <- microbiome::transform_phyloseq(pseq, "compositional", "OTU")
+    pseq2 <- phyloseq::transform_sample_counts(pseq, function(x) x/sum(x))
 
 ### Variable operations
 
@@ -238,13 +242,13 @@ Sample variable names
     ##  [7] "bmi_group"             "subject"              
     ##  [9] "time"                  "sample"
 
-Pick variable values for a given variable
+Pick values for a given variable
 
     head(get_variable(pseq, sample_variables(pseq)[1]))
 
     ## [1] 28 24 52 22 25 42
 
-Assign fields to metadata
+Assign new fields to metadata
 
     # Calculate diversity for samples
     div <- diversity_table(pseq, measures = "Shannon")$Shannon
@@ -264,12 +268,12 @@ Most abundant taxa
 
 Names
 
-    ranks <- rank_names(pseq) # Taxonomic levels
-    taxa  <- taxa_names(pseq)  # Names of taxa at the target level
+    ranks <- rank_names(pseq)  # Taxonomic levels
+    taxa  <- taxa_names(pseq)  # Taxa names at the analysed level
 
 Subset taxa:
 
-    pseq <- subset_taxa(pseq, Phylum == "Bacteroidetes")
+    pseq.bac <- subset_taxa(pseq, Phylum == "Bacteroidetes")
 
 Prune (select) taxa:
 
@@ -290,23 +294,14 @@ List unique phylum-level groups:
 
     head(get_taxa_unique(pseq, "Phylum"))
 
-    ## [1] "Bacteroidetes"
+    ## [1] "Actinobacteria"         "Bacilli"               
+    ## [3] "Proteobacteria"         "Verrucomicrobia"       
+    ## [5] "Bacteroidetes"          "Clostridium cluster XV"
 
-Pick detected taxa by sample name:
+Pick the taxa abundances for a given sample:
 
     samplename <- sample_names(pseq)[[1]]
     tax.abundances <- get_taxa(pseq, samplename)
-
-Taxa sums
-
-    head(taxa_sums(pseq))
-
-    ##               Allistipes et rel.     Bacteroides fragilis et rel. 
-    ##                         14642669                          7132954 
-    ## Bacteroides intestinalis et rel.       Bacteroides ovatus et rel. 
-    ##                           494644                          4189619 
-    ##     Bacteroides plebeius et rel.  Bacteroides splachnicus et rel. 
-    ##                          2986888                          2581560
 
 ### Merging operations
 
@@ -328,12 +323,12 @@ Merging phyloseq objects
 ### Taxonomy
 
 Convert between taxonomic levels (here from Genus (Akkermansia) to
-Phylum (Verrucomicrobia)):
+Phylum (Verrucomicrobia):
 
     m <- map_levels("Akkermansia", "Genus", "Phylum", tax_table(pseq))
     print(m)
 
-    ## [1] NA
+    ## [1] "Verrucomicrobia"
 
 ### Metadata
 
@@ -345,7 +340,8 @@ groups (group):
 
 ![](Preprocessing_files/figure-markdown_strict/phylogeny-example3-1.png)
 
-    kable(res$data, digits = 2)
+    # Retrieving the actual data values:
+    kable(head(res$data), digits = 2)
 
 <table>
 <thead>
@@ -392,60 +388,6 @@ groups (group):
 <td align="left">male</td>
 <td align="right">102</td>
 <td align="right">50.00</td>
-</tr>
-<tr class="odd">
-<td align="left">obese</td>
-<td align="left">female</td>
-<td align="right">133</td>
-<td align="right">59.38</td>
-</tr>
-<tr class="even">
-<td align="left">obese</td>
-<td align="left">male</td>
-<td align="right">91</td>
-<td align="right">40.62</td>
-</tr>
-<tr class="odd">
-<td align="left">severeobese</td>
-<td align="left">female</td>
-<td align="right">70</td>
-<td align="right">70.00</td>
-</tr>
-<tr class="even">
-<td align="left">severeobese</td>
-<td align="left">male</td>
-<td align="right">30</td>
-<td align="right">30.00</td>
-</tr>
-<tr class="odd">
-<td align="left">morbidobese</td>
-<td align="left">female</td>
-<td align="right">21</td>
-<td align="right">95.45</td>
-</tr>
-<tr class="even">
-<td align="left">morbidobese</td>
-<td align="left">male</td>
-<td align="right">1</td>
-<td align="right">4.55</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">female</td>
-<td align="right">29</td>
-<td align="right">27.36</td>
-</tr>
-<tr class="even">
-<td align="left">NA</td>
-<td align="left">male</td>
-<td align="right">40</td>
-<td align="right">37.74</td>
-</tr>
-<tr class="odd">
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="right">37</td>
-<td align="right">34.91</td>
 </tr>
 </tbody>
 </table>

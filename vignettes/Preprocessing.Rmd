@@ -18,9 +18,7 @@ output:
 
 ## Processing taxonomic profiling data
 
-Instructions to manipulate microbiome data sets using the
-[phyloseq package](http://joey711.github.io/phyloseq/), including
-subsetting, aggregating and filtering.
+Instructions to manipulate microbiome data sets using tools from the [phyloseq package](http://joey711.github.io/phyloseq/) and some extensions from the [microbiome package](https://github.com/microbiome/microbiome), including subsetting, aggregating and filtering.
 
 
 Load example data:
@@ -55,16 +53,18 @@ taxonomy <- tax_table(pseq)
 ```
 
 
-Abundances for taxonomic groups ('OTU table') as a taxa x samples
-matrix; optionally transform the abundances:
+Abundances for taxonomic groups ('OTU table') as a TaxaxSamples matrix:
 
 ```{r data23}
+# Absolute abundances
 otu.absolute <- abundances(pseq)
+
+# Relative abundances
 otu.relative <- abundances(pseq, "compositional")
 ```
 
 
-Melting phyloseq data for easier plotting:
+Melt phyloseq data for easier plotting:
 
 ```{r data25}
 df <- psmelt(pseq)
@@ -107,7 +107,7 @@ pseq.subset <- subset_samples(pseq, nationality == "US")
 ```
 
 
-### Data transforms
+### Data transformations
 
 The microbiome package provides a wrapper for standard sample/OTU transforms. For arbitrary transforms, use the transform_sample_counts function in the phyloseq package.
 
@@ -121,8 +121,8 @@ pseq.log <- transform_phyloseq(pseq, "log10")
 Relative abundances (the input data needs to be in absolute scale, not logarithmic!):
 
 ```{r data10}
-pseq1 <- transform_phyloseq(pseq, "compositional", "OTU")
-pseq2 <- transform_sample_counts(pseq, function(x) x/sum(x))
+pseq1 <- microbiome::transform_phyloseq(pseq, "compositional", "OTU")
+pseq2 <- phyloseq::transform_sample_counts(pseq, function(x) x/sum(x))
 ```
 
 
@@ -134,13 +134,13 @@ Sample variable names
 sample_variables(pseq)
 ```
 
-Pick variable values for a given variable
+Pick values for a given variable
 
 ```{r preprocess4b, warning=FALSE, message=FALSE}
 head(get_variable(pseq, sample_variables(pseq)[1]))
 ```
 
-Assign fields to metadata
+Assign new fields to metadata
 
 ```{r preprocess4b2, warning=FALSE, message=FALSE}
 # Calculate diversity for samples
@@ -170,15 +170,15 @@ topx <- top_taxa(pseq, n = 10)
 Names
 
 ```{r preprocess3f, warning=FALSE, message=FALSE}
-ranks <- rank_names(pseq) # Taxonomic levels
-taxa  <- taxa_names(pseq)  # Names of taxa at the target level
+ranks <- rank_names(pseq)  # Taxonomic levels
+taxa  <- taxa_names(pseq)  # Taxa names at the analysed level
 ```
 
 
 Subset taxa:
 
 ```{r preprocess3c, warning=FALSE, message=FALSE}
-pseq <- subset_taxa(pseq, Phylum == "Bacteroidetes")
+pseq.bac <- subset_taxa(pseq, Phylum == "Bacteroidetes")
 ```
 
 
@@ -209,18 +209,11 @@ List unique phylum-level groups:
 head(get_taxa_unique(pseq, "Phylum"))
 ```
 
-Pick detected taxa by sample name:
+Pick the taxa abundances for a given sample:
 
 ```{r preprocess3gg, warning=FALSE, message=FALSE}
 samplename <- sample_names(pseq)[[1]]
 tax.abundances <- get_taxa(pseq, samplename)
-```
-
-
-Taxa sums
-
-```{r preprocess3h, warning=FALSE, message=FALSE}
-head(taxa_sums(pseq))
 ```
 
 
@@ -250,7 +243,7 @@ pseq.rarified <- rarefy_even_depth(pseq)
 ### Taxonomy 
 
 Convert between taxonomic levels (here from Genus (Akkermansia) to
-Phylum (Verrucomicrobia)):
+Phylum (Verrucomicrobia):
 
 ```{r phylogeny-example2, warning=FALSE, message=FALSE}
 m <- map_levels("Akkermansia", "Genus", "Phylum", tax_table(pseq))
@@ -263,9 +256,11 @@ print(m)
 Visualize frequencies of given factor (sex) levels within the
 indicated groups (group):
 
-```{r phylogeny-example3, warning=FALSE, message=FALSE, fig.width=5, fig.height=3}
+```{r phylogeny-example3, warning=FALSE, message=FALSE, fig.width=10, fig.height=6}
 res <- plot_frequencies(sample_data(pseq), "bmi_group", "gender")
 print(res$plot)
-kable(res$data, digits = 2)
+
+# Retrieving the actual data values:
+kable(head(res$data), digits = 2)
 ```
 
