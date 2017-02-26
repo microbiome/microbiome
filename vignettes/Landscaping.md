@@ -33,43 +33,19 @@ Load example data:
 Visualize the microbiome landscape (sample similarities on
 two-dimensional projection):
 
+    # Landscape plot directly from phyloseq object
+    p <- plot_landscape(pseq.core, "NMDS", "bray", col = "nationality")
     print(p)
 
-<img src="Landscaping_files/figure-markdown_strict/landscape3b-1.png" width="400px" />
+<img src="Landscaping_files/figure-markdown_strict/landscape3-1.png" width="400px" />
 
 For a direct access to the ordination coordinates, use the following:
 
     # Project the samples with the given method and dissimilarity measure. 
     # Ordinate the data; note that some ordinations are sensitive to random seed
+    # "quiet" is used to suppress intermediate outputs
     set.seed(423542)
-    proj <- get_ordination(pseq.core, "NMDS", "bray")
-
-    ## Square root transformation
-    ## Wisconsin double standardization
-    ## Run 0 stress 0.1748281 
-    ## Run 1 stress 0.1962253 
-    ## Run 2 stress 0.2052584 
-    ## Run 3 stress 0.2365267 
-    ## Run 4 stress 0.188475 
-    ## Run 5 stress 0.1817445 
-    ## Run 6 stress 0.2018389 
-    ## Run 7 stress 0.1904916 
-    ## Run 8 stress 0.1844109 
-    ## Run 9 stress 0.2112487 
-    ## Run 10 stress 0.1955847 
-    ## Run 11 stress 0.1999699 
-    ## Run 12 stress 0.1766227 
-    ## Run 13 stress 0.2022904 
-    ## Run 14 stress 0.2091112 
-    ## Run 15 stress 0.185601 
-    ## Run 16 stress 0.2133307 
-    ## Run 17 stress 0.2069565 
-    ## Run 18 stress 0.2167203 
-    ## Run 19 stress 0.2255444 
-    ## Run 20 stress 0.2329115 
-    ## *** No convergence -- monoMDS stopping criteria:
-    ##     16: stress ratio > sratmax
-    ##      4: scale factor of the gradient < sfgrmin
+    quiet(proj <- get_ordination(pseq.core, "NMDS", "bray"))
 
     # Same with a generic data.frame
     # (note that random seed will affect the exact ordination)
