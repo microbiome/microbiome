@@ -83,10 +83,3 @@ Load the data in R:
     print(p)
 
 ![](Atlas_files/figure-markdown_strict/div-example2-1.png)
-
-### Diversity vs. age (continuous factor)
-
-Output figure not shown due to slowness of calculation:
-
-    p <- plot_regression(diversity~age, sample_data(pseq))
-    print(p)

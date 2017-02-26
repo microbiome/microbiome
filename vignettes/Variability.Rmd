@@ -105,9 +105,3 @@ p <- plot_regression(diversity ~ age, sample_data(atlas1006))
 print(p)
 ```
 
-### Version information
-
-```{r stabilitysessioninfo}
-sessionInfo()
-```
-
