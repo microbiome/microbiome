@@ -43,12 +43,9 @@ pseq.core <- core(pseq.rel, detection = 1, prevalence = 10)
 
 Visualize the microbiome landscape (sample similarities on two-dimensional projection):
 
-```{r landscape3, message=FALSE, warning=FALSE, fig.width=11, fig.height=6, fig.show="hold", out.width="400px", echo=FALSE, quietly=TRUE}
+```{r landscape3, message=FALSE, warning=FALSE, fig.width=11, fig.height=6, fig.show="hold", out.width="400px"}
 # Landscape plot directly from phyloseq object
 p <- plot_landscape(pseq.core, "NMDS", "bray", col = "nationality")
-```
-
-```{r landscape3b, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
 print(p)
 ```
 
@@ -57,8 +54,9 @@ For a direct access to the ordination coordinates, use the following:
 ```{r landscape4, message=FALSE, warning=FALSE, fig.width=11, fig.height=6, fig.show="hold", out.width="400px"}
 # Project the samples with the given method and dissimilarity measure. 
 # Ordinate the data; note that some ordinations are sensitive to random seed
+# "quiet" is used to suppress intermediate outputs
 set.seed(423542)
-proj <- get_ordination(pseq.core, "NMDS", "bray")
+quiet(proj <- get_ordination(pseq.core, "NMDS", "bray"))
 
 # Same with a generic data.frame
 # (note that random seed will affect the exact ordination)
