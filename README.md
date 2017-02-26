@@ -29,30 +29,8 @@ Contributions are very welcome:
   * Subscribe to the [mailing list](https://groups.google.com/forum/#!forum/microbiome-devel) (microbiome-devel@googlegroups.com)
   * [Star us on the Github page](https://github.com/microbiome/microbiome)
 
-Kindly cite this work as follows:
+Kindly cite this work as follows: Leo Lahti [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). microbiome: Tools for microbiome analysis. R package version 0.99.91. http://microbiome.github.com
 
-
-```r
-citation('microbiome')
-```
-
-```
-## 
-## To cite package 'microbiome' in publications use:
-## 
-##   Leo Lahti (2017). microbiome: Tools for microbiome analysis. R
-##   package version 0.99.91. http://microbiome.github.com
-## 
-## A BibTeX entry for LaTeX users is
-## 
-##   @Manual{,
-##     title = {microbiome: Tools for microbiome analysis},
-##     author = {Leo Lahti},
-##     year = {2017},
-##     note = {R package version 0.99.91},
-##     url = {http://microbiome.github.com},
-##   }
-```
 
 ### Publications using the microbiome package
 
