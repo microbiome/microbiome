@@ -1,7 +1,7 @@
 #' @title Visualize OTU Core
 #' @description Core visualization (2D).
 #' @param x A \code{\link{phyloseq}} object or a core matrix
-#' @param prevalence.intervals a vector of prevalence percentages in [0,100]
+#' @param prevalences a vector of prevalence percentages in [0,100]
 #' @param detections a vector of intensities around the data range,
 #'          or a scalar indicating the number of intervals in the data range.
 #' @param plot.type Plot type ('lineplot' or 'heatmap')
@@ -18,7 +18,7 @@
 #' @examples 
 #'   data(atlas1006)
 #'   pseq <- atlas1006
-#'   p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10),
+#'   p <- plot_core(pseq, prevalences = seq(10, 100, 10),
 #'                        detections = c(0, 10^(0:4)))
 #' @export 
 #' @references 
@@ -29,7 +29,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 plot_core <- function(x, 
-		   prevalence.intervals = seq(5, 100, 5), 		   
+		   prevalences = seq(5, 100, 5), 		   
 		   detections = 20,
 		   plot.type = "lineplot",
 		   colours = gray(seq(0,1,length=5)), 		   
@@ -46,7 +46,7 @@ plot_core <- function(x,
   if (plot.type == "lineplot") {
 
     # Calculate the core matrix (prevalences x abundance thresholds)
-    coremat <- core_matrix(x, prevalence.intervals, detections)
+    coremat <- core_matrix(x, prevalences, detections)
 
     res <- core_lineplot(coremat)
 
@@ -67,7 +67,7 @@ plot_core <- function(x,
   }
 
   #ret <- list(plot = p, data = res$data,
-  # 	    param = list(prevalence.intervals = prevalence.intervals,
+  # 	    param = list(prevalences = prevalences,
   # 	    detections = detections,
   #	    min.prevalence = min.prevalence))
 

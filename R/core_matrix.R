@@ -1,7 +1,7 @@
 #' @title Core Matrix 
 #' @description Creates the core matrix.
 #' @param x \code{\link{phyloseq}} object or a taxa x samples abundance matrix
-#' @param prevalence.intervals a vector of prevalence percentages in [0,100]
+#' @param prevalences a vector of prevalence percentages in [0,100]
 #' @param detections a vector of intensities around the data range
 #' @return Estimated core microbiota
 #' @examples
@@ -17,7 +17,7 @@
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 core_matrix <- function(x,  
-          prevalence.intervals = seq(5, 100, 5), 
+          prevalences = seq(5, 100, 5), 
           detections = NULL) {
 
     data <- x	  
@@ -27,7 +27,7 @@ core_matrix <- function(x,
     }
 
     # Convert prevalences from percentages to sample counts
-    p.seq <- 0.01 * prevalence.intervals * ncol(data)
+    p.seq <- 0.01 * prevalences * ncol(data)
 
     ## Intensity vector
     if (is.null(detections)) {
