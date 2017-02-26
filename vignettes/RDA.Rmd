@@ -67,13 +67,13 @@ permutest(rda.result)
 
 Fitting bagged (bootstrap aggregated) RDA on a phyloseq object:
 
-```{r rda5, warning=FALSE, message=FALSE, eval = FALSE}
+```{r rda5, warning=FALSE, message=FALSE, eval=TRUE}
 res <- bagged_rda(pseq.trans, "group", sig.thresh=0.05, nboot=100)
 ```
 
 Visualizing bagged RDA:
 
-```{r rda6, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval = FALSE}
+```{r rda6, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval=TRUE}
 plot_bagged_rda(res)
 ```
 
@@ -82,7 +82,7 @@ plot_bagged_rda(res)
 
 For more complex RDA scenarios, use the vegan package:
 
-```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval = FALSE}
+```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval=TRUE}
 # Pick microbiota profiling data from the phyloseq object
 otu <- abundances(pseq.trans)
 
@@ -92,6 +92,7 @@ meta <- sample_data(pseq.trans)
 # RDA with confounders
 rda.result2 <- rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))
 ```
+
 
 
 

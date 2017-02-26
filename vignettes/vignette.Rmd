@@ -54,8 +54,8 @@ extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 
 * [Heatmaps](Heatmap.md)
 * [Networks](Networks.md)
-* [Landscaping](Landscaping.md) (population density analysis)
-* [Ordination (PCA, PCoA, NMDS etc.)](Ordination.md)
+* [Landscapes](Landscaping.md) (population density analysis)
+* [Ordination (PCA, PCoA, NMDS, RDA etc.)](Ordination.md)
 
 
 ### Statistical analysis
