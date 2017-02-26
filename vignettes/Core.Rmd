@@ -115,10 +115,13 @@ print(p + xlab("Detection Threshold (Relative Abundance (%))"))
 
 # Core with absolute counts and horizontal view:
 # and minimum population prevalence (given as percentage)
-detections <- 10^seq(log10(1), log10(max(abundances(pseq))/10), length = 20)		 
-plot_core(pseq, plot.type = "heatmap", colours = gray,
+detections <- 10^seq(log10(1), log10(max(abundances(pseq))/10), length = 20)
+
+library(RColorBrewer)
+plot_core(pseq, plot.type = "heatmap", 
        		 prevalences = prevalences,
        		 detections = detections,
+		 colours = rev(brewer.pal(5, "Spectral")),
 		 min.prevalence = 10, horizontal = TRUE)
 ```
 

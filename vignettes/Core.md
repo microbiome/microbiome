@@ -103,10 +103,13 @@ Shetty et al. *FEMS Microbiology Reviews* fuw045, 2017.
 
     # Core with absolute counts and horizontal view:
     # and minimum population prevalence (given as percentage)
-    detections <- 10^seq(log10(1), log10(max(abundances(pseq))/10), length = 20)         
-    plot_core(pseq, plot.type = "heatmap", colours = gray,
+    detections <- 10^seq(log10(1), log10(max(abundances(pseq))/10), length = 20)
+
+    library(RColorBrewer)
+    plot_core(pseq, plot.type = "heatmap", 
                  prevalences = prevalences,
                  detections = detections,
+             colours = rev(brewer.pal(5, "Spectral")),
              min.prevalence = 10, horizontal = TRUE)
 
 <img src="Core_files/figure-markdown_strict/core-example3-1.png" width="430px" /><img src="Core_files/figure-markdown_strict/core-example3-2.png" width="430px" />
