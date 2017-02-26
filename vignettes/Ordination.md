@@ -7,8 +7,11 @@
 Ordination examples
 -------------------
 
-Some examples with HITChip data. See also [phyloseq ordination
+Full examples for standard ordination techniques applied to phyloseq
+data, based on the [phyloseq ordination
 tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html).
+For handy wrappers for some common ordination tasks in microbiome
+analysis, see [landscaping examples](Landscaping.md)
 
 Load example data:
 
@@ -18,42 +21,53 @@ Load example data:
     data(dietswap)
     pseq <- dietswap
 
-    # Convert signal to compositionals
+    # Convert to compositional data
     pseq.rel <- transform_phyloseq(pseq, "compositional")
 
-    # Pick OTUs that are present with >1 percent compositional 
-    # in >10 percent of the samples
-    pseq2 <- filter_taxa(pseq.rel,
-               function(x) sum(x > 1) > (0.1*nsamples(pseq.rel)), TRUE)
+    # Pick core taxa with with >10 percent prevalence of the samples
+    # at a >1 percent relative abundance detection limit
+    pseq.core <- core(pseq.rel, detection = 1, prevalence = 10)
 
 ### Sample ordination
 
-Project the samples with the given method and distance. See also
-plot\_ordination from the phyloseq package.
+Project the samples with the given method and dissimilarity measure.
 
+    # Ordinate the data
     set.seed(423542)
-    pseq.ord <- ordinate(pseq2, "NMDS", "bray")
-    # Just pick the projected data (first two columns + metadata)
-    proj <- plot_ordination(pseq2, pseq.ord, justDF = T)
-
-Then visualize the projected data:
-
-    # Highlighting nationality
-    p <- microbiome::densityplot(proj[, 1:2], col = proj$nationality, legend = T)
-    print(p)
-
-    # Projection with sample names:
-    ax1 <- names(proj)[[1]]
-    ax2 <- names(proj)[[2]]
-    p <- ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) +
-           geom_text(size = 2)
-    print(p)
-
-<img src="Ordination_files/figure-markdown_strict/ordination4-1.png" width="400px" /><img src="Ordination_files/figure-markdown_strict/ordination4-2.png" width="400px" />
+    proj <- get_ordination(pseq.core, "NMDS", "bray")
 
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
-    p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Phylum", title = "Taxa ordination")
+    p <- plot_ordination(pseq.core, ordinate(pseq.core, "NMDS", "bray"), type = "taxa", color = "Phylum", title = "Taxa ordination")
+
+    ## Square root transformation
+    ## Wisconsin double standardization
+    ## Run 0 stress 0.1748281 
+    ## Run 1 stress 0.2352198 
+    ## Run 2 stress 0.1848787 
+    ## Run 3 stress 0.1748474 
+    ## ... Procrustes: rmse 0.001589904  max resid 0.02264455 
+    ## Run 4 stress 0.181745 
+    ## Run 5 stress 0.175045 
+    ## ... Procrustes: rmse 0.0028426  max resid 0.03362797 
+    ## Run 6 stress 0.1833839 
+    ## Run 7 stress 0.2242994 
+    ## Run 8 stress 0.2305855 
+    ## Run 9 stress 0.2120231 
+    ## Run 10 stress 0.1941342 
+    ## Run 11 stress 0.2114969 
+    ## Run 12 stress 0.1983375 
+    ## Run 13 stress 0.1886606 
+    ## Run 14 stress 0.1897439 
+    ## Run 15 stress 0.2147918 
+    ## Run 16 stress 0.2139568 
+    ## Run 17 stress 0.210365 
+    ## Run 18 stress 0.236446 
+    ## Run 19 stress 0.2322866 
+    ## Run 20 stress 0.1839782 
+    ## *** No convergence -- monoMDS stopping criteria:
+    ##     20: stress ratio > sratmax
+
     print(p)
 
 ![](Ordination_files/figure-markdown_strict/ordination-pca-ordination21-1.png)
@@ -69,11 +83,7 @@ Grouping by Phyla
     plot_ordination(pseq, ordinate(pseq, "MDS"), color = "nationality") +
                     geom_point(size = 5)
 
-![](Ordination_files/figure-markdown_strict/ordination-ordinate23-1.png)
-
-### RDA
-
-See a separate page on [RDA](RDA.md).
+<img src="Ordination_files/figure-markdown_strict/ordination-ordinate23-1.png" width="200px" />
 
 ### Canonical correspondence analysis (CCA)
 
@@ -104,3 +114,7 @@ See a separate page on [RDA](RDA.md).
     plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
 
 ![](Ordination_files/figure-markdown_strict/ordination-ordinate26-1.png)
+
+### RDA
+
+See a separate page on [RDA](RDA.md).

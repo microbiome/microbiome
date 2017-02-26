@@ -20,10 +20,9 @@ output:
 
 Load the package and example data:
 
-```{r rda, warning=FALSE, message=FALSE, eval = FALSE}
+```{r rda, warning=FALSE, message=FALSE, eval=TRUE}
 library(microbiome)
-# Data from https://peerj.com/articles/32/
-data("peerj32")
+data(peerj32) # Data from https://peerj.com/articles/32/
 pseq <- peerj32$phyloseq
 ```
 
@@ -32,7 +31,7 @@ pseq <- peerj32$phyloseq
 Standard RDA for microbiota profiles versus the given (here 'time')
 variable from sample metadata:
 
-```{r rda2, warning=FALSE, message=FALSE, eval = FALSE}
+```{r rda2, warning=FALSE, message=FALSE, eval=TRUE}
 pseq.trans <- transform_phyloseq(pseq, "hell") # Hellinger transform
 rda.result <- rda_physeq(pseq.trans, "time", scale = TRUE)
 
@@ -44,7 +43,7 @@ summary(rda.result)$constr.chi/summary(rda.result)$tot.chi
 
 Visualizing the standard RDA output:
 
-```{r rda4, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval = FALSE}
+```{r rda4, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval=TRUE}
 library(phyloseq)
 meta <- sample_data(pseq.trans)
 plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
@@ -59,7 +58,7 @@ See also the RDA method in phyloseq::ordinate, which is calculated without the f
 
 ### RDA significance test
 
-```{r rda2b, warning=FALSE, message=FALSE, eval = FALSE}
+```{r rda2b, warning=FALSE, message=FALSE, eval=TRUE}
 library(vegan)
 permutest(rda.result) 
 ```

@@ -18,7 +18,8 @@ output:
 
 ## Ordination examples
 
-Some examples with HITChip data. See also [phyloseq ordination tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html).
+Full examples for standard ordination techniques applied to phyloseq data, based on the [phyloseq ordination tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). For handy wrappers for some common ordination tasks in microbiome analysis, see [landscaping examples](Landscaping.md)
+
 
 Load example data:
 
@@ -29,48 +30,30 @@ library(ggplot2)
 data(dietswap)
 pseq <- dietswap
 
-# Convert signal to compositionals
+# Convert to compositional data
 pseq.rel <- transform_phyloseq(pseq, "compositional")
 
-# Pick OTUs that are present with >1 percent compositional 
-# in >10 percent of the samples
-pseq2 <- filter_taxa(pseq.rel,
-           function(x) sum(x > 1) > (0.1*nsamples(pseq.rel)), TRUE)
+# Pick core taxa with with >10 percent prevalence of the samples
+# at a >1 percent relative abundance detection limit
+pseq.core <- core(pseq.rel, detection = 1, prevalence = 10)
 ```
 
 
 ### Sample ordination
 
-Project the samples with the given method and distance. See also plot_ordination from the phyloseq package.
-
+Project the samples with the given method and dissimilarity measure. 
 
 ```{r ordination2, message=FALSE, warning=FALSE, results="hide"}
+# Ordinate the data
 set.seed(423542)
-pseq.ord <- ordinate(pseq2, "NMDS", "bray")
-# Just pick the projected data (first two columns + metadata)
-proj <- plot_ordination(pseq2, pseq.ord, justDF = T)
-```
-
-Then visualize the projected data:
-
-```{r ordination4, message=FALSE, warning=FALSE, fig.width=7, fig.height=6, fig.show="hold", out.width="400px"}
-# Highlighting nationality
-p <- microbiome::densityplot(proj[, 1:2], col = proj$nationality, legend = T)
-print(p)
-
-# Projection with sample names:
-ax1 <- names(proj)[[1]]
-ax2 <- names(proj)[[2]]
-p <- ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) +
-       geom_text(size = 2)
-print(p)
+proj <- get_ordination(pseq.core, "NMDS", "bray")
 ```
 
 
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
 ```{r ordination-pca-ordination21, message=FALSE, message=FALSE, fig.height=5, fig.width=8}
-p <- plot_ordination(pseq2, pseq.ord, type = "taxa", color = "Phylum", title = "Taxa ordination")
+p <- plot_ordination(pseq.core, ordinate(pseq.core, "NMDS", "bray"), type = "taxa", color = "Phylum", title = "Taxa ordination")
 print(p)
 ```
 
@@ -83,14 +66,10 @@ p + facet_wrap(~Phylum, 5)
 
 ### Multidimensional scaling (MDS / PCoA)
 
-```{r ordination-ordinate23, warning=FALSE, message=FALSE, fig.width=10, fig.height=6}
+```{r ordination-ordinate23, warning=FALSE, message=FALSE, fig.width=10, fig.height=8, out.width="200px"}
 plot_ordination(pseq, ordinate(pseq, "MDS"), color = "nationality") +
                 geom_point(size = 5)
 ```
-
-### RDA
-
-See a separate page on [RDA](RDA.md).
 
 
 ### Canonical correspondence analysis (CCA)
@@ -127,6 +106,12 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
 ```
 
 
+
+
+
+### RDA
+
+See a separate page on [RDA](RDA.md).
 
 
 

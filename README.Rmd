@@ -39,6 +39,8 @@ citation('microbiome')
 
 The list is not exhaustive. 
 
+[Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Sudarshan Shetty, Floor Hugenholtz, Leo Lahti, Hauke Smidt, Willem M de Vos, Antoine Danchin. _FEMS Microbiology Reviews_ fuw045, 2017.
+
 [Metagenomics meets time series analysis: unraveling microbial community dynamics](http://dx.doi.org/10.1016/j.mib.2015.04.004) Karoline Faust, Leo Lahti, Didier Gonze, Willem M de Vos, Jeroen Raes. _Current Opinion in Microbiology_ 15:56-66 2015.
 
 [Tipping elements in the human intestinal ecosystem](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) Leo Lahti, Jarkko Salojärvi, Anne Salonen, Marten Scheffer, Willem M. de Vos. _Nature Communications_ 5:4344, 2014. 

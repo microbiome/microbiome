@@ -10,8 +10,7 @@ RDA analysis and visualization.
 Load the package and example data:
 
     library(microbiome)
-    # Data from https://peerj.com/articles/32/
-    data("peerj32")
+    data(peerj32) # Data from https://peerj.com/articles/32/
     pseq <- peerj32$phyloseq
 
 ### Standard RDA

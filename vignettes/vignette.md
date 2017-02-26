@@ -28,9 +28,9 @@ class.
 
 ### Visualization and related tools
 
--   [Population densities](Density.md)
 -   [Heatmaps](Heatmap.md)
 -   [Networks](Networks.md)
+-   [Landscaping](Landscaping.md) (population density analysis)
 -   [Ordination (PCA, PCoA, NMDS etc.)](Ordination.md)
 
 ### Statistical analysis

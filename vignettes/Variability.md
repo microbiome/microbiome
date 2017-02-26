@@ -116,16 +116,16 @@ code](http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-pl
     ## [8] methods   base     
     ## 
     ## other attached packages:
-    ##  [1] earlywarnings_1.1.22     tseries_0.10-35         
-    ##  [3] tgp_2.4-14               moments_0.14            
-    ##  [5] ggrepel_0.6.5            gridExtra_2.2.1         
-    ##  [7] RColorBrewer_1.1-2       FD_1.0-12               
-    ##  [9] vegan_2.4-2              lattice_0.20-34         
-    ## [11] permute_0.9-4            geometry_0.3-6          
-    ## [13] magic_1.5-6              abind_1.4-5             
-    ## [15] ape_3.5                  ade4_1.7-5              
-    ## [17] knitcitations_1.0.7      knitr_1.15.1            
-    ## [19] microbiome_0.99.91       intergraph_2.0-2        
+    ##  [1] RColorBrewer_1.1-2       microbiome_0.99.91      
+    ##  [3] earlywarnings_1.1.22     tseries_0.10-35         
+    ##  [5] tgp_2.4-14               moments_0.14            
+    ##  [7] ggrepel_0.6.5            gridExtra_2.2.1         
+    ##  [9] FD_1.0-12                vegan_2.4-2             
+    ## [11] lattice_0.20-34          permute_0.9-4           
+    ## [13] geometry_0.3-6           magic_1.5-6             
+    ## [15] abind_1.4-5              ape_3.5                 
+    ## [17] ade4_1.7-5               knitcitations_1.0.7     
+    ## [19] knitr_1.15.1             intergraph_2.0-2        
     ## [21] sna_2.4                  statnet.common_3.3.0    
     ## [23] network_1.13.0           ggnet_0.1.0             
     ## [25] GGally_1.3.0             devtools_1.12.0         
@@ -138,7 +138,7 @@ code](http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-pl
     ## [39] BiocGenerics_0.18.0      phyloseq_1.16.2         
     ## 
     ## loaded via a namespace (and not attached):
-    ##   [1] spam_1.4-0            backports_1.0.4       Hmisc_4.0-0          
+    ##   [1] backports_1.0.4       spam_1.4-0            Hmisc_4.0-0          
     ##   [4] plyr_1.8.4            igraph_1.0.1          lazyeval_0.2.0       
     ##   [7] splines_3.3.1         digest_0.6.12         foreach_1.4.3        
     ##  [10] htmltools_0.3.5       GO.db_3.3.0           magrittr_1.5         
