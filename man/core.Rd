@@ -4,14 +4,14 @@
 \alias{core}
 \title{Filter Prevalent Taxa}
 \usage{
-core(x, detection.threshold, prevalence.threshold)
+core(x, detection, prevalence)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{detection.threshold}{Detection threshold (non-negative real)}
+\item{detection}{Detection threshold (non-negative real)}
 
-\item{prevalence.threshold}{Prevalence threshold (in [0, 100])}
+\item{prevalence}{Prevalence threshold (in [0, 100])}
 }
 \value{
 Filtered phyloseq object including only prevalent taxa

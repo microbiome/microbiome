@@ -14,7 +14,7 @@ diversity_table(x, split = TRUE, measures = NULL, det.th = 0)
 \item{measures}{See help(phyloseq::estimate_richness). In addition,
 the measure "Evenness" is provided (Pielou's index).}
 
-\item{det.th}{detection threshold for observing taxa (absence / presence)}
+\item{det.th}{detection for observing taxa (absence / presence)}
 }
 \value{
 Vector containing relative proportions for each phylotype in 

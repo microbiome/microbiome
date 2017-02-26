@@ -66,13 +66,13 @@ print(p)
 ```
 
 
-Same with relative abundances:
+Same with compositionals:
 
 ```{r composition-example4b, fig.width=12, fig.height=5}
 p <- plot_composition(pseq2,
          sample.sort = "nationality",
 	 x.label = "nationality",
-	 transform = "relative.abundance") +
+	 transform = "compositional") +
        guides(fill = guide_legend(ncol = 1))
 print(p)
 ```
@@ -81,7 +81,8 @@ print(p)
 Averaged by group:
 
 ```{r composition-example4c, fig.width=12, fig.height=5}
-p <- plot_composition(pseq3, average_by = "nationality", transform = "relative.abundance")
+p <- plot_composition(pseq2,
+             average_by = "nationality", transform = "compositional")
 print(p)
 ```
 
@@ -90,40 +91,38 @@ print(p)
 ### Heatmaps for composition
 
 
-Plain heatmap
+Plain heatmap on absolute abundances
 
 ```{r composition-example5, fig.width=10, fig.height=3}
 theme_set(theme_bw(30))
-p <- plot_composition(pseq3, plot.type = "heatmap", mar = c(6, 13, 1, 1))
+p <- plot_composition(pseq2, plot.type = "heatmap", mar = c(6, 13, 1, 1))
 ```
 
 
 Heatmap with Z-transformed OTUs
 
 ```{r composition-example6, fig.width=10, fig.height=3}
-p <- plot_composition(pseq3, plot.type = "heatmap", transform = "Z-OTU", mar = c(6, 13, 1, 1))
+p <- plot_composition(pseq2, plot.type = "heatmap", transform = "Z-OTU", mar = c(6, 13, 1, 1))
 ```
 
 
-Same, but samples and OTUs sorted with the neatmap method:
+Same with relative abundance, samples and OTUs sorted with the neatmap method:
 
 ```{r composition-example7, fig.width=10, fig.height=3}
-p <- plot_composition(pseq3, plot.type = "heatmap", transform = "Z-OTU",
+pseq3 <- transform_phyloseq(pseq2, "compositional")
+p <- plot_composition(pseq3, plot.type = "heatmap", 
        			       sample.sort = "neatmap", otu.sort = "neatmap",
 			       mar = c(6, 13, 1, 1))
 ```
 
 
-Same, but samples and OTUs sorted manually
+Same with Z-transformed, samples and OTUs sorted manually based on compositional data (Z-transformed data has negative values and the sorting method is not yet implemented for that):
 
 ```{r composition-example8, fig.width=10, fig.height=3, warning=FALSE}
-sample.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "sites", first = NULL) 
-otu.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "species", first = NULL)
+sample.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "sites") 
+otu.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "species")
 
-p <- plot_composition(pseq3, plot.type = "heatmap", transform = "Z-OTU",
+p <- plot_composition(pseq2, plot.type = "heatmap", transform = "Z-OTU",
        			       sample.sort = sample.sort, otu.sort = otu.sort,
 			       mar = c(6, 13, 1, 1))
 ```
-
-
-

@@ -30,12 +30,12 @@ data(peerj32)
 # Rename the data
 pseq <- peerj32$phyloseq
 
-# Calculate relative abundances
+# Calculate compositionals
 pseq.rel <- transform_phyloseq(pseq, "compositional", "OTU")
 ```
 
 
-Taxa prevalences (population frequency) at 1% relative abundance abundance threshold:
+Taxa prevalences (population frequency) at 1% compositional abundance threshold:
 
 ```{r core-prevalence2}
 head(prevalence(pseq.rel, detection = 1, sort = TRUE))
@@ -89,7 +89,7 @@ prevalence.intervals <- seq(5, 100, 5)
 p <- plot_core(pseq, prevalence.intervals = prevalence.intervals, detections = det, plot.type = "lineplot")
 p + xlab("Abundance (OTU read count)")
 
-# With relative abundances
+# With compositionals
 det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
 p <- plot_core(pseq.rel, prevalence.intervals = prevalence.intervals, detections = det, plot.type = "lineplot")
 p + xlab("Relative Abundance (%)")
@@ -99,7 +99,7 @@ p + xlab("Relative Abundance (%)")
 ### Core heatmaps
 
 ```{r core-example3, fig.width=8, fig.heigth=15, fig.show='hold', out.width = '430px'}
-# Core with relative abundances:
+# Core with compositionals:
 prevalence.intervals <- seq(5, 100, 5)
 detections <- 10^seq(log10(1e-3), log10(20), length = 20)
 

@@ -17,6 +17,7 @@ library(intergraph) # ggnet2 works also with igraph with this
 
 library(devtools)
 load_all()
+#library(microbiome)
 
 #library(rmarkdown)
 #rmarkdown::render("vignette.Rmd")

@@ -7,14 +7,17 @@
 Networks
 --------
 
+See also the [phyloseq
+tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
+
 Load example data:
 
     library(microbiome)
-    data("dietswap")
+    data(dietswap)
     pseq <- dietswap
 
-For more network examples, see [phyloseq
-tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
+Connect samples with sufficiently similar microbiota composition, and
+highlight sample groups:
 
     ig <- make_network(pseq, max.dist = 0.2)
     p <- plot_network(ig, pseq, color = "nationality", shape = "group",
@@ -25,19 +28,25 @@ tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
 
 Another example:
 
-    p <- plot_net(pseq, maxdist = 0.2, point_label = "group")
+    theme_set(theme_bw(30))
+    p <- plot_net(pseq, maxdist = 0.2,
+           point_label = "group", color = "nationality") +
+           scale_colour_brewer(palette = "Accent")
     print(p)         
 
 ![](Networks_files/figure-markdown_strict/networks3-1.png)
 
 ### Network reconstruction for compositional data
 
-Also the SparCC implementation is available via the [SpiecEasi
-package](https://github.com/zdk123/SpiecEasi). The execution is slow.
+The compositionality bias in similarity measures can be fixed with
+SpiecEasi or SparCC; the implementations are available via the
+[SpiecEasi package](https://github.com/zdk123/SpiecEasi). Note that the
+execution is slow.
 
     library(SpiecEasi) #install_github("zdk123/SpiecEasi")
     library(phyloseq)
-    otu <- t(get_sample(pseq))
+
+    otu <- t(abundances(pseq))
 
     # SPIEC-EASI network reconstruction
     # In practice, use more repetitions
@@ -69,10 +78,11 @@ package](https://github.com/zdk123/SpiecEasi). The execution is slow.
 
     ## NULL
 
-    # Check degree distribution
-    #dd <- degree.distribution(ig)
-    #plot(0:(length(dd)-1), dd, ylim=c(0,.35), type='b', 
-    #      ylab="Frequency", xlab="Degree", main="Degree Distributions")
+You could investigate degree distribution with the following:
+
+    dd <- degree.distribution(ig)
+    plot(0:(length(dd)-1), dd, ylim=c(0,.35), type='b', 
+          ylab="Frequency", xlab="Degree", main="Degree Distributions")
 
 Visualize the network with [ggnet2](https://briatte.github.io/ggnet):
 

@@ -4,15 +4,14 @@
 \alias{core_matrix}
 \title{Core Matrix}
 \usage{
-core_matrix(x, prevalence.intervals = seq(5, 100, 5),
-  detection.thresholds = NULL)
+core_matrix(x, prevalence.intervals = seq(5, 100, 5), detections = NULL)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq}} object or a taxa x samples abundance matrix}
 
 \item{prevalence.intervals}{a vector of prevalence percentages in [0,100]}
 
-\item{detection.thresholds}{a vector of intensities around the data range}
+\item{detections}{a vector of intensities around the data range}
 }
 \value{
 Estimated core microbiota

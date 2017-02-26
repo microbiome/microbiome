@@ -4,13 +4,13 @@
 \alias{potential_analysis_bootstrap}
 \title{Bootstrapped Potential Analysis}
 \usage{
-potential_analysis_bootstrap(x, detection.threshold, bw.adjust = 1,
+potential_analysis_bootstrap(x, detection, bw.adjust = 1,
   bs.iterations = 100, detection.limit = 1)
 }
 \arguments{
 \item{x}{Input data vector}
 
-\item{detection.threshold}{Mode detection threshold}
+\item{detection}{Mode detection}
 
 \item{bw.adjust}{Bandwidth adjustment}
 

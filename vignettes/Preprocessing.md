@@ -35,9 +35,10 @@ Taxonomy table:
     taxonomy <- tax_table(pseq)
 
 Abundances for taxonomic groups ('OTU table') as a taxa x samples
-matrix:
+matrix; optionally transform the abundances:
 
-    otu <- abundances(pseq)
+    otu.absolute <- abundances(pseq)
+    otu.relative <- abundances(pseq, "compositional")
 
 Melting phyloseq data for easier plotting:
 
@@ -194,11 +195,10 @@ Total OTU abundance in each sample
 
 Abundance of a given species in each sample
 
-    tax <- taxa_names(pseq)[[1]]
-    head(get_sample(pseq, tax))
+    head(get_sample(pseq, "Akkermansia"))
 
     ## Sample-1 Sample-2 Sample-3 Sample-4 Sample-5 Sample-6 
-    ##       10       10       15       12       15       14
+    ##     1319     2299    29980     3824     2133      864
 
 Filter samples
 
@@ -209,14 +209,14 @@ Select samples by specific metadata fields
 
     pseq.subset <- subset_samples(pseq, nationality == "US")
 
-### Data transformations
+### Data transforms
 
 The microbiome package provides a wrapper for standard sample/OTU
-transformations. For arbitrary transformations, use the
-transform\_sample\_counts function in the phyloseq package.
+transforms. For arbitrary transforms, use the transform\_sample\_counts
+function in the phyloseq package.
 
-Log10 transformation (log(1+x) if the data contains zeroes). Also "Z",
-"clr", and "hellinger" are available as common transformations.
+Log10 transform (log(1+x) if the data contains zeroes). Also "Z", "clr",
+and "hellinger" are available as common transforms.
 
     pseq.log <- transform_phyloseq(pseq, "log10")
 
@@ -257,6 +257,10 @@ Assign fields to metadata
 Number of taxa
 
     n <- ntaxa(pseq)
+
+Most abundant taxa
+
+    topx <- top_taxa(pseq, n = 10)
 
 Names
 

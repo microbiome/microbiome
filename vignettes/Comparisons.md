@@ -178,7 +178,7 @@ effect on gut microbiota.
     x <- dietswap
     group <- "nationality"
 
-    # Use relative abundances for simpler visualizations
+    # Use compositionals for simpler visualizations
     x <- transform_phyloseq(x, "compositional")
     otu <- get_sample(x)
     meta <- as(sample_data(x), "data.frame")

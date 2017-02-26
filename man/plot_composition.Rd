@@ -6,7 +6,7 @@
 \usage{
 plot_composition(x, taxonomic.level = "OTU", sample.sort = NULL,
   otu.sort = NULL, x.label = "sample", plot.type = "barplot",
-  verbose = FALSE, transformation = NULL, mar = c(5, 12, 1, 1),
+  verbose = FALSE, transform = NULL, mar = c(5, 12, 1, 1),
   average_by = NULL, ...)
 }
 \arguments{
@@ -30,7 +30,7 @@ plot_composition(x, taxonomic.level = "OTU", sample.sort = NULL,
 
 \item{verbose}{verbose}
 
-\item{transformation}{Data transformation to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform_phyloseq}} function.}
+\item{transform}{Data transform to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform_phyloseq}} function.}
 
 \item{mar}{Figure margins}
 

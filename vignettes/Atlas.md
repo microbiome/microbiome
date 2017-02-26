@@ -88,4 +88,5 @@ Load the data in R:
 
 Output figure not shown due to slowness of calculation:
 
-    plot_regression(diversity~age, sample_data(pseq))
+    p <- plot_regression(diversity~age, sample_data(pseq))
+    print(p)

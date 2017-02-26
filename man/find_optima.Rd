@@ -4,12 +4,12 @@
 \alias{find_optima}
 \title{Find Optima}
 \usage{
-find_optima(f, detection.threshold = 0, bw = 1, detection.limit = 1)
+find_optima(f, detection = 0, bw = 1, detection.limit = 1)
 }
 \arguments{
 \item{f}{density}
 
-\item{detection.threshold}{detection threshold for peaks}
+\item{detection}{detection for peaks}
 
 \item{bw}{bandwidth}
 
@@ -22,7 +22,7 @@ A list with min (minima), max (maxima), and
 }
 \description{
 Detect optima, excluding local optima below
-             detection.threshold.
+             detection.
 }
 \examples{
 find_optima(rnorm(100), bw = 1)

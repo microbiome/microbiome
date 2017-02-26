@@ -40,7 +40,7 @@ plot_density(x, "Dialister") + ggtitle("Absolute abundance")
 # Same with log10 scaled X axis
 plot_density(x, "Dialister", log10 = TRUE) + ggtitle("Log10")
 
-# Same with log10 relative abundances
+# Same with log10 compositionals
 x <- transform_phyloseq(x, "compositional")
 tax <- "Dialister"
 plot_density(x, tax, log10 = TRUE) + ggtitle("Relative abundance")

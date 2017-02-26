@@ -9,7 +9,7 @@ ztransform_phyloseq(x, which)
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{which}{Specify Z transformation for "sample" or "OTU"}
+\item{which}{Specify Z transform for "sample" or "OTU"}
 }
 \value{
 Z-transformed phyloseq object

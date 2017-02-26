@@ -4,7 +4,7 @@
 \alias{bimodality}
 \title{Bimodality Analysis}
 \usage{
-bimodality(x, method = "potential_bootstrap", detection.threshold = 1,
+bimodality(x, method = "potential_bootstrap", detection = 1,
   bw.adjust = 1, bs.iterations = 100, detection.limit = 1,
   verbose = TRUE)
 }
@@ -14,7 +14,7 @@ bimodality(x, method = "potential_bootstrap", detection.threshold = 1,
 \item{method}{bimodality quantification method ('potential_bootstrap'
 or one of the methods in coefficient_of_bimodality)}
 
-\item{detection.threshold}{Mode detection threshold}
+\item{detection}{Mode detection}
 
 \item{bw.adjust}{Bandwidth adjustment}
 

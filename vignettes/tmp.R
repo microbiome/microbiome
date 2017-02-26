@@ -9,7 +9,7 @@ meta$group <- meta[["gender"]]
 
 ### PERMANOVA
 
-# Use relative abundances for simpler visualizations
+# Use compositionals for simpler visualizations
 # PERMANOVA: samples x species as input
 library(vegan)
 permanova <- adonis(t(otu) ~ group, data=meta, permutations=99, method = "euclidean")

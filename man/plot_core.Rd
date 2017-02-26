@@ -4,17 +4,16 @@
 \alias{plot_core}
 \title{Visualize OTU Core}
 \usage{
-plot_core(x, prevalence.intervals = seq(5, 100, 5),
-  detection.thresholds = 20, plot.type = "lineplot", colours = gray(seq(0,
-  1, length = 5)), min.prevalence = NULL, taxa.order = NULL,
-  horizontal = FALSE)
+plot_core(x, prevalence.intervals = seq(5, 100, 5), detections = 20,
+  plot.type = "lineplot", colours = gray(seq(0, 1, length = 5)),
+  min.prevalence = NULL, taxa.order = NULL, horizontal = FALSE)
 }
 \arguments{
 \item{x}{A \code{\link{phyloseq}} object or a core matrix}
 
 \item{prevalence.intervals}{a vector of prevalence percentages in [0,100]}
 
-\item{detection.thresholds}{a vector of intensities around the data range,
+\item{detections}{a vector of intensities around the data range,
 or a scalar indicating the number of intervals in the data range.}
 
 \item{plot.type}{Plot type ('lineplot' or 'heatmap')}
@@ -22,8 +21,8 @@ or a scalar indicating the number of intervals in the data range.}
 \item{colours}{colours for the heatmap}
 
 \item{min.prevalence}{If minimum prevalence is set, then filter out those
-rows (taxa) and columns (detection thresholds) that never exceed this
-prevalence threshold. This helps to zoom in on the actual core region
+rows (taxa) and columns (detections) that never exceed this
+prevalence. This helps to zoom in on the actual core region
 of the heatmap. Only affects the plot.type = 'heatmap'.}
 
 \item{taxa.order}{Ordering of the taxa.}
@@ -42,7 +41,7 @@ Core visualization (2D).
   data(atlas1006)
   pseq <- atlas1006
   p <- plot_core(pseq, prevalence.intervals = seq(10, 100, 10),
-                       detection.thresholds = c(0, 10^(0:4)))
+                       detections = c(0, 10^(0:4)))
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

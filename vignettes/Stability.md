@@ -26,7 +26,7 @@ temporal stability analysis:
             subset_samples(DNA_extraction_method == "r")
 
     # Keep prevalent taxa (HITChip signal >3 in >95 percent of the samples)
-    pseq <- core(pseq, detection.threshold = 10^3, prevalence.threshold = 20)
+    pseq <- core(pseq, detection = 10^3, prevalence = 20)
 
     # For cross-sectional analysis, include
     # only the zero time point:

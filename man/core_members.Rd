@@ -5,15 +5,14 @@
 \alias{prevalent_taxa}
 \title{Core Taxa}
 \usage{
-core_members(x, detection.threshold = 1, prevalence.threshold = 95,
-  sort = TRUE)
+core_members(x, detection = 1, prevalence = 95, sort = TRUE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{detection.threshold}{Detection threshold (non-negative real)}
+\item{detection}{Detection threshold (non-negative real)}
 
-\item{prevalence.threshold}{Prevalence threshold (in [0, 100])}
+\item{prevalence}{Prevalence threshold (in [0, 100])}
 
 \item{sort}{Logical. Sort the taxa.}
 }
@@ -22,11 +21,11 @@ Vector of core members
 }
 \description{
 Determine members of the core microbiota with given abundance
-'             and prevalence thresholds.
+'             and prevalences.
 }
 \details{
 For phyloseq object, lists taxa that are more prevalent with the
-  given detection threshold. For matrix, lists columns that satisfy
+  given detection. For matrix, lists columns that satisfy
   these criteria.
 }
 \examples{

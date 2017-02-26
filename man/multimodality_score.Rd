@@ -4,13 +4,13 @@
 \alias{multimodality_score}
 \title{Multimodality Score}
 \usage{
-multimodality_score(x, detection.threshold = 1, bw.adjust = 1,
-  bs.iterations = 100, detection.limit = 1, verbose = TRUE)
+multimodality_score(x, detection = 1, bw.adjust = 1, bs.iterations = 100,
+  detection.limit = 1, verbose = TRUE)
 }
 \arguments{
 \item{x}{A vector, or data matrix (variables x samples)}
 
-\item{detection.threshold}{Mode detection threshold}
+\item{detection}{Mode detection}
 
 \item{bw.adjust}{Bandwidth adjustment}
 

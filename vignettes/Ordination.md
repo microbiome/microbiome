@@ -18,10 +18,10 @@ Load example data:
     data(dietswap)
     pseq <- dietswap
 
-    # Convert signal to relative abundances
+    # Convert signal to compositionals
     pseq.rel <- transform_phyloseq(pseq, "compositional")
 
-    # Pick OTUs that are present with >1 percent relative abundance 
+    # Pick OTUs that are present with >1 percent compositional 
     # in >10 percent of the samples
     pseq2 <- filter_taxa(pseq.rel,
                function(x) sum(x > 1) > (0.1*nsamples(pseq.rel)), TRUE)
@@ -39,7 +39,7 @@ plot\_ordination from the phyloseq package.
 Then visualize the projected data:
 
     # Highlighting nationality
-    p <- densityplot(as.matrix(proj[, 1:2]), col = proj$nationality, legend = T)
+    p <- microbiome::densityplot(proj[, 1:2], col = proj$nationality, legend = T)
     print(p)
 
     # Projection with sample names:

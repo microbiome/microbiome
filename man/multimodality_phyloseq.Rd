@@ -4,13 +4,13 @@
 \alias{multimodality_phyloseq}
 \title{Phyloseq Multimodality Test}
 \usage{
-multimodality_phyloseq(x, detection.threshold = 1, bw.adjust = 1,
+multimodality_phyloseq(x, detection = 1, bw.adjust = 1,
   bs.iterations = 100, detection.limit = 1, verbose = TRUE)
 }
 \arguments{
 \item{x}{Phyloseq object}
 
-\item{detection.threshold}{Mode detection threshold}
+\item{detection}{Mode detection}
 
 \item{bw.adjust}{Bandwidth adjustment}
 

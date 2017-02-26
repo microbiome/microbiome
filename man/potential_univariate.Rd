@@ -5,8 +5,8 @@
 \title{Potential Analysis for Univariate Data}
 \usage{
 potential_univariate(x, std = 1, bw = "nrd", weights = c(),
-  grid.size = NULL, detection.threshold = 1, bw.adjust = 1,
-  density.smoothing = 0, detection.limit = 1)
+  grid.size = NULL, detection = 1, bw.adjust = 1, density.smoothing = 0,
+  detection.limit = 1)
 }
 \arguments{
 \item{x}{Univariate data (vector) for which the potentials shall be estimated}
@@ -20,7 +20,7 @@ potential_slidingaverages).}
 
 \item{grid.size}{Grid size for potential estimation.}
 
-\item{detection.threshold}{maximum detection threshold as fraction
+\item{detection}{maximum detection as fraction
 of density kernel height dnorm(0, sd = bandwidth)/N}
 
 \item{bw.adjust}{The real bandwidth will be bw.adjust*bw; defaults to 1}

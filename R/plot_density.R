@@ -12,7 +12,7 @@
 #' @param xlim X axis limits
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
-#' @examples # plot_density(x, variable = "Dialister")
+#' @examples \dontrun{p <- plot_density(x, variable = "Dialister")}
 #' @keywords utilities
 plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray", tipping.point = NULL, xlim = NULL) {
 

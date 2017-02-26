@@ -85,7 +85,6 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
     sample.sort <- sample.sort
   } else if (length(sample.sort) == 1 && sample.sort == "neatmap") {
     sample.sort <- order_neatmap(x, method = "NMDS", distance = "bray", target = "sites", first = NULL)
-
   } else if (!sample.sort %in% names(sample_data(x))) {
     warning(paste("The sample.sort argument", sample.sort, "is not included in sample_data(x). Using original sample ordering."))
     sample.sort <- sample_names(x)

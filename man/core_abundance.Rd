@@ -4,14 +4,14 @@
 \alias{core_abundance}
 \title{Core Abundance}
 \usage{
-core_abundance(x, detection.threshold = 1, prevalence.threshold = 95)
+core_abundance(x, detection = 1, prevalence = 95)
 }
 \arguments{
 \item{x}{phyloseq object}
 
-\item{detection.threshold}{Detection threshold (non-negative real)}
+\item{detection}{Detection threshold (non-negative real)}
 
-\item{prevalence.threshold}{Prevalence threshold (in [0, 100])}
+\item{prevalence}{Prevalence threshold (in [0, 100])}
 }
 \value{
 Total core abunance vector.

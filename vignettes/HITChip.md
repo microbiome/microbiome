@@ -32,7 +32,7 @@ field names include 'sample', 'time', 'subject', 'group', 'gender',
 'diet', 'age'. You can leave these out or include further fields. Import
 HITChip phylotype-level data in
 [phyloseq](https://github.com/joey711/phyloseq) format (note: the
-precalculated matrices are calculated with detection.threshold = 0):
+precalculated matrices are calculated with detection = 0):
 
     library(HITChipDB)
     pseq <- HITChipDB::read_hitchip(data.directory, method = "frpa")$pseq
