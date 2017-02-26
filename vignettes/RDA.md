@@ -58,7 +58,7 @@ without the formula.
     ## na.action)
     ## Permutation test for all constrained eigenvalues
     ## Pseudo-F:     0.6572996 (with 1, 42 Degrees of Freedom)
-    ## Significance:     0.9
+    ## Significance:     0.94
 
 ### Bagged RDA
 

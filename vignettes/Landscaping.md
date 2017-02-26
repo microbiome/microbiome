@@ -33,32 +33,6 @@ Load example data:
 Visualize the microbiome landscape (sample similarities on
 two-dimensional projection):
 
-    ## Square root transformation
-    ## Wisconsin double standardization
-    ## Run 0 stress 0.1748281 
-    ## Run 1 stress 0.1835529 
-    ## Run 2 stress 0.1916376 
-    ## Run 3 stress 0.196055 
-    ## Run 4 stress 0.2011379 
-    ## Run 5 stress 0.1897291 
-    ## Run 6 stress 0.212523 
-    ## Run 7 stress 0.2313977 
-    ## Run 8 stress 0.1827186 
-    ## Run 9 stress 0.1920535 
-    ## Run 10 stress 0.2034503 
-    ## Run 11 stress 0.2315345 
-    ## Run 12 stress 0.1844069 
-    ## Run 13 stress 0.2103193 
-    ## Run 14 stress 0.1919278 
-    ## Run 15 stress 0.2260378 
-    ## Run 16 stress 0.182382 
-    ## Run 17 stress 0.1886253 
-    ## Run 18 stress 0.2060701 
-    ## Run 19 stress 0.1924976 
-    ## Run 20 stress 0.1893886 
-    ## *** No convergence -- monoMDS stopping criteria:
-    ##     20: stress ratio > sratmax
-
     print(p)
 
 <img src="Landscaping_files/figure-markdown_strict/landscape3b-1.png" width="400px" />

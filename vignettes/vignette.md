@@ -30,8 +30,8 @@ class.
 
 -   [Heatmaps](Heatmap.md)
 -   [Networks](Networks.md)
--   [Landscaping](Landscaping.md) (population density analysis)
--   [Ordination (PCA, PCoA, NMDS etc.)](Ordination.md)
+-   [Landscapes](Landscaping.md) (population density analysis)
+-   [Ordination (PCA, PCoA, NMDS, RDA etc.)](Ordination.md)
 
 ### Statistical analysis
 
