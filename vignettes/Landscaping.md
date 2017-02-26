@@ -10,8 +10,8 @@ Microbiome Landscaping
 [Microbiome
 Landscaping](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539)
 refers to the analysis and illustration of population frequencies.
-Typically, this is based on standard ordination methods (for more
-examples, see [ordination examples](Ordination.md))
+Typically, these are wrappers based on standard ordination methods (for
+more examples, see [ordination examples](Ordination.md))
 
 ### Two-dimensional microbiome landscape
 
@@ -32,9 +32,6 @@ Load example data:
 
 Visualize the microbiome landscape (sample similarities on
 two-dimensional projection):
-
-    # Landscape plot directly from phyloseq object
-    p <- plot_landscape(pseq.core, "NMDS", "bray", col = "nationality")
 
     ## Square root transformation
     ## Wisconsin double standardization
@@ -64,7 +61,7 @@ two-dimensional projection):
 
     print(p)
 
-<img src="Landscaping_files/figure-markdown_strict/landscape3-1.png" width="400px" />
+<img src="Landscaping_files/figure-markdown_strict/landscape3b-1.png" width="400px" />
 
 For a direct access to the ordination coordinates, use the following:
 
