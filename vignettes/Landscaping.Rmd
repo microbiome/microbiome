@@ -18,7 +18,7 @@ output:
 
 ## Microbiome Landscaping
 
-[Microbiome Landscaping](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539) refers to the analysis and illustration of population frequencies. Typically, this is based on standard ordination methods (for more examples, see [ordination examples](Ordination.md))
+[Microbiome Landscaping](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539) refers to the analysis and illustration of population frequencies. Typically, these are wrappers based on standard ordination methods (for more examples, see [ordination examples](Ordination.md))
 
 
 ### Two-dimensional microbiome landscape
@@ -43,9 +43,12 @@ pseq.core <- core(pseq.rel, detection = 1, prevalence = 10)
 
 Visualize the microbiome landscape (sample similarities on two-dimensional projection):
 
-```{r landscape3, message=FALSE, warning=FALSE, fig.width=11, fig.height=6, fig.show="hold", out.width="400px"}
+```{r landscape3, message=FALSE, warning=FALSE, fig.width=11, fig.height=6, fig.show="hold", out.width="400px", echo=FALSE}
 # Landscape plot directly from phyloseq object
 p <- plot_landscape(pseq.core, "NMDS", "bray", col = "nationality")
+```
+
+```{r landscape3b, message=FALSE, warning=FALSE, fig.width=11, fig.height=6, fig.show="hold", out.width="400px"}
 print(p)
 ```
 
