@@ -38,36 +38,8 @@ Project the samples with the given method and dissimilarity measure.
 
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
-    p <- plot_ordination(pseq.core, ordinate(pseq.core, "NMDS", "bray"), type = "taxa", color = "Phylum", title = "Taxa ordination")
-
-    ## Square root transformation
-    ## Wisconsin double standardization
-    ## Run 0 stress 0.1748281 
-    ## Run 1 stress 0.2352198 
-    ## Run 2 stress 0.1848787 
-    ## Run 3 stress 0.1748474 
-    ## ... Procrustes: rmse 0.001589904  max resid 0.02264455 
-    ## Run 4 stress 0.181745 
-    ## Run 5 stress 0.175045 
-    ## ... Procrustes: rmse 0.0028426  max resid 0.03362797 
-    ## Run 6 stress 0.1833839 
-    ## Run 7 stress 0.2242994 
-    ## Run 8 stress 0.2305855 
-    ## Run 9 stress 0.2120231 
-    ## Run 10 stress 0.1941342 
-    ## Run 11 stress 0.2114969 
-    ## Run 12 stress 0.1983375 
-    ## Run 13 stress 0.1886606 
-    ## Run 14 stress 0.1897439 
-    ## Run 15 stress 0.2147918 
-    ## Run 16 stress 0.2139568 
-    ## Run 17 stress 0.210365 
-    ## Run 18 stress 0.236446 
-    ## Run 19 stress 0.2322866 
-    ## Run 20 stress 0.1839782 
-    ## *** No convergence -- monoMDS stopping criteria:
-    ##     20: stress ratio > sratmax
-
+    # "quiet" is here used to suppress intermediate output
+    quiet(p <- plot_ordination(pseq.core, ordinate(pseq.core, "NMDS", "bray"), type = "taxa", color = "Phylum", title = "Taxa ordination"))
     print(p)
 
 ![](Ordination_files/figure-markdown_strict/ordination-pca-ordination21-1.png)

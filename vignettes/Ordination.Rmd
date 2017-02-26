@@ -53,7 +53,8 @@ proj <- get_ordination(pseq.core, "NMDS", "bray")
 Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
 ```{r ordination-pca-ordination21, message=FALSE, message=FALSE, fig.height=5, fig.width=8}
-p <- plot_ordination(pseq.core, ordinate(pseq.core, "NMDS", "bray"), type = "taxa", color = "Phylum", title = "Taxa ordination")
+# "quiet" is here used to suppress intermediate output
+quiet(p <- plot_ordination(pseq.core, ordinate(pseq.core, "NMDS", "bray"), type = "taxa", color = "Phylum", title = "Taxa ordination"))
 print(p)
 ```
 

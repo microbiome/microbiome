@@ -43,15 +43,15 @@ pseq.core <- core(pseq.rel, detection = 1, prevalence = 10)
 
 Visualize the microbiome landscape (sample similarities on two-dimensional projection):
 
-```{r landscape3, message=FALSE, warning=FALSE, fig.width=11, fig.height=6, fig.show="hold", out.width="400px"}
+```{r landscape3, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
 # Landscape plot directly from phyloseq object
 p <- plot_landscape(pseq.core, "NMDS", "bray", col = "nationality")
 print(p)
 ```
 
-For a direct access to the ordination coordinates, use the following:
+For direct access to the ordination coordinates, use the following:
 
-```{r landscape4, message=FALSE, warning=FALSE, fig.width=11, fig.height=6, fig.show="hold", out.width="400px"}
+```{r landscape4, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
 # Project the samples with the given method and dissimilarity measure. 
 # Ordinate the data; note that some ordinations are sensitive to random seed
 # "quiet" is used to suppress intermediate outputs
@@ -97,6 +97,6 @@ plot_density(x, "Dialister", log10 = TRUE) + ggtitle("Log10")
 # Same with log10 compositionals
 x <- transform_phyloseq(x, "compositional")
 tax <- "Dialister"
-plot_density(x, tax, log10 = TRUE) + ggtitle("Relative abundance")
+plot_density(x, tax, log10 = TRUE) + ggtitle("Relative abundance") + xlab("Relative abundance (%)")
 ```
 
