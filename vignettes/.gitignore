@@ -3,7 +3,7 @@
 Atlas.RData
 Example.html
 *cache*
-*_files
+#*_files
 
 Phyloseq.R
 Phyloseq_files
