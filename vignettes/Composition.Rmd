@@ -21,14 +21,12 @@ output:
 
 ### Barplots for composition
 
-Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html) and [HITChip Barplots](Barplots.md)
+Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html).
 
 
 Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
 
 ```{r composition-example1}
-theme_set(theme_bw(22))
-
 # Example data
 library(microbiome)
 library(ggplot2)
@@ -37,13 +35,14 @@ pseq <- dietswap
 ```
 
 Show OTU absolute abundance in each sample. Plot absolute taxon
-abundances (Note: on HITChip data the Phylum level is only
-approximate):
+abundances:
 
 ```{r composition-example1b, fig.width=16, fig.height=8, message=FALSE}
 # Pick sample subset
 library(phyloseq)
 pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
+
+theme_set(theme_bw(22)) # Black/white color theme
 p <- plot_composition(pseq2, taxonomic.level = "Phylum") +
        theme(legend.position = "bottom") +
        guides(fill = guide_legend(nrow = 10, byrow = TRUE))

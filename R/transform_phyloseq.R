@@ -29,10 +29,11 @@
 #'
 #' }
 #' @keywords utilities
-transform_phyloseq <- function (x, transformation = "compositional",
+transform_phyloseq <- function (x, transformation = "identity",
                                    target = "OTU") {
 
   y <- NULL
+
   if (transformation == "relative.abundance") {
     transformation <- "compositional"
   }

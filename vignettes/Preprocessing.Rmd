@@ -56,10 +56,11 @@ taxonomy <- tax_table(pseq)
 
 
 Abundances for taxonomic groups ('OTU table') as a taxa x samples
-matrix:
+matrix; optionally transform the abundances:
 
 ```{r data23}
-otu <- abundances(pseq)
+otu.absolute <- abundances(pseq)
+otu.relative <- abundances(pseq, "compositional")
 ```
 
 
@@ -89,8 +90,7 @@ head(sample_sums(pseq))
 Abundance of a given species in each sample
 
 ```{r preprocess2d, warning=FALSE, message=FALSE}
-tax <- taxa_names(pseq)[[1]]
-head(get_sample(pseq, tax))
+head(get_sample(pseq, "Akkermansia"))
 ```
 
 Filter samples
