@@ -7,34 +7,41 @@
 #' @param shift Small constant to avoid problems with zeroes in log10
 #' @return \code{\link{ggplot}} object
 #' @examples 
-#'   data("atlas1006")
+#'   data(atlas1006)
 #'   pseq <- atlas1006
 #'   pseq <- subset_samples(pseq, DNA_extraction_method == "r")
-#'   pseq <- transform_phyloseq(pseq, "relative.abundance")
-#'   p <- plot_bimodal(pseq, "Dialister", tipping.point = 1)
+#'   # Bimodality is often best visible at log10 relative abundances
+#'   pseq <- transform_phyloseq(transform_phyloseq(pseq, "compositional"), "log10")
+#'   p <- plot_bimodal(pseq, "Dialister", tipping.point = .3)
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-plot_bimodal <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1e-3) {
+plot_bimodal <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1e-3, log10 = TRUE) {
+
+  if (log10) {
+    x <- transform_phyloseq(x, "log10")
+    tipping.point <- log10(tipping.point)
+  }
 
   Abundance <- ..density.. <- ..x.. <- NULL
 
   otu <- abundances(x)
 
   # Add small shift to avoid problems with 0
-  # Take log10 to enable useful visualization
+  # Use log10 to enable useful visualization
   do <- shift + otu[taxon, ]
-  do <- log10(do)
+  # do <- log10(do)
   
   d <- do
   
   if (is.null(tipping.point)) {
-    tipping.point <- log10(median(10^d) - shift)
+    tipping.point <- median(10^d) - shift
   } else {
-    tipping.point <- log10(tipping.point - shift)
+    tipping.point <- tipping.point - shift
   }
-
+  # tipping.point <- log10(tipping.point)
+  
   if (is.null(lims)) {
     lims <- range(na.omit(d))
   } else {
@@ -48,8 +55,8 @@ plot_bimodal <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1
   breaks <- c(seq(floor(min(lims)), ceiling(max(lims)), by = 1))
   names(breaks) <- as.character(10^breaks)
 
-  lims2 <- c(log10(tipping.point) - lim - .2,
-             log10(tipping.point) + lim + .2)
+  lims2 <- c(tipping.point - lim - .2,
+             tipping.point + lim + .2)
 
   # Data
   # bquote(paste("Signal (", Log[10], ")", sep = ""))  

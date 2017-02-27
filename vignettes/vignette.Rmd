@@ -41,12 +41,12 @@ extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 * [Data manipulation](Preprocessing.md)
 
 
-### Microbiome processing
+### Microbiome analysis
 
 * [Community composition](Composition.md)
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
-* [Stability, bimodality, and tipping elements](Stability.md)
+* [Stability and tipping elements](Stability.md)
 * [Variability](Variability.md)
 
 
@@ -60,7 +60,8 @@ extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 
 ### Statistical analysis
 
-
+* [Bimodality](Bimodality.md)
+* [Potential analysis](Potential.md)
 * [Pairwise comparisons](Comparisons.md)
 * [Univariate community comparisons: Linear mixed effect models](Mixedmodels.Rmd) 
 * [Univariate community comparisons: Negative binomial test](Negativebinomial.md) 

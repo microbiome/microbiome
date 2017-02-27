@@ -28,13 +28,14 @@ data(atlas1006)
 # Rename the example data
 pseq <- atlas1006
 
-# Focus on Bacteroides Phylum and specific DNA extraction method
-pseq <- pseq %>%
-        subset_taxa(Phylum == "Bacteroidetes") %>%
-        subset_samples(DNA_extraction_method == "r")
+# Focus on specific DNA extraction method
+pseq <- pseq %>% subset_samples(DNA_extraction_method == "r")
 
 # Keep prevalent taxa (HITChip signal >3 in >95 percent of the samples)
 pseq <- core(pseq, detection = 10^3, prevalence = 20)
+
+# Use relative abundances
+pseq <- transform_phyloseq(pseq, "compositional")
 
 # For cross-sectional analysis, include
 # only the zero time point:
@@ -62,6 +63,8 @@ intermediate.stability <- intermediate_stability(pseq, output = "scores")
 
 ### Bimodality quantification
 
+Check the [bimodality page](Bimodality.md) for more examples on bimodality indicators.
+
 Bimodality of the abundance distribution provides another (indirect)
 indicator of bistability, although other explanations such as sampling
 biases etc. should be controlled. Multiple bimodality scores are
@@ -72,39 +75,9 @@ bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.h
 
 
 ```{r bimodality2, message=FALSE, warning=FALSE, eval=FALSE}
-bimodality.pb <- bimodality(pseq0, method = "potential_bootstrap")
-```
-
-Sarle's bimodality coefficient (see help(coefficient_of_bimodality)):
-
-```{r bimodality3, message=FALSE, warning=FALSE}
-bimodality.sarle <- bimodality(pseq0, method = "Sarle.finite.sample")
-```
-
-Some other standard multimodality tests include the DIP test from the
-[diptest](https://cran.r-project.org/web/packages/diptest/index.html)
-package.
-
-
-
-
-
-### Visualize population densities for unimodal and bimodal groups
-
-```{r stability2, message=FALSE, warning=FALSE, fig.width=12, fig.height=5}
-# Pick the most and least bimodal taxa as examples
-bimodality <- bimodality.sarle
-unimodal <- names(which.min(bimodality))
-bimodal  <- names(which.max(bimodality))
-
-# Visualize population frequencies
-library(ggplot2)
-theme_set(theme_bw(20))
-p1 <- plot_density(pseq, variable = unimodal, log10 = TRUE) 
-p2 <- plot_density(pseq, variable = bimodal,  log10 = TRUE) 
-library(gridExtra)
-library(ggplot2)
-grid.arrange(p1, p2, nrow = 1)
+# Bimodality is better estimated from log10 abundances
+pseq0.log10 <- transform_phyloseq(pseq0, "log10")
+bimodality.pb <- bimodality(pseq0.log10, method = "potential_bootstrap")
 ```
 
 
@@ -119,24 +92,24 @@ df <- data.frame(group = taxa,
 		 bimodality = bimodality[taxa])
 
 theme_set(theme_bw(20))
-p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
-
-# Repel overlapping labels
-# See https://github.com/slowkow/ggrepel/blob/master/vignettes/ggrepel.md
-library(ggrepel) # devtools::install_github("slowkow/ggrepel")
-p <- p + geom_text_repel(size = 3)
+p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group)) +
+       geom_text() +
+       geom_point() 
 print(p)
 ```
 
 
-## Tipping point detection
+### Tipping point detection
 
 Identify potential minima in cross-section population data as
 tipping point candidates. 
 
 ```{r stability-tipping, message=FALSE, warning=FALSE}
 # Log10 abundance for a selected taxonomic group
-tax <- "Prevotella oralis et rel."
+# Pick the most bimodal taxa as an example
+tax  <- names(which.max(bimodality.pb))
+
+# Detect tipping points detection at log10 abundances 
 x <- log10(abundances(pseq)[tax,])
 
 # Potential analysis to identify potential minima
@@ -151,7 +124,7 @@ print(tipping.point)
 ```
 
 
-## Variation lineplot and Bimodality hotplot
+### Visualization with variation lineplot and bimodality hotplot
 
 Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation lineplot (**Variation lineplot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). The bi-stable Dialister has bimodal population distribution and reduced temporal stability within subjects at intermediate abundances.
 
@@ -159,32 +132,12 @@ Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) 
 # Variation line plot:
 # Indicates the abundance variation range
 # for subjects with multiple time points
-pv <- plot_variation(pseq, tax, tipping.point = tipping.point, xlim = c(0.01, 100))
+pv <- plot_variation(pseq, tax, tipping.point = tipping.point)
 print(pv)
 
 # Bimodality hotplot:
-# Only consider a unique sample from each subject
-# baseline time point for density plot
+# Consider a unique sample from each subject: the baseline time point 
 ph <- plot_bimodal(pseq0, tax, tipping.point = tipping.point)
 print(ph)
 ```
 
-
-
-### Potential analysis
-
-Potential analysis (following [Hirota et al. Science, 334, 232-235.](http://www.sciencemag.org/content/334/6053/232.long))
-
-```{r movpotential, message=FALSE, warning=FALSE, fig.width=5, fig.height=5}
-# Run potential analysis
-library(earlywarnings)
-pseq <- atlas1006
-
-diversity <- exp(diversity_table(pseq)$Shannon)
-age <- pseq_metadata(pseq)$age
-res <- movpotential_ews(diversity, age)
-
-# Visualize
-p <- plot_potential(res$res) + xlab("Age") + ylab("Diversity")
-print(p)
-```

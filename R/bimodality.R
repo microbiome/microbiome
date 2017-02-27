@@ -59,6 +59,8 @@ bimodality <- function (x, method = "potential_bootstrap", detection = 1, bw.adj
 
       } else {
 
+        # Shift the data. This does not affect mode detection but
+	# avoids errors with nonnegatives.
         s <- multimodality_score(x, detection, 
       	   		       bw.adjust, bs.iterations, 
      			       detection.limit, verbose)$score
@@ -72,7 +74,7 @@ bimodality <- function (x, method = "potential_bootstrap", detection = 1, bw.adj
   } else if (class(x) == "phyloseq") {
 
     # Pick the data from phyloseq object
-    x <- abundances(transform_phyloseq(x, "log10"))
+    x <- abundances(x)
     s <- bimodality(x, method = method, detection = detection, bw.adjust = bw.adjust, bs.iterations = bs.iterations, detection.limit = detection.limit, verbose = verbose)
 
   }

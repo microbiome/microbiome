@@ -8,10 +8,10 @@
 #' @param xlim Horizontal axis limits
 #' @return \code{\link{ggplot}} object
 #' @examples 
-#'   data("atlas1006")
+#'   data(atlas1006)
 #'   pseq <- atlas1006
 #'   pseq <- subset_samples(pseq, DNA_extraction_method == "r")
-#'   pseq <- transform_phyloseq(pseq, "relative.abundance")
+#'   pseq <- transform_phyloseq(pseq, "compositional")
 #'   p <- plot_variation(pseq, "Dialister", tipping.point = 1)
 #' @export
 #' @references See citation('microbiome') 
@@ -67,9 +67,12 @@ plot_variation <- function (x, taxon, tipping.point = NULL, lims = NULL, shift =
   p <- p + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) 
 
   # Assuming relative abundances
-  breaks <- 10^seq(-3,2,1) 
+  breaks <- 10^seq(-3,2,1)
+  if (!is.null(xlim)) {
+    breaks <- breaks[breaks<max(xlim)]
+  }
   names(breaks) <- as.character(breaks)
-
+  
   if (is.null(xlim)) {
     p <- p + scale_y_log10(breaks = breaks, labels = names(breaks), limits = lims)
   } else {

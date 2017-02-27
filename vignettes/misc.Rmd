@@ -10,4 +10,8 @@
 # phylogenetic microarrays.
 # det.th <- quantile(otu, 0.15)
 
+# Repel overlapping labels
+# See https://github.com/slowkow/ggrepel/blob/master/vignettes/ggrepel.md
+#library(ggrepel) # devtools::install_github("slowkow/ggrepel")
+#p <- p + geom_text_repel(size = 3)
 

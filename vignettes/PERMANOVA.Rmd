@@ -41,7 +41,7 @@ Pick relative abundances (compositional) and sample metadata
 ```{r comparisons_permanova_data, fig.width=5, fig.height=6, message=FALSE, warnings=FALSE}
 pseq.rel <- transform_phyloseq(pseq, "compositional")
 otu <- abundances(pseq.rel)
-meta <- pseq_metadata(pseq.rel)
+meta <- meta(pseq.rel)
 ```
 
 Visualize the population density and highlight sample groups

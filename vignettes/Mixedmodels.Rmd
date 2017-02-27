@@ -47,7 +47,7 @@ Test individual taxonomic group
 
 ```{r comparisons-lmer}
 # Get sample metadata
-dfs <- pseq_metadata(pseq)
+dfs <- meta(pseq)
 
 # Add abundance as the signal to model
 dfs$signal <- abundances(pseq)["Akkermansia", rownames(dfs)]

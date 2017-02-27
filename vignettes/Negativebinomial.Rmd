@@ -53,7 +53,7 @@ tax <- "Akkermansia"
 sample_data(pseq)$signal <- get_sample(pseq, tax)
 
 # Negative binomial test with group and gender included
-res <- glm.nb(signal ~ group + gender, data = pseq_metadata(pseq))
+res <- glm.nb(signal ~ group + gender, data = meta(pseq))
 
 # Show the results
 print(coef(summary(res)))
