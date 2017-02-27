@@ -28,9 +28,12 @@ temporal stability analysis:
     # Keep prevalent taxa (HITChip signal >3 in >95 percent of the samples)
     pseq <- core(pseq, detection = 10^3, prevalence = 20)
 
+    # Relative abundances
+    pseq.rel <- transform_phyloseq(pseq, "compositional")
+
     # For cross-sectional analysis, include
     # only the zero time point:
-    pseq0 <- subset_samples(pseq, time == 0)
+    pseq0 <- subset_samples(pseq.rel, time == 0)
 
 ### Intermediate stability quantification
 
@@ -67,7 +70,7 @@ Some other standard multimodality tests include the DIP test from the
 [diptest](https://cran.r-project.org/web/packages/diptest/index.html)
 package.
 
-Visualize population densities
+### Visualize population densities for unimodal and bimodal groups
 
     # Pick the most and least bimodal taxa as examples
     bimodality <- bimodality.sarle
@@ -98,17 +101,14 @@ human intestinal microbiota in [Lahti et al. Nat. Comm. 5:4344,
     df <- data.frame(group = taxa,
                      intermediate.stability = intermediate.stability[taxa],
              bimodality = bimodality[taxa])
+
     theme_set(theme_bw(20))
     p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
 
     # Repel overlapping labels
-    # Install ggrepel package if needed
-    # install.packages("devtools")
-    # devtools::install_github("slowkow/ggrepel")
     # See https://github.com/slowkow/ggrepel/blob/master/vignettes/ggrepel.md
-    library(ggrepel)
+    library(ggrepel) # devtools::install_github("slowkow/ggrepel")
     p <- p + geom_text_repel(size = 3)
-
     print(p)
 
 ![](Stability_files/figure-markdown_strict/bimodalitybistability-1.png)
@@ -119,19 +119,16 @@ Tipping point detection
 Identify potential minima in cross-section population data as tipping
 point candidates.
 
-    # Pick example data
-    library(phyloseq)
-    pseq <- transform_phyloseq(pseq, "compositional")
-
-    # Log10 for given group
+    # Log10 abundance for a selected taxonomic group
     tax <- "Prevotella oralis et rel."
-    x <- log10(get_sample(pseq, tax))
+    x <- log10(abundances(pseq.rel)[tax,])
 
     # Potential analysis to identify potential minima
     library(earlywarnings)
     res <- livpotential_ews(x)
 
-    # Identify the potential minimum location as a tipping point candidate 
+    # Identify the potential minimum location as a tipping point candidate
+    # and cast the tipping back to the original (non-log) space:
     tipping.point <- 10^res$min.points
 
     print(tipping.point)
@@ -152,7 +149,7 @@ temporal stability within subjects at intermediate abundances.
     # Variation line plot:
     # Indicates the abundance variation range
     # for subjects with multiple time points
-    pv <- plot_variation(pseq, tax, tipping.point = tipping.point, xlim = c(0.01, 100))
+    pv <- plot_variation(pseq.rel, tax, tipping.point = tipping.point, xlim = c(0.01, 100))
     print(pv)
 
     # Bimodality hotplot:
@@ -168,16 +165,16 @@ temporal stability within subjects at intermediate abundances.
 Potential analysis (following [Hirota et al. Science, 334,
 232-235.](http://www.sciencemag.org/content/334/6053/232.long))
 
-    # Create simulated example data
-    X <- c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), 
-                   rnorm(1000, mean = 2))
-    param <- seq(0,5,length=3000) 
-
     # Run potential analysis
-    res <- movpotential_ews(X, param)
+    library(earlywarnings)
+    pseq <- atlas1006
+
+    diversity <- exp(diversity_table(pseq)$Shannon)
+    age <- pseq_metadata(pseq)$age
+    res <- movpotential_ews(diversity, age)
 
     # Visualize
-    p <- plot_potential(res$res)
+    p <- plot_potential(res$res) + xlab("Age") + ylab("Diversity")
     print(p)
 
 ![](Stability_files/figure-markdown_strict/movpotential-1.png)

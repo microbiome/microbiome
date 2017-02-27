@@ -24,13 +24,15 @@ plot_bimodal <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1
 
   # Add small shift to avoid problems with 0
   # Take log10 to enable useful visualization
-  do <- log10(shift + otu[taxon, ])
+  do <- shift + otu[taxon, ]
+  do <- log10(do)
+  
   d <- do
   
   if (is.null(tipping.point)) {
-    tipping.point <- median(10^d) - shift
+    tipping.point <- log10(median(10^d) - shift)
   } else {
-    tipping.point <- tipping.point - shift
+    tipping.point <- log10(tipping.point - shift)
   }
 
   if (is.null(lims)) {
@@ -50,25 +52,23 @@ plot_bimodal <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1
              log10(tipping.point) + lim + .2)
 
   # Data
+  # bquote(paste("Signal (", Log[10], ")", sep = ""))  
   df <- data.frame(Abundance = d)
-  p <- ggplot(df, aes(x = Abundance, y = ..density.., fill = ..x..)) 
-  p <- p + geom_histogram(col = "black", binwidth = .12)
-  p <- p + ylab("Frequency") 
-  p <- p + xlab("")
-  
-  # bquote(paste("Signal (", Log[10], ")", sep = ""))
-  p <- p + scale_fill_gradientn("Signal",   
-                breaks = breaks - tipping.point, 
+  p <- ggplot(df, aes(x = Abundance, y = ..density.., fill = ..x..)) +
+         geom_histogram(col = "black", binwidth = .12) +
+	 ylab("Frequency") +
+	 xlab("") +
+	 scale_fill_gradientn("Signal",   
+                breaks = breaks - 10^tipping.point, 
                 colours = c(rep("darkblue", 3), "blue", "white", "red", rep("darkred", 3)),
                 labels = names(breaks),
 		limits = lims2
-                )
-
-  p <- p + guides(fill = FALSE)
-  p <- p + geom_vline(aes(xintercept = log10(tipping.point)), linetype = 2, size = 1)
-  p <- p + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
-  p <- p + scale_x_continuous(breaks = breaks, labels = names(breaks), limits = lims)   
-  p <- p + ggtitle(taxon)
+                ) +
+	guides(fill = FALSE) +
+	geom_vline(aes(xintercept = tipping.point), linetype = 2, size = 1) +
+	theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
+	scale_x_continuous(breaks = breaks, labels = names(breaks), limits = lims) +
+	ggtitle(taxon)
 
   p 
 

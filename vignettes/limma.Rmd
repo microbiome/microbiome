@@ -16,7 +16,74 @@ output:
 -->
 
 
-## Linear models with limma
+## Two-group comparison at community level using limma
+
+Load example data:
+
+```{r boxplot-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=5}
+# Load libraries
+library(microbiome)
+library(ggplot2)
+library(dplyr)
+
+# Probiotics intervention example data 
+data(peerj32) # Source: https://peerj.com/articles/32/
+pseq <- peerj32$phyloseq # Rename the example data
+```
+
+
+### Linear models with limma
+
+Identify most significantly different taxa between males and females using the limma method. See [limma homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf) for details. For discussion on why limma is preferred over t-test, see [this
+article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
+
+```{r limma-example, warning=FALSE, fig.width=8, fig.height=8, out.width="300px"}
+# Get OTU abundances and sample metadata
+otu <- abundances(transform_phyloseq(pseq, "log10"))
+meta <- sample_data(pseq)
+
+# Compare the two groups with limma
+library(limma)
+
+# Prepare the design matrix which states the groups for each sample
+# in the otu
+design <- cbind(intercept = 1, Grp2vs1 = meta[["gender"]])
+rownames(design) <- rownames(meta)
+design <- design[colnames(otu), ]
+
+# NOTE: results and p-values are given for all groupings in the design matrix
+# Now focus on the second grouping ie. pairwise comparison
+coef.index <- 2
+     
+# Fit the limma model
+fit <- lmFit(otu, design)
+fit <- eBayes(fit)
+
+# Limma P-values
+pvalues.limma = fit$p.value[, 2]
+
+# Limma effect sizes
+efs.limma <-  fit$coefficients[, "Grp2vs1"]
+
+# Summarise
+library(knitr)
+kable(topTable(fit, coef = coef.index, p.value=0.1), digits = 2)
+```
+
+Quantile-Quantile plot and volcano plot for limma
+
+```{r limma-qq, warning=FALSE, fig.width=8, fig.height=8, fig.show="hold"}
+# QQ
+qqt(fit$t[, coef.index], df = fit$df.residual + fit$df.prior); abline(0,1)
+
+# Volcano
+volcanoplot(fit, coef = coef.index, highlight = coef.index)
+```
+
+
+
+
+## Further linear modeling tools with limma
 
 A standard method for linear modeling of high-throughput bioinformatics data is [limma](http://bioinf.wehi.edu.au/limma/). See also
 [limma User's guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For discussion on why limma is preferred over t-test, see [this

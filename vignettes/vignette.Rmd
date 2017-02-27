@@ -46,7 +46,7 @@ extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 * [Community composition](Composition.md)
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
-* [Stability, bimodality, tipping elements](Stability.md)
+* [Stability, bimodality, and tipping elements](Stability.md)
 * [Variability](Variability.md)
 
 
@@ -60,9 +60,14 @@ extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 
 ### Statistical analysis
 
-* [Linear models](limma.md)
+
 * [Pairwise comparisons](Comparisons.md)
+* [Univariate community comparisons: Linear mixed effect models](Mixedmodels.Rmd) 
+* [Univariate community comparisons: Negative binomial test](Negativebinomial.md) 
+* [Multivariate community comparisons: Limma](limma.md)
+* [Multivariate community comparisons: PERMANOVA](PERMANOVA.md)
 * [Experimental tools](Experimental.md)
+
 
 
 ### Licensing and Citations

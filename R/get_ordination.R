@@ -20,6 +20,7 @@
 get_ordination <- function (x, method = "NMDS", distance = "bray") {
 
   x.ord <- ordinate(x, method, distance)
+
   # Pick the projected data (first two columns + metadata)
   proj <- phyloseq::plot_ordination(x, x.ord, justDF = T)
 

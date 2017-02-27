@@ -1,0 +1,13 @@
+# Pick the OTU data
+# (note the zero point has been moved to the detection;
+#  typically signal 1.8 at HITChip log10 scale)
+# otu <- abundances(pseq)
+
+# Determine detection at the 0.15 quantile
+# Then Calculate richness.
+# This simply indicates how many taxa are present in each sample
+# (exceed the detection). This measure is sometimes used with
+# phylogenetic microarrays.
+# det.th <- quantile(otu, 0.15)
+
+
