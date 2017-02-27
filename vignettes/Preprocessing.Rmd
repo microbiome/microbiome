@@ -107,6 +107,14 @@ pseq.subset <- subset_samples(pseq, nationality == "US")
 ```
 
 
+Pick samples at the baseline time points only:
+
+```{r baseline, message=FALSE, warning=FALSE}
+pseq0 <- pick_baseline(pseq)
+```
+
+
+
 ### Data transformations
 
 The microbiome package provides a wrapper for standard sample/OTU transforms. For arbitrary transforms, use the transform_sample_counts function in the phyloseq package.

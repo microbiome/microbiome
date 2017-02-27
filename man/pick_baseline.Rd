@@ -18,7 +18,7 @@ Phyloseq object with only baseline time point samples selected.
 Identify and select the baseline timepoint samples in a phyloseq object.
 }
 \details{
-Arranges the samples by time and picks the first sample for each subject.
+Arranges the samples by time and picks the first sample for each subject. Compared to simple subsetting at time point zero, this checks NAs and possibility for multiple samples at the baseline, and guarantees that a single sample per subject is selected.
 }
 \examples{
  data(atlas1006)

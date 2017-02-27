@@ -47,7 +47,7 @@ extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 * [Core microbiota](Core.md)
 * [Diversity](Diversity.md)
 * [Stability and tipping elements](Stability.md)
-* [Variability](Variability.md)
+* [Beta diversity](Betadiversity.md)
 
 
 ### Visualization and related tools
@@ -56,6 +56,7 @@ extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 * [Networks](Networks.md)
 * [Landscapes](Landscaping.md) (population density analysis)
 * [Ordination (PCA, PCoA, NMDS, RDA etc.)](Ordination.md)
+* [Regression](Regression.md)
 
 
 ### Statistical analysis

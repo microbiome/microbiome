@@ -13,7 +13,7 @@ pseq_metadata(x)
 The output of the phyloseq::sample_data() function does not return data.frame, which is needed for many applications. This function retrieves the sample data as a data.frame
 }
 \examples{
-data(dietswap); df <- pseq_metadata(dietswap)
+data(dietswap); df <- meta(dietswap)
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

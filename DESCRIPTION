@@ -2,8 +2,8 @@ Package: microbiome
 Type: Package
 Title: Tools for microbiome analysis
 Encoding: UTF-8
-Version: 0.99.91
-Date: 2017-02-25
+Version: 0.99.92
+Date: 2017-02-27
 Authors@R: c(
     person("Leo", "Lahti", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Tineka", "Blake", role = "ctb"),

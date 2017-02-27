@@ -12,12 +12,12 @@
 #'   pseq <- subset_samples(pseq, DNA_extraction_method == "r")
 #'   # Bimodality is often best visible at log10 relative abundances
 #'   pseq <- transform_phyloseq(transform_phyloseq(pseq, "compositional"), "log10")
-#'   p <- plot_bimodal(pseq, "Dialister", tipping.point = .3)
+#'   p <- hotplot(pseq, "Dialister", tipping.point = .3)
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-plot_bimodal <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1e-3, log10 = TRUE) {
+hotplot <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1e-3, log10 = TRUE) {
 
   if (log10) {
     x <- transform_phyloseq(x, "log10")

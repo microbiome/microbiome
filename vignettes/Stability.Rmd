@@ -37,9 +37,8 @@ pseq <- core(pseq, detection = 10^3, prevalence = 20)
 # Use relative abundances
 pseq <- transform_phyloseq(pseq, "compositional")
 
-# For cross-sectional analysis, include
-# only the zero time point:
-pseq0 <- subset_samples(pseq, time == 0)
+# For cross-sectional analysis, include only the baseline time point:
+pseq0 <- pick_baseline(pseq)
 ```
 
 
@@ -132,12 +131,19 @@ Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) 
 # Variation line plot:
 # Indicates the abundance variation range
 # for subjects with multiple time points
-pv <- plot_variation(pseq, tax, tipping.point = tipping.point)
+pv <- tipplot(pseq, tax, tipping.point = tipping.point)
 print(pv)
 
 # Bimodality hotplot:
 # Consider a unique sample from each subject: the baseline time point 
-ph <- plot_bimodal(pseq0, tax, tipping.point = tipping.point)
+ph <- hotplot(pseq0, tax, tipping.point = tipping.point)
 print(ph)
+```
+
+### Time series for individual subjects
+
+```{r homogeneity-timeseries, message=FALSE, warning=FALSE, fig.height=5, fig.height=5}
+p <- plot_timeseries(pseq, "Dialister", subject = "831", tipping.point = 0.5)
+print(p)
 ```
 
