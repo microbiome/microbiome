@@ -179,7 +179,7 @@ Names
 
 ```{r preprocess3f, warning=FALSE, message=FALSE}
 ranks <- rank_names(pseq)  # Taxonomic levels
-taxa  <- taxa_names(pseq)  # Taxa names at the analysed level
+taxa  <- taxa(pseq)        # Taxa names at the analysed level
 ```
 
 

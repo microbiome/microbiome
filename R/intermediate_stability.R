@@ -53,7 +53,7 @@ intermediate_stability <- function (x, reference.point = NULL, method = "correla
      }
 
      colnames(scores) <- as.character(reference.point)
-     rownames(scores) <- taxa_names(x)
+     rownames(scores) <- taxa(x)
 
      return(scores)
   }

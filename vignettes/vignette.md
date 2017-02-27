@@ -18,13 +18,13 @@ class.
 -   [Example data](Data.md)
 -   [Data manipulation](Preprocessing.md)
 
-### Microbiome processing
+### Microbiome analysis
 
 -   [Community composition](Composition.md)
 -   [Core microbiota](Core.md)
 -   [Diversity](Diversity.md)
--   [Stability, bimodality, tipping elements](Stability.md)
--   [Variability](Variability.md)
+-   [Stability and tipping elements](Stability.md)
+-   [Beta diversity](Betadiversity.md)
 
 ### Visualization and related tools
 
@@ -32,11 +32,19 @@ class.
 -   [Networks](Networks.md)
 -   [Landscapes](Landscaping.md) (population density analysis)
 -   [Ordination (PCA, PCoA, NMDS, RDA etc.)](Ordination.md)
+-   [Regression](Regression.md)
 
 ### Statistical analysis
 
--   [Linear models](limma.md)
+-   [Bimodality](Bimodality.md)
+-   [Potential analysis](Potential.md)
 -   [Pairwise comparisons](Comparisons.md)
+-   [Univariate community comparisons: Linear mixed effect
+    models](Mixedmodels.Rmd)
+-   [Univariate community comparisons: Negative binomial
+    test](Negativebinomial.md)
+-   [Multivariate community comparisons: Limma](limma.md)
+-   [Multivariate community comparisons: PERMANOVA](PERMANOVA.md)
 -   [Experimental tools](Experimental.md)
 
 ### Licensing and Citations
@@ -52,7 +60,7 @@ Kindly cite this work as follows:
     ## To cite package 'microbiome' in publications use:
     ## 
     ##   Leo Lahti (2017). microbiome: Tools for microbiome analysis. R
-    ##   package version 0.99.91. http://microbiome.github.com
+    ##   package version 0.99.92. http://microbiome.github.com
     ## 
     ## A BibTeX entry for LaTeX users is
     ## 
@@ -60,7 +68,7 @@ Kindly cite this work as follows:
     ##     title = {microbiome: Tools for microbiome analysis},
     ##     author = {Leo Lahti},
     ##     year = {2017},
-    ##     note = {R package version 0.99.91},
+    ##     note = {R package version 0.99.92},
     ##     url = {http://microbiome.github.com},
     ##   }
 

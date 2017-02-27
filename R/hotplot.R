@@ -5,6 +5,7 @@
 #' @param tipping.point Optional. Indicate critical point for abundance variations to be highlighted.
 #' @param lims Optional. Figure X axis limits.
 #' @param shift Small constant to avoid problems with zeroes in log10
+#' @param log10 Use log10 abundances for the OTU table and tipping point
 #' @return \code{\link{ggplot}} object
 #' @examples 
 #'   data(atlas1006)

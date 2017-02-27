@@ -62,7 +62,7 @@ order_neatmap <- function (x, target, method = "NMDS", distance = "bray",
     if (target == "sites") {
       ordering <- sample_names(x)[order(radial_theta(DF))] 
     } else if (target == "species") {
-      ordering <- taxa_names(x)[order(radial_theta(DF))] 
+      ordering <- taxa(x)[order(radial_theta(DF))] 
     } else {
       stop("Target should be either sites or species")
     }
@@ -71,7 +71,7 @@ order_neatmap <- function (x, target, method = "NMDS", distance = "bray",
     if (target == "sites") {
       ordering <- sample_names(x)[order(DF)] # 1:nsamples(x)
     } else if (target == "species") {
-      ordering <- taxa_names(x)[order(DF)] # 1:ntaxa(x)
+      ordering <- taxa(x)[order(DF)] # 1:ntaxa(x)
     } else {
       stop("Target should be either sites or species")
     }
@@ -79,7 +79,7 @@ order_neatmap <- function (x, target, method = "NMDS", distance = "bray",
     if (target == "sites") {
       ordering <- sample_names(x)
     } else if (target == "species") {
-      ordering <- taxa_names(x)
+      ordering <- taxa(x)
     } else {
       stop("Target should be either sites or species")
     }

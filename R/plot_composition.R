@@ -93,13 +93,13 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
   # Sort taxa
   if (is.null(otu.sort) || otu.sort == "none") {
     # No sorting
-    otu.sort <- taxa_names(x)
+    otu.sort <- taxa(x)
   } else if (length(otu.sort) ==1 && otu.sort == "abundance") {
     otu.sort <- rev(names(sort(rowSums(abu))))
   } else if (length(otu.sort) == 1 && otu.sort %in% names(tax_table(x))) {
     # Sort by phylogenetic group
     otu.sort <- rownames(sample_data(x))[order(tax_table(x)[[otu.sort]])]
-  } else if (all(otu.sort %in% taxa_names(x))) {
+  } else if (all(otu.sort %in% taxa(x))) {
     # Use predefined order
     otu.sort <- otu.sort
   } else if (length(otu.sort) == 1 && otu.sort == "neatmap") {

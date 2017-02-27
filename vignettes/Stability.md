@@ -20,17 +20,17 @@ temporal stability analysis:
     # Rename the example data
     pseq <- atlas1006
 
-    # Focus on Bacteroides Phylum and specific DNA extraction method
-    pseq <- pseq %>%
-            subset_taxa(Phylum == "Bacteroidetes") %>%
-            subset_samples(DNA_extraction_method == "r")
+    # Focus on specific DNA extraction method
+    pseq <- pseq %>% subset_samples(DNA_extraction_method == "r")
 
     # Keep prevalent taxa (HITChip signal >3 in >95 percent of the samples)
     pseq <- core(pseq, detection = 10^3, prevalence = 20)
 
-    # For cross-sectional analysis, include
-    # only the zero time point:
-    pseq0 <- subset_samples(pseq, time == 0)
+    # Use relative abundances
+    pseq <- transform_phyloseq(pseq, "compositional")
+
+    # For cross-sectional analysis, include only the baseline time point:
+    pseq0 <- pick_baseline(pseq)
 
 ### Intermediate stability quantification
 
@@ -49,6 +49,9 @@ calculated with:
 
 ### Bimodality quantification
 
+Check the [bimodality page](Bimodality.md) for more examples on
+bimodality indicators.
+
 Bimodality of the abundance distribution provides another (indirect)
 indicator of bistability, although other explanations such as sampling
 biases etc. should be controlled. Multiple bimodality scores are
@@ -57,33 +60,9 @@ available.
 Multimodality score using [potential analysis with
 bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
 
-    bimodality.pb <- bimodality(pseq0, method = "potential_bootstrap")
-
-Sarle's bimodality coefficient (see help(coefficient\_of\_bimodality)):
-
-    bimodality.sarle <- bimodality(pseq0, method = "Sarle.finite.sample")
-
-Some other standard multimodality tests include the DIP test from the
-[diptest](https://cran.r-project.org/web/packages/diptest/index.html)
-package.
-
-### Visualize population densities for unimodal and bimodal groups
-
-    # Pick the most and least bimodal taxa as examples
-    bimodality <- bimodality.sarle
-    unimodal <- names(which.min(bimodality))
-    bimodal  <- names(which.max(bimodality))
-
-    # Visualize population frequencies
-    library(ggplot2)
-    theme_set(theme_bw(20))
-    p1 <- plot_density(pseq, variable = unimodal, log10 = TRUE) 
-    p2 <- plot_density(pseq, variable = bimodal,  log10 = TRUE) 
-    library(gridExtra)
-    library(ggplot2)
-    grid.arrange(p1, p2, nrow = 1)
-
-![](Stability_files/figure-markdown_strict/stability2-1.png)
+    # Bimodality is better estimated from log10 abundances
+    pseq0.log10 <- transform_phyloseq(pseq0, "log10")
+    bimodality <- bimodality(pseq0.log10, method = "potential_bootstrap")
 
 ### Comparing bimodality and intermediate stability
 
@@ -94,30 +73,29 @@ corner were suggested to constitute bistable tipping elements of the
 human intestinal microbiota in [Lahti et al. Nat. Comm. 5:4344,
 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
 
-    taxa <- taxa_names(pseq0)
+    taxa <- taxa(pseq0)
     df <- data.frame(group = taxa,
                      intermediate.stability = intermediate.stability[taxa],
              bimodality = bimodality[taxa])
 
     theme_set(theme_bw(20))
-    p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group))
-
-    # Repel overlapping labels
-    # See https://github.com/slowkow/ggrepel/blob/master/vignettes/ggrepel.md
-    library(ggrepel) # devtools::install_github("slowkow/ggrepel")
-    p <- p + geom_text_repel(size = 3)
+    p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group)) +
+           geom_text() +
+           geom_point() 
     print(p)
 
 ![](Stability_files/figure-markdown_strict/bimodalitybistability-1.png)
 
-Tipping point detection
------------------------
+### Tipping point detection
 
 Identify potential minima in cross-section population data as tipping
 point candidates.
 
     # Log10 abundance for a selected taxonomic group
-    tax <- "Prevotella oralis et rel."
+    # Pick the most bimodal taxa as an example
+    tax  <- names(which.max(bimodality.pb))
+
+    # Detect tipping points detection at log10 abundances 
     x <- log10(abundances(pseq)[tax,])
 
     # Potential analysis to identify potential minima
@@ -130,10 +108,9 @@ point candidates.
 
     print(tipping.point)
 
-    ## [1] 13227.33
+    ## [1] 0.2705653
 
-Variation lineplot and Bimodality hotplot
------------------------------------------
+### Visualization with variation lineplot and bimodality hotplot
 
 Pick subset of the [HITChip Atlas data
 set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance
@@ -146,32 +123,19 @@ temporal stability within subjects at intermediate abundances.
     # Variation line plot:
     # Indicates the abundance variation range
     # for subjects with multiple time points
-    pv <- plot_variation(pseq, tax, tipping.point = tipping.point, xlim = c(0.01, 100))
+    pv <- tipplot(pseq, tax, tipping.point = tipping.point)
     print(pv)
 
     # Bimodality hotplot:
-    # Only consider a unique sample from each subject
-    # baseline time point for density plot
-    ph <- plot_bimodal(pseq0, tax, tipping.point = tipping.point)
+    # Consider a unique sample from each subject: the baseline time point 
+    ph <- hotplot(pseq0, tax, tipping.point = tipping.point)
     print(ph)
 
 <img src="Stability_files/figure-markdown_strict/stability-variationplot-1.png" width="430px" /><img src="Stability_files/figure-markdown_strict/stability-variationplot-2.png" width="430px" />
 
-### Potential analysis
+### Time series for individual subjects
 
-Potential analysis (following [Hirota et al. Science, 334,
-232-235.](http://www.sciencemag.org/content/334/6053/232.long))
-
-    # Run potential analysis
-    library(earlywarnings)
-    pseq <- atlas1006
-
-    diversity <- exp(diversity_table(pseq)$Shannon)
-    age <- pseq_metadata(pseq)$age
-    res <- movpotential_ews(diversity, age)
-
-    # Visualize
-    p <- plot_potential(res$res) + xlab("Age") + ylab("Diversity")
+    p <- plot_timeseries(pseq, "Dialister", subject = "831", tipping.point = 0.5)
     print(p)
 
-![](Stability_files/figure-markdown_strict/movpotential-1.png)
+![](Stability_files/figure-markdown_strict/homogeneity-timeseries-1.png)

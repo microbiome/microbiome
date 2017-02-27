@@ -18,6 +18,8 @@ output:
 
 ## Microbiome richness and diversity
 
+See also a separate page on [beta diversity](Betadiversity.md).
+
 Load example data:
 
 ```{r divdata, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
@@ -51,7 +53,7 @@ print(p)
 
 Visualize diversity measures w.r.t. discrete variable (or check more generic [group-wise comparison tools](Comparisons.md))
 
-```{r div-example2, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
+```{r div-example2bb, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
 p <- plot_diversity(pseq, "bmi_group", measures = c("Chao1", "Shannon"), indicate.subjects = FALSE)
 print(p)
 

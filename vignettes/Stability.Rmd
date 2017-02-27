@@ -76,7 +76,7 @@ bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.h
 ```{r bimodality2, message=FALSE, warning=FALSE, eval=FALSE}
 # Bimodality is better estimated from log10 abundances
 pseq0.log10 <- transform_phyloseq(pseq0, "log10")
-bimodality.pb <- bimodality(pseq0.log10, method = "potential_bootstrap")
+bimodality <- bimodality(pseq0.log10, method = "potential_bootstrap")
 ```
 
 
@@ -85,7 +85,7 @@ bimodality.pb <- bimodality(pseq0.log10, method = "potential_bootstrap")
 The analysis suggests that bimodal population distribution across individuals is often associated with instable intermediate abundances within individuals. The specific bi-stable groups in the upper left corner were suggested to constitute bistable tipping elements of the human intestinal microbiota in [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
 
 ```{r bimodalitybistability, message=FALSE, warning=FALSE}
-taxa <- taxa_names(pseq0)
+taxa <- taxa(pseq0)
 df <- data.frame(group = taxa,
                  intermediate.stability = intermediate.stability[taxa],
 		 bimodality = bimodality[taxa])

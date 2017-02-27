@@ -82,13 +82,13 @@ member in random bootstrap subsets of the data.
 <tr class="odd">
 <td>109</td>
 <td align="left">Ruminococcus obeum et rel.</td>
-<td align="right">0.78</td>
+<td align="right">0.83</td>
 <td align="right">1</td>
 </tr>
 <tr class="even">
 <td>60</td>
 <td align="left">Eubacterium hallii et rel.</td>
-<td align="right">0.68</td>
+<td align="right">0.75</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
@@ -100,7 +100,7 @@ member in random bootstrap subsets of the data.
 <tr class="even">
 <td>24</td>
 <td align="left">Bacteroides vulgatus et rel.</td>
-<td align="right">0.62</td>
+<td align="right">0.60</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
@@ -112,7 +112,7 @@ member in random bootstrap subsets of the data.
 <tr class="even">
 <td>25</td>
 <td align="left">Bifidobacterium</td>
-<td align="right">0.18</td>
+<td align="right">0.21</td>
 <td align="right">1</td>
 </tr>
 </tbody>

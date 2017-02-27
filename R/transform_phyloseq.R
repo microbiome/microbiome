@@ -70,7 +70,7 @@ transform_phyloseq <- function (x, transform = "identity",
     d <- apply(compositions::clr(a), 2, identity)
 
     colnames(d) <- sample_names(xt)
-    rownames(d) <- taxa_names(xt)
+    rownames(d) <- taxa(xt)
 
     xt@otu_table@.Data <- t(d)
 

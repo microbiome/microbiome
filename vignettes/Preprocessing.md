@@ -213,6 +213,10 @@ Select samples by specific metadata fields
 
     pseq.subset <- subset_samples(pseq, nationality == "US")
 
+Pick samples at the baseline time points only:
+
+    pseq0 <- pick_baseline(pseq)
+
 ### Data transformations
 
 The microbiome package provides a wrapper for standard sample/OTU
@@ -269,7 +273,7 @@ Most abundant taxa
 Names
 
     ranks <- rank_names(pseq)  # Taxonomic levels
-    taxa  <- taxa_names(pseq)  # Taxa names at the analysed level
+    taxa  <- taxa(pseq)        # Taxa names at the analysed level
 
 Subset taxa:
 

@@ -294,9 +294,9 @@ plot_ordn_prepare_df <- function (ordination, axes, physeq, type, color, shape) 
                silent = TRUE)
   # Check that have assigned coordinates to the correct object
   siteSampIntx = length(intersect(rownames(siteDF), sample_names(physeq)))
-  siteTaxaIntx = length(intersect(rownames(siteDF), taxa_names(physeq)))
+  siteTaxaIntx = length(intersect(rownames(siteDF), taxa(physeq)))
   specSampIntx = length(intersect(rownames(specDF), sample_names(physeq)))
-  specTaxaIntx = length(intersect(rownames(specDF), taxa_names(physeq)))
+  specTaxaIntx = length(intersect(rownames(specDF), taxa(physeq)))
   if(siteSampIntx < specSampIntx & specTaxaIntx < siteTaxaIntx){
     # Double-swap
     co = specDF
@@ -339,14 +339,14 @@ plot_ordn_prepare_df <- function (ordination, axes, physeq, type, color, shape) 
   # Double-check that have assigned coordinates to the correct object
   specTaxaIntx <- siteSampIntx <- NULL
   siteSampIntx <- length(intersect(rownames(siteDF), sample_names(physeq)))
-  specTaxaIntx <- length(intersect(rownames(specDF), taxa_names(physeq)))
+  specTaxaIntx <- length(intersect(rownames(specDF), taxa(physeq)))
   if(siteSampIntx < 1L & !is_empty(siteDF)){
     # If siteDF is not empty, but it doesn't intersect the sample_names in physeq, warn and set to NULL
     warning("`Ordination site/sample coordinate indices did not match `physeq` index names. Setting corresponding coordinates to NULL.")
     siteDF <- NULL
   }
   if(specTaxaIntx < 1L & !is_empty(specDF)){
-    # If specDF is not empty, but it doesn't intersect the taxa_names in physeq, warn and set to NULL
+    # If specDF is not empty, but it doesn't intersect the taxa in physeq, warn and set to NULL
     warning("`Ordination species/OTU/taxa coordinate indices did not match `physeq` index names. Setting corresponding coordinates to NULL.")
     specDF <- NULL
   }

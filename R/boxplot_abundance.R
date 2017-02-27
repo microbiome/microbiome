@@ -37,7 +37,7 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = FA
     df$xvar <- factor(as.character(df$xvar))
   }
   
-  if (y %in% taxa_names(pseq)) {
+  if (y %in% taxa(pseq)) {
     df$yvar <- as.vector(unlist(otu[y, ]))
   } else {
     df$yvar <- as.vector(unlist(sample_data(pseq)[, y]))

@@ -124,7 +124,7 @@ guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For
 discussion on why limma is preferred over t-test, see [this
 article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
-```{r limma-example, warning=FALSE}
+```{r limma-example2222, warning=FALSE}
 # Get example data
 library(microbiome)
 data("peerj32")
@@ -159,7 +159,7 @@ kable(topTable(fit, coef = coef.index, p.value=0.05), digits = 2)
 ### Q-Q plot
 
 
-```{r limma-qq, warning=FALSE}
+```{r limma-qqbb, warning=FALSE}
 qqt(fit$t[, coef.index], df = fit$df.residual + fit$df.prior)
 abline(0,1)
 ```

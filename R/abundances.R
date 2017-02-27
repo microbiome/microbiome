@@ -26,13 +26,13 @@ abundances <- function (x, transform = "identity") {
 
   if (ntaxa(x) == 1) {
     otu <- matrix(otu, nrow = 1)
-    rownames(otu) <- taxa_names(x)
+    rownames(otu) <- taxa(x)
     colnames(otu) <- sample_names(x)
   }
 
   if (nsamples(x) == 1) {
     otu <- matrix(otu, ncol = 1)
-    rownames(otu) <- taxa_names(x)
+    rownames(otu) <- taxa(x)
     colnames(otu) <- sample_names(x)
   }
 
@@ -42,7 +42,7 @@ abundances <- function (x, transform = "identity") {
   }
 
   if (nrow(otu) == 1) {
-    rownames(otu) <- taxa_names(x)
+    rownames(otu) <- taxa(x)
     colnames(otu) <- sample_names(x)    
   }
 

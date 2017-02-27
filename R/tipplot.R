@@ -1,0 +1,85 @@
+#' @title Variation Line Plot
+#' @description Plot variation in taxon abundance for many subjects.
+#' @param x \code{\link{phyloseq-class}} object
+#' @param taxon Taxonomic group to visualize.
+#' @param tipping.point Optional. Indicate critical point for abundance variations to be highlighted.
+#' @param lims Optional. Figure X axis limits.
+#' @param shift Small constant to avoid problems with zeroes in log10
+#' @param xlim Horizontal axis limits
+#' @return \code{\link{ggplot}} object
+#' @examples 
+#'   data(atlas1006)
+#'   pseq <- atlas1006
+#'   pseq <- subset_samples(pseq, DNA_extraction_method == "r")
+#'   pseq <- transform_phyloseq(pseq, "compositional")
+#'   p <- tipplot(pseq, "Dialister", tipping.point = 1)
+#' @export
+#' @references See citation('microbiome') 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+#' @details Assuming the sample_data(x) has 'subject' field and
+#' some subjects have multiple time points.
+tipplot <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1e-3, xlim = NULL) {
+
+  pos <- abundance <- NULL
+
+  m <- sample_data(x)
+  otu <- abundances(x)
+
+  d <- otu[taxon, ]
+
+  if (is.null(tipping.point)) {
+    message("No tipping point given, indicating the median by dashed line.")
+    tipping.point <- median(d)
+  }
+
+  if (is.null(lims)) {
+    lims <- range(d) + shift
+  }
+  
+  # Pick subjects with multiple timepoints
+  time.subjects <- names(which(table(m$subject) > 1))
+  keep <- which(m$subject %in% time.subjects)
+  
+  ranges <- t(sapply(split(d[keep], as.character(m$subject[keep])), range))
+  colnames(ranges) <- c("min", "max")
+  
+  df <- as.data.frame(ranges)
+  df$mid  <- rowMeans(ranges)
+  df <- df[order(df$mid),]
+  df$pos  <- 1:nrow(df)
+  
+  # Switches the state
+  df$len <- df$max - df$min # Range length
+  df$switch <- abs(df$mid - tipping.point) < df$len/2
+  dforig <- data.frame(list(abundance = d, subject = m$subject))
+  dforig$pos <- df[as.character(dforig$subject), "pos"]
+
+  p <- ggplot()
+  p <- p + geom_linerange(data = df, aes(x = pos, ymin = min, ymax = max, color = switch))
+  p <- p + scale_color_manual(values = c("black", "red"))
+  p <- p + geom_hline(aes(yintercept = tipping.point), linetype = 2, size = 1)
+  p <- p + ylab("Abundance")
+  p <- p + xlab("Subjects")
+  p <- p + guides(color = FALSE)
+  p <- p + coord_flip()
+  p <- p + geom_point(data = dforig, aes(x = pos, y = abundance))
+  p <- p + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) 
+
+  # Assuming relative abundances
+  breaks <- 10^seq(-3,2,1)
+  if (!is.null(xlim)) {
+    breaks <- breaks[breaks<max(xlim)]
+  }
+  names(breaks) <- as.character(breaks)
+  
+  if (is.null(xlim)) {
+    p <- p + scale_y_log10(breaks = breaks, labels = names(breaks), limits = lims)
+  } else {
+    p <- p + scale_y_log10(breaks = breaks, labels = names(breaks), limits = xlim)
+  }
+  p <- p + ggtitle(taxon)
+
+  p
+  
+}
