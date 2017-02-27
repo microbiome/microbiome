@@ -28,12 +28,9 @@ temporal stability analysis:
     # Keep prevalent taxa (HITChip signal >3 in >95 percent of the samples)
     pseq <- core(pseq, detection = 10^3, prevalence = 20)
 
-    # Relative abundances
-    pseq.rel <- transform_phyloseq(pseq, "compositional")
-
     # For cross-sectional analysis, include
     # only the zero time point:
-    pseq0 <- subset_samples(pseq.rel, time == 0)
+    pseq0 <- subset_samples(pseq, time == 0)
 
 ### Intermediate stability quantification
 
@@ -121,7 +118,7 @@ point candidates.
 
     # Log10 abundance for a selected taxonomic group
     tax <- "Prevotella oralis et rel."
-    x <- log10(abundances(pseq.rel)[tax,])
+    x <- log10(abundances(pseq)[tax,])
 
     # Potential analysis to identify potential minima
     library(earlywarnings)
@@ -133,7 +130,7 @@ point candidates.
 
     print(tipping.point)
 
-    ## [1] 5.034405
+    ## [1] 13227.33
 
 Variation lineplot and Bimodality hotplot
 -----------------------------------------
@@ -149,7 +146,7 @@ temporal stability within subjects at intermediate abundances.
     # Variation line plot:
     # Indicates the abundance variation range
     # for subjects with multiple time points
-    pv <- plot_variation(pseq.rel, tax, tipping.point = tipping.point, xlim = c(0.01, 100))
+    pv <- plot_variation(pseq, tax, tipping.point = tipping.point, xlim = c(0.01, 100))
     print(pv)
 
     # Bimodality hotplot:
