@@ -18,7 +18,7 @@ output:
 
 ## Group-wise comparisons
 
-### Boxplots
+Load example data:
 
 ```{r boxplot-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=5}
 # Load libraries
@@ -26,52 +26,55 @@ library(microbiome)
 library(ggplot2)
 library(dplyr)
 
-# Probiotics intervention example data from
-# https://peerj.com/articles/32/
-data("peerj32")
+# Probiotics intervention example data 
+data(peerj32) # Source: https://peerj.com/articles/32/
+pseq <- peerj32$phyloseq # Rename the example data
+```
 
-# Abundance boxplot
-p <- boxplot_abundance(peerj32$phyloseq, x = "time", y = "Akkermansia", line = "subject", color = "gender")
+
+### Abundance boxplot
+
+```{r boxplot2, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, out.width="300px"}
+p <- boxplot_abundance(pseq, x = "time", y = "Akkermansia", line = "subject", color = "gender")
 print(p)
 ```
 
 
-
-
-
-
-
 ### Negative binomial example
 
-[Read more](http://www.ats.ucla.edu/stat/r/dae/nbreg.htm)
+[Read more on negative binomials](http://www.ats.ucla.edu/stat/r/dae/nbreg.htm)
 
-```{r comparisons2b, eval=FALSE}
+```{r comparisons2b}
 library(MASS)
-taxa <- taxa_names(x)[1:2]
-x <- atlas1006
-df <- as(sample_data(x), "data.frame")
+
+# Analyse specific taxa
+taxa <- c("Akkermansia", "Dialister")
 for (tax in taxa) {
-  df$signal <- get_sample(x, tax)
-  res <- glm.nb(signal ~ bmi_group + gender, data = df)
+
+  # Pick the signal (abundance) for this tax
+  sample_data(pseq)$signal <- get_sample(pseq, tax)
+
+  # Negative binomial test with group and gender included
+  res <- glm.nb(signal ~ group + gender, data = pseq_metadata(pseq))
+
+  # Show the results
   print(coef(summary(res)))
+
 }
 ```
 
 
 ### Comparisons for individual taxa with random effect subject term
 
-```{r comparisons-lmer, eval=FALSE}
-# Get taxa x samples abundance matrix
-x <- peerj32$phyloseq
+```{r comparisons-lmer}
+# Get sample metadata
+dfs <- pseq_metadata(pseq)
 
-# Get the data
-mydata <- get_taxa(x)
-tax <- "Dialister"
-dfs <- sample_data(x)
-dfs$signal <- mydata[tax, rownames(dfs)]
-dfs$group <- dfs[[group]]
+# Add Dialister abundance as the signal to model
+dfs$signal <- abundances(pseq)["Dialister", rownames(dfs)]
 
 # Paired comparison
+# with fixed group effect and random subject effect
 library(lme4)
 out <- lmer(signal ~ group + (1|subject), data = dfs)
 out0 <- lmer(signal ~ (1|subject), data = dfs)
@@ -80,31 +83,22 @@ pv <- comp[["Pr(>Chisq)"]][[2]]
 ```
 
 
-## Linear models with limma
+### Linear models with limma
 
-Identify most significantly different taxa between males and females.
-
-For further details, see [limma
-homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's
-guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf). For
-discussion on why limma is preferred over t-test, see [this
+Identify most significantly different taxa between males and females using the limma method. See [limma homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf) for details. For discussion on why limma is preferred over t-test, see [this
 article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
 ```{r limma-example, warning=FALSE}
-# Get example data
-library(microbiome)
-data("peerj32")
-pseq <- peerj32$phyloseq
+# Get OTU abundances and sample metadata
 otu <- abundances(transform_phyloseq(pseq, "log10"))
 meta <- sample_data(pseq)
-grouping.variable <- "gender" 
 
 # Compare the two groups with limma
 library(limma)
 
 # Prepare the design matrix which states the groups for each sample
 # in the otu
-design <- cbind(intercept = 1, Grp2vs1 = meta[[grouping.variable]])
+design <- cbind(intercept = 1, Grp2vs1 = meta[["gender"]])
 rownames(design) <- rownames(meta)
 design <- design[colnames(otu), ]
 
@@ -122,7 +116,8 @@ pvalues.limma = fit$p.value[, 2]
 # Limma effect sizes
 efs.limma <-  fit$coefficients[, "Grp2vs1"]
 
-# Summarise 
+# Summarise
+library(knitr)
 kable(topTable(fit, coef = coef.index, p.value=0.1), digits = 2)
 ```
 
@@ -142,37 +137,34 @@ volcanoplot(fit, coef = coef.index, highlight = coef.index)
 
 ### PERMANOVA
 
-PERMANOVA can be also used to assess community-level differences
-between groups. Here let us evaluate whether nationality has a
-significant effect on gut microbiota.
+PERMANOVA can be used to assess multivariate community-level
+differences between groups. Here let us evaluate whether probiotics treatment
+has a significant effect on overall gut microbiota composition.
 
 ```{r comparisons-permanova, fig.width=5, fig.height=6, message=FALSE, warnings=FALSE}
-# Example data
-data("dietswap")
-x <- dietswap
-group <- "nationality"
-
 # Use compositionals for simpler visualizations
-x <- transform_phyloseq(x, "compositional")
-otu <- get_sample(x)
-meta <- as(sample_data(x), "data.frame")
-meta$group <- meta[[group]]
+pseq.rel <- transform_phyloseq(pseq, "compositional")
+otu <- abundances(pseq.rel)
+meta <- pseq_metadata(pseq.rel)
 
 # PERMANOVA: samples x species as input
 library(vegan)
-permanova <- adonis(t(otu) ~ group, data=meta, permutations=99, method = "bray")
-pv <- as.data.frame(permanova$aov.tab)["group", "Pr(>F)"]
+permanova <- adonis(t(otu) ~ group,
+               data = meta, permutations=99, method = "bray")
 
 # P-value
-print(pv)
+print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
+```
 
-# Note the assumption of similar
-# multivariate spread among the groups
+Check that variance homogeneity assumptions hold (to ensure the reliability of the results):
+
+```{r comparisons-permanova2, fig.width=5, fig.height=6, message=FALSE, warnings=FALSE}
+# Note the assumption of similar multivariate spread among the groups
 # ie. analogous to variance homogeneity
 # Here the groups have signif. different spreads and
-# permanova result may be explained by that.
+# permanova result may be potentially explained by that.
 dist <- vegdist(t(otu))
-anova(betadisper(dist,meta$group))
+anova(betadisper(dist, meta$group))
 
 # Coefs for the top taxa separating the groups
 coef <- coefficients(permanova)["group1",]

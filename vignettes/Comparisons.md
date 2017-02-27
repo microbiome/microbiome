@@ -7,81 +7,94 @@
 Group-wise comparisons
 ----------------------
 
-### Boxplots
+Load example data:
 
     # Load libraries
     library(microbiome)
     library(ggplot2)
     library(dplyr)
 
-    # Probiotics intervention example data from
-    # https://peerj.com/articles/32/
-    data("peerj32")
+    # Probiotics intervention example data 
+    data(peerj32) # Source: https://peerj.com/articles/32/
+    pseq <- peerj32$phyloseq # Rename the example data
 
-    # Abundance boxplot
-    p <- boxplot_abundance(peerj32$phyloseq, x = "time", y = "Akkermansia", line = "subject", color = "gender")
+### Abundance boxplot
+
+    p <- boxplot_abundance(pseq, x = "time", y = "Akkermansia", line = "subject", color = "gender")
     print(p)
 
-![](Comparisons_files/figure-markdown_strict/boxplot-example-1.png)
+<img src="Comparisons_files/figure-markdown_strict/boxplot2-1.png" width="300px" />
 
 ### Negative binomial example
 
-[Read more](http://www.ats.ucla.edu/stat/r/dae/nbreg.htm)
+[Read more on negative
+binomials](http://www.ats.ucla.edu/stat/r/dae/nbreg.htm)
 
     library(MASS)
-    taxa <- taxa_names(x)[1:2]
-    x <- atlas1006
-    df <- as(sample_data(x), "data.frame")
+
+    # Analyse specific taxa
+    taxa <- c("Akkermansia", "Dialister")
     for (tax in taxa) {
-      df$signal <- get_sample(x, tax)
-      res <- glm.nb(signal ~ bmi_group + gender, data = df)
+
+      # Pick the signal (abundance) for this tax
+      sample_data(pseq)$signal <- get_sample(pseq, tax)
+
+      # Negative binomial test with group and gender included
+      res <- glm.nb(signal ~ group + gender, data = pseq_metadata(pseq))
+
+      # Show the results
       print(coef(summary(res)))
+
     }
+
+    ##                Estimate Std. Error   z value      Pr(>|z|)
+    ## (Intercept)   6.2487413  0.2240525 27.889627 3.564693e-171
+    ## groupPlacebo  0.3408954  0.2535652  1.344409  1.788161e-01
+    ## gendermale   -0.7857536  0.2619740 -2.999358  2.705493e-03
+    ##               Estimate Std. Error  z value     Pr(>|z|)
+    ## (Intercept)  3.3396496  0.4509626 7.405602 1.305570e-13
+    ## groupPlacebo 0.6172977  0.5096202 1.211290 2.257844e-01
+    ## gendermale   1.2392095  0.5254207 2.358509 1.834850e-02
 
 ### Comparisons for individual taxa with random effect subject term
 
-    # Get taxa x samples abundance matrix
-    x <- peerj32$phyloseq
+    # Get sample metadata
+    dfs <- pseq_metadata(pseq)
 
-    # Get the data
-    mydata <- get_taxa(x)
-    tax <- "Dialister"
-    dfs <- sample_data(x)
-    dfs$signal <- mydata[tax, rownames(dfs)]
-    dfs$group <- dfs[[group]]
+    # Add Dialister abundance as the signal to model
+    dfs$signal <- abundances(pseq)["Dialister", rownames(dfs)]
 
     # Paired comparison
+    # with fixed group effect and random subject effect
     library(lme4)
     out <- lmer(signal ~ group + (1|subject), data = dfs)
     out0 <- lmer(signal ~ (1|subject), data = dfs)
     comp <- anova(out0, out)
+
+    ## refitting model(s) with ML (instead of REML)
+
     pv <- comp[["Pr(>Chisq)"]][[2]]
 
-Linear models with limma
-------------------------
+### Linear models with limma
 
-Identify most significantly different taxa between males and females.
-
-For further details, see [limma
+Identify most significantly different taxa between males and females
+using the limma method. See [limma
 homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's
-guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf).
-For discussion on why limma is preferred over t-test, see [this
+guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf)
+for details. For discussion on why limma is preferred over t-test, see
+[this
 article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
-    # Get example data
-    library(microbiome)
-    data("peerj32")
-    pseq <- peerj32$phyloseq
+    # Get OTU abundances and sample metadata
     otu <- abundances(transform_phyloseq(pseq, "log10"))
     meta <- sample_data(pseq)
-    grouping.variable <- "gender" 
 
     # Compare the two groups with limma
     library(limma)
 
     # Prepare the design matrix which states the groups for each sample
     # in the otu
-    design <- cbind(intercept = 1, Grp2vs1 = meta[[grouping.variable]])
+    design <- cbind(intercept = 1, Grp2vs1 = meta[["gender"]])
     rownames(design) <- rownames(meta)
     design <- design[colnames(otu), ]
 
@@ -99,7 +112,8 @@ article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
     # Limma effect sizes
     efs.limma <-  fit$coefficients[, "Grp2vs1"]
 
-    # Summarise 
+    # Summarise
+    library(knitr)
     kable(topTable(fit, coef = coef.index, p.value=0.1), digits = 2)
 
 <table>
@@ -169,47 +183,41 @@ article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
 ### PERMANOVA
 
-PERMANOVA can be also used to assess community-level differences between
-groups. Here let us evaluate whether nationality has a significant
-effect on gut microbiota.
-
-    # Example data
-    data("dietswap")
-    x <- dietswap
-    group <- "nationality"
+PERMANOVA can be used to assess multivariate community-level differences
+between groups. Here let us evaluate whether probiotics treatment has a
+significant effect on overall gut microbiota composition.
 
     # Use compositionals for simpler visualizations
-    x <- transform_phyloseq(x, "compositional")
-    otu <- get_sample(x)
-    meta <- as(sample_data(x), "data.frame")
-    meta$group <- meta[[group]]
+    pseq.rel <- transform_phyloseq(pseq, "compositional")
+    otu <- abundances(pseq.rel)
+    meta <- pseq_metadata(pseq.rel)
 
     # PERMANOVA: samples x species as input
     library(vegan)
-    permanova <- adonis(t(otu) ~ group, data=meta, permutations=99, method = "bray")
-    pv <- as.data.frame(permanova$aov.tab)["group", "Pr(>F)"]
+    permanova <- adonis(t(otu) ~ group,
+                   data = meta, permutations=99, method = "bray")
 
     # P-value
-    print(pv)
+    print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
 
-    ## [1] 0.01
+    ## [1] 0.25
 
-    # Note the assumption of similar
-    # multivariate spread among the groups
+Check that variance homogeneity assumptions hold (to ensure the
+reliability of the results):
+
+    # Note the assumption of similar multivariate spread among the groups
     # ie. analogous to variance homogeneity
     # Here the groups have signif. different spreads and
-    # permanova result may be explained by that.
+    # permanova result may be potentially explained by that.
     dist <- vegdist(t(otu))
-    anova(betadisper(dist,meta$group))
+    anova(betadisper(dist, meta$group))
 
     ## Analysis of Variance Table
     ## 
     ## Response: Distances
-    ##            Df  Sum Sq  Mean Sq F value    Pr(>F)    
-    ## Groups      1 0.26114 0.261144  18.345 2.754e-05 ***
-    ## Residuals 220 3.13168 0.014235                      
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ##           Df   Sum Sq   Mean Sq F value Pr(>F)
+    ## Groups     1 0.000016 0.0000156  0.0042 0.9487
+    ## Residuals 42 0.156962 0.0037372
 
     # Coefs for the top taxa separating the groups
     coef <- coefficients(permanova)["group1",]
@@ -217,4 +225,4 @@ effect on gut microbiota.
     par(mar = c(3, 14, 2, 1))
     barplot(sort(top.coef), horiz = T, las = 1, main = "Top taxa")
 
-![](Comparisons_files/figure-markdown_strict/comparisons-permanova-1.png)
+![](Comparisons_files/figure-markdown_strict/comparisons-permanova2-1.png)
