@@ -5,7 +5,7 @@
 ## Add time field (two time points needed within each group for the 
 ## intraindividual method)
 #sample_data(x)$time <- sample_data(x)$timepoint.within.group
-#res <- betadiversity(x, "interindividual")
+#res <- group_diversity(x, "interindividual")
 #```
 
 

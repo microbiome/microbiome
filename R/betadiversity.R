@@ -37,7 +37,7 @@
 #'   data(peerj32)
 #'   # Assess beta diversity among the African samples
 #'   # in a diet swap study
-#'   b <- betadiversity(subset_samples(dietswap, group == "AFR"))
+#'   b <- group_diversity(subset_samples(dietswap, group == "AFR"))
 #' @references 
 #' The inter- and intra-individual homogeneity in
 #' Salonen et al. ISME J. 8:2218-30, 2014 are obtained as
@@ -47,7 +47,7 @@
 #' standard beta diversity measures
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-betadiversity <- function(x, mode = "anticorrelation") {
+group_diversity <- function(x, mode = "anticorrelation") {
 
   # Abundance matrix (taxa x samples)
   if (is.phyloseq(x)) {

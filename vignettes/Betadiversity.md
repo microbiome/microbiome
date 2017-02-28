@@ -13,43 +13,44 @@ Load example data
     data(peerj32)
     pseq <- peerj32$phyloseq
 
-### Quantification of group heterogeneity / spread
+### Quantifying group heterogeneity / spread
 
-Calculate beta diversities within the LGG (probiotic) and Placebo
-groups. The beta diversity is here calculated as the dissimilarity of
-each sample from the group mean. See the function help for details on
-beta diversity measures.
+Beta diversity within a given sample set can be quantified as the
+average dissimilarity of each sample from the group mean. This was
+applied in group-level comparisons for instance in [Salonen et al. ISME
+J
+2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html)
+(they focused on homogeneity using inverse correlation, whereas here we
+focus on heterogeneity using correlation but the measure is essentially
+the same).
 
-    b.pla <- betadiversity(subset_samples(pseq, group == "Placebo"))
-    b.lgg <- betadiversity(subset_samples(pseq, group == "LGG"))
+Calculate group diversities within the LGG (probiotic) and Placebo
+groups
 
-Compare the heterogeneity within each group. The LGG group tends to have
-smaller values, indicating that the samples are more similar to the
-group mean, and hence the overall heterogeneity (or spread) of the LGG
-group is smaller.
+    b.pla <- group_diversity(subset_samples(pseq, group == "Placebo"))
+    b.lgg <- group_diversity(subset_samples(pseq, group == "LGG"))
 
-Or in other words, the inter-individual homogeneity within the LGG group
-is greater; this homogeneity measure, or *inter-individual stability*
-has been used for group-wise comparisons for instance in [Salonen et al.
-ISME J
-2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html).
-Other beta diversity measures could be used as well but they are not
-currently implemented.
+Use these to compare microbiota heterogeneity within each group. The LGG
+group tends to have smaller values, indicating that the samples are more
+similar to the group mean, and the LGG group is less heterogeneous (has
+smaller spread / is more homogeneous):
 
     boxplot(list(LGG = b.lgg, Placebo = b.pla))
 
 ![](Betadiversity_files/figure-markdown_strict/heterogeneity-example2bbb-1.png)
 
+The **inter- and intra-invididual stability** (or homogeneity) measures
+are obtained as 1-b where b is the group diversity with the
+anticorrelation method ([Salonen et al. ISME J
+2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html)).
+
 ### Intra-individual heterogeneity
 
-Beta diversity is often quantified also within subjects over time.
-[Salonen et al. ISME J
+Quantify beta diversity within subjects over time. [Salonen et al. ISME
+J
 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html))
-used this to quantify intra-individual stability (ie homogeneity)
-between time points.
-
-Calculate the beta diversity between the two time points within each
-subject, and compare the beta diversities between the two groups.
+used this to quantify intra-individual stability (ie homogeneity) of
+subjects between two groups.
 
     betas <- list()
     groups <- as.character(unique(meta(pseq)$group))
@@ -63,7 +64,11 @@ subject, and compare the beta diversities between the two groups.
         # Check that the subject has two time points
         if (nrow(dfs) == 2) {
           s <- as.character(dfs$sample)
-          beta[[subj]] <- betadiversity(abundances(pseq)[, s])
+          # Here with just two samples we can calculate the
+          # beta diversity directly
+          beta[[subj]] <- 1-cor(abundances(pseq)[, s[[1]]],
+                            abundances(pseq)[, s[[2]]],
+                    method = "spearman")
         }
       }
       betas[[g]] <- beta
@@ -71,7 +76,7 @@ subject, and compare the beta diversities between the two groups.
 
     boxplot(betas)
 
-![](Betadiversity_files/figure-markdown_strict/homogeneity-example2c-1.png)
+<img src="Betadiversity_files/figure-markdown_strict/homogeneity-example2c-1.png" width="300px" />
 
 ### Beta diversity within individual over time
 
@@ -97,7 +102,8 @@ within a single individual
       # If the same time point has more than one sample,
       # pick one at random
       st <- sample(subset(df, time == tp)$sample, 1)
-      b <- betadiversity(abundances(pseq)[, c(s0, st)])
+      a <- abundances(pseq)
+      b <- 1 - cor(a[, s0], a[, st], method = "spearman")
       beta <- rbind(beta, c(tp, b))
     }
     colnames(beta) <- c("time", "beta")
@@ -107,4 +113,4 @@ within a single individual
            geom_point() + geom_line()
     print(p)       
 
-![](Betadiversity_files/figure-markdown_strict/homogeneity-example2d-1.png)
+<img src="Betadiversity_files/figure-markdown_strict/homogeneity-example2d-1.png" width="300px" />
