@@ -40,7 +40,7 @@ b.lgg <- group_diversity(subset_samples(pseq, group == "LGG"))
 
 Use these to compare microbiota heterogeneity within each group. The LGG group tends to have smaller values, indicating that the samples are more similar to the group mean, and the LGG group is less heterogeneous (has smaller spread / is more homogeneous):
 
-```{r heterogeneity-example2bbb, message=FALSE}
+```{r heterogeneity-example2bbb, message=FALSE, out.width="300px"}
 boxplot(list(LGG = b.lgg, Placebo = b.pla))
 ```
 
@@ -50,7 +50,7 @@ The **inter- and intra-invididual stability** (or homogeneity) measures are obta
 
 ### Intra-individual heterogeneity 
 
-Quantify beta diversity within subjects over time. [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html)) used this to quantify intra-individual stability (ie homogeneity) of subjects between two groups.
+Quantify beta diversity within subjects over time (as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) for intra-individual stability)
 
 ```{r homogeneity-example2c, message=FALSE, out.width="300px"}
 betas <- list()

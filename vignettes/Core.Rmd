@@ -17,7 +17,7 @@ output:
 
 ## Core microbiota analysis
 
-
+See also related functions for the analysis of rare taxa.
 
 Load example data:
 
@@ -31,7 +31,7 @@ pseq <- peerj32$phyloseq
 
 # Calculate compositional version of the data
 # (relative abundances)
-pseq.rel <- transform_phyloseq(pseq, "compositional")
+pseq.rel <- transform(pseq, "compositional")
 ```
 
 
@@ -72,6 +72,13 @@ Total core abundance (sum of abundances of the core members):
 
 ```{r core-ab, message=FALSE, warning=FALSE}
 core.abundance <- core_abundance(pseq.rel, detection = 1, prevalence = 95)
+```
+
+
+Total core richness (number of core members exceeding the detection limit in each samples):
+
+```{r core-ab2, message=FALSE, warning=FALSE}
+core.richness <- core_richness(pseq.rel, detection = 1, prevalence = 95)
 ```
 
 

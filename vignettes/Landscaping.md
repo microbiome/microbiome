@@ -24,7 +24,7 @@ Load example data:
     pseq <- dietswap
 
     # Convert to compositional data
-    pseq.rel <- transform_phyloseq(pseq, "compositional")
+    pseq.rel <- transform(pseq, "compositional")
 
     # Pick core taxa with with >10 percent prevalence of the samples
     # at a >1 percent relative abundance detection limit
@@ -83,7 +83,7 @@ Population densities for Dialister:
     plot_density(x, "Dialister", log10 = TRUE) + ggtitle("Log10")
 
     # Same with log10 compositionals
-    x <- transform_phyloseq(x, "compositional")
+    x <- transform(x, "compositional")
     tax <- "Dialister"
     plot_density(x, tax, log10 = TRUE) + ggtitle("Relative abundance") + xlab("Relative abundance (%)")
 

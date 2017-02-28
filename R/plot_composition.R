@@ -7,16 +7,16 @@
 #'     \item NULL or 'none': No sorting
 #'     \item A single character string: indicate the metadata field to be used for ordering
 #'     \item A character vector: sample IDs indicating the sample ordering.
-#'     \item 'neatmap' Order samples based on the neatmap approach. See \code{\link{order_neatmap}}. By default, 'NMDS' method with 'bray' distance is used. For other options, arrange the samples manually with the function.
+#'     \item 'neatmap' Order samples based on the neatmap approach. See \code{\link{neatsort}}. By default, 'NMDS' method with 'bray' distance is used. For other options, arrange the samples manually with the function.
 #'   }
 #' @param otu.sort Order taxa. Same options as for the sample.sort argument but instead of metadata, taxonomic table is used. Also possible to sort by 'abundance'.
 #' @param x.label Specify how to label the x axis. This should be one of the variables in sample_variables(x).
 #' @param plot.type Plot type: 'barplot' or 'heatmap'
 #' @param verbose verbose
-#' @param transform Data transform to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform_phyloseq}} function.
+#' @param transform Data transform to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform}} function.
 #' @param mar Figure margins
 #' @param average_by Average the samples by the average_by variable 
-#' @param ... Arguments to be passed (for \code{\link{order_neatmap}} function)
+#' @param ... Arguments to be passed (for \code{\link{neatsort}} function)
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
 #' @examples \dontrun{
@@ -43,13 +43,13 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
   if (is.null(transform)) {
     x <- x
   } else if (transform == "log10") {
-    x <- transform_phyloseq(x, "log10")
+    x <- transform(x, "log10")
   } else if (transform == "Z-OTU") {
-    x <- transform_phyloseq(x, "Z", "OTU")
+    x <- transform(x, "Z", "OTU")
   } else if (transform == "Z-Sample") {
-    x <- transform_phyloseq(x, "Z", "Sample")
+    x <- transform(x, "Z", "Sample")
   } else if (transform == "relative.abundance") {
-    x <- transform_phyloseq(x, "relative.abundance", "OTU")
+    x <- transform(x, "relative.abundance", "OTU")
   }   
 
   # -----------------------------------------------------------------------
@@ -84,7 +84,7 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
     # Use predefined order
     sample.sort <- sample.sort
   } else if (length(sample.sort) == 1 && sample.sort == "neatmap") {
-    sample.sort <- order_neatmap(x, method = "NMDS", distance = "bray", target = "sites", first = NULL)
+    sample.sort <- neatsort(x, method = "NMDS", distance = "bray", target = "sites", first = NULL)
   } else if (!sample.sort %in% names(sample_data(x))) {
     warning(paste("The sample.sort argument", sample.sort, "is not included in sample_data(x). Using original sample ordering."))
     sample.sort <- sample_names(x)
@@ -103,7 +103,7 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
     # Use predefined order
     otu.sort <- otu.sort
   } else if (length(otu.sort) == 1 && otu.sort == "neatmap") {
-    otu.sort <- order_neatmap(x, method = "NMDS", distance = "bray", target = "species", first = NULL)
+    otu.sort <- neatsort(x, method = "NMDS", distance = "bray", target = "species", first = NULL)
   }
 
   if (verbose) {message("Prepare data.frame.")}

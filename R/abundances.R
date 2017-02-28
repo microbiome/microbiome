@@ -2,7 +2,7 @@
 #' @description Retrieves the taxon abundance table from
 #'    \code{\link{phyloseq-class}} object and ensures it is returned as
 #'    taxa x samples matrix.
-#' @inheritParams transform_phyloseq
+#' @inheritParams transform
 #' @return Abundance matrix.
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

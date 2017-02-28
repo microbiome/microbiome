@@ -4,7 +4,7 @@
 #' Package: \tab microbiome\cr
 #' Type: \tab Package\cr
 #' Version: \tab See sessionInfo() or DESCRIPTION file\cr
-#' Date: \tab 2014-2016\cr
+#' Date: \tab 2014-2017\cr
 #' License: \tab FreeBSD\cr
 #' LazyLoad: \tab yes\cr
 #' }
@@ -16,7 +16,7 @@
 #' @docType package
 #' @title R package for microbiome studies
 #'
-#' @author Leo Lahti and Jarkko Salojarvi 
+#' @author Leo Lahti et al.
 #'   \email{microbiome-admin@@googlegroups.com}
 #' @references
 #' See citation('microbiome')

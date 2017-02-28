@@ -34,7 +34,7 @@ some subjects have multiple time points.
   data(atlas1006)
   pseq <- atlas1006
   pseq <- subset_samples(pseq, DNA_extraction_method == "r")
-  pseq <- transform_phyloseq(pseq, "compositional")
+  pseq <- transform(pseq, "compositional")
   p <- tipplot(pseq, "Dialister", tipping.point = 1)
 }
 \author{

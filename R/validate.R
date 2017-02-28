@@ -7,8 +7,8 @@
 #' @examples
 #'   library(microbiome)
 #'   data(atlas1006)
-#'   validate_phyloseq(atlas1006)
-validate_phyloseq <- function (x) {
+#'   validate(atlas1006)
+validate <- function (x) {
 
   validated <- TRUE		  
 

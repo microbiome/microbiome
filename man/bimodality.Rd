@@ -30,7 +30,7 @@ A list with following elements:
   \itemize{
     \item{score}{Fraction of bootstrap samples where multiple modes are observed}
     \item{nmodes}{The most frequently observed number of modes in bootrstrap sampling results}
-    \item{results}{Full results of potential_analysis_bootstrap for each row of the input matrix.}
+    \item{results}{Full results of potential_bootstrap for each row of the input matrix.}
   }
 }
 \description{

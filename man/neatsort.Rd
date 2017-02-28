@@ -2,47 +2,58 @@
 % Please edit documentation in R/neatsort.R
 \name{neatsort}
 \alias{neatsort}
-\title{Neatmap Ordering for Matrix Features or Samples}
+\title{Neatmap Sorting}
 \usage{
-neatsort(x, arrange, method = "NMDS", distance = "bray", first = NULL,
-  ...)
+neatsort(x, target, method = "NMDS", distance = "bray", first = NULL, ...)
 }
 \arguments{
-\item{x}{A matrix.}
+\item{x}{\code{\link{phyloseq-class}} object or a matrix}
 
-\item{arrange}{Order "features" or "samples". For matrices, it is assumed that the samples are on the columns and features are on the rows. For phyloseq objects, features are the taxa of the OTU table.}
+\item{target}{For \code{\link{phyloseq-class}} input, the target is either
+"sites" (samples) or "species" (features) (taxa/OTUs); for matrices,
+the target is "rows" or "cols".}
 
-\item{method}{Ordination method. Only NMDS implemented for now.}
+\item{method}{Ordination method. See \code{\link{ordinate}}
+         from \pkg{phyloseq} package.
+For matrices, only the NMDS method is available.}
 
-\item{distance}{Distance method. See \code{\link{vegdist}} function from the \pkg{vegan} package.}
+\item{distance}{Distance method. See \code{\link{ordinate}}
+from \pkg{phyloseq} package.}
 
-\item{first}{Optionally provide the name of the first sample (or feature) to start the ordering (the ordering is cyclic so we can start at any point). The choice of the first sample/feature may somewhat affect the overall ordering.}
+\item{first}{Optionally provide the name of the first sample/taxon to
+start the ordering (the ordering is cyclic so we can start at any
+point). The choice of the first sample may somewhat affect the
+overall ordering.}
 
-\item{...}{Arguments to pass.}
+\item{...}{Arguments to be passed.}
 }
 \value{
 Vector of ordered elements
 }
 \description{
-Order features or samples based on the neatmap approach.
+Sort samples or features based on the neatmap approach.
 }
 \details{
-This function borrows elements from the heatmap implementation in the \pkg{phyloseq} package. The row/column sorting is there
-not available as a separate function at present, however, hindering reuse in other tools. This function provides an independent
-method for easy row/column reordering for matrices. This a quick hack and using the ordination could be expanded further
-(now only NMDS is available, and the sorting is done independently for features and samples).
+This function borrows elements from the heatmap implementation in
+the \pkg{phyloseq} package. The row/column sorting is there not available
+as a separate function at present, however, hindering reuse in other tools.
+Implemented in the microbiome package to provide an independent method for
+easy sample/taxon reordering for phyloseq objects.
 }
 \examples{
-\dontrun{
-  data(peerj32)
-  x <- peerj32$microbes
-  x <- neatsort(x, "features", method = "NMDS", distance = "bray")
-                  }
+  \dontrun{
+    data(peerj32)
+    pseq <- peerj32$phyloseq
+    sort.otu <- neatsort(pseq, target = "species")
+    sort.rows <- neatsort(abundances(pseq), target = "rows")
+  }  
 }
 \references{
-This function is partially based on code derived from the \pkg{phyloseq} package. However for the original
-  neatmap approach for heatmap sorting, see (and cite):
-  Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map alternatives in R. BMC Bioinformatics, 11, 45.
+This function is partially based on code derived from the
+            \pkg{phyloseq} package. For the original
+            neatmap approach for heatmap sorting, see (and cite):
+  Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map
+  alternatives in R. BMC Bioinformatics, 11, 45.
 }
 \keyword{utilities}
 

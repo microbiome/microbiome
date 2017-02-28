@@ -90,7 +90,7 @@ Heatmap with Z-transformed OTUs
 Same with relative abundance, samples and OTUs sorted with the neatmap
 method:
 
-    pseq3 <- transform_phyloseq(pseq2, "compositional")
+    pseq3 <- transform(pseq2, "compositional")
     p <- plot_composition(pseq3, plot.type = "heatmap", 
                            sample.sort = "neatmap", otu.sort = "neatmap",
                        mar = c(6, 13, 1, 1))
@@ -101,8 +101,8 @@ Same with Z-transformed, samples and OTUs sorted manually based on
 compositional data (Z-transformed data has negative values and the
 sorting method is not yet implemented for that):
 
-    sample.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "sites") 
-    otu.sort <- order_neatmap(pseq3, method = "NMDS", distance = "bray", target = "species")
+    sample.sort <- neatsort(pseq3, method = "NMDS", distance = "bray", target = "sites") 
+    otu.sort <- neatsort(pseq3, method = "NMDS", distance = "bray", target = "species")
 
     p <- plot_composition(pseq2, plot.type = "heatmap", transform = "Z-OTU",
                            sample.sort = sample.sort, otu.sort = otu.sort,

@@ -1,4 +1,4 @@
-#' @title Filter Prevalent Taxa
+#' @title Select Prevalent Taxa
 #' @description Filter the phyloseq object to include only prevalent taxa.
 #' @inheritParams core_members
 #' @return Filtered phyloseq object including only prevalent taxa

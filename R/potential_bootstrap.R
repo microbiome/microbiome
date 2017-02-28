@@ -19,7 +19,7 @@
 #'   \item{}{Livina et al. (2010). Potential analysis reveals changing number of climate states during the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
 #'   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal ecosystem. \emph{Nature Communications} 5:4344.}
 #'  }
-potential_analysis_bootstrap <- function (x, detection, bw.adjust = 1, bs.iterations = 100, detection.limit = 1) {
+potential_bootstrap <- function (x, detection, bw.adjust = 1, bs.iterations = 100, detection.limit = 1) {
 
   nmodes <- c()
   minpoints <- list()

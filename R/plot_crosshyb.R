@@ -12,7 +12,7 @@
 #'                          or remove (indicate as 0 percent; default)
 #' @return A list containing cross-hybridization table and plot
 #' @examples 
-#'   \dontrun{res <- plot_crosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE)}
+#'   \dontrun{p <- plot_crosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE)}
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

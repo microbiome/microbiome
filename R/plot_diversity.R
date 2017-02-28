@@ -35,7 +35,7 @@
 #'  \code{\link[vegan]{estimateR}}
 #'  \code{\link[vegan]{diversity}}
 #' @export
-#' @examples # plot_diversity(x, variable = "bmi_group", "Shannon")
+#' @examples p <- plot_diversity(x, variable = "bmi_group", "Shannon")
 #' @keywords utilities
 plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1, scales = "free_y", det.th = 0, indicate.subjects = FALSE, na.rm = FALSE){ 
 

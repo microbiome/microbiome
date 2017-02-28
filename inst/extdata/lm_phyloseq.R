@@ -17,7 +17,7 @@
 lm_phyloseq <- function (x, varname, transformation = "log10", p.adj.method = "BH") {
 
   # Transformation useful for linear models  
-  x <- transform_phyloseq(x, transformation)
+  x <- transform(x, transformation)
 
   # Limma significance analysis
   # Prepare the design matrix which states the variable values for each sample

@@ -13,7 +13,7 @@ Brief summary of the microbiome package
 Package: \tab microbiome\cr
 Type: \tab Package\cr
 Version: \tab See sessionInfo() or DESCRIPTION file\cr
-Date: \tab 2014-2016\cr
+Date: \tab 2014-2017\cr
 License: \tab FreeBSD\cr
 LazyLoad: \tab yes\cr
 }
@@ -24,7 +24,7 @@ R package for microbiome studies
 citation('microbiome')
 }
 \author{
-Leo Lahti and Jarkko Salojarvi 
+Leo Lahti et al.
   \email{microbiome-admin@googlegroups.com}
 }
 \references{

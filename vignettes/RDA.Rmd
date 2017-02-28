@@ -32,7 +32,7 @@ Standard RDA for microbiota profiles versus the given (here 'time')
 variable from sample metadata:
 
 ```{r rda2, warning=FALSE, message=FALSE, eval=TRUE}
-pseq.trans <- transform_phyloseq(pseq, "hell") # Hellinger transform
+pseq.trans <- transform(pseq, "hell") # Hellinger transform
 rda.result <- rda_physeq(pseq.trans, "time", scale = TRUE)
 
 # Proportion explained by the contraints

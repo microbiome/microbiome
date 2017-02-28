@@ -18,7 +18,7 @@ Load the package and example data:
 Standard RDA for microbiota profiles versus the given (here 'time')
 variable from sample metadata:
 
-    pseq.trans <- transform_phyloseq(pseq, "hell") # Hellinger transform
+    pseq.trans <- transform(pseq, "hell") # Hellinger transform
     rda.result <- rda_physeq(pseq.trans, "time", scale = TRUE)
 
     # Proportion explained by the contraints
@@ -58,7 +58,7 @@ without the formula.
     ## na.action)
     ## Permutation test for all constrained eigenvalues
     ## Pseudo-F:     0.6572996 (with 1, 42 Degrees of Freedom)
-    ## Significance:     0.95
+    ## Significance:     0.89
 
 ### Bagged RDA
 

@@ -12,7 +12,7 @@
 #' @param xlim X axis limits
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
-#' @examples \dontrun{p <- plot_density(x, variable = "Dialister")}
+#' @examples p <- plot_density(x, variable = "Dialister")
 #' @keywords utilities
 plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray", tipping.point = NULL, xlim = NULL) {
 
@@ -51,3 +51,32 @@ plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel 
 
 }
 
+
+
+pickdata <- function (x, otu.name) {
+
+  if (!class("a") == "character") {
+    stop("Provide proper variable name for pickdata function.")
+  }
+
+  if (is.vector(x)) {
+  
+    xxx <- x
+    
+  } else if (class(x) == "phyloseq") { 
+
+    xx <- abundances(x)
+    meta <- sample_data(x)
+
+    # If OTU name not in otu data then try metadata
+    if (otu.name %in% rownames(xx)) {
+      xxx <- as.vector(xx[otu.name,])
+    } else if (otu.name %in% colnames(meta)) {
+      xxx <- unlist(meta[, otu.name])
+    } else {   
+      stop(paste("The provided variable name", otu.name,
+      		      	       "cannot be found from OTUs or metadata"))
+    }
+  }
+  xxx
+}

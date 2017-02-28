@@ -1,7 +1,7 @@
 ### Inter-individual homogeneity (within group of samples)
 
-`{r heterogeneity-example2b, message=FALSE} ## Add time field (two time points needed within each group for the  ## intraindividual method) #sample_data(x)$time <- sample_data(x)$timepoint.within.group #res <- betadiversity(x, "interindividual") #`
-========================================================================================================================================================================================================================================================
+`{r heterogeneity-example2b, message=FALSE} ## Add time field (two time points needed within each group for the  ## intraindividual method) #sample_data(x)$time <- sample_data(x)$timepoint.within.group #res <- group_diversity(x, "interindividual") #`
+==========================================================================================================================================================================================================================================================
 
 Visualize
 =========

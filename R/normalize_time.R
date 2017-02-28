@@ -4,13 +4,12 @@
 #' @return Phyloseq object with a normalized time field
 #' @export
 #' @examples
-#'   library(microbiome)
 #'   data(atlas1006)
 #'   atlas1006b <- normalize_time(atlas1006)
 normalize_time <- function (x) {
 
-  x <- validate_phyloseq(x) 
-  meta <- sample_data(x)
+  x <- validate(x) 
+  meta <- meta(x)
 
   # Shift the times such that the first time point is always 0
   for (subj in unique(meta$subject)) {

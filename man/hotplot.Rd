@@ -31,7 +31,7 @@ Coloured bimodality plot.
   pseq <- atlas1006
   pseq <- subset_samples(pseq, DNA_extraction_method == "r")
   # Bimodality is often best visible at log10 relative abundances
-  pseq <- transform_phyloseq(transform_phyloseq(pseq, "compositional"), "log10")
+  pseq <- transform(transform(pseq, "compositional"), "log10")
   p <- hotplot(pseq, "Dialister", tipping.point = .3)
 }
 \author{

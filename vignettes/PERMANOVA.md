@@ -24,7 +24,7 @@ significant effect on overall gut microbiota composition.
 
 Pick relative abundances (compositional) and sample metadata
 
-    pseq.rel <- transform_phyloseq(pseq, "compositional")
+    pseq.rel <- transform(pseq, "compositional")
     otu <- abundances(pseq.rel)
     meta <- meta(pseq.rel)
 
@@ -48,7 +48,7 @@ Perform PERMANOVA:
     # P-value
     print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
 
-    ## [1] 0.32
+    ## [1] 0.29
 
 Check that variance homogeneity assumptions hold (to ensure the
 reliability of the results):

@@ -27,7 +27,7 @@ Z-transforming OTUs ie. visualize deviation of all bacteria from their
 population mean (smaller: blue; higher: red):
 
     # Z transform
-    pseqz <- transform_phyloseq(pseq2, "Z")
+    pseqz <- transform(pseq2, "Z")
 
     # Pick OTU table
     x <- abundances(pseqz)
@@ -73,9 +73,9 @@ correlation (n.signif):
     # Cross correlate data sets
     correlations <- cross_correlate(x, y, method = "bicor", mode = "matrix", p.adj.threshold = 0.05, n.signif = 1)
 
-Arrange the results in handy table format:
+    # Or, alternatively, the same output is also available in a handy table format
+    correlation.table <- cross_correlate(x, y, method = "bicor", mode = "table", p.adj.threshold = 0.05, n.signif = 1)
 
-    correlation.table <- cmat2table(correlations)
     kable(head(correlation.table))
 
 <table>

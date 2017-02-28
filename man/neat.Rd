@@ -43,7 +43,8 @@ ordering
   xo <- neat(x, "both", method = "NMDS", distance = "bray") 
 }
 \references{
-This function is partially based on code derived from the \pkg{phyloseq} package. However for the original
+This function is partially based on code derived from the
+  \pkg{phyloseq} package. However for the original
   neatmap approach for heatmap sorting, see (and cite):
   Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map alternatives in R. BMC Bioinformatics, 11, 45.
 }

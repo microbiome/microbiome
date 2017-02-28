@@ -22,7 +22,7 @@ Load example data:
     pseq <- dietswap
 
     # Convert to compositional data
-    pseq.rel <- transform_phyloseq(pseq, "compositional")
+    pseq.rel <- transform(pseq, "compositional")
 
     # Pick core taxa with with >10 percent prevalence of the samples
     # at a >1 percent relative abundance detection limit

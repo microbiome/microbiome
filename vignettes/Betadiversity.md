@@ -37,7 +37,7 @@ smaller spread / is more homogeneous):
 
     boxplot(list(LGG = b.lgg, Placebo = b.pla))
 
-![](Betadiversity_files/figure-markdown_strict/heterogeneity-example2bbb-1.png)
+<img src="Betadiversity_files/figure-markdown_strict/heterogeneity-example2bbb-1.png" width="300px" />
 
 The **inter- and intra-invididual stability** (or homogeneity) measures
 are obtained as 1-b where b is the group diversity with the
@@ -46,11 +46,10 @@ anticorrelation method ([Salonen et al. ISME J
 
 ### Intra-individual heterogeneity
 
-Quantify beta diversity within subjects over time. [Salonen et al. ISME
-J
-2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html))
-used this to quantify intra-individual stability (ie homogeneity) of
-subjects between two groups.
+Quantify beta diversity within subjects over time (as in [Salonen et al.
+ISME J
+2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html)
+for intra-individual stability)
 
     betas <- list()
     groups <- as.character(unique(meta(pseq)$group))

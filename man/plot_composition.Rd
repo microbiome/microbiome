@@ -19,7 +19,7 @@ plot_composition(x, taxonomic.level = "OTU", sample.sort = NULL,
   \item NULL or 'none': No sorting
   \item A single character string: indicate the metadata field to be used for ordering
   \item A character vector: sample IDs indicating the sample ordering.
-  \item 'neatmap' Order samples based on the neatmap approach. See \code{\link{order_neatmap}}. By default, 'NMDS' method with 'bray' distance is used. For other options, arrange the samples manually with the function.
+  \item 'neatmap' Order samples based on the neatmap approach. See \code{\link{neatsort}}. By default, 'NMDS' method with 'bray' distance is used. For other options, arrange the samples manually with the function.
 }}
 
 \item{otu.sort}{Order taxa. Same options as for the sample.sort argument but instead of metadata, taxonomic table is used. Also possible to sort by 'abundance'.}
@@ -30,13 +30,13 @@ plot_composition(x, taxonomic.level = "OTU", sample.sort = NULL,
 
 \item{verbose}{verbose}
 
-\item{transform}{Data transform to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform_phyloseq}} function.}
+\item{transform}{Data transform to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform}} function.}
 
 \item{mar}{Figure margins}
 
 \item{average_by}{Average the samples by the average_by variable}
 
-\item{...}{Arguments to be passed (for \code{\link{order_neatmap}} function)}
+\item{...}{Arguments to be passed (for \code{\link{neatsort}} function)}
 }
 \value{
 A \code{\link{ggplot}} plot object.

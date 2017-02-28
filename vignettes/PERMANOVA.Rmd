@@ -39,7 +39,7 @@ has a significant effect on overall gut microbiota composition.
 Pick relative abundances (compositional) and sample metadata 
 
 ```{r comparisons_permanova_data, fig.width=5, fig.height=6, message=FALSE, warnings=FALSE}
-pseq.rel <- transform_phyloseq(pseq, "compositional")
+pseq.rel <- transform(pseq, "compositional")
 otu <- abundances(pseq.rel)
 meta <- meta(pseq.rel)
 ```

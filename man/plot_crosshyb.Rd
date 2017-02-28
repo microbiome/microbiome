@@ -35,7 +35,7 @@ A list containing cross-hybridization table and plot
 Cross-hybridization between multimodal taxa as percentages of shared probes. The number indicates how many percent of oligos for the row taxon are also hybridizing the corresponding column taxon.
 }
 \examples{
-  \dontrun{res <- plot_crosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE)}
+  \dontrun{p <- plot_crosshyb(tax.level = 'L2', rounding = 1, show.plot = FALSE)}
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

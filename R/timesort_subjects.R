@@ -2,14 +2,18 @@
 #' @description Within each subject, sort samples by time and calculate
 #'              distance from the baseline point (minimum time).
 #' @param x A metadata data.frame including the following columns:
-#'          time, subject, sample, signal
-#' @return A list with metadata (data.frame) for each subject.
+#'          time, subject, sample, signal. Or a phyloseq object.
+#' @return A list with sorted metadata (data.frame) for each subject.
 #' @references See citation("microbiome")
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples \dontrun{timesort_subjects(x) }
 #' @keywords utilities
 timesort_subjects <- function (x) {
+
+  if (is.phyloseq(x)) {
+    x <- meta(x)
+  }
 
   # Keep only samples with time point info
   x <- subset(x, !is.na(time))

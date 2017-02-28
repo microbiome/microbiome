@@ -2,7 +2,7 @@
 % Please edit documentation in R/core.R
 \name{core}
 \alias{core}
-\title{Filter Prevalent Taxa}
+\title{Select Prevalent Taxa}
 \usage{
 core(x, detection, prevalence)
 }

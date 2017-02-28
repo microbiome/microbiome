@@ -19,7 +19,8 @@ core_abundance <- function(x, detection = 1, prevalence = 95) {
   # Core matrix
   # FIXME: directly use the core function
   xx <- abundances(prune_taxa(core.taxa, x))
-
+  xx <- matrix(xx, nrow = length(core.taxa))
+  
   # Total sum of core abundances
   ab <- colSums(xx, na.rm = TRUE)
 

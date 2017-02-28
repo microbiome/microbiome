@@ -29,7 +29,7 @@ for details. For discussion on why limma is preferred over t-test, see
 article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 
     # Get OTU abundances and sample metadata
-    otu <- abundances(transform_phyloseq(pseq, "log10"))
+    otu <- abundances(transform(pseq, "log10"))
     meta <- sample_data(pseq)
 
     # Compare the two groups with limma
@@ -237,7 +237,7 @@ article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
     library(microbiome)
     data("peerj32")
     pseq <- peerj32$phyloseq
-    otu <- abundances(transform_phyloseq(pseq, "log10"))
+    otu <- abundances(transform(pseq, "log10"))
     meta <- sample_data(pseq)
     groups <- meta$gender
 

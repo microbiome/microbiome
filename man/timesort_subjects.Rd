@@ -8,10 +8,10 @@ timesort_subjects(x)
 }
 \arguments{
 \item{x}{A metadata data.frame including the following columns:
-time, subject, sample, signal}
+time, subject, sample, signal. Or a phyloseq object.}
 }
 \value{
-A list with metadata (data.frame) for each subject.
+A list with sorted metadata (data.frame) for each subject.
 }
 \description{
 Within each subject, sort samples by time and calculate

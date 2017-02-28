@@ -24,7 +24,7 @@ class.
 -   [Core microbiota](Core.md)
 -   [Diversity](Diversity.md)
 -   [Stability and tipping elements](Stability.md)
--   [Beta diversity](Betadiversity.md)
+-   [Beta diversity / Community heterogeneity](Betadiversity.md)
 
 ### Visualization and related tools
 

@@ -10,12 +10,11 @@
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
-#'   library(microbiome)
 #'   data(atlas1006)
-#'   plot_atlas_profile(atlas1006, "DNA_extraction_method", "diversity")
-#'   plot_atlas_profile(atlas1006, "DNA_extraction_method", "Bifidobacterium")
+#'   plot_atlas(atlas1006, "DNA_extraction_method", "diversity")
+#'   plot_atlas(atlas1006, "DNA_extraction_method", "Bifidobacterium")
 #' @keywords utilities
-plot_atlas_profile <- function (pseq, x, y, ncol = 2) {
+plot_atlas <- function (pseq, x, y, ncol = 2) {
 
   index <- signal <- xvar <- NULL
 

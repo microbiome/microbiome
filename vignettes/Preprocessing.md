@@ -226,12 +226,12 @@ function in the phyloseq package.
 Log10 transform (log(1+x) if the data contains zeroes). Also "Z", "clr",
 and "hellinger" are available as common transforms.
 
-    pseq.log <- transform_phyloseq(pseq, "log10")
+    pseq.log <- transform(pseq, "log10")
 
 Relative abundances (the input data needs to be in absolute scale, not
 logarithmic!):
 
-    pseq1 <- microbiome::transform_phyloseq(pseq, "compositional", "OTU")
+    pseq1 <- microbiome::transform(pseq, "compositional", "OTU")
     pseq2 <- phyloseq::transform_sample_counts(pseq, function(x) x/sum(x))
 
 ### Variable operations

@@ -27,7 +27,7 @@ temporal stability analysis:
     pseq <- core(pseq, detection = 10^3, prevalence = 20)
 
     # Use relative abundances
-    pseq <- transform_phyloseq(pseq, "compositional")
+    pseq <- transform(pseq, "compositional")
 
     # For cross-sectional analysis, include only the baseline time point:
     pseq0 <- pick_baseline(pseq)
@@ -61,8 +61,8 @@ Multimodality score using [potential analysis with
 bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
 
     # Bimodality is better estimated from log10 abundances
-    pseq0.log10 <- transform_phyloseq(pseq0, "log10")
-    bimodality <- bimodality(pseq0.log10, method = "potential_bootstrap")
+    pseq0.log10 <- transform(pseq0, "log10")
+    bimodality.score <- bimodality(pseq0.log10, method = "potential_bootstrap")
 
 ### Comparing bimodality and intermediate stability
 
@@ -76,7 +76,7 @@ human intestinal microbiota in [Lahti et al. Nat. Comm. 5:4344,
     taxa <- taxa(pseq0)
     df <- data.frame(group = taxa,
                      intermediate.stability = intermediate.stability[taxa],
-             bimodality = bimodality[taxa])
+             bimodality = bimodality.score[taxa])
 
     theme_set(theme_bw(20))
     p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group)) +
@@ -93,7 +93,7 @@ point candidates.
 
     # Log10 abundance for a selected taxonomic group
     # Pick the most bimodal taxa as an example
-    tax  <- names(which.max(bimodality.pb))
+    tax  <- names(which.max(bimodality.score))
 
     # Detect tipping points detection at log10 abundances 
     x <- log10(abundances(pseq)[tax,])
@@ -135,7 +135,9 @@ temporal stability within subjects at intermediate abundances.
 
 ### Time series for individual subjects
 
-    p <- plot_timeseries(pseq, "Dialister", subject = "831", tipping.point = 0.5)
+    # Experimental function 
+    source(system.file("inst/extdata/plot_longitudinal.R", package = "microbiome"))
+    p <- plot_longitudinal(pseq, "Dialister", subject = "831", tipping.point = 0.5)
     print(p)
 
 ![](Stability_files/figure-markdown_strict/homogeneity-timeseries-1.png)
