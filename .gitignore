@@ -1,4 +1,5 @@
-OAtoken # Never put this in version control
+# Never put this in version control
+OAtoken
 inst/extras/David2014
 vignettes/L1-oligoprofileClustering.pdf
 *~

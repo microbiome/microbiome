@@ -1,3 +1,4 @@
+*.R
 ../OAtoken
 *.html
 Atlas.RData
