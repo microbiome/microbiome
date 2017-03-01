@@ -57,12 +57,12 @@ package. Use the 1-p as the score here
     library(diptest)
     bimodality.dip <- apply(abundances(pseq0.log10), 1, function (x) {1 - unname(dip.test(x)$p.value)})
 
-Compare the different bimodality scores
+Compare the alternative bimodality scores
 
     b <- cbind(DIP = bimodality.dip, Potential = bimodality.pb, Sarle = bimodality.sarle)
     pairs(b)
 
-<img src="Bimodality_files/figure-markdown_strict/bimodalitycomp-1.png" width="300px" />
+<img src="Bimodality_files/figure-markdown_strict/bimodalitycomp-1.png" width="400px" />
 
 ### Visualize population densities for unimodal and bimodal groups
 
@@ -80,7 +80,7 @@ Compare the different bimodality scores
     library(ggplot2)
     grid.arrange(p1, p2, nrow = 1)
 
-![](Bimodality_files/figure-markdown_strict/stability2-1.png)
+<img src="Bimodality_files/figure-markdown_strict/stability2-1.png" width="500px" />
 
 Tipping point detection
 -----------------------
@@ -112,7 +112,7 @@ Variation lineplot and bimodality hotplot
 
 Pick subset of the [HITChip Atlas data
 set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance
-variation lineplot (**Variation lineplot**) and **Bimodality hotplot**
+variation lineplot (**Variation tip plot**) and **Bimodality hotplot**
 for a given taxon as in [Lahti et al.
 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html).
 The bi-stable Dialister has bimodal population distribution and reduced
@@ -123,4 +123,7 @@ temporal stability within subjects at intermediate abundances.
     p <- hotplot(pseq0, tax, tipping.point = tipping.point)
     print(p)
 
-<img src="Bimodality_files/figure-markdown_strict/stability-variationplot-1.png" width="430px" />
+    pv <- tipplot(pseq, tax, tipping.point = tipping.point)
+    print(pv)
+
+<img src="Bimodality_files/figure-markdown_strict/stability-variationplot-1.png" width="430px" /><img src="Bimodality_files/figure-markdown_strict/stability-variationplot-2.png" width="430px" />

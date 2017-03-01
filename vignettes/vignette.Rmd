@@ -63,12 +63,9 @@ extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 
 * [Bimodality](Bimodality.md)
 * [Potential analysis](Potential.md)
-* [Pairwise comparisons](Comparisons.md)
-* [Univariate comparisons: Linear mixed effect models](Mixedmodels.Rmd) 
-* [Univariate comparisons: Negative binomial test](Negativebinomial.md) 
-* [Multivariate community comparisons: Limma](limma.md)
-* [Multivariate community comparisons: PERMANOVA](PERMANOVA.md)
+* [Community comparisons](Comparisons.md) ([limma](limma.md), [PERMANOVA](PERMANOVA.md), [mixed models](Mixedmodels.md), [negative binomial](Negativebinomial.md)  etc)
 * [Experimental tools](Experimental.md)
+
 
 
 

@@ -8,7 +8,11 @@ Heatmaps for microbiome analysis
 --------------------------------
 
 See [Composition](Composition.md) page for phyloseq microbiota
-composition heatmaps. Load some example data:
+composition heatmaps. For further examples, see [phyloseq
+tutorial](http://joey711.github.io/phyloseq/plot_heatmap-examples.html)
+and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45)
+
+Load some example data:
 
     library(microbiome) # Load libraries
     library(phyloseq)
@@ -20,14 +24,14 @@ composition heatmaps. Load some example data:
              subset_taxa(Phylum == "Bacteroidetes") %>%
              subset_samples(group == "LGG")
 
+    # Z transformed abundance data
+    pseqz <- transform(pseq2, "Z")
+
 ### Matrix heatmaps
 
 Pick abundance matrix separately and use matrix visualization tools.
 Z-transforming OTUs ie. visualize deviation of all bacteria from their
 population mean (smaller: blue; higher: red):
-
-    # Z transform
-    pseqz <- transform(pseq2, "Z")
 
     # Pick OTU table
     x <- abundances(pseqz)
@@ -224,9 +228,3 @@ and many more options.
     ggcorr(data = NULL, cor_matrix = cor(x[, 1:10], use = "everything"), low = "steelblue", mid = "white", high = "darkred", midpoint = 0)
 
 <img src="Heatmap_files/figure-markdown_strict/ggcorr1-1.png" width="400px" /><img src="Heatmap_files/figure-markdown_strict/ggcorr1-2.png" width="400px" /><img src="Heatmap_files/figure-markdown_strict/ggcorr1-3.png" width="400px" /><img src="Heatmap_files/figure-markdown_strict/ggcorr1-4.png" width="400px" />
-
-### Links
-
-For further examples, see [phyloseq
-tutorial](http://joey711.github.io/phyloseq/plot_heatmap-examples.html)
-and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45)

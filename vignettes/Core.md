@@ -55,35 +55,23 @@ Core taxa above a given detection and prevalences:
 
 Pick the core microbiota subset of the data. This corresponds to taxa
 that exceed the given prevalence and detection thresholds.
-
-    pseq.core <- core(pseq.rel, detection = 1, prevalence = 50)
-
 Alternatively, use bootstrap analysis to identify the core members (for
 added robustness; see [Salonen et al. CMI
 (2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract).
 The core members may be sensitive to sampling effects; bootstrap aims to
 estimate how frequently a particular group is determined to be a core
-member in random bootstrap subsets of the data.
+member in random bootstrap subsets of the data. The bootstrap provides
+more robust core but is slower to estimate.
 
+    pseq.core <- core(pseq.rel, detection = 1, prevalence = 50)
     pseq.core.bootstrap <- core(pseq.rel, detection = 1, prevalence = 50, method = "bootstrap")
 
-Total core abundance (sum of abundances of the core members):
+### Core abundance and diversity
+
+Total core abundance in each sample (sum of abundances of the core
+members):
 
     core.abundance <- sample_sums(core(pseq.rel, detection = 1, prevalence = 95))
-
-Total core and diversity (number of core members exceeding the detection
-limit in each samples):
-
-    # Pick the core
-    pseq_core <- core(pseq, detection = 1, prevalence = 95)
-
-    # Estimate all diversity measures at once
-    divs <- microbiome::diversity(pseq_core, detection = 1)
-
-    # Pick the desired richness / diversity indices
-    r <- divs$Observed # Observed richness (above the given detection threshold)
-    d <- divs$Shannon  # Shannon diversity
-    e <- divs$Evenness # Pielou's evenness
 
 Core visualization
 ------------------
@@ -101,7 +89,7 @@ based on various signal and prevalences.
     p <- plot_core(pseq, prevalences = prevalences, detections = det, plot.type = "lineplot")
     p + xlab("Abundance (OTU read count)")
 
-    # With compositionals
+    # With compositional (relative) abundances
     det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
     p <- plot_core(pseq.rel, prevalences = prevalences, detections = det, plot.type = "lineplot")
     p + xlab("Relative Abundance (%)")
@@ -123,8 +111,9 @@ Shetty et al. *FEMS Microbiology Reviews* fuw045, 2017.
     # Also define gray color palette
     gray <- gray(seq(0,1,length=5))
     p <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray,
-        prevalences = prevalences, detections = detections) 
-    print(p + xlab("Detection Threshold (Relative Abundance (%))"))
+        prevalences = prevalences, detections = detections) +
+        xlab("Detection Threshold (Relative Abundance (%))")
+    print(p)    
 
     # Core with absolute counts and horizontal view:
     # and minimum population prevalence (given as percentage)

@@ -20,31 +20,27 @@ class.
 
 ### Microbiome analysis
 
+-   [Alpha diversity](Diversity.md)
+-   [Beta diversity / Community heterogeneity](Betadiversity.md)
 -   [Community composition](Composition.md)
 -   [Core microbiota](Core.md)
--   [Diversity](Diversity.md)
+-   [Landscapes](Landscaping.md) (population density analysis)
 -   [Stability and tipping elements](Stability.md)
--   [Beta diversity / Community heterogeneity](Betadiversity.md)
 
 ### Visualization and related tools
 
 -   [Heatmaps](Heatmap.md)
 -   [Networks](Networks.md)
--   [Landscapes](Landscaping.md) (population density analysis)
--   [Ordination (PCA, PCoA, NMDS, RDA etc.)](Ordination.md)
+-   [Ordination](Ordination.md) (PCA, PCoA, NMDS, RDA etc.)
 -   [Regression](Regression.md)
 
 ### Statistical analysis
 
 -   [Bimodality](Bimodality.md)
 -   [Potential analysis](Potential.md)
--   [Pairwise comparisons](Comparisons.md)
--   [Univariate community comparisons: Linear mixed effect
-    models](Mixedmodels.Rmd)
--   [Univariate community comparisons: Negative binomial
-    test](Negativebinomial.md)
--   [Multivariate community comparisons: Limma](limma.md)
--   [Multivariate community comparisons: PERMANOVA](PERMANOVA.md)
+-   [Community comparisons](Comparisons.md) ([limma](limma.md),
+    [PERMANOVA](PERMANOVA.md), [mixed models](Mixedmodels.md), [negative
+    binomial](Negativebinomial.md) etc)
 -   [Experimental tools](Experimental.md)
 
 ### Licensing and Citations

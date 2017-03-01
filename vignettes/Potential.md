@@ -12,13 +12,15 @@ Potential analysis (following [Hirota et al. Science, 334,
 tools to assess how states of an indicator variable vary with respect to
 a given background variable.
 
-For instance, assess the relationship between age and microbiome
-diversity:
+Load example data:
 
-    # Use the original data
+    library(microbiome)
+    data(atlas1006) # From http://doi.org/10.5061/dryad.pk75d
     pseq <- atlas1006 
 
-    # Calculate diversity and pic age
+Assess the relationship between age and microbiome diversity:
+
+    # Pick diversity and age
     diversity <- exp(microbiome::diversity(pseq)$Shannon)
     age <- meta(pseq)$age
 
@@ -26,8 +28,9 @@ diversity:
     library(earlywarnings)
     res <- movpotential_ews(diversity, age)
 
-    # Visualize
+Visualize
+
     p <- plot_potential(res$res) + xlab("Age") + ylab("Diversity")
     print(p)
 
-![](Potential_files/figure-markdown_strict/movpotential-1.png)
+<img src="Potential_files/figure-markdown_strict/movpotential3-1.png" width="300px" />

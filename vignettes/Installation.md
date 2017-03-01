@@ -17,7 +17,9 @@
 ### Install dependencies
 
 Open R and install dependencies from the Tools panel, or run the
-following commands:
+following commands (see
+[DESCRIPTION](https://github.com/microbiome/microbiome/blob/master/DESCRIPTION)
+file for a full list of dependencies):
 
     source("http://www.bioconductor.org/biocLite.R")
     biocLite("ade4")
@@ -64,14 +66,15 @@ To install microbiome package and recommended dependencies, run in R:
 
 ### Loading the package
 
-Once the package has been installed, you can load it in R with:
+Once the package has been installed, load it in R (also to test
+successful installation):
 
     library(microbiome)  
 
 See further usage examples in [microbiome
 tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 
-### Installing R packages: general instructions
+### Installing R packages from CRAN/Bioconductor/Github
 
 R packages are maintained in three distinct repositories: CRAN,
 Bioconductor and Github. You need to somehow find out which repository

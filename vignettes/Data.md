@@ -7,17 +7,17 @@
 Importing and processing microbiome data in R
 ---------------------------------------------
 
-To import microbiome profiling data from standard formats (mothur, qiime
-etc.) into R, use the
-[phyloseq](http://joey711.github.io/phyloseq/import-data) R package.
+[Importing microbiome profiling data from standard formats (mothur,
+qiime etc.)](http://joey711.github.io/phyloseq/import-data) (independent
+phyloseq R package).
 
-For examples on data processing (filtering, subsetting etc.), see the
-[preprocessing tutorial](Preprocessing.md).
+[Filtering, subsetting and other data processing
+examples](Preprocessing.md).
 
 Microbiome example data sets
 ----------------------------
 
-### Intestinal microbiota profiling of 1000 Western adults
+### Intestinal microbiota profiling of 1006 Western adults
 
 [The HITChip Atlas](Atlas.md) data set is available via the microbiome R
 package in phyloseq format, and via [Data
@@ -29,7 +29,7 @@ with no reported health complications. Some subjects have also short
 time series. Load the data in R with:
 
     library(microbiome)
-    data("atlas1006") 
+    data(atlas1006) 
     print(atlas1006)
 
     ## phyloseq-class experiment-level object

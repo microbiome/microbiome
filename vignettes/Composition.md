@@ -17,17 +17,17 @@ study](http://dx.doi.org/10.1038/ncomms7342):
 
     # Example data
     library(microbiome)
-    library(ggplot2)
     data(dietswap)
     pseq <- dietswap
-
-Show OTU absolute abundance in each sample. Plot absolute taxon
-abundances:
 
     # Pick sample subset
     library(phyloseq)
     pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
 
+Show OTU absolute abundance in each sample. Plot absolute taxon
+abundances:
+
+    library(ggplot2)
     theme_set(theme_bw(22)) # Black/white color theme
     p <- plot_composition(pseq2, taxonomic.level = "Phylum") +
            theme(legend.position = "bottom") +
@@ -53,13 +53,13 @@ Prevotella as expected. Absolute counts:
 
 ![](Composition_files/figure-markdown_strict/composition-example4-1.png)
 
-Same with compositionals:
+Same with compositional (relative) abundances:
 
     p <- plot_composition(pseq2,
-             sample.sort = "nationality",
-         x.label = "nationality",
-         transform = "compositional") +
-           guides(fill = guide_legend(ncol = 1))
+              sample.sort = "nationality",
+          x.label = "nationality",
+          transform = "compositional") +
+              guides(fill = guide_legend(ncol = 1))
     print(p)
 
 ![](Composition_files/figure-markdown_strict/composition-example4b-1.png)
@@ -72,7 +72,7 @@ Averaged by group:
 
 ![](Composition_files/figure-markdown_strict/composition-example4c-1.png)
 
-### Heatmaps for composition
+### Composition heatmaps
 
 Plain heatmap on absolute abundances
 

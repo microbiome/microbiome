@@ -77,22 +77,6 @@ core.abundance <- sample_sums(core(pseq.rel, detection = 1, prevalence = 95))
 ```
 
 
-Total core and diversity (number of core members exceeding the detection limit in each samples):
-
-```{r core-ab2, message=FALSE, warning=FALSE}
-# Estimate all diversity measures at once
-divs <- microbiome::diversity(pseq.core, detection = 1)
-
-# Pick the desired richness / diversity indices
-r <- divs$Observed # Observed richness (above the given detection threshold)
-d <- divs$Shannon  # Shannon diversity
-e <- divs$Evenness # Pielou's evenness
-```
-
-
-
-
-
 ## Core visualization
 
 ### Core line plots

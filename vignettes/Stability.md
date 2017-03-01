@@ -108,7 +108,7 @@ point candidates.
 
     print(tipping.point)
 
-    ## [1] 0.2705653
+    ## [1] 1.609384
 
 ### Visualization with variation lineplot and bimodality hotplot
 
