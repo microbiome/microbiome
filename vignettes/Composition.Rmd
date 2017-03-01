@@ -29,19 +29,19 @@ Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342)
 ```{r composition-example1}
 # Example data
 library(microbiome)
-library(ggplot2)
 data(dietswap)
 pseq <- dietswap
+
+# Pick sample subset
+library(phyloseq)
+pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
 ```
 
 Show OTU absolute abundance in each sample. Plot absolute taxon
 abundances:
 
 ```{r composition-example1b, fig.width=16, fig.height=8, message=FALSE}
-# Pick sample subset
-library(phyloseq)
-pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
-
+library(ggplot2)
 theme_set(theme_bw(22)) # Black/white color theme
 p <- plot_composition(pseq2, taxonomic.level = "Phylum") +
        theme(legend.position = "bottom") +
@@ -66,14 +66,14 @@ print(p)
 ```
 
 
-Same with compositionals:
+Same with compositional (relative) abundances:
 
 ```{r composition-example4b, fig.width=12, fig.height=5}
 p <- plot_composition(pseq2,
-         sample.sort = "nationality",
-	 x.label = "nationality",
-	 transform = "compositional") +
-       guides(fill = guide_legend(ncol = 1))
+          sample.sort = "nationality",
+	  x.label = "nationality",
+	  transform = "compositional") +
+          guides(fill = guide_legend(ncol = 1))
 print(p)
 ```
 
@@ -88,7 +88,7 @@ print(p)
 
 
 
-### Heatmaps for composition
+### Composition heatmaps
 
 
 Plain heatmap on absolute abundances

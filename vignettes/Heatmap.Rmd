@@ -17,7 +17,10 @@ output:
 
 ## Heatmaps for microbiome analysis
 
-See [Composition](Composition.md) page for phyloseq microbiota composition heatmaps. Load some example data:
+See [Composition](Composition.md) page for phyloseq microbiota composition heatmaps. For further examples, see [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_heatmap-examples.html) and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45)
+
+
+Load some example data:
 
 ```{r heatmap-example-data, fig.width=16, fig.height=5, warning=FALSE}
 library(microbiome) # Load libraries
@@ -29,6 +32,9 @@ pseq <- peerj32$phyloseq    # Rename data
 pseq2 <- pseq %>%
          subset_taxa(Phylum == "Bacteroidetes") %>%
          subset_samples(group == "LGG")
+
+# Z transformed abundance data
+pseqz <- transform(pseq2, "Z")
 ```
 
 
@@ -39,9 +45,6 @@ tools. Z-transforming OTUs ie. visualize deviation of all bacteria
 from their population mean (smaller: blue; higher: red):
 
 ```{r heatmap-matvisu-example, fig.width=16, fig.height=5}
-# Z transform
-pseqz <- transform(pseq2, "Z")
-
 # Pick OTU table
 x <- abundances(pseqz)
 
@@ -173,6 +176,5 @@ ggcorr(data = NULL, cor_matrix = cor(x[, 1:10], use = "everything"), low = "stee
 
 
 
-### Links
 
-For further examples, see [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_heatmap-examples.html) and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45)
+

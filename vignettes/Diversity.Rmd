@@ -16,9 +16,9 @@ output:
 -->
 
 
-## Microbiome richness and diversity
+## Alpha richness and diversity
 
-See also a separate page on [beta diversity](Betadiversity.md).
+See a separate page on [Beta diversity](Betadiversity.md).
 
 Load example data:
 
@@ -29,25 +29,26 @@ pseq <- atlas1006
 ```
 
 
-### Estimating diversity
+### Diversity estimation
 
 ```{r divest, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
 # Estimate diversity (table with various diversity measures):
-diversity <- microbiome::diversity(pseq)
+diversity <- microbiome::diversity(pseq, detection = 0)
 
 # Show beginning of the diversity table
 head(kable(diversity))
 ```
 
 
-### Diversity 
 
-Visualize richness (Observed species):
+### Visualization
+
+Show diversity:
 
 ```{r div-example2, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
 library(ggplot2)
 theme_set(theme_bw(20)) # Set bw color scheme
-p <- ggplot(diversity, aes(x = Observed)) + geom_histogram()
+p <- ggplot(diversity, aes(x = Shannon)) + geom_histogram()
 print(p)
 ```
 
@@ -56,17 +57,17 @@ Visualize diversity measures w.r.t. discrete variable (or check more generic [gr
 ```{r div-example2bb, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
 p <- plot_diversity(pseq, "bmi_group", measures = c("Chao1", "Shannon"), indicate.subjects = FALSE)
 print(p)
+```
 
-# To indicate time as discrete variable, order it as a factor
-# If a subject column is available in sample data
-# the subjects will be indicated by lines across the groups
-data(dietswap)
-pseq <- dietswap # Try another example data set
-psub <- subset_samples(pseq, group == "DI")
-sample_data(psub)$timepoint <- factor(sample_data(psub)$timepoint, levels = sort(unique(sample_data(psub)$timepoint)))
+### Group-wise comparison
 
+To indicate time as discrete variable, order it as a factor. If a
+subject column is available in sample data the subjects will be
+indicated by lines across the groups
+
+```{r div-groupwise, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
 # Visualize diversities across groups
-p <- plot_diversity(psub, "timepoint", measures = c("Chao1", "Shannon"), indicate.subject = TRUE)
+p <- plot_diversity(pseq, "gender", measures = c("Chao1", "Shannon"), indicate.subject = TRUE)
 print(p)
 ```
 
@@ -81,8 +82,7 @@ pseq <- atlas1006
 sample_data(pseq)$diversity <- microbiome::diversity(pseq)$Shannon
 
 # Visualize
-df <- sample_data(pseq)
-p <- plot_regression(diversity ~ age, df)
+p <- plot_regression(diversity ~ age, meta(pseq))
 print(p)
 ```
 
