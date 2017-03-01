@@ -7,6 +7,9 @@
 PERMANOVA for community-level multivariate comparisons
 ------------------------------------------------------
 
+PERMANOVA quantifies multivariate community-level differences between
+groups.
+
 Load example data:
 
     # Load libraries
@@ -18,27 +21,22 @@ Load example data:
     data(peerj32) # Source: https://peerj.com/articles/32/
     pseq <- peerj32$phyloseq # Rename the example data
 
-PERMANOVA can be used to assess multivariate community-level differences
-between groups. Here let us evaluate whether probiotics treatment has a
-significant effect on overall gut microbiota composition.
-
-Pick relative abundances (compositional) and sample metadata
-
+    # Pick relative abundances (compositional) and sample metadata 
     pseq.rel <- transform(pseq, "compositional")
     otu <- abundances(pseq.rel)
     meta <- meta(pseq.rel)
 
-Visualize the population density and highlight sample groups
+Visualize the population density and highlight sample groups (probiotic
+treatment LGG vs Placebo):
 
-    plot_landscape(pseq.rel, method = "NMDS", distance = "bray", col = "group", size = 3)
+    p <- plot_landscape(pseq.rel, method = "NMDS", distance = "bray", col = "group", size = 3)
+    print(p)
 
 ![](PERMANOVA_files/figure-markdown_strict/comparisons_permanova_visu-1.png)
 
-    print(p)
-
-![](PERMANOVA_files/figure-markdown_strict/comparisons_permanova_visu-2.png)
-
-Perform PERMANOVA:
+Now let us evaluate whether the group (probiotics vs. placebo) has a
+significant effect on overall gut microbiota composition. Perform
+PERMANOVA:
 
     # samples x species as input
     library(vegan)
@@ -48,7 +46,7 @@ Perform PERMANOVA:
     # P-value
     print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
 
-    ## [1] 0.22
+    ## [1] 0.25
 
 Check that variance homogeneity assumptions hold (to ensure the
 reliability of the results):

@@ -23,52 +23,17 @@ Load the package and example data:
 ```{r rda, warning=FALSE, message=FALSE, eval=TRUE}
 library(microbiome)
 data(peerj32) # Data from https://peerj.com/articles/32/
-pseq <- peerj32$phyloseq
-```
-
-### Standard RDA 
-
-Standard RDA for microbiota profiles versus the given (here 'time')
-variable from sample metadata:
-
-```{r rda2, warning=FALSE, message=FALSE, eval=TRUE}
+pseq <- peerj32$phyloseq # phyloseq data
 pseq.trans <- transform(pseq, "hell") # Hellinger transform
-rda.result <- rda_pseq(pseq.trans, "time", scale = TRUE)
-
-# Proportion explained by the contraints
-summary(rda.result)$constr.chi/summary(rda.result)$tot.chi
 ```
 
-### RDA visualization
-
-Visualizing the standard RDA output:
-
-```{r rda4, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval=TRUE}
-library(phyloseq)
-meta <- sample_data(pseq.trans)
-plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = meta$time)
-points(rda.result, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = meta$time)
-library(vegan)
-pl <- ordihull(rda.result, meta$time, scaling = 3, label = TRUE)
-title("RDA")
-```
-
-See also the RDA method in phyloseq::ordinate, which is calculated without the formula.
-
-
-### RDA significance test
-
-```{r rda2b, warning=FALSE, message=FALSE, eval=TRUE}
-library(vegan)
-permutest(rda.result) 
-```
 
 ### Bagged RDA
 
-Fitting bagged (bootstrap aggregated) RDA on a phyloseq object:
+Bagged RDA provides added robustness in the analysis compared to the standard RDA. Fitting bagged (bootstrap aggregated) RDA on a phyloseq object:
 
 ```{r rda5, warning=FALSE, message=FALSE, eval=TRUE}
-res <- bagged_rda(pseq.trans, "group", sig.thresh=0.05, nboot=100)
+res <- rda_bagged(pseq.trans, "group", bs.iter=100)
 ```
 
 Visualizing bagged RDA:
@@ -78,9 +43,52 @@ plot_rda_bagged(res)
 ```
 
 
+
+### Standard RDA 
+
+Standard RDA for microbiota profiles versus the given (here 'time')
+variable from sample metadata (see also the RDA method in
+phyloseq::ordinate)
+
+```{r rda2, warning=FALSE, message=FALSE}
+x <- pseq.trans
+otu <- abundances(x)
+metadata <- meta(x)
+
+library(vegan)
+rda.result <- vegan::rda(t(otu) ~ factor(metadata$time),
+                         na.action = na.fail, scale = TRUE)
+```
+
+Proportion explained by the given factor
+
+```{r rda2b, warning=FALSE, message=FALSE}
+summary(rda.result)$constr.chi/summary(rda.result)$tot.chi
+```
+
+
+### RDA visualization
+
+Visualize the standard RDA output.
+
+```{r rda4, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
+plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = metadata$time)
+points(rda.result, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = metadata$time)
+pl <- ordihull(rda.result, meta$time, scaling = 3, label = TRUE)
+```
+
+
+### RDA significance test
+
+```{r rda2bc, warning=FALSE, message=FALSE, eval=TRUE}
+permutest(rda.result) 
+```
+
+
 ### RDA with confounding variables 
 
-For more complex RDA scenarios, use the vegan package:
+For more complex RDA scenarios, use the standard RDA available via the
+vegan R package.
 
 ```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval=TRUE}
 # Pick microbiota profiling data from the phyloseq object
