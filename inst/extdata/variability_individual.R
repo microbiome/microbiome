@@ -39,7 +39,7 @@ variability_individual <- function (x, method = "CoV") {
     for (tax in colnames(dat)) {
       m <- meta[, c("subject", "time")]
       m$signal <- dat[, tax]
-      stab <- timesort_subjects(m)
+      stab <- time_sort(m)
 
       if (method == "CoV") {	
           # CoV within each subject then average over subjects; time is ignored
