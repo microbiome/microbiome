@@ -33,7 +33,7 @@ pseq <- atlas1006
 
 ```{r divest, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
 # Estimate diversity (table with various diversity measures):
-diversity <- diversity_table(pseq)
+diversity <- microbiome::diversity(pseq)
 
 # Show beginning of the diversity table
 head(kable(diversity))
@@ -78,7 +78,7 @@ library(dplyr)
 pseq <- atlas1006
 
 # Add diversity into sample metadata
-sample_data(pseq)$diversity <- diversity_table(pseq)$Shannon
+sample_data(pseq)$diversity <- microbiome::diversity(pseq)$Shannon
 
 # Visualize
 df <- sample_data(pseq)

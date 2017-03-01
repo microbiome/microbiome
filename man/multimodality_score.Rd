@@ -4,7 +4,7 @@
 \alias{multimodality_score}
 \title{Multimodality Score}
 \usage{
-multimodality_score(x, detection = 1, bw.adjust = 1, bs.iterations = 100,
+multimodality_score(x, detection = 1, bw.adjust = 1, bs.iter = 100,
   detection.limit = 1, verbose = TRUE)
 }
 \arguments{
@@ -14,7 +14,7 @@ multimodality_score(x, detection = 1, bw.adjust = 1, bs.iterations = 100,
 
 \item{bw.adjust}{Bandwidth adjustment}
 
-\item{bs.iterations}{Bootstrap iterations}
+\item{bs.iter}{Bootstrap iterations}
 
 \item{detection.limit}{minimum accepted density for a maximum;
 as a multiple of kernel height}
@@ -26,7 +26,7 @@ A list with following elements:
   \itemize{
     \item{score}{Fraction of bootstrap samples with multiple observed modes}
     \item{nmodes}{The most frequently observed number of modes in bootstrap}
-    \item{results}{Full results of potential_bootstrap for each
+    \item{results}{Full results of potential_analysis for each
                      row of the input matrix.}
 }
 }

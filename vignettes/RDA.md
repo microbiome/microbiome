@@ -19,7 +19,7 @@ Standard RDA for microbiota profiles versus the given (here 'time')
 variable from sample metadata:
 
     pseq.trans <- transform(pseq, "hell") # Hellinger transform
-    rda.result <- rda_physeq(pseq.trans, "time", scale = TRUE)
+    rda.result <- rda_pseq(pseq.trans, "time", scale = TRUE)
 
     # Proportion explained by the contraints
     summary(rda.result)$constr.chi/summary(rda.result)$tot.chi
@@ -58,7 +58,7 @@ without the formula.
     ## na.action)
     ## Permutation test for all constrained eigenvalues
     ## Pseudo-F:     0.6572996 (with 1, 42 Degrees of Freedom)
-    ## Significance:     0.89
+    ## Significance:     0.87
 
 ### Bagged RDA
 
@@ -68,7 +68,7 @@ Fitting bagged (bootstrap aggregated) RDA on a phyloseq object:
 
 Visualizing bagged RDA:
 
-    plot_bagged_rda(res)
+    plot_rda_bagged(res)
 
 ![](RDA_files/figure-markdown_strict/rda6-1.png)
 
@@ -80,7 +80,7 @@ For more complex RDA scenarios, use the vegan package:
     otu <- abundances(pseq.trans)
 
     # Sample annotations
-    meta <- sample_data(pseq.trans)
+    meta <- meta(pseq.trans)
 
-    # RDA with confounders
-    rda.result2 <- rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))
+    # RDA with confounders using the vegan function
+    rda.result2 <- vegan::rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))

@@ -15,8 +15,14 @@ rare <- function (x, detection, prevalence) {
   # TODO: add optional renormalization such that the 
   # abundances would sum up to 100 ?
 
-  taxa <- rare_members(x, detection, prevalence)
-  prune_taxa(taxa, x)
+  # Core taxa
+  cm <- core_members(x, detection, prevalence)
+
+  # Rare taxa as complement of core taxa
+  rm <- setdiff(taxa(x), cm)
+
+  # Pick the subset
+  prune_taxa(rm, x)
 
 }
 

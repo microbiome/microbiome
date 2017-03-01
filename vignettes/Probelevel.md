@@ -21,6 +21,8 @@ We use and recommend the [Robust Probabilistic Averaging
     # Read phylogeny map
     # NOTE: use phylogeny.filtered for species/L1/L2 summarization
     # Load taxonomy from output directory
+    f <- system.file("inst/extdata/get_hitchip_taxonomy.R", package = "microbiome")
+    source(f)
     taxonomy <- get_hitchip_taxonomy("HITChip", "filtered")
 
     # Summarize oligos into higher level phylotypes

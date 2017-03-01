@@ -1,1 +1,1 @@
-BiocGenerics:::testPackage("microbiome")
+#BiocGenerics:::testPackage("microbiome")

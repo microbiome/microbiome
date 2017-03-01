@@ -19,7 +19,7 @@ diversity:
     pseq <- atlas1006 
 
     # Calculate diversity and pic age
-    diversity <- exp(diversity_table(pseq)$Shannon)
+    diversity <- exp(microbiome::diversity(pseq)$Shannon)
     age <- meta(pseq)$age
 
     # Run potential analysis

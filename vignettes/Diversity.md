@@ -18,7 +18,7 @@ Load example data:
 ### Estimating diversity
 
     # Estimate diversity (table with various diversity measures):
-    diversity <- diversity_table(pseq)
+    diversity <- microbiome::diversity(pseq)
 
     # Show beginning of the diversity table
     head(kable(diversity))
@@ -69,7 +69,7 @@ Diversity vs. continuous variable:
     pseq <- atlas1006
 
     # Add diversity into sample metadata
-    sample_data(pseq)$diversity <- diversity_table(pseq)$Shannon
+    sample_data(pseq)$diversity <- microbiome::diversity(pseq)$Shannon
 
     # Visualize
     df <- sample_data(pseq)

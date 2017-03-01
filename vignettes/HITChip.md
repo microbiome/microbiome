@@ -9,7 +9,6 @@ HITChip and other phylogenetic microarrays
 
 -   [Extracting data from HITChip
     database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
--   [Cross hybridization (phylogenetic microarrays)](Crosshyb.md)
 -   [Probe level studies (phylogenetic microarrays)](Probelevel.md)
 
 ### Importing HITChip data to phyloseq format
@@ -62,6 +61,9 @@ Convert your own data into phyloseq format as follows:
     meta <- res$meta
 
     # Taxonomy
+    # First get an experimental function from the microbiome package
+    f <- system.file("inst/extdata/get_hitchip_taxonomy.R", package = "microbiome")
+    source(f)
     taxonomy <- get_hitchip_taxonomy("HITChip", "filtered")
     taxonomy <- unique(as.data.frame(taxonomy[, c("L1", "L2", "species")]))
     rownames(taxonomy) <- as.vector(taxonomy[, "species"])

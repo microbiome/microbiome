@@ -4,7 +4,9 @@
 \alias{plot_landscape}
 \title{Landscape Plot}
 \usage{
-plot_landscape(x, method = "NMDS", distance = "bray", col = NULL, ...)
+plot_landscape(x, method = "NMDS", distance = "bray", col = NULL,
+  main = NULL, x.ticks = 10, rounding = 0, add.points = TRUE,
+  adjust = 1, size = 1, legend = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object or a data matrix 
@@ -16,7 +18,19 @@ plot_landscape(x, method = "NMDS", distance = "bray", col = NULL, ...)
 
 \item{col}{Variable name to highlight samples (points) with colors}
 
-\item{...}{Further arguments to pass}
+\item{main}{title text}
+
+\item{x.ticks}{Number of ticks on the X axis}
+
+\item{rounding}{Rounding for X axis tick values}
+
+\item{add.points}{Plot the data points as well}
+
+\item{adjust}{Kernel width adjustment}
+
+\item{size}{point size}
+
+\item{legend}{plot legend TRUE/FALSE}
 }
 \value{
 A \code{\link{ggplot}} plot object.

@@ -30,7 +30,7 @@ temporal stability analysis:
     pseq <- transform(pseq, "compositional")
 
     # For cross-sectional analysis, include only the baseline time point:
-    pseq0 <- pick_baseline(pseq)
+    pseq0 <- baseline(pseq)
 
 ### Intermediate stability quantification
 
@@ -62,7 +62,7 @@ bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.h
 
     # Bimodality is better estimated from log10 abundances
     pseq0.log10 <- transform(pseq0, "log10")
-    bimodality.score <- bimodality(pseq0.log10, method = "potential_bootstrap")
+    bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis")
 
 ### Comparing bimodality and intermediate stability
 

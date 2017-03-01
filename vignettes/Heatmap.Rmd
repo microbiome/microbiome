@@ -79,10 +79,10 @@ x <- log10(otu) # OTU Log10 (44 samples x 130 genera)
 y <- as.matrix(lipids) # Lipids (44 samples x 389 lipids)
 
 # Cross correlate data sets
-correlations <- cross_correlate(x, y, method = "bicor", mode = "matrix", p.adj.threshold = 0.05, n.signif = 1)
+correlations <- associate(x, y, method = "bicor", mode = "matrix", p.adj.threshold = 0.05, n.signif = 1)
 
 # Or, alternatively, the same output is also available in a handy table format
-correlation.table <- cross_correlate(x, y, method = "bicor", mode = "table", p.adj.threshold = 0.05, n.signif = 1)
+correlation.table <- associate(x, y, method = "bicor", mode = "table", p.adj.threshold = 0.05, n.signif = 1)
 
 kable(head(correlation.table))
 ```
@@ -92,7 +92,7 @@ kable(head(correlation.table))
 Rearrange the data and plot the heatmap and mark significant correlations with stars to reproduce microbiota-lipidome heatmap from [Lahti et al. PeerJ (2013)](https://peerj.com/articles/32/) (the ordering of rows and columns may be different): 
 
 ```{r heatmap-example-stars2, message=FALSE, warning=FALSE, fig.keep='none'}
-p <- association_heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
+p <- heat(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
 ```
 ```{r heatmap-example-stars3, fig.width=12, fig.height=8, message=FALSE, warning=FALSE}
 print(p)

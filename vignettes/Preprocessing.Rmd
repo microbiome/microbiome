@@ -110,7 +110,7 @@ pseq.subset <- subset_samples(pseq, nationality == "US")
 Pick samples at the baseline time points only:
 
 ```{r baseline, message=FALSE, warning=FALSE}
-pseq0 <- pick_baseline(pseq)
+pseq0 <- baseline(pseq)
 ```
 
 
@@ -152,7 +152,7 @@ Assign new fields to metadata
 
 ```{r preprocess4b2, warning=FALSE, message=FALSE}
 # Calculate diversity for samples
-div <- diversity_table(pseq, measures = "Shannon")$Shannon
+div <- microbiome::diversity(pseq, measures = "Shannon")$Shannon
 
 # Assign this to sample metadata
 sample_data(pseq)$diversity <- div
@@ -230,7 +230,7 @@ tax.abundances <- get_taxa(pseq, samplename)
 Aggregate taxa to higher taxonomic levels. This is particularly useful if the phylogenetic tree is missing. When it is available, see [merge_samples, merge_taxa and tax_glom](http://joey711.github.io/phyloseq/merge.html))
 
 ```{r data24}
-pseq2 <- summarize_taxa(pseq, "Phylum") 
+pseq2 <- aggregate_taxa(pseq, "Phylum") 
 ```
 
 

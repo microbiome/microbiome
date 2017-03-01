@@ -5,7 +5,7 @@
 \title{Plot Diversity}
 \usage{
 plot_diversity(x, variable = "group", measures = "Shannon", nrow = 1,
-  scales = "free_y", det.th = 0, indicate.subjects = FALSE,
+  scales = "free_y", detection = 0, indicate.subjects = FALSE,
   na.rm = FALSE)
 }
 \arguments{
@@ -27,8 +27,8 @@ as a character vector. Values must be among those supported:
 
 \item{scales}{scales for the plot}
 
-\item{det.th}{Detection threshold for the diversity measure 'Observed' 
-(ie. species richness). See \code{\link{diversity_table}}}
+\item{detection}{Detection threshold for the diversity measure 'Observed' 
+(ie. species richness). See \code{\link{diversity}}}
 
 \item{indicate.subjects}{Indicate subjects by lines. The sample_data(x) must have 'subject' field.}
 
@@ -57,7 +57,7 @@ p <- plot_diversity(x, variable = "bmi_group", "Shannon")
 }
 \seealso{
 \code{\link{estimate_richness}}
- \code{\link{diversity_table}}
+ \code{\link{diversity}}
  \code{\link{plot_richness}}
  \code{\link[vegan]{estimateR}}
  \code{\link[vegan]{diversity}}

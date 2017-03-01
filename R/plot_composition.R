@@ -35,7 +35,7 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
   # Merge the taxa at a higher taxonomic level
   if (!taxonomic.level == "OTU") {
     if (verbose) {message("Aggregating the taxa.")}
-    x <- summarize_taxa(x, taxonomic.level)
+    x <- aggregate_taxa(x, taxonomic.level)
   }
 
   if (verbose) {message("Check data transforms.")}

@@ -51,79 +51,39 @@ Absolute population frequencies (sample count):
 
 Core taxa above a given detection and prevalences:
 
-    core.taxa <- core_members(pseq.rel, detection = 1, prevalence = 95)
+    core.taxa <- taxa(core(pseq.rel, detection = 1, prevalence = 95))
 
-Pick the core microbiota subset of the data:
+Pick the core microbiota subset of the data. This corresponds to taxa
+that exceed the given prevalence and detection thresholds.
 
-    pseq.core <- core(pseq.rel, detection = 1, prevalence = 95)
+    pseq.core <- core(pseq.rel, detection = 1, prevalence = 50)
 
-Total core abundance (sum of abundances of the core members):
-
-    core.abundance <- core_abundance(pseq.rel, detection = 1, prevalence = 95)
-
-Total core richness (number of core members exceeding the detection
-limit in each samples):
-
-    core.richness <- core_richness(pseq.rel, detection = 1, prevalence = 95)
-
-Bootstrap analysis of the core members (for added robustness; see
-[Salonen et al. CMI
+Alternatively, use bootstrap analysis to identify the core members (for
+added robustness; see [Salonen et al. CMI
 (2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract).
 The core members may be sensitive to sampling effects; bootstrap aims to
 estimate how frequently a particular group is determined to be a core
 member in random bootstrap subsets of the data.
 
-    bs <- core_bootstrap(pseq.rel, Nboot = 100)
-    knitr::kable(head(bs))
+    pseq.core.bootstrap <- core(pseq.rel, detection = 1, prevalence = 50, method = "bootstrap")
 
-<table>
-<thead>
-<tr class="header">
-<th></th>
-<th align="left">Microbe</th>
-<th align="right">Frequency</th>
-<th align="right">suggested.core</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>109</td>
-<td align="left">Ruminococcus obeum et rel.</td>
-<td align="right">0.77</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td>65</td>
-<td align="left">Faecalibacterium prausnitzii et rel.</td>
-<td align="right">0.67</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td>60</td>
-<td align="left">Eubacterium hallii et rel.</td>
-<td align="right">0.65</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td>24</td>
-<td align="left">Bacteroides vulgatus et rel.</td>
-<td align="right">0.62</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td>49</td>
-<td align="left">Coprococcus eutactus et rel.</td>
-<td align="right">0.27</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td>105</td>
-<td align="left">Ruminococcus bromii et rel.</td>
-<td align="right">0.21</td>
-<td align="right">1</td>
-</tr>
-</tbody>
-</table>
+Total core abundance (sum of abundances of the core members):
+
+    core.abundance <- sample_sums(core(pseq.rel, detection = 1, prevalence = 95))
+
+Total core and diversity (number of core members exceeding the detection
+limit in each samples):
+
+    # Pick the core
+    pseq_core <- core(pseq, detection = 1, prevalence = 95)
+
+    # Estimate all diversity measures at once
+    divs <- microbiome::diversity(pseq_core, detection = 1)
+
+    # Pick the desired richness / diversity indices
+    r <- divs$Observed # Observed richness (above the given detection threshold)
+    d <- divs$Shannon  # Shannon diversity
+    e <- divs$Evenness # Pielou's evenness
 
 Core visualization
 ------------------

@@ -23,7 +23,7 @@ Load the data in R:
 ### Estimating microbial diversity
 
     library(phyloseq)
-    div <- diversity_table(pseq, measures = c("Observed", "Shannon", "Simpson"))
+    div <- microbiome::diversity(pseq, measures = c("Observed", "Shannon", "Simpson"))
 
     library(knitr)
     kable(head(div))
@@ -79,7 +79,7 @@ Load the data in R:
 
 ### Diversity vs. obesity (discrete factor)
 
-    p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250, na.rm = TRUE)
+    p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), detection = 250, na.rm = TRUE)
     print(p)
 
 ![](Atlas_files/figure-markdown_strict/div-example2-1.png)

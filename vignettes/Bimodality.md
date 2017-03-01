@@ -44,9 +44,9 @@ bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.h
 
     # Bimodality is better estimated from log10 abundances
     pseq0.log10 <- transform(pseq0, "log10")
-    bimodality.pb <- bimodality(pseq0.log10, method = "potential_bootstrap")
+    bimodality.pb <- bimodality(pseq0.log10, method = "potential_analysis")
 
-Sarle's bimodality coefficient (see help(coefficient\_of\_bimodality)):
+Sarle's bimodality coefficient:
 
     bimodality.sarle <- bimodality(pseq0.log10, method = "Sarle.finite.sample")
 

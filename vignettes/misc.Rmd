@@ -32,7 +32,7 @@
 # This simply indicates how many taxa are present in each sample
 # (exceed the detection). This measure is sometimes used with
 # phylogenetic microarrays.
-# det.th <- quantile(otu, 0.15)
+# detection <- quantile(otu, 0.15)
 
 # Repel overlapping labels
 # See https://github.com/slowkow/ggrepel/blob/master/vignettes/ggrepel.md

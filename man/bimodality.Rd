@@ -4,21 +4,20 @@
 \alias{bimodality}
 \title{Bimodality Analysis}
 \usage{
-bimodality(x, method = "potential_bootstrap", detection = 1,
-  bw.adjust = 1, bs.iterations = 100, detection.limit = 1,
-  verbose = TRUE)
+bimodality(x, method = "potential_analysis", detection = 1, bw.adjust = 1,
+  bs.iter = 100, detection.limit = 1, verbose = TRUE)
 }
 \arguments{
 \item{x}{A vector, matrix, or a phyloseq object}
 
-\item{method}{bimodality quantification method ('potential_bootstrap'
-or one of the methods in coefficient_of_bimodality)}
+\item{method}{bimodality quantification method ('potential_analysis'
+or one of the methods in bimodality_sarle)}
 
 \item{detection}{Mode detection}
 
 \item{bw.adjust}{Bandwidth adjustment}
 
-\item{bs.iterations}{Bootstrap iterations}
+\item{bs.iter}{Bootstrap iterations}
 
 \item{detection.limit}{minimum accepted density for a maximum; 
 as a multiple of kernel height}
@@ -30,7 +29,7 @@ A list with following elements:
   \itemize{
     \item{score}{Fraction of bootstrap samples where multiple modes are observed}
     \item{nmodes}{The most frequently observed number of modes in bootrstrap sampling results}
-    \item{results}{Full results of potential_bootstrap for each row of the input matrix.}
+    \item{results}{Full results of potential_analysis for each row of the input matrix.}
   }
 }
 \description{
@@ -40,7 +39,7 @@ A wrapper to calculate bimodality scores.
 \itemize{
     \item{Sarle.finite.sample}{Coefficient of bimodality for finite sample. See SAS 2012.}
     \item{Sarle.asymptotic}{Coefficient of bimodality, used and described in Shade et al. (2014) and Ellison AM (1987).}
-    \item{potential_bootstrap}{Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the bootstrap score.}
+    \item{potential_analysis}{Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the bootstrap score.}
   }
 }
 \examples{
@@ -67,7 +66,8 @@ Leo Lahti \email{leo.lahti@iki.fi}
 }
 }
 \seealso{
-coefficient_of_bimodality, dip.test
+Check the dip.test from the \pkg{DIP} package for a
+classical test of multimodality.
 }
 \keyword{utilities}
 

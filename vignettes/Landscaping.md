@@ -49,7 +49,7 @@ For direct access to the ordination coordinates, use the following:
 
     # Same with a generic data.frame
     # (note that random seed will affect the exact ordination)
-    p <- microbiome::densityplot(proj[, 1:2], col = proj$nationality, legend = T)
+    p <- plot_landscape(proj[, 1:2], col = proj$nationality, legend = T)
     print(p)
 
     # Visualize sample names:

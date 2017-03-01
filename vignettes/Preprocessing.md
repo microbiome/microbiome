@@ -215,7 +215,7 @@ Select samples by specific metadata fields
 
 Pick samples at the baseline time points only:
 
-    pseq0 <- pick_baseline(pseq)
+    pseq0 <- baseline(pseq)
 
 ### Data transformations
 
@@ -255,7 +255,7 @@ Pick values for a given variable
 Assign new fields to metadata
 
     # Calculate diversity for samples
-    div <- diversity_table(pseq, measures = "Shannon")$Shannon
+    div <- microbiome::diversity(pseq, measures = "Shannon")$Shannon
 
     # Assign this to sample metadata
     sample_data(pseq)$diversity <- div
@@ -314,7 +314,7 @@ if the phylogenetic tree is missing. When it is available, see
 [merge\_samples, merge\_taxa and
 tax\_glom](http://joey711.github.io/phyloseq/merge.html))
 
-    pseq2 <- summarize_taxa(pseq, "Phylum") 
+    pseq2 <- aggregate_taxa(pseq, "Phylum") 
 
 Merging phyloseq objects
 

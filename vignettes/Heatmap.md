@@ -71,10 +71,10 @@ correlation (n.signif):
     y <- as.matrix(lipids) # Lipids (44 samples x 389 lipids)
 
     # Cross correlate data sets
-    correlations <- cross_correlate(x, y, method = "bicor", mode = "matrix", p.adj.threshold = 0.05, n.signif = 1)
+    correlations <- associate(x, y, method = "bicor", mode = "matrix", p.adj.threshold = 0.05, n.signif = 1)
 
     # Or, alternatively, the same output is also available in a handy table format
-    correlation.table <- cross_correlate(x, y, method = "bicor", mode = "table", p.adj.threshold = 0.05, n.signif = 1)
+    correlation.table <- associate(x, y, method = "bicor", mode = "table", p.adj.threshold = 0.05, n.signif = 1)
 
     kable(head(correlation.table))
 
@@ -141,7 +141,7 @@ correlations with stars to reproduce microbiota-lipidome heatmap from
 [Lahti et al. PeerJ (2013)](https://peerj.com/articles/32/) (the
 ordering of rows and columns may be different):
 
-    p <- association_heatmap(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
+    p <- heat(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
 
     print(p)
 

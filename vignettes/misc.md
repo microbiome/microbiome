@@ -36,8 +36,8 @@ This simply indicates how many taxa are present in each sample
 phylogenetic microarrays.
 =========================
 
-det.th &lt;- quantile(otu, 0.15)
-================================
+detection &lt;- quantile(otu, 0.15)
+===================================
 
 Repel overlapping labels
 ========================

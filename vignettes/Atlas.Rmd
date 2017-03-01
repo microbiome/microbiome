@@ -36,7 +36,7 @@ pseq <- atlas1006
 
 ```{r div-example, warning=FALSE, message=FALSE}
 library(phyloseq)
-div <- diversity_table(pseq, measures = c("Observed", "Shannon", "Simpson"))
+div <- microbiome::diversity(pseq, measures = c("Observed", "Shannon", "Simpson"))
 
 library(knitr)
 kable(head(div))
@@ -46,7 +46,7 @@ kable(head(div))
 ### Diversity vs. obesity (discrete factor)
 
 ```{r div-example2, warning=FALSE, message=FALSE, fig.width=15, fig.height=5}
-p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), det.th = 250, na.rm = TRUE)
+p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), detection = 250, na.rm = TRUE)
 print(p)
 ```
 

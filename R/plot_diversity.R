@@ -21,8 +21,8 @@
 #'  \code{c("Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher")}.
 #' @param nrow Number of rows for plot faceting.
 #' @param scales scales for the plot
-#' @param det.th Detection threshold for the diversity measure 'Observed' 
-#'               (ie. species richness). See \code{\link{diversity_table}}
+#' @param detection Detection threshold for the diversity measure 'Observed' 
+#'               (ie. species richness). See \code{\link{diversity}}
 #' @param indicate.subjects Indicate subjects by lines. The sample_data(x) must have 'subject' field.
 #' @param na.rm Remove samples with missing metadata (NA)
 #' @return A \code{\link{ggplot}} plot object summarizing
@@ -30,19 +30,19 @@
 #' @details If subject is among the metadata variables, the matched subjects across groups are indicated by lines.
 #' @seealso 
 #'  \code{\link{estimate_richness}}
-#'  \code{\link{diversity_table}}
+#'  \code{\link{diversity}}
 #'  \code{\link{plot_richness}}
 #'  \code{\link[vegan]{estimateR}}
 #'  \code{\link[vegan]{diversity}}
 #' @export
 #' @examples p <- plot_diversity(x, variable = "bmi_group", "Shannon")
 #' @keywords utilities
-plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1, scales = "free_y", det.th = 0, indicate.subjects = FALSE, na.rm = FALSE){ 
+plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1, scales = "free_y", detection = 0, indicate.subjects = FALSE, na.rm = FALSE){ 
 
   horiz <- subject <- NULL
 
   # Calculate alpha-diversity measures
-  erDF <- diversity_table(x, split = TRUE, measures = measures, det.th = det.th)
+  erDF <- diversity(x, split = TRUE, measures = measures, detection = detection)
 
   # Measures may have been renamed in `erDF`. Replace it with the name from erDF
   measures <- colnames(erDF)
