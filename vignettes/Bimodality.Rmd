@@ -76,9 +76,9 @@ library(diptest)
 bimodality.dip <- apply(abundances(pseq0.log10), 1, function (x) {1 - unname(dip.test(x)$p.value)})
 ```
 
-Compare the different bimodality scores
+Compare the alternative bimodality scores
 
-```{r bimodalitycomp, message=FALSE, warning=FALSE, out.width="300px"}
+```{r bimodalitycomp, message=FALSE, warning=FALSE, out.width="400px"}
 b <- cbind(DIP = bimodality.dip, Potential = bimodality.pb, Sarle = bimodality.sarle)
 pairs(b)
 ```
@@ -86,7 +86,7 @@ pairs(b)
 
 ### Visualize population densities for unimodal and bimodal groups
 
-```{r stability2, message=FALSE, warning=FALSE, fig.width=12, fig.height=5}
+```{r stability2, message=FALSE, warning=FALSE, fig.width=12, fig.height=5, out.width="500px"}
 # Pick the most and least bimodal taxa as examples
 bimodality <- bimodality.pb
 unimodal <- names(which.min(bimodality))
@@ -130,13 +130,16 @@ print(tipping.point)
 
 ## Variation lineplot and bimodality hotplot
 
-Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation lineplot (**Variation lineplot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). The bi-stable Dialister has bimodal population distribution and reduced temporal stability within subjects at intermediate abundances.
+Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation lineplot (**Variation tip plot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). The bi-stable Dialister has bimodal population distribution and reduced temporal stability within subjects at intermediate abundances.
 
 ```{r stability-variationplot, message=FALSE, warning=FALSE, fig.show='hold', out.width="430px"}
 # Bimodality hotplot:
 # Consider a unique sample from each subject: the baseline time point 
 p <- hotplot(pseq0, tax, tipping.point = tipping.point)
 print(p)
+
+pv <- tipplot(pseq, tax, tipping.point = tipping.point)
+print(pv)
 ```
 
 
