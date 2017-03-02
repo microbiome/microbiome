@@ -90,6 +90,7 @@ within a single individual
 
     # Pick the metadata for this subject and sort the
     # samples by time
+    library(dplyr)
     df <- meta(subset_samples(pseq, subject == s)) %>% arrange(time)
 
     # Calculate the beta diversity between each time point and
@@ -108,6 +109,7 @@ within a single individual
     colnames(beta) <- c("time", "beta")
     beta <- as.data.frame(beta)
 
+    library(ggplot2)
     p <- ggplot(beta, aes(x = time, y = beta)) +
            geom_point() + geom_line()
     print(p)       

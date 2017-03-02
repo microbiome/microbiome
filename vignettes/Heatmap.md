@@ -197,9 +197,7 @@ For detailed information, might be handy to print the actual values on
 top of the heatmap:
 
     theme_set(theme_bw(20))
-    df <- microbiome::cmat2table(correlations)
-    df$X1 <- factor(df$X1)
-    df$X2 <- factor(df$X2)
+    df <- correlation.table
     p <- ggplot(df, aes(X1, X2, group=X2)) 
     p <- p + geom_tile(aes(fill = Correlation)) 
     p <- p + geom_text(aes(fill = df$Correlation, label = round(df$Correlation, 1)), size = 2) 
