@@ -23,6 +23,11 @@ git config user.name "microbiome-travis"
 git config user.email "travis"
 #cp ../microbiome/inst/doc/vignette.html index.html
 #cp ../microbiome/vignettes/vignette.html index.html
+# Add when index works
+#for files in '../optiRum/inst/doc/*.html'; do
+#        cp $files .
+#done
+
 touch index.html
 
 git add .

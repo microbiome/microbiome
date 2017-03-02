@@ -139,8 +139,8 @@ ztransform <- function (x, which) {
 
   if (!all(sample(abundances(x), 100)%%1 == 0)) {
     warning("phyloseq object may already have been log transformed - the 
-             abundances are not counts - log10 omitted in Z transform. 
-	     Perform manually if needed.")
+             abundances are not counts:
+	     log10 omitted in Z transform. Perform manually if needed.")
   } else {
     # Start with log10 transform
     x <- transform(x, "log10")
