@@ -6,6 +6,7 @@ r_packages:
 - Cairo
 - dplyr
 - GGally
+- ggplot2
 - ggrepel
 - intergraph
 - magrittr

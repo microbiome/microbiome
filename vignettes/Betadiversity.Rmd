@@ -111,6 +111,7 @@ for (tp in df$time[-1]) {
 colnames(beta) <- c("time", "beta")
 beta <- as.data.frame(beta)
 
+library(ggplot2)
 p <- ggplot(beta, aes(x = time, y = beta)) +
        geom_point() + geom_line()
 print(p)       
