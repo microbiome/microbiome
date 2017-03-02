@@ -92,6 +92,7 @@ s <- names(which.max(sapply(split(meta(pseq)$time, meta(pseq)$subject), function
 
 # Pick the metadata for this subject and sort the
 # samples by time
+library(dplyr)
 df <- meta(subset_samples(pseq, subject == s)) %>% arrange(time)
 
 # Calculate the beta diversity between each time point and

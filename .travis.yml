@@ -4,6 +4,7 @@ cache: packages
 warnings_are_errors: false
 r_packages:
 - Cairo
+- dplyr
 - GGally
 - ggrepel
 - intergraph
@@ -20,15 +21,14 @@ r_github_packages:
 - cran/RUnit
 - ropengov/sorvi
 - microbiome/microbiome
-- microbiome/HITChipDB
 - zdk123/SpiecEasi
 - briatte/ggnet
 - earlywarningtoolbox/earlywarnings-R/earlywarnings
 env:
   global:
   - WARNINGS_ARE_ERRORS=1
-  - R_BUILD_ARGS="--no-manual --no-vignettes"
-  - R_CHECK_ARGS="--no-manual --no-vignettes --as-cran"
+  - r_build_args: --no-build-vignettes --no-manual --no-resave-data
+  - r_check_args: --no-build-vignettes --no-manual --as-cran
   - GITHUB_REPO: microbiome/microbiome
   - secure: kivwIFvX65gp1xOYQyfdXwr4/FuUFfS27Aqug19K7euNbz8oEuwDiIId+VNBdiTJ+Wyn267gepf/Uc9cqyimvx4d+r2LMveNTBhAfN5cXt3gqEzqszZYwWlTbBojHsz03LMDgzNtEXto98KCB8zaghAP2Zdq42RBjuzGa28F650=
 
