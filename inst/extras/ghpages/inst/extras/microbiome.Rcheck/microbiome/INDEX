@@ -1,0 +1,62 @@
+Bagged.RDA              Bagged RDA
+GKtau                   GKtau
+abundances              Abundance matrix from phyloseq object
+aggregate_taxa          Summarize Taxa
+associate               Cross Correlation Wrapper
+atlas1006               HITChip Atlas with 1006 Western Adults
+baseline                Pick Baseline Timepoint Samples
+bimodality              Bimodality Analysis
+bimodality_sarle        Sarle's Bimodality Coefficient
+boxplot_abundance       Abundance Boxplot
+cmat2table              Convert Cross Correlation Results To Table
+core                    Core Microbiota
+core_bootstrap          Bootstrap Analysis of the Core Microbiota
+core_heatmap            Core Heatmap
+core_matrix             Core Matrix
+core_members            Core Taxa
+densityplot             Density Plot
+dietswap                Diet Swap Data
+diversity               Estimate Diversity
+estimate_stability      Estimate Stability
+find_optima             Find Optima
+get_ordination          Get Ordination
+group_diversity         Diversity within a Sample Group
+heat                    Association Heatmap
+hitchip.taxonomy        HITChip Taxonomy
+hotplot                 Univariate Bimodality Plot
+intermediate_stability
+                        Intermediate Stability
+is.phyloseq             Identify Phyloseq Objects
+map_levels              Map Taxonomic Levels
+meta                    Retrieve Phyloseq Metadata as Data Frame
+microbiome-package      R package for microbiome studies
+multimodality_score     Multimodality Score
+neat                    Neatmap Sorting
+neatsort                Neatmap Sorting
+peerj32                 Probiotics Intervention Data
+plot_atlas              Visualize Samples of a Microbiota Atlas
+plot_composition        Taxonomic Composition Plot
+plot_core               Visualize OTU Core
+plot_density            Plot Density
+plot_diversity          Plot Diversity
+plot_frequencies        Plot Frequencies
+plot_landscape          Landscape Plot
+plot_matrix             Matrix Heatmap
+plot_potential          Plot Potential
+plot_rda_bagged         Plot RDA
+plot_regression         Visually Weighted Regression Plot
+potential_analysis      Bootstrapped Potential Analysis
+potential_slidingaverage
+                        Moving Average Potential
+potential_univariate    Potential Analysis for Univariate Data
+prevalence              Prevalence for Phyloseq OTUs
+pseq_metadata           Retrieve Phyloseq Metadata as Data Frame
+rare                    Select Rare Taxa
+rda_bagged              Bagged RDA
+taxa                    Taxa Names
+time_normalize          Normalize Phyloseq Metadata Time Field
+time_sort               Temporal Sorting Within Subjects
+tipplot                 Variation Line Plot
+top_taxa                Top Taxa
+transform               Data Transformations for phyloseq Objects
+validate                Validate Phyloseq

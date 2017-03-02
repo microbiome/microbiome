@@ -1,0 +1,274 @@
+---
+title: "Preprocessing"
+author: "Leo Lahti"
+date: "`r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - Preprocessing}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
+## Processing taxonomic profiling data
+
+Instructions to manipulate microbiome data sets using tools from the [phyloseq package](http://joey711.github.io/phyloseq/) and some extensions from the [microbiome package](https://github.com/microbiome/microbiome), including subsetting, aggregating and filtering.
+
+
+Load example data:
+
+```{r data21}
+library(phyloseq)
+library(microbiome)
+
+data(atlas1006)   # Load the data
+pseq <- atlas1006 # Rename the data
+```
+
+
+### Retrieving data elements from a phyloseq object  
+
+A phyloseq object contains OTU table (taxa abundances), sample
+metadata, taxonomy table (mapping between OTUs and higher-level
+taxonomic classifications), and phylogenetic tree (relations between
+the taxa). Some of these are optional.
+
+
+Pick metadata:
+
+```{r data21b}
+meta <- sample_data(pseq)
+```
+
+Taxonomy table:
+
+```{r data22}
+taxonomy <- tax_table(pseq)
+```
+
+
+Abundances for taxonomic groups ('OTU table') as a TaxaxSamples matrix:
+
+```{r data23}
+# Absolute abundances
+otu.absolute <- abundances(pseq)
+
+# Relative abundances
+otu.relative <- abundances(pseq, "compositional")
+```
+
+
+Melt phyloseq data for easier plotting:
+
+```{r data25}
+df <- psmelt(pseq)
+kable(head(df))
+```
+
+
+
+### Sample operations
+
+Sample names and variables
+
+```{r preprocess2b, warning=FALSE, message=FALSE}
+head(sample_names(pseq))
+```
+
+Total OTU abundance in each sample
+
+```{r preprocess2c, warning=FALSE, message=FALSE}
+head(sample_sums(pseq))
+```
+
+Abundance of a given species in each sample
+
+```{r preprocess2d, warning=FALSE, message=FALSE}
+head(get_sample(pseq, "Akkermansia"))
+```
+
+Filter samples
+
+```{r preprocess3, warning=FALSE, message=FALSE}
+f1 <- filterfun_sample(topp(0.1))
+taxa <- genefilter_sample(pseq, f1, A = round(0.5 * nsamples(pseq)))
+```
+
+Select samples by specific metadata fields
+
+```{r data-subsetting}
+pseq.subset <- subset_samples(pseq, nationality == "US")
+```
+
+
+Pick samples at the baseline time points only:
+
+```{r baseline, message=FALSE, warning=FALSE}
+pseq0 <- baseline(pseq)
+```
+
+
+
+### Data transformations
+
+The microbiome package provides a wrapper for standard sample/OTU transforms. For arbitrary transforms, use the transform_sample_counts function in the phyloseq package.
+
+Log10 transform (log(1+x) if the data contains zeroes). Also "Z",
+"clr", and "hellinger" are available as common transforms.
+
+```{r preprocessing-logtrans}
+pseq.log <- transform(pseq, "log10")
+```
+
+Relative abundances (the input data needs to be in absolute scale, not logarithmic!):
+
+```{r data10}
+pseq1 <- microbiome::transform(pseq, "compositional", "OTU")
+pseq2 <- phyloseq::transform_sample_counts(pseq, function(x) x/sum(x))
+```
+
+
+### Variable operations
+
+Sample variable names
+
+```{r preprocess4, warning=FALSE, message=FALSE}
+sample_variables(pseq)
+```
+
+Pick values for a given variable
+
+```{r preprocess4b, warning=FALSE, message=FALSE}
+head(get_variable(pseq, sample_variables(pseq)[1]))
+```
+
+Assign new fields to metadata
+
+```{r preprocess4b2, warning=FALSE, message=FALSE}
+# Calculate diversity for samples
+div <- microbiome::diversity(pseq, measures = "Shannon")$Shannon
+
+# Assign this to sample metadata
+sample_data(pseq)$diversity <- div
+```
+
+### Taxa operations
+
+
+Number of taxa
+
+```{r preprocess3e, warning=FALSE, message=FALSE}
+n <- ntaxa(pseq)
+```
+
+
+Most abundant taxa
+
+```{r toptaxa, warning=FALSE, message=FALSE}
+topx <- top_taxa(pseq, n = 10)
+```
+
+
+Names
+
+```{r preprocess3f, warning=FALSE, message=FALSE}
+ranks <- rank_names(pseq)  # Taxonomic levels
+taxa  <- taxa(pseq)        # Taxa names at the analysed level
+```
+
+
+Subset taxa:
+
+```{r preprocess3c, warning=FALSE, message=FALSE}
+pseq.bac <- subset_taxa(pseq, Phylum == "Bacteroidetes")
+```
+
+
+Prune (select) taxa:
+
+```{r preprocess3b, warning=FALSE, message=FALSE}
+# List of Genera in the Bacteroideted Phylum
+taxa <- map_levels(NULL, "Phylum", "Genus", pseq)$Bacteroidetes
+
+# With given taxon names
+ex2 <- prune_taxa(taxa, pseq)
+
+# Taxa with positive sum across samples
+ex3 <- prune_taxa(taxa_sums(pseq) > 0, pseq)
+```
+
+
+Filter by user-specified function values (here variance):
+
+```{r preprocess3d, warning=FALSE, message=FALSE}
+f <- filter_taxa(pseq, function(x) var(x) > 1e-05, TRUE)
+```
+
+
+List unique phylum-level groups: 
+
+```{r preprocess3g, warning=FALSE, message=FALSE}
+head(get_taxa_unique(pseq, "Phylum"))
+```
+
+Pick the taxa abundances for a given sample:
+
+```{r preprocess3gg, warning=FALSE, message=FALSE}
+samplename <- sample_names(pseq)[[1]]
+tax.abundances <- get_taxa(pseq, samplename)
+```
+
+
+### Merging operations
+
+Aggregate taxa to higher taxonomic levels. This is particularly useful if the phylogenetic tree is missing. When it is available, see [merge_samples, merge_taxa and tax_glom](http://joey711.github.io/phyloseq/merge.html))
+
+```{r data24}
+pseq2 <- aggregate_taxa(pseq, "Phylum") 
+```
+
+
+Merging phyloseq objects
+
+```{r preprocess-merge, warning=FALSE, message=FALSE, eval=FALSE}
+merge_phyloseq(pseqA, pseqB)
+```
+
+
+### Rarification
+
+```{r preprocess-rarify, warning=FALSE, message=FALSE}
+pseq.rarified <- rarefy_even_depth(pseq)
+```
+
+
+### Taxonomy 
+
+Convert between taxonomic levels (here from Genus (Akkermansia) to
+Phylum (Verrucomicrobia):
+
+```{r phylogeny-example2, warning=FALSE, message=FALSE}
+m <- map_levels("Akkermansia", "Genus", "Phylum", tax_table(pseq))
+print(m)
+```
+
+
+### Metadata
+
+Visualize frequencies of given factor (sex) levels within the
+indicated groups (group):
+
+```{r phylogeny-example3, warning=FALSE, message=FALSE, fig.width=10, fig.height=6}
+res <- plot_frequencies(sample_data(pseq), "bmi_group", "gender")
+print(res$plot)
+
+# Retrieving the actual data values:
+kable(head(res$data), digits = 2)
+```
+
