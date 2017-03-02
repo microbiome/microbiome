@@ -276,7 +276,7 @@ associate <- function(x, y = NULL, method = "spearman",
 }
 
 
-#' @title Convert Cross Correlation Results To Table
+#' @title Convert Correlation Matrix into a Table
 #' @description Arrange correlation matrices from associate into a table format.
 #' @param res Output from associate
 #' @param verbose verbose
@@ -357,9 +357,5 @@ cmat2table <- function(res, verbose = FALSE) {
     ctab
     
 }
-
-
-
-
 
 

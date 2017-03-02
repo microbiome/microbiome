@@ -2,7 +2,7 @@
 % Please edit documentation in R/associate.R
 \name{cmat2table}
 \alias{cmat2table}
-\title{Convert Cross Correlation Results To Table}
+\title{Convert Correlation Matrix into a Table}
 \usage{
 cmat2table(res, verbose = FALSE)
 }
