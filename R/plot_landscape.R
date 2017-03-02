@@ -30,16 +30,15 @@ plot_landscape <- function (x, method = "NMDS", distance = "bray", col = NULL,
     quiet(proj <- get_ordination(x, method, distance))
     col <- proj[[col]]  
   } else if (is.matrix(x) || is.data.frame(x)) {
+    proj <- as.data.frame(x)
     if (ncol(x)>2) {
       warning("More than two dimensions in the matrix. Projection methods not implemented for matrices. Using the first two columns for visualization.")
       proj <- x[, 1:2]
     }
   }
 
-  #proj <- as.data.frame(proj)
-
   if (is.null(col)) {
-    proj$col <- as.factor("black")
+    proj$col <- as.factor(rep("black", nrow(proj)))
   } else {
     proj$col <- col
   }
