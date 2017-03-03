@@ -286,7 +286,7 @@ associate <- function(x, y = NULL, method = "spearman",
 #'   d1 <- peerj32$microbes[1:20, 1:10]
 #'   d2 <- peerj32$lipids[1:20,1:10]
 #'   cc <- associate(d1, d2, mode = 'matrix', method = "pearson")
-#'   cmat <- cmat2table(cc)
+#'   cmat <- associate(d1, d2, mode = 'table', method = "spearman")
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
