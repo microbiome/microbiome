@@ -15,7 +15,7 @@ r_packages:
 - GGally
 - ggplot2
 - ggrepel
-- HMisc
+- Hmisc
 - intergraph
 - knitcitations
 - knitr
