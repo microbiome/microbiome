@@ -51,7 +51,6 @@ head(prevalence(pseq.rel, detection = 1, sort = TRUE, count = TRUE))
 ```
 
 
-
 ### Core microbiota analysis
 
 If you only need the names of the core taxa, do as follows. The standard method corresponds to taxa that exceed the given prevalence and detection thresholds. The bootstrap method is slower but more robust ([Salonen et al. CMI (2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract)); it reduces random sampling effects. 
@@ -61,7 +60,7 @@ If you only need the names of the core taxa, do as follows. The standard method 
 core.taxa.standard <- core_members(pseq.rel, detection = 5, prevalence = 50,  method = "standard")
 
 # Bootrap method: slower but more robust; takes sampling effects into account
-core.taxa.bootstrap <- core_members(pseq.rel, detection = 5, prevalence = 50,  method = "bootstrap")
+core.taxa.bootstrap <- core_members(pseq.rel, detection = 5, prevalence = 50,  method = "bootstrap", bs.iter = 50)
 ```
 
 
@@ -69,7 +68,7 @@ A full phyloseq object of the core microbiota is obtained as follows:
 
 ```{r core-data, message=FALSE, warning=FALSE}
 pseq.core <- core(pseq.rel, detection = 1, prevalence = 50)
-pseq.core.bootstrap <- core(pseq.rel, detection = 1, prevalence = 50, method = "bootstrap")
+pseq.core.bootstrap <- core(pseq.rel, detection = 1, prevalence = 50, method = "bootstrap", bs.iter = 50)
 ```
 
 
