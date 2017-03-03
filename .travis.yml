@@ -28,12 +28,23 @@ r_packages:
 - mixOmics
 - moments
 - network
+- plyr
+- qvalue
+- reshape2
 - rmarkdown
+- robustbase
+- rpart
 - scales
 - survival
+- tensorA
+- tgp
+- tidyr
+- vegan
+- WGCNA
 bioc_packages:
 - BiocInstaller
 - limma
+- phyloseq
 r_github_packages:
 - slowkow/ggrepel
 - cran/RUnit
