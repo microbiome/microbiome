@@ -54,7 +54,7 @@ Visualize the standard RDA output.
 
     plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = metadata$time)
     points(rda.result, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = metadata$time)
-    pl <- ordihull(rda.result, meta$time, scaling = 3, label = TRUE)
+    pl <- ordihull(rda.result, metadata$time, scaling = 3, label = TRUE)
 
 ![](RDA_files/figure-markdown_strict/rda4-1.png)
 
@@ -72,7 +72,7 @@ Visualize the standard RDA output.
     ## na.action = na.fail)
     ## Permutation test for all constrained eigenvalues
     ## Pseudo-F:     0.6572996 (with 1, 42 Degrees of Freedom)
-    ## Significance:     0.91
+    ## Significance:     0.92
 
 ### RDA with confounding variables
 
@@ -83,7 +83,7 @@ vegan R package.
     otu <- abundances(pseq.trans)
 
     # Sample annotations
-    meta <- meta(pseq.trans)
+    metadata <- meta(pseq.trans)
 
     # RDA with confounders using the vegan function
-    rda.result2 <- vegan::rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))
+    rda.result2 <- vegan::rda(t(otu) ~ metadata$time + Condition(metadata$subject + metadata$gender))

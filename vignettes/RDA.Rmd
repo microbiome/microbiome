@@ -74,7 +74,7 @@ Visualize the standard RDA output.
 ```{r rda4, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
 plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = metadata$time)
 points(rda.result, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = metadata$time)
-pl <- ordihull(rda.result, meta$time, scaling = 3, label = TRUE)
+pl <- ordihull(rda.result, metadata$time, scaling = 3, label = TRUE)
 ```
 
 
@@ -95,10 +95,10 @@ vegan R package.
 otu <- abundances(pseq.trans)
 
 # Sample annotations
-meta <- meta(pseq.trans)
+metadata <- meta(pseq.trans)
 
 # RDA with confounders using the vegan function
-rda.result2 <- vegan::rda(t(otu) ~ meta$time + Condition(meta$subject + meta$gender))
+rda.result2 <- vegan::rda(t(otu) ~ metadata$time + Condition(metadata$subject + metadata$gender))
 ```
 
 
