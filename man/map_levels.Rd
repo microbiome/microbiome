@@ -22,8 +22,9 @@ mappings
 Map taxa between hierarchy levels.
 }
 \examples{
-  tax.table <- get_hitchip_taxonomy('HITChip', 'filtered')
-  map_levels('Akkermansia', 'L2', 'L1', tax.table)
+  data(dietswap)
+  map_levels('Akkermansia', from = 'Genus', to = 'Phylum', tax_table(dietswap))
+  map_levels('Verrucomicrobia', from = 'Phylum', to = 'Genus', tax_table(dietswap))
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

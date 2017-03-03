@@ -36,7 +36,14 @@ A \code{\link{ggplot}} plot object.
 Plot abundance density across samples for a given taxon.
 }
 \examples{
-p <- plot_density(x, variable = "Dialister")
+  # Load gut microbiota data on 1006 western adults
+  # (see help(atlas1006) for references and details)
+  data(atlas1006)
+  # Use compositional abundances instead of absolute signal
+  pseq.rel <- transform(atlas1006, "compositional")
+  # Population density for Dialister spp.; with log10 on the abundance (X) axis
+  library(ggplot2)
+  p <- plot_density(pseq.rel, variable = "Dialister") + scale_x_log10()
 }
 \keyword{utilities}
 

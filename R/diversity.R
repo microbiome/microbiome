@@ -36,7 +36,8 @@ diversity <- function(x, detection = 0, split = TRUE, measures = NULL) {
     # Shannon Diversity
     d <- estimate_richness(x, split = split, measures = "Shannon")$Shannon
     # normalize by Log richness to get Pielou's evenness
-    r <- diversity(x, split = split, measures = "Observed")$Observed
+    r <- diversity(x, split = split, measures = "Observed")
+    if (split) {r <- r$Observed} else {r <- unname(r)}
     e <- d/log(r)
 
     # Add to result data.frame
@@ -75,7 +76,7 @@ diversity <- function(x, detection = 0, split = TRUE, measures = NULL) {
   # (as the table would have only 1 row; and giving a different
   #  output for this special case can potentially help avoid confusion)
   if (!split) {
-    unlist(res)
+    res <- unlist(res)
   }
 
   res

@@ -35,7 +35,12 @@
 #'  \code{\link[vegan]{estimateR}}
 #'  \code{\link[vegan]{diversity}}
 #' @export
-#' @examples p <- plot_diversity(x, variable = "bmi_group", "Shannon")
+#' @examples
+#'   # Load gut microbiota data on 1006 western adults
+#'   # (see help(atlas1006) for references and details)
+#'   data(atlas1006)
+#'   # Visualize Shannon diversity across bmi groups; remove cases with no bmi info
+#'   p <- plot_diversity(atlas1006, variable = "bmi_group", "Shannon", na.rm = TRUE)
 #' @keywords utilities
 plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1, scales = "free_y", detection = 0, indicate.subjects = FALSE, na.rm = FALSE){ 
 

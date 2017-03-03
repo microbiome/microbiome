@@ -136,7 +136,7 @@ temporal stability within subjects at intermediate abundances.
 ### Time series for individual subjects
 
     # Experimental function 
-    source(system.file("inst/extdata/plot_longitudinal.R", package = "microbiome"))
+    source(system.file("extdata/plot_longitudinal.R", package = "microbiome"))
     p <- plot_longitudinal(pseq, "Dialister", subject = "831", tipping.point = 0.5)
     print(p)
 

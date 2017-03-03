@@ -6,7 +6,7 @@
 \usage{
 potential_univariate(x, std = 1, bw = "nrd", weights = c(),
   grid.size = NULL, detection = 1, bw.adjust = 1, density.smoothing = 0,
-  detection.limit = 1)
+  min.density = 1)
 }
 \arguments{
 \item{x}{Univariate data (vector) for which the potentials shall be estimated}
@@ -31,7 +31,7 @@ avoid zero probabilities within the observation range). This
 parameter adds uniform density across the observation range, scaled
 by density.smoothing.}
 
-\item{detection.limit}{minimum accepted density for a maximum; as a
+\item{min.density}{minimum accepted density for a maximum; as a
 multiple of kernel height}
 }
 \value{

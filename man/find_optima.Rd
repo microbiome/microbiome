@@ -4,7 +4,7 @@
 \alias{find_optima}
 \title{Find Optima}
 \usage{
-find_optima(f, detection = 0, bw = 1, detection.limit = 1)
+find_optima(f, detection = 0, bw = 1, min.density = 1)
 }
 \arguments{
 \item{f}{density}
@@ -13,7 +13,7 @@ find_optima(f, detection = 0, bw = 1, detection.limit = 1)
 
 \item{bw}{bandwidth}
 
-\item{detection.limit}{Minimun accepted density for a maximum; 
+\item{min.density}{Minimun accepted density for a maximum; 
 as a multiple of kernel height}
 }
 \value{
@@ -25,7 +25,10 @@ Detect optima, excluding local optima below
              detection.
 }
 \examples{
-find_optima(rnorm(100), bw = 1)
+  \dontrun{
+    # Not exported
+    o <- find_optima(rnorm(100), bw = 1)
+  }
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

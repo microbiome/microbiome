@@ -5,9 +5,10 @@
 #' @param to convert to taxonomic level
 #' @param data Either a \code{\link{phyloseq}} object or its code{\link{taxonomyTable-class}} , see the \pkg{phyloseq} package.
 #' @return mappings
-#' @examples 
-#'   tax.table <- get_hitchip_taxonomy('HITChip', 'filtered')
-#'   map_levels('Akkermansia', 'L2', 'L1', tax.table)
+#' @examples
+#'   data(dietswap)
+#'   map_levels('Akkermansia', from = 'Genus', to = 'Phylum', tax_table(dietswap))
+#'   map_levels('Verrucomicrobia', from = 'Phylum', to = 'Genus', tax_table(dietswap))
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

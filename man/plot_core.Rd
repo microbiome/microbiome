@@ -39,8 +39,7 @@ Core visualization (2D).
 }
 \examples{
   data(atlas1006)
-  pseq <- atlas1006
-  p <- plot_core(pseq, prevalences = seq(10, 100, 10),
+  p <- plot_core(atlas1006, prevalences = seq(10, 100, 10),
                        detections = c(0, 10^(0:4)))
 }
 \author{

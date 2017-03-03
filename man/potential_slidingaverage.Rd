@@ -49,11 +49,14 @@ This function reconstructs a potential derived from data
              along a gradient of a given parameter.
 }
 \examples{
-  X <- c(rnorm(1000, mean = 0),
+  \dontrun{
+    # Not exported
+    X <- c(rnorm(1000, mean = 0),
            rnorm(1000, mean = -2),
            rnorm(1000, mean = 2));
       param = seq(0,5,length=3000); 
     res <- potential_slidingaverage(X, param)
+    }
 }
 \author{
 Leo Lahti, adapted from original Matlab code by Egbert van Nes.

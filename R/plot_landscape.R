@@ -69,7 +69,11 @@ plot_landscape <- function (x, method = "NMDS", distance = "bray", col = NULL,
 #' @param size point size
 #' @param legend plot legend TRUE/FALSE
 #' @return ggplot2 object
-#' @examples p <- densityplot(cbind(rnorm(100), rnorm(100)))
+#' @examples
+#'   \dontrun{
+#'     # Not exported
+#'     p <- densityplot(cbind(rnorm(100), rnorm(100)))
+#'   }
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

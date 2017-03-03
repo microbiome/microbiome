@@ -14,30 +14,61 @@
 #' @details Applied on the output of the
 #'          \code{\link{potential_slidingaverage}} function.
 #' @examples
-#'   X <- c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), 
-#'   	    rnorm(1000, mean = 2))
-#'   param <- seq(0,5,length=3000); 
-#'   res <- potential_slidingaverage(X, param); 
-#'   plot_potential(res$res, cutoff = 0.5)
+#'   \dontrun{
+#'
+#'   # This exemplifies visualization of data from an external package.
+#'
+#'   # Load gut microbiota data on 1006 western adults
+#'   # From http://doi.org/10.5061/dryad.pk75d
+#'   # (see help(atlas1006) for references and details)
+#'   data(atlas1006)
+#'   pseq <- atlas1006
+#'
+#'   # Pick diversity and age
+#'   diversity <- exp(microbiome::diversity(pseq)$Shannon)
+#'   age <- meta(pseq)$age
+#'   
+#'   # Run potential analysis
+#'   library(earlywarnings)
+#'   library(ggplot2)
+#'   res <- movpotential_ews(diversity, age)
+#'   plot_potential(res, cutoff = 0.5)
+#'
+#'   }
+#' @seealso potential_analysis
 #' @keywords utils
 plot_potential <- function(res,
 			   cutoff = 0.5,
 	       	           plot.contours = TRUE, 
     			   binwidth = 0.2,
 			   bins = NULL) {
-    
+
+
+    # TODO
+    # Experimental implementation including bootstrap as in Lahti et al Nat Comm
+    # potential_analysis(diversity, age)
+    # to replace movpotential_ews, see
+    # potential_analysis.R does not work with visualization since not meant for that purpose
+    # TODO enable plotting from potential_analysis omitting bootstrap
+    # to get rid of earlywarnings dependency
+
     scale_fill_gradient <- NULL # Avoid build warnings
+
+    potentials <- res$pots
+    covariates <- res$pars
+    grid <- res$xis
+
+    cut.potential <- max(apply(potentials, 1, min)) +
+    		       cutoff * abs(max(apply(potentials, 1, min)))  # Ensure all minima are visualized
     
-    cut.potential <- max(apply(res$pots, 1, min)) +
-    		       cutoff * abs(max(apply(res$pots, 
-        1, min)))  # Ensure all minima are visualized
-    pots <- res$pots
-    pots[pots > cut.potential] <- cut.potential
+    potentials[potentials > cut.potential] <- cut.potential
     
     # Static contour Interpolate potential grid
-    intp <- tgp::interp.loess(as.vector(res$pars),
-		              as.vector(res$xis), as.vector(pots), 
-        gridlen = 2 * dim(pots))
+    intp <- tgp::interp.loess(as.vector(covariates),
+		              as.vector(grid),
+			      as.vector(potentials), 
+        gridlen = 2 * dim(potentials))
+
     xy <- expand.grid(intp$x, intp$y)
     z <- as.vector(intp$z)
     z[is.na(z)] <- max(na.omit(z))

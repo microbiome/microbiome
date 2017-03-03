@@ -5,7 +5,7 @@
 #' @param detection Mode detection
 #' @param bw.adjust Bandwidth adjustment
 #' @param bs.iter Bootstrap iterations
-#' @param detection.limit minimum accepted density for a maximum; as a multiple of kernel height
+#' @param min.density minimum accepted density for a maximum; as a multiple of kernel height
 #' @return List with following elements:
 #' \itemize{
 #'   \item{modes}{Number of modes for the input data vector (the most frequent number of modes from bootstrap)}
@@ -14,12 +14,23 @@
 #'   \item{modes}{unimodality.support Fraction of bootstrap samples exhibiting unimodality}
 #' }
 #' @export
+#' @examples
+#' # Example data; see help(peerj32) for details
+#' data(peerj32)
+#' 
+#' # Log10 abundance of Dialister
+#' x <- log10(abundances(peerj32$phyloseq)["Dialister",])
+#'
+#' # Bootstrapped potential analysis
+#' res <- potential_analysis(x, detection = 0, bw.adjust = 1, bs.iter = 100, min.density = 1)
+#'
+#' @seealso plot_potential
 #' @references
 #'  \itemize{
 #'   \item{}{Livina et al. (2010). Potential analysis reveals changing number of climate states during the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
 #'   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal ecosystem. \emph{Nature Communications} 5:4344.}
 #'  }
-potential_analysis <- function (x, detection, bw.adjust = 1, bs.iter = 100, detection.limit = 1) {
+potential_analysis <- function (x, detection = 0, bw.adjust = 1, bs.iter = 100, min.density = 1) {
 
   nmodes <- c()
   minpoints <- list()
@@ -36,7 +47,7 @@ potential_analysis <- function (x, detection, bw.adjust = 1, bs.iter = 100, dete
     a <- potential_univariate(xbs, grid.size = floor(.2*length(x)), 
       	 		     detection = detection, 
 			     bw.adjust = bw.adjust, 
-			     detection.limit = detection.limit)
+			     min.density = min.density)
 
     nmodes[[r]] <- length(a$max.points)
     minpoints[[r]] <- a$min.points
@@ -78,7 +89,7 @@ potential_analysis <- function (x, detection, bw.adjust = 1, bs.iter = 100, dete
 #' avoid zero probabilities within the observation range). This
 #' parameter adds uniform density across the observation range, scaled
 #' by density.smoothing.
-#' @param detection.limit minimum accepted density for a maximum; as a
+#' @param min.density minimum accepted density for a maximum; as a
 #' multiple of kernel height
 #' @return \code{potential_univariate} returns a list with the
 #' following elements:
@@ -104,7 +115,7 @@ potential_analysis <- function (x, detection, bw.adjust = 1, bs.iter = 100, dete
 potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
 		     grid.size = NULL, 
     		     detection = 1, bw.adjust = 1,
-		     density.smoothing = 0, detection.limit = 1) {
+		     density.smoothing = 0, min.density = 1) {
     
     if (is.null(grid.size)) {
         grid.size <- floor(0.2 * length(x))
@@ -145,7 +156,7 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
 
     # Note mins and maxs for density given # here (not for potential,
     # which has the opposite signs)
-    ops <- find_optima(f, detection = detection, bw = bw, detection.limit = detection.limit)
+    ops <- find_optima(f, detection = detection, bw = bw, min.density = min.density)
     min.points <- grid.points[ops$min]
     max.points <- grid.points[ops$max]
     detection <- ops$detection
@@ -167,15 +178,19 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
 #' @param f density
 #' @param detection detection for peaks
 #' @param bw bandwidth
-#' @param detection.limit Minimun accepted density for a maximum; 
+#' @param min.density Minimun accepted density for a maximum; 
 #'                           as a multiple of kernel height
 #' @return A list with min (minima), max (maxima), and
 #'         detection.density (minimum detection density)
 #' @references See citation('microbiome') 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples find_optima(rnorm(100), bw = 1)
+#' @examples
+#'   \dontrun{
+#'     # Not exported
+#'     o <- find_optima(rnorm(100), bw = 1)
+#'   }
 #' @keywords utilities
-find_optima <- function(f, detection = 0, bw = 1, detection.limit = 1) {
+find_optima <- function(f, detection = 0, bw = 1, min.density = 1) {
 
    # FIXME bw is now assumed to be 1. This may be far from
    # optimal. Should be determined automatically.
@@ -183,7 +198,7 @@ find_optima <- function(f, detection = 0, bw = 1, detection.limit = 1) {
     # multiple of kernel height 
     kernel.height <- dnorm(0, sd = bw) / length(f) 
     deth <- detection * kernel.height 
-    detl <- detection.limit * kernel.height 
+    detl <- min.density * kernel.height 
     
     # Detect minima and maxima of the density (see Livina et al.) these correspond
     # to maxima and minima of the potential, respectively including end points of the
@@ -191,7 +206,7 @@ find_optima <- function(f, detection = 0, bw = 1, detection.limit = 1) {
     maxima <- find_maxima(f)
     minima <- find_minima(f)
 
-    # remove maxima that are below detection limit
+    # remove maxima that are below min.density
     maxima <- maxima[f[maxima] >= detl]
     minima <- remove_obsolete_minima(f, maxima, minima)
     minima <- unlist(minima)
@@ -402,11 +417,14 @@ find_maxima <- function (f) {
 #' @author Leo Lahti, adapted from original Matlab code by Egbert van Nes.
 #' @seealso \code{potential_univariate}
 #' @examples
-#'   X <- c(rnorm(1000, mean = 0),
+#'   \dontrun{
+#'     # Not exported
+#'     X <- c(rnorm(1000, mean = 0),
 #'            rnorm(1000, mean = -2),
 #'            rnorm(1000, mean = 2));
 #'	      param = seq(0,5,length=3000); 
 #'	    res <- potential_slidingaverage(X, param)
+#'     }
 #' @keywords utils
 potential_slidingaverage <- function(X, param = NULL, bw = "nrd",
                                      bw.adjust = 1, detection = 0.1,

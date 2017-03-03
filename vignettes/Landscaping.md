@@ -27,7 +27,7 @@ Load example data:
     pseq.rel <- transform(pseq, "compositional")
 
     # Pick core taxa with with >10 percent prevalence of the samples
-    # at a >1 percent relative abundance detection limit
+    # at a >1 percent relative abundance min.density
     pseq.core <- core(pseq.rel, detection = 1, prevalence = 10)
 
 Visualize the microbiome landscape (sample similarities on

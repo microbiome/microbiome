@@ -20,9 +20,11 @@ Estimated core microbiota
 Creates the core matrix.
 }
 \examples{
-  library(microbiome)
-  data(peerj32)
-  core <- core_matrix(peerj32$phyloseq)
+  \dontrun{
+    # Not exported
+    data(peerj32)
+    core <- core_matrix(peerj32$phyloseq)
+  }
 }
 \author{
 Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}

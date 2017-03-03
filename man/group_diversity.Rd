@@ -39,11 +39,10 @@ to quantify group homogeneity.
 }
 \examples{
   # Example data
-  data(peerj32)
+  data(dietswap)
   # Assess beta diversity among the African samples
-  # in a diet swap study
-  b <- group_diversity(subset_samples(dietswap, group == "AFR"))
-
+  # in a diet swap study (see \\code{help(dietswap)} for references)
+  b <- group_diversity(subset_samples(dietswap, nationality == "AFR"))
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

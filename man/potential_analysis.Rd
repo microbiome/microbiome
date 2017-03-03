@@ -4,8 +4,8 @@
 \alias{potential_analysis}
 \title{Bootstrapped Potential Analysis}
 \usage{
-potential_analysis(x, detection, bw.adjust = 1, bs.iter = 100,
-  detection.limit = 1)
+potential_analysis(x, detection = 0, bw.adjust = 1, bs.iter = 100,
+  min.density = 1)
 }
 \arguments{
 \item{x}{Input data vector}
@@ -16,7 +16,7 @@ potential_analysis(x, detection, bw.adjust = 1, bs.iter = 100,
 
 \item{bs.iter}{Bootstrap iterations}
 
-\item{detection.limit}{minimum accepted density for a maximum; as a multiple of kernel height}
+\item{min.density}{minimum accepted density for a maximum; as a multiple of kernel height}
 }
 \value{
 List with following elements:
@@ -31,10 +31,24 @@ List with following elements:
 Analysis of multimodality based on bootstrapped potential
    analysis of Livina et al. (2010) as described in Lahti et al. (2014).
 }
+\examples{
+# Example data; see help(peerj32) for details
+data(peerj32)
+
+# Log10 abundance of Dialister
+x <- log10(abundances(peerj32$phyloseq)["Dialister",])
+
+# Bootstrapped potential analysis
+res <- potential_analysis(x, detection = 0, bw.adjust = 1, bs.iter = 100, min.density = 1)
+
+}
 \references{
 \itemize{
   \item{}{Livina et al. (2010). Potential analysis reveals changing number of climate states during the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal ecosystem. \emph{Nature Communications} 5:4344.}
  }
+}
+\seealso{
+plot_potential
 }
 

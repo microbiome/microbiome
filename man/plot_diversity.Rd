@@ -53,7 +53,11 @@ You must use untrimmed, non-normalized count data for meaningful results.
 If subject is among the metadata variables, the matched subjects across groups are indicated by lines.
 }
 \examples{
-p <- plot_diversity(x, variable = "bmi_group", "Shannon")
+  # Load gut microbiota data on 1006 western adults
+  # (see help(atlas1006) for references and details)
+  data(atlas1006)
+  # Visualize Shannon diversity across bmi groups; remove cases with no bmi info
+  p <- plot_diversity(atlas1006, variable = "bmi_group", "Shannon", na.rm = TRUE)
 }
 \seealso{
 \code{\link{estimate_richness}}

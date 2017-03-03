@@ -37,49 +37,7 @@ core <- function (x, detection, prevalence, method = "standard", Nsample = NULL,
 
 
 
-#' @title Core Taxa
-#' @description Determine members of the core microbiota with given abundance
-#' and prevalences
-#' @inheritParams core
-#' @return Vector of core members
-#' @details For phyloseq object, lists taxa that are more prevalent with the
-#'   given detection. For matrix, lists columns that satisfy
-#'   these criteria.
-#' @examples
-#'   data(dietswap)
-#'   a <- core_members(dietswap, 1, 95)
-#' @aliases prevalent_taxa
-#' @references 
-#'   A Salonen et al. The adult intestinal core microbiota is determined by 
-#'   analysis depth and health status. Clinical Microbiology and Infection 
-#'   18(S4):16 20, 2012. 
-#'   To cite the microbiome R package, see citation('microbiome') 
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @keywords utilities
-core_members <- function(x, detection = 1, prevalence = 95, method = "standard", Nsample = NULL, bs.iter = 1000, I.max = NULL)  {
 
-  Core <- NULL
-
-  if (class(x) == "phyloseq") {
-    x <- abundances(x)
-  }
-
-  if (method == "standard") {
-    taxa <- names(which(prevalence(x, detection) > prevalence))
-  } else if (method == "bootstrap") {
-    # Core bootstrap analysis
-    cb <- core_bootstrap(x, Nsample = Nsample,
-       	  		    prevalence = prevalence,
-                            bs.iter = bs.iter, 
-		   	    detection = detection,
-			    I.max = I.max)
-    # Pick the taxa that have been identified in the robust core
-    taxa <- as.character(subset(cb, Core == 1)$Name)
-  }
-
-  taxa
-
-}
 
 
 #' @title Bootstrap Analysis of the Core Microbiota
@@ -97,7 +55,11 @@ core_members <- function(x, detection = 1, prevalence = 95, method = "standard",
 #' @examples
 #'   data(peerj32)
 #'   # In practice, use bs.iter = 1000 or more
-#'   bs <- core_bootstrap(peerj32$phyloseq, bs.iter = 5)
+#'   bs <- core(peerj32$phyloseq, bs.iter = 5,
+#'              prevalence = 50, detection = 0,
+#'		method = "bootstrap")
+#'   # Not exported:
+#'   # bs <- core_bootstrap(peerj32$phyloseq, bs.iter = 5)
 #' @references 
 #' The core microbiota bootstrap method implemented with this function:
 #' Salonen A, Salojarvi J, Lahti L, de Vos WM. The adult intestinal
@@ -108,9 +70,9 @@ core_members <- function(x, detection = 1, prevalence = 95, method = "standard",
 #' @keywords utilities
 core_bootstrap <- function(x,
 	                   Nsample = NULL,
-	                   prevalence = 2,
-	                   bs.iter = 1000, 
-		      	   detection = 1.8,
+	                   prevalence = 50,
+	                   bs.iter = 1000,
+		      	   detection = 0,			   
 			   I.max = NULL){
 
    # In this function prevalence refers to counts

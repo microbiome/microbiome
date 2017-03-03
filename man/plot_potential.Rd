@@ -30,11 +30,27 @@ Applied on the output of the
          \code{\link{potential_slidingaverage}} function.
 }
 \examples{
-  X <- c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), 
-  	    rnorm(1000, mean = 2))
-  param <- seq(0,5,length=3000); 
-  res <- potential_slidingaverage(X, param); 
-  plot_potential(res$res, cutoff = 0.5)
+  \dontrun{
+
+  # This exemplifies visualization of data from an external package.
+
+  # Load gut microbiota data on 1006 western adults
+  # From http://doi.org/10.5061/dryad.pk75d
+  # (see help(atlas1006) for references and details)
+  data(atlas1006)
+  pseq <- atlas1006
+
+  # Pick diversity and age
+  diversity <- exp(microbiome::diversity(pseq)$Shannon)
+  age <- meta(pseq)$age
+  
+  # Run potential analysis
+  library(earlywarnings)
+  library(ggplot2)
+  res <- movpotential_ews(diversity, age)
+  plot_potential(res, cutoff = 0.5)
+
+  }
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
@@ -42,6 +58,9 @@ Leo Lahti \email{leo.lahti@iki.fi}
 \references{
 Lahti et al. Tipping elements of the human intestinal ecosystem.
             \emph{Nature Communications} 5:4344, 2014.
+}
+\seealso{
+potential_analysis
 }
 \keyword{utils}
 

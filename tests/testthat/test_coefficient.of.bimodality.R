@@ -5,7 +5,7 @@ context("bimodality")
 
 test_that("bimodality scores work correctly", {
 
-  expect_equal(coefficient_of_bimodality(seq(100), type = "Sarle.finite.sample"), 0.2043795, tolerance=1.0e-3)
+  expect_equal(bimodality_sarle(seq(100), type = "Sarle.finite.sample"), 0.2043795, tolerance=1.0e-3)
   
 })
 

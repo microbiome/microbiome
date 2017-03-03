@@ -17,8 +17,7 @@
 #'         Finally, the applied parameters are returned.
 #' @examples 
 #'   data(atlas1006)
-#'   pseq <- atlas1006
-#'   p <- plot_core(pseq, prevalences = seq(10, 100, 10),
+#'   p <- plot_core(atlas1006, prevalences = seq(10, 100, 10),
 #'                        detections = c(0, 10^(0:4)))
 #' @export 
 #' @references 
@@ -78,9 +77,11 @@ plot_core <- function(x,
 #' @param detections a vector of intensities around the data range
 #' @return Estimated core microbiota
 #' @examples
-#'   library(microbiome)
-#'   data(peerj32)
-#'   core <- core_matrix(peerj32$phyloseq)
+#'   \dontrun{
+#'     # Not exported
+#'     data(peerj32)
+#'     core <- core_matrix(peerj32$phyloseq)
+#'   }
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
 #'   analysis depth and health status. Clinical Microbiology and Infection 

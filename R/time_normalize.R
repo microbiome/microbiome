@@ -8,6 +8,9 @@
 #'   atlas1006b <- time_normalize(atlas1006)
 time_normalize <- function (x) {
 
+  # Store the original inpu	       
+  xo <- x
+  
   x <- validate(x) 
   meta <- meta(x)
 
@@ -19,9 +22,10 @@ time_normalize <- function (x) {
     }
   }
 
-  # Fix this to sample metadata
-  x@sam_data <- meta
+  # Fix this to sample metadata in the original input
+  sample_data(xo) <- meta
     
   # Return phyloseq with normalized time field
-  x
+  xo
+  
 }

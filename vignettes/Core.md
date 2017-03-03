@@ -49,22 +49,27 @@ Absolute population frequencies (sample count):
 
 ### Core microbiota analysis
 
-Core taxa above a given detection and prevalences:
+If you only need the names of the core taxa, do as follows. The standard
+method corresponds to taxa that exceed the given prevalence and
+detection thresholds. The bootstrap method is slower but more robust
+([Salonen et al. CMI
+(2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract));
+it reduces random sampling effects.
 
-    core.taxa <- taxa(core(pseq.rel, detection = 1, prevalence = 95))
+    # Standard method (based on simple detection and prevalence thresholding)
+    core.taxa.standard <- core_members(pseq.rel, detection = 5, prevalence = 50,  method = "standard")
 
-Pick the core microbiota subset of the data. This corresponds to taxa
-that exceed the given prevalence and detection thresholds.
-Alternatively, use bootstrap analysis to identify the core members (for
-added robustness; see [Salonen et al. CMI
-(2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract).
-The core members may be sensitive to sampling effects; bootstrap aims to
-estimate how frequently a particular group is determined to be a core
-member in random bootstrap subsets of the data. The bootstrap provides
-more robust core but is slower to estimate.
+    # Bootrap method: slower but more robust; takes sampling effects into account
+    core.taxa.bootstrap <- core_members(pseq.rel, detection = 5, prevalence = 50,  method = "bootstrap")
+
+A full phyloseq object of the core microbiota is obtained as follows:
 
     pseq.core <- core(pseq.rel, detection = 1, prevalence = 50)
     pseq.core.bootstrap <- core(pseq.rel, detection = 1, prevalence = 50, method = "bootstrap")
+
+Retrieving the associated taxa names from the phyloseq object:
+
+    core.taxa <- taxa(pseq.core)
 
 ### Core abundance and diversity
 

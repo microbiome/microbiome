@@ -5,13 +5,13 @@
 \title{Bimodality Analysis}
 \usage{
 bimodality(x, method = "potential_analysis", detection = 1, bw.adjust = 1,
-  bs.iter = 100, detection.limit = 1, verbose = TRUE)
+  bs.iter = 100, min.density = 1, verbose = TRUE)
 }
 \arguments{
 \item{x}{A vector, matrix, or a phyloseq object}
 
 \item{method}{bimodality quantification method ('potential_analysis'
-or one of the methods in bimodality_sarle)}
+or one of the methods in the function \code{\link{bimodality_sarle}})}
 
 \item{detection}{Mode detection}
 
@@ -19,8 +19,7 @@ or one of the methods in bimodality_sarle)}
 
 \item{bs.iter}{Bootstrap iterations}
 
-\item{detection.limit}{minimum accepted density for a maximum; 
-as a multiple of kernel height}
+\item{min.density}{minimum accepted density for a maximum; as a multiple of kernel height}
 
 \item{verbose}{Verbose}
 }
@@ -43,10 +42,11 @@ A wrapper to calculate bimodality scores.
   }
 }
 \examples{
+  
   bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
- # 
- # See also the classical DIP test:
- # Dip quantifies unimodality. Values range between 0 to 1. 
+ 
+ # The classical DIP test:
+ # quantifies unimodality. Values range between 0 to 1. 
  # dip.test(x, simulate.p.value = TRUE, B = 200)$statistic
  # Values less than 0.05 indicate significant deviation from unimodality. 
 }
@@ -66,8 +66,7 @@ Leo Lahti \email{leo.lahti@iki.fi}
 }
 }
 \seealso{
-Check the dip.test from the \pkg{DIP} package for a
-classical test of multimodality.
+A classical test of multimodality is provided by dip.test in the \pkg{DIP} package.
 }
 \keyword{utilities}
 
