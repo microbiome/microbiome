@@ -33,9 +33,10 @@ mkdir out;
 GH_REPO="@github.com/microbiome/microbiome.git"
 FULL_REPO="https://$GH_TOKEN$GH_REPO"
 
-for files in '*.tar.gz'; do
-        tar xfz $files
-done
+# Add
+#for files in '*.tar.gz'; do
+#        tar xfz $files
+#done
 
 cd out
 git init
@@ -50,7 +51,8 @@ git config user.email "travis"
 
 touch index.html
 
-git add .
-git commit -m "Deployed to github pages"
+#git add . # after index works
+git add index.html
+git commit -a -m "Deployed to github pages"
 git push --force --quiet $FULL_REPO master:gh-pages
 
