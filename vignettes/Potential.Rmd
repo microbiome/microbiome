@@ -31,7 +31,7 @@ pseq <- atlas1006
 
 Assess the relationship between age and microbiome diversity:
 
-```{r movpotential2, message=FALSE, warning=FALSE, fig.width=5, fig.height=5}
+```{r movpotential2, message=FALSE, warning=FALSE, fig.width=5, fig.height=5, eval=FALSE}
 # Pick diversity and age
 diversity <- exp(microbiome::diversity(pseq)$Shannon)
 age <- meta(pseq)$age
@@ -44,7 +44,7 @@ res <- movpotential_ews(diversity, age)
 
 Visualize
 
-```{r movpotential3, message=FALSE, warning=FALSE, fig.width=8, fig.height=5, out.width="300px"}
+```{r movpotential3, message=FALSE, warning=FALSE, fig.width=8, fig.height=5, out.width="300px", eval=FALSE}
 p <- plot_potential(res$res) + xlab("Age") + ylab("Diversity")
 print(p)
 ```

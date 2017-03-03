@@ -17,6 +17,7 @@ Depends:
     phyloseq
 Imports:
     ade4,
+    Cairo,
     compositions,
     dplyr,
     ggplot2,
@@ -31,13 +32,25 @@ Imports:
 Suggests:
     BiocGenerics,
     BiocStyle,
+    diptest,
     FD,
+    GGally,
+    ggnet,
+    gridExtra,    
     Hmisc,
+    igraph,
+    intergraph,
     knitcitations,
     knitr,
+    limma,
+    lme4,
     magrittr,    
     netresponse,
+    network,
+    RColorBrewer,
     rmarkdown,
+    sna,
+    SpiecEasi,
     testthat
 URL: http://microbiome.github.com
 MailingList: microbiome <microbiome-devel@googlegroups.com>

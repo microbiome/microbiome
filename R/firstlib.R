@@ -145,3 +145,12 @@
     packageStartupMessage("\nmicrobiome R package (microbiome.github.com)
           \n\n\n Copyright (C) 2011-2017 Leo Lahti et al. <microbiome.github.io>\n")
 } 
+
+#As far as I understand the problem, running into this error / limit is
+#_not_ the fault of the user.  Instead, I'd argue that it is the
+#responsibility of package developers to make sure to unregister any
+#registered DLLs of theirs when the package is unloaded.  A developer
+#can do this by adding the following to their package:
+#.onUnload <- function(libpath) {
+#    library.dynam.unload(utils::packageName(), libpath)
+#} 

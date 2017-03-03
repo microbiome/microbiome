@@ -221,7 +221,10 @@ Pick the taxa abundances for a given sample:
 
 ```{r preprocess3gg, warning=FALSE, message=FALSE}
 samplename <- sample_names(pseq)[[1]]
+
+# Two ways to pick abundances for a particular taxon
 tax.abundances <- get_taxa(pseq, samplename)
+tax.abundances2 <- abundances(pseq)[, samplename]
 ```
 
 
@@ -243,7 +246,7 @@ merge_phyloseq(pseqA, pseqB)
 
 ### Rarification
 
-```{r preprocess-rarify, warning=FALSE, message=FALSE}
+```{r preprocess-rarify, warning=FALSE, message=FALSE, eval=FALSE}
 pseq.rarified <- rarefy_even_depth(pseq)
 ```
 

@@ -305,7 +305,10 @@ List unique phylum-level groups:
 Pick the taxa abundances for a given sample:
 
     samplename <- sample_names(pseq)[[1]]
+
+    # Two ways to pick abundances for a particular taxon
     tax.abundances <- get_taxa(pseq, samplename)
+    tax.abundances2 <- abundances(pseq)[, samplename]
 
 ### Merging operations
 

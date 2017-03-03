@@ -62,7 +62,8 @@ bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.h
 
     # Bimodality is better estimated from log10 abundances
     pseq0.log10 <- transform(pseq0, "log10")
-    bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis")
+    set.seed(4433)
+    bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis", bs.iter = 100, detection = 10, min.density = 10)
 
 ### Comparing bimodality and intermediate stability
 
@@ -98,17 +99,19 @@ point candidates.
     # Detect tipping points detection at log10 abundances 
     x <- log10(abundances(pseq)[tax,])
 
-    # Potential analysis to identify potential minima
-    library(earlywarnings)
-    res <- livpotential_ews(x)
+    # Bootstrapped potential analysis to identify potential minima
+    potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]))$minima
+    # Same with earlywarnings package (without bootstrap ie. less robust)
+    # library(earlywarnings)
+    # res <- livpotential_ews(x)$min.points
 
     # Identify the potential minimum location as a tipping point candidate
     # and cast the tipping back to the original (non-log) space:
-    tipping.point <- 10^res$min.points
+    tipping.point <- 10^potential.minima
 
     print(tipping.point)
 
-    ## [1] 0.2705653
+    ## [1] 0.2657916
 
 ### Visualization with variation lineplot and bimodality hotplot
 

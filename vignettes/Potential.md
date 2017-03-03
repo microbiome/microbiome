@@ -32,5 +32,3 @@ Visualize
 
     p <- plot_potential(res$res) + xlab("Age") + ylab("Diversity")
     print(p)
-
-<img src="Potential_files/figure-markdown_strict/movpotential3-1.png" width="300px" />

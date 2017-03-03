@@ -68,8 +68,8 @@ Compare the alternative bimodality scores
 
     # Pick the most and least bimodal taxa as examples
     bimodality <- bimodality.pb
-    unimodal <- names(which.min(bimodality))
-    bimodal  <- names(which.max(bimodality))
+    unimodal  <- names(sort(bimodality))[[1]]
+    bimodal  <- rev(names(sort(bimodality)))[[1]]
 
     # Visualize population frequencies
     library(ggplot2)
@@ -95,17 +95,19 @@ be necessary to establish bistability).
     # Detect tipping points detection at log10 abundances 
     x <- log10(abundances(pseq)[tax,])
 
-    # Potential analysis to identify potential minima
-    library(earlywarnings)
-    res <- livpotential_ews(x)
+    # Bootstrapped potential analysis to identify potential minima
+    potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]))$minima
+    # Same with earlywarnings package (without bootstrap ie. less robust)
+    # library(earlywarnings)
+    # res <- livpotential_ews(x)$min.points
 
     # Identify the potential minimum location as a tipping point candidate
     # and cast the tipping back to the original (non-log) space:
-    tipping.point <- 10^res$min.points
+    tipping.point <- 10^potential.minima
 
     print(tipping.point)
 
-    ## [1] 0.2705653
+    ## [1] 1.087966
 
 Variation lineplot and bimodality hotplot
 -----------------------------------------
