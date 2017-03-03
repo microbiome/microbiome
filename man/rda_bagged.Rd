@@ -45,7 +45,12 @@ Bootstrap aggregation (bagging) is expected to improve the stability of the resu
   x <- abundances(phy) 
   y <- factor(sample_data(phy)$gender);
   names(y) <- rownames(sample_data(phy))
-  res <- rda_bagged(x, y, bs.iter=20)
+
+  # Run Bagged RDA
+  # For any real study, use bs.iter = 100 or higher
+  res <- rda_bagged(x, y, bs.iter=2) 
+
+  # Visualize Bagged RDA
   plot_rda_bagged(res, y)
 
   # Example with phyloseq object
