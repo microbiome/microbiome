@@ -18,11 +18,10 @@ output:
 
 ## Networks
 
-See also the [phyloseq
-tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
+See also the [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
 
 
-Load example data:
+Load [example data](Data.md):
 
 ```{r networks1, message=FALSE, warning=FALSE}
 library(microbiome)
@@ -42,7 +41,7 @@ p <- plot_network(ig, pseq, color = "nationality", shape = "group",
 print(p)		 
 ```
 
-Another example:
+Another example with phyloseq:
 
 ```{r networks3, warning=FALSE, message=FALSE}
 theme_set(theme_bw(30))
@@ -95,7 +94,7 @@ print(plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize))
 ```
 
 
-You could investigate degree distribution with the following:
+Investigate degree distribution with the following:
 
 ```{r degree, warning=FALSE, message=FALSE, fig.width=10, fig.height=7, eval=FALSE}
 dd <- degree.distribution(ig)

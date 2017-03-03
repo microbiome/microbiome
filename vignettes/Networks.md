@@ -10,7 +10,7 @@ Networks
 See also the [phyloseq
 tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
 
-Load example data:
+Load [example data](Data.md):
 
     library(microbiome)
     data(dietswap)
@@ -28,7 +28,7 @@ highlight sample groups:
 
 ![](Networks_files/figure-markdown_strict/networks2-1.png)
 
-Another example:
+Another example with phyloseq:
 
     theme_set(theme_bw(30))
     p <- plot_net(pseq, maxdist = 0.2,
@@ -80,7 +80,7 @@ the execution is slow.
 
     ## NULL
 
-You could investigate degree distribution with the following:
+Investigate degree distribution with the following:
 
     dd <- degree.distribution(ig)
     plot(0:(length(dd)-1), dd, ylim=c(0,.35), type='b', 

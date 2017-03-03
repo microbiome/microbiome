@@ -107,7 +107,7 @@ be necessary to establish bistability).
 
     print(tipping.point)
 
-    ## [1] 1.087966
+    ## [1] 0.9459927
 
 Variation lineplot and bimodality hotplot
 -----------------------------------------

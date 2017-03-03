@@ -62,7 +62,7 @@ article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 <table>
 <thead>
 <tr class="header">
-<th align="left"></th>
+<th></th>
 <th align="right">logFC</th>
 <th align="right">AveExpr</th>
 <th align="right">t</th>
@@ -73,7 +73,7 @@ article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Uncultured Clostridiales II</td>
+<td>Uncultured Clostridiales II</td>
 <td align="right">-0.41</td>
 <td align="right">1.37</td>
 <td align="right">-3.72</td>
@@ -82,7 +82,7 @@ article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 <td align="right">-0.24</td>
 </tr>
 <tr class="even">
-<td align="left">Eubacterium siraeum et rel.</td>
+<td>Eubacterium siraeum et rel.</td>
 <td align="right">-0.34</td>
 <td align="right">1.67</td>
 <td align="right">-3.52</td>
@@ -91,7 +91,7 @@ article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 <td align="right">-0.77</td>
 </tr>
 <tr class="odd">
-<td align="left">Clostridium nexile et rel.</td>
+<td>Clostridium nexile et rel.</td>
 <td align="right">0.18</td>
 <td align="right">2.84</td>
 <td align="right">3.41</td>
@@ -100,7 +100,7 @@ article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 <td align="right">-1.04</td>
 </tr>
 <tr class="even">
-<td align="left">Sutterella wadsworthia et rel.</td>
+<td>Sutterella wadsworthia et rel.</td>
 <td align="right">-0.33</td>
 <td align="right">1.50</td>
 <td align="right">-3.13</td>
@@ -165,7 +165,7 @@ more detailed analyses.
 <table>
 <thead>
 <tr class="header">
-<th align="left"></th>
+<th></th>
 <th align="right">logFC</th>
 <th align="right">AveExpr</th>
 <th align="right">t</th>
@@ -176,7 +176,7 @@ more detailed analyses.
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Bifidobacterium</td>
+<td>Bifidobacterium</td>
 <td align="right">-0.015</td>
 <td align="right">3.701</td>
 <td align="right">-12.507</td>
@@ -185,7 +185,7 @@ more detailed analyses.
 <td align="right">63.548</td>
 </tr>
 <tr class="even">
-<td align="left">Clostridium difficile et rel.</td>
+<td>Clostridium difficile et rel.</td>
 <td align="right">-0.009</td>
 <td align="right">3.229</td>
 <td align="right">-9.890</td>
@@ -194,7 +194,7 @@ more detailed analyses.
 <td align="right">37.203</td>
 </tr>
 <tr class="odd">
-<td align="left">Oscillospira guillermondii et rel.</td>
+<td>Oscillospira guillermondii et rel.</td>
 <td align="right">0.012</td>
 <td align="right">4.535</td>
 <td align="right">9.827</td>
@@ -203,7 +203,7 @@ more detailed analyses.
 <td align="right">36.635</td>
 </tr>
 <tr class="even">
-<td align="left">Bacteroides splachnicus et rel.</td>
+<td>Bacteroides splachnicus et rel.</td>
 <td align="right">0.006</td>
 <td align="right">3.219</td>
 <td align="right">9.551</td>
@@ -212,7 +212,7 @@ more detailed analyses.
 <td align="right">34.167</td>
 </tr>
 <tr class="odd">
-<td align="left">Collinsella</td>
+<td>Collinsella</td>
 <td align="right">-0.009</td>
 <td align="right">2.827</td>
 <td align="right">-9.111</td>
@@ -221,7 +221,7 @@ more detailed analyses.
 <td align="right">30.348</td>
 </tr>
 <tr class="even">
-<td align="left">Tannerella et rel.</td>
+<td>Tannerella et rel.</td>
 <td align="right">0.007</td>
 <td align="right">3.161</td>
 <td align="right">8.975</td>

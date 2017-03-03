@@ -31,7 +31,7 @@ Load the data in R:
 <table>
 <thead>
 <tr class="header">
-<th align="left"></th>
+<th></th>
 <th align="right">Observed</th>
 <th align="right">Shannon</th>
 <th align="right">Simpson</th>
@@ -39,37 +39,37 @@ Load the data in R:
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Sample.1</td>
+<td>Sample.1</td>
 <td align="right">130</td>
 <td align="right">3.189726</td>
 <td align="right">0.9230387</td>
 </tr>
 <tr class="even">
-<td align="left">Sample.2</td>
+<td>Sample.2</td>
 <td align="right">130</td>
 <td align="right">3.396135</td>
 <td align="right">0.9397719</td>
 </tr>
 <tr class="odd">
-<td align="left">Sample.3</td>
+<td>Sample.3</td>
 <td align="right">130</td>
 <td align="right">2.866104</td>
 <td align="right">0.8850959</td>
 </tr>
 <tr class="even">
-<td align="left">Sample.4</td>
+<td>Sample.4</td>
 <td align="right">130</td>
 <td align="right">3.058653</td>
 <td align="right">0.9066459</td>
 </tr>
 <tr class="odd">
-<td align="left">Sample.5</td>
+<td>Sample.5</td>
 <td align="right">130</td>
 <td align="right">3.076850</td>
 <td align="right">0.9184565</td>
 </tr>
 <tr class="even">
-<td align="left">Sample.6</td>
+<td>Sample.6</td>
 <td align="right">130</td>
 <td align="right">2.945709</td>
 <td align="right">0.8966565</td>

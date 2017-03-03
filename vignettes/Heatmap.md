@@ -85,7 +85,7 @@ correlation (n.signif):
 <table>
 <thead>
 <tr class="header">
-<th align="left"></th>
+<th></th>
 <th align="left">X1</th>
 <th align="left">X2</th>
 <th align="right">Correlation</th>
@@ -94,42 +94,42 @@ correlation (n.signif):
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">833</td>
+<td>833</td>
 <td align="left">Ruminococcus gnavus et rel.</td>
 <td align="left">TG(54:5).2</td>
 <td align="right">0.7207818</td>
 <td align="right">0.0017385</td>
 </tr>
 <tr class="even">
-<td align="left">547</td>
+<td>547</td>
 <td align="left">Ruminococcus gnavus et rel.</td>
 <td align="left">TG(52:5)</td>
 <td align="right">0.6996301</td>
 <td align="right">0.0031929</td>
 </tr>
 <tr class="odd">
-<td align="left">141</td>
+<td>141</td>
 <td align="left">Eubacterium cylindroides et rel.</td>
 <td align="left">PC(40:3)</td>
 <td align="right">-0.6771286</td>
 <td align="right">0.0038006</td>
 </tr>
 <tr class="even">
-<td align="left">144</td>
+<td>144</td>
 <td align="left">Helicobacter</td>
 <td align="left">PC(40:3)</td>
 <td align="right">-0.6838424</td>
 <td align="right">0.0038006</td>
 </tr>
 <tr class="odd">
-<td align="left">437</td>
+<td>437</td>
 <td align="left">Ruminococcus gnavus et rel.</td>
 <td align="left">TG(50:4)</td>
 <td align="right">0.6852226</td>
 <td align="right">0.0038006</td>
 </tr>
 <tr class="even">
-<td align="left">525</td>
+<td>525</td>
 <td align="left">Ruminococcus gnavus et rel.</td>
 <td align="left">TG(52:4).1</td>
 <td align="right">0.6716223</td>

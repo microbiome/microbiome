@@ -52,7 +52,7 @@ Melt phyloseq data for easier plotting:
 <table>
 <thead>
 <tr class="header">
-<th align="left"></th>
+<th></th>
 <th align="left">OTU</th>
 <th align="left">Sample</th>
 <th align="right">Abundance</th>
@@ -72,7 +72,7 @@ Melt phyloseq data for easier plotting:
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">113110</td>
+<td>113110</td>
 <td align="left">Prevotella melaninogenica et rel.</td>
 <td align="left">Sample-448</td>
 <td align="right">944002</td>
@@ -90,7 +90,7 @@ Melt phyloseq data for easier plotting:
 <td align="left">Prevotella melaninogenica et rel.</td>
 </tr>
 <tr class="even">
-<td align="left">113015</td>
+<td>113015</td>
 <td align="left">Prevotella melaninogenica et rel.</td>
 <td align="left">Sample-360</td>
 <td align="right">902034</td>
@@ -108,7 +108,7 @@ Melt phyloseq data for easier plotting:
 <td align="left">Prevotella melaninogenica et rel.</td>
 </tr>
 <tr class="odd">
-<td align="left">112747</td>
+<td>112747</td>
 <td align="left">Prevotella melaninogenica et rel.</td>
 <td align="left">Sample-190</td>
 <td align="right">862870</td>
@@ -126,7 +126,7 @@ Melt phyloseq data for easier plotting:
 <td align="left">Prevotella melaninogenica et rel.</td>
 </tr>
 <tr class="even">
-<td align="left">113109</td>
+<td>113109</td>
 <td align="left">Prevotella melaninogenica et rel.</td>
 <td align="left">Sample-743</td>
 <td align="right">852350</td>
@@ -144,7 +144,7 @@ Melt phyloseq data for easier plotting:
 <td align="left">Prevotella melaninogenica et rel.</td>
 </tr>
 <tr class="odd">
-<td align="left">112944</td>
+<td>112944</td>
 <td align="left">Prevotella melaninogenica et rel.</td>
 <td align="left">Sample-366</td>
 <td align="right">851147</td>
@@ -162,7 +162,7 @@ Melt phyloseq data for easier plotting:
 <td align="left">Prevotella melaninogenica et rel.</td>
 </tr>
 <tr class="even">
-<td align="left">113639</td>
+<td>113639</td>
 <td align="left">Prevotella melaninogenica et rel.</td>
 <td align="left">Sample-375</td>
 <td align="right">844482</td>
