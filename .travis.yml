@@ -70,6 +70,8 @@ before_install:
 - chmod 755 ./.push_gh_pages.sh
 - chmod 755 ./.deploy.sh
 - sudo apt-get install -y tcl tk tk-dev
+script:
+- bash ./.push_gh_pages.sh
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-- bash ./.push_gh_pages.sh
+
