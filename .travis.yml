@@ -69,4 +69,4 @@ before_install:
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 #- "./.push_gh_pages.sh"
-- "./.deploy.sh"
+- ./.deploy.sh
