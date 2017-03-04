@@ -4,8 +4,8 @@
 \alias{bimodality}
 \title{Bimodality Analysis}
 \usage{
-bimodality(x, method = "potential_analysis", detection = 1, bw.adjust = 1,
-  bs.iter = 100, min.density = 1, verbose = TRUE)
+bimodality(x, method = "potential_analysis", peak.threshold = 1,
+  bw.adjust = 1, bs.iter = 100, min.density = 1, verbose = TRUE)
 }
 \arguments{
 \item{x}{A vector, matrix, or a phyloseq object}
@@ -13,7 +13,7 @@ bimodality(x, method = "potential_analysis", detection = 1, bw.adjust = 1,
 \item{method}{bimodality quantification method ('potential_analysis'
 or one of the methods in the function \code{\link{bimodality_sarle}})}
 
-\item{detection}{Mode detection}
+\item{peak.threshold}{Mode detection threshold}
 
 \item{bw.adjust}{Bandwidth adjustment}
 
@@ -32,7 +32,7 @@ A list with following elements:
   }
 }
 \description{
-A wrapper to calculate bimodality scores.
+Estimate bimodality scores.
 }
 \details{
 \itemize{

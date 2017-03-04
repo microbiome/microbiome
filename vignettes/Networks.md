@@ -18,22 +18,13 @@ Load [example data](Data.md):
 
 ### Sample similarities
 
-Connect samples with sufficiently similar microbiota composition, and
-highlight sample groups:
-
-    ig <- make_network(pseq, max.dist = 0.2)
-    p <- plot_network(ig, pseq, color = "nationality", shape = "group",
-             line_weight = 0.4, label = "sample")
-    print(p)         
-
-![](Networks_files/figure-markdown_strict/networks2-1.png)
-
-Another example with phyloseq:
+Network with phyloseq tools:
 
     theme_set(theme_bw(30))
     p <- plot_net(pseq, maxdist = 0.2,
-           point_label = "group", color = "nationality") +
-           scale_colour_brewer(palette = "Accent")
+                  shape = "group", color = "nationality",
+              distance = "bray", laymeth = "auto") +
+         scale_colour_brewer(palette = "Accent")
     print(p)         
 
 ![](Networks_files/figure-markdown_strict/networks3-1.png)
@@ -97,6 +88,7 @@ Visualize the network with [ggnet2](https://briatte.github.io/ggnet):
 
     phyla <- map_levels(colnames(otu), from = "Genus", to = "Phylum",
                tax_table(pseq))
+
     netw %v% "Phylum" <- phyla
     p <- ggnet2(netw, color = "Phylum", label = TRUE, label.size = 2)
     print(p)

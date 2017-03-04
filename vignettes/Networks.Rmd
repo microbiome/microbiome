@@ -32,22 +32,14 @@ pseq <- dietswap
 
 ### Sample similarities
 
-Connect samples with sufficiently similar microbiota composition, and highlight sample groups:
-
-```{r networks2, warning=FALSE, message=FALSE}
-ig <- make_network(pseq, max.dist = 0.2)
-p <- plot_network(ig, pseq, color = "nationality", shape = "group",
-		 line_weight = 0.4, label = "sample")
-print(p)		 
-```
-
-Another example with phyloseq:
+Network with phyloseq tools:
 
 ```{r networks3, warning=FALSE, message=FALSE}
 theme_set(theme_bw(30))
 p <- plot_net(pseq, maxdist = 0.2,
-       point_label = "group", color = "nationality") +
-       scale_colour_brewer(palette = "Accent")
+              shape = "group", color = "nationality",
+	      distance = "bray", laymeth = "auto") +
+     scale_colour_brewer(palette = "Accent")
 print(p)		 
 ```
 
@@ -58,7 +50,6 @@ The widely reported compositionality bias in similarity measures can
 be fixed with SpiecEasi or SparCC; the implementations are available
 via the [SpiecEasi package](https://github.com/zdk123/SpiecEasi). Note
 that the execution is slow.
-
 
 ```{r networks4, warning=FALSE, message=FALSE, fig.width=10, fig.height=10}
 library(SpiecEasi) #install_github("zdk123/SpiecEasi")
@@ -115,6 +106,7 @@ library(intergraph) # ggnet2 works also with igraph with this
 
 phyla <- map_levels(colnames(otu), from = "Genus", to = "Phylum",
            tax_table(pseq))
+
 netw %v% "Phylum" <- phyla
 p <- ggnet2(netw, color = "Phylum", label = TRUE, label.size = 2)
 print(p)

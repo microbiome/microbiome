@@ -77,7 +77,7 @@ bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.h
 # Bimodality is better estimated from log10 abundances
 pseq0.log10 <- transform(pseq0, "log10")
 set.seed(4433)
-bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis", bs.iter = 100, detection = 10, min.density = 10)
+bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis", bs.iter = 100, peak.threshold = 10, min.density = 10)
 ```
 
 
