@@ -53,7 +53,6 @@ r_github_packages:
 - zdk123/SpiecEasi
 - briatte/ggnet
 - earlywarningtoolbox/earlywarnings-R/earlywarnings
-
 env:
   global:
   - WARNINGS_ARE_ERRORS=1
@@ -62,14 +61,13 @@ env:
   - GITHUB_REPO: microbiome/microbiome
   - secure: kivwIFvX65gp1xOYQyfdXwr4/FuUFfS27Aqug19K7euNbz8oEuwDiIId+VNBdiTJ+Wyn267gepf/Uc9cqyimvx4d+r2LMveNTBhAfN5cXt3gqEzqszZYwWlTbBojHsz03LMDgzNtEXto98KCB8zaghAP2Zdq42RBjuzGa28F650=
   - secure: kuJcKMx91ikYgbamYDep0b/44kXiHCJU5vn832tVWMm9VEYNqnOtfiWrJinFcwcTNsoVbQvH07xz1VobSFCsGn6bjxxAoM3WLe34+SWp8eWiZ8GQHU4tsVcxCJw+ZTzSS+cLs+JguQs+WCKU/0QOWRY77fUbBQg6v7B0z2Wy8N0=
-
+  - secure: AjY0yW1JIHcSl010o60F/5cI2l1U4RP6Sg7a0rLMByiBKeisH4qY7oDvG0h5X9UH90fE/+iMvYqNZSYgTtZ5VVIm/eEyK7uRJO9JWD+23/dUXuHUosTd3Q7rjaBSls7Cf+5/IHP2DsVUAXrdm9P6ZPya26+eUbFOOvjoHEj1fAk=
+  - secure: fAsQ011j0y31S9VWTj6xxZzs/Y4IbX/z94shMkuCN/NbQDuOfaOw5w+PUUxJXCVq7koJrR8ubaZBW7J9DngWcV+BgJBL4M3E/32orU6qJnmpAO7XuTqEmOlt4evr3NwbzKAsb0DxXsD+tHLtYAbjqR6Qxepe2/u9XOLVXh/a+jE=
 before_install:
 - pip install --user codecov
 - chmod 755 ./.push_gh_pages.sh
 - chmod 755 ./.deploy.sh
 - sudo apt-get install -y tcl tk tk-dev
-
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
-  - bash .push_gh_pages.sh
-  #- bash .deploy.sh
+- bash <(curl -s https://codecov.io/bash)
+- bash .push_gh_pages.sh
