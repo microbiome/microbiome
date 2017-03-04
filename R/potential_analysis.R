@@ -2,7 +2,7 @@
 #' @description Analysis of multimodality based on bootstrapped potential
 #'    analysis of Livina et al. (2010) as described in Lahti et al. (2014).
 #' @param x Input data vector
-#' @param detection Mode detection
+#' @param peak.threshold Mode detection threshold
 #' @param bw.adjust Bandwidth adjustment
 #' @param bs.iter Bootstrap iterations
 #' @param min.density minimum accepted density for a maximum; as a multiple of kernel height
@@ -22,7 +22,7 @@
 #' x <- log10(abundances(peerj32$phyloseq)["Dialister",])
 #'
 #' # Bootstrapped potential analysis
-#' res <- potential_analysis(x, detection = 0, bw.adjust = 1, bs.iter = 100, min.density = 1)
+#' res <- potential_analysis(x, peak.threshold = 0, bw.adjust = 1, bs.iter = 100, min.density = 1)
 #'
 #' @seealso plot_potential
 #' @references
@@ -30,7 +30,7 @@
 #'   \item{}{Livina et al. (2010). Potential analysis reveals changing number of climate states during the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
 #'   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal ecosystem. \emph{Nature Communications} 5:4344.}
 #'  }
-potential_analysis <- function (x, detection = 0, bw.adjust = 1, bs.iter = 100, min.density = 1) {
+potential_analysis <- function (x, peak.threshold = 0, bw.adjust = 1, bs.iter = 100, min.density = 1) {
 
   nmodes <- c()
   minpoints <- list()
@@ -45,7 +45,7 @@ potential_analysis <- function (x, detection = 0, bw.adjust = 1, bs.iter = 100, 
     xbs <- na.omit(unname(x[rs]))
 
     a <- potential_univariate(xbs, grid.size = floor(.2*length(x)), 
-      	 		     detection = detection, 
+      	 		     peak.threshold = peak.threshold, 
 			     bw.adjust = bw.adjust, 
 			     min.density = min.density)
 
@@ -78,10 +78,8 @@ potential_analysis <- function (x, detection = 0, bw.adjust = 1, bs.iter = 100, 
 #' @param x Univariate data (vector) for which the potentials shall be estimated
 #' @param std Standard deviation of the noise (defaults to 1; this will set scaled potentials)
 #' @param bw kernel bandwidth estimation method 
-#' @param weights optional weights in ksdensity (used by
-#' potential_slidingaverages).
+#' @param weights optional weights in ksdensity (used by potential_slidingaverages).
 #' @param grid.size Grid size for potential estimation.
-#' @param detection maximum detection as fraction
 #' of density kernel height dnorm(0, sd = bandwidth)/N
 #' @param bw.adjust The real bandwidth will be bw.adjust*bw; defaults to 1
 #' @param density.smoothing Add a small constant density across the
@@ -91,6 +89,7 @@ potential_analysis <- function (x, detection = 0, bw.adjust = 1, bs.iter = 100, 
 #' by density.smoothing.
 #' @param min.density minimum accepted density for a maximum; as a
 #' multiple of kernel height
+#' @inheritParams potential_analysis
 #' @return \code{potential_univariate} returns a list with the
 #' following elements:
 #'   \itemize{
@@ -114,7 +113,7 @@ potential_analysis <- function (x, detection = 0, bw.adjust = 1, bs.iter = 100, 
 #' @keywords early-warning
 potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
 		     grid.size = NULL, 
-    		     detection = 1, bw.adjust = 1,
+    		     peak.threshold = 1, bw.adjust = 1,
 		     density.smoothing = 0, min.density = 1) {
     
     if (is.null(grid.size)) {
@@ -156,15 +155,15 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
 
     # Note mins and maxs for density given # here (not for potential,
     # which has the opposite signs)
-    ops <- find_optima(f, detection = detection, bw = bw, min.density = min.density)
+    ops <- find_optima(f, peak.threshold = peak.threshold, bw = bw, min.density = min.density)
     min.points <- grid.points[ops$min]
     max.points <- grid.points[ops$max]
-    detection <- ops$detection
+    peak.threshold <- ops$peak.threshold
     
     list(grid.points = grid.points, pot = U, density = f, min.inds = ops$min,
          max.inds = ops$max, bw = bw,
 	 min.points = min.points, max.points = max.points,
-	 detection = detection)
+	 peak.threshold = peak.threshold)
     
 }
 
@@ -174,14 +173,14 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
 
 #' @title Find Optima
 #' @description Detect optima, excluding local optima below
-#'              detection. 
+#'              peak.threshold. 
 #' @param f density
-#' @param detection detection for peaks
 #' @param bw bandwidth
 #' @param min.density Minimun accepted density for a maximum; 
 #'                           as a multiple of kernel height
+#' @inheritParams potential_analysis
 #' @return A list with min (minima), max (maxima), and
-#'         detection.density (minimum detection density)
+#'         peak.threshold (minimum detection density)
 #' @references See citation('microbiome') 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
@@ -190,14 +189,14 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
 #'     o <- find_optima(rnorm(100), bw = 1)
 #'   }
 #' @keywords utilities
-find_optima <- function(f, detection = 0, bw = 1, min.density = 1) {
+find_optima <- function(f, peak.threshold = 0, bw = 1, min.density = 1) {
 
    # FIXME bw is now assumed to be 1. This may be far from
    # optimal. Should be determined automatically.
 
     # multiple of kernel height 
     kernel.height <- dnorm(0, sd = bw) / length(f) 
-    deth <- detection * kernel.height 
+    deth <- peak.threshold * kernel.height 
     detl <- min.density * kernel.height 
     
     # Detect minima and maxima of the density (see Livina et al.) these correspond
@@ -311,7 +310,7 @@ find_optima <- function(f, detection = 0, bw = 1, min.density = 1) {
         maxima <- maxima[!delmaxi]
     }
     
-    list(min = minima, max = maxima, detection.density = deth)
+    list(min = minima, max = maxima, peak.threshold = deth)
     
 }
 
@@ -389,7 +388,6 @@ find_maxima <- function (f) {
 #' @param bw Bandwidth for smoothing kernels. Automatically determined
 #'           by default.
 #' @param bw.adjust Bandwidth adjustment constant
-#' @param detection Threshold for local optima to be discarded.
 #' @param std Standard deviation.
 #' @param grid.size number of evaluation points; number of steps between
 #'           min and max potential; also used as kernel window size
@@ -397,6 +395,7 @@ find_maxima <- function (f) {
 #' @param plot.contours Plot contours on the landscape visualization
 #' @param binwidth binwidth for contour plot
 #' @param bins bins for contour plot. Overrides binwidth if given
+#' @inheritParams potential_analysis
 #' @return A list with the following elements:
 #'   \itemize{
 #'     \item{pars}{values of the covariate parameter as matrix}
@@ -427,7 +426,7 @@ find_maxima <- function (f) {
 #'     }
 #' @keywords utils
 potential_slidingaverage <- function(X, param = NULL, bw = "nrd",
-                                     bw.adjust = 1, detection = 0.1,
+                                     bw.adjust = 1, peak.threshold = 0.1,
 				     std = 1, grid.size = 50,
 				     plot.cutoff = 0.5,
 				     plot.contours = TRUE, binwidth = 0.2, 
