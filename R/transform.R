@@ -9,7 +9,7 @@
 #'               Does not affect the log transform.
 #' @return Transformed \code{\link{phyloseq}} object
 #' @details The relative abunance are returned as percentages in [0,
-#'   100]. The Hellinger transform is square root of the relative
+#'   1]. The Hellinger transform is square root of the relative
 #'   abundance but instead given at the scale [0,1].
 #' @export
 #' @examples
@@ -46,7 +46,7 @@ transform <- function (x, transform = "identity",
 
   if (transform == "compositional") {
     if (target == "OTU") {
-      xt <- transform_sample_counts(x, function (x) {100 * x/sum(x)})
+      xt <- transform_sample_counts(x, function (x) {1 * x/sum(x)})
     } else {
       stop(paste("transform not implemented for transform",
       				     transform, "with target", target))
@@ -137,7 +137,7 @@ ztransform <- function (x, which) {
 
   taxa_are_rows <- y <- NULL
 
-  if (!all(sample(abundances(x), 100)%%1 == 0)) {
+  if (!all(sample(abundances(x), 1)%%1 == 0)) {
     warning("phyloseq object may already have been log transformed - the 
              abundances are not counts:
 	     log10 omitted in Z transform. Perform manually if needed.")

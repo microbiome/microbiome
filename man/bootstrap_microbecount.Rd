@@ -28,7 +28,6 @@ Auxiliary function for bootstrap_microbes.
 }
 \examples{
   \dontrun{
-    library(microbiome)
     data(peerj32)
     tmp <- bootstrap_microbecount(t(peerj32$microbes), bs.iter = 5)
  }

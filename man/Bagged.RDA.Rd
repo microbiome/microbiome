@@ -4,14 +4,14 @@
 \alias{Bagged.RDA}
 \title{Bagged RDA}
 \usage{
-Bagged.RDA(X, Y, boot = 1000)
+Bagged.RDA(X, Y, bs.iter = 100)
 }
 \arguments{
 \item{X}{a matrix, samples on columns, variables (bacteria) on rows.}
 
 \item{Y}{vector with names(Y)=rownames(X), for example}
 
-\item{boot}{Number of bootstrap iterations}
+\item{bs.iter}{Number of bootstrap iterations}
 }
 \value{
 List with elements:
@@ -32,7 +32,7 @@ Bootstrap solutions that follows the Jack-knife estimation of
    x <- as.matrix(peerj32$microbes)[1:20, 1:6]
    y <- rnorm(nrow(x))
    names(y) <- rownames(x)
-   res <- Bagged.RDA(x, y , boot = 5)
+   res <- Bagged.RDA(x, y , bs.iter = 5)
 }
 }
 \author{

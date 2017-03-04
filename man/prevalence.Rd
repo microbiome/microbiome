@@ -14,7 +14,7 @@ prevalence(x, detection = 0, sort = FALSE, count = FALSE)
 \item{sort}{Sort the groups by prevalence}
 
 \item{count}{Logical. Indicate prevalence as fraction of samples
-(in percentage [0, 100]; default); or in absolute counts indicating
+(in percentage [0, 1]; default); or in absolute counts indicating
 the number of samples where the OTU is detected above the given
 abundance threshold.}
 }

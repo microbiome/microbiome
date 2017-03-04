@@ -28,11 +28,11 @@ Coloured bimodality plot.
 }
 \examples{
   data(atlas1006)
-  pseq <- atlas1006
-  pseq <- subset_samples(pseq, DNA_extraction_method == "r")
+  pseq <- transform(atlas1006, "compositional")
+  # Set a tipping point manually
+  tipp <- .3/100 # .3 percent relative abundance
   # Bimodality is often best visible at log10 relative abundances
-  pseq <- transform(transform(pseq, "compositional"), "log10")
-  p <- hotplot(pseq, "Dialister", tipping.point = .3)
+  p <- hotplot(pseq, "Dialister", tipping.point = tipp, log10 = TRUE)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

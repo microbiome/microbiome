@@ -9,11 +9,11 @@
 #' @return \code{\link{ggplot}} object
 #' @examples 
 #'   data(atlas1006)
-#'   pseq <- atlas1006
-#'   pseq <- subset_samples(pseq, DNA_extraction_method == "r")
+#'   pseq <- transform(atlas1006, "compositional")
+#'   # Set a tipping point manually
+#'   tipp <- .3/100 # .3 percent relative abundance
 #'   # Bimodality is often best visible at log10 relative abundances
-#'   pseq <- transform(transform(pseq, "compositional"), "log10")
-#'   p <- hotplot(pseq, "Dialister", tipping.point = .3)
+#'   p <- hotplot(pseq, "Dialister", tipping.point = tipp, log10 = TRUE)
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -48,16 +48,16 @@ hotplot <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1e-3, 
   } else {
     lims <- lims
   }
-  lims[[1]] <- floor(100 * lims[[1]])/100
-  lims[[2]] <- ceiling(100 * lims[[2]])/100
+  lims[[1]] <- floor(1e4 * lims[[1]])/1e4
+  lims[[2]] <- ceiling(1e4 * lims[[2]])/1e4
   lims <- lims + shift
   lim <- max(abs(lims)) 
 
   breaks <- c(seq(floor(min(lims)), ceiling(max(lims)), by = 1))
   names(breaks) <- as.character(10^breaks)
 
-  lims2 <- c(tipping.point - lim - .2,
-             tipping.point + lim + .2)
+  lims2 <- c(tipping.point - lim - .2/100,
+             tipping.point + lim + .2/100)
 
   # Data
   # bquote(paste("Signal (", Log[10], ")", sep = ""))  
@@ -76,6 +76,7 @@ hotplot <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1e-3, 
 	geom_vline(aes(xintercept = tipping.point), linetype = 2, size = 1) +
 	theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
 	scale_x_continuous(breaks = breaks, labels = names(breaks), limits = lims) +
+	#scale_x_log10() + 
 	ggtitle(taxon)
 
   p 

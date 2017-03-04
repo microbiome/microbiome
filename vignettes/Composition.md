@@ -41,7 +41,7 @@ Prevotella as expected. Absolute counts:
 
     # Limit the analysis on core taxa and specific sample group
     pseq2 <- pseq %>%
-               core(detection = 10^4, prevalence = 50) %>%
+               core(detection = 10^4, prevalence = .5) %>%
                subset_samples(group == "DI" & timepoint.within.group == 1)
 
     p <- plot_composition(pseq2,

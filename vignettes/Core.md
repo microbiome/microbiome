@@ -29,23 +29,19 @@ threshold:
 
     head(prevalence(pseq.rel, detection = 1, sort = TRUE))
 
-    ## Roseburia intestinalis et rel.     Eubacterium hallii et rel. 
-    ##                      100.00000                      100.00000 
-    ##     Clostridium nexile et rel.     Ruminococcus obeum et rel. 
-    ##                      100.00000                       97.72727 
-    ##   Coprococcus eutactus et rel.  Ruminococcus lactaris et rel. 
-    ##                       97.72727                       95.45455
+    ##  Yersinia et rel.  Xanthomonadaceae  Wissella et rel.            Vibrio 
+    ##                 0                 0                 0                 0 
+    ## Weissella et rel.       Veillonella 
+    ##                 0                 0
 
 Absolute population frequencies (sample count):
 
     head(prevalence(pseq.rel, detection = 1, sort = TRUE, count = TRUE))
 
-    ## Roseburia intestinalis et rel.     Eubacterium hallii et rel. 
-    ##                             44                             44 
-    ##     Clostridium nexile et rel.     Ruminococcus obeum et rel. 
-    ##                             44                             43 
-    ##   Coprococcus eutactus et rel.  Ruminococcus lactaris et rel. 
-    ##                             43                             42
+    ##  Yersinia et rel.  Xanthomonadaceae  Wissella et rel.            Vibrio 
+    ##                 0                 0                 0                 0 
+    ## Weissella et rel.       Veillonella 
+    ##                 0                 0
 
 ### Core microbiota analysis
 
@@ -64,8 +60,8 @@ it reduces random sampling effects.
 
 A full phyloseq object of the core microbiota is obtained as follows:
 
-    pseq.core <- core(pseq.rel, detection = 1, prevalence = 50)
-    pseq.core.bootstrap <- core(pseq.rel, detection = 1, prevalence = 50, method = "bootstrap", bs.iter = 50)
+    pseq.core <- core(pseq.rel, detection = 0, prevalence = .5)
+    pseq.core.bootstrap <- core(pseq.rel, detection = 0, prevalence = .5, method = "bootstrap", bs.iter = 50)
 
 Retrieving the associated taxa names from the phyloseq object:
 
@@ -76,7 +72,7 @@ Retrieving the associated taxa names from the phyloseq object:
 Total core abundance in each sample (sum of abundances of the core
 members):
 
-    core.abundance <- sample_sums(core(pseq.rel, detection = 1, prevalence = 95))
+    core.abundance <- sample_sums(core(pseq.rel, detection = .01, prevalence = .95))
 
 Core visualization
 ------------------
@@ -90,12 +86,12 @@ based on various signal and prevalences.
 
     # With absolute read counts
     det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000)
-    prevalences <- seq(5, 100, 5)
+    prevalences <- seq(.05, 1, .05)
     p <- plot_core(pseq, prevalences = prevalences, detections = det, plot.type = "lineplot")
     p + xlab("Abundance (OTU read count)")
 
     # With compositional (relative) abundances
-    det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)
+    det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)/100
     p <- plot_core(pseq.rel, prevalences = prevalences, detections = det, plot.type = "lineplot")
     p + xlab("Relative Abundance (%)")
 
@@ -110,8 +106,8 @@ strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/29
 Shetty et al. *FEMS Microbiology Reviews* fuw045, 2017.
 
     # Core with compositionals:
-    prevalences <- seq(5, 100, 5)
-    detections <- 10^seq(log10(1e-3), log10(20), length = 20)
+    prevalences <- seq(.05, 1, .05)
+    detections <- 10^seq(log10(1e-3), log10(.2), length = 20)
 
     # Also define gray color palette
     gray <- gray(seq(0,1,length=5))
@@ -122,13 +118,13 @@ Shetty et al. *FEMS Microbiology Reviews* fuw045, 2017.
 
     # Core with absolute counts and horizontal view:
     # and minimum population prevalence (given as percentage)
-    detections <- 10^seq(log10(1), log10(max(abundances(pseq))/10), length = 20)
+    detections <- 10^seq(log10(.01), log10(max(abundances(pseq))/10), length = 20)
 
     library(RColorBrewer)
     plot_core(pseq, plot.type = "heatmap", 
                  prevalences = prevalences,
                  detections = detections,
              colours = rev(brewer.pal(5, "Spectral")),
-             min.prevalence = 20, horizontal = TRUE)
+             min.prevalence = .2, horizontal = TRUE)
 
 <img src="Core_files/figure-markdown_strict/core-example3-1.png" width="430px" /><img src="Core_files/figure-markdown_strict/core-example3-2.png" width="430px" />

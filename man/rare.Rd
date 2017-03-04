@@ -11,7 +11,7 @@ rare(x, detection, prevalence)
 
 \item{detection}{Detection threshold (non-negative real)}
 
-\item{prevalence}{Prevalence threshold (in [0, 100])}
+\item{prevalence}{Prevalence threshold (in [0, 1])}
 }
 \value{
 Filtered phyloseq object including only rare taxa

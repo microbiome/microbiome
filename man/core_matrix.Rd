@@ -4,12 +4,12 @@
 \alias{core_matrix}
 \title{Core Matrix}
 \usage{
-core_matrix(x, prevalences = seq(5, 100, 5), detections = NULL)
+core_matrix(x, prevalences = seq(0.1, 1, , 1), detections = NULL)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq}} object or a taxa x samples abundance matrix}
 
-\item{prevalences}{a vector of prevalence percentages in [0,100]}
+\item{prevalences}{a vector of prevalence percentages in [0,1]}
 
 \item{detections}{a vector of intensities around the data range}
 }

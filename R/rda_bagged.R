@@ -17,24 +17,12 @@
 #'     \item{data}{data set with non-significant components dropped out}
 #'   }
 #' @examples \dontrun{
-#'   library(microbiome)
-#'
 #'   # Example with abundance matrix
 #'   data(peerj32)
-#'   phy <- peerj32$phyloseq
-#'   x <- abundances(phy) 
-#'   y <- factor(sample_data(phy)$gender);
-#'   names(y) <- rownames(sample_data(phy))
-#' 
-#'   # Run Bagged RDA
-#'   # For any real study, use bs.iter = 100 or higher
-#'   res <- rda_bagged(x, y, bs.iter=2) 
-#' 
-#'   # Visualize Bagged RDA
-#'   plot_rda_bagged(res, y)
+#'   pseq <- peerj32$phyloseq
 #'
 #'   # Example with phyloseq object
-#'   res <- rda_bagged(phy, "gender", bs.iter=20)
+#'   res <- rda_bagged(pseq, "gender", bs.iter=2)
 #'   plot_rda_bagged(res, y)
 #'
 #'  }
@@ -44,7 +32,7 @@
 #' @references See citation("microbiome") 
 #' @author Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-rda_bagged <- function(x, y, bs.iter = 1000, verbose = T){
+rda_bagged <- function(x, y, bs.iter = 100, verbose = T){
 
   if (class(x) == "phyloseq") {
     # Pick OTU matrix and the indicated annotation field
@@ -72,7 +60,7 @@ rda_bagged <- function(x, y, bs.iter = 1000, verbose = T){
   mean.err=rep(1,nrow(x))
   while(stop.run==F){
     boot=replicate(bs.iter,unlist(sapply(class.split,function(x) sample(x,length(x),replace=T))),simplify=F)
-    Bag.res=Bagged.RDA(x,y,boot=boot)
+    Bag.res=Bagged.RDA(x,y,bs.iter=boot)
     min.prob=Bag.res$significance[[1]]
     if (length(levels(y))>2){
       for (i in 1:nrow(x))
@@ -89,7 +77,7 @@ rda_bagged <- function(x, y, bs.iter = 1000, verbose = T){
   dropped[1:length(class.split)]=rownames(x)[order(min.prob)[1:length(class.split)]]
   best.res=which.min(mean.err)
 
-  Bag.res=Bagged.RDA(x.all[dropped[1:best.res],],y,boot=boot)
+  Bag.res=Bagged.RDA(x.all[dropped[1:best.res],],y,bs.iter=boot)
   Bag.res$data=x.all[dropped[1:best.res],]
   Bag.res$Err.selection=mean.err
   Bag.res$dropped=dropped
@@ -113,7 +101,7 @@ rda_bagged <- function(x, y, bs.iter = 1000, verbose = T){
 #'              invariance of latent space by orthogonal procrustes rotations.
 #' @param X a matrix, samples on columns, variables (bacteria) on rows.
 #' @param Y vector with names(Y)=rownames(X), for example
-#' @param boot Number of bootstrap iterations
+#' @inheritParams rda_bagged
 #' @return List with elements:
 #'   \itemize{
 #'     \item{loadings}{bagged loadings}
@@ -126,15 +114,17 @@ rda_bagged <- function(x, y, bs.iter = 1000, verbose = T){
 #'    x <- as.matrix(peerj32$microbes)[1:20, 1:6]
 #'    y <- rnorm(nrow(x))
 #'    names(y) <- rownames(x)
-#'    res <- Bagged.RDA(x, y , boot = 5)
+#'    res <- Bagged.RDA(x, y , bs.iter = 5)
 #' }
 #' @references See citation("microbiome") 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-Bagged.RDA <- function(X, Y, boot = 1000){
+Bagged.RDA <- function(X, Y, bs.iter = 100){
 
   ## Jarkko Salojarvi 7.8.2012
   ##  #17.8.2012 fixed problem with multiclass RDA  
+
+  boot <- bs.iter
 
    if (is.numeric(boot)){
       class.split=split(names(Y),Y)

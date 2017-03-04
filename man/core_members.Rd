@@ -13,7 +13,7 @@ core_members(x, detection = 1, prevalence = 50, method = "standard",
 
 \item{detection}{Detection threshold (non-negative real)}
 
-\item{prevalence}{Prevalence threshold (in [0, 100])}
+\item{prevalence}{Prevalence threshold (in [0, 1])}
 
 \item{method}{Either "standard" or "bootstrap". The standard methods selects
 the taxa that exceed the given detection and prevalence threshold.

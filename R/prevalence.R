@@ -4,7 +4,7 @@
 #' @param detection Detection threshold for absence/presence.
 #' @param sort Sort the groups by prevalence
 #' @param count Logical. Indicate prevalence as fraction of samples
-#' (in percentage [0, 100]; default); or in absolute counts indicating
+#' (in percentage [0, 1]; default); or in absolute counts indicating
 #' the number of samples where the OTU is detected above the given
 #' abundance threshold.
 #' @details For vectors, calculates the fraction (count = FALSE) or
@@ -48,7 +48,7 @@ prevalence <- function (x, detection = 0, sort = FALSE, count = FALSE) {
   } 
 
   if (!count) {
-    prev <- 100 * prev/prevalence_nsamples(x)
+    prev <- 1 * prev/prevalence_nsamples(x)
   }
 
   if (sort) {

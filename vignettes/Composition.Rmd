@@ -54,7 +54,7 @@ Arrange by sample variable. Focus on the core taxa. Africans have more Prevotell
 ```{r composition-example4, fig.width=13, fig.height=5}
 # Limit the analysis on core taxa and specific sample group
 pseq2 <- pseq %>%
-           core(detection = 10^4, prevalence = 50) %>%
+           core(detection = 10^4, prevalence = .5) %>%
            subset_samples(group == "DI" & timepoint.within.group == 1)
 
 p <- plot_composition(pseq2,

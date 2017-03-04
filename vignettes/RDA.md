@@ -17,8 +17,9 @@ Load the package and example data:
 ### Bagged RDA
 
 Bagged RDA provides added robustness in the analysis compared to the
-standard RDA. Fit bagged (bootstrap aggregated) RDA on a phyloseq
-object:
+standard RDA. Fit bagged (bootstrap aggregated) RDA on a phyloseq object
+(alternatively you could apply it to the abundance matrix and covariates
+directly):
 
     # In any real study, use bs.iter = 100 or higher
     # to achieve meaningful benefits from the bagged version.
@@ -76,7 +77,7 @@ Visualize the standard RDA output.
     ## na.action = na.fail)
     ## Permutation test for all constrained eigenvalues
     ## Pseudo-F:     0.6572996 (with 1, 42 Degrees of Freedom)
-    ## Significance:     0.94
+    ## Significance:     0.95
 
 ### RDA with confounding variables
 

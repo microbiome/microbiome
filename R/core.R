@@ -2,7 +2,7 @@
 #' @description Filter the phyloseq object to include only prevalent taxa.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param detection Detection threshold (non-negative real)
-#' @param prevalence Prevalence threshold (in [0, 100])
+#' @param prevalence Prevalence threshold (in [0, 1])
 #' @param method Either "standard" or "bootstrap". The standard methods selects
 #' the taxa that exceed the given detection and prevalence threshold.
 #' The bootstrap method is more robust an described in Salonen et al. (2012).
@@ -25,11 +25,11 @@
 #' @aliases filter_prevalent
 #' @examples
 #'   data(peerj32)
-#'   core(peerj32$phyloseq, 200, 20)
+#'   core(peerj32$phyloseq, 200, .2)
 core <- function (x, detection, prevalence, method = "standard", Nsample = NULL, bs.iter = 1000, I.max = NULL) {
 
   # TODO: add optional renormalization such that the core member
-  # abundances would sum up to 100 ?
+  # abundances would sum up to 1 ?
   taxa <- core_members(x, detection, prevalence, method, Nsample = Nsample, bs.iter = bs.iter, I.max = I.max)
   prune_taxa(taxa, x)
 
@@ -56,7 +56,7 @@ core <- function (x, detection, prevalence, method = "standard", Nsample = NULL,
 #'   data(peerj32)
 #'   # In practice, use bs.iter = 1000 or more
 #'   bs <- core(peerj32$phyloseq, bs.iter = 5,
-#'              prevalence = 50, detection = 0,
+#'              prevalence = .5, detection = 0,
 #'		method = "bootstrap")
 #'   # Not exported:
 #'   # bs <- core_bootstrap(peerj32$phyloseq, bs.iter = 5)
@@ -70,7 +70,7 @@ core <- function (x, detection, prevalence, method = "standard", Nsample = NULL,
 #' @keywords utilities
 core_bootstrap <- function(x,
 	                   Nsample = NULL,
-	                   prevalence = 50,
+	                   prevalence = .5,
 	                   bs.iter = 1000,
 		      	   detection = 0,			   
 			   I.max = NULL){
@@ -78,7 +78,7 @@ core_bootstrap <- function(x,
    # In this function prevalence refers to counts
    # wheras the main function uses percentages
    # Let us convert percentages to counts for compatibility
-   prevalencen <- round((prevalence/100) * ncol(x))
+   prevalencen <- round((prevalence/1) * ncol(x))
 
    # Rename the input variable
    # (must be x in the argument list to follow standard conventions!)
@@ -133,7 +133,6 @@ core_bootstrap <- function(x,
 #' @return median microbe count in bootstrapped cores
 #' @examples
 #'   \dontrun{
-#'     library(microbiome)
 #'     data(peerj32)
 #'     tmp <- bootstrap_microbecount(t(peerj32$microbes), bs.iter = 5)
 #'  }

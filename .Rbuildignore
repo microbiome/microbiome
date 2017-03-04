@@ -30,6 +30,7 @@ vignettes/.RData
 README.Rmd
 .travis.yml
 .push_gh_pages.sh
+.deploy.sh
 
 # Misc
 .*~

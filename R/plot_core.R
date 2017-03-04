@@ -1,7 +1,7 @@
 #' @title Visualize OTU Core
 #' @description Core visualization (2D).
 #' @param x A \code{\link{phyloseq}} object or a core matrix
-#' @param prevalences a vector of prevalence percentages in [0,100]
+#' @param prevalences a vector of prevalence percentages in [0,1]
 #' @param detections a vector of intensities around the data range,
 #'          or a scalar indicating the number of intervals in the data range.
 #' @param plot.type Plot type ('lineplot' or 'heatmap')
@@ -17,7 +17,7 @@
 #'         Finally, the applied parameters are returned.
 #' @examples 
 #'   data(atlas1006)
-#'   p <- plot_core(atlas1006, prevalences = seq(10, 100, 10),
+#'   p <- plot_core(atlas1006, prevalences = seq(0.1, 1, .1),
 #'                        detections = c(0, 10^(0:4)))
 #' @export 
 #' @references 
@@ -28,7 +28,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 plot_core <- function(x, 
-		   prevalences = seq(5, 100, 5), 		   
+		   prevalences = seq(,1, 1, .1), 		   
 		   detections = 20,
 		   plot.type = "lineplot",
 		   colours = gray(seq(0,1,length=5)), 		   
@@ -73,7 +73,7 @@ plot_core <- function(x,
 #' @title Core Matrix 
 #' @description Creates the core matrix.
 #' @param x \code{\link{phyloseq}} object or a taxa x samples abundance matrix
-#' @param prevalences a vector of prevalence percentages in [0,100]
+#' @param prevalences a vector of prevalence percentages in [0,1]
 #' @param detections a vector of intensities around the data range
 #' @return Estimated core microbiota
 #' @examples
@@ -90,7 +90,7 @@ plot_core <- function(x,
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 core_matrix <- function(x,  
-          prevalences = seq(5, 100, 5), 
+          prevalences = seq(.1, 1, ,1), 
           detections = NULL) {
 
     data <- x	  
@@ -179,8 +179,8 @@ core_heatmap <- function(data, detections = 20, colours = gray(seq(0,1,length=5)
     p <- p + scale_x_log10()
 
     p <- p + scale_fill_gradientn("Prevalence", 
-        breaks = seq(from = 0, to = 100, by = 10),
-	colours = colours, limits = c(0, 100))
+        breaks = seq(from = 0, to = 1, by = .1),
+	colours = colours, limits = c(0, 1))
     
     return(list(plot = p, data = df))
     

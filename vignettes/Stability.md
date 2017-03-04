@@ -24,7 +24,7 @@ temporal stability analysis:
     pseq <- pseq %>% subset_samples(DNA_extraction_method == "r")
 
     # Keep prevalent taxa (HITChip signal >3 in >95 percent of the samples)
-    pseq <- core(pseq, detection = 10^3, prevalence = 20)
+    pseq <- core(pseq, detection = 10^3, prevalence = .2)
 
     # Use relative abundances
     pseq <- transform(pseq, "compositional")
@@ -111,7 +111,7 @@ point candidates.
 
     print(tipping.point)
 
-    ## [1] 0.2657916
+    ## [1] 0.002657916
 
 ### Visualization with variation lineplot and bimodality hotplot
 

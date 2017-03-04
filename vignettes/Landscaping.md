@@ -28,7 +28,7 @@ Load example data:
 
     # Pick core taxa with with >10 percent prevalence of the samples
     # at a >1 percent relative abundance min.density
-    pseq.core <- core(pseq.rel, detection = 1, prevalence = 10)
+    pseq.core <- core(pseq.rel, detection = .01, prevalence = .1)
 
 Visualize the microbiome landscape (sample similarities on
 two-dimensional projection):
@@ -85,6 +85,8 @@ Population densities for Dialister:
     # Same with log10 compositionals
     x <- transform(x, "compositional")
     tax <- "Dialister"
-    plot_density(x, tax, log10 = TRUE) + ggtitle("Relative abundance") + xlab("Relative abundance (%)")
+    plot_density(x, tax, log10 = TRUE) +
+      ggtitle("Relative abundance") +
+      xlab("Relative abundance (%)")
 
 <img src="Landscaping_files/figure-markdown_strict/hist-1.png" width="280px" /><img src="Landscaping_files/figure-markdown_strict/hist-2.png" width="280px" /><img src="Landscaping_files/figure-markdown_strict/hist-3.png" width="280px" />

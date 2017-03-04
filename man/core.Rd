@@ -13,7 +13,7 @@ core(x, detection, prevalence, method = "standard", Nsample = NULL,
 
 \item{detection}{Detection threshold (non-negative real)}
 
-\item{prevalence}{Prevalence threshold (in [0, 100])}
+\item{prevalence}{Prevalence threshold (in [0, 1])}
 
 \item{method}{Either "standard" or "bootstrap". The standard methods selects
 the taxa that exceed the given detection and prevalence threshold.
@@ -37,7 +37,7 @@ Filter the phyloseq object to include only prevalent taxa.
 }
 \examples{
   data(peerj32)
-  core(peerj32$phyloseq, 200, 20)
+  core(peerj32$phyloseq, 200, .2)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

@@ -25,7 +25,7 @@ Standard transforms for \code{\link{phyloseq-class}}.
 }
 \details{
 The relative abunance are returned as percentages in [0,
-  100]. The Hellinger transform is square root of the relative
+  1]. The Hellinger transform is square root of the relative
   abundance but instead given at the scale [0,1].
 }
 \examples{

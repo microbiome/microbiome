@@ -13,7 +13,7 @@
 rare <- function (x, detection, prevalence) {
 
   # TODO: add optional renormalization such that the 
-  # abundances would sum up to 100 ?
+  # abundances would sum up to 1 ?
 
   # Core taxa
   cm <- core_members(x, detection, prevalence)

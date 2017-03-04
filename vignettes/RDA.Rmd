@@ -30,7 +30,7 @@ pseq.trans <- transform(pseq, "hell") # Hellinger transform
 
 ### Bagged RDA
 
-Bagged RDA provides added robustness in the analysis compared to the standard RDA. Fit bagged (bootstrap aggregated) RDA on a phyloseq object:
+Bagged RDA provides added robustness in the analysis compared to the standard RDA. Fit bagged (bootstrap aggregated) RDA on a phyloseq object (alternatively you could apply it to the abundance matrix and covariates directly):
 
 ```{r rda5, warning=FALSE, message=FALSE, eval=TRUE}
 # In any real study, use bs.iter = 100 or higher

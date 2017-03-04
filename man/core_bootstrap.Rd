@@ -4,7 +4,7 @@
 \alias{core_bootstrap}
 \title{Bootstrap Analysis of the Core Microbiota}
 \usage{
-core_bootstrap(x, Nsample = NULL, prevalence = 50, bs.iter = 1000,
+core_bootstrap(x, Nsample = NULL, prevalence = 0.5, bs.iter = 1000,
   detection = 0, I.max = NULL)
 }
 \arguments{
@@ -33,7 +33,7 @@ Bootstrap analysis of the core microbiota.
   data(peerj32)
   # In practice, use bs.iter = 1000 or more
   bs <- core(peerj32$phyloseq, bs.iter = 5,
-             prevalence = 50, detection = 0,
+             prevalence = .5, detection = 0,
 	method = "bootstrap")
   # Not exported:
   # bs <- core_bootstrap(peerj32$phyloseq, bs.iter = 5)

@@ -4,7 +4,7 @@
 \alias{rda_bagged}
 \title{Bagged RDA}
 \usage{
-rda_bagged(x, y, bs.iter = 1000, verbose = T)
+rda_bagged(x, y, bs.iter = 100, verbose = T)
 }
 \arguments{
 \item{x}{a matrix, samples on columns, variables (bacteria) on rows. 
@@ -37,24 +37,12 @@ Bootstrap aggregation (bagging) is expected to improve the stability of the resu
 }
 \examples{
 \dontrun{
-  library(microbiome)
-
   # Example with abundance matrix
   data(peerj32)
-  phy <- peerj32$phyloseq
-  x <- abundances(phy) 
-  y <- factor(sample_data(phy)$gender);
-  names(y) <- rownames(sample_data(phy))
-
-  # Run Bagged RDA
-  # For any real study, use bs.iter = 100 or higher
-  res <- rda_bagged(x, y, bs.iter=2) 
-
-  # Visualize Bagged RDA
-  plot_rda_bagged(res, y)
+  pseq <- peerj32$phyloseq
 
   # Example with phyloseq object
-  res <- rda_bagged(phy, "gender", bs.iter=20)
+  res <- rda_bagged(pseq, "gender", bs.iter=2)
   plot_rda_bagged(res, y)
 
  }
