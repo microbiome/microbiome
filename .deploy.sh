@@ -3,6 +3,9 @@
 
 #set -o errexit # put back
 
+GH_REPO="@github.com/microbiome/microbiome.git"
+FULL_REPO="https://$GH_TOKEN$GH_REPO"
+
 rm -rf public
 mkdir public
 
@@ -22,5 +25,5 @@ git commit -a -m "Deploy to Github Pages"
 #git push --force --quiet "https://${GITHUB_TOKEN}@$github.com/${GITHUB_REPO}.git" master:gh-pages > /dev/null 2>&1
 # git push --force --quiet $FULL_REPO master:gh-pages
 #git push --force "https://${GITHUB_TOKEN}@$github.com/${GITHUB_REPO}.git" master:gh-pages #> /dev/null 2>&1
-git push --force "https://${GITHUB_TOKEN}$github/${GITHUB_REPO}.git" master:gh-pages #> /dev/null 2>&1
-
+#git push --force "https://${GITHUB_TOKEN}$github/${GITHUB_REPO}.git" master:gh-pages #> /dev/null 2>&1
+git push --force --quiet $FULL_REPO master:gh-pages
