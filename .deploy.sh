@@ -1,6 +1,7 @@
 #!/bin/bash
 # See https://medium.com/@nthgergo/publishing-gh-pages-with-travis-ci-53a8270e87db
-set -o errexit
+
+#set -o errexit
 
 rm -rf public
 mkdir public
