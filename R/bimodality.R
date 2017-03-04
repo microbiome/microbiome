@@ -1,13 +1,13 @@
 #' @title Bimodality Analysis
-#' @description A wrapper to calculate bimodality scores.
+#' @description Estimate bimodality scores.
 #' @param x A vector, matrix, or a phyloseq object
 #' @param method bimodality quantification method ('potential_analysis'
 #' 	  or one of the methods in the function \code{\link{bimodality_sarle}})
-#' @param detection Mode detection
 #' @param bw.adjust Bandwidth adjustment
 #' @param bs.iter Bootstrap iterations
 #' @param min.density minimum accepted density for a maximum; as a multiple of kernel height
 #' @param verbose Verbose
+#' @inheritParams potential_analysis
 #' @return A list with following elements:
 #'   \itemize{
 #'     \item{score}{Fraction of bootstrap samples where multiple modes are observed}
@@ -43,7 +43,7 @@
 #'  # dip.test(x, simulate.p.value = TRUE, B = 200)$statistic
 #'  # Values less than 0.05 indicate significant deviation from unimodality. 
 #' @keywords utilities
-bimodality <- function (x, method = "potential_analysis", detection = 1, bw.adjust = 1, bs.iter = 100, min.density = 1, verbose = TRUE) {
+bimodality <- function (x, method = "potential_analysis", peak.threshold = 1, bw.adjust = 1, bs.iter = 100, min.density = 1, verbose = TRUE) {
 
   if (is.vector(x)) {
 
@@ -61,7 +61,7 @@ bimodality <- function (x, method = "potential_analysis", detection = 1, bw.adju
 
         # Shift the data. This does not affect mode detection but
 	# avoids errors with nonnegatives.
-        s <- multimodality_score(x, detection, 
+        s <- multimodality(x, peak.threshold, 
       	   		       bw.adjust, bs.iter, 
      			       min.density, verbose)$score
       }
@@ -69,13 +69,13 @@ bimodality <- function (x, method = "potential_analysis", detection = 1, bw.adju
 
   } else if (is.matrix(x)) {
 
-    s <- apply(x, 1, function (xi) {bimodality(xi, method = method, detection = detection, bw.adjust = bw.adjust, bs.iter = bs.iter, min.density = min.density, verbose = verbose)})
+    s <- apply(x, 1, function (xi) {bimodality(xi, method = method, peak.threshold = peak.threshold, bw.adjust = bw.adjust, bs.iter = bs.iter, min.density = min.density, verbose = verbose)})
 
   } else if (class(x) == "phyloseq") {
 
     # Pick the data from phyloseq object
     x <- abundances(x)
-    s <- bimodality(x, method = method, detection = detection, bw.adjust = bw.adjust, bs.iter = bs.iter, min.density = min.density, verbose = verbose)
+    s <- bimodality(x, method = method, peak.threshold = peak.threshold, bw.adjust = bw.adjust, bs.iter = bs.iter, min.density = min.density, verbose = verbose)
 
   }
   
@@ -90,12 +90,12 @@ bimodality <- function (x, method = "potential_analysis", detection = 1, bw.adju
 #' @title Multimodality Score
 #' @description Multimodality score based on bootstrapped potential analysis.
 #' @param x A vector, or data matrix (variables x samples)
-#' @param detection Mode detection
 #' @param bw.adjust Bandwidth adjustment
 #' @param bs.iter Bootstrap iterations
 #' @param min.density minimum accepted density for a maximum;
 #'        as a multiple of kernel height
 #' @param verbose Verbose
+#' @inheritParams potential_analysis
 #' @return A list with following elements: 
 #'   \itemize{
 #'     \item{score}{Fraction of bootstrap samples with multiple observed modes}
@@ -111,7 +111,7 @@ bimodality <- function (x, method = "potential_analysis", detection = 1, bw.adju
 #'   \dontrun{
 #'     # Not exported
 #'     data(peerj32)
-#'     s <- multimodality_score(
+#'     s <- multimodality(
 #'       	    t(peerj32$microbes[, c("Akkermansia", "Dialister")]))
 #'   }
 #' @references
@@ -123,7 +123,7 @@ bimodality <- function (x, method = "potential_analysis", detection = 1, bw.adju
 #'     	       ecosystem. \emph{Nature Communications} 5:4344.}
 #'   }
 #' @keywords utilities
-multimodality_score <- function (x, detection = 1, bw.adjust = 1, bs.iter = 100, min.density = 1, verbose = TRUE) {
+multimodality <- function (x, peak.threshold = 1, bw.adjust = 1, bs.iter = 100, min.density = 1, verbose = TRUE) {
 
   if (is.vector(x)) {
   
@@ -148,8 +148,8 @@ multimodality_score <- function (x, detection = 1, bw.adjust = 1, bs.iter = 100,
 
     for (tax in rownames(x)) {
       if (verbose) { message(tax) }
-      m <- multimodality_score(as.numeric(x[tax, ]),
-      	   		       detection, bw.adjust,
+      m <- multimodality(as.numeric(x[tax, ]),
+      	   		       peak.threshold, bw.adjust,
 			       bs.iter, min.density, verbose)
       nmodes[[tax]] <- m$modes 
       potential.results[[tax]] <- m

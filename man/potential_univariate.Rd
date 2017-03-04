@@ -5,8 +5,8 @@
 \title{Potential Analysis for Univariate Data}
 \usage{
 potential_univariate(x, std = 1, bw = "nrd", weights = c(),
-  grid.size = NULL, detection = 1, bw.adjust = 1, density.smoothing = 0,
-  min.density = 1)
+  grid.size = NULL, peak.threshold = 1, bw.adjust = 1,
+  density.smoothing = 0, min.density = 1)
 }
 \arguments{
 \item{x}{Univariate data (vector) for which the potentials shall be estimated}
@@ -15,13 +15,12 @@ potential_univariate(x, std = 1, bw = "nrd", weights = c(),
 
 \item{bw}{kernel bandwidth estimation method}
 
-\item{weights}{optional weights in ksdensity (used by
-potential_slidingaverages).}
+\item{weights}{optional weights in ksdensity (used by potential_slidingaverages).}
 
-\item{grid.size}{Grid size for potential estimation.}
-
-\item{detection}{maximum detection as fraction
+\item{grid.size}{Grid size for potential estimation.
 of density kernel height dnorm(0, sd = bandwidth)/N}
+
+\item{peak.threshold}{Mode detection threshold}
 
 \item{bw.adjust}{The real bandwidth will be bw.adjust*bw; defaults to 1}
 

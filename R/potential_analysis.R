@@ -9,9 +9,10 @@
 #' @return List with following elements:
 #' \itemize{
 #'   \item{modes}{Number of modes for the input data vector (the most frequent number of modes from bootstrap)}
-#'   \item{modes}{minima: Average of potential minima across the bootstrap samples (for the most frequent number of modes)}
-#'   \item{modes}{maxima: Average of potential maxima across the bootstrap samples (for the most frequent number of modes)}
-#'   \item{modes}{unimodality.support Fraction of bootstrap samples exhibiting unimodality}
+#'   \item{minima}{Average of potential minima across the bootstrap samples (for the most frequent number of modes)}
+#'   \item{maxima}{Average of potential maxima across the bootstrap samples (for the most frequent number of modes)}
+#'   \item{unimodality.support}{Fraction of bootstrap samples exhibiting unimodality}
+#'   \item{bws}{Bandwidths}
 #' }
 #' @export
 #' @examples
@@ -117,11 +118,11 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
 		     density.smoothing = 0, min.density = 1) {
     
     if (is.null(grid.size)) {
-        grid.size <- floor(0.2 * length(x))
+      grid.size <- floor(0.2 * length(x))
     }
     
     # Density estimation
-    tmp = try(de <- density(x, bw = bw, adjust = bw.adjust, 
+    tmp <- try(de <- density(x, bw = bw, adjust = bw.adjust, 
        	  	  kernel = "gaussian", weights = weights, 
         	  window = kernel, n = grid.size, 
 		  from = min(x), to = max(x), 
@@ -158,12 +159,17 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
     ops <- find_optima(f, peak.threshold = peak.threshold, bw = bw, min.density = min.density)
     min.points <- grid.points[ops$min]
     max.points <- grid.points[ops$max]
-    peak.threshold <- ops$peak.threshold
+    peak.threshold2 <- ops$peak.threshold2
     
-    list(grid.points = grid.points, pot = U, density = f, min.inds = ops$min,
-         max.inds = ops$max, bw = bw,
-	 min.points = min.points, max.points = max.points,
-	 peak.threshold = peak.threshold)
+    list(grid.points = grid.points,
+    	 pot = U,
+	 density = f,
+	 min.inds = ops$min,
+         max.inds = ops$max,
+	 bw = bw,
+	 min.points = min.points,
+	 max.points = max.points,
+	 peak.threshold2 = peak.threshold2)
     
 }
 
@@ -172,8 +178,7 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
 
 
 #' @title Find Optima
-#' @description Detect optima, excluding local optima below
-#'              peak.threshold. 
+#' @description Detect optima, excluding local optima below peak.threshold. 
 #' @param f density
 #' @param bw bandwidth
 #' @param min.density Minimun accepted density for a maximum; 
@@ -196,7 +201,7 @@ find_optima <- function(f, peak.threshold = 0, bw = 1, min.density = 1) {
 
     # multiple of kernel height 
     kernel.height <- dnorm(0, sd = bw) / length(f) 
-    deth <- peak.threshold * kernel.height 
+    peak.threshold2 <- peak.threshold * kernel.height 
     detl <- min.density * kernel.height 
     
     # Detect minima and maxima of the density (see Livina et al.) these correspond
@@ -260,7 +265,7 @@ find_optima <- function(f, peak.threshold = 0, bw = 1, min.density = 1) {
             # Smallest difference between this maximum and the closest minima
             diff <- min(c((f[maxima[[j]]] - f[i1]), (f[maxima[[j]]] - f[i2])))
             
-            if (diff < deth) {
+            if (diff < peak.threshold2) {
                 
                 # If difference is below threshold, delete this maximum
                 delmaxi[[j]] <- TRUE
@@ -310,7 +315,7 @@ find_optima <- function(f, peak.threshold = 0, bw = 1, min.density = 1) {
         maxima <- maxima[!delmaxi]
     }
     
-    list(min = minima, max = maxima, peak.threshold = deth)
+    list(min = minima, max = maxima, peak.threshold2 = peak.threshold2)
     
 }
 

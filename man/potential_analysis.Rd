@@ -4,13 +4,13 @@
 \alias{potential_analysis}
 \title{Bootstrapped Potential Analysis}
 \usage{
-potential_analysis(x, detection = 0, bw.adjust = 1, bs.iter = 100,
+potential_analysis(x, peak.threshold = 0, bw.adjust = 1, bs.iter = 100,
   min.density = 1)
 }
 \arguments{
 \item{x}{Input data vector}
 
-\item{detection}{Mode detection}
+\item{peak.threshold}{Mode detection threshold}
 
 \item{bw.adjust}{Bandwidth adjustment}
 
@@ -22,9 +22,10 @@ potential_analysis(x, detection = 0, bw.adjust = 1, bs.iter = 100,
 List with following elements:
 \itemize{
   \item{modes}{Number of modes for the input data vector (the most frequent number of modes from bootstrap)}
-  \item{modes}{minima: Average of potential minima across the bootstrap samples (for the most frequent number of modes)}
-  \item{modes}{maxima: Average of potential maxima across the bootstrap samples (for the most frequent number of modes)}
-  \item{modes}{unimodality.support Fraction of bootstrap samples exhibiting unimodality}
+  \item{minima}{Average of potential minima across the bootstrap samples (for the most frequent number of modes)}
+  \item{maxima}{Average of potential maxima across the bootstrap samples (for the most frequent number of modes)}
+  \item{unimodality.support}{Fraction of bootstrap samples exhibiting unimodality}
+  \item{bws}{Bandwidths}
 }
 }
 \description{
@@ -39,7 +40,7 @@ data(peerj32)
 x <- log10(abundances(peerj32$phyloseq)["Dialister",])
 
 # Bootstrapped potential analysis
-res <- potential_analysis(x, detection = 0, bw.adjust = 1, bs.iter = 100, min.density = 1)
+res <- potential_analysis(x, peak.threshold = 0, bw.adjust = 1, bs.iter = 100, min.density = 1)
 
 }
 \references{

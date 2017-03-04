@@ -4,12 +4,12 @@
 \alias{find_optima}
 \title{Find Optima}
 \usage{
-find_optima(f, detection = 0, bw = 1, min.density = 1)
+find_optima(f, peak.threshold = 0, bw = 1, min.density = 1)
 }
 \arguments{
 \item{f}{density}
 
-\item{detection}{detection for peaks}
+\item{peak.threshold}{Mode detection threshold}
 
 \item{bw}{bandwidth}
 
@@ -18,11 +18,10 @@ as a multiple of kernel height}
 }
 \value{
 A list with min (minima), max (maxima), and
-        detection.density (minimum detection density)
+        peak.threshold (minimum detection density)
 }
 \description{
-Detect optima, excluding local optima below
-             detection.
+Detect optima, excluding local optima below peak.threshold.
 }
 \examples{
   \dontrun{

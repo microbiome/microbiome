@@ -5,7 +5,7 @@
 \title{Moving Average Potential}
 \usage{
 potential_slidingaverage(X, param = NULL, bw = "nrd", bw.adjust = 1,
-  detection = 0.1, std = 1, grid.size = 50, plot.cutoff = 0.5,
+  peak.threshold = 0.1, std = 1, grid.size = 50, plot.cutoff = 0.5,
   plot.contours = TRUE, binwidth = 0.2, bins = NULL)
 }
 \arguments{
@@ -18,7 +18,7 @@ by default.}
 
 \item{bw.adjust}{Bandwidth adjustment constant}
 
-\item{detection}{Threshold for local optima to be discarded.}
+\item{peak.threshold}{Mode detection threshold}
 
 \item{std}{Standard deviation.}
 
