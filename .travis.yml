@@ -56,16 +56,15 @@ r_github_packages:
 env:
   global:
   - WARNINGS_ARE_ERRORS=1
-  - r_build_args: --no-build-vignettes --no-manual --no-resave-data
-  - r_check_args: --no-build-vignettes --no-manual --as-cran
+  - r_build_args: "--no-build-vignettes --no-manual --no-resave-data"
+  - r_check_args: "--no-build-vignettes --no-manual --as-cran"
   - GITHUB_REPO: microbiome/microbiome
   - secure: kivwIFvX65gp1xOYQyfdXwr4/FuUFfS27Aqug19K7euNbz8oEuwDiIId+VNBdiTJ+Wyn267gepf/Uc9cqyimvx4d+r2LMveNTBhAfN5cXt3gqEzqszZYwWlTbBojHsz03LMDgzNtEXto98KCB8zaghAP2Zdq42RBjuzGa28F650=
-
+  - secure: kuJcKMx91ikYgbamYDep0b/44kXiHCJU5vn832tVWMm9VEYNqnOtfiWrJinFcwcTNsoVbQvH07xz1VobSFCsGn6bjxxAoM3WLe34+SWp8eWiZ8GQHU4tsVcxCJw+ZTzSS+cLs+JguQs+WCKU/0QOWRY77fUbBQg6v7B0z2Wy8N0=
 before_install:
 - pip install --user codecov
 - chmod 755 ./.push_gh_pages.sh
 - sudo apt-get install -y tcl tk tk-dev
-
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-- ./.push_gh_pages.sh
+- "./.push_gh_pages.sh"
