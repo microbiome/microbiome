@@ -63,6 +63,7 @@ env:
   - secure: kuJcKMx91ikYgbamYDep0b/44kXiHCJU5vn832tVWMm9VEYNqnOtfiWrJinFcwcTNsoVbQvH07xz1VobSFCsGn6bjxxAoM3WLe34+SWp8eWiZ8GQHU4tsVcxCJw+ZTzSS+cLs+JguQs+WCKU/0QOWRY77fUbBQg6v7B0z2Wy8N0=
   - secure: AjY0yW1JIHcSl010o60F/5cI2l1U4RP6Sg7a0rLMByiBKeisH4qY7oDvG0h5X9UH90fE/+iMvYqNZSYgTtZ5VVIm/eEyK7uRJO9JWD+23/dUXuHUosTd3Q7rjaBSls7Cf+5/IHP2DsVUAXrdm9P6ZPya26+eUbFOOvjoHEj1fAk=
   - secure: fAsQ011j0y31S9VWTj6xxZzs/Y4IbX/z94shMkuCN/NbQDuOfaOw5w+PUUxJXCVq7koJrR8ubaZBW7J9DngWcV+BgJBL4M3E/32orU6qJnmpAO7XuTqEmOlt4evr3NwbzKAsb0DxXsD+tHLtYAbjqR6Qxepe2/u9XOLVXh/a+jE=
+  - secure: k+lk3wfxBDzZZjTgbhDrDTgt3CaKRNkTRnmzF1Wcq1t607qWqIQ02liCAaV6Z6BVqSMiMjMXIDlpW6JixiPUbMtsZL+GAYmZ2G+pIkPY8P6/trW/WQBJb7Y+Q0kQ5IeCFHtL9bpMus7Y7aHRZrmHR2yI8XoQOKU5L3nser9BKOA=
 before_install:
 - pip install --user codecov
 - chmod 755 ./.push_gh_pages.sh
@@ -71,5 +72,3 @@ before_install:
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 - bash .deploy.sh
-#- bash .push_gh_pages.sh
-
