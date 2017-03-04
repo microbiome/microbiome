@@ -70,4 +70,6 @@ before_install:
 - sudo apt-get install -y tcl tk tk-dev
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-- bash .push_gh_pages.sh
+- bash .deploy.sh
+#- bash .push_gh_pages.sh
+
