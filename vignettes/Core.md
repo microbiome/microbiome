@@ -60,12 +60,12 @@ it reduces random sampling effects.
     core.taxa.standard <- core_members(pseq.rel, detection = 5, prevalence = 50,  method = "standard")
 
     # Bootrap method: slower but more robust; takes sampling effects into account
-    core.taxa.bootstrap <- core_members(pseq.rel, detection = 5, prevalence = 50,  method = "bootstrap")
+    core.taxa.bootstrap <- core_members(pseq.rel, detection = 5, prevalence = 50,  method = "bootstrap", bs.iter = 50)
 
 A full phyloseq object of the core microbiota is obtained as follows:
 
     pseq.core <- core(pseq.rel, detection = 1, prevalence = 50)
-    pseq.core.bootstrap <- core(pseq.rel, detection = 1, prevalence = 50, method = "bootstrap")
+    pseq.core.bootstrap <- core(pseq.rel, detection = 1, prevalence = 50, method = "bootstrap", bs.iter = 50)
 
 Retrieving the associated taxa names from the phyloseq object:
 

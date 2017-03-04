@@ -117,6 +117,7 @@ tax <- bimodal
 x <- log10(abundances(pseq)[tax,])
 
 # Bootstrapped potential analysis to identify potential minima
+set.seed(3432)
 potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]))$minima
 # Same with earlywarnings package (without bootstrap ie. less robust)
 # library(earlywarnings)

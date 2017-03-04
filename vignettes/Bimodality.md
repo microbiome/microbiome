@@ -96,6 +96,7 @@ be necessary to establish bistability).
     x <- log10(abundances(pseq)[tax,])
 
     # Bootstrapped potential analysis to identify potential minima
+    set.seed(3432)
     potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]))$minima
     # Same with earlywarnings package (without bootstrap ie. less robust)
     # library(earlywarnings)
@@ -107,7 +108,7 @@ be necessary to establish bistability).
 
     print(tipping.point)
 
-    ## [1] 0.9459927
+    ## [1] 1.049229
 
 Variation lineplot and bimodality hotplot
 -----------------------------------------
