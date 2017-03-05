@@ -19,7 +19,7 @@ FULL_REPO="https://$GH_TOKEN$GH_REPO"
 #SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
 #SHA=`git rev-parse --verify HEAD`
 
-rm -rf public; || exit 0;
+rm -rf public # ; || exit 0;
 mkdir public
 
 # config
