@@ -1,132 +1,166 @@
+---
+title: "Bimodality"
+author: "Leo Lahti"
+date: "2017-03-05"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  rmarkdown::html_vignette
+---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{microbiome tutorial - stability}
   %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}  
 -->
-Bimodality analysis
--------------------
 
-Get example data - [HITChip Atlas of 130 genus-like taxa across 1006
-healthy western
-adults](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html).
-A subset of 76 subjects have also short time series available for
-temporal stability analysis:
 
-    # Load the example data
-    library(microbiome)
-    data(atlas1006)
+## Bimodality analysis
 
-    # Rename the example data
-    pseq <- atlas1006
+Get example data - [HITChip Atlas of 130 genus-like taxa across 1006 healthy western adults](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). A subset of 76 subjects have also short time series available for temporal stability analysis:
 
-    # Focus on specific DNA extraction method
-    pseq <- pseq %>% subset_samples(DNA_extraction_method == "r")
 
-    # Keep prevalent taxa (HITChip signal >3 in >20 percent of the samples)
-    pseq <- core(pseq, detection = 10^3, prevalence = .2)
+```r
+# Load the example data
+library(microbiome)
+data(atlas1006)
 
-    # Use relative abundances
-    pseq <- transform(pseq, "compositional")
+# Rename the example data
+pseq <- atlas1006
 
-    # For cross-sectional analysis, include
-    # only the zero time point:
-    pseq0 <- subset_samples(pseq, time == 0)
+# Focus on specific DNA extraction method
+pseq <- pseq %>% subset_samples(DNA_extraction_method == "r")
+
+# Keep prevalent taxa (HITChip signal >3 in >20 percent of the samples)
+pseq <- core(pseq, detection = 10^3, prevalence = .2)
+
+# Use relative abundances
+pseq <- transform(pseq, "compositional")
+
+# For cross-sectional analysis, include
+# only the zero time point:
+pseq0 <- subset_samples(pseq, time == 0)
+```
+
 
 ### Bimodality indicators
 
-Bimodality of the abundance distribution provides an indirect indicator
-of bistability, although other explanations such as sampling biases etc.
-should be controlled. Multiple bimodality scores are available.
+Bimodality of the abundance distribution provides an indirect
+indicator of bistability, although other explanations such as sampling
+biases etc. should be controlled. Multiple bimodality scores are
+available.
+
 
 Multimodality score using [potential analysis with
 bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
 
-    # Bimodality is better estimated from log10 abundances
-    pseq0.log10 <- transform(pseq0, "log10")
-    bimodality.pb <- bimodality(pseq0.log10, method = "potential_analysis")
+
+
+```r
+# Bimodality is better estimated from log10 abundances
+pseq0.log10 <- transform(pseq0, "log10")
+bimodality.pb <- bimodality(pseq0.log10, method = "potential_analysis")
+```
 
 Sarle's bimodality coefficient:
 
-    bimodality.sarle <- bimodality(pseq0.log10, method = "Sarle.finite.sample")
+
+```r
+bimodality.sarle <- bimodality(pseq0.log10, method = "Sarle.finite.sample")
+```
 
 DIP test is another standard multimodality test, available via the
 [diptest](https://cran.r-project.org/web/packages/diptest/index.html)
 package. Use the 1-p as the score here
 
-    library(diptest)
-    bimodality.dip <- apply(abundances(pseq0.log10), 1, function (x) {1 - unname(dip.test(x)$p.value)})
+
+```r
+library(diptest)
+bimodality.dip <- apply(abundances(pseq0.log10), 1, function (x) {1 - unname(dip.test(x)$p.value)})
+```
 
 Compare the alternative bimodality scores
 
-    b <- cbind(DIP = bimodality.dip, Potential = bimodality.pb, Sarle = bimodality.sarle)
-    pairs(b)
 
-<img src="Bimodality_files/figure-markdown_strict/bimodalitycomp-1.png" width="400px" />
+```r
+b <- cbind(DIP = bimodality.dip, Potential = bimodality.pb, Sarle = bimodality.sarle)
+pairs(b)
+```
+
+<img src="figure/bimodalitycomp-1.png" title="plot of chunk bimodalitycomp" alt="plot of chunk bimodalitycomp" width="400px" />
+
 
 ### Visualize population densities for unimodal and bimodal groups
 
-    # Pick the most and least bimodal taxa as examples
-    bimodality <- bimodality.pb
-    unimodal  <- names(sort(bimodality))[[1]]
-    bimodal  <- rev(names(sort(bimodality)))[[1]]
 
-    # Visualize population frequencies
-    library(ggplot2)
-    theme_set(theme_bw(20))
-    p1 <- plot_density(pseq, variable = unimodal, log10 = TRUE) 
-    p2 <- plot_density(pseq, variable = bimodal,  log10 = TRUE) 
-    library(gridExtra)
-    library(ggplot2)
-    grid.arrange(p1, p2, nrow = 1)
+```r
+# Pick the most and least bimodal taxa as examples
+bimodality <- bimodality.pb
+unimodal  <- names(sort(bimodality))[[1]]
+bimodal  <- rev(names(sort(bimodality)))[[1]]
 
-<img src="Bimodality_files/figure-markdown_strict/stability2-1.png" width="500px" />
+# Visualize population frequencies
+library(ggplot2)
+theme_set(theme_bw(20))
+p1 <- plot_density(pseq, variable = unimodal, log10 = TRUE) 
+p2 <- plot_density(pseq, variable = bimodal,  log10 = TRUE) 
+library(gridExtra)
+library(ggplot2)
+grid.arrange(p1, p2, nrow = 1)
+```
 
-Tipping point detection
------------------------
+<img src="figure/stability2-1.png" title="plot of chunk stability2" alt="plot of chunk stability2" width="500px" />
+
+
+## Tipping point detection
 
 Identify potential minima in cross-section population data as tipping
-point candidates (note that [longitudinal analysis](Stability.md) would
-be necessary to establish bistability).
+point candidates (note that [longitudinal analysis](Stability.md)
+would be necessary to establish bistability).
 
-    # Log10 abundance for a selected taxonomic group
-    tax <- bimodal
 
-    # Detect tipping points detection at log10 abundances 
-    x <- log10(abundances(pseq)[tax,])
+```r
+# Log10 abundance for a selected taxonomic group
+tax <- bimodal
 
-    # Bootstrapped potential analysis to identify potential minima
-    set.seed(3432)
-    potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]))$minima
-    # Same with earlywarnings package (without bootstrap ie. less robust)
-    # library(earlywarnings)
-    # res <- livpotential_ews(x)$min.points
+# Detect tipping points detection at log10 abundances 
+x <- log10(abundances(pseq)[tax,])
 
-    # Identify the potential minimum location as a tipping point candidate
-    # and cast the tipping back to the original (non-log) space:
-    tipping.point <- 10^potential.minima
+# Bootstrapped potential analysis to identify potential minima
+set.seed(3432)
+potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]))$minima
+# Same with earlywarnings package (without bootstrap ie. less robust)
+# library(earlywarnings)
+# res <- livpotential_ews(x)$min.points
 
-    print(tipping.point)
+# Identify the potential minimum location as a tipping point candidate
+# and cast the tipping back to the original (non-log) space:
+tipping.point <- 10^potential.minima
 
-    ## [1] 0.01049229
+print(tipping.point)
+```
 
-Variation lineplot and bimodality hotplot
------------------------------------------
+```
+## [1] 0.01049229
+```
 
-Pick subset of the [HITChip Atlas data
-set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance
-variation lineplot (**Variation tip plot**) and **Bimodality hotplot**
-for a given taxon as in [Lahti et al.
-2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html).
-The bi-stable Dialister has bimodal population distribution and reduced
-temporal stability within subjects at intermediate abundances.
 
-    # Bimodality hotplot:
-    # Consider a unique sample from each subject: the baseline time point 
-    p <- hotplot(pseq0, tax, tipping.point = tipping.point)
-    print(p)
+## Variation lineplot and bimodality hotplot
 
-    pv <- tipplot(pseq, tax, tipping.point = tipping.point)
-    print(pv)
+Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation lineplot (**Variation tip plot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). The bi-stable Dialister has bimodal population distribution and reduced temporal stability within subjects at intermediate abundances.
 
-<img src="Bimodality_files/figure-markdown_strict/stability-variationplot-1.png" width="430px" /><img src="Bimodality_files/figure-markdown_strict/stability-variationplot-2.png" width="430px" />
+
+```r
+# Bimodality hotplot:
+# Consider a unique sample from each subject: the baseline time point 
+p <- hotplot(pseq0, tax, tipping.point = tipping.point)
+print(p)
+
+pv <- tipplot(pseq, tax, tipping.point = tipping.point)
+print(pv)
+```
+
+<img src="figure/stability-variationplot-1.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" /><img src="figure/stability-variationplot-2.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" />
+
+
