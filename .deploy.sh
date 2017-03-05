@@ -28,15 +28,19 @@ git config --global user.name "Travis CI"
 cd public
 git init
 
-#cp ../vignettes/vignette.html index.html
-#cp ../vignettes/*.html .
-#cp ../inst/doc/*.html .
-ls ../vignettes > index.html
+# Create vignettes
+#ls ../vignettes > index.html
+ls ../ > filelist
+ls ../../ > filelist2
+which R > Rpath
+R CMD BATCH ../vignettes/build.R
+# Then copy the newly created vignettes here
+cp ../inst/doc/*.html .
+
+# Add to git and deploy
 git add *.html
 git commit -a -m "Deploy to Github Pages"
 git push --force --quiet $FULL_REPO master:gh-pages # > /dev/null 2>&1
-
-
 
 
 # build (CHANGE THIS)
@@ -46,19 +50,14 @@ git push --force --quiet $FULL_REPO master:gh-pages # > /dev/null 2>&1
 #}
 # Run our compile script -> Add this to a suitable place
 # doCompile
-
+#
 # Add
 #for files in '*.tar.gz'; do
 #        tar xfz $files
 #done
-#cp ../microbiome/inst/doc/vignette.html index.html
-#cp ../microbiome/vignettes/vignette.html index.html
-# Add when index works
-#for files in '../microbiome/inst/doc/*.html'; do
 #for files in '../microbiome/vignettes/*.html'; do    
 #        cp $files .
 #done
 
-#touch index.html
 
 
