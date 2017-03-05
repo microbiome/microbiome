@@ -24,23 +24,23 @@ mkdir public
 git config --global user.email "nobody@nobody.org"
 git config --global user.name "Travis CI"
 
+#for files in '*.tar.gz'; do
+#        tar xfz $files
+#done
+gunzip *.tar.gz
+
 # Deploy
 cd public
 git init
 
 # Create vignettes
-#ls ../vignettes > index.html
-ls ../ > filelist
-ls ../../ > filelist2
-
-R CMD BATCH ../vignettes/build.R
 # Then copy the newly created vignettes here
-cp ../inst/doc/*.html .
+# R CMD BATCH ../vignettes/build.R
+#cp ../inst/doc/*.html .
+cp ../microbiome/inst/doc/*.html .
 
 # Add to git and deploy
 git add *.html
-git add filelist
-git add filelist2
 git commit -a -m "Deploy to Github Pages"
 git push --force --quiet $FULL_REPO $SOURCE_BRANCH:$TARGET_BRANCH # > /dev/null 2>&1
 #git push --force --quiet $FULL_REPO master:gh-pages # > /dev/null 2>&1
@@ -54,10 +54,7 @@ git push --force --quiet $FULL_REPO $SOURCE_BRANCH:$TARGET_BRANCH # > /dev/null 
 # Run our compile script -> Add this to a suitable place
 # doCompile
 #
-# Add
-#for files in '*.tar.gz'; do
-#        tar xfz $files
-#done
+
 #for files in '../microbiome/vignettes/*.html'; do    
 #        cp $files .
 #done
