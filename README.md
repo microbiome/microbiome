@@ -17,7 +17,7 @@ feedback, suggestions and bug reports are welcome.
 
 ### Installation and use
 
-See the package [vignette](vignettes/index.md).
+See the package [vignette](http://microbiome.github.io/microbiome/).
 
 
 ### Contribute
