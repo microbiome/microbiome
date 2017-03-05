@@ -52,7 +52,7 @@ for files in '../microbiome/vignettes/*.html'; do
 done
 
 #touch index.html
-ls ../ > index.html
+ls ../vignettes > index.html
 git add *.html
 git commit -a -m "Deploy to Github Pages"
 git push --force --quiet $FULL_REPO master:gh-pages # > /dev/null 2>&1
