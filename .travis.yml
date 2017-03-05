@@ -67,10 +67,9 @@ env:
   - secure: GpUHYiQUCehmvdQ+779pt9pO2qVoTGa2pheRqfEl0pEhJTlMG1Qy0e/k5qlPGFOAD7IEkUBrcBHuHX54nsuHtEOOK/yTxJQK3XFcoI27lUUlAq52qM4jNqdT9tSzSn3ElQJYK22Hhs8GvXpsdAmlZFSDeMB0MuRoKCGZxmAeW60=
 before_install:
 - pip install --user codecov
-- chmod 755 ./.push_gh_pages.sh
 - chmod 755 ./.deploy.sh
 - sudo apt-get install -y tcl tk tk-dev
-script:
+script: # later try to move this to after success
 - bash ./.deploy.sh
 after_success:
 - bash <(curl -s https://codecov.io/bash)
