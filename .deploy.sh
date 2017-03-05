@@ -4,6 +4,9 @@
 #set -o errexit # put back
 #SOURCE_BRANCH="master"
 #TARGET_BRANCH="gh-pages"
+
+# Save some useful information
+#SHA=`git rev-parse --verify HEAD`
 GH_REPO="@github.com/microbiome/microbiome.git"
 FULL_REPO="https://$GH_TOKEN$GH_REPO"
 
@@ -14,17 +17,25 @@ FULL_REPO="https://$GH_TOKEN$GH_REPO"
 #    exit 0
 #fi
 
-# Save some useful information
-#REPO=`git config remote.origin.url`
-#SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
-#SHA=`git rev-parse --verify HEAD`
-
 rm -rf public # ; || exit 0;
 mkdir public
 
 # config
 git config --global user.email "nobody@nobody.org"
 git config --global user.name "Travis CI"
+
+# Deploy
+cd public
+git init
+
+cp ../vignettes/*.html .
+cp ../vignettes/vignette.html index.html
+git add *.html
+git commit -a -m "Deploy to Github Pages"
+git push --force --quiet $FULL_REPO master:gh-pages # > /dev/null 2>&1
+
+
+
 
 # build (CHANGE THIS)
 # Can add separate vignette build here later
@@ -38,21 +49,14 @@ git config --global user.name "Travis CI"
 #for files in '*.tar.gz'; do
 #        tar xfz $files
 #done
-
-# Deploy
-cd public
-git init
-
 #cp ../microbiome/inst/doc/vignette.html index.html
 #cp ../microbiome/vignettes/vignette.html index.html
 # Add when index works
 #for files in '../microbiome/inst/doc/*.html'; do
-for files in '../microbiome/vignettes/*.html'; do    
-        cp $files .
-done
+#for files in '../microbiome/vignettes/*.html'; do    
+#        cp $files .
+#done
 
 #touch index.html
-ls ../vignettes > index.html
-git add *.html
-git commit -a -m "Deploy to Github Pages"
-git push --force --quiet $FULL_REPO master:gh-pages # > /dev/null 2>&1
+
+
