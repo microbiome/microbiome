@@ -36,7 +36,6 @@ git init
 # Create vignettes
 # Then copy the newly created vignettes here
 # R CMD BATCH ../vignettes/build.R
-#cp ../inst/doc/*.html .
 cp ../microbiome/inst/doc/*.html .
 ls ../microbiome/ > files2.txt
 ls ../ > files3.txt
