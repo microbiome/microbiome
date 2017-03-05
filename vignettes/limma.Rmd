@@ -119,7 +119,7 @@ sizes. Note that no confounding variables taken into account in this
 wrapper. See the [limma homepage](http://bioinf.wehi.edu.au/limma/)
 for more detailed analyses.
 
-```{r limma-lm-phyloseq2, warning=FALSE}
+```{r limma-lm-phyloseq2, warning=FALSE, eval=FALSE}
 data(atlas1006)
 source(system.file("extdata/lm_phyloseq.R", package = "microbiome"))
 tab <- lm_phyloseq(atlas1006, "age")

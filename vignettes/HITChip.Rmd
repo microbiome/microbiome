@@ -66,7 +66,7 @@ taxonomy.full <- HITChipDB::read_hitchip(data.directory, method = "frpa")$taxono
 
 Convert your own data into phyloseq format as follows:
 
-```{r pseqconversion2, eval = FALSE}
+```{r pseqconversion2, eval=FALSE}
 # We need to choose the HITChip data level to be used in the analyses
 # In this example use HITChip L2 data (note: this is in absolute scale)
 res <- read_hitchip(method = "frpa", data.dir = data.directory)
