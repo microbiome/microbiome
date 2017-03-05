@@ -35,16 +35,16 @@ git config --global user.name "Travis CI"
 # doCompile
 
 # Add
-for files in '*.tar.gz'; do
-        tar xfz $files
-done
+#for files in '*.tar.gz'; do
+#        tar xfz $files
+#done
 
 # Deploy
 cd public
 git init
 
 #cp ../microbiome/inst/doc/vignette.html index.html
-cp ../microbiome/vignettes/vignette.html index.html
+#cp ../microbiome/vignettes/vignette.html index.html
 # Add when index works
 #for files in '../microbiome/inst/doc/*.html'; do
 for files in '../microbiome/vignettes/*.html'; do    
@@ -52,6 +52,7 @@ for files in '../microbiome/vignettes/*.html'; do
 done
 
 #touch index.html
+ls ../ > index.html
 git add *.html
 git commit -a -m "Deploy to Github Pages"
 git push --force --quiet $FULL_REPO master:gh-pages # > /dev/null 2>&1
