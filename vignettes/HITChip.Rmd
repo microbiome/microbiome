@@ -18,7 +18,7 @@ output:
 
 ## HITChip and other phylogenetic microarrays
 
-  * [Extracting data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
+  * [Extracting data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/index./index.md)
   * [Probe level studies (phylogenetic microarrays)](Probelevel.md)
 
 

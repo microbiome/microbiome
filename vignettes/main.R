@@ -20,15 +20,15 @@ load_all()
 #library(microbiome)
 
 #library(rmarkdown)
-#rmarkdown::render("vignette.Rmd")
+#rmarkdown::render("index.Rmd")
 #rmarkdown::render("Template.Rmd")
 #rmarkdown::render("Atlas.Rmd", "all")
 
-#render("vignette.Rmd", "html_document")
-#rmarkdown::render("vignette.Rmd", "all")
+#render("index.Rmd", "html_document")
+#rmarkdown::render("index.Rmd", "all")
 library(knitr)
 library(knitcitations)
-#knit("vignette.Rmd")
+#knit("index.Rmd")
 #library(knitr)
 #knit("Atlas.Rmd")
 
@@ -41,7 +41,7 @@ library(knitr)
 #fs <- "Profiling.Rmd"
 #fs <- "RDA.Rmd"
 #fs <- "SQL.Rmd"
-#fs <- "vignette.Rmd"
+#fs <- "index.Rmd"
 fs <- sample(list.files(pattern = ".Rmd$"))
 knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
 times <- c()
@@ -52,7 +52,7 @@ for (myfile in fs) {
     rmarkdown::render(myfile, "all")    
 }
 
-# Time per vignette page
+# Time per index.page
 par(mar = c(2, 10, 1, 1)); barplot(sort(times), horiz = T, las = 2)
 
 system("git add *.md")

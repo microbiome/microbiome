@@ -91,7 +91,7 @@ Once the package has been installed, load it in R (also to test successful insta
 library(microbiome)  
 ```
 
-See further usage examples in [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
+See further usage examples in [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/index./index.md)
 
 
 

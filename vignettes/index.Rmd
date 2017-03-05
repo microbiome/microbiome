@@ -1,5 +1,5 @@
 ---
-title: "microbiome vignette"
+title: "Introduction to microbiome analysis in R"
 author: "Leo Lahti et al."
 date: "`r Sys.Date()`"
 bibliography: 

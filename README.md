@@ -17,7 +17,7 @@ feedback, suggestions and bug reports are welcome.
 
 ### Installation and use
 
-See the package [vignette](vignettes/vignette.md).
+See the package [vignette](vignettes/index.md).
 
 
 ### Contribute

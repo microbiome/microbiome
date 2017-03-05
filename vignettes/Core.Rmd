@@ -6,7 +6,7 @@ bibliography:
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  rmarkdown::html_document
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
