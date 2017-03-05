@@ -58,7 +58,11 @@ extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 * [Community comparisons](Comparisons.md) ([limma](limma.md), [PERMANOVA](PERMANOVA.md), [mixed models](Mixedmodels.md), [negative binomial](Negativebinomial.md)  etc)
 * [Experimental tools](Experimental.md)
 
+### Development
 
+New examples and tutorial pages from the user community are welcome:
+
+* [Contributing](Contributing.md)
 
 
 ### Licensing and Citations

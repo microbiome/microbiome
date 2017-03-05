@@ -27,6 +27,12 @@ For individual taxa, diversity indicators etc.
  * [Linear mixed effect models](Mixedmodels.Rmd) 
  * [Negative binomial test](Negativebinomial.md) 
 
+Other methods, not implemented here (see [Weiss et al. (2017)](http://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-017-0237-y) for a recent survey):
+
+ * [ANCOM](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4450248/); claimed to outperform ZIGs
+ * [Zero-inflated Gaussians (ZIGs)](https://www.ncbi.nlm.nih.gov/pubmed/24076764/) (see [metagenomeSeq](https://bioconductor.org/packages/release/bioc/html/metagenomeSeq.html) Bioconductor package)
+ * [DESeq2]() and other advanced methods based on negative binomial
+
 
 ### Multivariate comparisons
 
@@ -36,7 +42,3 @@ For community-level multivariate comparisons
  * [PERMANOVA](PERMANOVA.md)
 
 
-### Other methods, not implemented here
-
- * [ANCOM](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4450248/); claimed to outperform ZIGs
- * [Zero-inflated Gaussians (ZIGs)](https://www.ncbi.nlm.nih.gov/pubmed/24076764/) (see metagenomeSeq Bioconductor package)

@@ -20,7 +20,6 @@ output:
 
 See also the [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
 
-
 Load [example data](Data.md):
 
 
@@ -37,7 +36,7 @@ Network with phyloseq tools:
 
 
 ```r
-theme_set(theme_bw(30))
+theme_set(theme_bw(20))
 p <- plot_net(pseq, maxdist = 0.2,
               shape = "group", color = "nationality",
 	      distance = "bray", laymeth = "auto") +
@@ -60,6 +59,7 @@ that the execution is slow.
 library(SpiecEasi) #install_github("zdk123/SpiecEasi")
 library(phyloseq)
 
+# Pick the OTU table
 otu <- t(abundances(pseq))
 
 # SPIEC-EASI network reconstruction
