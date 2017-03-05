@@ -28,8 +28,8 @@ git config --global user.name "Travis CI"
 cd public
 git init
 
-cp ../vignettes/*.html .
 cp ../vignettes/vignette.html index.html
+cp ../vignettes/*.html .
 git add *.html
 git commit -a -m "Deploy to Github Pages"
 git push --force --quiet $FULL_REPO master:gh-pages # > /dev/null 2>&1
