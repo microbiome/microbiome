@@ -1,7 +1,5 @@
 ---
 title: "HITChip Atlas"
-author: "Leo Lahti, Willem M de Vos et al."
-date: "`r Sys.Date()`"
 bibliography: 
 - bibliography.bib
 - references.bib

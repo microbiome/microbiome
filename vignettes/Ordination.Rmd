@@ -1,7 +1,5 @@
 ---
-title: "Ordination"
-author: "Leo Lahti"
-date: "`r Sys.Date()`"
+title: "Ordination analysis"
 bibliography: 
 - bibliography.bib
 - references.bib

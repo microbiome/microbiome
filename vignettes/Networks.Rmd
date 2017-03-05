@@ -1,7 +1,5 @@
 ---
-title: "Networks"
-author: "Leo Lahti"
-date: "`r Sys.Date()`"
+title: "Taxonomic network visualization"
 bibliography: 
 - bibliography.bib
 - references.bib

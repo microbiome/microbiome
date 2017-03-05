@@ -1,7 +1,6 @@
 ---
 title: "Introduction to microbiome analysis in R"
-author: "Leo Lahti et al."
-date: "`r Sys.Date()`"
+author: "Leo Lahti et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
 - references.bib

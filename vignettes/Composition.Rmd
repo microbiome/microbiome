@@ -1,7 +1,5 @@
 ---
-title: "Composition"
-author: "Leo Lahti"
-date: "`r Sys.Date()`"
+title: "Microbiome composition"
 bibliography: 
 - bibliography.bib
 - references.bib

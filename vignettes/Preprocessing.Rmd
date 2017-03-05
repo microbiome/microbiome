@@ -1,5 +1,5 @@
 ---
-title: "Preprocessing"
+title: "Preprocessing of taxonomic profiling data"
 bibliography: 
 - bibliography.bib
 - references.bib

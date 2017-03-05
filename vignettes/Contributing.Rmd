@@ -1,7 +1,5 @@
 ---
-title: "Contributing"
-author: "Leo Lahti"
-date: "`r Sys.Date()`"
+title: "How to contribute?"
 bibliography: 
 - bibliography.bib
 - references.bib

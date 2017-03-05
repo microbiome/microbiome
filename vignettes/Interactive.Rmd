@@ -1,7 +1,5 @@
 ---
-title: "Interactive"
-author: "Leo Lahti"
-date: "`r Sys.Date()`"
+title: "Interactive examples"
 bibliography: 
 - bibliography.bib
 - references.bib

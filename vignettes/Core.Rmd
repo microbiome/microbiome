@@ -1,7 +1,5 @@
 ---
-title: "Core"
-author: "Leo Lahti"
-date: "`r Sys.Date()`"
+title: "Core microbiome"
 bibliography: 
 - bibliography.bib
 - references.bib

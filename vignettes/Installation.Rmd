@@ -1,7 +1,5 @@
 ---
-title: "Installation"
-author: "Leo Lahti"
-date: "`r Sys.Date()`"
+title: "Installation of microbiome R tools"
 bibliography: 
 - bibliography.bib
 - references.bib

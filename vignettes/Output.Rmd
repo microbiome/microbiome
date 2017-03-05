@@ -1,7 +1,5 @@
 ---
-title: "Output"
-author: "Leo Lahti"
-date: "`r Sys.Date()`"
+title: "Generating output files"
 bibliography: 
 - bibliography.bib
 - references.bib

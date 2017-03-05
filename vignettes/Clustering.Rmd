@@ -1,7 +1,5 @@
 ---
-title: "Clustering"
-author: "Leo Lahti"
-date: "`r Sys.Date()`"
+title: "Cluster analysis"
 bibliography: 
 - bibliography.bib
 - references.bib

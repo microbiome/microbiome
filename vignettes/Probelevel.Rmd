@@ -1,7 +1,5 @@
 ---
-title: "Probe"
-author: "Leo Lahti"
-date: "`r Sys.Date()`"
+title: "Probe-level analysis for phylogenetic microarrays"
 bibliography: 
 - bibliography.bib
 - references.bib

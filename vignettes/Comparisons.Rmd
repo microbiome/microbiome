@@ -1,7 +1,5 @@
 ---
-title: "Comparisons"
-author: "Leo Lahti"
-date: "`r Sys.Date()`"
+title: "Community comparisons"
 bibliography: 
 - bibliography.bib
 - references.bib

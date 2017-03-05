@@ -1,7 +1,5 @@
 ---
-title: "HITChip"
-author: "Leo Lahti"
-date: "`r Sys.Date()`"
+title: "HITChip tools"
 bibliography: 
 - bibliography.bib
 - references.bib
