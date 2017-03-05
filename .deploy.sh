@@ -43,14 +43,14 @@ for files in '*.tar.gz'; do
         tar xfz $files
 done
 #cp ../microbiome/inst/doc/vignette.html index.html
-cp ../microbiome/vignettes/vignette.html index.html
+cp microbiome/vignettes/vignette.html index.html
 # Add when index works
 #for files in '../microbiome/inst/doc/*.html'; do
-for files in '../microbiome/vignettes/*.html'; do    
+for files in 'microbiome/vignettes/*.html'; do    
         cp $files .
 done
 
-touch index.html
+#touch index.html
 git add *.html
 git commit -a -m "Deploy to Github Pages"
 git push --force --quiet $FULL_REPO master:gh-pages # > /dev/null 2>&1
