@@ -68,7 +68,10 @@ before_install:
 - pip install --user codecov
 - chmod 755 ./.deploy.sh
 - sudo apt-get install -y tcl tk tk-dev
-#script: # later try to move this to after success
+#script:
+#
 after_success:
 - bash <(curl -s https://codecov.io/bash)
+#- bash ./.push_to_master # Not ready: sync successful devel to master
 - bash ./.deploy.sh
+
