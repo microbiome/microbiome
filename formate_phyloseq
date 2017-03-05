@@ -1,0 +1,74 @@
+#' Formatting the phyloseq object 
+#'
+#' @param phyloseqobject
+#' @return
+#' @examples
+#' format_phyloseq(phyloseqobject, tax.level)
+#' format_phyloseq(phyloseqobject, tax.level= c("Genus" or "Species"))
+#' originally 4315787 "Ruminococcaceae"    "g__"                "s__"
+#' Formatted 4315787 "Ruminococcaceae"    "f__Ruminococcaceae_4315787" "f__Ruminococcaceae_4315787"
+
+
+format_phyloseq <- function(pseq_object, tax.level){
+pobj <- pseq_object;
+  if(tax.level == "Genus"){
+    colnames(tax_table(pobj)) = c("Domain", "Phylum", "Class", "Order", "Family", "Genus");
+    x <- as.data.frame(pobj@tax_table);
+    x$Domain <- gsub("k__", "", x$Domain);
+    x$Phylum <- gsub("p__", "", x$Phylum);
+    x$Phylum <- gsub("c__", "", x$Phylum);
+    x$Class <- gsub("c__", "", x$Class);
+    x$Order <- gsub("o__", "", x$Order);
+    x$Family <- gsub("f__", "", x$Family);
+    x$Genus <- gsub("g__", "", x$Genus);
+    tax <- mutate(x, Domain, Domain = ifelse(Domain == "", "Unclassified", Domain)) %>%
+      mutate(Phylum, Phylum = ifelse(Phylum == "", paste("k__", Domain, "_", rownames(x), sep = ""), Phylum)) %>%
+      mutate(Class, Class = ifelse(Class == "", ifelse(grepl("__", Phylum), Phylum, paste("c__", Phylum, "_", rownames(x), sep = "")), Class)) %>%
+      mutate(Order, Order = ifelse(Order == "", ifelse(grepl("__", Class), Class, paste("c__", Class, "_", rownames(x), sep = "")), Order)) %>%
+      mutate(Family, Family = ifelse(Family == "", ifelse(grepl("__", Order), Order, paste("o__", Order, "_", rownames(x), sep = "")), Family)) %>%
+      mutate(Genus, Genus = ifelse(Genus == "", ifelse(grepl("__", Family), Family, paste("f__", Family, "_", rownames(x), sep = "")), Genus));
+    me <- as.data.frame(pobj@tax_table);
+    me$Domain <- tax$Domain;
+    me$Phylum <- tax$Phylum;
+    me$Class <- tax$Class;
+    me$Order <- tax$Order;
+    me$Family <- tax$Family;
+    me$Genus <- tax$Genus;
+    taxmat<-as.matrix(me);
+    new.tax <- tax_table(taxmat);
+    tax_table(pobj) <- new.tax;
+	return(pobj)
+	}
+	else if (tax.level == "Species") {
+	pobj2 <- pseq_object
+    colnames(tax_table(pobj2)) = c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species");
+    x <- as.data.frame(pobj2@tax_table);
+    x$Domain <- gsub("k__", "", x$Domain);
+    x$Phylum <- gsub("p__", "", x$Phylum);
+    x$Phylum <- gsub("c__", "", x$Phylum);
+    x$Class <- gsub("c__", "", x$Class);
+    x$Order <- gsub("o__", "", x$Order);
+    x$Family <- gsub("f__", "", x$Family);
+    x$Genus <- gsub("g__", "", x$Genus);
+    x$Species <- gsub("s__", "", x$Species);
+    tax <- mutate(x, Domain, Domain = ifelse(Domain == "", "Unclassified", Domain)) %>%
+      mutate(Phylum, Phylum = ifelse(Phylum == "", paste("k__", Domain, "_", rownames(x), sep = ""), Phylum)) %>%
+      mutate(Class, Class = ifelse(Class == "", ifelse(grepl("__", Phylum), Phylum, paste("c__", Phylum, "_", rownames(x), sep = "")), Class)) %>%
+      mutate(Order, Order = ifelse(Order == "", ifelse(grepl("__", Class), Class, paste("c__", Class, "_", rownames(x), sep = "")), Order)) %>%
+      mutate(Family, Family = ifelse(Family == "", ifelse(grepl("__", Order), Order, paste("o__", Order, "_", rownames(x), sep = "")), Family)) %>%
+      mutate(Genus, Genus = ifelse(Genus == "", ifelse(grepl("__", Family), Family, paste("f__", Family, "_", rownames(x), sep = "")), Genus)) %>%
+      mutate(Species, Species = ifelse(Species == "", ifelse(grepl("__", Genus), Genus, paste("f__", Genus, "_", rownames(x), sep = "")), Species));
+    me <- as.data.frame(pobj2@tax_table);
+    me$Domain <- tax$Domain;
+    me$Phylum <- tax$Phylum;
+    me$Class <- tax$Class;
+    me$Order <- tax$Order;
+    me$Family <- tax$Family;
+    me$Genus <- tax$Genus;
+    me$Species <- tax$Species;
+    taxmat<-as.matrix(me);
+    new.tax <- tax_table(taxmat);
+    tax_table(pobj2) <- new.tax
+    }
+	return(pobj2)
+}
