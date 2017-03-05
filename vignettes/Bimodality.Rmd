@@ -106,7 +106,7 @@ grid.arrange(p1, p2, nrow = 1)
 ## Tipping point detection
 
 Identify potential minima in cross-section population data as tipping
-point candidates (note that [longitudinal analysis](Stability.md)
+point candidates (note that [longitudinal analysis](Stability.html)
 would be necessary to establish bistability).
 
 ```{r stability-tipping, message=FALSE, warning=FALSE}

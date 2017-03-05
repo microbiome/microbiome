@@ -62,7 +62,7 @@ intermediate.stability <- intermediate_stability(pseq, output = "scores")
 
 ### Bimodality quantification
 
-Check the [bimodality page](Bimodality.md) for more examples on bimodality indicators.
+Check the [bimodality page](Bimodality.html) for more examples on bimodality indicators.
 
 Bimodality of the abundance distribution provides another (indirect)
 indicator of bistability, although other explanations such as sampling

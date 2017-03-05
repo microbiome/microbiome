@@ -24,8 +24,8 @@ A number of methods for microbiota community comparisons have been proposed. For
 
 For individual taxa, diversity indicators etc.
 
- * [Linear mixed effect models](Mixedmodels.Rmd) 
- * [Negative binomial test](Negativebinomial.md) 
+ * [Linear mixed effect models](Mixedmodels..html) 
+ * [Negative binomial test](Negativebinomial.html) 
 
 Other methods, not implemented here (see [Weiss et al. (2017)](http://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-017-0237-y) for a recent survey):
 
@@ -38,7 +38,7 @@ Other methods, not implemented here (see [Weiss et al. (2017)](http://microbiome
 
 For community-level multivariate comparisons
 
- * [Multivariate linear models (limma)](limma.md)
- * [PERMANOVA](PERMANOVA.md)
+ * [Multivariate linear models (limma)](limma.html)
+ * [PERMANOVA](PERMANOVA.html)
 
 

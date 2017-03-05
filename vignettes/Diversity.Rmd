@@ -18,7 +18,7 @@ output:
 
 ## Alpha richness and diversity
 
-See a separate page on [Beta diversity](Betadiversity.md).
+See a separate page on [Beta diversity](Betadiversity.html).
 
 Load example data:
 
@@ -52,7 +52,7 @@ p <- ggplot(diversity, aes(x = Shannon)) + geom_histogram()
 print(p)
 ```
 
-Visualize diversity measures w.r.t. discrete variable (or check more generic [group-wise comparison tools](Comparisons.md))
+Visualize diversity measures w.r.t. discrete variable (or check more generic [group-wise comparison tools](Comparisons.html))
 
 ```{r div-example2bb, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
 p <- plot_diversity(pseq, "bmi_group", measures = c("Chao1", "Shannon"), indicate.subjects = FALSE)

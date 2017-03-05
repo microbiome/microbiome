@@ -20,7 +20,7 @@ output:
 
 Miscellaneous analysis examples in case they might be useful:
 
-* [Clustering](Clustering.md)
-* [Interactive](Interactive.md)
-* [Phylogenetic microarrays](HITChip.Rmd)
+* [Clustering](Clustering.html)
+* [Interactive](Interactive.html)
+* [Phylogenetic microarrays](HITChip..html)
 

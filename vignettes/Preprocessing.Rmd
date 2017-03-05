@@ -1,7 +1,5 @@
 ---
 title: "Preprocessing"
-author: "Leo Lahti"
-date: "`r Sys.Date()`"
 bibliography: 
 - bibliography.bib
 - references.bib

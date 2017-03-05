@@ -36,41 +36,41 @@ extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 
 ### Getting started
 
-* [Installation](Template.md) 
-* [Example data](Data.md)
-* [Data manipulation](Preprocessing.md)
+* [Installation](Template.html) 
+* [Example data](Data.html)
+* [Data manipulation](Preprocessing.html)
 
 
 ### Microbiome analysis
 
-* [Alpha diversity](Diversity.md)
-* [Beta diversity / Community heterogeneity](Betadiversity.md)
-* [Community composition](Composition.md)
-* [Core microbiota](Core.md)
-* [Landscapes](Landscaping.md) (population density analysis)
-* [Stability and tipping elements](Stability.md)
+* [Alpha diversity](Diversity.html)
+* [Beta diversity / Community heterogeneity](Betadiversity.html)
+* [Community composition](Composition.html)
+* [Core microbiota](Core.html)
+* [Landscapes](Landscaping.html) (population density analysis)
+* [Stability and tipping elements](Stability.html)
 
 
 ### Visualization and related tools
 
-* [Heatmaps](Heatmap.md)
-* [Networks](Networks.md)
-* [Ordination](Ordination.md) (PCA, PCoA, NMDS, RDA etc.)
-* [Regression](Regression.md)
+* [Heatmaps](Heatmap.html)
+* [Networks](Networks.html)
+* [Ordination](Ordination.html) (PCA, PCoA, NMDS, RDA etc.)
+* [Regression](Regression.html)
 
 
 ### Statistical analysis
 
-* [Bimodality](Bimodality.md)
-* [Potential analysis](Potential.md)
-* [Community comparisons](Comparisons.md) ([limma](limma.md), [PERMANOVA](PERMANOVA.md), [mixed models](Mixedmodels.md), [negative binomial](Negativebinomial.md)  etc)
-* [Experimental tools](Experimental.md)
+* [Bimodality](Bimodality.html)
+* [Potential analysis](Potential.html)
+* [Community comparisons](Comparisons.html) ([limma](limma.html), [PERMANOVA](PERMANOVA.html), [mixed models](Mixedmodels.html), [negative binomial](Negativebinomial.html)  etc)
+* [Experimental tools](Experimental.html)
 
 ### Development
 
 New examples and tutorial pages from the user community are welcome:
 
-* [Contributing](Contributing.md)
+* [Contributing](Contributing.html)
 
 
 ### Licensing and Citations

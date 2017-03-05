@@ -18,7 +18,7 @@ output:
 
 ## Ordination examples
 
-Full examples for standard ordination techniques applied to phyloseq data, based on the [phyloseq ordination tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). For handy wrappers for some common ordination tasks in microbiome analysis, see [landscaping examples](Landscaping.md)
+Full examples for standard ordination techniques applied to phyloseq data, based on the [phyloseq ordination tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). For handy wrappers for some common ordination tasks in microbiome analysis, see [landscaping examples](Landscaping.html)
 
 
 Load example data:
@@ -112,7 +112,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
 
 ### RDA
 
-See a separate page on [RDA](RDA.md).
+See a separate page on [RDA](RDA.html).
 
 
 

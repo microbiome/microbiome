@@ -32,13 +32,15 @@ git init
 #ls ../vignettes > index.html
 ls ../ > filelist
 ls ../../ > filelist2
-which R > Rpath
+
 R CMD BATCH ../vignettes/build.R
 # Then copy the newly created vignettes here
 cp ../inst/doc/*.html .
 
 # Add to git and deploy
 git add *.html
+git add filelist
+git add filelist2
 git commit -a -m "Deploy to Github Pages"
 git push --force --quiet $FULL_REPO master:gh-pages # > /dev/null 2>&1
 
