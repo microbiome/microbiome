@@ -27,7 +27,7 @@ git config --global user.name "Travis CI"
 #for files in '*.tar.gz'; do
 #        tar xfz $files
 #done
-gunzip *.tar.gz
+tar -zxvf *.tar.gz
 
 # Deploy
 cd public
@@ -38,19 +38,15 @@ git init
 # R CMD BATCH ../vignettes/build.R
 #cp ../inst/doc/*.html .
 cp ../microbiome/inst/doc/*.html .
-ls ../microbiome/inst/doc/ > files.txt
 ls ../microbiome/ > files2.txt
 ls ../ > files3.txt
 
 # Add to git and deploy
 git add *.html
-git add files.txt
-git add files2.txt
-git add files3.txt
+git add files*.txt
 git commit -a -m "Deploy to Github Pages"
 git push --force --quiet $FULL_REPO $SOURCE_BRANCH:$TARGET_BRANCH # > /dev/null 2>&1
 #git push --force --quiet $FULL_REPO master:gh-pages # > /dev/null 2>&1
-
 
 # build (CHANGE THIS)
 # Can add separate vignette build here later
