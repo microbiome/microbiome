@@ -8,7 +8,7 @@ inst/extras/travis-tool.sh
 inst/extras
 inst/extras/*.tar.gz
 inst/win-install*
-inst/doc
+# inst/doc
 
 # R folder
 R/.RData

@@ -24,10 +24,15 @@ that this package is **not needed by most users** and the data is
 protected by password/IP combinations. Ask details from
 admins. Install the package in R with:
 
+```{r HITChipDBinstalltest, message=FALSE, warning=FALSE, eval=TRUE}
+library(microbiome)
+```
+
 
 ```{r HITChipDBinstall, message=FALSE, warning=FALSE, eval=FALSE}
 # Install additional dependencies
 source("http://www.bioconductor.org/biocLite.R")
+
 biocLite("DBI")
 biocLite("RPA")
 biocLite("svDialogs")
