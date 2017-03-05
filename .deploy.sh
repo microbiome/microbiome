@@ -2,8 +2,8 @@
 # See https://medium.com/@nthgergo/publishing-gh-pages-with-travis-ci-53a8270e87db
 
 #set -o errexit # put back
-#SOURCE_BRANCH="master"
-#TARGET_BRANCH="gh-pages"
+SOURCE_BRANCH="master"
+TARGET_BRANCH="gh-pages"
 
 # Save some useful information
 #SHA=`git rev-parse --verify HEAD`
@@ -42,7 +42,8 @@ git add *.html
 git add filelist
 git add filelist2
 git commit -a -m "Deploy to Github Pages"
-git push --force --quiet $FULL_REPO master:gh-pages # > /dev/null 2>&1
+git push --force --quiet $FULL_REPO $SOURCE_BRANCH:$TARGET_BRANCH # > /dev/null 2>&1
+#git push --force --quiet $FULL_REPO master:gh-pages # > /dev/null 2>&1
 
 
 # build (CHANGE THIS)
