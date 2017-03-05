@@ -34,19 +34,20 @@ git config --global user.name "Travis CI"
 # Run our compile script -> Add this to a suitable place
 # doCompile
 
-# Deploy
-cd public
-git init
-
 # Add
 for files in '*.tar.gz'; do
         tar xfz $files
 done
+
+# Deploy
+cd public
+git init
+
 #cp ../microbiome/inst/doc/vignette.html index.html
-cp microbiome/vignettes/vignette.html index.html
+cp ../microbiome/vignettes/vignette.html index.html
 # Add when index works
 #for files in '../microbiome/inst/doc/*.html'; do
-for files in 'microbiome/vignettes/*.html'; do    
+for files in '../microbiome/vignettes/*.html'; do    
         cp $files .
 done
 
