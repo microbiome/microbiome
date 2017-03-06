@@ -15,30 +15,30 @@ output:
 
 
 
-## Beta diversity (microbiome heterogeneity)
+## Beta diversity (microbiome divergence)
 
 Load example data
 
-```{r heterogeneity-example2, message=FALSE}
+```{r divergence-example2, message=FALSE}
 library(microbiome)
 data(peerj32)
 pseq <- peerj32$phyloseq
 ```
 
-### Quantifying group heterogeneity / spread 
+### Quantifying group divergence / spread 
 
-Beta diversity within a given sample set can be quantified as the average dissimilarity of each sample from the group mean. This was applied in group-level comparisons for instance in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) (they focused on homogeneity using inverse correlation, whereas here we focus on heterogeneity using correlation but the measure is essentially the same). 
+Beta diversity within a given sample set can be quantified as the average dissimilarity of each sample from the group mean. This was applied in group-level comparisons for instance in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) (they focused on homogeneity using inverse correlation, whereas here we focus on divergence using correlation but the measure is essentially the same). 
 
 Calculate group diversities within the LGG (probiotic) and Placebo groups
 
-```{r heterogeneity-example2bb, message=FALSE}
+```{r divergence-example2bb, message=FALSE}
 b.pla <- group_diversity(subset_samples(pseq, group == "Placebo"))
 b.lgg <- group_diversity(subset_samples(pseq, group == "LGG"))
 ```
 
-Use these to compare microbiota heterogeneity within each group. The LGG group tends to have smaller values, indicating that the samples are more similar to the group mean, and the LGG group is less heterogeneous (has smaller spread / is more homogeneous):
+Use these to compare microbiota divergence within each group. The LGG group tends to have smaller values, indicating that the samples are more similar to the group mean, and the LGG group is less heterogeneous (has smaller spread / is more homogeneous):
 
-```{r heterogeneity-example2bbb, message=FALSE, out.width="300px"}
+```{r divergence-example2bbb, message=FALSE, out.width="300px"}
 boxplot(list(LGG = b.lgg, Placebo = b.pla))
 ```
 
@@ -46,7 +46,7 @@ The **inter- and intra-invididual stability** (or homogeneity) measures are obta
 
 
 
-### Intra-individual heterogeneity 
+### Intra-individual divergence 
 
 Quantify beta diversity within subjects over time (as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) for intra-individual stability)
 
