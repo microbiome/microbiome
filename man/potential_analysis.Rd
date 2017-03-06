@@ -52,4 +52,3 @@ res <- potential_analysis(x, peak.threshold = 0, bw.adjust = 1, bs.iter = 100, m
 \seealso{
 plot_potential
 }
-

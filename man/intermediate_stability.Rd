@@ -58,4 +58,3 @@ trick to circumvent logarithmization of zeroes.
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \keyword{utilities}
-

@@ -41,11 +41,10 @@ rda_bagged output visualization.
   plot_rda_bagged(res)
  }
 }
-\author{
-Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}
-}
 \references{
 See citation("microbiome")
 }
+\author{
+Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}
+}
 \keyword{utilities}
-

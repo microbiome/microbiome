@@ -46,4 +46,3 @@ Plot abundance density across samples for a given taxon.
   p <- plot_density(pseq.rel, variable = "Dialister") + scale_x_log10()
 }
 \keyword{utilities}
-

@@ -35,4 +35,3 @@ Borrowed from \pkg{phyloseq} package as needed here and not exported there.
 # chunk_reorder(LETTERS, "g") 
 }
 \keyword{internal}
-

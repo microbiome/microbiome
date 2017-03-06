@@ -24,11 +24,10 @@ Arranges the samples by time and picks the first sample for each subject. Compar
   data(atlas1006)
   a <- baseline(atlas1006)
 }
-\author{
-Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
-}
 \references{
 See citation("microbiome")
 }
+\author{
+Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
+}
 \keyword{utilities}
-

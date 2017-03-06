@@ -16,4 +16,3 @@ Adapted from \pkg{NeatMap} and \pkg{phyloseq} packages
   only calculates theta and omits r.
 }
 \keyword{internal}
-

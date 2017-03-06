@@ -58,9 +58,6 @@ This function reconstructs a potential derived from data
     res <- potential_slidingaverage(X, param)
     }
 }
-\author{
-Leo Lahti, adapted from original Matlab code by Egbert van Nes.
-}
 \references{
 \itemize{
   \item{}{Hirota, M., Holmgren, M., van Nes, E.H. & Scheffer, M. (2011).
@@ -73,5 +70,7 @@ Leo Lahti, adapted from original Matlab code by Egbert van Nes.
 \seealso{
 \code{potential_univariate}
 }
+\author{
+Leo Lahti, adapted from original Matlab code by Egbert van Nes.
+}
 \keyword{utils}
-

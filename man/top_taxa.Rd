@@ -21,4 +21,3 @@ Return n most abundant taxa (based on total abundance over all samples), sorted 
   data(dietswap)
   topx <- top_taxa(dietswap, n = 10)
 }
-

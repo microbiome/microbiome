@@ -38,9 +38,6 @@ Bootstrap analysis of the core microbiota.
   # Not exported:
   # bs <- core_bootstrap(peerj32$phyloseq, bs.iter = 5)
 }
-\author{
-Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}
-}
 \references{
 The core microbiota bootstrap method implemented with this function:
 Salonen A, Salojarvi J, Lahti L, de Vos WM. The adult intestinal
@@ -48,5 +45,7 @@ core microbiota is determined by analysis depth and health
 status. Clinical Microbiology and Infection 18(S4):16-20, 2012
 To cite this R package, see citation("microbiome")
 }
+\author{
+Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}
+}
 \keyword{utilities}
-

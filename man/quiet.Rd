@@ -20,4 +20,3 @@ Suppress all output from an expression. Works cross-platform.
 From https://gist.github.com/daattali/6ab55aee6b50e8929d89
 }
 \keyword{internal}
-

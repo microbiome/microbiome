@@ -24,11 +24,10 @@ Arrange correlation matrices from associate into a table format.
   cc <- associate(d1, d2, mode = 'matrix', method = "pearson")
   cmat <- associate(d1, d2, mode = 'table', method = "spearman")
 }
-\author{
-Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
-}
 \references{
 See citation('microbiome')
 }
+\author{
+Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
+}
 \keyword{utilities}
-

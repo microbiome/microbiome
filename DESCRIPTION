@@ -57,4 +57,4 @@ MailingList: microbiome <microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues
 VignetteBuilder: knitr
 Packaged: 2014-09-14 14:19:39 UTC; lei
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

@@ -41,4 +41,3 @@ The directionality of change in paired boxplot is indicated by the colors of the
       	  		    line = "subject", color = "gender")
 }
 \keyword{utilities}
-
