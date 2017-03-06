@@ -19,6 +19,7 @@ function doCompile {
   Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
   mkdir -p out
   cp -R ./docs ./public/
+  #  ./compile.sh
 }
 
 
@@ -56,11 +57,10 @@ git push --force --quiet $FULL_REPO $SOURCE_BRANCH:$TARGET_BRANCH # > /dev/null 
 
 # --------------------------------
 
-# R CMD BATCH ../vignettes/build.R
-#function doCompile {
-#  ./compile.sh
-#}
-# doCompile
+
+
+
+
 #
 #for files in '../microbiome/vignettes/*.html'; do
 #        cp $files .
