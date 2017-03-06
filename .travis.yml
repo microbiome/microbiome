@@ -28,6 +28,7 @@ r_packages:
 - mixOmics
 - moments
 - network
+- pkgdown
 - plyr
 - prettydoc
 - qvalue
@@ -69,6 +70,7 @@ before_install:
 - pip install --user codecov
 - chmod 755 ./.deploy.sh
 - sudo apt-get install -y tcl tk tk-dev
+- sudo apt-get install -y libmagick++-dev
 #script:
 #
 after_success:

@@ -1,7 +1,8 @@
 #!/bin/bash
 # See https://medium.com/@nthgergo/publishing-gh-pages-with-travis-ci-53a8270e87db
 
-#set -o errexit # put back
+set -e # Exit with nonzero exit code if anything fails
+
 SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
@@ -9,6 +10,17 @@ TARGET_BRANCH="gh-pages"
 #SHA=`git rev-parse --verify HEAD`
 GH_REPO="@github.com/microbiome/microbiome.git"
 FULL_REPO="https://$GH_TOKEN$GH_REPO"
+
+
+function doCompile {
+  # run pkgdown, put results in 'docs' directory,i
+  # and don't paste the results of the examples
+  # then copy the whole thing to `out`
+  Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
+  mkdir -p out
+  cp -R ./docs ./public/
+}
+
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
 if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "$SOURCE_BRANCH" ]; then
@@ -25,6 +37,9 @@ git config --global user.name "Travis CI"
 
 # Unzip the newly created R package 
 tar -zxvf *.tar.gz
+
+# Run our compile script
+doCompile
 
 # Deploy
 cd public
