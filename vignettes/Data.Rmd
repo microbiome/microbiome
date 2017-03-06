@@ -5,7 +5,7 @@ bibliography:
 - references.bib
 output: 
   prettydoc::html_pretty:
-    theme: hpstr
+    theme: cayman
     highlight: github
 ---
 <!--
