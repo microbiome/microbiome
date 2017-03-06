@@ -1,14 +1,20 @@
-#' Formatting the phyloseq object 
-#'
+#' @title Format the phyloseq object.
+#' @description Format the phyloseq object to correct the taxonomy in phyloseq object (tax_table)
+#' @description originally 4315787 "Ruminococcaceae"    "g__"                "s__"
+#' @description Formatted 4315787 "Ruminococcaceae"    "f__Ruminococcaceae_4315787" "f__Ruminococcaceae_4315787"
+#' @param x \code{\link{phyloseq-class}} object
 #' @param phyloseqobject
-#' @return
-#' @examples
-#' format_phyloseq(phyloseqobject, tax.level)
-#' format_phyloseq(phyloseqobject, tax.level= c("Genus" or "Species"))
-#' originally 4315787 "Ruminococcaceae"    "g__"                "s__"
-#' Formatted 4315787 "Ruminococcaceae"    "f__Ruminococcaceae_4315787" "f__Ruminococcaceae_4315787"
-
-
+#' @param tax.level the lowest taxonomic level in the tax_table i.e Genus or Species.
+#' @return A \code{\link{ggplot}} plot object.
+#' @export
+#' @examples \dontrun{
+#'   # Example data
+#'     library(microbiome)
+#'     data("NG-Tax")
+#'     p0 <- make_my_phyloseq(file = 3, path = "~/../pathtofolder")
+#'     p0.f <- format_phyloseq(p0, tax.level = Genus)
+#'           }
+#' @keywords utilities
 format_phyloseq <- function(pseq_object, tax.level){
 pobj <- pseq_object;
   if(tax.level == "Genus"){
