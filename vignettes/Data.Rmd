@@ -4,7 +4,9 @@ bibliography:
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: hpstr
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}

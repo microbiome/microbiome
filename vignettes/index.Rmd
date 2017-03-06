@@ -5,7 +5,9 @@ bibliography:
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteIndexEntry{microbiome tutorial}

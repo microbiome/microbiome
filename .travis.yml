@@ -29,6 +29,7 @@ r_packages:
 - moments
 - network
 - plyr
+- prettydoc
 - qvalue
 - reshape2
 - rmarkdown
