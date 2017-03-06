@@ -1,11 +1,11 @@
-microbiome R package (beta)
-==========
-
 [![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)
 [![codecov.io](https://codecov.io/github/microbiome/microbiome/coverage.svg?branch=master)](https://codecov.io/github/microbiome/microbiome?branch=master)
-
+![Banner](https://github.com/microbiome/microbiome/blob/master/vignettes/figure/composition-example4-1.png)![Banner2](https://github.com/microbiome/microbiome/blob/master/vignettes/figure/rda6-1.png)![Banner3](https://github.com/microbiome/microbiome/blob/master/vignettes/figure/landscape4-1.png)![Banner4](https://github.com/microbiome/microbiome/blob/master/vignettes/figure/core-example-3bb-2.png)![Banner5](https://github.com/microbiome/microbiome/blob/master/vignettes/figure/stability-variationplot-2.png)
 <!--[![Follow](https://img.shields.io/twitter/follow/ropengov.svg?style=social)](https://twitter.com/intent/follow?screen_name=ropengov)-->
 
+
+microbiome R package
+==========
 
 The microbiome R package provides tools for the exploration and
 analysis of microbiome profiling data. It is an independent package
