@@ -12,14 +12,14 @@ GH_REPO="@github.com/microbiome/microbiome.git"
 FULL_REPO="https://$GH_TOKEN$GH_REPO"
 
 
-function doCompile {
-  # run pkgdown, put results in 'docs' directory,i
-  # and don't paste the results of the examples
-  # then copy the whole thing to `out`
-  Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
-  cp -R ../docs .
-  #  ./compile.sh
-}
+#function doCompile {
+#  # run pkgdown, put results in 'docs' directory,i
+#  # and don't paste the results of the examples
+#  # then copy the whole thing to `out`
+#  Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
+#  cp -R ../docs .
+#  #  ./compile.sh
+#}
 
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
@@ -46,12 +46,12 @@ git init
 cp ../microbiome/inst/doc/*.html .
 
 # Run our compile script
-doCompile
+#doCompile
 ls ../ > files.txt
 
 # Add to git and deploy
 git add *.html
-git add docs
+#git add docs
 git add files.txt
 git commit -a -m "Deploy to Github Pages"
 git push --force --quiet $FULL_REPO $SOURCE_BRANCH:$TARGET_BRANCH # > /dev/null 2>&1
