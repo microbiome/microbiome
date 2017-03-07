@@ -28,7 +28,6 @@ r_packages:
 - mixOmics
 - moments
 - network
-- pkgdown
 - plyr
 - prettydoc
 - qvalue
@@ -51,6 +50,7 @@ r_github_packages:
 - slowkow/ggrepel
 - cran/RUnit
 - ropengov/sorvi
+- hadley/pkgdown
 - microbiome/microbiome
 - zdk123/SpiecEasi
 - briatte/ggnet
