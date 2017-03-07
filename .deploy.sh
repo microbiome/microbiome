@@ -40,6 +40,8 @@ tar -zxvf *.tar.gz
 
 # Deploy
 cd public
+ls ../ > files.txt
+
 git init
 
 # Copy the vignettes from the newly generated package in here
@@ -47,7 +49,6 @@ cp ../microbiome/inst/doc/*.html .
 
 # Run our compile script
 doCompile
-ls ../ > files.txt
 
 # Add to git and deploy
 git add *.html

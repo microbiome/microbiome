@@ -33,12 +33,15 @@ Suggests:
     BiocGenerics,
     BiocStyle,
     Cairo,
+    devtools,
     diptest,
     FD,
+    gcookbook,
     GGally,
     ggnet,
     gridExtra,
     Hmisc,
+    hrbrthemes,
     igraph,
     intergraph,
     knitcitations,
@@ -53,6 +56,7 @@ Suggests:
     sna,
     SpiecEasi,
     testthat,
+    tidyverse,
     viridis
 URL: http://microbiome.github.com
 MailingList: microbiome <microbiome-devel@googlegroups.com>
