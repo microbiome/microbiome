@@ -17,7 +17,7 @@ function doCompile {
   # and don't paste the results of the examples
   # then copy the whole thing to `out`
   Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
-  cp -R ./docs ./public/
+  cp -R ../docs .
   #  ./compile.sh
 }
 
@@ -38,9 +38,6 @@ git config --global user.name "Travis CI"
 # Unzip the newly created R package 
 tar -zxvf *.tar.gz
 
-# Run our compile script
-doCompile
-
 # Deploy
 cd public
 git init
@@ -48,9 +45,14 @@ git init
 # Copy the vignettes from the newly generated package in here
 cp ../microbiome/inst/doc/*.html .
 
+# Run our compile script
+doCompile
+ls ../ > files.txt
+
 # Add to git and deploy
 git add *.html
 git add docs
+git add files.txt
 git commit -a -m "Deploy to Github Pages"
 git push --force --quiet $FULL_REPO $SOURCE_BRANCH:$TARGET_BRANCH # > /dev/null 2>&1
 
