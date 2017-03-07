@@ -17,8 +17,8 @@ function doCompile {
   # and don't paste the results of the examples
   # then copy the whole thing to `out`
   Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
-  mkdir -p out
   cp -R ./docs ./public/
+  #  ./compile.sh
 }
 
 
@@ -29,7 +29,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "$SOURCE_BRANCH" ]
 fi
 
 rm -rf public # ; || exit 0;
-mkdir public
+mkdir -p public
 
 # config
 git config --global user.email "nobody@nobody.org"
@@ -50,18 +50,12 @@ cp ../microbiome/inst/doc/*.html .
 
 # Add to git and deploy
 git add *.html
-git add files*.txt
+git add docs
 git commit -a -m "Deploy to Github Pages"
 git push --force --quiet $FULL_REPO $SOURCE_BRANCH:$TARGET_BRANCH # > /dev/null 2>&1
 
 # --------------------------------
 
-# R CMD BATCH ../vignettes/build.R
-#function doCompile {
-#  ./compile.sh
-#}
-# doCompile
-#
 #for files in '../microbiome/vignettes/*.html'; do
 #        cp $files .
 #done

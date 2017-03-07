@@ -1,5 +1,8 @@
+
 # Never put this in version control
 OAtoken
+
+docs/
 inst/extras/David2014
 inst/doc
 *~

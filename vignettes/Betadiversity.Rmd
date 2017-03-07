@@ -1,5 +1,5 @@
 ---
-title: "Beta divergence"
+title: "Beta diversity and microbiome divergence"
 bibliography: 
 - bibliography.bib
 - references.bib

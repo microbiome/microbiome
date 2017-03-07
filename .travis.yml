@@ -12,9 +12,11 @@ r_packages:
 - energy
 - fastcluster
 - FD
+- gcookbook
 - GGally
 - ggplot2
 - ggrepel
+- hrbrthemes
 - Hmisc
 - intergraph
 - knitcitations
@@ -29,7 +31,6 @@ r_packages:
 - mixOmics
 - moments
 - network
-- pkgdown
 - plyr
 - prettydoc
 - qvalue
@@ -42,7 +43,9 @@ r_packages:
 - tensorA
 - tgp
 - tidyr
+- tidyverse
 - vegan
+- viridis
 - WGCNA
 bioc_packages:
 - BiocInstaller
@@ -52,6 +55,7 @@ r_github_packages:
 - slowkow/ggrepel
 - cran/RUnit
 - ropengov/sorvi
+- hadley/pkgdown
 - microbiome/microbiome
 - zdk123/SpiecEasi
 - briatte/ggnet
