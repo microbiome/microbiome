@@ -24,6 +24,7 @@ r_packages:
 - maptree
 - MASS
 - Matrix
+- memoise
 - minet
 - mixOmics
 - moments
