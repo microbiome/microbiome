@@ -12,9 +12,11 @@ r_packages:
 - energy
 - fastcluster
 - FD
+- gcookbook
 - GGally
 - ggplot2
 - ggrepel
+- hrbrthemes
 - Hmisc
 - intergraph
 - knitcitations
@@ -40,7 +42,9 @@ r_packages:
 - tensorA
 - tgp
 - tidyr
+- tidyverse
 - vegan
+- viridis
 - WGCNA
 bioc_packages:
 - BiocInstaller

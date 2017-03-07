@@ -48,9 +48,11 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
     x <- transform(x, "Z", "OTU")
   } else if (transform == "Z-Sample") {
     x <- transform(x, "Z", "Sample")
-  } else if (transform == "relative.abundance") {
-    x <- transform(x, "relative.abundance", "OTU")
-  }   
+  } else if (transform == "compositional") {
+    x <- transform(x, "compositional", "OTU")
+  } else {
+    warnings("phyloseq transformation not recognized - omitted")
+  }
 
   # -----------------------------------------------------------------------
 

@@ -96,7 +96,7 @@ core.abundance <- sample_sums(core(pseq.rel, detection = .01, prevalence = .95))
 Determine core microbiota across various abundance/prevalence
 thresholds with the blanket analysis [(Salonen et al. CMI, 2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) based on various signal and prevalences.
 
-```{r core-example2, fig.width=9, fig.heigth=6, fig.show='hold', out.width="430px", warning=FALSE}
+```{r core-example2, fig.width=9, fig.heigth=6, fig.show='hold', out.width="400px", warning=FALSE}
 # With absolute read counts
 det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000)
 prevalences <- seq(.05, 1, .05)
@@ -114,7 +114,7 @@ p + xlab("Relative Abundance (%)")
 
 This visualization method has been used for instance in [Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Shetty et al. _FEMS Microbiology Reviews_ fuw045, 2017.
 
-```{r core-example3, fig.width=8, fig.heigth=18, fig.show='hold', out.width = '430px'}
+```{r core-example3, fig.width=8, fig.heigth=18, fig.show='hold', out.width = '200px'}
 # Core with compositionals:
 prevalences <- seq(.05, 1, .05)
 detections <- 10^seq(log10(1e-3), log10(.2), length = 20)
@@ -126,16 +126,26 @@ p <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray,
     xlab("Detection Threshold (Relative Abundance (%))")
 print(p)    
 
+
+# Same with the viridis color palette
+# color-blind friendly and uniform
+# options: viridis, magma, plasma, inferno
+# https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
+# Also discrete=TRUE versions available
+library(viridis)
+print(p + scale_fill_viridis())
+
 # Core with absolute counts and horizontal view:
 # and minimum population prevalence (given as percentage)
-detections <- 10^seq(log10(.01), log10(max(abundances(pseq))/10), length = 20)
+detections <- 10^seq(log10(1), log10(max(abundances(pseq))/10), length = 20)
 
 library(RColorBrewer)
-plot_core(pseq, plot.type = "heatmap", 
+p <- plot_core(pseq, plot.type = "heatmap", 
        		 prevalences = prevalences,
        		 detections = detections,
 		 colours = rev(brewer.pal(5, "Spectral")),
 		 min.prevalence = .2, horizontal = TRUE)
+print(p)
 ```
 
 

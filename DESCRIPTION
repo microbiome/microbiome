@@ -51,7 +51,8 @@ Suggests:
     rmarkdown,
     sna,
     SpiecEasi,
-    testthat
+    testthat,
+    viridis
 URL: http://microbiome.github.com
 MailingList: microbiome <microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues

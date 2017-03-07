@@ -22,5 +22,5 @@ Miscellaneous analysis examples in case they might be useful:
 
 * [Clustering](Clustering.html)
 * [Interactive](Interactive.html)
-* [Phylogenetic microarrays](HITChip..html)
-
+* [Phylogenetic microarrays](HITChip.html)
+* [Themes](Themes.Rmd)
