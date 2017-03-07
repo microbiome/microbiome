@@ -10,11 +10,9 @@ microbiome R package
 
 
 The microbiome R package provides tools for the exploration and
-analysis of microbiome profiling data. It is an independent package
-that extends the capabilities of the
-[phyloseq](https://github.com/joey711/phyloseq) framework in R. The
-microbiome package is currently under development;
-your feedback, suggestions and bug reports are welcome.
+analysis of microbiome profiling data. It extends the
+[phyloseq](https://github.com/joey711/phyloseq) framework in R. 
+Your feedback, suggestions and bug reports are welcome.
 
 
 ### Installation and use
