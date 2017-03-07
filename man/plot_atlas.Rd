@@ -29,10 +29,11 @@ Arranges the samples based on the given grouping factor (x), and plots the signa
   plot_atlas(atlas1006, "DNA_extraction_method", "diversity")
   plot_atlas(atlas1006, "DNA_extraction_method", "Bifidobacterium")
 }
-\references{
-See citation("microbiome"); Visualization inspired by Kilpinen et al. 2008, Genome Biology 9:R139. DOI: 10.1186/gb-2008-9-9-r139
-}
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
 }
+\references{
+See citation("microbiome"); Visualization inspired by Kilpinen et al. 2008, Genome Biology 9:R139. DOI: 10.1186/gb-2008-9-9-r139
+}
 \keyword{utilities}
+

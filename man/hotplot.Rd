@@ -34,10 +34,11 @@ Coloured bimodality plot.
   # Bimodality is often best visible at log10 relative abundances
   p <- hotplot(pseq, "Dialister", tipping.point = tipp, log10 = TRUE)
 }
-\references{
-See citation('microbiome')
-}
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
+\references{
+See citation('microbiome')
+}
 \keyword{utilities}
+

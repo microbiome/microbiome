@@ -29,13 +29,14 @@ This is a wrapper for phyloseq ordination functions, providing
   data(dietswap)
   fc <- get_ordination(dietswap)
 }
+\author{
+Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
+}
 \references{
 See citation('microbiome')
 }
 \seealso{
 phyloseq::plot_ordination
 }
-\author{
-Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
-}
 \keyword{utilities}
+

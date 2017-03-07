@@ -45,6 +45,9 @@ to quantify group homogeneity.
   # in a diet swap study (see \\code{help(dietswap)} for references)
   b <- group_divergence(subset_samples(dietswap, nationality == "AFR"))
 }
+\author{
+Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
+}
 \references{
 The inter- and intra-individual homogeneity measures used in
 Salonen et al. ISME J. 8:2218-30, 2014 were obtained as
@@ -57,7 +60,5 @@ To cite this R package, see citation('microbiome')
 the vegdist function from the \pkg{vegan} package provides many
 standard beta diversity measures
 }
-\author{
-Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
-}
 \keyword{utilities}
+

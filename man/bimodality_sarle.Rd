@@ -43,6 +43,9 @@ The coefficient lies in (0, 1).
 \examples{
 bimodality_sarle(rnorm(100), type = "Sarle.finite.sample")
 }
+\author{
+Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
+}
 \references{
 \itemize{
     \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
@@ -55,7 +58,5 @@ bimodality_sarle(rnorm(100), type = "Sarle.finite.sample")
 Check the dip.test from the \pkg{DIP} package for a
 classical test of multimodality.
 }
-\author{
-Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
-}
 \keyword{utilities}
+

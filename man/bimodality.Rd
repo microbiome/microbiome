@@ -50,6 +50,9 @@ Estimate bimodality scores.
  # dip.test(x, simulate.p.value = TRUE, B = 200)$statistic
  # Values less than 0.05 indicate significant deviation from unimodality. 
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \references{
 \itemize{
   \item{}{Livina et al. (2010). Potential analysis 
@@ -65,7 +68,5 @@ Estimate bimodality scores.
 \seealso{
 A classical test of multimodality is provided by dip.test in the \pkg{DIP} package.
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \keyword{utilities}
+

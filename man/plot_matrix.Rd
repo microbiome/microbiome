@@ -67,10 +67,11 @@ Fast investigation of matrix objects;
   mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2))
   res <- plot_matrix(mat, 'twoway', midpoint = 3) 
 }
-\references{
-See citation('microbiome')
-}
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
+\references{
+See citation('microbiome')
+}
 \keyword{utilities}
+

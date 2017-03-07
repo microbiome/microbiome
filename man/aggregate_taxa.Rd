@@ -28,10 +28,11 @@ This provides a convenient way to aggregate phyloseq OTUs
   data(dietswap)
   s <- aggregate_taxa(dietswap, "Phylum")
 }
-\references{
-See citation('microbiome')
-}
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
+\references{
+See citation('microbiome')
+}
 \keyword{utilities}
+

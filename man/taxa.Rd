@@ -23,10 +23,11 @@ to add some extra tweaks later.
   data(dietswap)
   taxa(dietswap)
 }
-\references{
-To cite the microbiome R package, see citation('microbiome')
-}
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
+\references{
+To cite the microbiome R package, see citation('microbiome')
+}
 \keyword{utilities}
+

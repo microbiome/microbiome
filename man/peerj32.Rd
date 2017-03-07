@@ -23,11 +23,12 @@ probiotic/placebo intervention). The data set can be used to investigate
 associations between intestinal bacteria and host lipid metabolism. 
 For details, see \url{http://dx.doi.org/10.7717/peerj.32}.
 }
+\author{
+Leo Lahti \email{microbiome-admin@googlegroups.com}
+}
 \references{
 Lahti et al. (2013) PeerJ 1:e32
    \url{http://dx.doi.org/10.7717/peerj.32}
 }
-\author{
-Leo Lahti \email{microbiome-admin@googlegroups.com}
-}
 \keyword{data}
+

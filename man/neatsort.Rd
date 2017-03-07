@@ -56,3 +56,4 @@ This function is partially based on code derived from the
   alternatives in R. BMC Bioinformatics, 11, 45.
 }
 \keyword{utilities}
+

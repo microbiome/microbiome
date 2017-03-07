@@ -35,10 +35,11 @@ Bootstrap solutions that follows the Jack-knife estimation of
    res <- Bagged.RDA(x, y , bs.iter = 5)
 }
 }
-\references{
-See citation("microbiome")
-}
 \author{
 Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}
 }
+\references{
+See citation("microbiome")
+}
 \keyword{utilities}
+

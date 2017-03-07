@@ -20,10 +20,11 @@ Within each subject, sort samples by time and calculate
 \examples{
 \dontrun{time_sort(x) }
 }
-\references{
-See citation("microbiome")
-}
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
 }
+\references{
+See citation("microbiome")
+}
 \keyword{utilities}
+

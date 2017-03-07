@@ -19,3 +19,4 @@ data(dietswap); df <- meta(dietswap)
 Leo Lahti \email{leo.lahti@iki.fi}
 }
 \keyword{utilities}
+

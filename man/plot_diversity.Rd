@@ -67,3 +67,4 @@ If subject is among the metadata variables, the matched subjects across groups a
  \code{\link[vegan]{diversity}}
 }
 \keyword{utilities}
+

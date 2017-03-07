@@ -29,3 +29,4 @@ levels of the given Factor.
   p <- plot_frequencies(sample_data(dietswap), "group", "sex")
 }
 \keyword{utilities}
+

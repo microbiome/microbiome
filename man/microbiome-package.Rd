@@ -2,8 +2,8 @@
 % Please edit documentation in R/microbiome-package.R
 \docType{package}
 \name{microbiome-package}
-\alias{microbiome-package}
 \alias{microbiome}
+\alias{microbiome-package}
 \title{R package for microbiome studies}
 \description{
 Brief summary of the microbiome package
@@ -23,12 +23,13 @@ R package for microbiome studies
 \examples{
 citation('microbiome')
 }
-\references{
-See citation('microbiome')
-\url{http://microbiome.github.io}
-}
 \author{
 Leo Lahti et al.
   \email{microbiome-admin@googlegroups.com}
 }
+\references{
+See citation('microbiome')
+\url{http://microbiome.github.io}
+}
 \keyword{package}
+

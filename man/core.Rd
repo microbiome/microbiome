@@ -39,6 +39,9 @@ Filter the phyloseq object to include only prevalent taxa.
   data(peerj32)
   core(peerj32$phyloseq, 200, .2)
 }
+\author{
+Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
+}
 \references{
 The core microbiota bootstrap method implemented with this function:
 Salonen A, Salojarvi J, Lahti L, de Vos WM. The adult intestinal
@@ -46,7 +49,5 @@ core microbiota is determined by analysis depth and health
 status. Clinical Microbiology and Infection 18(S4):16-20, 2012
   To cite the microbiome R package, see citation('microbiome')
 }
-\author{
-Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
-}
 \keyword{utilities}
+

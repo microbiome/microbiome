@@ -53,6 +53,9 @@ One-dimensional potential estimation for univariate timeseries.
 \examples{
 \dontrun{res <- potential_univariate(x)}
 }
+\author{
+Based on Matlab code from Egbert van Nes modified by Leo Lahti. Extended from the initial version in the \pkg{earlywarnings} R package.
+}
 \references{
 \itemize{
   \item{}{Livina et al. (2010). Potential analysis reveals changing number of climate states during the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
@@ -62,7 +65,5 @@ One-dimensional potential estimation for univariate timeseries.
 \seealso{
 \code{\link{potential_slidingaverage}}
 }
-\author{
-Based on Matlab code from Egbert van Nes modified by Leo Lahti. Extended from the initial version in the \pkg{earlywarnings} R package.
-}
 \keyword{early-warning}
+

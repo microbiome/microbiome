@@ -72,11 +72,12 @@ The R is modified from Felix Schonbrodt's original code at
     p <- plot_regression(diversity ~ age, sample_data(atlas1006))
   }
 }
-\references{
-See citation("microbiome")
-}
 \author{
 Based on the original version from Felix Schonbrodt. 
         Modified by Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
+\references{
+See citation("microbiome")
+}
 \keyword{utilities}
+

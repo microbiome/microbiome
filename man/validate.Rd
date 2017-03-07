@@ -23,3 +23,4 @@ Checks that the abundances and sample_data have exactly same samples.
   data(atlas1006)
   validate(atlas1006)
 }
+
