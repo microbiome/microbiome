@@ -47,14 +47,13 @@ Bootstrap aggregation (bagging) is expected to improve the stability of the resu
 
  }
 }
-\author{
-Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}
-}
 \references{
 See citation("microbiome")
 }
 \seealso{
 vegan::rda and phyloseq::ordinate
 }
+\author{
+Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}
+}
 \keyword{utilities}
-

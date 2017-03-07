@@ -52,9 +52,6 @@ Applied on the output of the
 
   }
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 Lahti et al. Tipping elements of the human intestinal ecosystem.
             \emph{Nature Communications} 5:4344, 2014.
@@ -62,5 +59,7 @@ Lahti et al. Tipping elements of the human intestinal ecosystem.
 \seealso{
 potential_analysis
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utils}
-

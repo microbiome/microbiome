@@ -49,4 +49,3 @@ This function is partially based on code derived from the
   Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map alternatives in R. BMC Bioinformatics, 11, 45.
 }
 \keyword{utilities}
-

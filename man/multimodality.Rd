@@ -46,9 +46,6 @@ Repeats potential analysis (Livina et al. 2010) multiple times
       	    t(peerj32$microbes[, c("Akkermansia", "Dialister")]))
   }
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 \itemize{
     \item{}{Livina et al. (2010). Potential analysis reveals changing number
@@ -58,5 +55,7 @@ Leo Lahti \email{leo.lahti@iki.fi}
     	       ecosystem. \emph{Nature Communications} 5:4344.}
   }
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

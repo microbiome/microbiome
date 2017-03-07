@@ -56,11 +56,10 @@ As the method=categorical (discrete) association measure
   d2 <- peerj32$lipids[1:20,1:10]
   cc <- associate(d1, d2, method = "pearson")
 }
-\author{
-Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
-}
 \references{
 See citation('microbiome')
 }
+\author{
+Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
+}
 \keyword{utilities}
-

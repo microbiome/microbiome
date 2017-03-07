@@ -23,11 +23,10 @@ Filter the phyloseq object to include only rare taxa.
   data(peerj32)
   rare(peerj32$phyloseq, 200, 20)
 }
-\author{
-Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
-}
 \references{
 To cite the microbiome R package, see citation('microbiome')
 }
+\author{
+Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
+}
 \keyword{utilities}
-

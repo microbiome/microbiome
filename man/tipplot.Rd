@@ -37,11 +37,10 @@ some subjects have multiple time points.
   pseq <- transform(pseq, "compositional")
   p <- tipplot(pseq, "Dialister", tipping.point = 1)
 }
-\author{
-Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
-}
 \references{
 See citation('microbiome')
 }
+\author{
+Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
+}
 \keyword{utilities}
-

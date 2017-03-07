@@ -48,4 +48,3 @@ For consistent results, set random seet (set.seed) before function call
 }
 }
 \keyword{utilities}
-

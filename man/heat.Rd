@@ -63,11 +63,10 @@ Visualizes n x m association table as heatmap.
   cc <- associate(d1, d2, method = "pearson") 
   p <- heat(cc, 'X1', 'X2', 'Correlation', star = "p.adj")
 }
-\author{
-Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
-}
 \references{
 See citation('microbiome')
 }
+\author{
+Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
+}
 \keyword{utilities}
-

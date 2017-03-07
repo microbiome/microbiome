@@ -29,11 +29,10 @@ Detect optima, excluding local optima below peak.threshold.
     o <- find_optima(rnorm(100), bw = 1)
   }
 }
-\author{
-Leo Lahti \email{leo.lahti@iki.fi}
-}
 \references{
 See citation('microbiome')
 }
+\author{
+Leo Lahti \email{leo.lahti@iki.fi}
+}
 \keyword{utilities}
-

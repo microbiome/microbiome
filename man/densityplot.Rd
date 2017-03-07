@@ -39,11 +39,10 @@ Density visualization for data points overlaid on cross-plot.
     p <- densityplot(cbind(rnorm(100), rnorm(100)))
   }
 }
-\author{
-Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
-}
 \references{
 See citation('microbiome')
 }
+\author{
+Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
+}
 \keyword{utilities}
-

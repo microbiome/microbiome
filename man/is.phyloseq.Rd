@@ -20,4 +20,3 @@ Identifies whether a given object is from the phyloseq class
   data(dietswap)
   is.phyloseq(dietswap)
 }
-
