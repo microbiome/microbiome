@@ -101,6 +101,7 @@
 #' @importFrom phyloseq tax_table
 #' @importFrom phyloseq transform_sample_counts
 #' @importFrom reshape2 melt
+#' @importFrom scales comma
 #' @importFrom stats aggregate
 #' @importFrom stats anova
 #' @importFrom stats as.dist
