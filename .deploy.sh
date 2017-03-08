@@ -48,7 +48,7 @@ cp ../microbiome/inst/doc/*.html .
 
 # Run our compile script
 # doCompile
-ls ../ > files3.txt  
+# ls ../ > files3.txt  
 #Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
 #R CMD BATCH "pkgdown::build_site(path = 'docs', examples = TRUE)"
 #cp -R ../docs .
