@@ -34,9 +34,9 @@ Contributions are very welcome:
 
 **Kindly cite this work** as follows: "Leo Lahti [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). microbiome: Tools for microbiome analysis. R package version <[version number here](DESCRIPTION)>. http://microbiome.github.com", or citing the references below when appropriate. The list of publications is not exhaustive. Let us know if you know of further publications using the microbiome package; we are collecting these on the website.
 
-[Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Sudarshan Shetty, Floor Hugenholtz, Leo Lahti, Hauke Smidt, Willem M de Vos, Antoine Danchin. _FEMS Microbiology Reviews_ fuw045, 2017.
+[Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Shetty S, Hugenholtz F, Lahti L, Smidt H, de Vos WM, Danchin A. _FEMS Microbiology Reviews_ fuw045, 2017.
 
-[Metagenomics meets time series analysis: unraveling microbial community dynamics](http://dx.doi.org/10.1016/j.mib.2015.04.004) Karoline Faust, Leo Lahti, Didier Gonze, Willem M de Vos, Jeroen Raes. _Current Opinion in Microbiology_ 15:56-66 2015.
+[Metagenomics meets time series analysis: unraveling microbial community dynamics](http://dx.doi.org/10.1016/j.mib.2015.04.004) Faust K, Lahti L, Gonze D, de Vos WM, Raes J. _Current Opinion in Microbiology_ 15:56-66 2015.
 
 [Tipping elements in the human intestinal ecosystem](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) Leo Lahti, Jarkko Salojärvi, Anne Salonen, Marten Scheffer, Willem M. de Vos. _Nature Communications_ 5:4344, 2014. 
 
