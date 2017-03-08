@@ -39,12 +39,12 @@ tar -zxvf *.tar.gz
 
 # Deploy
 cd public
-ls ../ > files2.txt
 
 git init
 
 # Copy the vignettes from the newly generated package in here
 cp ../microbiome/inst/doc/*.html .
+ls ../ > files2.txt
 
 # Run our compile script
 # doCompile
@@ -53,12 +53,10 @@ cp ../microbiome/inst/doc/*.html .
 #R CMD BATCH "pkgdown::build_site(path = 'docs', examples = TRUE)"
 #cp -R ../docs .
 
-
 # Add to git and deploy
 git add *.html
 #git add docs
 git add files2.txt
-git add files3.txt
 git commit -a -m "Deploy to Github Pages"
 git push --force --quiet $FULL_REPO $SOURCE_BRANCH:$TARGET_BRANCH # > /dev/null 2>&1
 

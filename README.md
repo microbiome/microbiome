@@ -9,11 +9,10 @@ microbiome R package
 [![codecov.io](https://codecov.io/github/microbiome/microbiome/coverage.svg?branch=master)](https://codecov.io/github/microbiome/microbiome?branch=master)  
 
 
-The microbiome R package provides tools for the exploration and
-analysis of microbiome profiling data, in particular 16S taxonomic
-profiling collections. It extends the
-[phyloseq](https://github.com/joey711/phyloseq) framework in R. 
-Your feedback, suggestions and bug reports are welcome.
+Tools for the exploration and analysis of microbiome profiling data,
+in particular 16S taxonomic profiling collections. It extends the
+[phyloseq](https://github.com/joey711/phyloseq) framework in R.  Your
+feedback, suggestions and bug reports are welcome.
 
 
 ### Installation and use
