@@ -50,10 +50,10 @@ ls ../ > files5.txt
 # doCompile
 # ls ../ > files3.txt  
 #Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
-Rscript -e "1+1"
+Rscript -e "library(pkdown)"
 #R CMD BATCH "1" # pkgdown::build_site(path = 'docs', examples = TRUE)
 #cp -R ../docs .
-ls ../ > files6.txt
+ls ../ > files7.txt
 
 # Add to git and deploy
 git add *.html
