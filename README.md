@@ -38,15 +38,9 @@ Contributions are very welcome:
 
 [Metagenomics meets time series analysis: unraveling microbial community dynamics](http://dx.doi.org/10.1016/j.mib.2015.04.004) Faust K, Lahti L, Gonze D, de Vos WM, Raes J. _Current Opinion in Microbiology_ 15:56-66 2015.
 
-[Tipping elements in the human intestinal ecosystem](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) Leo Lahti, Jarkko Salojärvi, Anne Salonen, Marten Scheffer, Willem M. de Vos. _Nature Communications_ 5:4344, 2014. 
+[Tipping elements in the human intestinal ecosystem](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) Lahti L, Salojärvi J, Salonen A, Scheffer M, de Vos WM. _Nature Communications_ 5:4344, 2014. 
 
-[Fat, Fiber and Cancer Risk in African, Americans and Rural Africans](http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html)  Stephen O’Keefe, Jia V. Li, Leo Lahti, Junhai Ou, Franck
-Carbonero, Khaled Mohammed, Joram M. Posma, James Kinross, Elaine
-Wahl, Elizabeth Ruder, Kishore Vipperla, Vasudevan Naidoo, Lungile
-Mtshali, Sebastian Tims, Philippe G. B. Puylaert, James DeLany, Alyssa
-Krasinskas, Ann C. Benefiel, Hatem O. Kaseb, Keith Newton, Jeremy K.
-Nicholson, Willem M. de Vos, H. Rex Gaskins, Erwin G. Zoetendal.
-_Nature Communications_ 6:6342, 2015.
+[Fat, Fiber and Cancer Risk in African, Americans and Rural Africans](http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html)  Stephen O’Keefe, Jia V. Li, Leo Lahti, Junhai Ou, Franck Carbonero, Khaled Mohammed, Joram M. Posma, James Kinross, Elaine Wahl, Elizabeth Ruder, Kishore Vipperla, Vasudevan Naidoo, Lungile Mtshali, Sebastian Tims, Philippe G. B. Puylaert, James DeLany, Alyssa Krasinskas, Ann C. Benefiel, Hatem O. Kaseb, Keith Newton, Jeremy K. Nicholson, Willem M. de Vos, H. Rex Gaskins, Erwin G. Zoetendal. _Nature Communications_ 6:6342, 2015.
 
 [Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data](http://dx.doi.org/10.7717/peerj.32) Leo Lahti, Anne Salonen, Riina A. Kekkonen, Jarkko Salojärvi, Jonna Jalanka-Tuovinen, Airi Palva, Matej Orešič, Willem M. de Vos. _PeerJ_ 1:e32, 2013.
 

@@ -50,7 +50,8 @@ ls ../ > files5.txt
 # doCompile
 # ls ../ > files3.txt  
 #Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
-R CMD BATCH "1" # pkgdown::build_site(path = 'docs', examples = TRUE)
+Rscript -e "1+1"
+#R CMD BATCH "1" # pkgdown::build_site(path = 'docs', examples = TRUE)
 #cp -R ../docs .
 ls ../ > files6.txt
 
