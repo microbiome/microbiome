@@ -48,9 +48,11 @@ cp ../microbiome/inst/doc/*.html .
 
 # Run our compile script
 # doCompile
-Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
-cp -R ../docs .
 ls ../ > files3.txt  
+#Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
+R CMD BATCH "pkgdown::build_site(path = 'docs', examples = TRUE)"
+cp -R ../docs .
+
 
 # Add to git and deploy
 git add *.html
