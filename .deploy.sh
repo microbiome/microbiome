@@ -50,8 +50,8 @@ cp ../microbiome/inst/doc/*.html .
 # doCompile
 ls ../ > files3.txt  
 #Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
-R CMD BATCH "pkgdown::build_site(path = 'docs', examples = TRUE)"
-cp -R ../docs .
+#R CMD BATCH "pkgdown::build_site(path = 'docs', examples = TRUE)"
+#cp -R ../docs .
 
 
 # Add to git and deploy
