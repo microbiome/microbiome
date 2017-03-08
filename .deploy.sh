@@ -44,19 +44,20 @@ git init
 
 # Copy the vignettes from the newly generated package in here
 cp ../microbiome/inst/doc/*.html .
-ls ../ > files2.txt
+ls ../ > files3.txt
 
 # Run our compile script
 # doCompile
 # ls ../ > files3.txt  
 #Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
-#R CMD BATCH "pkgdown::build_site(path = 'docs', examples = TRUE)"
+R CMD BATCH "pkgdown::build_site(path = 'docs', examples = TRUE)"
 #cp -R ../docs .
+ls ../ > files4.txt
 
 # Add to git and deploy
 git add *.html
 #git add docs
-git add files2.txt
+git add files*.txt
 git commit -a -m "Deploy to Github Pages"
 git push --force --quiet $FULL_REPO $SOURCE_BRANCH:$TARGET_BRANCH # > /dev/null 2>&1
 
