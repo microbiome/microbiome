@@ -11,15 +11,15 @@ TARGET_BRANCH="gh-pages"
 GH_REPO="@github.com/microbiome/microbiome.git"
 FULL_REPO="https://$GH_TOKEN$GH_REPO"
 
-function doCompile {
+#function doCompile {
   # run pkgdown, put results in 'docs' directory,i
   # and don't paste the results of the examples
   # then copy the whole thing to `out`
-  Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
-  cp -R ../docs .
-  ls ../ > files3.txt  
+#  Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
+#  cp -R ../docs .
+#  ls ../ > files3.txt  
   #  ./compile.sh
-}
+#}
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
 if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "$SOURCE_BRANCH" ]; then
@@ -56,7 +56,7 @@ ls ../ > files3.txt
 
 # Add to git and deploy
 git add *.html
-git add docs
+#git add docs
 git add files2.txt
 git add files3.txt
 git commit -a -m "Deploy to Github Pages"
