@@ -11,7 +11,7 @@ microbiome R package
 
 Tools for the exploration and analysis of microbiome profiling data,
 in particular 16S taxonomic profiling collections. This extends the
-[phyloseq](https://github.com/joey711/phyloseq) tools.  Your
+[phyloseq](https://github.com/joey711/phyloseq) framework.  Your
 feedback, suggestions and bug reports are welcome.
 
 
