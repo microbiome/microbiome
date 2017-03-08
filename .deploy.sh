@@ -11,7 +11,6 @@ TARGET_BRANCH="gh-pages"
 GH_REPO="@github.com/microbiome/microbiome.git"
 FULL_REPO="https://$GH_TOKEN$GH_REPO"
 
-
 function doCompile {
   # run pkgdown, put results in 'docs' directory,i
   # and don't paste the results of the examples
@@ -21,7 +20,6 @@ function doCompile {
   ls ../ > files3.txt  
   #  ./compile.sh
 }
-
 
 # Pull requests and commits to other branches shouldn't try to deploy, just build to verify
 if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "$SOURCE_BRANCH" ]; then
