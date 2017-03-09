@@ -42,7 +42,7 @@ Contributions are very welcome:
 
 [Fat, Fiber and Cancer Risk in African, Americans and Rural Africans](http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html)  O’Keefe S, Li JV, Lahti L, Ou J, Carbonero F, Mohammed K, Posma JM, Kinross J, Wahl E, Ruder E, Vipperla K, Naidoo V, Mtshali L, Tims S, Puylaert PGB, DeLany J, Krasinskas A, Benefiel AC, Kaseb HO, Newton K, Nicholson JK, de Vos WM, Gaskins HR, Zoetendal EG. _Nature Communications_ 6:6342, 2015.
 
-[Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data](http://dx.doi.org/10.7717/peerj.32) Leo Lahti, Anne Salonen, Riina A. Kekkonen, Jarkko Salojärvi, Jonna Jalanka-Tuovinen, Airi Palva, Matej Orešič, Willem M. de Vos. _PeerJ_ 1:e32, 2013.
+[Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data](http://dx.doi.org/10.7717/peerj.32) Lahti L, Salonen A, Kekkonen RA, Salojärvi J, Jalanka-Tuovinen J, Palva A, Orešič M, de Vos WM. _PeerJ_ 1:e32, 2013.
 
 [The adult intestinal core microbiota is determined by analysis depth and health status](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) Anne Salonen, Jarkko Salojärvi, Leo Lahti, and Willem M. de Vos. _Clinical Microbiology and Infection_ 18(S4):16 20, 2012. 
 
