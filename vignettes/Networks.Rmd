@@ -23,7 +23,6 @@ See also the [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-
 Load [example data](Data.html):
 
 ```{r networks1, message=FALSE, warning=FALSE}
-R.utils::gcDLLs() # Clean up memory
 library(microbiome)
 data(dietswap)
 pseq <- dietswap
