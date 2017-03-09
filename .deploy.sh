@@ -51,9 +51,9 @@ ls ../ > files5.txt
 # ls ../ > files3.txt  
 #Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
 #Rscript -e "library(pkgdown)"
-R CMD BATCH "1" # pkgdown::build_site(path = 'docs', examples = TRUE)
+R CMD BATCH "library(pkgdown)" # pkgdown::build_site(path = 'docs', examples = TRUE)
 #cp -R ../docs .
-ls ../ > files7.txt
+ls ../ > files8.txt
 
 # Add to git and deploy
 git add *.html
