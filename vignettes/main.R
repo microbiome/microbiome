@@ -46,6 +46,7 @@ fs <- sample(list.files(pattern = ".Rmd$"))
 knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
 times <- c()
 for (myfile in fs) {
+    R.utils::gcDLLs() # Clean up memory
     print(myfile)
     times[[myfile]] <- system.time(knit(myfile))[["elapsed"]]
     #rmarkdown::render(myfile, "md_document")
