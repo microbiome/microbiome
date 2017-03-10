@@ -2,7 +2,7 @@
 #' @description This command will save the otu,taxonomy and meta data as *.csv file for manual inspection.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param type "OTU" or "TAXA" or METADATA
-#' @return  \code{\link{excel}}
+#' @return  Output file path (a string)
 #' @export
 #' @examples \dontrun{
 #'   data(DynamicsIBD)
@@ -15,14 +15,17 @@
 #' @keywords utilities
 save_tables <- function(x, type){
   if (type == "OTU"){
+    message("Writing file OTU file in ", getwd())
     y <- as.data.frame(x@otu_table);
-    write.csv(y, file = "otu_table.csv", fileEncoding = "UTF-16LE")
-  } else if (type == "TAXA"){
+    write.csv(y, file = "otu_table.csv", fileEncoding = "UTF-16LE");
+    } else if (type == "TAXA"){
+      message("Writing file TAXA file in ", getwd())
     y <- as.data.frame(x@tax_table);
-    write.csv(y, file ="taxa_table.csv", fileEncoding = "UTF-16LE")
-  } else if (type == "METADATA"){
+    write.csv(y, file ="taxa_table.csv", fileEncoding = "UTF-16LE");
+    } else if (type == "METADATA"){
+      message("Writing file METADATA file in ", getwd())
     y <- as.data.frame(x@sam_data);
     write.csv(y, file = "meta_table.csv", fileEncoding = "UTF-16LE")
-  }
-  print(getwd())
+    }
+  paste0("File saved in folder ", getwd())
 }
