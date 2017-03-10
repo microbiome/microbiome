@@ -1,0 +1,388 @@
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono|Droid+Serif);
+
+@media all {
+    html {
+        margin: 0;
+        font: 300 .9em/1.6em "Droid Serif", Cambria, Georgia, "DejaVu Serif", serif;
+    }
+    body {
+        font-size: 12pt;
+        line-height: 24pt;
+        color: black;
+        margin-top: 0;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: justify;
+    }
+    body #content {
+        padding-top: 0px;
+        /* margin-left: 20px; */
+        background-color: white;
+        padding: 2em;
+        /* From Paul Pyl */
+        min-width: 600px;
+        max-width: 65%;
+        margin: auto;
+    }
+    body .title {
+        margin-left: 0px;
+        font-size: 22pt;
+    }
+    span[class*='section-number-'] {
+        margin-right: 10px;
+    }
+    #license {
+        background-color: #eeeeee;
+    }
+    .caption {
+        font-style: italic;
+        text-align: center;
+        margin-top: 2px;
+        margin-bottom: 25px;
+        font-size: 11pt;
+    }
+    .author-top {
+        font-style: italic;
+        text-align: center;
+    }
+    h1 {
+        font-family:sans-serif;
+        font-size:2.1em;
+        padding:30px 20px 20px 20px; /* t l b r */
+        margin-top: 10px;
+        margin-bottom: 10px;
+        line-height: 110%;
+        color: black;
+        text-align: center;
+    }
+    h2 {
+        font-family:sans-serif;
+        font-size:1.45em;
+        line-height:16px;
+        padding:10px 0 10px 0;
+        color: #1881c2;
+        border-bottom: 1px solid #ddd;
+    }
+    .outline-text-2 {
+        margin-left: 0.1em
+    }
+    h3 {
+        font-family:sans-serif;
+        font-size:1.3em;
+        color: #1881c2;
+        margin-left: 0.6em;
+        border-bottom: 1px solid #ddd;
+    }
+    .outline-text-3 {
+        margin-left: 0.9em;
+    }
+    h4 {
+        font-family:sans-serif;
+        font-size:1.2em;
+        margin-left: 1.2em;
+        color: #1881c2;
+        border-bottom: 1px solid #ddd;
+    }
+    .outline-text-4 {
+        margin-left: 1.45em;
+    }
+    a {
+        text-decoration: none; 
+        font-weight: 400; 
+        color: #35817D
+    }
+    a:visited {
+        text-decoration: none; 
+        font-weight: 400; 
+        color: #98855B
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    .todo {
+        color: #CA0000;
+    }
+    .done {
+        color: #006666;
+    }
+    .timestamp-kwd {
+        color: #444;
+    }
+    .tag {
+    }
+    li {
+        margin: .4em;
+    }
+    table {
+        border: none;
+    }
+    td {
+        border: none;
+    }
+    th {
+        border: none;
+    }
+    code {
+        font-size: 100%;
+        color: black;
+        border: 1px solid #DEDEDE;
+        padding: 0px 0.2em;
+    }
+    img {
+        border: none;
+        padding: 20px 0px 5px 0px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .share img {
+        opacity: .4;
+        -moz-opacity: .4;
+        filter: alpha(opacity=40);
+    }
+    .share img:hover {
+        opacity: 1;
+        -moz-opacity: 1;
+        filter: alpha(opacity=100);
+    }
+    pre {
+        font-family: Droid Sans Mono, Monaco, Consolas, "Lucida Console", monospace;
+        color: black;
+        font-size: 90%;
+        background-color: #ffffff;
+        padding: 1.2em;
+        border: 2px solid #dddddd;
+        overflow: auto;
+    }
+    .org-info-box {
+        clear:both;
+        margin-left:auto;
+        margin-right:auto;
+        padding:0.7em;
+    }
+    .org-info-box img {
+        float:left;
+        margin:0em 0.5em 0em 0em;
+    }
+    .org-info-box p {
+        margin:0em;
+        padding:0em;
+    }
+    .builtin {
+        color: #f4a460;
+    }
+    .comment {
+        color: #737373;
+    }
+    .comment-delimiter {
+        color: #666666;
+    }
+    .constant {
+        color: #db7093;
+    }
+    .doc {
+        color: #b3b3b3;
+    }
+    .function-name {
+        color: #5f9ea0;
+    }
+    .headline {
+        color: #ffffff;
+        background-color: #000000;
+        font-weight: bold;
+    }
+    .keyword {
+        color: #4682b4;
+    }
+    .negation-char {
+    }
+    .regexp-grouping-backslash {
+    }
+    .regexp-grouping-construct {
+    }
+    .string {
+        color: #ccc79a;
+    }
+    .todo-comment {
+        color: #ffffff;
+        background-color: #000000;
+        font-weight: bold;
+    }
+    .variable-name {
+        color: #ff6a6a;
+    }
+    .warning {
+        color: #ffffff;
+        background-color: #cd5c5c;
+        font-weight: bold;
+    }
+    pre.a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+    }
+    pre.a:hover {
+        text-decoration: underline;
+    }
+    /* Styles for org-info.js */
+    .org-info-js_info-navigation
+    {
+        border-style:none;
+    }
+    #org-info-js_console-label
+    {
+        font-size:10px;
+        font-weight:bold;
+        white-space:nowrap;
+    }
+    .org-info-js_search-highlight
+    {
+        background-color:#ffff00;
+        color:#000000;
+        font-weight:bold;
+    }
+    #org-info-js-window
+    {
+        border-bottom:1px solid black;
+        padding-bottom:10px;
+        margin-bottom:10px;
+    }
+    .org-info-search-highlight
+    {
+        background-color:#adefef; /* same color as emacs default */
+        color:#000000;
+        font-weight:bold;
+    }
+    /* knitr */
+    .knitr.inline {
+        background-color: #f7f7f7;
+        border:solid 1px #B0B0B0;
+    }
+    .error {
+        font-weight: bold;
+        color: #FF0000;
+    },
+    .warning {
+        font-weight: bold;
+    }
+    .message {
+        font-style: italic;
+    }
+    .source, .output, .warning, .error, .message {
+        padding: 0em 1em;
+        border:solid 1px #F7F7F7;
+    }
+    .source {
+        background-color: #f5f5f5;
+    }
+    .rimage.left {
+        text-align: left;
+    }
+    .rimage.right {
+        text-align: right;
+    }
+    .rimage.center {
+        text-align: center;
+    }
+    .hl.num {
+        color: #AF0F91;
+    }
+    .hl.str {
+        color: #317ECC;
+    }
+    .hl.com {
+        color: #AD95AF;
+        font-style: italic;
+    }
+    .hl.opt {
+        color: #000000;
+    }
+    .hl.std {
+        color: #585858;
+    }
+    .hl.kwa {
+        color: #295F94;
+    }
+    .hl.kwb {
+        color: #B05A65;
+    }
+    .hl.kwc {
+        color: #55aa55;
+    }
+    .hl.kwd {
+        color: #BC5A65;
+    }
+    dt {
+        font-style: italic;
+    }
+    .figure {
+        margin-left: auto;
+        margin-right: auto;
+        align: center;
+        font-style: italic;
+    }
+    #show_source {
+        margin: 0; 
+        padding: 0;
+    }
+    #postamble {
+        font-size: 75%;
+        min-width: 700px;
+        max-width: 80%;
+        margin-left: 20px;
+        margin-top: 10px;
+        padding: .2em;
+        border: 1px solid gray;
+        background-color: #ffffff;
+        z-index: -1000;
+    }
+} /* END OF @media all */
+
+@media screen {
+    /* TOC inspired by http://jashkenas.github.com/coffee-script */
+    #table-of-contents {
+        font-size: 10pt;
+        position: fixed;
+        right: 0em;
+        top: 0em;
+        background: white;
+        line-height: 12pt;
+        text-align: right;
+        box-shadow: 0 0 1em #777777;
+        -webkit-box-shadow: 0 0 1em #777777;
+        -moz-box-shadow: 0 0 1em #777777;
+        -webkit-border-bottom-left-radius: 5px;
+        -moz-border-radius-bottomleft: 5px;
+        /* ensure doesn't flow off the screen when expanded */
+        max-height: 80%;
+        overflow: auto;
+    }
+    #table-of-contents {
+    float: right;
+    border: 1px solid #CCC;
+    max-width: 50%;
+    overflow: auto;
+    }
+    #table-of-contents h2 {
+        font-size: 13pt;
+        max-width: 9em;
+        border: 0;
+        font-weight: normal;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        padding-top: 0.05em;
+        padding-bottom: 0.05em;
+    }
+    #table-of-contents #text-table-of-contents {
+        display: none;
+        text-align: left;
+    }
+    #table-of-contents:hover #text-table-of-contents {
+        display: block;
+        padding: 0.5em;
+        margin-top: -1.5em;
+    }
+} /* END OF @media screen */
+
+@media print {
+} /* END OF @media print */
