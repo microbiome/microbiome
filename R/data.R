@@ -76,8 +76,7 @@ NULL
 #' @format List with the element 'filtered', including a simplified version
 #'         of the HITChip taxonomy.
 #' @keywords data
-NULL 
-
+NULL
 
 #' @title Dynamics of the human gut microbiome in inflammatory bowel disease
 #' @description This data set contains OTU level microbiota profiling with
