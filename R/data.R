@@ -87,7 +87,7 @@ NULL
 #' @details The data is also available for download from Qiita and the study ID is 1629.
 #'   \url{https://qiita.ucsd.edu/study/description/1629}. 
 #' @docType data
-#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com} 
+#' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com} 
 #' @references 
 #'   Halfvarson et al. Dynamics of the human gut microbiome in inflammatory bowel disease. 
 #'   Nat Microbiology. 2:17004, 2017. 
