@@ -15,6 +15,7 @@
 #'     p0.f <- format_phyloseq(p0)
 #'           }
 #' @keywords utilities
+#' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 format_phyloseq <- function(x)
 {
   if (ncol(tax_table(x)) == 6)
