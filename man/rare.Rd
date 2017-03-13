@@ -9,9 +9,9 @@ rare(x, detection, prevalence)
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{detection}{Detection threshold (non-negative real)}
+\item{detection}{Detection threshold for absence/presence (greater or equal).}
 
-\item{prevalence}{Prevalence threshold (in [0, 1])}
+\item{prevalence}{Prevalence threshold (in [0, 1]; greater or equal)}
 }
 \value{
 Filtered phyloseq object including only rare taxa

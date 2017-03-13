@@ -3,6 +3,7 @@
 export(GKtau)
 export(abundances)
 export(aggregate_taxa)
+export(ancom)
 export(associate)
 export(baseline)
 export(bimodality)

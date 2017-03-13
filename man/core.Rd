@@ -11,9 +11,9 @@ core(x, detection, prevalence, method = "standard", Nsample = NULL,
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{detection}{Detection threshold (non-negative real)}
+\item{detection}{Detection threshold for absence/presence (greater or equal).}
 
-\item{prevalence}{Prevalence threshold (in [0, 1])}
+\item{prevalence}{Prevalence threshold (in [0, 1]; greater or equal)}
 
 \item{method}{Either "standard" or "bootstrap". The standard methods selects
 the taxa that exceed the given detection and prevalence threshold.

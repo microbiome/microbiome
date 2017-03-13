@@ -9,7 +9,7 @@ prevalence(x, detection = 0, sort = FALSE, count = FALSE)
 \arguments{
 \item{x}{A vector, data matrix or phyloseq object}
 
-\item{detection}{Detection threshold for absence/presence.}
+\item{detection}{Detection threshold for absence/presence (greater or equal).}
 
 \item{sort}{Sort the groups by prevalence}
 

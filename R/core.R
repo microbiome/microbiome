@@ -1,8 +1,8 @@
 #' @title Core Microbiota
 #' @description Filter the phyloseq object to include only prevalent taxa.
 #' @param x \code{\link{phyloseq-class}} object
-#' @param detection Detection threshold (non-negative real)
-#' @param prevalence Prevalence threshold (in [0, 1])
+#' @param detection Detection threshold for absence/presence (greater or equal).
+#' @param prevalence Prevalence threshold (in [0, 1]; greater or equal)
 #' @param method Either "standard" or "bootstrap". The standard methods selects
 #' the taxa that exceed the given detection and prevalence threshold.
 #' The bootstrap method is more robust an described in Salonen et al. (2012).
@@ -167,7 +167,7 @@ bootstrap_microbecount <- function(D, Nsample = NULL,
 	}
         I.max = max(detection, I.max); 
         Insty = runif(1, detection, I.max)
-        sum(rowSums(D[,x]>Insty) > minprev)
+        sum(rowSums(D[,x]>=Insty) >= minprev)
      })
    } else {
      boot.which <- lapply(boot,function(x){ 
@@ -176,7 +176,7 @@ bootstrap_microbecount <- function(D, Nsample = NULL,
 	}
         I.max = max(detection, I.max); 
         Insty = runif(1,detection,I.max)
-        return(sum(D[,x] > Insty))
+        return(sum(D[,x] >= Insty))
      })
    }
 
