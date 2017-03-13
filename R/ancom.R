@@ -90,10 +90,10 @@ ancom.detect <- function(otu_data,n_otu,alpha,multcorr){
   ### $Arbitrary: A list of OTUs/taxa detected using an arbitrary cutoff
   ### $Stepwise: A list of OTUs/taxa detected using the stepwise mode detection
 
-  logratio.mat=matrix(NA,nr=n_otu,nc=n_otu)
+  logratio.mat=matrix(NA,nrow=n_otu,ncol=n_otu)
   Group = as.factor(colnames(otu_data))
   for(i in 1:(n_otu-1)){
-    # cat( "i = ", i, "\n")
+
     for(j in (i+1):n_otu){
       data.pair=otu_data[c(i,j),]    #,n_otu+1)]
       lr=log((0.001+as.numeric(data.pair[1,]))/(0.001+as.numeric(data.pair[2,])))
@@ -112,7 +112,7 @@ ancom.detect <- function(otu_data,n_otu,alpha,multcorr){
   
   a=logratio.mat[upper.tri(logratio.mat,diag=F)==T]
   
-  b=matrix(0,nc=n_otu,nr=n_otu)
+  b=matrix(0,ncol=n_otu,nrow=n_otu)
   b[upper.tri(b)==T]=p.adjust(a, method = "BH")
   diag(b)=NA
   ind.1 <- lower.tri(b)

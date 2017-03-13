@@ -16,7 +16,17 @@ output:
 -->
 
 
-## Networks
+```{r cleanup0, echo=FALSE, warning=FALSE, message=FALSE}
+namespaces0 <- c("graphics", "utils", "grDevices", "stats", "datasets", "methods", "base", "grid", "Rcpp", "Biobase", "BiocGenerics", "lattice", "vegan", "parallel", "phyloseq", "mgcv", "GO.db", "S4Vectors", "rhdf5", "AnnotationDBI", "IRanges", "XVector", "Matrix", "tools", "assertthat", "MASS", "DBI", "scales", "stringi", "stringr", "codetools", "data.table", "multtest", "permute")
+    # Must do to clean up some space
+    for (i in 1:10) {
+      pkgs0 <- setdiff(loadedNamespaces(), namespaces0)
+      for (pkg in pkgs0) {
+        print(c(pkg, length(pkgs0)))
+        try(a <- unloadNamespace(pkg))
+      }
+    }
+```
 
 See also the [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
 
@@ -110,6 +120,40 @@ phyla <- map_levels(colnames(otu), from = "Genus", to = "Phylum",
 netw %v% "Phylum" <- phyla
 p <- ggnet2(netw, color = "Phylum", label = TRUE, label.size = 2)
 print(p)
+```
+
+
+```{r cleanup2, echo=FALSE, warning=FALSE, message=FALSE}
+    # Must do to clean up some space
+    pkgs0 <- c("ade4",
+      	       "compositions",
+    	       "MASS",
+    	       "moments",
+    	       "scales",
+    	       "tgp",
+    	       "WGCNA",
+    	       "diptest",
+    	       "FD",
+    	       "gcookbook",
+    	       "GGally",
+    	       "ggnet",
+    	       "Hmisc",
+    	       "hrbrthemes",
+    	       "igraph",
+    	       "intergraph",
+    	       "limma",
+    	       "lme4",
+    	       "netresponse",
+    	       "network",
+    	       "RColorBrewer",
+    	       "sna",
+    	       "SpiecEasi",
+    	       "tidyverse",
+    	       "viridis")
+    for (pkg in pkgs0) {
+        print(pkg)
+        try(a <- unloadNamespace(pkg))
+    }
 ```
 
 
