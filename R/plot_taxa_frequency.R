@@ -14,6 +14,7 @@
 #'  plot <- plot_taxa_frequency(p0.f, 'Phylum')
 #'     }
 #' @keywords utilities
+#' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 plot_taxa_frequency <- function(x, level) {
     if (level == "Phylum") {
         tax.abun <- apply(otu_table(x), 1, mean)
