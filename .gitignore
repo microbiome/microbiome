@@ -2,7 +2,7 @@
 # Never put this in version control
 OAtoken
 
-docs/
+# docs/
 inst/extras/David2014
 inst/doc
 *~

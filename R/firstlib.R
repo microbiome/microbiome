@@ -134,6 +134,7 @@
 #' @importFrom utils flush.console
 #' @importFrom utils head
 #' @importFrom utils tail
+#' @importFrom utils write.csv
 #' @importFrom vegan decostand
 #' @importFrom vegan metaMDS
 #' @importFrom vegan procrustes
