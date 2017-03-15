@@ -1,15 +1,7 @@
 base
-methods
-datasets
-utils
-grDevices
-graphics
-stats
 phyloseq
-parallel
 BiocGenerics
 graph
-grid
 Rgraphviz
 minet
 mclust
@@ -41,3 +33,7 @@ magic
 geometry
 FD
 microbiome
+statnet.common
+Matrix
+igraph
+scales
