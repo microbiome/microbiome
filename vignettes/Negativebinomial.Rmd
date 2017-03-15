@@ -22,7 +22,7 @@ output:
 
 Load example data:
 
-```{r boxplot-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=5}
+```{r boxplot-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, eval=FALSE}
 # Load libraries
 library(microbiome)
 library(ggplot2)
@@ -36,14 +36,14 @@ pseq <- peerj32$phyloseq # Rename the example data
 
 Visually compare Akkermansia abundance between genders
 
-```{r boxplot2, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, out.width="300px"}
+```{r boxplot2, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, out.width="300px", eval=FALSE}
 p <- boxplot_abundance(pseq, x = "time", y = "Akkermansia", line = "subject", color = "gender") + scale_y_log10()
 print(p)
 ```
 
 Test statistical significance with negative binomial:
 
-```{r comparisons2b}
+```{r comparisons2b, eval=FALSE}
 library(MASS)
 
 # Analyse specific taxa
@@ -58,42 +58,5 @@ res <- glm.nb(signal ~ group + gender, data = meta(pseq))
 # Show the results
 print(coef(summary(res)))
 ```
-
-
-
-```{r cleanup, echo=FALSE, warning=FALSE, message=FALSE}
-    # Must do to clean up some space
-    pkgs0 <- c("ade4",
-      	       "compositions",
-    	       "MASS",
-    	       "moments",
-    	       "scales",
-    	       "tgp",
-    	       "WGCNA",
-    	       "diptest",
-    	       "FD",
-    	       "gcookbook",
-    	       "GGally",
-    	       "ggnet",
-    	       "Hmisc",
-    	       "hrbrthemes",
-    	       "igraph",
-    	       "intergraph",
-    	       "limma",
-    	       "lme4",
-    	       "netresponse",
-    	       "network",
-    	       "RColorBrewer",
-    	       "sna",
-    	       "SpiecEasi",
-    	       "tidyverse",
-    	       "viridis")
-    for (pkg in pkgs0) {
-        print(pkg)
-        try(a <- unloadNamespace(pkg))
-    }
-```
-
-
 
 

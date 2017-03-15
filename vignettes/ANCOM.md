@@ -15,29 +15,16 @@ output:
   %\VignetteEncoding{UTF-8}  
 -->
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-# Handle citations
-require(knitcitations)
-cleanbib()
-bib <- read.bibtex("bibliography.bib")
-knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
 
-# CSS Style
-library(knitr)
-### Import the style from CSS file 'css_path' 
-style <- paste(readLines("bioc.css"), collapse = "\n")
-opts_knit$set(self.contained = TRUE,
-              upload.fun = image_uri, ## optional
-              header = c(highlight = style))
-```
 
 ## ANCOM
 
-[ANCOM](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4450248/) has been claimed to outperform zero-inflated Gaussians and other recently popular models of differential abundance in microbiome studies. An R package is [available](https://www.niehs.nih.gov/research/resources/software/biostatistics/ancom/index.cfm) but not from standard repositories. Meanwhile, the ANCOM implementation is here modified from `r citep("10.1186/s40168-017-0237-y")`. The R code was obtained from the first author and included with permission in the microbiome package. For reference to the original ANCOM method by `r citep("10.3402/mehd.v26.27663")`.
+[ANCOM](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4450248/) has been claimed to outperform zero-inflated Gaussians and other recently popular models of differential abundance in microbiome studies. An R package is [available](https://www.niehs.nih.gov/research/resources/software/biostatistics/ancom/index.cfm) but not from standard repositories. Meanwhile, the ANCOM implementation is here modified from (Weiss, Xu, Peddada, Amir, Bittinger, Gonzalez, Lozupone, Zaneveld, Vázquez-Baeza, Birmingham, Hyde, and Knight, 2017). The R code was obtained from the first author and included with permission in the microbiome package. For reference to the original ANCOM method by (Mandal, Treuren, White, ø, Knight, and Peddada, 2015).
 
 Load example data:
 
-```{r ancom, message=FALSE}
+
+```r
 # Load the example data
 library(microbiome)
 data(dietswap)
@@ -46,7 +33,8 @@ pseq <- dietswap
 
 Calculate adjusted p-values on OTU abundance for the nationality:
 
-```{r ancom2, message=FALSE, eval=FALSE}
+
+```r
 padj <- ancom(pseq, "nationality")
 print(names(which(padj < 0.05)))
 ```
@@ -54,7 +42,8 @@ print(names(which(padj < 0.05)))
 
 For validation purposes, compare ANCOM and Negative binomial adjusted p-values. Note that the ANCOM p-values in this example just take values 0 (significant) and 1 (non-significant). Note that this is a toy example, demonstrating that the significance estimates are correlated between the two tests. 
 
-```{r ancom3, message=FALSE, eval=FALSE}
+
+```r
 library(MASS)
 pvs <- c()
 for (tax in taxa(pseq)) { 
@@ -78,7 +67,15 @@ boxplot(log10(pvs)  ~ padj, ylab = "Adj P (neg. binomial log10)", xlab = "Adj P 
 
 ### References
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
-bibliography()
-```
+[1] S. Mandal, W. V. Treuren, R. A. White, et al. "Analysis of
+composition of microbiomes: a novel method for studying microbial
+composition". In: _Microbial Ecology in Health \& Disease_ 26.0
+(May. 2015). DOI: 10.3402/mehd.v26.27663. <URL:
+https://doi.org/10.3402%2Fmehd.v26.27663}.>
+
+[2] S. Weiss, Z. Z. Xu, S. Peddada, et al. "Normalization and
+microbial differential abundance strategies depend upon data
+characteristics". In: _Microbiome_ 5.1 (Mar. 2017). DOI:
+10.1186/s40168-017-0237-y. <URL:
+https://doi.org/10.1186%2Fs40168-017-0237-y}.>
 

@@ -33,9 +33,11 @@ pseq <- dietswap
 # Convert to compositional data
 pseq.rel <- transform(pseq, "compositional")
 
-# Pick core taxa with with >10 percent prevalence of the samples
-# at a >1 percent relative abundance min.density
-pseq.core <- core(pseq.rel, detection = .01, prevalence = .1)
+# Pick core taxa with with the given prevalence and detection limits
+pseq.core <- core(pseq.rel, detection = .01, prevalence = .5)
+
+# Use relative abundances for the core
+pseq.core <- transform(pseq.core, "compositional")
 ```
 
 
@@ -45,7 +47,7 @@ Project the samples with the given method and dissimilarity measure.
 
 ```{r ordination2, message=FALSE, warning=FALSE, results="hide"}
 # Ordinate the data
-set.seed(423542)
+set.seed(4235421)
 proj <- get_ordination(pseq.core, "NMDS", "bray")
 ```
 
@@ -113,42 +115,5 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
 ### RDA
 
 See a separate page on [RDA](RDA.html).
-
-
-
-```{r cleanup, echo=FALSE, warning=FALSE, message=FALSE}
-    # Must do to clean up some space
-    pkgs0 <- c("ade4",
-      	       "compositions",
-    	       "MASS",
-    	       "moments",
-    	       "scales",
-    	       "tgp",
-    	       "WGCNA",
-    	       "diptest",
-    	       "FD",
-    	       "gcookbook",
-    	       "GGally",
-    	       "ggnet",
-    	       "Hmisc",
-    	       "hrbrthemes",
-    	       "igraph",
-    	       "intergraph",
-    	       "limma",
-    	       "lme4",
-    	       "netresponse",
-    	       "network",
-    	       "RColorBrewer",
-    	       "sna",
-    	       "SpiecEasi",
-    	       "tidyverse",
-    	       "viridis")
-    for (pkg in pkgs0) {
-        print(pkg)
-        try(a <- unloadNamespace(pkg))
-    }
-```
-
-
 
 

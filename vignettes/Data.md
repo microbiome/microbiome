@@ -1,12 +1,12 @@
 ---
 title: "Data"
-author: "Leo Lahti"
-date: "2017-03-05"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -20,14 +20,14 @@ output:
 
 [Importing microbiome profiling data from standard formats (mothur, qiime etc.)](http://joey711.github.io/phyloseq/import-data) (independent phyloseq R package).
 
-[Filtering, subsetting and other data processing examples](Preprocessing.md).
+[Filtering, subsetting and other data processing examples](Preprocessing.html).
 
 
 ## Microbiome example data sets
 
 ### Intestinal microbiota profiling of 1006 Western adults
 
-[The HITChip Atlas](Atlas.md) data set is available via the microbiome R package in phyloseq format, and via [Data Dryad](http://doi.org/10.5061/dryad.pk75d) in tabular format. This data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) comes with 130 genus-like taxonomic groups across 1006 western adults with no reported health complications. Some subjects have also short time series. Load the data in R with:
+[The HITChip Atlas](Atlas.html) data set is available via the microbiome R package in phyloseq format, and via [Data Dryad](http://doi.org/10.5061/dryad.pk75d) in tabular format. This data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) comes with 130 genus-like taxonomic groups across 1006 western adults with no reported health complications. Some subjects have also short time series. Load the data in R with:
 
 
 ```r
@@ -83,5 +83,3 @@ print(names(peerj32))
 ```
 ## [1] "lipids"   "microbes" "meta"     "phyloseq"
 ```
-
-

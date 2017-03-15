@@ -142,38 +142,3 @@ p <- plot_composition(pseq2, plot.type = "heatmap", transform = "Z-OTU",
 
 
 
-```{r cleanup, echo=FALSE, warning=FALSE, message=FALSE}
-    # Must do to clean up some space
-    pkgs0 <- c("ade4",
-      	       "compositions",
-    	       "MASS",
-    	       "moments",
-    	       "scales",
-    	       "tgp",
-    	       "WGCNA",
-    	       "diptest",
-    	       "FD",
-    	       "gcookbook",
-    	       "GGally",
-    	       "ggnet",
-    	       "Hmisc",
-    	       "hrbrthemes",
-    	       "igraph",
-    	       "intergraph",
-    	       "limma",
-    	       "lme4",
-    	       "netresponse",
-    	       "network",
-    	       "RColorBrewer",
-    	       "sna",
-    	       "SpiecEasi",
-    	       "tidyverse",
-    	       "viridis")
-    for (pkg in pkgs0) {
-        print(pkg)
-        try(a <- unloadNamespace(pkg))
-    }
-```
-
-
-

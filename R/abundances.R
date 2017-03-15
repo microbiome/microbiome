@@ -7,7 +7,7 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @export
-#' @aliases ab
+#' @aliases ab, otu
 #' @examples
 #'   data(dietswap)
 #'   abundances(dietswap)

@@ -92,38 +92,3 @@ par(mar = c(3, 14, 2, 1))
 barplot(sort(top.coef), horiz = T, las = 1, main = "Top taxa")
 ```
 
-
-```{r cleanup, echo=FALSE, warning=FALSE, message=FALSE}
-    # Must do to clean up some space
-    pkgs0 <- c("ade4",
-      	       "compositions",
-    	       "MASS",
-    	       "moments",
-    	       "scales",
-    	       "tgp",
-    	       "WGCNA",
-    	       "diptest",
-    	       "FD",
-    	       "gcookbook",
-    	       "GGally",
-    	       "ggnet",
-    	       "Hmisc",
-    	       "hrbrthemes",
-    	       "igraph",
-    	       "intergraph",
-    	       "limma",
-    	       "lme4",
-    	       "netresponse",
-    	       "network",
-    	       "RColorBrewer",
-    	       "sna",
-    	       "SpiecEasi",
-    	       "tidyverse",
-    	       "viridis")
-    for (pkg in pkgs0) {
-        print(pkg)
-        try(a <- unloadNamespace(pkg))
-    }
-```
-
-

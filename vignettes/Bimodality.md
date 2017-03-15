@@ -1,12 +1,12 @@
 ---
-title: "Bimodality"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "Bimodality analysis"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -84,8 +84,8 @@ Compare the alternative bimodality scores
 
 
 ```r
-b <- cbind(DIP = bimodality.dip, Potential = bimodality.pb, Sarle = bimodality.sarle)
-pairs(b)
+b <- cbind(Potential = bimodality.pb, Sarle = bimodality.sarle)
+plot(b)
 ```
 
 <img src="figure/bimodalitycomp-1.png" title="plot of chunk bimodalitycomp" alt="plot of chunk bimodalitycomp" width="400px" />
@@ -116,7 +116,7 @@ grid.arrange(p1, p2, nrow = 1)
 ## Tipping point detection
 
 Identify potential minima in cross-section population data as tipping
-point candidates (note that [longitudinal analysis](Stability.md)
+point candidates (note that [longitudinal analysis](Stability.html)
 would be necessary to establish bistability).
 
 
@@ -162,5 +162,4 @@ print(pv)
 ```
 
 <img src="figure/stability-variationplot-1.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" /><img src="figure/stability-variationplot-2.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" />
-
 

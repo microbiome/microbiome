@@ -21,7 +21,8 @@ output:
 
 Load example data:
 
-```{r core-prevalence}
+
+```r
 # Load data
 library(microbiome)
 data(atlas1006)
@@ -31,7 +32,8 @@ pseq <- subset_samples(atlas1006, DNA_extraction_method == "r")
 ```
 
 
-```{r crossplot1, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.show="hold", out.width="300px"}
+
+```r
 library(hrbrthemes)
 library(gcookbook)
 library(tidyverse)
@@ -49,10 +51,13 @@ print(p + theme_ipsum() + ggtitle("HITChip - theme_ipsum"))
 print(p + theme_ipsum_rc() + ggtitle("HITChip - theme_ipsum_rc"))
 ```
 
+<img src="figure/crossplot1-1.png" title="plot of chunk crossplot1" alt="plot of chunk crossplot1" width="300px" /><img src="figure/crossplot1-2.png" title="plot of chunk crossplot1" alt="plot of chunk crossplot1" width="300px" />
+
 
 ### Color fill example
 
-```{r crossplot2, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.show="hold", out.width="300px"}
+
+```r
 # Theme from https://github.com/hrbrmstr/hrbrthemse
 p <- ggplot(uspopage, aes(x=Year, y=Thousands, fill=AgeGroup)) + 
   geom_area() +
@@ -68,9 +73,12 @@ p <- ggplot(uspopage, aes(x=Year, y=Thousands, fill=AgeGroup)) +
 print(p)  
 ```
 
+<img src="figure/crossplot2-1.png" title="plot of chunk crossplot2" alt="plot of chunk crossplot2" width="300px" />
+
 ### Barplot example
 
-```{r crossplot3, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.show="hold", out.width="300px"}
+
+```r
 update_geom_font_defaults(font_rc_light)
 
 df <- count(mpg, class) %>% 
@@ -91,3 +99,5 @@ p <- ggplot(df, aes(class, n)) +
 
 print(p)
 ```
+
+<img src="figure/crossplot3-1.png" title="plot of chunk crossplot3" alt="plot of chunk crossplot3" width="300px" />

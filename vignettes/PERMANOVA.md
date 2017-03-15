@@ -1,12 +1,12 @@
 ---
-title: "Comparisons"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "Group-wise comparisons of microbiome composition"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -72,7 +72,7 @@ print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
 ```
 
 ```
-## [1] 0.38
+## [1] 0.25
 ```
 
 

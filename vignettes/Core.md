@@ -1,12 +1,12 @@
 ---
-title: "Core"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "Core microbiome"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -131,7 +131,7 @@ p <- plot_core(pseq.rel, prevalences = prevalences, detections = det, plot.type 
 p + xlab("Relative Abundance (%)")
 ```
 
-<img src="figure/core-example2-1.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="430px" /><img src="figure/core-example2-2.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="430px" />
+<img src="figure/core-example2-1.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="400px" /><img src="figure/core-example2-2.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="400px" />
 
 
 ### Core heatmaps
@@ -151,18 +151,34 @@ p <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray,
     xlab("Detection Threshold (Relative Abundance (%))")
 print(p)    
 
+
+# Same with the viridis color palette
+# color-blind friendly and uniform
+# options: viridis, magma, plasma, inferno
+# https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
+# Also discrete=TRUE versions available
+library(viridis)
+print(p + scale_fill_viridis())
+```
+
+```
+## Scale for 'fill' is already present. Adding another scale for 'fill',
+## which will replace the existing scale.
+```
+
+```r
 # Core with absolute counts and horizontal view:
 # and minimum population prevalence (given as percentage)
-detections <- 10^seq(log10(.01), log10(max(abundances(pseq))/10), length = 20)
+detections <- 10^seq(log10(1), log10(max(abundances(pseq))/10), length = 20)
 
 library(RColorBrewer)
-plot_core(pseq, plot.type = "heatmap", 
+p <- plot_core(pseq, plot.type = "heatmap", 
        		 prevalences = prevalences,
        		 detections = detections,
 		 colours = rev(brewer.pal(5, "Spectral")),
 		 min.prevalence = .2, horizontal = TRUE)
+print(p)
 ```
 
-<img src="figure/core-example3-1.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="430px" /><img src="figure/core-example3-2.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="430px" />
-
+<img src="figure/core-example3-1.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="200px" /><img src="figure/core-example3-2.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="200px" /><img src="figure/core-example3-3.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="200px" />
 

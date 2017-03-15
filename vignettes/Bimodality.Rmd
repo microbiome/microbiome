@@ -71,7 +71,7 @@ DIP test is another standard multimodality test, available via the
 [diptest](https://cran.r-project.org/web/packages/diptest/index.html)
 package. Use the 1-p as the score here
 
-```{r bimodality3bbb, message=FALSE, warning=FALSE}
+```{r bimodality3bbb, message=FALSE, warning=FALSE, eval=FALSE}
 library(diptest)
 bimodality.dip <- apply(abundances(pseq0.log10), 1, function (x) {1 - unname(dip.test(x)$p.value)})
 ```
@@ -79,8 +79,8 @@ bimodality.dip <- apply(abundances(pseq0.log10), 1, function (x) {1 - unname(dip
 Compare the alternative bimodality scores
 
 ```{r bimodalitycomp, message=FALSE, warning=FALSE, out.width="400px"}
-b <- cbind(DIP = bimodality.dip, Potential = bimodality.pb, Sarle = bimodality.sarle)
-pairs(b)
+b <- cbind(Potential = bimodality.pb, Sarle = bimodality.sarle)
+plot(b)
 ```
 
 
@@ -144,39 +144,4 @@ print(p)
 pv <- tipplot(pseq, tax, tipping.point = tipping.point)
 print(pv)
 ```
-
-
-```{r cleanup, echo=FALSE, warning=FALSE, message=FALSE}
-    # Must do to clean up some space
-    pkgs0 <- c("ade4",
-      	       "compositions",
-    	       "MASS",
-    	       "moments",
-    	       "scales",
-    	       "tgp",
-    	       "WGCNA",
-    	       "diptest",
-    	       "FD",
-    	       "gcookbook",
-    	       "GGally",
-    	       "ggnet",
-    	       "Hmisc",
-    	       "hrbrthemes",
-    	       "igraph",
-    	       "intergraph",
-    	       "limma",
-    	       "lme4",
-    	       "netresponse",
-    	       "network",
-    	       "RColorBrewer",
-    	       "sna",
-    	       "SpiecEasi",
-    	       "tidyverse",
-    	       "viridis")
-    for (pkg in pkgs0) {
-        print(pkg)
-        try(a <- unloadNamespace(pkg))
-    }
-```
-
 

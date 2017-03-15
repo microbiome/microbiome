@@ -1,12 +1,12 @@
 ---
 title: "Diversity"
-author: "Leo Lahti"
-date: "2017-03-05"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,7 +18,7 @@ output:
 
 ## Alpha richness and diversity
 
-See a separate page on [Beta diversity](Betadiversity.md).
+See a separate page on [Beta diversity](Betadiversity.html).
 
 Load example data:
 
@@ -66,7 +66,7 @@ print(p)
 
 ![plot of chunk div-example2](figure/div-example2-1.png)
 
-Visualize diversity measures w.r.t. discrete variable (or check more generic [group-wise comparison tools](Comparisons.md))
+Visualize diversity measures w.r.t. discrete variable (or check more generic [group-wise comparison tools](Comparisons.html))
 
 
 ```r
@@ -108,4 +108,5 @@ print(p)
 ```
 
 ![plot of chunk diversity-example13](figure/diversity-example13-1.png)
+
 

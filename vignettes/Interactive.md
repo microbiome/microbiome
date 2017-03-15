@@ -1,12 +1,12 @@
 ---
-title: "Interactive"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "Interactive examples"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}

@@ -20,7 +20,7 @@ output:
 
 Fit and visualize Variational Dirichlet process multivariate infinite Gaussian mixture. This variational version has been partially written in C and it is relatively fast. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short). Note that the implementation uses diagonal covariances on the Gaussian modes. The C code was partially derived from [Honkela et al. 2008](http://www.sciencedirect.com/science/article/pii/S0925231208000659).
 
-```{r LCA2, fig.width=6, fig.height=5, warning=FALSE, message=FALSE}
+```{r LCA2, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, eval=FALSE}
 library(netresponse)
 
 # Generate simulated data
@@ -47,7 +47,7 @@ p <- PlotMixtureMultivariate(D, means = m$mu, sds = m$sd, ws = m$w, modes = appl
 
 Fit and visualize Variational Dirichlet process univariate infinite Gaussian mixture. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short) for the code.
 
-```{r LCA1, fig.width=7, fig.height=5, warning=FALSE, message=FALSE}
+```{r LCA1, fig.width=7, fig.height=5, warning=FALSE, message=FALSE, eval=FALSE}
 # Generate simulated bimodal univariate data
 x <- c(rnorm(200), rnorm(200, mean = 5))
 
@@ -64,7 +64,7 @@ print(p)
 
 Gower distance is useful for samples with mixed-type variables (binary, factor, numeric)):
 
-```{r clustering-gower, fig.width=10, fig.height=4, warning=FALSE, message=FALSE}
+```{r clustering-gower, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, eval=FALSE}
 # Example data
 data("dietswap")
 
@@ -73,41 +73,5 @@ d <- gowdis(as(sample_data(dietswap), "data.frame"))
 
 plot(hclust(d))
 ```
-
-
-
-```{r cleanup, echo=FALSE, warning=FALSE, message=FALSE}
-    # Must do to clean up some space
-    pkgs0 <- c("ade4",
-      	       "compositions",
-    	       "MASS",
-    	       "moments",
-    	       "scales",
-    	       "tgp",
-    	       "WGCNA",
-    	       "diptest",
-    	       "FD",
-    	       "gcookbook",
-    	       "GGally",
-    	       "ggnet",
-    	       "Hmisc",
-    	       "hrbrthemes",
-    	       "igraph",
-    	       "intergraph",
-    	       "limma",
-    	       "lme4",
-    	       "netresponse",
-    	       "network",
-    	       "RColorBrewer",
-    	       "sna",
-    	       "SpiecEasi",
-    	       "tidyverse",
-    	       "viridis")
-    for (pkg in pkgs0) {
-        print(pkg)
-        try(a <- unloadNamespace(pkg))
-    }
-```
-
 
 

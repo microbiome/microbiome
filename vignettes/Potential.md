@@ -1,12 +1,12 @@
 ---
-title: "Potential"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "Potential analysis"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -51,3 +51,5 @@ Visualize
 p <- plot_potential(res$res) + xlab("Age") + ylab("Diversity")
 print(p)
 ```
+
+

@@ -1,12 +1,12 @@
 ---
 title: "Heatmaps"
-author: "Leo Lahti"
-date: "2017-03-05"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -17,7 +17,7 @@ output:
 
 ## Heatmaps for microbiome analysis
 
-See [Composition](Composition.md) page for phyloseq microbiota composition heatmaps. For further examples, see [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_heatmap-examples.html) and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45)
+See [Composition](Composition.html) page for phyloseq microbiota composition heatmaps. For further examples, see [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_heatmap-examples.html) and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45)
 
 
 Load some example data:
@@ -205,8 +205,4 @@ ggcorr(data = NULL, cor_matrix = cor(x[, 1:10], use = "everything"), low = "stee
 ```
 
 <img src="figure/ggcorr1-1.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" /><img src="figure/ggcorr1-2.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" /><img src="figure/ggcorr1-3.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" /><img src="figure/ggcorr1-4.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" />
-
-
-
-
 
