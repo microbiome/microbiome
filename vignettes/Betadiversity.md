@@ -1,12 +1,12 @@
 ---
-title: "Beta diversity"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "Beta diversity and microbiome divergence"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -17,7 +17,9 @@ output:
 
 
 
-## Beta diversity (microbiome heterogeneity)
+## Beta diversity 
+
+Some examples on calculating beta diversity and using it to quantify community divergence within a given sample set.
 
 Load example data
 
@@ -28,32 +30,33 @@ data(peerj32)
 pseq <- peerj32$phyloseq
 ```
 
-### Quantifying group heterogeneity / spread 
 
-Beta diversity within a given sample set can be quantified as the average dissimilarity of each sample from the group mean. This was applied in group-level comparisons for instance in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) (they focused on homogeneity using inverse correlation, whereas here we focus on heterogeneity using correlation but the measure is essentially the same). 
+### Quantifying group divergence / spread 
 
-Calculate group diversities within the LGG (probiotic) and Placebo groups
+Divergence of a given sample set can be quantified as the average dissimilarity of each sample from the group mean; the dissimilarity can be quantified by beta diversity, for instance. This was applied in group-level comparisons for instance in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) (they focused on homogeneity using inverse correlation, whereas here we focus on divergence using correlation but the measure is essentially the same). 
+
+Calculate group divergences within the LGG (probiotic) and Placebo groups
 
 
 ```r
-b.pla <- group_diversity(subset_samples(pseq, group == "Placebo"))
-b.lgg <- group_diversity(subset_samples(pseq, group == "LGG"))
+b.pla <- group_divergence(subset_samples(pseq, group == "Placebo"))
+b.lgg <- group_divergence(subset_samples(pseq, group == "LGG"))
 ```
 
-Use these to compare microbiota heterogeneity within each group. The LGG group tends to have smaller values, indicating that the samples are more similar to the group mean, and the LGG group is less heterogeneous (has smaller spread / is more homogeneous):
+Use these to compare microbiota divergence within each group. The LGG group tends to have smaller values, indicating that the samples are more similar to the group mean, and the LGG group is less heterogeneous (has smaller spread / is more homogeneous):
 
 
 ```r
 boxplot(list(LGG = b.lgg, Placebo = b.pla))
 ```
 
-<img src="figure/heterogeneity-example2bbb-1.png" title="plot of chunk heterogeneity-example2bbb" alt="plot of chunk heterogeneity-example2bbb" width="300px" />
+<img src="figure/divergence-example2bbb-1.png" title="plot of chunk divergence-example2bbb" alt="plot of chunk divergence-example2bbb" width="300px" />
 
-The **inter- and intra-invididual stability** (or homogeneity) measures are obtained as 1-b where b is the group diversity with the anticorrelation method ([Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html)). 
+The **inter- and intra-invididual stability** (or homogeneity) measures are obtained as 1-b where b is the group divergence with the anticorrelation method ([Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html)). 
 
 
 
-### Intra-individual heterogeneity 
+### Intra-individual divergence 
 
 Quantify beta diversity within subjects over time (as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) for intra-individual stability)
 
@@ -62,7 +65,8 @@ Quantify beta diversity within subjects over time (as in [Salonen et al. ISME J 
 betas <- list()
 groups <- as.character(unique(meta(pseq)$group))
 for (g in groups) {
-  df <- meta(subset_samples(pseq, group == g))
+  #df <- meta(subset_samples(pseq, group == g))
+  df <- subset(meta(pseq), group == g)
   beta <- c()
 
   for (subj in df$subject) {
@@ -102,7 +106,7 @@ s <- names(which.max(sapply(split(meta(pseq)$time, meta(pseq)$subject), function
 # Pick the metadata for this subject and sort the
 # samples by time
 library(dplyr)
-df <- meta(subset_samples(pseq, subject == s)) %>% arrange(time)
+df <- meta(pseq) %>% filter(subject == s) %>% arrange(time)
 
 # Calculate the beta diversity between each time point and
 # the baseline (first) time point
@@ -127,4 +131,5 @@ print(p)
 ```
 
 <img src="figure/homogeneity-example2d-1.png" title="plot of chunk homogeneity-example2d" alt="plot of chunk homogeneity-example2d" width="300px" />
+
 

@@ -1,12 +1,12 @@
 ---
-title: "HITChip"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "HITChip tools"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,8 +18,10 @@ output:
 
 ## HITChip and other phylogenetic microarrays
 
-  * [Extracting data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/vignettes/vignette.md)
-  * [Probe level studies (phylogenetic microarrays)](Probelevel.md)
+  * [Extracting data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/index./index.html)
+  * [Probe level studies (phylogenetic microarrays)](Probelevel.html)
+
+
 
 
 ### Importing HITChip data to phyloseq format
@@ -34,9 +36,38 @@ data.directory <- system.file("extdata", package = "microbiome")
 print(data.directory)
 ```
 
+
+## Installing HITChipDB package 
+
+The HITChipDB package contains additional routines to fetch and
+preprocess HITChip (or MIT/PITChip) data from the MySQL database. Note
+that this package is **not needed by most users** and the data is
+protected by password/IP combinations. Ask details from
+admins. Install the package in R with:
+
+
+```r
+library(microbiome)
 ```
-## [1] "/home/lei/Rpackages/microbiome/inst/extdata"
+
+
+```r
+# Install additional dependencies
+source("http://www.bioconductor.org/biocLite.R")
+
+biocLite("DBI")
+biocLite("RPA")
+biocLite("svDialogs")
+
+library(devtools) # Load the devtools package
+install_github("microbiome/HITChipDB") # Install the package
+# Also install RMySQL, multicore and tcltk !
+source("http://www.bioconductor.org/biocLite.R")
+biocLite("RMySQL") # multicore, tcltk?
+# Test installation by loading the microbiome package in R
+library("HITChipDB")
 ```
+
 
 With HITChip,
 [fRPA](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)

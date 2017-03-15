@@ -62,5 +62,3 @@ species. Load the data in R with:
 data(peerj32)
 print(names(peerj32))
 ```
-
-

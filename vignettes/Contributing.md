@@ -1,12 +1,12 @@
 ---
-title: "Contributing"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "How to contribute?"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -30,7 +30,9 @@ Contributions are very welcome:
 
 We welcome new examples and tutorials to be added in this collection, and will fully acknowledge such contributions.
 
-You can modify one of the existing examples (Rmd) and make a pull request. Or, you can propose a new tutorial page. The Rmarkdown source code (.Rmd) for all [tutorials](http://microbiome.github.io/microbiome/) is available in the Github [vignette page](https://github.com/microbiome/microbiome/tree/master/vignettes).
+You can modify one of the existing examples (.html) and make a pull request. Or, you can propose a new tutorial page. The Rmarkdown source code (..html) for all [tutorials](http://microbiome.github.io/microbiome/) is available in the Github [index.page](https://github.com/microbiome/microbiome/tree/master/index.). Fork the repository, clone it, modify the tutorials, and make a pull request.
+
+
 
 
 

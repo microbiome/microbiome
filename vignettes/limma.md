@@ -1,12 +1,12 @@
 ---
-title: "Limma"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "Limma - linear models for microarrays"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -146,11 +146,3 @@ kable(head(tab), digits = 3)
 
 
 
-|                                   |  logFC| AveExpr|       t| P.Value| adj.P.Val|      B|
-|:----------------------------------|------:|-------:|-------:|-------:|---------:|------:|
-|Bifidobacterium                    | -0.015|   3.701| -12.507|       0|         0| 63.548|
-|Clostridium difficile et rel.      | -0.009|   3.229|  -9.890|       0|         0| 37.203|
-|Oscillospira guillermondii et rel. |  0.012|   4.535|   9.827|       0|         0| 36.635|
-|Bacteroides splachnicus et rel.    |  0.006|   3.219|   9.551|       0|         0| 34.167|
-|Collinsella                        | -0.009|   2.827|  -9.111|       0|         0| 30.348|
-|Tannerella et rel.                 |  0.007|   3.161|   8.975|       0|         0| 29.203|

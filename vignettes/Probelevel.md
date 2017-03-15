@@ -1,12 +1,12 @@
 ---
-title: "Probe"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "Probe-level analysis for phylogenetic microarrays"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -63,8 +63,5 @@ Get probeset data matrix/matrices:
 set <- RPA::get.probeset("Actinomyces naeslundii", "species",
        		     taxonomy, probedata, log10 = TRUE)
 ```
-
-
-
 
 

@@ -4,10 +4,10 @@
 \alias{aggregate_taxa}
 \title{Summarize Taxa}
 \usage{
-aggregate_taxa(pseq, level)
+aggregate_taxa(x, level)
 }
 \arguments{
-\item{pseq}{\code{\link{phyloseq-class}} object}
+\item{x}{\code{\link{phyloseq-class}} object}
 
 \item{level}{Summarization level (from \code{rank_names(pseq)})}
 }

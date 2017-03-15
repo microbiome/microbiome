@@ -5,7 +5,7 @@
 #'   sum of OTU abundances over all OTUs that map to the same higher-level
 #'   group. Removes ambiguous levels from the taxonomy table. Returns a
 #'   phyloseq object with the summarized abundances.
-#' @param pseq \code{\link{phyloseq-class}} object
+#' @param x \code{\link{phyloseq-class}} object
 #' @param level Summarization level (from \code{rank_names(pseq)})
 #' @return Summarized phyloseq object
 #' @examples
@@ -15,7 +15,9 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-aggregate_taxa <- function (pseq, level) {
+aggregate_taxa <- function (x, level) {
+
+  pseq <- x
 
   if (!is.null(pseq@phy_tree)) {
   

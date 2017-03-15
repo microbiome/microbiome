@@ -1,12 +1,12 @@
 ---
 title: "HITChip Atlas"
-author: "Leo Lahti, Willem M de Vos et al."
-date: "2017-03-05"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}

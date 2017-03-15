@@ -1,5 +1,5 @@
 ---
-title: "Cluster analysis"
+title: "Themes"
 bibliography: 
 - bibliography.bib
 - references.bib

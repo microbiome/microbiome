@@ -2,7 +2,8 @@
 % Please edit documentation in R/abundances.R
 \name{abundances}
 \alias{abundances}
-\alias{ab}
+\alias{ab,}
+\alias{otu}
 \title{Abundance matrix from phyloseq object}
 \usage{
 abundances(x, transform = "identity")

@@ -1,12 +1,12 @@
 ---
 title: "Stability"
-author: "Leo Lahti"
-date: "2017-03-05"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -64,7 +64,7 @@ intermediate.stability <- intermediate_stability(pseq, output = "scores")
 
 ### Bimodality quantification
 
-Check the [bimodality page](Bimodality.md) for more examples on bimodality indicators.
+Check the [bimodality page](Bimodality.html) for more examples on bimodality indicators.
 
 Bimodality of the abundance distribution provides another (indirect)
 indicator of bistability, although other explanations such as sampling
@@ -166,6 +166,4 @@ source(system.file("extdata/plot_longitudinal.R", package = "microbiome"))
 p <- plot_longitudinal(pseq, "Dialister", subject = "831", tipping.point = 0.5)
 print(p)
 ```
-
-![plot of chunk homogeneity-timeseries](figure/homogeneity-timeseries-1.png)
 

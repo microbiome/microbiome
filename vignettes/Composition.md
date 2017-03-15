@@ -1,12 +1,12 @@
 ---
-title: "Composition"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "Microbiome composition"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -83,9 +83,2131 @@ p <- plot_composition(pseq2,
 	  transform = "compositional") +
           guides(fill = guide_legend(ncol = 1))
 print(p)
+
+# Or try another theme
+# from https://github.com/hrbrmstr/hrbrthemes
+library(hrbrthemes)
+library(gcookbook)
+library(tidyverse)
 ```
 
-![plot of chunk composition-example4b](figure/composition-example4b-1.png)
+```
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+```
+
+```
+## Conflicts with tidy packages ----------------------------------------------
+```
+
+```
+## combine():  dplyr, gridExtra, BiocGenerics
+## filter():   dplyr, stats
+## lag():      dplyr, stats
+## map():      purrr, mclust
+## Position(): ggplot2, BiocGenerics, base
+## select():   dplyr, MASS
+```
+
+```r
+p2 <- p + scale_y_percent() + labs(x="Samples", y="Relative abundance (%)",
+       title="Relative abundance data",
+       subtitle="For illustration",
+       caption="Caption here 'g'") + 
+  theme_ipsum(grid="Y")
+print(p2)  
+```
+
+```
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+```
+
+```
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+```
+
+```
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+```
+
+```
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+```
+
+```
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+```
+
+```
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+```
+
+```
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+```
+
+```
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+```
+
+```
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+```
+
+```
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+```
+
+```
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+```
+
+```
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+```
+
+```
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+
+## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## font family 'Arial Narrow' not found in PostScript font database
+```
+
+```
+## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
+## $y, : font family 'Arial Narrow' not found in PostScript font database
+```
+
+<img src="figure/composition-example4b-1.png" title="plot of chunk composition-example4b" alt="plot of chunk composition-example4b" width="300px" /><img src="figure/composition-example4b-2.png" title="plot of chunk composition-example4b" alt="plot of chunk composition-example4b" width="300px" />
 
 
 Averaged by group:
@@ -151,3 +2273,7 @@ p <- plot_composition(pseq2, plot.type = "heatmap", transform = "Z-OTU",
 ```
 
 ![plot of chunk composition-example8](figure/composition-example8-1.png)
+
+
+
+

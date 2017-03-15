@@ -1,12 +1,12 @@
 ---
-title: "Installation"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "Installation of microbiome R tools"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -81,8 +81,6 @@ To install microbiome package and recommended dependencies, run in R:
 ```r
 library(devtools) # Load the devtools package
 install_github("microbiome/microbiome") # Install the package
-install_github("ropensci/rdryad") # Install proposed package
-install_github("antagomir/netresponse") # Install proposed package
 ```
 
 ### Loading the package
@@ -94,7 +92,7 @@ Once the package has been installed, load it in R (also to test successful insta
 library(microbiome)  
 ```
 
-See further usage examples in [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
+See further usage examples in [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/index./index.html)
 
 
 
@@ -115,4 +113,5 @@ install.packages("sorvi")
 library(devtools)
 install_github("antagomir/netresponse")
 ```
+
 

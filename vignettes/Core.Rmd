@@ -148,4 +148,3 @@ p <- plot_core(pseq, plot.type = "heatmap",
 print(p)
 ```
 
-

@@ -49,4 +49,3 @@ plot(hc, hang=-1, main = "Hierarchical clustering")
 savePlot("myplot.emf", type = "emf")
 dev.off()
 ```
-

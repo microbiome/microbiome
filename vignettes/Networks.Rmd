@@ -16,7 +16,7 @@ output:
 -->
 
 
-## Networks
+
 
 See also the [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
 

@@ -1,0 +1,84 @@
+---
+title: "ANCOM test for differential abundance"
+bibliography: 
+- bibliography.bib
+- references.bib
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - comparisons}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Handle citations
+require(knitcitations)
+cleanbib()
+bib <- read.bibtex("bibliography.bib")
+knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
+
+# CSS Style
+library(knitr)
+### Import the style from CSS file 'css_path' 
+style <- paste(readLines("bioc.css"), collapse = "\n")
+opts_knit$set(self.contained = TRUE,
+              upload.fun = image_uri, ## optional
+              header = c(highlight = style))
+```
+
+## ANCOM
+
+[ANCOM](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4450248/) has been claimed to outperform zero-inflated Gaussians and other recently popular models of differential abundance in microbiome studies. An R package is [available](https://www.niehs.nih.gov/research/resources/software/biostatistics/ancom/index.cfm) but not from standard repositories. Meanwhile, the ANCOM implementation is here modified from `r citep("10.1186/s40168-017-0237-y")`. The R code was obtained from the first author and included with permission in the microbiome package. For reference to the original ANCOM method by `r citep("10.3402/mehd.v26.27663")`.
+
+Load example data:
+
+```{r ancom, message=FALSE}
+# Load the example data
+library(microbiome)
+data(dietswap)
+pseq <- dietswap
+```
+
+Calculate adjusted p-values on OTU abundance for the nationality:
+
+```{r ancom2, message=FALSE, eval=FALSE}
+padj <- ancom(pseq, "nationality")
+print(names(which(padj < 0.05)))
+```
+
+
+For validation purposes, compare ANCOM and Negative binomial adjusted p-values. Note that the ANCOM p-values in this example just take values 0 (significant) and 1 (non-significant). Note that this is a toy example, demonstrating that the significance estimates are correlated between the two tests. 
+
+```{r ancom3, message=FALSE, eval=FALSE}
+library(MASS)
+pvs <- c()
+for (tax in taxa(pseq)) { 
+  # Pick the signal (abundance) for this tax
+  sample_data(pseq)$signal <- get_sample(pseq, tax)
+
+  # Negative binomial test with group and gender included
+  if (length(unique(sample_data(pseq)$signal)) > 1) {
+    res <- glm.nb(signal ~ nationality, data = meta(pseq))
+
+    # Show the results
+    pvs[[tax]] <- anova(res)["nationality", "Pr(>Chi)"]
+  } else {
+    pvs[[tax]] <- 1
+  }
+}
+pvs <- p.adjust(pvs)
+pvs <- pvs[names(padj)]
+boxplot(log10(pvs)  ~ padj, ylab = "Adj P (neg. binomial log10)", xlab = "Adj P (ANCOM)", main = "ANCOM vs. Negative binomial")
+```
+
+### References
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+bibliography()
+```
+

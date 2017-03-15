@@ -1,12 +1,12 @@
 ---
-title: "Preprocessing"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "Preprocessing of taxonomic profiling data"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -365,4 +365,3 @@ kable(head(res$data), digits = 2)
 |lean        |male   | 189| 38.34|
 |overweight  |female | 102| 50.00|
 |overweight  |male   | 102| 50.00|
-

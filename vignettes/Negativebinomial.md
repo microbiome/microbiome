@@ -1,12 +1,12 @@
 ---
 title: "Negative binomial"
-author: "Leo Lahti"
-date: "2017-03-05"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -43,8 +43,6 @@ p <- boxplot_abundance(pseq, x = "time", y = "Akkermansia", line = "subject", co
 print(p)
 ```
 
-<img src="figure/boxplot2-1.png" title="plot of chunk boxplot2" alt="plot of chunk boxplot2" width="300px" />
-
 Test statistical significance with negative binomial:
 
 
@@ -62,13 +60,6 @@ res <- glm.nb(signal ~ group + gender, data = meta(pseq))
 
 # Show the results
 print(coef(summary(res)))
-```
-
-```
-##                Estimate Std. Error   z value      Pr(>|z|)
-## (Intercept)   6.2487413  0.2240525 27.889627 3.564693e-171
-## groupPlacebo  0.3408954  0.2535652  1.344409  1.788161e-01
-## gendermale   -0.7857536  0.2619740 -2.999358  2.705493e-03
 ```
 
 

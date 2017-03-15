@@ -65,12 +65,11 @@ transform <- function (x, transform = "identity",
       a <- abundances(transform(xt, "compositional"))
     }
 
-    if (!ncol(a) == nsamples(xt)) {stop("Something wrong with clr transform.")}
+    if (!nrow(a) == nsamples(xt)) { stop("Something wrong with clr transform.") }
     
-    d <- apply(compositions::clr(a), 2, identity)
-
-    colnames(d) <- sample_names(xt)
-    rownames(d) <- taxa(xt)
+    d <- apply(compositions::clr(a), 2, identity) 
+    rownames(d) <- sample_names(xt)
+    colnames(d) <- taxa(xt)
 
     xt@otu_table@.Data <- t(d)
 

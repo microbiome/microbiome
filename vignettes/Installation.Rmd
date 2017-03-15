@@ -79,8 +79,6 @@ To install microbiome package and recommended dependencies, run in R:
 ```{r microbiomeinstall, message=FALSE, warning=FALSE, eval=FALSE}
 library(devtools) # Load the devtools package
 install_github("microbiome/microbiome") # Install the package
-install_github("ropensci/rdryad") # Install proposed package
-install_github("antagomir/netresponse") # Install proposed package
 ```
 
 ### Loading the package
@@ -111,4 +109,5 @@ install.packages("sorvi")
 library(devtools)
 install_github("antagomir/netresponse")
 ```
+
 

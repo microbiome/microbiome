@@ -16,7 +16,8 @@
 #'           }
 #' @keywords utilities
 format_phyloseq <- function(x)
-{
+{ 
+  Domain <- Phylum <- Class <- Order <- Family <- Genus <- Species <- NULL
   if (ncol(tax_table(x)) == 6)
   {
     pobj <- x

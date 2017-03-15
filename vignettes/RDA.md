@@ -1,12 +1,12 @@
 ---
 title: "RDA"
-author: "Leo Lahti"
-date: "2017-03-05"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -114,7 +114,7 @@ permutest(rda.result)
 ## na.action = na.fail)
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.6572996 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.92
+## Significance:	 0.85
 ```
 
 
@@ -134,7 +134,5 @@ metadata <- meta(pseq.trans)
 # RDA with confounders using the vegan function
 rda.result2 <- vegan::rda(t(otu) ~ metadata$time + Condition(metadata$subject + metadata$gender))
 ```
-
-
 
 

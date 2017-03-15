@@ -45,11 +45,22 @@ library(knitr)
 fs <- sample(list.files(pattern = ".Rmd$"))
 knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
 times <- c()
+namespaces0 <-  loadedNamespaces()
+
 for (myfile in fs) {
     print(myfile)
     times[[myfile]] <- system.time(knit(myfile))[["elapsed"]]
     #rmarkdown::render(myfile, "md_document")
-    rmarkdown::render(myfile, "all")    
+    rmarkdown::render(myfile, "all")
+
+    # Must do to clean up some space
+    for (i in 1:10) {
+      pkgs0 <- setdiff(loadedNamespaces(), namespaces0)
+      for (pkg in pkgs0) {
+        print(c(pkg, length(pkgs0)))
+        try(a <- unloadNamespace(pkg))
+      }
+    }
 }
 
 # Time per index.page

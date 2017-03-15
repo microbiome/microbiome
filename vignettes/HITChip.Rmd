@@ -28,7 +28,7 @@ output:
 
 Define the data folder. 
 
-```{r datapeer, eval=TRUE, message=FALSE, warning=FALSE}
+```{r datapeer, eval=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
 # Define example data path (replace here data.directory with your own path)
 library(microbiome)
 data.directory <- system.file("extdata", package = "microbiome")
@@ -44,7 +44,7 @@ that this package is **not needed by most users** and the data is
 protected by password/IP combinations. Ask details from
 admins. Install the package in R with:
 
-```{r HITChipDBinstalltest, message=FALSE, warning=FALSE, eval=TRUE}
+```{r HITChipDBinstalltest, message=FALSE, warning=FALSE, eval=FALSE}
 library(microbiome)
 ```
 
@@ -121,6 +121,5 @@ rownames(taxonomy) <- as.vector(taxonomy[, "species"])
 # Merging data matrices into phyloseq format:
 pseq <- HITChipDB::hitchip2physeq(t(otu), meta, taxonomy)
 ```
-
 
 

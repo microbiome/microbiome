@@ -125,3 +125,6 @@ source(system.file("extdata/lm_phyloseq.R", package = "microbiome"))
 tab <- lm_phyloseq(atlas1006, "age")
 kable(head(tab), digits = 3)
 ```
+
+
+

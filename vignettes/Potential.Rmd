@@ -48,3 +48,5 @@ Visualize
 p <- plot_potential(res$res) + xlab("Age") + ylab("Diversity")
 print(p)
 ```
+
+

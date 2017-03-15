@@ -106,5 +106,3 @@ rda.result2 <- vegan::rda(t(otu) ~ metadata$time + Condition(metadata$subject + 
 ```
 
 
-
-

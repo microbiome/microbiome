@@ -1,12 +1,12 @@
 ---
-title: "Networks"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "Taxonomic network visualization"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -16,11 +16,11 @@ output:
 -->
 
 
-## Networks
+
 
 See also the [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
 
-Load [example data](Data.md):
+Load [example data](Data.html):
 
 
 ```r

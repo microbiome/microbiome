@@ -1,12 +1,12 @@
 ---
-title: "Ordination"
-author: "Leo Lahti"
-date: "2017-03-05"
+title: "Ordination analysis"
 bibliography: 
 - bibliography.bib
 - references.bib
 output: 
-  rmarkdown::html_vignette
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,7 +18,7 @@ output:
 
 ## Ordination examples
 
-Full examples for standard ordination techniques applied to phyloseq data, based on the [phyloseq ordination tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). For handy wrappers for some common ordination tasks in microbiome analysis, see [landscaping examples](Landscaping.md)
+Full examples for standard ordination techniques applied to phyloseq data, based on the [phyloseq ordination tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). For handy wrappers for some common ordination tasks in microbiome analysis, see [landscaping examples](Landscaping.html)
 
 
 Load example data:
@@ -34,9 +34,11 @@ pseq <- dietswap
 # Convert to compositional data
 pseq.rel <- transform(pseq, "compositional")
 
-# Pick core taxa with with >10 percent prevalence of the samples
-# at a >1 percent relative abundance min.density
-pseq.core <- core(pseq.rel, detection = .01, prevalence = .1)
+# Pick core taxa with with the given prevalence and detection limits
+pseq.core <- core(pseq.rel, detection = .01, prevalence = .5)
+
+# Use relative abundances for the core
+pseq.core <- transform(pseq.core, "compositional")
 ```
 
 
@@ -47,7 +49,7 @@ Project the samples with the given method and dissimilarity measure.
 
 ```r
 # Ordinate the data
-set.seed(423542)
+set.seed(4235421)
 proj <- get_ordination(pseq.core, "NMDS", "bray")
 ```
 
@@ -132,8 +134,6 @@ plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
 
 ### RDA
 
-See a separate page on [RDA](RDA.md).
-
-
+See a separate page on [RDA](RDA.html).
 
 
