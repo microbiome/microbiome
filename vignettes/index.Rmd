@@ -8,6 +8,7 @@ output:
   prettydoc::html_pretty:
     theme: cayman
     highlight: github
+<?php include_once("analyticstracking.php") ?>    
 ---
 <!--
   %\VignetteIndexEntry{microbiome tutorial}
