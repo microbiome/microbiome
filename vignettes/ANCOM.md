@@ -67,15 +67,5 @@ boxplot(log10(pvs)  ~ padj, ylab = "Adj P (neg. binomial log10)", xlab = "Adj P 
 
 ### References
 
-[1] S. Mandal, W. V. Treuren, R. A. White, et al. "Analysis of
-composition of microbiomes: a novel method for studying microbial
-composition". In: _Microbial Ecology in Health \& Disease_ 26.0
-(May. 2015). DOI: 10.3402/mehd.v26.27663. <URL:
-https://doi.org/10.3402%2Fmehd.v26.27663}.>
 
-[2] S. Weiss, Z. Z. Xu, S. Peddada, et al. "Normalization and
-microbial differential abundance strategies depend upon data
-characteristics". In: _Microbiome_ 5.1 (Mar. 2017). DOI:
-10.1186/s40168-017-0237-y. <URL:
-https://doi.org/10.1186%2Fs40168-017-0237-y}.>
 

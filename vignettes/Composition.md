@@ -87,6 +87,20 @@ print(p)
 # Or try another theme
 # from https://github.com/hrbrmstr/hrbrthemes
 library(hrbrthemes)
+```
+
+```
+## 
+## Attaching package: 'hrbrthemes'
+```
+
+```
+## The following object is masked from 'package:igraph':
+## 
+##     %>%
+```
+
+```r
 library(gcookbook)
 library(tidyverse)
 ```
@@ -101,12 +115,21 @@ library(tidyverse)
 ```
 
 ```
-## combine():  dplyr, gridExtra, BiocGenerics
-## filter():   dplyr, stats
-## lag():      dplyr, stats
-## map():      purrr, mclust
-## Position(): ggplot2, BiocGenerics, base
-## select():   dplyr, MASS
+## as_data_frame(): dplyr, tibble, igraph
+## col_factor():    readr, scales
+## col_numeric():   readr, scales
+## combine():       dplyr, BiocGenerics
+## compose():       purrr, igraph
+## crossing():      tidyr, igraph
+## discard():       purrr, scales
+## expand():        tidyr, Matrix
+## filter():        dplyr, stats
+## groups():        dplyr, .GlobalEnv, igraph
+## lag():           dplyr, stats
+## map():           purrr, mclust
+## Position():      ggplot2, BiocGenerics, base
+## select():        dplyr, MASS
+## simplify():      purrr, igraph
 ```
 
 ```r

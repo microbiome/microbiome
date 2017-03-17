@@ -72,7 +72,7 @@ print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
 ```
 
 ```
-## [1] 0.25
+## [1] 0.19
 ```
 
 
