@@ -4,7 +4,7 @@
 \alias{transform}
 \title{Data Transformations for phyloseq Objects}
 \usage{
-transform(x, transform = "identity", target = "OTU")
+transform(x, transform = "identity", target = "OTU", shift = 0)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -16,6 +16,8 @@ transform(x, transform = "identity", target = "OTU")
 
 \item{target}{Apply the transform for 'sample' or 'OTU'.
 Does not affect the log transform.}
+
+\item{shift}{A constant indicating how much to shift the baseline abundance (in transform = "shift")}
 }
 \value{
 Transformed \code{\link{phyloseq}} object
@@ -32,7 +34,7 @@ The relative abunance are returned as percentages in [0,
 \dontrun{
 
   # OTU relative abundances
-  xt <- transform(x, "relative.abundance", "OTU")
+  xt <- transform(x, "compositional", "OTU")
 
   # Z-transform for OTUs
   xt <- transform(x, "Z", "OTU")
@@ -42,6 +44,9 @@ The relative abunance are returned as percentages in [0,
 
   # Log10 transform (log(1+x) if the data contains zeroes)
   xt <- transform(x, "log10")
+
+  # Shift the baseline
+  xt <- transform(x, "shift", shift = 1)
 
 }
 }
