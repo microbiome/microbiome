@@ -55,8 +55,9 @@ check_anova <- function (x, group, p.adjust.method = "BH") {
   colnames(pv) <- c("p.anova", names(pv2))
 
   # Adjust ANOVA group-level p-values
-  pv[, "p.anova"] <- p.adjust(pv[, "p.anova"], method = p.adjust.method)  
-  
+  padj <- p.adjust(pv[, "p.anova"], method = p.adjust.method)  
+  taxa <- names(padj)
+
   # Signal group-level means
   dfm <- as.data.frame(t(mydata))
   dfm$group <- metadata$group
@@ -69,12 +70,20 @@ check_anova <- function (x, group, p.adjust.method = "BH") {
   colnames(relmeans) <- paste("ave.", rnams, sep = "")    
 
   # Combine the data frames
-  res <- as.data.frame(cbind(pv, relmeans))
+  res <- as.data.frame(cbind(taxa = taxa,
+                             padj = padj,
+			     relmeans))
+
+  res$padj <- as.numeric(as.character(res$padj))
+  for (i in 3:ncol(res)) {
+    res[,i] <- as.numeric(as.character(res[,i]))
+  }
+
   
   # Order by p 
-  #res <- esort(res, p.anova)
-  res <- res %>% arrange(p.anova)
-
+  # res <- esort(res, p.anova)
+  res <- res %>% arrange(padj)
+  
   res
 
 }

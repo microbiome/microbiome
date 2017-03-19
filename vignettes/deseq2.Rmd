@@ -54,9 +54,31 @@ df$taxon <- rownames(df)
 df <- df %>% arrange(log2FoldChange, padj)
 print(head(kable((df)))
 
-# Just applying the variance stabilizing transformation
-varianceStabilizingTransformation(ds2, blind = TRUE, fitType = "parametric")
-ds2 <- estimateSizeFactors(ds2)
-ds2 <- estimateDispersions(ds2)
-abund <- getVarianceStabilizedData(ds2)
+# Just apply variance stabilizing transformation
+#varianceStabilizingTransformation(ds2, blind = TRUE, fitType = "parametric")
+#ds2 <- estimateSizeFactors(ds2)
+#ds2 <- estimateDispersions(ds2)
+#abund <- getVarianceStabilizedData(ds2)
+```
+
+
+Validating DESeq2 results
+
+```{r deseq2-validate, warning=FALSE, message=FALSE, fig.width=8, fig.height=5}
+# Identify top taxa based on standard ANOVA
+source("extdata/check_anova.R", package = "microbiome")
+ano <- check_anova(pseq, "nationality");
+ano$log2FC <- log2(ano$ave.AFR) - log2(ano$ave.AAM)
+taxa.anova <- as.character(subset(ano, padj < 0.01 & abs(log2FC) > log2(2))$taxa)
+
+# Pick the top taxa based on DESEq2
+taxa.deseq <- subset(res.deseq, padj < 0.01 & abs(log2FoldChange) > log2(2))$taxon
+
+# Check overlap
+# Most DESEq2 taxa are confirmed with ANOVA
+library(gplots)
+venn( list(ANOVA=taxa.anova,DESeq2=taxa.deseq) )
+
+# Also the lowest p-values are well correlated (higher not so)
+plot(log10(res.deseq$padj), log10(ano$padj), xlab = "DESeq2 adjusted p-value", ylab("ANOVA adjusted p-value"))
 ```
