@@ -25,6 +25,37 @@ Load example data:
 ```r
 # Load data
 library(microbiome)
+```
+
+```
+## Loading required package: phyloseq
+```
+
+```
+## 
+```
+
+```
+## 
+## microbiome R package (microbiome.github.com)
+##           
+## 
+## 
+##  Copyright (C) 2011-2017 Leo Lahti et al. <microbiome.github.io>
+```
+
+```
+## 
+## Attaching package: 'microbiome'
+```
+
+```
+## The following object is masked from 'package:base':
+## 
+##     transform
+```
+
+```r
 data(atlas1006)
 
 # Rename the data
@@ -82,7 +113,7 @@ print(p)
 update_geom_font_defaults(font_rc_light)
 
 df <- count(mpg, class) %>% 
-  mutate(n=n*2000) %>% 
+  mutate(n = n*2000) %>% 
   arrange(n) %>% 
   mutate(class=factor(class, levels=class)) 
 

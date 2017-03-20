@@ -121,7 +121,7 @@ p <- plot_composition(pseq2, plot.type = "heatmap", transform = "Z-OTU", mar = c
 Same with relative abundance, samples and OTUs sorted with the neatmap method:
 
 ```{r composition-example7, fig.width=10, fig.height=3}
-pseq3 <- transform(pseq2, "compositional")
+pseq3 <- microbiome::transform(pseq2, "compositional")
 p <- plot_composition(pseq3, plot.type = "heatmap", 
        			       sample.sort = "neatmap", otu.sort = "neatmap",
 			       mar = c(6, 13, 1, 1))

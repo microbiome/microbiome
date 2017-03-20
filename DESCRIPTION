@@ -33,6 +33,7 @@ Suggests:
     BiocGenerics,
     BiocStyle,
     Cairo,
+    DESeq2,
     devtools,
     FD,
     gcookbook,
@@ -53,6 +54,7 @@ Suggests:
     rmarkdown,
     sna,
     SpiecEasi,
+    StructSSI,
     testthat,
     tidyverse,
     viridis
