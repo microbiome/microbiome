@@ -52,7 +52,7 @@ res <- results(dds)
 df <- as.data.frame(res)
 df$taxon <- rownames(df)
 df <- df %>% arrange(log2FoldChange, padj)
-print(head(kable((df)))
+print(head(kable((df))))
 ```
 
 
