@@ -50,6 +50,7 @@ r_packages:
 - WGCNA
 bioc_packages:
 - BiocInstaller
+- DESeq2
 - limma
 - phyloseq
 r_github_packages:
