@@ -58,9 +58,9 @@ print(head(kable((df))))
 
 Validating DESeq2 results
 
-```{r deseq2-validate, warning=FALSE, message=FALSE, fig.width=8, fig.height=5}
+```{r deseq2-validate, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, eval=FALSE}
 # Identify top taxa based on standard ANOVA
-source("extdata/check_anova.R", package = "microbiome")
+source(system.file("extdata/check_anova.R", package = "microbiome"))
 ano <- check_anova(pseq, "nationality");
 ano$log2FC <- log2(ano$ave.AFR) - log2(ano$ave.AAM)
 taxa.anova <- as.character(subset(ano, padj < 0.01 & abs(log2FC) > log2(2))$taxa)
