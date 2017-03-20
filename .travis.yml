@@ -39,7 +39,7 @@ r_packages:
 - robustbase
 - rpart
 - scales
-- structSSI
+- StructSSI
 - survival
 - tensorA
 - tgp
