@@ -31,7 +31,7 @@ library(ggplot2)
 data(dietswap) 
 pseq <- dietswap
 # Set baseline to 0 (in this data set it appears to be 1)
-pseq <- transform(pseq, "shift", shift = -1)
+pseq <- microbiome::transform(pseq, "shift", shift = -1)
 ```
 
 
