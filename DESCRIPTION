@@ -53,6 +53,7 @@ Suggests:
     rmarkdown,
     sna,
     SpiecEasi,
+    StructSSI,
     testthat,
     tidyverse,
     viridis
