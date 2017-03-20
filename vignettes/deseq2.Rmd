@@ -55,10 +55,10 @@ df <- df %>% arrange(log2FoldChange, padj)
 print(head(kable((df)))
 
 # Just apply variance stabilizing transformation
-#varianceStabilizingTransformation(ds2, blind = TRUE, fitType = "parametric")
-#ds2 <- estimateSizeFactors(ds2)
-#ds2 <- estimateDispersions(ds2)
-#abund <- getVarianceStabilizedData(ds2)
+# varianceStabilizingTransformation(ds2, blind = TRUE, fitType = "parametric")
+# ds2 <- estimateSizeFactors(ds2)
+# ds2 <- estimateDispersions(ds2)
+# abund <- getVarianceStabilizedData(ds2)
 ```
 
 
@@ -77,7 +77,7 @@ taxa.deseq <- subset(res.deseq, padj < 0.01 & abs(log2FoldChange) > log2(2))$tax
 # Check overlap
 # Most DESEq2 taxa are confirmed with ANOVA
 library(gplots)
-venn( list(ANOVA=taxa.anova,DESeq2=taxa.deseq) )
+venn( list(ANOVA = taxa.anova,DESeq2 = taxa.deseq) )
 
 # Also the lowest p-values are well correlated (higher not so)
 plot(log10(res.deseq$padj), log10(ano$padj), xlab = "DESeq2 adjusted p-value", ylab("ANOVA adjusted p-value"))
