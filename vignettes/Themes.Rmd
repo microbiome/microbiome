@@ -70,7 +70,7 @@ print(p)
 
 ### Barplot example
 
-```{r crossplot3, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.show="hold", out.width="300px"}
+```{r crossplot3, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.show="hold", out.width="300px", eval=FALSE}
 update_geom_font_defaults(font_rc_light)
 
 df <- count(mpg, class) %>% 
