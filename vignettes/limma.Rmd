@@ -31,7 +31,7 @@ data(peerj32) # Source: https://peerj.com/articles/32/
 pseq <- peerj32$phyloseq # Rename the example data
 
 # Get OTU abundances and sample metadata
-otu <- abundances(transform(pseq, "log10"))
+otu <- abundances(microbiome::transform(pseq, "log10"))
 meta <- meta(pseq)
 ```
 

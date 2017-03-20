@@ -33,7 +33,7 @@ pseq2 <- pseq %>%
          subset_samples(group == "LGG")
 
 # Z transformed abundance data
-pseqz <- transform(pseq2, "Z")
+pseqz <- microbiome::transform(pseq2, "Z")
 ```
 
 
