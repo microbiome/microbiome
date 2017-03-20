@@ -53,12 +53,6 @@ df <- as.data.frame(res)
 df$taxon <- rownames(df)
 df <- df %>% arrange(log2FoldChange, padj)
 print(head(kable((df)))
-
-# Just apply variance stabilizing transformation
-# varianceStabilizingTransformation(ds2, blind = TRUE, fitType = "parametric")
-# ds2 <- estimateSizeFactors(ds2)
-# ds2 <- estimateDispersions(ds2)
-# abund <- getVarianceStabilizedData(ds2)
 ```
 
 
