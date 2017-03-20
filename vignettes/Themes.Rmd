@@ -72,9 +72,8 @@ print(p)
 
 ```{r crossplot3, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.show="hold", out.width="300px"}
 update_geom_font_defaults(font_rc_light)
-
 df <- count(mpg, class) %>% 
-  mutate(n=n*2000) %>% 
+  mutate(n = n*2000) %>% 
   arrange(n) %>% 
   mutate(class=factor(class, levels=class)) 
 
@@ -86,7 +85,7 @@ p <- ggplot(df, aes(class, n)) +
   labs(x="Fuel effiiency (mpg)", y="Weight (tons)",
        title="Seminal ggplot2 column chart example with commas",
        subtitle="A plot that is only useful for demonstration purposes, esp since you'd never\nreally want direct labels and axis labels",
-       caption="Brought to you by the letter 'g'") + 
+       caption="Caption goes here") + 
   theme_ipsum_rc(grid="X")
 
 print(p)
