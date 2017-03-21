@@ -54,7 +54,7 @@ Suggests:
     rmarkdown,
     sna,
     SpiecEasi,
-    StructSSI,
+    structSSI,
     testthat,
     tidyverse,
     viridis
