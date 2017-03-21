@@ -39,6 +39,7 @@ r_packages:
 - robustbase
 - rpart
 - scales
+- structSSI
 - survival
 - tensorA
 - tgp
@@ -52,7 +53,6 @@ bioc_packages:
 - DESeq2
 - limma
 - phyloseq
-- structSSI
 r_github_packages:
 - slowkow/ggrepel
 - cran/RUnit
