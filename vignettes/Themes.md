@@ -25,37 +25,6 @@ Load example data:
 ```r
 # Load data
 library(microbiome)
-```
-
-```
-## Loading required package: phyloseq
-```
-
-```
-## 
-```
-
-```
-## 
-## microbiome R package (microbiome.github.com)
-##           
-## 
-## 
-##  Copyright (C) 2011-2017 Leo Lahti et al. <microbiome.github.io>
-```
-
-```
-## 
-## Attaching package: 'microbiome'
-```
-
-```
-## The following object is masked from 'package:base':
-## 
-##     transform
-```
-
-```r
 data(atlas1006)
 
 # Rename the data
@@ -111,7 +80,6 @@ print(p)
 
 ```r
 update_geom_font_defaults(font_rc_light)
-
 df <- count(mpg, class) %>% 
   mutate(n = n*2000) %>% 
   arrange(n) %>% 
@@ -125,10 +93,8 @@ p <- ggplot(df, aes(class, n)) +
   labs(x="Fuel effiiency (mpg)", y="Weight (tons)",
        title="Seminal ggplot2 column chart example with commas",
        subtitle="A plot that is only useful for demonstration purposes, esp since you'd never\nreally want direct labels and axis labels",
-       caption="Brought to you by the letter 'g'") + 
+       caption="Caption goes here") + 
   theme_ipsum_rc(grid="X")
 
 print(p)
 ```
-
-<img src="figure/crossplot3-1.png" title="plot of chunk crossplot3" alt="plot of chunk crossplot3" width="300px" />

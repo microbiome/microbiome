@@ -19,43 +19,11 @@ output:
 
 See [Composition](Composition.html) page for further microbiota composition heatmaps, as well as the [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_heatmap-examples.html) and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45). Moreover, the [aheatmap](http://nmf.r-forge.r-project.org/aheatmap.html) function of the NMF package provides further high quality heatmap plotting capabilities with row and column annotation color bars, clustering trees and other useful features that are often missing from standard heatmap tools in R.
 
-
 Load some example data:
 
 
 ```r
 library(microbiome) # Load libraries
-```
-
-```
-## Loading required package: phyloseq
-```
-
-```
-## 
-```
-
-```
-## 
-## microbiome R package (microbiome.github.com)
-##           
-## 
-## 
-##  Copyright (C) 2011-2017 Leo Lahti et al. <microbiome.github.io>
-```
-
-```
-## 
-## Attaching package: 'microbiome'
-```
-
-```
-## The following object is masked from 'package:base':
-## 
-##     transform
-```
-
-```r
 library(phyloseq)
 data(peerj32)
 pseq <- peerj32$phyloseq    # Rename data
@@ -64,19 +32,9 @@ pseq <- peerj32$phyloseq    # Rename data
 pseq2 <- pseq %>%
          subset_taxa(Phylum == "Bacteroidetes") %>%
          subset_samples(group == "LGG")
-```
 
-```
-## Error in eval(expr, envir, enclos): could not find function "%>%"
-```
-
-```r
 # Z transformed abundance data
-pseqz <- transform(pseq2, "Z")
-```
-
-```
-## Error in get_taxa(x): object 'pseq2' not found
+pseqz <- microbiome::transform(pseq2, "Z")
 ```
 
 
@@ -90,20 +48,12 @@ from their population mean (smaller: blue; higher: red):
 ```r
 # Pick OTU table
 x <- abundances(pseqz)
-```
 
-```
-## Error in get_taxa(x): object 'pseqz' not found
-```
-
-```r
 # Plot heatmap
 tmp <- plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
 ```
 
-```
-## Error in plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1)): object 'x' not found
-```
+![plot of chunk heatmap-matvisu-example](figure/heatmap-matvisu-example-1.png)
 
 
 Find visually appealing order for rows and columns with the Neatmap approach:
@@ -112,27 +62,14 @@ Find visually appealing order for rows and columns with the Neatmap approach:
 ```r
 # Sort the matrix rows and cols directly
 xo <- neat(x, method = "NMDS", distance = "euclidean") # Sorted matrix
-```
-
-```
-## Error in neat(x, method = "NMDS", distance = "euclidean"): object 'x' not found
-```
-
-```r
 tmp <- plot_matrix(xo, type = "twoway", mar = c(5, 12, 1, 1))
 ```
 
-```
-## Error in plot_matrix(xo, type = "twoway", mar = c(5, 12, 1, 1)): object 'xo' not found
-```
+![plot of chunk neatmap3](figure/neatmap3-1.png)
 
 ```r
 # or use a shortcut to sorting rows (or columns) if just the order was needed 
 sorted.rows <- neatsort(x, "rows", method = "NMDS", distance = "euclidean") 
-```
-
-```
-## Error in neatsort(x, "rows", method = "NMDS", distance = "euclidean"): object 'x' not found
 ```
 
 

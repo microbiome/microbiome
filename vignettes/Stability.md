@@ -36,7 +36,7 @@ pseq <- pseq %>% subset_samples(DNA_extraction_method == "r")
 pseq <- core(pseq, detection = 10^3, prevalence = .2)
 
 # Use relative abundances
-pseq <- transform(pseq, "compositional")
+pseq <- microbiome::transform(pseq, "compositional")
 
 # For cross-sectional analysis, include only the baseline time point:
 pseq0 <- baseline(pseq)
@@ -78,7 +78,7 @@ bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.h
 
 ```r
 # Bimodality is better estimated from log10 abundances
-pseq0.log10 <- transform(pseq0, "log10")
+pseq0.log10 <- microbiome::transform(pseq0, "log10")
 set.seed(4433)
 bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis", bs.iter = 100, peak.threshold = 10, min.density = 10)
 ```

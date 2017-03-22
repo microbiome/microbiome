@@ -32,11 +32,7 @@ library(ggplot2)
 data(dietswap) 
 pseq <- dietswap
 # Set baseline to 0 (in this data set it appears to be 1)
-pseq <- transform(pseq, "shift", shift = -1)
-```
-
-```
-## Error in as.data.frame.default(x[[i]], optional = TRUE): cannot coerce class "structure("phyloseq", package = "phyloseq")" to a data.frame
+pseq <- microbiome::transform(pseq, "shift", shift = -1)
 ```
 
 
@@ -64,10 +60,10 @@ print(head(kable((df))))
 ```
 ## [1] "|     baseMean| log2FoldChange|     lfcSE|        stat|    pvalue|      padj|taxon                                 |"
 ## [2] "|------------:|--------------:|---------:|-----------:|---------:|---------:|:-------------------------------------|"
-## [3] "| 1.188509e+02|     -5.7462659| 0.3553330| -16.1714957| 0.0000000| 0.0000000|Uncultured Selenomonadaceae           |"
-## [4] "| 6.460296e+03|     -3.6952930| 0.2849155| -12.9697848| 0.0000000| 0.0000000|Dialister                             |"
-## [5] "| 9.985676e+02|     -3.4554148| 0.1845278| -18.7257124| 0.0000000| 0.0000000|Bacteroides intestinalis et rel.      |"
-## [6] "| 8.751857e+04|     -2.9115733| 0.1980848| -14.6986174| 0.0000000| 0.0000000|Bacteroides vulgatus et rel.          |"
+## [3] "| 1.179042e+02|     -5.6054637| 0.7137407|  -7.8536422| 0.0000000| 0.0000000|Uncultured Selenomonadaceae           |"
+## [4] "| 6.462246e+03|     -3.7306691| 0.2855295| -13.0657932| 0.0000000| 0.0000000|Dialister                             |"
+## [5] "| 1.006694e+03|     -3.4929604| 0.1878069| -18.5986829| 0.0000000| 0.0000000|Bacteroides intestinalis et rel.      |"
+## [6] "| 8.769326e+04|     -2.9250398| 0.1987956| -14.7138053| 0.0000000| 0.0000000|Bacteroides vulgatus et rel.          |"
 ```
 
 

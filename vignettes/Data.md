@@ -66,6 +66,24 @@ print(dietswap)
 ```
 
 
+### Dynamics of the human gut microbiome in inflammatory bowel disease
+
+Data set from [Halfvarson et al. Nature Microbiology 2, 2017](http://www.nature.com/articles/nmicrobiol20174) characterizes longitudinal fluctuations of human intestinal microbiota in Inflammatory bowel disease (IBD) subjects and compare it with those of healthy individuals. The authors use Illumina HiSeq 2000 for the V4 region with 515F/806RBC. This data was downloaded from [Qiita](https://qiita.ucsd.edu/study/description/1629) and the Qiita study ID is 1629.
+Load the data in R with:
+
+
+```r
+data(DynamicsIBD)
+print(DynamicsIBD)
+```
+
+```
+## phyloseq-class experiment-level object
+## otu_table()   OTU Table:         [ 10996 taxa and 683 samples ]
+## sample_data() Sample Data:       [ 683 samples by 32 sample variables ]
+## tax_table()   Taxonomy Table:    [ 10996 taxa by 7 taxonomic ranks ]
+```
+
 ### Intestinal microbiota versus blood metabolites
 
 Data set from [Lahti et al. PeerJ 1:e32,
