@@ -19,7 +19,6 @@ output:
 
 See [Composition](Composition.html) page for further microbiota composition heatmaps, as well as the [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_heatmap-examples.html) and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45). Moreover, the [aheatmap](http://nmf.r-forge.r-project.org/aheatmap.html) function of the NMF package provides further high quality heatmap plotting capabilities with row and column annotation color bars, clustering trees and other useful features that are often missing from standard heatmap tools in R.
 
-
 Load some example data:
 
 ```{r heatmap-example-data, fig.width=16, fig.height=5, warning=FALSE}
@@ -34,7 +33,7 @@ pseq2 <- pseq %>%
          subset_samples(group == "LGG")
 
 # Z transformed abundance data
-pseqz <- transform(pseq2, "Z")
+pseqz <- microbiome::transform(pseq2, "Z")
 ```
 
 

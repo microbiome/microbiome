@@ -24,7 +24,7 @@ Load the package and example data:
 library(microbiome)
 data(peerj32) # Data from https://peerj.com/articles/32/
 pseq <- peerj32$phyloseq # phyloseq data
-pseq.trans <- transform(pseq, "hell") # Hellinger transform
+pseq.trans <- microbiome::transform(pseq, "hell") # Hellinger transform
 ```
 
 

@@ -31,13 +31,13 @@ data(dietswap)
 pseq <- dietswap
 
 # Convert to compositional data
-pseq.rel <- transform(pseq, "compositional")
+pseq.rel <- microbiome::transform(pseq, "compositional")
 
 # Pick core taxa with with the given prevalence and detection limits
 pseq.core <- core(pseq.rel, detection = .01, prevalence = .5)
 
 # Use relative abundances for the core
-pseq.core <- transform(pseq.core, "compositional")
+pseq.core <- microbiome::transform(pseq.core, "compositional")
 ```
 
 
