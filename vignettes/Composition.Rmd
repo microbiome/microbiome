@@ -139,6 +139,31 @@ p <- plot_composition(pseq2, plot.type = "heatmap", transform = "Z-OTU",
 			       mar = c(6, 13, 1, 1))
 ```
 
+### Plot taxa prevalence
 
+Load [example data](Data.md):  
+For this example, we will use two different datasets.   
 
+For HITChip based 16S rRNA gene profilling data. 
+The diet swap data [diet swap study](http://dx.doi.org/10.1038/ncomms7342):  
 
+```{r prevalence-example1, fig.height=6, fig.width=8, warning=FALSE}
+# Example data
+data(dietswap)
+pseq <- dietswap
+plot <- plot_taxa_prevalence(pseq, 'Phylum')
+print(plot)
+```
+For high throughput 16S rRNA gene sequencing data.  
+The Dynamics IBD data [Halfvarson J., et al. Nature Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174). It was downloaded from [Qiita](https://qiita.ucsd.edu/study/description/1629). The Qiita Study ID is 1629.  
+
+```{r, fig.height=6, fig.width=8}
+# Example data
+data(DynamicsIBD)
+p0 <- DynamicsIBD  
+p0.f <- format_phyloseq(p0)
+plot <- plot_taxa_prevalence(p0.f, 'Phylum')
+print(plot)
+
+```
+You can also plot the prevalence at Order/Class/Family level for the DynamicsIBD dataset. However, with the dietswap dataset it can be only at phylum level as the taxnomy has two level L1- Phylum and L2- Genus.  
