@@ -76,7 +76,7 @@ transform <- function (x, transform = "identity",
       a <- t(abundances(transform(xt, "compositional")))
     }
 
-    d <- apply(compositions::clr(a), 2, identity) 
+    d <- t(apply(compositions::clr(a), 2, identity))
     rownames(d) <- sample_names(xt)
     colnames(d) <- taxa(xt)
 
