@@ -36,7 +36,7 @@ data(peerj32) # Source: https://peerj.com/articles/32/
 pseq <- peerj32$phyloseq # Rename the example data
 
 # Pick relative abundances (compositional) and sample metadata 
-pseq.rel <- transform(pseq, "compositional")
+pseq.rel <- microbiome::transform(pseq, "compositional")
 otu <- abundances(pseq.rel)
 meta <- meta(pseq.rel)
 ```
@@ -72,7 +72,7 @@ print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
 ```
 
 ```
-## [1] 0.19
+## [1] 0.27
 ```
 
 

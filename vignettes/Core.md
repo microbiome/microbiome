@@ -32,7 +32,7 @@ pseq <- peerj32$phyloseq
 
 # Calculate compositional version of the data
 # (relative abundances)
-pseq.rel <- transform(pseq, "compositional")
+pseq.rel <- microbiome::transform(pseq, "compositional")
 ```
 
 

@@ -37,3 +37,7 @@ statnet.common
 Matrix
 igraph
 scales
+plyr
+S4Vectors
+IRanges
+Biobase

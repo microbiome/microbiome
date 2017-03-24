@@ -71,17 +71,17 @@ library(network)
 netw <- network(as.matrix(n), directed = FALSE)
 
 # igraph format
-library(igraph)
-ig <- graph.adjacency(n, mode='undirected', add.rownames = TRUE)
+#library(igraph)
+#ig <- graph.adjacency(n, mode='undirected', add.rownames = TRUE)
 
 # Network layout
-coord <- layout.fruchterman.reingold(ig)
+#coord <- layout.fruchterman.reingold(ig)
 
 ## set size of vertex to log2 mean abundance 
-vsize <- log2(apply(otu, 2, mean))
+#vsize <- log2(apply(otu, 2, mean))
 
 # Visualize the network
-print(plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize)))
+#print(plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize)))
 ```
 
 

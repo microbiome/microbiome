@@ -160,7 +160,7 @@ Log10 transform (log(1+x) if the data contains zeroes). Also "Z",
 
 
 ```r
-pseq.log <- transform(pseq, "log10")
+pseq.log <- microbiome::transform(pseq, "log10")
 ```
 
 Relative abundances (the input data needs to be in absolute scale, not logarithmic!):

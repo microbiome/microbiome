@@ -34,7 +34,7 @@ data(dietswap)
 pseq <- dietswap
 
 # Convert to compositional data
-pseq.rel <- transform(pseq, "compositional")
+pseq.rel <- microbiome::transform(pseq, "compositional")
 
 # Pick core taxa with with >10 percent prevalence of the samples
 # at a >1 percent relative abundance min.density
@@ -103,7 +103,7 @@ plot_density(x, "Dialister") + ggtitle("Absolute abundance")
 plot_density(x, "Dialister", log10 = TRUE) + ggtitle("Log10")
 
 # Same with log10 compositionals
-x <- transform(x, "compositional")
+x <- microbiome::transform(x, "compositional")
 tax <- "Dialister"
 plot_density(x, tax, log10 = TRUE) +
   ggtitle("Relative abundance") +

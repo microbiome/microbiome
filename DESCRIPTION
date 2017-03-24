@@ -7,6 +7,7 @@ Date: 2017-02-27
 Authors@R: c(
     person("Leo", "Lahti", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Tineka", "Blake", role = "ctb"),
+    person("Sudarshan", "Shetty", role = "ctb"),    
     person("Jarkko", "Salojarvi", role = "ctb"))
 biocViews: Microarray, Preprocessing, SystemsBiology, Visualization,
     Microbiome, Clustering
@@ -54,7 +55,7 @@ Suggests:
     rmarkdown,
     sna,
     SpiecEasi,
-    StructSSI,
+    structSSI,
     testthat,
     tidyverse,
     viridis

@@ -23,7 +23,7 @@ output:
 library(ggplot2)
 library(rvg)
 library(ggiraph)
-x <- transform(atlas1006, "compositional")
+x <- microbiome::transform(atlas1006, "compositional")
 
 mytheme_main <- theme( panel.background = element_blank(), 
   panel.grid.major = element_line(colour = "#dddddd"), 

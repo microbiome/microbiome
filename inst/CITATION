@@ -4,6 +4,7 @@ citEntry(entry="misc",
          title = "microbiome R package",
          author = personList(
 	 	person(given ="Leo", family="Lahti", email = "leo.lahti@iki.fi"),
+	 	person(given ="Sudarshan", family="Shetty"),		
 	 	person(given ="Tineka", family="Blake"),
 	 	person(given ="Jarkko", family="Salojarvi")		
 	 	  ),
