@@ -87,25 +87,12 @@ print(p)
 # Or try another theme
 # from https://github.com/hrbrmstr/hrbrthemes
 library(hrbrthemes)
-```
-
-```
-## 
-## Attaching package: 'hrbrthemes'
-```
-
-```
-## The following object is masked from 'package:igraph':
-## 
-##     %>%
-```
-
-```r
 library(gcookbook)
 library(tidyverse)
 ```
 
 ```
+## Loading tidyverse: tibble
 ## Loading tidyverse: readr
 ## Loading tidyverse: purrr
 ```
@@ -115,36 +102,32 @@ library(tidyverse)
 ```
 
 ```
-## arrange():       dplyr, plyr
-## as_data_frame(): dplyr, tibble, igraph
-## col_factor():    readr, scales
-## col_numeric():   readr, scales
-## collapse():      dplyr, IRanges
-## combine():       dplyr, Biobase, BiocGenerics
-## compact():       purrr, plyr
-## compose():       purrr, igraph
-## count():         dplyr, plyr
-## crossing():      tidyr, igraph
-## desc():          dplyr, IRanges, plyr
-## discard():       purrr, scales
-## expand():        tidyr, Matrix, S4Vectors
-## failwith():      dplyr, plyr
-## filter():        dplyr, stats
-## first():         dplyr, S4Vectors
-## groups():        dplyr, igraph
-## id():            dplyr, plyr
-## lag():           dplyr, stats
-## map():           purrr, mclust
-## mutate():        dplyr, plyr
-## Position():      ggplot2, BiocGenerics, base
-## reduce():        purrr, IRanges
-## regroup():       dplyr, IRanges
-## rename():        dplyr, S4Vectors, plyr
-## select():        dplyr, MASS
-## simplify():      purrr, igraph, IRanges
-## slice():         dplyr, IRanges
-## summarise():     dplyr, plyr
-## summarize():     dplyr, plyr
+## arrange():     dplyr, plyr
+## col_factor():  readr, scales
+## col_numeric(): readr, scales
+## collapse():    dplyr, IRanges
+## combine():     dplyr, Biobase, gridExtra, BiocGenerics
+## compact():     purrr, plyr
+## count():       dplyr, plyr
+## desc():        dplyr, IRanges, plyr
+## discard():     purrr, scales
+## expand():      tidyr, S4Vectors, Matrix
+## failwith():    dplyr, plyr
+## filter():      dplyr, stats
+## first():       dplyr, S4Vectors
+## id():          dplyr, plyr
+## lag():         dplyr, stats
+## map():         purrr, mclust
+## mutate():      dplyr, plyr
+## Position():    ggplot2, BiocGenerics, base
+## reduce():      purrr, IRanges
+## regroup():     dplyr, IRanges
+## rename():      dplyr, S4Vectors, plyr
+## select():      dplyr, MASS
+## simplify():    purrr, IRanges
+## slice():       dplyr, IRanges
+## summarise():   dplyr, plyr
+## summarize():   dplyr, plyr
 ```
 
 ```r

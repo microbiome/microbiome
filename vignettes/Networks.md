@@ -76,33 +76,17 @@ library(network)
 netw <- network(as.matrix(n), directed = FALSE)
 
 # igraph format
-library(igraph)
-ig <- graph.adjacency(n, mode='undirected', add.rownames = TRUE)
-```
+#library(igraph)
+#ig <- graph.adjacency(n, mode='undirected', add.rownames = TRUE)
 
-```
-## Error in `[.default`(el, , 3): incorrect number of dimensions
-```
-
-```r
 # Network layout
-coord <- layout.fruchterman.reingold(ig)
-```
+#coord <- layout.fruchterman.reingold(ig)
 
-```
-## Error in make_call(f, ..., .args): object 'ig' not found
-```
-
-```r
 ## set size of vertex to log2 mean abundance 
-vsize <- log2(apply(otu, 2, mean))
+#vsize <- log2(apply(otu, 2, mean))
 
 # Visualize the network
-print(plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize)))
-```
-
-```
-## Error in plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize)): object 'ig' not found
+#print(plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize)))
 ```
 
 

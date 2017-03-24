@@ -25,7 +25,7 @@ Load the package and example data:
 library(microbiome)
 data(peerj32) # Data from https://peerj.com/articles/32/
 pseq <- peerj32$phyloseq # phyloseq data
-pseq.trans <- transform(pseq, "hell") # Hellinger transform
+pseq.trans <- microbiome::transform(pseq, "hell") # Hellinger transform
 ```
 
 
@@ -114,7 +114,7 @@ permutest(rda.result)
 ## na.action = na.fail)
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.6572996 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.9
+## Significance:	 0.96
 ```
 
 
