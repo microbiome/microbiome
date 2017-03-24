@@ -8,27 +8,28 @@ output:
     theme: cayman
     highlight: github
 ---
-<!--
+  <!--
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{microbiome tutorial - composition}
-  %\usepackage[utf8]{inputenc}
-  %\VignetteEncoding{UTF-8}  
+%\VignetteIndexEntry{microbiome tutorial - composition}
+%\usepackage[utf8]{inputenc}
+%\VignetteEncoding{UTF-8}  
 -->
-
-
-## Microbiota composition
-
-
-### Barplots for composition
-
-Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html).
+  
+  
+  ## Microbiota composition
+  
+  
+  ### Barplots for composition
+  
+  Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html).
 
 
 Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
-
+  
 ```{r composition-example1}
 # Example data
 library(microbiome)
+library(dplyr)
 data(dietswap)
 pseq <- dietswap
 
@@ -39,23 +40,23 @@ pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
 
 Show OTU absolute abundance in each sample. Plot absolute taxon
 abundances:
-
+  
 ```{r composition-example1b, fig.width=16, fig.height=8, message=FALSE}
 library(ggplot2)
 theme_set(theme_bw(22)) # Black/white color theme
 p <- plot_composition(pseq2, taxonomic.level = "Phylum") +
-       theme(legend.position = "bottom") +
-       guides(fill = guide_legend(nrow = 10, byrow = TRUE))
+  theme(legend.position = "bottom") +
+  guides(fill = guide_legend(nrow = 10, byrow = TRUE))
 print(p)       
 ```
 
 Arrange by sample variable. Focus on the core taxa. Africans have more Prevotella as expected. Absolute counts:
-
+  
 ```{r composition-example4, fig.width=13, fig.height=5}
 # Limit the analysis on core taxa and specific sample group
 pseq2 <- pseq %>%
-           core(detection = 10^4, prevalence = .5) %>%
-           subset_samples(group == "DI" & timepoint.within.group == 1)
+  core(detection = 10^4, prevalence = .5) %>%
+  subset_samples(group == "DI" & timepoint.within.group == 1)
 
 p <- plot_composition(pseq2,
                       sample.sort = "nationality", # Sort by nationality
@@ -67,13 +68,13 @@ print(p)
 
 
 Same with compositional (relative) abundances:
-
+  
 ```{r composition-example4b, fig.width=12, fig.height=5, out.width="300px", fig.show="hold"}
 p <- plot_composition(pseq2,
-          sample.sort = "nationality",
-	  x.label = "nationality",
-	  transform = "compositional") +
-          guides(fill = guide_legend(ncol = 1))
+                      sample.sort = "nationality",
+                      x.label = "nationality",
+                      transform = "compositional") +
+  guides(fill = guide_legend(ncol = 1))
 print(p)
 
 # Or try another theme
@@ -82,19 +83,19 @@ library(hrbrthemes)
 library(gcookbook)
 library(tidyverse)
 p2 <- p + scale_y_percent() + labs(x="Samples", y="Relative abundance (%)",
-       title="Relative abundance data",
-       subtitle="For illustration",
-       caption="Caption here 'g'") + 
+                                   title="Relative abundance data",
+                                   subtitle="For illustration",
+                                   caption="Caption here 'g'") + 
   theme_ipsum(grid="Y")
 print(p2)  
 ```
 
 
 Averaged by group:
-
+  
 ```{r composition-example4c, fig.width=12, fig.height=5}
 p <- plot_composition(pseq2,
-             average_by = "nationality", transform = "compositional")
+                      average_by = "nationality", transform = "compositional")
 print(p)
 ```
 
@@ -119,26 +120,54 @@ p <- plot_composition(pseq2, plot.type = "heatmap", transform = "Z-OTU", mar = c
 
 
 Same with relative abundance, samples and OTUs sorted with the neatmap method:
-
+  
 ```{r composition-example7, fig.width=10, fig.height=3}
 pseq3 <- microbiome::transform(pseq2, "compositional")
 p <- plot_composition(pseq3, plot.type = "heatmap", 
-       			       sample.sort = "neatmap", otu.sort = "neatmap",
-			       mar = c(6, 13, 1, 1))
+                      sample.sort = "neatmap", otu.sort = "neatmap",
+                      mar = c(6, 13, 1, 1))
 ```
 
 
 Same with Z-transformed, samples and OTUs sorted manually based on compositional data (Z-transformed data has negative values and the sorting method is not yet implemented for that):
-
+  
 ```{r composition-example8, fig.width=10, fig.height=3, warning=FALSE}
 sample.sort <- neatsort(pseq3, method = "NMDS", distance = "bray", target = "sites") 
 otu.sort <- neatsort(pseq3, method = "NMDS", distance = "bray", target = "species")
 
 p <- plot_composition(pseq2, plot.type = "heatmap", transform = "Z-OTU",
-       			       sample.sort = sample.sort, otu.sort = otu.sort,
-			       mar = c(6, 13, 1, 1))
+                      sample.sort = sample.sort, otu.sort = otu.sort,
+                      mar = c(6, 13, 1, 1))
 ```
 
+### Plot taxa prevalence
 
+Load [example data](Data.md):  
+  For this example, we will use two different datasets.   
 
+For HITChip based 16S rRNA gene profilling data. 
+The [diet swap study](http://dx.doi.org/10.1038/ncomms7342):  
+  
+```{r prevalence-example1, fig.height=6, fig.width=8, warning=FALSE}
+# Example data
+data(dietswap)
+pseq <- dietswap
+plot <- plot_taxa_prevalence(pseq, 'Phylum')
+print(plot)
+```
+
+For high throughput 16S rRNA gene sequencing data.  
+The Dynamics IBD data from [Halfvarson J., et al. Nature Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174). It was downloaded from [Qiita](https://qiita.ucsd.edu/study/description/1629). The Qiita Study ID is 1629.  
+
+```{r, fig.height=6, fig.width=8}
+# Example data
+data(DynamicsIBD)
+p0 <- DynamicsIBD  
+p0.f <- format_phyloseq(p0)
+plot <- plot_taxa_prevalence(p0.f, 'Phylum')
+print(plot)
+
+```
+
+You can also plot the prevalence at Order/Class/Family level for the DynamicsIBD dataset. However, with the dietswap dataset it can be only at phylum level as the taxnomy has two level L1- Phylum and L2- Genus.  
 

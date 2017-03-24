@@ -274,3 +274,34 @@ print(res$plot)
 # Retrieving the actual data values:
 kable(head(res$data), digits = 2)
 ```
+
+
+## Formatting the Phyloseq Object
+
+Load [example data](Data.md):  
+For this example, we will use data from [Halfvarson J., et al. Nature Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174). It was downloaded from [Qiita](https://qiita.ucsd.edu/study/description/1629).  
+The Qiita study ID is 1629. 
+
+
+```{r}
+library(microbiome)
+data(DynamicsIBD)
+p0 <- DynamicsIBD
+
+# Check the taxonomy information stored in the phyloseq object.  
+
+library(knitr)
+kable(head(tax_table(p0)))
+		 
+```
+
+It can be observed that the not all the OTUs are classified until the lowest taxonomic level (here, species level). This is especially the case with high throughput sequencing data sets. In doing OTU level testing for differential abundance, you may need information regading the specific otu number or taxonomy of the OTU. This can help in easily tracing back the sequence and also make the plots with best taxonomic classification possible. Additionally, the names of taxonomic ranks are corrected using this function.
+
+```{r}
+
+p0.f <- format_phyloseq(p0)
+
+#Check the taxonomy again with the formatted phyloseq object.
+kable(head(tax_table(p0.f)))
+
+```

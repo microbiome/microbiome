@@ -69,6 +69,7 @@ colnames(n) <- rownames(n) <- colnames(otu)
 # Network format
 library(network)
 netw <- network(as.matrix(n), directed = FALSE)
+<<<<<<< HEAD
 
 # igraph format
 #library(igraph)
@@ -82,6 +83,22 @@ netw <- network(as.matrix(n), directed = FALSE)
 
 # Visualize the network
 #print(plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize)))
+||||||| merged common ancestors
+
+# igraph format
+library(igraph)
+ig <- graph.adjacency(n, mode='undirected', add.rownames = TRUE)
+
+# Network layout
+coord <- layout.fruchterman.reingold(ig)
+
+## set size of vertex to log2 mean abundance 
+vsize <- log2(apply(otu, 2, mean))
+
+# Visualize the network
+print(plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize)))
+=======
+>>>>>>> 801523276e0cf744e1bc4905eca92783287d4d6a
 ```
 
 
