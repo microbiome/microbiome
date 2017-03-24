@@ -22,7 +22,8 @@ See also the [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-
 
 Load [example data](Data.html):
 
-```{r networks1, message=FALSE, warning=FALSE}
+
+```r
 library(microbiome)
 data(dietswap)
 pseq <- dietswap
@@ -33,7 +34,8 @@ pseq <- dietswap
 
 Network with phyloseq tools:
 
-```{r networks3, warning=FALSE, message=FALSE}
+
+```r
 theme_set(theme_bw(20))
 p <- plot_net(pseq, maxdist = 0.2,
               shape = "group", color = "nationality",
@@ -41,6 +43,8 @@ p <- plot_net(pseq, maxdist = 0.2,
      scale_colour_brewer(palette = "Accent")
 print(p)		 
 ```
+
+![plot of chunk networks3](figure/networks3-1.png)
 
 
 ### Taxonomic network reconstruction 
@@ -50,7 +54,8 @@ be fixed with SpiecEasi or SparCC; the implementations are available
 via the [SpiecEasi package](https://github.com/zdk123/SpiecEasi). Note
 that the execution is slow.
 
-```{r networks4, warning=FALSE, message=FALSE, fig.width=10, fig.height=10}
+
+```r
 library(SpiecEasi) #install_github("zdk123/SpiecEasi")
 library(phyloseq)
 
@@ -87,7 +92,8 @@ netw <- network(as.matrix(n), directed = FALSE)
 
 Investigate degree distribution with the following:
 
-```{r degree, warning=FALSE, message=FALSE, fig.width=10, fig.height=7, eval=FALSE}
+
+```r
 dd <- degree.distribution(ig)
 plot(0:(length(dd)-1), dd, ylim=c(0,.35), type='b', 
       ylab="Frequency", xlab="Degree", main="Degree Distributions")
@@ -96,7 +102,8 @@ plot(0:(length(dd)-1), dd, ylim=c(0,.35), type='b',
 
 Visualize the network with [ggnet2](https://briatte.github.io/ggnet):
 
-```{r networks5, warning=FALSE, message=FALSE, fig.width=12, fig.height=7}
+
+```r
 library(GGally)
 library(ggnet)
 library(network)
@@ -111,5 +118,7 @@ netw %v% "Phylum" <- phyla
 p <- ggnet2(netw, color = "Phylum", label = TRUE, label.size = 2)
 print(p)
 ```
+
+![plot of chunk networks5](figure/networks5-1.png)
 
 
