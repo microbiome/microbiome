@@ -33,6 +33,9 @@ The relative abunance are returned as percentages in [0,
 \examples{
 \dontrun{
 
+  data(dietswap)
+  x <- dietswap
+
   # OTU relative abundances
   xt <- transform(x, "compositional", "OTU")
 
@@ -44,6 +47,9 @@ The relative abunance are returned as percentages in [0,
 
   # Log10 transform (log(1+x) if the data contains zeroes)
   xt <- transform(x, "log10")
+
+  # CLR transform
+  xt <- transform(x, "clr")
 
   # Shift the baseline
   xt <- transform(x, "shift", shift = 1)

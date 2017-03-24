@@ -16,6 +16,9 @@
 #' @examples
 #' \dontrun{
 #'
+#'   data(dietswap)
+#'   x <- dietswap
+#'
 #'   # OTU relative abundances
 #'   xt <- transform(x, "compositional", "OTU")
 #' 
@@ -27,6 +30,9 @@
 #'
 #'   # Log10 transform (log(1+x) if the data contains zeroes)
 #'   xt <- transform(x, "log10")
+#'
+#'   # CLR transform
+#'   xt <- transform(x, "clr")
 #'
 #'   # Shift the baseline
 #'   xt <- transform(x, "shift", shift = 1)
@@ -63,20 +69,23 @@ transform <- function (x, transform = "identity",
   } else if (transform == "clr") {
 
     xt <- x
+
+    # Pick samples x taxa abundance matrix
+    a <- abundances(transform(xt, "compositional"))    
     if (taxa_are_rows(xt)) {
       a <- t(abundances(transform(xt, "compositional")))
-    } else {
-      a <- abundances(transform(xt, "compositional"))
     }
 
-    if (!nrow(a) == nsamples(xt)) { stop("Something wrong with clr transform.") }
-    
     d <- apply(compositions::clr(a), 2, identity) 
     rownames(d) <- sample_names(xt)
     colnames(d) <- taxa(xt)
 
-    xt@otu_table@.Data <- t(d)
-
+    if (!taxa_are_rows(xt)) {
+      xt@otu_table@.Data <- d
+    } else {
+      xt@otu_table@.Data <- t(d)
+    }
+    
   } else if (transform == "log10") {
   
     # Log transform:
