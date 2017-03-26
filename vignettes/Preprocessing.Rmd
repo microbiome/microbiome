@@ -236,6 +236,12 @@ Aggregate taxa to higher taxonomic levels. This is particularly useful if the ph
 pseq2 <- aggregate_taxa(pseq, "Phylum") 
 ```
 
+We can also merge the less abundant taxa together in the "Other" category:
+
+```{r data24b}
+pseq2 <- aggregate_taxa(pseq, "Phylum", top = 5) 
+```
+
 
 Merging phyloseq objects
 

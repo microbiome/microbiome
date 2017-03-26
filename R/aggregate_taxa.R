@@ -7,6 +7,7 @@
 #'   phyloseq object with the summarized abundances.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param level Summarization level (from \code{rank_names(pseq)})
+#' @param top Keep the top-n taxa, and merge the rest under the category "Other". Instead of top-n numeric this can also be a character vector listing the groups to combine.
 #' @return Summarized phyloseq object
 #' @examples
 #'   data(dietswap)
@@ -15,21 +16,33 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-aggregate_taxa <- function (x, level) {
+aggregate_taxa <- function (x, level, top = NULL) {
 
   pseq <- x
 
   if (!is.null(pseq@phy_tree)) {
-  
+
+    if (!is.null(top)) {
+      warning("The top parameter to be implemented when phy_tree is available.")
+    }
+
     # Agglomerate taxa
     pseq2 <- tax_glom(pseq, level)
     
   } else {
 
+    tt <- tax_table(pseq)
+    if (!is.null(top)) {
+      if (is.numeric(top)) {top <- top_taxa(aggregate_taxa(pseq, level), top)}
+      tt[which(!tt[, level] %in% top), level] <- "Other"
+      tax_table(pseq) <- tt
+    }
+
     # Split the OTUs in tax_table by the given taxonomic level	       
     #otus <- split(rownames(tax_table(pseq)), tax_table(pseq)[, level])
-    current.level <- names(which(apply(tax_table(pseq), 2,
+    current.level <- names(which(apply(tt, 2,
                        function (x) {length(unique(x))}) == ntaxa(pseq)))
+
     otus <- map_levels(data = pseq, to = current.level, from = level)
 
     ab <- matrix(NA, nrow = length(otus), ncol = nsamples(pseq))

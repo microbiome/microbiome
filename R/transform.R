@@ -56,7 +56,10 @@ transform <- function (x, transform = "identity",
 
   if (transform == "compositional") {
     if (target == "OTU") {
-      xt <- transform_sample_counts(x, function (x) {1 * x/sum(x)})
+      # Minor constant 1e-32 is compared to zero to avoid zero division.
+      # Essentially zero counts will then remain zero and otherwise this wont
+      # have any effect.
+      xt <- transform_sample_counts(x, function (x) {x/max(sum(x), 1e-32)})
     } else {
       stop(paste("transform not implemented for transform",
       				     transform, "with target", target))
