@@ -96,9 +96,11 @@ densityplot <- function(x,
     x <- y <- ..density.. <- color <- NULL
 
     # If colors are NA:
-    col <- as.character(col)
-    col[unname(which(is.na(col)))] <- "darkgray"
-
+    if (!is.numeric(col)) {
+      col <- as.character(col)
+      col[unname(which(is.na(col)))] <- "darkgray"
+    }
+    
     theme_set(theme_bw(20))
     xvar <- colnames(df)[[1]]
     yvar <- colnames(df)[[2]]
