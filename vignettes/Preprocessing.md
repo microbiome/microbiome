@@ -304,6 +304,13 @@ Aggregate taxa to higher taxonomic levels. This is particularly useful if the ph
 pseq2 <- aggregate_taxa(pseq, "Phylum") 
 ```
 
+We can also merge the less abundant taxa together in the "Other" category:
+
+
+```r
+pseq2 <- aggregate_taxa(pseq, "Phylum", top = 5) 
+```
+
 
 Merging phyloseq objects
 
@@ -367,7 +374,7 @@ kable(head(res$data), digits = 2)
 |overweight  |male   | 102| 50.00|
 
 
-## Formatting the Phyloseq Object
+## Formatting the Phyloseq Object 
 
 Load [example data](Data.md):  
 For this example, we will use data from [Halfvarson J., et al. Nature Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174). It was downloaded from [Qiita](https://qiita.ucsd.edu/study/description/1629).  
@@ -380,6 +387,18 @@ library(microbiome)
 data(DynamicsIBD)
 p0 <- DynamicsIBD
 
+# Check rank names
+rank_names(p0) 
+```
+
+```
+## [1] "Rank1" "Rank2" "Rank3" "Rank4" "Rank5" "Rank6" "Rank7"
+```
+
+```r
+# Rename them 
+colnames(tax_table(p0)) <- c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species") # If you used the default parsing function for greengenes taxonomy for creating your phyloseq object then this step is not necessary. 
+
 # Check the taxonomy information stored in the phyloseq object.  
 
 library(knitr)
@@ -388,16 +407,16 @@ kable(head(tax_table(p0)))
 
 
 
-|        |Rank1       |Rank2         |Rank3         |Rank4              |Rank5               |Rank6               |Rank7 |
-|:-------|:-----------|:-------------|:-------------|:------------------|:-------------------|:-------------------|:-----|
-|577110  |k__Bacteria |p__Firmicutes |c__Clostridia |o__Clostridiales   |f__                 |g__                 |s__   |
-|181342  |k__Bacteria |p__Firmicutes |c__Clostridia |o__Clostridiales   |f__Clostridiaceae   |g__02d06            |s__   |
-|581609  |k__Bacteria |p__Firmicutes |c__Clostridia |o__Clostridiales   |f__Ruminococcaceae  |g__                 |s__   |
-|4341234 |k__Bacteria |p__Firmicutes |c__Clostridia |o__Clostridiales   |f__Peptococcaceae   |g__Desulfotomaculum |s__   |
-|181348  |k__Bacteria |p__Firmicutes |c__Clostridia |o__Clostridiales   |f__Lachnospiraceae  |g__Coprococcus      |s__   |
-|4467992 |k__Bacteria |p__Firmicutes |c__Bacilli    |o__Lactobacillales |f__Streptococcaceae |g__Streptococcus    |s__   |
+|        |Domain      |Phylum        |Class         |Order              |Family              |Genus               |Species |
+|:-------|:-----------|:-------------|:-------------|:------------------|:-------------------|:-------------------|:-------|
+|577110  |k__Bacteria |p__Firmicutes |c__Clostridia |o__Clostridiales   |f__                 |g__                 |s__     |
+|181342  |k__Bacteria |p__Firmicutes |c__Clostridia |o__Clostridiales   |f__Clostridiaceae   |g__02d06            |s__     |
+|581609  |k__Bacteria |p__Firmicutes |c__Clostridia |o__Clostridiales   |f__Ruminococcaceae  |g__                 |s__     |
+|4341234 |k__Bacteria |p__Firmicutes |c__Clostridia |o__Clostridiales   |f__Peptococcaceae   |g__Desulfotomaculum |s__     |
+|181348  |k__Bacteria |p__Firmicutes |c__Clostridia |o__Clostridiales   |f__Lachnospiraceae  |g__Coprococcus      |s__     |
+|4467992 |k__Bacteria |p__Firmicutes |c__Bacilli    |o__Lactobacillales |f__Streptococcaceae |g__Streptococcus    |s__     |
 
-It can be observed that the not all the OTUs are classified until the lowest taxonomic level (here, species level). This is especially the case with high throughput sequencing data sets. In doing OTU level testing for differential abundance, you may need information regading the specific otu number or taxonomy of the OTU. This can help in easily tracing back the sequence and also make the plots with best taxonomic classification possible. Additionally, the names of taxonomic ranks are corrected using this function.
+It can be observed that the not all the OTUs are classified until the lowest taxonomic level (here, species level). This is especially the case with high throughput sequencing data sets. In doing OTU level testing for differential abundance, you may need information regarding the specific otu number or taxonomy of the OTU. This can help in easily tracing back the sequence and also make the plots with best taxonomic classification possible. 
 
 
 ```r
@@ -417,3 +436,46 @@ kable(head(tax_table(p0.f)))
 |4341234 |Bacteria |Firmicutes |Clostridia |Clostridiales   |Peptococcaceae          |Desulfotomaculum          |f__Desulfotomaculum_4341234 |
 |181348  |Bacteria |Firmicutes |Clostridia |Clostridiales   |Lachnospiraceae         |Coprococcus               |f__Coprococcus_181348       |
 |4467992 |Bacteria |Firmicutes |Bacilli    |Lactobacillales |Streptococcaceae        |Streptococcus             |f__Streptococcus_4467992    |
+
+Alternatively, if you wish to analyse at a specific taxonomic level, eg. Genus level then you can do it as follows.  
+
+
+```r
+# using the p0 object, agglomerate at genus level 
+p0.gen <- tax_glom(p0, "Genus")
+
+kable(head(tax_table(p0.gen)))
+```
+
+
+
+|        |Domain      |Phylum            |Class                  |Order                  |Family                  |Genus              |Species |
+|:-------|:-----------|:-----------------|:----------------------|:----------------------|:-----------------------|:------------------|:-------|
+|4454356 |k__Bacteria |p__Proteobacteria |c__Betaproteobacteria  |o__Neisseriales        |f__Neisseriaceae        |g__Neisseria       |NA      |
+|4465907 |k__Bacteria |p__Firmicutes     |c__Clostridia          |o__Clostridiales       |f__Lachnospiraceae      |g__Blautia         |NA      |
+|514449  |k__Bacteria |p__Proteobacteria |c__Gammaproteobacteria |o__Legionellales       |f__Coxiellaceae         |g__                |NA      |
+|582181  |k__Bacteria |p__Tenericutes    |c__Mollicutes          |o__Anaeroplasmatales   |f__Anaeroplasmataceae   |g__Anaeroplasma    |NA      |
+|583853  |k__Bacteria |p__Proteobacteria |c__Deltaproteobacteria |o__Syntrophobacterales |f__Syntrophobacteraceae |g__Syntrophobacter |NA      |
+|254670  |k__Bacteria |p__Proteobacteria |c__Deltaproteobacteria |o__[Entotheonellales]  |f__[Entotheonellaceae]  |g__                |NA      |
+
+```r
+# now we will replace empty genus level classification with the OTU id and best taxonomic classification possible.
+
+p0.gen.f <- format_phyloseq(p0.gen)
+
+kable(head(tax_table(p0.gen.f)))
+```
+
+
+
+|        |Domain   |Phylum         |Class               |Order               |Family               |Genus                         |Species |
+|:-------|:--------|:--------------|:-------------------|:-------------------|:--------------------|:-----------------------------|:-------|
+|4454356 |Bacteria |Proteobacteria |Betaproteobacteria  |Neisseriales        |Neisseriaceae        |Neisseria                     |NA      |
+|4465907 |Bacteria |Firmicutes     |Clostridia          |Clostridiales       |Lachnospiraceae      |Blautia                       |NA      |
+|514449  |Bacteria |Proteobacteria |Gammaproteobacteria |Legionellales       |Coxiellaceae         |f__Coxiellaceae_514449        |NA      |
+|582181  |Bacteria |Tenericutes    |Mollicutes          |Anaeroplasmatales   |Anaeroplasmataceae   |Anaeroplasma                  |NA      |
+|583853  |Bacteria |Proteobacteria |Deltaproteobacteria |Syntrophobacterales |Syntrophobacteraceae |Syntrophobacter               |NA      |
+|254670  |Bacteria |Proteobacteria |Deltaproteobacteria |[Entotheonellales]  |[Entotheonellaceae]  |f__[Entotheonellaceae]_254670 |NA      |
+
+You can use this for further analysis.  
+
