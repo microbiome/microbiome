@@ -3,7 +3,7 @@
 #'    \code{\link{phyloseq-class}} object and ensures it is returned as
 #'    taxa x samples matrix.
 #' @inheritParams transform
-#' @return Abundance matrix.
+#' @return Abundance matrix (OTU x samples).
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @export
