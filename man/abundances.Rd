@@ -17,7 +17,7 @@ abundances(x, transform = "identity")
  or any method from the vegan::decostand function.}
 }
 \value{
-Abundance matrix.
+Abundance matrix (OTU x samples).
 }
 \description{
 Retrieves the taxon abundance table from

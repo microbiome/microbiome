@@ -80,20 +80,26 @@ transform <- function (x, transform = "identity",
     }
 
     d <- t(apply(compositions::clr(a), 2, identity))
+    
     if (nrow(d) == length(sample_names(xt))) { 
       rownames(d) <- sample_names(xt)
       colnames(d) <- taxa(xt)
+
+      if (taxa_are_rows(xt)) {
+        xt@otu_table@.Data <- t(d)
+      }
+      
     } else {
       colnames(d) <- sample_names(xt)
       rownames(d) <- taxa(xt)
+
+      if (!taxa_are_rows(xt)) {
+        xt@otu_table@.Data <- t(d)
+      }
+      
     }
 
-    if (!taxa_are_rows(xt)) {
-      xt@otu_table@.Data <- t(d)
-    } else {
-      xt@otu_table@.Data <- d
-    }
-    
+
   } else if (transform == "log10") {
   
     # Log transform:
