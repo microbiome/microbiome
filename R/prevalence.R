@@ -4,7 +4,7 @@
 #' @param sort Sort the groups by prevalence
 #' @param count Logical. Indicate prevalence as fraction of samples
 #' (in percentage [0, 1]; default); or in absolute counts indicating
-#' the number of samples where the OTU is detected above the given
+#' the number of samples where the OTU is detected (strictly) above the given
 #' abundance threshold.
 #' @inheritParams core
 #' @details For vectors, calculates the fraction (count = FALSE) or
@@ -32,6 +32,10 @@
 #'   prevalence(peerj32$phyloseq, detection = 200, sort = TRUE, count = TRUE)
 prevalence <- function (x, detection = 0, sort = FALSE, count = FALSE) {
 
+  if (is.null(detection)) {
+    detection <- (-Inf)
+  }
+
   if (is.null(x)) {
     warning("x is NULL - returning NULL")
     return(NULL)
@@ -40,7 +44,7 @@ prevalence <- function (x, detection = 0, sort = FALSE, count = FALSE) {
   if (is.vector(x)) {
     prev <- sum(x > detection)
   } else if (is.matrix(x) || is.data.frame(x)) {
-    prev <- rowSums(x >= detection)
+    prev <- rowSums(x > detection)
   } else if (class(x) == "phyloseq") {
     # At this point necessary to have count = TRUE
     prev <- prevalence(abundances(x),

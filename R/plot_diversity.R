@@ -24,7 +24,7 @@
 #' @param detection Detection threshold for the diversity measure 'Observed' 
 #'               (ie. species richness). See \code{\link{diversity}}
 #' @param indicate.subjects Indicate subjects by lines. The sample_data(x) must have 'subject' field.
-#' @param rm.na Remove samples with missing metadata (NA)
+#' @param na.rm Remove samples with missing metadata (NA)
 #' @return A \code{\link{ggplot}} plot object summarizing
 #'  the richness estimates, and their standard error.
 #' @details If subject is among the metadata variables, the matched subjects across groups are indicated by lines.
@@ -40,9 +40,9 @@
 #'   # (see help(atlas1006) for references and details)
 #'   data(atlas1006)
 #'   # Visualize Shannon diversity across bmi groups; remove cases with no bmi info
-#'   p <- plot_diversity(atlas1006, variable = "bmi_group", "Shannon", rm.na = TRUE)
+#'   p <- plot_diversity(atlas1006, variable = "bmi_group", "Shannon", na.rm = TRUE)
 #' @keywords utilities
-plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1, scales = "free_y", detection = 0, indicate.subjects = FALSE, rm.na = FALSE){ 
+plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1, scales = "free_y", detection = 0, indicate.subjects = FALSE, na.rm = FALSE){ 
 
   horiz <- subject <- NULL
 
@@ -76,7 +76,7 @@ plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1
   mdf$key <- gsub("\\.diversity$", "", mdf$key)
   mdf$horiz <- mdf[[variable]]
 
-  if (rm.na) {
+  if (na.rm) {
     mdf <- dplyr::filter(mdf, !is.na(horiz))
     if (nrow(mdf) == 0) {
       warning(paste("All values in", variable, "are NA. Returning NULL."))
@@ -91,7 +91,7 @@ plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1
   
     p <- ggplot(mdf, aes(x = horiz, y = value))
     
-    p <- p + geom_boxplot(rm.na=TRUE)
+    p <- p + geom_boxplot(na.rm=TRUE)
 
     if (indicate.subjects) {
       p <- p + geom_point()

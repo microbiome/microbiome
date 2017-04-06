@@ -4,7 +4,7 @@
 \alias{diversity}
 \title{Estimate Diversity}
 \usage{
-diversity(x, detection = 0, prevalence = 0, split = TRUE,
+diversity(x, detection = 0.1/100, prevalence = 50/100, split = TRUE,
   measures = NULL)
 }
 \arguments{
@@ -53,7 +53,7 @@ This function returns the indices with the default choices for simplicity. See t
 See citation('microbiome')
 }
 \seealso{
-rarity, core_abundance, dominance
+rarity, core_abundance, top_abundance, dominance, gini
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

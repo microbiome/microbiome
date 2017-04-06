@@ -38,7 +38,7 @@ plot_core <- function(x,
 
   if (length(detections) == 1) {
     detections <- 10^seq(log10(1e-3),
-      log10(max(abundances(x), rm.na = T)),
+      log10(max(abundances(x), na.rm = T)),
       length = detections)
   }
 

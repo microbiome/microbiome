@@ -126,7 +126,7 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
        	  	  kernel = "gaussian", weights = weights, 
         	  window = kernel, n = grid.size, 
 		  from = min(x), to = max(x), 
-		  cut = 3, rm.na = FALSE))
+		  cut = 3, na.rm = FALSE))
     if (class(tmp) == "try-error") {
       # Just use default parameters if failing otherwise
       warning("Density estimation with custom parameters failed. 

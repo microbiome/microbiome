@@ -2,7 +2,7 @@
 #' @description Sarle's bimodality coefficient.
 #' @param x Data vector for which bimodality will be quantified
 #' @param bs.iter Bootstrap iterations
-#' @param rm.na Remove NAs
+#' @param na.rm Remove NAs
 #' @param type Score type ("Sarle.finite.sample" or "Sarle.asymptotic")
 #' @return Bimodality score
 #' @export
@@ -35,10 +35,10 @@
 #' @seealso Check the dip.test from the \pkg{DIP} package for a
 #' classical test of multimodality.
 #' @keywords utilities
-bimodality_sarle <- function(x, bs.iter = 1, rm.na = TRUE, type = "Sarle.finite.sample") {
+bimodality_sarle <- function(x, bs.iter = 1, na.rm = TRUE, type = "Sarle.finite.sample") {
 
-    g <- skewness(x, rm.na)
-    k <- kurtosis(x, rm.na)      
+    g <- skewness(x, na.rm)
+    k <- kurtosis(x, na.rm)      
 
     if (type == "Sarle.asymptotic") {
 

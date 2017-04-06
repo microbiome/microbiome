@@ -29,14 +29,16 @@
 #'   data(dietswap)
 #'   d <- diversity(dietswap)
 #' @export
-#' @seealso rarity, core_abundance, dominance
+#' @seealso rarity, core_abundance, top_abundance, dominance, gini
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-diversity <- function(x, detection = 0, prevalence = 0, split = TRUE, measures = NULL) {
+diversity <- function(x, detection = 0.1/100, prevalence = 50/100, split = TRUE, measures = NULL) {
 
   res <- NULL
-  measures1 <- setdiff(measures, c("Richness", "Evenness", "Dominance"))
+  nonvegan <- c("Richness", "Evenness", "Dominance", "Top", "Gini", "Rarity", "Core")
+  
+  measures1 <- setdiff(measures, nonvegan)
   if (is.null(measures1) || length(measures1) > 0) {
     res <- estimate_richness(x, split = split, measures = measures1)
   } 
@@ -83,7 +85,7 @@ diversity <- function(x, detection = 0, prevalence = 0, split = TRUE, measures =
 
   if (("Dominance" %in% measures) || is.null(measures)) {
 
-    do <- unname(dominance(x, split))
+    do <- unname(dominance(x, split = split))
 
     # Add to result data.frame
     if (is.null(res)) {
@@ -126,7 +128,10 @@ diversity <- function(x, detection = 0, prevalence = 0, split = TRUE, measures =
 
   if (("Rarity" %in% measures) || is.null(measures)) {
 
-    do <- unname(rarity(xcomp, detection, prevalence, split))
+    do <- unname(rarity(xcomp,
+                        detection,
+			prevalence,
+			split))
 
     # Add to result data.frame
     if (is.null(res)) {

@@ -200,7 +200,7 @@ Bagged.RDA <- function(X, Y, bs.iter = 100){
 
     # bagged error
     err.random=replicate(bs.iter,mean((as.numeric(Y)-sample(as.numeric(Y)))!=0))
-    bagged.error=mean(sapply(Tx, function(x) x$err),rm.na=T)
+    bagged.error=mean(sapply(Tx, function(x) x$err),na.rm=T)
     R=(bagged.error-err.t)/(mean(err.random)-err.t)
     R=max(min(R,1),0)
     w=.632/(1-.368*R)

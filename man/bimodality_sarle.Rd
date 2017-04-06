@@ -4,7 +4,7 @@
 \alias{bimodality_sarle}
 \title{Sarle's Bimodality Coefficient}
 \usage{
-bimodality_sarle(x, bs.iter = 1, rm.na = TRUE,
+bimodality_sarle(x, bs.iter = 1, na.rm = TRUE,
   type = "Sarle.finite.sample")
 }
 \arguments{
@@ -12,7 +12,7 @@ bimodality_sarle(x, bs.iter = 1, rm.na = TRUE,
 
 \item{bs.iter}{Bootstrap iterations}
 
-\item{rm.na}{Remove NAs}
+\item{na.rm}{Remove NAs}
 
 \item{type}{Score type ("Sarle.finite.sample" or "Sarle.asymptotic")}
 }

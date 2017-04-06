@@ -5,7 +5,7 @@
 \title{Plot Density}
 \usage{
 plot_density(x, variable = NULL, log10 = FALSE, adjust = 1,
-  kernel = "gaussian", trim = FALSE, rm.na = FALSE, fill = "gray",
+  kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray",
   tipping.point = NULL, xlim = NULL)
 }
 \arguments{
@@ -21,7 +21,7 @@ plot_density(x, variable = NULL, log10 = FALSE, adjust = 1,
 
 \item{trim}{see stat_density}
 
-\item{rm.na}{see stat_density}
+\item{na.rm}{see stat_density}
 
 \item{fill}{Fill color}
 
