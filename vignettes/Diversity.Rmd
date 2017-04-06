@@ -31,13 +31,61 @@ pseq <- atlas1006
 
 ### Diversity estimation
 
-```{r divest, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
-# Estimate diversity (table with various diversity measures):
-diversity <- microbiome::diversity(pseq, detection = 0)
+Estimate diversity (table with various diversity measures):
 
-# Show beginning of the diversity table
+```{r divest, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
+diversity <- microbiome::diversity(pseq, detection = 0)
 head(kable(diversity))
 ```
+
+The supported divesity measures include those supported in the phyloseq::estimate_richness, with some additional utilities. In addition, further measures are provided, including: (Pielou's) Evenness; Dominance (relative proportion of the most dominant species); Rarity (relative proportion of the rare taxa ie those not in the core); 
+
+
+### Top abundance
+
+Top abundance index refers to the abundance of the most dominant species. The rank parameter can be used to calculate the sum of abundances of the top-n taxa instead of the single most abundant one. 
+
+
+```{r divest, warning=FALSE, message=FALSE}
+# Absolute abundances
+ta <- top_abundance(pseq)
+
+# Relative abundances
+ta <- top_abundance(transform(pseq, "compositional"))
+```
+
+
+### Dominance
+
+
+```{r divest, warning=FALSE, message=FALSE}
+# Absolute abundances
+do <- dominance(pseq)
+
+# Relative abundances
+do <- dominance(transform(pseq, "compositional"))
+```
+
+
+### Rarity
+
+Rarity index refers to the relative proportion of the rare species (those that are not among the core members). It can be returned by the generic diversity function, or calculated directly. See also the core_abundance function, which provides the complement.
+
+```{r divest, warning=FALSE, message=FALSE}
+ra <- rarity(pseq)
+```
+
+
+
+### Gini index
+
+Gini index is a common measure for inequality in economical income, but can also be used
+as a community diversity measure.
+
+```{r divest, warning=FALSE, message=FALSE}
+gi <- microbiome::gini(pseq)
+```
+
 
 
 

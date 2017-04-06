@@ -99,7 +99,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
 
 
     # compute median and CI limits of bootstrap
-    CI.boot <- t(apply(l0.boot, 1, function(x) quantile(x, prob=c(.025, .5, .975, pnorm(c(-3, -2, -1, 0, 1, 2, 3))), na.rm=TRUE)))
+    CI.boot <- t(apply(l0.boot, 1, function(x) quantile(x, prob=c(.025, .5, .975, pnorm(c(-3, -2, -1, 0, 1, 2, 3))), rm.na=TRUE)))
     colnames(CI.boot)[1:10] <- c("LL", "M", "UL", paste0("SD", 1:7))
 
     CI.boot <- as.data.frame(CI.boot)
@@ -126,8 +126,8 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
        	  message("Computing density estimates for the vertical cuts ...")
       	  flush.console()
       	  if (is.null(ylim)) {
-            min_value <- min(min(l0.boot, na.rm=TRUE), min(data$DV, na.rm=TRUE))
-            max_value <- max(max(l0.boot, na.rm=TRUE), max(data$DV, na.rm=TRUE))
+            min_value <- min(min(l0.boot, rm.na=TRUE), min(data$DV, rm.na=TRUE))
+            max_value <- max(max(l0.boot, rm.na=TRUE), max(data$DV, rm.na=TRUE))
             ylim <- c(min_value, max_value)
 	  }
        }
@@ -135,7 +135,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
       message("Vertical cross-sectional density estimate")
       d2 <- b2 %>% select(x, value) %>%
       	                group_by(x) %>%
-	do(data.frame(density(.$value, na.rm = TRUE,
+	do(data.frame(density(.$value, rm.na = TRUE,
 		n = slices, from=ylim[[1]], to=ylim[[2]])[c("x", "y")]))
       d2 <- data.frame(d2)
       names(d2) <- c("y", "dens")

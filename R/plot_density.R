@@ -6,7 +6,7 @@
 #' @param adjust see stat_density
 #' @param kernel see stat_density
 #' @param trim see stat_density
-#' @param na.rm see stat_density
+#' @param rm.na see stat_density
 #' @param tipping.point Optional. Indicate critical point for abundance variations to be highlighted.
 #' @param fill Fill color
 #' @param xlim X axis limits
@@ -22,7 +22,7 @@
 #'   library(ggplot2)
 #'   p <- plot_density(pseq.rel, variable = "Dialister") + scale_x_log10()
 #' @keywords utilities
-plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray", tipping.point = NULL, xlim = NULL) {
+plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel = "gaussian", trim = FALSE, rm.na = FALSE, fill = "gray", tipping.point = NULL, xlim = NULL) {
 
   x <- pickdata(x, variable) 	     	   
 
@@ -34,7 +34,7 @@ plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel 
   df <- data.frame(x = x)
   p <- ggplot(df, aes(x = x))
 
-  p <- p + geom_density(adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm, fill = fill) 
+  p <- p + geom_density(adjust = adjust, kernel = kernel, trim = trim, rm.na = rm.na, fill = fill) 
 
   if (log10) {
     p <- p + scale_x_log10() 

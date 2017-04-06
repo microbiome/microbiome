@@ -6,7 +6,7 @@
 \usage{
 plot_diversity(x, variable = "group", measures = "Shannon", nrow = 1,
   scales = "free_y", detection = 0, indicate.subjects = FALSE,
-  na.rm = FALSE)
+  rm.na = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -32,7 +32,7 @@ as a character vector. Values must be among those supported:
 
 \item{indicate.subjects}{Indicate subjects by lines. The sample_data(x) must have 'subject' field.}
 
-\item{na.rm}{Remove samples with missing metadata (NA)}
+\item{rm.na}{Remove samples with missing metadata (NA)}
 }
 \value{
 A \code{\link{ggplot}} plot object summarizing
@@ -57,7 +57,7 @@ If subject is among the metadata variables, the matched subjects across groups a
   # (see help(atlas1006) for references and details)
   data(atlas1006)
   # Visualize Shannon diversity across bmi groups; remove cases with no bmi info
-  p <- plot_diversity(atlas1006, variable = "bmi_group", "Shannon", na.rm = TRUE)
+  p <- plot_diversity(atlas1006, variable = "bmi_group", "Shannon", rm.na = TRUE)
 }
 \seealso{
 \code{\link{estimate_richness}}
