@@ -71,12 +71,12 @@ transform <- function (x, transform = "identity",
 
   } else if (transform == "clr") {
 
-    xt <- x
+    xt <- transform(x, "compositional")
 
     # Pick samples x taxa abundance matrix
-    a <- abundances(transform(xt, "compositional"))    
+    a <- abundances(xt)    
     if (taxa_are_rows(xt)) {
-      a <- t(abundances(transform(xt, "compositional")))
+      a <- t(abundances(xt))
     }
 
     d <- t(apply(compositions::clr(a), 2, identity))
