@@ -9,12 +9,6 @@ gini(x, detection, prevalence, split = TRUE)
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{detection}{detection for observing taxa (absence / presence).
-Used to determine the richness (Observed diversity) above this
-abundance threshold. Zero by default.}
-
-\item{prevalence}{Prevalence threshold (in [0, 1]; greater or equal)}
-
 \item{split}{(Optional). Logical. Should a separate set of richness
 estimates be performed for each sample? Or alternatively,
 pool all samples and estimate richness of the entire set.}

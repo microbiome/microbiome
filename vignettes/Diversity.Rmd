@@ -34,7 +34,7 @@ pseq <- atlas1006
 Estimate diversity (table with various diversity measures):
 
 ```{r divest, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
-diversity <- microbiome::diversity(pseq, detection = 0)
+diversity <- microbiome::global(pseq, detection = 0)
 head(kable(diversity))
 ```
 
@@ -127,7 +127,7 @@ library(dplyr)
 pseq <- atlas1006
 
 # Add diversity into sample metadata
-sample_data(pseq)$diversity <- microbiome::diversity(pseq)$Shannon
+sample_data(pseq)$diversity <- microbiome::global(pseq)$Shannon
 
 # Visualize
 p <- plot_regression(diversity ~ age, meta(pseq))

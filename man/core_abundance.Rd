@@ -4,7 +4,7 @@
 \alias{core_abundance}
 \title{Core Abundance Index}
 \usage{
-core_abundance(x, detection, prevalence, split = TRUE)
+core_abundance(x, detection = 0.1/100, prevalence = 50/100, split = TRUE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -13,9 +13,7 @@ core_abundance(x, detection, prevalence, split = TRUE)
 
 \item{prevalence}{Prevalence threshold (in [0, 1]; greater or equal)}
 
-\item{split}{(Optional). Logical. Should a separate set of richness
-estimates be performed for each sample? Or alternatively,
-pool all samples and estimate richness of the entire set.}
+\item{split}{(Optional). Logical. Pool all samples and estimate index for the entire set.}
 }
 \value{
 A vector of core abundance indices
@@ -24,11 +22,14 @@ A vector of core abundance indices
 Calculates the community core abundance index.
 }
 \details{
-The core abundance index gives the relative proportion of core species in [0,1]. This is exactly the complement (1 - x) of the rarity function; provided for convenience.
+The core abundance index gives the relative proportion of the core species (in [0,1]). The core taxa are defined as those that exceed the given population prevalence threshold at the given detection level.
 }
 \examples{
   data(dietswap)
   d <- core_abundance(dietswap, detection = 0.1/100, prevalence = 50/100)
+}
+\seealso{
+rarity
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

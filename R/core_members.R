@@ -23,12 +23,17 @@ core_members <- function(x, detection = 1/100, prevalence = 50/100, method = "st
   Core <- NULL
 
   if (class(x) == "phyloseq") {
+  
     x <- abundances(x)
+    
   }
 
   if (method == "standard") {
+  
     taxa <- names(which(prevalence(x, detection) > prevalence))
+    
   } else if (method == "bootstrap") {
+  
     # Core bootstrap analysis
     cb <- core_bootstrap(x, Nsample = Nsample,
        	  		    prevalence = prevalence,
@@ -37,6 +42,7 @@ core_members <- function(x, detection = 1/100, prevalence = 50/100, method = "st
 			    I.max = I.max)
     # Pick the taxa that have been identified in the robust core
     taxa <- as.character(subset(cb, Core == 1)$Name)
+    
   }
 
   taxa

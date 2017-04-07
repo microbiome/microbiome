@@ -4,7 +4,7 @@
 \alias{rarity}
 \title{Rarity Index}
 \usage{
-rarity(x, detection, prevalence, split = TRUE)
+rarity(x, detection = 0.1/100, prevalence = 50/100, split = TRUE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -13,9 +13,7 @@ rarity(x, detection, prevalence, split = TRUE)
 
 \item{prevalence}{Prevalence threshold (in [0, 1]; greater or equal)}
 
-\item{split}{(Optional). Logical. Should a separate set of richness
-estimates be performed for each sample? Or alternatively,
-pool all samples and estimate richness of the entire set.}
+\item{split}{(Optional). Logical. Pool all samples and estimate index for the entire set.}
 }
 \value{
 A vector of rarity indices
@@ -24,11 +22,14 @@ A vector of rarity indices
 Calculates the community rarity index.
 }
 \details{
-The rarity index gives the relative proportion of rare species in [0,1].
+The rarity index gives the relative proportion of rare species in [0,1]. The species that are below the indicated detection threshold are considered rare. Note that population prevalence is not considered.
 }
 \examples{
   data(dietswap)
   d <- rarity(dietswap, detection = 0.1/100, prevalence = 50/100)
+}
+\seealso{
+core_abundance, rarity, diversity
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

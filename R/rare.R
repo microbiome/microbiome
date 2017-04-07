@@ -19,10 +19,10 @@ rare <- function (x, detection, prevalence) {
   cm <- core_members(x, detection, prevalence)
 
   # Rare taxa as complement of core taxa
-  rm <- setdiff(taxa(x), cm)
+  rt <- setdiff(taxa(x), cm)
 
   # Pick the subset
-  prune_taxa(rm, x)
+  prune_taxa(rt, x)
 
 }
 
