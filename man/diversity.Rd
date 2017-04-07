@@ -4,7 +4,8 @@
 \alias{diversity}
 \title{Estimate Diversity}
 \usage{
-diversity(x, detection = 0, split = TRUE, measures = NULL)
+diversity(x, detection = 0.1/100, prevalence = 50/100, split = TRUE,
+  measures = NULL)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -13,17 +14,25 @@ diversity(x, detection = 0, split = TRUE, measures = NULL)
 Used to determine the richness (Observed diversity) above this
 abundance threshold. Zero by default.}
 
+\item{prevalence}{Prevalence threshold (in [0, 1]; greater or equal)}
+
 \item{split}{(Optional). Logical. Should a separate set of richness
 estimates be performed for each sample? Or alternatively,
 pool all samples and estimate richness of the entire set.}
 
-\item{measures}{(Optional). Default is ‘NULL’, meaning that all available
-         alpha-diversity measures will be included. Alternatively, you
-         can specify one or more measures as a character vector of
-         measure names. Values must be among those supported in the
-         phyloseq::estimate_richness function. These include
-‘c("Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher")’.
-In addition, the measure "Evenness" is provided (Pielou's index).}
+\item{measures}{Default is ‘NULL’, meaning that all available
+       alpha-diversity measures will be included. Alternatively, you
+       can specify one or more measures as a character vector of
+       measure names. Values include those supported in the
+       phyloseq::estimate_richness function:
+       "Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher".
+In addition, the following measures are provided:
+  "Evenness" (Pielou's index);
+  "Dominance" (Number of species needed to cover 50% of the ecosystem);
+  "Top" (Relative proportion of the most dominant species in [0,1]);
+  "Rarity" (Relative proportion of the rare (non-core) species in [0,1]);
+  "Core" (Relative proportion of the core species in [0,1]);
+  "Gini" (Gini index).}
 }
 \value{
 A data.frame of samples x diversity indicators;
@@ -33,12 +42,18 @@ A data.frame of samples x diversity indicators;
 Diversity estimation.
    Augments the estimate_richness function of the phyloseq package.
 }
+\details{
+This function returns the indices with the default choices for simplicity. See the individual functions for more options.
+}
 \examples{
   data(dietswap)
   d <- diversity(dietswap)
 }
 \references{
 See citation('microbiome')
+}
+\seealso{
+rarity, core_abundance, top_abundance, dominance, gini
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

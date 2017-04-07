@@ -5,7 +5,7 @@ test_that("transform works correctly", {
   # Note the different scales (100x) of these two measures.
   data(atlas1006)
   hel <- otu_table(transform(atlas1006, "hellinger"))^2
-  rel <- otu_table(transform(atlas1006, "compositional"))/100
+  rel <- otu_table(transform(atlas1006, "compositional"))
   expect_equal(max(abs(hel - rel)), 0, tolerance = 1e-15)
 })
 

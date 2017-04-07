@@ -18,7 +18,7 @@
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-core_members <- function(x, detection = 1, prevalence = 50, method = "standard", Nsample = NULL, bs.iter = 1000, I.max = NULL)  {
+core_members <- function(x, detection = 1/100, prevalence = 50/100, method = "standard", Nsample = NULL, bs.iter = 1000, I.max = NULL)  {
 
   Core <- NULL
 
