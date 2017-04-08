@@ -46,7 +46,7 @@ This function returns the indices with the default choices for detection, preval
 See citation('microbiome')
 }
 \seealso{
-rarity, core_abundance, top_abundance, low_abundance, dominance, gini, phyloseq::estimate_richness
+rarity, core_abundance, top_abundance, low_abundance, dominance, equality, phyloseq::estimate_richness
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

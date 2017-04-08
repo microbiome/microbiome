@@ -30,7 +30,6 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-#' @aliases global
 diversity <- function(x, split = TRUE, measures = NULL) {
 
   .Deprecated(new = "global", msg = "The microbiome::diversity function has been replaced with the microbiome::global function and will be removed in the next release.")	  

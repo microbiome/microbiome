@@ -12,14 +12,14 @@
 #'   pseq <- atlas1006
 #'   pseq <- subset_samples(pseq, DNA_extraction_method == "r")
 #'   pseq <- transform(pseq, "compositional")
-#'   p <- tipplot(pseq, "Dialister", tipping.point = 1)
+#'   p <- plot_tipping(pseq, "Dialister", tipping.point = 1)
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' @details Assuming the sample_data(x) has 'subject' field and
 #' some subjects have multiple time points.
-tipplot <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1e-3, xlim = NULL) {
+plot_tipping <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1e-3, xlim = NULL) {
 
   pos <- abundance <- NULL
 

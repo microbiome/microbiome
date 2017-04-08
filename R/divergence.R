@@ -32,7 +32,7 @@
 #'   data(dietswap)
 #'   # Assess beta diversity among the African samples
 #'   # in a diet swap study (see \code{help(dietswap)} for references)
-#'   b <- group_divergence(subset_samples(dietswap, nationality == "AFR"))
+#'   b <- divergence(subset_samples(dietswap, nationality == "AFR"))
 #' @references 
 #' The inter- and intra-individual homogeneity measures used in
 #' Salonen et al. ISME J. 8:2218-30, 2014 were obtained as
@@ -45,7 +45,7 @@
 #' standard beta diversity measures
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-group_divergence <- function(x, method = "anticorrelation") {
+divergence <- function(x, method = "anticorrelation") {
 
   # Abundance matrix (taxa x samples)
   if (is.phyloseq(x)) {

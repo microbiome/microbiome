@@ -64,10 +64,10 @@ plot_potential <- function(res,
     potentials[potentials > cut.potential] <- cut.potential
     
     # Static contour Interpolate potential grid
-    intp <- tgp::interp.loess(as.vector(covariates),
+    intp <- loess_interpolation(as.vector(covariates),
 		              as.vector(grid),
 			      as.vector(potentials), 
-        gridlen = 2 * dim(potentials))
+        gridn = 2 * dim(potentials))
 
     xy <- expand.grid(intp$x, intp$y)
     z <- as.vector(intp$z)
@@ -100,3 +100,33 @@ plot_potential <- function(res,
     
 }
 
+
+
+
+loess_interpolation <- function (x, y, z, gridn = c(40, 40), span = 0.1, ...) {
+
+  # Inspired by tgp::interp.loess but rewritten
+
+    if (length(gridn) == 1) 
+        gridn <- rep(gridn, 2)
+    if (length(gridn) != 2) 
+        stop("gridn is not 2")
+    if (length(x) != length(y) && length(y) != length(z)) 
+        stop("x, y, z lengths are not equal")
+    if (length(x) < 30 && span < 0.5) {
+        warning("with less than 30 points, use span >> 0.5 or use akima", 
+            immediate. = TRUE)
+        message(paste("trying span ", span, "for", length(x), 
+            "points\n"))
+    }
+    x0 <- seq(min(x), max(x), length = gridn[[1]])
+    y0 <- seq(min(y), max(y), length = gridn[[2]])
+    
+    coords <- suppressWarnings(loess(z ~ x + y, data.frame(x = x, 
+        y = y), span = span, ...))
+    g <- expand.grid(x = x0, y = y0)
+    g.pred <- predict(coords, g)
+    
+    list(x = x0, y = y0, z = matrix(g.pred, nrow = gridn))
+
+}

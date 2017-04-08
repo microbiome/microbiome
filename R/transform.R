@@ -71,7 +71,19 @@ transform <- function (x, transform = "identity",
 
   } else if (transform == "clr") {
 
-    xt <- transform(x, "compositional")
+    if (any(abundances(x)<0)) {
+      stop("Non-negative data matrix required for the clr transformation. Exiting.")
+    }
+
+    # If the data has zeroes, then shift up with a negligible constant to avoid
+    # singularities
+    xt <- x
+    if (any(abundances(xt) == 0)) {
+      xt <- transform(xt, "shift", shift = min(x[x>0])/2)
+    }
+
+    # Then transform to compositional data
+    xt <- transform(xt, "compositional")
 
     # Pick samples x taxa abundance matrix
     a <- abundances(xt)    
@@ -79,8 +91,9 @@ transform <- function (x, transform = "identity",
       a <- t(abundances(xt))
     }
 
-    d <- t(apply(compositions::clr(a), 2, identity))
-    
+    # d <- t(apply(compositions::clr(a), 2, identity))
+    d <- t(apply(a, 1, function (x) {log(x) - mean(log(x))}))
+
     if (nrow(d) == length(sample_names(xt))) { 
       rownames(d) <- sample_names(xt)
       colnames(d) <- taxa(xt)

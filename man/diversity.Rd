@@ -2,7 +2,6 @@
 % Please edit documentation in R/diversity.R
 \name{diversity}
 \alias{diversity}
-\alias{global}
 \title{Estimate Global Indices}
 \usage{
 diversity(x, split = TRUE, measures = NULL)

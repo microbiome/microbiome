@@ -26,7 +26,7 @@
 #'   data(dietswap)
 #'   d <- global(dietswap)
 #' @export
-#' @seealso rarity, core_abundance, top_abundance, low_abundance, dominance, gini, phyloseq::estimate_richness
+#' @seealso rarity, core_abundance, top_abundance, low_abundance, dominance, equality, phyloseq::estimate_richness
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -102,7 +102,7 @@ global <- function(x, split = TRUE, measures = NULL) {
 
   if (("Gini" %in% measures) || is.null(measures)) {
 
-    do <- unname(gini(x, split))
+    do <- unname(equality(x, split))
 
     # Add to result data.frame
     if (is.null(res)) {

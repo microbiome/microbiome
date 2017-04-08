@@ -134,7 +134,7 @@ Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) 
 # Variation line plot:
 # Indicates the abundance variation range
 # for subjects with multiple time points
-pv <- tipplot(pseq, tax, tipping.point = tipping.point)
+pv <- plot_tipping(pseq, tax, tipping.point = tipping.point)
 print(pv)
 
 # Bimodality hotplot:

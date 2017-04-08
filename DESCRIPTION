@@ -26,7 +26,6 @@ Imports:
     plyr,
     reshape2,
     scales,
-    tgp,
     tidyr,
     vegan,
     WGCNA
@@ -38,8 +37,8 @@ Suggests:
     devtools,
     diptest,
     FD,
-    gcookbook,
     GGally,
+    gcookbook,    
     ggnet,
     gridExtra,
     Hmisc,

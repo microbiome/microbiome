@@ -1,21 +1,23 @@
 #' @title Gini Index
-#' @description Calculates the Gini index for phyloseq object
-#' @inheritParams diversity
+#' @description Calculate Gini indices for a phyloseq object.
+#' @inheritParams core
+#' @param split (Optional). Logical. Calculate separate indices
+#'     for each sample, or pool all samples and estimate the index
+#'     for the entire set.
 #' @return A vector of Gini indices
-#' @export
 #' @examples
 #'   data(dietswap)
-#'   d <- gini(dietswap)
+#'   d <- equality(dietswap)
 #' @references
-#'     Relative Distribution Methods in the Social Sciences. Mark S.
-#'     Handcock and Martina Morris, Springer-Verlag, Inc., New York,
-#'     1999. ISBN 0387987789.
+#'   Relative Distribution Methods in the Social Sciences. Mark S.
+#'   Handcock and Martina Morris, Springer-Verlag, Inc., New York,
+#'   1999. ISBN 0387987789.
 #' @seealso diversity, reldist::gini (inspired by that implementation but independently written here to avoid external depedencies)
 #' @details Gini index is a common measure for inequality in economical income, but can also be used as a community diversity measure.
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-gini <- function(x, detection, prevalence, split = TRUE) {
-
+#' @export
+equality <- function(x, detection, prevalence, split = TRUE) {
 
   # Pick the OTU data
   otu <- abundances(x)
@@ -25,7 +27,7 @@ gini <- function(x, detection, prevalence, split = TRUE) {
   }
 
   # Gini index for each sample
-  do <- apply(otu, 2, function (x) {gini_index(x)})
+  do <- apply(otu, 2, function (x) {equality_help(x)})
   names(do) <- sample_names(x)
   
   do
@@ -34,7 +36,7 @@ gini <- function(x, detection, prevalence, split = TRUE) {
 
 
 
-gini_index <- function (x, w = rep(1, length(x))) {
+equality_help <- function (x, w = rep(1, length(x))) {
   # See also reldist::gini for an independent implementation
     o  <- order(x)
     x  <- x[o]
