@@ -30,9 +30,9 @@ library(ggplot2)
 
 # Probiotics intervention example data 
 data(dietswap) 
-pseq <- dietswap
+
 # Set baseline to 0 (in this data set it appears to be 1)
-pseq <- microbiome::transform(pseq, "shift", shift = -1)
+pseq <- microbiome::transform(dietswap, "shift", shift = -1)
 ```
 
 

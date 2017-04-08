@@ -3,8 +3,7 @@
 #' @param x \code{\link{phyloseq-class}} object
 #' @param transform Transformation to apply. The options include:
 #'   'compositional' (ie relative abundance), 'Z', 'log10', 'hellinger',
-#'   'identity', 'clr', 'ilr',
-#'    or any method from the vegan::decostand function.
+#'   'identity', 'clr', or any method from the vegan::decostand function.
 #' @param target Apply the transform for 'sample' or 'OTU'.
 #'               Does not affect the log transform.
 #' @param shift A constant indicating how much to shift the baseline abundance (in transform = "shift")

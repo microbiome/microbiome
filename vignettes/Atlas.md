@@ -46,7 +46,7 @@ kable(head(div))
 
 
 
-|         |  Shannon| InvSimpson| Richness|  Evenness| Dominance|      Gini| Top_Abundance| Low_Abundance| Core_Abundance|
+|         |  shannon| invsimpson| richness|  evenness| dominance|      gini| top_abundance| low_abundance| core_abundance|
 |:--------|--------:|----------:|--------:|---------:|---------:|---------:|-------------:|-------------:|--------------:|
 |Sample-1 | 3.189726|  12.993537|      130| 0.6553063|         5| 0.8486688|     0.1758679|     0.0246043|      0.9597792|
 |Sample-2 | 3.396135|  16.603545|      130| 0.6977115|         7| 0.8186840|     0.1716273|     0.0199587|      0.9015118|
@@ -60,14 +60,7 @@ kable(head(div))
 
 
 ```r
-p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), detection = 250, na.rm = TRUE)
-```
-
-```
-## Error in plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", : unused argument (detection = 250)
-```
-
-```r
+p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), na.rm = TRUE)
 print(p)
 ```
 

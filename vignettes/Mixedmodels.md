@@ -67,6 +67,10 @@ library(lme4)
 ```
 
 ```
+## Warning: package 'Matrix' was built under R version 3.3.3
+```
+
+```
 ## 
 ## Attaching package: 'Matrix'
 ```

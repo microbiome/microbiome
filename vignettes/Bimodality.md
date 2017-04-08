@@ -157,7 +157,7 @@ Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) 
 p <- hotplot(pseq0, tax, tipping.point = tipping.point)
 print(p)
 
-pv <- tipplot(pseq, tax, tipping.point = tipping.point)
+pv <- plot_tipping(pseq, tax, tipping.point = tipping.point)
 print(pv)
 ```
 

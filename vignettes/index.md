@@ -1,6 +1,6 @@
 ---
 title: "Introduction to microbiome analysis in R"
-author: "Leo Lahti et al. 2017-03-29"
+author: "Leo Lahti et al. 2017-04-08"
 bibliography: 
 - bibliography.bib
 - references.bib
@@ -135,7 +135,7 @@ version 1.1-2. 2014. <URL:
 https://CRAN.R-project.org/package=RColorBrewer>.
 
 [7] J. Oksanen, F. G. Blanchet, M. Friendly, et al. _vegan:
-Community Ecology Package_. R package version 2.4-2. 2017. <URL:
+Community Ecology Package_. R package version 2.4-3. 2017. <URL:
 https://CRAN.R-project.org/package=vegan>.
 
 [8] R Core Team. _R: A Language and Environment for Statistical

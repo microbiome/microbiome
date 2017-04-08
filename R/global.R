@@ -11,14 +11,14 @@
 #'          phyloseq::estimate_richness function:
 #'          "Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher".
 #'   In addition, the following measures are provided:
-#'     "Richness" (number of unique taxa that give non-zero signal); 
-#'     "Evenness" (Pielou's index);
-#'     "Dominance" (Number of species needed to cover 50% of the ecosystem);
-#'     "Top_Abundance" (Relative proportion of the most dominant species in [0,1]);
-#'     "Rarity" (Relative proportion of the rare (non-core) species in [0,1]) - this complement (1-x) of the Core_Abundance
-#'     "Low_Abundance" (Relative proportion of the least abundant species, below the detection level of 0.2%); 
-#'     "Core_Abundance" (Relative proportion of the core species that exceed detection level 0.2% in over 50% of the samples);
-#'     "Gini" (Gini index).
+#'     "richness" (number of unique taxa that give non-zero signal); 
+#'     "evenness" (Pielou's index);
+#'     "dominance" (Number of species needed to cover 50% of the ecosystem);
+#'     "top_abundance" (Relative proportion of the most dominant species in [0,1]);
+#'     "rarity" (Relative proportion of the rare (non-core) species in [0,1]) - this complement (1-x) of the core_abundance
+#'     "low_abundance" (Relative proportion of the least abundant species, below the detection level of 0.2%); 
+#'     "core_abundance" (Relative proportion of the core species that exceed detection level 0.2% in over 50% of the samples);
+#'     "gini" (Gini index; calculated with the function inequality).
 #' @inheritParams core
 #' @return A data.frame of samples x global indicators; except when split=FALSE, a vector of indices is returned.
 #' @details This function returns the indices with the default choices for detection, prevalence and other parameters for simplicity and standardization. See the individual functions for more options. This function extends the functionality of the phyloseq::estimate_richness function.
@@ -26,20 +26,27 @@
 #'   data(dietswap)
 #'   d <- global(dietswap)
 #' @export
-#' @seealso rarity, core_abundance, top_abundance, low_abundance, dominance, equality, phyloseq::estimate_richness
+#' @seealso rarity, core_abundance, top_abundance, low_abundance, dominance, gini, phyloseq::estimate_richness
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 global <- function(x, split = TRUE, measures = NULL) {
 
   res <- NULL
-  
+
   selected.vegan <- c("Shannon", "InvSimpson")
-  nonveg <- c("Richness", "Evenness", "Dominance", "Top_Abundance", "Gini", "Low_Abundance", "Core_Abundance")
+  nonveg <- c("richness", "evenness", "dominance", "top_abundance", "gini", "low_abundance", "core_abundance")
   
   if (is.null(measures)) {
     measures <- unique(c(selected.vegan, nonveg))
   }
+
+  # Allow inputs also in full lowercase but
+  # capitalize those for phyloseq::estimate_richness
+  measures <- gsub("shannon", "Shannon", measures)
+  measures <- gsub("invsimpson", "InvSimpson", measures)
+  measures <- gsub("chao1", "Chao1", measures)
+  measures <- gsub("ace", "ACE", measures)      
 
   # Remove non-vegan measures
   measures.veg <- setdiff(measures, nonveg)
@@ -48,20 +55,20 @@ global <- function(x, split = TRUE, measures = NULL) {
     res <- estimate_richness(x, split = split, measures = measures.veg)
   } 
 
-  if (("Richness" %in% measures) || is.null(measures)) {
+  if (("richness" %in% measures) || is.null(measures)) {
 
     ri <- richness(x, detection = 0, split)
     
     # Add to result data.frame
     if (is.null(res)) {
-      res <- data.frame(Richness = ri)
+      res <- data.frame(richness = ri)
     } else {
-      res$Richness <- ri
+      res$richness <- ri
     }
 
   }
 
-  if (("Evenness" %in% measures) || is.null(measures)) {
+  if (("evenness" %in% measures) || is.null(measures)) {
 
     # Shannon Diversity
     if (!"Shannon" %in% names(res)) {
@@ -70,7 +77,7 @@ global <- function(x, split = TRUE, measures = NULL) {
       d <- res$Shannon
     }
 
-    # Richness
+    # richness
     # Calculate here making sure detection = 0 as it is also for Shannon
     r <- richness(x, detection = 0, split)
 
@@ -79,77 +86,77 @@ global <- function(x, split = TRUE, measures = NULL) {
 
     # Add to result data.frame
     if (is.null(res)) {
-      res <- data.frame(Evenness = e)
+      res <- data.frame(evenness = e)
     } else {
-      res$Evenness <- e
+      res$evenness <- e
     }    
   }
 
 
-  if (("Dominance" %in% measures) || is.null(measures)) {
+  if (("dominance" %in% measures) || is.null(measures)) {
 
     do <- unname(dominance(x, split = split))
 
     # Add to result data.frame
     if (is.null(res)) {
-      res <- data.frame(Dominance = do)
+      res <- data.frame(dominance = do)
     } else {
-      res$Dominance <- do
+      res$dominance <- do
     }
 
   }
 
 
-  if (("Gini" %in% measures) || is.null(measures)) {
+  if (("gini" %in% measures) || is.null(measures)) {
 
-    do <- unname(equality(x, split))
+    do <- unname(inequality(x, split))
 
     # Add to result data.frame
     if (is.null(res)) {
-      res <- data.frame(Gini = do)
+      res <- data.frame(gini = do)
     } else {
-      res$Gini <- do
+      res$gini <- do
     }
 
   }
 
-  if (("Top_Abundance" %in% measures) || is.null(measures)) {
+  if (("top_abundance" %in% measures) || is.null(measures)) {
 
     do <- unname(top_abundance(x, split))
 
     # Add to result data.frame
     if (is.null(res)) {
-      res <- data.frame(Top_Abundance = do)
+      res <- data.frame(top_abundance = do)
     } else {
-      res$Top_Abundance <- do
+      res$top_abundance <- do
     }
 
   }
 
-  if (("Low_Abundance" %in% measures) || is.null(measures)) {
+  if (("low_abundance" %in% measures) || is.null(measures)) {
 
     th <- quantile(as.vector(abundances(x)), 1)
     do <- unname(low_abundance(x, detection = 0.2/100, split))
 
     # Add to result data.frame
     if (is.null(res)) {
-      res <- data.frame(Low_Abundance = do)
+      res <- data.frame(low_abundance = do)
     } else {
-      res$Low_Abundance <- do
+      res$low_abundance <- do
     }
 
   }
 
 
-  if (("Core_Abundance" %in% measures) || is.null(measures)) {
+  if (("core_abundance" %in% measures) || is.null(measures)) {
 
     do <- unname(core_abundance(x, detection = 0.2/100, prevalence = 50/100, split))
 
     # Add to result data.frame
     if (is.null(res)) {
-      res <- data.frame(Core_Abundance = do)
+      res <- data.frame(core_abundance = do)
     } else {
-      res$Core_Abundance <- do
+      res$core_abundance <- do
     }
 
   }
@@ -160,6 +167,9 @@ global <- function(x, split = TRUE, measures = NULL) {
   if (!split) {
     res <- unlist(res)
   }
+
+  # All indicator names in lowercase for clarity and consistency
+  colnames(res) <- tolower(colnames(res))
 
   res
 

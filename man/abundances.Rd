@@ -13,8 +13,7 @@ abundances(x, transform = "identity")
 
 \item{transform}{Transformation to apply. The options include:
 'compositional' (ie relative abundance), 'Z', 'log10', 'hellinger',
-'identity', 'clr', 'ilr',
- or any method from the vegan::decostand function.}
+'identity', 'clr', or any method from the vegan::decostand function.}
 }
 \value{
 Abundance matrix (OTU x samples).

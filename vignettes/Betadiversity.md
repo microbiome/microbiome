@@ -39,8 +39,8 @@ Calculate group divergences within the LGG (probiotic) and Placebo groups
 
 
 ```r
-b.pla <- group_divergence(subset_samples(pseq, group == "Placebo"))
-b.lgg <- group_divergence(subset_samples(pseq, group == "LGG"))
+b.pla <- divergence(subset_samples(pseq, group == "Placebo"))
+b.lgg <- divergence(subset_samples(pseq, group == "LGG"))
 ```
 
 Use these to compare microbiota divergence within each group. The LGG group tends to have smaller values, indicating that the samples are more similar to the group mean, and the LGG group is less heterogeneous (has smaller spread / is more homogeneous):

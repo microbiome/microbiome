@@ -18,7 +18,6 @@ Depends:
     phyloseq
 Imports:
     ade4,
-    compositions,
     dplyr,
     ggplot2,
     MASS,

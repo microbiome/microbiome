@@ -98,36 +98,23 @@ library(tidyverse)
 ```
 
 ```
+## Warning: package 'readr' was built under R version 3.3.3
+```
+
+```
 ## Conflicts with tidy packages ----------------------------------------------
 ```
 
 ```
-## arrange():     dplyr, plyr
-## col_factor():  readr, scales
-## col_numeric(): readr, scales
-## collapse():    dplyr, IRanges
-## combine():     dplyr, Biobase, BiocGenerics
-## compact():     purrr, plyr
-## count():       dplyr, plyr
-## desc():        dplyr, IRanges, plyr
-## discard():     purrr, scales
-## expand():      tidyr, S4Vectors, Matrix
-## failwith():    dplyr, plyr
-## filter():      dplyr, stats
-## first():       dplyr, S4Vectors
-## id():          dplyr, plyr
-## lag():         dplyr, stats
-## map():         purrr, mclust
-## mutate():      dplyr, plyr
-## Position():    ggplot2, BiocGenerics, base
-## reduce():      purrr, IRanges
-## regroup():     dplyr, IRanges
-## rename():      dplyr, S4Vectors, plyr
-## select():      dplyr, MASS
-## simplify():    purrr, IRanges
-## slice():       dplyr, IRanges
-## summarise():   dplyr, plyr
-## summarize():   dplyr, plyr
+## col_factor(): readr, scales
+## combine():    dplyr, BiocGenerics
+## discard():    purrr, scales
+## expand():     tidyr, Matrix
+## filter():     dplyr, stats
+## lag():        dplyr, stats
+## map():        purrr, mclust
+## Position():   ggplot2, BiocGenerics, base
+## select():     dplyr, MASS
 ```
 
 ```r
@@ -142,7 +129,9 @@ print(p2)
 ```
 ## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
 ## font family 'Arial Narrow' not found in PostScript font database
+```
 
+```
 ## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
 ## font family 'Arial Narrow' not found in PostScript font database
 

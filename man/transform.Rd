@@ -11,8 +11,7 @@ transform(x, transform = "identity", target = "OTU", shift = 0)
 
 \item{transform}{Transformation to apply. The options include:
 'compositional' (ie relative abundance), 'Z', 'log10', 'hellinger',
-'identity', 'clr', 'ilr',
- or any method from the vegan::decostand function.}
+'identity', 'clr', or any method from the vegan::decostand function.}
 
 \item{target}{Apply the transform for 'sample' or 'OTU'.
 Does not affect the log transform.}
