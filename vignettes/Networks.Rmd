@@ -46,7 +46,7 @@ otu <- t(abundances(pseq))
 # SPIEC-EASI network reconstruction
 # In practice, use more repetitions
 net <- spiec.easi(otu, method='mb', lambda.min.ratio=1e-2, 
-                  nlambda=20, icov.select.params=list(rep.num=20))
+                  nlambda=5, icov.select.params=list(rep.num=5))
 
 ## Create graph object
 n <- net$refit

@@ -80,7 +80,9 @@ bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.h
 # Bimodality is better estimated from log10 abundances
 pseq0.log10 <- microbiome::transform(pseq0, "log10")
 set.seed(4433)
-bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis", bs.iter = 100, peak.threshold = 10, min.density = 10)
+# In practice, it is recommended to use more bootstrap iterations than in this example
+bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis",
+                               bs.iter = 5, peak.threshold = 10, min.density = 10)
 ```
 
 
@@ -133,7 +135,7 @@ print(tipping.point)
 ```
 
 ```
-## [1] 0.002657916
+## [1] 0.002597507
 ```
 
 

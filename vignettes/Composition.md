@@ -93,13 +93,8 @@ library(tidyverse)
 ```
 
 ```
-## Loading tidyverse: tibble
 ## Loading tidyverse: readr
 ## Loading tidyverse: purrr
-```
-
-```
-## Warning: package 'tibble' was built under R version 3.3.3
 ```
 
 ```
@@ -119,7 +114,7 @@ library(tidyverse)
 ## count():      dplyr, plyr
 ## desc():       dplyr, IRanges, plyr
 ## discard():    purrr, scales
-## expand():     tidyr, S4Vectors
+## expand():     tidyr, Matrix, S4Vectors
 ## failwith():   dplyr, plyr
 ## filter():     dplyr, stats
 ## first():      dplyr, S4Vectors
