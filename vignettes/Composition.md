@@ -92,13 +92,8 @@ library(tidyverse)
 ```
 
 ```
-## Loading tidyverse: tibble
 ## Loading tidyverse: readr
 ## Loading tidyverse: purrr
-```
-
-```
-## Warning: package 'tibble' was built under R version 3.3.3
 ```
 
 ```
@@ -118,7 +113,7 @@ library(tidyverse)
 ## count():      dplyr, plyr
 ## desc():       dplyr, IRanges, plyr
 ## discard():    purrr, scales
-## expand():     tidyr, S4Vectors, Matrix
+## expand():     tidyr, S4Vectors
 ## failwith():   dplyr, plyr
 ## filter():     dplyr, stats
 ## first():      dplyr, S4Vectors
@@ -2302,24 +2297,7 @@ p <- plot_composition(pseq2, plot.type = "heatmap", transform = "Z-OTU",
 
 ### Plot taxa prevalence
 
-Load [example data](Data.md):  
-  For this example, we will use two different datasets.   
-
-For HITChip based 16S rRNA gene profilling data. 
-The [diet swap study](http://dx.doi.org/10.1038/ncomms7342):  
-  
-
-```r
-# Example data
-data(dietswap)
-pseq <- dietswap
-plot <- plot_taxa_prevalence(pseq, 'Phylum')
-print(plot)
-```
-
-![plot of chunk prevalence-example1](figure/prevalence-example1-1.png)
-
-The Dynamics IBD data from [Halfvarson J., et al. Nature Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174). It was downloaded from [Qiita](https://qiita.ucsd.edu/study/description/1629). The Qiita Study ID is 1629.  
+Here we use the Dynamics IBD data set from [Halfvarson J., et al. Nature Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174) as downloaded from [Qiita ID 1629](https://qiita.ucsd.edu/study/description/1629). 
 
 
 ```r
@@ -2333,5 +2311,4 @@ print(plot)
 ```
 
 ![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
-
 
