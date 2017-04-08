@@ -16,10 +16,6 @@ output:
 -->
 
 
-
-
-See also the [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-examples)
-
 Load [example data](Data.html):
 
 ```{r networks1, message=FALSE, warning=FALSE}
@@ -29,21 +25,11 @@ pseq <- dietswap
 ```
 
 
-### Sample similarities
-
-Network with phyloseq tools:
-
-```{r networks3, warning=FALSE, message=FALSE}
-theme_set(theme_bw(20))
-p <- plot_net(pseq, maxdist = 0.2,
-              shape = "group", color = "nationality",
-	      distance = "bray", laymeth = "auto") +
-     scale_colour_brewer(palette = "Accent")
-print(p)		 
-```
-
 
 ### Taxonomic network reconstruction 
+
+See the [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_network-examples) for
+additional network visualization tools.
 
 The widely reported compositionality bias in similarity measures can
 be fixed with SpiecEasi or SparCC; the implementations are available
@@ -71,17 +57,17 @@ library(network)
 netw <- network(as.matrix(n), directed = FALSE)
 
 # igraph format
-#library(igraph)
-#ig <- graph.adjacency(n, mode='undirected', add.rownames = TRUE)
+# library(igraph)
+# ig <- graph.adjacency(n, mode='undirected', add.rownames = TRUE)
 
 # Network layout
-#coord <- layout.fruchterman.reingold(ig)
+# coord <- layout.fruchterman.reingold(ig)
 
 ## set size of vertex to log2 mean abundance 
-#vsize <- log2(apply(otu, 2, mean))
+# vsize <- log2(apply(otu, 2, mean))
 
 # Visualize the network
-#print(plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize)))
+# print(plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize)))
 ```
 
 
@@ -89,8 +75,8 @@ Investigate degree distribution with the following:
 
 ```{r degree, warning=FALSE, message=FALSE, fig.width=10, fig.height=7, eval=FALSE}
 dd <- degree.distribution(ig)
-plot(0:(length(dd)-1), dd, ylim=c(0,.35), type='b', 
-      ylab="Frequency", xlab="Degree", main="Degree Distributions")
+plot(0:(length(dd)-1), dd, ylim = c(0,.35), type = 'b', 
+      ylab = "Frequency", xlab = "Degree", main = "Degree Distributions")
 ```
 
 
@@ -104,7 +90,8 @@ library(sna)
 library(ggplot2)
 library(intergraph) # ggnet2 works also with igraph with this
 
-phyla <- map_levels(colnames(otu), from = "Genus", to = "Phylum",
+phyla <- map_levels(colnames(otu),
+           from = "Genus", to = "Phylum",
            tax_table(pseq))
 
 netw %v% "Phylum" <- phyla

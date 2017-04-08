@@ -93,8 +93,13 @@ library(tidyverse)
 ```
 
 ```
+## Loading tidyverse: tibble
 ## Loading tidyverse: readr
 ## Loading tidyverse: purrr
+```
+
+```
+## Warning: package 'tibble' was built under R version 3.3.3
 ```
 
 ```
@@ -106,29 +111,31 @@ library(tidyverse)
 ```
 
 ```
-## arrange():   dplyr, plyr
-## collapse():  dplyr, IRanges
-## combine():   dplyr, Biobase, BiocGenerics
-## compact():   purrr, plyr
-## count():     dplyr, plyr
-## desc():      dplyr, IRanges, plyr
-## expand():    tidyr, S4Vectors, Matrix
-## failwith():  dplyr, plyr
-## filter():    dplyr, stats
-## first():     dplyr, S4Vectors
-## id():        dplyr, plyr
-## lag():       dplyr, stats
-## map():       purrr, mclust
-## mutate():    dplyr, plyr
-## Position():  ggplot2, BiocGenerics, base
-## reduce():    purrr, IRanges
-## regroup():   dplyr, IRanges
-## rename():    dplyr, S4Vectors, plyr
-## select():    dplyr, MASS
-## simplify():  purrr, IRanges
-## slice():     dplyr, IRanges
-## summarise(): dplyr, plyr
-## summarize(): dplyr, plyr
+## arrange():    dplyr, plyr
+## col_factor(): readr, scales
+## collapse():   dplyr, IRanges
+## combine():    dplyr, gridExtra, Biobase, BiocGenerics
+## compact():    purrr, plyr
+## count():      dplyr, plyr
+## desc():       dplyr, IRanges, plyr
+## discard():    purrr, scales
+## expand():     tidyr, S4Vectors
+## failwith():   dplyr, plyr
+## filter():     dplyr, stats
+## first():      dplyr, S4Vectors
+## id():         dplyr, plyr
+## lag():        dplyr, stats
+## map():        purrr, mclust
+## mutate():     dplyr, plyr
+## Position():   ggplot2, BiocGenerics, base
+## reduce():     purrr, IRanges
+## regroup():    dplyr, IRanges
+## rename():     dplyr, S4Vectors, plyr
+## select():     dplyr, MASS
+## simplify():   purrr, IRanges
+## slice():      dplyr, IRanges
+## summarise():  dplyr, plyr
+## summarize():  dplyr, plyr
 ```
 
 ```r
