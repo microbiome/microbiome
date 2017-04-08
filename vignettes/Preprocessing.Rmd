@@ -90,8 +90,9 @@ head(sample_sums(pseq))
 Abundance of a given species in each sample
 
 ```{r preprocess2d, warning=FALSE, message=FALSE}
-head(get_sample(pseq, "Akkermansia"))
+head(abundances(pseq)["Akkermansia",])
 ```
+
 
 Filter samples
 
@@ -99,6 +100,7 @@ Filter samples
 f1 <- filterfun_sample(topp(0.1))
 taxa <- genefilter_sample(pseq, f1, A = round(0.5 * nsamples(pseq)))
 ```
+
 
 Select samples by specific metadata fields
 
@@ -120,7 +122,7 @@ pseq0 <- baseline(pseq)
 The microbiome package provides a wrapper for standard sample/OTU transforms. For arbitrary transforms, use the transform_sample_counts function in the phyloseq package.
 
 Log10 transform (log(1+x) if the data contains zeroes). Also "Z",
-"clr", and "hellinger" are available as common transforms.
+"clr", "hellinger", and "shift" are available as common transformations.
 
 ```{r preprocessing-logtrans}
 pseq.log <- microbiome::transform(pseq, "log10")
@@ -129,8 +131,7 @@ pseq.log <- microbiome::transform(pseq, "log10")
 Relative abundances (the input data needs to be in absolute scale, not logarithmic!):
 
 ```{r data10}
-pseq1 <- microbiome::transform(pseq, "compositional", "OTU")
-pseq2 <- phyloseq::transform_sample_counts(pseq, function(x) x/sum(x))
+pseq.compositional <- microbiome::transform(pseq, "compositional")
 ```
 
 
@@ -152,7 +153,7 @@ Assign new fields to metadata
 
 ```{r preprocess4b2, warning=FALSE, message=FALSE}
 # Calculate diversity for samples
-div <- microbiome::diversity(pseq, measures = "Shannon")$Shannon
+div <- global(pseq, measures = "shannon")$shannon
 
 # Assign this to sample metadata
 sample_data(pseq)$diversity <- div
@@ -183,7 +184,7 @@ taxa  <- taxa(pseq)        # Taxa names at the analysed level
 ```
 
 
-Subset taxa:
+Subset taxa
 
 ```{r preprocess3c, warning=FALSE, message=FALSE}
 pseq.bac <- subset_taxa(pseq, Phylum == "Bacteroidetes")
@@ -222,9 +223,8 @@ Pick the taxa abundances for a given sample:
 ```{r preprocess3gg, warning=FALSE, message=FALSE}
 samplename <- sample_names(pseq)[[1]]
 
-# Two ways to pick abundances for a particular taxon
-tax.abundances <- get_taxa(pseq, samplename)
-tax.abundances2 <- abundances(pseq)[, samplename]
+# Pick abundances for a particular taxon
+tax.abundances <- abundances(pseq)[, samplename]
 ```
 
 
@@ -236,14 +236,14 @@ Aggregate taxa to higher taxonomic levels. This is particularly useful if the ph
 pseq2 <- aggregate_taxa(pseq, "Phylum") 
 ```
 
-We can also merge the less abundant taxa together in the "Other" category:
+Put the less abundant taxa together in the "Other" category:
 
 ```{r data24b}
 pseq2 <- aggregate_taxa(pseq, "Phylum", top = 5) 
 ```
 
 
-Merging phyloseq objects
+Merging phyloseq objects with the phyloseq package:
 
 ```{r preprocess-merge, warning=FALSE, message=FALSE, eval=FALSE}
 merge_phyloseq(pseqA, pseqB)
@@ -284,9 +284,7 @@ kable(head(res$data), digits = 2)
 
 ## Formatting the Phyloseq Object 
 
-Load [example data](Data.md):  
-For this example, we will use data from [Halfvarson J., et al. Nature Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174). It was downloaded from [Qiita](https://qiita.ucsd.edu/study/description/1629).  
-The Qiita study ID is 1629. 
+For this example, we use example data from [Halfvarson J., et al. Nature Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174) as downloaded from [Qiita](https://qiita.ucsd.edu/study/description/1629).  
 
 
 ```{r}
@@ -297,42 +295,28 @@ p0 <- DynamicsIBD
 # Check rank names
 rank_names(p0) 
 
-# Rename them 
-colnames(tax_table(p0)) <- c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species") # If you used the default parsing function for greengenes taxonomy for creating your phyloseq object then this step is not necessary. 
+# Rename rank names
+# If you have used the default parsing function for greengenes taxonomy
+# for creating the phyloseq object then this step can be omitted
+colnames(tax_table(p0)) <- c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species") 
 
 # Check the taxonomy information stored in the phyloseq object.  
-
 library(knitr)
 kable(head(tax_table(p0)))
-		 
 ```
 
-It can be observed that the not all the OTUs are classified until the lowest taxonomic level (here, species level). This is especially the case with high throughput sequencing data sets. In doing OTU level testing for differential abundance, you may need information regarding the specific otu number or taxonomy of the OTU. This can help in easily tracing back the sequence and also make the plots with best taxonomic classification possible. 
+Note that the not all the OTUs are classified down to the lowest taxonomic level (here, species level). For OTU level testing of differential abundance, you may need information on the specific otu number or taxonomy of the OTU. This can help in easily tracing back the sequence and also make the plots with most fine-resolution taxonomic classification possible. To analyze other taxonomic levels, you can use the phyloseq::tax_glom function (which is relatively slow).
 
 ```{r}
+# using the p0 object, agglomerate at genus level
+# commented out but shown:
+# p0 <- tax_glom(p0, "Genus")
+p1 <- p0
 
-p0.f <- format_phyloseq(p0)
+# Improve the classification
+pf <- format_phyloseq(p1)
 
-#Check the taxonomy again with the formatted phyloseq object.
-kable(head(tax_table(p0.f)))
-
+# Check the taxonomy with the formatted phyloseq object
+kable(head(tax_table(pf)))
 ```
-
-Alternatively, if you wish to analyse at a specific taxonomic level, eg. Genus level then you can do it as follows.  
-
-```{r}
-
-# using the p0 object, agglomerate at genus level 
-p0.gen <- tax_glom(p0, "Genus")
-
-kable(head(tax_table(p0.gen)))
-# now we will replace empty genus level classification with the OTU id and best taxonomic classification possible.
-
-p0.gen.f <- format_phyloseq(p0.gen)
-
-kable(head(tax_table(p0.gen.f)))
-
-```
-
-You can use this for further analysis.  
 

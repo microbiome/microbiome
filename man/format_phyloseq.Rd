@@ -2,7 +2,7 @@
 % Please edit documentation in R/format_phyloseq.R
 \name{format_phyloseq}
 \alias{format_phyloseq}
-\title{Formatting the Phyloseq Object}
+\title{Format Phyloseq Object}
 \usage{
 format_phyloseq(x)
 }
@@ -13,13 +13,10 @@ format_phyloseq(x)
 \code{\link{phyloseq-class}} object.
 }
 \description{
-Format the phyloseq object to correct the taxonomy in phyloseq object (tax_table).
+Correct taxonomy in a phyloseq object (tax_table).
 }
 \details{
-Most commonly it is observed that the taxonomy file has classification until a given taxonomic level.
-         Hence, to avoid loss of OTU information while using the function tax_glom() for merging at a specific taxonomic level.
-         we will fill the empty cells with the maximum classification available along with the OTU number. This code is a slight modification.
-         the code from  \pkg{ampvis} \code{\link{phyloseq-class}}. Here, we directly take the phyloseq object as input and make the necessary formatting.
+Avoid loss of OTU information while using the function tax_glom() for merging at a specific taxonomic level; fill the empty cells with the maximum classification available along with the OTU number. This is a slight modification of the code from  \pkg{ampvis} \code{\link{phyloseq-class}}. Here, we directly take the phyloseq object as input and make the necessary formatting.
 }
 \examples{
 \dontrun{

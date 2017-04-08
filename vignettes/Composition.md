@@ -106,15 +106,29 @@ library(tidyverse)
 ```
 
 ```
-## col_factor(): readr, scales
-## combine():    dplyr, BiocGenerics
-## discard():    purrr, scales
-## expand():     tidyr, Matrix
-## filter():     dplyr, stats
-## lag():        dplyr, stats
-## map():        purrr, mclust
-## Position():   ggplot2, BiocGenerics, base
-## select():     dplyr, MASS
+## arrange():   dplyr, plyr
+## collapse():  dplyr, IRanges
+## combine():   dplyr, Biobase, BiocGenerics
+## compact():   purrr, plyr
+## count():     dplyr, plyr
+## desc():      dplyr, IRanges, plyr
+## expand():    tidyr, S4Vectors, Matrix
+## failwith():  dplyr, plyr
+## filter():    dplyr, stats
+## first():     dplyr, S4Vectors
+## id():        dplyr, plyr
+## lag():       dplyr, stats
+## map():       purrr, mclust
+## mutate():    dplyr, plyr
+## Position():  ggplot2, BiocGenerics, base
+## reduce():    purrr, IRanges
+## regroup():   dplyr, IRanges
+## rename():    dplyr, S4Vectors, plyr
+## select():    dplyr, MASS
+## simplify():  purrr, IRanges
+## slice():     dplyr, IRanges
+## summarise(): dplyr, plyr
+## summarize(): dplyr, plyr
 ```
 
 ```r
