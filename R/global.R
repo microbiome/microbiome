@@ -1,5 +1,5 @@
-#' @title Estimate Global Indices 
-#' @description Estimate global indicators of the ecoystem state (richness, diversity, and other indicators).
+#' @title Global Ecosystem State Variables 
+#' @description Global indicators of the ecoystem state, including richness, evenness, diversity, and other indicators
 #' @param x \code{\link{phyloseq-class}} object
 #' @param split (Optional). Logical. Should a separate set of richness
 #'        estimates be performed for each sample? Or alternatively,
@@ -30,7 +30,6 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-#' @aliases diversity
 global <- function(x, split = TRUE, measures = NULL) {
 
   res <- NULL
@@ -116,7 +115,7 @@ global <- function(x, split = TRUE, measures = NULL) {
 
   if (("Top_Abundance" %in% measures) || is.null(measures)) {
 
-    do <- unname(top_abundance(xcomp, split))
+    do <- unname(top_abundance(x, split))
 
     # Add to result data.frame
     if (is.null(res)) {

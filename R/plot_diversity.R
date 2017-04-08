@@ -21,8 +21,6 @@
 #'  \code{c("Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher")}.
 #' @param nrow Number of rows for plot faceting.
 #' @param scales scales for the plot
-#' @param detection Detection threshold for the diversity measure 'Observed' 
-#'               (ie. species richness). See \code{\link{diversity}}
 #' @param indicate.subjects Indicate subjects by lines. The sample_data(x) must have 'subject' field.
 #' @param na.rm Remove samples with missing metadata (NA)
 #' @return A \code{\link{ggplot}} plot object summarizing
@@ -42,12 +40,12 @@
 #'   # Visualize Shannon diversity across bmi groups; remove cases with no bmi info
 #'   p <- plot_diversity(atlas1006, variable = "bmi_group", "Shannon", na.rm = TRUE)
 #' @keywords utilities
-plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1, scales = "free_y", detection = 0, indicate.subjects = FALSE, na.rm = FALSE){ 
+plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1, scales = "free_y", indicate.subjects = FALSE, na.rm = FALSE){ 
 
   horiz <- subject <- NULL
 
   # Calculate alpha-diversity measures
-  erDF <- diversity(x, split = TRUE, measures = measures, detection = detection)
+  erDF <- diversity(x, split = TRUE, measures = measures)
 
   # Measures may have been renamed in `erDF`. Replace it with the name from erDF
   measures <- colnames(erDF)

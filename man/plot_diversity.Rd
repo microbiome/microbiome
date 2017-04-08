@@ -5,8 +5,7 @@
 \title{Plot Diversity}
 \usage{
 plot_diversity(x, variable = "group", measures = "Shannon", nrow = 1,
-  scales = "free_y", detection = 0, indicate.subjects = FALSE,
-  na.rm = FALSE)
+  scales = "free_y", indicate.subjects = FALSE, na.rm = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -26,9 +25,6 @@ as a character vector. Values must be among those supported:
 \item{nrow}{Number of rows for plot faceting.}
 
 \item{scales}{scales for the plot}
-
-\item{detection}{Detection threshold for the diversity measure 'Observed' 
-(ie. species richness). See \code{\link{diversity}}}
 
 \item{indicate.subjects}{Indicate subjects by lines. The sample_data(x) must have 'subject' field.}
 

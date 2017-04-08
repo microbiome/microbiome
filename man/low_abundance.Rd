@@ -2,9 +2,9 @@
 % Please edit documentation in R/low_abundance.R
 \name{low_abundance}
 \alias{low_abundance}
-\title{Low_Abundance Index}
+\title{Low Abundance Index}
 \usage{
-low_abundance(x, detection, split = TRUE)
+low_abundance(x, detection = 0.2/100, split = TRUE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -24,7 +24,7 @@ The low_abundance index gives the relative proportion of rare species in [0,1]. 
 }
 \examples{
   data(dietswap)
-  d <- low_abundance(dietswap, detection = 0.1/100)
+  d <- low_abundance(dietswap, detection = 0.2/100)
 }
 \seealso{
 core_abundance, rarity, diversity

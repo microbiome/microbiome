@@ -2,8 +2,7 @@
 % Please edit documentation in R/global.R
 \name{global}
 \alias{global}
-\alias{diversity}
-\title{Estimate Global Indices}
+\title{Global Ecosystem State Variables}
 \usage{
 global(x, split = TRUE, measures = NULL)
 }
@@ -34,7 +33,7 @@ In addition, the following measures are provided:
 A data.frame of samples x global indicators; except when split=FALSE, a vector of indices is returned.
 }
 \description{
-Estimate global indicators of the ecoystem state (richness, diversity, and other indicators).
+Global indicators of the ecoystem state, including richness, evenness, diversity, and other indicators
 }
 \details{
 This function returns the indices with the default choices for detection, prevalence and other parameters for simplicity and standardization. See the individual functions for more options. This function extends the functionality of the phyloseq::estimate_richness function.

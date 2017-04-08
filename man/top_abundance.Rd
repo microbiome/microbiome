@@ -11,7 +11,7 @@ top_abundance(x, rank = 1, aggregate = TRUE, split = TRUE)
 
 \item{rank}{Optional. The rank of the dominant taxa to consider.}
 
-\item{aggregate}{Aggregate (TRUE; default) the top members or not (FALSE) ?}
+\item{aggregate}{Aggregate (TRUE; default) the top members or not. If aggregate=TRUE, then the sum of relative abundances is returned. Otherwise the relative abundance is returned for the single taxa with the indicated rank.}
 
 \item{split}{(Optional). Logical. Should a separate set of richness
 estimates be performed for each sample? Or alternatively,

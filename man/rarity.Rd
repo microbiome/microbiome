@@ -22,7 +22,7 @@ A vector of rarity indices
 Calculates the community rarity index.
 }
 \details{
-The rarity index gives the relative proportion of rare species in [0,1]. The species that are below the indicated detection threshold are considered rare. Note that population prevalence is not considered.
+The rarity index gives the relative proportion of rare species (ie. those that are not part of the core microbiota) in the interval [0,1]. This is the complement (1-x) of the core abundance.
 }
 \examples{
   data(dietswap)

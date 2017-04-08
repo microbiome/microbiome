@@ -1,7 +1,7 @@
 #' @title Top Abundance Index
 #' @description Calculates the community top_abundance index.
 #' @param rank Optional. The rank of the dominant taxa to consider.
-#' @param aggregate Aggregate (TRUE; default) the top members or not (FALSE) ? 
+#' @param aggregate Aggregate (TRUE; default) the top members or not. If aggregate=TRUE, then the sum of relative abundances is returned. Otherwise the relative abundance is returned for the single taxa with the indicated rank. 
 #' @inheritParams diversity
 #' @return A vector of top_abundance indices
 #' @export
