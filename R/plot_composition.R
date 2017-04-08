@@ -42,8 +42,6 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
   xorig <- x
   if (is.null(transform)) {
     x <- x
-  } else if (transform == "log10") {
-    x <- transform(x, "log10")
   } else if (transform == "Z-OTU") {
     x <- transform(x, "Z", "OTU")
   } else if (transform == "Z-Sample") {
@@ -51,7 +49,7 @@ plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, ot
   } else if (transform == "compositional") {
     x <- transform(x, "compositional", "OTU")
   } else {
-    warnings("phyloseq transformation not recognized - omitted")
+    x <- transform(x, transform)
   }
 
   # -----------------------------------------------------------------------

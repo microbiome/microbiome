@@ -16,14 +16,11 @@ output:
 -->
   
   
-  ## Microbiota composition
+## Microbiota composition
   
-  
-  ### Barplots for composition
-  
-  Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html).
 
-
+Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html).
+  
 Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
   
 
@@ -38,6 +35,8 @@ pseq <- dietswap
 library(phyloseq)
 pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
 ```
+
+### Barplots for composition
 
 Show OTU absolute abundance in each sample. Plot absolute taxon
 abundances:
@@ -82,7 +81,7 @@ p <- plot_composition(pseq2,
                       sample.sort = "nationality",
                       x.label = "nationality",
                       transform = "compositional") +
-  guides(fill = guide_legend(ncol = 1))
+     guides(fill = guide_legend(ncol = 1))
 print(p)
 
 # Or try another theme
@@ -93,8 +92,13 @@ library(tidyverse)
 ```
 
 ```
+## Loading tidyverse: tibble
 ## Loading tidyverse: readr
 ## Loading tidyverse: purrr
+```
+
+```
+## Warning: package 'tibble' was built under R version 3.3.3
 ```
 
 ```
@@ -109,12 +113,12 @@ library(tidyverse)
 ## arrange():    dplyr, plyr
 ## col_factor(): readr, scales
 ## collapse():   dplyr, IRanges
-## combine():    dplyr, gridExtra, Biobase, BiocGenerics
+## combine():    dplyr, Biobase, BiocGenerics
 ## compact():    purrr, plyr
 ## count():      dplyr, plyr
 ## desc():       dplyr, IRanges, plyr
 ## discard():    purrr, scales
-## expand():     tidyr, Matrix, S4Vectors
+## expand():     tidyr, S4Vectors, Matrix
 ## failwith():   dplyr, plyr
 ## filter():     dplyr, stats
 ## first():      dplyr, S4Vectors
@@ -134,9 +138,10 @@ library(tidyverse)
 ```
 
 ```r
-p2 <- p + scale_y_percent() + labs(x="Samples", y="Relative abundance (%)",
+p2 <- p + scale_y_percent() +
+          labs(x="Samples", y="Relative abundance (%)",
                                    title="Relative abundance data",
-                                   subtitle="For illustration",
+                                   subtitle="Subtitle",
                                    caption="Caption here 'g'") + 
   theme_ipsum(grid="Y")
 print(p2)  
@@ -2263,11 +2268,11 @@ p <- plot_composition(pseq2, plot.type = "heatmap", mar = c(6, 13, 1, 1))
 ![plot of chunk composition-example5](figure/composition-example5-1.png)
 
 
-Heatmap with Z-transformed OTUs
+Heatmap with clr-transformed OTUs
 
 
 ```r
-p <- plot_composition(pseq2, plot.type = "heatmap", transform = "Z-OTU", mar = c(6, 13, 1, 1))
+p <- plot_composition(pseq2, plot.type = "heatmap", transform = "clr", mar = c(6, 13, 1, 1))
 ```
 
 ![plot of chunk composition-example6](figure/composition-example6-1.png)
@@ -2277,28 +2282,23 @@ Same with relative abundance, samples and OTUs sorted with the neatmap method:
   
 
 ```r
-pseq3 <- microbiome::transform(pseq2, "compositional")
-p <- plot_composition(pseq3, plot.type = "heatmap", 
+p <- plot_composition(pseq2, plot.type = "heatmap", transform = "compositional"
                       sample.sort = "neatmap", otu.sort = "neatmap",
                       mar = c(6, 13, 1, 1))
 ```
-
-![plot of chunk composition-example7](figure/composition-example7-1.png)
 
 
 Same with Z-transformed, samples and OTUs sorted manually based on compositional data (Z-transformed data has negative values and the sorting method is not yet implemented for that):
   
 
 ```r
+pseq3 <- transform(pseq2, "compositional")
 sample.sort <- neatsort(pseq3, method = "NMDS", distance = "bray", target = "sites") 
 otu.sort <- neatsort(pseq3, method = "NMDS", distance = "bray", target = "species")
-
 p <- plot_composition(pseq2, plot.type = "heatmap", transform = "Z-OTU",
                       sample.sort = sample.sort, otu.sort = otu.sort,
                       mar = c(6, 13, 1, 1))
 ```
-
-![plot of chunk composition-example8](figure/composition-example8-1.png)
 
 ### Plot taxa prevalence
 
@@ -2319,20 +2319,19 @@ print(plot)
 
 ![plot of chunk prevalence-example1](figure/prevalence-example1-1.png)
 
-For high throughput 16S rRNA gene sequencing data.  
 The Dynamics IBD data from [Halfvarson J., et al. Nature Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174). It was downloaded from [Qiita](https://qiita.ucsd.edu/study/description/1629). The Qiita Study ID is 1629.  
 
 
 ```r
-# Example data
 data(DynamicsIBD)
 p0 <- DynamicsIBD  
 p0.f <- format_phyloseq(p0)
+# Order/Class/Family level for the DynamicsIBD dataset are available, see
+# tax_table(p0.f)
 plot <- plot_taxa_prevalence(p0.f, 'Phylum')
 print(plot)
 ```
 
 ![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
 
-You can also plot the prevalence at Order/Class/Family level for the DynamicsIBD dataset. However, with the dietswap dataset it can be only at phylum level as the taxnomy has two level L1- Phylum and L2- Genus.  
 
