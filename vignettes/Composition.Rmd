@@ -106,16 +106,17 @@ print(p)
 
 Plain heatmap on absolute abundances
 
-```{r composition-example5, fig.width=10, fig.height=3}
+```{r composition-example5, fig.width=10, fig.height=3, eval=FALSE}
 theme_set(theme_bw(30))
 p <- plot_composition(pseq2, plot.type = "heatmap", mar = c(6, 13, 1, 1))
 ```
 
 
-Heatmap with clr-transformed OTUs
+Heatmap with clr-transformed abundances:
 
 ```{r composition-example6, fig.width=10, fig.height=3}
 p <- plot_composition(pseq2, plot.type = "heatmap", transform = "clr", mar = c(6, 13, 1, 1))
+print(p)
 ```
 
 
@@ -145,11 +146,11 @@ Here we use the Dynamics IBD data set from [Halfvarson J., et al. Nature Microbi
 
 ```{r, fig.height=6, fig.width=8}
 data(DynamicsIBD)
-p0 <- DynamicsIBD  
+p0 <- DynamicsIBD
+# Improve the taxonomic information
 p0.f <- format_phyloseq(p0)
-# Order/Class/Family level for the DynamicsIBD dataset are available, see
-# tax_table(p0.f)
-plot <- plot_taxa_prevalence(p0.f, 'Phylum')
-print(plot)
+# For the available taxonomic levels, see tax_table(p0.f)
+p <- plot_taxa_prevalence(p0.f, 'Phylum')
+print(p)
 ```
 
