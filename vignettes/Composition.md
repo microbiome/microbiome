@@ -113,7 +113,7 @@ library(tidyverse)
 ## count():      dplyr, plyr
 ## desc():       dplyr, IRanges, plyr
 ## discard():    purrr, scales
-## expand():     tidyr, S4Vectors, Matrix
+## expand():     tidyr, Matrix, S4Vectors
 ## failwith():   dplyr, plyr
 ## filter():     dplyr, stats
 ## first():      dplyr, S4Vectors
@@ -2316,8 +2316,8 @@ print(p)
 ##         rgb(x[, 1L], x[, 2L], x[, 3L], x[, 4L], maxColorValue = 255)
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
-## <bytecode: 0x559fac96a138>
-## <environment: 0x559fab1d1340>
+## <bytecode: 0x55a0d1bd80d8>
+## <environment: 0x55a0de2f4450>
 ```
 
 

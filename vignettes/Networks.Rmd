@@ -22,6 +22,9 @@ Load [example data](Data.html):
 library(microbiome)
 data(dietswap)
 pseq <- dietswap
+
+# Keep only the prevalent taxa to speed up examples
+pseq <- core(pseq, detection = 10^3, prevalence = 80/100)
 ```
 
 
