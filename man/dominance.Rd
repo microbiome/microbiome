@@ -31,7 +31,8 @@ The dominance index gives the relative abundance of the most abundant species in
   d <- dominance(dietswap)
 }
 \references{
-Dominance has been used in this sense for instance in
+Dominance has been used in this sense (although for absolute abundances)
+  for instance in
   Kenneth J. Locey and Jay T. Lennon. Scaling laws predict global microbial diversity. PNAS 2016 113 (21) 5970-5975; doi:10.1073/pnas.1521291113.
 }
 \seealso{
