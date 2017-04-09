@@ -22,10 +22,10 @@ pool all samples and estimate richness of the entire set.}
 In addition, the following measures are provided:
   "richness" (number of unique taxa that give non-zero signal); 
   "evenness" (Pielou's index);
-  "dominance" (Number of species needed to cover 50% of the ecosystem);
-  "top_abundance" (Relative proportion of the most dominant species in [0,1]);
-  "rarity" (Relative proportion of the rare (non-core) species in [0,1]) - this complement (1-x) of the core_abundance
-  "low_abundance" (Relative proportion of the least abundant species, below the detection level of 0.2%); 
+  "coverage" (Number of species needed to cover 50% of the ecosystem);
+  "dominance" (Relative proportion of the most dominant species in [0,1]);
+  "rarity" (Relative proportion of the least abundant species, below the detection level of 0.2%); 
+  "rare_abundance" (Relative proportion of the rare (non-core) species in [0,1]) - this complement (1-x) of the core_abundance
   "core_abundance" (Relative proportion of the core species that exceed detection level 0.2% in over 50% of the samples);
   "gini" (Gini index; calculated with the function inequality).}
 }
@@ -46,7 +46,7 @@ This function returns the indices with the default choices for detection, preval
 See citation('microbiome')
 }
 \seealso{
-rarity, core_abundance, top_abundance, low_abundance, dominance, gini, phyloseq::estimate_richness
+core_abundance, dominance, rarity, coverage, gini, phyloseq::estimate_richness
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

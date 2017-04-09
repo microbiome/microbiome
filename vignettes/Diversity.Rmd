@@ -39,34 +39,34 @@ head(kable(indicators))
 The supported divesity measures include those supported in the phyloseq::estimate_richness. Further measures are also provided (see function help), or can be calculated separately as described below.
 
 
-### Top and low abundance
+### Dominance and rarity
 
-Top and low abundance indices refer to the abundance of the most and least abundant species, respectively. For the most abundant species, the sum of relative abundances up to the given rank (top-n) is calculated. For the least abundant taxa, the sum of relative abundances is returned for those taxa whose abundance falls below the indicated detection threshold.
+The dominance and rarity indices refer to the abundance of the most and least abundant species, respectively. For the most abundant species, the sum of relative abundances up to the given rank (top-n) is calculated. For the least abundant taxa, the sum of relative abundances is returned for those taxa whose abundance falls below the indicated detection threshold.
 
 ```{r divest2, warning=FALSE, message=FALSE}
 # Absolute abundances for the single most abundant taxa in each sample
-ta <- top_abundance(pseq, rank = 1)
+ta <- dominance(pseq, rank = 1)
 
 # Relative abundances
-la <- low_abundance(pseq, detection = 0.2/100)
+la <- rarity(pseq, detection = 0.2/100)
 ```
 
 
-### Dominance
+### Coverage
 
-The dominance index gives the number of groups needed to have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
+The coverage index gives the number of groups needed to have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
 
 ```{r divest3, warning=FALSE, message=FALSE, eval=FALSE}
-do <- dominance(pseq, threshold = 0.5)
+do <- coverage(pseq, threshold = 0.5)
 ```
 
 
 ### Rarity and core abundance
 
-Rarity index refers to the relative proportion of the rare species (those that are not among the core members). See also the core_abundance function, which provides the complement.
+The core_abundance function refers to the relative proportion of the core species. Rare abundance provides the complement.
 
 ```{r divest5, warning=FALSE, message=FALSE}
-ra <- rarity(pseq, detection = .1/100, prevalence = 50/100)
+ra <- rare_abundance(pseq, detection = .1/100, prevalence = 50/100)
 co <- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
 ```
 

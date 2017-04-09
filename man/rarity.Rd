@@ -4,14 +4,12 @@
 \alias{rarity}
 \title{Rarity Index}
 \usage{
-rarity(x, detection = 0.1/100, prevalence = 50/100, split = TRUE)
+rarity(x, detection = 0.2/100, split = TRUE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
 \item{detection}{Detection threshold for absence/presence (greater or equal).}
-
-\item{prevalence}{Prevalence threshold (in [0, 1]; greater or equal)}
 
 \item{split}{(Optional). Logical. Pool all samples and estimate index for the entire set.}
 }
@@ -22,14 +20,18 @@ A vector of rarity indices
 Calculates the community rarity index.
 }
 \details{
-The rarity index gives the relative proportion of rare species (ie. those that are not part of the core microbiota) in the interval [0,1]. This is the complement (1-x) of the core abundance.
+The rarity index gives the relative proportion of rare species in [0,1]. The species that are below the indicated detection threshold are considered rare. Note that population prevalence is not considered.
 }
 \examples{
   data(dietswap)
-  d <- rarity(dietswap, detection = 0.1/100, prevalence = 50/100)
+  d <- rarity(dietswap, detection = 0.2/100)
+}
+\references{
+Rarity has been used in this sense for instance in
+  Kenneth J. Locey and Jay T. Lennon. Scaling laws predict global microbial diversity. PNAS 2016 113 (21) 5970-5975; doi:10.1073/pnas.1521291113.
 }
 \seealso{
-core_abundance, rarity, diversity
+core_abundance, rarity, global
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

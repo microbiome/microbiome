@@ -13,10 +13,10 @@
 #'   In addition, the following measures are provided:
 #'     "richness" (number of unique taxa that give non-zero signal); 
 #'     "evenness" (Pielou's index);
-#'     "dominance" (Number of species needed to cover 50% of the ecosystem);
-#'     "top_abundance" (Relative proportion of the most dominant species in [0,1]);
-#'     "rarity" (Relative proportion of the rare (non-core) species in [0,1]) - this complement (1-x) of the core_abundance
-#'     "low_abundance" (Relative proportion of the least abundant species, below the detection level of 0.2%); 
+#'     "coverage" (Number of species needed to cover 50% of the ecosystem);
+#'     "dominance" (Relative proportion of the most dominant species in [0,1]);
+#'     "rarity" (Relative proportion of the least abundant species, below the detection level of 0.2%); 
+#'     "rare_abundance" (Relative proportion of the rare (non-core) species in [0,1]) - this complement (1-x) of the core_abundance
 #'     "core_abundance" (Relative proportion of the core species that exceed detection level 0.2% in over 50% of the samples);
 #'     "gini" (Gini index; calculated with the function inequality).
 #' @inheritParams core
@@ -26,7 +26,7 @@
 #'   data(dietswap)
 #'   d <- global(dietswap)
 #' @export
-#' @seealso rarity, core_abundance, top_abundance, low_abundance, dominance, gini, phyloseq::estimate_richness
+#' @seealso core_abundance, dominance, rarity, coverage, gini, phyloseq::estimate_richness
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -35,7 +35,7 @@ global <- function(x, split = TRUE, measures = NULL) {
   res <- NULL
 
   selected.vegan <- c("Shannon", "InvSimpson")
-  nonveg <- c("richness", "evenness", "dominance", "top_abundance", "gini", "low_abundance", "core_abundance")
+  nonveg <- c("richness", "evenness", "coverage", "dominance", "gini", "rarity", "core_abundance")
   
   if (is.null(measures)) {
     measures <- unique(c(selected.vegan, nonveg))
@@ -93,15 +93,15 @@ global <- function(x, split = TRUE, measures = NULL) {
   }
 
 
-  if (("dominance" %in% measures) || is.null(measures)) {
+  if (("coverage" %in% measures) || is.null(measures)) {
 
-    do <- unname(dominance(x, split = split))
+    do <- unname(coverage(x, split = split))
 
     # Add to result data.frame
     if (is.null(res)) {
-      res <- data.frame(dominance = do)
+      res <- data.frame(coverage = do)
     } else {
-      res$dominance <- do
+      res$coverage <- do
     }
 
   }
@@ -120,29 +120,29 @@ global <- function(x, split = TRUE, measures = NULL) {
 
   }
 
-  if (("top_abundance" %in% measures) || is.null(measures)) {
+  if (("dominance" %in% measures) || is.null(measures)) {
 
-    do <- unname(top_abundance(x, split))
+    do <- unname(dominance(x, split))
 
     # Add to result data.frame
     if (is.null(res)) {
-      res <- data.frame(top_abundance = do)
+      res <- data.frame(dominance = do)
     } else {
-      res$top_abundance <- do
+      res$dominance <- do
     }
 
   }
 
-  if (("low_abundance" %in% measures) || is.null(measures)) {
+  if (("rarity" %in% measures) || is.null(measures)) {
 
     th <- quantile(as.vector(abundances(x)), 1)
-    do <- unname(low_abundance(x, detection = 0.2/100, split))
+    do <- unname(rarity(x, detection = 0.2/100, split))
 
     # Add to result data.frame
     if (is.null(res)) {
-      res <- data.frame(low_abundance = do)
+      res <- data.frame(rarity = do)
     } else {
-      res$low_abundance <- do
+      res$rarity <- do
     }
 
   }

@@ -41,46 +41,46 @@ head(kable(indicators))
 ```
 ## [1] "|            | richness| dominance|"
 ## [2] "|:-----------|--------:|---------:|"
-## [3] "|Sample-1    |      130|         5|"
-## [4] "|Sample-2    |      130|         7|"
-## [5] "|Sample-3    |      130|         4|"
-## [6] "|Sample-4    |      130|         4|"
+## [3] "|Sample-1    |      130| 0.1758679|"
+## [4] "|Sample-2    |      130| 0.1716273|"
+## [5] "|Sample-3    |      130| 0.2793253|"
+## [6] "|Sample-4    |      130| 0.1957585|"
 ```
 
 The supported divesity measures include those supported in the phyloseq::estimate_richness. Further measures are also provided (see function help), or can be calculated separately as described below.
 
 
-### Top and low abundance
+### Dominance and rarity
 
-Top and low abundance indices refer to the abundance of the most and least abundant species, respectively. For the most abundant species, the sum of relative abundances up to the given rank (top-n) is calculated. For the least abundant taxa, the sum of relative abundances is returned for those taxa whose abundance falls below the indicated detection threshold.
+The dominance and rarity indices refer to the abundance of the most and least abundant species, respectively. For the most abundant species, the sum of relative abundances up to the given rank (top-n) is calculated. For the least abundant taxa, the sum of relative abundances is returned for those taxa whose abundance falls below the indicated detection threshold.
 
 
 ```r
 # Absolute abundances for the single most abundant taxa in each sample
-ta <- top_abundance(pseq, rank = 1)
+ta <- dominance(pseq, rank = 1)
 
 # Relative abundances
-la <- low_abundance(pseq, detection = 0.2/100)
+la <- rarity(pseq, detection = 0.2/100)
 ```
 
 
-### Dominance
+### Coverage
 
-The dominance index gives the number of groups needed to have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
+The coverage index gives the number of groups needed to have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
 
 
 ```r
-do <- dominance(pseq, threshold = 0.5)
+do <- coverage(pseq, threshold = 0.5)
 ```
 
 
 ### Rarity and core abundance
 
-Rarity index refers to the relative proportion of the rare species (those that are not among the core members). See also the core_abundance function, which provides the complement.
+The core_abundance function refers to the relative proportion of the core species. Rare abundance provides the complement.
 
 
 ```r
-ra <- rarity(pseq, detection = .1/100, prevalence = 50/100)
+ra <- rare_abundance(pseq, detection = .1/100, prevalence = 50/100)
 co <- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
 ```
 

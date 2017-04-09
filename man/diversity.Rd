@@ -20,14 +20,14 @@ pool all samples and estimate richness of the entire set.}
        phyloseq::estimate_richness function:
        "Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher".
 In addition, the following measures are provided:
-  "Richness" (number of unique taxa that give non-zero signal); 
-  "Evenness" (Pielou's index);
-  "Dominance" (Number of species needed to cover 50% of the ecosystem);
-  "Top_Abundance" (Relative proportion of the most dominant species in [0,1]);
-  "Rarity" (Relative proportion of the rare (non-core) species in [0,1]) - this complement (1-x) of the Core_Abundance
-  "Low_Abundance" (Relative proportion of the least abundant species, below the detection level of 0.2%); 
-  "Core_Abundance" (Relative proportion of the core species that exceed detection level 0.1% in over 50% of the samples);
-  "Gini" (Gini index).}
+  "richness" (number of unique taxa that give non-zero signal); 
+  "evenness" (Pielou's index);
+  "coverage" (Number of species needed to cover 50% of the ecosystem);
+  "dominance" (Relative proportion of the most dominant species in [0,1]);
+  "rarity" (Relative proportion of the least abundant species, below the detection level of 0.2%); 
+  "rare_abundance" (Relative proportion of the rare (non-core) species in [0,1]) - this complement (1-x) of the core_abundance
+  "core_abundance" (Relative proportion of the core species that exceed detection level 0.2% in over 50% of the samples);
+  "gini" (Gini index; calculated with the function inequality).}
 }
 \value{
 A data.frame of samples x global indicators; except when split=FALSE, a vector of indices is returned.
@@ -46,7 +46,7 @@ This function returns the indices with the default choices for detection, preval
 See citation('microbiome')
 }
 \seealso{
-rarity, core_abundance, top_abundance, low_abundance, dominance, gini, phyloseq::estimate_richness
+rarity, core_abundance, dominance, low_abundance, dominance, gini, phyloseq::estimate_richness
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

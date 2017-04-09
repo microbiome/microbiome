@@ -4,12 +4,14 @@
 \alias{dominance}
 \title{Dominance Index}
 \usage{
-dominance(x, threshold = 0.5, split = TRUE)
+dominance(x, rank = 1, aggregate = TRUE, split = TRUE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{threshold}{Indicates the fraction of the ecosystem that has to be covered by the dominant species.}
+\item{rank}{Optional. The rank of the dominant taxa to consider.}
+
+\item{aggregate}{Aggregate (TRUE; default) the top members or not. If aggregate=TRUE, then the sum of relative abundances is returned. Otherwise the relative abundance is returned for the single taxa with the indicated rank.}
 
 \item{split}{(Optional). Logical. Should a separate set of richness
 estimates be performed for each sample? Or alternatively,
@@ -22,14 +24,18 @@ A vector of dominance indices
 Calculates the community dominance index.
 }
 \details{
-The dominance index gives the number of groups needed to have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
+The dominance index gives the relative abundance of the most abundant species in [0,1]. This simple diversity index is occasionally used in ecological literature. With rank = 2, the sum of abundances for the two most abundant taxa are returned etc. However, if aggregate=FALSE, the abundance for the single n'th most dominant taxa (n = rank) is returned instead the sum of abundances up to that rank.
 }
 \examples{
   data(dietswap)
-  d <- dominance(dietswap, threshold = 0.5)
+  d <- dominance(dietswap)
+}
+\references{
+Dominance has been used in this sense for instance in
+  Kenneth J. Locey and Jay T. Lennon. Scaling laws predict global microbial diversity. PNAS 2016 113 (21) 5970-5975; doi:10.1073/pnas.1521291113.
 }
 \seealso{
-top_abundance, diversity
+coverage, core_abundance, rarity, global
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
