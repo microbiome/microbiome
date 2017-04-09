@@ -10,12 +10,8 @@
 #' @aliases ab, otu
 #' @examples
 #'   data(dietswap)
-#'   abundances(dietswap)
-#'   abundances(dietswap, transform = "identity")
-#'   abundances(dietswap, transform = "compositional")
-#'   abundances(dietswap, transform = "clr")
-#'   abundances(dietswap, transform = "Z")
-#'   abundances(dietswap, transform = "log10")
+#'   a <- abundances(dietswap)
+#'   b <- abundances(dietswap, transform = "compositional")
 #' @keywords utilities
 abundances <- function (x, transform = "identity") {
 

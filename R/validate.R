@@ -5,7 +5,6 @@
 #' @return A validated and polished phyloseq object
 #' @export
 #' @examples
-#'   library(microbiome)
 #'   data(atlas1006)
 #'   validate(atlas1006)
 validate <- function (x) {

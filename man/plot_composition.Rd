@@ -46,8 +46,6 @@ Plot taxon abundance for samples.
 }
 \examples{
 \dontrun{
-  # Example data
-    library(microbiome)
     data("dietswap")
     pseq <- subset_samples(dietswap, group == "DI" & nationality == "AFR")
     plot_composition(pseq, taxonomic.level = "Phylum")

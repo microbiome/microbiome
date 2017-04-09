@@ -6,7 +6,8 @@
 #' @param type Score type ("Sarle.finite.sample" or "Sarle.asymptotic")
 #' @return Bimodality score
 #' @export
-#' @examples bimodality_sarle(rnorm(100), type = "Sarle.finite.sample")
+#' @examples
+#'   b <- bimodality_sarle(rnorm(100), type = "Sarle.finite.sample")
 #' @details The coefficient lies in (0, 1).
 #' 
 #'	    The 'Sarle.asymptotic' version is defined as

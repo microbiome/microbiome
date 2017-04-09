@@ -17,5 +17,5 @@ Shift the time field in phyloseq sample_data such that the first time point of e
 }
 \examples{
   data(atlas1006)
-  atlas1006b <- time_normalize(atlas1006)
+  pseq <- time_normalize(atlas1006)
 }

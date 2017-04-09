@@ -5,7 +5,7 @@
 #' @export
 #' @examples
 #'   data(atlas1006)
-#'   atlas1006b <- time_normalize(atlas1006)
+#'   pseq <- time_normalize(atlas1006)
 time_normalize <- function (x) {
 
   # Store the original inpu	       

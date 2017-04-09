@@ -11,7 +11,7 @@
 #' @export
 #' @examples
 #'   data(dietswap)
-#'   taxa(dietswap)
+#'   x <- taxa(dietswap)
 taxa <- function (x) {
 
   taxa_names(x)

@@ -16,7 +16,6 @@ Logical
 Identifies whether a given object is from the phyloseq class
 }
 \examples{
-  library(microbiome)
   data(dietswap)
   is.phyloseq(dietswap)
 }

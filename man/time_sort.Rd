@@ -18,7 +18,7 @@ Within each subject, sort samples by time and calculate
              distance from the baseline point (minimum time).
 }
 \examples{
-\dontrun{time_sort(x) }
+\dontrun{ time_sort(x) }
 }
 \references{
 See citation("microbiome")

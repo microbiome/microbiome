@@ -7,8 +7,8 @@
 #' @return mappings
 #' @examples
 #'   data(dietswap)
-#'   map_levels('Akkermansia', from = 'Genus', to = 'Phylum', tax_table(dietswap))
-#'   map_levels('Verrucomicrobia', from = 'Phylum', to = 'Genus', tax_table(dietswap))
+#'   m <- map_levels('Akkermansia', from = 'Genus', to = 'Phylum', tax_table(dietswap))
+#'   m <- map_levels('Verrucomicrobia', from = 'Phylum', to = 'Genus', tax_table(dietswap))
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

@@ -7,12 +7,13 @@
 #' @param shift Small constant to avoid problems with zeroes in log10
 #' @param xlim Horizontal axis limits
 #' @return \code{\link{ggplot}} object
-#' @examples 
-#'   data(atlas1006)
-#'   pseq <- atlas1006
-#'   pseq <- subset_samples(pseq, DNA_extraction_method == "r")
-#'   pseq <- transform(pseq, "compositional")
-#'   p <- plot_tipping(pseq, "Dialister", tipping.point = 1)
+#' @examples
+#'   \dontrun{
+#'     data(atlas1006)
+#'     pseq <- subset_samples(atlas1006, DNA_extraction_method == "r")
+#'     pseq <- transform(pseq, "compositional")
+#'     p <- plot_tipping(pseq, "Dialister", tipping.point = 1)
+#'   }
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

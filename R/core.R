@@ -24,8 +24,8 @@
 #' @export
 #' @aliases filter_prevalent
 #' @examples
-#'   data(peerj32)
-#'   core(peerj32$phyloseq, 200, .2)
+#'   data(dietswap)
+#'   pseq <- core(dietswap, 200, .2)
 core <- function (x, detection, prevalence, method = "standard", Nsample = NULL, bs.iter = 1000, I.max = NULL) {
 
   # TODO: add optional renormalization such that the core member

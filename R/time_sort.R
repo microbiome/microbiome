@@ -7,7 +7,7 @@
 #' @references See citation("microbiome")
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples \dontrun{time_sort(x) }
+#' @examples \dontrun{ time_sort(x) }
 #' @keywords utilities
 time_sort <- function (x) {
 

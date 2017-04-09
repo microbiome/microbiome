@@ -40,7 +40,8 @@ data(peerj32)
 x <- log10(abundances(peerj32$phyloseq)["Dialister",])
 
 # Bootstrapped potential analysis
-res <- potential_analysis(x, peak.threshold = 0, bw.adjust = 1, bs.iter = 100, min.density = 1)
+# In practice, use more bootstrap iterations
+res <- potential_analysis(x, peak.threshold = 0, bw.adjust = 1, bs.iter = 20, min.density = 1)
 
 }
 \references{

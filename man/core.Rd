@@ -36,8 +36,8 @@ Filtered phyloseq object including only prevalent taxa
 Filter the phyloseq object to include only prevalent taxa.
 }
 \examples{
-  data(peerj32)
-  core(peerj32$phyloseq, 200, .2)
+  data(dietswap)
+  pseq <- core(dietswap, 200, .2)
 }
 \references{
 The core microbiota bootstrap method implemented with this function:

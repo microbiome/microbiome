@@ -43,7 +43,7 @@ Estimate bimodality scores.
 }
 \examples{
   
-  bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
+  b <- bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
  
  # The classical DIP test:
  # quantifies unimodality. Values range between 0 to 1. 

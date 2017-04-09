@@ -21,7 +21,7 @@ to add some extra tweaks later.
 }
 \examples{
   data(dietswap)
-  taxa(dietswap)
+  x <- taxa(dietswap)
 }
 \references{
 To cite the microbiome R package, see citation('microbiome')

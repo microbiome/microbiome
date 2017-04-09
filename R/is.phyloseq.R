@@ -4,7 +4,6 @@
 #' @return Logical
 #' @export
 #' @examples
-#'   library(microbiome)
 #'   data(dietswap)
 #'   is.phyloseq(dietswap)
 is.phyloseq <- function (x) {

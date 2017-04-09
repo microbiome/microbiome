@@ -9,7 +9,7 @@
 #' @export
 #' @examples
 #'   data(peerj32)
-#'   rare(peerj32$phyloseq, 200, 20)
+#'   pseq <- rare(peerj32$phyloseq, 200, 20)
 rare <- function (x, detection, prevalence) {
 
   # TODO: add optional renormalization such that the 

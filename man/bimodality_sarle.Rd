@@ -41,7 +41,7 @@ The coefficient lies in (0, 1).
          excess kurtosis).
 }
 \examples{
-bimodality_sarle(rnorm(100), type = "Sarle.finite.sample")
+  b <- bimodality_sarle(rnorm(100), type = "Sarle.finite.sample")
 }
 \references{
 \itemize{

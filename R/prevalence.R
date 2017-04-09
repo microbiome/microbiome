@@ -25,11 +25,7 @@
 #' @export
 #' @examples
 #'   data(peerj32)     
-#'   ## With matrix
-#'   prevalence(peerj32$data$microbes, detection = 200, sort = TRUE)
-#'   ## With phyloseq
-#'   prevalence(peerj32$phyloseq, detection = 200, sort = TRUE)
-#'   prevalence(peerj32$phyloseq, detection = 200, sort = TRUE, count = TRUE)
+#'   pr <- prevalence(peerj32$phyloseq, detection = 200, sort = TRUE, count = TRUE)
 prevalence <- function (x, detection = 0, sort = FALSE, count = FALSE) {
 
   if (is.null(detection)) {
