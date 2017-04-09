@@ -10,7 +10,8 @@
 #'   d <- dominance(dietswap)
 #' @details The dominance index gives the relative abundance of the most abundant species in [0,1]. This simple diversity index is occasionally used in ecological literature. With rank = 2, the sum of abundances for the two most abundant taxa are returned etc. However, if aggregate=FALSE, the abundance for the single n'th most dominant taxa (n = rank) is returned instead the sum of abundances up to that rank.
 #' @references
-#'   Dominance has been used in this sense for instance in
+#'   Dominance has been used in this sense (although for absolute abundances)
+#'   for instance in
 #'   Kenneth J. Locey and Jay T. Lennon. Scaling laws predict global microbial diversity. PNAS 2016 113 (21) 5970-5975; doi:10.1073/pnas.1521291113.
 #'
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
