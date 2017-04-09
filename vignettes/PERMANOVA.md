@@ -64,6 +64,13 @@ significant effect on overall gut microbiota composition. Perform PERMANOVA:
 ```r
 # samples x species as input
 library(vegan)
+```
+
+```
+## Warning: package 'lattice' was built under R version 3.3.3
+```
+
+```r
 permanova <- adonis(t(otu) ~ group,
                data = meta, permutations=99, method = "bray")
 
@@ -72,7 +79,7 @@ print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
 ```
 
 ```
-## [1] 0.32
+## [1] 0.29
 ```
 
 

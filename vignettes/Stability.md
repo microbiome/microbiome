@@ -71,8 +71,7 @@ indicator of bistability, although other explanations such as sampling
 biases etc. should be controlled. Multiple bimodality scores are
 available.
 
-Multimodality score using [potential analysis with
-bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
+Multimodality score using [potential analysis with bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
 
 
 
@@ -123,6 +122,7 @@ x <- log10(abundances(pseq)[tax,])
 
 # Bootstrapped potential analysis to identify potential minima
 potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]))$minima
+
 # Same with earlywarnings package (without bootstrap ie. less robust)
 # library(earlywarnings)
 # res <- livpotential_ews(x)$min.points
