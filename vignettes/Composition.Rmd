@@ -28,7 +28,9 @@ Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342)
 library(microbiome)
 library(dplyr)
 data(dietswap)
-pseq <- dietswap
+
+# Just use prevalent taxa to speed up examples
+pseq <- core(dietswap, detection = 0.1/100, prevalence = 90)
 
 # Pick sample subset
 library(phyloseq)
