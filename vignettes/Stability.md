@@ -32,13 +32,13 @@ pseq <- atlas1006
 # Focus on specific DNA extraction method
 pseq <- pseq %>% subset_samples(DNA_extraction_method == "r")
 
-# Keep prevalent taxa
-pseq <- core(pseq, detection = 10^3, prevalence = .2)
-
 # Use relative abundances
 pseq <- microbiome::transform(pseq, "compositional")
 
-# For cross-sectional analysis, include only the baseline time point:
+# Keep only the prevalent taxa to speed up examples
+pseq <- core(pseq, detection = 1/100, prevalence = 20/100)
+
+# For cross-sectional analysis, use only the baseline time point:
 pseq0 <- baseline(pseq)
 ```
 
@@ -49,9 +49,7 @@ It has been reported that certain microbial groups exhibit bi-stable
 abundance distributions with distinct peaks at low and high
 abundances, and an instable intermediate abundance range. Instability
 at the intermediate abundance range is hence one indicator of
-bi-stability. [Lahti et
-al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
-used straightforward correlation analysis to quantify how the distance
+bi-stability. [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) used straightforward correlation analysis to quantify how the distance
 from the intermediate abundance region (50% quantile) is associated
 with the observed shifts between consecutive time points. This can be
 calculated with:
@@ -78,6 +76,7 @@ Multimodality score using [potential analysis with bootstrap](http://www.nature.
 ```r
 # Bimodality is better estimated from log10 abundances
 pseq0.log10 <- microbiome::transform(pseq0, "log10")
+
 set.seed(4433)
 # In practice, it is recommended to use more bootstrap iterations than in this example
 bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis",
@@ -138,7 +137,7 @@ print(tipping.point)
 ```
 
 ```
-## [1] 0.00246516
+## [1] 0.004804713
 ```
 
 
