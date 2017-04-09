@@ -14,8 +14,10 @@
 #'     "richness" (number of unique taxa that give non-zero signal); 
 #'     "evenness" (Pielou's index);
 #'     "coverage" (Number of species needed to cover 50% of the ecosystem);
-#'     "dominance" (Relative proportion of the most dominant species in [0,1]);
-#'     "rarity" (Relative proportion of the least abundant species, below the detection level of 0.2%); 
+#'     "DBP" (Berger-Parker dominance ie. relative proportion of the single most dominant species in [0,1]); see ?dominance for details and references
+#'     "DMN" (McNaughton dominance ie. relative proportion of the two most dominant species in [0,1]); see ?dominance for details and references
+#'     "rarity" Quantifies the concentration of the least abundant species by the log-modulo skewness of the arithmetic abundance classes. See ?rarity for details and references.
+#'     "low_abundance" (Relative proportion of the least abundant species, below the detection level of 0.2%); 
 #'     "rare_abundance" (Relative proportion of the rare (non-core) species in [0,1]) - this complement (1-x) of the core_abundance
 #'     "core_abundance" (Relative proportion of the core species that exceed detection level 0.2% in over 50% of the samples);
 #'     "gini" (Gini index; calculated with the function inequality).
@@ -34,8 +36,9 @@ global <- function(x, split = TRUE, measures = NULL) {
 
   res <- NULL
 
-  selected.vegan <- c("Shannon", "InvSimpson")
-  nonveg <- c("richness", "evenness", "coverage", "dominance", "gini", "rarity", "core_abundance")
+  selected.vegan <- c("Shannon", "InvSimpson", "Fisher")
+  
+  nonveg <- c("richness", "evenness", "coverage", "DBP", "DMN", "gini", "rarity", "low_abundance", "core_abundance")
   
   if (is.null(measures)) {
     measures <- unique(c(selected.vegan, nonveg))
@@ -120,23 +123,37 @@ global <- function(x, split = TRUE, measures = NULL) {
 
   }
 
-  if (("dominance" %in% measures) || is.null(measures)) {
+  if (any(c("dominance", "DBP") %in% measures) || is.null(measures)) {
 
-    do <- unname(dominance(x, split))
+    do <- unname(dominance(x, index = "DBP", split = TRUE))
 
     # Add to result data.frame
     if (is.null(res)) {
-      res <- data.frame(dominance = do)
+      res <- data.frame(DBP = do)
     } else {
-      res$dominance <- do
+      res$DBP <- do
     }
+  }
 
+  if ((c("DMN") %in% measures) || is.null(measures)) {
+
+    do <- unname(dominance(x, index = "DMN", split = TRUE))
+
+    # Add to result data.frame
+    if (is.null(res)) {
+      res <- data.frame(DMN = do)
+    } else {
+      res$DMN <- do
+    }
   }
 
   if (("rarity" %in% measures) || is.null(measures)) {
 
-    th <- quantile(as.vector(abundances(x)), 1)
-    do <- unname(rarity(x, detection = 0.2/100, split))
+    if (!split) {
+      stop("split not defined for the rarity index")
+    }
+
+    do <- unname(rarity(x))
 
     # Add to result data.frame
     if (is.null(res)) {
@@ -144,9 +161,7 @@ global <- function(x, split = TRUE, measures = NULL) {
     } else {
       res$rarity <- do
     }
-
   }
-
 
   if (("core_abundance" %in% measures) || is.null(measures)) {
 
@@ -158,8 +173,33 @@ global <- function(x, split = TRUE, measures = NULL) {
     } else {
       res$core_abundance <- do
     }
+  }
+
+  if (("rare_abundance" %in% measures) || is.null(measures)) {
+
+    do <- unname(rare_abundance(x, detection = 0.2/100, prevalence = 50/100, split))
+
+    # Add to result data.frame
+    if (is.null(res)) {
+      res <- data.frame(rare_abundance = do)
+    } else {
+      res$rare_abundance <- do
+    }
 
   }
+
+  if (("low_abundance" %in% measures) || is.null(measures)) {
+
+    do <- unname(low_abundance(x, detection = 0.2/100, split))
+
+    # Add to result data.frame
+    if (is.null(res)) {
+      res <- data.frame(low_abundance = do)
+    } else {
+      res$low_abundance <- do
+    }
+  }
+
 
   # For total diversity, just return a vector of values
   # (as the table would have only 1 row; and giving a different
@@ -169,8 +209,12 @@ global <- function(x, split = TRUE, measures = NULL) {
   }
 
   # All indicator names in lowercase for clarity and consistency
-  colnames(res) <- tolower(colnames(res))
-
+  if (length(res) > 1) { 
+    colnames(res) <- tolower(colnames(res))
+  } else {
+    names(res) <- tolower(names(res))
+  }
+  
   res
 
 }

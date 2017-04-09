@@ -4,14 +4,14 @@
 \alias{rarity}
 \title{Rarity Index}
 \usage{
-rarity(x, detection = 0.2/100, split = TRUE)
+rarity(x, q = 0.5, n = 50)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{detection}{Detection threshold for absence/presence (greater or equal).}
+\item{q}{Arithmetic abundance classes are evenly cut up to to this quantile of the data. The assumption is that abundances higher than this are not common, and they are classified in their own group.}
 
-\item{split}{(Optional). Logical. Pool all samples and estimate index for the entire set.}
+\item{n}{The number of arithmetic abundance classes from zero to the quantile cutoff indicated by q.}
 }
 \value{
 A vector of rarity indices
@@ -20,18 +20,19 @@ A vector of rarity indices
 Calculates the community rarity index.
 }
 \details{
-The rarity index gives the relative proportion of rare species in [0,1]. The species that are below the indicated detection threshold are considered rare. Note that population prevalence is not considered.
+The rarity index characterizes the concentration of species at low abundance. Here, we use the skewness of the frequency distribution of arithmetic abundance classes (see Magurran & McGill 2011). These are typically right-skewed; to avoid taking log of occasional negative skews, we follow Locey & Lennon (2016) and use the log-modulo transformation that adds a value of one to each measure of skewness to allow logarithmization.
 }
 \examples{
   data(dietswap)
-  d <- rarity(dietswap, detection = 0.2/100)
+  d <- rarity(dietswap)
 }
 \references{
-Rarity has been used in this sense for instance in
-  Kenneth J. Locey and Jay T. Lennon. Scaling laws predict global microbial diversity. PNAS 2016 113 (21) 5970-5975; doi:10.1073/pnas.1521291113.
+Kenneth J. Locey and Jay T. Lennon. Scaling laws predict global microbial diversity. PNAS 2016 113 (21) 5970-5975; doi:10.1073/pnas.1521291113.
+
+  Magurran AE, McGill BJ, eds (2011) Biological Diversity: Frontiers in Measurement and Assessment (Oxford Univ Press, Oxford), Vol 12
 }
 \seealso{
-core_abundance, rarity, global
+core_abundance, low_abundance, global
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

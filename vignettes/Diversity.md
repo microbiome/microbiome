@@ -34,12 +34,12 @@ This function returns a table with a selection of global ecosystem indicators. A
 
 
 ```r
-indicators <- global(pseq, measures = c("richness", "dominance"))
+indicators <- global(pseq, measures = c("richness", "DBP"))
 head(kable(indicators))
 ```
 
 ```
-## [1] "|            | richness| dominance|"
+## [1] "|            | richness|       dbp|"
 ## [2] "|:-----------|--------:|---------:|"
 ## [3] "|Sample-1    |      130| 0.1758679|"
 ## [4] "|Sample-2    |      130| 0.1716273|"
@@ -50,18 +50,37 @@ head(kable(indicators))
 The supported divesity measures include those supported in the phyloseq::estimate_richness. Further measures are also provided (see function help), or can be calculated separately as described below.
 
 
-### Dominance and rarity
+### Dominance 
 
-The dominance and rarity indices refer to the abundance of the most and least abundant species, respectively. For the most abundant species, the sum of relative abundances up to the given rank (top-n) is calculated. For the least abundant taxa, the sum of relative abundances is returned for those taxa whose abundance falls below the indicated detection threshold.
+The dominance index refers to the abundance of the most abundant species. Various dominance indices are available (see the function help for a list of options).
 
 
 ```r
 # Absolute abundances for the single most abundant taxa in each sample
-ta <- dominance(pseq, rank = 1)
-
-# Relative abundances
-la <- rarity(pseq, detection = 0.2/100)
+do <- dominance(pseq, index = "BP")
+do <- dominance(pseq, relative = TRUE, rank = 1)
+do <- dominance(pseq, relative = TRUE, rank = 2, aggregate = FALSE)
 ```
+
+
+
+### Rarity and low abundance
+
+The low abundance index refers to the least abundant taxa. For the least abundant taxa, the sum of relative abundances is returned for those taxa whose abundance falls below the indicated detection threshold.
+
+
+```r
+la <- low_abundance(pseq, detection = 0.2/100)
+```
+
+
+Rarity index characterizes the concentration of species at low abundance. Here, we use the skewness of the frequency distribution of arithmetic abundance classes, using the log-modulo skewness as in [Locey & Lennon (2016)](doi:10.1073/pnas.1521291113). This measure is complementary to the low_abundance function as it has different sensitivity to low abundances and their overall distribution.
+
+
+```r
+ra <- rarity(pseq)
+```
+
 
 
 ### Coverage

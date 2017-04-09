@@ -23,8 +23,10 @@ In addition, the following measures are provided:
   "richness" (number of unique taxa that give non-zero signal); 
   "evenness" (Pielou's index);
   "coverage" (Number of species needed to cover 50% of the ecosystem);
-  "dominance" (Relative proportion of the most dominant species in [0,1]);
-  "rarity" (Relative proportion of the least abundant species, below the detection level of 0.2%); 
+  "DBP" (Berger-Parker dominance ie. relative proportion of the single most dominant species in [0,1]); see ?dominance for details and references
+  "DMN" (McNaughton dominance ie. relative proportion of the two most dominant species in [0,1]); see ?dominance for details and references
+  "rarity" Quantifies the concentration of the least abundant species by the log-modulo skewness of the arithmetic abundance classes. See ?rarity for details and references.
+  "low_abundance" (Relative proportion of the least abundant species, below the detection level of 0.2%); 
   "rare_abundance" (Relative proportion of the rare (non-core) species in [0,1]) - this complement (1-x) of the core_abundance
   "core_abundance" (Relative proportion of the core species that exceed detection level 0.2% in over 50% of the samples);
   "gini" (Gini index; calculated with the function inequality).}
