@@ -32,7 +32,7 @@ pseq <- atlas1006
 # Focus on specific DNA extraction method
 pseq <- pseq %>% subset_samples(DNA_extraction_method == "r")
 
-# Keep prevalent taxa (HITChip signal >3 in >95 percent of the samples)
+# Keep prevalent taxa
 pseq <- core(pseq, detection = 10^3, prevalence = .2)
 
 # Use relative abundances
@@ -81,7 +81,8 @@ pseq0.log10 <- microbiome::transform(pseq0, "log10")
 set.seed(4433)
 # In practice, it is recommended to use more bootstrap iterations than in this example
 bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis",
-                               bs.iter = 5, peak.threshold = 10, min.density = 10)
+                               bs.iter = 20, peak.threshold = 10,
+			       min.density = 10)
 ```
 
 
@@ -97,7 +98,8 @@ df <- data.frame(group = taxa,
 		 bimodality = bimodality.score[taxa])
 
 theme_set(theme_bw(20))
-p <- ggplot(df, aes(x = intermediate.stability, y = bimodality, label = group)) +
+p <- ggplot(df,
+       aes(x = intermediate.stability, y = bimodality, label = group)) +
        geom_text() +
        geom_point() 
 print(p)
@@ -121,7 +123,8 @@ tax  <- names(which.max(bimodality.score))
 x <- log10(abundances(pseq)[tax,])
 
 # Bootstrapped potential analysis to identify potential minima
-potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]))$minima
+# in practice, use more bootstrap iterations
+potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]), bs.iter = 2)$minima
 
 # Same with earlywarnings package (without bootstrap ie. less robust)
 # library(earlywarnings)
@@ -135,7 +138,7 @@ print(tipping.point)
 ```
 
 ```
-## [1] 0.002597507
+## [1] 0.00246516
 ```
 
 

@@ -32,7 +32,7 @@ pseq <- atlas1006
 This function returns a table with a selection of global ecosystem indicators. Additional indices are also available; see the function help. See a separate page on [Beta diversity](Betadiversity.html).
 
 ```{r divest, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
-indicators <- global(pseq)
+indicators <- global(pseq, measures = c("richness", "dominance"))
 head(kable(indicators))
 ```
 
@@ -56,7 +56,7 @@ la <- low_abundance(pseq, detection = 0.2/100)
 
 The dominance index gives the number of groups needed to have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
 
-```{r divest3, warning=FALSE, message=FALSE}
+```{r divest3, warning=FALSE, message=FALSE, eval=FALSE}
 do <- dominance(pseq, threshold = 0.5)
 ```
 
@@ -90,38 +90,27 @@ Show indicators:
 ```{r div-example2, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
 library(ggplot2)
 theme_set(theme_bw(20)) # Set bw color scheme
-p <- ggplot(indicators, aes(x = shannon)) + geom_histogram()
+p <- ggplot(indicators, aes(x = richness)) + geom_histogram()
 print(p)
 ```
-
-Visualize ecosystem state indicators w.r.t. discrete variable (or check more generic [group-wise comparison tools](Comparisons.html))
-
-```{r div-example2bb, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
-p <- plot_diversity(pseq, "bmi_group", measures = c("Chao1", "shannon"), indicate.subjects = FALSE)
-print(p)
-```
-
 
 ### Group-wise comparison
 
-To indicate time as discrete variable, order it as a factor. If a
-subject column is available in sample data the subjects will be
-indicated by lines across the groups. 
+Visualize ecosystem state indicators w.r.t. discrete variable (or check more generic [group-wise comparison tools](Comparisons.html)). You can also indicate subjects by lines (assuming the subject field is available in the metadata):
 
-```{r div-groupwise, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
-p <- plot_diversity(pseq, "gender", measures = c("chao1", "shannon"), indicate.subject = TRUE)
+```{r div-example2bb, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
+p <- plot_diversity(pseq, "bmi_group", measures = c("chao1", "shannon"), indicate.subjects = TRUE)
 print(p)
 ```
 
-
 Indicators vs. continuous variable:
 
-```{r indicators-example13, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, dev="CairoPNG"}
+```{r indicators-example13, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, dev = "CairoPNG"}
 library(dplyr)
 pseq <- atlas1006
 
 # Add shannon diversity in the sample metadata
-sample_data(pseq)$diversity <- global(pseq)$shannon
+sample_data(pseq)$diversity <- global(pseq, measures = "shannon")$shannon
 
 # Visualize
 p <- plot_regression(diversity ~ age, meta(pseq))

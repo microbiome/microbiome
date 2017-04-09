@@ -57,7 +57,7 @@ If subject is among the metadata variables, the matched subjects across groups a
 }
 \seealso{
 \code{\link{estimate_richness}}
- \code{\link{diversity}}
+ \code{\link{global}}
  \code{\link{plot_richness}}
  \code{\link[vegan]{estimateR}}
  \code{\link[vegan]{diversity}}

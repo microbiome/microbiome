@@ -77,8 +77,11 @@ transform <- function (x, transform = "identity",
     # If the data has zeroes, then shift up with a negligible constant to avoid
     # singularities
     xt <- x
+
     if (any(abundances(xt) == 0)) {
-      xt <- transform(xt, "shift", shift = min(x[x>0])/2)
+      v <- as.vector(abundances(x))
+      minval <- min(v[v > 0])/2
+      xt <- transform(xt, "shift", shift = minval)
     }
 
     # Then transform to compositional data

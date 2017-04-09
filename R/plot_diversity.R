@@ -28,7 +28,7 @@
 #' @details If subject is among the metadata variables, the matched subjects across groups are indicated by lines.
 #' @seealso 
 #'  \code{\link{estimate_richness}}
-#'  \code{\link{diversity}}
+#'  \code{\link{global}}
 #'  \code{\link{plot_richness}}
 #'  \code{\link[vegan]{estimateR}}
 #'  \code{\link[vegan]{diversity}}
@@ -45,7 +45,7 @@ plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1
   horiz <- subject <- NULL
 
   # Calculate alpha-diversity measures
-  erDF <- diversity(x, split = TRUE, measures = measures)
+  erDF <- global(x, split = TRUE, measures = measures)
 
   # Measures may have been renamed in `erDF`. Replace it with the name from erDF
   measures <- colnames(erDF)
@@ -67,11 +67,11 @@ plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1
 
   value <- NULL
   for (nam in measures) {
-   names(DF) <- gsub(nam, paste(nam, ".diversity", sep = ""), names(DF))
+   names(DF) <- gsub(nam, paste(nam, ".index", sep = ""), names(DF))
   }
 
-  mdf <- gather(DF, "key", "value", dplyr::ends_with(".diversity"))
-  mdf$key <- gsub("\\.diversity$", "", mdf$key)
+  mdf <- gather(DF, "key", "value", dplyr::ends_with(".index"))
+  mdf$key <- gsub("\\.index$", "", mdf$key)
   mdf$horiz <- mdf[[variable]]
 
   if (na.rm) {
