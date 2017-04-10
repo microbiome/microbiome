@@ -23,7 +23,7 @@ Various community diversity indices.
 By default, returns all diversity indices. The available diversity indices include the following:
  \itemize{
    \item{inverse_simpson}{Inverse  Simpson diversity: $1/lambda$ where $lambda = sum(p^2)$ and $p$ are relative abundances.}
-   \item{gini_simpson}{Gini-Simpson diversity $1 - lambda$}
+   \item{gini_simpson}{Gini-Simpson diversity $1 - lambda$. This is also called Gibbs–Martin, or Blau index in sociology, psychology and management studies.}
    \item{shannon}{Shannon diversity ie entropy}
    \item{fisher}{Fisher alpha; as implemented in the \pkg{vegan} package}
    \item{observed}{Number of unique detected taxa with non-zero signal.}

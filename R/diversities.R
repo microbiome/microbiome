@@ -13,7 +13,7 @@
 #' By default, returns all diversity indices. The available diversity indices include the following:
 #'  \itemize{
 #'    \item{inverse_simpson}{Inverse  Simpson diversity: $1/lambda$ where $lambda = sum(p^2)$ and $p$ are relative abundances.}
-#'    \item{gini_simpson}{Gini-Simpson diversity $1 - lambda$}
+#'    \item{gini_simpson}{Gini-Simpson diversity $1 - lambda$. This is also called Gibbs–Martin, or Blau index in sociology, psychology and management studies.}
 #'    \item{shannon}{Shannon diversity ie entropy}
 #'    \item{fisher}{Fisher alpha; as implemented in the \pkg{vegan} package}
 #'    \item{observed}{Number of unique detected taxa with non-zero signal.}
@@ -46,7 +46,7 @@ diversities <- function(x, index = "all", zeroes = TRUE) {
 
   index <- intersect(index, accepted)
   if (length(index) == 0) {
-    stop(paste("Request accepted diversity indices: ", accepted))
+    NULL
   }
 
   if (length(index) > 1) {
@@ -96,6 +96,34 @@ inverse_simpson <- function (x, zeroes = TRUE) {
   
 }
 
+# x: Species count vector
+gini_simpson <- function (x, zeroes = TRUE) {
+
+  # Simpson index
+  lambda <- simpson_index(x, zeroes = zeroes)
+
+  # Gini-Simpson diversity
+  1 - lambda
+  
+}
+
+simpson_index <- function (x, zeroes = TRUE) {
+
+  if (!zeroes) {
+    x[x > 0]
+  }
+
+  # Relative abundances
+  p <- x/sum(x)
+
+  # Simpson index
+  lambda <- sum(p^2)
+
+  lambda
+  
+}
+
+
 
 # x: Species count vector
 shannon <- function (x) {
@@ -113,44 +141,3 @@ shannon <- function (x) {
   (-sum(p * log(p)))
 
 }
-
-
-
-
-# x: Species count vector
-gini_simpson <- function (x, zeroes = TRUE) {
-
-  # Simpson index
-  lambda <- simpson_index(x, zeroes = zeroes)
-
-  # Gini-Simpson diversity
-  1 - lambda
-  
-}
-
-
-
-
-
-
-simpson_index <- function (x, zeroes = TRUE) {
-
-  if (!zeroes) {
-    x[x > 0]
-  }
-
-  # Species richness (number of species)
-  S <- length(x)
-
-  # Relative abundances
-  p <- x/sum(x)
-
-  # Simpson index
-  lambda <- sum(p^2)
-
-  lambda
-  
-}
-
-
-

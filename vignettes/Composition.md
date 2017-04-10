@@ -95,13 +95,8 @@ library(tidyverse)
 ```
 
 ```
-## Loading tidyverse: tibble
 ## Loading tidyverse: readr
 ## Loading tidyverse: purrr
-```
-
-```
-## Warning: package 'tibble' was built under R version 3.3.3
 ```
 
 ```
@@ -113,12 +108,15 @@ library(tidyverse)
 ```
 
 ```
-## combine():  dplyr, BiocGenerics
-## filter():   dplyr, stats
-## lag():      dplyr, stats
-## map():      purrr, mclust
-## Position(): ggplot2, BiocGenerics, base
-## select():   dplyr, MASS
+## col_factor(): readr, scales
+## combine():    dplyr, gridExtra, BiocGenerics
+## discard():    purrr, scales
+## expand():     tidyr, Matrix
+## filter():     dplyr, stats
+## lag():        dplyr, stats
+## map():        purrr, mclust
+## Position():   ggplot2, BiocGenerics, base
+## select():     dplyr, MASS
 ```
 
 ```r
@@ -2296,8 +2294,8 @@ print(p)
 ##         rgb(x[, 1L], x[, 2L], x[, 3L], x[, 4L], maxColorValue = 255)
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
-## <bytecode: 0x562faf2e51f8>
-## <environment: 0x562faf2e3578>
+## <bytecode: 0x5615b9019058>
+## <environment: 0x5615b0714ff8>
 ```
 
 
