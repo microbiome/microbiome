@@ -10,9 +10,9 @@ output:
 ---
   <!--
   %\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{microbiome tutorial - composition}
-%\usepackage[utf8]{inputenc}
-%\VignetteEncoding{UTF-8}  
+  %\VignetteIndexEntry{microbiome tutorial - composition}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
 -->
   
   
@@ -80,25 +80,24 @@ Same with compositional (relative) abundances:
   
 
 ```r
-p <- plot_composition(pseq2,
-                      sample.sort = "nationality",
-                      x.label = "nationality",
-                      transform = "compositional") +
-     guides(fill = guide_legend(ncol = 1))
-print(p)
-
-# Or try another theme
+# Try another theme
 # from https://github.com/hrbrmstr/hrbrthemes
 library(hrbrthemes)
 library(gcookbook)
 library(tidyverse)
-p2 <- p + scale_y_percent() +
-          labs(x="Samples", y="Relative abundance (%)",
+
+p <- plot_composition(pseq2,
+                      sample.sort = "nationality",
+                      x.label = "nationality",
+                      transform = "compositional") +
+     guides(fill = guide_legend(ncol = 1)) +
+     scale_y_percent() +
+     labs(x="Samples", y="Relative abundance (%)",
                                    title="Relative abundance data",
                                    subtitle="Subtitle",
                                    caption="Caption here 'g'") + 
-  theme_ipsum(grid="Y")
-print(p2)  
+     theme_ipsum(grid="Y")
+print(p)  
 ```
 
 ```
@@ -2181,7 +2180,7 @@ print(p2)
 ## $y, : font family 'Arial Narrow' not found in PostScript font database
 ```
 
-<img src="figure/composition-example4b-1.png" title="plot of chunk composition-example4b" alt="plot of chunk composition-example4b" width="300px" /><img src="figure/composition-example4b-2.png" title="plot of chunk composition-example4b" alt="plot of chunk composition-example4b" width="300px" />
+<img src="figure/composition-example4b-1.png" title="plot of chunk composition-example4b" alt="plot of chunk composition-example4b" width="300px" />
 
 
 Averaged by group:
@@ -2264,8 +2263,8 @@ print(p)
 ##         rgb(x[, 1L], x[, 2L], x[, 3L], x[, 4L], maxColorValue = 255)
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
-## <bytecode: 0x55d0df9a66a0>
-## <environment: 0x55d0e0c7ab60>
+## <bytecode: 0x5609ef259140>
+## <environment: 0x5609ecbbc9d0>
 ```
 
 

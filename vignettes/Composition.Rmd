@@ -10,9 +10,9 @@ output:
 ---
   <!--
   %\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{microbiome tutorial - composition}
-%\usepackage[utf8]{inputenc}
-%\VignetteEncoding{UTF-8}  
+  %\VignetteIndexEntry{microbiome tutorial - composition}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
 -->
   
   
@@ -72,25 +72,24 @@ print(p)
 Same with compositional (relative) abundances:
   
 ```{r composition-example4b, fig.width=12, fig.height=5, out.width="300px", fig.show="hold"}
-p <- plot_composition(pseq2,
-                      sample.sort = "nationality",
-                      x.label = "nationality",
-                      transform = "compositional") +
-     guides(fill = guide_legend(ncol = 1))
-print(p)
-
-# Or try another theme
+# Try another theme
 # from https://github.com/hrbrmstr/hrbrthemes
 library(hrbrthemes)
 library(gcookbook)
 library(tidyverse)
-p2 <- p + scale_y_percent() +
-          labs(x="Samples", y="Relative abundance (%)",
+
+p <- plot_composition(pseq2,
+                      sample.sort = "nationality",
+                      x.label = "nationality",
+                      transform = "compositional") +
+     guides(fill = guide_legend(ncol = 1)) +
+     scale_y_percent() +
+     labs(x="Samples", y="Relative abundance (%)",
                                    title="Relative abundance data",
                                    subtitle="Subtitle",
                                    caption="Caption here 'g'") + 
-  theme_ipsum(grid="Y")
-print(p2)  
+     theme_ipsum(grid="Y")
+print(p)  
 ```
 
 
