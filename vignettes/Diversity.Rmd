@@ -22,8 +22,8 @@ Load example data:
 
 ```{r divdata, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
 library(microbiome)
-data(atlas1006)
-pseq <- atlas1006
+data(dietswap)
+pseq <- dietswap
 ```
 
 
@@ -92,18 +92,16 @@ do <- coverage(pseq, threshold = 0.5)
 
 ### Core abundance
 
-The core_abundance function refers to the relative proportion of the core species. Rare abundance provides the complement.
+The core_abundance function refers to the relative proportion of the core species. Rare abundance provides the complement (1-x; see rare_abundance).
 
 ```{r divest5, warning=FALSE, message=FALSE}
-ra <- rare_abundance(pseq, detection = .1/100, prevalence = 50/100)
 co <- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
 ```
 
 
-
 ### Gini index
 
-Gini index is a common measure for inequality in economical income, but can also be used as a community diversity measure.
+Gini index is a common measure for inequality in economical income. The inverse gini index (1/x) can also be used as a community diversity measure.
 
 ```{r divest6, warning=FALSE, message=FALSE}
 gi <- inequality(pseq)
@@ -119,17 +117,4 @@ ev <- evenness(pseq, "all")
 kable(head(ev))
 ```
 
-
-
-
-### Visualization
-
-Show indicators:
-
-```{r div-example2, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
-library(ggplot2)
-theme_set(theme_bw(20)) # Set bw color scheme
-p <- ggplot(global.inds, aes(x = diversities_shannon)) + geom_histogram()
-print(p)
-```
 
