@@ -89,16 +89,17 @@ plot_ordination(pseq, ordinate(pseq, "MDS"), color = "nationality") +
 ### Canonical correspondence analysis (CCA)
 
 
-
 ```r
 # With samples
-p <- plot_ordination(pseq, ordinate(pseq, "CCA"),
+pseq.cca <- ordinate(pseq, "CCA")
+
+p <- plot_ordination(pseq, pseq.cca,
        type = "samples", color = "nationality")
 p <- p + geom_point(size = 4)
 print(p)
 
 # With taxa:
-p <- plot_ordination(pseq, ordinate(pseq, "CCA"),
+p <- plot_ordination(pseq, pseq.cca,
        type = "taxa", color = "Phylum")
 p <- p + geom_point(size = 4)
 print(p)
@@ -111,7 +112,7 @@ print(p)
 
 
 ```r
-plot_ordination(pseq, ordinate(pseq, "CCA"),
+plot_ordination(pseq, pseq.cca,
 		      type = "split", shape = "nationality", 
     		      color = "Phylum", label = "nationality")
 ```
@@ -123,7 +124,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"),
 
 
 ```r
-plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
+plot_ordination(pseq, pseq.cca, type = "biplot", color = "Phylum")
 ```
 
 ![plot of chunk ordination-ordinate26](figure/ordination-ordinate26-1.png)

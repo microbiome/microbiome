@@ -77,16 +77,17 @@ plot_ordination(pseq, ordinate(pseq, "MDS"), color = "nationality") +
 
 ### Canonical correspondence analysis (CCA)
 
-
 ```{r ordination-ordinate24a, warning=FALSE, message=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
 # With samples
-p <- plot_ordination(pseq, ordinate(pseq, "CCA"),
+pseq.cca <- ordinate(pseq, "CCA")
+
+p <- plot_ordination(pseq, pseq.cca,
        type = "samples", color = "nationality")
 p <- p + geom_point(size = 4)
 print(p)
 
 # With taxa:
-p <- plot_ordination(pseq, ordinate(pseq, "CCA"),
+p <- plot_ordination(pseq, pseq.cca,
        type = "taxa", color = "Phylum")
 p <- p + geom_point(size = 4)
 print(p)
@@ -96,7 +97,7 @@ print(p)
 ### Split plot
 
 ```{r ordination-ordinate25, warning=FALSE, message=FALSE, fig.width=14, fig.height=5}
-plot_ordination(pseq, ordinate(pseq, "CCA"),
+plot_ordination(pseq, pseq.cca,
 		      type = "split", shape = "nationality", 
     		      color = "Phylum", label = "nationality")
 ```
@@ -105,7 +106,7 @@ plot_ordination(pseq, ordinate(pseq, "CCA"),
 ### Ordination biplot
 
 ```{r ordination-ordinate26, warning=FALSE, message=FALSE, fig.width=11, fig.height=5}
-plot_ordination(pseq, ordinate(pseq, "CCA"), type = "biplot", color = "Phylum")
+plot_ordination(pseq, pseq.cca, type = "biplot", color = "Phylum")
 ```
 
 

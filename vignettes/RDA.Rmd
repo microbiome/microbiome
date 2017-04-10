@@ -24,6 +24,10 @@ Load the package and example data:
 library(microbiome)
 data(peerj32) # Data from https://peerj.com/articles/32/
 pseq <- peerj32$phyloseq # phyloseq data
+
+# Only check the core taxa to speed up examples
+pseq <- core(pseq, detection = 10^2, prevalence = 95/100)
+
 pseq.trans <- microbiome::transform(pseq, "hell") # Hellinger transform
 ```
 

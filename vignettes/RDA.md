@@ -25,6 +25,10 @@ Load the package and example data:
 library(microbiome)
 data(peerj32) # Data from https://peerj.com/articles/32/
 pseq <- peerj32$phyloseq # phyloseq data
+
+# Only check the core taxa to speed up examples
+pseq <- core(pseq, detection = 10^2, prevalence = 95/100)
+
 pseq.trans <- microbiome::transform(pseq, "hell") # Hellinger transform
 ```
 
@@ -78,7 +82,7 @@ summary(rda.result)$constr.chi/summary(rda.result)$tot.chi
 ```
 
 ```
-## [1] 0.01540884
+## [1] 0.007763033
 ```
 
 
@@ -113,8 +117,8 @@ permutest(rda.result)
 ## Call: rda(formula = t(otu) ~ factor(metadata$time), scale = TRUE,
 ## na.action = na.fail)
 ## Permutation test for all constrained eigenvalues
-## Pseudo-F:	 0.6572996 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.89
+## Pseudo-F:	 0.3285983 (with 1, 42 Degrees of Freedom)
+## Significance:	 0.99
 ```
 
 

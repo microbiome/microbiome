@@ -92,55 +92,6 @@ print(p)
 library(hrbrthemes)
 library(gcookbook)
 library(tidyverse)
-```
-
-```
-## Loading tidyverse: tibble
-## Loading tidyverse: readr
-## Loading tidyverse: purrr
-```
-
-```
-## Warning: package 'tibble' was built under R version 3.3.3
-```
-
-```
-## Warning: package 'readr' was built under R version 3.3.3
-```
-
-```
-## Conflicts with tidy packages ----------------------------------------------
-```
-
-```
-## arrange():    dplyr, plyr
-## col_factor(): readr, scales
-## collapse():   dplyr, IRanges
-## combine():    dplyr, Biobase, gridExtra, BiocGenerics
-## compact():    purrr, plyr
-## count():      dplyr, plyr
-## desc():       dplyr, IRanges, plyr
-## discard():    purrr, scales
-## expand():     tidyr, S4Vectors, Matrix
-## failwith():   dplyr, plyr
-## filter():     dplyr, stats
-## first():      dplyr, S4Vectors
-## id():         dplyr, plyr
-## lag():        dplyr, stats
-## map():        purrr, mclust
-## mutate():     dplyr, plyr
-## Position():   ggplot2, BiocGenerics, base
-## reduce():     purrr, GenomicRanges, IRanges
-## regroup():    dplyr, IRanges
-## rename():     dplyr, S4Vectors, plyr
-## select():     dplyr, MASS
-## simplify():   purrr, IRanges
-## slice():      dplyr, IRanges
-## summarise():  dplyr, plyr
-## summarize():  dplyr, plyr
-```
-
-```r
 p2 <- p + scale_y_percent() +
           labs(x="Samples", y="Relative abundance (%)",
                                    title="Relative abundance data",
@@ -153,9 +104,7 @@ print(p2)
 ```
 ## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
 ## font family 'Arial Narrow' not found in PostScript font database
-```
 
-```
 ## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
 ## font family 'Arial Narrow' not found in PostScript font database
 
@@ -2315,8 +2264,8 @@ print(p)
 ##         rgb(x[, 1L], x[, 2L], x[, 3L], x[, 4L], maxColorValue = 255)
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
-## <bytecode: 0x5561627e31f0>
-## <environment: 0x556166bc2dd0>
+## <bytecode: 0x55d0df9a66a0>
+## <environment: 0x55d0e0c7ab60>
 ```
 
 
