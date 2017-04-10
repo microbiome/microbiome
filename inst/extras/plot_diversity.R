@@ -1,5 +1,5 @@
-#' @title Plot Diversity
-#' @description Plot alpha diversity.
+#' @title Plot Indicators
+#' @description Plot global indicators.
 #' This function estimates a number of alpha-diversity metrics using the 
 #' \code{\link{estimate_richness}} function,
 #' and returns a \code{ggplot} object. 
@@ -9,14 +9,14 @@
 #' and shaded according to the argument to \code{color} (see below).
 #' You must use untrimmed, non-normalized count data for meaningful results.
 #' @param x \code{\link{phyloseq-class}} object
-#' @param variable A variable to map to the horizontal axis. The vertical
+#' @param y A variable to map to the horizontal axis. The vertical
 #'  axis will be mapped to the alpha diversity index/estimate
 #'  and have units of total taxa, and/or index value (dimensionless).
 #'  This parameter (\code{x}) is a character string indicating a
 #'  in the dataset (nsamples(x)).
-#' @param measures Default is \code{NULL}. In this case
-#'  all available alpha-diversity measures will be included.
-#'  Alternatively, you can specify one or more measures
+#' @param index Default is \code{NULL}. In this case
+#'  all available alpha-diversity index will be included.
+#'  Alternatively, you can specify one or more index
 #'  as a character vector. Values must be among those supported:
 #'  \code{c("Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher")}.
 #' @param nrow Number of rows for plot faceting.
@@ -38,37 +38,16 @@
 #'   # (see help(atlas1006) for references and details)
 #'   data(atlas1006)
 #'   # Visualize Shannon diversity across bmi groups; remove cases with no bmi info
-#'   p <- plot_diversity(atlas1006, variable = "bmi_group", "Shannon", na.rm = TRUE)
+#'   x <- global(atlas1006)$diversities_shannon
+#'   y <- meta(atlas1006)$bmi_group
+#'   p <- plot_global(x, variable = y, na.rm = TRUE)
 #' @keywords utilities
-plot_diversity <- function(x, variable = "group", measures = "Shannon", nrow = 1, scales = "free_y", indicate.subjects = FALSE, na.rm = FALSE){ 
+plot_global <- function(x, y, nrow = 1, scales = "free_y", indicate.subjects = FALSE, na.rm = FALSE){ 
 
   horiz <- subject <- NULL
 
-  # Calculate alpha-diversity measures
-  erDF <- global(x, split = TRUE, measures = measures)
-
-  # Measures may have been renamed in `erDF`. Replace it with the name from erDF
-  measures <- colnames(erDF)
-
-  # Define "measure" variables and s.e. labels, for melting.
-  ses <- colnames(erDF)[grep("^se\\.", colnames(erDF))]
-
-  # Remove any S.E. from `measures`
-  measures <- measures[!measures %in% ses]
-
   # Coerce to data.frame
-  if( !is.null(sample_data(x, errorIfNULL=FALSE)) ){
-    # Include the sample data, if it is there.
-    DF <- data.frame(erDF, sample_data(x))
-  } else {
-    # If no sample data, leave it out.
-    DF <- data.frame(erDF)
-  }
-
-  value <- NULL
-  for (nam in measures) {
-   names(DF) <- gsub(nam, paste(nam, ".index", sep = ""), names(DF))
-  }
+  DF <- data.frame(x, y)
 
   mdf <- gather(DF, "key", "value", dplyr::ends_with(".index"))
   mdf$key <- gsub("\\.index$", "", mdf$key)

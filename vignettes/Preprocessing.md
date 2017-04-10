@@ -206,7 +206,7 @@ Assign new fields to metadata
 
 ```r
 # Calculate diversity for samples
-div <- global(pseq, measures = "shannon")$shannon
+div <- global(pseq, index = "shannon")
 
 # Assign this to sample metadata
 sample_data(pseq)$diversity <- div

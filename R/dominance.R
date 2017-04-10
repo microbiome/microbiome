@@ -9,8 +9,14 @@
 #' @export
 #' @examples
 #'   data(dietswap)
+#'   # Phyloseq object
 #'   d <- dominance(dietswap, rank = 1, relative = TRUE)
-#' @details The dominance index gives the abundance of the most abundant species and has been used in microbiomics context for instance in Locey & Lennon (2016). The following indices are provided: 1) "absolute_dominance" is the most simple variant, giving the absolute abundance of the most abundant species (Magurran & McGill 2011). By default, this refers to the single most dominant species (rank = 1) but it is possible to calculate the absolute dominance with rank n based on the abundances of top-n species by tuning the rank argument. 2) "relative_dominance" gives the relative abundance of the most abundant species. This is with rank = 1 by default but can be calculated for other ranks. 3) "DBP" is the Berger–Parker index, a special case of relative dominance with rank 1; 4) "DMN" is the McNaughton’s dominance. This is the sum of the relative abundance of the two most abundant taxa, or a special case of relative dominance with rank 2; 5) "Simpson" Simpson's index has also an interpretation as a dominance measure. Finally, it is also possible to calculated dominances up to an arbitrary rank by setting the rank argument. Finally, by setting aggregate=FALSE, the abundance for the single n'th most dominant taxa (n = rank) is returned instead the sum of abundances up to that rank (the default). 
+#'   # matrix
+#'   d <- dominance(abundances(dietswap), rank = 1, relative = TRUE)
+#'   # vector
+#'   d <- dominance(abundances(dietswap)[,1], rank = 1, relative = TRUE)
+#'
+#' @details The dominance index gives the abundance of the most abundant species and has been used in microbiomics context for instance in Locey & Lennon (2016). The following indices are provided: 1) "absolute" is the most simple variant, giving the absolute abundance of the most abundant species (Magurran & McGill 2011). By default, this refers to the single most dominant species (rank = 1) but it is possible to calculate the absolute dominance with rank n based on the abundances of top-n species by tuning the rank argument. 2) "relative" gives the relative abundance of the most abundant species. This is with rank = 1 by default but can be calculated for other ranks. 3) "DBP" is the Berger–Parker index, a special case of relative dominance with rank 1; 4) "DMN" is the McNaughton’s dominance. This is the sum of the relative abundance of the two most abundant taxa, or a special case of relative dominance with rank 2; 5) "simpson" Simpson's index (sum(p^2)) where p are relative abundances has an interpretation as a dominance measure. Also the version (sum(q * (q-1)) / S(S-1)) based on absolute abundances q has been proposed by Simpson (1949) but not included here as it is not within [0,1] range, and it is highly correlated with the simpler Simpson dominance. Finally, it is also possible to calculated dominances up to an arbitrary rank by setting the rank argument; 6) "core_abundance" ie relative proportion of the core species that exceed detection level 0.2% in over 50% of the samples; Finally, by setting aggregate=FALSE, the abundance for the single n'th most dominant taxa (n = rank) is returned instead the sum of abundances up to that rank (the default). 
 #' @references
 #'
 #'   Kenneth J. Locey and Jay T. Lennon. Scaling laws predict global microbial diversity. PNAS 2016 113 (21) 5970-5975; doi:10.1073/pnas.1521291113.
@@ -20,13 +26,41 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso coverage, core_abundance, rarity, global
 #' @keywords utilities
-dominance <- function(x, index = NULL, rank = 1, relative = TRUE, aggregate = TRUE, split = TRUE) {
+dominance <- function(x, index = "all", rank = 1, relative = TRUE, aggregate = TRUE) {
+
+  # Only include accepted indices	 
+  accepted <- c("DBP", "DMN", "absolute", "relative", "simpson", "core_abundance")
+  # Return all indices
+
+  if (length(index) == 1 && index == "all") {
+    index <- accepted
+  }
+
+  if (!is.null(index)) {
+    index <- intersect(index, accepted)
+  }
+  
+  if (!is.null(index) && length(index) == 0) {
+    return(NULL)
+  }
+
+  if (length(index) > 1) {
+    tab <- NULL
+    for (idx in index) {
+      tab <- cbind(tab, dominance(x, index = idx, rank = rank, relative = relative, aggregate = aggregate))
+    }
+
+    colnames(tab) <- index
+    return(as.data.frame(tab))
+  }
+
+  otu <- pick_data(x, compositional = FALSE)
 
   if (is.null(index)) {
     rank <- rank
-  } else if (index == "absolute_dominance") {
+  } else if (index == "absolute") {
     relative <- FALSE # Rank = 1 by default but can be tuned
-  } else if (index %in% c("relative_dominance")) {
+  } else if (index %in% c("relative")) {
     relative <- TRUE # Rank = 1 by default but can be tuned
   } else if (index %in% c("DBP")) {
     # Berger-Parker
@@ -37,20 +71,14 @@ dominance <- function(x, index = NULL, rank = 1, relative = TRUE, aggregate = TR
     rank <- 2
     relative <- TRUE
     aggregate <- TRUE
-  } else if (index %in% c("Simpson")) {
-    ret <- estimate_richness(x, measures = "Simpson")$Simpson
-    return(ret)
+  } else if (index %in% c("simpson")) {
+    return(simpson_dominance(otu))
+  } else if (index %in% c("core_abundance")) {
+    return(core_abundance(otu, detection = 0.2/100, prevalence = 50/100))
   } 
 
   if (relative) {
-    x <- transform(x, "compositional")
-  }
-
-  # Pick the OTU data
-  otu <- abundances(x)
-
-  if (!split) {
-    otu <- as.matrix(rowSums(otu), nrow = nrow(otu))
+    otu <- apply(otu, 2, function (x) {x/sum(x, na.rm = TRUE)})
   }
 
   if (!aggregate) {
@@ -58,10 +86,39 @@ dominance <- function(x, index = NULL, rank = 1, relative = TRUE, aggregate = TR
   } else {
     do <- apply(otu, 2, function (x) {sum(rev(sort(x))[1:rank])})
   }
-  names(do) <- sample_names(x)
+
+  names(do) <- colnames(otu)
   
   do
 
+}
+
+
+
+
+# x: Species count vector
+simpson_dominance <- function (x, zeroes = TRUE) {
+
+  if (!zeroes) {
+    x[x > 0]
+  }
+
+  # Species richness (number of species)
+  S <- length(x)
+
+  # Relative abundances
+  p <- x/sum(x)
+
+  # Simpson index (has interpretation as dominance)
+  lambda <- sum(p^2)
+
+  # More advanced Simpson dominance (Simpson 1949)
+  # However let us not use this as it is not in [0,1]
+  # and it is very highly correlated with the simpler variant lambda
+  # sum(p * (p - 1)) / (S * (S - 1))
+
+  lambda
+  
 }
 
 

@@ -4,14 +4,12 @@
 \alias{low_abundance}
 \title{Low Abundance Index}
 \usage{
-low_abundance(x, detection = 0.2/100, split = TRUE)
+low_abundance(x, detection = 0.2/100)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
 \item{detection}{Detection threshold for absence/presence (greater or equal).}
-
-\item{split}{(Optional). Logical. Pool all samples and estimate index for the entire set.}
 }
 \value{
 A vector of indicators.

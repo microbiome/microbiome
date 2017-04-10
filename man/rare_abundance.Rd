@@ -4,7 +4,7 @@
 \alias{rare_abundance}
 \title{Rare Abundance Index}
 \usage{
-rare_abundance(x, detection = 0.1/100, prevalence = 50/100, split = TRUE)
+rare_abundance(x, detection = 0.1/100, prevalence = 50/100)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -12,8 +12,6 @@ rare_abundance(x, detection = 0.1/100, prevalence = 50/100, split = TRUE)
 \item{detection}{Detection threshold for absence/presence (greater or equal).}
 
 \item{prevalence}{Prevalence threshold (in [0, 1]; greater or equal)}
-
-\item{split}{(Optional). Logical. Pool all samples and estimate index for the entire set.}
 }
 \value{
 A vector of rare_abundance indices

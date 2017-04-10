@@ -1,0 +1,45 @@
+#' @title Richness Index
+#' @description Community richness index.
+#' @inheritParams global
+#' @param detection Detection threshold.
+#' @return A vector of richness indices
+#' @details By default, returns the richness for multiple detection thresholds defined by the data quantiles. If the detection argument is provided, returns richness with that detection threshold.
+#' @export
+#' @examples
+#'   data(dietswap)
+#'   d <- richness(dietswap, detection = 0)
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @seealso global
+#' @keywords utilities
+richness <- function(x, detection = NULL) {
+
+  # Pick data
+  otu <- pick_data(x, compositional = FALSE)
+  
+  # Check with varying detection thresholds 
+  if (is.null(detection) || length(detection) > 0) {
+
+    if (is.null(detection)) {
+      ths <- quantile(otu, c(0, .2, .5, .8))
+    } else{
+      ths <- detection
+      names(ths) <- as.character(ths)
+    }
+    
+    tab <- NULL
+    for (th in ths) {
+      r <- colSums(otu > th)
+      tab <- cbind(tab, r)
+    }
+    colnames(tab) <- names(ths)
+    r <- tab
+  } else {
+    r <- colSums(otu > detection)
+    names(r) <- colnames(otu)
+  }
+  
+  r
+
+}
+
+

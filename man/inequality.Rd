@@ -4,18 +4,10 @@
 \alias{inequality}
 \title{Gini Index}
 \usage{
-inequality(x, detection, prevalence, split = TRUE)
+inequality(x)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
-
-\item{detection}{Detection threshold for absence/presence (greater or equal).}
-
-\item{prevalence}{Prevalence threshold (in [0, 1]; greater or equal)}
-
-\item{split}{(Optional). Logical. Calculate separate indices
-for each sample, or pool all samples and estimate the index
-for the entire set.}
 }
 \value{
 A vector of Gini indices

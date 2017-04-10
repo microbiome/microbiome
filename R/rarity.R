@@ -1,46 +1,70 @@
 #' @title Rarity Index
 #' @description Calculates the community rarity index.
-#' @inheritParams core
-#' @param q Arithmetic abundance classes are evenly cut up to to this quantile of the data. The assumption is that abundances higher than this are not common, and they are classified in their own group.
-#' @param n The number of arithmetic abundance classes from zero to the quantile cutoff indicated by q.
+#' @param index If the index is given, it will override the other parameters. See the details below for description and references of the standard rarity indices. 
+#' @inheritParams global
 #' @return A vector of rarity indices
 #' @export
 #' @examples
 #'   data(dietswap)
-#'   d <- rarity(dietswap)
-#' @details The rarity index characterizes the concentration of species at low abundance. Here, we use the skewness of the frequency distribution of arithmetic abundance classes (see Magurran & McGill 2011). These are typically right-skewed; to avoid taking log of occasional negative skews, we follow Locey & Lennon (2016) and use the log-modulo transformation that adds a value of one to each measure of skewness to allow logarithmization. 
+#'   d <- rarity(dietswap, index = "all")
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @seealso global
+#' @details
+#'   The rarity index characterizes the concentration of species at low abundance.
+#'
+#'   The following rarity indices are provided:
+#'   \itemize{
+#'     \item{log_modulo_skewness}{Quantifies the concentration of the least abundant species by the log-modulo skewness of the arithmetic abundance classes (see Magurran & McGill 2011). These are typically right-skewed; to avoid taking log of occasional negative skews, we follow Locey & Lennon (2016) and use the log-modulo transformation that adds a value of one to each measure of skewness to allow logarithmization.}
+#'     \item{low_abundance}{Relative proportion of the least abundant species, below the detection level of 0.2\%}
+#'     \item{rare_abundance}{Relative proportion of the rare (non-core) species in [0,1] - this complement (1-x) of the core_abundance}
+#'   }
+#' 
 #' @references
 #'   Kenneth J. Locey and Jay T. Lennon. Scaling laws predict global microbial diversity. PNAS 2016 113 (21) 5970-5975; doi:10.1073/pnas.1521291113.
 #'
 #'   Magurran AE, McGill BJ, eds (2011) Biological Diversity: Frontiers in Measurement and Assessment (Oxford Univ Press, Oxford), Vol 12
 #'
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-#' @seealso core_abundance, low_abundance, global
-rarity <- function (x, q = .5, n = 50) {
+rarity <- function(x, index = "all") {
 
-  a <- abundances(x)
+  # Only include accepted indices	 
+  accepted <- c("log_modulo_skewness", "low_abundance", "rare_abundance")
 
-  # Determine the quantile point. 
-  th1 <- quantile(max(a), q)
+  # Return all indices
+  if (index == "all") {
+    index <- accepted
+  }
 
-  # Tabulate the arithmetic abundance classes
-  # Use the same classes for all samples for consistency
-  tab <- table(cut(as.vector(a), c(seq(0, th1, length = n), Inf)))
+  index <- intersect(index, accepted)
+  if (length(index) == 0) {
+    return(NULL)
+  }
 
-  # Check skewness of the abundance classes for each sample
-  r <- apply(a, 2, function (x) { skew(tab) })
 
-  # Return log-modulo
-  log(1 + r)
+  if (length(index) > 1) {
+    tab <- NULL
+    for (idx in index) {
+      tab <- cbind(tab, rarity(x, index = idx))
+    }
+    colnames(tab) <- index
+    return(as.data.frame(tab))
+  }
+
+  # Pick data
+  otu <- pick_data(x, compositional = FALSE)
+
+  if (index == "log_modulo_skewness") {
+    r <- log_modulo_skewness(otu, q = .5, n = 50)
+  } else if (index == "low_abundance") {
+    r <- apply(otu, 2, function (x) low_abundance(x, detection = 0.2/100))
+  } else if (index == "rare_abundance") {
+    r <- apply(otu, 2, function (x) rare_abundance(x, detection = 0.1/100, prevalence = 50/100))
+  }
+
+  names(r) <- colnames(otu)
+
+  r
 
 }
 
 
-# Inspired by moments::skewness but rewritten.
-# Internal.
-skew <- function (x) {
-  x <- x[!is.na(x)]
-  n <- length(x)
-  (sum((x - mean(x))^3)/n)/(sum((x - mean(x))^2)/n)^(3/2)
-}

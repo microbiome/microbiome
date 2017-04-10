@@ -27,16 +27,35 @@ pseq <- atlas1006
 ```
 
 
-### Community richness and alpha diversity estimation
+### Global indicators
 
-This function returns a table with a selection of global ecosystem indicators. Additional indices are also available; see the function help. See a separate page on [Beta diversity](Betadiversity.html).
 
-```{r divest, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
-indicators <- global(pseq, measures = c("richness", "DBP"))
-head(kable(indicators))
+A comprehensive list of global indicators of the ecosystem state can be obtained as follows. This includes various measures of richness, evenness, diversity, dominance, and rarity with default parameters. See the individual functions for more options regarding parameter tuning.
+
+```{r global, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
+global.inds <- global(pseq, index = "all")
+head(kable(global.inds))
 ```
 
-The supported divesity measures include those supported in the phyloseq::estimate_richness. Further measures are also provided (see function help), or can be calculated separately as described below.
+
+### Alpha diversity
+
+This returns a table with selected diversity indicators. See a separate page on [Beta diversity](Betadiversity.html).
+
+```{r alpha, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
+tab <- diversities(pseq, index = "all")
+head(kable(tab))
+```
+
+
+### Richness
+
+This returns observed richness with given detection threshold(s).
+
+```{r divest, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
+tab <- richness(pseq)
+head(kable(tab))
+```
 
 
 ### Dominance 
@@ -45,26 +64,19 @@ The dominance index refers to the abundance of the most abundant species. Variou
 
 ```{r dominance, warning=FALSE, message=FALSE}
 # Absolute abundances for the single most abundant taxa in each sample
-do <- dominance(pseq, index = "BP")
-do <- dominance(pseq, relative = TRUE, rank = 1)
-do <- dominance(pseq, relative = TRUE, rank = 2, aggregate = FALSE)
+do <- dominance(pseq, index = "all")
+kable(head(do))
 ```
 
 
 
 ### Rarity and low abundance
 
-The low abundance index refers to the least abundant taxa. For the least abundant taxa, the sum of relative abundances is returned for those taxa whose abundance falls below the indicated detection threshold.
+The rarity indices quantify the concentration of rare or low abundance taxa. Various rarity indices are available (see the function help for a list of options).
 
 ```{r lowab, warning=FALSE, message=FALSE}
-la <- low_abundance(pseq, detection = 0.2/100)
-```
-
-
-Rarity index characterizes the concentration of species at low abundance. Here, we use the skewness of the frequency distribution of arithmetic abundance classes, using the log-modulo skewness as in [Locey & Lennon (2016)](doi:10.1073/pnas.1521291113). This measure is complementary to the low_abundance function as it has different sensitivity to low abundances and their overall distribution.
-
-```{r divest2, warning=FALSE, message=FALSE}
-ra <- rarity(pseq)
+ra <- rarity(pseq, index = "all")
+kable(head(ra))
 ```
 
 
@@ -73,12 +85,12 @@ ra <- rarity(pseq)
 
 The coverage index gives the number of groups needed to have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
 
-```{r divest3, warning=FALSE, message=FALSE, eval=FALSE}
+```{r coverage, warning=FALSE, message=FALSE, eval=FALSE}
 do <- coverage(pseq, threshold = 0.5)
 ```
 
 
-### Rarity and core abundance
+### Core abundance
 
 The core_abundance function refers to the relative proportion of the core species. Rare abundance provides the complement.
 
@@ -98,6 +110,16 @@ gi <- inequality(pseq)
 ```
 
 
+### Evenness
+
+Various evenness measures are also available.
+
+```{r evenness, warning=FALSE, message=FALSE}
+ev <- evenness(pseq, "all")
+kable(head(ev))
+```
+
+
 
 
 ### Visualization
@@ -107,31 +129,7 @@ Show indicators:
 ```{r div-example2, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
 library(ggplot2)
 theme_set(theme_bw(20)) # Set bw color scheme
-p <- ggplot(indicators, aes(x = richness)) + geom_histogram()
+p <- ggplot(global.inds, aes(x = diversities_shannon)) + geom_histogram()
 print(p)
 ```
-
-### Group-wise comparison
-
-Visualize ecosystem state indicators w.r.t. discrete variable (or check more generic [group-wise comparison tools](Comparisons.html)). You can also indicate subjects by lines (assuming the subject field is available in the metadata):
-
-```{r div-example2bb, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
-p <- plot_diversity(pseq, "bmi_group", measures = c("chao1", "shannon"), indicate.subjects = TRUE)
-print(p)
-```
-
-Indicators vs. continuous variable:
-
-```{r indicators-example13, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, dev = "CairoPNG"}
-library(dplyr)
-pseq <- atlas1006
-
-# Add shannon diversity in the sample metadata
-sample_data(pseq)$diversity <- global(pseq, measures = "shannon")$shannon
-
-# Visualize
-p <- plot_regression(diversity ~ age, meta(pseq))
-print(p)
-```
-
 

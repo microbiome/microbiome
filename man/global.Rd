@@ -4,45 +4,27 @@
 \alias{global}
 \title{Global Ecosystem State Variables}
 \usage{
-global(x, split = TRUE, measures = NULL)
+global(x, index = "all")
 }
 \arguments{
-\item{x}{\code{\link{phyloseq-class}} object}
+\item{x}{A species abundance vector, or matrix (taxa/features x samples) with the absolute count data (no relative abundances), or \code{\link{phyloseq-class}} object}
 
-\item{split}{(Optional). Logical. Should a separate set of richness
-estimates be performed for each sample? Or alternatively,
-pool all samples and estimate richness of the entire set.}
-
-\item{measures}{Default is ‘NULL’, meaning that all available
-       alpha-diversity measures will be included. Alternatively, you
-       can specify one or more measures as a character vector of
-       measure names. Values include those supported in the
-       phyloseq::estimate_richness function:
-       "Observed", "Chao1", "ACE", "Shannon", "Simpson", "InvSimpson", "Fisher".
-In addition, the following measures are provided:
-  "richness" (number of unique taxa that give non-zero signal); 
-  "evenness" (Pielou's index);
-  "coverage" (Number of species needed to cover 50% of the ecosystem);
-  "DBP" (Berger-Parker dominance ie. relative proportion of the single most dominant species in [0,1]); see ?dominance for details and references
-  "DMN" (McNaughton dominance ie. relative proportion of the two most dominant species in [0,1]); see ?dominance for details and references
-  "rarity" Quantifies the concentration of the least abundant species by the log-modulo skewness of the arithmetic abundance classes. See ?rarity for details and references.
-  "low_abundance" (Relative proportion of the least abundant species, below the detection level of 0.2%); 
-  "rare_abundance" (Relative proportion of the rare (non-core) species in [0,1]) - this complement (1-x) of the core_abundance
-  "core_abundance" (Relative proportion of the core species that exceed detection level 0.2% in over 50% of the samples);
-  "gini" (Gini index; calculated with the function inequality).}
+\item{index}{Default is ‘NULL’, meaning that all available global indices will be included. For specific options, see details.}
 }
 \value{
-A data.frame of samples x global indicators; except when split=FALSE, a vector of indices is returned.
+A data.frame of samples x global indicators
 }
 \description{
 Global indicators of the ecoystem state, including richness, evenness, diversity, and other indicators
 }
 \details{
-This function returns the indices with the default choices for detection, prevalence and other parameters for simplicity and standardization. See the individual functions for more options. This function extends the functionality of the phyloseq::estimate_richness function.
+This function returns global indices of the ecosystem state using default choices for detection, prevalence and other parameters for simplicity and standardization. See the individual functions for more options. All indicators from the richness, diversities, evenness, dominance, and rarity functions are available. Some additional measures, such as Chao1 and ACE are available via \code{\link{estimate_richness}} function in the \pkg{phyloseq} package but not included here.
 }
 \examples{
+
   data(dietswap)
-  d <- global(dietswap)
+  d <- global(dietswap, index = "all")
+
 }
 \references{
 See citation('microbiome')

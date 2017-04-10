@@ -1,7 +1,6 @@
 #' @title Core Abundance Index
 #' @description Calculates the community core abundance index.
 #' @inheritParams core
-#' @param split (Optional). Logical. Pool all samples and estimate index for the entire set.
 #' @return A vector of core abundance indices
 #' @export
 #' @examples
@@ -11,10 +10,17 @@
 #' @seealso rarity
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-core_abundance <- function(x, detection = .1/100, prevalence = 50/100, split = TRUE) {
+core_abundance <- function(x, detection = .1/100, prevalence = 50/100) {
 
-  # Ensure the data is compositional	       
-  xcomp <- transform(x, "compositional")	       
+  # Ensure the data is compositional
+  if (is.phyloseq(x)) {
+    x <- abundances(x)
+  }
+  if (is.vector(x)) {
+    x <- as.matrix(x, ncol = 1)
+  }
+  # Compositional
+  xcomp <- otu_table(apply(x, 2, function (x) {x/sum(x, na.rm = TRUE)})  , taxa_are_rows = TRUE)
 
   # Core members
   cm <- core_members(xcomp, detection, prevalence)

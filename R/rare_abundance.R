@@ -12,9 +12,9 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' @seealso core_abundance, rarity, diversity
-rare_abundance <- function(x, detection = .1/100, prevalence = 50/100, split = TRUE) {
+rare_abundance <- function(x, detection = .1/100, prevalence = 50/100) {
 
-  1 - core_abundance(x, detection, prevalence, split)
+  1 - core_abundance(x, detection, prevalence)
 
 }
 

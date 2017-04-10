@@ -4,16 +4,12 @@
 \alias{coverage}
 \title{Coverage Index}
 \usage{
-coverage(x, threshold = 0.5, split = TRUE)
+coverage(x, threshold = 0.5)
 }
 \arguments{
-\item{x}{\code{\link{phyloseq-class}} object}
+\item{x}{A species abundance vector, or matrix (taxa/features x samples) with the absolute count data (no relative abundances), or \code{\link{phyloseq-class}} object}
 
 \item{threshold}{Indicates the fraction  of the ecosystem to be occupied by the N most abundant species (N is returned by this function).}
-
-\item{split}{(Optional). Logical. Should a separate set of richness
-estimates be performed for each sample? Or alternatively,
-pool all samples and estimate richness of the entire set.}
 }
 \value{
 A vector of coverage indices

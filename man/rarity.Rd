@@ -4,14 +4,12 @@
 \alias{rarity}
 \title{Rarity Index}
 \usage{
-rarity(x, q = 0.5, n = 50)
+rarity(x, index = "all")
 }
 \arguments{
-\item{x}{\code{\link{phyloseq-class}} object}
+\item{x}{A species abundance vector, or matrix (taxa/features x samples) with the absolute count data (no relative abundances), or \code{\link{phyloseq-class}} object}
 
-\item{q}{Arithmetic abundance classes are evenly cut up to to this quantile of the data. The assumption is that abundances higher than this are not common, and they are classified in their own group.}
-
-\item{n}{The number of arithmetic abundance classes from zero to the quantile cutoff indicated by q.}
+\item{index}{If the index is given, it will override the other parameters. See the details below for description and references of the standard rarity indices.}
 }
 \value{
 A vector of rarity indices
@@ -20,11 +18,18 @@ A vector of rarity indices
 Calculates the community rarity index.
 }
 \details{
-The rarity index characterizes the concentration of species at low abundance. Here, we use the skewness of the frequency distribution of arithmetic abundance classes (see Magurran & McGill 2011). These are typically right-skewed; to avoid taking log of occasional negative skews, we follow Locey & Lennon (2016) and use the log-modulo transformation that adds a value of one to each measure of skewness to allow logarithmization.
+The rarity index characterizes the concentration of species at low abundance.
+
+  The following rarity indices are provided:
+  \itemize{
+    \item{log_modulo_skewness}{Quantifies the concentration of the least abundant species by the log-modulo skewness of the arithmetic abundance classes (see Magurran & McGill 2011). These are typically right-skewed; to avoid taking log of occasional negative skews, we follow Locey & Lennon (2016) and use the log-modulo transformation that adds a value of one to each measure of skewness to allow logarithmization.}
+    \item{low_abundance}{Relative proportion of the least abundant species, below the detection level of 0.2\%}
+    \item{rare_abundance}{Relative proportion of the rare (non-core) species in [0,1] - this complement (1-x) of the core_abundance}
+  }
 }
 \examples{
   data(dietswap)
-  d <- rarity(dietswap)
+  d <- rarity(dietswap, index = "all")
 }
 \references{
 Kenneth J. Locey and Jay T. Lennon. Scaling laws predict global microbial diversity. PNAS 2016 113 (21) 5970-5975; doi:10.1073/pnas.1521291113.
@@ -32,7 +37,7 @@ Kenneth J. Locey and Jay T. Lennon. Scaling laws predict global microbial divers
   Magurran AE, McGill BJ, eds (2011) Biological Diversity: Frontiers in Measurement and Assessment (Oxford Univ Press, Oxford), Vol 12
 }
 \seealso{
-core_abundance, low_abundance, global
+global
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

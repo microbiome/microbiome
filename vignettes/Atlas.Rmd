@@ -24,30 +24,13 @@ The data set from [Lahti et al. Nat. Comm. 5:4344,
 # Download the required R packages and then the HITChip Atlas data set
 library(microbiome)
 data(atlas1006)
-
-# Let us give a generic name for this phyloseq data object,
-# to be used further analysis
-pseq <- atlas1006
 ```
 
-
-
-### Estimating microbial diversity 
+Estimate global ecosystem indicators for this data set: 
 
 ```{r div-example, warning=FALSE, message=FALSE}
-library(phyloseq)
-div <- microbiome::diversity(pseq, measures = c("Observed", "Shannon", "Simpson"))
-
-library(knitr)
-kable(head(div))
-```
-
-
-### Diversity vs. obesity (discrete factor)
-
-```{r div-example2, warning=FALSE, message=FALSE, fig.width=15, fig.height=5}
-p <- plot_diversity(pseq, variable = "bmi_group", measures = c("Observed", "Shannon", "Simpson"), na.rm = TRUE)
-print(p)
+tab <- global(atlas1006, index = c("shannon", "invsimpson"))
+kable(head(tab))
 ```
 
 

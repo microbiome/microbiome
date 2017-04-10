@@ -1,9 +1,6 @@
 #' @title Gini Index
 #' @description Calculate Gini indices for a phyloseq object.
 #' @inheritParams core
-#' @param split (Optional). Logical. Calculate separate indices
-#'     for each sample, or pool all samples and estimate the index
-#'     for the entire set.
 #' @return A vector of Gini indices
 #' @examples
 #'   data(dietswap)
@@ -17,14 +14,18 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' @export
-inequality <- function(x, detection, prevalence, split = TRUE) {
+inequality <- function(x) {
 
   # Pick the OTU data
-  otu <- abundances(x)
-
-  if (!split) {
-    otu <- as.matrix(rowSums(otu), nrow = nrow(otu))
+  if (is.phyloseq(x)) {
+    otu <- abundances(x)
+  } else if (is.vector(x)) {
+    otu <- as.matrix(x, ncol = 1)    
+  } else {
+    # Assuming taxa x samples count matrix
+    otu <- x
   }
+  
 
   # Gini index for each sample
   do <- apply(otu, 2, function (x) {inequality_help(x)})

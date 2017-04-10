@@ -137,6 +137,7 @@
 #' @importFrom utils tail
 #' @importFrom utils write.csv
 #' @importFrom vegan decostand
+#' @importFrom vegan fisher.alpha
 #' @importFrom vegan metaMDS
 #' @importFrom vegan procrustes
 #' @importFrom vegan rda

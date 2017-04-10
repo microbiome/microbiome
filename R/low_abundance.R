@@ -1,7 +1,6 @@
 #' @title Low Abundance Index
 #' @description Calculates the concentration of low-abundance taxa below the indicated detection threshold.
 #' @inheritParams core
-#' @param split (Optional). Logical. Pool all samples and estimate index for the entire set.
 #' @return A vector of indicators.
 #' @export
 #' @examples
@@ -11,24 +10,19 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' @seealso core_abundance, rarity, global
-low_abundance <- function(x, detection = 0.2/100, split = TRUE) {
+low_abundance <- function(x, detection = 0.2/100) {
 
-  # Ensure compositional data       
-  xc <- transform(x, "compositional")
-
-  if (!split) {
-  
-    otu <- rowSums(abundances(xc))
-    x <- otu/sum(otu)
-    do <- sum(x[x < detection])
-    
-  } else {
-
-    otu <- abundances(xc)
-    do <- apply(otu, 2, function (x) {sum(x[x < detection])})
-    names(do) <- sample_names(x)
-
+  # Ensure compositional data
+  if (is.phyloseq(x)) {
+    x <- abundances(x)
   }
+  if (is.vector(x)) {
+    x <- as.matrix(x, ncol = 1)
+  }
+  xc <- apply(x, 2, function (x) {x/sum(x, na.rm = TRUE)})
+  
+  do <- apply(xc, 2, function (x) {sum(x[x < detection])})
+  names(do) <- colnames(x)
   
   do
 

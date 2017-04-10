@@ -32,7 +32,7 @@ data(dietswap)
 
 # Just use prevalent taxa to speed up examples
 # (not absolute counts used in this example)
-pseq <- core(dietswap, detection = 10^3, prevalence = 80/100)
+pseq <- core(dietswap, detection = 10^3, prevalence = 95/100)
 
 # Pick sample subset
 library(phyloseq)
@@ -113,14 +113,12 @@ library(tidyverse)
 ```
 
 ```
-## col_factor(): readr, scales
-## combine():    dplyr, BiocGenerics
-## discard():    purrr, scales
-## filter():     dplyr, stats
-## lag():        dplyr, stats
-## map():        purrr, mclust
-## Position():   ggplot2, BiocGenerics, base
-## select():     dplyr, MASS
+## combine():  dplyr, BiocGenerics
+## filter():   dplyr, stats
+## lag():      dplyr, stats
+## map():      purrr, mclust
+## Position(): ggplot2, BiocGenerics, base
+## select():   dplyr, MASS
 ```
 
 ```r
@@ -864,12 +862,6 @@ print(p2)
 
 ## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
 ## font family 'Arial Narrow' not found in PostScript font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family 'Arial Narrow' not found in PostScript font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family 'Arial Narrow' not found in PostScript font database
 ```
 
 ```
@@ -2139,9 +2131,6 @@ print(p2)
 ```
 
 ```
-## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
-## $y, : font family 'Arial Narrow' not found in PostScript font database
-
 ## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
 ## $y, : font family 'Arial Narrow' not found in PostScript font database
 
@@ -2307,8 +2296,8 @@ print(p)
 ##         rgb(x[, 1L], x[, 2L], x[, 3L], x[, 4L], maxColorValue = 255)
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
-## <bytecode: 0x55dc2fdf9f30>
-## <environment: 0x55dc2fe114f0>
+## <bytecode: 0x562faf2e51f8>
+## <environment: 0x562faf2e3578>
 ```
 
 

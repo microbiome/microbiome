@@ -12,14 +12,9 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso dominance, global
 #' @keywords utilities
-coverage <- function(x, threshold = 0.5, split = TRUE) {
+coverage <- function(x, threshold = 0.5) {
 
-  # Pick the OTU data
-  otu <- abundances(x)
-
-  if (!split) {
-    otu <- as.matrix(rowSums(otu)/sum(otu), nrow = nrow(otu))
-  }
+  otu <- pick_data(x, compositional = FALSE)
 
   # Number of groups needed to have 50% of the ecosystem occupied
   do <- apply(otu, 2, function (x) {min(which(cumsum(rev(sort(x/sum(x)))) >= threshold))})
