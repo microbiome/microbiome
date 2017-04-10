@@ -33,6 +33,9 @@ data(dietswap)
 
 # Set baseline to 0 (in this data set it appears to be 1)
 pseq <- microbiome::transform(dietswap, "shift", shift = -1)
+
+# Only check the core taxa to speed up examples
+pseq <- core(pseq, detection = 10^3, prevalence = 95/100)
 ```
 
 
@@ -58,12 +61,12 @@ print(head(kable((df))))
 ```
 
 ```
-## [1] "|     baseMean| log2FoldChange|     lfcSE|        stat|    pvalue|      padj|taxon                                 |"
-## [2] "|------------:|--------------:|---------:|-----------:|---------:|---------:|:-------------------------------------|"
-## [3] "| 1.179042e+02|     -5.6054637| 0.7137407|  -7.8536422| 0.0000000| 0.0000000|Uncultured Selenomonadaceae           |"
-## [4] "| 6.462246e+03|     -3.7306691| 0.2855295| -13.0657932| 0.0000000| 0.0000000|Dialister                             |"
-## [5] "| 1.006694e+03|     -3.4929604| 0.1878069| -18.5986829| 0.0000000| 0.0000000|Bacteroides intestinalis et rel.      |"
-## [6] "| 8.769326e+04|     -2.9250398| 0.1987956| -14.7138053| 0.0000000| 0.0000000|Bacteroides vulgatus et rel.          |"
+## [1] "|   baseMean| log2FoldChange|     lfcSE|        stat|    pvalue|      padj|taxon                                |"
+## [2] "|----------:|--------------:|---------:|-----------:|---------:|---------:|:------------------------------------|"
+## [3] "|  88896.518|     -3.0629202| 0.1999330| -15.3197368| 0.0000000| 0.0000000|Bacteroides vulgatus et rel.         |"
+## [4] "|  16380.395|     -2.6968824| 0.1546172| -17.4423188| 0.0000000| 0.0000000|Allistipes et rel.                   |"
+## [5] "|   5466.663|     -1.4142640| 0.1443252|  -9.7991478| 0.0000000| 0.0000000|Bryantella formatexigens et rel.     |"
+## [6] "|  13000.276|     -0.5528212| 0.1291264|  -4.2812424| 0.0000186| 0.0000351|Subdoligranulum variable at rel.     |"
 ```
 
 

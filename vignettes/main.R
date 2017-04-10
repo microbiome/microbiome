@@ -54,13 +54,13 @@ for (myfile in fs) {
     rmarkdown::render(myfile, "all")
 
     # Must do to clean up some space
-    for (i in 1:10) {
-      pkgs0 <- setdiff(loadedNamespaces(), namespaces0)
-      for (pkg in pkgs0) {
-        print(c(pkg, length(pkgs0)))
-        try(a <- unloadNamespace(pkg))
-      }
-    }
+    #for (i in 1:10) {
+    #  pkgs0 <- setdiff(loadedNamespaces(), namespaces0)
+    #  for (pkg in pkgs0) {
+    #    print(c(pkg, length(pkgs0)))
+    #    try(a <- unloadNamespace(pkg))
+    #  }
+    #}
 }
 
 # Time per index.page

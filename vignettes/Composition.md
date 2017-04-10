@@ -95,8 +95,13 @@ library(tidyverse)
 ```
 
 ```
+## Loading tidyverse: tibble
 ## Loading tidyverse: readr
 ## Loading tidyverse: purrr
+```
+
+```
+## Warning: package 'tibble' was built under R version 3.3.3
 ```
 
 ```
@@ -108,15 +113,31 @@ library(tidyverse)
 ```
 
 ```
+## arrange():    dplyr, plyr
 ## col_factor(): readr, scales
-## combine():    dplyr, gridExtra, BiocGenerics
+## collapse():   dplyr, IRanges
+## combine():    dplyr, Biobase, gridExtra, BiocGenerics
+## compact():    purrr, plyr
+## count():      dplyr, plyr
+## desc():       dplyr, IRanges, plyr
 ## discard():    purrr, scales
-## expand():     tidyr, Matrix
+## expand():     tidyr, S4Vectors, Matrix
+## failwith():   dplyr, plyr
 ## filter():     dplyr, stats
+## first():      dplyr, S4Vectors
+## id():         dplyr, plyr
 ## lag():        dplyr, stats
 ## map():        purrr, mclust
+## mutate():     dplyr, plyr
 ## Position():   ggplot2, BiocGenerics, base
+## reduce():     purrr, GenomicRanges, IRanges
+## regroup():    dplyr, IRanges
+## rename():     dplyr, S4Vectors, plyr
 ## select():     dplyr, MASS
+## simplify():   purrr, IRanges
+## slice():      dplyr, IRanges
+## summarise():  dplyr, plyr
+## summarize():  dplyr, plyr
 ```
 
 ```r
@@ -2294,8 +2315,8 @@ print(p)
 ##         rgb(x[, 1L], x[, 2L], x[, 3L], x[, 4L], maxColorValue = 255)
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
-## <bytecode: 0x5615b9019058>
-## <environment: 0x5615b0714ff8>
+## <bytecode: 0x5561627e31f0>
+## <environment: 0x556166bc2dd0>
 ```
 
 
