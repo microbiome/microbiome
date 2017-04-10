@@ -65,14 +65,12 @@ print(p)
 
 ![plot of chunk ordination-pca-ordination21](figure/ordination-pca-ordination21-1.png)
 
-Grouping by Phyla
+Grouping per phyla could be done with:
 
 
 ```r
 p + facet_wrap(~Phylum, 5)
 ```
-
-![plot of chunk ordination-pca-ordination22](figure/ordination-pca-ordination22-1.png)
 
 
 ### Multidimensional scaling (MDS / PCoA)
@@ -118,18 +116,6 @@ plot_ordination(pseq, pseq.cca,
 ```
 
 ![plot of chunk ordination-ordinate25](figure/ordination-ordinate25-1.png)
-
-
-### Ordination biplot
-
-
-```r
-plot_ordination(pseq, pseq.cca, type = "biplot", color = "Phylum")
-```
-
-![plot of chunk ordination-ordinate26](figure/ordination-ordinate26-1.png)
-
-
 
 
 

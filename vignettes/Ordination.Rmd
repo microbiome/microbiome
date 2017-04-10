@@ -60,9 +60,9 @@ quiet(p <- plot_ordination(pseq.core, ordinate(pseq.core, "NMDS", "bray"), type 
 print(p)
 ```
 
-Grouping by Phyla
+Grouping per phyla could be done with:
 
-```{r ordination-pca-ordination22, message=FALSE, message=FALSE, fig.height=10, fig.width=9}
+```{r ordination-pca-ordination22, message=FALSE, message=FALSE, fig.height=10, fig.width=9, eval=FALSE}
 p + facet_wrap(~Phylum, 5)
 ```
 
@@ -101,15 +101,6 @@ plot_ordination(pseq, pseq.cca,
 		      type = "split", shape = "nationality", 
     		      color = "Phylum", label = "nationality")
 ```
-
-
-### Ordination biplot
-
-```{r ordination-ordinate26, warning=FALSE, message=FALSE, fig.width=11, fig.height=5}
-plot_ordination(pseq, pseq.cca, type = "biplot", color = "Phylum")
-```
-
-
 
 
 
