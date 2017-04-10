@@ -1,6 +1,6 @@
 #' @title Global Ecosystem State Variables 
 #' @description Global indicators of the ecoystem state, including richness, evenness, diversity, and other indicators
-#' @param x \code{\link{phyloseq-class}} object
+#' @param x \code{\link{phyloseq-class}} object or a taxa (features) x samples matrix
 #' @param split (Optional). Logical. Should a separate set of richness
 #'        estimates be performed for each sample? Or alternatively,
 #'        pool all samples and estimate richness of the entire set.

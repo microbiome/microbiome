@@ -4,7 +4,7 @@
 #' @param rank Optional. The rank of the dominant taxa to consider.
 #' @param relative Use relative abundances (default: TRUE)
 #' @param aggregate Aggregate (TRUE; default) the top members or not. If aggregate=TRUE, then the sum of relative abundances is returned. Otherwise the relative abundance is returned for the single taxa with the indicated rank. 
-#' @inheritParams diversity
+#' @inheritParams global
 #' @return A vector of dominance indices
 #' @export
 #' @examples
