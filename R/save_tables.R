@@ -8,12 +8,12 @@
 #'   library(microbiome)
 #'   data(dietswap)
 #'   pseq <- dietswap
-#'   save_tables(pseq, "OTU")
-#'   save_tables(pseq, "TAXA")
-#'   save_tables(pseq, "METADATA")
+#'   write_phyloseq(pseq, "OTU")
+#'   write_phyloseq(pseq, "TAXA")
+#'   write_phyloseq(pseq, "METADATA")
 #'  }
 #' @keywords utilities
-save_tables <- function(x, type){
+write_phyloseq <- function(x, type){
   if (type == "OTU"){
     f <- paste(getwd(), "otu_table.csv", sep = "/");
     message("Writing OTU in the file ", f);
