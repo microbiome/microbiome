@@ -95,7 +95,7 @@ print(p)
 
 Averaged by group:
   
-```{r composition-example4c, fig.width=12, fig.height=5}
+```{r composition-example4c, fig.width=12, fig.height=5, eval=FALSE}
 p <- plot_composition(pseq2,
                       average_by = "nationality", transform = "compositional")
 print(p)
@@ -106,41 +106,15 @@ print(p)
 ### Composition heatmaps
 
 
-Plain heatmap on absolute abundances
-
-```{r composition-example5, fig.width=10, fig.height=3, eval=FALSE}
-theme_set(theme_bw(30))
-p <- plot_composition(pseq2, plot.type = "heatmap", mar = c(6, 13, 1, 1))
-```
-
-
-Heatmap with clr-transformed abundances:
-
-```{r composition-example6, fig.width=10, fig.height=3}
-p <- plot_composition(pseq2, plot.type = "heatmap", transform = "clr", mar = c(6, 13, 1, 1))
-print(p)
-```
-
-
-Same with relative abundance, samples and OTUs sorted with the neatmap method:
+Heatmap for CLR-transformed abundances, with samples and OTUs sorted with the neatmap method:
   
 ```{r composition-example7, fig.width=10, fig.height=3, eval = FALSE}
-p <- plot_composition(pseq2, plot.type = "heatmap", transform = "compositional"
+p <- plot_composition(pseq2, plot.type = "heatmap", transform = "clr"
                       sample.sort = "neatmap", otu.sort = "neatmap",
                       mar = c(6, 13, 1, 1))
 ```
 
 
-Same with Z-transformed, samples and OTUs sorted manually based on compositional data (Z-transformed data has negative values and the sorting method is not yet implemented for that):
-  
-```{r composition-example8, fig.width=10, fig.height=3, warning=FALSE, eval=FALSE}
-pseq3 <- transform(pseq2, "compositional")
-sample.sort <- neatsort(pseq3, method = "NMDS", distance = "bray", target = "sites") 
-otu.sort <- neatsort(pseq3, method = "NMDS", distance = "bray", target = "species")
-p <- plot_composition(pseq2, plot.type = "heatmap", transform = "Z-OTU",
-                      sample.sort = sample.sort, otu.sort = otu.sort,
-                      mar = c(6, 13, 1, 1))
-```
 
 ### Plot taxa prevalence
 
