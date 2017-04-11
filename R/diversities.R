@@ -17,7 +17,6 @@
 #'    \item{gini_simpson}{Gini-Simpson diversity $1 - lambda$. This is also called Gibbs–Martin, or Blau index in sociology, psychology and management studies.}
 #'    \item{shannon}{Shannon diversity ie entropy}
 #'    \item{fisher}{Fisher alpha; as implemented in the \pkg{vegan} package}
-#'    \item{observed}{Number of unique detected taxa with non-zero signal.}
 #'    \item{coverage}{Number of species needed to cover 50\% of the ecosystem. For other quantiles, apply the function coverage directly.}
 #'
 #'  }
@@ -32,12 +31,12 @@
 #'  Smith B and Wilson JB. A Consumer's Guide to Diversity Indices. Oikos 76(1):70-82, 1996.
 #'
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @seealso coverage, core_abundance, rarity, global
+#' @seealso dominance, richness, evenness, rarity, global
 #' @keywords utilities
 diversities <- function(x, index = "all", zeroes = TRUE) {
 
   # Only include accepted indices	 
-  accepted <- c("inverse_simpson", "gini_simpson", "shannon", "fisher", "observed", "coverage")
+  accepted <- c("inverse_simpson", "gini_simpson", "shannon", "fisher", "coverage")
 
   # Return all indices
   if (index == "all") {
@@ -69,8 +68,6 @@ diversities <- function(x, index = "all", zeroes = TRUE) {
     ev <- apply(otu, 2, function (x) {shannon(x)})
   } else if (index == "fisher") {
     ev <- fisher.alpha(otu, MARGIN = 2)
-  } else if (index == "observed") {
-    ev <- richness(otu, detection = min(otu))
   } else if (index == "coverage") {
     ev <- unname(coverage(otu))
   }

@@ -77,7 +77,7 @@ evenness <- function(x, index = "all", zeroes = TRUE) {
   } else if (index == "simpson") {
     ev <- apply(otu, 2, function (x) {simpson_evenness(x, zeroes = zeroes)})
   } else if (index == "pielou") {
-    ev <- apply(otu, 2, function (x) {pielou(x, zeroes = zeroes)})
+    ev <- apply(otu, 2, function (x) {pielou(x)})
   } else if (index == "evar") {
     ev <- apply(otu, 2, function (x) {evar(x, zeroes = zeroes)})
   } else if (index == "bulla") {
@@ -165,11 +165,10 @@ simpson_evenness <- function (x, zeroes = TRUE) {
 
 
 # x: Species count vector
-pielou <- function (x, zeroes = TRUE) {
+pielou <- function (x) {
 
-  if (!zeroes) {
-    x[x > 0]
-  }
+  # Remove zeroes       
+  x <- x[x > 0]
 
   # Species richness (number of species)
   S <- length(x)
