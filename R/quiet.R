@@ -5,7 +5,7 @@
 #' otherwise, only suppress printed output (such as from \code{print} or
 #' \code{cat}).
 #' @keywords internal
-#' @author From https://gist.github.com/daattali/6ab55aee6b50e8929d89
+#' @author Adapted from \url{https://gist.github.com/daattali/6ab55aee6b50e8929d89}
 #' @export
 quiet <- function(expr, all = TRUE) {
   if (Sys.info()['sysname'] == "Windows") {

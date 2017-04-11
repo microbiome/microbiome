@@ -9,7 +9,7 @@
 #'   d <- rarity(dietswap, index = "low_abundance")
 #'   # d <- rarity(dietswap, index = "all")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @seealso global
+#' @seealso global, log_modulo_skewness, rare_abundance, low_abundance
 #' @details
 #'   The rarity index characterizes the concentration of species at low abundance.
 #'
@@ -67,5 +67,6 @@ rarity <- function(x, index = "all") {
   r
 
 }
+
 
 

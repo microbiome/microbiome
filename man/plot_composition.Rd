@@ -30,7 +30,7 @@ plot_composition(x, taxonomic.level = "OTU", sample.sort = NULL,
 
 \item{verbose}{verbose}
 
-\item{transform}{Data transform to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform}} function.}
+\item{transform}{Data transform to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'compositional'. See the \code{\link{transform}} function.}
 
 \item{mar}{Figure margins}
 

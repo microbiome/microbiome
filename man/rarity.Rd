@@ -38,7 +38,7 @@ Kenneth J. Locey and Jay T. Lennon. Scaling laws predict global microbial divers
   Magurran AE, McGill BJ, eds (2011) Biological Diversity: Frontiers in Measurement and Assessment (Oxford Univ Press, Oxford), Vol 12
 }
 \seealso{
-global
+global, log_modulo_skewness, rare_abundance, low_abundance
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

@@ -4,14 +4,14 @@
 #' @return Phyloseq object with a normalized time field
 #' @export
 #' @examples
-#'   data(peerj32)
-#'   pseq <- time_normalize(peerj32$phyloseq)
+#'   \dontrun{
+#'     data(peerj32)
+#'     pseq <- time_normalize(peerj32$phyloseq)
+#'   }
 time_normalize <- function (x) {
 
-  # Store the original inpu	       
-  xo <- x
-  
-  x <- validate(x) 
+  # Store the original input       
+  xo <- x 
   meta <- meta(x)
 
   # Shift the times such that the first time point is always 0

@@ -27,12 +27,15 @@ hotplot(x, taxon, tipping.point = NULL, lims = NULL, shift = 0.001,
 Coloured bimodality plot.
 }
 \examples{
-  data(atlas1006)
-  pseq <- transform(atlas1006, "compositional")
-  # Set a tipping point manually
-  tipp <- .3/100 # .3 percent relative abundance
-  # Bimodality is often best visible at log10 relative abundances
-  p <- hotplot(pseq, "Dialister", tipping.point = tipp, log10 = TRUE)
+  \dontrun{
+    data(atlas1006)
+    pseq <- subset_samples(atlas1006, DNA_extraction_method == "r")
+    pseq <- transform(pseq, "compositional")
+    # Set a tipping point manually
+    tipp <- .3/100 # .3 percent relative abundance
+    # Bimodality is often best visible at log10 relative abundances
+    p <- hotplot(pseq, "Dialister", tipping.point = tipp, log10 = TRUE)
+ }
 }
 \references{
 See citation('microbiome')

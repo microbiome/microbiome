@@ -2,20 +2,20 @@
 % Please edit documentation in R/transform.R
 \name{ztransform}
 \alias{ztransform}
-\title{Phyloseq Z Transformation}
+\title{Z Transformation}
 \usage{
 ztransform(x, which)
 }
 \arguments{
-\item{x}{\code{\link{phyloseq-class}} object}
+\item{x}{a matrix}
 
-\item{which}{Specify Z transform for "sample" or "OTU"}
+\item{which}{margin}
 }
 \value{
-Z-transformed phyloseq object
+Z-transformed matrix
 }
 \description{
-Z transform phyloseq objects.
+Z transform for matrices
 }
 \details{
 Performs centering (to zero) and scaling (to unit
@@ -24,7 +24,7 @@ Performs centering (to zero) and scaling (to unit
 \examples{
 \dontrun{
   data(peerj32)
-  pseqz <- ztransform(peerj32$phyloseq)
+  pseqz <- ztransform(abundances(peerj32$phyloseq))
 }
 }
 \references{

@@ -13,7 +13,7 @@
 #' @param x.label Specify how to label the x axis. This should be one of the variables in sample_variables(x).
 #' @param plot.type Plot type: 'barplot' or 'heatmap'
 #' @param verbose verbose
-#' @param transform Data transform to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'relative.abundance'. See the \code{\link{transform}} function.
+#' @param transform Data transform to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'compositional'. See the \code{\link{transform}} function.
 #' @param mar Figure margins
 #' @param average_by Average the samples by the average_by variable 
 #' @param ... Arguments to be passed (for \code{\link{neatsort}} function)

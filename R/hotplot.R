@@ -7,13 +7,16 @@
 #' @param shift Small constant to avoid problems with zeroes in log10
 #' @param log10 Use log10 abundances for the OTU table and tipping point
 #' @return \code{\link{ggplot}} object
-#' @examples 
-#'   data(atlas1006)
-#'   pseq <- transform(atlas1006, "compositional")
-#'   # Set a tipping point manually
-#'   tipp <- .3/100 # .3 percent relative abundance
-#'   # Bimodality is often best visible at log10 relative abundances
-#'   p <- hotplot(pseq, "Dialister", tipping.point = tipp, log10 = TRUE)
+#' @examples
+#'   \dontrun{
+#'     data(atlas1006)
+#'     pseq <- subset_samples(atlas1006, DNA_extraction_method == "r")
+#'     pseq <- transform(pseq, "compositional")
+#'     # Set a tipping point manually
+#'     tipp <- .3/100 # .3 percent relative abundance
+#'     # Bimodality is often best visible at log10 relative abundances
+#'     p <- hotplot(pseq, "Dialister", tipping.point = tipp, log10 = TRUE)
+#'  }
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

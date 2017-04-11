@@ -85,7 +85,36 @@ Same with compositional (relative) abundances:
 library(hrbrthemes)
 library(gcookbook)
 library(tidyverse)
+```
 
+```
+## Loading tidyverse: tibble
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+```
+
+```
+## Warning: package 'tibble' was built under R version 3.3.3
+```
+
+```
+## Warning: package 'readr' was built under R version 3.3.3
+```
+
+```
+## Conflicts with tidy packages ----------------------------------------------
+```
+
+```
+## combine():  dplyr, BiocGenerics
+## filter():   dplyr, stats
+## lag():      dplyr, stats
+## map():      purrr, mclust
+## Position(): ggplot2, BiocGenerics, base
+## select():   dplyr, MASS
+```
+
+```r
 p <- plot_composition(pseq2,
                       sample.sort = "nationality",
                       x.label = "nationality",
@@ -103,7 +132,9 @@ print(p)
 ```
 ## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
 ## font family 'Arial Narrow' not found in PostScript font database
+```
 
+```
 ## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
 ## font family 'Arial Narrow' not found in PostScript font database
 
@@ -2223,37 +2254,16 @@ print(p)
 
 ```
 ## $colors
-##  [1] "#0000FF" "#0606FF" "#0C0CFF" "#1313FF" "#1919FF" "#1F1FFF" "#2626FF"
-##  [8] "#2C2CFF" "#3333FF" "#3939FF" "#3F3FFF" "#4646FF" "#4C4CFF" "#5252FF"
-## [15] "#5959FF" "#5F5FFF" "#6666FF" "#6C6CFF" "#7272FF" "#7979FF" "#7F7FFF"
-## [22] "#8585FF" "#8C8CFF" "#9292FF" "#9999FF" "#9F9FFF" "#A5A5FF" "#ACACFF"
-## [29] "#B2B2FF" "#B8B8FF" "#BFBFFF" "#C5C5FF" "#CCCCFF" "#D2D2FF" "#D8D8FF"
-## [36] "#DFDFFF" "#E5E5FF" "#EBEBFF" "#F2F2FF" "#F8F8FF" "#FFFFFF" "#FFF8F8"
-## [43] "#FFF2F2" "#FFEBEB" "#FFE5E5" "#FFDFDF" "#FFD8D8" "#FFD2D2" "#FFCBCB"
-## [50] "#FFC5C5" "#FFBFBF" "#FFB8B8" "#FFB2B2" "#FFACAC" "#FFA5A5" "#FF9F9F"
-## [57] "#FF9898" "#FF9292" "#FF8C8C" "#FF8585" "#FF7F7F" "#FF7979" "#FF7272"
-## [64] "#FF6C6C" "#FF6565" "#FF5F5F" "#FF5959" "#FF5252" "#FF4C4C" "#FF4646"
-## [71] "#FF3F3F" "#FF3939" "#FF3232" "#FF2C2C" "#FF2626" "#FF1F1F" "#FF1919"
-## [78] "#FF1313" "#FF0C0C" "#FF0606" "#FF0000"
+##  [1] "#0000FF" "#1919FF" "#3333FF" "#4C4CFF" "#6666FF" "#7F7FFF" "#9999FF"
+##  [8] "#B2B2FF" "#CCCCFF" "#E5E5FF" "#FFFFFF" "#FFE5E5" "#FFCBCB" "#FFB2B2"
+## [15] "#FF9898" "#FF7F7F" "#FF6565" "#FF4C4C" "#FF3232" "#FF1919" "#FF0000"
 ## 
 ## $breaks
-##  [1] -1000003.90       -3.95       -3.85       -3.75       -3.65
-##  [6]       -3.55       -3.45       -3.35       -3.25       -3.15
-## [11]       -3.05       -2.95       -2.85       -2.75       -2.65
-## [16]       -2.55       -2.45       -2.35       -2.25       -2.15
-## [21]       -2.05       -1.95       -1.85       -1.75       -1.65
-## [26]       -1.55       -1.45       -1.35       -1.25       -1.15
-## [31]       -1.05       -0.95       -0.85       -0.75       -0.65
-## [36]       -0.55       -0.45       -0.35       -0.25       -0.15
-## [41]       -0.05        0.05        0.15        0.25        0.35
-## [46]        0.45        0.55        0.65        0.75        0.85
-## [51]        0.95        1.05        1.15        1.25        1.35
-## [56]        1.45        1.55        1.65        1.75        1.85
-## [61]        1.95        2.05        2.15        2.25        2.35
-## [66]        2.45        2.55        2.65        2.75        2.85
-## [71]        2.95        3.05        3.15        3.25        3.35
-## [76]        3.45        3.55        3.65        3.75        3.85
-## [81]        3.95  1000003.90
+##  [1] -1000000.90       -0.95       -0.85       -0.75       -0.65
+##  [6]       -0.55       -0.45       -0.35       -0.25       -0.15
+## [11]       -0.05        0.05        0.15        0.25        0.35
+## [16]        0.45        0.55        0.65        0.75        0.85
+## [21]        0.95  1000000.90
 ## 
 ## $palette.function
 ## function (n) 
@@ -2263,8 +2273,8 @@ print(p)
 ##         rgb(x[, 1L], x[, 2L], x[, 3L], x[, 4L], maxColorValue = 255)
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
-## <bytecode: 0x55a8c44506f8>
-## <environment: 0x55a8cc1b7ad8>
+## <bytecode: 0x55fc18537038>
+## <environment: 0x55fc18536278>
 ```
 
 

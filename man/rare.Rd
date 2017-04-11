@@ -21,7 +21,7 @@ Filter the phyloseq object to include only rare taxa.
 }
 \examples{
   data(peerj32)
-  pseq <- rare(peerj32$phyloseq, 200, 20)
+  pseq <- rare(peerj32$phyloseq, 200, 20/100)
 }
 \references{
 To cite the microbiome R package, see citation('microbiome')
