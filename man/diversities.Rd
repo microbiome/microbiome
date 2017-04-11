@@ -26,7 +26,6 @@ By default, returns all diversity indices. The available diversity indices inclu
    \item{gini_simpson}{Gini-Simpson diversity $1 - lambda$. This is also called Gibbs–Martin, or Blau index in sociology, psychology and management studies.}
    \item{shannon}{Shannon diversity ie entropy}
    \item{fisher}{Fisher alpha; as implemented in the \pkg{vegan} package}
-   \item{observed}{Number of unique detected taxa with non-zero signal.}
    \item{coverage}{Number of species needed to cover 50\% of the ecosystem. For other quantiles, apply the function coverage directly.}
 
  }
@@ -46,7 +45,7 @@ Beisel J-N. et al. A Comparative Analysis of Diversity Index Sensitivity. Intern
  Smith B and Wilson JB. A Consumer's Guide to Diversity Indices. Oikos 76(1):70-82, 1996.
 }
 \seealso{
-coverage, core_abundance, rarity, global
+dominance, richness, evenness, rarity, global
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
