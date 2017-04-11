@@ -1,7 +1,5 @@
 ---
 title: "Plot Taxa Prevalence"
-author: "Sudarshan A. Shetty"
-date: "2017-03-05"
 output: 
   rmarkdown::html_vignette
 ---
@@ -33,8 +31,8 @@ Phylum level:
 
 ```r
 p0.f <- format_phyloseq(p0)
-plot <- plot_taxa_prevalence(p0.f, 'Phylum')
-print(plot)
+p <- plot_taxa_prevalence(p0.f, 'Phylum')
+print(p)
 ```
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)

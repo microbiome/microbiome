@@ -12,15 +12,7 @@
 #' @seealso core_abundance, rarity, global
 low_abundance <- function(x, detection = 0.2/100) {
 
-  # Ensure compositional data
-  if (is.phyloseq(x)) {
-    x <- abundances(x)
-  }
-  if (is.vector(x)) {
-    x <- as.matrix(x, ncol = 1)
-  }
-  xc <- apply(x, 2, function (x) {x/sum(x, na.rm = TRUE)})
-  
+  xc <- abundances(x, transform = "compositional")
   do <- apply(xc, 2, function (x) {sum(x[x < detection])})
   names(do) <- colnames(x)
   

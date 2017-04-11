@@ -37,7 +37,9 @@ Filter the phyloseq object to include only prevalent taxa.
 }
 \examples{
   data(dietswap)
-  pseq <- core(dietswap, 200, .2)
+  # In practice, use more bootstrap iterations
+  pseq <- core(dietswap, 200, .2, bs.iter = 20)
+
 }
 \references{
 The core microbiota bootstrap method implemented with this function:

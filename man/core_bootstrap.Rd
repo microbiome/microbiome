@@ -32,9 +32,6 @@ Bootstrap analysis of the core microbiota.
 \examples{
   data(peerj32)
   # In practice, use bs.iter = 1000 or more
-  bs <- core(peerj32$phyloseq, bs.iter = 5,
-             prevalence = .5, detection = 0,
-	method = "bootstrap")
   # Not exported:
   # bs <- core_bootstrap(peerj32$phyloseq, bs.iter = 5)
 }

@@ -5,8 +5,8 @@
 #' @return Phyloseq object with only baseline time point samples selected.
 #' @details Arranges the samples by time and picks the first sample for each subject. Compared to simple subsetting at time point zero, this checks NAs and possibility for multiple samples at the baseline, and guarantees that a single sample per subject is selected.
 #' @examples
-#'   data(atlas1006)
-#'   a <- baseline(atlas1006)
+#'   data(peerj32)
+#'   a <- baseline(peerj32$phyloseq)
 #' @export
 #' @references See citation("microbiome")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

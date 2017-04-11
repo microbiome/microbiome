@@ -10,8 +10,7 @@ bimodality(x, method = "potential_analysis", peak.threshold = 1,
 \arguments{
 \item{x}{A vector, matrix, or a phyloseq object}
 
-\item{method}{bimodality quantification method ('potential_analysis'
-or one of the methods in the function \code{\link{bimodality_sarle}})}
+\item{method}{bimodality quantification method ("potential_analysis", "Sarle.finite.sample", or "Sarle.asymptotic").}
 
 \item{peak.threshold}{Mode detection threshold}
 
@@ -27,7 +26,7 @@ or one of the methods in the function \code{\link{bimodality_sarle}})}
 A list with following elements:
   \itemize{
     \item{score}{Fraction of bootstrap samples where multiple modes are observed}
-    \item{nmodes}{The most frequently observed number of modes in bootrstrap sampling results}
+    \item{nmodes}{The most frequently observed number of modes in bootstrap sampling results}
     \item{results}{Full results of potential_analysis for each row of the input matrix.}
   }
 }
@@ -40,10 +39,27 @@ Estimate bimodality scores.
     \item{Sarle.asymptotic}{Coefficient of bimodality, used and described in Shade et al. (2014) and Ellison AM (1987).}
     \item{potential_analysis}{Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the bootstrap score.}
   }
+
+The coefficient lies in (0, 1).
+
+    The 'Sarle.asymptotic' version is defined as
+         \deqn{b = (g^2 + 1) / k}.
+         This is coefficient of bimodality from Ellison AM Am. J. Bot. 1987, 
+         for microbiome analysis it has been used for instance in
+         Shade et al. 2014.
+
+         The formula for 'Sarle.finite.sample' (SAS 2012):
+
+	    \deqn{b = \frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
+         where n is sample size and 
+
+         In both formulas, \eqn{g} is sample skewness and \eqn{k} is the kth
+         standardized moment (also called the sample kurtosis, or
+         excess kurtosis).
 }
 \examples{
-  
-  b <- bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
+  # In practice, use more bootstrap iterations   
+  b <- bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)), bs.iter = 5)
  
  # The classical DIP test:
  # quantifies unimodality. Values range between 0 to 1. 
@@ -60,10 +76,11 @@ Estimate bimodality scores.
   \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
   \item{}{AM Ellison, Am. J. Bot 74:1280-8, 1987.}
   \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
+  \item{}{To cite the microbiome R package, see citation('microbiome')}
 }
 }
 \seealso{
-A classical test of multimodality is provided by dip.test in the \pkg{DIP} package.
+A classical test of multimodality is provided by \code{dip.test} in the \pkg{DIP} package.
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

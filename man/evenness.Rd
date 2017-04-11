@@ -34,9 +34,9 @@ The available evenness indices include the following:
 \examples{
   data(dietswap)
   # phyloseq object
-  d <- evenness(dietswap, "pielou")
+  #d <- evenness(dietswap, "pielou")
   # matrix
-  d <- evenness(abundances(dietswap), "pielou")
+  #d <- evenness(abundances(dietswap), "pielou")
   # vector
   d <- evenness(abundances(dietswap)[,1], "pielou")
 

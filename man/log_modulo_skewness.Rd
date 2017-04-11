@@ -23,8 +23,10 @@ Calculates the community rarity index by log-modulo skewness.
 The rarity index characterizes the concentration of species at low abundance. Here, we use the skewness of the frequency distribution of arithmetic abundance classes (see Magurran & McGill 2011). These are typically right-skewed; to avoid taking log of occasional negative skews, we follow Locey & Lennon (2016) and use the log-modulo transformation that adds a value of one to each measure of skewness to allow logarithmization.
 }
 \examples{
-  data(dietswap)
-  d <- log_modulo_skewness(dietswap)
+  \dontrun{
+    data(dietswap)
+    d <- log_modulo_skewness(dietswap)
+  }
 }
 \references{
 Kenneth J. Locey and Jay T. Lennon. Scaling laws predict global microbial diversity. PNAS 2016 113 (21) 5970-5975; doi:10.1073/pnas.1521291113.

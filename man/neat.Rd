@@ -38,9 +38,12 @@ point. The choice of the first sample may somewhat affect the overall
 ordering
 }
 \examples{
+
   data(peerj32)
-  x <- peerj32$microbes
-  xo <- neat(x, "both", method = "NMDS", distance = "bray") 
+  # Take subset to speed up example
+  x <- peerj32$microbes[1:10,1:10]
+  xo <- neat(x, "both", method = "NMDS", distance = "bray")
+
 }
 \references{
 This function is partially based on code derived from the

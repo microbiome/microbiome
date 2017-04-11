@@ -7,7 +7,8 @@
 #' @export
 #' @examples
 #'   data(dietswap)
-#'   d <- diversities(dietswap, "all")
+#'   d <- diversities(dietswap, "shannon")
+#'   # d <- diversities(dietswap, "all")
 #'
 #' @details
 #' By default, returns all diversity indices. The available diversity indices include the following:
@@ -17,7 +18,6 @@
 #'    \item{shannon}{Shannon diversity ie entropy}
 #'    \item{fisher}{Fisher alpha; as implemented in the \pkg{vegan} package}
 #'    \item{observed}{Number of unique detected taxa with non-zero signal.}
-#'    \item{inverse_gini}{Inverse of the Gini index 1/gini; gini is calculated with the function inequality. The inverse is used here to have the same sign and interpretation with the other diversity indices.}
 #'    \item{coverage}{Number of species needed to cover 50\% of the ecosystem. For other quantiles, apply the function coverage directly.}
 #'
 #'  }
@@ -37,7 +37,7 @@
 diversities <- function(x, index = "all", zeroes = TRUE) {
 
   # Only include accepted indices	 
-  accepted <- c("inverse_simpson", "gini_simpson", "shannon", "fisher", "observed", "inverse_gini", "coverage")
+  accepted <- c("inverse_simpson", "gini_simpson", "shannon", "fisher", "observed", "coverage")
 
   # Return all indices
   if (index == "all") {
@@ -46,7 +46,7 @@ diversities <- function(x, index = "all", zeroes = TRUE) {
 
   index <- intersect(index, accepted)
   if (length(index) == 0) {
-    NULL
+    return(NULL)
   }
 
   if (length(index) > 1) {
@@ -59,8 +59,8 @@ diversities <- function(x, index = "all", zeroes = TRUE) {
   }
 
   # Pick data
-  otu <- pick_data(x, compositional = FALSE)
-  
+  otu <- abundances(x)
+
   if (index == "inverse_simpson") {
     ev <- apply(otu, 2, function (x) {inverse_simpson(x, zeroes = zeroes)})
   } else if (index == "gini_simpson") {
@@ -71,8 +71,6 @@ diversities <- function(x, index = "all", zeroes = TRUE) {
     ev <- fisher.alpha(otu, MARGIN = 2)
   } else if (index == "observed") {
     ev <- richness(otu, detection = min(otu))
-  } else if (index == "inverse_gini") {
-    ev <- 1/inequality(otu)
   } else if (index == "coverage") {
     ev <- unname(coverage(otu))
   }

@@ -8,7 +8,8 @@
 #'   these criteria.
 #' @examples
 #'   data(dietswap)
-#'   a <- core_members(dietswap, 1, 95)
+#'   # In practice, use more bootstrap iterations
+#'   a <- core_members(dietswap, 1, 95, bs.iter = 20)
 #' @aliases prevalent_taxa
 #' @export
 #' @references 
@@ -22,11 +23,8 @@ core_members <- function(x, detection = 1/100, prevalence = 50/100, method = "st
 
   Core <- NULL
 
-  if (class(x) == "phyloseq") {
-  
-    x <- abundances(x)
-    
-  }
+  # Pick taxa x samples compositional matrix	       
+  xcomp <- abundances(x)
 
   if (method == "standard") {
   

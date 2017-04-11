@@ -4,8 +4,8 @@
 #' @return Phyloseq object with a normalized time field
 #' @export
 #' @examples
-#'   data(atlas1006)
-#'   pseq <- time_normalize(atlas1006)
+#'   data(peerj32)
+#'   pseq <- time_normalize(peerj32$phyloseq)
 time_normalize <- function (x) {
 
   # Store the original inpu	       

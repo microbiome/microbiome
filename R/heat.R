@@ -23,12 +23,14 @@
 #' @param star.size NULL Determine size of the highlight symbols
 #' @param plot.values Show values as text
 #' @return ggplot2 object
-#' @examples 
-#'   data(peerj32)
-#'   d1 <- peerj32$lipids[, 1:10]
-#'   d2 <- peerj32$microbes[, 1:10]
-#'   cc <- associate(d1, d2, method = "pearson") 
-#'   p <- heat(cc, 'X1', 'X2', 'Correlation', star = "p.adj")
+#' @examples
+#'   \dontrun{
+#'     data(peerj32)
+#'     d1 <- peerj32$lipids[, 1:10]
+#'     d2 <- peerj32$microbes[, 1:10]
+#'     cc <- associate(d1, d2, method = "pearson") 
+#'     p <- heat(cc, 'X1', 'X2', 'Correlation', star = "p.adj")
+#'   }
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

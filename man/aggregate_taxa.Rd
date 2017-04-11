@@ -27,8 +27,10 @@ This provides a convenient way to aggregate phyloseq OTUs
   phyloseq object with the summarized abundances.
 }
 \examples{
-  data(dietswap)
-  s <- aggregate_taxa(dietswap, "Phylum")
+ \dontrun{
+   data(dietswap)
+   s <- aggregate_taxa(dietswap, "Phylum")
+ }
 }
 \references{
 See citation('microbiome')

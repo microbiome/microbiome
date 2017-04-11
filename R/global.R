@@ -9,10 +9,11 @@
 #' @examples
 #'
 #'   data(dietswap)
-#'   d <- global(dietswap, index = "all")
+#'   d <- global(dietswap, index = "gini")
+#'   # d <- global(dietswap, index = "all")
 #'
 #' @export
-#' @seealso core_abundance, dominance, rarity, coverage, gini, phyloseq::estimate_richness
+#' @seealso global, dominance, rarity, phyloseq::estimate_richness
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
@@ -28,29 +29,29 @@ global <- function(x, index = "all") {
       tab <- cbind(tab, a)
     }
   }
-  
-  a <- diversities(x, index = index)
+
+  a <- diversities(x, index = gsub("diversity_", "", index))
   if (!is.null(a)) {
     if (is.vector(a)) {a <- as.matrix(a, ncol = 1)}
     colnames(a) <- paste("diversities_", colnames(a), sep = "")
     tab <- cbind(tab, a)
   }
-  
-  a <- evenness(x, index = index)
+
+  a <- evenness(x, index = gsub("evenness_", "", index))
   if (!is.null(a)) {
     if (is.vector(a)) {a <- as.matrix(a, ncol = 1)}
     colnames(a) <- paste("evenness_", colnames(a), sep = "")
     tab <- cbind(tab, a)
   }
 
-  a <- dominance(x, index = index)
+  a <- dominance(x, index = gsub("dominance_", "", index))
   if (!is.null(a)) {
     if (is.vector(a)) {a <- as.matrix(a, ncol = 1)}  
     colnames(a) <- paste("dominance_", colnames(a), sep = "")
     tab <- cbind(tab, a)
   }
 
-  a <- rarity(x, index = index)
+  a <- rarity(x, index = gsub("rarity_", "", index))
   if (!is.null(a)) {
     if (is.vector(a)) {a <- as.matrix(a, ncol = 1)}  
     colnames(a) <- paste("rarity_", colnames(a), sep = "")

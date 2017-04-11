@@ -23,14 +23,15 @@ This function returns global indices of the ecosystem state using default choice
 \examples{
 
   data(dietswap)
-  d <- global(dietswap, index = "all")
+  d <- global(dietswap, index = "gini")
+  # d <- global(dietswap, index = "all")
 
 }
 \references{
 See citation('microbiome')
 }
 \seealso{
-core_abundance, dominance, rarity, coverage, gini, phyloseq::estimate_richness
+global, dominance, rarity, phyloseq::estimate_richness
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

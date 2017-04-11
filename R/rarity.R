@@ -6,7 +6,8 @@
 #' @export
 #' @examples
 #'   data(dietswap)
-#'   d <- rarity(dietswap, index = "all")
+#'   d <- rarity(dietswap, index = "low_abundance")
+#'   # d <- rarity(dietswap, index = "all")
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso global
 #' @details
@@ -51,14 +52,14 @@ rarity <- function(x, index = "all") {
   }
 
   # Pick data
-  otu <- pick_data(x, compositional = FALSE)
+  otu <- abundances(x)
 
   if (index == "log_modulo_skewness") {
     r <- log_modulo_skewness(otu, q = .5, n = 50)
   } else if (index == "low_abundance") {
     r <- apply(otu, 2, function (x) low_abundance(x, detection = 0.2/100))
   } else if (index == "rare_abundance") {
-    r <- apply(otu, 2, function (x) rare_abundance(x, detection = 0.1/100, prevalence = 50/100))
+    r <- rare_abundance(otu, detection = 0.1/100, prevalence = 50/100)
   }
 
   names(r) <- colnames(otu)

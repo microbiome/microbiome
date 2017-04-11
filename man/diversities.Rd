@@ -27,14 +27,14 @@ By default, returns all diversity indices. The available diversity indices inclu
    \item{shannon}{Shannon diversity ie entropy}
    \item{fisher}{Fisher alpha; as implemented in the \pkg{vegan} package}
    \item{observed}{Number of unique detected taxa with non-zero signal.}
-   \item{inverse_gini}{Inverse of the Gini index 1/gini; gini is calculated with the function inequality. The inverse is used here to have the same sign and interpretation with the other diversity indices.}
    \item{coverage}{Number of species needed to cover 50\% of the ecosystem. For other quantiles, apply the function coverage directly.}
 
  }
 }
 \examples{
   data(dietswap)
-  d <- diversities(dietswap, "all")
+  d <- diversities(dietswap, "shannon")
+  # d <- diversities(dietswap, "all")
 
 }
 \references{

@@ -21,8 +21,8 @@ Identify and select the baseline timepoint samples in a phyloseq object.
 Arranges the samples by time and picks the first sample for each subject. Compared to simple subsetting at time point zero, this checks NAs and possibility for multiple samples at the baseline, and guarantees that a single sample per subject is selected.
 }
 \examples{
-  data(atlas1006)
-  a <- baseline(atlas1006)
+  data(peerj32)
+  a <- baseline(peerj32$phyloseq)
 }
 \references{
 See citation("microbiome")

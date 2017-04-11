@@ -5,8 +5,8 @@
 #' @return A validated and polished phyloseq object
 #' @export
 #' @examples
-#'   data(atlas1006)
-#'   validate(atlas1006)
+#'   data(dietswap)
+#'   validate(dietswap)
 validate <- function (x) {
 
   validated <- TRUE		  

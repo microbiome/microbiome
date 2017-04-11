@@ -22,6 +22,7 @@ Get example data - [HITChip Atlas of 130 genus-like taxa across 1006 healthy wes
 
 ```{r bistability, message=FALSE}
 # Load the example data
+set.seed(134)
 library(microbiome)
 data(atlas1006)
 
@@ -35,7 +36,7 @@ pseq <- pseq %>% subset_samples(DNA_extraction_method == "r")
 pseq <- microbiome::transform(pseq, "compositional")
 
 # Keep only the prevalent taxa to speed up examples
-pseq <- core(pseq, detection = .5/100, prevalence = 90/100)
+pseq <- core(pseq, detection = .5/100, prevalence = 50/100)
 
 # For cross-sectional analysis, use only the baseline time point:
 pseq0 <- baseline(pseq)
@@ -77,7 +78,7 @@ pseq0.log10 <- microbiome::transform(pseq0, "log10")
 set.seed(4433)
 # In practice, it is recommended to use more bootstrap iterations than in this example
 bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis",
-                               bs.iter = 20, peak.threshold = 10,
+                               bs.iter = 50, peak.threshold = 10,
 			       min.density = 10)
 ```
 
@@ -116,7 +117,7 @@ x <- log10(abundances(pseq)[tax,])
 
 # Bootstrapped potential analysis to identify potential minima
 # in practice, use more bootstrap iterations
-potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]), bs.iter = 2)$minima
+potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]), bs.iter = 20)$minima
 
 # Same with earlywarnings package (without bootstrap ie. less robust)
 # library(earlywarnings)
@@ -134,14 +135,18 @@ print(tipping.point)
 
 Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation lineplot (**Variation lineplot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). The bi-stable Dialister has bimodal population distribution and reduced temporal stability within subjects at intermediate abundances.
 
+
+Variation plot:
+
 ```{r stability-variationplot, message=FALSE, warning=FALSE, fig.show='hold', out.width="430px"}
-# Variation line plot:
-# Indicates the abundance variation range
-# for subjects with multiple time points
+# Indicates the abundance variation range for subjects with multiple time points
 pv <- plot_tipping(pseq, tax, tipping.point = tipping.point)
 print(pv)
+```
 
-# Bimodality hotplot:
+Bimodality hotplot:
+
+```{r hotplot, message=FALSE, warning=FALSE, fig.show='hold', out.width="430px"}
 # Consider a unique sample from each subject: the baseline time point 
 ph <- hotplot(pseq0, tax, tipping.point = tipping.point)
 print(ph)

@@ -29,7 +29,8 @@ The rarity index characterizes the concentration of species at low abundance.
 }
 \examples{
   data(dietswap)
-  d <- rarity(dietswap, index = "all")
+  d <- rarity(dietswap, index = "low_abundance")
+  # d <- rarity(dietswap, index = "all")
 }
 \references{
 Kenneth J. Locey and Jay T. Lennon. Scaling laws predict global microbial diversity. PNAS 2016 113 (21) 5970-5975; doi:10.1073/pnas.1521291113.

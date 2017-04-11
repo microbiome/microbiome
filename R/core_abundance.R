@@ -12,24 +12,18 @@
 #' @keywords utilities
 core_abundance <- function(x, detection = .1/100, prevalence = 50/100) {
 
-  # Ensure the data is compositional
-  if (is.phyloseq(x)) {
-    x <- abundances(x)
-  }
-  if (is.vector(x)) {
-    x <- as.matrix(x, ncol = 1)
-  }
-  # Compositional
-  xcomp <- otu_table(apply(x, 2, function (x) {x/sum(x, na.rm = TRUE)})  , taxa_are_rows = TRUE)
+  # Pick taxa x samples compositional matrix	       
+  xcomp <- abundances(x, transform = "compositional")
 
   # Core members
   cm <- core_members(xcomp, detection, prevalence)
 
-  # Pick the core
-  xc <- prune_taxa(cm, xcomp)
-
-  colSums(abundances(xc))
-
+  # Pick the core and calculate abundance
+  if (ncol(xcomp) > 1) {
+    colSums(xcomp[cm,])
+  } else {
+    sum(xcomp[cm,])
+  }
 }
 
 

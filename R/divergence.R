@@ -27,13 +27,15 @@
 #' @return Vector with dissimilarities; one for each sample, quantifying the
 #' dissimilarity of the sample from the group-level mean.
 #' @export
-#' @examples 
-#'   # Example data
-#'   data(dietswap)
-#'   # Assess beta diversity among the African samples
-#'   # in a diet swap study (see \code{help(dietswap)} for references)
-#'   b <- divergence(subset_samples(dietswap, nationality == "AFR"))
-#' @references 
+#' @examples
+#'   \dontrun{
+#'     # Assess beta diversity among the African samples
+#'     # in a diet swap study (see \code{help(dietswap)} for references)
+#'     data(dietswap)
+#'     b <- divergence(subset_samples(dietswap, nationality == "AFR"))
+#'   }
+#' @references
+#'
 #' The inter- and intra-individual homogeneity measures used in
 #' Salonen et al. ISME J. 8:2218-30, 2014 were obtained as
 #' 1 - beta where beta is the group diversity as quantified by the
@@ -48,9 +50,7 @@
 divergence <- function(x, method = "anticorrelation") {
 
   # Abundance matrix (taxa x samples)
-  if (is.phyloseq(x)) {
-    x <- abundances(x)
-  }
+  x <- abundances(x)
 
   if (method == "anticorrelation") {
     b <- anticorrelation(x, "spearman")

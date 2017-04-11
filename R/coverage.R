@@ -14,12 +14,11 @@
 #' @keywords utilities
 coverage <- function(x, threshold = 0.5) {
 
-  otu <- pick_data(x, compositional = FALSE)
+  otu <- abundances(x, transform = "compositional")
 
   # Number of groups needed to have 50% of the ecosystem occupied
   do <- apply(otu, 2, function (x) {min(which(cumsum(rev(sort(x/sum(x)))) >= threshold))})
-
-  names(do) <- sample_names(x)
+  names(do) <- colnames(otu)
   
   do
 

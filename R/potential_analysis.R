@@ -24,7 +24,7 @@
 #'
 #' # Bootstrapped potential analysis
 #' # In practice, use more bootstrap iterations
-#' res <- potential_analysis(x, peak.threshold = 0, bw.adjust = 1, bs.iter = 20, min.density = 1)
+#' res <- potential_analysis(x, peak.threshold = 0, bw.adjust = 1, bs.iter = 9, min.density = 1)
 #'
 #' @seealso plot_potential
 #' @references
@@ -33,6 +33,10 @@
 #'   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal ecosystem. \emph{Nature Communications} 5:4344.}
 #'  }
 potential_analysis <- function (x, peak.threshold = 0, bw.adjust = 1, bs.iter = 100, min.density = 1) {
+
+  if (is.matrix(x) && nrow(x) == 1) {
+    x <- as.vector(x)
+  }
 
   nmodes <- c()
   minpoints <- list()

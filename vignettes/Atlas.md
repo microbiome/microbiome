@@ -32,6 +32,8 @@ Estimate global ecosystem indicators for this data set:
 
 ```r
 tab <- global(atlas1006, index = c("shannon", "invsimpson"))
+
+library(knitr)
 kable(head(tab))
 ```
 

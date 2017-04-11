@@ -32,18 +32,19 @@ The dominance index gives the abundance of the most abundant species and has bee
    \item{"DMN"}{McNaughton’s dominance. This is the sum of the relative abundance of the two most abundant taxa, or a special case of relative dominance with rank 2}
    \item{"simpson"}{Simpson's index ($sum(p^2)$) where p are relative abundances has an interpretation as a dominance measure. Also the version ($sum(q * (q-1)) / S(S-1)$) based on absolute abundances q has been proposed by Simpson (1949) but not included here as it is not within [0,1] range, and it is highly correlated with the simpler Simpson dominance. Finally, it is also possible to calculated dominances up to an arbitrary rank by setting the rank argument}
    \item{"core_abundance"}{Relative proportion of the core species that exceed detection level 0.2\% in over 50\% of the samples}
+   \item{"gini"}{Gini index is calculated with the function \code{inequality}.}
 }
 
 By setting aggregate=FALSE, the abundance for the single n'th most dominant taxa (n = rank) is returned instead the sum of abundances up to that rank (the default).
 }
 \examples{
   data(dietswap)
-  # Phyloseq object
-  d <- dominance(dietswap, rank = 1, relative = TRUE)
-  # matrix
-  d <- dominance(abundances(dietswap), rank = 1, relative = TRUE)
   # vector
   d <- dominance(abundances(dietswap)[,1], rank = 1, relative = TRUE)
+  # matrix
+  # d <- dominance(abundances(dietswap), rank = 1, relative = TRUE)
+  # Phyloseq object
+  # d <- dominance(dietswap, rank = 1, relative = TRUE)
 
 }
 \references{

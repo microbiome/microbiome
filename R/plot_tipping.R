@@ -44,14 +44,15 @@ plot_tipping <- function (x, taxon, tipping.point = NULL, lims = NULL, shift = 1
   
   ranges <- t(sapply(split(d[keep], as.character(m$subject[keep])), range))
   colnames(ranges) <- c("min", "max")
-  
+
   df <- as.data.frame(ranges)
   df$mid  <- rowMeans(ranges)
   df <- df[order(df$mid),]
   df$pos  <- 1:nrow(df)
-  
+
   # Switches the state
   df$len <- df$max - df$min # Range length
+
   df$switch <- abs(df$mid - tipping.point) < df$len/2
   dforig <- data.frame(list(abundance = d, subject = m$subject))
   dforig$pos <- df[as.character(dforig$subject), "pos"]

@@ -3,9 +3,6 @@
 #' @inheritParams global
 #' @return A data.frame of samples x global indicators
 #' @details This function returns the indices with the default choices for detection, prevalence and other parameters for simplicity and standardization. See the individual functions for more options. This function extends the functionality of the phyloseq::estimate_richness function.
-#' @examples 
-#'   data(dietswap)
-#'   d <- global(dietswap)
 #' @export
 #' @seealso rarity, core_abundance, dominance, low_abundance, dominance, gini, phyloseq::estimate_richness
 #' @references See citation('microbiome') 

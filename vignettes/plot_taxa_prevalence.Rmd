@@ -1,7 +1,5 @@
 ---
 title: "Plot Taxa Prevalence"
-author: "Sudarshan A. Shetty"
-date: "2017-03-05"
 output: 
   rmarkdown::html_vignette
 ---
@@ -23,7 +21,6 @@ For this example we will use data from [Halfvarson J., et al. Nature Microbiolog
 library(microbiome)
 data(DynamicsIBD)
 p0 <- DynamicsIBD
-
 ```
 
 ## Plot Taxa Prevalence
@@ -31,11 +28,9 @@ p0 <- DynamicsIBD
 Phylum level:
 
 ```{r, fig.height=6, fig.width=8}
-
 p0.f <- format_phyloseq(p0)
-plot <- plot_taxa_prevalence(p0.f, 'Phylum')
-print(plot)
-
+p <- plot_taxa_prevalence(p0.f, 'Phylum')
+print(p)
 ```
 
 You can also plot the prevalence at Order/Class/Family level.  

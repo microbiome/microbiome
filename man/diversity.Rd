@@ -18,10 +18,6 @@ Estimate global indicators of the ecoystem state (richness, diversity, and other
 \details{
 This function returns the indices with the default choices for detection, prevalence and other parameters for simplicity and standardization. See the individual functions for more options. This function extends the functionality of the phyloseq::estimate_richness function.
 }
-\examples{
-  data(dietswap)
-  d <- global(dietswap)
-}
 \references{
 See citation('microbiome')
 }

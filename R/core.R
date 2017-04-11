@@ -25,7 +25,9 @@
 #' @aliases filter_prevalent
 #' @examples
 #'   data(dietswap)
-#'   pseq <- core(dietswap, 200, .2)
+#'   # In practice, use more bootstrap iterations
+#'   pseq <- core(dietswap, 200, .2, bs.iter = 20)
+#'
 core <- function (x, detection, prevalence, method = "standard", Nsample = NULL, bs.iter = 1000, I.max = NULL) {
 
   # TODO: add optional renormalization such that the core member
@@ -55,9 +57,6 @@ core <- function (x, detection, prevalence, method = "standard", Nsample = NULL,
 #' @examples
 #'   data(peerj32)
 #'   # In practice, use bs.iter = 1000 or more
-#'   bs <- core(peerj32$phyloseq, bs.iter = 5,
-#'              prevalence = .5, detection = 0,
-#'		method = "bootstrap")
 #'   # Not exported:
 #'   # bs <- core_bootstrap(peerj32$phyloseq, bs.iter = 5)
 #' @references 

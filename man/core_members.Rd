@@ -41,7 +41,8 @@ For phyloseq object, lists taxa that are more prevalent with the
 }
 \examples{
   data(dietswap)
-  a <- core_members(dietswap, 1, 95)
+  # In practice, use more bootstrap iterations
+  a <- core_members(dietswap, 1, 95, bs.iter = 20)
 }
 \references{
 A Salonen et al. The adult intestinal core microbiota is determined by 

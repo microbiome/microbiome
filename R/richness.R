@@ -14,28 +14,36 @@
 richness <- function(x, detection = NULL) {
 
   # Pick data
-  otu <- pick_data(x, compositional = FALSE)
-  
+  otu <- abundances(x)
+
   # Check with varying detection thresholds 
   if (is.null(detection) || length(detection) > 0) {
 
     if (is.null(detection)) {
-      ths <- quantile(otu, c(0, .2, .5, .8))
-    } else{
+
+      ths <- quantile(as.vector(otu), c(0, .2, .5, .8))
+
+    } else {
+    
       ths <- detection
       names(ths) <- as.character(ths)
+      
     }
-    
+
     tab <- NULL
     for (th in ths) {
       r <- colSums(otu > th)
       tab <- cbind(tab, r)
     }
+    
     colnames(tab) <- names(ths)
     r <- tab
+    
   } else {
+
     r <- colSums(otu > detection)
     names(r) <- colnames(otu)
+    
   }
   
   r

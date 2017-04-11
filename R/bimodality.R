@@ -1,8 +1,7 @@
 #' @title Bimodality Analysis
 #' @description Estimate bimodality scores.
 #' @param x A vector, matrix, or a phyloseq object
-#' @param method bimodality quantification method ('potential_analysis'
-#' 	  or one of the methods in the function \code{\link{bimodality_sarle}})
+#' @param method bimodality quantification method ("potential_analysis", "Sarle.finite.sample", or "Sarle.asymptotic").
 #' @param bw.adjust Bandwidth adjustment
 #' @param bs.iter Bootstrap iterations
 #' @param min.density minimum accepted density for a maximum; as a multiple of kernel height
@@ -11,7 +10,7 @@
 #' @return A list with following elements:
 #'   \itemize{
 #'     \item{score}{Fraction of bootstrap samples where multiple modes are observed}
-#'     \item{nmodes}{The most frequently observed number of modes in bootrstrap sampling results}
+#'     \item{nmodes}{The most frequently observed number of modes in bootstrap sampling results}
 #'     \item{results}{Full results of potential_analysis for each row of the input matrix.}
 #'   }
 #' @details
@@ -20,7 +19,26 @@
 #'     \item{Sarle.asymptotic}{Coefficient of bimodality, used and described in Shade et al. (2014) and Ellison AM (1987).}
 #'     \item{potential_analysis}{Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the bootstrap score.}
 #'   }
-#' @seealso A classical test of multimodality is provided by dip.test in the \pkg{DIP} package.
+#' 
+#' The coefficient lies in (0, 1).
+#' 
+#'	    The 'Sarle.asymptotic' version is defined as
+#'          \deqn{b = (g^2 + 1) / k}.
+#'          This is coefficient of bimodality from Ellison AM Am. J. Bot. 1987, 
+#'          for microbiome analysis it has been used for instance in
+#'          Shade et al. 2014.
+#'
+#'          The formula for 'Sarle.finite.sample' (SAS 2012):
+#'
+#' 	    \deqn{b = \frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
+#'          where n is sample size and 
+#' 
+#'          In both formulas, \eqn{g} is sample skewness and \eqn{k} is the kth
+#'          standardized moment (also called the sample kurtosis, or
+#'          excess kurtosis).
+#'
+#' @seealso A classical test of multimodality is provided by \code{dip.test} in the \pkg{DIP} package.
+#'
 #' @references
 #' \itemize{
 #'   \item{}{Livina et al. (2010). Potential analysis 
@@ -31,12 +49,13 @@
 #'   \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
 #'   \item{}{AM Ellison, Am. J. Bot 74:1280-8, 1987.}
 #'   \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
+#'   \item{}{To cite the microbiome R package, see citation('microbiome')}
 #' }
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
-#'   
-#'   b <- bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)))
+#'   # In practice, use more bootstrap iterations   
+#'   b <- bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)), bs.iter = 5)
 #'  
 #'  # The classical DIP test:
 #'  # quantifies unimodality. Values range between 0 to 1. 
@@ -169,3 +188,71 @@ multimodality <- function (x, peak.threshold = 1, bw.adjust = 1, bs.iter = 100, 
 }
 
 
+
+#' @title Sarle's Bimodality Coefficient
+#' @description Sarle's bimodality coefficient.
+#' @param x Data vector for which bimodality will be quantified
+#' @param bs.iter Bootstrap iterations
+#' @param na.rm Remove NAs
+#' @param type Score type ("Sarle.finite.sample" or "Sarle.asymptotic")
+#' @return Bimodality score
+#' @examples
+#'   \dontrun{
+#'     b <- bimodality_sarle(rnorm(100), type = "Sarle.finite.sample")
+#'   }
+#' @details The coefficient lies in (0, 1).
+#' 
+#'	    The 'Sarle.asymptotic' version is defined as
+#'          \deqn{b = (g^2 + 1) / k}.
+#'          This is coefficient of bimodality from Ellison AM Am. J. Bot. 1987, 
+#'          for microbiome analysis it has been used for instance in
+#'          Shade et al. 2014.
+#'
+#'          The formula for 'Sarle.finite.sample' (SAS 2012):
+#'
+#' 	    \deqn{b = \frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
+#'          where n is sample size and 
+#' 
+#'          In both formulas, \eqn{g} is sample skewness and \eqn{k} is the kth
+#'          standardized moment (also called the sample kurtosis, or
+#'          excess kurtosis).
+#'
+#' @references
+#'   \itemize{
+#'     \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
+#'     \item{}{Ellison AM (1987) Am J Botany 74(8):1280-1288.}
+#'     \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
+#'     \item{}{To cite the microbiome R package, see citation('microbiome')}
+#'  }
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @seealso Check the dip.test from the \pkg{DIP} package for a
+#' classical test of multimodality.
+#' @keywords utilities
+bimodality_sarle <- function(x, bs.iter = 1, na.rm = TRUE, type = "Sarle.finite.sample") {
+
+    g <- skewness(x, na.rm)
+    k <- kurtosis(x, na.rm)      
+
+    if (type == "Sarle.asymptotic") {
+
+      s <- (1 + g^2)/(k + 3)
+
+    } else if (type == "Sarle.finite.sample") {
+    
+      n <- length(x)
+      s <- (g^2 + 1) / (k + (3*(n-1)^2)/((n-2)*(n-3)))
+      
+    }
+
+    if (bs.iter > 1) {
+      s <- c()
+      for (i in 1:bs.iter) {
+        xbs <- sample(x, replace = TRUE)
+	s[[i]] <- bimodality_sarle(xbs, type = type)
+      }
+      s <- mean(s)
+    }
+
+    s
+    
+}

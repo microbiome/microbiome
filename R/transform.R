@@ -43,17 +43,23 @@ transform <- function (x, transform = "identity",
 
   y <- NULL
 
+  # If x is not a phyloseq object then assume that it is taxa x samples matrix
+  if (!is.phyloseq(x)) {
+    x <- otu_table(x, taxa_are_rows = TRUE)
+  }
+
   if (transform == "relative.abundance") {
     transform <- "compositional"
   }
 
-  if (!all(sample(round(prod(dim(abundances(x)))/10) ))%%1 == 0) {
+  if (!all(sample(round(prod(dim(pick_abundances(x)))/10) ))%%1 == 0) {
     warning("The OTU abundances are not integers. 
              Check that the OTU input data is given as original counts 
-	     to avoid transform errors!")
+	     to avoid transformation errors!")
   }
 
   if (transform == "compositional") {
+  
     if (target == "OTU") {
       # Minor constant 1e-32 is compared to zero to avoid zero division.
       # Essentially zero counts will then remain zero and otherwise this wont
@@ -63,6 +69,7 @@ transform <- function (x, transform = "identity",
       stop(paste("transform not implemented for transform",
       				     transform, "with target", target))
     }
+    
   } else if (transform == "Z") {
 
     # Z transform for sample or OTU
@@ -70,7 +77,7 @@ transform <- function (x, transform = "identity",
 
   } else if (transform == "clr") {
 
-    if (any(abundances(x)<0)) {
+    if (any(pick_abundances(x)<0)) {
       stop("Non-negative data matrix required for the clr transformation. Exiting.")
     }
 
@@ -78,8 +85,8 @@ transform <- function (x, transform = "identity",
     # singularities
     xt <- x
 
-    if (any(abundances(xt) == 0)) {
-      v <- as.vector(abundances(x))
+    if (any(pick_abundances(xt) == 0)) {
+      v <- as.vector(pick_abundances(x))
       minval <- min(v[v > 0])/2
       xt <- transform(xt, "shift", shift = minval)
     }
@@ -88,9 +95,9 @@ transform <- function (x, transform = "identity",
     xt <- transform(xt, "compositional")
 
     # Pick samples x taxa abundance matrix
-    a <- abundances(xt)    
+    a <- pick_abundances(xt)    
     if (taxa_are_rows(xt)) {
-      a <- t(abundances(xt))
+      a <- t(pick_abundances(xt))
     }
 
     # d <- t(apply(compositions::clr(a), 2, identity))
@@ -118,7 +125,7 @@ transform <- function (x, transform = "identity",
   } else if (transform == "log10") {
   
     # Log transform:
-    if (min(abundances(x)) == 0) {
+    if (min(pick_abundances(x)) == 0) {
       warning("OTU table contains zeroes. Using log10(1 + x) transform.")
       # target does not affect the log transform 
       xt <- transform_sample_counts(x, function(x) log10(1 + x))      
@@ -140,7 +147,7 @@ transform <- function (x, transform = "identity",
     if (target == "OTU") {
     
       xt <- x
-      a <- try(xx <- decostand(abundances(xt),
+      a <- try(xx <- decostand(pick_abundances(xt),
       	                       method = transform, MARGIN = 2))
             
       if (class(a) == "try-error") {
@@ -182,7 +189,7 @@ ztransform <- function (x, which) {
 
   taxa_are_rows <- y <- NULL
 
-  if (!all(sample(abundances(x), 1)%%1 == 0)) {
+  if (!all(sample(pick_abundances(x), 1)%%1 == 0)) {
     warning("phyloseq object may already have been log transformed - the 
              abundances are not counts:
 	     log10 omitted in Z transform. Perform manually if needed.")
@@ -194,7 +201,7 @@ ztransform <- function (x, which) {
   if (which == "OTU") {
 
     # taxa x samples
-    ddd <- abundances(x)
+    ddd <- pick_abundances(x)
 
     # Z transform OTUs
     trans <- as.matrix(scale(t(ddd)))

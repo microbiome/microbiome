@@ -19,6 +19,6 @@ Validate phyloseq object.
 Checks that the abundances and sample_data have exactly same samples.
 }
 \examples{
-  data(atlas1006)
-  validate(atlas1006)
+  data(dietswap)
+  validate(dietswap)
 }

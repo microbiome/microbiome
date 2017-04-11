@@ -8,9 +8,9 @@
 #' @examples
 #'   data(dietswap)
 #'   # phyloseq object
-#'   d <- evenness(dietswap, "pielou")
+#'   #d <- evenness(dietswap, "pielou")
 #'   # matrix
-#'   d <- evenness(abundances(dietswap), "pielou")
+#'   #d <- evenness(abundances(dietswap), "pielou")
 #'   # vector
 #'   d <- evenness(abundances(dietswap)[,1], "pielou")
 #'
@@ -70,7 +70,7 @@ evenness <- function(x, index = "all", zeroes = TRUE) {
   }
 
   # Pick data
-  otu <- pick_data(x, compositional = FALSE)
+  otu <- abundances(x)
 
   if (index == "camargo") {
     ev <- apply(otu, 2, function (x) {camargo(x, zeroes = zeroes)})

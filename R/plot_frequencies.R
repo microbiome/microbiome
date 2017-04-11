@@ -16,6 +16,10 @@
 #' @keywords utilities
 plot_frequencies <- function (x, Groups, Factor) {
 
+  # FIXME: do not capitalize arguments
+  # Rename Groups -> groups
+  #  	   Factor -> factor
+
   pct <- NULL
 
   x <- data.frame(x)

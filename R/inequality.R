@@ -16,16 +16,7 @@
 #' @export
 inequality <- function(x) {
 
-  # Pick the OTU data
-  if (is.phyloseq(x)) {
-    otu <- abundances(x)
-  } else if (is.vector(x)) {
-    otu <- as.matrix(x, ncol = 1)    
-  } else {
-    # Assuming taxa x samples count matrix
-    otu <- x
-  }
-  
+  otu <- abundances(x)
 
   # Gini index for each sample
   do <- apply(otu, 2, function (x) {inequality_help(x)})

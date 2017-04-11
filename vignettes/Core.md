@@ -75,10 +75,10 @@ If you only need the names of the core taxa, do as follows. The standard method 
 
 ```r
 # Standard method (based on simple detection and prevalence thresholding)
-core.taxa.standard <- core_members(pseq.rel, detection = 5, prevalence = 50,  method = "standard")
+core.taxa.standard <- core_members(pseq.rel, detection = 5/100, prevalence = 50/100,  method = "standard")
 
 # Bootrap method: slower but more robust; takes sampling effects into account
-core.taxa.bootstrap <- core_members(pseq.rel, detection = 5, prevalence = 50,  method = "bootstrap", bs.iter = 50)
+core.taxa.bootstrap <- core_members(pseq.rel, detection = 5/100, prevalence = 50/100,  method = "bootstrap", bs.iter = 10)
 ```
 
 
@@ -87,7 +87,7 @@ A full phyloseq object of the core microbiota is obtained as follows:
 
 ```r
 pseq.core <- core(pseq.rel, detection = 0, prevalence = .5)
-pseq.core.bootstrap <- core(pseq.rel, detection = 0, prevalence = .5, method = "bootstrap", bs.iter = 50)
+# Or: pseq.core.bootstrap <- core(pseq.rel, detection = 0, prevalence = .5, method = "bootstrap", bs.iter = 10)
 ```
 
 
@@ -120,13 +120,13 @@ thresholds with the blanket analysis [(Salonen et al. CMI, 2012)](http://onlinel
 
 ```r
 # With absolute read counts
-det <- c(0, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000)
+det <- c(0, 10, 50, 200, 500, 2000)
 prevalences <- seq(.05, 1, .05)
 p <- plot_core(pseq, prevalences = prevalences, detections = det, plot.type = "lineplot")
 p + xlab("Abundance (OTU read count)")
 
 # With compositional (relative) abundances
-det <- c(0, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20)/100
+det <- c(0, 0.1, 0.5, 2, 5, 20)/100
 p <- plot_core(pseq.rel, prevalences = prevalences, detections = det, plot.type = "lineplot")
 p + xlab("Relative Abundance (%)")
 ```
@@ -142,7 +142,7 @@ This visualization method has been used for instance in [Intestinal microbiome l
 ```r
 # Core with compositionals:
 prevalences <- seq(.05, 1, .05)
-detections <- 10^seq(log10(1e-3), log10(.2), length = 20)
+detections <- 10^seq(log10(1e-3), log10(.2), length = 10)
 
 # Also define gray color palette
 gray <- gray(seq(0,1,length=5))
@@ -169,7 +169,7 @@ print(p + scale_fill_viridis())
 ```r
 # Core with absolute counts and horizontal view:
 # and minimum population prevalence (given as percentage)
-detections <- 10^seq(log10(1), log10(max(abundances(pseq))/10), length = 20)
+detections <- 10^seq(log10(1), log10(max(abundances(pseq))/10), length = 10)
 
 library(RColorBrewer)
 p <- plot_core(pseq, plot.type = "heatmap", 

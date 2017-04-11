@@ -10,8 +10,10 @@
 #' @param top Keep the top-n taxa, and merge the rest under the category "Other". Instead of top-n numeric this can also be a character vector listing the groups to combine.
 #' @return Summarized phyloseq object
 #' @examples
-#'   data(dietswap)
-#'   s <- aggregate_taxa(dietswap, "Phylum")
+#'  \dontrun{
+#'    data(dietswap)
+#'    s <- aggregate_taxa(dietswap, "Phylum")
+#'  }
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
