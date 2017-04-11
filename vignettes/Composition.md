@@ -85,7 +85,27 @@ Same with compositional (relative) abundances:
 library(hrbrthemes)
 library(gcookbook)
 library(tidyverse)
+```
 
+```
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+```
+
+```
+## Conflicts with tidy packages ----------------------------------------------
+```
+
+```
+## combine():  dplyr, BiocGenerics
+## filter():   dplyr, stats
+## lag():      dplyr, stats
+## map():      purrr, mclust
+## Position(): ggplot2, BiocGenerics, base
+## select():   dplyr, MASS
+```
+
+```r
 p <- plot_composition(pseq2,
                       sample.sort = "nationality",
                       x.label = "nationality",
@@ -2263,8 +2283,8 @@ print(p)
 ##         rgb(x[, 1L], x[, 2L], x[, 3L], x[, 4L], maxColorValue = 255)
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
-## <bytecode: 0x55a8c44506f8>
-## <environment: 0x55a8cc1b7ad8>
+## <bytecode: 0x12efc470>
+## <environment: 0x12efa8d0>
 ```
 
 
