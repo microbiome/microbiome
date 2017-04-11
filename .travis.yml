@@ -6,11 +6,9 @@ r_packages:
 - ade4
 - bayesm
 - Cairo
-- compositions
 - diptest
 - dplyr
 - energy
-- fastcluster
 - FD
 - gcookbook
 - GGally
@@ -57,7 +55,6 @@ r_github_packages:
 - slowkow/ggrepel
 - cran/RUnit
 - ropengov/sorvi
-- hadley/pkgdown
 - microbiome/microbiome
 - zdk123/SpiecEasi
 - briatte/ggnet
@@ -84,4 +81,3 @@ after_success:
 - bash <(curl -s https://codecov.io/bash)
 #- bash ./.push_to_master # Not ready: sync successful devel to master
 - bash ./.deploy.sh
-
