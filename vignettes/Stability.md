@@ -37,7 +37,7 @@ pseq <- pseq %>% subset_samples(DNA_extraction_method == "r")
 pseq <- microbiome::transform(pseq, "compositional")
 
 # Keep only the prevalent taxa to speed up examples
-pseq <- core(pseq, detection = .5/100, prevalence = 50/100)
+pseq <- core(pseq, detection = .2/100, prevalence = 90/100)
 
 # For cross-sectional analysis, use only the baseline time point:
 pseq0 <- baseline(pseq)
@@ -138,7 +138,7 @@ print(tipping.point)
 ```
 
 ```
-## [1] 0.004930706
+## [1] 0.005973886
 ```
 
 

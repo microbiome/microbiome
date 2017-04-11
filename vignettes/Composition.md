@@ -2264,7 +2264,7 @@ print(p)
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
 ## <bytecode: 0x55a8c44506f8>
-## <environment: 0x55a8e74fe578>
+## <environment: 0x55a8cc1b7ad8>
 ```
 
 
