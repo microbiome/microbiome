@@ -41,41 +41,6 @@ pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
 
 ### Barplots for composition
 
-Show OTU absolute abundance in each sample. Plot absolute taxon
-abundances:
-  
-
-```r
-library(ggplot2)
-theme_set(theme_bw(22)) # Black/white color theme
-p <- plot_composition(pseq2, taxonomic.level = "Phylum") +
-  theme(legend.position = "bottom") +
-  guides(fill = guide_legend(nrow = 10, byrow = TRUE))
-print(p)       
-```
-
-![plot of chunk composition-example1b](figure/composition-example1b-1.png)
-
-Arrange by sample variable. Focus on the core taxa. Africans have more Prevotella as expected. Absolute counts:
-  
-
-```r
-# Limit the analysis on core taxa and specific sample group
-pseq2 <- pseq %>%
-  core(detection = 10^4, prevalence = .5) %>%
-  subset_samples(group == "DI" & timepoint.within.group == 1)
-
-p <- plot_composition(pseq2,
-                      sample.sort = "nationality", # Sort by nationality
-                      x.label = "nationality") +   # Label by nationality
-  guides(fill = guide_legend(nrow = 5, byrow = TRUE)) +
-  theme(legend.position = "bottom")
-print(p)
-```
-
-![plot of chunk composition-example4](figure/composition-example4-1.png)
-
-
 Same with compositional (relative) abundances:
   
 
@@ -106,25 +71,47 @@ library(tidyverse)
 ```
 
 ```
-## combine():  dplyr, BiocGenerics
-## filter():   dplyr, stats
-## lag():      dplyr, stats
-## map():      purrr, mclust
-## Position(): ggplot2, BiocGenerics, base
-## select():   dplyr, MASS
+## arrange():   dplyr, plyr
+## collapse():  dplyr, IRanges
+## combine():   dplyr, Biobase, gridExtra, BiocGenerics
+## compact():   purrr, plyr
+## count():     dplyr, plyr
+## desc():      dplyr, IRanges, plyr
+## expand():    tidyr, Matrix, S4Vectors
+## failwith():  dplyr, plyr
+## filter():    dplyr, stats
+## first():     dplyr, S4Vectors
+## id():        dplyr, plyr
+## lag():       dplyr, stats
+## map():       purrr, mclust
+## mutate():    dplyr, plyr
+## Position():  ggplot2, BiocGenerics, base
+## reduce():    purrr, GenomicRanges, IRanges
+## regroup():   dplyr, IRanges
+## rename():    dplyr, S4Vectors, plyr
+## select():    dplyr, MASS
+## simplify():  purrr, IRanges
+## slice():     dplyr, IRanges
+## summarise(): dplyr, plyr
+## summarize(): dplyr, plyr
 ```
 
 ```r
+# Limit the analysis on core taxa and specific sample group
+pseq2 <- pseq %>%
+  subset_samples(group == "DI" & timepoint.within.group == 1)
+
 p <- plot_composition(pseq2,
+		      taxonomic.level = "Phylum",
                       sample.sort = "nationality",
                       x.label = "nationality",
                       transform = "compositional") +
      guides(fill = guide_legend(ncol = 1)) +
      scale_y_percent() +
-     labs(x="Samples", y="Relative abundance (%)",
-                                   title="Relative abundance data",
-                                   subtitle="Subtitle",
-                                   caption="Caption here 'g'") + 
+     labs(x = "Samples", y = "Relative abundance (%)",
+                                   title = "Relative abundance data",
+                                   subtitle = "Subtitle",
+                                   caption = "Caption here 'g'") + 
      theme_ipsum(grid="Y")
 print(p)  
 ```
@@ -842,24 +829,6 @@ print(p)
 
 ## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
 ## font family 'Arial Narrow' not found in PostScript font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family 'Arial Narrow' not found in PostScript font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family 'Arial Narrow' not found in PostScript font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family 'Arial Narrow' not found in PostScript font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family 'Arial Narrow' not found in PostScript font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family 'Arial Narrow' not found in PostScript font database
-
-## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
-## font family 'Arial Narrow' not found in PostScript font database
 ```
 
 ```
@@ -2129,15 +2098,6 @@ print(p)
 ```
 
 ```
-## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
-## $y, : font family 'Arial Narrow' not found in PostScript font database
-
-## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
-## $y, : font family 'Arial Narrow' not found in PostScript font database
-
-## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
-## $y, : font family 'Arial Narrow' not found in PostScript font database
-
 ## Warning in grid.Call.graphics(L_text, as.graphicsAnnot(x$label), x$x, x
 ## $y, : font family 'Arial Narrow' not found in PostScript font database
 

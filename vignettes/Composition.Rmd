@@ -40,35 +40,6 @@ pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
 
 ### Barplots for composition
 
-Show OTU absolute abundance in each sample. Plot absolute taxon
-abundances:
-  
-```{r composition-example1b, fig.width=16, fig.height=8, message=FALSE}
-library(ggplot2)
-theme_set(theme_bw(22)) # Black/white color theme
-p <- plot_composition(pseq2, taxonomic.level = "Phylum") +
-  theme(legend.position = "bottom") +
-  guides(fill = guide_legend(nrow = 10, byrow = TRUE))
-print(p)       
-```
-
-Arrange by sample variable. Focus on the core taxa. Africans have more Prevotella as expected. Absolute counts:
-  
-```{r composition-example4, fig.width=13, fig.height=5}
-# Limit the analysis on core taxa and specific sample group
-pseq2 <- pseq %>%
-  core(detection = 10^4, prevalence = .5) %>%
-  subset_samples(group == "DI" & timepoint.within.group == 1)
-
-p <- plot_composition(pseq2,
-                      sample.sort = "nationality", # Sort by nationality
-                      x.label = "nationality") +   # Label by nationality
-  guides(fill = guide_legend(nrow = 5, byrow = TRUE)) +
-  theme(legend.position = "bottom")
-print(p)
-```
-
-
 Same with compositional (relative) abundances:
   
 ```{r composition-example4b, fig.width=12, fig.height=5, out.width="300px", fig.show="hold"}
@@ -78,16 +49,21 @@ library(hrbrthemes)
 library(gcookbook)
 library(tidyverse)
 
+# Limit the analysis on core taxa and specific sample group
+pseq2 <- pseq %>%
+  subset_samples(group == "DI" & timepoint.within.group == 1)
+
 p <- plot_composition(pseq2,
+		      taxonomic.level = "Phylum",
                       sample.sort = "nationality",
                       x.label = "nationality",
                       transform = "compositional") +
      guides(fill = guide_legend(ncol = 1)) +
      scale_y_percent() +
-     labs(x="Samples", y="Relative abundance (%)",
-                                   title="Relative abundance data",
-                                   subtitle="Subtitle",
-                                   caption="Caption here 'g'") + 
+     labs(x = "Samples", y = "Relative abundance (%)",
+                                   title = "Relative abundance data",
+                                   subtitle = "Subtitle",
+                                   caption = "Caption here 'g'") + 
      theme_ipsum(grid="Y")
 print(p)  
 ```
