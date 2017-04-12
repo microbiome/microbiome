@@ -40,7 +40,10 @@
 #' @keywords utilities
 intermediate_stability <- function (x, reference.point = NULL, method = "correlation", output = "scores") {
 
+  x0 <- x
+
   if (length(reference.point) > 1 && output == "scores") {
+
     scores <- c()
     for (i in 1:length(reference.point)) {
       scores[[i]] <- intermediate_stability(x, reference.point = reference.point[[i]], method = method, output = output)
@@ -58,20 +61,21 @@ intermediate_stability <- function (x, reference.point = NULL, method = "correla
      return(scores)
   }
   
-
   # Logarithmize the data with log10(1 + x) trick
-  pseq <- x		       
-  x <- log10(1 + t(abundances(pseq)@.Data))
-  meta <- sample_data(pseq)
+  x <- abundances(transform(x0, "log10"))
+  meta <- sample_data(x0)
 
   # Estimate stabilities for each OTU
   stability <- list()
-  for (tax in colnames(x)) {
+  for (tax in rownames(x)) {
+
     df <- meta
-    df$data <- x[, tax]
+    df$data <- x[tax,]
+
     stability[[tax]] <- estimate_stability(df, 
     		     	  reference.point = reference.point, 
 		     	  method = method)
+
   }
 
   if (output == "full") {

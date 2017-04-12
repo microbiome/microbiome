@@ -47,7 +47,11 @@ library(phyloseq)
 
 # Pick the OTU table
 otu <- t(abundances(pseq))
+```
 
+
+
+```r
 # SPIEC-EASI network reconstruction
 # In practice, use more repetitions
 net <- spiec.easi(otu, method='mb', lambda.min.ratio=1e-2, 

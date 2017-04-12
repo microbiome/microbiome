@@ -37,7 +37,7 @@ pseq <- pseq %>% subset_samples(DNA_extraction_method == "r")
 pseq <- microbiome::transform(pseq, "compositional")
 
 # Keep only the prevalent taxa to speed up examples
-pseq <- core(pseq, detection = .2/100, prevalence = 90/100)
+pseq <- core(pseq, detection = .1/100, prevalence = 99/100)
 
 # For cross-sectional analysis, use only the baseline time point:
 pseq0 <- baseline(pseq)
@@ -50,10 +50,7 @@ It has been reported that certain microbial groups exhibit bi-stable
 abundance distributions with distinct peaks at low and high
 abundances, and an instable intermediate abundance range. Instability
 at the intermediate abundance range is hence one indicator of
-bi-stability. [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) used straightforward correlation analysis to quantify how the distance
-from the intermediate abundance region (50% quantile) is associated
-with the observed shifts between consecutive time points. This can be
-calculated with:
+bi-stability. [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) used straightforward correlation analysis to quantify how the distance from the intermediate abundance region (50% quantile) is associated with the observed shifts between consecutive time points. 
 
 
 ```r
@@ -81,7 +78,7 @@ pseq0.log10 <- microbiome::transform(pseq0, "log10")
 set.seed(4433)
 # In practice, it is recommended to use more bootstrap iterations than in this example
 bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis",
-                               bs.iter = 20, peak.threshold = 10,
+                               bs.iter = 10, peak.threshold = 10,
 			       min.density = 10)
 ```
 
@@ -105,8 +102,6 @@ p <- ggplot(df,
 print(p)
 ```
 
-![plot of chunk bimodalitybistability](figure/bimodalitybistability-1.png)
-
 
 ### Tipping point detection
 
@@ -120,11 +115,11 @@ tipping point candidates.
 tax  <- names(which.max(bimodality.score))
 
 # Detect tipping points detection at log10 abundances 
-x <- log10(abundances(pseq)[tax,])
+x <- abundances(microbiome::transform(pseq, "log10"))[tax,]
 
 # Bootstrapped potential analysis to identify potential minima
 # in practice, use more bootstrap iterations
-potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]), bs.iter = 20)$minima
+potential.minima <- potential_analysis(x, bs.iter = 10)$minima
 
 # Same with earlywarnings package (without bootstrap ie. less robust)
 # library(earlywarnings)
@@ -138,7 +133,7 @@ print(tipping.point)
 ```
 
 ```
-## [1] 0.005024845
+## [1] 0.004831929
 ```
 
 
