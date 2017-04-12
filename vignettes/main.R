@@ -64,12 +64,10 @@ for (myfile in fs) {
 }
 
 # Time per index.page
-par(mar = c(2, 10, 1, 1)); barplot(sort(times), horiz = T, las = 2)
+par(mar = c(3, 10, 1, 1)); barplot(sort(times), horiz = T, las = 1)
 
 system("git add *.md")
 system("git add figure/*")
 system("git add *.Rmd")
 system("git commit -a -m'markdown update'")
 system("git push")
-
-

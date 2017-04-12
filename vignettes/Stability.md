@@ -81,7 +81,7 @@ pseq0.log10 <- microbiome::transform(pseq0, "log10")
 set.seed(4433)
 # In practice, it is recommended to use more bootstrap iterations than in this example
 bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis",
-                               bs.iter = 50, peak.threshold = 10,
+                               bs.iter = 20, peak.threshold = 10,
 			       min.density = 10)
 ```
 
@@ -138,7 +138,7 @@ print(tipping.point)
 ```
 
 ```
-## [1] 0.005096475
+## [1] 0.005024845
 ```
 
 

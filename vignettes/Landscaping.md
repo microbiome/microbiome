@@ -30,6 +30,7 @@ Load example data:
 library(microbiome)
 library(phyloseq)
 library(ggplot2)
+
 data(dietswap)
 pseq <- dietswap
 
@@ -88,27 +89,18 @@ Population densities for Dialister:
 # Load libraries
 library(microbiome)
 library(phyloseq)
-
-# Example data from
-# http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html
-data(atlas1006)
-
-# Pick the subset of RBB-preprocessed samples from time point 0
-x <- subset_samples(atlas1006, time == 0 & DNA_extraction_method == "r")
+pseq <- dietswap
 
 # Visualize population densities for specific taxa
-plot_density(x, "Dialister") + ggtitle("Absolute abundance")
+plot_density(pseq, "Dialister") + ggtitle("Absolute abundance")
 
-# Same with log10 scaled X axis
-plot_density(x, "Dialister", log10 = TRUE) + ggtitle("Log10")
-
-# Same with log10 compositionals
-x <- microbiome::transform(x, "compositional")
+# Same with log10 compositional abundances
+x <- microbiome::transform(pseq, "compositional")
 tax <- "Dialister"
 plot_density(x, tax, log10 = TRUE) +
   ggtitle("Relative abundance") +
   xlab("Relative abundance (%)")
 ```
 
-<img src="figure/hist-1.png" title="plot of chunk hist" alt="plot of chunk hist" width="280px" /><img src="figure/hist-2.png" title="plot of chunk hist" alt="plot of chunk hist" width="280px" /><img src="figure/hist-3.png" title="plot of chunk hist" alt="plot of chunk hist" width="280px" />
+<img src="figure/hist-1.png" title="plot of chunk hist" alt="plot of chunk hist" width="280px" /><img src="figure/hist-2.png" title="plot of chunk hist" alt="plot of chunk hist" width="280px" />
 
