@@ -37,9 +37,8 @@ pseq <- dietswap
 # Convert to compositional data
 pseq.rel <- microbiome::transform(pseq, "compositional")
 
-# Pick core taxa with with >10 percent prevalence of the samples
-# at a >1 percent relative abundance min.density
-pseq.core <- core(pseq.rel, detection = .01, prevalence = .1)
+# Pick core taxa
+pseq.core <- core(pseq.rel, detection = 5/100, prevalence = 50/100)
 ```
 
 
