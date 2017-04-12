@@ -1,7 +1,7 @@
 #' @title Bimodality Analysis
 #' @description Estimate bimodality scores.
 #' @param x A vector, matrix, or a phyloseq object
-#' @param method bimodality quantification method ("potential_analysis", "Sarle.finite.sample", or "Sarle.asymptotic").
+#' @param method bimodality quantification method ("potential_analysis", "Sarle.finite.sample", or "Sarle.asymptotic"). If method = "all", then a data.frame with all scores is returned.
 #' @param bw.adjust Bandwidth adjustment
 #' @param bs.iter Bootstrap iterations
 #' @param min.density minimum accepted density for a maximum; as a multiple of kernel height
@@ -60,9 +60,28 @@
 #'  # The classical DIP test:
 #'  # quantifies unimodality. Values range between 0 to 1. 
 #'  # dip.test(x, simulate.p.value = TRUE, B = 200)$statistic
-#'  # Values less than 0.05 indicate significant deviation from unimodality. 
+#'  # Values less than 0.05 indicate significant deviation from unimodality.
+#'  # Therefore, to obtain an increasing multimodality score, use
+#   # library(diptest)
+#'  # multimodality.dip <- apply(abundances(pseq), 1, function (x) {1 - unname(dip.test(x)$p.value)})
+#'
 #' @keywords utilities
 bimodality <- function (x, method = "potential_analysis", peak.threshold = 1, bw.adjust = 1, bs.iter = 100, min.density = 1, verbose = TRUE) {
+
+  accepted <- intersect(method, c("potential_analysis", "Sarle.finite.sample", "Sarle.asymptotic"))
+
+  if (length(method) > 1 || method == "all") {
+    method <- accepted
+    tab <- NULL
+    for (meth in method) {
+      b <- bimodality(x, method = meth, peak.threshold, bw.adjust, bs.iter, min.density, verbose)
+      tab <- cbind(tab, b)
+    }
+    colnames(tab) <- method
+    tab <- as.data.frame(tab)
+    return(tab)
+  }
+
 
   if (is.vector(x)) {
 

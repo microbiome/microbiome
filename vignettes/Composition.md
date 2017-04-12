@@ -50,53 +50,7 @@ Same with compositional (relative) abundances:
 library(hrbrthemes)
 library(gcookbook)
 library(tidyverse)
-```
 
-```
-## Loading tidyverse: tibble
-## Loading tidyverse: readr
-## Loading tidyverse: purrr
-```
-
-```
-## Warning: package 'tibble' was built under R version 3.3.3
-```
-
-```
-## Warning: package 'readr' was built under R version 3.3.3
-```
-
-```
-## Conflicts with tidy packages ----------------------------------------------
-```
-
-```
-## arrange():   dplyr, plyr
-## collapse():  dplyr, IRanges
-## combine():   dplyr, Biobase, gridExtra, BiocGenerics
-## compact():   purrr, plyr
-## count():     dplyr, plyr
-## desc():      dplyr, IRanges, plyr
-## expand():    tidyr, Matrix, S4Vectors
-## failwith():  dplyr, plyr
-## filter():    dplyr, stats
-## first():     dplyr, S4Vectors
-## id():        dplyr, plyr
-## lag():       dplyr, stats
-## map():       purrr, mclust
-## mutate():    dplyr, plyr
-## Position():  ggplot2, BiocGenerics, base
-## reduce():    purrr, GenomicRanges, IRanges
-## regroup():   dplyr, IRanges
-## rename():    dplyr, S4Vectors, plyr
-## select():    dplyr, MASS
-## simplify():  purrr, IRanges
-## slice():     dplyr, IRanges
-## summarise(): dplyr, plyr
-## summarize(): dplyr, plyr
-```
-
-```r
 # Limit the analysis on core taxa and specific sample group
 pseq2 <- pseq %>%
   subset_samples(group == "DI" & timepoint.within.group == 1)
@@ -119,9 +73,7 @@ print(p)
 ```
 ## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
 ## font family 'Arial Narrow' not found in PostScript font database
-```
 
-```
 ## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
 ## font family 'Arial Narrow' not found in PostScript font database
 

@@ -53,50 +53,20 @@ available.
 
 
 Multimodality score using [potential analysis with
-bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
-
+bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). Sarle's bimodality coefficient is available as well; and for classical test of unimodality, see the DIP test.
 
 
 ```r
 # Bimodality is better estimated from log10 abundances
 pseq0.log10 <- microbiome::transform(pseq0, "log10")
-bimodality.pb <- bimodality(pseq0.log10, method = "potential_analysis")
+bimodality <- bimodality(pseq0.log10, method = "potential_analysis", bs.iter = 20)
 ```
-
-Sarle's bimodality coefficient:
-
-
-```r
-bimodality.sarle <- bimodality(pseq0.log10, method = "Sarle.finite.sample")
-```
-
-DIP test is another standard multimodality test, available via the
-[diptest](https://cran.r-project.org/web/packages/diptest/index.html)
-package. Use the 1-p as the score here
-
-
-```r
-library(diptest)
-bimodality.dip <- apply(abundances(pseq0.log10), 1, function (x) {1 - unname(dip.test(x)$p.value)})
-```
-
-Compare the alternative bimodality scores
-
-
-```r
-b <- cbind(Potential = bimodality.pb, Sarle = bimodality.sarle)
-plot(b)
-```
-
-<img src="figure/bimodalitycomp-1.png" title="plot of chunk bimodalitycomp" alt="plot of chunk bimodalitycomp" width="400px" />
-
 
 ### Visualize population densities for unimodal and bimodal groups
 
 
 ```r
 # Pick the most and least bimodal taxa as examples
-bimodality <- bimodality.pb
 unimodal  <- names(sort(bimodality))[[1]]
 bimodal  <- rev(names(sort(bimodality)))[[1]]
 
@@ -129,7 +99,7 @@ x <- log10(abundances(pseq)[tax,])
 
 # Bootstrapped potential analysis to identify potential minima
 set.seed(3432)
-potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]))$minima
+potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]), bs.iter = 50)$minima
 # Same with earlywarnings package (without bootstrap ie. less robust)
 # library(earlywarnings)
 # res <- livpotential_ews(x)$min.points
@@ -142,7 +112,7 @@ print(tipping.point)
 ```
 
 ```
-## [1] 0.01049229
+## [1] 0.005211903
 ```
 
 

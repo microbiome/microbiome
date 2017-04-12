@@ -10,7 +10,7 @@ bimodality(x, method = "potential_analysis", peak.threshold = 1,
 \arguments{
 \item{x}{A vector, matrix, or a phyloseq object}
 
-\item{method}{bimodality quantification method ("potential_analysis", "Sarle.finite.sample", or "Sarle.asymptotic").}
+\item{method}{bimodality quantification method ("potential_analysis", "Sarle.finite.sample", or "Sarle.asymptotic"). If method = "all", then a data.frame with all scores is returned.}
 
 \item{peak.threshold}{Mode detection threshold}
 
@@ -64,7 +64,10 @@ The coefficient lies in (0, 1).
  # The classical DIP test:
  # quantifies unimodality. Values range between 0 to 1. 
  # dip.test(x, simulate.p.value = TRUE, B = 200)$statistic
- # Values less than 0.05 indicate significant deviation from unimodality. 
+ # Values less than 0.05 indicate significant deviation from unimodality.
+ # Therefore, to obtain an increasing multimodality score, use
+ # multimodality.dip <- apply(abundances(pseq), 1, function (x) {1 - unname(dip.test(x)$p.value)})
+
 }
 \references{
 \itemize{
