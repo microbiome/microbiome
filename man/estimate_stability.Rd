@@ -4,7 +4,7 @@
 \alias{estimate_stability}
 \title{Estimate Stability}
 \usage{
-estimate_stability(df, reference.point = NULL, method = "lm")
+estimate_stability(df, reference.point = NULL, method = "lm", spl.list)
 }
 \arguments{
 \item{df}{Combined input data vector (samples x variables) and metadata
@@ -17,6 +17,8 @@ used (min + (max - min)/2)}
 
 \item{method}{"lm" (linear model) or "correlation"; the linear model takes
 time into account as a covariate}
+
+\item{spl}{split object to speed up}
 }
 \value{
 A list with following elements: 
@@ -53,4 +55,4 @@ Samples with missing data, and subjects with less than two time point are exclud
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
 }
-\keyword{utilities}
+\keyword{internal}

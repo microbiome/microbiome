@@ -54,7 +54,7 @@ pseq2 <- pseq %>%
   subset_samples(group == "DI" & timepoint.within.group == 1)
 
 p <- plot_composition(pseq2,
-		      taxonomic.level = "Phylum",
+		      taxonomic.level = "Genus",
                       sample.sort = "nationality",
                       x.label = "nationality",
                       transform = "compositional") +
