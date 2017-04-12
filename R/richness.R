@@ -36,7 +36,7 @@ richness <- function(x, detection = NULL) {
       tab <- cbind(tab, r)
     }
     
-    colnames(tab) <- names(ths)
+    colnames(tab) <- gsub("%", "", names(ths))
     r <- tab
     
   } else {
