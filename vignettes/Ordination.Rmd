@@ -48,15 +48,13 @@ Project the samples with the given method and dissimilarity measure.
 ```{r ordination2, message=FALSE, warning=FALSE, results="hide"}
 # Ordinate the data
 set.seed(4235421)
-proj <- get_ordination(pseq.core, "NMDS", "bray")
+# proj <- get_ordination(pseq, "MDS", "bray")
+ord <- ordinate(pseq, "MDS", "bray")
 ```
-
-
-Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
 ```{r ordination-pca-ordination21, message=FALSE, message=FALSE, fig.height=5, fig.width=8}
 # "quiet" is here used to suppress intermediate output
-quiet(p <- plot_ordination(pseq.core, ordinate(pseq.core, "NMDS", "bray"), type = "taxa", color = "Phylum", title = "Taxa ordination"))
+quiet(p <- plot_ordination(pseq, ord, type = "taxa", color = "Phylum", title = "Taxa ordination"))
 print(p)
 ```
 
@@ -70,7 +68,7 @@ p + facet_wrap(~Phylum, 5)
 ### Multidimensional scaling (MDS / PCoA)
 
 ```{r ordination-ordinate23, warning=FALSE, message=FALSE, fig.width=10, fig.height=8, out.width="200px"}
-plot_ordination(pseq, ordinate(pseq, "MDS"), color = "nationality") +
+plot_ordination(pseq, ord, color = "nationality") +
                 geom_point(size = 5)
 ```
 
@@ -80,7 +78,6 @@ plot_ordination(pseq, ordinate(pseq, "MDS"), color = "nationality") +
 ```{r ordination-ordinate24a, warning=FALSE, message=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
 # With samples
 pseq.cca <- ordinate(pseq, "CCA")
-
 p <- plot_ordination(pseq, pseq.cca,
        type = "samples", color = "nationality")
 p <- p + geom_point(size = 4)

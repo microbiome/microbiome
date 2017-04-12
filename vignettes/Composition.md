@@ -50,7 +50,36 @@ Same with compositional (relative) abundances:
 library(hrbrthemes)
 library(gcookbook)
 library(tidyverse)
+```
 
+```
+## Loading tidyverse: tibble
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+```
+
+```
+## Warning: package 'tibble' was built under R version 3.3.3
+```
+
+```
+## Warning: package 'readr' was built under R version 3.3.3
+```
+
+```
+## Conflicts with tidy packages ----------------------------------------------
+```
+
+```
+## combine():  dplyr, gridExtra, BiocGenerics
+## filter():   dplyr, stats
+## lag():      dplyr, stats
+## map():      purrr, mclust
+## Position(): ggplot2, BiocGenerics, base
+## select():   dplyr, MASS
+```
+
+```r
 # Limit the analysis on core taxa and specific sample group
 pseq2 <- pseq %>%
   subset_samples(group == "DI" & timepoint.within.group == 1)
@@ -73,7 +102,9 @@ print(p)
 ```
 ## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
 ## font family 'Arial Narrow' not found in PostScript font database
+```
 
+```
 ## Warning in grid.Call(L_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
 ## font family 'Arial Narrow' not found in PostScript font database
 

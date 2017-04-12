@@ -50,16 +50,14 @@ Project the samples with the given method and dissimilarity measure.
 ```r
 # Ordinate the data
 set.seed(4235421)
-proj <- get_ordination(pseq.core, "NMDS", "bray")
+# proj <- get_ordination(pseq, "MDS", "bray")
+ord <- ordinate(pseq, "MDS", "bray")
 ```
-
-
-Ordinate the taxa in NMDS plot with Bray-Curtis distances
 
 
 ```r
 # "quiet" is here used to suppress intermediate output
-quiet(p <- plot_ordination(pseq.core, ordinate(pseq.core, "NMDS", "bray"), type = "taxa", color = "Phylum", title = "Taxa ordination"))
+quiet(p <- plot_ordination(pseq, ord, type = "taxa", color = "Phylum", title = "Taxa ordination"))
 print(p)
 ```
 
@@ -77,7 +75,7 @@ p + facet_wrap(~Phylum, 5)
 
 
 ```r
-plot_ordination(pseq, ordinate(pseq, "MDS"), color = "nationality") +
+plot_ordination(pseq, ord, color = "nationality") +
                 geom_point(size = 5)
 ```
 
@@ -90,7 +88,6 @@ plot_ordination(pseq, ordinate(pseq, "MDS"), color = "nationality") +
 ```r
 # With samples
 pseq.cca <- ordinate(pseq, "CCA")
-
 p <- plot_ordination(pseq, pseq.cca,
        type = "samples", color = "nationality")
 p <- p + geom_point(size = 4)

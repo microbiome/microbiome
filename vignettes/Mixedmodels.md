@@ -76,6 +76,18 @@ library(lme4)
 ```
 
 ```
+## The following object is masked from 'package:S4Vectors':
+## 
+##     expand
+```
+
+```
+## The following objects are masked from 'package:SpiecEasi':
+## 
+##     tril, triu
+```
+
+```
 ## The following object is masked from 'package:tidyr':
 ## 
 ##     expand

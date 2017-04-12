@@ -29,7 +29,7 @@ data(atlas1006)
 # Rename the example data
 pseq <- atlas1006
 
-# Focus on specific DNA extraction method
+# Focus on specific subset
 pseq <- pseq %>% subset_samples(DNA_extraction_method == "r")
 
 # Use relative abundances
