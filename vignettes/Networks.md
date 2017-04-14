@@ -26,8 +26,8 @@ pseq <- dietswap
 
 # Keep only the prevalent taxa to speed up examples
 pseq <- core(pseq, detection = 10^3, prevalence = 80/100)
+pseq <- subset_samples(pseq, nationality == "AFR" & group == "DI" & bmi_group == "lean")
 ```
-
 
 
 ### Taxonomic network reconstruction 
@@ -46,7 +46,7 @@ library(SpiecEasi) #install_github("zdk123/SpiecEasi")
 library(phyloseq)
 
 # Pick the OTU table
-otu <- t(abundances(pseq))
+otu <- abundances(pseq)
 ```
 
 
@@ -54,12 +54,12 @@ otu <- t(abundances(pseq))
 ```r
 # SPIEC-EASI network reconstruction
 # In practice, use more repetitions
-net <- spiec.easi(otu, method='mb', lambda.min.ratio=1e-2, 
+net <- spiec.easi(t(otu), method='mb', lambda.min.ratio=1e-2, 
                   nlambda=5, icov.select.params=list(rep.num=5))
 
 ## Create graph object
 n <- net$refit
-colnames(n) <- rownames(n) <- colnames(otu)
+colnames(n) <- rownames(n) <- rownames(otu)
 
 # Network format
 library(network)
@@ -73,7 +73,7 @@ netw <- network(as.matrix(n), directed = FALSE)
 # coord <- layout.fruchterman.reingold(ig)
 
 ## set size of vertex to log2 mean abundance 
-# vsize <- log2(apply(otu, 2, mean))
+# vsize <- log2(rowMeans(otu))
 
 # Visualize the network
 # print(plot(ig, layout = coord, vertex.size = vsize, vertex.label = names(vsize)))
@@ -101,7 +101,7 @@ library(sna)
 library(ggplot2)
 library(intergraph) # ggnet2 works also with igraph with this
 
-phyla <- map_levels(colnames(otu),
+phyla <- map_levels(rownames(otu),
            from = "Genus", to = "Phylum",
            tax_table(pseq))
 
