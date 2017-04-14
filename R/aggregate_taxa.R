@@ -36,6 +36,7 @@ aggregate_taxa <- function (x, level, top = NULL) {
     tt <- tax_table(pseq)
     if (!is.null(top)) {
       if (is.numeric(top)) {top <- top_taxa(aggregate_taxa(pseq, level), top)}
+
       tt[which(!tt[, level] %in% top), level] <- "Other"
       tax_table(pseq) <- tt
     }

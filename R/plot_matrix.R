@@ -161,8 +161,7 @@ plot_matrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL,
     }
     
     # Return default margins
-    par(mar = c(5, 4, 4, 2) + 0.1)
-    
+    par(mar = c(5, 4, 4, 2) + 0.1)    
     return(list(colors = colors, breaks = col.breaks + midpoint, 
                 palette.function = palette))
     

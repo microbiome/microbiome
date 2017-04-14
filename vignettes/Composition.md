@@ -53,7 +53,7 @@ library(tidyverse)
 
 # Limit the analysis on core taxa and specific sample group
 p <- plot_composition(pseq2,
-		      taxonomic.level = "Genus",
+		      taxonomic.level = "OTU",
                       sample.sort = "nationality",
                       x.label = "nationality",
                       transform = "compositional") +
@@ -73,7 +73,7 @@ Averaged by group:
 
 ```r
 p <- plot_composition(pseq2,
-                      average_by = "nationality", transform = "compositional")
+                      average_by = "bmi_group", transform = "compositional")
 print(p)
 ```
 
@@ -86,7 +86,7 @@ Heatmap for CLR-transformed abundances, with samples and OTUs sorted with the ne
   
 
 ```r
-p <- plot_composition(pseq2, plot.type = "heatmap", transform = "clr"
+plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
                       sample.sort = "neatmap", otu.sort = "neatmap",
                       mar = c(6, 13, 1, 1))
 ```
