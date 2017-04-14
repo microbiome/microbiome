@@ -39,11 +39,8 @@ pseq.rel <- microbiome::transform(pseq, "compositional")
 
 # Pick core taxa
 pseq.core <- core(pseq.rel, detection = 5/100, prevalence = 50/100)
-pseq.core <- subset_samples(pseq.core, sex == "Female" & bmi_group == "lean")
-```
-
-```
-## Error in validObject(.Object): invalid class "sample_data" object: Sample Data must have non-zero dimensions.
+pseq.core <- subset_samples(pseq.core, sex == "Female" &
+	                               bmi_group == "overweight")
 ```
 
 
