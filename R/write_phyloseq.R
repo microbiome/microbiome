@@ -16,6 +16,9 @@
 #'  }
 #' @keywords utilities
 write_phyloseq <- function(x, type = "all", path = getwd()){
+
+  # TODO make read_phyloseq as well
+
   if (type == "OTU" || type == "all"){
     f <- paste(path, "otu_table.csv", sep = "/");
     message("Writing OTU in the file ", f);
