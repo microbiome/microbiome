@@ -36,7 +36,7 @@ pseq <- core(dietswap, detection = 10^3, prevalence = 95/100)
 
 # Pick sample subset
 library(phyloseq)
-pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR")
+pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR" & timepoint.within.group == 1)
 ```
 
 ### Barplots for composition
@@ -52,9 +52,6 @@ library(gcookbook)
 library(tidyverse)
 
 # Limit the analysis on core taxa and specific sample group
-pseq2 <- pseq %>%
-  subset_samples(group == "DI" & timepoint.within.group == 1)
-
 p <- plot_composition(pseq2,
 		      taxonomic.level = "Genus",
                       sample.sort = "nationality",

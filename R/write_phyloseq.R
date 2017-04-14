@@ -1,34 +1,44 @@
-#' @title  Saving Various Files as Comma Seperated Files
-#' @description This command will save the otu,taxonomy and meta data as *.csv file for manual inspection.
+#' @title Exporting phyloseq Data in CSV Files
+#' @description Writes the otu, taxonomy and metadata in csv files.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param type "OTU" or "TAXA" or "METADATA"
+#' @param path Path to the directory/folder where the data will be written. Uses the working directory by default.
 #' @return  Output file path (a string)
 #' @export
 #' @examples \dontrun{
 #'   library(microbiome)
 #'   data(dietswap)
 #'   pseq <- dietswap
+#'   write_phyloseq(pseq) # By default writes all info at once (ie OTU/TAXONOMY/METADATA)
 #'   write_phyloseq(pseq, "OTU")
-#'   write_phyloseq(pseq, "TAXA")
+#'   write_phyloseq(pseq, "TAXONOMY")
 #'   write_phyloseq(pseq, "METADATA")
 #'  }
 #' @keywords utilities
-write_phyloseq <- function(x, type){
-  if (type == "OTU"){
-    f <- paste(getwd(), "otu_table.csv", sep = "/");
+write_phyloseq <- function(x, type = "all", path = getwd()){
+  if (type == "OTU" || type == "all"){
+    f <- paste(path, "otu_table.csv", sep = "/");
     message("Writing OTU in the file ", f);
-    y <- as.data.frame(x@otu_table);
+    # y <- as.data.frame(x@otu_table);
+    if (f %in% dir(path)) {warning(paste("The file with the same name", f, "exists in the given path and is overwritten."))}
+    y <- abundances(x) # Let us use abundances function here as it is guaranteed to be taxa x samples always
     write.csv(y, file = f, fileEncoding = "UTF-16LE");
-    } else if (type == "TAXA"){
-      f <- paste(getwd(), "taxa_table.csv", sep = "/");
-      message("Writing TAXA in the file ", f)
-    y <- as.data.frame(x@tax_table);
+  } else if (type == "TAXONOMY" || type == "all"){ # Renamed from TAXA to TAXONOMY as the latter is used elsewhere
+    f <- paste(path, "taxonomy_table.csv", sep = "/");
+    message("Writing TAXONOMY in the file ", f)
+    if (f %in% dir(path)) {warning(paste("The file with the same name", f, "exists in the given path and is overwritten."))}    
+    y <- as.data.frame(tax_table(x))
     write.csv(y, file = f, fileEncoding = "UTF-16LE");
-    } else if (type == "METADATA"){
-      f <- paste(getwd(), "meta_table.csv", sep = "/");
-      message("Writing METADATA in the file ", f)
-    y <- as.data.frame(x@sam_data);
+  } else if (type == "METADATA" || type == "all"){
+    f <- paste(path, "metadata_table.csv", sep = "/");
+    message("Writing METADATA in the file ", f)
+    if (f %in% dir(path)) {warning(paste("The file with the same name", f, "exists in the given path and is overwritten."))}    
+    y <- meta(x);
     write.csv(y, file = f, fileEncoding = "UTF-16LE")
-    }
+  }
+
+  # It is good practice to return something explicitly.
+  # Returning path could be useful.
+  return(path)
   
 }
