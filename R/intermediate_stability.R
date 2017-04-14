@@ -67,14 +67,33 @@ intermediate_stability <- function (x, reference.point = NULL, method = "correla
 
   # Estimate stabilities for each OTU
   stability <- list()
+  df <- meta
+  
+  # Ensure time is numeric
+  df$time <- as.numeric(as.character(df$time))
+  
+  # Remove subjects with only one measurement
+  df <- df[df$subject %in% names(which(table(df$subject) > 1)),]
+  
+  # Split data by subject
+  spl <- split(df, as.character(df$subject))
+  spl.list <- list()
+  for (i in 1:length(spl)) {
+    # Ensure the measurements are ordered in time
+    spl.list[[i]] <- list(spl = spl[[i]][order(spl[[i]]$time),], time.difs = diff(spl[[i]]$time))
+  }
+
   for (tax in rownames(x)) {
 
-    df <- meta
-    df$data <- x[tax,]
+    df$data <- x[tax, rownames(df)]
+    # Remove NAs and Infinities
+    #keep <- which(!is.na(df$data))
+    #df <- df[keep,]
 
     stability[[tax]] <- estimate_stability(df, 
     		     	  reference.point = reference.point, 
-		     	  method = method)
+		     	  method = method,
+			  spl.list)
 
   }
 
@@ -99,7 +118,8 @@ intermediate_stability <- function (x, reference.point = NULL, method = "correla
 #'                        this point. By default the intermediate range is
 #'                        used (min + (max - min)/2)
 #' @param method "lm" (linear model) or "correlation"; the linear model takes
-#'               time into account as a covariate 
+#'               time into account as a covariate
+#' @param spl split object to speed up
 #' @return A list with following elements: 
 #' 	     stability: estimated stability
 #'	     data: processed data set used in calculations	    
@@ -125,47 +145,37 @@ intermediate_stability <- function (x, reference.point = NULL, method = "correla
 #'   	  data = rnorm(100)))
 #'   s <- estimate_stability_single(df, reference.point = NULL, method = "lm")
 #' }
-#' @keywords utilities
-estimate_stability <- function (df, reference.point = NULL, method = "lm") {
-
-  # Remove NAs and Infinities
-  df <- df[!is.na(df$data),]
-
-  # Ensure time is numeric
-  df$time <- as.numeric(as.character(df$time))
+#' @keywords internal
+estimate_stability <- function (df, reference.point = NULL, method = "lm", spl.list) {
 
   # Detect intermediate value in the overall data if reference point not given
   if (is.null(reference.point)) {
     reference.point <- mean(range(df$data))
   }
 
-  # Remove subjects with only one measurement
-  df <- df[df$subject %in% names(which(table(df$subject) > 1)),]
-
   if (nrow(df) < 2) {
     warning("No subjects with time series in estimate_stability. Returninng NULL"); return(NULL)
   } 
 
-  # Split data by subject
-  spl <- split(df, as.character(df$subject))
-
   dfis <- NULL
 
-  for (spli in spl) {
+  for (i in 1:length(spl.list)) {
 
-    # Ensure the measurements are ordered in time
-    spli <- spli[order(spli$time),]
+    spli <- spl.list[[i]]$spl
+    spli$data <- unlist(df[rownames(spli),"data"], use.names = FALSE)
+    time.difs <- spl.list[[i]]$time.difs
 
     # Calculate differences between consecutive time points; 
     # and the initial values; and their distance from reference
     data.difs <- diff(spli$data)
-    time.difs <- diff(spli$time)
-    start.points <- spli$data[-nrow(spli)]
 
+    start.points <- spli$data[-nrow(spli)]
     start.reference.distance <- start.points - reference.point
 
     # Organize into data frame
-    dfi <- data.frame(change = data.difs, time = time.difs,
+    dfi <- data.frame(
+    	     change = data.difs,
+	     time = time.difs,
     	     start = start.points,
 	     start.reference.distance = start.reference.distance)
 
@@ -174,16 +184,19 @@ estimate_stability <- function (df, reference.point = NULL, method = "lm") {
 
   }
 
-  dfis.left <- subset(dfis, start.reference.distance < 0)
+  dfis.left  <- subset(dfis, start.reference.distance < 0)
   dfis.right <- subset(dfis, start.reference.distance > 0)
 
   # Simplified stability calculation (do not consider time effect)
   stability <- NULL
   stability.left <- stability.right <- NA
+  
   if (method == "correlation") {
+  
     # For each subject, check distance from the stability point
     # at the baseline time point
     baseline.distance <- abs(dfis$start.reference.distance)
+    
     # For each subject, calculate deviation between the first and second time point
     followup.distance <- abs(dfis$change)
     stability <- cor(baseline.distance, followup.distance)  
@@ -196,7 +209,7 @@ estimate_stability <- function (df, reference.point = NULL, method = "lm") {
 
     }
 
-    if (nrow(dfis.right)>10) {
+    if (nrow(dfis.right) > 10) {
       baseline.distance <- abs(dfis.right$start.reference.distance)
       followup.distance <- dfis.right$change
       stability.right <- -cor(baseline.distance, followup.distance)  
@@ -204,7 +217,8 @@ estimate_stability <- function (df, reference.point = NULL, method = "lm") {
 
 
   } else if (method == "lm") {
-    # Advanced calculation, take time into account with linear model (also possible to check p-values later if needed)
+    # Advanced calculation, take time into account with linear model
+    # (also possible to check p-values later if needed)
     stability <- coef(summary(lm(abs(change) ~ time + abs(start.reference.distance), data = dfis)))["abs(start.reference.distance)", "Estimate"]
   
     if (nrow(dfis.left)>10){ 
