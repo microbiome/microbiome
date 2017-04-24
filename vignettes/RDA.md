@@ -118,7 +118,7 @@ permutest(rda.result)
 ## na.action = na.fail)
 ## Permutation test for all constrained eigenvalues
 ## Pseudo-F:	 0.3285983 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.98
+## Significance:	 0.99
 ```
 
 

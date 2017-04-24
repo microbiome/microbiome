@@ -39,6 +39,8 @@ pseq.rel <- microbiome::transform(pseq, "compositional")
 
 # Pick core taxa
 pseq.core <- core(pseq.rel, detection = 5/100, prevalence = 50/100)
+pseq.core <- subset_samples(pseq.core, sex == "Female" &
+	                               bmi_group == "overweight")
 ```
 
 

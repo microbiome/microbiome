@@ -2,28 +2,31 @@
 % Please edit documentation in R/write_phyloseq.R
 \name{write_phyloseq}
 \alias{write_phyloseq}
-\title{Saving Various Files as Comma Seperated Files}
+\title{Exporting phyloseq Data in CSV Files}
 \usage{
-write_phyloseq(x, type)
+write_phyloseq(x, type = "all", path = getwd())
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
 \item{type}{"OTU" or "TAXA" or "METADATA"}
+
+\item{path}{Path to the directory/folder where the data will be written. Uses the working directory by default.}
 }
 \value{
 Output file path (a string)
 }
 \description{
-This command will save the otu,taxonomy and meta data as *.csv file for manual inspection.
+Writes the otu, taxonomy and metadata in csv files.
 }
 \examples{
 \dontrun{
   library(microbiome)
   data(dietswap)
   pseq <- dietswap
+  write_phyloseq(pseq) # By default writes all info at once (ie OTU/TAXONOMY/METADATA)
   write_phyloseq(pseq, "OTU")
-  write_phyloseq(pseq, "TAXA")
+  write_phyloseq(pseq, "TAXONOMY")
   write_phyloseq(pseq, "METADATA")
  }
 }
