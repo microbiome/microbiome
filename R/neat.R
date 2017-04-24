@@ -30,9 +30,8 @@
 #' @keywords utilities
 neat <- function (x, arrange = "both", method = "NMDS", distance = "bray", first.feature = NULL, first.sample = NULL, ...) {
 
-  if (class(x) == "phyloseq") {
-    x <- abundances(x)
-  }
+  # Ensure data is in matrix form     
+  x <- abundances(x)
 
   if (is.null(rownames(x))) {
     rownames(x) = as.character(1:nrow(x))
