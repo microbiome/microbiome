@@ -5,8 +5,7 @@
 \alias{filter_prevalent}
 \title{Core Microbiota}
 \usage{
-core(x, detection, prevalence, method = "standard", Nsample = NULL,
-  bs.iter = 1000, I.max = NULL, include.lowest = FALSE)
+core(x, detection, prevalence, include.lowest = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -14,18 +13,6 @@ core(x, detection, prevalence, method = "standard", Nsample = NULL,
 \item{detection}{Detection threshold for absence/presence (greater or equal).}
 
 \item{prevalence}{Prevalence threshold (in [0, 1]; greater or equal)}
-
-\item{method}{Either "standard" or "bootstrap". The standard methods selects
-the taxa that exceed the given detection and prevalence threshold.
-The bootstrap method is more robust an described in Salonen et al. (2012).
-Note that the results may depend on the random seed unless a sufficiently
-large bootstrap sample size is used.}
-
-\item{Nsample}{Only needed for method "bootstrap". Bootstrap sample size, default is the same size as data.}
-
-\item{bs.iter}{Only needed for method "bootstrap". Bootstrap iterations.}
-
-\item{I.max}{Only needed for method "bootstrap". Upper limit for intensity threshold. Later addition. Set to NULL (default) to replicate Salonen et al.}
 
 \item{include.lowest}{Include the lower boundary of the detection and prevalence cutoffs. FALSE by default.}
 
@@ -39,15 +26,15 @@ Filter the phyloseq object to include only prevalent taxa.
 }
 \examples{
   data(dietswap)
-  # In practice, use more bootstrap iterations
-  pseq <- core(dietswap, 200, .2, bs.iter = 20)
+  # Detection threshold 0 (strictly greater by default);
+  # Prevalence threshold 50 percent (strictly greater by default)
+  pseq <- core(dietswap, 0, 50/100)
 
 }
 \references{
-The core microbiota bootstrap method implemented with this function:
 Salonen A, Salojarvi J, Lahti L, de Vos WM. The adult intestinal
-core microbiota is determined by analysis depth and health
-status. Clinical Microbiology and Infection 18(S4):16-20, 2012
+  core microbiota is determined by analysis depth and health
+  status. Clinical Microbiology and Infection 18(S4):16-20, 2012
   To cite the microbiome R package, see citation('microbiome')
 }
 \author{

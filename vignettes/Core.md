@@ -70,15 +70,11 @@ head(prevalence(pseq.rel, detection = 1, sort = TRUE, count = TRUE))
 
 ### Core microbiota analysis
 
-If you only need the names of the core taxa, do as follows. The standard method corresponds to taxa that exceed the given prevalence and detection thresholds. The bootstrap method is slower but more robust ([Salonen et al. CMI (2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract)); it reduces random sampling effects. 
+If you only need the names of the core taxa, do as follows. This returns the taxa that exceed the given prevalence and detection thresholds. 
 
 
 ```r
-# Standard method (based on simple detection and prevalence thresholding)
-core.taxa.standard <- core_members(pseq.rel, detection = 5/100, prevalence = 50/100,  method = "standard")
-
-# Bootrap method: slower but more robust; takes sampling effects into account
-core.taxa.bootstrap <- core_members(pseq.rel, detection = 5/100, prevalence = 50/100,  method = "bootstrap", bs.iter = 10)
+core.taxa.standard <- core_members(pseq.rel, detection = 0, prevalence = 50/100)
 ```
 
 
@@ -87,7 +83,6 @@ A full phyloseq object of the core microbiota is obtained as follows:
 
 ```r
 pseq.core <- core(pseq.rel, detection = 0, prevalence = .5)
-# Or: pseq.core.bootstrap <- core(pseq.rel, detection = 0, prevalence = .5, method = "bootstrap", bs.iter = 10)
 ```
 
 
@@ -158,6 +153,17 @@ print(p)
 # https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
 # Also discrete=TRUE versions available
 library(viridis)
+```
+
+```
+## Loading required package: viridisLite
+```
+
+```
+## Warning: package 'viridisLite' was built under R version 3.3.3
+```
+
+```r
 print(p + scale_fill_viridis())
 ```
 

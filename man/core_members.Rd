@@ -6,7 +6,6 @@
 \title{Core Taxa}
 \usage{
 core_members(x, detection = 1/100, prevalence = 50/100,
-  method = "standard", Nsample = NULL, bs.iter = 1000, I.max = NULL,
   include.lowest = FALSE)
 }
 \arguments{
@@ -15,18 +14,6 @@ core_members(x, detection = 1/100, prevalence = 50/100,
 \item{detection}{Detection threshold for absence/presence (greater or equal).}
 
 \item{prevalence}{Prevalence threshold (in [0, 1]; greater or equal)}
-
-\item{method}{Either "standard" or "bootstrap". The standard methods selects
-the taxa that exceed the given detection and prevalence threshold.
-The bootstrap method is more robust an described in Salonen et al. (2012).
-Note that the results may depend on the random seed unless a sufficiently
-large bootstrap sample size is used.}
-
-\item{Nsample}{Only needed for method "bootstrap". Bootstrap sample size, default is the same size as data.}
-
-\item{bs.iter}{Only needed for method "bootstrap". Bootstrap iterations.}
-
-\item{I.max}{Only needed for method "bootstrap". Upper limit for intensity threshold. Later addition. Set to NULL (default) to replicate Salonen et al.}
 
 \item{include.lowest}{Include the lower boundary of the detection and prevalence cutoffs. FALSE by default.}
 }
@@ -39,13 +26,14 @@ and prevalences
 }
 \details{
 For phyloseq object, lists taxa that are more prevalent with the
-  given detection. For matrix, lists columns that satisfy
+  given detection threshold. For matrix, lists columns that satisfy
   these criteria.
 }
 \examples{
   data(dietswap)
-  # In practice, use more bootstrap iterations
-  a <- core_members(dietswap, 1, 95, bs.iter = 20)
+  # Detection threshold 0 (strictly greater by default);
+  # Prevalence threshold 50 percent (strictly greater by default)
+  a <- core_members(dietswap, 0, 50/100)
 }
 \references{
 A Salonen et al. The adult intestinal core microbiota is determined by 

@@ -38,7 +38,7 @@ prevalence (count = TRUE) divided by the number of samples.
 }
 \examples{
   data(peerj32)     
-  pr <- prevalence(peerj32$phyloseq, detection = 200, sort = TRUE, count = TRUE)
+  pr <- prevalence(peerj32$phyloseq, detection = 0, sort = TRUE, count = TRUE)
 }
 \references{
 A Salonen et al. The adult intestinal core microbiota is determined by 
