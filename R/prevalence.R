@@ -26,7 +26,7 @@
 #' @examples
 #'   data(peerj32)     
 #'   pr <- prevalence(peerj32$phyloseq, detection = 200, sort = TRUE, count = TRUE)
-prevalence <- function (x, detection = 0, sort = FALSE, count = FALSE) {
+prevalence <- function (x, detection = 0, sort = FALSE, count = FALSE, include.lowest = FALSE) {
 
   if (is.null(detection)) {
     detection <- (-Inf)
@@ -38,13 +38,27 @@ prevalence <- function (x, detection = 0, sort = FALSE, count = FALSE) {
   }
 
   if (is.vector(x)) {
-    prev <- sum(x > detection)
+  
+    if (include.lowest) {
+      prev <- sum(x >= detection)
+    } else {
+      prev <- sum(x > detection)
+    }
+    
   } else if (is.matrix(x) || is.data.frame(x)) {
-    prev <- rowSums(x > detection)
+
+    if (include.lowest) {
+      prev <- rowSums(x >= detection)
+    } else {
+      prev <- rowSums(x > detection)    
+    }
+    
   } else if (class(x) == "phyloseq") {
+  
     # At this point necessary to have count = TRUE
     prev <- prevalence(abundances(x),
     	      detection = detection, count = TRUE)
+	      
   } 
 
   if (!count) {
@@ -64,7 +78,7 @@ prevalence <- function (x, detection = 0, sort = FALSE, count = FALSE) {
 
 
 # Internal auxiliary function
-prevalence_nsamples = function (x) {
+prevalence_nsamples <- function (x) {
 
   if (is.vector(x)) {
     n <- length(x)

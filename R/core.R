@@ -11,6 +11,7 @@
 #' @param Nsample Only needed for method "bootstrap". Bootstrap sample size, default is the same size as data.
 #' @param bs.iter Only needed for method "bootstrap". Bootstrap iterations.
 #' @param I.max Only needed for method "bootstrap". Upper limit for intensity threshold. Later addition. Set to NULL (default) to replicate Salonen et al.
+#' @param include.lowest Include the lower boundary of the detection and prevalence cutoffs. FALSE by default.
 #' @param ... Arguments to pass.
 #' @return Filtered phyloseq object including only prevalent taxa
 #' @references
@@ -28,11 +29,11 @@
 #'   # In practice, use more bootstrap iterations
 #'   pseq <- core(dietswap, 200, .2, bs.iter = 20)
 #'
-core <- function (x, detection, prevalence, method = "standard", Nsample = NULL, bs.iter = 1000, I.max = NULL) {
+core <- function (x, detection, prevalence, method = "standard", Nsample = NULL, bs.iter = 1000, I.max = NULL, include.lowest = FALSE) {
 
   # TODO: add optional renormalization such that the core member
   # abundances would sum up to 1 ?
-  taxa <- core_members(x, detection, prevalence, method, Nsample = Nsample, bs.iter = bs.iter, I.max = I.max)
+  taxa <- core_members(x, detection, prevalence, method, Nsample = Nsample, bs.iter = bs.iter, I.max = I.max, include.lowest = include.lowest)
   prune_taxa(taxa, x)
 
 }

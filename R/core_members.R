@@ -19,7 +19,7 @@
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-core_members <- function(x, detection = 1/100, prevalence = 50/100, method = "standard", Nsample = NULL, bs.iter = 1000, I.max = NULL)  {
+core_members <- function(x, detection = 1/100, prevalence = 50/100, method = "standard", Nsample = NULL, bs.iter = 1000, I.max = NULL, include.lowest = FALSE)  {
 
   Core <- NULL
 
@@ -27,8 +27,11 @@ core_members <- function(x, detection = 1/100, prevalence = 50/100, method = "st
   xcomp <- abundances(x)
 
   if (method == "standard") {
-  
-    taxa <- names(which(prevalence(x, detection) > prevalence))
+    if (include.lowest) {
+      taxa <- names(which(prevalence(x, detection, include.lowest = include.lowest) >= prevalence))
+    } else {
+      taxa <- names(which(prevalence(x, detection, include.lowest = include.lowest) > prevalence))
+    }
     
   } else if (method == "bootstrap") {
   

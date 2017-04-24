@@ -4,7 +4,8 @@
 \alias{prevalence}
 \title{Prevalence for Phyloseq OTUs}
 \usage{
-prevalence(x, detection = 0, sort = FALSE, count = FALSE)
+prevalence(x, detection = 0, sort = FALSE, count = FALSE,
+  include.lowest = FALSE)
 }
 \arguments{
 \item{x}{A vector, data matrix or phyloseq object}
@@ -17,6 +18,8 @@ prevalence(x, detection = 0, sort = FALSE, count = FALSE)
 (in percentage [0, 1]; default); or in absolute counts indicating
 the number of samples where the OTU is detected (strictly) above the given
 abundance threshold.}
+
+\item{include.lowest}{Include the lower boundary of the detection and prevalence cutoffs. FALSE by default.}
 }
 \value{
 For each OTU, the fraction of samples where a given OTU is

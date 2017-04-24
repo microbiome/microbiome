@@ -6,7 +6,7 @@
 \title{Core Microbiota}
 \usage{
 core(x, detection, prevalence, method = "standard", Nsample = NULL,
-  bs.iter = 1000, I.max = NULL)
+  bs.iter = 1000, I.max = NULL, include.lowest = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -26,6 +26,8 @@ large bootstrap sample size is used.}
 \item{bs.iter}{Only needed for method "bootstrap". Bootstrap iterations.}
 
 \item{I.max}{Only needed for method "bootstrap". Upper limit for intensity threshold. Later addition. Set to NULL (default) to replicate Salonen et al.}
+
+\item{include.lowest}{Include the lower boundary of the detection and prevalence cutoffs. FALSE by default.}
 
 \item{...}{Arguments to pass.}
 }
