@@ -26,7 +26,7 @@ Calculates the community dominance index.
 \details{
 The dominance index gives the abundance of the most abundant species and has been used in microbiomics context for instance in Locey & Lennon (2016). The following indices are provided:
 \itemize{
-  \item{"absolute"}{This is he most simple variant, giving the absolute abundance of the most abundant species (Magurran & McGill 2011). By default, this refers to the single most dominant species (rank = 1) but it is possible to calculate the absolute dominance with rank n based on the abundances of top-n species by tuning the rank argument.}
+  \item{"absolute"}{This is the most simple variant, giving the absolute abundance of the most abundant species (Magurran & McGill 2011). By default, this refers to the single most dominant species (rank = 1) but it is possible to calculate the absolute dominance with rank n based on the abundances of top-n species by tuning the rank argument.}
    \item{"relative"}{Relative abundance of the most abundant species. This is with rank = 1 by default but can be calculated for other ranks.}
    \item{"DBP"}{Berger–Parker index, a special case of relative dominance with rank 1; This also equals the inverse of true diversity of the infinite order.}
    \item{"DMN"}{McNaughton’s dominance. This is the sum of the relative abundance of the two most abundant taxa, or a special case of relative dominance with rank 2}

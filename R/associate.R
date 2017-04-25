@@ -52,7 +52,7 @@ associate <- function(x, y = NULL, method = "spearman",
     y <- y  # numeric
 
     if (is.null(colnames(y))) {
-        colnames(y) <- paste("column-", 1:ncol(y), sep = "")
+      colnames(y) <- paste("column-", 1:ncol(y), sep = "")
     }
     
     xnames <- colnames(x)
@@ -78,7 +78,13 @@ associate <- function(x, y = NULL, method = "spearman",
     }
     
     xnames <- inds
-    x <- as.matrix(x[inds], ncol = length(inds))
+
+    if (!is.vector(x)) {  
+      x <- suppressWarnings(as.matrix(x[, inds], ncol = length(inds)))
+    } else {
+      x <- as.matrix(x[inds], ncol = length(inds))
+    }
+    
     colnames(x) <- xnames
 
     Pc <- matrix(NA, ncol(x), ncol(y))
@@ -88,25 +94,36 @@ associate <- function(x, y = NULL, method = "spearman",
     rownames(Pc) <- colnames(x)
     colnames(Pc) <- colnames(y)
 
+    if (verbose) {
+      message(method)
+    }
+    
     if (method %in% c("pearson", "spearman")) {
 
-        minobs = 8
+        minobs <- 8
 
         for (j in 1:ncol(y)) {
+	
             jc <- apply(x, 2, function(xi) {
+	    
                 if (sum(!is.na(xi)) >= minobs) {
-                  res <- cor.test(xi, y[, j], method = method, 
-                            use = "pairwise.complete.obs")
+
+                  res <- suppressWarnings(cor.test(xi, unlist(y[, j], use.names = FALSE), method = method, 
+                            use = "pairwise.complete.obs"))
+
                   res <- c(res$estimate, res$p.value)
 
                 } else {
+		
                   warning(paste("Not enough observations (", minobs, "required); \n   
                           (",  
                     sum(!is.na(xi)), ") \n \n 
                            - skipping correlation estimation"))
                   res <- c(NA, NA)
+		  
                 }
                 res
+		
             })
             
             Cc[, j] <- jc[1, ]
@@ -116,13 +133,9 @@ associate <- function(x, y = NULL, method = "spearman",
 
     } else if (method == "bicor") {
 
-        if (verbose) {
-            message(method)
-        }
-
-        t1 <- suppressWarnings(bicorAndPvalue(x, y, use = "pairwise.complete.obs"))
-        Pc <- t1$p
-        Cc <- t1$bicor
+      t1 <- suppressWarnings(bicorAndPvalue(x, y, use = "pairwise.complete.obs"))
+      Pc <- t1$p
+      Cc <- t1$bicor
         
 
     } else if (method == "categorical") {
