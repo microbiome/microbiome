@@ -9,9 +9,9 @@ core_abundance(x, detection = 0.1/100, prevalence = 50/100)
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{detection}{Detection threshold for absence/presence (greater or equal).}
+\item{detection}{Detection threshold for absence/presence (strictly greater by default).}
 
-\item{prevalence}{Prevalence threshold (in [0, 1]; greater or equal)}
+\item{prevalence}{Prevalence threshold (in [0, 1]; strictly greater by default)}
 }
 \value{
 A vector of core abundance indices

@@ -33,7 +33,6 @@ Suggests:
     BiocStyle,
     Cairo,
     DESeq2,
-    devtools,
     diptest,
     FD,
     GGally,

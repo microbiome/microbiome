@@ -1,8 +1,8 @@
 #' @title Core Microbiota
 #' @description Filter the phyloseq object to include only prevalent taxa.
 #' @param x \code{\link{phyloseq-class}} object
-#' @param detection Detection threshold for absence/presence (greater or equal).
-#' @param prevalence Prevalence threshold (in [0, 1]; greater or equal)
+#' @param detection Detection threshold for absence/presence (strictly greater by default).
+#' @param prevalence Prevalence threshold (in [0, 1]; strictly greater by default)
 #' @param include.lowest Include the lower boundary of the detection and prevalence cutoffs. FALSE by default.
 #' @param ... Arguments to pass.
 #' @return Filtered phyloseq object including only prevalent taxa

@@ -9,7 +9,7 @@ low_abundance(x, detection = 0.2/100)
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{detection}{Detection threshold for absence/presence (greater or equal).}
+\item{detection}{Detection threshold for absence/presence (strictly greater by default).}
 }
 \value{
 A vector of indicators.
