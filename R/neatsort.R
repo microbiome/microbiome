@@ -73,7 +73,11 @@ neatsort <- function (x, target, method = "NMDS", distance = "bray",
     # Neatmap sorting for matrices with NMDS
     # Order		     
     # Capture the output to keep the screen clean
-    d <- vegdist(x, distance)
+    if (distance %in% c("euclidean")) { 
+      d <- dist(x, distance)
+    } else {
+      d <- vegdist(x, distance)
+    }
 
     junk <- capture.output(
       ord <- metaMDS(d, wascores = FALSE, autotransform = FALSE, noshare = FALSE), file=NULL)
