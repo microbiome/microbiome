@@ -93,11 +93,8 @@ core_matrix <- function(x,
           prevalences = seq(.1, 1, ,1), 
           detections = NULL) {
 
-    data <- x	  
-    if (class(x) == "phyloseq") {
-      # Pick abundance matrix
-      data <- abundances(x)
-    }
+    # Pick abundances
+    data <- abundances(x)
 
     # Convert prevalences from percentages to sample counts
     p.seq <- 0.01 * prevalences * ncol(data)

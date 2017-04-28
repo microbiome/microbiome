@@ -86,7 +86,7 @@ citation('microbiome')
 ## To cite package 'microbiome' in publications use:
 ## 
 ##   Leo Lahti (2017). microbiome: Tools for microbiome analysis. R
-##   package version 0.99.92. http://microbiome.github.com
+##   package version 0.99.93. http://microbiome.github.com
 ## 
 ## A BibTeX entry for LaTeX users is
 ## 
@@ -94,7 +94,7 @@ citation('microbiome')
 ##     title = {microbiome: Tools for microbiome analysis},
 ##     author = {Leo Lahti},
 ##     year = {2017},
-##     note = {R package version 0.99.92},
+##     note = {R package version 0.99.93},
 ##     url = {http://microbiome.github.com},
 ##   }
 ```
