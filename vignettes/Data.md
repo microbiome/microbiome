@@ -31,8 +31,15 @@ library(phyloseq)
 pseq <- phyloseq(otu_table(x, taxa_are_rows = TRUE))
 
 # Add taxonomy
-# y: taxa x levels taxonomy matrix 
-pseq <- merge_phyloseq(pseq, tax_table(y[rownames(x), ]))
+# y: taxa x levels taxonomy matrix
+# Create tax_table
+TAX <- tax_table(y[rownames(x), ])
+# Now the tax_table rownames are newly created and different from the
+# original rownames in y
+# and should be renamed so that they match with the otu_table above
+rownames(TAX) <- rownames(y)
+# Merge the taxonomy with the phyloseq object
+pseq <- merge_phyloseq(pseq, TAX)
  
 # Add metadata
 # z: samples x variables data.frame
