@@ -2,13 +2,13 @@
 % Please edit documentation in R/prevalence.R
 \name{prevalence}
 \alias{prevalence}
-\title{Prevalence for Phyloseq OTUs}
+\title{OTU Prevalence}
 \usage{
 prevalence(x, detection = 0, sort = FALSE, count = FALSE,
   include.lowest = FALSE)
 }
 \arguments{
-\item{x}{A vector, data matrix or phyloseq object}
+\item{x}{A vector, data matrix or \code{\link{phyloseq}} object}
 
 \item{detection}{Detection threshold for absence/presence (strictly greater by default).}
 

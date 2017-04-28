@@ -8,9 +8,11 @@
 #'   these criteria.
 #' @examples
 #'   data(dietswap)
-#'   # Detection threshold 0 (strictly greater by default);
+#'   # Detection threshold 1 (strictly greater by default);
+#'   # Note that the data (dietswap) is here in absolute counts
+#'   # (and not compositional, relative abundances)
 #'   # Prevalence threshold 50 percent (strictly greater by default)
-#'   a <- core_members(dietswap, 0, 50/100)
+#'   a <- core_members(dietswap, 1, 50/100)
 #' @aliases prevalent_taxa
 #' @export
 #' @references 

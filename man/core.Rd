@@ -37,6 +37,9 @@ Salonen A, Salojarvi J, Lahti L, de Vos WM. The adult intestinal
   status. Clinical Microbiology and Infection 18(S4):16-20, 2012
   To cite the microbiome R package, see citation('microbiome')
 }
+\seealso{
+core_members, variable_members, rare
+}
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
 }

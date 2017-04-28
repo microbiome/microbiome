@@ -22,8 +22,15 @@ rare <- function (x, detection, prevalence, include.lowest = FALSE) {
   rt <- setdiff(taxa(x), cm)
 
   # Pick the subset
-  prune_taxa(rt, x)
+  ret <- NULL
+  if (length(rt) > 0) {
+    ret <- prune_taxa(rt, x)
+  } else {
+    warning("No rare taxa with the given thresholds. Returning NULL.")
+  }
 
+  ret
+  
 }
 
 

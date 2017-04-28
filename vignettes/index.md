@@ -1,6 +1,6 @@
 ---
 title: "Introduction to microbiome analysis in R"
-author: "Leo Lahti et al. 2017-04-25"
+author: "Leo Lahti et al. 2017-04-28"
 bibliography: 
 - bibliography.bib
 - references.bib

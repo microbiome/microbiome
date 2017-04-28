@@ -13,7 +13,8 @@
 #'   data(dietswap)
 #'   # Detection threshold 0 (strictly greater by default);
 #'   # Prevalence threshold 50 percent (strictly greater by default)
-#'   pseq <- variable_members(dietswap, 0.2/100, 20/100)
+#'   pseq.rel <- transform(dietswap, "compositional")
+#'   pseq <- variable_members(pseq.rel, 0.5/100, 20/100)
 #'
 variable_members <- function (x, detection, prevalence, include.lowest = FALSE) {
 
@@ -26,9 +27,15 @@ variable_members <- function (x, detection, prevalence, include.lowest = FALSE) 
   cm <- core_members(x, detection, 1 - prevalence, include.lowest = include.lowest)
 
   taxa <- setdiff(taxa(x), c(rm, cm))
-
+  if (length(taxa) == 0) {
+    taxa <- NULL
+  }
   #prune_taxa(taxa, xorig)
 
+  if (is.null(taxa)) {
+    warning("No variable taxa with the given thresholds. Returning NULL.")
+  }
+  
   taxa
 }
 

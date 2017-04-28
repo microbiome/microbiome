@@ -72,6 +72,12 @@ library(lme4)
 ```
 
 ```
+## The following object is masked from 'package:S4Vectors':
+## 
+##     expand
+```
+
+```
 ## The following object is masked from 'package:tidyr':
 ## 
 ##     expand

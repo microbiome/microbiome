@@ -17,7 +17,7 @@ output:
 
 ## Core microbiota analysis
 
-See also related functions for the analysis of rare taxa.
+See also related functions for the analysis of rare and variable taxa
 
 Load example data:
 

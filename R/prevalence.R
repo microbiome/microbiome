@@ -1,6 +1,6 @@
-#' @title Prevalence for Phyloseq OTUs
+#' @title OTU Prevalence 
 #' @description Simple prevalence measure.
-#' @param x A vector, data matrix or phyloseq object
+#' @param x A vector, data matrix or \code{\link{phyloseq}} object
 #' @param sort Sort the groups by prevalence
 #' @param count Logical. Indicate prevalence as fraction of samples
 #' (in percentage [0, 1]; default); or in absolute counts indicating
@@ -37,6 +37,11 @@ prevalence <- function (x, detection = 0, sort = FALSE, count = FALSE, include.l
     return(NULL)
   }
 
+  # Convert phyloseq to matrix
+  if (is.phyloseq(x)) {
+    x <- abundances(x)
+  } 
+
   if (is.vector(x)) {
   
     if (include.lowest) {
@@ -51,18 +56,11 @@ prevalence <- function (x, detection = 0, sort = FALSE, count = FALSE, include.l
       prev <- rowSums(x >= detection)
     } else {
       prev <- rowSums(x > detection)    
-    }
-    
-  } else if (class(x) == "phyloseq") {
-  
-    # At this point necessary to have count = TRUE
-    prev <- prevalence(abundances(x),
-    	      detection = detection, count = TRUE)
-	      
-  } 
+    }  
+  }
 
   if (!count) {
-    prev <- 1 * prev/prevalence_nsamples(x)
+    prev <- prev/prevalence_nsamples(x)
   }
 
   if (sort) {
@@ -84,9 +82,7 @@ prevalence_nsamples <- function (x) {
     n <- length(x)
   } else if (is.matrix(x) || is.data.frame(x)) {
     n <- ncol(x)    
-  } else if (class(x) == "phyloseq") {
-    n <- nsamples(x)
-  }
+  } 
 
   n
 

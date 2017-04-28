@@ -31,9 +31,11 @@ For phyloseq object, lists taxa that are more prevalent with the
 }
 \examples{
   data(dietswap)
-  # Detection threshold 0 (strictly greater by default);
+  # Detection threshold 1 (strictly greater by default);
+  # Note that the data (dietswap) is here in absolute counts
+  # (and not compositional, relative abundances)
   # Prevalence threshold 50 percent (strictly greater by default)
-  a <- core_members(dietswap, 0, 50/100)
+  a <- core_members(dietswap, 1, 50/100)
 }
 \references{
 A Salonen et al. The adult intestinal core microbiota is determined by 
