@@ -1,22 +1,27 @@
-#' @title Read and create a phyloseq object from mothur shared and consensus taxonomy files
-#' @description Read and convert mothur output to Phyloseq object.
+#' @title Read Mothur Output into a Phyloseq Object
+#' @description Read mothur shared and consensus taxonomy files into a \code{\link{phyloseq-class}} object.
 #' @details Mothur shared and consensus taxonomy files will be converted to \code{\link{phyloseq-class}}.
-#' @param SharedFile =  Shared file ".shared file" extension. A \href{http://www.mothur.org/wiki/Shared_file}{shared file} produced by \emph{mothur}.
-#' @param ConTaxonomy = consensus taxonomy file ".taxonomy" extension. Details \href{http://www.mothur.org/wiki/Constaxonomy_file}{consensus taxonomy file} produced by \emph{mothur}.
-#' @param MappingFile = Metadata/mapping file in ".csv" extension
+#' @param shared.file A \href{http://www.mothur.org/wiki/Shared_file}{shared file} produced by \emph{mothur}. Identified from the .shared extension
+#' @param consensus.taxonomy.file \href{http://www.mothur.org/wiki/ConTaxonomy_file}{consensus taxonomy file} produced by \emph{mothur}. Identified from with the .taxonomy extension. 
+#' @param mapping.file Metadata/mapping file with .csv extension
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
-#' @examples \dontrun{
-#'   # Example data
+#' @examples
+#'   \dontrun{
+#'     # Example data
 #'     library(microbiome)
-#'     p0 <- read_mothur2phyloseq(SharedFile = "mothur_shared.shared", ConTaxonomy = "mothur_taxonomy.taxonomy", MappingFile = "mothur_mapping.csv")
-#'           }
+#'     p0 <- read_mothur2phyloseq(
+#'             shared.file = "mothur_shared.shared",
+#'             consensus.taxonomy.file = "mothur_taxonomy.taxonomy",
+#'	       mapping.file = "mothur_mapping.csv")
+#'   }
+#' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
-read_mothur2phyloseq <- function(SharedFile, ConTaxonomy, MappingFile){
-  require(phyloseq);
-  require(dplyr);
-  ############### Mothur Shared file to otu table #############################
-    m.otu <- read.table(SharedFile, check.names=FALSE, header = T, sep = "\t", stringsAsFactors = F)
+read_mothur2phyloseq <- function(shared.file, consensus.taxonomy.file, mapping.file = NULL){
+
+  ### Mothur Shared file to otu table ###
+  
+    m.otu <- read.table(shared.file, check.names=FALSE, header = T, sep = "\t", stringsAsFactors = F)
     m.otu$label <- NULL
     m.otu$numOtus <- NULL
     x <- m.otu$Group
@@ -25,28 +30,39 @@ read_mothur2phyloseq <- function(SharedFile, ConTaxonomy, MappingFile){
     rownames(m.otu) <- x
     m.otu[, c(2:(ncol(m.otu)-1))] <- sapply(m.otu[, c(2:(ncol(m.otu)-1))], as.numeric)
     mothur_otu_table <- (otu_table(t(as.matrix(m.otu)), taxa_are_rows=TRUE))
-    print("Converted Shared to OTU table")
+    
+    # message("Converted Shared to OTU table")
 
-    ############### Consensus Taxonomy file to taxa table #############################
+  ### Consensus Taxonomy file to taxa table ###
+    
     # the file extension has to be .taxonomy!
-    TaxonomyFile<-read.table(ConTaxonomy,check.names=FALSE, header = TRUE, sep = "\t",stringsAsFactors = FALSE)
-    require(tidyr)
-    head(TaxonomyFile)
+    TaxonomyFile <- read.table(consensus.taxonomy.file, check.names=FALSE, header = TRUE, sep = "\t",stringsAsFactors = FALSE)
+
     TaxonomyFile$Taxonomy <- gsub("[\"]", "", TaxonomyFile$Taxonomy)
     TaxonomyFile$Taxonomy <- gsub("[(1-100)]", "", TaxonomyFile$Taxonomy)
     mothur_tax <- separate(TaxonomyFile, "Taxonomy", into = c("Kingdom", "Phylum", "Order", "Class", "Family", "Genus"), sep = ";", extra = "merge")
     mothur_tax$Genus <- gsub(";", "", mothur_tax$Genus)
     mothur_tax$Size <- NULL
-    head(mothur_tax)
+
     rownames(mothur_tax) <- mothur_tax$OTU
     mothur_tax_mat<-as.matrix(mothur_tax)
     mothur_taxonomy = tax_table(mothur_tax_mat)
-    print("Converted Contaxonomy to Taxa table")
-    print("reading mapping file and creating a phyloseq object")
-    ############### Mapping file to sampledata table #############################
-    mothur_map <- read.csv(MappingFile,row.names=1,check.names=FALSE)
-    mothur_map_data=sample_data(mothur_map)
-    mothur_pseq <- merge_phyloseq(mot,mothur_taxonomy,mothur_map_data)
-    print(mothur_pseq)
-    return(mothur_pseq)
+    
+    # message("Converted Contaxonomy to Taxa table")
+    # message("reading mapping file and creating a phyloseq object")
+
+  ### Mapping file to sampledata table ###
+
+  mothur_map_data <- NULL
+  if (!is.null(mapping.file)) {
+    mothur_map <- read.csv(mapping.file,row.names=1,check.names=FALSE)
+    mothur_map_data <- sample_data(mothur_map)
+  }
+  
+  ### Final phyloseq object ###
+  
+    pseq <- merge_phyloseq(mothur_otu_table,mothur_taxonomy,mothur_map_data)
+    
+  return(pseq)
+
 }
