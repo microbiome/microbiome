@@ -100,6 +100,7 @@
 #' @importFrom phyloseq tax_table
 #' @importFrom phyloseq tax_table<-
 #' @importFrom phyloseq transform_sample_counts
+#' @importFrom phyloseq import_biom
 #' @importFrom reshape2 melt
 #' @importFrom scales comma
 #' @importFrom stats aggregate
