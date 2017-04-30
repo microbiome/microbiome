@@ -5,7 +5,7 @@
 \title{Importing phyloseq Data}
 \usage{
 read_phyloseq(otu.file = NULL, taxonomy.file = NULL, metadata.file = NULL,
-  type = "mothur")
+  type = c("simple", "mothur", "biom"))
 }
 \arguments{
 \item{otu.file}{File containing the OTU table (for mothur this is the file with the .shared extension)}
@@ -14,7 +14,7 @@ read_phyloseq(otu.file = NULL, taxonomy.file = NULL, metadata.file = NULL,
 
 \item{metadata.file}{File containing samples x variables metadata.}
 
-\item{type}{Input data type: "mothur" implemented now.}
+\item{type}{Input data type: "mothur" or "simple" or "biom" type.}
 }
 \value{
 \code{\link{phyloseq-class}} object
@@ -23,12 +23,15 @@ read_phyloseq(otu.file = NULL, taxonomy.file = NULL, metadata.file = NULL,
 Reads the otu, taxonomy and metadata from various formats.
 }
 \details{
-See help(read_mothur2phyloseq) for details on the Mothur input format.
+See help(read_mothur2phyloseq) for details on the Mothur input format; and help(read_biom2phyloseq) for details on the biom format. The simple format refers to the set of CSV files written by the \code{\link{write_phyloseq}} function.
 }
 \examples{
 \dontrun{
-  pseq <- read_phyloseq(...)
+  pseq <- read_phyloseq(otu.file = NULL, taxonomy.file = NULL, metadata.file = NULL, type = c("mothur", "simple", "biom"))
  }
+}
+\seealso{
+write_phyloseq
 }
 \author{
 Sudarshan A. Shetty \email{sudarshanshetty9@gmail.com}

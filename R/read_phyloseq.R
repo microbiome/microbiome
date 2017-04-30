@@ -6,25 +6,29 @@
 #' @param type Input data type: "mothur" or "simple" or "biom" type.
 #' @return \code{\link{phyloseq-class}} object
 #' @export
-#' @details See help(read_mothur2phyloseq) for details on the Mothur input format.
+#' @details See help(read_mothur2phyloseq) for details on the Mothur input format; and help(read_biom2phyloseq) for details on the biom format. The simple format refers to the set of CSV files written by the \code{\link{write_phyloseq}} function.
 #' @examples \dontrun{
 #'   pseq <- read_phyloseq(otu.file = NULL, taxonomy.file = NULL, metadata.file = NULL, type = c("mothur", "simple", "biom"))
 #'  }
+#' @seealso write_phyloseq
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
-read_phyloseq <- function(otu.file = NULL, taxonomy.file = NULL, metadata.file = NULL, type = c("mothur", "simple", "biom")){
+read_phyloseq <- function(otu.file = NULL, taxonomy.file = NULL, metadata.file = NULL, type = c("simple", "mothur", "biom")){
   
   # TODO add automated recognition of the type?
   
   if (type == "mothur") {
-    pseq.mothur <- read_mothur2phyloseq(otu.file, taxonomy.file, metadata.file)
-    return(pseq.mothur)
+    pseq <- read_mothur2phyloseq(otu.file, taxonomy.file, metadata.file)
   } else if (type == "simple"){
-    pseq.sim <- read_csv2phyloseq(otu.file, taxonomy.file, metadata.file)
-    return(pseq.sim)
+    pseq <- read_csv2phyloseq(otu.file, taxonomy.file, metadata.file)
   } else if (type == "biom"){
-    pseq.biom <- read_biom2phyloseq(otu.file, taxonomy.file, metadata.file)
+    pseq <- read_biom2phyloseq(otu.file, taxonomy.file, metadata.file)
+  } else {
+    stop("Unrecognized type in read_phyloseq input. Exiting.")
   }
-  return(pseq.biom)
-} 
+  
+  pseq
+
+}
+
 

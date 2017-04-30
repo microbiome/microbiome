@@ -1,4 +1,4 @@
-#' @title Read biom file into a Phyloseq Object
+#' @title Read BIOM File into a Phyloseq Object
 #' @description Read biom and mapping files into a \code{\link{phyloseq-class}} object.
 #' @details Biom file and mapping files will be converted to \code{\link{phyloseq-class}}.
 #' @param otu.file A biom file with ".biom" extension 
@@ -21,11 +21,9 @@ read_biom2phyloseq <- function(otu.file = NULL, taxonomy.file = NULL, metadata.f
   phyobj <-merge_phyloseq(otu_biom, s.map)
   if (ncol(tax_table(phyobj)) == 6){
     colnames(tax_table(phyobj)) <- c("Domain", "Phylum", "Class", "Order", "Family", "Genus")
-    print(phyobj)
     return(phyobj)
   } else if (ncol(tax_table(phyobj)) == 7){
     colnames(tax_table(phyobj)) <- c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species")
-    print(phyobj)
   }
   return(phyobj)
 }

@@ -30,4 +30,7 @@ Writes the otu, taxonomy and metadata in csv files.
   write_phyloseq(pseq, "METADATA")
  }
 }
+\seealso{
+read_phyloseq
+}
 \keyword{utilities}
