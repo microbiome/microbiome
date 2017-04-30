@@ -3,7 +3,7 @@
 #' @details Biom file and mapping files will be converted to \code{\link{phyloseq-class}}.
 #' @param otu.file A biom file with ".biom" extension 
 #' @param taxonomy.file NULL the latest version has taxonomic information within the biom 
-#' @param mapping.file A simple metadata/mapping file with .csv extension
+#' @param metadata.file A simple metadata/mapping file with .csv extension
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
 #' @examples
