@@ -3,7 +3,7 @@
 #' @details Simple OTU tables, mapping and taxonomy files will be converted to \code{\link{phyloseq-class}}.
 #' @param otu.file A simple otu_table with ".csv" extension 
 #' @param taxonomy.file A simple taxonomy file with ".csv" extension 
-#' @param mapping.file A simple metadata/mapping file with .csv extension
+#' @param metadata.file A simple metadata/mapping file with .csv extension
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
 #' @examples
