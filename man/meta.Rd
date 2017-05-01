@@ -15,6 +15,9 @@ The output of the phyloseq::sample_data() function does not return data.frame, w
 \examples{
 data(dietswap); df <- meta(dietswap)
 }
+\seealso{
+\code{\link{sample_data}} in the \pkg{phyloseq} package
+}
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
 }

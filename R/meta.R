@@ -4,6 +4,7 @@
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples data(dietswap); df <- meta(dietswap)
+#' @seealso \code{\link{sample_data}} in the \pkg{phyloseq} package
 #' @keywords utilities
 meta <- function (x) {
   df <- as(sample_data(x), "data.frame")

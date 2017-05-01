@@ -12,7 +12,7 @@ read_csv2phyloseq(otu.file = NULL, taxonomy.file = NULL,
 
 \item{taxonomy.file}{A simple taxonomy file with ".csv" extension}
 
-\item{mapping.file}{A simple metadata/mapping file with .csv extension}
+\item{metadata.file}{A simple metadata/mapping file with .csv extension}
 }
 \value{
 \code{\link{phyloseq-class}} object.

@@ -12,7 +12,7 @@ read_biom2phyloseq(otu.file = NULL, taxonomy.file = NULL,
 
 \item{taxonomy.file}{NULL the latest version has taxonomic information within the biom}
 
-\item{mapping.file}{A simple metadata/mapping file with .csv extension}
+\item{metadata.file}{A simple metadata/mapping file with .csv extension}
 }
 \value{
 \code{\link{phyloseq-class}} object.
