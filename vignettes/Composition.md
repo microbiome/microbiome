@@ -62,7 +62,7 @@ p <- plot_composition(pseq2,
      labs(x = "Samples", y = "Relative abundance (%)",
                                    title = "Relative abundance data",
                                    subtitle = "Subtitle",
-                                   caption = "Caption here 'g'") + 
+                                   caption = "Caption text.") + 
      theme_ipsum(grid="Y")
 print(p)  
 ```
@@ -100,13 +100,18 @@ Here we use the Dynamics IBD data set from [Halfvarson J., et al. Nature Microbi
 
 ```r
 data(DynamicsIBD)
-p0 <- DynamicsIBD
+
+# Use sample and taxa subset to speed up example
+p0 <- subset_samples(DynamicsIBD, sex == "male" & timepoint == 1)
+p0 <- core(p0, detection = 10, prevalence = 0)
+
 # Improve the taxonomic information
 p0.f <- format_phyloseq(p0)
+
 # For the available taxonomic levels, see tax_table(p0.f)
 p <- plot_taxa_prevalence(p0.f, 'Phylum')
 print(p)
 ```
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
+![plot of chunk plot_prev](figure/plot_prev-1.png)
 
