@@ -41,11 +41,11 @@ taxonomic classifications), and phylogenetic tree (relations between
 the taxa). Some of these are optional.
 
 
-Pick metadata:
+Pick metadata as data.frame:
 
 
 ```r
-meta <- sample_data(pseq)
+meta <- meta(pseq)
 ```
 
 Taxonomy table:
@@ -132,11 +132,23 @@ taxa <- genefilter_sample(pseq, f1, A = round(0.5 * nsamples(pseq)))
 ```
 
 
-Select samples by specific metadata fields
+Select a subset by metadata fields:
 
 
 ```r
 pseq.subset <- subset_samples(pseq, nationality == "AFR")
+```
+
+
+Select a subset by providing sample names: 
+
+
+```r
+# Check sample names for African Females in this phyloseq object
+s <- rownames(subset(meta(pseq), nationality == "AFR" & sex == "Female"))
+
+# Pick the phyloseq subset with these sample names
+pseq.subset2 <- prune_samples(s, pseq)
 ```
 
 
@@ -197,9 +209,11 @@ Assign new fields to metadata
 # Calculate diversity for samples
 div <- global(pseq, index = "shannon")
 
-# Assign this to sample metadata
+# Assign the estimated diversity to sample metadata
 sample_data(pseq)$diversity <- div
 ```
+
+
 
 ### Taxa operations
 

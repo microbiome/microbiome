@@ -153,17 +153,6 @@ print(p)
 # https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
 # Also discrete=TRUE versions available
 library(viridis)
-```
-
-```
-## Loading required package: viridisLite
-```
-
-```
-## Warning: package 'viridisLite' was built under R version 3.3.3
-```
-
-```r
 print(p + scale_fill_viridis())
 ```
 

@@ -111,7 +111,7 @@ pseq.subset <- subset_samples(pseq, nationality == "AFR")
 
 Select a subset by providing sample names: 
 
-```{r data-subsetting, eval=FALSE}
+```{r data-subsetting2, eval=FALSE}
 # Check sample names for African Females in this phyloseq object
 s <- rownames(subset(meta(pseq), nationality == "AFR" & sex == "Female"))
 
