@@ -91,7 +91,7 @@ plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
 
 ### Plot taxa prevalence
 
-Here we use the Dynamics IBD data set from [Halfvarson J., et al. Nature Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174) as downloaded from [Qiita ID 1629](https://qiita.ucsd.edu/study/description/1629). 
+We use the Dynamics IBD data set from [Halfvarson J., et al. Nature Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174) as downloaded from [Qiita ID 1629](https://qiita.ucsd.edu/study/description/1629). This function allows you to have an overview of OTU prevalences alongwith their taxonomic affiliations. This will aid in checking if you filter OTUs based on prevalence, then what taxonomic affliations will be lost.   
 
 ```{r plot_prev, fig.height=6, fig.width=8}
 data(DynamicsIBD)
@@ -104,7 +104,7 @@ p0 <- core(p0, detection = 10, prevalence = 0)
 p0.f <- format_phyloseq(p0)
 
 # For the available taxonomic levels, see tax_table(p0.f)
-p <- plot_taxa_prevalence(p0.f, 'Phylum')
+p <- plot_taxa_prevalence(p0.f, "Phylum")
 print(p)
 ```
 
