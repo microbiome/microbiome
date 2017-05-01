@@ -15,7 +15,7 @@
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
 read_biom2phyloseq <- function(otu.file = NULL, taxonomy.file = NULL, metadata.file = NULL){
-  otu_biom <- import_biom(otu.file)
+  otu_biom <- import_biom(otu.file, parseFunction=parse_taxonomy_default)
   map <-read.csv(metadata.file,check.names=FALSE, row.names = 1)
   s.map <- sample_data(map)
   phyobj <-merge_phyloseq(otu_biom, s.map)
