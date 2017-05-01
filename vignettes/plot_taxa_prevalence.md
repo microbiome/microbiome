@@ -31,7 +31,7 @@ Phylum level:
 
 ```r
 p0.f <- format_phyloseq(p0)
-p <- plot_taxa_prevalence(p0.f, 'Phylum')
+p <- plot_taxa_prevalence(p0.f, "Phylum")
 print(p)
 ```
 
