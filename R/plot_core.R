@@ -10,7 +10,7 @@
 #'    rows (taxa) and columns (detections) that never exceed this
 #'    prevalence. This helps to zoom in on the actual core region
 #'    of the heatmap. Only affects the plot.type = 'heatmap'.
-#' @param taxa.order Ordering of the taxa.
+#' @param taxa.order Ordering of the taxa: a vector of names.
 #' @param horizontal Logical. Horizontal figure.
 #' @return A list with three elements: the ggplot object and the data.
 #'         The data has a different form for the lineplot and heatmap.
@@ -19,6 +19,11 @@
 #'   data(atlas1006)
 #'   p <- plot_core(atlas1006, prevalences = seq(0.1, 1, .1),
 #'                        detections = c(0, 10^(0:4)))
+#'   p <- plot_core(atlas1006, prevalences = seq(0.1, 1, .1),
+#'                        detections = c(0, 10^(0:4)),
+#'			  taxa.order = rev(taxa_names(atlas1006))
+#' 			  plot.type = "heatmap"
+#'			  )
 #' @export 
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 
