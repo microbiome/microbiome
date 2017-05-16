@@ -2,7 +2,7 @@
 title: "HITChip Atlas"
 bibliography: 
 - bibliography.bib
-- references.bib
+- ./vignettes/references.bib
 output: 
   prettydoc::html_pretty:
     theme: cayman

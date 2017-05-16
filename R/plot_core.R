@@ -19,11 +19,6 @@
 #'   data(atlas1006)
 #'   p <- plot_core(atlas1006, prevalences = seq(0.1, 1, .1),
 #'                        detections = c(0, 10^(0:4)))
-#'   p <- plot_core(atlas1006, prevalences = seq(0.1, 1, .1),
-#'                        detections = c(0, 10^(0:4)),
-#'			  taxa.order = rev(taxa_names(atlas1006))
-#' 			  plot.type = "heatmap"
-#'			  )
 #' @export 
 #' @references 
 #'   A Salonen et al. The adult intestinal core microbiota is determined by 

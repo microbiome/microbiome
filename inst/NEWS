@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.1 (2017-05-15)
+  o Major rewrite of the package
+  o Switched to using the phyloseq class
+  
 CHANGES IN VERSION 0.99.0 (2014-09-14)
   o First draft of the BioC release version
 

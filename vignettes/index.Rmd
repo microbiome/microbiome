@@ -1,5 +1,5 @@
 ---
-title: "Introduction to microbiome analysis in R"
+title: "Introduction to the microbiome R package"
 author: "Leo Lahti et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib

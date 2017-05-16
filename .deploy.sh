@@ -52,7 +52,8 @@ cp -R ../microbiome/docs .
 # Rscript -e "pkgdown::build_site(path = 'docs', examples = TRUE)"
 # Rscript -e "library(pkgdown)"
 # R CMD BATCH "library(devtools)" # pkgdown::build_site(path = 'docs', examples = TRUE)
-#ls ../ > files8.txt
+ls ../ > testfiles1.txt
+ls ../microbiome/inst/ > testfiles2.txt
 
 # Add to git and deploy
 git add *.html

@@ -14,13 +14,19 @@ R/.RData
 R/*~
 
 # Vignette sources
-# vignettes/sorvi_tutorial.Rmd
+vignettes/*_files
+vignettes/*_cache
 vignettes/pics
 vignettes/Example_cache
 vignettes/Example_files
 vignettes/cache
 vignettes/figure
 vignettes/.RData
+vignettes/*.R
+vignettes/*.RData
+vignettes/misc*
+vignettes/tmp*
+vignettes/*~
 
 # Git related
 .git*
@@ -36,4 +42,4 @@ README.Rmd
 .*~
 ^.*\.Rproj$
 ^\.Rproj\.user$
-
+OAtoken

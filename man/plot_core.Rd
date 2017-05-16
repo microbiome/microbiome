@@ -25,7 +25,7 @@ rows (taxa) and columns (detections) that never exceed this
 prevalence. This helps to zoom in on the actual core region
 of the heatmap. Only affects the plot.type = 'heatmap'.}
 
-\item{taxa.order}{Ordering of the taxa.}
+\item{taxa.order}{Ordering of the taxa: a vector of names.}
 
 \item{horizontal}{Logical. Horizontal figure.}
 }

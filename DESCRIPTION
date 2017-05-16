@@ -1,17 +1,16 @@
 Package: microbiome
 Type: Package
-Title: Tools for microbiome analysis
+Title: Microbiome Analytics
+Description: Utilities for microbiome analysis.
 Encoding: UTF-8
-Version: 0.99.93
-Date: 2017-04-27
+Version: 0.99.1
+Date: 2017-05-15
 Authors@R: c(
     person("Leo", "Lahti", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
-    person("Tineka", "Blake", role = "ctb"),
     person("Sudarshan", "Shetty", role = "ctb"),    
     person("Jarkko", "Salojarvi", role = "ctb"))
 biocViews: Microarray, Preprocessing, SystemsBiology, Visualization,
     Microbiome, Clustering
-Description: Utilities for microbiome analysis.
 License: BSD_2_clause + file LICENSE
 Depends:
     R (>= 3.0.1),
@@ -59,7 +58,7 @@ Suggests:
     testthat,
     tidyverse,
     viridis
-URL: http://microbiome.github.com
+URL: http://microbiome.github.io/microbiome
 MailingList: microbiome <microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues
 VignetteBuilder: knitr

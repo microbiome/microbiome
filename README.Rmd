@@ -53,7 +53,9 @@ Contributions are very welcome:
 
 Main developer: [Leo Lahti](https://github.com/antagomir/)
 
-[Contributors](https://github.com/microbiome/microbiome/graphs/contributors): Jarkko Salojärvi, Tineka Blake, Sudarshan Shetty. 
+Co-authors: Jarkko Salojärvi, Sudarshan Shetty. 
+
+Contributors: Tineka Blake and [other contributors](https://github.com/microbiome/microbiome/graphs/contributors).
 
 Financial support has been provided by the following bodies:
 

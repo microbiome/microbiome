@@ -51,7 +51,7 @@ evenness <- function(x, index = "all", zeroes = TRUE) {
   accepted <- c("camargo", "pielou", "simpson", "evar", "bulla")
 
   # Return all indices
-  if (index == "all") {
+  if ("all" %in% index) {
     index <- accepted
   }
 

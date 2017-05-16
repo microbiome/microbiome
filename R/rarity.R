@@ -32,7 +32,7 @@ rarity <- function(x, index = "all") {
   accepted <- c("log_modulo_skewness", "low_abundance", "rare_abundance")
 
   # Return all indices
-  if (index == "all") {
+  if ("all" %in% index) {
     index <- accepted
   }
 

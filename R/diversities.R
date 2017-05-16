@@ -39,7 +39,7 @@ diversities <- function(x, index = "all", zeroes = TRUE) {
   accepted <- c("inverse_simpson", "gini_simpson", "shannon", "fisher", "coverage")
 
   # Return all indices
-  if (index == "all") {
+  if ("all" %in% index) {
     index <- accepted
   }
 
