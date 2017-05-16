@@ -8,7 +8,10 @@
 #' @export
 #' @details See help(read_mothur2phyloseq) for details on the Mothur input format; and help(read_biom2phyloseq) for details on the biom format. The simple format refers to the set of CSV files written by the \code{\link{write_phyloseq}} function.
 #' @examples \dontrun{
-#'   pseq <- read_phyloseq(otu.file = NULL, taxonomy.file = NULL, metadata.file = NULL, type = c("mothur", "simple", "biom"))
+#'   pseq <- read_phyloseq(otu.file = NULL,
+#'   	                   taxonomy.file = NULL,
+#'			   metadata.file = NULL,
+#'			   type = c("mothur", "simple", "biom"))
 #'  }
 #' @seealso write_phyloseq
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}

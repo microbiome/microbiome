@@ -1,6 +1,7 @@
 # Extra material related but not to be included in the package
 inst/extras/..Rcheck
 inst/extras/*
+inst/extras/homepage
 inst/extras/.*
 inst/extras/.RData
 inst/extras/legacy

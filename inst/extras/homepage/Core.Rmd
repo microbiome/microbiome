@@ -20,8 +20,7 @@ See also related functions for the analysis of rare and variable taxa
 
 Load example data:
 
-
-```r
+```{r core-prevalence}
 # Load data
 library(microbiome)
 data(peerj32)
@@ -39,31 +38,15 @@ pseq.rel <- microbiome::transform(pseq, "compositional")
 
 Relative population frequencies; at 1% compositional abundance threshold:
 
-
-```r
+```{r core-prevalence2}
 head(prevalence(pseq.rel, detection = 1, sort = TRUE))
-```
-
-```
-##  Yersinia et rel.  Xanthomonadaceae  Wissella et rel.            Vibrio 
-##                 0                 0                 0                 0 
-## Weissella et rel.       Veillonella 
-##                 0                 0
 ```
 
 
 Absolute population frequencies (sample count):
 
-
-```r
+```{r core-prevalence2b}
 head(prevalence(pseq.rel, detection = 1, sort = TRUE, count = TRUE))
-```
-
-```
-##  Yersinia et rel.  Xanthomonadaceae  Wissella et rel.            Vibrio 
-##                 0                 0                 0                 0 
-## Weissella et rel.       Veillonella 
-##                 0                 0
 ```
 
 
@@ -71,24 +54,21 @@ head(prevalence(pseq.rel, detection = 1, sort = TRUE, count = TRUE))
 
 If you only need the names of the core taxa, do as follows. This returns the taxa that exceed the given prevalence and detection thresholds. 
 
-
-```r
+```{r core-members, message=FALSE, warning=FALSE, eval = FALSE}
 core.taxa.standard <- core_members(pseq.rel, detection = 0, prevalence = 50/100)
 ```
 
 
 A full phyloseq object of the core microbiota is obtained as follows:
 
-
-```r
+```{r core-data, message=FALSE, warning=FALSE}
 pseq.core <- core(pseq.rel, detection = 0, prevalence = .5)
 ```
 
 
 Retrieving the associated taxa names from the phyloseq object:
 
-
-```r
+```{r core-taxa, message=FALSE, warning=FALSE}
 core.taxa <- taxa(pseq.core)
 ```
 
@@ -98,8 +78,7 @@ core.taxa <- taxa(pseq.core)
 
 Total core abundance in each sample (sum of abundances of the core members):
 
-
-```r
+```{r core-ab, message=FALSE, warning=FALSE}
 core.abundance <- sample_sums(core(pseq.rel, detection = .01, prevalence = .95))
 ```
 
@@ -111,8 +90,7 @@ core.abundance <- sample_sums(core(pseq.rel, detection = .01, prevalence = .95))
 Determine core microbiota across various abundance/prevalence
 thresholds with the blanket analysis [(Salonen et al. CMI, 2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) based on various signal and prevalences.
 
-
-```r
+```{r core-example2, fig.width=9, fig.heigth=6, fig.show='hold', out.width="400px", warning=FALSE}
 # With absolute read counts
 det <- c(0, 10, 50, 200, 500, 2000)
 prevalences <- seq(.05, 1, .05)
@@ -125,8 +103,6 @@ p <- plot_core(pseq.rel, prevalences = prevalences, detections = det, plot.type 
 p + xlab("Relative Abundance (%)")
 ```
 
-<img src="figure/core-example2-1.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="400px" /><img src="figure/core-example2-2.png" title="plot of chunk core-example2" alt="plot of chunk core-example2" width="400px" />
-
 
 ### Core heatmaps
 
@@ -134,8 +110,7 @@ This visualization method has been used for instance in [Intestinal microbiome l
 
 Note that you can order the taxa on the heatmap with the order.taxa argument.
 
-
-```r
+```{r core-example3, fig.width=8, fig.heigth=18, fig.show='hold', out.width = '200px'}
 # Core with compositionals:
 prevalences <- seq(.05, 1, .05)
 detections <- 10^seq(log10(1e-3), log10(.2), length = 10)
@@ -154,26 +129,8 @@ print(p)
 # https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
 # Also discrete=TRUE versions available
 library(viridis)
-```
-
-```
-## Loading required package: viridisLite
-```
-
-```
-## Warning: package 'viridisLite' was built under R version 3.3.3
-```
-
-```r
 print(p + scale_fill_viridis())
-```
 
-```
-## Scale for 'fill' is already present. Adding another scale for 'fill',
-## which will replace the existing scale.
-```
-
-```r
 # Core with absolute counts and horizontal view:
 # and minimum population prevalence (given as percentage)
 detections <- 10^seq(log10(1), log10(max(abundances(pseq))/10), length = 10)
@@ -186,6 +143,4 @@ p <- plot_core(pseq, plot.type = "heatmap",
 		 min.prevalence = .2, horizontal = TRUE)
 print(p)
 ```
-
-<img src="figure/core-example3-1.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="200px" /><img src="figure/core-example3-2.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="200px" /><img src="figure/core-example3-3.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="200px" />
 

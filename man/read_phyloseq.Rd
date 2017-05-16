@@ -27,7 +27,10 @@ See help(read_mothur2phyloseq) for details on the Mothur input format; and help(
 }
 \examples{
 \dontrun{
-  pseq <- read_phyloseq(otu.file = NULL, taxonomy.file = NULL, metadata.file = NULL, type = c("mothur", "simple", "biom"))
+  pseq <- read_phyloseq(otu.file = NULL,
+  	                   taxonomy.file = NULL,
+		   metadata.file = NULL,
+		   type = c("mothur", "simple", "biom"))
  }
 }
 \seealso{
