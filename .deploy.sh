@@ -59,7 +59,7 @@ ls ../microbiome/inst/extras/homepage > testfiles2.txt
 # Add to git and deploy
 git add *.html
 git add *.txt
-git add docs
+# git add docs
 git commit -a -m "Deploy to Github Pages"
 git push --force --quiet $FULL_REPO $SOURCE_BRANCH:$TARGET_BRANCH # > /dev/null 2>&1
 
