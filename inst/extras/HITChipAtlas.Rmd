@@ -4,7 +4,7 @@ author: "Leo Lahti, Jarkko Salojarvi, Anne Salonen, Willem M de Vos"
 date: "`r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-- references.bib
+
 output: 
   rmarkdown::html_vignette
 ---

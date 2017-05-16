@@ -2,7 +2,6 @@
 title: "Limma - linear models for microarrays"
 bibliography: 
 - bibliography.bib
-- references.bib
 output: 
   prettydoc::html_pretty:
     theme: cayman

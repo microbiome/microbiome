@@ -2,7 +2,6 @@
 title: "How to contribute?"
 bibliography: 
 - bibliography.bib
-- references.bib
 output: 
   prettydoc::html_pretty:
     theme: cayman

@@ -2,7 +2,6 @@
 title: "Probe-level analysis for phylogenetic microarrays"
 bibliography: 
 - bibliography.bib
-- references.bib
 output: 
   prettydoc::html_pretty:
     theme: cayman

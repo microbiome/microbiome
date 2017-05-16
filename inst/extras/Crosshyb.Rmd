@@ -4,7 +4,7 @@ author: "Leo Lahti"
 date: "`r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-- references.bib
+
 output: 
   rmarkdown::html_vignette
 ---

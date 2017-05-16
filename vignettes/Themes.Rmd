@@ -2,7 +2,6 @@
 title: "Themes"
 bibliography: 
 - bibliography.bib
-- references.bib
 output: 
   prettydoc::html_pretty:
     theme: cayman

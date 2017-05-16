@@ -3,7 +3,6 @@ title: "Introduction to the microbiome R package"
 author: "Leo Lahti et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-- references.bib
 output: 
   prettydoc::html_pretty:
     theme: cayman
