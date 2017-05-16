@@ -1,9 +1,8 @@
 ---
-title: "Introduction to microbiome analysis in R"
-author: "Leo Lahti et al. 2017-05-01"
+title: "Introduction to the microbiome R package"
+author: "Leo Lahti et al. 2017-05-16"
 bibliography: 
 - bibliography.bib
-- references.bib
 output: 
   prettydoc::html_pretty:
     theme: cayman
@@ -85,17 +84,17 @@ citation('microbiome')
 ## 
 ## To cite package 'microbiome' in publications use:
 ## 
-##   Leo Lahti (2017). microbiome: Tools for microbiome analysis. R
-##   package version 0.99.93. http://microbiome.github.com
+##   Leo Lahti (2017). microbiome: Microbiome Analytics. R package
+##   version 0.99.1. http://microbiome.github.io/microbiome
 ## 
 ## A BibTeX entry for LaTeX users is
 ## 
 ##   @Manual{,
-##     title = {microbiome: Tools for microbiome analysis},
+##     title = {microbiome: Microbiome Analytics},
 ##     author = {Leo Lahti},
 ##     year = {2017},
-##     note = {R package version 0.99.93},
-##     url = {http://microbiome.github.com},
+##     note = {R package version 0.99.1},
+##     url = {http://microbiome.github.io/microbiome},
 ##   }
 ```
 
@@ -103,7 +102,7 @@ citation('microbiome')
 ### Dependencies
 
 The package utilizes tools from a number of other R extensions,
-including ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007), dplyr (Wickham and Francois, 2016), ggplot2 (Wickham, 2009), MASS (Venables and Ripley, 2002), moments (Komsta and Novomestky, 2015), phyloseq (McMurdie and Holmes, 2013), RColorBrewer (Neuwirth, 2014), scales (Wickham, 2016), stats (R Core Team, 2016), tidyr (Wickham, 2017), vegan (Oksanen, Blanchet, Friendly, Kindt, Legendre, McGlinn, Minchin, O'Hara, Simpson, Solymos, Stevens, Szoecs, and Wagner, 2017).
+including ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007), dplyr (Wickham and Francois, 2016), ggplot2 (Wickham, 2009), MASS (Venables and Ripley, 2002), moments (Komsta and Novomestky, 2015), phyloseq (McMurdie and Holmes, 2013), RColorBrewer (Neuwirth, 2014), scales (Wickham, 2016), stats (R Core Team, 2016), tidyr (Wickham, 2017), vegan (Oksanen, Blanchet, Friendly, et al., 2017).
 
 
 ### References

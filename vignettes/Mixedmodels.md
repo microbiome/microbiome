@@ -2,7 +2,6 @@
 title: "Comparisons of microbiome community composition"
 bibliography: 
 - bibliography.bib
-- references.bib
 output: 
   prettydoc::html_pretty:
     theme: cayman
@@ -60,24 +59,6 @@ dfs$signal <- abundances(pseq)["Akkermansia", rownames(dfs)]
 # Paired comparison
 # with fixed group effect and random subject effect
 library(lme4)
-```
-
-```
-## Loading required package: Matrix
-```
-
-```
-## 
-## Attaching package: 'Matrix'
-```
-
-```
-## The following object is masked from 'package:tidyr':
-## 
-##     expand
-```
-
-```r
 out <- lmer(signal ~ group + (1|subject), data = dfs)
 out0 <- lmer(signal ~ (1|subject), data = dfs)
 comp <- anova(out0, out)

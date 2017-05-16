@@ -2,7 +2,6 @@
 title: "Microbiome composition"
 bibliography: 
 - bibliography.bib
-- references.bib
 output: 
   prettydoc::html_pretty:
     theme: cayman
@@ -95,7 +94,7 @@ plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
 
 ### Plot taxa prevalence
 
-Here we use the Dynamics IBD data set from [Halfvarson J., et al. Nature Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174) as downloaded from [Qiita ID 1629](https://qiita.ucsd.edu/study/description/1629). 
+We use the Dynamics IBD data set from [Halfvarson J., et al. Nature Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174) as downloaded from [Qiita ID 1629](https://qiita.ucsd.edu/study/description/1629). This function allows you to have an overview of OTU prevalences alongwith their taxonomic affiliations. This will aid in checking if you filter OTUs based on prevalence, then what taxonomic affliations will be lost. The format_phyloseq function is used to add taxonomic information in columns with missing assignments (best classfiction is add with the OTU number). This can help in easily tracing back the sequence and also make the plots with most fine-resolution taxonomic classification possible.  
 
 
 ```r
@@ -105,11 +104,11 @@ data(DynamicsIBD)
 p0 <- subset_samples(DynamicsIBD, sex == "male" & timepoint == 1)
 p0 <- core(p0, detection = 10, prevalence = 0)
 
-# Improve the taxonomic information
+# Improve the taxonomic information. 
 p0.f <- format_phyloseq(p0)
 
 # For the available taxonomic levels, see tax_table(p0.f)
-p <- plot_taxa_prevalence(p0.f, 'Phylum')
+p <- plot_taxa_prevalence(p0.f, "Phylum")
 print(p)
 ```
 

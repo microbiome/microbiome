@@ -2,7 +2,6 @@
 title: "Generating output files"
 bibliography: 
 - bibliography.bib
-- references.bib
 output: 
   prettydoc::html_pretty:
     theme: cayman

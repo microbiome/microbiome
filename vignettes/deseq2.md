@@ -2,7 +2,6 @@
 title: "DESeq2"
 bibliography: 
 - bibliography.bib
-- references.bib
 output: 
   prettydoc::html_pretty:
     theme: cayman
@@ -57,6 +56,8 @@ res <- results(dds)
 df <- as.data.frame(res)
 df$taxon <- rownames(df)
 df <- df %>% arrange(log2FoldChange, padj)
+
+library(knitr)
 print(head(kable((df))))
 ```
 

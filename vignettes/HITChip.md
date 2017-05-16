@@ -2,7 +2,6 @@
 title: "HITChip tools"
 bibliography: 
 - bibliography.bib
-- references.bib
 output: 
   prettydoc::html_pretty:
     theme: cayman

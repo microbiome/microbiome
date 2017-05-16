@@ -2,7 +2,6 @@
 title: "Core microbiome"
 bibliography: 
 - bibliography.bib
-- references.bib
 output: 
   prettydoc::html_pretty:
     theme: cayman
@@ -133,6 +132,8 @@ p + xlab("Relative Abundance (%)")
 
 This visualization method has been used for instance in [Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Shetty et al. _FEMS Microbiology Reviews_ fuw045, 2017.
 
+Note that you can order the taxa on the heatmap with the order.taxa argument.
+
 
 ```r
 # Core with compositionals:
@@ -153,17 +154,6 @@ print(p)
 # https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
 # Also discrete=TRUE versions available
 library(viridis)
-```
-
-```
-## Loading required package: viridisLite
-```
-
-```
-## Warning: package 'viridisLite' was built under R version 3.3.3
-```
-
-```r
 print(p + scale_fill_viridis())
 ```
 

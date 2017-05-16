@@ -2,7 +2,6 @@
 title: "Group-wise comparisons of microbiome composition"
 bibliography: 
 - bibliography.bib
-- references.bib
 output: 
   prettydoc::html_pretty:
     theme: cayman
@@ -79,7 +78,7 @@ print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
 ```
 
 ```
-## [1] 0.33
+## [1] 0.3
 ```
 
 
