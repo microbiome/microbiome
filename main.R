@@ -49,10 +49,10 @@ namespaces0 <-  loadedNamespaces()
 
 for (myfile in fs) {
     print(myfile)
-    times[[myfile]] <- system.time(knit(myfile))[["elapsed"]]
+    # times[[myfile]] <- system.time(knit(myfile))[["elapsed"]]
     # rmarkdown::render(myfile, "md_document")
     # rmarkdown::render(myfile, "all")
-    #rmarkdown::render(myfile, "html_document")    
+    rmarkdown::render(myfile, "html_document")    
 
     # Must do to clean up some space
     #for (i in 1:10) {
@@ -65,7 +65,7 @@ for (myfile in fs) {
 }
 
 # Time per index.page
-par(mar = c(3, 10, 1, 1)); barplot(sort(times), horiz = T, las = 1)
+# par(mar = c(3, 10, 1, 1)); barplot(sort(times), horiz = T, las = 1)
 
 #system("git add *.md")
 #system("git add figure/*")
