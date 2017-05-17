@@ -35,3 +35,4 @@ read_biom2phyloseq <- function(otu.file = NULL, taxonomy.file = NULL, metadata.f
     }
     return(phyobj)
 }
+
