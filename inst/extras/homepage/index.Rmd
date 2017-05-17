@@ -19,15 +19,15 @@ output:
 # Handle citations
 require(knitcitations)
 # cleanbib()
-# options("citation_format" = "pandoc")
+#options("citation_format" = "pandoc")
 # bib <- read.bibtex("bibliography.bib")
 #opts_chunk$set(fig.width=4, fig.height=3, par=TRUE, out.width='2in', fig.pos='H')
-library(knitr)
 knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
 
 #----------------------------
 
 # CSS Style
+library(knitr)
 ### Import the style from CSS file 'css_path' 
 style <- paste(readLines("bioc.css"), collapse = "\n")
 opts_knit$set(self.contained = TRUE,

@@ -80,4 +80,4 @@ before_install:
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 #- bash ./.push_to_master # Not ready: sync successful devel to master
-- bash ./.deploy.sh
+# - bash ./.deploy.sh # Something broken

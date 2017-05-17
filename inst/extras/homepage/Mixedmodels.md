@@ -71,9 +71,9 @@ library(lme4)
 ```
 
 ```
-## The following objects are masked from 'package:SpiecEasi':
+## The following object is masked from 'package:S4Vectors':
 ## 
-##     tril, triu
+##     expand
 ```
 
 ```

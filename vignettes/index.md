@@ -1,6 +1,6 @@
 ---
 title: "Introduction to the microbiome R package"
-author: "Leo Lahti et al. 2017-05-16"
+author: "Leo Lahti et al. 2017-05-17"
 bibliography: 
 - bibliography.bib
 output: 
