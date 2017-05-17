@@ -28,8 +28,8 @@ write_phyloseq <- function(x, type = "all", path = getwd()) {
         if (f %in% dir(path)) {
             warning(paste("The file with the same name", f, "exists in the given path and is overwritten."))
         }
-        # Let us use abundances function here as it is guaranteed to be taxa x samples
-        # always
+        # Let us use abundances function here as it is guaranteed to be taxa x
+        # samples always
         y <- abundances(x)
         write.csv(y, file = f, fileEncoding = "UTF-16LE")
     } else if (type == "TAXONOMY" || type == "all") {
@@ -54,3 +54,4 @@ write_phyloseq <- function(x, type = "all", path = getwd()) {
     return(path)
     
 }
+
