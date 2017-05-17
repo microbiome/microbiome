@@ -1,0 +1,6 @@
+*_cache
+*_files
+cache/
+figure/
+*~
+*.md
