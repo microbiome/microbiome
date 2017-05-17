@@ -6,6 +6,9 @@
 \usage{
 chunk_reorder(x, newstart = x[[1]])
 }
+\value{
+Reordered x
+}
 \description{
 Chunk re-order a vector so that specified newstart is first.
    Different than relevel.

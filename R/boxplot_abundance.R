@@ -10,26 +10,25 @@
 #' @param na.rm Remove NAs
 #' @param show.points Include data points in the figure
 #' @details The directionality of change in paired boxplot is indicated by
-#'     the colors of the connecting lines.
+#'    the colors of the connecting lines.
 #' @return A \code{\link{ggplot}} plot object
 #' @export
 #' @examples
 #'   data(peerj32)
 #'   p <- boxplot_abundance(peerj32$phyloseq, x = 'time', y = 'Akkermansia',
-#'                         line = 'subject', color = 'gender')
+#'                    line = 'subject', color = 'gender')
 #' @keywords utilities
-boxplot_abundance <- function(pseq, x, y, line = NULL, color = NULL,
-                              log10 = FALSE, violin = FALSE, na.rm = FALSE,
-			      show.points = TRUE) {
+boxplot_abundance <- function(pseq, x, y, line = NULL, color = NULL, log10 = FALSE, 
+    violin = FALSE, na.rm = FALSE, show.points = TRUE) {
     
     change <- xvar <- yvar <- linevar <- colorvar <- NULL
     
     otu <- abundances(pseq)
     # otu <- abundances(pseq) if (!taxa_are_rows(pseq)) {otu <- t(otu)}
     
-    # Construct example data (df). Ensure that samples are given in same order in
-    # metadata and HITChip data.  FIXME: this can be removed when official phyloseq
-    # package is fixed so as to retain the factor level ordering
+    # Construct example data (df). Ensure that samples are given in same order
+    # in metadata and HITChip data.  FIXME: this can be removed when official
+    # phyloseq package is fixed so as to retain the factor level ordering
     
     df <- sample_data(pseq)
     
@@ -51,7 +50,7 @@ boxplot_abundance <- function(pseq, x, y, line = NULL, color = NULL,
     
     if (nrow(df) == 0) {
         warning("No sufficient data for plotting available. 
-                 Returning an empty plot.")
+            Returning an empty plot.")
         return(ggplot())
     }
     
@@ -64,7 +63,7 @@ boxplot_abundance <- function(pseq, x, y, line = NULL, color = NULL,
     
     if (show.points) {
         p <- p + geom_point(size = 2,
-	    position = position_jitter(width = 0.3), alpha = 0.5)
+        position = position_jitter(width = 0.3), alpha = 0.5)
     }
     
     # Box or Violin plot ?
@@ -79,31 +78,30 @@ boxplot_abundance <- function(pseq, x, y, line = NULL, color = NULL,
         df$linevar <- factor(df[[line]])
         
         # Calculate change directionality
-        df2 <- suppressWarnings(df %>% arrange(linevar, xvar) %>%
-	           group_by(linevar) %>% 
-                   summarise(change = diff(yvar)))
+        df2 <- suppressWarnings(df %>%
+        arrange(linevar, xvar) %>%
+        group_by(linevar) %>% 
+            summarise(change = diff(yvar)))
         
         # Map back to data
         df$change <- df2$change[match(df$linevar, df2$linevar)]
         # Log10 for line colors
-	# df$change <- sign(df$change) * log10(1 + abs(df$change))
+        # df$change <- sign(df$change) * log10(1 + abs(df$change))
         # Only show the sign of change for clarity
         df$change <- sign(df$change)
-        p <- p + geom_line(data = df, aes(group = linevar, color = change),
-	         size = 1)
-        
-        p <- p + scale_colour_gradient2(low = "blue", mid = "black",
-	    high = "red", 
+        p <- p + geom_line(data = df,
+        aes(group = linevar, color = change), size = 1) +
+        scale_colour_gradient2(low = "blue", mid = "black", high = "red", 
             midpoint = 0, na.value = "grey50", guide = "none")
-        
     }
     
     
     if (!is.null(color)) {
         
         df$colorvar <- factor(df[[color]])
+        # Add legend
         # p <- p + geom_point(data = df, aes(color = colorvar), size = 4)
-        # Add legend label p <- p + guides(color = guide_legend(title = color))
+        # label p <- p + guides(color = guide_legend(title = color))
         
     }
     

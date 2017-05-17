@@ -9,6 +9,9 @@ radial_theta(x)
 \arguments{
 \item{x}{position parameter}
 }
+\value{
+theta
+}
 \description{
 Adapted from \pkg{NeatMap} and \pkg{phyloseq} packages
   but not exported and hence not available via phyloseq. Completely

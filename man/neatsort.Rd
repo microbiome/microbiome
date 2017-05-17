@@ -14,7 +14,7 @@ neatsort(x, target, method = "NMDS", distance = "bray", first = NULL, ...)
 the target is 'rows' or 'cols'.}
 
 \item{method}{Ordination method. See \code{\link{ordinate}}
-      from \pkg{phyloseq} package.
+from \pkg{phyloseq} package.
 For matrices, only the NMDS method is available.}
 
 \item{distance}{Distance method. See \code{\link{ordinate}}
@@ -51,8 +51,8 @@ easy sample/taxon reordering for phyloseq objects.
 }
 \references{
 This function is partially based on code derived from the
-            \pkg{phyloseq} package. For the original
-            neatmap approach for heatmap sorting, see (and cite):
+             \pkg{phyloseq} package. For the original
+             neatmap approach for heatmap sorting, see (and cite):
   Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map
   alternatives in R. BMC Bioinformatics, 11, 45.
 }

@@ -5,9 +5,12 @@
 \alias{hitchip.taxonomy}
 \title{HITChip Taxonomy}
 \format{List with the element 'filtered', including a simplified version
-        of the HITChip taxonomy.}
+         of the HITChip taxonomy.}
 \usage{
 data(hitchip.taxonomy)
+}
+\value{
+Loads the data set in R.
 }
 \description{
 HITChip taxonomy table.

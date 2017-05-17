@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_phyloseq.R
 \name{read_phyloseq}
 \alias{read_phyloseq}
-\title{Importing phyloseq Data}
+\title{Import phyloseq Data}
 \usage{
 read_phyloseq(otu.file = NULL, taxonomy.file = NULL, metadata.file = NULL,
   type = c("simple", "mothur", "biom"))
@@ -22,7 +22,7 @@ file with the .taxonomy extension)}
 \code{\link{phyloseq-class}} object
 }
 \description{
-Reads the otu, taxonomy and metadata from various formats.
+Read the otu, taxonomy and metadata from various formats.
 }
 \details{
 See help(read_mothur2phyloseq) for details on the Mothur input

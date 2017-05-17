@@ -8,6 +8,9 @@
 \usage{
 data(DynamicsIBD)
 }
+\value{
+Loads the data set in R.
+}
 \description{
 This data set contains OTU level microbiota profiling with
    Illumina HiSeq 2000 for the V4 region with 515F/806RBC for an

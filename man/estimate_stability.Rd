@@ -22,8 +22,8 @@ time into account as a covariate}
 }
 \value{
 A list with following elements: 
-         stability: estimated stability
-        data: processed data set used in calculations
+       stability: estimated stability
+       data: processed data set used in calculations
 }
 \description{
 Quantify intermediate stability with respect to a given
@@ -48,9 +48,9 @@ excluded.
 \examples{
  \dontrun{
   df <- data.frame(list(
-        subject = rep(paste('subject', 1:50, sep = '-'), each = 2), 
-        time = rep(1:2, 50),
-        data = rnorm(100)))
+           subject = rep(paste('subject', 1:50, sep = '-'), each = 2), 
+           time = rep(1:2, 50),
+           data = rnorm(100)))
   s <- estimate_stability_single(df, reference.point = NULL, method = 'lm')
 }
 }

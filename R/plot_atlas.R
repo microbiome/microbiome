@@ -38,11 +38,11 @@ plot_atlas <- function(pseq, x, y, ncol = 2) {
     df <- df[sample(nrow(df)), ]
     
     # Order the factor levels (x variables) by their standard deviation
-    df$xvar <- factor(df$xvar, levels =
-        names(sort(sapply(split(df$signal, df$xvar), sd))))
+    df$xvar <- factor(df$xvar, levels = names(sort(sapply(split(df$signal, df$xvar), 
+        sd))))
     
-    # Order by x variable (randomization affects the ordering
-    # within each factor level if this is a factor)
+    # Order by x variable (randomization affects the ordering within each factor
+    # level if this is a factor)
     df <- df[order(df$xvar), ]
     
     df$index <- 1:nrow(df)

@@ -19,8 +19,7 @@
 #' @keywords utilities
 #' @details Assuming the sample_data(x) has 'subject' field and
 #' some subjects have multiple time points.
-plot_tipping <- function(x, taxon, tipping.point = NULL, lims = NULL,
-    shift = 0.001, 
+plot_tipping <- function(x, taxon, tipping.point = NULL, lims = NULL, shift = 0.001, 
     xlim = NULL) {
     
     pos <- abundance <- NULL
@@ -59,8 +58,7 @@ plot_tipping <- function(x, taxon, tipping.point = NULL, lims = NULL,
     dforig$pos <- df[as.character(dforig$subject), "pos"]
     
     p <- ggplot()
-    p <- p + geom_linerange(data = df, aes(x = pos, ymin = min,
-        ymax = max, color = switch))
+    p <- p + geom_linerange(data = df, aes(x = pos, ymin = min, ymax = max, color = switch))
     p <- p + scale_color_manual(values = c("black", "red"))
     p <- p + geom_hline(aes(yintercept = tipping.point), linetype = 2, size = 1)
     p <- p + ylab("Abundance")
@@ -68,8 +66,7 @@ plot_tipping <- function(x, taxon, tipping.point = NULL, lims = NULL,
     p <- p + guides(color = FALSE)
     p <- p + coord_flip()
     p <- p + geom_point(data = dforig, aes(x = pos, y = abundance))
-    p <- p + theme(axis.text.y = element_blank(),
-        axis.ticks.y = element_blank())
+    p <- p + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
     
     # Assuming relative abundances
     breaks <- 10^seq(-3, 2, 1)
@@ -79,11 +76,9 @@ plot_tipping <- function(x, taxon, tipping.point = NULL, lims = NULL,
     names(breaks) <- as.character(breaks)
     
     if (is.null(xlim)) {
-        p <- p + scale_y_log10(breaks = breaks, labels = names(breaks),
-	    limits = lims)
+        p <- p + scale_y_log10(breaks = breaks, labels = names(breaks), limits = lims)
     } else {
-        p <- p + scale_y_log10(breaks = breaks, labels = names(breaks),
-	    limits = xlim)
+        p <- p + scale_y_log10(breaks = breaks, labels = names(breaks), limits = xlim)
     }
     p <- p + ggtitle(taxon)
     

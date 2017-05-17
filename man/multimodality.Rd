@@ -24,10 +24,12 @@ as a multiple of kernel height}
 \value{
 A list with following elements: 
   \itemize{
-    \item{score}{Fraction of bootstrap samples with multiple observed modes}
-    \item{nmodes}{The most frequently observed number of modes in bootstrap}
-    \item{results}{Full results of potential_analysis for each
-                     row of the input matrix.}
+       \item{score}{Fraction of bootstrap samples with multiple
+           observed modes}
+       \item{nmodes}{The most frequently observed number of modes
+           in bootstrap}
+       \item{results}{Full results of potential_analysis for each
+           row of the input matrix.}
 }
 }
 \description{
@@ -35,24 +37,24 @@ Multimodality score based on bootstrapped potential analysis.
 }
 \details{
 Repeats potential analysis (Livina et al. 2010) multiple times
-         with bootstrap sampling for each row of the input data
-         (as in Lahti et al. 2014) and returns the specified results.
+       with bootstrap sampling for each row of the input data
+       (as in Lahti et al. 2014) and returns the specified results.
 }
 \examples{
   \dontrun{
-    # Not exported
-    data(peerj32)
-    s <- multimodality(
-              t(peerj32$microbes[, c('Akkermansia', 'Dialister')]))
+   # Not exported
+   data(peerj32)
+   s <- multimodality(
+           t(peerj32$microbes[, c('Akkermansia', 'Dialister')]))
   }
 }
 \references{
 \itemize{
-    \item{}{Livina et al. (2010). Potential analysis reveals changing number
-            of climate states during the last 60 kyr.
-          \emph{Climate of the Past}, 6, 77-82.}
-    \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
-               ecosystem. \emph{Nature Communications} 5:4344.}
+       \item{}{Livina et al. (2010). Potential analysis reveals changing
+           number of climate states during the last 60 kyr.
+           \emph{Climate of the Past}, 6, 77-82.}
+       \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
+           ecosystem. \emph{Nature Communications} 5:4344.}
   }
 }
 \author{

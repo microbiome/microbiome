@@ -9,6 +9,9 @@ meta(x)
 \arguments{
 \item{x}{a phyloseq object}
 }
+\value{
+Sample metadata as a data.frame
+}
 \description{
 The output of the phyloseq::sample_data() function does not
    return data.frame, which is needed for many applications.

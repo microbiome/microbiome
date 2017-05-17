@@ -28,11 +28,11 @@ The rarity index characterizes the concentration of species at
   \itemize{
     \item{log_modulo_skewness}{Quantifies the concentration of the least
           abundant species by the log-modulo skewness of the arithmetic
-   abundance classes (see Magurran & McGill 2011). These are typically
-   right-skewed; to avoid taking log of occasional negative skews,
-   we follow Locey & Lennon (2016) and use the log-modulo
-   transformation that adds a value of one to each measure of skewness
-   to allow logarithmization.}
+      abundance classes (see Magurran & McGill 2011). These are typically
+      right-skewed; to avoid taking log of occasional negative skews,
+      we follow Locey & Lennon (2016) and use the log-modulo
+      transformation that adds a value of one to each measure of skewness
+      to allow logarithmization.}
     \item{low_abundance}{Relative proportion of the least abundant species,
        below the detection level of 0.2\%}
     \item{rare_abundance}{Relative proportion of the rare (non-core)

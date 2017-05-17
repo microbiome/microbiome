@@ -8,6 +8,9 @@
 \usage{
 data(dietswap)
 }
+\value{
+Loads the data set in R.
+}
 \description{
 The diet swap data set represents a study with African
    and African American groups undergoing a two-week diet swap.

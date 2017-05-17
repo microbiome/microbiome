@@ -21,11 +21,12 @@
 #'   1) 'camargo': Camargo's evenness (Camargo 1992)
 #'   2) 'simpson': Simpson’s evenness (inverse Simpson diversity / S)
 #'   3) 'pielou': Pielou's evenness (Pielou, 1966), also known as Shannon or
-#'      Shannon-Weaver/Wiener/Weiner evenness; H/ln(S). The Shannon-Weaver
-#'      is the preferred term; see A tribute to Claude Shannon (1916 –2001)
-#'      and a plea for more rigorous use of species richness,
-#'      species diversity and the ‘Shannon–Wiener’ Index.
-#'      Spellerberg and Fedor. Global Ecology & Biogeography (2003) 12, 177–197
+#'         Shannon-Weaver/Wiener/Weiner evenness; H/ln(S). The Shannon-Weaver
+#'         is the preferred term; see A tribute to Claude Shannon (1916 –2001)
+#'         and a plea for more rigorous use of species richness,
+#'         species diversity and the ‘Shannon–Wiener’ Index.
+#'         Spellerberg and Fedor.
+#'         Global Ecology & Biogeography (2003) 12, 177–197
 #'   4) 'evar': Smith and Wilson’s Evar index (Smith & Wilson 1996)
 #'   5) 'bulla': Bulla’s index (O) (Bulla 1994)
 #'   
@@ -143,8 +144,8 @@ bulla <- function(x, zeroes = TRUE) {
 }
 
 
-# Camargo's eveness x: species counts zeroes: include zeros Inspired by
-# code from Pepijn de Vries and Zhou Xiang at
+# Camargo's eveness x: species counts zeroes: include zeros Inspired by code from
+# Pepijn de Vries and Zhou Xiang at
 # www.researchgate.net/post/How_can_we_calculate_the_Camargo_evenness_index_in_R
 # but rewritten here
 camargo <- function(x, zeroes = TRUE) {

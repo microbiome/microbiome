@@ -15,18 +15,19 @@ Bagged.RDA(X, Y, bs.iter = 100)
 }
 \value{
 List with elements:
-  \itemize{
-    \item{loadings}{bagged loadings}
-    \item{scores}{bagged scores}
-    \item{significance}{significances of X variables}
-  }
+   \itemize{
+       \item{loadings}{bagged loadings}
+       \item{scores}{bagged scores}
+       \item{significance}{significances of X variables}
+   }
 }
 \description{
 Bootstrap solutions that follows the Jack-knife estimation of
-             PLS by Martens and Martens, 2000.  Solves rotational
-             invariance of latent space by orthogonal procrustes rotations.
+           PLS by Martens and Martens, 2000.  Solves rotational
+           invariance of latent space by orthogonal procrustes rotations.
 }
 \examples{
+ # Not exported
  \dontrun{
    data(peerj32)
    x <- as.matrix(peerj32$microbes)[1:20, 1:6]
@@ -39,6 +40,6 @@ Bootstrap solutions that follows the Jack-knife estimation of
 See citation('microbiome')
 }
 \author{
-Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}
+Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}
 }
 \keyword{utilities}

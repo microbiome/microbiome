@@ -1,3 +1,6 @@
+#' @import grDevices
+#' @import graphics
+#' @import utils
 #' @importFrom ade4 s.class
 #' @importFrom dplyr arrange
 #' @importFrom dplyr do

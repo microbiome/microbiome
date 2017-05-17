@@ -26,9 +26,9 @@ Map taxa between hierarchy levels.
 \examples{
   data(dietswap)
   m <- map_levels('Akkermansia', from = 'Genus', to = 'Phylum',
-        tax_table(dietswap))
+         tax_table(dietswap))
   m <- map_levels('Verrucomicrobia', from = 'Phylum', to = 'Genus',
-        tax_table(dietswap))
+         tax_table(dietswap))
 }
 \references{
 See citation('microbiome')

@@ -10,19 +10,19 @@
 #'        for ordering
 #'     \item A character vector: sample IDs indicating the sample ordering.
 #'     \item 'neatmap' Order samples based on the neatmap approach.
-#'         See \code{\link{neatsort}}. By default, 'NMDS' method with 'bray'
-#'         distance is used. For other options, arrange the samples manually
-#'         with the function.
+#'          See \code{\link{neatsort}}. By default, 'NMDS' method with 'bray'
+#'          distance is used. For other options, arrange the samples manually
+#'          with the function.
 #'   }
 #' @param otu.sort Order taxa. Same options as for the sample.sort argument
-#'           but instead of metadata, taxonomic table is used.
-#'           Also possible to sort by 'abundance'.
+#'          but instead of metadata, taxonomic table is used.
+#'          Also possible to sort by 'abundance'.
 #' @param x.label Specify how to label the x axis.
-#'           This should be one of the variables in sample_variables(x).
+#'          This should be one of the variables in sample_variables(x).
 #' @param plot.type Plot type: 'barplot' or 'heatmap'
 #' @param verbose verbose
 #' @param transform Data transform to be used in plotting
-#'            (but not in sample/taxon ordering).
+#'           (but not in sample/taxon ordering).
 #'   The options are 'Z-OTU', 'Z-Sample', 'log10' and 'compositional'.
 #'   See the \code{\link{transform}} function.
 #' @param mar Figure margins
@@ -35,15 +35,12 @@
 #'     pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR')
 #'     plot_composition(pseq, taxonomic.level = 'Phylum')
 #' @keywords utilities
-plot_composition <- function(x, taxonomic.level = "OTU",
-    sample.sort = NULL, otu.sort = NULL, 
-    x.label = "sample", plot.type = "barplot", verbose = FALSE,
-    transform = NULL, 
+plot_composition <- function(x, taxonomic.level = "OTU", sample.sort = NULL, otu.sort = NULL, 
+    x.label = "sample", plot.type = "barplot", verbose = FALSE, transform = NULL, 
     mar = c(5, 12, 1, 1), average_by = NULL, ...) {
     
     # Avoid warnings
-    Sample <- Abundance <- Taxon <- horiz <- value <- scales <-
-    ID <- meta <- OTU <- NULL
+    Sample <- Abundance <- Taxon <- horiz <- value <- scales <- ID <- meta <- OTU <- NULL
     
     # Merge the taxa at a higher taxonomic level
     if (!taxonomic.level == "OTU") {
@@ -82,8 +79,8 @@ plot_composition <- function(x, taxonomic.level = "OTU",
         if (is.numeric(dff$group)) {
             dff$group <- factor(dff$group, levels = sort(unique(dff$group)))
         }
-	# Remove samples with no group info	
-        dff <- dff %>% filter(!is.na(group))  
+        # Remove samples with no group info
+        dff <- dff %>% filter(!is.na(group))
         dff$group <- droplevels(dff$group)
         av <- ddply(dff, "group", colwise(mean))
         rownames(av) <- as.character(av$group)
@@ -95,24 +92,20 @@ plot_composition <- function(x, taxonomic.level = "OTU",
     if (is.null(sample.sort) || sample.sort == "none" || !is.null(average_by)) {
         # No sorting sample.sort <- sample_names(x)
         sample.sort <- colnames(abu)
-    } else if (length(sample.sort) == 1 &&
-        sample.sort %in% names(sample_data(x)) && 
+    } else if (length(sample.sort) == 1 && sample.sort %in% names(sample_data(x)) && 
         is.null(average_by)) {
         # Sort by metadata field
-        sample.sort <- rownames(sample_data(x))[
-	   order(sample_data(x)[[sample.sort]])]
+        sample.sort <- rownames(sample_data(x))[order(sample_data(x)[[sample.sort]])]
     } else if (all(sample.sort %in% sample_names(x)) & is.null(average_by)) {
         # Use predefined order
         sample.sort <- sample.sort
     } else if (length(sample.sort) == 1 && sample.sort == "neatmap") {
-        sample.sort <- neatsort(x, method = "NMDS",
-	    distance = "bray", target = "sites", 
+        sample.sort <- neatsort(x, method = "NMDS", distance = "bray", target = "sites", 
             first = NULL)
     } else if (!sample.sort %in% names(sample_data(x))) {
-        warning(paste("The sample.sort argument", sample.sort,
-	    "is not included in sample_data(x). 
-	    Using original sample ordering."))
-            sample.sort <- sample_names(x)
+        warning(paste("The sample.sort argument", sample.sort, "is not included in sample_data(x). 
+          Using original sample ordering."))
+        sample.sort <- sample_names(x)
     }
     
     # Sort taxa
@@ -186,10 +179,8 @@ plot_composition <- function(x, taxonomic.level = "OTU",
         }
         
         # Rotate horizontal axis labels, and adjust
-        p <- p + theme(axis.text.x =
-	    element_text(angle = 90, vjust = 0.5, hjust = 0))
-        p <- p + guides(fill =
-	    guide_legend(reverse = FALSE, title = taxonomic.level))
+        p <- p + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 0))
+        p <- p + guides(fill = guide_legend(reverse = FALSE, title = taxonomic.level))
         
     } else if (plot.type == "heatmap") {
         
@@ -206,13 +197,12 @@ plot_composition <- function(x, taxonomic.level = "OTU",
         otu.sort <- otu.sort[otu.sort %in% rownames(otu)]
         sample.sort <- sample.sort[sample.sort %in% colnames(otu)]
         
-        # Plot TODO: move it in here from netresponse and return the
-	# ggplot object as well
+        # Plot TODO: move it in here from netresponse and return the ggplot object as
+        # well
         p <- plot_matrix(otu[otu.sort, sample.sort], type = "twoway", mar = mar)
         
     }
     
-    # list(plot = p, data = x)
     p
     
 }

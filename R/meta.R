@@ -3,6 +3,7 @@
 #'    return data.frame, which is needed for many applications.
 #'    This function retrieves the sample data as a data.frame
 #' @param x a phyloseq object
+#' @return Sample metadata as a data.frame
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples data(dietswap); df <- meta(dietswap)

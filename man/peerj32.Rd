@@ -10,12 +10,15 @@
   \item lipids: Quantification of 389 blood serum lipids across 44 samples
   \item microbes: Quantification of 130 genus-like taxa across 44 samples
   \item meta: Sample metadata including time point, gender, subjectID,
-       sampleID and treatment group (probiotic LGG / Placebo)
+         sampleID and treatment group (probiotic LGG / Placebo)
   \item phyloseq The microbiome data set converted into a
-       \code{\link{phyloseq-class}} object.
+         \code{\link{phyloseq-class}} object.
 }}
 \usage{
 data(peerj32)
+}
+\value{
+Loads the data set in R.
 }
 \description{
 The peerj32 data set contains high-through profiling data from 

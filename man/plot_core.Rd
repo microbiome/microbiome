@@ -31,8 +31,8 @@ of the heatmap. Only affects the plot.type = 'heatmap'.}
 }
 \value{
 A list with three elements: the ggplot object and the data.
-        The data has a different form for the lineplot and heatmap.
-        Finally, the applied parameters are returned.
+         The data has a different form for the lineplot and heatmap.
+         Finally, the applied parameters are returned.
 }
 \description{
 Core visualization (2D).
@@ -40,7 +40,7 @@ Core visualization (2D).
 \examples{
   data(atlas1006)
   p <- plot_core(atlas1006, prevalences = seq(0.1, 1, .1),
-                       detections = c(0, 10^(0:4)))
+                    detections = c(0, 10^(0:4)))
 }
 \references{
 A Salonen et al. The adult intestinal core microbiota is determined by 

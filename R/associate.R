@@ -3,7 +3,7 @@
 #' @param x matrix (samples x features if annotation matrix)
 #' @param y matrix (samples x features if cross-correlated with annotations)
 #' @param method association method ('pearson', 'spearman', or 'bicor' 
-#'                  for continuous; categorical for discrete)
+#'                for continuous; categorical for discrete)
 #' @param p.adj.threshold q-value threshold to include features 
 #' @param cth correlation threshold to include features 
 #' @param order order the results
@@ -11,12 +11,12 @@
 #'                    element
 #' @param mode Specify output format ('table' or 'matrix')
 #' @param p.adj.method p-value multiple testing correction method. 
-#'                     One of the methods in p.adjust 
+#'                    One of the methods in p.adjust 
 #'                        function ('BH' and others; see help(p.adjust)). 
 #'                        Default: 'fdr'
 #' @param verbose verbose
 #' @param filter.self.correlations Filter out correlations between 
-#'                                   identical items.
+#'                                identical items.
 #' @return List with cor, pval, pval.adjusted
 #' @examples 
 #'   data(peerj32)
@@ -25,16 +25,16 @@
 #'   cc <- associate(d1, d2, method = 'pearson')
 #' @export
 #' @details As the method=categorical (discrete) association measure
-#'          for nominal (no order for levels) variables we use Goodman and
-#'          Kruskal tau based on
-#'          r-bloggers.com/measuring-associations-between-non-numeric-variables/
+#'        for nominal (no order for levels) variables we use Goodman and
+#'        Kruskal tau based on
+#'        r-bloggers.com/measuring-associations-between-non-numeric-variables/
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @aliases cross_correlate
 #' @keywords utilities
-associate <- function(x, y = NULL, method = "spearman", p.adj.threshold = Inf,
-    cth = NULL, order = FALSE, n.signif = 0, mode = "table",
-    p.adj.method = "fdr", verbose = FALSE, filter.self.correlations = FALSE) {
+associate <- function(x, y = NULL, method = "spearman", p.adj.threshold = Inf, cth = NULL, 
+    order = FALSE, n.signif = 0, mode = "table", p.adj.method = "fdr", verbose = FALSE, 
+    filter.self.correlations = FALSE) {
     
     if (is.null(y)) {
         message("Cross-correlating the data with itself")
@@ -106,19 +106,17 @@ associate <- function(x, y = NULL, method = "spearman", p.adj.threshold = Inf,
                 
                 if (sum(!is.na(xi)) >= minobs) {
                   
-                  res <- suppressWarnings(cor.test(xi, unlist(y[, j],
-		      use.names = FALSE), 
-                      method = method, use = "pairwise.complete.obs"))
+                  res <- suppressWarnings(cor.test(xi, unlist(y[, j], use.names = FALSE), 
+                    method = method, use = "pairwise.complete.obs"))
                   
                   res <- c(res$estimate, res$p.value)
                   
                 } else {
                   
-                  warning(paste("Not enough observations (",
-		      minobs, "required); \n   
-                          (", 
+                  warning(paste("Not enough observations (", minobs, "required); \n   
+                        (", 
                     sum(!is.na(xi)), ") \n \n 
-                           - skipping correlation estimation"))
+                        - skipping correlation estimation"))
                   res <- c(NA, NA)
                   
                 }
@@ -133,8 +131,7 @@ associate <- function(x, y = NULL, method = "spearman", p.adj.threshold = Inf,
         
     } else if (method == "bicor") {
         
-        t1 <- suppressWarnings(bicorAndPvalue(x, y,
-	    use = "pairwise.complete.obs"))
+        t1 <- suppressWarnings(bicorAndPvalue(x, y, use = "pairwise.complete.obs"))
         Pc <- t1$p
         Cc <- t1$bicor
         
@@ -159,10 +156,8 @@ associate <- function(x, y = NULL, method = "spearman", p.adj.threshold = Inf,
                 xvec <- xvec[keep]
                 yvec <- yvec[keep]
                 
-                # Number of data-annotation samples for
-		# calculating the correlations
+                # Number of data-annotation samples for calculating the correlations
                 n <- sum(keep)
-                
                 Cc[varname, lev] <- GKtau(xvec, yvec)  # 
                 
             }
@@ -230,8 +225,8 @@ associate <- function(x, y = NULL, method = "spearman", p.adj.threshold = Inf,
         
         Cmat <- as.matrix(0)
         
-        # TODO: add also correlation filter, not only significance Require
-	# each has at least n.signif. correlations
+        # TODO: add also correlation filter, not only significance Require each has at
+        # least n.signif. correlations
         
         if (sum(inds1) >= n.signif && sum(inds2) >= n.signif) {
             
@@ -252,10 +247,8 @@ associate <- function(x, y = NULL, method = "spearman", p.adj.threshold = Inf,
                 rownames(tmp) <- NULL
                 colnames(tmp) <- NULL
                 
-                rind <- hclust(as.dist(1 - cor(t(tmp),
-		    use = "pairwise.complete.obs")))$order
-                cind <- hclust(as.dist(1 - cor(tmp,
-		    use = "pairwise.complete.obs")))$order
+                rind <- hclust(as.dist(1 - cor(t(tmp), use = "pairwise.complete.obs")))$order
+                cind <- hclust(as.dist(1 - cor(tmp, use = "pairwise.complete.obs")))$order
                 
                 rnams <- rownames(Cc)[rind]
                 cnams <- colnames(Cc)[cind]

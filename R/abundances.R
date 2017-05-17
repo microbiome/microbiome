@@ -9,9 +9,9 @@
 #' @export
 #' @aliases ab, otu
 #' @examples
-#'   data(dietswap)
-#'   a <- abundances(dietswap)
-#'   # b <- abundances(dietswap, transform = 'compositional')
+#'    data(dietswap)
+#'    a <- abundances(dietswap)
+#'    # b <- abundances(dietswap, transform = 'compositional')
 #' @keywords utilities
 abundances <- function(x, transform = "identity") {
     
@@ -19,7 +19,7 @@ abundances <- function(x, transform = "identity") {
     if (is.phyloseq(x)) {
         
         # Pick OTU matrix
-        otu <- abundances(x)
+        otu <- get_taxa(x)
         # Ensure that taxa are on the rows
         if (!taxa_are_rows(x) && nrow(otu) > 1 && nsamples(x) > 1) {
             otu <- t(otu)
@@ -43,8 +43,8 @@ abundances <- function(x, transform = "identity") {
         
     } else {
         
-        # If x is not vector or phyloseq object then let us assume it
-	# is a taxa x samples count matrix
+        # If x is not vector or phyloseq object then let us assume it is a taxa x samples
+        # count matrix
         otu <- x
         
     }
@@ -53,7 +53,6 @@ abundances <- function(x, transform = "identity") {
     if (!transform == "identity") {
         otu <- transform(otu, transform)
     }
-    
     otu
     
 }

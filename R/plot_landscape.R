@@ -18,32 +18,33 @@
 #'   data(dietswap)
 #'   p <- plot_landscape(dietswap)
 #' @keywords utilities
-plot_landscape <- function(x, method = "NMDS", distance = "bray", col = NULL,
-    main = NULL, x.ticks = 10, rounding = 0, add.points = TRUE, adjust = 1,
-    size = 1, legend = FALSE) {
-    
+plot_landscape <- function(x, method = "NMDS", distance = "bray",
+    col = NULL, main = NULL, x.ticks = 10, rounding = 0, add.points = TRUE,
+    adjust = 1, size = 1, legend = FALSE) {
+
     if (is.phyloseq(x)) {
         quiet(proj <- get_ordination(x, method, distance))
-        col <- proj[[col]]
     } else if (is.matrix(x) || is.data.frame(x)) {
         proj <- as.data.frame(x)
         if (ncol(x) > 2) {
             warning("More than two dimensions in the matrix. 
-                     Projection methods not implemented for matrices. 
-                     Using the first two columns for visualization.")
+                    Projection methods not implemented for matrices. 
+                    Using the first two columns for visualization.")
             proj <- x[, 1:2]
         }
     }
     
     if (is.null(col)) {
         proj$col <- as.factor(rep("black", nrow(proj)))
+    } else if (length(col) == 1 & col %in% colnames(proj)) {
+        proj$col <- proj[[col]]
     } else {
         proj$col <- col
-    }
+    }    
     
-    p <- densityplot(proj[, 1:2], main = NULL, x.ticks = 10, rounding = 0,
-             add.points = TRUE, 
-             adjust = 1, size = 1, col = proj$col, legend = T)
+    p <- densityplot(proj[, 1:2], main = NULL, x.ticks = 10,
+        rounding = 0, add.points = TRUE, 
+        adjust = 1, size = 1, col = proj$col, legend = TRUE)
     
     p
     
@@ -64,14 +65,12 @@ plot_landscape <- function(x, method = "NMDS", distance = "bray", col = NULL,
 #' @return ggplot2 object
 #' @examples
 #'   \dontrun{
-#'     # Not exported
-#'     p <- densityplot(cbind(rnorm(100), rnorm(100)))
+#'    p <- densityplot(cbind(rnorm(100), rnorm(100)))
 #'   }
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-densityplot <- function(x, main = NULL, x.ticks = 10, rounding = 0,
-    add.points = TRUE, 
+densityplot <- function(x, main = NULL, x.ticks = 10, rounding = 0, add.points = TRUE, 
     col = "black", adjust = 1, size = 1, legend = FALSE) {
     
     df <- x
@@ -117,16 +116,11 @@ densityplot <- function(x, main = NULL, x.ticks = 10, rounding = 0,
     if (add.points) {
         if (length(unique(df$color)) == 1 && length(unique(df$size)) == 1) {
             
-            p <- p + geom_point(aes(x = x, y = y),
-	        col = unique(df$color), size = unique(df$size))
-        } else if (
-	    length(unique(df$color)) == 1 && length(unique(df$size)) > 1) {
-                p <- p + geom_point(aes(x = x, y = y, size = size),
-		    col = unique(df$color))
-        } else if (
-	    length(unique(df$color)) > 1 && length(unique(df$size)) == 1) {
-                p <- p + geom_point(aes(x = x, y = y, col = color),
-		    size = unique(df$size))
+            p <- p + geom_point(aes(x = x, y = y), col = unique(df$color), size = unique(df$size))
+        } else if (length(unique(df$color)) == 1 && length(unique(df$size)) > 1) {
+            p <- p + geom_point(aes(x = x, y = y, size = size), col = unique(df$color))
+        } else if (length(unique(df$color)) > 1 && length(unique(df$size)) == 1) {
+            p <- p + geom_point(aes(x = x, y = y, col = color), size = unique(df$size))
         } else {
             p <- p + geom_point(aes(x = x, y = y, col = color, size = size))
         }
@@ -139,8 +133,7 @@ densityplot <- function(x, main = NULL, x.ticks = 10, rounding = 0,
     }
     
     
-    p <- p + scale_x_continuous(breaks = round(seq(floor(min(df[["x"]])),
-             ceiling(max(df[["x"]])), 
+    p <- p + scale_x_continuous(breaks = round(seq(floor(min(df[["x"]])), ceiling(max(df[["x"]])), 
         length = x.ticks), rounding))
     
     if (!is.null(main)) {

@@ -1,7 +1,7 @@
 #' @title Get Ordination
 #' @description Ordinate phyloseq data and merge it with sample metadata
 #' @param x \code{\link{phyloseq-class}} object or a data matrix 
-#'            (features x samples; eg. HITChip taxa vs. samples)
+#'          (features x samples; eg. HITChip taxa vs. samples)
 #' @param method Ordination method, see phyloseq::plot_ordination
 #' @param distance Ordination distance, see phyloseq::plot_ordination
 #' @return data.frame with ordination coordinates and metadata

@@ -30,7 +30,6 @@ This function returns global indices of the ecosystem state using
    function in the \pkg{phyloseq} package but not included here.
 }
 \examples{
-
   data(dietswap)
   d <- global(dietswap, index = 'gini')
   # d <- global(dietswap, index = 'all')

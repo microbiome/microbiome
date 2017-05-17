@@ -10,12 +10,12 @@
 #'    If a vector of points is provided, then the scores will be calculated
 #'    for every point and a data.frame is returned.
 #' @param method 'lm' (linear model) or 'correlation';
-#'               the linear model takes time into account as a covariate 
+#'                the linear model takes time into account as a covariate 
 #' @param output Specify the return mode. Either the 'full' set of stability
 #'        analysis outputs, or the 'scores' of intermediate stability.
 #' @return A list with following elements: 
-#'          stability: estimated stability
-#'         data: processed data set used in calculations        
+#'            stability: estimated stability
+#'            data: processed data set used in calculations        
 #' @details Decomposes each column in x into differences between
 #' consecutive time points. For each variable and time point we calculate
 #' for the data values: (i) the distance from reference point; (ii)
@@ -34,14 +34,12 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @export
 #' @examples
-#'     library(microbiome)
-#'     data(atlas1006)
-# x <- prune_taxa(c('Akkermansia', 'Dialister'), atlas1006)
-#'     res <- intermediate_stability(x, reference.point = NULL)
-#'     s <- sapply(res, function (x) {x$stability})
+#'    data(atlas1006)
+#'    x <- subset_samples(atlas1006, DNA_extraction_method == 'r')
+#'    x <- prune_taxa(c('Akkermansia', 'Dialister'), x)
+#'    res <- intermediate_stability(x, reference.point = NULL)
 #' @keywords utilities
-intermediate_stability <- function(x, reference.point = NULL,
-    method = "correlation", 
+intermediate_stability <- function(x, reference.point = NULL, method = "correlation", 
     output = "scores") {
     
     x0 <- x
@@ -50,16 +48,14 @@ intermediate_stability <- function(x, reference.point = NULL,
         
         scores <- c()
         for (i in 1:length(reference.point)) {
-            scores[[i]] <- intermediate_stability(x,
-	    reference.point = reference.point[[i]], 
+            scores[[i]] <- intermediate_stability(x, reference.point = reference.point[[i]], 
                 method = method, output = output)
         }
         
         if (ntaxa(x) > 1) {
             scores <- as.data.frame(scores, nrow = ntaxa(x))
         } else {
-            scores <- as.data.frame(t(as.matrix(scores,
-	    ncol = length(reference.point))))
+            scores <- as.data.frame(t(as.matrix(scores, ncol = length(reference.point))))
         }
         
         colnames(scores) <- as.character(reference.point)
@@ -87,15 +83,13 @@ intermediate_stability <- function(x, reference.point = NULL,
     spl.list <- list()
     for (i in 1:length(spl)) {
         # Ensure the measurements are ordered in time
-        spl.list[[i]] <- list(spl = spl[[i]][order(spl[[i]]$time), ],
-	    time.difs = diff(spl[[i]]$time))
+        spl.list[[i]] <- list(spl = spl[[i]][order(spl[[i]]$time), ], time.difs = diff(spl[[i]]$time))
     }
     
     for (tax in rownames(x)) {
         
         df$data <- x[tax, rownames(df)]
-        # Remove NAs and Infinities
-	# keep <- which(!is.na(df$data)) df <- df[keep,]
+        # Remove NAs and Infinities keep <- which(!is.na(df$data)) df <- df[keep,]
         
         stability[[tax]] <- estimate_stability(df, reference.point = reference.point, 
             method = method, spl.list)
@@ -120,17 +114,17 @@ intermediate_stability <- function(x, reference.point = NULL,
 #' @description Quantify intermediate stability with respect to a given
 #'    reference point. 
 #' @param df Combined input data vector (samples x variables) and metadata
-#'           data.frame (samples x features)
-#'           with the 'data', 'subject' and 'time' field for each sample 
+#'        data.frame (samples x features)
+#'        with the 'data', 'subject' and 'time' field for each sample 
 #' @param reference.point Optional. Calculate stability of the data w.r.t.
 #'                        this point. By default the intermediate range is
 #'                        used (min + (max - min)/2)
 #' @param method 'lm' (linear model) or 'correlation'; the linear model takes
-#'               time into account as a covariate
+#'             time into account as a covariate
 #' @param spl split object to speed up
 #' @return A list with following elements: 
-#'          stability: estimated stability
-#'         data: processed data set used in calculations        
+#'        stability: estimated stability
+#'        data: processed data set used in calculations        
 #' @details Decomposes each column in x into differences between
 #' consecutive time points. For each variable and time point we calculate
 #' for the data values: (i) the distance from reference point; (ii)
@@ -149,14 +143,13 @@ intermediate_stability <- function(x, reference.point = NULL,
 #' @examples
 #'  \dontrun{
 #'   df <- data.frame(list(
-#'         subject = rep(paste('subject', 1:50, sep = '-'), each = 2), 
-#'         time = rep(1:2, 50),
-#'         data = rnorm(100)))
+#'            subject = rep(paste('subject', 1:50, sep = '-'), each = 2), 
+#'            time = rep(1:2, 50),
+#'            data = rnorm(100)))
 #'   s <- estimate_stability_single(df, reference.point = NULL, method = 'lm')
 #' }
 #' @keywords internal
-estimate_stability <- function(df, reference.point = NULL, method = "lm",
-    spl.list) {
+estimate_stability <- function(df, reference.point = NULL, method = "lm", spl.list) {
     
     # Detect intermediate value in the overall data if reference point not given
     if (is.null(reference.point)) {
@@ -165,7 +158,7 @@ estimate_stability <- function(df, reference.point = NULL, method = "lm",
     
     if (nrow(df) < 2) {
         warning("No subjects with time series in estimate_stability. 
-           Returninng NULL")
+        Returninng NULL")
         return(NULL)
     }
     
@@ -177,16 +170,15 @@ estimate_stability <- function(df, reference.point = NULL, method = "lm",
         spli$data <- unlist(df[rownames(spli), "data"], use.names = FALSE)
         time.difs <- spl.list[[i]]$time.difs
         
-        # Calculate differences between consecutive time points; and the
-	# initial values; and their distance from reference
+        # Calculate differences between consecutive time points; and the initial values;
+        # and their distance from reference
         data.difs <- diff(spli$data)
         
         start.points <- spli$data[-nrow(spli)]
         start.reference.distance <- start.points - reference.point
         
         # Organize into data frame
-        dfi <- data.frame(change = data.difs, time = time.difs,
-	    start = start.points, 
+        dfi <- data.frame(change = data.difs, time = time.difs, start = start.points, 
             start.reference.distance = start.reference.distance)
         
         # Add to the collection
@@ -203,12 +195,11 @@ estimate_stability <- function(df, reference.point = NULL, method = "lm",
     
     if (method == "correlation") {
         
-        # For each subject, check distance from the stability point at the
-	# baseline time point
+        # For each subject, check distance from the stability point at the baseline time
+        # point
         baseline.distance <- abs(dfis$start.reference.distance)
         
-        # For each subject, calculate deviation between the first and second
-	# time point
+        # For each subject, calculate deviation between the first and second time point
         followup.distance <- abs(dfis$change)
         stability <- cor(baseline.distance, followup.distance)
         
@@ -217,7 +208,6 @@ estimate_stability <- function(df, reference.point = NULL, method = "lm",
             baseline.distance <- abs(dfis.left$start.reference.distance)
             followup.distance <- dfis.left$change
             stability.left <- cor(baseline.distance, followup.distance)
-            
         }
         
         if (nrow(dfis.right) > 10) {
@@ -228,31 +218,25 @@ estimate_stability <- function(df, reference.point = NULL, method = "lm",
         
         
     } else if (method == "lm") {
-        # Advanced calculation, take time into account with linear model
-	# (also possible
+        # Advanced calculation, take time into account with linear model (also possible
         # to check p-values later if needed)
-        stability <- coef(summary(lm(abs(change) ~ time +
-	    abs(start.reference.distance), 
+        stability <- coef(summary(lm(abs(change) ~ time + abs(start.reference.distance), 
             data = dfis)))["abs(start.reference.distance)", "Estimate"]
         
         if (nrow(dfis.left) > 10) {
             # Negative values for low stability
-            stability.left <- coef(summary(lm(change ~ time +
-	        abs(start.reference.distance), 
+            stability.left <- coef(summary(lm(change ~ time + abs(start.reference.distance), 
                 data = dfis.left)))["abs(start.reference.distance)", "Estimate"]
         }
         if (nrow(dfis.right) > 10) {
             # Negative values for low stability
-            stability.right <- -coef(summary(lm(change ~ time +
-	        abs(start.reference.distance), 
-                data = dfis.right)))["abs(start.reference.distance)",
-		"Estimate"]
+            stability.right <- -coef(summary(lm(change ~ time + abs(start.reference.distance), 
+                data = dfis.right)))["abs(start.reference.distance)", "Estimate"]
             
         }
     }
     
-    list(stability = stability, stability.right = stability.right,
-        stability.left = stability.left, 
+    list(stability = stability, stability.right = stability.right, stability.left = stability.left, 
         data = dfis)
     
 }

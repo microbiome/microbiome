@@ -30,27 +30,21 @@ Applied on the output of the
          \code{\link{potential_slidingaverage}} function.
 }
 \examples{
-  \dontrun{
-
-  # This exemplifies visualization of data from an external package.
-
   # Load gut microbiota data on 1006 western adults
   # From http://doi.org/10.5061/dryad.pk75d
   # (see help(atlas1006) for references and details)
   data(atlas1006)
-  pseq <- atlas1006
+  pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
 
   # Pick diversity and age
-  diversity <- exp(microbiome::diversity(pseq)$Shannon)
+  diversity <- exp(global(pseq, index = 'shannon'))
   age <- meta(pseq)$age
   
   # Run potential analysis
-  library(earlywarnings)
-  library(ggplot2)
-  res <- movpotential_ews(diversity, age)
-  plot_potential(res, cutoff = 0.5)
-
-  }
+  # library(earlywarnings)
+  # library(ggplot2)
+  # suppressWarnings(res <- movpotential_ews(diversity, age)$res)
+  # suppressWarnings(plot_potential(res, cutoff = 0.5))
 }
 \references{
 Lahti et al. Tipping elements of the human intestinal ecosystem.

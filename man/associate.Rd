@@ -30,8 +30,8 @@ element}
 
 \item{p.adj.method}{p-value multiple testing correction method. 
 One of the methods in p.adjust 
-   function ('BH' and others; see help(p.adjust)). 
-   Default: 'fdr'}
+    function ('BH' and others; see help(p.adjust)). 
+    Default: 'fdr'}
 
 \item{verbose}{verbose}
 
@@ -46,9 +46,9 @@ Cross-correlate columns of the input matrices.
 }
 \details{
 As the method=categorical (discrete) association measure
-         for nominal (no order for levels) variables we use Goodman and
-         Kruskal tau based on
-         r-bloggers.com/measuring-associations-between-non-numeric-variables/
+       for nominal (no order for levels) variables we use Goodman and
+       Kruskal tau based on
+       r-bloggers.com/measuring-associations-between-non-numeric-variables/
 }
 \examples{
   data(peerj32)

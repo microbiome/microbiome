@@ -68,12 +68,10 @@ aggregate_taxa <- function(x, level, top = NULL) {
         pseq2 <- phyloseq(OTU)
         
         # Remove all ambiguous levels
-        keep <- colnames(tax_table(pseq))[
-	    which(sapply(1:ncol(tax_table(pseq)),
-	        function(k) sum(sapply(split(as.character(tax_table(pseq)[, k]),
-		as.character(tax_table(pseq)[, level])), function(x) {
-                length(unique(x))
-            }) > 1)) == 0)]
+        keep <- colnames(tax_table(pseq))[which(sapply(1:ncol(tax_table(pseq)), function(k) sum(sapply(split(as.character(tax_table(pseq)[, 
+            k]), as.character(tax_table(pseq)[, level])), function(x) {
+            length(unique(x))
+        }) > 1)) == 0)]
         tax <- unique(tax_table(pseq)[, keep])
         
         # Rename the lowest level

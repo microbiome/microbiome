@@ -40,14 +40,10 @@
 #' @author Based on the original version from Felix Schonbrodt. 
 #'         Modified by Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-plot_regression <- function(formula, data, B = 1000, shade = TRUE,
-    shade.alpha = 0.1, 
-    spag = FALSE, mweight = TRUE, show.lm = FALSE, show.median = TRUE,
-    median.col = "white", 
-    show.CI = FALSE, method = loess, bw = FALSE, slices = 200,
-    palette = colorRampPalette(c("#FFEDA0", 
-        "#DD0000"), bias = 2)(20), ylim = NULL, quantize = "continuous",
-	show.points = TRUE, 
+plot_regression <- function(formula, data, B = 1000, shade = TRUE, shade.alpha = 0.1, 
+    spag = FALSE, mweight = TRUE, show.lm = FALSE, show.median = TRUE, median.col = "white", 
+    show.CI = FALSE, method = loess, bw = FALSE, slices = 200, palette = colorRampPalette(c("#FFEDA0", 
+        "#DD0000"), bias = 2)(20), ylim = NULL, quantize = "continuous", show.points = TRUE, 
     ...) {
     
     # Some transparency problems solved with:
@@ -76,13 +72,11 @@ plot_regression <- function(formula, data, B = 1000, shade = TRUE,
     data$DV <- data[[DV]]
     data[[IV]] <- data[[DV]] <- NULL
     
-    data <- arrange(data, IV) %>% select(IV, DV) %>%
-        dplyr::filter(!is.na(IV) & !is.na(DV)) %>% 
-        dplyr::filter(!is.infinite(IV) & !is.infinite(DV))
+    data <- arrange(data, IV) %>% select(IV, DV) %>% filter(!is.na(IV) & !is.na(DV)) %>% 
+        filter(!is.infinite(IV) & !is.infinite(DV))
     
     if (bw) {
-        palette <- colorRampPalette(c("#EEEEEE", "#999999", "#333333"),
-	bias = 2)(20)
+        palette <- colorRampPalette(c("#EEEEEE", "#999999", "#333333"), bias = 2)(20)
     }
     
     message("Computing boostrapped smoothers ...")
@@ -97,8 +91,7 @@ plot_regression <- function(formula, data, B = 1000, shade = TRUE,
         data2 <- data2[order(data2$IV), ]
         
         if (class(l0) == "loess") {
-            m1 <- method(formula, data2,
-	        control = loess.control(surface = "i", statistics = "a", 
+            m1 <- method(formula, data2, control = loess.control(surface = "i", statistics = "a", 
                 trace.hat = "a"), ...)
         } else {
             m1 <- method(formula, data2, ...)
@@ -108,8 +101,7 @@ plot_regression <- function(formula, data, B = 1000, shade = TRUE,
     
     
     # compute median and CI limits of bootstrap
-    CI.boot <- t(apply(l0.boot, 1, function(x)
-        quantile(x, prob = c(0.025, 0.5, 0.975, 
+    CI.boot <- t(apply(l0.boot, 1, function(x) quantile(x, prob = c(0.025, 0.5, 0.975, 
         pnorm(c(-3, -2, -1, 0, 1, 2, 3))), na.rm = TRUE)))
     colnames(CI.boot)[1:10] <- c("LL", "M", "UL", paste0("SD", 1:7))
     
@@ -117,8 +109,7 @@ plot_regression <- function(formula, data, B = 1000, shade = TRUE,
     CI.boot$x <- newx[, 1]
     CI.boot$width <- CI.boot$UL - CI.boot$LL
     
-    # scale the CI width to the range 0 to 1 and flip it
-    # (bigger numbers = narrower
+    # scale the CI width to the range 0 to 1 and flip it (bigger numbers = narrower
     # CI)
     CI.boot$w2 <- (CI.boot$width - min(CI.boot$width))
     CI.boot$w3 <- 1 - (CI.boot$w2/max(CI.boot$w2))
@@ -139,19 +130,15 @@ plot_regression <- function(formula, data, B = 1000, shade = TRUE,
             message("Computing density estimates for the vertical cuts ...")
             flush.console()
             if (is.null(ylim)) {
-                min_value <- min(min(l0.boot, na.rm = TRUE),
-		    min(data$DV, na.rm = TRUE))
-                max_value <- max(max(l0.boot, na.rm = TRUE),
-		    max(data$DV, na.rm = TRUE))
+                min_value <- min(min(l0.boot, na.rm = TRUE), min(data$DV, na.rm = TRUE))
+                max_value <- max(max(l0.boot, na.rm = TRUE), max(data$DV, na.rm = TRUE))
                 ylim <- c(min_value, max_value)
             }
         }
         
         message("Vertical cross-sectional density estimate")
-        d2 <- b2 %>% select(x, value) %>% group_by(x) %>%
-	             do(data.frame(density(.$value, 
-            na.rm = TRUE, n = slices, from = ylim[[1]],
-	        to = ylim[[2]])[c("x", "y")]))
+        d2 <- b2 %>% select(x, value) %>% group_by(x) %>% do(data.frame(density(.$value, 
+            na.rm = TRUE, n = slices, from = ylim[[1]], to = ylim[[2]])[c("x", "y")]))
         d2 <- data.frame(d2)
         names(d2) <- c("y", "dens")
         d2$x <- rep(unique(b2$x), each = slices)
@@ -163,8 +150,7 @@ plot_regression <- function(formula, data, B = 1000, shade = TRUE,
         
         message("Tile approach")
         d2$alpha.factor <- d2$dens.scaled^shade.alpha
-        p1 <- p1 + geom_tile(data = d2, aes(x = x, y = y, fill = dens.scaled,
-	    alpha = alpha.factor))
+        p1 <- p1 + geom_tile(data = d2, aes(x = x, y = y, fill = dens.scaled, alpha = alpha.factor))
         p1 <- p1 + scale_fill_gradientn("dens.scaled", colours = palette)
         p1 <- p1 + scale_alpha_continuous(range = c(0.001, 1))
         
@@ -186,11 +172,9 @@ plot_regression <- function(formula, data, B = 1000, shade = TRUE,
             d3 <- rbind(d3, seg)
         }
         
-        p1 <- p1 + geom_polygon(data = d3, aes(x = x, y = value, color = NULL,
-	    fill = col, 
+        p1 <- p1 + geom_polygon(data = d3, aes(x = x, y = value, color = NULL, fill = col, 
             group = group))
-        p1 <- p1 + scale_fill_gradientn("dens.scaled", colours = palette,
-	    values = seq(-1, 
+        p1 <- p1 + scale_fill_gradientn("dens.scaled", colours = palette, values = seq(-1, 
             3, 1))
         
     }
@@ -198,29 +182,24 @@ plot_regression <- function(formula, data, B = 1000, shade = TRUE,
     message("Build ggplot...")
     flush.console()
     if (spag) {
-        p1 <- p1 + geom_path(data = b2, aes(x = x, y = value, group = B),
-	    size = 0.7, 
+        p1 <- p1 + geom_path(data = b2, aes(x = x, y = value, group = B), size = 0.7, 
             alpha = 10/B, color = "darkblue")
     }
     
     if (show.median) {
         if (mweight) {
-            p1 <- p1 + geom_path(data = CI.boot, aes(x = x, y = M,
-	        alpha = w3^3), 
+            p1 <- p1 + geom_path(data = CI.boot, aes(x = x, y = M, alpha = w3^3), 
                 size = 0.6, linejoin = "mitre", color = median.col)
         } else {
-            p1 <- p1 + geom_path(data = CI.boot, aes(x = x, y = M),
-	        size = 0.6, linejoin = "mitre", 
+            p1 <- p1 + geom_path(data = CI.boot, aes(x = x, y = M), size = 0.6, linejoin = "mitre", 
                 color = median.col)
         }
     }
     
     if (show.CI) {
-        p1 <- p1 + geom_path(data = CI.boot, aes(x = x, y = UL, group = B),
-	    size = 1, 
+        p1 <- p1 + geom_path(data = CI.boot, aes(x = x, y = UL, group = B), size = 1, 
             color = "red")
-        p1 <- p1 + geom_path(data = CI.boot, aes(x = x, y = LL, group = B),
-	    size = 1, 
+        p1 <- p1 + geom_path(data = CI.boot, aes(x = x, y = LL, group = B), size = 1, 
             color = "red")
     }
     
@@ -229,8 +208,7 @@ plot_regression <- function(formula, data, B = 1000, shade = TRUE,
     }
     
     if (show.points) {
-        p1 <- p1 + geom_point(size = 1, shape = 21, fill = "white",
-	    color = "black")
+        p1 <- p1 + geom_point(size = 1, shape = 21, fill = "white", color = "black")
     }
     
     p <- p1

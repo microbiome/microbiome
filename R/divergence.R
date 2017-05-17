@@ -66,8 +66,7 @@ divergence <- function(x, method = "anticorrelation") {
 anticorrelation <- function(x, method = "spearman") {
     
     # Correlations calculated against the mean of the sample set
-    cors <- as.vector(cor(x, matrix(rowMeans(x)),
-        method = method, use = "pairwise.complete.obs"))
+    cors <- as.vector(cor(x, matrix(rowMeans(x)), method = method, use = "pairwise.complete.obs"))
     
     1 - cors
     

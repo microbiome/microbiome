@@ -3,7 +3,7 @@
 #'    evenness, diversity, and other indicators
 #' @param x A species abundance vector, or matrix (taxa/features x samples)
 #'    with the absolute count data (no relative abundances), or
-#̈́    \code{\link{phyloseq-class}} object
+# \code{\link{phyloseq-class}} object
 #' @param index Default is ‘NULL’, meaning that all available global indices
 #'    will be included. For specific options, see details.
 #' @inheritParams core
@@ -17,7 +17,6 @@
 #'    function in the \pkg{phyloseq} package but not included here.
 #'
 #' @examples
-#'
 #'   data(dietswap)
 #'   d <- global(dietswap, index = 'gini')
 #'   # d <- global(dietswap, index = 'all')
@@ -30,6 +29,7 @@
 global <- function(x, index = "all") {
     
     tab <- NULL
+    index <- tolower(index)
     
     if (any(c("all", "richness") %in% index)) {
         a <- richness(x)

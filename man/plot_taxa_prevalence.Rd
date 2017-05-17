@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_taxa_prevalence.R
 \name{plot_taxa_prevalence}
 \alias{plot_taxa_prevalence}
-\title{Plotting the Taxa Prevalence}
+\title{Visualize Prevalence Distributions for Taxa}
 \usage{
 plot_taxa_prevalence(x, level)
 }
@@ -15,24 +15,20 @@ plot_taxa_prevalence(x, level)
 A \code{\link{ggplot}} plot object.
 }
 \description{
-A simplified wrapper for creating taxa prevalence plots at
-   Phylum/Order/Class/Family level.
+Create taxa prevalence plots at various taxonomic levels.
 }
 \details{
-This plot is useful to have a first insights into how is the taxa
-   distribution in your data.
-   This also gives an idea about the taxonomic affiliation of rare
-   and abundant taxa in your dataset. This may be helpful in some data
-   filtering or other downstream analysis.
+This helps to obtain first insights into how is the taxa
+   distribution in the data. It also gives an idea about the taxonomic
+   affiliation of rare and abundant taxa in the data.
+   This may be helpful for data filtering or other downstream analysis.
 }
 \examples{
-\dontrun{
- library(microbiome)
- data(DynamicsIBD)
- p0 <- DynamicsIBD
- p0.f <- format_phyloseq(p0)
- plot <- plot_taxa_prevalence(p0.f, 'Phylum')
-    }
+  data(DynamicsIBD)
+  # Pick data subset to speed up example
+  p0 <- subset_samples(DynamicsIBD, sex == 'male' & timepoint == 1)
+  p0.f <- format_phyloseq(p0)
+  p <- plot_taxa_prevalence(p0.f, 'Phylum')
 }
 \author{
 Sudarshan A. Shetty \email{sudarshanshetty9@gmail.com}

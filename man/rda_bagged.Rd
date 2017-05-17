@@ -4,7 +4,7 @@
 \alias{rda_bagged}
 \title{Bagged RDA}
 \usage{
-rda_bagged(x, y, bs.iter = 100, verbose = T)
+rda_bagged(x, y, bs.iter = 100, verbose = TRUE)
 }
 \arguments{
 \item{x}{a matrix, samples on columns, variables (bacteria) on rows. 
@@ -20,14 +20,14 @@ Or name of phyloseq sample data variable name
 }
 \value{
 List with items:
-  \itemize{
-    \item{loadings}{bagged loadings}
-    \item{significance}{significances of X variables}
-    \item{scores}{bagged scores}
-    \item{group.centers}{group centers on latent space}
-    \item{bootstrapped}{bootstrapped loadings}
-    \item{data}{data set with non-significant components dropped out}
-  }
+   \itemize{
+       \item{loadings}{bagged loadings}
+       \item{significance}{significances of X variables}
+       \item{scores}{bagged scores}
+       \item{group.centers}{group centers on latent space}
+       \item{bootstrapped}{bootstrapped loadings}
+       \item{data}{data set with non-significant components dropped out}
+   }
 }
 \description{
 Bagged (or Bootstrap Aggregated) RDA feature selection
@@ -39,19 +39,15 @@ Bootstrap aggregation (bagging) is expected to improve the
    final summary.
 }
 \examples{
-  # Example with abundance matrix
+  # RDA with phyloseq object
   data(peerj32)
-  pseq <- peerj32$phyloseq
-
-  # Example with phyloseq object
-  res <- rda_bagged(pseq, 'gender', bs.iter=2)
-  plot_rda_bagged(res, y)
+  res <- rda_bagged(peerj32$phyloseq, 'gender', bs.iter=2)
 }
 \references{
 See citation('microbiome')
 }
 \seealso{
-vegan::rda and phyloseq::ordinate
+plot_rda_bagged, vegan::rda, phyloseq::ordinate
 }
 \author{
 Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}

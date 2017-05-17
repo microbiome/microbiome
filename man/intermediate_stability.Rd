@@ -26,8 +26,8 @@ analysis outputs, or the 'scores' of intermediate stability.}
 }
 \value{
 A list with following elements: 
-         stability: estimated stability
-        data: processed data set used in calculations
+           stability: estimated stability
+           data: processed data set used in calculations
 }
 \description{
 Quantify intermediate stability with respect to a given
@@ -51,10 +51,10 @@ count data x is logarithmized before the analysis with the log10(1 + x)
 trick to circumvent logarithmization of zeroes.
 }
 \examples{
-    library(microbiome)
-    data(atlas1006)
-    res <- intermediate_stability(x, reference.point = NULL)
-    s <- sapply(res, function (x) {x$stability})
+   data(atlas1006)
+   x <- subset_samples(atlas1006, DNA_extraction_method == 'r')
+   x <- prune_taxa(c('Akkermansia', 'Dialister'), x)
+   res <- intermediate_stability(x, reference.point = NULL)
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

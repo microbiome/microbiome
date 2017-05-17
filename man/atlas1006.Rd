@@ -8,11 +8,13 @@
 \usage{
 data(atlas1006)
 }
+\value{
+Loads the data set in R.
+}
 \description{
 This data set contains genus-level microbiota profiling with
    HITChip for 1006 western adults with no reported health complications,
-   reported in Lahti et al. (2014)
-\url{http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html}.
+   reported in Lahti et al. (2014) \url{https://doi.org/10.1038/ncomms5344}.
 }
 \details{
 The data is also available for download from the Data Dryad

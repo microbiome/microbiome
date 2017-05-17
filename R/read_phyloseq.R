@@ -1,5 +1,5 @@
-#' @title Importing phyloseq Data 
-#' @description Reads the otu, taxonomy and metadata from various formats.
+#' @title Import phyloseq Data 
+#' @description Read the otu, taxonomy and metadata from various formats.
 #' @param otu.file File containing the OTU table (for mothur this is the file
 #'    with the .shared extension)
 #' @param taxonomy.file (for mothur this is typically the consensus taxonomy
@@ -21,8 +21,7 @@
 #' @seealso write_phyloseq
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
-read_phyloseq <- function(otu.file = NULL, taxonomy.file = NULL,
-    metadata.file = NULL, 
+read_phyloseq <- function(otu.file = NULL, taxonomy.file = NULL, metadata.file = NULL, 
     type = c("simple", "mothur", "biom")) {
     
     # TODO add automated recognition of the type?

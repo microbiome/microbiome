@@ -15,14 +15,14 @@
 #' The available diversity indices include the following:
 #'  \itemize{
 #'    \item{inverse_simpson}{Inverse  Simpson diversity:
-#'        $1/lambda$ where $lambda = sum(p^2)$ and $p$ are relative abundances.}
+#'          $1/lambda$ where $lambda = sum(p^2)$ and $p$ are relative abundances.}
 #'    \item{gini_simpson}{Gini-Simpson diversity $1 - lambda$.
-#'        This is also called Gibbs–Martin, or Blau index in sociology,
-#'        psychology and management studies.}
+#'          This is also called Gibbs–Martin, or Blau index in sociology,
+#'          psychology and management studies.}
 #'    \item{shannon}{Shannon diversity ie entropy}
 #'    \item{fisher}{Fisher alpha; as implemented in the \pkg{vegan} package}
 #'    \item{coverage}{Number of species needed to cover 50\% of the ecosystem.
-#'       For other quantiles, apply the function coverage directly.}
+#'          For other quantiles, apply the function coverage directly.}
 #'
 #'  }
 #'   
@@ -49,8 +49,8 @@
 diversities <- function(x, index = "all", zeroes = TRUE) {
     
     # Only include accepted indices
-    accepted <- c("inverse_simpson", "gini_simpson",
-                  "shannon", "fisher", "coverage")
+    index <- tolower(index)
+    accepted <- c("inverse_simpson", "gini_simpson", "shannon", "fisher", "coverage")
     
     # Return all indices
     if ("all" %in% index) {

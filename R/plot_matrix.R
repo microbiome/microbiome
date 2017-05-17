@@ -37,10 +37,10 @@
 #'   mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2))
 #'   res <- plot_matrix(mat, 'twoway', midpoint = 3) 
 #' @keywords utilities
-plot_matrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL,
-    colors = NULL, col.breaks = NULL, interval = 0.1, plot_axes = "both",
-    row.tick = 1, col.tick = 1, cex.xlab = 0.9, cex.ylab = 0.9, xlab = NULL,
-    ylab = NULL, limit.trunc = 0, cap = NULL, mar = c(5, 4, 4, 2), ...) {
+plot_matrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL, colors = NULL, 
+    col.breaks = NULL, interval = 0.1, plot_axes = "both", row.tick = 1, col.tick = 1, 
+    cex.xlab = 0.9, cex.ylab = 0.9, xlab = NULL, ylab = NULL, limit.trunc = 0, cap = NULL, 
+    mar = c(5, 4, 4, 2), ...) {
     
     # Center the data and color breakpoints around the specified midpoint
     mat <- mat - midpoint
@@ -72,14 +72,10 @@ plot_matrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL,
         my.palette <- colorRampPalette(c("blue", "black", "red"), space = "rgb")
     } else if (!class(palette) == "function" && palette == "blue-white-red") {
         my.palette <- colorRampPalette(c("blue", "white", "red"), space = "rgb")
-    } else if (!class(palette) == "function" &&
-        palette == "blue-white-yellow") {
-        my.palette <- colorRampPalette(c("blue", "white", "yellow"),
-	space = "rgb")
-    } else if (!class(palette) == "function" &&
-        palette == "blue-black-yellow") {
-        my.palette <- colorRampPalette(c("blue", "black", "yellow"),
-	space = "rgb")
+    } else if (!class(palette) == "function" && palette == "blue-white-yellow") {
+        my.palette <- colorRampPalette(c("blue", "white", "yellow"), space = "rgb")
+    } else if (!class(palette) == "function" && palette == "blue-black-yellow") {
+        my.palette <- colorRampPalette(c("blue", "black", "yellow"), space = "rgb")
     } else if (!class(palette) == "function" && palette == "bw") {
         gray.palette <- function(int) {
             gray(seq(0, 1, length = int))
@@ -94,8 +90,8 @@ plot_matrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL,
         colors <- palette(length(col.breaks) - 1)
     }
     
-    # transpose and revert row order to plot matrix in the same way it
-    # appears in its numeric form
+    # transpose and revert row order to plot matrix in the same way it appears in its
+    # numeric form
     par(mar = mar)
     
     matm <- matrix(mat[rev(seq(nrow(mat))), ], ncol = ncol(mat))
@@ -107,31 +103,26 @@ plot_matrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL,
     if (nfeats == 1) {
         mat <- mat
     }
-    image(t(mat), col = colors, xaxt = "n", yaxt = "n",
-        zlim = range(col.breaks), 
+    image(t(mat), col = colors, xaxt = "n", yaxt = "n", zlim = range(col.breaks), 
         breaks = col.breaks, ...)
     
     if (plot_axes == "both" || plot_axes == TRUE) {
         
         if (is.null(xlab)) {
             v <- seq(1, nsamples, col.tick)  # take every nth index
-            axis(1, at = seq(0, 1, length = nsamples)[v],
-	        labels = colnames(mat)[v], 
+            axis(1, at = seq(0, 1, length = nsamples)[v], labels = colnames(mat)[v], 
                 cex.axis = cex.xlab, las = 2, ...)
         } else if (!xlab == "") {
-            axis(1, at = seq(0, 1, length = length(xlab)), labels = xlab,
-	    cex.axis = cex.xlab, 
+            axis(1, at = seq(0, 1, length = length(xlab)), labels = xlab, cex.axis = cex.xlab, 
                 las = 2, ...)
         }
         
         if (is.null(ylab)) {
             v <- seq(1, nfeats, row.tick)  # take every nth index
-            axis(2, at = seq(0, 1, length = nfeats)[v],
-	    labels = rev(rownames(mat))[v], 
+            axis(2, at = seq(0, 1, length = nfeats)[v], labels = rev(rownames(mat))[v], 
                 cex.axis = cex.ylab, las = 2, ...)
         } else if (!ylab == "") {
-            axis(2, at = seq(0, 1, length = nfeats), labels = rev(ylab),
-	    cex.axis = cex.ylab, 
+            axis(2, at = seq(0, 1, length = nfeats), labels = rev(ylab), cex.axis = cex.ylab, 
                 las = 2, ...)
         }
         
@@ -139,12 +130,10 @@ plot_matrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL,
         
         if (is.null(xlab)) {
             v <- seq(1, nsamples, col.tick)  # take every nth index
-            axis(1, at = seq(0, 1, length = nsamples)[v],
-	    labels = colnames(mat)[v], 
+            axis(1, at = seq(0, 1, length = nsamples)[v], labels = colnames(mat)[v], 
                 cex.axis = cex.ylab, las = 2)
         } else {
-            axis(1, at = seq(0, 1, length = nsamples), labels = ylab,
-	    cex.axis = cex.ylab, 
+            axis(1, at = seq(0, 1, length = nsamples), labels = ylab, cex.axis = cex.ylab, 
                 las = 2)
         }
         
@@ -152,20 +141,17 @@ plot_matrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL,
         
         if (is.null(ylab)) {
             v <- seq(1, nfeats, row.tick)  # take every nth index
-            axis(2, at = seq(0, 1, length = nfeats)[v],
-	    labels = rev(rownames(mat))[v], 
+            axis(2, at = seq(0, 1, length = nfeats)[v], labels = rev(rownames(mat))[v], 
                 cex.axis = cex.xlab, las = 2)
         } else {
-            axis(2, at = seq(0, 1, length = nfeats), labels = ylab,
-	    cex.axis = cex.xlab, 
+            axis(2, at = seq(0, 1, length = nfeats), labels = ylab, cex.axis = cex.xlab, 
                 las = 2)
         }
     }
     
     # Return default margins
     par(mar = c(5, 4, 4, 2) + 0.1)
-    return(list(colors = colors, breaks = col.breaks + midpoint,
-        palette.function = palette))
+    return(list(colors = colors, breaks = col.breaks + midpoint, palette.function = palette))
     
 }
 

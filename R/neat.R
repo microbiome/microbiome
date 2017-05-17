@@ -36,14 +36,14 @@
 #' point. The choice of the first sample may somewhat affect the overall
 #' ordering
 #' @keywords utilities
-neat <- function(x, arrange = "both", method = "NMDS", distance = "bray",
-    first.feature = NULL, first.sample = NULL, ...) {
+neat <- function(x, arrange = "both", method = "NMDS", distance = "bray", first.feature = NULL, 
+    first.sample = NULL, ...) {
     
     # Ensure data is in matrix form
     x <- abundances(x)
     
     if (is.null(rownames(x))) {
-        rownames(x) = as.character(1:nrow(x))
+        rownames(x) <- as.character(1:nrow(x))
     }
     
     if (is.null(colnames(x))) {
@@ -52,8 +52,7 @@ neat <- function(x, arrange = "both", method = "NMDS", distance = "bray",
     
     if (arrange %in% c("features", "both")) {
         if (nrow(x) > 2) {
-            sr <- neatsort(x, "features", method = method,
-	        distance = distance, first = first.feature, 
+            sr <- neatsort(x, "features", method = method, distance = distance, first = first.feature, 
                 ...)
             x <- x[sr, ]
         }
@@ -61,8 +60,7 @@ neat <- function(x, arrange = "both", method = "NMDS", distance = "bray",
     }
     if (arrange %in% c("samples", "both")) {
         if (ncol(x) > 2) {
-            sc <- neatsort(x, "samples", method = method,
-	        distance = distance, first = first.sample, 
+            sc <- neatsort(x, "samples", method = method, distance = distance, first = first.sample, 
                 ...)
             x <- x[, sc]
         }

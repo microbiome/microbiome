@@ -22,9 +22,9 @@ taxonomic level. This has to be one from colnames(tax_table(x)).}
      for ordering
   \item A character vector: sample IDs indicating the sample ordering.
   \item 'neatmap' Order samples based on the neatmap approach.
-      See \code{\link{neatsort}}. By default, 'NMDS' method with 'bray'
-      distance is used. For other options, arrange the samples manually
-      with the function.
+       See \code{\link{neatsort}}. By default, 'NMDS' method with 'bray'
+       distance is used. For other options, arrange the samples manually
+       with the function.
 }}
 
 \item{otu.sort}{Order taxa. Same options as for the sample.sort argument
@@ -39,7 +39,7 @@ This should be one of the variables in sample_variables(x).}
 \item{verbose}{verbose}
 
 \item{transform}{Data transform to be used in plotting
-         (but not in sample/taxon ordering).
+        (but not in sample/taxon ordering).
 The options are 'Z-OTU', 'Z-Sample', 'log10' and 'compositional'.
 See the \code{\link{transform}} function.}
 
