@@ -7,10 +7,12 @@
 chunk_reorder(x, newstart = x[[1]])
 }
 \description{
-Chunk re-order a vector so that specified newstart is first. Different than relevel.
+Chunk re-order a vector so that specified newstart is first.
+   Different than relevel.
 }
 \details{
-Borrowed from \pkg{phyloseq} package as needed here and not exported there.
+Borrowed from \pkg{phyloseq} package as needed here and not
+   exported there.
 }
 \examples{
 # Typical use-case
@@ -28,10 +30,10 @@ Borrowed from \pkg{phyloseq} package as needed here and not exported there.
 # # This is also the default
 # all(chunk_reorder(10:25) == 10:25)
 # # An example with characters
-# chunk_reorder(LETTERS, "G") 
-# chunk_reorder(LETTERS, "B") 
-# chunk_reorder(LETTERS, "Z") 
+# chunk_reorder(LETTERS, 'G') 
+# chunk_reorder(LETTERS, 'B') 
+# chunk_reorder(LETTERS, 'Z') 
 # # What about when `newstart` is not in `x`? Return x as-is, throw warning.
-# chunk_reorder(LETTERS, "g") 
+# chunk_reorder(LETTERS, 'g') 
 }
 \keyword{internal}

@@ -11,7 +11,9 @@ aggregate_taxa(x, level, top = NULL)
 
 \item{level}{Summarization level (from \code{rank_names(pseq)})}
 
-\item{top}{Keep the top-n taxa, and merge the rest under the category "Other". Instead of top-n numeric this can also be a character vector listing the groups to combine.}
+\item{top}{Keep the top-n taxa, and merge the rest under the category
+'Other'. Instead of top-n numeric this can also be a character vector
+listing the groups to combine.}
 }
 \value{
 Summarized phyloseq object
@@ -27,10 +29,8 @@ This provides a convenient way to aggregate phyloseq OTUs
   phyloseq object with the summarized abundances.
 }
 \examples{
- \dontrun{
    data(dietswap)
-   s <- aggregate_taxa(dietswap, "Phylum")
- }
+   s <- aggregate_taxa(dietswap, 'Phylum')
 }
 \references{
 See citation('microbiome')

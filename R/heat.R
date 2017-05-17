@@ -27,20 +27,19 @@
 #'     data(peerj32)
 #'     d1 <- peerj32$lipids[, 1:10]
 #'     d2 <- peerj32$microbes[, 1:10]
-#'     cc <- associate(d1, d2, method = "pearson") 
-#'     p <- heat(cc, 'X1', 'X2', 'Correlation', star = "p.adj")
+#'     cc <- associate(d1, d2, method = 'pearson') 
+#'     p <- heat(cc, 'X1', 'X2', 'Correlation', star = 'p.adj')
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-heat <- function(df, Xvar, Yvar, fill, star, 
-                            p.adj.threshold = 1, 
-                            association.threshold = 0, step = 0.2, 
-               colours = c("darkblue", "blue", "white", "red", "darkred"), 
-               limits = NULL, legend.text = "", 
-               order.rows = TRUE, order.cols = TRUE, 
-               text.size = 10, filter.significant = TRUE, star.size = NULL,
-           plot.values = FALSE) {
+heat <- function(df, Xvar, Yvar, fill, star, p.adj.threshold = 1,
+            association.threshold = 0, step = 0.2,
+	    colours = c("darkblue", "blue", "white", "red", "darkred"),
+	    limits = NULL, legend.text = "",
+	    order.rows = TRUE, order.cols = TRUE, text.size = 10,
+	    filter.significant = TRUE, 
+    	    star.size = NULL, plot.values = FALSE) {
     
     if (is.null(limits)) {
         maxval <- max(abs(df[[fill]]))
@@ -55,25 +54,25 @@ heat <- function(df, Xvar, Yvar, fill, star,
         warning("Input data frame is empty.")
         return(NULL)
     }
-
+    
     if (filter.significant) {
-        keep.X <- as.character(unique(df[((df[[star]] < p.adj.threshold) 
-                     & (abs(df[[fill]]) > 
+        keep.X <- as.character(unique(df[((df[[star]] < p.adj.threshold) &
+	    (abs(df[[fill]]) > 
             association.threshold)), Xvar]))
-        keep.Y <- as.character(unique(df[((df[[star]] < p.adj.threshold) 
-                     & (abs(df[[fill]]) > 
+        keep.Y <- as.character(unique(df[((df[[star]] < p.adj.threshold) &
+	    (abs(df[[fill]]) > 
             association.threshold)), Yvar]))
         df <- df[((df[[Xvar]] %in% keep.X) & (df[[Yvar]] %in% keep.Y)), ]
     }
-
-    theme_set(theme_bw(text.size))    
+    
+    theme_set(theme_bw(text.size))
     if (any(c("XXXX", "YYYY", "ffff") %in% names(df))) {
         stop("XXXX, YYYY, ffff are not allowed in df")
     }
     
     df[[Xvar]] <- factor(df[[Xvar]])
     df[[Yvar]] <- factor(df[[Yvar]])
-
+    
     # TODO neatmap
     if (order.rows || order.cols) {
         
@@ -84,20 +83,20 @@ heat <- function(df, Xvar, Yvar, fill, star,
         rownames(mat) <- rnams
         colnames(mat) <- cnams
         for (i in 1:nrow(df)) {
-
-            mat[as.character(df[i, Xvar]), 
-                as.character(df[i, Yvar])] <- df[i, fill]
-
+            
+            mat[as.character(df[i, Xvar]),
+	        as.character(df[i, Yvar])] <- df[i, fill]
+            
         }
         
         rind <- 1:nrow(mat)
         cind <- 1:ncol(mat)
         if (nrow(mat) > 1 && ncol(mat) > 1) {
-      rind <- hclust(as.dist(1-cor(t(mat),
-           use = "pairwise.complete.obs")))$order
-      cind <- hclust(as.dist(1-cor(mat,
-           use = "pairwise.complete.obs")))$order
-
+            rind <- hclust(as.dist(1 - cor(t(mat),
+	        use = "pairwise.complete.obs")))$order
+            cind <- hclust(as.dist(1 - cor(mat,
+	        use = "pairwise.complete.obs")))$order
+            
         }
         if (ncol(mat) > 1 && nrow(mat) == 1) {
             cind <- order(mat[1, ])
@@ -118,7 +117,7 @@ heat <- function(df, Xvar, Yvar, fill, star,
         
     }
     
-    XXXX <- YYYY <- ffff <- NULL    
+    XXXX <- YYYY <- ffff <- NULL
     df[["XXXX"]] <- df[[Xvar]]
     df[["YYYY"]] <- df[[Yvar]]
     df[["ffff"]] <- df[[fill]]
@@ -127,7 +126,7 @@ heat <- function(df, Xvar, Yvar, fill, star,
     
     p <- p + geom_tile()
     
-    p <- p + scale_fill_gradientn(legend.text, 
+    p <- p + scale_fill_gradientn(legend.text,
         breaks = seq(from = min(limits), to = max(limits), 
         by = step), colours = colours, limits = limits)
     
@@ -135,8 +134,8 @@ heat <- function(df, Xvar, Yvar, fill, star,
     p <- p + theme(axis.text.x = element_text(angle = 90))
     
     # Mark significant cells with stars
-    inds <- which((df[[star]] < p.adj.threshold) 
-        & (abs(df[[fill]]) > association.threshold))
+    inds <- which((df[[star]] < p.adj.threshold) &
+        (abs(df[[fill]]) > association.threshold))
     if (!is.null(star) & length(inds) > 0) {
         df.sub <- df[inds, ]
         
@@ -145,13 +144,12 @@ heat <- function(df, Xvar, Yvar, fill, star,
         }
         
         p <- p + geom_text(data = df.sub,
-                aes(x = XXXX, y = YYYY, label = "+"), 
-             col = "white", 
-             size = star.size)
+	    aes(x = XXXX, y = YYYY, label = "+"), col = "white", 
+            size = star.size)
     }
-
+    
     if (plot.values) {
-      p <- p + geom_text(aes(label = round(ffff, 2)), size = 3) 
+        p <- p + geom_text(aes(label = round(ffff, 2)), size = 3)
     }
     
     p

@@ -9,7 +9,8 @@ plot_density(x, variable = NULL, log10 = FALSE, adjust = 1,
   tipping.point = NULL, xlim = NULL)
 }
 \arguments{
-\item{x}{\code{\link{phyloseq-class}} object or an OTU matrix (samples x phylotypes)}
+\item{x}{\code{\link{phyloseq-class}} object or an OTU matrix
+(samples x phylotypes)}
 
 \item{variable}{OTU or metadata variable to visualize}
 
@@ -25,7 +26,8 @@ plot_density(x, variable = NULL, log10 = FALSE, adjust = 1,
 
 \item{fill}{Fill color}
 
-\item{tipping.point}{Optional. Indicate critical point for abundance variations to be highlighted.}
+\item{tipping.point}{Optional. Indicate critical point for abundance
+variations to be highlighted.}
 
 \item{xlim}{X axis limits}
 }
@@ -40,9 +42,10 @@ Plot abundance density across samples for a given taxon.
   # (see help(atlas1006) for references and details)
   data(dietswap)
   # Use compositional abundances instead of absolute signal
-  pseq.rel <- transform(dietswap, "compositional")
-  # Population density for Dialister spp.; with log10 on the abundance (X) axis
+  pseq.rel <- transform(dietswap, 'compositional')
+  # Population density for Dialister spp.; with log10 on the abundance (X)
+  # axis
   library(ggplot2)
-  p <- plot_density(pseq.rel, variable = "Dialister") + scale_x_log10()
+  p <- plot_density(pseq.rel, variable = 'Dialister') + scale_x_log10()
 }
 \keyword{utilities}

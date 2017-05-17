@@ -16,7 +16,12 @@ format_phyloseq(x)
 Correct taxonomy in a phyloseq object (tax_table).
 }
 \details{
-Avoid loss of OTU information while using the function tax_glom() for merging at a specific taxonomic level; fill the empty cells with the maximum classification available along with the OTU number. This is a slight modification of the code from  \pkg{ampvis} \code{\link{phyloseq-class}}. Here, we directly take the phyloseq object as input and make the necessary formatting.
+Avoid loss of OTU information while using the function tax_glom()
+for merging at a specific taxonomic level; fill the empty cells with the
+maximum classification available along with the OTU number. This is a
+slight modification of the code from  \pkg{ampvis}
+\code{\link{phyloseq-class}}. Here, we directly take the phyloseq object as
+input and make the necessary formatting.
 }
 \examples{
 \dontrun{

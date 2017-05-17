@@ -12,10 +12,10 @@
 #' @examples
 #'   data(dietswap)
 #'   x <- taxa(dietswap)
-taxa <- function (x) {
-
-  taxa_names(x)
-
+taxa <- function(x) {
+    
+    taxa_names(x)
+    
 }
 
 

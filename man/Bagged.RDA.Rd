@@ -36,7 +36,7 @@ Bootstrap solutions that follows the Jack-knife estimation of
 }
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \author{
 Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}

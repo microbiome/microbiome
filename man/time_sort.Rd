@@ -18,10 +18,11 @@ Within each subject, sort samples by time and calculate
              distance from the baseline point (minimum time).
 }
 \examples{
-\dontrun{ time_sort(x) }
+  data(atlas1006)
+  ts <- time_sort(meta(atlas1006))
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

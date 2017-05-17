@@ -16,7 +16,8 @@ transform(x, transform = "identity", target = "OTU", shift = 0)
 \item{target}{Apply the transform for 'sample' or 'OTU'.
 Does not affect the log transform.}
 
-\item{shift}{A constant indicating how much to shift the baseline abundance (in transform = "shift")}
+\item{shift}{A constant indicating how much to shift the baseline
+abundance (in transform = 'shift')}
 }
 \value{
 Transformed \code{\link{phyloseq}} object
@@ -30,29 +31,27 @@ The relative abunance are returned as percentages in [0,
   abundance but instead given at the scale [0,1].
 }
 \examples{
-\dontrun{
 
   data(dietswap)
   x <- dietswap
 
   # OTU relative abundances
-  xt <- transform(x, "compositional", "OTU")
+  xt <- transform(x, 'compositional')
 
   # Z-transform for OTUs
-  xt <- transform(x, "Z", "OTU")
+  # xt <- transform(x, 'Z', 'OTU')
 
   # Z-transform for samples
-  xt <- transform(x, "Z", "sample")
+  # xt <- transform(x, 'Z', 'sample')
 
   # Log10 transform (log(1+x) if the data contains zeroes)
-  xt <- transform(x, "log10")
+  # xt <- transform(x, 'log10')
 
   # CLR transform
-  xt <- transform(x, "clr")
+  # xt <- transform(x, 'clr')
 
   # Shift the baseline
-  xt <- transform(x, "shift", shift = 1)
+  # xt <- transform(x, 'shift', shift = 1)
 
-}
 }
 \keyword{utilities}

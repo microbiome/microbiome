@@ -8,9 +8,9 @@ read_csv2phyloseq(otu.file = NULL, taxonomy.file = NULL,
   metadata.file = NULL)
 }
 \arguments{
-\item{otu.file}{A simple otu_table with ".csv" extension}
+\item{otu.file}{A simple otu_table with '.csv' extension}
 
-\item{taxonomy.file}{A simple taxonomy file with ".csv" extension}
+\item{taxonomy.file}{A simple taxonomy file with '.csv' extension}
 
 \item{metadata.file}{A simple metadata/mapping file with .csv extension}
 }
@@ -18,18 +18,20 @@ read_csv2phyloseq(otu.file = NULL, taxonomy.file = NULL,
 \code{\link{phyloseq-class}} object.
 }
 \description{
-Read simple OTU tables, mapping and taxonomy files into a \code{\link{phyloseq-class}} object.
+Read simple OTU tables, mapping and taxonomy files into a
+   \code{\link{phyloseq-class}} object.
 }
 \details{
-Simple OTU tables, mapping and taxonomy files will be converted to \code{\link{phyloseq-class}}.
+Simple OTU tables, mapping and taxonomy files will be converted
+   to \code{\link{phyloseq-class}}.
 }
 \examples{
   \dontrun{
     # Example data
     library(microbiome)
-    p0 <- read_csv2phyloseq(otu.file = "otu_table.csv", 
-    taxonomy.file = "taxa_table.csv", 
-    metadata.file = "meta_table.csv")
+    p0 <- read_csv2phyloseq(otu.file = 'otu_table.csv', 
+        taxonomy.file = 'taxa_table.csv', 
+        metadata.file = 'meta_table.csv')
   }
 }
 \author{

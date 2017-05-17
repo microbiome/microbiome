@@ -9,35 +9,39 @@ intermediate_stability(x, reference.point = NULL, method = "correlation",
 }
 \arguments{
 \item{x}{\pkg{phyloseq} object.
-     Includes abundances (variables x samples) and
-    sample_data data.frame (samples x features) with 'subject'
+Includes abundances (variables x samples) and
+sample_data data.frame (samples x features) with 'subject'
 and 'time' field for each sample.}
 
-\item{reference.point}{Calculate stability of the data w.r.t. this point. By default the intermediate range is used (min + (max - min)/2). If a vector of points is provided, then the scores will be calculated for every point and a data.frame is returned.}
+\item{reference.point}{Calculate stability of the data w.r.t. this point.
+By default the intermediate range is used (min + (max - min)/2).
+If a vector of points is provided, then the scores will be calculated
+for every point and a data.frame is returned.}
 
 \item{method}{'lm' (linear model) or 'correlation';
 the linear model takes time into account as a covariate}
 
-\item{output}{Specify the return mode. Either the "full" set of stability
-analysis outputs, or the "scores" of intermediate stability.}
+\item{output}{Specify the return mode. Either the 'full' set of stability
+analysis outputs, or the 'scores' of intermediate stability.}
 }
 \value{
 A list with following elements: 
-	     stability: estimated stability
-     data: processed data set used in calculations
+         stability: estimated stability
+        data: processed data set used in calculations
 }
 \description{
-Quantify intermediate stability with respect to a given reference point.
+Quantify intermediate stability with respect to a given
+   reference point.
 }
 \details{
 Decomposes each column in x into differences between
 consecutive time points. For each variable and time point we calculate
 for the data values: (i) the distance from reference point; (ii)
 distance from the data value at the consecutive time point. The
-"correlation" method calculates correlation between these two
+'correlation' method calculates correlation between these two
 variables. Negative correlations indicate that values closer to
 reference point tend to have larger shifts in the consecutive time
-point. The "lm" method takes the time lag between the consecutive time
+point. The 'lm' method takes the time lag between the consecutive time
 points into account as this may affect the comparison and is not taken
 into account by the straightforward correlation. Here the coefficients
 of the following linear model are used to assess stability:
@@ -47,12 +51,10 @@ count data x is logarithmized before the analysis with the log10(1 + x)
 trick to circumvent logarithmization of zeroes.
 }
 \examples{
-  \dontrun{
     library(microbiome)
     data(atlas1006)
     res <- intermediate_stability(x, reference.point = NULL)
     s <- sapply(res, function (x) {x$stability})
-  }
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

@@ -7,13 +7,15 @@
 map_levels(taxa = NULL, from, to, data)
 }
 \arguments{
-\item{taxa}{taxa to convert; if NULL then considering all taxa in the tax.table}
+\item{taxa}{taxa to convert; if NULL then considering all taxa in the
+tax.table}
 
 \item{from}{convert from taxonomic level}
 
 \item{to}{convert to taxonomic level}
 
-\item{data}{Either a \code{\link{phyloseq}} object or its code{\link{taxonomyTable-class}} , see the \pkg{phyloseq} package.}
+\item{data}{Either a \code{\link{phyloseq}} object or its
+\code{\link{taxonomyTable-class}} , see the \pkg{phyloseq} package.}
 }
 \value{
 mappings
@@ -23,8 +25,10 @@ Map taxa between hierarchy levels.
 }
 \examples{
   data(dietswap)
-  m <- map_levels('Akkermansia', from = 'Genus', to = 'Phylum', tax_table(dietswap))
-  m <- map_levels('Verrucomicrobia', from = 'Phylum', to = 'Genus', tax_table(dietswap))
+  m <- map_levels('Akkermansia', from = 'Genus', to = 'Phylum',
+        tax_table(dietswap))
+  m <- map_levels('Verrucomicrobia', from = 'Phylum', to = 'Genus',
+        tax_table(dietswap))
 }
 \references{
 See citation('microbiome')

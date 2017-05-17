@@ -1,5 +1,6 @@
 #' @title GKtau
-#' @description Measure association between nominal (no order for levels) variables 
+#' @description Measure association between nominal (no order for levels)
+#' variables 
 #' @details Measure association between nominal (no order for levels) variables 
 #' using Goodman and Kruskal tau. Code modified from the original source:
 #' r-bloggers.com/measuring-associations-between-non-numeric-variables/

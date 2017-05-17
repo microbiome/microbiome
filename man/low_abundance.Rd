@@ -9,16 +9,23 @@ low_abundance(x, detection = 0.2/100)
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{detection}{Detection threshold for absence/presence (strictly greater by default).}
+\item{detection}{Detection threshold for absence/presence
+(strictly greater by default).}
 }
 \value{
 A vector of indicators.
 }
 \description{
-Calculates the concentration of low-abundance taxa below the indicated detection threshold.
+Calculates the concentration of low-abundance taxa below the
+   indicated detection threshold.
 }
 \details{
-The low_abundance index gives the concentration of species at low abundance, or the  relative proportion of rare species in [0,1]. The species that are below the indicated detection threshold are considered rare. Note that population prevalence is not considered. If the detection argument is a vector, then a data.frame is returned, one column for each detection threshold.
+The low_abundance index gives the concentration of species at low
+   abundance, or the  relative proportion of rare species in [0,1].
+   The species that are below the indicated detection threshold are
+   considered rare. Note that population prevalence is not considered.
+   If the detection argument is a vector, then a data.frame is returned,
+   one column for each detection threshold.
 }
 \examples{
   data(dietswap)

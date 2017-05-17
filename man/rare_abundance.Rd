@@ -9,9 +9,11 @@ rare_abundance(x, detection = 0.1/100, prevalence = 50/100)
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{detection}{Detection threshold for absence/presence (strictly greater by default).}
+\item{detection}{Detection threshold for absence/presence
+(strictly greater by default).}
 
-\item{prevalence}{Prevalence threshold (in [0, 1]; strictly greater by default)}
+\item{prevalence}{Prevalence threshold (in [0, 1];
+strictly greater by default)}
 }
 \value{
 A vector of rare_abundance indices
@@ -20,9 +22,11 @@ A vector of rare_abundance indices
 Calculates the community rare_abundance index.
 }
 \details{
-The rare_abundance index gives the relative proportion of rare species (ie. those that are not part of the core microbiota) in the interval [0,1]. This is the complement (1-x) of the core abundance.
-The rarity function provides the abundance of the least abundant taxa
-within each sample, regardless of the population prevalence.
+The rare_abundance index gives the relative proportion of rare
+   species (ie. those that are not part of the core microbiota) in the
+   interval [0,1]. This is the complement (1-x) of the core abundance.
+   The rarity function provides the abundance of the least abundant taxa
+   within each sample, regardless of the population prevalence.
 }
 \examples{
   data(dietswap)

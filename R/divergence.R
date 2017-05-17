@@ -1,5 +1,6 @@
 #' @title Diversity within a Sample Group
-#' @description Quantify microbiota divergence (heterogeneity) within a given sample set.
+#' @description Quantify microbiota divergence (heterogeneity) within a
+#'    given sample set.
 #'
 #' @details
 #'
@@ -23,7 +24,8 @@
 #' to quantify group homogeneity.
 #' 
 #' @param x phyloseq object 
-#' @param method dissimilarity method ("anticorrelation" or any method available via the vetan::vegdist function)
+#' @param method dissimilarity method ('anticorrelation' or any method
+#'    available via the vetan::vegdist function)
 #' @return Vector with dissimilarities; one for each sample, quantifying the
 #' dissimilarity of the sample from the group-level mean.
 #' @export
@@ -31,7 +33,7 @@
 #'     # Assess beta diversity among the African samples
 #'     # in a diet swap study (see \code{help(dietswap)} for references)
 #'     data(dietswap)
-#'     b <- divergence(subset_samples(dietswap, nationality == "AFR"))
+#'     b <- divergence(subset_samples(dietswap, nationality == 'AFR'))
 #' @references
 #'
 #' The inter- and intra-individual homogeneity measures used in
@@ -46,49 +48,47 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 divergence <- function(x, method = "anticorrelation") {
-
-  # Abundance matrix (taxa x samples)
-  x <- abundances(x)
-
-  if (method == "anticorrelation") {
-    b <- anticorrelation(x, "spearman")
-  } else if (method == "meanbeta") {
-    b <- beta(x, method = "bray")
-  }
-
-  b
-
+    
+    # Abundance matrix (taxa x samples)
+    x <- abundances(x)
+    
+    if (method == "anticorrelation") {
+        b <- anticorrelation(x, "spearman")
+    } else if (method == "meanbeta") {
+        b <- beta(x, method = "bray")
+    }
+    
+    b
+    
 }
 
 
 anticorrelation <- function(x, method = "spearman") {
-
-  # Correlations calculated against the mean of the sample set
-  cors <- as.vector(cor(
-               x, matrix(rowMeans(x)),
-               method = method,
-        use = "pairwise.complete.obs"))
-
-  1-cors    
-
+    
+    # Correlations calculated against the mean of the sample set
+    cors <- as.vector(cor(x, matrix(rowMeans(x)),
+        method = method, use = "pairwise.complete.obs"))
+    
+    1 - cors
+    
 }
 
 
 
 
 beta <- function(x, method = "bray") {
-
-  # Correlations calculated against the mean of the sample set
-  b <- c()
-  m <- rowMeans(x)
-  for (i in 1:ncol(x)) {
-    xx <- rbind(x[,i], m)
-    xxx <- vegdist(xx, method = method)
-    b[[i]] <- as.matrix(xxx)[1,2]
-  }
-  
-  b
-
+    
+    # Correlations calculated against the mean of the sample set
+    b <- c()
+    m <- rowMeans(x)
+    for (i in 1:ncol(x)) {
+        xx <- rbind(x[, i], m)
+        xxx <- vegdist(xx, method = method)
+        b[[i]] <- as.matrix(xxx)[1, 2]
+    }
+    
+    b
+    
 }
 
 

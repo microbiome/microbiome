@@ -22,19 +22,22 @@
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-core_members <- function(x, detection = 1/100, prevalence = 50/100, include.lowest = FALSE)  {
-
-  # Pick taxa x samples matrix           
-  x <- abundances(x)
-
-  if (include.lowest) {
-    taxa <- names(which(prevalence(x, detection, include.lowest = include.lowest) >= prevalence))
-  } else {
-    taxa <- names(which(prevalence(x, detection, include.lowest = include.lowest) > prevalence))
-  }
+core_members <- function(x, detection = 1/100, prevalence = 50/100,
+                         include.lowest = FALSE) {
     
-  taxa
-
+    # Pick taxa x samples matrix
+    x <- abundances(x)
+    
+    if (include.lowest) {
+        taxa <- names(which(prevalence(x, detection,
+	          include.lowest = include.lowest) >= prevalence))
+    } else {
+        taxa <- names(which(prevalence(x, detection,
+	          include.lowest = include.lowest) > prevalence))
+    }
+    
+    taxa
+    
 }
 
 

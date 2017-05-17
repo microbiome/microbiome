@@ -33,11 +33,12 @@ A \code{\link{ggplot}} plot object
 Plot phyloseq abundances.
 }
 \details{
-The directionality of change in paired boxplot is indicated by the colors of the connecting lines.
+The directionality of change in paired boxplot is indicated by
+    the colors of the connecting lines.
 }
 \examples{
   data(peerj32)
-  p <- boxplot_abundance(peerj32$phyloseq, x = "time", y = "Akkermansia",
-      	  		    line = "subject", color = "gender")
+  p <- boxplot_abundance(peerj32$phyloseq, x = 'time', y = 'Akkermansia',
+                        line = 'subject', color = 'gender')
 }
 \keyword{utilities}

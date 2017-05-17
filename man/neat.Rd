@@ -10,15 +10,21 @@ neat(x, arrange = "both", method = "NMDS", distance = "bray",
 \arguments{
 \item{x}{A matrix or phyloseq object.}
 
-\item{arrange}{Order "features", "samples" or "both" (for matrices). For matrices, it is assumed that the samples are on the columns and features are on the rows. For phyloseq objects, features are the taxa of the OTU table.}
+\item{arrange}{Order 'features', 'samples' or 'both' (for matrices).
+For matrices, it is assumed that the samples are on the columns and
+features are on the rows. For phyloseq objects, features are the taxa of
+the OTU table.}
 
 \item{method}{Ordination method. Only NMDS implemented for now.}
 
-\item{distance}{Distance method. See \code{\link{vegdist}} function from the \pkg{vegan} package.}
+\item{distance}{Distance method. See \code{\link{vegdist}} function from
+the \pkg{vegan} package.}
 
-\item{first.feature}{Optionally provide the name of the first feature to start the ordering}
+\item{first.feature}{Optionally provide the name of the first feature to
+start the ordering}
 
-\item{first.sample}{Optionally provide the name of the first sample to start the ordering}
+\item{first.sample}{Optionally provide the name of the first sample to
+start the ordering}
 
 \item{...}{Arguments to pass.}
 }
@@ -26,7 +32,8 @@ neat(x, arrange = "both", method = "NMDS", distance = "bray",
 Sorted matrix
 }
 \description{
-Order matrix or phyloseq OTU table based on the neatmap approach.
+Order matrix or phyloseq OTU table based on the neatmap
+   approach.
 }
 \details{
 Borrows elements from the heatmap implementation in the
@@ -42,13 +49,14 @@ ordering
   data(peerj32)
   # Take subset to speed up example
   x <- peerj32$microbes[1:10,1:10]
-  xo <- neat(x, "both", method = "NMDS", distance = "bray")
+  xo <- neat(x, 'both', method = 'NMDS', distance = 'bray')
 
 }
 \references{
 This function is partially based on code derived from the
   \pkg{phyloseq} package. However for the original
   neatmap approach for heatmap sorting, see (and cite):
-  Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map alternatives in R. BMC Bioinformatics, 11, 45.
+  Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map
+  alternatives in R. BMC Bioinformatics, 11, 45.
 }
 \keyword{utilities}

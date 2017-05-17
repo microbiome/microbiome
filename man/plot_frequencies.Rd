@@ -26,6 +26,6 @@ levels of the given Factor.
 }
 \examples{
   data(dietswap)
-  p <- plot_frequencies(sample_data(dietswap), "group", "sex")
+  p <- plot_frequencies(sample_data(dietswap), 'group', 'sex')
 }
 \keyword{utilities}

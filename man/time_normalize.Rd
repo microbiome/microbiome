@@ -7,17 +7,17 @@
 time_normalize(x)
 }
 \arguments{
-\item{x}{phyloseq object. The sample_data(x) should contain the following fields: subject, time}
+\item{x}{phyloseq object. The sample_data(x) should contain the following
+fields: subject, time}
 }
 \value{
 Phyloseq object with a normalized time field
 }
 \description{
-Shift the time field in phyloseq sample_data such that the first time point of each subject is always 0.
+Shift the time field in phyloseq sample_data such that the
+   first time point of each subject is always 0.
 }
 \examples{
-  \dontrun{
     data(peerj32)
     pseq <- time_normalize(peerj32$phyloseq)
-  }
 }

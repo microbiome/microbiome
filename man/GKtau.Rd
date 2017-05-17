@@ -15,7 +15,8 @@ GKtau(x, y)
 Dependency measure
 }
 \description{
-Measure association between nominal (no order for levels) variables
+Measure association between nominal (no order for levels)
+variables
 }
 \details{
 Measure association between nominal (no order for levels) variables 

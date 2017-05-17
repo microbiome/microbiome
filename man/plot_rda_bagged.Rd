@@ -5,7 +5,7 @@
 \title{Plot RDA}
 \usage{
 plot_rda_bagged(x, which.bac = 1:nrow(x$loadings), ptype = "spider",
-  comp = 1:2, cex.bac = 0.5, plot.names = T,
+  comp = 1:2, cex.bac = 0.5, plot.names = TRUE,
   group.cols = as.numeric(unique(Y)), ...)
 }
 \arguments{
@@ -13,7 +13,7 @@ plot_rda_bagged(x, which.bac = 1:nrow(x$loadings), ptype = "spider",
 
 \item{which.bac}{TBA}
 
-\item{ptype}{Plot type. "spider" or "hull"}
+\item{ptype}{Plot type. 'spider' or 'hull'}
 
 \item{comp}{TBA}
 
@@ -32,17 +32,16 @@ TBA
 rda_bagged output visualization.
 }
 \examples{
-\dontrun{
   library(microbiome)
   data(peerj32)
   x <- t(peerj32$microbes)
   y <- factor(peerj32$meta$time); names(y) <- rownames(peerj32$meta)
-  res <- rda_bagged(x, y, detection=0.05, bs.iter=100)
+  # Use more iterations in practiec
+  res <- rda_bagged(x, y, detection=0.05, bs.iter=5)
   plot_rda_bagged(res)
- }
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \author{
 Contact: Jarkko Salojarvi \email{microbiome-admin@googlegroups.com}

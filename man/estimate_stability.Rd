@@ -15,41 +15,43 @@ with the 'data', 'subject' and 'time' field for each sample}
 this point. By default the intermediate range is
 used (min + (max - min)/2)}
 
-\item{method}{"lm" (linear model) or "correlation"; the linear model takes
+\item{method}{'lm' (linear model) or 'correlation'; the linear model takes
 time into account as a covariate}
 
 \item{spl}{split object to speed up}
 }
 \value{
 A list with following elements: 
-	     stability: estimated stability
-     data: processed data set used in calculations
+         stability: estimated stability
+        data: processed data set used in calculations
 }
 \description{
-Quantify intermediate stability with respect to a given reference point.
+Quantify intermediate stability with respect to a given
+   reference point.
 }
 \details{
 Decomposes each column in x into differences between
 consecutive time points. For each variable and time point we calculate
 for the data values: (i) the distance from reference point; (ii)
 distance from the data value at the consecutive time point. The
-"correlation" method calculates correlation between these two
+'correlation' method calculates correlation between these two
 variables. Negative correlations indicate that values closer to
 reference point tend to have larger shifts in the consecutive time
-point. The "lm" method takes the time lag between the consecutive time
+point. The 'lm' method takes the time lag between the consecutive time
 points into account as this may affect the comparison and is not taken
 into account by the straightforward correlation. Here the coefficients
 of the following linear model are used to assess stability:
 abs(change) ~ time + abs(start.reference.distance). 
-Samples with missing data, and subjects with less than two time point are excluded.
+Samples with missing data, and subjects with less than two time point are
+excluded.
 }
 \examples{
  \dontrun{
   df <- data.frame(list(
-  	  subject = rep(paste("subject", 1:50, sep = "-"), each = 2), 
-  	  time = rep(1:2, 50),
-  	  data = rnorm(100)))
-  s <- estimate_stability_single(df, reference.point = NULL, method = "lm")
+        subject = rep(paste('subject', 1:50, sep = '-'), each = 2), 
+        time = rep(1:2, 50),
+        data = rnorm(100)))
+  s <- estimate_stability_single(df, reference.point = NULL, method = 'lm')
 }
 }
 \author{

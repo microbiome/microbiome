@@ -10,7 +10,9 @@ meta(x)
 \item{x}{a phyloseq object}
 }
 \description{
-The output of the phyloseq::sample_data() function does not return data.frame, which is needed for many applications. This function retrieves the sample data as a data.frame
+The output of the phyloseq::sample_data() function does not
+   return data.frame, which is needed for many applications.
+   This function retrieves the sample data as a data.frame
 }
 \examples{
 data(dietswap); df <- meta(dietswap)

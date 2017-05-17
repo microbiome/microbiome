@@ -4,7 +4,7 @@
 \alias{abundances}
 \alias{ab,}
 \alias{otu}
-\title{Abundance matrix from phyloseq object}
+\title{Abundance Matrix from Phyloseq}
 \usage{
 abundances(x, transform = "identity")
 }
@@ -26,7 +26,7 @@ Retrieves the taxon abundance table from
 \examples{
   data(dietswap)
   a <- abundances(dietswap)
-  # b <- abundances(dietswap, transform = "compositional")
+  # b <- abundances(dietswap, transform = 'compositional')
 }
 \references{
 See citation('microbiome')

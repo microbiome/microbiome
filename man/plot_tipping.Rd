@@ -12,7 +12,8 @@ plot_tipping(x, taxon, tipping.point = NULL, lims = NULL, shift = 0.001,
 
 \item{taxon}{Taxonomic group to visualize.}
 
-\item{tipping.point}{Optional. Indicate critical point for abundance variations to be highlighted.}
+\item{tipping.point}{Optional. Indicate critical point for abundance
+variations to be highlighted.}
 
 \item{lims}{Optional. Figure X axis limits.}
 
@@ -31,12 +32,10 @@ Assuming the sample_data(x) has 'subject' field and
 some subjects have multiple time points.
 }
 \examples{
-  \dontrun{
     data(atlas1006)
-    pseq <- subset_samples(atlas1006, DNA_extraction_method == "r")
-    pseq <- transform(pseq, "compositional")
-    p <- plot_tipping(pseq, "Dialister", tipping.point = 1)
-  }
+    pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
+    pseq <- transform(pseq, 'compositional')
+    p <- plot_tipping(pseq, 'Dialister', tipping.point = 1)
 }
 \references{
 See citation('microbiome')

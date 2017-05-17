@@ -20,7 +20,7 @@ plot_regression(formula, data, B = 1000, shade = TRUE, shade.alpha = 0.1,
 \item{shade}{plot the shaded confidence region?}
 
 \item{shade.alpha}{shade.alpha: should the CI shading fade out at 
-     the edges? (by reducing alpha; 0 = no alpha decrease, 
+  the edges? (by reducing alpha; 0 = no alpha decrease, 
 0.1 = medium alpha decrease, 0.5 = strong alpha decrease)}
 
 \item{spag}{plot spaghetti lines?}
@@ -47,14 +47,14 @@ draw. I wouldn'T go beyond 500}
 
 \item{ylim}{restrict range of the watercoloring}
 
-\item{quantize}{either "continuous", or "SD". In the latter case, 
+\item{quantize}{either 'continuous', or 'SD'. In the latter case, 
 we get three color regions for 1, 2, and 3 SD (an idea of John Mashey)}
 
 \item{show.points}{Show points.}
 
 \item{...}{further parameters passed to the fitting function, 
-in the case of loess, for example, "span = .9", or 
-"family = 'symmetric'"}
+in the case of loess, for example, 'span = .9', or 
+'family = 'symmetric''}
 }
 \value{
 ggplot2 object
@@ -67,13 +67,12 @@ The R is modified from Felix Schonbrodt's original code at
 \url{http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote}
 }
 \examples{
-  \dontrun{
     data(atlas1006)
-    p <- plot_regression(diversity ~ age, sample_data(atlas1006))
-  }
+    pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
+    p <- plot_regression(diversity ~ age, meta(pseq))
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \author{
 Based on the original version from Felix Schonbrodt. 

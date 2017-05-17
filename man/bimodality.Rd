@@ -10,7 +10,9 @@ bimodality(x, method = "potential_analysis", peak.threshold = 1,
 \arguments{
 \item{x}{A vector, matrix, or a phyloseq object}
 
-\item{method}{bimodality quantification method ("potential_analysis", "Sarle.finite.sample", or "Sarle.asymptotic"). If method = "all", then a data.frame with all scores is returned.}
+\item{method}{bimodality quantification method
+('potential_analysis', 'Sarle.finite.sample', or 'Sarle.asymptotic').
+If method = 'all', then a data.frame with all scores is returned.}
 
 \item{peak.threshold}{Mode detection threshold}
 
@@ -18,16 +20,20 @@ bimodality(x, method = "potential_analysis", peak.threshold = 1,
 
 \item{bs.iter}{Bootstrap iterations}
 
-\item{min.density}{minimum accepted density for a maximum; as a multiple of kernel height}
+\item{min.density}{minimum accepted density for a maximum;
+as a multiple of kernel height}
 
 \item{verbose}{Verbose}
 }
 \value{
 A list with following elements:
   \itemize{
-    \item{score}{Fraction of bootstrap samples where multiple modes are observed}
-    \item{nmodes}{The most frequently observed number of modes in bootstrap sampling results}
-    \item{results}{Full results of potential_analysis for each row of the input matrix.}
+    \item{score}{Fraction of bootstrap samples where multiple modes are
+                 observed}
+    \item{nmodes}{The most frequently observed number of modes in bootstrap
+                  sampling results}
+    \item{results}{Full results of potential_analysis for each row of the
+                   input matrix.}
   }
 }
 \description{
@@ -35,14 +41,19 @@ Estimate bimodality scores.
 }
 \details{
 \itemize{
-    \item{Sarle.finite.sample}{Coefficient of bimodality for finite sample. See SAS 2012.}
-    \item{Sarle.asymptotic}{Coefficient of bimodality, used and described in Shade et al. (2014) and Ellison AM (1987).}
-    \item{potential_analysis}{Repeats potential analysis (Livina et al. 2010) multiple times with bootstrap sampling for each row of the input data (as in Lahti et al. 2014) and returns the bootstrap score.}
+    \item{Sarle.finite.sample}{Coefficient of bimodality for finite sample.
+                               See SAS 2012.}
+    \item{Sarle.asymptotic}{Coefficient of bimodality, used and described
+                            in Shade et al. (2014) and Ellison AM (1987).}
+    \item{potential_analysis}{Repeats potential analysis
+        (Livina et al. 2010) multiple times with bootstrap sampling for
+        each row of the input data (as in Lahti et al. 2014) and returns
+        the bootstrap score.}
   }
 
 The coefficient lies in (0, 1).
 
-    The 'Sarle.asymptotic' version is defined as
+       The 'Sarle.asymptotic' version is defined as
          \deqn{b = (g^2 + 1) / k}.
          This is coefficient of bimodality from Ellison AM Am. J. Bot. 1987, 
          for microbiome analysis it has been used for instance in
@@ -50,7 +61,7 @@ The coefficient lies in (0, 1).
 
          The formula for 'Sarle.finite.sample' (SAS 2012):
 
-	    \deqn{b = \frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
+        \deqn{b = \frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
          where n is sample size and 
 
          In both formulas, \eqn{g} is sample skewness and \eqn{k} is the kth
@@ -66,14 +77,16 @@ The coefficient lies in (0, 1).
  # dip.test(x, simulate.p.value = TRUE, B = 200)$statistic
  # Values less than 0.05 indicate significant deviation from unimodality.
  # Therefore, to obtain an increasing multimodality score, use
- # multimodality.dip <- apply(abundances(pseq), 1, function (x) {1 - unname(dip.test(x)$p.value)})
+ # library(diptest)
+ # multimodality.dip <- apply(abundances(pseq), 1,
+ #      function (x) {1 - unname(dip.test(x)$p.value)})
 
 }
 \references{
 \itemize{
   \item{}{Livina et al. (2010). Potential analysis 
         reveals changing number of climate states during the last 60
-	   kyr. \emph{Climate of the Past}, 6, 77-82.}
+       kyr. \emph{Climate of the Past}, 6, 77-82.}
   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
         ecosystem. \emph{Nature Communications} 5:4344.}
   \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
@@ -83,7 +96,8 @@ The coefficient lies in (0, 1).
 }
 }
 \seealso{
-A classical test of multimodality is provided by \code{dip.test} in the \pkg{DIP} package.
+A classical test of multimodality is provided by \code{dip.test}
+  in the \pkg{DIP} package.
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

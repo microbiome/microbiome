@@ -11,11 +11,13 @@ potential_univariate(x, std = 1, bw = "nrd", weights = c(),
 \arguments{
 \item{x}{Univariate data (vector) for which the potentials shall be estimated}
 
-\item{std}{Standard deviation of the noise (defaults to 1; this will set scaled potentials)}
+\item{std}{Standard deviation of the noise (defaults to 1; this will set
+scaled potentials)}
 
 \item{bw}{kernel bandwidth estimation method}
 
-\item{weights}{optional weights in ksdensity (used by potential_slidingaverages).}
+\item{weights}{optional weights in ksdensity
+(used by potential_slidingaverages).}
 
 \item{grid.size}{Grid size for potential estimation.
 of density kernel height dnorm(0, sd = bandwidth)/N}
@@ -38,13 +40,18 @@ multiple of kernel height}
 following elements:
   \itemize{
     \item{xi}{the grid of points on which the potential is estimated}
-    \item{pot}{The estimated potential: -log(f)*std^2/2, where f is the density.}
+    \item{pot}{The estimated potential: -log(f)*std^2/2,
+        where f is the density.}
     \item{density}{Density estimate corresponding to the potential.}
-    \item{min.inds}{indices of the grid points at which the density has minimum values; (-potentials; neglecting local optima)}
-    \item{max.inds}{indices the grid points at which the density has maximum values; (-potentials; neglecting local optima)}
+    \item{min.inds}{indices of the grid points at which the density has
+        minimum values; (-potentials; neglecting local optima)}
+    \item{max.inds}{indices the grid points at which the density has
+        maximum values; (-potentials; neglecting local optima)}
     \item{bw}{bandwidth of kernel used}
-    \item{min.points}{grid point values at which the density has minimum values; (-potentials; neglecting local optima)}
-    \item{max.points}{grid point values at which the density has maximum values; (-potentials; neglecting local optima)}
+    \item{min.points}{grid point values at which the density has
+        minimum values; (-potentials; neglecting local optima)}
+    \item{max.points}{grid point values at which the density has
+        maximum values; (-potentials; neglecting local optima)}
  }
 }
 \description{
@@ -55,14 +62,19 @@ One-dimensional potential estimation for univariate timeseries.
 }
 \references{
 \itemize{
-  \item{}{Livina et al. (2010). Potential analysis reveals changing number of climate states during the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
-  \item{}{Lahti et al. (2014). Tipping elements of the human intestinal ecosystem. \emph{Nature Communications} 5:4344.}
+  \item{}{Livina et al. (2010).
+     Potential analysis reveals changing number of climate states during
+     the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
+  \item{}{Lahti et al. (2014).
+     Tipping elements of the human intestinal ecosystem.
+     \emph{Nature Communications} 5:4344.}
  }
 }
 \seealso{
 \code{\link{potential_slidingaverage}}
 }
 \author{
-Based on Matlab code from Egbert van Nes modified by Leo Lahti. Extended from the initial version in the \pkg{earlywarnings} R package.
+Based on Matlab code from Egbert van Nes modified by Leo Lahti.
+    Extended from the initial version in the \pkg{earlywarnings} R package.
 }
 \keyword{early-warning}

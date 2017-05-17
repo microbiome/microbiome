@@ -10,11 +10,11 @@ neatsort(x, target, method = "NMDS", distance = "bray", first = NULL, ...)
 \item{x}{\code{\link{phyloseq-class}} object or a matrix}
 
 \item{target}{For \code{\link{phyloseq-class}} input, the target is either
-"sites" (samples) or "species" (features) (taxa/OTUs); for matrices,
-the target is "rows" or "cols".}
+'sites' (samples) or 'species' (features) (taxa/OTUs); for matrices,
+the target is 'rows' or 'cols'.}
 
 \item{method}{Ordination method. See \code{\link{ordinate}}
-         from \pkg{phyloseq} package.
+      from \pkg{phyloseq} package.
 For matrices, only the NMDS method is available.}
 
 \item{distance}{Distance method. See \code{\link{ordinate}}
@@ -41,12 +41,13 @@ Implemented in the microbiome package to provide an independent method for
 easy sample/taxon reordering for phyloseq objects.
 }
 \examples{
-  \dontrun{
     data(peerj32)
     pseq <- peerj32$phyloseq
-    sort.otu <- neatsort(pseq, target = "species")
-    sort.rows <- neatsort(abundances(pseq), target = "rows")
-  }  
+    # For Phyloseq
+    sort.otu <- neatsort(pseq, target = 'species')
+    # For matrix
+    # sort.rows <- neatsort(abundances(pseq), target = 'rows')
+  
 }
 \references{
 This function is partially based on code derived from the

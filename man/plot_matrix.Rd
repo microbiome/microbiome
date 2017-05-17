@@ -53,7 +53,8 @@ x-axis ('x'), y-axis ('y'), or both ('both').}
 
 \item{mar}{image margins}
 
-\item{...}{optional parameters to be passed to function 'image', see help(image) for further details}
+\item{...}{optional parameters to be passed to function 'image',
+see help(image) for further details}
 }
 \value{
 A list with the color palette (colors), 

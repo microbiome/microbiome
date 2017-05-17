@@ -9,9 +9,10 @@ write_phyloseq(x, type = "all", path = getwd())
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{type}{"OTU" or "TAXA" or "METADATA"}
+\item{type}{'OTU' or 'TAXA' or 'METADATA'}
 
-\item{path}{Path to the directory/folder where the data will be written. Uses the working directory by default.}
+\item{path}{Path to the directory/folder where the data will be written.
+Uses the working directory by default.}
 }
 \value{
 Output file path (a string)
@@ -24,10 +25,11 @@ Writes the otu, taxonomy and metadata in csv files.
   library(microbiome)
   data(dietswap)
   pseq <- dietswap
-  write_phyloseq(pseq) # By default writes all info at once (ie OTU/TAXONOMY/METADATA)
-  write_phyloseq(pseq, "OTU")
-  write_phyloseq(pseq, "TAXONOMY")
-  write_phyloseq(pseq, "METADATA")
+  # By default writes all info at once (ie OTU/TAXONOMY/METADATA)
+  write_phyloseq(pseq) 
+  write_phyloseq(pseq, 'OTU')
+  write_phyloseq(pseq, 'TAXONOMY')
+  write_phyloseq(pseq, 'METADATA')
  }
 }
 \seealso{

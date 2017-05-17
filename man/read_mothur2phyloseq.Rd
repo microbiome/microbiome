@@ -8,9 +8,12 @@ read_mothur2phyloseq(shared.file, consensus.taxonomy.file,
   mapping.file = NULL)
 }
 \arguments{
-\item{shared.file}{A \href{http://www.mothur.org/wiki/Shared_file}{shared file} produced by \emph{mothur}. Identified from the .shared extension}
+\item{shared.file}{A
+\href{http://www.mothur.org/wiki/Shared_file}{shared file}
+produced by \emph{mothur}. Identified from the .shared extension}
 
-\item{consensus.taxonomy.file}{\href{http://www.mothur.org/wiki/ConTaxonomy_file}{consensus taxonomy file} produced by \emph{mothur}. Identified from with the .taxonomy extension.}
+\item{consensus.taxonomy.file}{\href{http://www.mothur.org/wiki/ConTaxonomy_file}{consensus taxonomy file} produced by \emph{mothur}.
+Identified from with the .taxonomy extension.}
 
 \item{mapping.file}{Metadata/mapping file with .csv extension}
 }
@@ -18,19 +21,21 @@ read_mothur2phyloseq(shared.file, consensus.taxonomy.file,
 \code{\link{phyloseq-class}} object.
 }
 \description{
-Read mothur shared and consensus taxonomy files into a \code{\link{phyloseq-class}} object.
+Read mothur shared and consensus taxonomy files into a
+   \code{\link{phyloseq-class}} object.
 }
 \details{
-Mothur shared and consensus taxonomy files will be converted to \code{\link{phyloseq-class}}.
+Mothur shared and consensus taxonomy files will be converted to
+   \code{\link{phyloseq-class}}.
 }
 \examples{
   \dontrun{
     # Example data
     library(microbiome)
     p0 <- read_mothur2phyloseq(
-            shared.file = "mothur_shared.shared",
-            consensus.taxonomy.file = "mothur_taxonomy.taxonomy",
-       mapping.file = "mothur_mapping.csv")
+            shared.file = 'mothur_shared.shared',
+            consensus.taxonomy.file = 'mothur_taxonomy.taxonomy',
+          mapping.file = 'mothur_mapping.csv')
   }
 }
 \author{

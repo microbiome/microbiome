@@ -7,7 +7,8 @@
 richness(x, detection = NULL)
 }
 \arguments{
-\item{x}{A species abundance vector, or matrix (taxa/features x samples) with the absolute count data (no relative abundances), or \code{\link{phyloseq-class}} object}
+\item{x}{A species abundance vector, or matrix (taxa/features x samples)
+with the absolute count data (no relative abundances), or}
 
 \item{detection}{Detection threshold.}
 }
@@ -18,7 +19,9 @@ A vector of richness indices
 Community richness index.
 }
 \details{
-By default, returns the richness for multiple detection thresholds defined by the data quantiles. If the detection argument is provided, returns richness with that detection threshold.
+By default, returns the richness for multiple detection thresholds
+   defined by the data quantiles. If the detection argument is provided,
+   returns richness with that detection threshold.
 }
 \examples{
   data(dietswap)

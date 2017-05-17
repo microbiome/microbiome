@@ -26,10 +26,8 @@ This is a wrapper for phyloseq ordination functions, providing
   and metadata necessary for further visualizations.
 }
 \examples{
- \dontrun{
    data(dietswap)
    fc <- get_ordination(dietswap)
- }
 }
 \references{
 See citation('microbiome')

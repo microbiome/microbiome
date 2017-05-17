@@ -14,7 +14,7 @@ bimodality_sarle(x, bs.iter = 1, na.rm = TRUE,
 
 \item{na.rm}{Remove NAs}
 
-\item{type}{Score type ("Sarle.finite.sample" or "Sarle.asymptotic")}
+\item{type}{Score type ('Sarle.finite.sample' or 'Sarle.asymptotic')}
 }
 \value{
 Bimodality score
@@ -25,7 +25,7 @@ Sarle's bimodality coefficient.
 \details{
 The coefficient lies in (0, 1).
 
-    The 'Sarle.asymptotic' version is defined as
+       The 'Sarle.asymptotic' version is defined as
          \deqn{b = (g^2 + 1) / k}.
          This is coefficient of bimodality from Ellison AM Am. J. Bot. 1987, 
          for microbiome analysis it has been used for instance in
@@ -33,7 +33,7 @@ The coefficient lies in (0, 1).
 
          The formula for 'Sarle.finite.sample' (SAS 2012):
 
-	    \deqn{b = \frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
+        \deqn{b = \frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
          where n is sample size and 
 
          In both formulas, \eqn{g} is sample skewness and \eqn{k} is the kth
@@ -42,7 +42,7 @@ The coefficient lies in (0, 1).
 }
 \examples{
   \dontrun{
-    b <- bimodality_sarle(rnorm(100), type = "Sarle.finite.sample")
+    b <- bimodality_sarle(rnorm(100), type = 'Sarle.finite.sample')
   }
 }
 \references{

@@ -10,11 +10,15 @@ core_heatmap(data, detections = 20, colours = gray(seq(0, 1, length = 5)),
 \arguments{
 \item{data}{OTU matrix}
 
-\item{detections}{A vector or a scalar indicating the number of intervals in (0, log10(max(data))). The detections are calculated for relative abundancies.}
+\item{detections}{A vector or a scalar indicating the number of intervals
+in (0, log10(max(data))). The detections are calculated for relative
+abundancies.}
 
 \item{colours}{colours for the heatmap}
 
-\item{min.prevalence}{If minimum prevalence is set, then filter out those rows (taxa) and columns (detections) that never exceed this prevalence. This helps to zoom in on the actual core region of the heatmap.}
+\item{min.prevalence}{If minimum prevalence is set, then filter out those
+rows (taxa) and columns (detections) that never exceed this prevalence.
+This helps to zoom in on the actual core region of the heatmap.}
 
 \item{taxa.order}{Ordering of the taxa.}
 }

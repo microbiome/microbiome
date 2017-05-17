@@ -36,15 +36,15 @@ plot_landscape(x, method = "NMDS", distance = "bray", col = NULL,
 A \code{\link{ggplot}} plot object.
 }
 \description{
-Plot abundance landscape ie. sample density in 2D projection landscape
+Plot abundance landscape ie. sample density in 2D
+   projection landscape
 }
 \details{
-For consistent results, set random seet (set.seed) before function call
+For consistent results, set random seet (set.seed) before
+   function call
 }
 \examples{
-\dontrun{
   data(dietswap)
   p <- plot_landscape(dietswap)
-}
 }
 \keyword{utilities}

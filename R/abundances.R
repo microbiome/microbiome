@@ -11,51 +11,51 @@
 #' @examples
 #'   data(dietswap)
 #'   a <- abundances(dietswap)
-#'   # b <- abundances(dietswap, transform = "compositional")
+#'   # b <- abundances(dietswap, transform = 'compositional')
 #' @keywords utilities
-abundances <- function (x, transform = "identity") {
-
-  # Pick the OTU data
-  if (is.phyloseq(x)) {
-
-    # Pick OTU matrix
-    otu <- x@otu_table@.Data
-    # Ensure that taxa are on the rows
-    if (!taxa_are_rows(x) && nrow(otu) > 1 && nsamples(x) > 1) {
-      otu <- t(otu)
-    }
-
-    if (ntaxa(x) == 1) {
-      otu <- matrix(otu, nrow = 1)
-      rownames(otu) <- taxa(x)
-      colnames(otu) <- sample_names(x)
-    }
-
-    if (nsamples(x) == 1) {
-      otu <- matrix(otu, ncol = 1)
-      rownames(otu) <- taxa(x)
-      colnames(otu) <- sample_names(x)
-    }
-
-  } else if (is.vector(x)) {
-  
-    otu <- as.matrix(x, ncol = 1)    
-
-  } else {
-  
-    # If x is not vector or phyloseq object
-    # then let us assume it is a taxa x samples count matrix
-    otu <- x
+abundances <- function(x, transform = "identity") {
     
-  }
-
-  # Apply the indicated transformation
-  if (!transform == "identity") {
-    otu <- transform(otu, transform)
-  }
-  
-  otu
-
+    # Pick the OTU data
+    if (is.phyloseq(x)) {
+        
+        # Pick OTU matrix
+        otu <- abundances(x)
+        # Ensure that taxa are on the rows
+        if (!taxa_are_rows(x) && nrow(otu) > 1 && nsamples(x) > 1) {
+            otu <- t(otu)
+        }
+        
+        if (ntaxa(x) == 1) {
+            otu <- matrix(otu, nrow = 1)
+            rownames(otu) <- taxa(x)
+            colnames(otu) <- sample_names(x)
+        }
+        
+        if (nsamples(x) == 1) {
+            otu <- matrix(otu, ncol = 1)
+            rownames(otu) <- taxa(x)
+            colnames(otu) <- sample_names(x)
+        }
+        
+    } else if (is.vector(x)) {
+        
+        otu <- as.matrix(x, ncol = 1)
+        
+    } else {
+        
+        # If x is not vector or phyloseq object then let us assume it
+	# is a taxa x samples count matrix
+        otu <- x
+        
+    }
+    
+    # Apply the indicated transformation
+    if (!transform == "identity") {
+        otu <- transform(otu, transform)
+    }
+    
+    otu
+    
 }
 
 

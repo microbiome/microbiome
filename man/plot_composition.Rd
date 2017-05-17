@@ -12,25 +12,36 @@ plot_composition(x, taxonomic.level = "OTU", sample.sort = NULL,
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{taxonomic.level}{Merge the OTUs (for phyloseq object) into a higher taxonomic level. This has to be one from colnames(tax_table(x)).}
+\item{taxonomic.level}{Merge the OTUs (for phyloseq object) into a higher
+taxonomic level. This has to be one from colnames(tax_table(x)).}
 
 \item{sample.sort}{Order samples. Various criteria are available:
 \itemize{
   \item NULL or 'none': No sorting
-  \item A single character string: indicate the metadata field to be used for ordering
+  \item A single character string: indicate the metadata field to be used
+     for ordering
   \item A character vector: sample IDs indicating the sample ordering.
-  \item 'neatmap' Order samples based on the neatmap approach. See \code{\link{neatsort}}. By default, 'NMDS' method with 'bray' distance is used. For other options, arrange the samples manually with the function.
+  \item 'neatmap' Order samples based on the neatmap approach.
+      See \code{\link{neatsort}}. By default, 'NMDS' method with 'bray'
+      distance is used. For other options, arrange the samples manually
+      with the function.
 }}
 
-\item{otu.sort}{Order taxa. Same options as for the sample.sort argument but instead of metadata, taxonomic table is used. Also possible to sort by 'abundance'.}
+\item{otu.sort}{Order taxa. Same options as for the sample.sort argument
+but instead of metadata, taxonomic table is used.
+Also possible to sort by 'abundance'.}
 
-\item{x.label}{Specify how to label the x axis. This should be one of the variables in sample_variables(x).}
+\item{x.label}{Specify how to label the x axis.
+This should be one of the variables in sample_variables(x).}
 
 \item{plot.type}{Plot type: 'barplot' or 'heatmap'}
 
 \item{verbose}{verbose}
 
-\item{transform}{Data transform to be used in plotting (but not in sample/taxon ordering). The options are 'Z-OTU', 'Z-Sample', 'log10' and 'compositional'. See the \code{\link{transform}} function.}
+\item{transform}{Data transform to be used in plotting
+         (but not in sample/taxon ordering).
+The options are 'Z-OTU', 'Z-Sample', 'log10' and 'compositional'.
+See the \code{\link{transform}} function.}
 
 \item{mar}{Figure margins}
 
@@ -45,10 +56,8 @@ A \code{\link{ggplot}} plot object.
 Plot taxon abundance for samples.
 }
 \examples{
-\dontrun{
     data(dietswap)
-    pseq <- subset_samples(dietswap, group == "DI" & nationality == "AFR")
-    plot_composition(pseq, taxonomic.level = "Phylum")
-          }
+    pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR')
+    plot_composition(pseq, taxonomic.level = 'Phylum')
 }
 \keyword{utilities}

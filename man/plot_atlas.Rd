@@ -19,20 +19,24 @@ plot_atlas(pseq, x, y, ncol = 2)
 ggplot object
 }
 \description{
-Show all samples of a microbiota collection, colored by specific factor levels (x axis) and signal (y axis).
+Show all samples of a microbiota collection, colored by
+   specific factor levels (x axis) and signal (y axis).
 }
 \details{
-Arranges the samples based on the given grouping factor (x), and plots the signal (y) on the Y axis. The samples are randomly ordered within each factor level. The factor levels are ordered by standard deviation of the signal (y axis).
+Arranges the samples based on the given grouping factor (x), and
+   plots the signal (y) on the Y axis. The samples are randomly ordered
+   within each factor level. The factor levels are ordered by standard
+   deviation of the signal (y axis).
 }
 \examples{
- \dontrun{
   data(atlas1006)
-  p <- plot_atlas(atlas1006, "DNA_extraction_method", "diversity")
-  p <- plot_atlas(atlas1006, "DNA_extraction_method", "Bifidobacterium")
- }
+  p <- plot_atlas(atlas1006, 'DNA_extraction_method', 'diversity')
+  p <- plot_atlas(atlas1006, 'DNA_extraction_method', 'Bifidobacterium')
 }
 \references{
-See citation("microbiome"); Visualization inspired by Kilpinen et al. 2008, Genome Biology 9:R139. DOI: 10.1186/gb-2008-9-9-r139
+See citation('microbiome');
+   Visualization inspired by Kilpinen et al. 2008,
+   Genome Biology 9:R139. DOI: 10.1186/gb-2008-9-9-r139
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

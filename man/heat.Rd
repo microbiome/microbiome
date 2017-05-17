@@ -57,13 +57,11 @@ ggplot2 object
 Visualizes n x m association table as heatmap.
 }
 \examples{
-  \dontrun{
     data(peerj32)
     d1 <- peerj32$lipids[, 1:10]
     d2 <- peerj32$microbes[, 1:10]
-    cc <- associate(d1, d2, method = "pearson") 
-    p <- heat(cc, 'X1', 'X2', 'Correlation', star = "p.adj")
-  }
+    cc <- associate(d1, d2, method = 'pearson') 
+    p <- heat(cc, 'X1', 'X2', 'Correlation', star = 'p.adj')
 }
 \references{
 See citation('microbiome')

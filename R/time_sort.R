@@ -4,55 +4,62 @@
 #' @param x A metadata data.frame including the following columns:
 #'          time, subject, sample, signal. Or a phyloseq object.
 #' @return A list with sorted metadata (data.frame) for each subject.
-#' @references See citation("microbiome")
+#' @references See citation('microbiome')
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
 #'   data(atlas1006)
 #'   ts <- time_sort(meta(atlas1006))
 #' @keywords utilities
-time_sort <- function (x) {
-
-  if (is.phyloseq(x)) {
-    x <- meta(x)
-  }
-
-  # Keep only samples with time point info
-  x <- subset(x, !is.na(time))
-
-  if (nrow(x) == 0) {return(NULL)}
-  if (is.null(x$signal)) {x$signal <- rep(NA, nrow(x))}
-
-  # Pick data for each subject separately
-  spl <- split(x, as.character(x$subject))
-
-  # Keep only subjects with multiple time points
-  spl <- spl[names(which(sapply(spl,
-             function (s) {length(unique(na.omit(s$time)))}) > 1))]
-
-  # Ignore NA times
-  spl <- lapply(spl, function (s) {s[!is.na(s$time),]})
-
-  tabs <- list()
-  cnt <- 0 
-  for (subj in names(spl)) {
-
-    times <- as.numeric(spl[[subj]]$time)
-    signal <- as.numeric(spl[[subj]]$signal)
-    mintime <- which.min(times)
+time_sort <- function(x) {
     
-    # Shift in time from first time point
-    spl[[subj]]$time <- (times - times[[mintime]])
+    if (is.phyloseq(x)) {
+        x <- meta(x)
+    }
     
-    # Shift in signal from first time point                  
-    spl[[subj]]$shift <- (signal - signal[[mintime]])
-
-    # Store
-    tabs[[subj]] <- spl[[subj]]
-  }
-
-  tabs
-
+    # Keep only samples with time point info
+    x <- subset(x, !is.na(time))
+    
+    if (nrow(x) == 0) {
+        return(NULL)
+    }
+    if (is.null(x$signal)) {
+        x$signal <- rep(NA, nrow(x))
+    }
+    
+    # Pick data for each subject separately
+    spl <- split(x, as.character(x$subject))
+    
+    # Keep only subjects with multiple time points
+    spl <- spl[names(which(sapply(spl, function(s) {
+        length(unique(na.omit(s$time)))
+    }) > 1))]
+    
+    # Ignore NA times
+    spl <- lapply(spl, function(s) {
+        s[!is.na(s$time), ]
+    })
+    
+    tabs <- list()
+    cnt <- 0
+    for (subj in names(spl)) {
+        
+        times <- as.numeric(spl[[subj]]$time)
+        signal <- as.numeric(spl[[subj]]$signal)
+        mintime <- which.min(times)
+        
+        # Shift in time from first time point
+        spl[[subj]]$time <- (times - times[[mintime]])
+        
+        # Shift in signal from first time point
+        spl[[subj]]$shift <- (signal - signal[[mintime]])
+        
+        # Store
+        tabs[[subj]] <- spl[[subj]]
+    }
+    
+    tabs
+    
 }
 
 

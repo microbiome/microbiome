@@ -6,6 +6,6 @@
 #' @examples
 #'   data(dietswap)
 #'   is.phyloseq(dietswap)
-is.phyloseq <- function (x) {
-  class(x) == "phyloseq"
+is.phyloseq <- function(x) {
+    class(x) == "phyloseq"
 }

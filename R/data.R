@@ -16,20 +16,24 @@
 #' \itemize{
 #'   \item lipids: Quantification of 389 blood serum lipids across 44 samples
 #'   \item microbes: Quantification of 130 genus-like taxa across 44 samples
-#'   \item meta: Sample metadata including time point, gender, subjectID, sampleID and treatment group (probiotic LGG / Placebo)
-#'   \item phyloseq The microbiome data set converted into a \code{\link{phyloseq-class}} object.
+#'   \item meta: Sample metadata including time point, gender, subjectID,
+#'        sampleID and treatment group (probiotic LGG / Placebo)
+#'   \item phyloseq The microbiome data set converted into a
+#'        \code{\link{phyloseq-class}} object.
 #' }
 #'   
 #' @keywords data
-NULL 
+NULL
 
 
 #' @title Diet Swap Data 
 #' @description The diet swap data set represents a study with African
 #'    and African American groups undergoing a two-week diet swap.
-#' For details, see \url{http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html}.
+#' For details, see
+#' \url{http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html}.
 #' @name dietswap
-#' @details The data is also available for download from the Data Dryad repository \url{http://datadryad.org/resource/doi:10.5061/dryad.1mn1n}. 
+#' @details The data is also available for download from the Data Dryad
+#'   repository \url{http://datadryad.org/resource/doi:10.5061/dryad.1mn1n}. 
 #' @docType data
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com} 
 #' @references 
@@ -39,7 +43,7 @@ NULL
 #' @usage data(dietswap) 
 #' @format The data set in \code{\link{phyloseq-class}} format.  
 #' @keywords data
-NULL 
+NULL
 
 
 
@@ -60,7 +64,7 @@ NULL
 #' @usage data(atlas1006) 
 #' @format The data set in \code{\link{phyloseq-class}} format.  
 #' @keywords data
-NULL 
+NULL
 
 
 #' @title HITChip Taxonomy
@@ -78,21 +82,22 @@ NULL
 #' @keywords data
 NULL
 
-#' @title Dynamics of the human gut microbiome in inflammatory bowel disease
+#' @title Dynamics of the Human Gut Microbiome in Inflammatory Bowel Disease
 #' @description This data set contains OTU level microbiota profiling with
-#'    Illumina HiSeq 2000 for the V4 region with 515F/806RBC for an Inflammatory bowel disease (IBD) cohort reported in 
+#'    Illumina HiSeq 2000 for the V4 region with 515F/806RBC for an
+#'    Inflammatory bowel disease (IBD) cohort reported in 
 #'    reported in Halfvarson J., et al. Nature Microbiology (2017).
 #' \url{http://www.nature.com/articles/nmicrobiol20174}.
 #' @name DynamicsIBD
-#' @details The data is also available for download from Qiita and the study ID is 1629.
+#' @details The data is also available for download from Qiita (ID 1629).
 #'   \url{https://qiita.ucsd.edu/study/description/1629}. 
 #' @docType data
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com} 
 #' @references 
-#'   Halfvarson et al. Dynamics of the human gut microbiome in inflammatory bowel disease. 
-#'   Nat Microbiology. 2:17004, 2017. 
+#'   Halfvarson et al. Dynamics of the human gut microbiome in inflammatory
+#'   bowel disease. Nat Microbiology. 2:17004, 2017. 
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @usage data(DynamicsIBD) 
 #' @format The data set in \code{\link{phyloseq-class}} format.  
 #' @keywords data
-NULL 
+NULL

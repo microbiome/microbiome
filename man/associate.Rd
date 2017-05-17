@@ -54,7 +54,7 @@ As the method=categorical (discrete) association measure
   data(peerj32)
   d1 <- peerj32$microbes[1:20, 1:10]
   d2 <- peerj32$lipids[1:20,1:10]
-  cc <- associate(d1, d2, method = "pearson")
+  cc <- associate(d1, d2, method = 'pearson')
 }
 \references{
 See citation('microbiome')

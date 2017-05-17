@@ -15,11 +15,15 @@ plot_taxa_prevalence(x, level)
 A \code{\link{ggplot}} plot object.
 }
 \description{
-A simplified wrapper for creating taxa prevalence plots at Phylum/Order/Class/Family level.
+A simplified wrapper for creating taxa prevalence plots at
+   Phylum/Order/Class/Family level.
 }
 \details{
-This plot is useful to have a first insights into how is the taxa distribution in your data.
-         This also gives an idea about the taxonomic affiliation of rare and abundant taxa in your dataset. This may be helpful in some data filtering or other downstream analysis.
+This plot is useful to have a first insights into how is the taxa
+   distribution in your data.
+   This also gives an idea about the taxonomic affiliation of rare
+   and abundant taxa in your dataset. This may be helpful in some data
+   filtering or other downstream analysis.
 }
 \examples{
 \dontrun{

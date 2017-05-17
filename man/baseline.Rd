@@ -7,25 +7,32 @@
 baseline(x, na.omit = TRUE)
 }
 \arguments{
-\item{x}{phyloseq object. Assuming that the sample_data(x) has the fields "time", "sample" and "subject"}
+\item{x}{phyloseq object. Assuming that the sample_data(x) has the fields
+'time', 'sample' and 'subject'}
 
-\item{na.omit}{Logical. Ignore samples with no time point information. If this is FALSE, the first sample for each subject is selected even when there is no time information.}
+\item{na.omit}{Logical. Ignore samples with no time point information.
+If this is FALSE, the first sample for each subject is selected even
+when there is no time information.}
 }
 \value{
 Phyloseq object with only baseline time point samples selected.
 }
 \description{
-Identify and select the baseline timepoint samples in a phyloseq object.
+Identify and select the baseline timepoint samples in a
+  \code{\link{phyloseq}} object.
 }
 \details{
-Arranges the samples by time and picks the first sample for each subject. Compared to simple subsetting at time point zero, this checks NAs and possibility for multiple samples at the baseline, and guarantees that a single sample per subject is selected.
+Arranges the samples by time and picks the first sample for each
+  subject. Compared to simple subsetting at time point zero, this checks
+  NAs and possibility for multiple samples at the baseline, and guarantees
+  that a single sample per subject is selected.
 }
 \examples{
   data(peerj32)
   a <- baseline(peerj32$phyloseq)
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

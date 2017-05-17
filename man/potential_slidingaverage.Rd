@@ -39,7 +39,8 @@ A list with the following elements:
     \item{pars}{values of the covariate parameter as matrix}
     \item{xis}{values of the x as matrix}
     \item{pots}{smoothed potentials}
-    \item{mins}{minima in the densities (-potentials; neglecting local optima)}
+    \item{mins}{minima in the densities
+        (-potentials; neglecting local optima)}
     \item{maxs}{maxima in densities (-potentials; neglecting local optima)}
     \item{plot}{an object that displays the potential estimated in 2D}
   }
@@ -54,8 +55,8 @@ This function reconstructs a potential derived from data
     X <- c(rnorm(1000, mean = 0),
            rnorm(1000, mean = -2),
            rnorm(1000, mean = 2));
-      param = seq(0,5,length=3000); 
-    res <- potential_slidingaverage(X, param)
+         param = seq(0,5,length=3000); 
+       res <- potential_slidingaverage(X, param)
     }
 }
 \references{

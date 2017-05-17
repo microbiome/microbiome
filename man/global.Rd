@@ -7,24 +7,33 @@
 global(x, index = "all")
 }
 \arguments{
-\item{x}{A species abundance vector, or matrix (taxa/features x samples) with the absolute count data (no relative abundances), or \code{\link{phyloseq-class}} object}
+\item{x}{A species abundance vector, or matrix (taxa/features x samples)
+with the absolute count data (no relative abundances), or}
 
-\item{index}{Default is ‘NULL’, meaning that all available global indices will be included. For specific options, see details.}
+\item{index}{Default is ‘NULL’, meaning that all available global indices
+will be included. For specific options, see details.}
 }
 \value{
 A data.frame of samples x global indicators
 }
 \description{
-Global indicators of the ecoystem state, including richness, evenness, diversity, and other indicators
+Global indicators of the ecoystem state, including richness,
+   evenness, diversity, and other indicators
 }
 \details{
-This function returns global indices of the ecosystem state using default choices for detection, prevalence and other parameters for simplicity and standardization. See the individual functions for more options. All indicators from the richness, diversities, evenness, dominance, and rarity functions are available. Some additional measures, such as Chao1 and ACE are available via \code{\link{estimate_richness}} function in the \pkg{phyloseq} package but not included here.
+This function returns global indices of the ecosystem state using
+   default choices for detection, prevalence and other parameters for
+   simplicity and standardization. See the individual functions for more
+   options. All indicators from the richness, diversities, evenness,
+   dominance, and rarity functions are available. Some additional measures,
+   such as Chao1 and ACE are available via \code{\link{estimate_richness}}
+   function in the \pkg{phyloseq} package but not included here.
 }
 \examples{
 
   data(dietswap)
-  d <- global(dietswap, index = "gini")
-  # d <- global(dietswap, index = "all")
+  d <- global(dietswap, index = 'gini')
+  # d <- global(dietswap, index = 'all')
 
 }
 \references{

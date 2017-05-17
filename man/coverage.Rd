@@ -7,9 +7,13 @@
 coverage(x, threshold = 0.5)
 }
 \arguments{
-\item{x}{A species abundance vector, or matrix (taxa/features x samples) with the absolute count data (no relative abundances), or \code{\link{phyloseq-class}} object}
+\item{x}{A species abundance vector, or matrix (taxa/features x samples)
+with the absolute count data (no relative abundances), or}
 
-\item{threshold}{Indicates the fraction  of the ecosystem to be occupied by the N most abundant species (N is returned by this function). If the detection argument is a vector, then a data.frame is returned, one column for each detection threshold.}
+\item{threshold}{Indicates the fraction  of the ecosystem to be occupied by
+the N most abundant species (N is returned by this function). If the
+detection argument is a vector, then a data.frame is returned, one
+column for each detection threshold.}
 }
 \value{
 A vector of coverage indices

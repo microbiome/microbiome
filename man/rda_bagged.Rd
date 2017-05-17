@@ -33,22 +33,22 @@ List with items:
 Bagged (or Bootstrap Aggregated) RDA feature selection
 }
 \details{
-Bootstrap aggregation (bagging) is expected to improve the stability of the results. Aggregating results over several modeling runs with different boostrap samples of the data are averaged to produce the final summary.
+Bootstrap aggregation (bagging) is expected to improve the
+   stability of the results. Aggregating results over several modeling runs
+   with different boostrap samples of the data are averaged to produce the
+   final summary.
 }
 \examples{
-\dontrun{
   # Example with abundance matrix
   data(peerj32)
   pseq <- peerj32$phyloseq
 
   # Example with phyloseq object
-  res <- rda_bagged(pseq, "gender", bs.iter=2)
+  res <- rda_bagged(pseq, 'gender', bs.iter=2)
   plot_rda_bagged(res, y)
-
- }
 }
 \references{
-See citation("microbiome")
+See citation('microbiome')
 }
 \seealso{
 vegan::rda and phyloseq::ordinate

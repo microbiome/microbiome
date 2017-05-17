@@ -2,16 +2,18 @@
 % Please edit documentation in R/core_abundance.R
 \name{core_abundance}
 \alias{core_abundance}
-\title{Core Abundance Index}
+\title{Core Abundance}
 \usage{
 core_abundance(x, detection = 0.1/100, prevalence = 50/100)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{detection}{Detection threshold for absence/presence (strictly greater by default).}
+\item{detection}{Detection threshold for absence/presence
+(strictly greater by default).}
 
-\item{prevalence}{Prevalence threshold (in [0, 1]; strictly greater by default)}
+\item{prevalence}{Prevalence threshold (in [0, 1];
+strictly greater by default)}
 }
 \value{
 A vector of core abundance indices
@@ -20,7 +22,9 @@ A vector of core abundance indices
 Calculates the community core abundance index.
 }
 \details{
-The core abundance index gives the relative proportion of the core species (in [0,1]). The core taxa are defined as those that exceed the given population prevalence threshold at the given detection level.
+The core abundance index gives the relative proportion of the core
+   species (in [0,1]). The core taxa are defined as those that exceed the
+   given population prevalence threshold at the given detection level.
 }
 \examples{
   data(dietswap)

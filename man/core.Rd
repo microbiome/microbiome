@@ -10,11 +10,14 @@ core(x, detection, prevalence, include.lowest = FALSE)
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{detection}{Detection threshold for absence/presence (strictly greater by default).}
+\item{detection}{Detection threshold for absence/presence
+(strictly greater by default).}
 
-\item{prevalence}{Prevalence threshold (in [0, 1]; strictly greater by default)}
+\item{prevalence}{Prevalence threshold (in [0, 1];
+strictly greater by default)}
 
-\item{include.lowest}{Include the lower boundary of the detection and prevalence cutoffs. FALSE by default.}
+\item{include.lowest}{Include the lower boundary of the detection and
+prevalence cutoffs. FALSE by default.}
 
 \item{...}{Arguments to pass.}
 }

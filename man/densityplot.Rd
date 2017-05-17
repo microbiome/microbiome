@@ -9,7 +9,8 @@ densityplot(x, main = NULL, x.ticks = 10, rounding = 0,
   legend = FALSE)
 }
 \arguments{
-\item{x}{Data matrix to plot. The first two columns will be visualized as a cross-plot.}
+\item{x}{Data matrix to plot. The first two columns will be visualized as a
+cross-plot.}
 
 \item{main}{title text}
 

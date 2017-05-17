@@ -1,9 +1,12 @@
 #' @title Core Microbiota
 #' @description Filter the phyloseq object to include only prevalent taxa.
 #' @param x \code{\link{phyloseq-class}} object
-#' @param detection Detection threshold for absence/presence (strictly greater by default).
-#' @param prevalence Prevalence threshold (in [0, 1]; strictly greater by default)
-#' @param include.lowest Include the lower boundary of the detection and prevalence cutoffs. FALSE by default.
+#' @param detection Detection threshold for absence/presence
+#'    (strictly greater by default).
+#' @param prevalence Prevalence threshold (in [0, 1];
+#'    strictly greater by default)
+#' @param include.lowest Include the lower boundary of the detection and
+#'    prevalence cutoffs. FALSE by default.
 #' @param ... Arguments to pass.
 #' @return Filtered phyloseq object including only prevalent taxa
 #' @references
@@ -22,16 +25,17 @@
 #'   # Prevalence threshold 50 percent (strictly greater by default)
 #'   pseq <- core(dietswap, 0, 50/100)
 #'
-core <- function (x, detection, prevalence, include.lowest = FALSE) {
-
-  xorig <- x
-
-  # TODO: add optional renormalization such that the core member
-  # abundances would sum up to 1 ?
-  taxa <- core_members(x, detection, prevalence, include.lowest = include.lowest)
-
-  prune_taxa(taxa, xorig)
-
+core <- function(x, detection, prevalence, include.lowest = FALSE) {
+    
+    xorig <- x
+    
+    # TODO: add optional renormalization such that the core member
+    # abundances would sum up to 1 ?
+    taxa <- core_members(x, detection, prevalence,
+        include.lowest = include.lowest)
+    
+    prune_taxa(taxa, xorig)
+    
 }
 
 

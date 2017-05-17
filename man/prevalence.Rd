@@ -10,7 +10,8 @@ prevalence(x, detection = 0, sort = FALSE, count = FALSE,
 \arguments{
 \item{x}{A vector, data matrix or \code{\link{phyloseq}} object}
 
-\item{detection}{Detection threshold for absence/presence (strictly greater by default).}
+\item{detection}{Detection threshold for absence/presence
+(strictly greater by default).}
 
 \item{sort}{Sort the groups by prevalence}
 
@@ -19,7 +20,8 @@ prevalence(x, detection = 0, sort = FALSE, count = FALSE,
 the number of samples where the OTU is detected (strictly) above the given
 abundance threshold.}
 
-\item{include.lowest}{Include the lower boundary of the detection and prevalence cutoffs. FALSE by default.}
+\item{include.lowest}{Include the lower boundary of the detection and
+prevalence cutoffs. FALSE by default.}
 }
 \value{
 For each OTU, the fraction of samples where a given OTU is
@@ -38,7 +40,8 @@ prevalence (count = TRUE) divided by the number of samples.
 }
 \examples{
   data(peerj32)     
-  pr <- prevalence(peerj32$phyloseq, detection = 0, sort = TRUE, count = TRUE)
+  pr <- prevalence(peerj32$phyloseq, detection = 0,
+      sort = TRUE, count = TRUE)
 }
 \references{
 A Salonen et al. The adult intestinal core microbiota is determined by 

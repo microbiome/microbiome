@@ -9,14 +9,16 @@ divergence(x, method = "anticorrelation")
 \arguments{
 \item{x}{phyloseq object}
 
-\item{method}{dissimilarity method ("anticorrelation" or any method available via the vetan::vegdist function)}
+\item{method}{dissimilarity method ('anticorrelation' or any method
+available via the vetan::vegdist function)}
 }
 \value{
 Vector with dissimilarities; one for each sample, quantifying the
 dissimilarity of the sample from the group-level mean.
 }
 \description{
-Quantify microbiota divergence (heterogeneity) within a given sample set.
+Quantify microbiota divergence (heterogeneity) within a
+   given sample set.
 }
 \details{
 Microbiota divergence (heterogeneity / spread) within a given sample
@@ -39,12 +41,10 @@ the overall group-wise average. The inverse of this measure
 to quantify group homogeneity.
 }
 \examples{
-  \dontrun{
     # Assess beta diversity among the African samples
     # in a diet swap study (see \\code{help(dietswap)} for references)
     data(dietswap)
-    b <- divergence(subset_samples(dietswap, nationality == "AFR"))
-  }
+    b <- divergence(subset_samples(dietswap, nationality == 'AFR'))
 }
 \references{
 The inter- and intra-individual homogeneity measures used in
