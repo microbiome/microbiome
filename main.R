@@ -15,9 +15,9 @@ library(sna)
 library(ggplot2)
 library(intergraph) # ggnet2 works also with igraph with this
 
-library(devtools)
-load_all()
-#library(microbiome)
+#library(devtools)
+#load_all()
+library(microbiome)
 
 #library(rmarkdown)
 #rmarkdown::render("index.Rmd")
@@ -66,8 +66,9 @@ for (myfile in fs) {
 # Time per index.page
 par(mar = c(3, 10, 1, 1)); barplot(sort(times), horiz = T, las = 1)
 
-system("git add *.md")
-system("git add figure/*")
-system("git add *.Rmd")
-system("git commit -a -m'markdown update'")
-system("git push")
+#system("git add *.md")
+#system("git add figure/*")
+#system("git add *.Rmd")
+system("git add *.html")
+system("git commit -a -m'homepage update'")
+system("git push origin gh-pages")

@@ -10,7 +10,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="author" content="Leo Lahti et al. 2017-05-16" />
+<meta name="author" content="Leo Lahti et al. 2017-05-17" />
 
 
 <title>Introduction to the microbiome R package</title>
@@ -69,7 +69,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <section class="page-header">
 <h1 class="title toc-ignore project-name">Introduction to the microbiome R package</h1>
-<h4 class="author project-author">Leo Lahti et al. 2017-05-16</h4>
+<h4 class="author project-author">Leo Lahti et al. 2017-05-17</h4>
 </section>
 
 
@@ -83,7 +83,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 -->
 <div id="introduction-to-the-microbiome-r-package" class="section level1">
 <h1>Introduction to the microbiome R package</h1>
-<p><a href="https://travis-ci.org/microbiome/microbiome"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAAAUCAYAAAAN+ioeAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAABQBJREFUWIXdmH1ME2cAxp/76FF6DBhYIESgbHNJFRlMqIAIcWMjbhNs1pj0Dwgmi+jm4j70Dz/mHKvZnBl1cYBLE9YYCJNNggs6s/hFNGBjthCJHyPqFkFCVAKDtZSud+/+YDto7cdJmVSf5E3vvd/d0+d9cndpjzIYDJEcx5kVCoURQDTCQH++c36+I8yNXDQhg/wV+8h4IctxnJll2WpCyHzHkhROWUKSQqCQNpahIlEXWIZhjOG2sHDLE6qoJMcSlhASFo+LmXrSiiacm2LDcVHhmClU0YQQ+BtNTU1+mdwRyGMu/B+XEbBoALMybW5uluUxW///e3QU3J5zz6CPjmDcl4qLi5GcnCzLwxebzXfOpXL3L4A6XzmnnkGvaKPRCKvVCpPJBLVaLbGWlhaPY2fOOzs7fV61arUaJpMJVqsVRqPRgwUaJwoHsF6zHW35fTjwQgcSI1Ie4McL+9GY04Xs2CJpf0H8ajS8eBrHCm7BmnsRpYlGWezStvse3saULfg+7xoO515CztOrJJYUkYqvso6jLb8P6zXbcaJwwO8aghZtt9uh1+ths9lQUVHh97afOfe3XVlZie7ubuj1ejidTtlFA4BjZBKldYvR3XcOGzR7PPiyffHQfZGAPR2bUa2pkfZveXY/PvtpK1aaU/FW0xt4js2Wxbzzi+M0VtctwZendmKD5hOJVWtqcP76KZTWLYZz1B1wPUGLPnr0KHieR1tbG7RabUhFa7VatLe3g+d5tLa2PlTRLdfqEZExiZabX2NpTJ7EsmOL8MPmC+jeOohDhh+xkE+X2LHLzfiwZC92GfdBm/U89p7dIot55z/ca4Zy6d+wuU4iWaWR2JIYHVpvTuVqvnowtKJVKpXH539MFEVQFAVCCBQKhayiA/kFyxGZwAA0QWQCA0Kmz/tgUS0OnvkUheYUrKxNAU0xEmu48jG2tVfhRn8fKtO3wfT6IVnMOzOd6AZoAjZWBE3R04wAyqTpXCEVvWbNGiiVSpSXl6Onp0dig4OD0Ol04DgOZWVlsoru6enx8HuYog2pGxFJ81iX9jZ+7e+SGAclhBg7EnJ4vG/Y7eG54xUzotM5tP/eCPPZj7AsZpUs5p0f1L9Z4LWeOza8mVKNSJqHIW1TaEWLogiLxYKMjAw0NDRIrK6uDlVVVbBYLJiYmJBVdH19PTIzM2GxWOB2B36meecgDhpHVvQi66kimG07JFZ7bidq8hrxbV4XhoeHPTwv3/oFn+d8h5/X/YFdrx5Azcl3ZTF/+b3n5os7kBtTgiMresE5VXC47H7XQOn1er+/pYaGhsDzPBwOB1iWRWxsLBhm6haZnJzE2NgYRFFEVFQUxsfHkZSUJJ3na1sQBIyOjsLtdkOlUsFut0tsprzf3p1++R7yrXGYGBLARlKIWsSCiaCmctwTYb8tABSgTKQxMSAgfjkHAHDeFTExKEB0ETBKCqqFDLg4Oigbtrkkj5nb3nPBSTB+ww3apUBF8UasTH4NW38r89kltXbt2rD7v+td9JmS+3jp1IJ5ShNYZ0ruQyQCbo1ex+6TmzCkvurzuMfiXUemKRrxyxXzlCawMk3RAAWwKgr8MwxYQvk8jiWE/AUg6tHGCyzvouN07AP7wkVxOtZj7isn7WIJS9N0syAI1Y8qmByFa6mzFXs3ppceGRl5j2GYbyiKGpvvQE+aaBdLIu4suEzuiUX/AG3EJVuesFjhAAAAAElFTkSuQmCC" alt="Build Status" /></a> <a href="https://codecov.io/github/microbiome/microbiome?branch=master"><img src="data:image/svg+xml;base64,CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTIxIiBoZWlnaHQ9IjIwIj4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYiIgeDI9IjAiIHkyPSIxMDAlIj4KICAgICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNiYmIiIHN0b3Atb3BhY2l0eT0iLjEiIC8+CiAgICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxtYXNrIGlkPSJhIj4KICAgICAgICA8cmVjdCB3aWR0aD0iMTIxIiBoZWlnaHQ9IjIwIiByeD0iMyIgZmlsbD0iI2ZmZiIgLz4KICAgIDwvbWFzaz4KICAgIDxnIG1hc2s9InVybCgjYSkiPgogICAgICAgIDxwYXRoIGZpbGw9IiM1NTUiIGQ9Ik0wIDBoNjB2MjBIMHoiIC8+CiAgICAgICAgPHBhdGggZmlsbD0iIzlmOWY5ZiIgZD0iTTYwIDBoNjF2MjBINjB6IiAvPgogICAgICAgIDxwYXRoIGZpbGw9InVybCgjYikiIGQ9Ik0wIDBoMTIxdjIwSDB6IiAvPgogICAgPC9nPgogICAgPGcgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkRlamFWdSBTYW5zLFZlcmRhbmEsR2VuZXZhLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiPgogICAgICAgIDx0ZXh0IHg9IjMwIiB5PSIxNSIgZmlsbD0iIzAxMDEwMSIgZmlsbC1vcGFjaXR5PSIuMyI+Y29kZWNvdjwvdGV4dD4KICAgICAgICA8dGV4dCB4PSIzMCIgeT0iMTQiPmNvZGVjb3Y8L3RleHQ+CiAgICAgICAgPHRleHQgeD0iODkuNSIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPnVua25vd248L3RleHQ+CiAgICAgICAgPHRleHQgeD0iODkuNSIgeT0iMTQiPnVua25vd248L3RleHQ+CiAgICA8L2c+Cjwvc3ZnPgo=" alt="codecov.io" /></a></p>
+<p><a href="https://travis-ci.org/microbiome/microbiome"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFEAAAAUCAYAAAD1GtHpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAABDtJREFUWIXtmFtMHHUUxn+zOzssM8QSYJFbTIz2wqXEgsVGBR5I4y1cNuJlHyBok6KJD2r0wQcbYzZpbINNTdhFV8vaQIhYKEkr8RYjwYjoy8bqg2laRSPZPhAouLuAu/P3yekuMnuhWraJX/JP/ud8Z8755puZZGakzs7OXEVRTthsNhdwC1mAV+1Xt1tCSqzpiLl18eNv4dD9sqIoJ2RZ7hVCbLcuA9mkxQyKhLQzhxqB+pVstVpd2SY62/Qkw202qVoWQmTFIxyPm8lEBSHJ2Sg4GzUlg0UIgdkaGhoy5dJdyXpk0j/vrnu44/ggu989l9H8TOu3spKaCGyp6fDwcFo9Mulf+PghPnG/wsDB/Slr97x3ftMZ8fmsN7G5uflfNzHHcSuFV+ZoqnCkrPXGGR0/w5vGBfhPTHS5XPj9ftxuNw7HtRMYGRlJqI2Pp6amNj0Jh8OB2+3G7/fjcrnSNrFqcBJJsnBg6FOqBicT8lWnPuLOY6fQqvcZ+Wc/+27T+fH5qsFJilpd7PZ8yM6+02h77zY4m6OE24+cZM/AOMWdTyXM3JKJoVAIp9PJ7OwsXV1dpndRfGy27+7uZmZmBqfTyerqatomelrqAfC01ONpqU/Iew828Pmx13C4ejPSAnA1qvP+Ew8x7emj2HXY4IpdvVz8Zhr/Yw+wGEmtM6WJY2NjaJrG+Pg4lZWV12ViZWUlExMTaJrG6Oho2iY2lhcB0FheRGN5EUIItOp9PO0/wzMfz/Dw8QFySysyNvHimdPU7bAjXZjFXlJmcOquaubPjVK3I4dLZ4dT6kz5iqOqKpFIBFVVjWYAuq4jSRK6rqMoSgKXbG/WLx5mmuLzZYdeZPqto1z69mskq43D56fTmp/QQ7FgAQoUGUmyXDMaKMuzQyRMqZqbVBOkeMUBaG1txW63097eTiAQMLj5+XkaGhpQFIW2tjZjULKrHwgEEvrFc6nWP2ptCgUixoGyYjqeeyGt+Rv30t/mbOCCPwRwPPgoUk4uxY90ptSZ0kRd1/H5fNTU1OD1eg2uv7+fnp4efD4fkUgkLeEej4fa2lp8Ph/RaPS6TJzxvsnel1+nqm+QhYWFLZlo1j/wzglya/dT3f8BYavCn5FwUm2S0+k0vU+DwSCaphEOh5Flmfz8fKxWKwBra2ssLy+j6zp5eXmsrKxQUlJiHLfZPhaLsbS0RDQaRVVVQqGQwcVjs7840/MLNJYVGvGV8Bo/L4eQgFLNztxKxODja9PZb4wj0Rg/La6whoV7n+zC0dBI8OhLZjYhdXR0ZN03Vjb8Cqsb+QKh66z8epkv3zhCxVLQtPb/b2cTnGyqRZJAlWV25WsIm2xaKwsh/gDybpy81MgGE+8rLUiIzTStYxGyxWIZjsVivTdCWLrIBhPTxe/IFyyLi4vPW63WtyVJWt5uQTcT1rGIX8j5/jKi6S9truBBAevapAAAAABJRU5ErkJggg==" alt="Build Status" /></a> <a href="https://codecov.io/github/microbiome/microbiome?branch=master"><img src="data:image/svg+xml;base64,CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTIxIiBoZWlnaHQ9IjIwIj4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iYiIgeDI9IjAiIHkyPSIxMDAlIj4KICAgICAgICA8c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNiYmIiIHN0b3Atb3BhY2l0eT0iLjEiIC8+CiAgICAgICAgPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLW9wYWNpdHk9Ii4xIiAvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxtYXNrIGlkPSJhIj4KICAgICAgICA8cmVjdCB3aWR0aD0iMTIxIiBoZWlnaHQ9IjIwIiByeD0iMyIgZmlsbD0iI2ZmZiIgLz4KICAgIDwvbWFzaz4KICAgIDxnIG1hc2s9InVybCgjYSkiPgogICAgICAgIDxwYXRoIGZpbGw9IiM1NTUiIGQ9Ik0wIDBoNjB2MjBIMHoiIC8+CiAgICAgICAgPHBhdGggZmlsbD0iIzlmOWY5ZiIgZD0iTTYwIDBoNjF2MjBINjB6IiAvPgogICAgICAgIDxwYXRoIGZpbGw9InVybCgjYikiIGQ9Ik0wIDBoMTIxdjIwSDB6IiAvPgogICAgPC9nPgogICAgPGcgZmlsbD0iI2ZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkRlamFWdSBTYW5zLFZlcmRhbmEsR2VuZXZhLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTEiPgogICAgICAgIDx0ZXh0IHg9IjMwIiB5PSIxNSIgZmlsbD0iIzAxMDEwMSIgZmlsbC1vcGFjaXR5PSIuMyI+Y29kZWNvdjwvdGV4dD4KICAgICAgICA8dGV4dCB4PSIzMCIgeT0iMTQiPmNvZGVjb3Y8L3RleHQ+CiAgICAgICAgPHRleHQgeD0iODkuNSIgeT0iMTUiIGZpbGw9IiMwMTAxMDEiIGZpbGwtb3BhY2l0eT0iLjMiPnVua25vd248L3RleHQ+CiAgICAgICAgPHRleHQgeD0iODkuNSIgeT0iMTQiPnVua25vd248L3RleHQ+CiAgICA8L2c+Cjwvc3ZnPgo=" alt="codecov.io" /></a></p>
 <p>Tools for common analysis tasks in microbiome profiling studies; illustrated with multiple example data sets from published studies; extending the <a href="http://joey711.github.io/phyloseq/import-data">phyloseq</a> class.</p>
 <div id="getting-started" class="section level3">
 <h3>Getting started</h3>
@@ -135,19 +135,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Kindly cite this work as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">citation</span>(<span class="st">'microbiome'</span>)</code></pre></div>
 <pre><code>## 
-## To cite package 'microbiome' in publications use:
+## Please cite the package as follows:
 ## 
-##   Leo Lahti (2017). microbiome: Microbiome Analytics. R package
-##   version 0.99.1. http://microbiome.github.io/microbiome
+##   Leo Lahti et al.  microbiome R package.  URL:
+##   http://microbiome.github.io
 ## 
 ## A BibTeX entry for LaTeX users is
 ## 
-##   @Manual{,
-##     title = {microbiome: Microbiome Analytics},
-##     author = {Leo Lahti},
-##     year = {2017},
-##     note = {R package version 0.99.1},
-##     url = {http://microbiome.github.io/microbiome},
+##   @Misc{,
+##     title = {microbiome R package},
+##     author = {Leo Lahti and Sudarshan Shetty and Tineka Blake and Jarkko Salojarvi},
+##     year = {2012-2017},
 ##   }</code></pre>
 </div>
 <div id="dependencies" class="section level3">
