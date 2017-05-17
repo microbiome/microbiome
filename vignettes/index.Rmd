@@ -46,38 +46,42 @@ Tools for common analysis tasks in microbiome profiling studies;
 illustrated with multiple example data sets from published studies;
 extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 
-
-### Getting started
-
-* [Installation](Template.html) 
-* [Example data](Data.html)
-* [Data manipulation](Preprocessing.html)
+See [microbiome tutorial](http://microbiome.github.io/microbiome) for a full set of online examples on using the microbiome package tools.
 
 
-### Microbiome analysis
-
-* [Alpha diversity](Diversity.html)
-* [Beta diversity / Community heterogeneity](Betadiversity.html)
-* [Community composition](Composition.html)
-* [Core microbiota](Core.html)
-* [Landscapes](Landscaping.html) (population density analysis)
-* [Stability and tipping elements](Stability.html)
+## Getting started
 
 
-### Visualization and related tools
+### Install the microbiome package
 
-* [Heatmaps](Heatmap.html)
-* [Networks](Networks.html)
-* [Ordination](Ordination.html) (PCA, PCoA, NMDS, RDA etc.)
-* [Regression](Regression.html)
+To install microbiome package in R:
+
+```{r microbiomeinstall, message=FALSE, warning=FALSE, eval=FALSE}
+library(devtools) # Load the devtools package
+install_github("microbiome/microbiome") # Install the package
+```
+
+### Loading the package
+
+Once the package has been installed, load it in R (also to test successful installation):
+
+```{r loading, eval=TRUE, message=FALSE}
+library(microbiome)  
+```
 
 
-### Statistical analysis
 
-* [Bimodality](Bimodality.html)
-* [Potential analysis](Potential.html)
-* [Community comparisons](Comparisons.html) ([limma](limma.html), [PERMANOVA](PERMANOVA.html), [mixed models](Mixedmodels.html), [negative binomial](Negativebinomial.html)  etc)
-* [Experimental tools](Experimental.html)
+### Resources
+
+Further tips:
+
+ * [Rmarkdown tips](http://rmarkdown.rstudio.com/)
+ * [R cheat sheets](http://devcheatsheet.com/tag/r/)
+ * [Using Github with R and RStudio](http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/)
+ * [Molecular ecologist's view on code sharing](http://www.molecularecologist.com/2013/08/want-to-share-your-code/)
+
+
+
 
 ### Development
 
