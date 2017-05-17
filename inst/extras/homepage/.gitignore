@@ -1,5 +1,0 @@
-cache
-*_cache
-*_files
-*~
-deploy*.sh # Contains private token
