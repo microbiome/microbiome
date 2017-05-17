@@ -92,7 +92,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">library</span>(microbiome)
 data.directory &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;extdata&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;microbiome&quot;</span>)
 <span class="kw">print</span>(data.directory)</code></pre></div>
-<pre><code>## [1] &quot;/tmp/Rtmpt0kQA4/Rinst3d79347d6e2c/microbiome/extdata&quot;</code></pre>
 </div>
 </div>
 <div id="installing-hitchipdb-package" class="section level2">
@@ -143,9 +142,6 @@ taxonomy &lt;-<span class="st"> </span><span class="kw">unique</span>(<span clas
 
 <span class="co"># Merging data matrices into phyloseq format:</span>
 pseq &lt;-<span class="st"> </span>HITChipDB::<span class="kw">hitchip2physeq</span>(<span class="kw">t</span>(otu), meta, taxonomy)</code></pre></div>
-<div id="refs" class="references">
-
-</div>
 </div>
 </section>
 
@@ -156,7 +152,7 @@ pseq &lt;-<span class="st"> </span>HITChipDB::<span class="kw">hitchip2physeq</s
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

@@ -1,0 +1,4 @@
+9db368e45b194536be7507f86fc71d2d5530ab54
+
+# Then run 
+# travis encrypt -r microbiome/microbiome GITHUB_TOKEN=9db368e45b194536be7507f86fc71d2d5530ab54 --add

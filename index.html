@@ -10,10 +10,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="author" content="Leo Lahti et al. 2017-03-13" />
+<meta name="author" content="Leo Lahti et al. 2017-05-16" />
 
 
-<title>Introduction to microbiome analysis in R</title>
+<title>Introduction to the microbiome R package</title>
 
 
 
@@ -68,8 +68,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <section class="page-header">
-<h1 class="title toc-ignore project-name">Introduction to microbiome analysis in R</h1>
-<h4 class="author project-author">Leo Lahti et al. 2017-03-13</h4>
+<h1 class="title toc-ignore project-name">Introduction to the microbiome R package</h1>
+<h4 class="author project-author">Leo Lahti et al. 2017-05-16</h4>
 </section>
 
 
@@ -135,22 +135,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Kindly cite this work as follows:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">citation</span>(<span class="st">'microbiome'</span>)</code></pre></div>
 <pre><code>## 
-## Please cite the package as follows:
+## To cite package 'microbiome' in publications use:
 ## 
-##   Leo Lahti et al.  microbiome R package.  URL:
-##   http://microbiome.github.io
+##   Leo Lahti (2017). microbiome: Microbiome Analytics. R package
+##   version 0.99.1. http://microbiome.github.io/microbiome
 ## 
 ## A BibTeX entry for LaTeX users is
 ## 
-##   @Misc{,
-##     title = {microbiome R package},
-##     author = {Leo Lahti and Tineka Blake and Jarkko Salojarvi},
-##     year = {2012-2017},
+##   @Manual{,
+##     title = {microbiome: Microbiome Analytics},
+##     author = {Leo Lahti},
+##     year = {2017},
+##     note = {R package version 0.99.1},
+##     url = {http://microbiome.github.io/microbiome},
 ##   }</code></pre>
 </div>
 <div id="dependencies" class="section level3">
 <h3>Dependencies</h3>
-<p>The package utilizes tools from a number of other R extensions, including ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007), dplyr (Wickham and Francois, 2016), ggplot2 (Wickham, 2009), MASS (Venables and Ripley, 2002), moments (Komsta and Novomestky, 2015), phyloseq (McMurdie and Holmes, 2013), RColorBrewer (Neuwirth, 2014), scales (Wickham, 2016), stats (R Core Team, 2016), tidyr (Wickham, 2017), vegan (Oksanen, Blanchet, Friendly, Kindt, Legendre, McGlinn, Minchin, O’Hara, Simpson, Solymos, Stevens, Szoecs, and Wagner, 2017).</p>
+<p>The package utilizes tools from a number of other R extensions, including ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007), dplyr (Wickham and Francois, 2016), ggplot2 (Wickham, 2009), MASS (Venables and Ripley, 2002), moments (Komsta and Novomestky, 2015), phyloseq (McMurdie and Holmes, 2013), RColorBrewer (Neuwirth, 2014), scales (Wickham, 2016), stats (R Core Team, 2016), tidyr (Wickham, 2017), vegan (Oksanen, Blanchet, Friendly, et al., 2017).</p>
 </div>
 <div id="references" class="section level3">
 <h3>References</h3>
@@ -160,16 +162,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>[4] L. Komsta and F. Novomestky. <em>moments: Moments, cumulants, skewness, kurtosis and related tests</em>. R package version 0.14. 2015. &lt;URL: <a href="https://CRAN.R-project.org/package=moments" class="uri">https://CRAN.R-project.org/package=moments</a>&gt;.</p>
 <p>[5] P. J. McMurdie and S. Holmes. “phyloseq: An R package for reproducible interactive analysis and graphics of microbiome census data”. In: <em>PLoS ONE</em> 8.4 (2013), p. e61217. &lt;URL: <a href="http://dx.plos.org/10.1371/journal.pone.0061217" class="uri">http://dx.plos.org/10.1371/journal.pone.0061217</a>&gt;.</p>
 <p>[6] E. Neuwirth. <em>RColorBrewer: ColorBrewer Palettes</em>. R package version 1.1-2. 2014. &lt;URL: <a href="https://CRAN.R-project.org/package=RColorBrewer" class="uri">https://CRAN.R-project.org/package=RColorBrewer</a>&gt;.</p>
-<p>[7] J. Oksanen, F. G. Blanchet, M. Friendly, et al. <em>vegan: Community Ecology Package</em>. R package version 2.4-2. 2017. &lt;URL: <a href="https://CRAN.R-project.org/package=vegan" class="uri">https://CRAN.R-project.org/package=vegan</a>&gt;.</p>
-<p>[8] R Core Team. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. Vienna, Austria, 2016. <URL: https: www.R-project.org></URL:>.</p>
+<p>[7] J. Oksanen, F. G. Blanchet, M. Friendly, et al. <em>vegan: Community Ecology Package</em>. R package version 2.4-3. 2017. &lt;URL: <a href="https://CRAN.R-project.org/package=vegan" class="uri">https://CRAN.R-project.org/package=vegan</a>&gt;.</p>
+<p>[8] R Core Team. <em>R: A Language and Environment for Statistical Computing</em>. R Foundation for Statistical Computing. Vienna, Austria, 2016. &lt;URL: <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>&gt;.</p>
 <p>[9] W. N. Venables and B. D. Ripley. <em>Modern Applied Statistics with S</em>. Fourth. ISBN 0-387-95457-0. New York: Springer, 2002. &lt;URL: <a href="http://www.stats.ox.ac.uk/pub/MASS4" class="uri">http://www.stats.ox.ac.uk/pub/MASS4</a>&gt;.</p>
 <p>[10] H. Wickham. <em>ggplot2: Elegant Graphics for Data Analysis</em>. Springer-Verlag New York, 2009. ISBN: 978-0-387-98140-6. &lt;URL: <a href="http://ggplot2.org" class="uri">http://ggplot2.org</a>&gt;.</p>
 <p>[11] H. Wickham. <em>scales: Scale Functions for Visualization</em>. R package version 0.4.1. 2016. &lt;URL: <a href="https://CRAN.R-project.org/package=scales" class="uri">https://CRAN.R-project.org/package=scales</a>&gt;.</p>
 <p>[12] H. Wickham. <em>tidyr: Easily Tidy Data with ‘spread()’ and ‘gather()’ Functions</em>. R package version 0.6.1. 2017. &lt;URL: <a href="https://CRAN.R-project.org/package=tidyr" class="uri">https://CRAN.R-project.org/package=tidyr</a>&gt;.</p>
 <p>[13] H. Wickham and R. Francois. <em>dplyr: A Grammar of Data Manipulation</em>. R package version 0.5.0. 2016. &lt;URL: <a href="https://CRAN.R-project.org/package=dplyr" class="uri">https://CRAN.R-project.org/package=dplyr</a>&gt;.</p>
-<div id="refs" class="references">
-
-</div>
 </div>
 </div>
 </section>
@@ -181,7 +180,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

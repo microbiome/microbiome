@@ -88,18 +88,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Updating microbiome package</span>
 <span class="kw">library</span>(devtools)
 <span class="kw">install_github</span>(<span class="st">&quot;microbiome/microbiome&quot;</span>)</code></pre></div>
-<pre><code>## '/home/travis/R-bin/lib/R/bin/R' CMD INSTALL '/tmp/RtmpnCKtYH/devtools3d936891fbb8/microbiome-microbiome-56e0d32'</code></pre>
 <p>Load the tools and example data</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbiome)
 <span class="kw">data</span>(<span class="st">&quot;dietswap&quot;</span>)
 <span class="kw">print</span>(dietswap)</code></pre></div>
-<pre><code>## phyloseq-class experiment-level object
-## otu_table()   OTU Table:         [ 130 taxa and 222 samples ]
-## sample_data() Sample Data:       [ 222 samples by 8 sample variables ]
-## tax_table()   Taxonomy Table:    [ 130 taxa by 2 taxonomic ranks ]</code></pre>
-<div id="refs" class="references">
-
-</div>
 </div>
 </div>
 </section>
@@ -111,7 +103,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

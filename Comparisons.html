@@ -43,19 +43,19 @@
 -->
 <div id="group-wise-comparisons" class="section level2">
 <h2>Group-wise comparisons</h2>
-<p>A number of methods for microbiota community comparisons have been proposed. For a recent benchmarking study, see <a href="http://doi.org/10.1186/s40168-017-0237-y">Weiss et al. (2017)</a>.</p>
+<p>A number of methods for microbiota community comparisons have been proposed. For a recent benchmarking study, see <a href="http://doi.org/10.1186/s40168-017-0237-y">Weiss et al. (2017)</a>. For a comprehensive example workflow, see <a href="https://f1000research.com/articles/5-1492/v2">Callahan et al. F1000 (2017)</a>.</p>
 <div id="univariate-comparisons" class="section level3">
 <h3>Univariate comparisons</h3>
 <p>For individual taxa, diversity indicators etc.</p>
 <ul>
-<li><a href="Mixedmodels..html">Linear mixed effect models</a></li>
+<li><a href="Mixedmodels.html">Linear mixed effect models</a></li>
 <li><a href="Negativebinomial.html">Negative binomial test</a></li>
+<li><a href="ANCOM.html">ANCOM</a></li>
 </ul>
 <p>Other methods, not implemented here (see <a href="http://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-017-0237-y">Weiss et al. (2017)</a> for a recent survey):</p>
 <ul>
-<li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4450248/">ANCOM</a>; claimed to outperform ZIGs; an R package seems to be <a href="https://www.niehs.nih.gov/research/resources/software/biostatistics/ancom/index.cfm">available</a></li>
 <li><a href="https://www.ncbi.nlm.nih.gov/pubmed/24076764/">Zero-inflated Gaussians (ZIGs)</a> (see <a href="https://bioconductor.org/packages/release/bioc/html/metagenomeSeq.html">metagenomeSeq</a> Bioconductor package)</li>
-<li><a href>DESeq2</a> and other advanced methods based on negative binomial</li>
+<li><a href="deseq2.Rmd">DESeq2</a> and other advanced methods based on negative binomial</li>
 </ul>
 </div>
 <div id="multivariate-comparisons" class="section level3">
@@ -65,34 +65,6 @@
 <li><a href="limma.html">Multivariate linear models (limma)</a></li>
 <li><a href="PERMANOVA.html">PERMANOVA</a></li>
 </ul>
-<pre><code>## [1] &quot;ade4&quot;
-## [1] &quot;compositions&quot;
-## [1] &quot;MASS&quot;
-## [1] &quot;moments&quot;
-## [1] &quot;scales&quot;
-## [1] &quot;tgp&quot;
-## [1] &quot;WGCNA&quot;
-## [1] &quot;diptest&quot;
-## [1] &quot;FD&quot;
-## [1] &quot;gcookbook&quot;
-## [1] &quot;GGally&quot;
-## [1] &quot;ggnet&quot;
-## [1] &quot;Hmisc&quot;
-## [1] &quot;hrbrthemes&quot;
-## [1] &quot;igraph&quot;
-## [1] &quot;intergraph&quot;
-## [1] &quot;limma&quot;
-## [1] &quot;lme4&quot;
-## [1] &quot;netresponse&quot;
-## [1] &quot;network&quot;
-## [1] &quot;RColorBrewer&quot;
-## [1] &quot;sna&quot;
-## [1] &quot;SpiecEasi&quot;
-## [1] &quot;tidyverse&quot;
-## [1] &quot;viridis&quot;</code></pre>
-<div id="refs" class="references">
-
-</div>
 </div>
 </div>
 </section>
@@ -104,7 +76,7 @@
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>
