@@ -25,7 +25,8 @@ plot_taxa_prevalence <- function(x, level) {
         Phylum <- as.vector(data.frame(tax_table(x))$Phylum)
         Phylum <- as.vector(Phylum)
         Phylum <- as.factor(Phylum)
-        xdf <- data.frame(abundance = log(tax.abun), prevalence = tax.prev, Phylum)
+        xdf <- data.frame(abundance = log(tax.abun), prevalence = tax.prev, 
+            Phylum)
         plot.phylum <- ggplot(xdf, aes(x = abundance, y = prevalence, color = Phylum)) + 
             geom_point(shape = 16, alpha = 0.9) + xlab("Average relative abundance (log scale)") + 
             ylab("Taxa prevalence") + theme_bw() + theme(plot.background = element_blank(), 
@@ -41,7 +42,8 @@ plot_taxa_prevalence <- function(x, level) {
         Family <- as.vector(data.frame(tax_table(x))$Family)
         Family <- as.vector(Family)
         Family <- as.factor(Family)
-        xdf <- data.frame(abundance = log(tax.abun), prevalence = tax.prev, Family)
+        xdf <- data.frame(abundance = log(tax.abun), prevalence = tax.prev, 
+            Family)
         plot.fam <- ggplot(xdf, aes(x = abundance, y = prevalence, color = Family)) + 
             geom_point(shape = 16, alpha = 0.9) + xlab("Average relative abundance (log scale)") + 
             ylab("Taxa prevalence") + theme_bw() + theme(plot.background = element_blank(), 
@@ -56,9 +58,10 @@ plot_taxa_prevalence <- function(x, level) {
         Order <- as.vector(data.frame(tax_table(x))$Order)
         Order <- as.vector(Order)
         Order <- as.factor(Order)
-        # FIXME: Most of the time log10 is used for microbial abundances (not log) -
-        # should change here for consistency?
-        xdf <- data.frame(abundance = log(tax.abun), prevalence = tax.prev, Order)
+        # FIXME: Most of the time log10 is used for microbial abundances (not
+        # log) - should change here for consistency?
+        xdf <- data.frame(abundance = log(tax.abun), prevalence = tax.prev, 
+            Order)
         plot.order <- ggplot(xdf, aes(x = abundance, y = prevalence, color = Order)) + 
             geom_point(shape = 16, alpha = 0.9) + xlab("Average relative abundance (log scale)") + 
             ylab("Taxa prevalence") + theme_bw() + theme(plot.background = element_blank(), 
@@ -73,7 +76,8 @@ plot_taxa_prevalence <- function(x, level) {
         Class <- as.vector(data.frame(tax_table(x))$Class)
         Class <- as.vector(Class)
         Class <- as.factor(Class)
-        xdf <- data.frame(abundance = log(tax.abun), prevalence = tax.prev, Class)
+        xdf <- data.frame(abundance = log(tax.abun), prevalence = tax.prev, 
+            Class)
         plot.class <- ggplot(xdf, aes(x = abundance, y = prevalence, color = Class)) + 
             geom_point(shape = 16, alpha = 0.9) + xlab("Average relative abundance (log scale)") + 
             ylab("Taxa prevalence") + theme_bw() + theme(plot.background = element_blank(), 
