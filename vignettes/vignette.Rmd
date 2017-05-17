@@ -1,0 +1,193 @@
+---
+title: "Introduction to the microbiome R package"
+author: "Leo Lahti et al."
+bibliography: 
+- bibliography.bib
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{microbiome R package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Handle citations
+library(knitr)
+require(knitcitations)
+# cleanbib()
+# options("citation_format" = "pandoc")
+# bib <- read.bibtex("bibliography.bib")
+#opts_chunk$set(fig.width=4, fig.height=3, par=TRUE, out.width='2in', fig.pos='H')
+# knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
+
+# You can also write math expressions, e.g. 
+# $Y = X\beta + \epsilon$, footnotes^[A footnote here.]
+# > "He who gives up [code] safety for [code] speed deserves neither."
+# ([via](https://twitter.com/hadleywickham/status/504368538874703872))
+```
+
+## Introduction
+
+Tools for common analysis tasks in microbiome profiling studies; illustrated with multiple example data sets from published studies; extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
+
+See [microbiome tutorial](http://microbiome.github.io/microbiome) for a full set of online examples on using the microbiome package tools.
+
+
+Further tips:
+
+ * [Rmarkdown tips](http://rmarkdown.rstudio.com/)
+ * [R cheat sheets](http://devcheatsheet.com/tag/r/)
+ * [Using Github with R and RStudio](http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/)
+ * [Molecular ecologist's view on code sharing](http://www.molecularecologist.com/2013/08/want-to-share-your-code/)
+
+
+
+This work can be freely used, modified and distributed under the
+[Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
+
+Kindly cite this work as follows:
+
+```{r sotkanetIndicators, warning=FALSE, message=FALSE, eval=TRUE}
+citation('microbiome')
+```
+
+Development: New examples and tutorial pages from the user community are welcome: [Contributing](Contributing.html)
+
+
+The package utilizes tools from a number of other R extensions, including ade4 `r citep(citation("ade4"))`, dplyr `r citep(citation("dplyr"))`, ggplot2 `r citep(citation("ggplot2"))`, MASS `r citep(citation("MASS"))`, moments `r citep(citation("moments"))`, phyloseq `r citep(citation("phyloseq"))`, RColorBrewer `r citep(citation("RColorBrewer"))`, scales `r citep(citation("scales"))`, stats `r citep(citation("stats"))`, tidyr `r citep(citation("tidyr"))`, vegan `r citep(citation("vegan"))`.
+
+## Getting started
+
+
+### Install the microbiome package
+
+To install microbiome package in R:
+
+```{r microbiomeinstall, message=FALSE, warning=FALSE, eval=FALSE}
+library(devtools) # Load the devtools package
+install_github("microbiome/microbiome") # Install the package
+```
+
+### Loading the package
+
+Once the package has been installed, load it in R (also to test successful installation):
+
+```{r loading, eval=TRUE, message=FALSE}
+library(microbiome)  
+```
+
+
+
+## Intestinal microbiota diversity in 1006 western adults
+
+The data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) has microbiota profiling of 130 genus-like taxa across 1006 normal western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d). Load the data in R:
+
+```{r data2}
+# Download the required R packages and then the HITChip Atlas data set
+library(microbiome)
+data(atlas1006)
+```
+
+Estimate global ecosystem indicators for this data set: 
+
+```{r div-example, warning=FALSE, message=FALSE, results='asis'}
+tab <- global(atlas1006, index = c("shannon", "invsimpson"))
+
+library(knitr)
+kable(head(tab))
+```
+
+
+## Microbiota composition
+  
+
+Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html).
+  
+Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
+  
+```{r composition-example1}
+# Example data
+library(microbiome)
+library(dplyr)
+data(dietswap)
+
+# Just use prevalent taxa to speed up examples
+# (not absolute counts used in this example)
+pseq <- core(dietswap, detection = 10^3, prevalence = 95/100)
+
+# Pick sample subset
+library(phyloseq)
+pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR" & timepoint.within.group == 1)
+```
+
+### Barplots for composition
+
+Same with compositional (relative) abundances:
+  
+```{r composition-example4b, fig.width=12, fig.height=5, out.width="300px", fig.show="hold", fig.cap = "Figure caption goes here."}
+# Try another theme
+# from https://github.com/hrbrmstr/hrbrthemes
+library(hrbrthemes)
+library(gcookbook)
+library(tidyverse)
+
+# Limit the analysis on core taxa and specific sample group
+p <- plot_composition(pseq2,
+		      taxonomic.level = "OTU",
+                      sample.sort = "nationality",
+                      x.label = "nationality",
+                      transform = "compositional") +
+     guides(fill = guide_legend(ncol = 1)) +
+     scale_y_percent() +
+     labs(x = "Samples", y = "Relative abundance (%)",
+                                   title = "Relative abundance data",
+                                   subtitle = "Subtitle",
+                                   caption = "Caption text.") + 
+     theme_ipsum(grid="Y")
+print(p)  
+```
+
+
+Averaged by group:
+  
+```{r composition-example4c, fig.width=12, fig.height=5, eval=FALSE}
+p <- plot_composition(pseq2,
+                      average_by = "bmi_group", transform = "compositional")
+print(p)
+```
+
+
+
+### Composition heatmaps
+
+
+Heatmap for CLR-transformed abundances, with samples and OTUs sorted with the neatmap method:
+  
+```{r composition-example7, fig.width=10, fig.height=3, fig.cap = "Figure2 caption goes here."}
+plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
+                      sample.sort = "neatmap", otu.sort = "neatmap",
+                      mar = c(6, 13, 1, 1))
+```
+
+
+
+
+# References
+
+```{r, echo=FALSE, message=FALSE}
+#You can embed citations, for example: `r citep(bib[["lahti14natcomm"]])`
+#You can embed citations, for example2: @lahti14natcomm
+#Cite with DOI: `r citep("10.1890/11-0011.1")`
+#Cite URL `r citep("http://knowledgeblog.org/greycite")`
+#For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). 
+#write.bibtex(file="references.bib")
+```
+
+```{r, echo=FALSE, message=FALSE, results='asis'}
+bibliography()
+```
+
+
