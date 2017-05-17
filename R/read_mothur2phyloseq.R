@@ -23,19 +23,21 @@
 #'   }
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
-read_mothur2phyloseq <- function(shared.file, consensus.taxonomy.file, mapping.file = NULL) {
+read_mothur2phyloseq <- function(shared.file, consensus.taxonomy.file, 
+    mapping.file = NULL) {
     
     ### Mothur Shared file to otu table ###
     
-    m.otu <- read.table(shared.file, check.names = FALSE, header = TRUE, sep = "\t", 
-        stringsAsFactors = FALSE)
+    m.otu <- read.table(shared.file, check.names = FALSE, header = TRUE, 
+        sep = "\t", stringsAsFactors = FALSE)
     m.otu$label <- NULL
     m.otu$numOtus <- NULL
     x <- m.otu$Group
     m.otu$Group <- NULL
     rownames(m.otu) <- NULL
     rownames(m.otu) <- x
-    m.otu[, c(2:(ncol(m.otu) - 1))] <- sapply(m.otu[, c(2:(ncol(m.otu) - 1))], as.numeric)
+    m.otu[, c(2:(ncol(m.otu) - 1))] <- sapply(m.otu[, c(2:(ncol(m.otu) - 
+        1))], as.numeric)
     mothur_otu_table <- (otu_table(t(as.matrix(m.otu)), taxa_are_rows = TRUE))
     
     # message('Converted Shared to OTU table')
@@ -43,13 +45,13 @@ read_mothur2phyloseq <- function(shared.file, consensus.taxonomy.file, mapping.f
     ### Consensus Taxonomy file to taxa table ###
     
     # the file extension has to be .taxonomy!
-    TaxonomyFile <- read.table(consensus.taxonomy.file, check.names = FALSE, header = TRUE, 
-        sep = "\t", stringsAsFactors = FALSE)
+    TaxonomyFile <- read.table(consensus.taxonomy.file, check.names = FALSE, 
+        header = TRUE, sep = "\t", stringsAsFactors = FALSE)
     
     TaxonomyFile$Taxonomy <- gsub("[\"]", "", TaxonomyFile$Taxonomy)
     TaxonomyFile$Taxonomy <- gsub("[(1-100)]", "", TaxonomyFile$Taxonomy)
-    mothur_tax <- separate(TaxonomyFile, "Taxonomy", into = c("Kingdom", "Phylum", 
-        "Order", "Class", "Family", "Genus"), sep = ";", extra = "merge")
+    mothur_tax <- separate(TaxonomyFile, "Taxonomy", into = c("Kingdom", 
+        "Phylum", "Order", "Class", "Family", "Genus"), sep = ";", extra = "merge")
     mothur_tax$Genus <- gsub(";", "", mothur_tax$Genus)
     mothur_tax$Size <- NULL
     
@@ -57,8 +59,8 @@ read_mothur2phyloseq <- function(shared.file, consensus.taxonomy.file, mapping.f
     mothur_tax_mat <- as.matrix(mothur_tax)
     mothur_taxonomy = tax_table(mothur_tax_mat)
     
-    # message('Converted Contaxonomy to Taxa table') message('reading mapping file
-    # and creating a phyloseq object')
+    # message('Converted Contaxonomy to Taxa table') message('reading
+    # mapping file and creating a phyloseq object')
     
     ### Mapping file to sampledata table ###
     
