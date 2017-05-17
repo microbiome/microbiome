@@ -31,10 +31,10 @@ format_phyloseq <- function(x)
            mutate(Phylum, Phylum = ifelse(Phylum == "", paste("k__", Domain, "_", rownames(x), sep = ""), Phylum)) %>%
            mutate(Class, Class = ifelse(Class == "", ifelse(grepl("__", Phylum), Phylum, paste("c__",
              Phylum, "_", rownames(x), sep = "")), Class)) %>%
-	   mutate(Order, Order = ifelse(Order == "", ifelse(grepl("__", Class), Class, paste("c__", Class, "_", rownames(x), sep = "")), Order)) %>%
-      	   mutate(Family, Family = ifelse(Family == "", ifelse(grepl("__", Order), Order, paste("o__",
+       mutate(Order, Order = ifelse(Order == "", ifelse(grepl("__", Class), Class, paste("c__", Class, "_", rownames(x), sep = "")), Order)) %>%
+             mutate(Family, Family = ifelse(Family == "", ifelse(grepl("__", Order), Order, paste("o__",
              Order, "_", rownames(x), sep = "")), Family)) %>%
-	   mutate(Genus, Genus = ifelse(Genus == "", ifelse(grepl("__", Family), Family, paste("f__", Family, "_", rownames(x), sep = "")), Genus))
+       mutate(Genus, Genus = ifelse(Genus == "", ifelse(grepl("__", Family), Family, paste("f__", Family, "_", rownames(x), sep = "")), Genus))
 
     me <- as.data.frame(pobj@tax_table)
     me$Domain <- tax$Domain
@@ -64,10 +64,10 @@ format_phyloseq <- function(x)
     tax <- mutate(x, Domain, Domain = ifelse(Domain == "", "Unclassified", Domain)) %>%
            mutate(Phylum, Phylum = ifelse(Phylum == "", paste("k__", Domain, "_", rownames(x), sep = ""), Phylum)) %>%             mutate(Class, Class = ifelse(Class == "", ifelse(grepl("__", Phylum), Phylum, paste("c__",
              Phylum, "_", rownames(x), sep = "")), Class)) %>%
-	   mutate(Order, Order = ifelse(Order == "", ifelse(grepl("__", Class), Class, paste("c__", Class, "_", rownames(x), sep = "")), Order)) %>%
-      	   mutate(Family, Family = ifelse(Family == "", ifelse(grepl("__", Order), Order, paste("o__", Order, "_", rownames(x), sep = "")), Family)) %>% mutate(Genus, Genus = ifelse(Genus == "", ifelse(grepl("__", Family), Family, paste("f__", Family, "_", rownames(x), sep = "")), Genus)) %>%
-	   mutate(Species, Species = ifelse(Species == "", ifelse(grepl("__", Genus), Genus, paste("f__", Genus, "_", rownames(x), sep = "")), Species))
-	   
+       mutate(Order, Order = ifelse(Order == "", ifelse(grepl("__", Class), Class, paste("c__", Class, "_", rownames(x), sep = "")), Order)) %>%
+             mutate(Family, Family = ifelse(Family == "", ifelse(grepl("__", Order), Order, paste("o__", Order, "_", rownames(x), sep = "")), Family)) %>% mutate(Genus, Genus = ifelse(Genus == "", ifelse(grepl("__", Family), Family, paste("f__", Family, "_", rownames(x), sep = "")), Genus)) %>%
+       mutate(Species, Species = ifelse(Species == "", ifelse(grepl("__", Genus), Genus, paste("f__", Genus, "_", rownames(x), sep = "")), Species))
+       
     me <- as.data.frame(pobj2@tax_table)
     me$Domain <- tax$Domain
     me$Phylum <- tax$Phylum

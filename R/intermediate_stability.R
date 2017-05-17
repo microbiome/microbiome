@@ -1,17 +1,17 @@
 #' @title Intermediate Stability
 #' @description Quantify intermediate stability with respect to a given reference point. 
 #' @param x \pkg{phyloseq} object.
-#'          Includes abundances (variables x samples) and
-#' 	    sample_data data.frame (samples x features) with 'subject'
-#'	    and 'time' field for each sample.
+#'   Includes abundances (variables x samples) and
+#'   sample_data data.frame (samples x features) with 'subject'
+#'   and 'time' field for each sample.
 #' @param reference.point Calculate stability of the data w.r.t. this point. By default the intermediate range is used (min + (max - min)/2). If a vector of points is provided, then the scores will be calculated for every point and a data.frame is returned.
 #' @param method 'lm' (linear model) or 'correlation';
 #'               the linear model takes time into account as a covariate 
 #' @param output Specify the return mode. Either the "full" set of stability
 #'        analysis outputs, or the "scores" of intermediate stability.
 #' @return A list with following elements: 
-#' 	     stability: estimated stability
-#'	     data: processed data set used in calculations	    
+#'          stability: estimated stability
+#'         data: processed data set used in calculations        
 #' @details Decomposes each column in x into differences between
 #' consecutive time points. For each variable and time point we calculate
 #' for the data values: (i) the distance from reference point; (ii)
@@ -30,13 +30,11 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @export
 #' @examples
-#'   \dontrun{
 #'     library(microbiome)
 #'     data(atlas1006)
 #      x <- prune_taxa(c("Akkermansia", "Dialister"), atlas1006)
 #'     res <- intermediate_stability(x, reference.point = NULL)
 #'     s <- sapply(res, function (x) {x$stability})
-#'   }
 #' @keywords utilities
 intermediate_stability <- function (x, reference.point = NULL, method = "correlation", output = "scores") {
 
@@ -91,9 +89,9 @@ intermediate_stability <- function (x, reference.point = NULL, method = "correla
     #df <- df[keep,]
 
     stability[[tax]] <- estimate_stability(df, 
-    		     	  reference.point = reference.point, 
-		     	  method = method,
-			  spl.list)
+                       reference.point = reference.point, 
+                   method = method,
+              spl.list)
 
   }
 
@@ -121,8 +119,8 @@ intermediate_stability <- function (x, reference.point = NULL, method = "correla
 #'               time into account as a covariate
 #' @param spl split object to speed up
 #' @return A list with following elements: 
-#' 	     stability: estimated stability
-#'	     data: processed data set used in calculations	    
+#'          stability: estimated stability
+#'         data: processed data set used in calculations        
 #' @details Decomposes each column in x into differences between
 #' consecutive time points. For each variable and time point we calculate
 #' for the data values: (i) the distance from reference point; (ii)
@@ -135,14 +133,14 @@ intermediate_stability <- function (x, reference.point = NULL, method = "correla
 #' into account by the straightforward correlation. Here the coefficients
 #' of the following linear model are used to assess stability:
 #' abs(change) ~ time + abs(start.reference.distance). 
-#' Samples with missing data, and subjects with less than two time point are excluded.	   
+#' Samples with missing data, and subjects with less than two time point are excluded.       
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
 #'  \dontrun{
 #'   df <- data.frame(list(
-#'   	  subject = rep(paste("subject", 1:50, sep = "-"), each = 2), 
-#'   	  time = rep(1:2, 50),
-#'   	  data = rnorm(100)))
+#'         subject = rep(paste("subject", 1:50, sep = "-"), each = 2), 
+#'         time = rep(1:2, 50),
+#'         data = rnorm(100)))
 #'   s <- estimate_stability_single(df, reference.point = NULL, method = "lm")
 #' }
 #' @keywords internal
@@ -174,10 +172,10 @@ estimate_stability <- function (df, reference.point = NULL, method = "lm", spl.l
 
     # Organize into data frame
     dfi <- data.frame(
-    	     change = data.difs,
-	     time = time.difs,
-    	     start = start.points,
-	     start.reference.distance = start.reference.distance)
+             change = data.difs,
+         time = time.difs,
+             start = start.points,
+         start.reference.distance = start.reference.distance)
 
     # Add to the collection
     dfis <- rbind(dfis, dfi)

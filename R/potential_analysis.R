@@ -51,9 +51,9 @@ potential_analysis <- function (x, peak.threshold = 0, bw.adjust = 1, bs.iter = 
     xbs <- na.omit(unname(x[rs]))
 
     a <- potential_univariate(xbs, grid.size = floor(.2*length(x)), 
-      	 		     peak.threshold = peak.threshold, 
-			     bw.adjust = bw.adjust, 
-			     min.density = min.density)
+                        peak.threshold = peak.threshold, 
+                 bw.adjust = bw.adjust, 
+                 min.density = min.density)
 
     nmodes[[r]] <- length(a$max.points)
     minpoints[[r]] <- a$min.points
@@ -118,9 +118,9 @@ potential_analysis <- function (x, peak.threshold = 0, bw.adjust = 1, bs.iter = 
 #' @examples \dontrun{res <- potential_univariate(x)}
 #' @keywords early-warning
 potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
-		     grid.size = NULL, 
-    		     peak.threshold = 1, bw.adjust = 1,
-		     density.smoothing = 0, min.density = 1) {
+             grid.size = NULL, 
+                 peak.threshold = 1, bw.adjust = 1,
+             density.smoothing = 0, min.density = 1) {
     
     if (is.null(grid.size)) {
       grid.size <- floor(0.2 * length(x))
@@ -128,14 +128,14 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
     
     # Density estimation
     tmp <- try(de <- density(x, bw = bw, adjust = bw.adjust, 
-       	  	  kernel = "gaussian", weights = weights, 
-        	  window = kernel, n = grid.size, 
-		  from = min(x), to = max(x), 
-		  cut = 3, na.rm = FALSE))
+                   kernel = "gaussian", weights = weights, 
+              window = kernel, n = grid.size, 
+          from = min(x), to = max(x), 
+          cut = 3, na.rm = FALSE))
     if (class(tmp) == "try-error") {
       # Just use default parameters if failing otherwise
       warning("Density estimation with custom parameters failed. 
-      		       Using the defaults.")
+                     Using the defaults.")
       de <- density(x)
     }
 
@@ -167,14 +167,14 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
     peak.threshold2 <- ops$peak.threshold2
     
     list(grid.points = grid.points,
-    	 pot = U,
-	 density = f,
-	 min.inds = ops$min,
+         pot = U,
+     density = f,
+     min.inds = ops$min,
          max.inds = ops$max,
-	 bw = bw,
-	 min.points = min.points,
-	 max.points = max.points,
-	 peak.threshold2 = peak.threshold2)
+     bw = bw,
+     min.points = min.points,
+     max.points = max.points,
+     peak.threshold2 = peak.threshold2)
     
 }
 
@@ -300,11 +300,11 @@ find_optima <- function(f, peak.threshold = 0, bw = 1, min.density = 1) {
       maxima2 <- c()
       for (i in 1:(length(maxima) - 1)) {
         nominima <- TRUE
-	cnt <- 0
-	while (nominima & (i + cnt) < length(maxima)) {
-	cnt <- cnt + 1
-	nominima <- sum(minima > maxima[[i]] & minima < maxima[[i + cnt]]) == 0
-	# if (is.na(nominima)) {nominima <- TRUE}
+    cnt <- 0
+    while (nominima & (i + cnt) < length(maxima)) {
+    cnt <- cnt + 1
+    nominima <- sum(minima > maxima[[i]] & minima < maxima[[i + cnt]]) == 0
+    # if (is.na(nominima)) {nominima <- TRUE}
       }
       maxs <- maxima[i:(i + cnt - 1)]
       maxima2 <- c(maxima2, round(mean(maxs[which(f[maxs] == max(f[maxs]))])))
@@ -367,20 +367,20 @@ find_maxima <- function (f) {
     opcnt <- 0
     while (cnt < length(f2)) {
       if (f2[[cnt + 1]] - f2[[cnt]] <= 0) {
-	while (f2[[cnt + 1]] - f2[[cnt]] <= 0) {
-	  cnt <- cnt + 1
+    while (f2[[cnt + 1]] - f2[[cnt]] <= 0) {
+      cnt <- cnt + 1
         }
-	ind1 <- cnt - 1
-	while (f2[[cnt + 1]] - f2[[cnt]] == 0) {
-	  cnt <- cnt + 1
+    ind1 <- cnt - 1
+    while (f2[[cnt + 1]] - f2[[cnt]] == 0) {
+      cnt <- cnt + 1
         }
-	if (f2[[cnt + 1]] - f2[[cnt]] > 0) {
-	  ind2 <- cnt - 1
-    	  opcnt <- opcnt + 1
-	  ops[[opcnt]] <- round(mean(c(ind1, ind2)))
-	} else if (f2[[cnt + 1]] - f2[[cnt]] < 0) {
-	  ind2 <- NULL
-	}
+    if (f2[[cnt + 1]] - f2[[cnt]] > 0) {
+      ind2 <- cnt - 1
+          opcnt <- opcnt + 1
+      ops[[opcnt]] <- round(mean(c(ind1, ind2)))
+    } else if (f2[[cnt + 1]] - f2[[cnt]] < 0) {
+      ind2 <- NULL
+    }
       }
       cnt <- cnt + 1
     }
@@ -431,16 +431,16 @@ find_maxima <- function (f) {
 #'     X <- c(rnorm(1000, mean = 0),
 #'            rnorm(1000, mean = -2),
 #'            rnorm(1000, mean = 2));
-#'	      param = seq(0,5,length=3000); 
-#'	    res <- potential_slidingaverage(X, param)
+#'          param = seq(0,5,length=3000); 
+#'        res <- potential_slidingaverage(X, param)
 #'     }
 #' @keywords utils
 potential_slidingaverage <- function(X, param = NULL, bw = "nrd",
                                      bw.adjust = 1, peak.threshold = 0.1,
-				     std = 1, grid.size = 50,
-				     plot.cutoff = 0.5,
-				     plot.contours = TRUE, binwidth = 0.2, 
-    				     bins = NULL) {
+                     std = 1, grid.size = 50,
+                     plot.cutoff = 0.5,
+                     plot.contours = TRUE, binwidth = 0.2, 
+                         bins = NULL) {
     
     if (is.null(param)) {
         param <- seq(1, length(X), 1)
@@ -473,7 +473,7 @@ potential_slidingaverage <- function(X, param = NULL, bw = "nrd",
         par <- minparam + (i - 0.5) * step
         
         # Check which elements in evaluation range (param) are within
-	# 2*sd of par
+    # 2*sd of par
         weights <- exp(-0.5 * (abs(par - param)/sdwindow)^2)
         
         # LL: Normalization was added in the R implementation 16.5.2012
@@ -481,7 +481,7 @@ potential_slidingaverage <- function(X, param = NULL, bw = "nrd",
         
         # Calculate the potential
         tmp <- potential_univariate(x = X, std = std, bw = bw,
-	                            bw.adjust = bw.adjust, 
+                                bw.adjust = bw.adjust, 
             weights = weights, grid.size = grid.size)
         
         # Store variables
@@ -494,12 +494,12 @@ potential_slidingaverage <- function(X, param = NULL, bw = "nrd",
     }
     
     res <- list(pars = pars, xis = xis, pots = pots,
-    	        mins = mins, maxs = maxs, std = std)
+                mins = mins, maxs = maxs, std = std)
     
     p <- plot_potential(res, cutoff = plot.cutoff,
                         plot.contours = plot.contours,
-			binwidth = binwidth, bins = bins)
-			
+            binwidth = binwidth, bins = bins)
+            
     p <- p + xlab("parameter/time") + ylab("state variable")
         
     list(res = res, plot = p)

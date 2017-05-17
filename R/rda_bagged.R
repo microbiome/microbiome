@@ -16,7 +16,7 @@
 #'     \item{bootstrapped}{bootstrapped loadings}
 #'     \item{data}{data set with non-significant components dropped out}
 #'   }
-#' @examples \dontrun{
+#' @examples
 #'   # Example with abundance matrix
 #'   data(peerj32)
 #'   pseq <- peerj32$phyloseq
@@ -24,8 +24,6 @@
 #'   # Example with phyloseq object
 #'   res <- rda_bagged(pseq, "gender", bs.iter=2)
 #'   plot_rda_bagged(res, y)
-#'
-#'  }
 #' @export
 #' @seealso vegan::rda and phyloseq::ordinate
 #' @details Bootstrap aggregation (bagging) is expected to improve the stability of the results. Aggregating results over several modeling runs with different boostrap samples of the data are averaged to produce the final summary.
@@ -214,10 +212,10 @@ Bagged.RDA <- function(X, Y, bs.iter = 100){
 
     # The CRAN/BioC recommendations do not allow lines over 100 chars
     list(loadings = bagged.loadings, scores = bagged.scores,
-    	 significance = sig.prob,
-	 error=bagged.R2,group.centers=Group.center,
-	 bootstrapped=Tx,err.random=mean(err.random),
-	 err.significance=sum(err.random>bagged.R2)/bs.iter,
-	 R2=Rsquare,R2.variables=Rsquare.variable)
+         significance = sig.prob,
+     error=bagged.R2,group.centers=Group.center,
+     bootstrapped=Tx,err.random=mean(err.random),
+     err.significance=sum(err.random>bagged.R2)/bs.iter,
+     R2=Rsquare,R2.variables=Rsquare.variable)
 }
 

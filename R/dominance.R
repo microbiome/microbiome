@@ -40,7 +40,7 @@
 #' @keywords utilities
 dominance <- function(x, index = "all", rank = 1, relative = TRUE, aggregate = TRUE) {
 
-  # Only include accepted indices	 
+  # Only include accepted indices     
   accepted <- c("DBP", "DMN", "absolute", "relative", "simpson", "core_abundance", "gini")
   # Return all indices
 

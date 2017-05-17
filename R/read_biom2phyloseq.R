@@ -12,7 +12,7 @@
 #'     library(microbiome)
 #'     p0 <- read_biom2phyloseq(otu.file = "otu_table.biom",
 #'                              metadata.file = "mapping.csv",
-#'				taxonomy.file = NULL)
+#'                taxonomy.file = NULL)
 #'   }
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities

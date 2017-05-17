@@ -12,11 +12,11 @@
 #' @param mode Specify output format ('table' or 'matrix')
 #' @param p.adj.method p-value multiple testing correction method. 
 #'                     One of the methods in p.adjust 
-#'             	       function ('BH' and others; see help(p.adjust)). 
-#'             	       Default: 'fdr'
+#'                        function ('BH' and others; see help(p.adjust)). 
+#'                        Default: 'fdr'
 #' @param verbose verbose
 #' @param filter.self.correlations Filter out correlations between 
-#'                            	   identical items.
+#'                                   identical items.
 #' @return List with cor, pval, pval.adjusted
 #' @examples 
 #'   data(peerj32)
@@ -103,9 +103,9 @@ associate <- function(x, y = NULL, method = "spearman",
         minobs <- 8
 
         for (j in 1:ncol(y)) {
-	
+    
             jc <- apply(x, 2, function(xi) {
-	    
+        
                 if (sum(!is.na(xi)) >= minobs) {
 
                   res <- suppressWarnings(cor.test(xi, unlist(y[, j], use.names = FALSE), method = method, 
@@ -114,16 +114,16 @@ associate <- function(x, y = NULL, method = "spearman",
                   res <- c(res$estimate, res$p.value)
 
                 } else {
-		
+        
                   warning(paste("Not enough observations (", minobs, "required); \n   
                           (",  
                     sum(!is.na(xi)), ") \n \n 
                            - skipping correlation estimation"))
                   res <- c(NA, NA)
-		  
+          
                 }
                 res
-		
+        
             })
             
             Cc[, j] <- jc[1, ]
@@ -133,7 +133,8 @@ associate <- function(x, y = NULL, method = "spearman",
 
     } else if (method == "bicor") {
 
-      t1 <- suppressWarnings(bicorAndPvalue(x, y, use = "pairwise.complete.obs"))
+      t1 <- suppressWarnings(
+              bicorAndPvalue(x, y, use = "pairwise.complete.obs"))
       Pc <- t1$p
       Cc <- t1$bicor
         
@@ -251,8 +252,10 @@ associate <- function(x, y = NULL, method = "spearman",
                 rownames(tmp) <- NULL
                 colnames(tmp) <- NULL
                 
-	    	rind <- hclust(as.dist(1-cor(t(tmp), use = "pairwise.complete.obs")))$order
-	    	cind <- hclust(as.dist(1-cor(tmp, use = "pairwise.complete.obs")))$order
+            rind <- hclust(as.dist(1-cor(t(tmp),
+	    	      use = "pairwise.complete.obs")))$order
+            cind <- hclust(as.dist(1-cor(tmp,
+	              use = "pairwise.complete.obs")))$order
 
                 rnams <- rownames(Cc)[rind]
                 cnams <- colnames(Cc)[cind]
@@ -308,11 +311,11 @@ cmat2table <- function(res, verbose = FALSE) {
     ctab <- ID <- NULL
     
     if (!is.null(res$cor)) {
-  	ctab <- as.data.frame(res$cor)
-  	ctab$ID <- rownames(res$cor)
-  	ctab <- gather(ctab, ID)    
+      ctab <- as.data.frame(res$cor)
+      ctab$ID <- rownames(res$cor)
+      ctab <- gather(ctab, ID)    
         colnames(ctab) <- c("X1", "X2", "Correlation")
-  	ctab$Correlation <- as.numeric(as.character(ctab$Correlation))  	
+      ctab$Correlation <- as.numeric(as.character(ctab$Correlation))      
     }
     
     correlation <- NULL  # circumwent warning on globabl vars
@@ -323,11 +326,11 @@ cmat2table <- function(res, verbose = FALSE) {
             message("Arranging the table")
         }
 
-	ctab2 <- as.data.frame(res$p.adj)
-  	ctab2$ID <- rownames(res$p.adj)
-  	ctab2 <- gather(ctab2, ID)    
+    ctab2 <- as.data.frame(res$p.adj)
+      ctab2$ID <- rownames(res$p.adj)
+      ctab2 <- gather(ctab2, ID)    
         colnames(ctab2) <- c("X1", "X2", "p.adj")
-  	ctab2$p.adj <- as.numeric(as.character(ctab2$p.adj))  	
+      ctab2$p.adj <- as.numeric(as.character(ctab2$p.adj))      
 
         ctab <- cbind(ctab, ctab2$p.adj)
         colnames(ctab) <- c("X1", "X2", "Correlation", "p.adj")
@@ -337,13 +340,13 @@ cmat2table <- function(res, verbose = FALSE) {
     } else {
         message("No significant adjusted p-values")
         if (!is.null(ctab)) {
-	
-	    ctab2 <- as.data.frame(res$pval)
-  	    ctab2$ID <- rownames(res$pval)
-  	    ctab2 <- gather(ctab2, ID)    
+    
+        ctab2 <- as.data.frame(res$pval)
+          ctab2$ID <- rownames(res$pval)
+          ctab2 <- gather(ctab2, ID)    
             colnames(ctab2) <- c("X1", "X2", "value")
-  	    ctab2$value <- as.numeric(as.character(ctab2$value))
-	
+          ctab2$value <- as.numeric(as.character(ctab2$value))
+    
             ctab <- cbind(ctab, ctab2$value)
             ctab <- ctab[order(-abs(ctab$Correlation)), ]
             colnames(ctab) <- c("X1", "X2", "Correlation", "pvalue")

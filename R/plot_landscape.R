@@ -12,19 +12,18 @@
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
 #' @details For consistent results, set random seet (set.seed) before function call
-#' @examples \dontrun{
+#' @examples
 #'   data(dietswap)
 #'   p <- plot_landscape(dietswap)
-#' }
 #' @keywords utilities
 plot_landscape <- function (x, method = "NMDS", distance = "bray", col = NULL,
-	       main = NULL,
-	       x.ticks = 10,
-	       rounding = 0, 
+           main = NULL,
+           x.ticks = 10,
+           rounding = 0, 
                add.points = TRUE,
-	       adjust = 1,
-	       size = 1,
-	       legend = FALSE) {
+           adjust = 1,
+           size = 1,
+           legend = FALSE) {
 
   if (is.phyloseq(x)) {
     quiet(proj <- get_ordination(x, method, distance))
@@ -44,14 +43,14 @@ plot_landscape <- function (x, method = "NMDS", distance = "bray", col = NULL,
   }
 
   p <- densityplot(proj[, 1:2],
-	       main = NULL,
-	       x.ticks = 10,
-	       rounding = 0, 
+           main = NULL,
+           x.ticks = 10,
+           rounding = 0, 
                add.points = TRUE,
-	       adjust = 1,
-	       size = 1,
+           adjust = 1,
+           size = 1,
                col = proj$col,
-	       legend = T)
+           legend = T)
   
   p
   
@@ -78,14 +77,14 @@ plot_landscape <- function (x, method = "NMDS", distance = "bray", col = NULL,
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 densityplot <- function(x,
-	       main = NULL,
-	       x.ticks = 10,
-	       rounding = 0, 
+           main = NULL,
+           x.ticks = 10,
+           rounding = 0, 
                add.points = TRUE,
-	       col = "black",
-	       adjust = 1,
-	       size = 1,
-	       legend = FALSE) {
+           col = "black",
+           adjust = 1,
+           size = 1,
+           legend = FALSE) {
 
     df <- x
     if (!is.data.frame(df)) {

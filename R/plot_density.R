@@ -24,7 +24,7 @@
 #' @keywords utilities
 plot_density <- function (x, variable = NULL, log10 = FALSE, adjust = 1, kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray", tipping.point = NULL, xlim = NULL) {
 
-  x <- pickdata(x, variable) 	     	   
+  x <- pickdata(x, variable)                 
 
   if (log10 && min(x) == 0) {
     warning("The minimum abundance is 0. To avoid singularities with log10, the abundances are shifted up by a small constant (minimum non-zero value).")
@@ -83,7 +83,7 @@ pickdata <- function (x, otu.name) {
       xxx <- unlist(meta[, otu.name])
     } else {   
       stop(paste("The provided variable name", otu.name,
-      		      	       "cannot be found from OTUs or metadata"))
+                               "cannot be found from OTUs or metadata"))
     }
   }
   xxx

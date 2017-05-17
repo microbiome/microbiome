@@ -19,11 +19,10 @@
 #' @param ... Arguments to be passed (for \code{\link{neatsort}} function)
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
-#' @examples \dontrun{
+#' @examples
 #'     data(dietswap)
 #'     pseq <- subset_samples(dietswap, group == "DI" & nationality == "AFR")
 #'     plot_composition(pseq, taxonomic.level = "Phylum")
-#'           }
 #' @keywords utilities
 plot_composition <- function (x, taxonomic.level = "OTU", sample.sort = NULL, otu.sort = NULL, x.label = "sample", plot.type = "barplot", verbose = FALSE, transform = NULL, mar = c(5, 12, 1, 1), average_by = NULL, ...) {
 

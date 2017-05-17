@@ -7,7 +7,9 @@
 #' @references See citation("microbiome")
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
-#' @examples \dontrun{ time_sort(x) }
+#' @examples
+#'   data(atlas1006)
+#'   ts <- time_sort(meta(atlas1006))
 #' @keywords utilities
 time_sort <- function (x) {
 
@@ -26,7 +28,7 @@ time_sort <- function (x) {
 
   # Keep only subjects with multiple time points
   spl <- spl[names(which(sapply(spl,
-      	   function (s) {length(unique(na.omit(s$time)))}) > 1))]
+             function (s) {length(unique(na.omit(s$time)))}) > 1))]
 
   # Ignore NA times
   spl <- lapply(spl, function (s) {s[!is.na(s$time),]})
@@ -42,7 +44,7 @@ time_sort <- function (x) {
     # Shift in time from first time point
     spl[[subj]]$time <- (times - times[[mintime]])
     
-    # Shift in signal from first time point    		      
+    # Shift in signal from first time point                  
     spl[[subj]]$shift <- (signal - signal[[mintime]])
 
     # Store

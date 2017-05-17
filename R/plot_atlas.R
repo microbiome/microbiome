@@ -10,11 +10,9 @@
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
-#'  \dontrun{
 #'   data(atlas1006)
 #'   p <- plot_atlas(atlas1006, "DNA_extraction_method", "diversity")
 #'   p <- plot_atlas(atlas1006, "DNA_extraction_method", "Bifidobacterium")
-#'  }
 #' @keywords utilities
 plot_atlas <- function (pseq, x, y, ncol = 2) {
 

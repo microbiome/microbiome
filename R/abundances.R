@@ -1,4 +1,4 @@
-#' @title Abundance matrix from phyloseq object
+#' @title Abundance Matrix from Phyloseq
 #' @description Retrieves the taxon abundance table from
 #'    \code{\link{phyloseq-class}} object and ensures it is returned as
 #'    taxa x samples matrix.

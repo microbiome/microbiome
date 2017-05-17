@@ -10,7 +10,7 @@
 #' @param shade plot the shaded confidence region?
 #' @param shade.alpha shade.alpha: should the CI shading fade out at 
 #'          the edges? (by reducing alpha; 0 = no alpha decrease, 
-#'	    0.1 = medium alpha decrease, 0.5 = strong alpha decrease)
+#'        0.1 = medium alpha decrease, 0.5 = strong alpha decrease)
 #' @param spag plot spaghetti lines?
 #' @param mweight should the median smoother be visually weighted?
 #' @param show.lm should the linear regresison line be plotted?
@@ -33,17 +33,16 @@
 #' @return ggplot2 object
 #' @export 
 #' @examples
-#'   \dontrun{
 #'     data(atlas1006)
-#'     p <- plot_regression(diversity ~ age, sample_data(atlas1006))
-#'   }
+#'     pseq <- subset_samples(atlas1006, DNA_extraction_method == "r")
+#'     p <- plot_regression(diversity ~ age, meta(pseq))
 #' @references See citation("microbiome") 
 #' @author Based on the original version from Felix Schonbrodt. 
 #'         Modified by Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, spag=FALSE, mweight=TRUE, show.lm=FALSE, show.median = TRUE, median.col = "white", show.CI=FALSE, method=loess, bw=FALSE, slices=200, palette=colorRampPalette(c("#FFEDA0", "#DD0000"), bias=2)(20), ylim=NULL, quantize = "continuous", show.points = TRUE, ...) {
 
-  # Some transparency problems solved with:		
+  # Some transparency problems solved with:        
   # http://tinyheero.github.io/2015/09/15/semi-transparency-r.html
 
   # Circumvent global variable binding warnings
@@ -71,8 +70,8 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
 
   data <- arrange(data, IV) %>%
           select(IV, DV) %>%
-	  dplyr::filter(!is.na(IV) & !is.na(DV)) %>%
-	  dplyr::filter(!is.infinite(IV) & !is.infinite(DV))
+      dplyr::filter(!is.na(IV) & !is.na(DV)) %>%
+      dplyr::filter(!is.infinite(IV) & !is.infinite(DV))
 
   if (bw) {
     palette <- colorRampPalette(c("#EEEEEE", "#999999", "#333333"), bias=2)(20)
@@ -123,20 +122,20 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
        quantize <- match.arg(quantize, c("continuous", "SD"))
 
        if (quantize == "continuous") {
-       	  message("Computing density estimates for the vertical cuts ...")
-      	  flush.console()
-      	  if (is.null(ylim)) {
+             message("Computing density estimates for the vertical cuts ...")
+            flush.console()
+            if (is.null(ylim)) {
             min_value <- min(min(l0.boot, na.rm=TRUE), min(data$DV, na.rm=TRUE))
             max_value <- max(max(l0.boot, na.rm=TRUE), max(data$DV, na.rm=TRUE))
             ylim <- c(min_value, max_value)
-	  }
+      }
        }
 
       message("Vertical cross-sectional density estimate")
       d2 <- b2 %>% select(x, value) %>%
-      	                group_by(x) %>%
-	do(data.frame(density(.$value, na.rm = TRUE,
-		n = slices, from=ylim[[1]], to=ylim[[2]])[c("x", "y")]))
+                          group_by(x) %>%
+    do(data.frame(density(.$value, na.rm = TRUE,
+        n = slices, from=ylim[[1]], to=ylim[[2]])[c("x", "y")]))
       d2 <- data.frame(d2)
       names(d2) <- c("y", "dens")
       d2$x <- rep(unique(b2$x), each = slices)
@@ -163,12 +162,12 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
       col <- c(1,2,3,3,2,1)
       for (i in 1:6) {
         seg1 <- SDs[SDs$variable == paste0("SD", i), ]
-	seg2 <- SDs[SDs$variable == paste0("SD", i+1), ]
-	seg <- rbind(seg1, seg2[nrow(seg2):1, ])
-	seg$group <- count
-	seg$col <- col[i]
-	count <- count + 1
-	d3 <- rbind(d3, seg)
+    seg2 <- SDs[SDs$variable == paste0("SD", i+1), ]
+    seg <- rbind(seg1, seg2[nrow(seg2):1, ])
+    seg$group <- count
+    seg$col <- col[i]
+    count <- count + 1
+    d3 <- rbind(d3, seg)
      }
 
      p1 <- p1 + geom_polygon(data=d3, aes(x = x, y = value, color = NULL, fill = col, group = group))
@@ -180,7 +179,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE, shade.alpha=.1, s
   flush.console()
   if (spag) {
     p1 <- p1 + geom_path(data=b2, aes(x=x, y=value, group=B),
-       	    size=0.7, alpha=10/B, color="darkblue")
+               size=0.7, alpha=10/B, color="darkblue")
   }
 
   if (show.median) {

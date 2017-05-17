@@ -28,7 +28,7 @@
 #' @keywords utilities
 rarity <- function(x, index = "all") {
 
-  # Only include accepted indices	 
+  # Only include accepted indices     
   accepted <- c("log_modulo_skewness", "low_abundance", "rare_abundance")
 
   # Return all indices

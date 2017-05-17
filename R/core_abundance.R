@@ -12,7 +12,7 @@
 #' @keywords utilities
 core_abundance <- function(x, detection = .1/100, prevalence = 50/100) {
 
-  # Pick taxa x samples compositional matrix	       
+  # Pick taxa x samples compositional matrix           
   xcomp <- abundances(x, transform = "compositional")
 
   # Core members

@@ -5,10 +5,8 @@
 #' @param n The number of arithmetic abundance classes from zero to the quantile cutoff indicated by q.
 #' @return A vector of rarity indices
 #' @examples
-#'   \dontrun{
 #'     data(dietswap)
 #'     d <- log_modulo_skewness(dietswap)
-#'   }
 #' @details The rarity index characterizes the concentration of species at low abundance. Here, we use the skewness of the frequency distribution of arithmetic abundance classes (see Magurran & McGill 2011). These are typically right-skewed; to avoid taking log of occasional negative skews, we follow Locey & Lennon (2016) and use the log-modulo transformation that adds a value of one to each measure of skewness to allow logarithmization. 
 #' @references
 #'   Kenneth J. Locey and Jay T. Lennon. Scaling laws predict global microbial diversity. PNAS 2016 113 (21) 5970-5975; doi:10.1073/pnas.1521291113.
@@ -21,8 +19,8 @@
 #' @seealso core_abundance, low_abundance, global
 log_modulo_skewness <- function (x, q = .5, n = 50) {
 
-  # Get taxa x samples matrix		    
-  a <- abundances(x)		    
+  # Get taxa x samples matrix            
+  a <- abundances(x)            
 
   # Determine the quantile point. 
   th1 <- quantile(max(a), q)

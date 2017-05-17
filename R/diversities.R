@@ -35,7 +35,7 @@
 #' @keywords utilities
 diversities <- function(x, index = "all", zeroes = TRUE) {
 
-  # Only include accepted indices	 
+  # Only include accepted indices     
   accepted <- c("inverse_simpson", "gini_simpson", "shannon", "fisher", "coverage")
 
   # Return all indices
@@ -150,7 +150,7 @@ shannon <- function (x) {
 #' @keywords utilities
 diversity <- function(x) {
 
-  .Deprecated(new = "global", msg = "The microbiome::diversity function has been replaced with the microbiome::global function and will be removed in the next release.")	  
+  .Deprecated(new = "global", msg = "The microbiome::diversity function has been replaced with the microbiome::global function and will be removed in the next release.")      
   global(x)
 
 }

@@ -28,12 +28,10 @@
 #' dissimilarity of the sample from the group-level mean.
 #' @export
 #' @examples
-#'   \dontrun{
 #'     # Assess beta diversity among the African samples
 #'     # in a diet swap study (see \code{help(dietswap)} for references)
 #'     data(dietswap)
 #'     b <- divergence(subset_samples(dietswap, nationality == "AFR"))
-#'   }
 #' @references
 #'
 #' The inter- and intra-individual homogeneity measures used in
@@ -67,9 +65,9 @@ anticorrelation <- function(x, method = "spearman") {
 
   # Correlations calculated against the mean of the sample set
   cors <- as.vector(cor(
-       	    x, matrix(rowMeans(x)),
-       	    method = method,
-	    use = "pairwise.complete.obs"))
+               x, matrix(rowMeans(x)),
+               method = method,
+        use = "pairwise.complete.obs"))
 
   1-cors    
 

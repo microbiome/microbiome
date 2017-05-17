@@ -9,21 +9,21 @@
 #' @param group.cols Group colors.
 #' @param ... Other arguments to be passed
 #' @return TBA
-#' @examples \dontrun{
+#' @examples
 #'   library(microbiome)
 #'   data(peerj32)
 #'   x <- t(peerj32$microbes)
 #'   y <- factor(peerj32$meta$time); names(y) <- rownames(peerj32$meta)
-#'   res <- rda_bagged(x, y, detection=0.05, bs.iter=100)
+#'   # Use more iterations in practiec
+#'   res <- rda_bagged(x, y, detection=0.05, bs.iter=5)
 #'   plot_rda_bagged(res)
-#'  }
 #' @export
 #' @references See citation("microbiome") 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 plot_rda_bagged <- function(x, which.bac = 1:nrow(x$loadings),
-	           ptype="spider", comp=1:2, cex.bac=0.5, plot.names=T,
-		   group.cols = as.numeric(unique(Y)),...){
+               ptype="spider", comp=1:2, cex.bac=0.5, plot.names=T,
+           group.cols = as.numeric(unique(Y)),...){
 
   y <- cluster <- x.centroid <- y.centroid <- NULL
 

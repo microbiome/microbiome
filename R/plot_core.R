@@ -28,13 +28,13 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 plot_core <- function(x, 
-		   prevalences = seq(,1, 1, .1), 		   
-		   detections = 20,
-		   plot.type = "lineplot",
-		   colours = gray(seq(0,1,length=5)), 		   
-		   min.prevalence = NULL,
-		   taxa.order = NULL,
-		   horizontal = FALSE) {
+           prevalences = seq(,1, 1, .1),            
+           detections = 20,
+           plot.type = "lineplot",
+           colours = gray(seq(0,1,length=5)),            
+           min.prevalence = NULL,
+           taxa.order = NULL,
+           horizontal = FALSE) {
 
   if (length(detections) == 1) {
     detections <- 10^seq(log10(1e-3),
@@ -53,9 +53,9 @@ plot_core <- function(x,
 
     # Here we use taxon x abundance thresholds table indicating prevalences
     res <- core_heatmap(abundances(x),
-    	                detections = detections,
-			colours = colours, min.prevalence = min.prevalence,
-			taxa.order = taxa.order)
+                        detections = detections,
+            colours = colours, min.prevalence = min.prevalence,
+            taxa.order = taxa.order)
     
   }
 
@@ -106,7 +106,7 @@ core_matrix <- function(x,
     i.seq <- detections
 
     coreMat <- matrix(NA, nrow = length(i.seq), ncol = length(p.seq), 
-                      	  dimnames = list(i.seq, p.seq))
+                            dimnames = list(i.seq, p.seq))
     
     n <- length(i.seq) * length(p.seq)
     cnt <- 0
@@ -177,7 +177,7 @@ core_heatmap <- function(data, detections = 20, colours = gray(seq(0,1,length=5)
 
     p <- p + scale_fill_gradientn("Prevalence", 
         breaks = seq(from = 0, to = 1, by = .1),
-	colours = colours, limits = c(0, 1))
+    colours = colours, limits = c(0, 1))
     
     return(list(plot = p, data = df))
     
@@ -200,8 +200,8 @@ core_lineplot <- function (x, title = "Common core",
 
     theme_set(theme_bw(20))
     p <- ggplot(df, aes(x = Abundance,
-      	 	    	y = Count,
-			color = Prevalence, 
+                       y = Count,
+            color = Prevalence, 
                         group = Prevalence))
     
     p <- p + geom_line()

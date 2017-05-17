@@ -38,10 +38,10 @@
 #' @seealso potential_analysis
 #' @keywords utils
 plot_potential <- function(res,
-			   cutoff = 0.5,
-	       	           plot.contours = TRUE, 
-    			   binwidth = 0.2,
-			   bins = NULL) {
+               cutoff = 0.5,
+                          plot.contours = TRUE, 
+                   binwidth = 0.2,
+               bins = NULL) {
 
 
     # TODO
@@ -59,14 +59,14 @@ plot_potential <- function(res,
     grid <- res$xis
 
     cut.potential <- max(apply(potentials, 1, min)) +
-    		       cutoff * abs(max(apply(potentials, 1, min)))  # Ensure all minima are visualized
+                   cutoff * abs(max(apply(potentials, 1, min)))  # Ensure all minima are visualized
     
     potentials[potentials > cut.potential] <- cut.potential
     
     # Static contour Interpolate potential grid
     intp <- loess_interpolation(as.vector(covariates),
-		              as.vector(grid),
-			      as.vector(potentials), 
+                      as.vector(grid),
+                  as.vector(potentials), 
         gridn = 2 * dim(potentials))
 
     xy <- expand.grid(intp$x, intp$y)
@@ -80,19 +80,19 @@ plot_potential <- function(res,
     
     p <- ggplot(df)
     p <- p + geom_tile(aes(x = bg.var, y = phylotype, z = potential,
-      	                   fill = potential)) 
+                             fill = potential)) 
     p <- p + scale_fill_gradient(low = "black", high = "white")
 
     if (plot.contours) {
         if (!is.null(bins)) {
             warning("bins argument is overriding the binwidth argument!")
             p <- p + stat_contour(bins = bins,
-	      	       aes(x = bg.var, y = phylotype, z = potential,
-		       	     fill = potential))
+                     aes(x = bg.var, y = phylotype, z = potential,
+                        fill = potential))
         } else {
             p <- p + stat_contour(binwidth = binwidth,
-	      	       aes(x = bg.var, y = phylotype, z = potential,
-		       fill = potential))
+                     aes(x = bg.var, y = phylotype, z = potential,
+               fill = potential))
         }
     }
     

@@ -18,7 +18,7 @@ plot_frequencies <- function (x, Groups, Factor) {
 
   # FIXME: do not capitalize arguments
   # Rename Groups -> groups
-  #  	   Factor -> factor
+  #         Factor -> factor
 
   pct <- NULL
 
@@ -27,7 +27,7 @@ plot_frequencies <- function (x, Groups, Factor) {
   x$Factor <- x[[Factor]]
   x <- x %>% group_by(Groups, Factor) %>%
              summarise(n = n()) %>%
-	     mutate(pct = 100*n/sum(n))
+         mutate(pct = 100*n/sum(n))
   
   # Provide barplot of relative abundances
   p <- ggplot(x, aes(x = Groups, y = pct, fill = Factor))

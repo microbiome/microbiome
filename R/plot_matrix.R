@@ -54,7 +54,7 @@ plot_matrix <- function(mat, type = "twoway", midpoint = 0, palette = NULL,
     
         m <- max(round(max(abs(mat)), limit.trunc) - interval, 0)
 
-	mm <- m + interval/2
+    mm <- m + interval/2
         
         vals <- seq(interval/2, mm, interval)
 

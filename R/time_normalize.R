@@ -4,10 +4,8 @@
 #' @return Phyloseq object with a normalized time field
 #' @export
 #' @examples
-#'   \dontrun{
 #'     data(peerj32)
 #'     pseq <- time_normalize(peerj32$phyloseq)
-#'   }
 time_normalize <- function (x) {
 
   # Store the original input       

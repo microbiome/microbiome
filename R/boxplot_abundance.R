@@ -15,7 +15,7 @@
 #' @examples
 #'   data(peerj32)
 #'   p <- boxplot_abundance(peerj32$phyloseq, x = "time", y = "Akkermansia",
-#'       	  		    line = "subject", color = "gender")
+#'                         line = "subject", color = "gender")
 #' @keywords utilities
 boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = FALSE, violin = FALSE, na.rm = FALSE, show.points = TRUE) {
 
@@ -63,9 +63,9 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = FA
   if (show.points) {
     p <- p + geom_point(
            size = 2,
-      	   position = position_jitter(width = 0.3),
-	   alpha = 0.5
-	   )
+             position = position_jitter(width = 0.3),
+       alpha = 0.5
+       )
   }
 
   # Box or Violin plot ?
@@ -81,8 +81,8 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = FA
 
     # Calculate change directionality
     df2 <- suppressWarnings(df %>% arrange(linevar, xvar) %>%
-    	   		           group_by(linevar) %>%
-				   summarise(change = diff(yvar)))
+                              group_by(linevar) %>%
+                   summarise(change = diff(yvar)))
 
     # Map back to data
     df$change <- df2$change[match(df$linevar, df2$linevar)]
@@ -93,11 +93,11 @@ boxplot_abundance <- function (pseq, x, y, line = NULL, color = NULL, log10 = FA
     p <- p + geom_line(data = df, aes(group = linevar, color = change), size = 1)
 
     p <- p + scale_colour_gradient2(low = "blue",
-      	     			    mid = "black",
-				    high = "red",
-      	                            midpoint = 0,
-				    na.value = "grey50",
-				    guide = "none")
+                               mid = "black",
+                    high = "red",
+                                      midpoint = 0,
+                    na.value = "grey50",
+                    guide = "none")
    
   }
 

@@ -17,7 +17,7 @@ low_abundance <- function(x, detection = 0.2/100) {
     colnames(tab) <- as.character(detection)
     rownames(tab) <- colnames(abundances(x))
     return(tab)
-  }	      
+  }          
 
   xc <- abundances(x, transform = "compositional")
   do <- apply(xc, 2, function (x) {sum(x[x < detection])})

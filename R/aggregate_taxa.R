@@ -7,13 +7,13 @@
 #'   phyloseq object with the summarized abundances.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param level Summarization level (from \code{rank_names(pseq)})
-#' @param top Keep the top-n taxa, and merge the rest under the category "Other". Instead of top-n numeric this can also be a character vector listing the groups to combine.
+#' @param top Keep the top-n taxa, and merge the rest under the category
+#'   "Other". Instead of top-n numeric this can also be a character vector
+#'   listing the groups to combine.
 #' @return Summarized phyloseq object
 #' @examples
-#'  \dontrun{
 #'    data(dietswap)
 #'    s <- aggregate_taxa(dietswap, "Phylum")
-#'  }
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -41,7 +41,7 @@ aggregate_taxa <- function (x, level, top = NULL) {
       tax_table(pseq) <- tt
     }
 
-    # Split the OTUs in tax_table by the given taxonomic level	       
+    # Split the OTUs in tax_table by the given taxonomic level           
     #otus <- split(rownames(tax_table(pseq)), tax_table(pseq)[, level])
     current.level <- names(which(apply(tt, 2,
                        function (x) {length(unique(x))}) == ntaxa(pseq)))
@@ -65,9 +65,9 @@ aggregate_taxa <- function (x, level, top = NULL) {
 
     # Remove all ambiguous levels 
     keep <- colnames(tax_table(pseq))[which(sapply(1:ncol(tax_table(pseq)),
-    	      function (k) sum(sapply(split(as.character(tax_table(pseq)[,k]),
-	      as.character(tax_table(pseq)[,level])), function (x)
-	      {length(unique(x))}) > 1)) == 0)]
+              function (k) sum(sapply(split(as.character(tax_table(pseq)[,k]),
+          as.character(tax_table(pseq)[,level])), function (x)
+          {length(unique(x))}) > 1)) == 0)]
     tax <- unique(tax_table(pseq)[, keep])
 
     # Rename the lowest level

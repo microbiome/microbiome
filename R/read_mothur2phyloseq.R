@@ -13,7 +13,7 @@
 #'     p0 <- read_mothur2phyloseq(
 #'             shared.file = "mothur_shared.shared",
 #'             consensus.taxonomy.file = "mothur_taxonomy.taxonomy",
-#'	       mapping.file = "mothur_mapping.csv")
+#'           mapping.file = "mothur_mapping.csv")
 #'   }
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities

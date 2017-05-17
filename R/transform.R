@@ -13,30 +13,28 @@
 #'   abundance but instead given at the scale [0,1].
 #' @export
 #' @examples
-#' \dontrun{
 #'
 #'   data(dietswap)
 #'   x <- dietswap
 #'
 #'   # OTU relative abundances
-#'   xt <- transform(x, "compositional", "OTU")
+#'   xt <- transform(x, "compositional")
 #' 
 #'   # Z-transform for OTUs
-#'   xt <- transform(x, "Z", "OTU")
+#'   # xt <- transform(x, "Z", "OTU")
 #'
 #'   # Z-transform for samples
-#'   xt <- transform(x, "Z", "sample")
+#'   # xt <- transform(x, "Z", "sample")
 #'
 #'   # Log10 transform (log(1+x) if the data contains zeroes)
-#'   xt <- transform(x, "log10")
+#'   # xt <- transform(x, "log10")
 #'
 #'   # CLR transform
-#'   xt <- transform(x, "clr")
+#'   # xt <- transform(x, "clr")
 #'
 #'   # Shift the baseline
-#'   xt <- transform(x, "shift", shift = 1)
+#'   # xt <- transform(x, "shift", shift = 1)
 #'
-#' }
 #' @keywords utilities
 transform <- function (x, transform = "identity",
                                    target = "OTU", shift = 0) {
@@ -56,7 +54,7 @@ transform <- function (x, transform = "identity",
   if (!all(sample(round(prod(dim(abundances(x)))/10) ))%%1 == 0) {
     warning("The OTU abundances are not integers. 
              Check that the OTU input data is given as original counts 
-	     to avoid transformation errors!")
+         to avoid transformation errors!")
   }
 
   if (transform == "compositional") {

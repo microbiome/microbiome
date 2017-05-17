@@ -6,10 +6,8 @@
 #' @param distance Ordination distance, see phyloseq::plot_ordination
 #' @return data.frame with ordination coordinates and metadata
 #' @examples
-#'  \dontrun{
 #'    data(dietswap)
 #'    fc <- get_ordination(dietswap)
-#'  }
 #' @seealso phyloseq::plot_ordination
 #' @export
 #' @details This is a wrapper for phyloseq ordination functions, providing

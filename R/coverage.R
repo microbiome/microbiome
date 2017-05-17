@@ -19,7 +19,7 @@ coverage <- function(x, threshold = 0.5) {
     colnames(tab) <- as.character(threshold)
     rownames(tab) <- colnames(abundances(x))
     return(tab)
-  }	      
+  }          
 
   otu <- abundances(x, transform = "compositional")
 

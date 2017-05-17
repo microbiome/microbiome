@@ -6,7 +6,7 @@
 #'        the target is "rows" or "cols".
 #' @param method Ordination method. See \code{\link{ordinate}}
 #'                 from \pkg{phyloseq} package.
-#'		   For matrices, only the NMDS method is available.
+#'           For matrices, only the NMDS method is available.
 #' @param distance Distance method. See \code{\link{ordinate}}
 #'                 from \pkg{phyloseq} package.
 #' @param first Optionally provide the name of the first sample/taxon to
@@ -17,12 +17,13 @@
 #' @return Vector of ordered elements
 #' @export
 #' @examples
-#'   \dontrun{
 #'     data(peerj32)
 #'     pseq <- peerj32$phyloseq
+#'     # For Phyloseq
 #'     sort.otu <- neatsort(pseq, target = "species")
-#'     sort.rows <- neatsort(abundances(pseq), target = "rows")
-#'   }  
+#'     # For matrix
+#'     # sort.rows <- neatsort(abundances(pseq), target = "rows")
+#'   
 #' @references This function is partially based on code derived from the
 #'             \pkg{phyloseq} package. For the original
 #'             neatmap approach for heatmap sorting, see (and cite):
@@ -36,7 +37,7 @@
 #' easy sample/taxon reordering for phyloseq objects.
 #' @keywords utilities
 neatsort <- function (x, target, method = "NMDS", distance = "bray",
-	      	           first = NULL, ...) {
+                         first = NULL, ...) {
 
   # TODO harmonize completely for matrices vs phyloseqs
   xo <- x
@@ -71,7 +72,7 @@ neatsort <- function (x, target, method = "NMDS", distance = "bray",
     }
 
     # Neatmap sorting for matrices with NMDS
-    # Order		     
+    # Order             
     # Capture the output to keep the screen clean
     if (distance %in% c("euclidean")) { 
       d <- dist(x, distance)
@@ -99,7 +100,7 @@ neatsort <- function (x, target, method = "NMDS", distance = "bray",
 
   if(inherits(tmp, "try-error")){
     warning(paste("Order failed with ", target, ". 
-    			 Using default ordering.", sep = ""))
+                 Using default ordering.", sep = ""))
   }
   
   if(!is.null(DF)){

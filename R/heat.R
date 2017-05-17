@@ -10,7 +10,7 @@
 #' @param star Column to be used for cell highlighting. For instance 'p.adj'.
 #' @param p.adj.threshold Significance threshold for the stars.
 #' @param association.threshold Include only elements that have absolute 
-#'                         	association higher than this value
+#'                             association higher than this value
 #' @param step color interval
 #' @param colours heatmap colours
 #' @param limits colour scale limits
@@ -24,13 +24,11 @@
 #' @param plot.values Show values as text
 #' @return ggplot2 object
 #' @examples
-#'   \dontrun{
 #'     data(peerj32)
 #'     d1 <- peerj32$lipids[, 1:10]
 #'     d2 <- peerj32$microbes[, 1:10]
 #'     cc <- associate(d1, d2, method = "pearson") 
 #'     p <- heat(cc, 'X1', 'X2', 'Correlation', star = "p.adj")
-#'   }
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -41,8 +39,8 @@ heat <- function(df, Xvar, Yvar, fill, star,
                colours = c("darkblue", "blue", "white", "red", "darkred"), 
                limits = NULL, legend.text = "", 
                order.rows = TRUE, order.cols = TRUE, 
-    	       text.size = 10, filter.significant = TRUE, star.size = NULL,
-	       plot.values = FALSE) {
+               text.size = 10, filter.significant = TRUE, star.size = NULL,
+           plot.values = FALSE) {
     
     if (is.null(limits)) {
         maxval <- max(abs(df[[fill]]))
@@ -95,10 +93,10 @@ heat <- function(df, Xvar, Yvar, fill, star,
         rind <- 1:nrow(mat)
         cind <- 1:ncol(mat)
         if (nrow(mat) > 1 && ncol(mat) > 1) {
-	  rind <- hclust(as.dist(1-cor(t(mat),
-	       use = "pairwise.complete.obs")))$order
-	  cind <- hclust(as.dist(1-cor(mat,
-	       use = "pairwise.complete.obs")))$order
+      rind <- hclust(as.dist(1-cor(t(mat),
+           use = "pairwise.complete.obs")))$order
+      cind <- hclust(as.dist(1-cor(mat,
+           use = "pairwise.complete.obs")))$order
 
         }
         if (ncol(mat) > 1 && nrow(mat) == 1) {
@@ -147,7 +145,7 @@ heat <- function(df, Xvar, Yvar, fill, star,
         }
         
         p <- p + geom_text(data = df.sub,
-	            aes(x = XXXX, y = YYYY, label = "+"), 
+                aes(x = XXXX, y = YYYY, label = "+"), 
              col = "white", 
              size = star.size)
     }

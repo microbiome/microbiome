@@ -47,7 +47,7 @@
 #' @keywords utilities
 evenness <- function(x, index = "all", zeroes = TRUE) {
 
-  # Only include accepted indices	 
+  # Only include accepted indices     
   accepted <- c("camargo", "pielou", "simpson", "evar", "bulla")
 
   # Return all indices

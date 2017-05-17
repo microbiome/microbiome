@@ -11,8 +11,8 @@
 #'     # Example data
 #'     library(microbiome)
 #'     p0 <- read_csv2phyloseq(otu.file = "otu_table.csv", 
-#'     taxonomy.file = "taxa_table.csv", 
-#'     metadata.file = "meta_table.csv")
+#'         taxonomy.file = "taxa_table.csv", 
+#'         metadata.file = "meta_table.csv")
 #'   }
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities

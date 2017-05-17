@@ -24,7 +24,7 @@
 #' @keywords utilities
 core_members <- function(x, detection = 1/100, prevalence = 50/100, include.lowest = FALSE)  {
 
-  # Pick taxa x samples matrix	       
+  # Pick taxa x samples matrix           
   x <- abundances(x)
 
   if (include.lowest) {
