@@ -12,8 +12,7 @@
 #'   data(DynamicsIBD)
 #'   # Pick data subset to speed up example
 #'   p0 <- subset_samples(DynamicsIBD, sex == 'male' & timepoint == 1)
-#'   p0.f <- format_phyloseq(p0)
-#'   p <- plot_taxa_prevalence(p0.f, 'Phylum')
+#'   p <- plot_taxa_prevalence(p0, 'Phylum')
 #' @keywords utilities
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 plot_taxa_prevalence <- function(x, level) {
