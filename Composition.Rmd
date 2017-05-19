@@ -99,11 +99,8 @@ data(DynamicsIBD)
 p0 <- subset_samples(DynamicsIBD, sex == "male" & timepoint == 1)
 p0 <- core(p0, detection = 10, prevalence = 0)
 
-# Improve the taxonomic information. 
-p0.f <- format_phyloseq(p0)
-
-# For the available taxonomic levels, see tax_table(p0.f)
-p <- plot_taxa_prevalence(p0.f, "Phylum")
+# For the available taxonomic levels
+p <- plot_taxa_prevalence(p0, "Phylum")
 print(p)
 ```
 
