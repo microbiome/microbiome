@@ -21,7 +21,7 @@ abundances <- function(x, transform = "identity") {
         # Pick OTU matrix
         otu <- get_taxa(x)
         # Ensure that taxa are on the rows
-        if (!taxa_are_rows(x) && nrow(otu) > 1 && nsamples(x) > 1) {
+        if (!taxa_are_rows(x) && ntaxa(x) > 1 && nsamples(x) > 1) {
             otu <- t(otu)
         }
         
