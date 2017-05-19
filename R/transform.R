@@ -38,15 +38,15 @@
 #'
 #' @keywords utilities
 transform <- function(x, transform = "identity", target = "OTU", shift = 0) {
-    
+
     y <- NULL
     xorig <- x
-    
+
     # If x is not a phyloseq object then assume that it is taxa x samples matrix
     if (is.phyloseq(x)) {
         x <- abundances(x)
     }
-    
+
     if (transform == "relative.abundance") {
         transform <- "compositional"
     }
