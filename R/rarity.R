@@ -11,7 +11,7 @@
 #'   d <- rarity(dietswap, index = 'low_abundance')
 #'   # d <- rarity(dietswap, index = 'all')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @seealso global, log_modulo_skewness, rare_abundance, low_abundance
+#' @seealso global, log_modulo_skewness, noncore_abundance, low_abundance
 #' @details
 #'   The rarity index characterizes the concentration of species at
 #'   low abundance.
@@ -27,7 +27,7 @@
 #'       to allow logarithmization.}
 #'     \item{low_abundance}{Relative proportion of the least abundant species,
 #'        below the detection level of 0.2\%}
-#'     \item{rare_abundance}{Relative proportion of the rare (non-core)
+#'     \item{noncore_abundance}{Relative proportion of the rare (non-core)
 #'        species in [0,1] - this complement (1-x) of the core_abundance}
 #'   }
 #' 
@@ -44,7 +44,7 @@
 rarity <- function(x, index = "all") {
     
     # Only include accepted indices
-    accepted <- c("log_modulo_skewness", "low_abundance", "rare_abundance")
+    accepted <- c("log_modulo_skewness", "low_abundance", "noncore_abundance")
     
     # Return all indices
     if ("all" %in% index) {
@@ -73,8 +73,8 @@ rarity <- function(x, index = "all") {
         r <- log_modulo_skewness(otu, q = 0.5, n = 50)
     } else if (index == "low_abundance") {
         r <- apply(otu, 2, function(x) low_abundance(x, detection = 0.2/100))
-    } else if (index == "rare_abundance") {
-        r <- rare_abundance(otu, detection = 0.1/100, prevalence = 50/100)
+    } else if (index == "noncore_abundance") {
+        r <- noncore_abundance(otu, detection = 0.1/100, prevalence = 50/100)
     }
     
     names(r) <- colnames(otu)
