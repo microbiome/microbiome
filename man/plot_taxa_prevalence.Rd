@@ -24,12 +24,11 @@ This helps to obtain first insights into how is the taxa
    This may be helpful for data filtering or other downstream analysis.
 }
 \examples{
+  # FIXME: the example does not work and is hence commented out
   #data(DynamicsIBD)
   # Pick data subset to speed up example
   #p0 <- subset_samples(DynamicsIBD, sex == 'male' & timepoint == 1)
-  # TODO remove format_phyloseq!
-  #p0.f <- format_phyloseq(p0)
-  #p <- plot_taxa_prevalence(p0.f, 'Phylum')
+  #p <- plot_taxa_prevalence(p0, 'Phylum')
 }
 \author{
 Sudarshan A. Shetty \email{sudarshanshetty9@gmail.com}

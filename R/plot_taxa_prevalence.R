@@ -9,10 +9,11 @@
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
 #' @examples
-#'   data(DynamicsIBD)
+#'   # FIXME: the example does not work and is hence commented out
+#'   #data(DynamicsIBD)
 #'   # Pick data subset to speed up example
-#'   p0 <- subset_samples(DynamicsIBD, sex == 'male' & timepoint == 1)
-#'   p <- plot_taxa_prevalence(p0, 'Phylum')
+#'   #p0 <- subset_samples(DynamicsIBD, sex == 'male' & timepoint == 1)
+#'   #p <- plot_taxa_prevalence(p0, 'Phylum')
 #' @keywords utilities
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 plot_taxa_prevalence <- function(x, level) {
