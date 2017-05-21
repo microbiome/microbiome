@@ -91,7 +91,7 @@ do <- coverage(pseq, threshold = 0.5)
 
 ### Core abundance
 
-The core_abundance function refers to the relative proportion of the core species. Rare abundance provides the complement (1-x; see rare_abundance).
+The core_abundance function refers to the relative proportion of the core species. Rare abundance provides the complement (1-x; see noncore_abundance).
 
 ```{r divest5, warning=FALSE, message=FALSE}
 co <- core_abundance(pseq, detection = .1/100, prevalence = 50/100)

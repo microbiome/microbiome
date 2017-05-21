@@ -137,7 +137,7 @@ pseq &lt;- dietswap</code></pre>
 <p>A comprehensive list of global indicators of the ecosystem state can be obtained as follows. This includes various measures of richness, evenness, diversity, dominance, and rarity with default parameters. See the individual functions for more options regarding parameter tuning.</p>
 <pre class="r"><code>global.inds &lt;- global(pseq, index = &quot;all&quot;)
 head(kable(global.inds))</code></pre>
-<pre><code>## [1] &quot;              richness_0   richness_20   richness_50   richness_80   diversities_inverse_simpson   diversities_gini_simpson   diversities_shannon   diversities_fisher   diversities_coverage   evenness_camargo   evenness_pielou   evenness_simpson   evenness_evar   evenness_bulla   dominance_DBP   dominance_DMN   dominance_absolute   dominance_relative   dominance_simpson   dominance_core_abundance   dominance_gini   rarity_log_modulo_skewness   rarity_low_abundance   rarity_rare_abundance&quot;
+<pre><code>## [1] &quot;              richness_0   richness_20   richness_50   richness_80   diversities_inverse_simpson   diversities_gini_simpson   diversities_shannon   diversities_fisher   diversities_coverage   evenness_camargo   evenness_pielou   evenness_simpson   evenness_evar   evenness_bulla   dominance_DBP   dominance_DMN   dominance_absolute   dominance_relative   dominance_simpson   dominance_core_abundance   dominance_gini   rarity_log_modulo_skewness   rarity_low_abundance   rarity_noncore_abundance&quot;
 ## [2] &quot;-----------  -----------  ------------  ------------  ------------  ----------------------------  -------------------------  --------------------  -------------------  ---------------------  -----------------  ----------------  -----------------  --------------  ---------------  --------------  --------------  -------------------  -------------------  ------------------  -------------------------  ---------------  ---------------------------  ---------------------  ----------------------&quot;
 ## [3] &quot;Sample-1             112           104            61            27                      7.562984                  0.8677771              2.942723             12.16148                      4          0.1378045         0.6045614          0.0581768       0.0736465        0.2925991       0.3279166       0.4296966               175035            0.3279166           0.1322229                  0.9274756        0.8621955                     2.059086              0.0291825               0.0334895&quot;
 ## [4] &quot;Sample-2             118           110            68            39                      8.105283                  0.8766237              2.824184             11.11824                      3          0.1159349         0.5802083          0.0623483       0.0722394        0.2506029       0.2428268       0.4655585               323085            0.2428268           0.1233763                  0.9328351        0.8840651                     2.058747              0.0302304               0.0408330&quot;
@@ -259,7 +259,7 @@ kable(head(ra))</code></pre>
 <th></th>
 <th align="right">log_modulo_skewness</th>
 <th align="right">low_abundance</th>
-<th align="right">rare_abundance</th>
+<th align="right">noncore_abundance</th>
 </tr>
 </thead>
 <tbody>
@@ -309,7 +309,7 @@ kable(head(ra))</code></pre>
 </div>
 <div id="core-abundance" class="section level3">
 <h3>Core abundance</h3>
-<p>The core_abundance function refers to the relative proportion of the core species. Rare abundance provides the complement (1-x; see rare_abundance).</p>
+<p>The core_abundance function refers to the relative proportion of the core species. Rare abundance provides the complement (1-x; see noncore_abundance).</p>
 <pre class="r"><code>co &lt;- core_abundance(pseq, detection = .1/100, prevalence = 50/100)</code></pre>
 </div>
 <div id="gini-index" class="section level3">
