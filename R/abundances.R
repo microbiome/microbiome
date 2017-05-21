@@ -14,17 +14,18 @@
 #'    # b <- abundances(dietswap, transform = 'compositional')
 #' @keywords utilities
 abundances <- function(x, transform = "identity") {
-    
+
     # Pick the OTU data
     if (is.phyloseq(x)) {
-        
+
         # Pick OTU matrix
         otu <- get_taxa(x)
+	
         # Ensure that taxa are on the rows
         if (!taxa_are_rows(x) && ntaxa(x) > 1 && nsamples(x) > 1) {
             otu <- t(otu)
         }
-        
+
         if (ntaxa(x) == 1) {
             otu <- matrix(otu, nrow = 1)
             rownames(otu) <- taxa(x)
@@ -36,7 +37,7 @@ abundances <- function(x, transform = "identity") {
             rownames(otu) <- taxa(x)
             colnames(otu) <- sample_names(x)
         }
-        
+
     } else if (is.vector(x)) {
         
         otu <- as.matrix(x, ncol = 1)
