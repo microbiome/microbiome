@@ -17,7 +17,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' @export
-#' @seealso core_members, variable_members, rare
+#' @seealso core_members, variable_members, noncore_members
 #' @aliases filter_prevalent
 #' @examples
 #'   data(dietswap)

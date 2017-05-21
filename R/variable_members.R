@@ -25,8 +25,8 @@ variable_members <- function(x, detection, prevalence, include.lowest = FALSE) {
     
     xorig <- x
     
-    # Rare taxa (e.g. 20 percent prevalence)
-    rm <- taxa(rare(x, detection, prevalence, include.lowest = include.lowest))
+    # Noncore taxa (but using different prevalence than to define core)
+    rm <- taxa(noncore_members(x, detection, prevalence, include.lowest = include.lowest))
     
     # Core taxa (e.g. 80 percent prevalence - complement)
     cm <- core_members(x, detection, 1 - prevalence, include.lowest = include.lowest)
