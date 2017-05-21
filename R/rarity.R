@@ -74,7 +74,7 @@ rarity <- function(x, index = "all") {
     } else if (index == "low_abundance") {
         r <- apply(otu, 2, function(x) low_abundance(x, detection = 0.2/100))
     } else if (index == "noncore_abundance") {
-        r <- noncore_abundance(otu, detection = 0.1/100, prevalence = 50/100)
+        r <- noncore_abundance(otu, detection = 0/100, prevalence = 50/100)
     }
     
     names(r) <- colnames(otu)
