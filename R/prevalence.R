@@ -27,7 +27,8 @@
 #'   data(peerj32)     
 #'   pr <- prevalence(peerj32$phyloseq, detection = 0,
 #'       sort = TRUE, count = TRUE)
-prevalence <- function(x, detection = 0, sort = FALSE, count = FALSE, include.lowest = FALSE) {
+prevalence <- function(x, detection = 0, sort = FALSE, count = FALSE,
+    include.lowest = FALSE) {
     
     if (is.null(detection)) {
         detection <- (-Inf)

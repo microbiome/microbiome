@@ -9,11 +9,12 @@
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
 #' @examples
-#'   data(DynamicsIBD)
+#'   #data(DynamicsIBD)
 #'   # Pick data subset to speed up example
-#'   p0 <- subset_samples(DynamicsIBD, sex == 'male' & timepoint == 1)
-#'   p0.f <- format_phyloseq(p0)
-#'   p <- plot_taxa_prevalence(p0.f, 'Phylum')
+#'   #p0 <- subset_samples(DynamicsIBD, sex == 'male' & timepoint == 1)
+#'   # TODO remove format_phyloseq!
+#'   #p0.f <- format_phyloseq(p0)
+#'   #p <- plot_taxa_prevalence(p0.f, 'Phylum')
 #' @keywords utilities
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 plot_taxa_prevalence <- function(x, level) {

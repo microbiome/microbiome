@@ -47,10 +47,11 @@
 #' @seealso dominance, richness, evenness, rarity, global
 #' @keywords utilities
 diversities <- function(x, index = "all", zeroes = TRUE) {
-    
+
     # Only include accepted indices
     index <- tolower(index)
-    accepted <- c("inverse_simpson", "gini_simpson", "shannon", "fisher", "coverage")
+    accepted <- c("inverse_simpson", "gini_simpson", "shannon",
+                    "fisher", "coverage")
     
     # Return all indices
     if ("all" %in% index) {

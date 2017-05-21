@@ -41,7 +41,7 @@ Salonen A, Salojarvi J, Lahti L, de Vos WM. The adult intestinal
   To cite the microbiome R package, see citation('microbiome')
 }
 \seealso{
-core_members, variable_members, rare
+core_members, variable_members, noncore_members
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
