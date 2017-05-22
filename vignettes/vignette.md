@@ -218,7 +218,7 @@ plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
 ## <bytecode: 0x55842bc04388>
-## <environment: 0x55842ebebb98>
+## <environment: 0x5584245ea5d0>
 ```
 
 
@@ -1063,23 +1063,7 @@ print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
 
 ### Acknowledgements
 
-Main developer: [Leo Lahti](https://github.com/antagomir/)
-
-Co-authors: Jarkko Salojärvi, Sudarshan Shetty. 
-
-Contributors: Tineka Blake and [other contributors](https://github.com/microbiome/microbiome/graphs/contributors).
-
-Financial support has been provided by the following bodies:
-
-  * Academy of Finland (grants 256950 and 295741)
-  * [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics
-  * [VIB lab for Bioinformatics and (eco-)systems biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx), VIB/KULeuven, Belgium
-  * [Molecular Ecology group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology, Wageningen University, Netherlands
-  * [Department of Veterinary Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm), University of Helsinki, Finland.
-
-This work relies on the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis developed by Paul McMurdie and Susan Holmes. 
-
-
+The main developer is [Leo Lahti](https://github.com/antagomir/). Package co-authors include Jarkko Salojärvi and Sudarshan Shetty, and contributor Tineka Blake and [others](https://github.com/microbiome/microbiome/graphs/contributors). Financial support has been provided by Academy of Finland (grants 256950 and 295741), [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics, [VIB lab for Bioinformatics and (eco-)systems biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx), VIB/KULeuven, Belgium, [Molecular Ecology group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology, Wageningen University, Netherlands, and [Department of Veterinary Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm), University of Helsinki, Finland. This work relies on the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis developed by Paul McMurdie and Susan Holmes. 
 
 
 
@@ -1096,7 +1080,6 @@ This work relies on the independent [phyloseq](https://github.com/joey711/phylos
 [Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data](http://dx.doi.org/10.7717/peerj.32) Lahti L, Salonen A, Kekkonen RA, Salojärvi J, Jalanka-Tuovinen J, Palva A, Orešič M, de Vos WM. _PeerJ_ 1:e32, 2013.
 
 [The adult intestinal core microbiota is determined by analysis depth and health status](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) Salonen A, Salojärvi J, Lahti L, and de Vos WM. _Clinical Microbiology and Infection_ 18(S4):16 20, 2012. 
-
 
 
 
