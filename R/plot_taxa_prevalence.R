@@ -93,3 +93,4 @@ plot_taxa_prevalence <- function(x, level) {
     }
     
 }
+
