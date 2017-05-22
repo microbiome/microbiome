@@ -97,6 +97,14 @@ data(DynamicsIBD)
 
 # Use sample and taxa subset to speed up example
 p0 <- subset_samples(DynamicsIBD, sex == "male" & timepoint == 1)
+
+# Check the names of the taxonomic level 
+colnames(tax_table(p0)) 
+
+# Change the "Rank" label to taxonomic levels
+colnames(tax_table(p0)) = c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species")
+
+
 p0 <- core(p0, detection = 10, prevalence = 0)
 
 # For the available taxonomic levels
