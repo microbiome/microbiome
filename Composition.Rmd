@@ -108,7 +108,7 @@ colnames(tax_table(p0)) = c("Kingdom", "Phylum", "Class", "Order", "Family", "Ge
 p0 <- core(p0, detection = 10, prevalence = 0)
 
 # For the available taxonomic levels
-# p <- plot_taxa_prevalence(p0, "Phylum")
-# print(p)
+p <- plot_taxa_prevalence(p0, "Phylum")
+print(p)
 ```
 
