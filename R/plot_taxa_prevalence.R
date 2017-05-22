@@ -10,7 +10,7 @@
 #' @export
 #' @examples
 #'    data(DynamicsIBD)
-#'    Pick data subset to speed up example
+#'    # Pick data subset to speed up example
 #'    p0 <- subset_samples(DynamicsIBD, sex == 'male' & timepoint == 1)
 #'    # Check the names of the taxonomic level 
 #'    colnames(tax_table(p0)) 
