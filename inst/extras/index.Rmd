@@ -1,0 +1,125 @@
+---
+title: "Introduction to the microbiome R package"
+author: "Leo Lahti et al. `r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+<!--
+  %\VignetteIndexEntry{microbiome tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
+-->
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Handle citations
+require(knitcitations)
+# cleanbib()
+#options("citation_format" = "pandoc")
+# bib <- read.bibtex("bibliography.bib")
+#opts_chunk$set(fig.width=4, fig.height=3, par=TRUE, out.width='2in', fig.pos='H')
+knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
+
+#----------------------------
+
+# CSS Style
+library(knitr)
+### Import the style from CSS file 'css_path' 
+style <- paste(readLines("bioc.css"), collapse = "\n")
+opts_knit$set(self.contained = TRUE,
+              upload.fun = image_uri, ## optional
+              header = c(highlight = style))
+```
+
+
+Introduction to the microbiome R package
+===========
+
+[![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)
+[![codecov.io](https://codecov.io/github/microbiome/microbiome/coverage.svg?branch=master)](https://codecov.io/github/microbiome/microbiome?branch=master)  
+
+Tools for common analysis tasks in microbiome profiling studies;
+illustrated with multiple example data sets from published studies;
+extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
+
+See [microbiome tutorial](http://microbiome.github.io/microbiome) for a full set of online examples on using the microbiome package tools.
+
+
+## Getting started
+
+
+### Install the microbiome package
+
+To install microbiome package in R:
+
+```{r microbiomeinstall, message=FALSE, warning=FALSE, eval=FALSE}
+library(devtools) # Load the devtools package
+install_github("microbiome/microbiome") # Install the package
+```
+
+### Loading the package
+
+Once the package has been installed, load it in R (also to test successful installation):
+
+```{r loading, eval=TRUE, message=FALSE}
+library(microbiome)  
+```
+
+
+
+### Resources
+
+Further tips:
+
+ * [Rmarkdown tips](http://rmarkdown.rstudio.com/)
+ * [R cheat sheets](http://devcheatsheet.com/tag/r/)
+ * [Using Github with R and RStudio](http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/)
+ * [Molecular ecologist's view on code sharing](http://www.molecularecologist.com/2013/08/want-to-share-your-code/)
+
+
+
+
+### Development
+
+New examples and tutorial pages from the user community are welcome:
+
+* [Contributing](Contributing.html)
+
+
+### Licensing and Citations
+
+This work can be freely used, modified and distributed under the
+[Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
+
+Kindly cite this work as follows:
+
+```{r sotkanetIndicators, warning=FALSE, message=FALSE, eval=TRUE}
+citation('microbiome')
+```
+
+
+### Dependencies
+
+The package utilizes tools from a number of other R extensions,
+including ade4 `r citep(citation("ade4"))`, dplyr `r citep(citation("dplyr"))`, ggplot2 `r citep(citation("ggplot2"))`, MASS `r citep(citation("MASS"))`, moments `r citep(citation("moments"))`, phyloseq `r citep(citation("phyloseq"))`, RColorBrewer `r citep(citation("RColorBrewer"))`, scales `r citep(citation("scales"))`, stats `r citep(citation("stats"))`, tidyr `r citep(citation("tidyr"))`, vegan `r citep(citation("vegan"))`.
+
+
+### References
+
+```{r, echo=FALSE, message=FALSE}
+#You can embed citations, for example: `r citep(bib[["lahti14natcomm"]])`
+#You can embed citations, for example2: @lahti14natcomm
+#Cite with DOI: `r citep("10.1890/11-0011.1")`
+#Cite URL `r citep("http://knowledgeblog.org/greycite")`
+#For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). 
+#write.bibtex(file="references.bib")
+```
+
+```{r, echo=FALSE, message=FALSE, results='asis'}
+bibliography()
+```
+
