@@ -100,7 +100,7 @@ p0 <- subset_samples(DynamicsIBD, sex == "male" & timepoint == 1)
 p0 <- core(p0, detection = 10, prevalence = 0)
 
 # For the available taxonomic levels
-p <- plot_taxa_prevalence(p0, "Phylum")
-print(p)
+# p <- plot_taxa_prevalence(p0, "Phylum")
+# print(p)
 ```
 

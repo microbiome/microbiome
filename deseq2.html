@@ -162,10 +162,10 @@ library(knitr)
 print(head(kable((df))))</code></pre>
 <pre><code>## [1] &quot;   baseMean   log2FoldChange       lfcSE          stat      pvalue        padj  taxon                                &quot;
 ## [2] &quot;-----------  ---------------  ----------  ------------  ----------  ----------  -------------------------------------&quot;
-## [3] &quot;  88896.518       -3.0629202   0.1999330   -15.3197368   0.0000000   0.0000000  Bacteroides vulgatus et rel.         &quot;
-## [4] &quot;  16380.395       -2.6968824   0.1546172   -17.4423188   0.0000000   0.0000000  Allistipes et rel.                   &quot;
-## [5] &quot;   5466.663       -1.4142640   0.1443252    -9.7991478   0.0000000   0.0000000  Bryantella formatexigens et rel.     &quot;
-## [6] &quot;  13000.276       -0.5528212   0.1291264    -4.2812424   0.0000186   0.0000351  Subdoligranulum variable at rel.     &quot;</code></pre>
+## [3] &quot;  88896.518       -3.0937977   0.2019461   -15.3199159   0.0000000   0.0000000  Bacteroides vulgatus et rel.         &quot;
+## [4] &quot;  16380.395       -2.7130017   0.1555409   -17.4423714   0.0000000   0.0000000  Allistipes et rel.                   &quot;
+## [5] &quot;   5466.663       -1.4216152   0.1450752    -9.7991573   0.0000000   0.0000000  Bryantella formatexigens et rel.     &quot;
+## [6] &quot;  13000.276       -0.5551160   0.1296624    -4.2812426   0.0000186   0.0000395  Subdoligranulum variable at rel.     &quot;</code></pre>
 <p>Validating DESeq2 results</p>
 <pre class="r"><code># Identify top taxa based on standard ANOVA
 source(system.file(&quot;extdata/check_anova.R&quot;, package = &quot;microbiome&quot;))
