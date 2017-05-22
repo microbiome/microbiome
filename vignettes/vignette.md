@@ -1898,7 +1898,7 @@ plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
 ## <bytecode: 0x555f0c9feae8>
-## <environment: 0x555f132f9730>
+## <environment: 0x555f0d110758>
 ```
 
 
@@ -1925,8 +1925,6 @@ head(kable(global.inds))
 ```
 
 
-### Alpha diversity
-
 This returns a table with selected diversity indicators. See a separate page on [Beta diversity](Betadiversity.html).
 
 
@@ -1945,8 +1943,6 @@ head(kable(tab))
 ```
 
 
-### Richness
-
 This returns observed richness with given detection threshold(s).
 
 
@@ -1960,9 +1956,6 @@ head(kable(tab))
 ## [3] "|Sample-1   | 17| 11|  6|  2|" "|Sample-2   | 17| 17| 12|  8|"
 ## [5] "|Sample-3   | 17| 16| 15|  7|" "|Sample-4   | 17| 17| 12|  4|"
 ```
-
-
-### Dominance 
 
 The dominance index refers to the abundance of the most abundant species. Various dominance indices are available (see the function help for a list of options).
 
@@ -1985,9 +1978,6 @@ kable(head(do))
 |Sample-6 | 0.7099366| 0.7932277|   709407| 0.7099366| 0.5167030|              1| 0.8003752|
 
 
-
-### Rarity and low abundance
-
 The rarity indices quantify the concentration of rare or low abundance taxa. Various rarity indices are available (see the function help for a list of options).
 
 
@@ -2008,9 +1998,6 @@ kable(head(ra))
 |Sample-6 |            2.004198|     0.0011008|                 0|              0|
 
 
-
-### Coverage
-
 The coverage index gives the number of groups needed to have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
 
 
@@ -2029,19 +2016,110 @@ co <- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
 ```
 
 
-### Gini index
 
-Gini index is a common measure for inequality in economical income. The inverse gini index (1/x) can also be used as a community diversity measure.
+## Beta diversity 
+
+
+### Quantifying group divergence / spread 
+
+Divergence of a given sample set can be quantified as the average dissimilarity of each sample from the group mean; the dissimilarity can be quantified by beta diversity, for instance. This was applied in group-level comparisons for instance in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) (they focused on homogeneity using inverse correlation, whereas here we focus on divergence using correlation but the measure is essentially the same). 
+
+Calculate group divergences within the LGG (probiotic) and Placebo groups
 
 
 ```r
-gi <- inequality(pseq)
+pseq <- peerj32$phyloseq
+b.pla <- divergence(subset_samples(pseq, group == "Placebo"))
+b.lgg <- divergence(subset_samples(pseq, group == "LGG"))
 ```
 
-* [Beta diversity / Community heterogeneity](Betadiversity.html)
+Use these to compare microbiota divergence within each group. The LGG group tends to have smaller values, indicating that the samples are more similar to the group mean, and the LGG group is less heterogeneous (has smaller spread / is more homogeneous):
+
+
+```r
+boxplot(list(LGG = b.lgg, Placebo = b.pla))
+```
+
+<img src="figure/divergence-example2bbb-1.png" title="plot of chunk divergence-example2bbb" alt="plot of chunk divergence-example2bbb" width="300px" />
+
+The **inter- and intra-invididual stability** (or homogeneity) measures are obtained as 1-b where b is the group divergence with the anticorrelation method ([Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html)). 
 
 
 
+### Intra-individual divergence 
+
+Quantify beta diversity within subjects over time (as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) for intra-individual stability)
+
+
+```r
+betas <- list()
+groups <- as.character(unique(meta(pseq)$group))
+for (g in groups) {
+  #df <- meta(subset_samples(pseq, group == g))
+  df <- subset(meta(pseq), group == g)
+  beta <- c()
+
+  for (subj in df$subject) {
+    # Pick the samples for this subject
+    dfs <- subset(df, subject == subj)
+    # Check that the subject has two time points
+    if (nrow(dfs) == 2) {
+      s <- as.character(dfs$sample)
+      # Here with just two samples we can calculate the
+      # beta diversity directly
+      beta[[subj]] <- 1-cor(abundances(pseq)[, s[[1]]],
+      		            abundances(pseq)[, s[[2]]],
+			    method = "spearman")
+    }
+  }
+  betas[[g]] <- beta
+}
+
+boxplot(betas)
+```
+
+<img src="figure/homogeneity-example2c-1.png" title="plot of chunk homogeneity-example2c" alt="plot of chunk homogeneity-example2c" width="300px" />
+
+
+### Beta diversity within individual over time
+
+Calculate change in beta diversity (community dissimilarity) over time within a single individual
+
+
+```r
+pseq <- atlas1006
+
+# Identify subject with the longest time series (most time points)
+s <- names(which.max(sapply(split(meta(pseq)$time, meta(pseq)$subject), function (x) {length(unique(x))})))
+
+# Pick the metadata for this subject and sort the
+# samples by time
+library(dplyr)
+df <- meta(pseq) %>% filter(subject == s) %>% arrange(time)
+
+# Calculate the beta diversity between each time point and
+# the baseline (first) time point
+beta <- c(0, 0) # Baseline similarity
+s0 <- subset(df, time == 0)$sample
+for (tp in df$time[-1]) {
+  # Pick the samples for this subject
+  # If the same time point has more than one sample,
+  # pick one at random
+  st <- sample(subset(df, time == tp)$sample, 1)
+  a <- abundances(pseq)
+  b <- 1 - cor(a[, s0], a[, st], method = "spearman")
+  beta <- rbind(beta, c(tp, b))
+}
+colnames(beta) <- c("time", "beta")
+beta <- as.data.frame(beta)
+
+library(ggplot2)
+p <- ggplot(beta, aes(x = time, y = beta)) +
+       geom_point() + geom_line()
+print(p)       
+```
+
+<img src="figure/homogeneity-example2d-1.png" title="plot of chunk homogeneity-example2d" alt="plot of chunk homogeneity-example2d" width="300px" />
   
   
 ## Microbiota composition

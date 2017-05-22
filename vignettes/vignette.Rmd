@@ -368,9 +368,6 @@ tab <- richness(pseq)
 head(kable(tab))
 ```
 
-
-### Dominance 
-
 The dominance index refers to the abundance of the most abundant species. Various dominance indices are available (see the function help for a list of options).
 
 ```{r dominance, warning=FALSE, message=FALSE}
@@ -380,9 +377,6 @@ kable(head(do))
 ```
 
 
-
-### Rarity and low abundance
-
 The rarity indices quantify the concentration of rare or low abundance taxa. Various rarity indices are available (see the function help for a list of options).
 
 ```{r lowab, warning=FALSE, message=FALSE}
@@ -390,9 +384,6 @@ ra <- rarity(pseq, index = "all")
 kable(head(ra))
 ```
 
-
-
-### Coverage
 
 The coverage index gives the number of groups needed to have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
 
@@ -410,18 +401,99 @@ co <- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
 ```
 
 
-### Gini index
 
-Gini index is a common measure for inequality in economical income. The inverse gini index (1/x) can also be used as a community diversity measure.
+## Beta diversity 
 
-```{r divest6, warning=FALSE, message=FALSE}
-gi <- inequality(pseq)
+
+### Quantifying group divergence / spread 
+
+Divergence of a given sample set can be quantified as the average dissimilarity of each sample from the group mean; the dissimilarity can be quantified by beta diversity, for instance. This was applied in group-level comparisons for instance in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) (they focused on homogeneity using inverse correlation, whereas here we focus on divergence using correlation but the measure is essentially the same). 
+
+Calculate group divergences within the LGG (probiotic) and Placebo groups
+
+```{r divergence-example2bb, message=FALSE}
+pseq <- peerj32$phyloseq
+b.pla <- divergence(subset_samples(pseq, group == "Placebo"))
+b.lgg <- divergence(subset_samples(pseq, group == "LGG"))
 ```
 
-* [Beta diversity / Community heterogeneity](Betadiversity.html)
+Use these to compare microbiota divergence within each group. The LGG group tends to have smaller values, indicating that the samples are more similar to the group mean, and the LGG group is less heterogeneous (has smaller spread / is more homogeneous):
+
+```{r divergence-example2bbb, message=FALSE, out.width="300px"}
+boxplot(list(LGG = b.lgg, Placebo = b.pla))
+```
+
+The **inter- and intra-invididual stability** (or homogeneity) measures are obtained as 1-b where b is the group divergence with the anticorrelation method ([Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html)). 
 
 
 
+### Intra-individual divergence 
+
+Quantify beta diversity within subjects over time (as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) for intra-individual stability)
+
+```{r homogeneity-example2c, message=FALSE, warning=FALSE, out.width="300px"}
+betas <- list()
+groups <- as.character(unique(meta(pseq)$group))
+for (g in groups) {
+  #df <- meta(subset_samples(pseq, group == g))
+  df <- subset(meta(pseq), group == g)
+  beta <- c()
+
+  for (subj in df$subject) {
+    # Pick the samples for this subject
+    dfs <- subset(df, subject == subj)
+    # Check that the subject has two time points
+    if (nrow(dfs) == 2) {
+      s <- as.character(dfs$sample)
+      # Here with just two samples we can calculate the
+      # beta diversity directly
+      beta[[subj]] <- 1-cor(abundances(pseq)[, s[[1]]],
+      		            abundances(pseq)[, s[[2]]],
+			    method = "spearman")
+    }
+  }
+  betas[[g]] <- beta
+}
+
+boxplot(betas)
+```
+
+
+### Beta diversity within individual over time
+
+Calculate change in beta diversity (community dissimilarity) over time within a single individual
+
+```{r homogeneity-example2d, message=FALSE, warning=FALSE, out.width="300px"}
+pseq <- atlas1006
+
+# Identify subject with the longest time series (most time points)
+s <- names(which.max(sapply(split(meta(pseq)$time, meta(pseq)$subject), function (x) {length(unique(x))})))
+
+# Pick the metadata for this subject and sort the
+# samples by time
+library(dplyr)
+df <- meta(pseq) %>% filter(subject == s) %>% arrange(time)
+
+# Calculate the beta diversity between each time point and
+# the baseline (first) time point
+beta <- c(0, 0) # Baseline similarity
+s0 <- subset(df, time == 0)$sample
+for (tp in df$time[-1]) {
+  # Pick the samples for this subject
+  # If the same time point has more than one sample,
+  # pick one at random
+  st <- sample(subset(df, time == tp)$sample, 1)
+  a <- abundances(pseq)
+  b <- 1 - cor(a[, s0], a[, st], method = "spearman")
+  beta <- rbind(beta, c(tp, b))
+}
+colnames(beta) <- c("time", "beta")
+beta <- as.data.frame(beta)
+
+p <- ggplot(beta, aes(x = time, y = beta)) +
+       geom_point() + geom_line()
+print(p)       
+```
   
   
 ## Microbiota composition
@@ -524,25 +596,6 @@ pseq.core <- core(pseq.rel, detection = 0, prevalence = .5)
 
 
 ## Core visualization
-
-### Core line plots
-
-Determine core microbiota across various abundance/prevalence
-thresholds with the blanket analysis [(Salonen et al. CMI, 2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) based on various signal and prevalences.
-
-```{r core-example2, fig.width=9, fig.heigth=6, fig.show='hold', out.width="400px", warning=FALSE}
-# With absolute read counts
-det <- c(0, 10, 50, 200, 500, 2000)
-prevalences <- seq(.05, 1, .05)
-p <- plot_core(pseq, prevalences = prevalences, detections = det, plot.type = "lineplot")
-p + xlab("Abundance (OTU read count)")
-
-# With compositional (relative) abundances
-det <- c(0, 0.1, 0.5, 2, 5, 20)/100
-p <- plot_core(pseq.rel, prevalences = prevalences, detections = det, plot.type = "lineplot")
-p + xlab("Relative Abundance (%)")
-```
-
 
 ### Core heatmaps
 
