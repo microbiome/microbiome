@@ -893,10 +893,6 @@ otu <- abundances(pseq.rel)
 meta <- meta(pseq.rel)
 ```
 
-
-
-### PERMANOVA significance test for group-level differences
-
 Now let us evaluate whether the group (probiotics vs. placebo) has a
 significant effect on overall gut microbiota composition. Perform PERMANOVA: 
 
