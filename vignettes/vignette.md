@@ -218,7 +218,7 @@ plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
 ## <bytecode: 0x55842bc04388>
-## <environment: 0x55842f90ed30>
+## <environment: 0x55842ebebb98>
 ```
 
 
@@ -298,80 +298,6 @@ The **inter- and intra-invididual stability** (or homogeneity) measures are obta
 
 
 
-### Intra-individual divergence 
-
-Quantify beta diversity within subjects over time (as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) for intra-individual stability)
-
-
-```r
-betas <- list()
-groups <- as.character(unique(meta(pseq)$group))
-for (g in groups) {
-  #df <- meta(subset_samples(pseq, group == g))
-  df <- subset(meta(pseq), group == g)
-  beta <- c()
-
-  for (subj in df$subject) {
-    # Pick the samples for this subject
-    dfs <- subset(df, subject == subj)
-    # Check that the subject has two time points
-    if (nrow(dfs) == 2) {
-      s <- as.character(dfs$sample)
-      # Here with just two samples we can calculate the
-      # beta diversity directly
-      beta[[subj]] <- 1-cor(abundances(pseq)[, s[[1]]],
-      		            abundances(pseq)[, s[[2]]],
-			    method = "spearman")
-    }
-  }
-  betas[[g]] <- beta
-}
-
-boxplot(betas)
-```
-
-<img src="figure/homogeneity-example2c-1.png" title="plot of chunk homogeneity-example2c" alt="plot of chunk homogeneity-example2c" width="300px" />
-
-
-### Beta diversity within individual over time
-
-Calculate change in beta diversity (community dissimilarity) over time within a single individual
-
-
-```r
-pseq <- atlas1006
-
-# Identify subject with the longest time series (most time points)
-s <- names(which.max(sapply(split(meta(pseq)$time, meta(pseq)$subject), function (x) {length(unique(x))})))
-
-# Pick the metadata for this subject and sort the
-# samples by time
-library(dplyr)
-df <- meta(pseq) %>% filter(subject == s) %>% arrange(time)
-
-# Calculate the beta diversity between each time point and
-# the baseline (first) time point
-beta <- c(0, 0) # Baseline similarity
-s0 <- subset(df, time == 0)$sample
-for (tp in df$time[-1]) {
-  # Pick the samples for this subject
-  # If the same time point has more than one sample,
-  # pick one at random
-  st <- sample(subset(df, time == tp)$sample, 1)
-  a <- abundances(pseq)
-  b <- 1 - cor(a[, s0], a[, st], method = "spearman")
-  beta <- rbind(beta, c(tp, b))
-}
-colnames(beta) <- c("time", "beta")
-beta <- as.data.frame(beta)
-
-p <- ggplot(beta, aes(x = time, y = beta)) +
-       geom_point() + geom_line()
-print(p)       
-```
-
-<img src="figure/homogeneity-example2d-1.png" title="plot of chunk homogeneity-example2d" alt="plot of chunk homogeneity-example2d" width="300px" />
-  
   
 ## Microbiota composition
   
@@ -582,18 +508,7 @@ pseq.core <- subset_samples(pseq.core, sex == "Female" &
 ```
 
 
-Visualize the microbiome landscape (sample similarities on two-dimensional projection):
-
-
-```r
-# Landscape plot directly from phyloseq object
-p <- plot_landscape(pseq.core, "NMDS", "bray", col = "nationality")
-print(p)
-```
-
-<img src="figure/landscape3-1.png" title="plot of chunk landscape3" alt="plot of chunk landscape3" width="400px" />
-
-For direct access to the ordination coordinates, use the following:
+Visualize the microbiome landscape (sample similarities on two-dimensional projection). For direct access to the ordination coordinates, use the following:
 
 
 ```r
@@ -817,23 +732,13 @@ from their population mean (smaller: blue; higher: red):
 # Pick OTU table
 x <- abundances(pseqz)
 
-# Plot heatmap
-tmp <- plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
-```
-
-![plot of chunk heatmap-matvisu-example](figure/heatmap-matvisu-example-1.png)
-
-
-Find visually appealing order for rows and columns with the Neatmap approach:
-
-
-```r
+# Find visually appealing order for rows and columns with the Neatmap approach:
 # Sort the matrix rows and cols directly
 xo <- neat(x, method = "NMDS", distance = "euclidean") # Sorted matrix
 tmp <- plot_matrix(xo, type = "twoway", mar = c(5, 12, 1, 1))
 ```
 
-![plot of chunk neatmap3](figure/neatmap3-1.png)
+![plot of chunk heatmap-matvisu-example](figure/heatmap-matvisu-example-1.png)
 
 ```r
 # or use a shortcut to sorting rows (or columns) if just the order was needed 
@@ -894,88 +799,6 @@ print(p)
 ![plot of chunk heatmap-example-stars3](figure/heatmap-example-stars3-1.png)
 
 
-### Heatmaps with ggplot2
-
-The above examples provide handy shortcuts for heatmap visualization. You can also directly modify the ggplot2 routines. This time, let us set q-value threshold also for cell coloring: 
-
-
-```r
-# Order the rows and columns with levels argument if needed:
-correlation.table$X1 <- factor(correlation.table$X1, levels = unique(as.character(correlation.table$X1)))
-correlation.table$X2 <- factor(correlation.table$X2, levels = unique(as.character(correlation.table$X2)))
-
-# Set black-and-white theme
-library(ggplot2)
-theme_set(theme_bw())
-
-# Pick only the correlations with q<0.05
-# Note: this will leave other cells empty
-library(dplyr)
-subtable <- filter(correlation.table, p.adj < 0.05)
-
-# Arrange the figure
-p <- ggplot(subtable, aes(x = X1, y = X2, fill = Correlation))
-p <- p + geom_tile() 
-p <- p + scale_fill_gradientn("Correlation", 
-       	 		       breaks = seq(from = -1, to = 1, by = 0.2), 
-			       colours = c("darkblue", "blue", "white", "red", "darkred"), 
-			       limits = c(-1,1)) 
-
-# Polish texts
-p <- p + theme(axis.text.x=element_text(angle = 90))
-p <- p + xlab("") + ylab("")
-
-# Mark the most significant cells with stars
-p <- p + geom_text(data = subset(correlation.table, p.adj < 0.02), 
-       	 	   aes(x = X1, y = X2, label = "+"), col = "white", size = 5)
-
-# Plot
-print(p)
-```
-
-![plot of chunk heatmap-example-stars](figure/heatmap-example-stars-1.png)
-
-
-### Heatmap with text
-
-For detailed information, might be handy to print the actual values on
-top of the heatmap:
-
-
-```r
-theme_set(theme_bw(20))
-df <- correlation.table
-p <- ggplot(df, aes(X1, X2, group=X2)) 
-p <- p + geom_tile(aes(fill = Correlation)) 
-p <- p + geom_text(aes(fill = df$Correlation, label = round(df$Correlation, 1)), size = 2) 
-p <- p + scale_fill_gradientn("Correlation", 
-       	 		      breaks = seq(from = -1, to = 1,  by = 0.25), 
-       	 		      colours = c("blue", "white", "red"), 
-			      limits = c(-1, 1))
-p <- p + theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) 
-p <- p + xlab("") + ylab("")
-print(p)
-```
-
-![plot of chunk heatmap-example-text](figure/heatmap-example-text-1.png)
-
-### ggcorr
-
-An alternative way to visualize correlation matrices is provided by the [ggcorr package](https://briatte.github.io/ggcorr/). Note: this toy example does not consider the compositionality effect in microbial abundance correlations. See the package site for more detailed examples and many more options.
-
-
-```r
-library(GGally)
-ggcorr(x[, 1:10], method = c("pairwise", "spearman"), nbreaks = 20, hjust = 0.75)
-ggcorr(x[, 1:10], method = c("pairwise", "spearman"), nbreaks = 20, geom = "circle")
-ggcorr(x[, 1:10], method = c("pairwise", "spearman"), nbreaks = 20, label = TRUE, label_alpha = TRUE)
-ggcorr(data = NULL, cor_matrix = cor(x[, 1:10], use = "everything"), low = "steelblue", mid = "white", high = "darkred", midpoint = 0)
-```
-
-<img src="figure/ggcorr1-1.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" /><img src="figure/ggcorr1-2.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" /><img src="figure/ggcorr1-3.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" /><img src="figure/ggcorr1-4.png" title="plot of chunk ggcorr1" alt="plot of chunk ggcorr1" width="400px" />
-
-
-
 ## Ordination examples
 
 Full examples for standard ordination techniques applied to phyloseq data, based on the [phyloseq ordination tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). For handy wrappers for some common ordination tasks in microbiome analysis, see [landscaping examples](Landscaping.html)
@@ -1006,22 +829,6 @@ Project the samples with the given method and dissimilarity measure.
 set.seed(4235421)
 # proj <- get_ordination(pseq, "MDS", "bray")
 ord <- ordinate(pseq, "MDS", "bray")
-```
-
-
-```r
-# "quiet" is here used to suppress intermediate output
-quiet(p <- plot_ordination(pseq, ord, type = "taxa", color = "Phylum", title = "Taxa ordination"))
-print(p)
-```
-
-![plot of chunk ordination-pca-ordination21](figure/ordination-pca-ordination21-1.png)
-
-Grouping per phyla could be done with:
-
-
-```r
-p + facet_wrap(~Phylum, 5)
 ```
 
 
@@ -1072,90 +879,6 @@ plot_rda_bagged(res)
 ```
 
 ![plot of chunk rda6](figure/rda6-1.png)
-
-
-### Standard RDA 
-
-Standard RDA for microbiota profiles versus the given (here 'time')
-variable from sample metadata (see also the RDA method in
-phyloseq::ordinate)
-
-
-```r
-x <- pseq.trans
-otu <- abundances(x)
-metadata <- meta(x)
-
-library(vegan)
-rda.result <- vegan::rda(t(otu) ~ factor(metadata$time),
-                         na.action = na.fail, scale = TRUE)
-```
-
-Proportion explained by the given factor
-
-
-```r
-summary(rda.result)$constr.chi/summary(rda.result)$tot.chi
-```
-
-```
-## [1] 0.007763033
-```
-
-
-### RDA visualization
-
-Visualize the standard RDA output.
-
-
-```r
-plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = metadata$time)
-points(rda.result, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = metadata$time)
-pl <- ordihull(rda.result, metadata$time, scaling = 3, label = TRUE)
-```
-
-![plot of chunk rda4](figure/rda4-1.png)
-
-
-### RDA significance test
-
-
-```r
-permutest(rda.result) 
-```
-
-```
-## 
-## Permutation test for rda 
-## 
-## Permutation: free
-## Number of permutations: 99
-##  
-## Call: rda(formula = t(otu) ~ factor(metadata$time), scale = TRUE,
-## na.action = na.fail)
-## Permutation test for all constrained eigenvalues
-## Pseudo-F:	 0.3285983 (with 1, 42 Degrees of Freedom)
-## Significance:	 0.99
-```
-
-
-### RDA with confounding variables 
-
-For more complex RDA scenarios, use the standard RDA available via the
-vegan R package.
-
-
-```r
-# Pick microbiota profiling data from the phyloseq object
-otu <- abundances(pseq.trans)
-
-# Sample annotations
-metadata <- meta(pseq.trans)
-
-# RDA with confounders using the vegan function
-rda.result2 <- vegan::rda(t(otu) ~ metadata$time + Condition(metadata$subject + metadata$gender))
-```
-
 
 
 
@@ -1260,7 +983,7 @@ print(tipping.point)
 ```
 
 ```
-## [1] 0.005211903
+## [1] 0.009474153
 ```
 
 
@@ -1314,18 +1037,6 @@ meta <- meta(pseq.rel)
 ```
 
 
-### Visualize microbiome variation
-
-Visualize the population density and highlight sample groups (probiotic treatment LGG  vs Placebo):
-
-
-```r
-p <- plot_landscape(pseq.rel, method = "NMDS", distance = "bray", col = "group", size = 3)
-print(p)
-```
-
-<img src="figure/comparisons_permanova_visu-1.png" title="plot of chunk comparisons_permanova_visu" alt="plot of chunk comparisons_permanova_visu" width="300px" />
-
 
 ### PERMANOVA significance test for group-level differences
 
@@ -1344,23 +1055,11 @@ print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
 ```
 
 ```
-## [1] 0.23
+## [1] 0.2
 ```
 
 
-### Investigate the top factors
 
-Show coefficients for the top taxa separating the groups
-
-
-```r
-coef <- coefficients(permanova)["group1",]
-top.coef <- coef[rev(order(abs(coef)))[1:20]]
-par(mar = c(3, 14, 2, 1))
-barplot(sort(top.coef), horiz = T, las = 1, main = "Top taxa")
-```
-
-<img src="figure/permanova_top-1.png" title="plot of chunk permanova_top" alt="plot of chunk permanova_top" width="300px" />
 
 ### Acknowledgements
 
