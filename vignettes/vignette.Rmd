@@ -175,7 +175,7 @@ A comprehensive list of global indicators of the ecosystem state includes variou
 
 ```{r global, warning=FALSE, message=FALSE, results="asis"}
 g <- global(pseq, index = "all")
-head(kable(g))
+head(kable(t(g))
 ```
 
 You can also call the individual indicator functions for more options
