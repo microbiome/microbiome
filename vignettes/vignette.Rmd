@@ -199,14 +199,14 @@ ci <- coverage(pseq, threshold = 0.5)
 
 
 
-
-
 ## Beta diversity 
 
 
 ### Quantifying group divergence / spread 
 
 Divergence of a given sample set can be quantified as the average dissimilarity of each sample from the group mean; the dissimilarity can be quantified by beta diversity, for instance. This was applied in group-level comparisons for instance in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) (they focused on homogeneity using inverse correlation, whereas here we focus on divergence using correlation but the measure is essentially the same). 
+
+The **inter- and intra-invididual stability** (or homogeneity) measures are obtained as 1-b where b is the group divergence with the anticorrelation method ([Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html)). 
 
 Calculate group divergences within the LGG (probiotic) and Placebo groups
 
@@ -221,8 +221,6 @@ Use these to compare microbiota divergence within each group. The LGG group tend
 ```{r divergence-example2bbb, message=FALSE, out.width="300px"}
 boxplot(list(LGG = b.lgg, Placebo = b.pla))
 ```
-
-The **inter- and intra-invididual stability** (or homogeneity) measures are obtained as 1-b where b is the group divergence with the anticorrelation method ([Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html)). 
 
 
 
