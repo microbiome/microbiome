@@ -138,11 +138,11 @@ library(phyloseq)
 pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR" & timepoint.within.group == 1)
 ```
 
-### Barplots for composition
+### Composition barplots
 
-Same with compositional (relative) abundances:
-  
-```{r composition-example4b, fig.width=12, fig.height=5, out.width="300px", fig.show="hold", fig.cap = "Figure caption goes here.", warning=FALSE, message=FALSE}
+Microbiota composition with relative abundances, averaged per BMI group
+ 
+```{r composition-example4b, fig.width=10, fig.height=5, out.width="500px", fig.show="hold", fig.cap = "Figure caption goes here.", warning=FALSE, message=FALSE}
 # Try another theme
 # from https://github.com/hrbrmstr/hrbrthemes
 library(hrbrthemes)
@@ -151,6 +151,7 @@ library(tidyverse)
 
 # Limit the analysis on core taxa and specific sample group
 p <- plot_composition(pseq2,
+		      average_by = "bmi_group", 
 		      taxonomic.level = "OTU",
                       sample.sort = "nationality",
                       x.label = "nationality",
@@ -165,38 +166,14 @@ p <- plot_composition(pseq2,
 print(p)  
 ```
 
-Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html).
-
-Averaged by group:
-  
-```{r composition-example4c, fig.width=12, fig.height=5, eval=FALSE}
-p <- plot_composition(pseq2,
-                      average_by = "bmi_group", transform = "compositional")
-print(p)
-```
-
-
-
-### Composition heatmaps
-
-Heatmap for CLR-transformed abundances, with samples and OTUs sorted with the neatmap method:
-  
-```{r composition-example7, fig.width=10, fig.height=3, fig.cap = "Figure2 caption goes here."}
-plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
-                      sample.sort = "neatmap", otu.sort = "neatmap",
-                      mar = c(6, 13, 1, 1))
-```
 
 
 
 ## Global Ecosystem State Variables 
 
+A comprehensive list of global indicators of the ecosystem state includes various measures for richness, evenness, diversities, dominance, and rarity. The function `global` calls these indicators with standard default parameters. See the function help pages for further options
 
-### Global indicators
-
-A comprehensive list of global indicators of the ecosystem state includes various measures as implemented in the microbiome functions named richness, evenness, diversities, dominance, and rarity. The function global calls these indicators with standard default parameters. See the function help pages for further options
-
-```{r global, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
+```{r global, warning=FALSE, message=FALSE, results="asis"}
 g <- global(pseq, index = "all")
 head(kable(g))
 ```
