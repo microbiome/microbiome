@@ -1,6 +1,6 @@
 ---
 title: "Introduction to the microbiome R package"
-author: "Leo Lahti et al."
+author: "Leo Lahti, Sudarshan Shetty, et al."
 bibliography: 
 - bibliography.bib
 date: "2017-05-23"
@@ -281,7 +281,7 @@ print(p)
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
 ## <bytecode: 0x55842bc04388>
-## <environment: 0x5584286111d8>
+## <environment: 0x5584331ca658>
 ```
 
 
@@ -327,7 +327,6 @@ head(prevalence(pseq.rel, detection = 1, sort = TRUE))
 ##                 0                 0
 ```
 
-### Core microbiota analysis
 
 If you only need the names of the core taxa, do as follows. This returns the taxa that exceed the given prevalence and detection thresholds. 
 
@@ -344,7 +343,7 @@ pseq.core <- core(pseq.rel, detection = 0, prevalence = .5)
 ```
 
 
-## Core visualization
+
 
 ### Core heatmaps
 
@@ -856,52 +855,6 @@ pseq0.log10 <- microbiome::transform(pseq0, "log10")
 bimodality <- bimodality(pseq0.log10, method = "potential_analysis", bs.iter = 20)
 ```
 
-### Visualize population densities for unimodal and bimodal groups
-
-
-```r
-# Pick the most and least bimodal taxa as examples
-unimodal  <- names(sort(bimodality))[[1]]
-bimodal  <- rev(names(sort(bimodality)))[[1]]
-
-# Visualize population frequencies
-theme_set(theme_bw(20))
-p1 <- plot_density(pseq, variable = unimodal, log10 = TRUE) 
-p2 <- plot_density(pseq, variable = bimodal,  log10 = TRUE) 
-library(gridExtra)
-grid.arrange(p1, p2, nrow = 1)
-```
-
-<img src="figure/stability2-1.png" title="plot of chunk stability2" alt="plot of chunk stability2" width="500px" />
-
-
-## Tipping point detection
-
-Identify potential minima in cross-section population data as tipping
-point candidates (note that [longitudinal analysis](Stability.html)
-would be necessary to establish bistability).
-
-
-```r
-# Log10 abundance for a selected taxonomic group
-tax <- bimodal
-
-# Detect tipping points detection at log10 abundances 
-x <- log10(abundances(pseq)[tax,])
-
-# Bootstrapped potential analysis to identify potential minima
-set.seed(3432)
-potential.minima <- potential_analysis(log10(abundances(pseq)[tax,]), bs.iter = 50)$minima
-
-# Identify the potential minimum location as a tipping point candidate
-# and cast the tipping back to the original (non-log) space:
-tipping.point <- 10^potential.minima
-print(tipping.point)
-```
-
-```
-## [1] 0.009474153
-```
 
 
 ## Variation lineplot and bimodality hotplot
@@ -915,7 +868,8 @@ Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) 
 p <- hotplot(pseq0, tax, tipping.point = tipping.point)
 print(p)
 
-pv <- plot_tipping(pseq, tax, tipping.point = tipping.point)
+# Set tipping point manually in this example
+pv <- plot_tipping(pseq, tax, tipping.point = 0.01)
 print(pv)
 ```
 
@@ -968,7 +922,7 @@ print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
 ```
 
 ```
-## [1] 0.2
+## [1] 0.28
 ```
 
 
@@ -976,7 +930,7 @@ print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
 
 ### Acknowledgements
 
-The main developer is [Leo Lahti](https://github.com/antagomir/). Package co-authors include Jarkko Salojärvi and Sudarshan Shetty, and contributor Tineka Blake and [others](https://github.com/microbiome/microbiome/graphs/contributors). Financial support has been provided by Academy of Finland (grants 256950 and 295741), [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics, [VIB lab for Bioinformatics and (eco-)systems biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx), VIB/KULeuven, Belgium, [Molecular Ecology group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology, Wageningen University, Netherlands, and [Department of Veterinary Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm), University of Helsinki, Finland. This work relies on the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis developed by Paul McMurdie and Susan Holmes. 
+We like to thank all [contributors](https://github.com/microbiome/microbiome/graphs/contributors). Financial support has been provided by Academy of Finland (grants 256950 and 295741), [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics, [VIB lab for Bioinformatics and (eco-)systems biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx), VIB/KULeuven, Belgium, [Molecular Ecology group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology, Wageningen University, Netherlands, and [Department of Veterinary Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm), University of Helsinki, Finland. This work relies on the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis developed by Paul McMurdie and Susan Holmes. 
 
 
 
