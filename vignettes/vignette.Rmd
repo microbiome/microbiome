@@ -124,48 +124,6 @@ print(m)
 
 
 
-## Microbiota composition
-  
-Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
-  
-```{r composition-example1}
-# Just use prevalent taxa to speed up examples
-# (not absolute counts used in this example)
-pseq <- core(dietswap, detection = 10^3, prevalence = 95/100)
-
-# Pick sample subset
-library(phyloseq)
-pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR" & timepoint.within.group == 1)
-```
-
-### Composition barplots
-
-Microbiota composition with relative abundances, averaged per BMI group
- 
-```{r composition-example4b, fig.width=10, fig.height=5, out.width="500px", fig.show="hold", fig.cap = "Figure caption goes here.", warning=FALSE, message=FALSE}
-# Try another theme
-# from https://github.com/hrbrmstr/hrbrthemes
-library(hrbrthemes)
-library(gcookbook)
-library(tidyverse)
-
-# Limit the analysis on core taxa and specific sample group
-p <- plot_composition(pseq2,
-		      average_by = "bmi_group", 
-		      taxonomic.level = "OTU",
-                      sample.sort = "nationality",
-                      x.label = "nationality",
-                      transform = "compositional") +
-     guides(fill = guide_legend(ncol = 1)) +
-     scale_y_percent() +
-     labs(x = "Samples", y = "Relative abundance (%)",
-                                   title = "Relative abundance data",
-                                   subtitle = "Subtitle",
-                                   caption = "Caption text.") + 
-     theme_ipsum(grid="Y")
-print(p)  
-```
-
 
 
 
@@ -224,26 +182,24 @@ boxplot(list(LGG = b.lgg, Placebo = b.pla))
 
 
 
+
   
 ## Microbiota composition
-  
-
-Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html).
   
 Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
   
 ```{r composition-examples1}
+# Read and Pick sample subset
 pseq <- core(dietswap, detection = 10^3, prevalence = 95/100)
-
-# Pick sample subset
 pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR" & timepoint.within.group == 1)
 ```
 
-### Barplots for composition
 
-Same with compositional (relative) abundances:
-  
-```{r composition-examples4b, fig.width=12, fig.height=5, out.width="300px", fig.show="hold", eval=FALSE}
+### Composition barplots
+
+Microbiota composition with relative abundances, averaged per BMI group
+ 
+```{r composition-example4b, fig.width=10, fig.height=5, out.width="500px", fig.show="hold", fig.cap = "Figure caption goes here.", warning=FALSE, message=FALSE}
 # Try another theme
 # from https://github.com/hrbrmstr/hrbrthemes
 library(hrbrthemes)
@@ -252,6 +208,7 @@ library(tidyverse)
 
 # Limit the analysis on core taxa and specific sample group
 p <- plot_composition(pseq2,
+		      average_by = "bmi_group", 
 		      taxonomic.level = "OTU",
                       sample.sort = "nationality",
                       x.label = "nationality",
@@ -267,31 +224,18 @@ print(p)
 ```
 
 
-Averaged by group:
+Heatmap for CLR-transformed abundances, with samples and OTUs sorted with the neatmap method:
   
-```{r composition-examples4c, fig.width=12, fig.height=5, eval=FALSE}
-p <- plot_composition(pseq2,
-                      average_by = "bmi_group", transform = "compositional")
+```{r composition-examples7, fig.width=10, fig.height=3, eval = TRUE}
+p <- plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
+                      sample.sort = "neatmap", otu.sort = "neatmap",
+                      mar = c(6, 13, 1, 1))
 print(p)
 ```
 
 
 
-### Composition heatmaps
-
-
-Heatmap for CLR-transformed abundances, with samples and OTUs sorted with the neatmap method:
-  
-```{r composition-examples7, fig.width=10, fig.height=3, eval = FALSE}
-plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
-                      sample.sort = "neatmap", otu.sort = "neatmap",
-                      mar = c(6, 13, 1, 1))
-```
-
-
-
 ## Core microbiota analysis
-
 
 ### Core abundance
 

@@ -125,52 +125,6 @@ print(m)
 
 
 
-## Microbiota composition
-  
-Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
-  
-
-```r
-# Just use prevalent taxa to speed up examples
-# (not absolute counts used in this example)
-pseq <- core(dietswap, detection = 10^3, prevalence = 95/100)
-
-# Pick sample subset
-library(phyloseq)
-pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR" & timepoint.within.group == 1)
-```
-
-### Composition barplots
-
-Microbiota composition with relative abundances, averaged per BMI group
- 
-
-```r
-# Try another theme
-# from https://github.com/hrbrmstr/hrbrthemes
-library(hrbrthemes)
-library(gcookbook)
-library(tidyverse)
-
-# Limit the analysis on core taxa and specific sample group
-p <- plot_composition(pseq2,
-		      average_by = "bmi_group", 
-		      taxonomic.level = "OTU",
-                      sample.sort = "nationality",
-                      x.label = "nationality",
-                      transform = "compositional") +
-     guides(fill = guide_legend(ncol = 1)) +
-     scale_y_percent() +
-     labs(x = "Samples", y = "Relative abundance (%)",
-                                   title = "Relative abundance data",
-                                   subtitle = "Subtitle",
-                                   caption = "Caption text.") + 
-     theme_ipsum(grid="Y")
-print(p)  
-```
-
-<img src="figure/composition-example4b-1.png" title="Figure caption goes here." alt="Figure caption goes here." width="500px" />
-
 
 
 
@@ -187,10 +141,10 @@ head(kable(g))
 ```
 ## [1] "|           | richness_0| richness_20| richness_50| richness_80| diversities_inverse_simpson| diversities_gini_simpson| diversities_shannon| diversities_fisher| diversities_coverage| evenness_camargo| evenness_pielou| evenness_simpson| evenness_evar| evenness_bulla| dominance_DBP| dominance_DMN| dominance_absolute| dominance_relative| dominance_simpson| dominance_core_abundance| dominance_gini| rarity_log_modulo_skewness| rarity_low_abundance| rarity_noncore_abundance| rarity_rare_abundance|"
 ## [2] "|:----------|----------:|-----------:|-----------:|-----------:|---------------------------:|------------------------:|-------------------:|------------------:|--------------------:|----------------:|---------------:|----------------:|-------------:|--------------:|-------------:|-------------:|------------------:|------------------:|-----------------:|------------------------:|--------------:|--------------------------:|--------------------:|------------------------:|---------------------:|"
-## [3] "|Sample-1   |         17|          11|           6|           2|                    3.262584|                0.6934945|           1.7547372|           1.369147|                    1|        0.2877952|       0.6193452|        0.1919167|     0.3432230|      0.3985588|     0.5179209|     0.6786751|             175035|          0.5179209|         0.3065055|                        1|      0.7122048|                   2.018715|            0.0000000|                        0|                     0|"
-## [4] "|Sample-2   |         17|          17|          12|           8|                    5.182122|                0.8070289|           2.0512530|           1.245812|                    2|        0.3631976|       0.7240023|        0.3048307|     0.3274168|      0.4857442|     0.3073286|     0.5892241|             323085|          0.3073286|         0.1929711|                        1|      0.6368024|                   1.864696|            0.0000000|                        0|                     0|"
-## [5] "|Sample-3   |         17|          16|          15|           7|                    2.934229|                0.6591949|           1.7158810|           1.212312|                    1|        0.2970324|       0.6056307|        0.1726017|     0.3477229|      0.3941255|     0.5613834|     0.6846838|             837328|          0.5613834|         0.3408051|                        1|      0.7029676|                   1.615603|            0.0015125|                        0|                     0|"
-## [6] "|Sample-4   |         17|          17|          12|           4|                    4.318511|                0.7684387|           2.0452282|           1.302983|                    2|        0.3825480|       0.7218758|        0.2540301|     0.4311044|      0.5069685|     0.4468195|     0.5474389|             269963|          0.4468195|         0.2315613|                        1|      0.6174520|                   1.731414|            0.0000000|                        0|                     0|"
+## [3] "|Sample-1   |        112|         104|          61|          27|                    7.562984|                0.8677771|            2.942723|           12.16148|                    4|        0.1378045|       0.6045614|        0.0581768|     0.0736465|      0.2925991|     0.3279166|     0.4296966|             175035|          0.3279166|         0.1322229|                0.9274756|      0.8621955|                   2.059086|            0.0291825|                0.0150193|                     0|"
+## [4] "|Sample-2   |        118|         110|          68|          39|                    8.105283|                0.8766237|            2.824184|           11.11824|                    3|        0.1159349|       0.5802083|        0.0623483|     0.0722394|      0.2506029|     0.2428268|     0.4655585|             323085|          0.2428268|         0.1233763|                0.9328351|      0.8840651|                   2.058747|            0.0302304|                0.0350443|                     0|"
+## [5] "|Sample-3   |        113|         104|          71|          37|                    4.292701|                0.7670464|            2.409584|           10.80073|                    2|        0.0919433|       0.4950318|        0.0330208|     0.0608332|      0.2233591|     0.4593873|     0.5602856|             837328|          0.4593873|         0.2329536|                0.9513098|      0.9080567|                   2.056009|            0.0341229|                0.0095056|                     0|"
+## [6] "|Sample-4   |        114|         106|          73|          30|                    7.937365|                0.8740136|            2.994672|           11.62450|                    4|        0.1433967|       0.6152338|        0.0610567|     0.0692447|      0.2829995|     0.3229230|     0.3956421|             269963|          0.3229230|         0.1259864|                0.8617545|      0.8566033|                   2.054981|            0.0349690|                0.0370659|                     0|"
 ```
 
 You can also call the individual indicator functions for more options
@@ -244,26 +198,24 @@ boxplot(list(LGG = b.lgg, Placebo = b.pla))
 
 
 
+
   
 ## Microbiota composition
-  
-
-Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html).
   
 Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
   
 
 ```r
+# Read and Pick sample subset
 pseq <- core(dietswap, detection = 10^3, prevalence = 95/100)
-
-# Pick sample subset
 pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR" & timepoint.within.group == 1)
 ```
 
-### Barplots for composition
 
-Same with compositional (relative) abundances:
-  
+### Composition barplots
+
+Microbiota composition with relative abundances, averaged per BMI group
+ 
 
 ```r
 # Try another theme
@@ -274,6 +226,7 @@ library(tidyverse)
 
 # Limit the analysis on core taxa and specific sample group
 p <- plot_composition(pseq2,
+		      average_by = "bmi_group", 
 		      taxonomic.level = "OTU",
                       sample.sort = "nationality",
                       x.label = "nationality",
@@ -288,34 +241,52 @@ p <- plot_composition(pseq2,
 print(p)  
 ```
 
-
-Averaged by group:
-  
-
-```r
-p <- plot_composition(pseq2,
-                      average_by = "bmi_group", transform = "compositional")
-print(p)
-```
-
-
-
-### Composition heatmaps
+<img src="figure/composition-example4b-1.png" title="Figure caption goes here." alt="Figure caption goes here." width="500px" />
 
 
 Heatmap for CLR-transformed abundances, with samples and OTUs sorted with the neatmap method:
   
 
 ```r
-plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
+p <- plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
                       sample.sort = "neatmap", otu.sort = "neatmap",
                       mar = c(6, 13, 1, 1))
+```
+
+![plot of chunk composition-examples7](figure/composition-examples7-1.png)
+
+```r
+print(p)
+```
+
+```
+## $colors
+##  [1] "#0000FF" "#1919FF" "#3333FF" "#4C4CFF" "#6666FF" "#7F7FFF" "#9999FF"
+##  [8] "#B2B2FF" "#CCCCFF" "#E5E5FF" "#FFFFFF" "#FFE5E5" "#FFCBCB" "#FFB2B2"
+## [15] "#FF9898" "#FF7F7F" "#FF6565" "#FF4C4C" "#FF3232" "#FF1919" "#FF0000"
+## 
+## $breaks
+##  [1] -1000000.90       -0.95       -0.85       -0.75       -0.65
+##  [6]       -0.55       -0.45       -0.35       -0.25       -0.15
+## [11]       -0.05        0.05        0.15        0.25        0.35
+## [16]        0.45        0.55        0.65        0.75        0.85
+## [21]        0.95  1000000.90
+## 
+## $palette.function
+## function (n) 
+## {
+##     x <- ramp(seq.int(0, 1, length.out = n))
+##     if (ncol(x) == 4L) 
+##         rgb(x[, 1L], x[, 2L], x[, 3L], x[, 4L], maxColorValue = 255)
+##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
+## }
+## <bytecode: 0x55842bc04388>
+## <environment: 0x5584286111d8>
 ```
 
 
 
 ## Core microbiota analysis
-
 
 ### Core abundance
 
