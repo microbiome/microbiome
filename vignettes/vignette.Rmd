@@ -4,7 +4,9 @@ author: "Leo Lahti, Sudarshan Shetty, et al."
 bibliography: 
 - bibliography.bib
 date: "`r Sys.Date()`"
-output: 
+output:
+  rmarkdown::pdf_document:
+    toc: true
   rmarkdown::html_vignette:
     fig_caption: yes
 vignette: >
