@@ -61,42 +61,31 @@ library(microbiome)
 ```
 
 
-## Microbiome data
+## Data
 
-The R tools are designed to operate on the phyloseq standard data format for 16S microbiome profiling data. A phyloseq data object typically contains an OTU table (taxa abundances), sample metadata, taxonomy table (mapping between OTUs and higher-level taxonomic classifications), and a phylogenetic tree (relations between the taxa). Some of these are optional. For a full description, see the phyloseq package. 
+### Example data sets and microbiome data import
 
-**Importing standard data formats** The microbiome package has import functions for standard 16S data formats (Simple CSV, Mothur, biom). For details, see the function help. Additional [import functions](http://joey711.github.io/phyloseq/import-data) in the phyloseq R package. To import BIOM files, for instance, use
+The functions operate on the [phyloseq](http://joey711.github.io/phyloseq) data format for 16S microbiome profiling data. A typical phyloseq data object contains an OTU table (taxa abundances), sample metadata, taxonomy table (mapping between OTUs and higher-level taxonomic classifications), and a phylogenetic tree (relations between the taxa). 
 
-```{r read_phyloseq, eval=FALSE}
-pseq <- read_phyloseq(otu.file, taxonomy.file, metadata.file, type = "biom")
+The [tutorial](http://microbiome.github.io/microbiome/Data.html) describes how to import data from standard formats (Mother, BIOM, CSV).
+
+Moreover, the microbiome R package provides multiple [example data sets](http://microbiome.github.io/microbiome/Data.html):
+
+ * atlas1006: HITChip Atlas data set ([Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)), which contains 130 genus-like taxonomic groups across 1006 western adults with no reported health complications. Some subjects have also short time series. 
+
+```{r atlasdata}
+data(atlas1006) 
 ```
 
-**Preparing phyloseq data in R** Alternatively, you can read data from any format in R (for instance with read.table, read.csv or other standard functions) and convert into phyloseq format manually. The procedure is well explained in the [phyloseq tutorial](http://joey711.github.io/phyloseq/import-data). 
+ * dietswap: This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets, reported in [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342)
 
-
-To pick metadata, taxonomy table, and OTU abundances from a phyloseq object, you can use
-
-```{r data21b}
-# Load example data
-data(dietswap)
-pseq <- dietswap
-
-meta <- meta(pseq)
-taxonomy <- tax_table(pseq)
-otu <- abundances(pseq)
+```{r dietswapdata}
+data(dietswap) 
 ```
 
-You can also add new metadata (df is your data.frame) to a phyloseq object
+ * peerj32: a gut microbiome profiling data set, which includes parallel profiling of intestinal microbiota versus blood metabolites from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) to characterize associations between human intestinal microbiota and blood serum lipids. 
 
-```{r add_metadata, eval=FALSE}
-pseq2 <- merge_phyloseq(pseq, sample_data(df))
-```
-
-
-
-### Example data sets
-
-The package provides several [example data sets](http://microbiome.github.io/microbiome/Data.html), including the HITChip Atlas data set ([Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)), which contains 130 genus-like taxonomic groups across 1006 western adults with no reported health complications. Some subjects have also short time series. Other example data sets include a diet swap study between Rural and Western populations. This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets, reported in [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342), and parallel profiling of intestinal microbiota versus blood metabolites from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) characterizes associations between human intestinal microbiota and blood serum lipids. You can load these example data sets in R 
+You can load these example data sets in R 
 
 ```{r atlasdata}
 data(atlas1006) 
@@ -105,87 +94,37 @@ data(peerj32) # Data from https://peerj.com/articles/32/
 ```
 
 
+### Data manipulation
 
-## Processing taxonomic profiling data
+A phyloseq object can be subsetted, filtered, aggregated, transformed, and otherwise manipulated with the [phyloseq](http://joey711.github.io/phyloseq/) and [microbiome](http://microbiome.github.io/microbiome/Preprocessing.html) tools.
 
-The phyloseq data can be subsetted, filtered, aggregated, transformed, and otherwise manipulated with functions in the [phyloseq](http://joey711.github.io/phyloseq/) and [microbiome](http://microbiome.github.io/microbiome/Preprocessing.html) R packages.
+The microbiome package provides a wrapper for many standard transformations such  as Z, centered log-ratio, hellinger, and log10 transformation. For arbitrary transforms, use the transform_sample_counts function in the phyloseq package. 
 
-The microbiome package provides a wrapper for standard transformations, including "Z", "clr", "hellinger", and "shift". The Log10 transform uses log(1+x) if the data contains zeroes. For arbitrary transforms, use the transform_sample_counts function in the phyloseq package. To convert absolute counts to compositional (relative) abundances, for instance, use
+To convert absolute counts to compositional (relative) abundances, for instance, use
 
 ```{r compositional}
 pseq.compositional <- microbiome::transform(pseq, "compositional")
 ```
 
 
-Conversions between taxonomic levels can be done with the map_levels function, for instance to map Genus (Akkermansia) to Phylum level (Verrucomicrobia)
-
-```{r phylogeny-example2, warning=FALSE, message=FALSE}
-m <- map_levels("Akkermansia", "Genus", "Phylum", tax_table(pseq))
-print(m)
-```
-
-
 
 ## Global Ecosystem Indices (Diversity, Richness, Evenness, Dominance, Rarity)
 
-A comprehensive list of global indicators of the ecosystem state includes various measures for richness, evenness, diversities, dominance, and rarity. The function `global` calls these indicators with standard default parameters. See the function help pages for further options
+Standard ecosystem state variables include richness, evenness, diversity, dominance, and rarity. The function `global` calls these indicators with default parameters. 
 
-```{r global, warning=FALSE, message=FALSE, results="as.is"}
+```{r global, warning=FALSE, message=FALSE}
 g <- global(pseq, index = "all")
 head(kable(g))
 ```
 
-You can also call the individual indicator functions for more options
-
-```{r global2, warning=FALSE, message=FALSE, eval=FALSE}
-# Diversity indicators. 
-d <- diversities(pseq, index = "all")
-
-# Richness with given detection threshold(s).
-r <- richness(pseq)
-
-# Dominance index refers to the abundance of the most abundant species
-do <- dominance(pseq, index = "all")
-
-# Rarity indices quantify the concentration of rare or low abundance taxa
-ra <- rarity(pseq, index = "all")
-
-# Coverage index 
-ci <- coverage(pseq, threshold = 0.5)
-```
-
-
-
-## Beta diversity 
-
-
-### Quantifying group divergence / spread 
-
-Divergence of a given sample set can be quantified as the average dissimilarity of each sample from the group mean; the dissimilarity can be quantified by beta diversity, for instance. This was applied in group-level comparisons for instance in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) (they focused on homogeneity using inverse correlation, whereas here we focus on divergence using correlation but the measure is essentially the same). 
-
-The **inter- and intra-invididual stability** (or homogeneity) measures are obtained as 1-b where b is the group divergence with the anticorrelation method ([Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html)). 
-
-Calculate group divergences within the LGG (probiotic) and Placebo groups
-
-```{r divergence-example2bb, message=FALSE}
-pseq <- peerj32$phyloseq
-b.pla <- divergence(subset_samples(pseq, group == "Placebo"))
-b.lgg <- divergence(subset_samples(pseq, group == "LGG"))
-```
-
-Use these to compare microbiota divergence within each group. The LGG group tends to have smaller values, indicating that the samples are more similar to the group mean, and the LGG group is less heterogeneous (has smaller spread / is more homogeneous):
-
-```{r divergence-example2bbb, message=FALSE, out.width="300px"}
-boxplot(list(LGG = b.lgg, Placebo = b.pla))
-```
-
+See the [tutorial](http://microbiome.github.io/microbiome/Diversity.html) for more options and for functions to quantify [beta diversity](http://microbiome.github.io/microbiome/Betadiversity.html).
 
 
 
   
 ## Microbiota composition
   
-Read example data from a [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
+Use example data from the [diet swap study](http://dx.doi.org/10.1038/ncomms7342):
   
 ```{r composition-examples1}
 # Read and Pick sample subset
