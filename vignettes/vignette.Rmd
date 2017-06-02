@@ -7,8 +7,6 @@ date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette:
     fig_caption: yes
-  rmarkdown::pdf_document:
-    fig_caption: yes    
 vignette: >
   %\VignetteIndexEntry{microbiome R package}
   %\VignetteEngine{knitr::rmarkdown}
@@ -202,12 +200,8 @@ pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR" & timepoint.w
 Microbiota composition with relative abundances, averaged per BMI group
  
 ```{r composition-example4b, fig.width=10, fig.height=5, out.width="500px", fig.show="hold", fig.cap = "Figure caption goes here.", warning=FALSE, message=FALSE}
-# Try another theme
-# from https://github.com/hrbrmstr/hrbrthemes
-library(hrbrthemes)
-library(gcookbook)
 library(tidyverse)
-
+library(hrbrthemes)
 # Limit the analysis on core taxa and specific sample group
 p <- plot_composition(pseq2,
 		      average_by = "bmi_group", 
@@ -217,11 +211,11 @@ p <- plot_composition(pseq2,
                       transform = "compositional") +
      guides(fill = guide_legend(ncol = 1)) +
      scale_y_percent() +
-     labs(x = "Samples", y = "Relative abundance (%)",
-                                   title = "Relative abundance data",
-                                   subtitle = "Subtitle",
-                                   caption = "Caption text.") + 
-     theme_ipsum(grid="Y")
+     labs(x = "Samples", 
+     	  y = "Relative abundance (%)",
+          title = "Relative abundance data",                         
+	  subtitle = "Subtitle",
+          caption = "Caption text.")
 print(p)  
 ```
 
@@ -807,8 +801,6 @@ We like to thank all [contributors](https://github.com/microbiome/microbiome/gra
 [Tipping elements in the human intestinal ecosystem](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) Lahti L, Salojärvi J, Salonen A, Scheffer M, de Vos WM. _Nature Communications_ 5:4344, 2014. 
 
 [Fat, Fiber and Cancer Risk in African, Americans and Rural Africans](http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html)  O’Keefe S, Li JV, Lahti L, Ou J, Carbonero F, Mohammed K, Posma JM, Kinross J, Wahl E, Ruder E, Vipperla K, Naidoo V, Mtshali L, Tims S, Puylaert PGB, DeLany J, Krasinskas A, Benefiel AC, Kaseb HO, Newton K, Nicholson JK, de Vos WM, Gaskins HR, Zoetendal EG. _Nature Communications_ 6:6342, 2015.
-
-[Associations between the human intestinal microbiota, Lactobacillus rhamnosus GG and serum lipids indicated by integrated analysis of high-throughput profiling data](http://dx.doi.org/10.7717/peerj.32) Lahti L, Salonen A, Kekkonen RA, Salojärvi J, Jalanka-Tuovinen J, Palva A, Orešič M, de Vos WM. _PeerJ_ 1:e32, 2013.
 
 [The adult intestinal core microbiota is determined by analysis depth and health status](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) Salonen A, Salojärvi J, Lahti L, and de Vos WM. _Clinical Microbiology and Infection_ 18(S4):16 20, 2012. 
 
