@@ -122,8 +122,9 @@ See the [tutorial](http://microbiome.github.io/microbiome/Diversity.html) for mo
 
 ## Core microbiota analysis
 
+Core papers: (Jalanka-Tuovinen, Salonen, ä, et al., 2011; Salonen, Salojärvi, Lahti, et al., 2012), 
 
-### Prevalence 
+**Prevalence**
 
 Relative population frequencies; at 1% compositional abundance threshold:
 
@@ -140,7 +141,7 @@ head(prevalence(pseq.rel, detection = 1, sort = TRUE))
 ```
 
 
-If you only need the names of the core taxa, do as follows. This returns the taxa that exceed the given prevalence and detection thresholds. 
+This returns names of the core taxa 
 
 
 ```r
@@ -155,16 +156,10 @@ pseq.core <- core(pseq.rel, detection = 0, prevalence = .5)
 ```
 
 
-Core papers: (Jalanka-Tuovinen, Salonen, ä, et al., 2011; Salonen, Salojärvi, Lahti, et al., 2012), 
-
 See also core abundance.
 
 See also related functions for the analysis of rare and variable taxa (noncore_members; noncore_abundance; rare_members; rare_abundance; low_abundance).
 
-
-### Core heatmaps
-
-See also composition.
 
 This visualization method has been used for instance in [Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Shetty et al. _FEMS Microbiology Reviews_ fuw045, 2017.
 
@@ -215,8 +210,9 @@ print(p)
 <img src="figure/core-example3-1.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="200px" /><img src="figure/core-example3-2.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="200px" /><img src="figure/core-example3-3.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="200px" />
 
 
-
 ## Microbiome Landscaping
+
+See also composition.
 
 [Microbiome Landscaping](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539) refers to the analysis and illustration of population frequencies. Typically, these are wrappers based on standard ordination methods (for more examples, see [ordination examples](http://microbiome.github.io/microbiome/Ordination.html))
 
@@ -267,11 +263,6 @@ print(p)
 ```
 
 <img src="figure/landscape4-1.png" title="plot of chunk landscape4" alt="plot of chunk landscape4" width="400px" /><img src="figure/landscape4-2.png" title="plot of chunk landscape4" alt="plot of chunk landscape4" width="400px" />
-
-
-
-* [Networks](Networks.html)
-
 
 
 
@@ -649,7 +640,11 @@ print(pv)
 <img src="figure/stability-variationplot2-1.png" title="plot of chunk stability-variationplot2" alt="plot of chunk stability-variationplot2" width="430px" /><img src="figure/stability-variationplot2-2.png" title="plot of chunk stability-variationplot2" alt="plot of chunk stability-variationplot2" width="430px" />
 
 
-## Group-wise comparisons
+## Other tools
+
+* [Networks](Networks.html)
+
+### Group-wise comparisons
 
 A number of methods for microbiota community comparisons have been proposed. For a recent benchmarking study, see [Weiss et al. (2017)](http://doi.org/10.1186/s40168-017-0237-y). For a comprehensive example workflow, see [Callahan et al. F1000 (2017)](https://f1000research.com/articles/5-1492/v2). Other methods, not implemented here (see [Weiss et al. (2017)](http://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-017-0237-y) for a recent survey):
 
@@ -662,6 +657,8 @@ For community-level multivariate comparisons
  * [Multivariate linear models (limma)](limma.html)
  * PERMANOVA quantifies multivariate community-level differences between
    groups..
+
+
 
 
 ### Acknowledgements
