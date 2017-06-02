@@ -152,12 +152,6 @@ See also core abundance.
 
 See also related functions for the analysis of rare and variable taxa (noncore_members; noncore_abundance; rare_members; rare_abundance; low_abundance).
 
-```{r core-prevalence}
-pseq <- peerj32$phyloseq
-# Calculate compositional version of the data
-# (relative abundances)
-pseq.rel <- microbiome::transform(pseq, "compositional")
-```
 
 ### Core heatmaps
 
