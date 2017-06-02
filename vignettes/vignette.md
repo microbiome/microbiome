@@ -3,10 +3,12 @@ title: "Introduction to the microbiome R package"
 author: "Leo Lahti, Sudarshan Shetty, et al."
 bibliography: 
 - bibliography.bib
-date: "2017-05-23"
+date: "2017-06-02"
 output: 
   rmarkdown::html_vignette:
     fig_caption: yes
+  rmarkdown::pdf_document:
+    fig_caption: yes    
 vignette: >
   %\VignetteIndexEntry{microbiome R package}
   %\VignetteEngine{knitr::rmarkdown}
@@ -280,8 +282,8 @@ print(p)
 ##         rgb(x[, 1L], x[, 2L], x[, 3L], x[, 4L], maxColorValue = 255)
 ##     else rgb(x[, 1L], x[, 2L], x[, 3L], maxColorValue = 255)
 ## }
-## <bytecode: 0x55842bc04388>
-## <environment: 0x5584331ca658>
+## <bytecode: 0x5632060733e8>
+## <environment: 0x56320be577a8>
 ```
 
 

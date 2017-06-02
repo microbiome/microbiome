@@ -7,6 +7,8 @@ date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette:
     fig_caption: yes
+  rmarkdown::pdf_document:
+    fig_caption: yes    
 vignette: >
   %\VignetteIndexEntry{microbiome R package}
   %\VignetteEngine{knitr::rmarkdown}
