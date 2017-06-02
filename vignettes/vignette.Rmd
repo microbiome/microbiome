@@ -71,34 +71,28 @@ The [tutorial](http://microbiome.github.io/microbiome/Data.html) describes how t
 
 Moreover, the microbiome R package provides multiple [example data sets](http://microbiome.github.io/microbiome/Data.html):
 
- * atlas1006: HITChip Atlas data set ([Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)), which contains 130 genus-like taxonomic groups across 1006 western adults with no reported health complications. Some subjects have also short time series. 
+**atlas1006** HITChip Atlas data set ([Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)), which contains 130 genus-like taxonomic groups across 1006 western adults with no reported health complications. Some subjects have also short time series. 
 
 ```{r atlasdata}
 data(atlas1006) 
 ```
 
- * dietswap: This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets, reported in [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342)
+**dietswap** This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets, reported in [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342)
 
 ```{r dietswapdata}
 data(dietswap) 
 ```
 
- * peerj32: a gut microbiome profiling data set, which includes parallel profiling of intestinal microbiota versus blood metabolites from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) to characterize associations between human intestinal microbiota and blood serum lipids. 
-
-You can load these example data sets in R 
+**peerj32** a gut microbiome profiling data set, which includes parallel profiling of intestinal microbiota versus blood metabolites from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) to characterize associations between human intestinal microbiota and blood serum lipids. 
 
 ```{r peerjdata}
-data(atlas1006) 
-data(dietswap) 
 data(peerj32) # Data from https://peerj.com/articles/32/
 ```
 
 
 ### Data manipulation
 
-A phyloseq object can be subsetted, filtered, aggregated, transformed, and otherwise manipulated with the [phyloseq](http://joey711.github.io/phyloseq/) and [microbiome](http://microbiome.github.io/microbiome/Preprocessing.html) tools.
-
-The microbiome package provides a wrapper for many standard transformations such  as Z, centered log-ratio, hellinger, and log10 transformation. For arbitrary transforms, use the transform_sample_counts function in the phyloseq package. 
+A phyloseq object can be subsetted, filtered, aggregated, transformed, and otherwise manipulated with the [phyloseq](http://joey711.github.io/phyloseq/) and [microbiome](http://microbiome.github.io/microbiome/Preprocessing.html) tools. The microbiome package provides a wrapper for many standard transformations such  as Z, centered log-ratio, hellinger, log10, and other transformations. For arbitrary transforms, use the transform_sample_counts function in the phyloseq package. 
 
 To convert absolute counts to compositional (relative) abundances, for instance, use
 
@@ -112,7 +106,7 @@ pseq.compositional <- microbiome::transform(pseq, "compositional")
 
 Standard ecosystem state variables include richness, evenness, diversity, dominance, and rarity. The function `global` calls these indicators with default parameters. 
 
-```{r global, warning=FALSE, message=FALSE, results="asis"}
+```{r global, warning=FALSE, message=FALSE, results="as.is"}
 g <- global(dietswap, index = "all")
 head(kable(g))
 ```
