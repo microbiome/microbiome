@@ -7,6 +7,8 @@ date: "`r Sys.Date()`"
 output:
   rmarkdown::pdf_document:
     toc: true
+  rmarkdown::md_document:
+    toc: true    
   rmarkdown::html_vignette:
     fig_caption: yes
 vignette: >
@@ -124,12 +126,7 @@ print(m)
 
 
 
-
-
-
-
-
-## Global Ecosystem State Variables 
+## Ecosystem Diversity Indices
 
 A comprehensive list of global indicators of the ecosystem state includes various measures for richness, evenness, diversities, dominance, and rarity. The function `global` calls these indicators with standard default parameters. See the function help pages for further options
 
