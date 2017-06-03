@@ -22,21 +22,16 @@ vignette: >
 
 ## Introduction
 
-The [microbiome R package](http://microbiome.github.io/microbiome) provides tools for the exploration and analysis of microbiome profiling data, with a focus on large-scale population studies and 16S taxonomic profiling. This package is based on the [phyloseq](http://joey711.github.io/phyloseq/import-data) class structure and extends the generic [phyloseq](https://github.com/joey711/phyloseq) framework for R based microbiome analysis, but it is independent work.
+The [microbiome R package](http://microbiome.github.io/microbiome) facilitates exploration and analysis of microbiome profiling data, in particular 16S taxonomic profiling. Here we provide a brief overview to the package functionality using example data sets from published studies [@lahti14natcomm, @Lahti13provasI, @OKeefe15]. A comprehensive tutorial is available [on-line](http://microbiome.github.io/microbiome). 
 
-This tutorial provides a brief overview on the package functionality with example data sets from published studies [@lahti14natcomm, @Lahti13provasI @OKeefe15].
+The microbiome R package has been utilized in recent publications [@salonen14, @Faust15, @Shetty2017], and is released under the [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses). The package extends the independent [phyloseq](http://joey711.github.io/phyloseq/import-data) class structure and [tools](http://joey711.github.io/phyloseq/).
 
-For a complete description of the package functionality, see the [on-line tutorial](http://microbiome.github.io/microbiome). Other useful on-line resources for starters include [R cheat sheets](http://devcheatsheet.com/tag/r/), [Rmarkdown tips](http://rmarkdown.rstudio.com/), [instructions on using Github with R and RStudio](http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/). The [molecular ecologist's view on code sharing](http://www.molecularecologist.com/2013/08/want-to-share-your-code/) is also worth reading.
+Input from the user community is very welcome via the [issue tracker](https://github.com/microbiome/microbiome/issues) or [pull requests](http://microbiome.github.io/microbiome/Contributing.html). See the [Github site](https://github.com/microbiome/microbiome) for source code and other details. 
 
-The package utilizes tools from a number of other R extensions, including ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007), dplyr (Wickham and Francois, 2016), ggplot2 (Wickham, 2009), MASS (Venables and Ripley, 2002), moments (Komsta and Novomestky, 2015), phyloseq (McMurdie and Holmes, 2013), RColorBrewer (Neuwirth, 2014), scales (Wickham, 2016), stats (R Core Team, 2017), tidyr (Wickham, 2017), vegan (Oksanen, Blanchet, Friendly, et al., 2017).
+Kindly cite the work as follows: "Leo Lahti [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). Tools for microbiome analysis in R. Microbiome package version 0.99.1. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). 
 
-The microbiome R package has been utilized in our recent publications (Salonen, Lahti, Salojärvi, et al., 2014; Faust, Lahti, Gonze, et al., 2015; Shetty, Hugenholtz, Lahti, et al., 2017). Kindly cite the work as follows: "Leo Lahti [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). Tools for microbiome analysis in R. Microbiome package version 0.99.1. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). The microbiome package and examples can be openly used, modified and distributed under the [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
 
-We welcome input from the user community. Kindly use the [issue tracker](https://github.com/microbiome/microbiome/issues) to report problems, bugs, feature suggestions or other feedback. You can also make [pull requests](Contributing.html) for new package functionality, or examples in the vignette and tutorial pages. See the [Github site](https://github.com/microbiome/microbiome) for further details. 
-
-See also [phyloseq tutorial](http://joey711.github.io/phyloseq/).
-
-## Getting started
+## Installation
 
 To install microbiome package (the latest development version) in R, use
 
@@ -56,29 +51,26 @@ library(microbiome)
 
 ## Data
 
-### Example data sets and microbiome data import
+A [phyloseq](http://joey711.github.io/phyloseq) data object typically contains an OTU table (taxa abundances), sample metadata, taxonomy table (mapping between OTUs and higher-level taxonomic classifications), and a phylogenetic tree (relations between the taxa). 
 
-The functions operate on the [phyloseq](http://joey711.github.io/phyloseq) data format for 16S microbiome profiling data. A typical phyloseq data object contains an OTU table (taxa abundances), sample metadata, taxonomy table (mapping between OTUs and higher-level taxonomic classifications), and a phylogenetic tree (relations between the taxa). 
 
-The [tutorial](http://microbiome.github.io/microbiome/Data.html) describes how to import data from standard formats (Mother, BIOM, CSV).
+### Example data
 
-Moreover, the microbiome R package provides multiple [example data sets](http://microbiome.github.io/microbiome/Data.html):
-
-[HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) **atlas1006** HITChip Atlas data set ([Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)), which contains 130 genus-like taxonomic groups across 1006 western adults with no reported health complications. Some subjects have also short time series. Get example data - [HITChip Atlas of 130 genus-like taxa across 1006 healthy western adults](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). 
+HITChip Atlas data set [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)) contains 130 genus-level taxonomic groups across 1006 western adults. Get example data with
 
 
 ```r
 data(atlas1006) 
 ```
 
-**dietswap** This is a two-week diet swap study between western (USA) and traditional (rural Africa) diets, reported in [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342)
+A two-week diet swap study between western (USA) and traditional (rural Africa) diets, reported in [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342)
 
 
 ```r
 data(dietswap) 
 ```
 
-**peerj32** a gut microbiome profiling data set, which includes parallel profiling of intestinal microbiota versus blood metabolites from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) to characterize associations between human intestinal microbiota and blood serum lipids. 
+A gut microbiome profiling data set, which includes parallel profiling of intestinal microbiota versus blood metabolites from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) to characterize associations between human intestinal microbiota and blood serum lipids. 
 
 
 ```r
@@ -86,22 +78,28 @@ data(peerj32) # Data from https://peerj.com/articles/32/
 ```
 
 
+### Data import
+
+The [tutorial](http://microbiome.github.io/microbiome/Data.html) describes how to import data from standard formats (Mother, BIOM, CSV).
+
+
 ### Data manipulation
 
-A phyloseq object can be subsetted, filtered, aggregated, transformed, and otherwise manipulated with the [phyloseq](http://joey711.github.io/phyloseq/) and [microbiome](http://microbiome.github.io/microbiome/Preprocessing.html) tools. The microbiome package provides a wrapper for many standard transformations such  as Z, centered log-ratio, hellinger, log10, and other transformations. For arbitrary transforms, use the transform_sample_counts function in the phyloseq package. 
+A phyloseq object can be subsetted, filtered, aggregated, transformed, and otherwise manipulated with the [phyloseq](http://joey711.github.io/phyloseq/) and [microbiome](http://microbiome.github.io/microbiome/Preprocessing.html) tools. The microbiome package provides a wrapper for many standard transformations such  as Z, centered log-ratio, hellinger, log10, and other transformations. 
 
 To convert absolute counts to compositional (relative) abundances, for instance, use
 
 
 ```r
-pseq.comp <- microbiome::transform(dietswap, "compositional")
+pseq.comp <- transform(dietswap, "compositional")
 ```
 
 
 
 ## Diversity and other ecosystem indices 
 
-Standard ecosystem state variables include richness, evenness, diversity, dominance, and rarity. The function `global` calls these indicators with default parameters. 
+Standard ecosystem state variables include richness, evenness, alpha diversity, dominance, and rarity. The function `global` calls these indicators with default parameters. For further options and [beta diversity](http://microbiome.github.io/microbiome/Betadiversity.html) quantification, see the [tutorial](http://microbiome.github.io/microbiome/Diversity.html). 
+
 
 
 ```r
@@ -182,13 +180,10 @@ print(kable(head(g, 10), format = "html"))
 </tbody>
 </table>
 
-See the [tutorial](http://microbiome.github.io/microbiome/Diversity.html) for more options as well as for functions to quantify [beta diversity](http://microbiome.github.io/microbiome/Betadiversity.html).
-
 
 
 ## Core microbiota analysis
 
-Core papers: (Jalanka-Tuovinen, Salonen, ä, et al., 2011; Salonen, Salojärvi, Lahti, et al., 2012), 
 
 **Prevalence**
 
@@ -221,11 +216,11 @@ A full phyloseq object of the core microbiota is obtained as follows:
 pseq.core <- core(pseq.rel, detection = 0, prevalence = .5)
 ```
 
+Core papers: [@Jalanka-Tuovinen11, @Salonen12cmi]
 
 See also core abundance.
 
 See also related functions for the analysis of rare and variable taxa (noncore_members; noncore_abundance; rare_members; rare_abundance; low_abundance).
-
 
 This visualization method has been used for instance in [Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Shetty et al. _FEMS Microbiology Reviews_ fuw045, 2017.
 
@@ -464,7 +459,7 @@ print(pv)
 
 ### Acknowledgements
 
-Thanks to all [contributors](https://github.com/microbiome/microbiome/graphs/contributors). Financial support has been provided by Academy of Finland (grants 256950 and 295741), [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics, [VIB lab for Bioinformatics and (eco-)systems biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx), VIB/KULeuven, Belgium, [Molecular Ecology group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology, Wageningen University, Netherlands, and [Department of Veterinary Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm), University of Helsinki, Finland. This work relies on the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis developed by Paul McMurdie and Susan Holmes. 
+Thanks to all [contributors](https://github.com/microbiome/microbiome/graphs/contributors). Financial support has been provided by Academy of Finland (grants 256950 and 295741), [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics, [VIB lab for Bioinformatics and (eco-)systems biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx), VIB/KULeuven, Belgium, [Molecular Ecology group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology, Wageningen University, Netherlands, and [Department of Veterinary Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm), University of Helsinki, Finland. This work relies on the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis developed by Paul McMurdie and Susan Holmes. This work also utilizes a number of independent R extensions, including ade4 [@ade4], dplyr [@dplyr], ggplot2 [@ggplot2], MASS [@MASS], moments [@moments], phyloseq [@phyloseq], RColorBrewer [@RColorBrewer], scales [@scales], stats [@stats], tidyr [@tidyr], and vegan [@vegan].
 
 
 

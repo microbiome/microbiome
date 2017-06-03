@@ -15,6 +15,8 @@ output: BiocWorkflowTools::f1000_article
 
 The introduction provides context as to why the software tool was developed and what need it addresses.  It is good scholarly practice to mention previously developed tools that address similar needs, and why the current tool is needed.
 
+Useful resources for starters include [R cheat sheets](http://devcheatsheet.com/tag/r/), [Rmarkdown tips](http://rmarkdown.rstudio.com/), [instructions on using Github with R and RStudio](http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/). The [molecular ecologist's view on code sharing](http://www.molecularecologist.com/2013/08/want-to-share-your-code/) is also worth reading.
+
 # Methods
 ## Implementation
 For software tool papers, this section should address how the tool works and any relevant technical details required for implementation of the tool by other developers.
