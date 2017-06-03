@@ -106,9 +106,9 @@ pseq.compositional <- microbiome::transform(pseq, "compositional")
 
 Standard ecosystem state variables include richness, evenness, diversity, dominance, and rarity. The function `global` calls these indicators with default parameters. 
 
-```{r global, warning=FALSE, message=FALSE, results="as.is"}
-g <- global(dietswap, index = "all")
-head(kable(g))
+```{r global, warning=FALSE, message=FALSE, results="asis"}
+g <- global(dietswap, index = "rarity")
+print(head(kable(g, format = "html")))
 ```
 
 See the [tutorial](http://microbiome.github.io/microbiome/Diversity.html) for more options as well as for functions to quantify [beta diversity](http://microbiome.github.io/microbiome/Betadiversity.html).
@@ -161,27 +161,6 @@ p <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray,
     prevalences = prevalences, detections = detections) +
     xlab("Detection Threshold (Relative Abundance (%))")
 print(p)    
-
-
-# Same with the viridis color palette
-# color-blind friendly and uniform
-# options: viridis, magma, plasma, inferno
-# https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
-# Also discrete=TRUE versions available
-library(viridis)
-print(p + scale_fill_viridis())
-
-# Core with absolute counts and horizontal view:
-# and minimum population prevalence (given as percentage)
-detections <- 10^seq(log10(1), log10(max(abundances(pseq))/10), length = 10)
-
-library(RColorBrewer)
-p <- plot_core(pseq, plot.type = "heatmap", 
-       		 prevalences = prevalences,
-       		 detections = detections,
-		 colours = rev(brewer.pal(5, "Spectral")),
-		 min.prevalence = .2, horizontal = TRUE)
-print(p)
 ```
 
 
@@ -267,11 +246,8 @@ kable(head(correlation.table))
 
 Rearrange the data and plot the heatmap and mark significant correlations with stars to reproduce microbiota-lipidome heatmap from [Lahti et al. PeerJ (2013)](https://peerj.com/articles/32/) (the ordering of rows and columns may be different): 
 
-```{r heatmap-example-stars2, message=FALSE, warning=FALSE, fig.keep='none'}
-p <- heat(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
-```
 ```{r heatmap-example-stars3, fig.width=12, fig.height=8, message=FALSE, warning=FALSE}
-print(p)
+heat(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
 ```
 
 
