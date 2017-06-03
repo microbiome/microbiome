@@ -32,7 +32,7 @@ The microbiome R package has been utilized in our recent publications (Salonen, 
 
 We welcome input from the user community. Kindly use the [issue tracker](https://github.com/microbiome/microbiome/issues) to report problems, bugs, feature suggestions or other feedback. You can also make [pull requests](Contributing.html) for new package functionality, or examples in the vignette and tutorial pages. See the [Github site](https://github.com/microbiome/microbiome) for further details. 
 
-
+See also [phyloseq tutorial](http://joey711.github.io/phyloseq/).
 
 ## Getting started
 
@@ -62,7 +62,7 @@ The [tutorial](http://microbiome.github.io/microbiome/Data.html) describes how t
 
 Moreover, the microbiome R package provides multiple [example data sets](http://microbiome.github.io/microbiome/Data.html):
 
-**atlas1006** HITChip Atlas data set ([Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)), which contains 130 genus-like taxonomic groups across 1006 western adults with no reported health complications. Some subjects have also short time series. 
+[HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) **atlas1006** HITChip Atlas data set ([Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)), which contains 130 genus-like taxonomic groups across 1006 western adults with no reported health complications. Some subjects have also short time series. Get example data - [HITChip Atlas of 130 genus-like taxa across 1006 healthy western adults](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). 
 
 
 ```r
@@ -267,55 +267,6 @@ print(p)
 
 
 
-## Heatmaps for microbiome analysis
-
-See [Composition](Composition.html) page for further microbiota composition heatmaps, as well as the [phyloseq tutorial](http://joey711.github.io/phyloseq/plot_heatmap-examples.html) and [Neatmaps](http://www.biomedcentral.com/1471-2105/11/45). Moreover, the [aheatmap](http://nmf.r-forge.r-project.org/aheatmap.html) function of the NMF package provides further high quality heatmap plotting capabilities with row and column annotation color bars, clustering trees and other useful features that are often missing from standard heatmap tools in R.
-
-Load some example data:
-
-
-```r
- # Load libraries
-library(phyloseq)
-data(peerj32)
-pseq <- peerj32$phyloseq    # Rename data
-
-# Pick data subset (DI samples from Phylum Bacteroidetes)
-pseq2 <- pseq %>%
-         subset_taxa(Phylum == "Bacteroidetes") %>%
-         subset_samples(group == "LGG")
-
-# Z transformed abundance data
-pseqz <- microbiome::transform(pseq2, "Z")
-```
-
-
-### Matrix heatmaps
-
-Pick abundance matrix separately and use matrix visualization
-tools. Z-transforming OTUs ie. visualize deviation of all bacteria
-from their population mean (smaller: blue; higher: red):
-
-
-```r
-# Pick OTU table
-x <- abundances(pseqz)
-
-# Find visually appealing order for rows and columns with the Neatmap approach:
-# Sort the matrix rows and cols directly
-xo <- neat(x, method = "NMDS", distance = "euclidean") # Sorted matrix
-tmp <- plot_matrix(xo, type = "twoway", mar = c(5, 12, 1, 1))
-```
-
-![plot of chunk heatmap-matvisu-example](figure/heatmap-matvisu-example-1.png)
-
-```r
-# or use a shortcut to sorting rows (or columns) if just the order was needed 
-sorted.rows <- neatsort(x, "rows", method = "NMDS", distance = "euclidean") 
-```
-
-
-
 ### Cross-correlating data sets
 
 Cross-correlate columns of two data sets from related to microbiome and blood serum lipids associations ([PeerJ 1:e32](https://peerj.com/articles/32/)).
@@ -369,8 +320,6 @@ print(p)
 
 
 
-
-
 ### Bagged RDA
 
 Bagged RDA provides added robustness in the analysis compared to the standard RDA. Fit bagged (bootstrap aggregated) RDA on a phyloseq object.
@@ -417,42 +366,9 @@ print(p)
 ![plot of chunk variability-regression](figure/variability-regression-1.png)
 
 
-
-
-
 ## Microbiome stability analysis
 
-Get example data - [HITChip Atlas of 130 genus-like taxa across 1006 healthy western adults](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). A subset of 76 subjects have also short time series available for temporal stability analysis:
-
-
-```r
-# Load the example data
-set.seed(134)
-
-# Rename the example data
-pseq <- atlas1006
-
-# Focus on specific subset
-pseq <- pseq %>% subset_samples(DNA_extraction_method == "r")
-
-# Use relative abundances
-pseq <- microbiome::transform(pseq, "compositional")
-
-# Keep only the prevalent taxa to speed up examples
-pseq <- core(pseq, detection = .1/100, prevalence = 99/100)
-
-# For cross-sectional analysis, use only the baseline time point:
-pseq0 <- baseline(pseq)
-```
-
-
-### Intermediate stability quantification
-
-It has been reported that certain microbial groups exhibit bi-stable
-abundance distributions with distinct peaks at low and high
-abundances, and an instable intermediate abundance range. Instability
-at the intermediate abundance range is hence one indicator of
-bi-stability. [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) used straightforward correlation analysis to quantify how the distance from the intermediate abundance region (50% quantile) is associated with the observed shifts between consecutive time points. 
+It has been reported that certain microbial groups exhibit bi-stable abundance distributions with an instable intermediate abundance range. [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) used correlation analysis to quantify how the distance from the intermediate abundance region (50% quantile) is associated with the observed shifts between consecutive time points. 
 
 
 ```r
@@ -460,165 +376,30 @@ intermediate.stability <- intermediate_stability(pseq, output = "scores")
 ```
 
 
-### Bimodality quantification
-
-Check the [bimodality page](Bimodality.html) for more examples on bimodality indicators.
-
-Bimodality of the abundance distribution provides another (indirect)
-indicator of bistability, although other explanations such as sampling
-biases etc. should be controlled. Multiple bimodality scores are
-available.
-
-Multimodality score using [potential analysis with bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
-
-
-
-```r
-# Bimodality is better estimated from log10 abundances
-pseq0.log10 <- microbiome::transform(pseq0, "log10")
-
-set.seed(4433)
-# In practice, it is recommended to use more bootstrap iterations than in this example
-bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis",
-                               bs.iter = 10, peak.threshold = 10,
-			       min.density = 10)
-```
-
-
-### Comparing bimodality and intermediate stability
-
-The analysis suggests that bimodal population distribution across individuals is often associated with instable intermediate abundances within individuals. The specific bi-stable groups in the upper left corner were suggested to constitute bistable tipping elements of the human intestinal microbiota in [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
-
-
-```r
-taxa <- taxa(pseq0)
-df <- data.frame(group = taxa,
-                 intermediate.stability = intermediate.stability[taxa],
-		 bimodality = bimodality.score[taxa])
-
-theme_set(theme_bw(20))
-p <- ggplot(df,
-       aes(x = intermediate.stability, y = bimodality, label = group)) +
-       geom_text() +
-       geom_point() 
-print(p)
-```
-
-
-### Tipping point detection
-
-Identify potential minima in cross-section population data as
-tipping point candidates. 
-
-
-```r
-# Log10 abundance for a selected taxonomic group
-# Pick the most bimodal taxa as an example
-tax  <- names(which.max(bimodality.score))
-
-# Detect tipping points detection at log10 abundances 
-x <- abundances(microbiome::transform(pseq, "log10"))[tax,]
-
-# Bootstrapped potential analysis to identify potential minima
-# in practice, use more bootstrap iterations
-potential.minima <- potential_analysis(x, bs.iter = 10)$minima
-
-# Same with earlywarnings package (without bootstrap ie. less robust)
-# library(earlywarnings)
-# res <- livpotential_ews(x)$min.points
-
-# Identify the potential minimum location as a tipping point candidate
-# and cast the tipping back to the original (non-log) space:
-tipping.point <- 10^potential.minima
-
-print(tipping.point)
-```
-
-```
-## [1] 0.004831929
-```
-
-
-### Visualization with variation lineplot and bimodality hotplot
-
-Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation lineplot (**Variation lineplot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). The bi-stable Dialister has bimodal population distribution and reduced temporal stability within subjects at intermediate abundances.
-
-
-Variation plot:
-
-
-```r
-# Indicates the abundance variation range for subjects with multiple time points
-pv <- plot_tipping(pseq, tax, tipping.point = tipping.point)
-print(pv)
-```
-
-<img src="figure/stability-variationplot-1.png" title="plot of chunk stability-variationplot" alt="plot of chunk stability-variationplot" width="430px" />
-
-Bimodality hotplot:
-
-
-```r
-# Consider a unique sample from each subject: the baseline time point 
-ph <- hotplot(pseq0, tax, tipping.point = tipping.point)
-print(ph)
-```
-
-<img src="figure/hotplot-1.png" title="plot of chunk hotplot" alt="plot of chunk hotplot" width="430px" />
-
-### Time series for individual subjects
-
-
-```r
-# Experimental function 
-source(system.file("extdata/plot_longitudinal.R", package = "microbiome"))
-p <- plot_longitudinal(pseq, "Dialister", subject = "831", tipping.point = 0.5)
-print(p)
-```
-
-
-
 ## Bimodality analysis
 
-Get example data - [HITChip Atlas of 130 genus-like taxa across 1006 healthy western adults](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). A subset of 76 subjects have also short time series available for temporal stability analysis:
+Plot the subject abundance variation lineplot (**Variation lineplot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). The bi-stable Dialister has bimodal population distribution and reduced temporal stability within subjects at intermediate abundances. 76 subjects in the HITChip Atlas data (1006) set have also short time series available for temporal stability analysis:
 
 
 ```r
-# Rename the example data
-pseq <- atlas1006
-
-# Focus on specific DNA extraction method
-pseq <- pseq %>% subset_samples(DNA_extraction_method == "r")
-
-# Keep prevalent taxa (HITChip signal >3 in >20 percent of the samples)
-pseq <- core(pseq, detection = 10^3, prevalence = .2)
-
 # Use relative abundances
-pseq <- microbiome::transform(pseq, "compositional")
+pseq <- transform(atlas1006, "compositional")
 
-# For cross-sectional analysis, include
-# only the zero time point:
+# For cross-sectional analysis, include only the zero time point:
 pseq0 <- subset_samples(pseq, time == 0)
 ```
 
 
 ### Bimodality indicators
 
-Bimodality of the abundance distribution provides an indirect
-indicator of bistability, although other explanations such as sampling
-biases etc. should be controlled. Multiple bimodality scores are
-available.
-
-
-Multimodality score using [potential analysis with bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). Sarle's bimodality coefficient is available as well; and for classical test of unimodality, see the DIP test.
+Bimodality of the abundance distribution provides an indirect indicator of bistability. [Multimodality test with bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). Check the [bimodality page](Bimodality.html) for more examples on bimodality indicators. Bimodality is better estimated from log10 abundances.
 
 
 ```r
-# Bimodality is better estimated from log10 abundances
-pseq0.log10 <- microbiome::transform(pseq0, "log10")
-bimodality <- bimodality(pseq0.log10, method = "potential_analysis", bs.iter = 20)
+bimodality <- bimodality(
+    transform(pseq0, "log10"), 
+    method = "potential_analysis", bs.iter = 20)
 ```
-
 
 
 ## Variation lineplot and bimodality hotplot
@@ -628,12 +409,12 @@ Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) 
 
 ```r
 # Bimodality hotplot:
-# Consider a unique sample from each subject: the baseline time point 
-p <- hotplot(pseq0, tax, tipping.point = tipping.point)
+# Consider the baseline time point for each subject
+p <- hotplot(pseq0, "Dialister", tipping.point = 0.004)
 print(p)
 
 # Set tipping point manually in this example
-pv <- plot_tipping(pseq, tax, tipping.point = 0.01)
+pv <- plot_tipping(pseq, "Dialister", tipping.point = 0.004)
 print(pv)
 ```
 
@@ -642,23 +423,9 @@ print(pv)
 
 ## Other tools
 
-* [Networks](Networks.html)
-
-### Group-wise comparisons
-
-A number of methods for microbiota community comparisons have been proposed. For a recent benchmarking study, see [Weiss et al. (2017)](http://doi.org/10.1186/s40168-017-0237-y). For a comprehensive example workflow, see [Callahan et al. F1000 (2017)](https://f1000research.com/articles/5-1492/v2). Other methods, not implemented here (see [Weiss et al. (2017)](http://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-017-0237-y) for a recent survey):
-
- * [Zero-inflated Gaussians (ZIGs)](https://www.ncbi.nlm.nih.gov/pubmed/24076764/) (see [metagenomeSeq](https://bioconductor.org/packages/release/bioc/html/metagenomeSeq.html) Bioconductor package)
- * [DESeq2](deseq2.Rmd) and other advanced methods based on negative binomial
-
-
-For community-level multivariate comparisons
-
- * [Multivariate linear models (limma)](limma.html)
- * PERMANOVA quantifies multivariate community-level differences between
-   groups..
-
-
+ * [Heatmaps for microbiome analysis](Composition.html) 
+ * [Networks](Comparisons.html)
+ * [Group-wise community comparisons](Comparisons.html)
 
 
 ### Acknowledgements
