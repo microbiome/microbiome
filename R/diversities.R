@@ -51,17 +51,35 @@ diversities <- function(x, index = "all", zeroes = TRUE) {
     index <- tolower(index)
     accepted <- c("inverse_simpson", "gini_simpson", "shannon",
                     "fisher", "coverage")
-    
+
     # Return all indices
-    if ("all" %in% index) {
+    if (length(index) == 1 && index == "all") {
         index <- accepted
     }
     
-    index <- intersect(index, accepted)
-    if (length(index) == 0) {
+    if (!is.null(index)) {
+        index <- intersect(index, accepted)
+    }
+    
+    if (!is.null(index) && length(index) == 0) {
         return(NULL)
     }
     
+    tab <- diversities_help(x, index, zeroes)
+
+    if (is.vector(tab)) {
+        tab <- as.matrix(tab, ncol = 1)
+        colnames(tab) <- index    	
+    }
+    
+    tab
+
+}
+
+
+
+diversities_help <- function(x, index = "all", zeroes = TRUE) {
+
     if (length(index) > 1) {
         tab <- NULL
         for (idx in index) {

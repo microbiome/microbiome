@@ -51,18 +51,35 @@ rarity <- function(x, index = "all") {
     # Only include accepted indices
     accepted <- c("log_modulo_skewness", "low_abundance",
                     "noncore_abundance", "rare_abundance")
-    
+    accepted <- tolower(accepted)
+
     # Return all indices
-    if ("all" %in% index) {
+    if (length(index) == 1 && index == "all") {
         index <- accepted
     }
     
-    index <- intersect(index, accepted)
-    if (length(index) == 0) {
+    if (!is.null(index)) {
+        index <- intersect(index, accepted)
+    }
+    
+    if (!is.null(index) && length(index) == 0) {
         return(NULL)
     }
     
+    tab <- rarity_help(x, index)
+
+    if (is.vector(tab)) {
+        tab <- as.matrix(tab, ncol = 1)
+        colnames(tab) <- index    	
+    }
     
+    tab
+    
+}
+
+
+rarity_help <- function(x, index = "all") {
+        
     if (length(index) > 1) {
         tab <- NULL
         for (idx in index) {

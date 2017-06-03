@@ -69,6 +69,39 @@
 evenness <- function(x, index = "all", zeroes = TRUE) {
     
     # Only include accepted indices
+    accepted <- c("camargo", "pielou", "simpson", "evar", "bulla")    
+    accepted <- tolower(accepted)
+
+    # Return all indices
+    if (length(index) == 1 && index == "all") {
+        index <- accepted
+    }
+    
+    if (!is.null(index)) {
+        index <- intersect(index, accepted)
+    }
+    
+    if (!is.null(index) && length(index) == 0) {
+        return(NULL)
+    }
+    
+    tab <- evenness_help(x, index, zeroes)
+
+    if (is.vector(tab)) {
+        tab <- as.matrix(tab, ncol = 1)
+        colnames(tab) <- index    	
+    }
+    
+    tab
+    
+}
+
+
+
+
+evenness_help <- function(x, index = "all", zeroes = TRUE) {
+    
+    # Only include accepted indices
     accepted <- c("camargo", "pielou", "simpson", "evar", "bulla")
     
     # Return all indices

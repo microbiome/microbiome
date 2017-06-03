@@ -84,6 +84,12 @@ global <- function(x, index = "all") {
     } else {
         tab <- tab[, 1]
     }
+
+    # Return indices in the same order as in the original arguments
+    n <- sapply(strsplit(colnames(tab), "_"),
+        function (x) {paste(x[-1], collapse = "_")})
+    tab <- tab[, match(index, n)]
+
     tab
 }
 
