@@ -24,15 +24,15 @@ Various community diversity indices.
 By default, returns all diversity indices.
 The available diversity indices include the following:
  \itemize{
-   \item{inverse_simpson}{Inverse  Simpson diversity:
-         $1/lambda$ where $lambda = sum(p^2)$ and $p$ are relative abundances.}
-   \item{gini_simpson}{Gini-Simpson diversity $1 - lambda$.
-         This is also called Gibbs–Martin, or Blau index in sociology,
-         psychology and management studies.}
-   \item{shannon}{Shannon diversity ie entropy}
-   \item{fisher}{Fisher alpha; as implemented in the \pkg{vegan} package}
-   \item{coverage}{Number of species needed to cover 50\% of the ecosystem.
-         For other quantiles, apply the function coverage directly.}
+   \item{inverse_simpson }{Inverse  Simpson diversity:
+       $1/lambda$ where $lambda = sum(p^2)$ and $p$ are relative abundances.}
+   \item{gini_simpson }{Gini-Simpson diversity $1 - lambda$.
+       This is also called Gibbs–Martin, or Blau index in sociology,
+       psychology and management studies.}
+   \item{shannon }{Shannon diversity ie entropy}
+   \item{fisher }{Fisher alpha; as implemented in the \pkg{vegan} package}
+   \item{coverage }{Number of species needed to cover 50\% of the ecosystem.
+       For other quantiles, apply the function coverage directly.}
 
  }
 }
@@ -40,7 +40,6 @@ The available diversity indices include the following:
   data(dietswap)
   d <- diversities(dietswap, 'shannon')
   # d <- diversities(dietswap, 'all')
-
 }
 \references{
 Beisel J-N. et al. A Comparative Analysis of Diversity Index Sensitivity.

@@ -26,20 +26,20 @@ The rarity index characterizes the concentration of species at
 
   The following rarity indices are provided:
   \itemize{
-    \item{log_modulo_skewness}{Quantifies the concentration of the least
+    \item{log_modulo_skewness }{Quantifies the concentration of the least
       abundant species by the log-modulo skewness of the arithmetic
       abundance classes (see Magurran & McGill 2011). These are typically
       right-skewed; to avoid taking log of occasional negative skews,
       we follow Locey & Lennon (2016) and use the log-modulo
       transformation that adds a value of one to each measure of skewness
       to allow logarithmization. The values q=0.5 and n = 50 are used here.}
-    \item{low_abundance}{Relative proportion of the least abundant species,
+    \item{low_abundance }{Relative proportion of the least abundant species,
        below the detection level of 0.2\%. The least abundant species are
        determined separately for each sample regardless of their prevalence.}
-    \item{noncore_abundance}{Relative proportion of the non-core species,
+    \item{noncore_abundance }{Relative proportion of the non-core species,
        exceed the detection level of 0.2\% at 50\% prevalence at most.
        This is complement of the core with the same thresholds.}
-    \item{rare_abundance}{Relative proportion of the rare 
+    \item{rare_abundance }{Relative proportion of the rare 
        taxa in [0,1] - the rare taxa are detected with less than 20\%
        prevalence, regardless of abundance.}
   }

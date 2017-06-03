@@ -22,7 +22,7 @@ vignette: >
 
 ## Introduction
 
-The [microbiome R package](http://microbiome.github.io/microbiome) facilitates exploration and analysis of microbiome profiling data, in particular 16S taxonomic profiling. Here we provide a brief overview to the package functionality using example data sets from published studies [@lahti14natcomm, @Lahti13provasI, @OKeefe15]. A comprehensive tutorial is available [on-line](http://microbiome.github.io/microbiome). 
+The [microbiome R package](http://microbiome.github.io/microbiome) facilitates exploration and analysis of microbiome profiling data, in particular 16S taxonomic profiling. Here we provide a very concise overview to the package functionality using example data sets from published studies [@lahti14natcomm, @Lahti13provasI, @OKeefe15]. We have intentionally omitted many details in order to provide an overview. A full tutorial is available [on-line](http://microbiome.github.io/microbiome). 
 
 The microbiome R package has been utilized in recent publications [@salonen14, @Faust15, @Shetty2017], and is released under the [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses). The package extends the independent [phyloseq](http://joey711.github.io/phyloseq/import-data) class structure and [tools](http://joey711.github.io/phyloseq/).
 
@@ -98,181 +98,92 @@ pseq.comp <- transform(dietswap, "compositional")
 
 ## Diversity and other ecosystem indices 
 
-Standard ecosystem state variables include richness, evenness, alpha diversity, dominance, and rarity. The function `global` calls these indicators with default parameters. For further options and [beta diversity](http://microbiome.github.io/microbiome/Betadiversity.html) quantification, see the [tutorial](http://microbiome.github.io/microbiome/Diversity.html). 
-
+Standard ecosystem state variables include richness, evenness, alpha diversity, dominance, and rarity. The function `global` calls these indicators with default parameters. For further options and [beta diversity](http://microbiome.github.io/microbiome/Betadiversity.html) quantification, see [tutorial](http://microbiome.github.io/microbiome/Diversity.html). 
 
 
 ```r
-g <- global(dietswap, index = c("shannon", "gini", "DMN"))
-print(kable(head(g, 10), format = "html"))
+g <- global(atlas1006, index = "gini")
 ```
 
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> diversities_shannon </th>
-   <th style="text-align:right;"> dominance_gini </th>
-   <th style="text-align:right;"> dominance_dmn </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Sample-1 </td>
-   <td style="text-align:right;"> 2.942723 </td>
-   <td style="text-align:right;"> 0.8621955 </td>
-   <td style="text-align:right;"> 0.3279166 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Sample-2 </td>
-   <td style="text-align:right;"> 2.824184 </td>
-   <td style="text-align:right;"> 0.8840651 </td>
-   <td style="text-align:right;"> 0.2428268 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Sample-3 </td>
-   <td style="text-align:right;"> 2.409584 </td>
-   <td style="text-align:right;"> 0.9080567 </td>
-   <td style="text-align:right;"> 0.4593873 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Sample-4 </td>
-   <td style="text-align:right;"> 2.994672 </td>
-   <td style="text-align:right;"> 0.8566033 </td>
-   <td style="text-align:right;"> 0.3229230 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Sample-5 </td>
-   <td style="text-align:right;"> 2.108225 </td>
-   <td style="text-align:right;"> 0.9209336 </td>
-   <td style="text-align:right;"> 0.5448817 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Sample-6 </td>
-   <td style="text-align:right;"> 2.073329 </td>
-   <td style="text-align:right;"> 0.9188604 </td>
-   <td style="text-align:right;"> 0.5692406 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Sample-7 </td>
-   <td style="text-align:right;"> 3.012372 </td>
-   <td style="text-align:right;"> 0.8722852 </td>
-   <td style="text-align:right;"> 0.1726627 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Sample-8 </td>
-   <td style="text-align:right;"> 2.170369 </td>
-   <td style="text-align:right;"> 0.9174670 </td>
-   <td style="text-align:right;"> 0.5372549 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Sample-9 </td>
-   <td style="text-align:right;"> 3.337931 </td>
-   <td style="text-align:right;"> 0.8318029 </td>
-   <td style="text-align:right;"> 0.1097180 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Sample-10 </td>
-   <td style="text-align:right;"> 2.829861 </td>
-   <td style="text-align:right;"> 0.8840996 </td>
-   <td style="text-align:right;"> 0.2682443 </td>
-  </tr>
-</tbody>
-</table>
 
+Regression curve with smoothed error bars based on the [Visually-Weighted Regression](http://www.fight-entropy.com/2012/07/visually-weighted-regression.html) can be used to visualize sample variables.
+
+
+```r
+plot_regression(diversity ~ age, meta(atlas1006))
+```
+
+![plot of chunk variability-regression](figure/variability-regression-1.png)
 
 
 ## Core microbiota analysis
 
-
-**Prevalence**
-
-Relative population frequencies; at 1% compositional abundance threshold:
+Population frequencies, **prevalence**, of the taxonomic groups exceeding a given detection thresholld can be calculated with
 
 
 ```r
-head(prevalence(pseq.rel, detection = 1, sort = TRUE))
+p <- prevalence(dietswap, detection = 0, sort = TRUE)
 ```
 
-```
-##  Yersinia et rel.  Xanthomonadaceae  Wissella et rel. Weissella et rel. 
-##                 0                 0                 0                 0 
-##            Vibrio       Veillonella 
-##                 0                 0
-```
-
-
-This returns names of the core taxa 
+The core microbiota refers to the set of taxa that are detected in a remarkable fraction of the population above a given abundance threshold [@Jalanka-Tuovinen11, @Salonen12cmi]. The core subset can be sliced from a phyloseq object as follows.
 
 
 ```r
-core.taxa.standard <- core_members(pseq.rel, detection = 0, prevalence = 50/100)
+dietswap.core <- core(dietswap, detection = 0, prevalence = 50/100)
 ```
 
-A full phyloseq object of the core microbiota is obtained as follows:
+Similar functions are available also for rare and variable taxa, see the microbiome [tutorial](http://microbiome.github.io/microbiome/Core.html) for a full description.
+
+To visualize the core as in [@Shetty17], use
 
 
 ```r
-pseq.core <- core(pseq.rel, detection = 0, prevalence = .5)
-```
-
-Core papers: [@Jalanka-Tuovinen11, @Salonen12cmi]
-
-See also core abundance.
-
-See also related functions for the analysis of rare and variable taxa (noncore_members; noncore_abundance; rare_members; rare_abundance; low_abundance).
-
-This visualization method has been used for instance in [Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Shetty et al. _FEMS Microbiology Reviews_ fuw045, 2017.
-
-Note that you can order the taxa on the heatmap with the order.taxa argument.
-
-
-```r
-# Core with compositionals:
-prevalences <- seq(.05, 1, .05)
-detections <- 10^seq(log10(1e-3), log10(.2), length = 10)
-
-# Also define gray color palette
-gray <- gray(seq(0,1,length=5))
-p <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray,
-    prevalences = prevalences, detections = detections) +
+library(ggplot2)
+p <- plot_core(transform(dietswap.core, "compositional"), 
+    plot.type = "heatmap", 
+    colours = gray(seq(0,1,length=5)),
+    prevalences = seq(.05, 1, .05), 
+    detections = 10^seq(log10(1e-3), log10(.2), length = 10)) +
     xlab("Detection Threshold (Relative Abundance (%))")
 print(p)    
 ```
 
-<img src="figure/core-example3-1.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="200px" />
+<img src="figure/corevisu-1.png" title="plot of chunk corevisu" alt="plot of chunk corevisu" width="300px" />
 
 
-## Microbiome Landscaping
-
-See also composition.
-
-[Microbiome Landscaping](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539) refers to the analysis and illustration of population frequencies. Typically, these are wrappers based on standard ordination methods (for more examples, see [ordination examples](http://microbiome.github.io/microbiome/Ordination.html))
+## Microbiome composition
 
 
-### Two-dimensional microbiome landscape
-
-Load example data:
+Composition heatmap: Z-transformed abundances for the core taxa
 
 
 ```r
-library(phyloseq)
-library(ggplot2)
-
-data(dietswap)
-pseq <- dietswap
-
-# Convert to compositional data
-pseq.rel <- microbiome::transform(pseq, "compositional")
-
-# Pick core taxa
-pseq.core <- core(pseq.rel, detection = 5/100, prevalence = 50/100)
-pseq.core <- subset_samples(pseq.core, sex == "Female" &
-	                               bmi_group == "overweight")
+# Focus on the core taxa
+pseq.core <- core(transform(dietswap, "compositional"), 
+            detection = .2/100, prevalence = 50/100)
+# Show Z-transformed abundances
+tmp <- plot_composition(pseq.core, plot.type = "heatmap", transform = "Z", 
+            mar = c(6, 13, 1, 1), sample.sort = "nationality")
 ```
 
+![plot of chunk compheat](figure/compheat-1.png)
 
-Visualize the microbiome landscape (sample similarities on two-dimensional projection). For direct access to the ordination coordinates, use the following:
+
+Composition barplot
+        
+
+```r
+# Compare relative abundances of the core taxa
+pseq.core <- transform(pseq.core, "compositional")
+
+# Visualize
+p <- plot_composition(pseq.core, plot.type = "barplot", sample.sort = "neatmap")
+print(p)
+```
+
+![plot of chunk compbar](figure/compbar-1.png)
+
+Visualize the microbiome landscape [@Shetty2017]. A number of other [ordination methods](http://microbiome.github.io/microbiome/Ordination.html) (PCoA, NMDS etc) are available as well.
 
 
 ```r
@@ -282,78 +193,15 @@ Visualize the microbiome landscape (sample similarities on two-dimensional proje
 set.seed(423542)
 quiet(proj <- get_ordination(pseq.core, "NMDS", "bray"))
 
-# Same with a generic data.frame
-# (note that random seed will affect the exact ordination)
+# random seed affects the exact ordination
 p <- plot_landscape(proj[, 1:2], col = proj$nationality, legend = T)
 print(p)
-
-# Visualize sample names:
-ax1 <- names(proj)[[1]]
-ax2 <- names(proj)[[2]]
-p <- ggplot(aes_string(x = ax1, y = ax2, label = "sample"), data = proj) +
-       geom_text(size = 2)
-print(p)
 ```
 
-<img src="figure/landscape4-1.png" title="plot of chunk landscape4" alt="plot of chunk landscape4" width="400px" /><img src="figure/landscape4-2.png" title="plot of chunk landscape4" alt="plot of chunk landscape4" width="400px" />
+<img src="figure/landscape4-1.png" title="plot of chunk landscape4" alt="plot of chunk landscape4" width="400px" />
 
 
-
-
-### Cross-correlating data sets
-
-Cross-correlate columns of two data sets from related to microbiome and blood serum lipids associations ([PeerJ 1:e32](https://peerj.com/articles/32/)).
-
-The function returns correlations, raw p-values, and fdr estimates (not strictly proper as the comparisons are not independent). Here robust biweight midcorrelation ('bicor') from the [WGCNA package](http://labs.genetics.ucla.edu/horvath/CoexpressionNetwork/Rpackages/WGCNA/). Keep only those elements that have at least only one significant correlation (n.signif):
-
-
-```r
-# Load example data 
-otu <- peerj32$microbes 
-lipids <- peerj32$lipids 
-
-# Define data sets to cross-correlate
-x <- log10(otu) # OTU Log10 (44 samples x 130 genera)
-y <- as.matrix(lipids) # Lipids (44 samples x 389 lipids)
-
-# Cross correlate data sets
-correlations <- associate(x, y, method = "bicor", mode = "matrix", p.adj.threshold = 0.05, n.signif = 1)
-
-# Or, alternatively, the same output is also available in a handy table format
-correlation.table <- associate(x, y, method = "bicor", mode = "table", p.adj.threshold = 0.05, n.signif = 1)
-
-kable(head(correlation.table))
-```
-
-
-
-|    |X1                               |X2         | Correlation|     p.adj|
-|:---|:--------------------------------|:----------|-----------:|---------:|
-|833 |Ruminococcus gnavus et rel.      |TG(54:5).2 |   0.7207818| 0.0017385|
-|547 |Ruminococcus gnavus et rel.      |TG(52:5)   |   0.6996301| 0.0031929|
-|141 |Eubacterium cylindroides et rel. |PC(40:3)   |  -0.6771286| 0.0038006|
-|144 |Helicobacter                     |PC(40:3)   |  -0.6838424| 0.0038006|
-|437 |Ruminococcus gnavus et rel.      |TG(50:4)   |   0.6852226| 0.0038006|
-|525 |Ruminococcus gnavus et rel.      |TG(52:4).1 |   0.6716223| 0.0038006|
-
-### Association heatmaps
-
-Rearrange the data and plot the heatmap and mark significant correlations with stars to reproduce microbiota-lipidome heatmap from [Lahti et al. PeerJ (2013)](https://peerj.com/articles/32/) (the ordering of rows and columns may be different): 
-
-
-```r
-heat(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
-```
-
-![plot of chunk heatmap-example-stars3](figure/heatmap-example-stars3-1.png)
-
-
-
-### Bagged RDA
-
-Bagged RDA provides added robustness in the analysis compared to the standard RDA. Fit bagged (bootstrap aggregated) RDA on a phyloseq object.
-
-For PCoA, RDA, and other popular techniques, see [tutorial](http://microbiome.github.io/microbiome/Ordination.html).
+Bagged RDA is a robust version compared to the standard RDA. Fit bagged (bootstrap aggregated) RDA on a phyloseq object.
 
 
 ```r
@@ -381,70 +229,64 @@ plot_rda_bagged(res)
 
 
 
-## Regression plots
+### Association heatmaps
 
-Regression curve with smoothed error bars based on the [Visually-Weighted Regression](http://www.fight-entropy.com/2012/07/visually-weighted-regression.html) by Solomon M. Hsiang. The sorvi implementation extends [Felix Schonbrodt's original code](http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/). See also [potential analysis](Potential.html).
-
-
-```r
-pseq <- atlas1006
-p <- plot_regression(diversity ~ age, meta(pseq))
-print(p)
-```
-
-![plot of chunk variability-regression](figure/variability-regression-1.png)
-
-
-## Microbiome stability analysis
-
-It has been reported that certain microbial groups exhibit bi-stable abundance distributions with an instable intermediate abundance range. [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) used correlation analysis to quantify how the distance from the intermediate abundance region (50% quantile) is associated with the observed shifts between consecutive time points. 
+To exemplify how to cross-correlate two data sets, we use data from microbiome and blood serum lipids study ([PeerJ 1:e32](https://peerj.com/articles/32/)).
 
 
 ```r
-intermediate.stability <- intermediate_stability(pseq, output = "scores")
+data(peerj32)
+otu <- peerj32$microbes 
+lipids <- peerj32$lipids 
+
+# Define data sets to cross-correlate
+x <- log10(otu) # OTU Log10 (44 samples x 130 genera)
+y <- as.matrix(lipids) # Lipids (44 samples x 389 lipids)
+
+# Cross correlate data sets and return a table
+correlation.table <- associate(x, y, method = "bicor", mode = "table", p.adj.threshold = 0.05, n.signif = 1)
+
+kable(head(correlation.table))
 ```
 
 
-## Bimodality analysis
 
-Plot the subject abundance variation lineplot (**Variation lineplot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). The bi-stable Dialister has bimodal population distribution and reduced temporal stability within subjects at intermediate abundances. 76 subjects in the HITChip Atlas data (1006) set have also short time series available for temporal stability analysis:
+|    |X1                               |X2         | Correlation|     p.adj|
+|:---|:--------------------------------|:----------|-----------:|---------:|
+|833 |Ruminococcus gnavus et rel.      |TG(54:5).2 |   0.7207818| 0.0017385|
+|547 |Ruminococcus gnavus et rel.      |TG(52:5)   |   0.6996301| 0.0031929|
+|141 |Eubacterium cylindroides et rel. |PC(40:3)   |  -0.6771286| 0.0038006|
+|144 |Helicobacter                     |PC(40:3)   |  -0.6838424| 0.0038006|
+|437 |Ruminococcus gnavus et rel.      |TG(50:4)   |   0.6852226| 0.0038006|
+|525 |Ruminococcus gnavus et rel.      |TG(52:4).1 |   0.6716223| 0.0038006|
+
+Let us rearrange the data and plot the heatmap and highlight significant correlations with stars as in [@Lahti13provasI].
 
 
 ```r
-# Use relative abundances
+heat(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
+```
+
+![plot of chunk heatmap-example-stars3](figure/heatmap-example-stars3-1.png)
+
+
+## Bistability and tipping elements
+
+Certain microbial groups exhibit bi-stable abundance distributions [see e.g. @Lahti2014]. The microbiome package provides tools to [quantify stability and bimodality](http://microbiome.github.io/microbiome/Stability.html) in abundance data. Tools are provided also for related visualizations.
+
+Let use Dialister as an example as this has been suggested to exhibit bistable dynamics [@Lahti2014] in healthy western adults. 
+
+
+```r
+# Use relative abundances and plot subject variation 
+# during the follow-up period
 pseq <- transform(atlas1006, "compositional")
-
-# For cross-sectional analysis, include only the zero time point:
-pseq0 <- subset_samples(pseq, time == 0)
-```
-
-
-### Bimodality indicators
-
-Bimodality of the abundance distribution provides an indirect indicator of bistability. [Multimodality test with bootstrap](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). Check the [bimodality page](Bimodality.html) for more examples on bimodality indicators. Bimodality is better estimated from log10 abundances.
-
-
-```r
-bimodality <- bimodality(
-    transform(pseq0, "log10"), 
-    method = "potential_analysis", bs.iter = 20)
-```
-
-
-## Variation lineplot and bimodality hotplot
-
-Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation lineplot (**Variation tip plot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). The bi-stable Dialister has bimodal population distribution and reduced temporal stability within subjects at intermediate abundances.
-
-
-```r
-# Bimodality hotplot:
-# Consider the baseline time point for each subject
-p <- hotplot(pseq0, "Dialister", tipping.point = 0.004)
-print(p)
-
-# Set tipping point manually in this example
 pv <- plot_tipping(pseq, "Dialister", tipping.point = 0.004)
 print(pv)
+
+# Show the bimodal population distribution
+pb <- hotplot(pseq, "Dialister", tipping.point = 0.004)
+print(pb)
 ```
 
 <img src="figure/stability-variationplot2-1.png" title="plot of chunk stability-variationplot2" alt="plot of chunk stability-variationplot2" width="430px" /><img src="figure/stability-variationplot2-2.png" title="plot of chunk stability-variationplot2" alt="plot of chunk stability-variationplot2" width="430px" />
@@ -452,9 +294,7 @@ print(pv)
 
 ## Other tools
 
- * [Heatmaps for microbiome analysis](Composition.html) 
- * [Networks](Comparisons.html)
- * [Group-wise community comparisons](Comparisons.html)
+The [on-line tutorial](http://microbiome.github.io/microbiome) provides additional tools and examples, for instance for [microbiome heatmaps](Composition.html), group-wise community comparisons](Comparisons.html), and [microbial network analysis](Comparisons.html).
 
 
 ### Acknowledgements
@@ -467,58 +307,9 @@ Thanks to all [contributors](https://github.com/microbiome/microbiome/graphs/con
 
 
 
-[1] D. Chessel, A. Dufour and J. Thioulouse. "The ade4 package-I-
-One-table methods". In: _R News_ 4 (2004), pp. 5-10.
-[1] S. Dray and A. Dufour. "The ade4 package: implementing the
-duality diagram for ecologists". In: _Journal of Statistical
-Software_ 22.4 (2007), pp. 1-20.
-[1] S. Dray, A. Dufour and D. Chessel. "The ade4 package-II:
-Two-table and K-table methods." In: _R News_ 7.2 (2007), pp.
-47-52.
-[1] J. Jalanka-Tuovinen, A. Salonen, J. N. ä, et al. "Intestinal
-microbiota in healthy adults: Temporal analysis reveals individual
-and common core and relation to intestinal symptoms". In: _PLoS
-One_ 6.7 (2011), p. e23035.
-[1] L. Komsta and F. Novomestky. _moments: Moments, cumulants,
-skewness, kurtosis and related tests_. R package version 0.14.
-2015. <URL: https://CRAN.R-project.org/package=moments>.
-[1] L. Lahti, A. Salonen, R. A. Kekkonen, et al. "Associations
-between the human intestinal microbiota, Lactobacillus rhamnosus
-GG and serum lipids indicated by integrated analysis of
-high-throughput profiling data". In: _PeerJ_ 1 (2013), p. e32.
-<URL: http://dx.doi.org/10.7717/peerj.32>.
-[1] P. J. McMurdie and S. Holmes. "phyloseq: An R package for
-reproducible interactive analysis and graphics of microbiome
-census data". In: _PLoS ONE_ 8.4 (2013), p. e61217. <URL:
-http://dx.plos.org/10.1371/journal.pone.0061217>.
-[1] E. Neuwirth. _RColorBrewer: ColorBrewer Palettes_. R package
-version 1.1-2. 2014. <URL:
-https://CRAN.R-project.org/package=RColorBrewer>.
-[1] J. Oksanen, F. G. Blanchet, M. Friendly, et al. _vegan:
-Community Ecology Package_. R package version 2.4-3. 2017. <URL:
-https://CRAN.R-project.org/package=vegan>.
-[1] R Core Team. _R: A Language and Environment for Statistical
-Computing_. R Foundation for Statistical Computing. Vienna,
-Austria, 2017. <URL: https://www.R-project.org/>.
-[1] A. Salonen, J. Salojärvi, L. Lahti, et al. "The adult
-intestinal core microbiota is determined by analysis depth and
-health status". In: _Clinical Microbiology and Infection_
-18.Suppl. 4 (2012), p. 16–20. <URL:
-http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract>.
-[1] W. N. Venables and B. D. Ripley. _Modern Applied Statistics
-with S_. Fourth. ISBN 0-387-95457-0. New York: Springer, 2002.
-<URL: http://www.stats.ox.ac.uk/pub/MASS4>.
-[1] H. Wickham. _ggplot2: Elegant Graphics for Data Analysis_.
-Springer-Verlag New York, 2009. ISBN: 978-0-387-98140-6. <URL:
-http://ggplot2.org>.
-[1] H. Wickham. _scales: Scale Functions for Visualization_. R
-package version 0.4.1. 2016. <URL:
-https://CRAN.R-project.org/package=scales>.
-[1] H. Wickham. _tidyr: Easily Tidy Data with 'spread()' and
-'gather()' Functions_. R package version 0.6.3. 2017. <URL:
-https://CRAN.R-project.org/package=tidyr>.
-[1] H. Wickham and R. Francois. _dplyr: A Grammar of Data
-Manipulation_. R package version 0.5.0. 2016. <URL:
-https://CRAN.R-project.org/package=dplyr>.
+
+```
+## Warning in is.na(x): is.na() applied to non-(list or vector) of type 'NULL'
+```
 
 
