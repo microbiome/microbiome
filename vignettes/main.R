@@ -5,7 +5,7 @@ library(knitr)
 
 library(rmarkdown)
 rmarkdown::render("vignette.Rmd", output_format = "html_document")
-# knit("vignette.Rmd")
+knit("vignette.Rmd")
 
 #system("git add *.md")
 #system("git add figure/*")

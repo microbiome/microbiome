@@ -108,7 +108,7 @@ Standard ecosystem state variables include richness, evenness, diversity, domina
 
 ```{r global, warning=FALSE, message=FALSE, results="asis"}
 g <- global(dietswap, index = c("shannon", "gini", "DMN"))
-print(head(kable(g, format = "html")))
+print(kable(head(g, 10), format = "html"))
 ```
 
 See the [tutorial](http://microbiome.github.io/microbiome/Diversity.html) for more options as well as for functions to quantify [beta diversity](http://microbiome.github.io/microbiome/Betadiversity.html).
@@ -355,16 +355,6 @@ Thanks to all [contributors](https://github.com/microbiome/microbiome/graphs/con
 
 # References
 
-[Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Shetty S, Hugenholtz F, Lahti L, Smidt H, de Vos WM, Danchin A. _FEMS Microbiology Reviews_ fuw045, 2017.
-
-[Metagenomics meets time series analysis: unraveling microbial community dynamics](http://dx.doi.org/10.1016/j.mib.2015.04.004) Faust K, Lahti L, Gonze D, de Vos WM, Raes J. _Current Opinion in Microbiology_ 15:56-66 2015.
-
-[Tipping elements in the human intestinal ecosystem](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) Lahti L, Salojärvi J, Salonen A, Scheffer M, de Vos WM. _Nature Communications_ 5:4344, 2014. 
-
-[Fat, Fiber and Cancer Risk in African, Americans and Rural Africans](http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html)  O’Keefe S, Li JV, Lahti L, Ou J, Carbonero F, Mohammed K, Posma JM, Kinross J, Wahl E, Ruder E, Vipperla K, Naidoo V, Mtshali L, Tims S, Puylaert PGB, DeLany J, Krasinskas A, Benefiel AC, Kaseb HO, Newton K, Nicholson JK, de Vos WM, Gaskins HR, Zoetendal EG. _Nature Communications_ 6:6342, 2015.
-
-[The adult intestinal core microbiota is determined by analysis depth and health status](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) Salonen A, Salojärvi J, Lahti L, and de Vos WM. _Clinical Microbiology and Infection_ 18(S4):16 20, 2012. 
-
 
 ```{r, echo=FALSE, message=FALSE}
 #embed citations, for example: `r citep(bib[["lahti14natcomm"]])`
@@ -374,7 +364,7 @@ Thanks to all [contributors](https://github.com/microbiome/microbiome/graphs/con
 #For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). 
 #write.bibtex(file="references.bib")
 ```
-```{r, echo=FALSE, message=FALSE, results='asis'}
+```{r, echo=FALSE, message=FALSE}
 bibliography()
 ```
 

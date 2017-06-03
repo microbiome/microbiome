@@ -92,7 +92,7 @@ To convert absolute counts to compositional (relative) abundances, for instance,
 
 
 ```r
-pseq.compositional <- microbiome::transform(pseq, "compositional")
+pseq.comp <- microbiome::transform(dietswap, "compositional")
 ```
 
 
@@ -103,18 +103,82 @@ Standard ecosystem state variables include richness, evenness, diversity, domina
 
 
 ```r
-g <- global(dietswap, index = "all")
-head(kable(g))
+g <- global(dietswap, index = c("shannon", "gini", "DMN"))
+print(kable(head(g, 10), format = "html"))
 ```
 
-```
-## [1] "|           | richness_0| richness_20| richness_50| richness_80| diversities_inverse_simpson| diversities_gini_simpson| diversities_shannon| diversities_fisher| diversities_coverage| evenness_camargo| evenness_pielou| evenness_simpson| evenness_evar| evenness_bulla| dominance_DBP| dominance_DMN| dominance_absolute| dominance_relative| dominance_simpson| dominance_core_abundance| dominance_gini| rarity_log_modulo_skewness| rarity_low_abundance| rarity_noncore_abundance| rarity_rare_abundance|"
-## [2] "|:----------|----------:|-----------:|-----------:|-----------:|---------------------------:|------------------------:|-------------------:|------------------:|--------------------:|----------------:|---------------:|----------------:|-------------:|--------------:|-------------:|-------------:|------------------:|------------------:|-----------------:|------------------------:|--------------:|--------------------------:|--------------------:|------------------------:|---------------------:|"
-## [3] "|Sample-1   |        112|         104|          61|          27|                    7.562984|                0.8677771|            2.942723|           12.16148|                    4|        0.1378045|       0.6045614|        0.0581768|     0.0736465|      0.2925991|     0.3279166|     0.4296966|             175035|          0.3279166|         0.1322229|                0.9274756|      0.8621955|                   2.059086|            0.0291825|                0.0150193|                     0|"
-## [4] "|Sample-2   |        118|         110|          68|          39|                    8.105283|                0.8766237|            2.824184|           11.11824|                    3|        0.1159349|       0.5802083|        0.0623483|     0.0722394|      0.2506029|     0.2428268|     0.4655585|             323085|          0.2428268|         0.1233763|                0.9328351|      0.8840651|                   2.058747|            0.0302304|                0.0350443|                     0|"
-## [5] "|Sample-3   |        113|         104|          71|          37|                    4.292701|                0.7670464|            2.409584|           10.80073|                    2|        0.0919433|       0.4950318|        0.0330208|     0.0608332|      0.2233591|     0.4593873|     0.5602856|             837328|          0.4593873|         0.2329536|                0.9513098|      0.9080567|                   2.056009|            0.0341229|                0.0095056|                     0|"
-## [6] "|Sample-4   |        114|         106|          73|          30|                    7.937365|                0.8740136|            2.994672|           11.62450|                    4|        0.1433967|       0.6152338|        0.0610567|     0.0692447|      0.2829995|     0.3229230|     0.3956421|             269963|          0.3229230|         0.1259864|                0.8617545|      0.8566033|                   2.054981|            0.0349690|                0.0370659|                     0|"
-```
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> diversities_shannon </th>
+   <th style="text-align:right;"> dominance_gini </th>
+   <th style="text-align:right;"> dominance_dmn </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Sample-1 </td>
+   <td style="text-align:right;"> 2.942723 </td>
+   <td style="text-align:right;"> 0.8621955 </td>
+   <td style="text-align:right;"> 0.3279166 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sample-2 </td>
+   <td style="text-align:right;"> 2.824184 </td>
+   <td style="text-align:right;"> 0.8840651 </td>
+   <td style="text-align:right;"> 0.2428268 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sample-3 </td>
+   <td style="text-align:right;"> 2.409584 </td>
+   <td style="text-align:right;"> 0.9080567 </td>
+   <td style="text-align:right;"> 0.4593873 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sample-4 </td>
+   <td style="text-align:right;"> 2.994672 </td>
+   <td style="text-align:right;"> 0.8566033 </td>
+   <td style="text-align:right;"> 0.3229230 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sample-5 </td>
+   <td style="text-align:right;"> 2.108225 </td>
+   <td style="text-align:right;"> 0.9209336 </td>
+   <td style="text-align:right;"> 0.5448817 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sample-6 </td>
+   <td style="text-align:right;"> 2.073329 </td>
+   <td style="text-align:right;"> 0.9188604 </td>
+   <td style="text-align:right;"> 0.5692406 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sample-7 </td>
+   <td style="text-align:right;"> 3.012372 </td>
+   <td style="text-align:right;"> 0.8722852 </td>
+   <td style="text-align:right;"> 0.1726627 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sample-8 </td>
+   <td style="text-align:right;"> 2.170369 </td>
+   <td style="text-align:right;"> 0.9174670 </td>
+   <td style="text-align:right;"> 0.5372549 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sample-9 </td>
+   <td style="text-align:right;"> 3.337931 </td>
+   <td style="text-align:right;"> 0.8318029 </td>
+   <td style="text-align:right;"> 0.1097180 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sample-10 </td>
+   <td style="text-align:right;"> 2.829861 </td>
+   <td style="text-align:right;"> 0.8840996 </td>
+   <td style="text-align:right;"> 0.2682443 </td>
+  </tr>
+</tbody>
+</table>
 
 See the [tutorial](http://microbiome.github.io/microbiome/Diversity.html) for more options as well as for functions to quantify [beta diversity](http://microbiome.github.io/microbiome/Betadiversity.html).
 
@@ -177,37 +241,9 @@ p <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray,
     prevalences = prevalences, detections = detections) +
     xlab("Detection Threshold (Relative Abundance (%))")
 print(p)    
-
-
-# Same with the viridis color palette
-# color-blind friendly and uniform
-# options: viridis, magma, plasma, inferno
-# https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
-# Also discrete=TRUE versions available
-library(viridis)
-print(p + scale_fill_viridis())
 ```
 
-```
-## Scale for 'fill' is already present. Adding another scale for 'fill',
-## which will replace the existing scale.
-```
-
-```r
-# Core with absolute counts and horizontal view:
-# and minimum population prevalence (given as percentage)
-detections <- 10^seq(log10(1), log10(max(abundances(pseq))/10), length = 10)
-
-library(RColorBrewer)
-p <- plot_core(pseq, plot.type = "heatmap", 
-       		 prevalences = prevalences,
-       		 detections = detections,
-		 colours = rev(brewer.pal(5, "Spectral")),
-		 min.prevalence = .2, horizontal = TRUE)
-print(p)
-```
-
-<img src="figure/core-example3-1.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="200px" /><img src="figure/core-example3-2.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="200px" /><img src="figure/core-example3-3.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="200px" />
+<img src="figure/core-example3-1.png" title="plot of chunk core-example3" alt="plot of chunk core-example3" width="200px" />
 
 
 ## Microbiome Landscaping
@@ -309,11 +345,7 @@ Rearrange the data and plot the heatmap and mark significant correlations with s
 
 
 ```r
-p <- heat(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
-```
-
-```r
-print(p)
+heat(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
 ```
 
 ![plot of chunk heatmap-example-stars3](figure/heatmap-example-stars3-1.png)
@@ -436,70 +468,63 @@ Thanks to all [contributors](https://github.com/microbiome/microbiome/graphs/con
 
 # References
 
-[Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Shetty S, Hugenholtz F, Lahti L, Smidt H, de Vos WM, Danchin A. _FEMS Microbiology Reviews_ fuw045, 2017.
-
-[Metagenomics meets time series analysis: unraveling microbial community dynamics](http://dx.doi.org/10.1016/j.mib.2015.04.004) Faust K, Lahti L, Gonze D, de Vos WM, Raes J. _Current Opinion in Microbiology_ 15:56-66 2015.
-
-[Tipping elements in the human intestinal ecosystem](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) Lahti L, Salojärvi J, Salonen A, Scheffer M, de Vos WM. _Nature Communications_ 5:4344, 2014. 
-
-[Fat, Fiber and Cancer Risk in African, Americans and Rural Africans](http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html)  O’Keefe S, Li JV, Lahti L, Ou J, Carbonero F, Mohammed K, Posma JM, Kinross J, Wahl E, Ruder E, Vipperla K, Naidoo V, Mtshali L, Tims S, Puylaert PGB, DeLany J, Krasinskas A, Benefiel AC, Kaseb HO, Newton K, Nicholson JK, de Vos WM, Gaskins HR, Zoetendal EG. _Nature Communications_ 6:6342, 2015.
-
-[The adult intestinal core microbiota is determined by analysis depth and health status](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) Salonen A, Salojärvi J, Lahti L, and de Vos WM. _Clinical Microbiology and Infection_ 18(S4):16 20, 2012. 
 
 
 
-[1] D. Chessel, A. Dufour and J. Thioulouse. "The ade4 package-I-
-One-table methods". In: _R News_ 4 (2004), pp. 5-10.
-[1] S. Dray and A. Dufour. "The ade4 package: implementing the
-duality diagram for ecologists". In: _Journal of Statistical
-Software_ 22.4 (2007), pp. 1-20.
-[1] S. Dray, A. Dufour and D. Chessel. "The ade4 package-II:
-Two-table and K-table methods." In: _R News_ 7.2 (2007), pp.
-47-52.
-[1] J. Jalanka-Tuovinen, A. Salonen, J. N. ä, et al. "Intestinal
-microbiota in healthy adults: Temporal analysis reveals individual
-and common core and relation to intestinal symptoms". In: _PLoS
-One_ 6.7 (2011), p. e23035.
-[1] L. Komsta and F. Novomestky. _moments: Moments, cumulants,
-skewness, kurtosis and related tests_. R package version 0.14.
-2015. <URL: https://CRAN.R-project.org/package=moments>.
-[1] L. Lahti, A. Salonen, R. A. Kekkonen, et al. "Associations
-between the human intestinal microbiota, Lactobacillus rhamnosus
-GG and serum lipids indicated by integrated analysis of
-high-throughput profiling data". In: _PeerJ_ 1 (2013), p. e32.
-<URL: http://dx.doi.org/10.7717/peerj.32>.
-[1] P. J. McMurdie and S. Holmes. "phyloseq: An R package for
-reproducible interactive analysis and graphics of microbiome
-census data". In: _PLoS ONE_ 8.4 (2013), p. e61217. <URL:
-http://dx.plos.org/10.1371/journal.pone.0061217>.
-[1] E. Neuwirth. _RColorBrewer: ColorBrewer Palettes_. R package
-version 1.1-2. 2014. <URL:
-https://CRAN.R-project.org/package=RColorBrewer>.
-[1] J. Oksanen, F. G. Blanchet, M. Friendly, et al. _vegan:
-Community Ecology Package_. R package version 2.4-3. 2017. <URL:
-https://CRAN.R-project.org/package=vegan>.
-[1] R Core Team. _R: A Language and Environment for Statistical
-Computing_. R Foundation for Statistical Computing. Vienna,
-Austria, 2017. <URL: https://www.R-project.org/>.
-[1] A. Salonen, J. Salojärvi, L. Lahti, et al. "The adult
-intestinal core microbiota is determined by analysis depth and
-health status". In: _Clinical Microbiology and Infection_
-18.Suppl. 4 (2012), p. 16–20. <URL:
-http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract>.
-[1] W. N. Venables and B. D. Ripley. _Modern Applied Statistics
-with S_. Fourth. ISBN 0-387-95457-0. New York: Springer, 2002.
-<URL: http://www.stats.ox.ac.uk/pub/MASS4>.
-[1] H. Wickham. _ggplot2: Elegant Graphics for Data Analysis_.
-Springer-Verlag New York, 2009. ISBN: 978-0-387-98140-6. <URL:
-http://ggplot2.org>.
-[1] H. Wickham. _scales: Scale Functions for Visualization_. R
-package version 0.4.1. 2016. <URL:
-https://CRAN.R-project.org/package=scales>.
-[1] H. Wickham. _tidyr: Easily Tidy Data with 'spread()' and
-'gather()' Functions_. R package version 0.6.3. 2017. <URL:
-https://CRAN.R-project.org/package=tidyr>.
-[1] H. Wickham and R. Francois. _dplyr: A Grammar of Data
-Manipulation_. R package version 0.5.0. 2016. <URL:
-https://CRAN.R-project.org/package=dplyr>.
+```
+## [1] D. Chessel, A. Dufour and J. Thioulouse. "The ade4 package-I-
+## One-table methods". In: _R News_ 4 (2004), pp. 5-10.
+## [1] S. Dray and A. Dufour. "The ade4 package: implementing the
+## duality diagram for ecologists". In: _Journal of Statistical
+## Software_ 22.4 (2007), pp. 1-20.
+## [1] S. Dray, A. Dufour and D. Chessel. "The ade4 package-II:
+## Two-table and K-table methods." In: _R News_ 7.2 (2007), pp.
+## 47-52.
+## [1] J. Jalanka-Tuovinen, A. Salonen, J. N. ä, et al. "Intestinal
+## microbiota in healthy adults: Temporal analysis reveals individual
+## and common core and relation to intestinal symptoms". In: _PLoS
+## One_ 6.7 (2011), p. e23035.
+## [1] L. Komsta and F. Novomestky. _moments: Moments, cumulants,
+## skewness, kurtosis and related tests_. R package version 0.14.
+## 2015. <URL: https://CRAN.R-project.org/package=moments>.
+## [1] L. Lahti, A. Salonen, R. A. Kekkonen, et al. "Associations
+## between the human intestinal microbiota, Lactobacillus rhamnosus
+## GG and serum lipids indicated by integrated analysis of
+## high-throughput profiling data". In: _PeerJ_ 1 (2013), p. e32.
+## <URL: http://dx.doi.org/10.7717/peerj.32>.
+## [1] P. J. McMurdie and S. Holmes. "phyloseq: An R package for
+## reproducible interactive analysis and graphics of microbiome
+## census data". In: _PLoS ONE_ 8.4 (2013), p. e61217. <URL:
+## http://dx.plos.org/10.1371/journal.pone.0061217>.
+## [1] E. Neuwirth. _RColorBrewer: ColorBrewer Palettes_. R package
+## version 1.1-2. 2014. <URL:
+## https://CRAN.R-project.org/package=RColorBrewer>.
+## [1] J. Oksanen, F. G. Blanchet, M. Friendly, et al. _vegan:
+## Community Ecology Package_. R package version 2.4-3. 2017. <URL:
+## https://CRAN.R-project.org/package=vegan>.
+## [1] R Core Team. _R: A Language and Environment for Statistical
+## Computing_. R Foundation for Statistical Computing. Vienna,
+## Austria, 2017. <URL: https://www.R-project.org/>.
+## [1] A. Salonen, J. Salojärvi, L. Lahti, et al. "The adult
+## intestinal core microbiota is determined by analysis depth and
+## health status". In: _Clinical Microbiology and Infection_
+## 18.Suppl. 4 (2012), p. 16–20. <URL:
+## http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract>.
+## [1] W. N. Venables and B. D. Ripley. _Modern Applied Statistics
+## with S_. Fourth. ISBN 0-387-95457-0. New York: Springer, 2002.
+## <URL: http://www.stats.ox.ac.uk/pub/MASS4>.
+## [1] H. Wickham. _ggplot2: Elegant Graphics for Data Analysis_.
+## Springer-Verlag New York, 2009. ISBN: 978-0-387-98140-6. <URL:
+## http://ggplot2.org>.
+## [1] H. Wickham. _scales: Scale Functions for Visualization_. R
+## package version 0.4.1. 2016. <URL:
+## https://CRAN.R-project.org/package=scales>.
+## [1] H. Wickham. _tidyr: Easily Tidy Data with 'spread()' and
+## 'gather()' Functions_. R package version 0.6.3. 2017. <URL:
+## https://CRAN.R-project.org/package=tidyr>.
+## [1] H. Wickham and R. Francois. _dplyr: A Grammar of Data
+## Manipulation_. R package version 0.5.0. 2016. <URL:
+## https://CRAN.R-project.org/package=dplyr>.
+```
 
 
