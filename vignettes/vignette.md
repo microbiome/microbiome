@@ -24,7 +24,11 @@ vignette: >
 
 The [microbiome R package](http://microbiome.github.io/microbiome) provides tools for the exploration and analysis of microbiome profiling data, with a focus on large-scale population studies and 16S taxonomic profiling. This package is based on the [phyloseq](http://joey711.github.io/phyloseq/import-data) class structure and extends the generic [phyloseq](https://github.com/joey711/phyloseq) framework for R based microbiome analysis, but it is independent work.
 
-This tutorial provides a brief overview on the package functionality with example data sets from published studies (Lahti, Salojarvi, Salonen, et al., 2014; Lahti, Salonen, Kekkonen, et al., 2013; O'Keefe, Li, Lahti, et al., 2015). For a complete description of the package functionality, see the [on-line tutorial](http://microbiome.github.io/microbiome). Other useful on-line resources for starters include [R cheat sheets](http://devcheatsheet.com/tag/r/), [Rmarkdown tips](http://rmarkdown.rstudio.com/), [instructions on using Github with R and RStudio](http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/). The [molecular ecologist's view on code sharing](http://www.molecularecologist.com/2013/08/want-to-share-your-code/) is also worth reading.
+This tutorial provides a brief overview on the package functionality with example data sets from published studies (Lahti, Salojarvi, Salonen, et al., 2014; Lahti, Salonen, Kekkonen, et al., 2013; O'Keefe, Li, Lahti, et al., 2015).
+
+And this one [@OKeefe15]
+
+For a complete description of the package functionality, see the [on-line tutorial](http://microbiome.github.io/microbiome). Other useful on-line resources for starters include [R cheat sheets](http://devcheatsheet.com/tag/r/), [Rmarkdown tips](http://rmarkdown.rstudio.com/), [instructions on using Github with R and RStudio](http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/). The [molecular ecologist's view on code sharing](http://www.molecularecologist.com/2013/08/want-to-share-your-code/) is also worth reading.
 
 The package utilizes tools from a number of other R extensions, including ade4 (Dray and Dufour, 2007; Chessel, Dufour, and Thioulouse, 2004; Dray, Dufour, and Chessel, 2007), dplyr (Wickham and Francois, 2016), ggplot2 (Wickham, 2009), MASS (Venables and Ripley, 2002), moments (Komsta and Novomestky, 2015), phyloseq (McMurdie and Holmes, 2013), RColorBrewer (Neuwirth, 2014), scales (Wickham, 2016), stats (R Core Team, 2017), tidyr (Wickham, 2017), vegan (Oksanen, Blanchet, Friendly, et al., 2017).
 
@@ -470,61 +474,58 @@ Thanks to all [contributors](https://github.com/microbiome/microbiome/graphs/con
 
 
 
-
-```
-## [1] D. Chessel, A. Dufour and J. Thioulouse. "The ade4 package-I-
-## One-table methods". In: _R News_ 4 (2004), pp. 5-10.
-## [1] S. Dray and A. Dufour. "The ade4 package: implementing the
-## duality diagram for ecologists". In: _Journal of Statistical
-## Software_ 22.4 (2007), pp. 1-20.
-## [1] S. Dray, A. Dufour and D. Chessel. "The ade4 package-II:
-## Two-table and K-table methods." In: _R News_ 7.2 (2007), pp.
-## 47-52.
-## [1] J. Jalanka-Tuovinen, A. Salonen, J. N. ä, et al. "Intestinal
-## microbiota in healthy adults: Temporal analysis reveals individual
-## and common core and relation to intestinal symptoms". In: _PLoS
-## One_ 6.7 (2011), p. e23035.
-## [1] L. Komsta and F. Novomestky. _moments: Moments, cumulants,
-## skewness, kurtosis and related tests_. R package version 0.14.
-## 2015. <URL: https://CRAN.R-project.org/package=moments>.
-## [1] L. Lahti, A. Salonen, R. A. Kekkonen, et al. "Associations
-## between the human intestinal microbiota, Lactobacillus rhamnosus
-## GG and serum lipids indicated by integrated analysis of
-## high-throughput profiling data". In: _PeerJ_ 1 (2013), p. e32.
-## <URL: http://dx.doi.org/10.7717/peerj.32>.
-## [1] P. J. McMurdie and S. Holmes. "phyloseq: An R package for
-## reproducible interactive analysis and graphics of microbiome
-## census data". In: _PLoS ONE_ 8.4 (2013), p. e61217. <URL:
-## http://dx.plos.org/10.1371/journal.pone.0061217>.
-## [1] E. Neuwirth. _RColorBrewer: ColorBrewer Palettes_. R package
-## version 1.1-2. 2014. <URL:
-## https://CRAN.R-project.org/package=RColorBrewer>.
-## [1] J. Oksanen, F. G. Blanchet, M. Friendly, et al. _vegan:
-## Community Ecology Package_. R package version 2.4-3. 2017. <URL:
-## https://CRAN.R-project.org/package=vegan>.
-## [1] R Core Team. _R: A Language and Environment for Statistical
-## Computing_. R Foundation for Statistical Computing. Vienna,
-## Austria, 2017. <URL: https://www.R-project.org/>.
-## [1] A. Salonen, J. Salojärvi, L. Lahti, et al. "The adult
-## intestinal core microbiota is determined by analysis depth and
-## health status". In: _Clinical Microbiology and Infection_
-## 18.Suppl. 4 (2012), p. 16–20. <URL:
-## http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract>.
-## [1] W. N. Venables and B. D. Ripley. _Modern Applied Statistics
-## with S_. Fourth. ISBN 0-387-95457-0. New York: Springer, 2002.
-## <URL: http://www.stats.ox.ac.uk/pub/MASS4>.
-## [1] H. Wickham. _ggplot2: Elegant Graphics for Data Analysis_.
-## Springer-Verlag New York, 2009. ISBN: 978-0-387-98140-6. <URL:
-## http://ggplot2.org>.
-## [1] H. Wickham. _scales: Scale Functions for Visualization_. R
-## package version 0.4.1. 2016. <URL:
-## https://CRAN.R-project.org/package=scales>.
-## [1] H. Wickham. _tidyr: Easily Tidy Data with 'spread()' and
-## 'gather()' Functions_. R package version 0.6.3. 2017. <URL:
-## https://CRAN.R-project.org/package=tidyr>.
-## [1] H. Wickham and R. Francois. _dplyr: A Grammar of Data
-## Manipulation_. R package version 0.5.0. 2016. <URL:
-## https://CRAN.R-project.org/package=dplyr>.
-```
+[1] D. Chessel, A. Dufour and J. Thioulouse. "The ade4 package-I-
+One-table methods". In: _R News_ 4 (2004), pp. 5-10.
+[1] S. Dray and A. Dufour. "The ade4 package: implementing the
+duality diagram for ecologists". In: _Journal of Statistical
+Software_ 22.4 (2007), pp. 1-20.
+[1] S. Dray, A. Dufour and D. Chessel. "The ade4 package-II:
+Two-table and K-table methods." In: _R News_ 7.2 (2007), pp.
+47-52.
+[1] J. Jalanka-Tuovinen, A. Salonen, J. N. ä, et al. "Intestinal
+microbiota in healthy adults: Temporal analysis reveals individual
+and common core and relation to intestinal symptoms". In: _PLoS
+One_ 6.7 (2011), p. e23035.
+[1] L. Komsta and F. Novomestky. _moments: Moments, cumulants,
+skewness, kurtosis and related tests_. R package version 0.14.
+2015. <URL: https://CRAN.R-project.org/package=moments>.
+[1] L. Lahti, A. Salonen, R. A. Kekkonen, et al. "Associations
+between the human intestinal microbiota, Lactobacillus rhamnosus
+GG and serum lipids indicated by integrated analysis of
+high-throughput profiling data". In: _PeerJ_ 1 (2013), p. e32.
+<URL: http://dx.doi.org/10.7717/peerj.32>.
+[1] P. J. McMurdie and S. Holmes. "phyloseq: An R package for
+reproducible interactive analysis and graphics of microbiome
+census data". In: _PLoS ONE_ 8.4 (2013), p. e61217. <URL:
+http://dx.plos.org/10.1371/journal.pone.0061217>.
+[1] E. Neuwirth. _RColorBrewer: ColorBrewer Palettes_. R package
+version 1.1-2. 2014. <URL:
+https://CRAN.R-project.org/package=RColorBrewer>.
+[1] J. Oksanen, F. G. Blanchet, M. Friendly, et al. _vegan:
+Community Ecology Package_. R package version 2.4-3. 2017. <URL:
+https://CRAN.R-project.org/package=vegan>.
+[1] R Core Team. _R: A Language and Environment for Statistical
+Computing_. R Foundation for Statistical Computing. Vienna,
+Austria, 2017. <URL: https://www.R-project.org/>.
+[1] A. Salonen, J. Salojärvi, L. Lahti, et al. "The adult
+intestinal core microbiota is determined by analysis depth and
+health status". In: _Clinical Microbiology and Infection_
+18.Suppl. 4 (2012), p. 16–20. <URL:
+http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract>.
+[1] W. N. Venables and B. D. Ripley. _Modern Applied Statistics
+with S_. Fourth. ISBN 0-387-95457-0. New York: Springer, 2002.
+<URL: http://www.stats.ox.ac.uk/pub/MASS4>.
+[1] H. Wickham. _ggplot2: Elegant Graphics for Data Analysis_.
+Springer-Verlag New York, 2009. ISBN: 978-0-387-98140-6. <URL:
+http://ggplot2.org>.
+[1] H. Wickham. _scales: Scale Functions for Visualization_. R
+package version 0.4.1. 2016. <URL:
+https://CRAN.R-project.org/package=scales>.
+[1] H. Wickham. _tidyr: Easily Tidy Data with 'spread()' and
+'gather()' Functions_. R package version 0.6.3. 2017. <URL:
+https://CRAN.R-project.org/package=tidyr>.
+[1] H. Wickham and R. Francois. _dplyr: A Grammar of Data
+Manipulation_. R package version 0.5.0. 2016. <URL:
+https://CRAN.R-project.org/package=dplyr>.
 
 
