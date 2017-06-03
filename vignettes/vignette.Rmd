@@ -97,7 +97,7 @@ A phyloseq object can be subsetted, filtered, aggregated, transformed, and other
 To convert absolute counts to compositional (relative) abundances, for instance, use
 
 ```{r compositional}
-pseq.compositional <- microbiome::transform(pseq, "compositional")
+pseq.comp <- microbiome::transform(dietswap, "compositional")
 ```
 
 
@@ -107,7 +107,7 @@ pseq.compositional <- microbiome::transform(pseq, "compositional")
 Standard ecosystem state variables include richness, evenness, diversity, dominance, and rarity. The function `global` calls these indicators with default parameters. 
 
 ```{r global, warning=FALSE, message=FALSE, results="asis"}
-g <- global(dietswap, index = "rarity")
+g <- global(dietswap, index = c("shannon", "gini", "DMN"))
 print(head(kable(g, format = "html")))
 ```
 

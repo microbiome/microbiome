@@ -61,6 +61,7 @@ global <- function(x, index = "all") {
     }
     
     a <- dominance(x, index = gsub("dominance_", "", index))
+
     if (!is.null(a)) {
         if (is.vector(a)) {
             a <- as.matrix(a, ncol = 1)
@@ -68,7 +69,7 @@ global <- function(x, index = "all") {
         colnames(a) <- paste("dominance_", colnames(a), sep = "")
         tab <- cbind(tab, a)
     }
-    
+
     a <- rarity(x, index = gsub("rarity_", "", index))
     if (!is.null(a)) {
         if (is.vector(a)) {
