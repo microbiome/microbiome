@@ -24,9 +24,7 @@ vignette: >
 
 The [microbiome R package](http://microbiome.github.io/microbiome) provides tools for the exploration and analysis of microbiome profiling data, with a focus on large-scale population studies and 16S taxonomic profiling. This package is based on the [phyloseq](http://joey711.github.io/phyloseq/import-data) class structure and extends the generic [phyloseq](https://github.com/joey711/phyloseq) framework for R based microbiome analysis, but it is independent work.
 
-This tutorial provides a brief overview on the package functionality with example data sets from published studies (Lahti, Salojarvi, Salonen, et al., 2014; Lahti, Salonen, Kekkonen, et al., 2013; O'Keefe, Li, Lahti, et al., 2015).
-
-And this one [@OKeefe15]
+This tutorial provides a brief overview on the package functionality with example data sets from published studies [@lahti14natcomm, @Lahti13provasI @OKeefe15].
 
 For a complete description of the package functionality, see the [on-line tutorial](http://microbiome.github.io/microbiome). Other useful on-line resources for starters include [R cheat sheets](http://devcheatsheet.com/tag/r/), [Rmarkdown tips](http://rmarkdown.rstudio.com/), [instructions on using Github with R and RStudio](http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/). The [molecular ecologist's view on code sharing](http://www.molecularecologist.com/2013/08/want-to-share-your-code/) is also worth reading.
 
