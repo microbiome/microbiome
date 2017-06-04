@@ -75,7 +75,6 @@ extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 ### Statistical analysis
 
 * [Bimodality](Bimodality.html)
-* [Potential analysis](Potential.html)
 * [Community comparisons](Comparisons.html) ([limma](limma.html), [PERMANOVA](PERMANOVA.html), [mixed models](Mixedmodels.html), [negative binomial](Negativebinomial.html)  etc)
 * [Experimental tools](Experimental.html)
 
