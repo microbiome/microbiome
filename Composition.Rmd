@@ -78,7 +78,8 @@ print(p)
 ### Composition heatmaps
 
 
-Heatmap for CLR-transformed abundances, with samples and OTUs sorted with the neatmap method:
+Heatmap for CLR-transformed abundances, with samples and OTUs sorted
+with the neatmap method:
   
 ```{r composition-example7, fig.width=10, fig.height=3}
 plot_composition(pseq2, plot.type = "heatmap", transform = "clr",

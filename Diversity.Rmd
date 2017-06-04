@@ -31,7 +31,7 @@ pseq <- dietswap
 
 A comprehensive list of global indicators of the ecosystem state can be obtained as follows. This includes various measures of richness, evenness, diversity, dominance, and rarity with default parameters. See the individual functions for more options regarding parameter tuning.
 
-```{r global, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
+```{r global, warning=FALSE, message=FALSE, fig.height=3, fig.width=5, results="asis"}
 global.inds <- global(pseq, index = "all")
 head(kable(global.inds))
 ```
@@ -41,7 +41,7 @@ head(kable(global.inds))
 
 This returns a table with selected diversity indicators. See a separate page on [Beta diversity](Betadiversity.html).
 
-```{r alpha, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
+```{r alpha, warning=FALSE, message=FALSE, fig.height=3, fig.width=5, results="asis"}
 tab <- diversities(pseq, index = "all")
 head(kable(tab))
 ```
@@ -53,7 +53,6 @@ This returns observed richness with given detection threshold(s).
 
 ```{r divest, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
 tab <- richness(pseq)
-head(kable(tab))
 ```
 
 
@@ -64,7 +63,6 @@ The dominance index refers to the abundance of the most abundant species. Variou
 ```{r dominance, warning=FALSE, message=FALSE}
 # Absolute abundances for the single most abundant taxa in each sample
 do <- dominance(pseq, index = "all")
-kable(head(do))
 ```
 
 
@@ -75,7 +73,6 @@ The rarity indices quantify the concentration of rare or low abundance taxa. Var
 
 ```{r lowab, warning=FALSE, message=FALSE}
 ra <- rarity(pseq, index = "all")
-kable(head(ra))
 ```
 
 
@@ -113,7 +110,6 @@ Various evenness measures are also available.
 
 ```{r evenness, warning=FALSE, message=FALSE}
 ev <- evenness(pseq, "all")
-kable(head(ev))
 ```
 
 
