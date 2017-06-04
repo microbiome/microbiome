@@ -5,8 +5,10 @@ bibliography:
 - bibliography.bib
 date: "2017-06-04"
 output:
+  rmarkdown::md_document:
+    toc: true
   rmarkdown::html_vignette:
-    fig_caption: yes
+    fig_caption: yes    
 vignette: >
   %\VignetteIndexEntry{microbiome R package}
   %\VignetteEngine{knitr::rmarkdown}
