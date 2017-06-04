@@ -323,7 +323,7 @@ kable(head(correlation.table))
 Let us rearrange the data and plot the heatmap and highlight
 significant correlations with stars as in [@Lahti13provasI].
 
-```{r hm3, fig.width=12, fig.height=8, message=FALSE, warning=FALSE, out.width="300px"}
+```{r hm3, fig.width=12, fig.height=9, message=FALSE, warning=FALSE, out.width="400px"}
 heat(correlation.table, "X1", "X2", fill = "Correlation", 
     star = "p.adj", p.adj.threshold = 0.05) 
 ```

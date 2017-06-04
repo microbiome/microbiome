@@ -378,7 +378,7 @@ heat(correlation.table, "X1", "X2", fill = "Correlation",
     star = "p.adj", p.adj.threshold = 0.05) 
 ```
 
-<img src="figure/hm3-1.png" title="plot of chunk hm3" alt="plot of chunk hm3" width="300px" />
+<img src="figure/hm3-1.png" title="plot of chunk hm3" alt="plot of chunk hm3" width="400px" />
 
 
 ## Bistability and tipping elements
