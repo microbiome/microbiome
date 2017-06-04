@@ -32,8 +32,8 @@ pseq <- dietswap
 A comprehensive list of global indicators of the ecosystem state can be obtained as follows. This includes various measures of richness, evenness, diversity, dominance, and rarity with default parameters. See the individual functions for more options regarding parameter tuning.
 
 ```{r global, warning=FALSE, message=FALSE, fig.height=3, fig.width=5, results="asis"}
-global.inds <- global(pseq, index = "all")
-head(kable(global.inds))
+tab <- global(pseq, index = "all")
+kable(head(tab))
 ```
 
 
@@ -43,7 +43,7 @@ This returns a table with selected diversity indicators. See a separate page on 
 
 ```{r alpha, warning=FALSE, message=FALSE, fig.height=3, fig.width=5, results="asis"}
 tab <- diversities(pseq, index = "all")
-head(kable(tab))
+kable(head(tab))
 ```
 
 
@@ -53,6 +53,7 @@ This returns observed richness with given detection threshold(s).
 
 ```{r divest, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
 tab <- richness(pseq)
+kable(head(tab))
 ```
 
 
@@ -62,7 +63,8 @@ The dominance index refers to the abundance of the most abundant species. Variou
 
 ```{r dominance, warning=FALSE, message=FALSE}
 # Absolute abundances for the single most abundant taxa in each sample
-do <- dominance(pseq, index = "all")
+tab <- dominance(pseq, index = "all")
+kable(head(tab))
 ```
 
 
@@ -72,7 +74,8 @@ do <- dominance(pseq, index = "all")
 The rarity indices quantify the concentration of rare or low abundance taxa. Various rarity indices are available (see the function help for a list of options).
 
 ```{r lowab, warning=FALSE, message=FALSE}
-ra <- rarity(pseq, index = "all")
+tab <- rarity(pseq, index = "all")
+kable(head(tab))
 ```
 
 
@@ -82,7 +85,8 @@ ra <- rarity(pseq, index = "all")
 The coverage index gives the number of groups needed to have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
 
 ```{r coverage, warning=FALSE, message=FALSE, eval=FALSE}
-do <- coverage(pseq, threshold = 0.5)
+tab <- coverage(pseq, threshold = 0.5)
+kable(head(tab))
 ```
 
 
@@ -91,7 +95,8 @@ do <- coverage(pseq, threshold = 0.5)
 The core_abundance function refers to the relative proportion of the core species. Non-core abundance provides the complement (1-x; see noncore_abundance).
 
 ```{r divest5, warning=FALSE, message=FALSE}
-co <- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
+tab <- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
+kable(head(tab))
 ```
 
 
@@ -100,7 +105,8 @@ co <- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
 Gini index is a common measure for inequality in economical income. The inverse gini index (1/x) can also be used as a community diversity measure.
 
 ```{r divest6, warning=FALSE, message=FALSE}
-gi <- inequality(pseq)
+tab <- inequality(pseq)
+kable(head(tab))
 ```
 
 
@@ -109,7 +115,8 @@ gi <- inequality(pseq)
 Various evenness measures are also available.
 
 ```{r evenness, warning=FALSE, message=FALSE}
-ev <- evenness(pseq, "all")
+tab <- evenness(pseq, "all")
+kable(head(tab))
 ```
 
 

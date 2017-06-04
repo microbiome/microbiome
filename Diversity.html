@@ -135,37 +135,346 @@ pseq &lt;- dietswap</code></pre>
 <div id="global-indicators" class="section level3">
 <h3>Global indicators</h3>
 <p>A comprehensive list of global indicators of the ecosystem state can be obtained as follows. This includes various measures of richness, evenness, diversity, dominance, and rarity with default parameters. See the individual functions for more options regarding parameter tuning.</p>
-<pre class="r"><code>global.inds &lt;- global(pseq, index = &quot;all&quot;)
-head(kable(global.inds))</code></pre>
-<p>[1] &quot; richness_0 richness_20 richness_50 richness_80 diversities_inverse_simpson diversities_gini_simpson diversities_shannon diversities_fisher diversities_coverage evenness_camargo evenness_pielou evenness_simpson evenness_evar evenness_bulla dominance_dbp dominance_dmn dominance_absolute dominance_relative dominance_simpson dominance_core_abundance dominance_gini rarity_log_modulo_skewness rarity_low_abundance rarity_noncore_abundance rarity_rare_abundance&quot; [2] “———– ———– ———— ———— ———— —————————- ————————- ——————– ——————- ——————— —————– —————- —————– ————– ————— ————– ————– ——————- ——————- —————— ————————- ————— ————————— ——————— ————————- ———————-” [3] “Sample-1 112 104 61 27 7.562984 0.8677771 2.942723 12.16148 4 0.1378045 0.6045614 0.0581768 0.0736465 0.2925991 0.3279166 0.3279166 175035 0.3279166 0.1322229 0.9274756 0.8621955 2.059086 0.0291825 0.0150193 0” [4] “Sample-2 118 110 68 39 8.105283 0.8766237 2.824184 11.11824 3 0.1159349 0.5802083 0.0623483 0.0722394 0.2506029 0.2428268 0.2428268 323085 0.2428268 0.1233763 0.9328351 0.8840651 2.058747 0.0302304 0.0350443 0” [5] “Sample-3 113 104 71 37 4.292701 0.7670464 2.409584 10.80073 2 0.0919433 0.4950318 0.0330208 0.0608332 0.2233591 0.4593873 0.4593873 837328 0.4593873 0.2329536 0.9513098 0.9080567 2.056009 0.0341229 0.0095056 0” [6] “Sample-4 114 106 73 30 7.937365 0.8740136 2.994672 11.62450 4 0.1433967 0.6152338 0.0610567 0.0692447 0.2829995 0.3229230 0.3229230 269963 0.3229230 0.1259864 0.8617545 0.8566033 2.054981 0.0349690 0.0370659 0”</p>
+<pre class="r"><code>tab &lt;- global(pseq, index = &quot;all&quot;)
+kable(head(tab))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">richness_0</th>
+<th align="right">richness_20</th>
+<th align="right">richness_50</th>
+<th align="right">richness_80</th>
+<th align="right">diversities_inverse_simpson</th>
+<th align="right">diversities_gini_simpson</th>
+<th align="right">diversities_shannon</th>
+<th align="right">diversities_fisher</th>
+<th align="right">diversities_coverage</th>
+<th align="right">evenness_camargo</th>
+<th align="right">evenness_pielou</th>
+<th align="right">evenness_simpson</th>
+<th align="right">evenness_evar</th>
+<th align="right">evenness_bulla</th>
+<th align="right">dominance_dbp</th>
+<th align="right">dominance_dmn</th>
+<th align="right">dominance_absolute</th>
+<th align="right">dominance_relative</th>
+<th align="right">dominance_simpson</th>
+<th align="right">dominance_core_abundance</th>
+<th align="right">dominance_gini</th>
+<th align="right">rarity_log_modulo_skewness</th>
+<th align="right">rarity_low_abundance</th>
+<th align="right">rarity_noncore_abundance</th>
+<th align="right">rarity_rare_abundance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sample-1</td>
+<td align="right">112</td>
+<td align="right">104</td>
+<td align="right">61</td>
+<td align="right">27</td>
+<td align="right">7.562984</td>
+<td align="right">0.8677771</td>
+<td align="right">2.942723</td>
+<td align="right">12.16148</td>
+<td align="right">4</td>
+<td align="right">0.1378045</td>
+<td align="right">0.6045614</td>
+<td align="right">0.0581768</td>
+<td align="right">0.0736465</td>
+<td align="right">0.2925991</td>
+<td align="right">0.3279166</td>
+<td align="right">0.3279166</td>
+<td align="right">175035</td>
+<td align="right">0.3279166</td>
+<td align="right">0.1322229</td>
+<td align="right">0.9274756</td>
+<td align="right">0.8621955</td>
+<td align="right">2.059086</td>
+<td align="right">0.0291825</td>
+<td align="right">0.0150193</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td>Sample-2</td>
+<td align="right">118</td>
+<td align="right">110</td>
+<td align="right">68</td>
+<td align="right">39</td>
+<td align="right">8.105283</td>
+<td align="right">0.8766237</td>
+<td align="right">2.824184</td>
+<td align="right">11.11824</td>
+<td align="right">3</td>
+<td align="right">0.1159349</td>
+<td align="right">0.5802083</td>
+<td align="right">0.0623483</td>
+<td align="right">0.0722394</td>
+<td align="right">0.2506029</td>
+<td align="right">0.2428268</td>
+<td align="right">0.2428268</td>
+<td align="right">323085</td>
+<td align="right">0.2428268</td>
+<td align="right">0.1233763</td>
+<td align="right">0.9328351</td>
+<td align="right">0.8840651</td>
+<td align="right">2.058747</td>
+<td align="right">0.0302304</td>
+<td align="right">0.0350443</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td>Sample-3</td>
+<td align="right">113</td>
+<td align="right">104</td>
+<td align="right">71</td>
+<td align="right">37</td>
+<td align="right">4.292701</td>
+<td align="right">0.7670464</td>
+<td align="right">2.409584</td>
+<td align="right">10.80073</td>
+<td align="right">2</td>
+<td align="right">0.0919433</td>
+<td align="right">0.4950318</td>
+<td align="right">0.0330208</td>
+<td align="right">0.0608332</td>
+<td align="right">0.2233591</td>
+<td align="right">0.4593873</td>
+<td align="right">0.4593873</td>
+<td align="right">837328</td>
+<td align="right">0.4593873</td>
+<td align="right">0.2329536</td>
+<td align="right">0.9513098</td>
+<td align="right">0.9080567</td>
+<td align="right">2.056009</td>
+<td align="right">0.0341229</td>
+<td align="right">0.0095056</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td>Sample-4</td>
+<td align="right">114</td>
+<td align="right">106</td>
+<td align="right">73</td>
+<td align="right">30</td>
+<td align="right">7.937365</td>
+<td align="right">0.8740136</td>
+<td align="right">2.994672</td>
+<td align="right">11.62450</td>
+<td align="right">4</td>
+<td align="right">0.1433967</td>
+<td align="right">0.6152338</td>
+<td align="right">0.0610567</td>
+<td align="right">0.0692447</td>
+<td align="right">0.2829995</td>
+<td align="right">0.3229230</td>
+<td align="right">0.3229230</td>
+<td align="right">269963</td>
+<td align="right">0.3229230</td>
+<td align="right">0.1259864</td>
+<td align="right">0.8617545</td>
+<td align="right">0.8566033</td>
+<td align="right">2.054981</td>
+<td align="right">0.0349690</td>
+<td align="right">0.0370659</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td>Sample-5</td>
+<td align="right">112</td>
+<td align="right">104</td>
+<td align="right">65</td>
+<td align="right">25</td>
+<td align="right">3.172320</td>
+<td align="right">0.6847733</td>
+<td align="right">2.108225</td>
+<td align="right">11.32472</td>
+<td align="right">1</td>
+<td align="right">0.0790664</td>
+<td align="right">0.4331198</td>
+<td align="right">0.0244025</td>
+<td align="right">0.0709762</td>
+<td align="right">0.2066856</td>
+<td align="right">0.5448817</td>
+<td align="right">0.5448817</td>
+<td align="right">596658</td>
+<td align="right">0.5448817</td>
+<td align="right">0.3152267</td>
+<td align="right">0.9533809</td>
+<td align="right">0.9209336</td>
+<td align="right">2.060330</td>
+<td align="right">0.0443278</td>
+<td align="right">0.0107751</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td>Sample-6</td>
+<td align="right">112</td>
+<td align="right">105</td>
+<td align="right">73</td>
+<td align="right">30</td>
+<td align="right">2.955214</td>
+<td align="right">0.6616150</td>
+<td align="right">2.073329</td>
+<td align="right">11.18672</td>
+<td align="right">1</td>
+<td align="right">0.0811396</td>
+<td align="right">0.4259505</td>
+<td align="right">0.0227324</td>
+<td align="right">0.0685637</td>
+<td align="right">0.2084814</td>
+<td align="right">0.5692406</td>
+<td align="right">0.5692406</td>
+<td align="right">709407</td>
+<td align="right">0.5692406</td>
+<td align="right">0.3383850</td>
+<td align="right">0.9255292</td>
+<td align="right">0.9188604</td>
+<td align="right">2.060149</td>
+<td align="right">0.0378701</td>
+<td align="right">0.0170730</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="alpha-diversity" class="section level3">
 <h3>Alpha diversity</h3>
 <p>This returns a table with selected diversity indicators. See a separate page on <a href="Betadiversity.html">Beta diversity</a>.</p>
 <pre class="r"><code>tab &lt;- diversities(pseq, index = &quot;all&quot;)
-head(kable(tab))</code></pre>
-<pre><code>## [1] &quot;              inverse_simpson   gini_simpson    shannon     fisher   coverage&quot;
-## [2] &quot;-----------  ----------------  -------------  ---------  ---------  ---------&quot;
-## [3] &quot;Sample-1             7.562984      0.8677771   2.942723   12.16148          4&quot;
-## [4] &quot;Sample-2             8.105283      0.8766237   2.824184   11.11824          3&quot;
-## [5] &quot;Sample-3             4.292701      0.7670464   2.409584   10.80073          2&quot;
-## [6] &quot;Sample-4             7.937365      0.8740136   2.994672   11.62450          4&quot;</code></pre>
+kable(head(tab))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">inverse_simpson</th>
+<th align="right">gini_simpson</th>
+<th align="right">shannon</th>
+<th align="right">fisher</th>
+<th align="right">coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sample-1</td>
+<td align="right">7.562984</td>
+<td align="right">0.8677771</td>
+<td align="right">2.942723</td>
+<td align="right">12.16148</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td>Sample-2</td>
+<td align="right">8.105283</td>
+<td align="right">0.8766237</td>
+<td align="right">2.824184</td>
+<td align="right">11.11824</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td>Sample-3</td>
+<td align="right">4.292701</td>
+<td align="right">0.7670464</td>
+<td align="right">2.409584</td>
+<td align="right">10.80073</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td>Sample-4</td>
+<td align="right">7.937365</td>
+<td align="right">0.8740136</td>
+<td align="right">2.994672</td>
+<td align="right">11.62450</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td>Sample-5</td>
+<td align="right">3.172320</td>
+<td align="right">0.6847733</td>
+<td align="right">2.108225</td>
+<td align="right">11.32472</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td>Sample-6</td>
+<td align="right">2.955214</td>
+<td align="right">0.6616150</td>
+<td align="right">2.073329</td>
+<td align="right">11.18672</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="richness" class="section level3">
 <h3>Richness</h3>
 <p>This returns observed richness with given detection threshold(s).</p>
 <pre class="r"><code>tab &lt;- richness(pseq)
-head(kable(tab))</code></pre>
-<pre><code>## [1] &quot;                0    20   50   80&quot; &quot;-----------  ----  ----  ---  ---&quot;
-## [3] &quot;Sample-1      112   104   61   27&quot; &quot;Sample-2      118   110   68   39&quot;
-## [5] &quot;Sample-3      113   104   71   37&quot; &quot;Sample-4      114   106   73   30&quot;</code></pre>
+kable(head(tab))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">0</th>
+<th align="right">20</th>
+<th align="right">50</th>
+<th align="right">80</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sample-1</td>
+<td align="right">112</td>
+<td align="right">104</td>
+<td align="right">61</td>
+<td align="right">27</td>
+</tr>
+<tr class="even">
+<td>Sample-2</td>
+<td align="right">118</td>
+<td align="right">110</td>
+<td align="right">68</td>
+<td align="right">39</td>
+</tr>
+<tr class="odd">
+<td>Sample-3</td>
+<td align="right">113</td>
+<td align="right">104</td>
+<td align="right">71</td>
+<td align="right">37</td>
+</tr>
+<tr class="even">
+<td>Sample-4</td>
+<td align="right">114</td>
+<td align="right">106</td>
+<td align="right">73</td>
+<td align="right">30</td>
+</tr>
+<tr class="odd">
+<td>Sample-5</td>
+<td align="right">112</td>
+<td align="right">104</td>
+<td align="right">65</td>
+<td align="right">25</td>
+</tr>
+<tr class="even">
+<td>Sample-6</td>
+<td align="right">112</td>
+<td align="right">105</td>
+<td align="right">73</td>
+<td align="right">30</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="dominance" class="section level3">
 <h3>Dominance</h3>
 <p>The dominance index refers to the abundance of the most abundant species. Various dominance indices are available (see the function help for a list of options).</p>
 <pre class="r"><code># Absolute abundances for the single most abundant taxa in each sample
-do &lt;- dominance(pseq, index = &quot;all&quot;)
-kable(head(do))</code></pre>
+tab &lt;- dominance(pseq, index = &quot;all&quot;)
+kable(head(tab))</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -246,8 +555,8 @@ kable(head(do))</code></pre>
 <div id="rarity-and-low-abundance" class="section level3">
 <h3>Rarity and low abundance</h3>
 <p>The rarity indices quantify the concentration of rare or low abundance taxa. Various rarity indices are available (see the function help for a list of options).</p>
-<pre class="r"><code>ra &lt;- rarity(pseq, index = &quot;all&quot;)
-kable(head(ra))</code></pre>
+<pre class="r"><code>tab &lt;- rarity(pseq, index = &quot;all&quot;)
+kable(head(tab))</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -307,23 +616,82 @@ kable(head(ra))</code></pre>
 <div id="coverage" class="section level3">
 <h3>Coverage</h3>
 <p>The coverage index gives the number of groups needed to have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).</p>
-<pre class="r"><code>do &lt;- coverage(pseq, threshold = 0.5)</code></pre>
+<pre class="r"><code>tab &lt;- coverage(pseq, threshold = 0.5)
+kable(head(tab))</code></pre>
 </div>
 <div id="core-abundance" class="section level3">
 <h3>Core abundance</h3>
 <p>The core_abundance function refers to the relative proportion of the core species. Non-core abundance provides the complement (1-x; see noncore_abundance).</p>
-<pre class="r"><code>co &lt;- core_abundance(pseq, detection = .1/100, prevalence = 50/100)</code></pre>
+<pre class="r"><code>tab &lt;- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
+kable(head(tab))</code></pre>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">Sample-1</td>
+<td align="right">0.9665105</td>
+</tr>
+<tr class="even">
+<td align="left">Sample-2</td>
+<td align="right">0.9591670</td>
+</tr>
+<tr class="odd">
+<td align="left">Sample-3</td>
+<td align="right">0.9720652</td>
+</tr>
+<tr class="even">
+<td align="left">Sample-4</td>
+<td align="right">0.9372630</td>
+</tr>
+<tr class="odd">
+<td align="left">Sample-5</td>
+<td align="right">0.9851720</td>
+</tr>
+<tr class="even">
+<td align="left">Sample-6</td>
+<td align="right">0.9703755</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="gini-index" class="section level3">
 <h3>Gini index</h3>
 <p>Gini index is a common measure for inequality in economical income. The inverse gini index (1/x) can also be used as a community diversity measure.</p>
-<pre class="r"><code>gi &lt;- inequality(pseq)</code></pre>
+<pre class="r"><code>tab &lt;- inequality(pseq)
+kable(head(tab))</code></pre>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">Sample-1</td>
+<td align="right">0.8621955</td>
+</tr>
+<tr class="even">
+<td align="left">Sample-2</td>
+<td align="right">0.8840651</td>
+</tr>
+<tr class="odd">
+<td align="left">Sample-3</td>
+<td align="right">0.9080567</td>
+</tr>
+<tr class="even">
+<td align="left">Sample-4</td>
+<td align="right">0.8566033</td>
+</tr>
+<tr class="odd">
+<td align="left">Sample-5</td>
+<td align="right">0.9209336</td>
+</tr>
+<tr class="even">
+<td align="left">Sample-6</td>
+<td align="right">0.9188604</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="evenness" class="section level3">
 <h3>Evenness</h3>
 <p>Various evenness measures are also available.</p>
-<pre class="r"><code>ev &lt;- evenness(pseq, &quot;all&quot;)
-kable(head(ev))</code></pre>
+<pre class="r"><code>tab &lt;- evenness(pseq, &quot;all&quot;)
+kable(head(tab))</code></pre>
 <table>
 <thead>
 <tr class="header">
