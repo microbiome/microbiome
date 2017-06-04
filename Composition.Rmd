@@ -41,7 +41,7 @@ pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR" & timepoint.w
 
 Same with compositional (relative) abundances:
   
-```{r composition-example4b, fig.width=12, fig.height=5, out.width="300px", fig.show="hold"}
+```{r composition-example4b, fig.width=12, fig.height=5, out.width="300px", fig.show="hold", warning=FALSE, message=FALSE}
 # Try another theme
 # from https://github.com/hrbrmstr/hrbrthemes
 library(hrbrthemes)
@@ -81,8 +81,8 @@ print(p)
 Heatmap for CLR-transformed abundances, with samples and OTUs sorted
 with the neatmap method:
   
-```{r composition-example7, fig.width=10, fig.height=3}
-plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
+```{r composition-example7, fig.width=10, fig.height=4}
+tmp <- plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
                       sample.sort = "neatmap", otu.sort = "neatmap",
                       mar = c(6, 13, 1, 1))
 ```
@@ -114,7 +114,6 @@ colnames(tax_table(p0)) <- c("Kingdom", "Phylum", "Class", "Order", "Family", "G
 p0 <- core(p0, detection = 10, prevalence = 0)
 
 # For the available taxonomic levels
-p <- plot_taxa_prevalence(p0, "Phylum")
-print(p)
+plot_taxa_prevalence(p0, "Phylum")
 ```
 
