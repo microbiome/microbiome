@@ -102,7 +102,7 @@ rda_bagged <- function(x, y, bs.iter = 100, verbose = TRUE) {
 
 
 
-#' @title Bagged RDA
+#' @title Bagged RDA Auxiliary Function
 #' @description Bootstrap solutions that follows the Jack-knife estimation of
 #'            PLS by Martens and Martens, 2000.  Solves rotational
 #'            invariance of latent space by orthogonal procrustes rotations.
@@ -201,7 +201,7 @@ Bagged.RDA <- function(X, Y, bs.iter = 100) {
     # bagged estimates
     bagged.loadings <- Tx[[1]]$loadingsX
     for (i in 2:bs.iter) bagged.loadings = bagged.loadings + Tx[[i]]$loadingsX
-    bagged.loadings <- bagged.loadings/bs.iter
+    bagged.loadings <- bagged.loadings / bs.iter
     colnames(bagged.loadings) <- colnames(TT)
     
     # solve scores
@@ -209,6 +209,7 @@ Bagged.RDA <- function(X, Y, bs.iter = 100) {
     b <- as.matrix(X - rowMeans(X))
     bagged.scores <- t(solve(a, t(bagged.loadings) %*% b))
     colnames(bagged.scores) = colnames(TT)
+    
     # Group centers
     Group.center <- apply(bagged.scores, 2,
         function(x) sapply(split(x, Y), mean))
@@ -230,7 +231,6 @@ Bagged.RDA <- function(X, Y, bs.iter = 100) {
     Rsquare.variable <- t(can.cor.R/apply(X, 1, var))
     colnames(Rsquare.variable) <- colnames(bagged.scores)
     
-    # The CRAN/BioC recommendations do not allow lines over 80 chars
     list(loadings = bagged.loadings, scores = bagged.scores,
         significance = sig.prob, error = bagged.R2,
         group.centers = Group.center, bootstrapped = Tx,

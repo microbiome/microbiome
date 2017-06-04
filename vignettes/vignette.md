@@ -3,7 +3,7 @@ title: "Introduction to the microbiome R package"
 author: "Leo Lahti, Sudarshan Shetty, et al."
 bibliography: 
 - bibliography.bib
-date: "2017-06-03"
+date: "2017-06-04"
 output:
   rmarkdown::pdf_document:
     toc: true
@@ -22,11 +22,11 @@ vignette: >
 
 ## Introduction
 
-The [microbiome R package](http://microbiome.github.io/microbiome) facilitates exploration and analysis of microbiome profiling data, in particular 16S taxonomic profiling. Here we provide a very concise overview to the package functionality using example data sets from published studies [@lahti14natcomm, @Lahti13provasI, @OKeefe15]. We have intentionally omitted many details in order to provide an overview. A full tutorial is available [on-line](http://microbiome.github.io/microbiome). 
+The [microbiome R package](http://microbiome.github.io/microbiome) facilitates exploration and analysis of microbiome profiling data, in particular 16S taxonomic profiling. Here we provide a brief overview of the package functionality with example data sets from published gut microbiome profiling studies [@lahti14natcomm, @Lahti13provasI, @OKeefe15]. A more comprehensive tutorial is available [on-line](http://microbiome.github.io/microbiome). 
 
-The microbiome R package has been utilized in recent publications [@salonen14, @Faust15, @Shetty2017], and is released under the [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses). The package extends the independent [phyloseq](http://joey711.github.io/phyloseq/import-data) class structure and [tools](http://joey711.github.io/phyloseq/).
+This package provides additional tools for common tasks in microbial bioinformatics. These include tools for the manipulation, statistical analysis, and visualization of taxonomic profiling data. The tools have been used in publications as well as in introductory courses and a number of users have contributed by providing feedback, bug reports, and new features. In addition to facilitate microbiome analyses in targeted case-control studies, the package provides tools for scalable exploration and analysis of large population cohorts with thousands of samples [@Lahti14natcomm]. Whereas large-scale sample collections are rapidly accumulating for the gut as well as other body sites and environments, few mature, general-purpose tools for the analysis are available. This package supports the independent [phyloseq](http://joey711.github.io/phyloseq) data format and expands the available toolkit in order to facilitate the standardization of the analyses and the development of best practices. While we aim to complement the tools provided by the phyloseq and other packages, rather than develop overlapping functionality, in some cases it has been necessary to provide alternative solutions to facilitate clarity, complementarity, or efficiency.
 
-Input from the user community is very welcome via the [issue tracker](https://github.com/microbiome/microbiome/issues) or [pull requests](http://microbiome.github.io/microbiome/Contributing.html). See the [Github site](https://github.com/microbiome/microbiome) for source code and other details. 
+We welcome input from the user community via the [issue tracker](https://github.com/microbiome/microbiome/issues) and [pull requests](http://microbiome.github.io/microbiome/Contributing.html). See the [Github site](https://github.com/microbiome/microbiome) for source code and other details. These R tools have been utilized in recent publications [@salonen14, @Faust15, @Shetty2017], and they are released under the [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses). 
 
 Kindly cite the work as follows: "Leo Lahti [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). Tools for microbiome analysis in R. Microbiome package version 0.99.1. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). 
 
@@ -51,26 +51,46 @@ library(microbiome)
 
 ## Data
 
-A [phyloseq](http://joey711.github.io/phyloseq) data object typically contains an OTU table (taxa abundances), sample metadata, taxonomy table (mapping between OTUs and higher-level taxonomic classifications), and a phylogenetic tree (relations between the taxa). 
+The microbiome package relies on the independent [phyloseq](http://joey711.github.io/phyloseq) data format. A [phyloseq](http://joey711.github.io/phyloseq) data object typically contains an OTU table (taxa abundances), sample metadata (age, BMI, sex, ...), taxonomy table (mapping between OTUs and higher-level taxonomic classifications), and a phylogenetic tree (relations between the taxa). 
 
 
-### Example data
+### Example data sets
 
-HITChip Atlas data set [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)) contains 130 genus-level taxonomic groups across 1006 western adults. Get example data with
+Example data sets are provided to facilitate reproducible examples and further methods development.
+
+The HITChip Atlas data set [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) contains 130 genus-level taxonomic groups across 1006 western adults. Load the example data in R with
 
 
 ```r
+# Data from 
+# http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html
 data(atlas1006) 
+atlas1006
 ```
 
-A two-week diet swap study between western (USA) and traditional (rural Africa) diets, reported in [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342)
+```
+## phyloseq-class experiment-level object
+## otu_table()   OTU Table:         [ 130 taxa and 1172 samples ]
+## sample_data() Sample Data:       [ 1172 samples by 10 sample variables ]
+## tax_table()   Taxonomy Table:    [ 130 taxa by 2 taxonomic ranks ]
+```
+
+The two-week diet swap study between western (USA) and traditional (rural Africa) diets, reported in [O'Keefe et al. Nat. Comm. 6:6342, 2015](http://dx.doi.org/10.1038/ncomms7342)
 
 
 ```r
-data(dietswap) 
+data(dietswap) # Data from http://dx.doi.org/10.1038/ncomms7342
+dietswap
 ```
 
-A gut microbiome profiling data set, which includes parallel profiling of intestinal microbiota versus blood metabolites from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) to characterize associations between human intestinal microbiota and blood serum lipids. 
+```
+## phyloseq-class experiment-level object
+## otu_table()   OTU Table:         [ 130 taxa and 222 samples ]
+## sample_data() Sample Data:       [ 222 samples by 8 sample variables ]
+## tax_table()   Taxonomy Table:    [ 130 taxa by 2 taxonomic ranks ]
+```
+
+A parallel profiling of gut microbiota versus blood metabolites from [Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) to characterize associations between human intestinal microbiota and blood serum lipids
 
 
 ```r
@@ -80,61 +100,108 @@ data(peerj32) # Data from https://peerj.com/articles/32/
 
 ### Data import
 
-The [tutorial](http://microbiome.github.io/microbiome/Data.html) describes how to import data from standard formats (Mother, BIOM, CSV).
+The [tutorial](http://microbiome.github.io/microbiome/Data.html) describes how to import data from standard formats (Mother, BIOM, CSV, etc.).
 
 
 ### Data manipulation
 
-A phyloseq object can be subsetted, filtered, aggregated, transformed, and otherwise manipulated with the [phyloseq](http://joey711.github.io/phyloseq/) and [microbiome](http://microbiome.github.io/microbiome/Preprocessing.html) tools. The microbiome package provides a wrapper for many standard transformations such  as Z, centered log-ratio, hellinger, log10, and other transformations. 
+A phyloseq object can be subsetted, filtered, aggregated, transformed, and otherwise manipulated. For a comprehensive list of tools, see the [online tutorial](http://microbiome.github.io/microbiome/Preprocessing.html).
 
-To convert absolute counts to compositional (relative) abundances, for instance, use
+The microbiome package complements the toolkit by providing a wrapper for many standard transformations such  as Z, centered log-ratio, hellinger, log10, and other transformations. To convert absolute counts to compositional (relative) abundances, for instance, use
 
 
 ```r
-pseq.comp <- transform(dietswap, "compositional")
+# dietswap is a phyloseq object; see above
+dietswap.compositional <- transform(dietswap, "compositional")
 ```
 
 
 
-## Diversity and other ecosystem indices 
+## Ecosystem indices
 
-Standard ecosystem state variables include richness, evenness, alpha diversity, dominance, and rarity. The function `global` calls these indicators with default parameters. For further options and [beta diversity](http://microbiome.github.io/microbiome/Betadiversity.html) quantification, see [tutorial](http://microbiome.github.io/microbiome/Diversity.html). 
+### Alpha diversity, richness, evenness, dominance, and rarity
+
+Common ecosystem state variables include various indices to quantify alpha diversities, richness, evenness, dominance, and rarity (see functions with similar names). The microbiome package provides a comprehensive set of such indices via a standardized interface.
+
+The function `global` calls these indicators with default parameters. For further options, see [tutorial](http://microbiome.github.io/microbiome/Diversity.html). 
 
 
 ```r
 g <- global(atlas1006, index = "gini")
 ```
 
-
-Regression curve with smoothed error bars based on the [Visually-Weighted Regression](http://www.fight-entropy.com/2012/07/visually-weighted-regression.html) can be used to visualize sample variables.
+Regression curve with smoothed error bars is based on the [Visually-Weighted Regression](http://www.fight-entropy.com/2012/07/visually-weighted-regression.html) can be used to visualize sample variables, here the relation between age and diversity. This function operates on standard data frames.
 
 
 ```r
-plot_regression(diversity ~ age, meta(atlas1006))
+# Pick the sample metadata from a phyloseq object
+df <- meta(atlas1006)
+
+# Estimate Shannon diversity and add it to the data frame
+df$diversity <- global(atlas1006, index = "shannon")
+
+# Compare age and microbiome diversity
+plot_regression(diversity ~ age, df)
 ```
 
 ![plot of chunk variability-regression](figure/variability-regression-1.png)
 
 
+### Beta diversity or divergence
+
+Also [beta diversity](http://microbiome.github.io/microbiome/Betadiversity.html) metrics are provided. This is also called microbiome divergence, intra-group similarity, or group heterogeneity. We have chosen to use the term divergence as the function name. The higher the divergence, the more spread the group is and the more dissimilar the samples within the group are on average. 
+
+In addition to group-wise comparisons, beta diversity can be also used to assess the stability, or intra-individual similarity, within subjects over time. Whereas various measures have been proposed, we have implemented the correlation-based divergence measure as in [@Salonen2014].
+
+As an example, let us compare beta diversity between two treatment groups in [@Lahti13ProvasI]. 
+
+
+```r
+# Pick phyloseq object containing the microbiome data in
+# https://peerj.com/articles/32/
+pseq <- peerj32$phyloseq
+
+# Calculate divergence (beta diversity) for Placebo and LGG groups
+b.pla <- divergence(subset_samples(pseq, group == "Placebo"))
+b.lgg <- divergence(subset_samples(pseq, group == "LGG"))
+
+# Visual comparison
+boxplot(list(LGG = b.lgg, Placebo = b.pla))
+```
+
+![plot of chunk beta](figure/beta-1.png)
+
+
 ## Core microbiota analysis
 
-Population frequencies, **prevalence**, of the taxonomic groups exceeding a given detection thresholld can be calculated with
+Population frequencies, or **prevalence**, of the taxonomic groups exceeding a given detection thresholld can be calculated with
 
 
 ```r
 p <- prevalence(dietswap, detection = 0, sort = TRUE)
 ```
 
-The core microbiota refers to the set of taxa that are detected in a remarkable fraction of the population above a given abundance threshold [@Jalanka-Tuovinen11, @Salonen12cmi]. The core subset can be sliced from a phyloseq object as follows.
+The **core microbiota** refers to the set of taxa that are detected in a remarkable fraction of the population above a given abundance threshold [see e.g. @Jalanka-Tuovinen11, @Salonen12cmi]. The core subset can be sliced from a phyloseq object as follows.
 
 
 ```r
-dietswap.core <- core(dietswap, detection = 0, prevalence = 50/100)
+# Taxa with over 50% prevance at .2% relative abundance
+dietswap.core <- core(dietswap.compositional, 
+                    detection = .2/100, prevalence = 50/100)
+dietswap.core
 ```
+
+```
+## phyloseq-class experiment-level object
+## otu_table()   OTU Table:         [ 39 taxa and 222 samples ]
+## sample_data() Sample Data:       [ 222 samples by 8 sample variables ]
+## tax_table()   Taxonomy Table:    [ 39 taxa by 2 taxonomic ranks ]
+```
+
 
 Similar functions are available also for rare and variable taxa, see the microbiome [tutorial](http://microbiome.github.io/microbiome/Core.html) for a full description.
 
-To visualize the core as in [@Shetty17], use
+To visualize the core as in [@Shetty2017], use
 
 
 ```r
@@ -148,21 +215,16 @@ p <- plot_core(transform(dietswap.core, "compositional"),
 print(p)    
 ```
 
-<img src="figure/corevisu-1.png" title="plot of chunk corevisu" alt="plot of chunk corevisu" width="300px" />
+<img src="figure/corevisu-1.png" title="plot of chunk corevisu" alt="plot of chunk corevisu" width="350px" />
 
 
 ## Microbiome composition
 
-
-Composition heatmap: Z-transformed abundances for the core taxa
+Composition heatmap: Z-transformed taxon abundances
 
 
 ```r
-# Focus on the core taxa
-pseq.core <- core(transform(dietswap, "compositional"), 
-            detection = .2/100, prevalence = 50/100)
-# Show Z-transformed abundances
-tmp <- plot_composition(pseq.core, plot.type = "heatmap", transform = "Z", 
+tmp <- plot_composition(dietswap.core, plot.type = "heatmap", transform = "Z", 
             mar = c(6, 13, 1, 1), sample.sort = "nationality")
 ```
 
@@ -173,17 +235,12 @@ Composition barplot
         
 
 ```r
-# Compare relative abundances of the core taxa
-pseq.core <- transform(pseq.core, "compositional")
-
-# Visualize
-p <- plot_composition(pseq.core, plot.type = "barplot", sample.sort = "neatmap")
-print(p)
+plot_composition(dietswap.core, plot.type = "barplot", sample.sort = "neatmap")
 ```
 
 ![plot of chunk compbar](figure/compbar-1.png)
 
-Visualize the microbiome landscape [@Shetty2017]. A number of other [ordination methods](http://microbiome.github.io/microbiome/Ordination.html) (PCoA, NMDS etc) are available as well.
+Visualize sample similarities, or the microbiome landscape [@Shetty2017] on an ordination map. A number of other [ordination methods](http://microbiome.github.io/microbiome/Ordination.html) (PCoA, NMDS, RDA etc) are available.
 
 
 ```r
@@ -191,9 +248,7 @@ Visualize the microbiome landscape [@Shetty2017]. A number of other [ordination 
 # Ordinate the data; note that some ordinations are sensitive to random seed
 # "quiet" is used to suppress intermediate outputs
 set.seed(423542)
-quiet(proj <- get_ordination(pseq.core, "NMDS", "bray"))
-
-# random seed affects the exact ordination
+quiet(proj <- get_ordination(dietswap.core, "NMDS", "bray"))
 p <- plot_landscape(proj[, 1:2], col = proj$nationality, legend = T)
 print(p)
 ```
@@ -201,47 +256,17 @@ print(p)
 <img src="figure/landscape4-1.png" title="plot of chunk landscape4" alt="plot of chunk landscape4" width="400px" />
 
 
-Bagged RDA is a robust version compared to the standard RDA. Fit bagged (bootstrap aggregated) RDA on a phyloseq object.
-
-
-```r
-pseq <- peerj32$phyloseq # phyloseq data
-
-# Core taxa to speed up examples
-pseq <- core(pseq, detection = 10^2, prevalence = 95/100)
-pseq.trans <- microbiome::transform(pseq, "hell") # Hellinger transform
-
-# In any real study, use bs.iter = 100 or higher
-# to achieve meaningful benefits from the bagged version.
-# In this example we use bs.iter = 2 just to speed up the
-# example code for educational purposes
-res <- rda_bagged(pseq.trans, "group", bs.iter=2)
-```
-
-Visualizing bagged RDA:
-
-
-```r
-plot_rda_bagged(res)
-```
-
-![plot of chunk rda6](figure/rda6-1.png)
-
-
 
 ### Association heatmaps
 
-To exemplify how to cross-correlate two data sets, we use data from microbiome and blood serum lipids study ([PeerJ 1:e32](https://peerj.com/articles/32/)).
+Let us cross-correlate example data containing microbiome profiling and blood serum lipids study [@Lahti13ProvasI].
 
 
 ```r
-data(peerj32)
-otu <- peerj32$microbes 
-lipids <- peerj32$lipids 
-
 # Define data sets to cross-correlate
-x <- log10(otu) # OTU Log10 (44 samples x 130 genera)
-y <- as.matrix(lipids) # Lipids (44 samples x 389 lipids)
+data(peerj32)
+x <- log10(peerj32$microbes)   # OTU Log10 (44 samples x 130 genera)
+y <- as.matrix(peerj32$lipids) # Lipids (44 samples x 389 lipids)
 
 # Cross correlate data sets and return a table
 correlation.table <- associate(x, y, method = "bicor", mode = "table", p.adj.threshold = 0.05, n.signif = 1)
@@ -272,9 +297,7 @@ heat(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.
 
 ## Bistability and tipping elements
 
-Certain microbial groups exhibit bi-stable abundance distributions [see e.g. @Lahti2014]. The microbiome package provides tools to [quantify stability and bimodality](http://microbiome.github.io/microbiome/Stability.html) in abundance data. Tools are provided also for related visualizations.
-
-Let use Dialister as an example as this has been suggested to exhibit bistable dynamics [@Lahti2014] in healthy western adults. 
+The microbiome package provides tools to [quantify stability and bimodality](http://microbiome.github.io/microbiome/Stability.html) in abundance data, following [@lahti14natcomm]. Let use Dialister as an example. The tipping point is here set manually but it can also be [estimated from the data](http://microbiome.github.io/microbiome/Stability.html).
 
 
 ```r
@@ -294,22 +317,17 @@ print(pb)
 
 ## Other tools
 
-The [on-line tutorial](http://microbiome.github.io/microbiome) provides additional tools and examples, for instance for [microbiome heatmaps](Composition.html), group-wise community comparisons](Comparisons.html), and [microbial network analysis](Comparisons.html).
+The [on-line tutorial](http://microbiome.github.io/microbiome) provides many additional examples and more thorough descriptions of the tools. This vignette intentionally omits many details in order to provide a compact overview.
 
 
 ### Acknowledgements
 
-Thanks to all [contributors](https://github.com/microbiome/microbiome/graphs/contributors). Financial support has been provided by Academy of Finland (grants 256950 and 295741), [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics, [VIB lab for Bioinformatics and (eco-)systems biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx), VIB/KULeuven, Belgium, [Molecular Ecology group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology, Wageningen University, Netherlands, and [Department of Veterinary Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm), University of Helsinki, Finland. This work relies on the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis developed by Paul McMurdie and Susan Holmes. This work also utilizes a number of independent R extensions, including ade4 [@ade4], dplyr [@dplyr], ggplot2 [@ggplot2], MASS [@MASS], moments [@moments], phyloseq [@phyloseq], RColorBrewer [@RColorBrewer], scales [@scales], stats [@stats], tidyr [@tidyr], and vegan [@vegan].
-
+Thanks to all [contributors](https://github.com/microbiome/microbiome/graphs/contributors). Financial support has been provided by Academy of Finland (grants 256950 and 295741), [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics, [VIB lab for Bioinformatics and (eco-)systems biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx), VIB/KULeuven, Belgium, [Molecular Ecology group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology, Wageningen University, Netherlands, and [Department of Veterinary Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm), University of Helsinki, Finland. This work relies on the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis developed by Paul McMurdie and Susan Holmes. This work also utilizes a number of independent R extensions, including ade4 [@Chessel_2004], dplyr [@dplyr], ggplot2 [@Wickham_2009], MASS [@MASS], phyloseq [@McMurdie2013], RColorBrewer [@RColorBrewer], tidyr [@tidyr], and vegan [@Oksanen_2015].
 
 
 # References
 
 
 
-
-```
-## Warning in is.na(x): is.na() applied to non-(list or vector) of type 'NULL'
-```
 
 
