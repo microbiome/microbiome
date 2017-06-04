@@ -43,11 +43,13 @@ Introduction to the microbiome R package
 
 Tools for common analysis tasks in microbiome profiling studies;
 illustrated with multiple example data sets from published studies;
-extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
+extending the
+[phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 
 
 ### Getting started
 
+* [Overview (vignette)](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 * [Installation](Template.html) 
 * [Example data](Data.html)
 * [Data manipulation](Preprocessing.html)
