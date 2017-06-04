@@ -268,7 +268,7 @@ multimodality <- function(x, peak.threshold = 1, bw.adjust = 1,
 #' classical test of multimodality.
 #' @keywords utilities
 bimodality_sarle <- function(x, bs.iter = 1, na.rm = TRUE,
-    type = "Sarle.finite.sample") {
+type = "Sarle.finite.sample") {
     
     g <- skewness(x, na.rm)
     k <- kurtosis(x, na.rm)

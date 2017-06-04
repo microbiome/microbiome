@@ -19,7 +19,7 @@
 #'     line = 'subject', color = 'gender')
 #' @keywords utilities
 boxplot_abundance <- function(pseq, x, y, line = NULL, color = NULL,
-    log10 = FALSE, violin = FALSE, na.rm = FALSE, show.points = TRUE) {
+log10 = FALSE, violin = FALSE, na.rm = FALSE, show.points = TRUE) {
     
     change <- xvar <- yvar <- linevar <- colorvar <- NULL
     
