@@ -20,8 +20,8 @@ plot_regression(formula, data, B = 1000, shade = TRUE, shade.alpha = 0.1,
 \item{shade}{plot the shaded confidence region?}
 
 \item{shade.alpha}{shade.alpha: should the CI shading fade out at 
-the edges? (by reducing alpha; 0 = no alpha decrease, 
-0.1 = medium alpha decrease, 0.5 = strong alpha decrease)}
+the edges? (by reducing alpha; 0=no alpha decrease, 
+0.1=medium alpha decrease, 0.5=strong alpha decrease)}
 
 \item{spag}{plot spaghetti lines?}
 
@@ -53,8 +53,8 @@ we get three color regions for 1, 2, and 3 SD (an idea of John Mashey)}
 \item{show.points}{Show points.}
 
 \item{...}{further parameters passed to the fitting function, 
-in the case of loess, for example, 'span = .9', or 
-'family = 'symmetric''}
+in the case of loess, for example, 'span=.9', or 
+'family='symmetric''}
 }
 \value{
 ggplot2 object

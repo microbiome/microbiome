@@ -20,7 +20,7 @@
 #' p <- plot_atlas(atlas1006, 'DNA_extraction_method', 'diversity')
 #' p <- plot_atlas(atlas1006, 'DNA_extraction_method', 'Bifidobacterium')
 #' @keywords utilities
-plot_atlas <- function(pseq, x, y, ncol = 2) {
+plot_atlas <- function(pseq, x, y, ncol=2) {
     
     index <- signal <- xvar <- NULL
     
@@ -39,7 +39,7 @@ plot_atlas <- function(pseq, x, y, ncol = 2) {
     
     # Order the factor levels (x variables) by their standard deviation
     df$xvar <- factor(df$xvar,
-        levels = names(sort(sapply(split(df$signal, df$xvar), sd))))
+        levels=names(sort(sapply(split(df$signal, df$xvar), sd))))
     
     # Order by x variable (randomization affects the ordering within
     # each factor level if this is a factor)
@@ -49,9 +49,9 @@ plot_atlas <- function(pseq, x, y, ncol = 2) {
     df$index <- 1:nrow(df)
     
     theme_set(theme_bw(20))
-    p <- ggplot(df, aes(x = index, y = signal, color = xvar))
+    p <- ggplot(df, aes(x=index, y=signal, color=xvar))
     p <- p + geom_point()
-    p <- p + guides(color = guide_legend(ncol = ncol, title = x))
+    p <- p + guides(color=guide_legend(ncol=ncol, title=x))
     p <- p + scale_y_log10()
     p <- p + ggtitle(y)
     p <- p + xlab("Sample index")

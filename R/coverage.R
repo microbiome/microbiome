@@ -11,22 +11,22 @@
 #' @export
 #' @examples
 #' data(dietswap)
-#' d <- coverage(dietswap, threshold = 0.5)
+#' d <- coverage(dietswap, threshold=0.5)
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso dominance, global
 #' @keywords utilities
-coverage <- function(x, threshold = 0.5) {
+coverage <- function(x, threshold=0.5) {
     
     if (length(threshold) > 1) {
         tab <- sapply(threshold, function(th) {
-            coverage(x, threshold = th)
+            coverage(x, threshold=th)
         })
         colnames(tab) <- as.character(threshold)
         rownames(tab) <- colnames(abundances(x))
         return(tab)
     }
     
-    otu <- abundances(x, transform = "compositional")
+    otu <- abundances(x, transform="compositional")
     
     # Number of groups needed to have 50% of the ecosystem occupied
     do <- apply(otu, 2, function(x) {

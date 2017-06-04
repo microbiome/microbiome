@@ -31,16 +31,16 @@ detected. The output is readily given as a percentage.
 Simple prevalence measure.
 }
 \details{
-For vectors, calculates the fraction (count = FALSE) or
-number (count = TRUE) of samples that exceed the
+For vectors, calculates the fraction (count=FALSE) or
+number (count=TRUE) of samples that exceed the
 detection. For matrices, calculates this for each matrix
 column. For phyloseq objects, calculates this for each OTU. The
-relative prevalence (count = FALSE) is simply the absolute
-prevalence (count = TRUE) divided by the number of samples.
+relative prevalence (count=FALSE) is simply the absolute
+prevalence (count=TRUE) divided by the number of samples.
 }
 \examples{
 data(peerj32)     
-pr <- prevalence(peerj32$phyloseq, detection = 0, sort = TRUE, count = TRUE)
+pr <- prevalence(peerj32$phyloseq, detection=0, sort=TRUE, count=TRUE)
 }
 \references{
 A Salonen et al. The adult intestinal core microbiota is determined by 

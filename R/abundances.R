@@ -11,12 +11,12 @@
 #' @examples
 #' data(dietswap)
 #' a <- abundances(dietswap)
-#' # b <- abundances(dietswap, transform = 'compositional')
+#' # b <- abundances(dietswap, transform='compositional')
 #' @keywords utilities
-abundances <- function(x, transform = "identity") {
+abundances <- function(x, transform="identity") {
 
     # Pick the OTU data
-    if (is.phyloseq(x)) {
+    if (class(x) == "phyloseq") {
 
         # Pick OTU matrix
         otu <- get_taxa(x)
@@ -27,20 +27,20 @@ abundances <- function(x, transform = "identity") {
         }
 
         if (ntaxa(x) == 1) {
-            otu <- matrix(otu, nrow = 1)
+            otu <- matrix(otu, nrow=1)
             rownames(otu) <- taxa(x)
             colnames(otu) <- sample_names(x)
         }
         
         if (nsamples(x) == 1) {
-            otu <- matrix(otu, ncol = 1)
+            otu <- matrix(otu, ncol=1)
             rownames(otu) <- taxa(x)
             colnames(otu) <- sample_names(x)
         }
 
     } else if (is.vector(x)) {
         
-        otu <- as.matrix(x, ncol = 1)
+        otu <- as.matrix(x, ncol=1)
         
     } else {
         

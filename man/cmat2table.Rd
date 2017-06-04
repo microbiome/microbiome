@@ -21,8 +21,8 @@ Arrange correlation matrices from associate into a table format.
 data(peerj32)
 d1 <- peerj32$microbes[1:20, 1:10]
 d2 <- peerj32$lipids[1:20,1:10]
-cc <- associate(d1, d2, mode = 'matrix', method = 'pearson')
-cmat <- associate(d1, d2, mode = 'table', method = 'spearman')
+cc <- associate(d1, d2, mode='matrix', method='pearson')
+cmat <- associate(d1, d2, mode='table', method='spearman')
 }
 \references{
 See citation('microbiome')

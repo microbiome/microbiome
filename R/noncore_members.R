@@ -11,14 +11,14 @@
 #' @examples
 #' data(peerj32)
 #' pseq <- noncore_members(peerj32$phyloseq, 200, 20/100)
-noncore_members <- function(x, detection, prevalence, include.lowest = FALSE) {
+noncore_members <- function(x, detection, prevalence, include.lowest=FALSE) {
     
     # TODO: add optional renormalization such that the abundances
     # would sum up to 1 ?
     
     # Core taxa
     cm <- core_members(x, detection, prevalence,
-                    include.lowest = include.lowest)
+                    include.lowest=include.lowest)
     
     # Non-core taxa as complement of core taxa
     rt <- setdiff(taxa(x), cm)

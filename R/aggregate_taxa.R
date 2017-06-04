@@ -18,7 +18,7 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-aggregate_taxa <- function(x, level, top = NULL) {
+aggregate_taxa <- function(x, level, top=NULL) {
     
     pseq <- x
     
@@ -50,9 +50,9 @@ aggregate_taxa <- function(x, level, top = NULL) {
             length(unique(x))
         }) == ntaxa(pseq)))
         
-        otus <- map_levels(data = pseq, to = current.level, from = level)
+        otus <- map_levels(data=pseq, to=current.level, from=level)
         
-        ab <- matrix(NA, nrow = length(otus), ncol = nsamples(pseq))
+        ab <- matrix(NA, nrow=length(otus), ncol=nsamples(pseq))
         rownames(ab) <- names(otus)
         colnames(ab) <- sample_names(pseq)
         
@@ -60,11 +60,11 @@ aggregate_taxa <- function(x, level, top = NULL) {
         
         for (nam in names(otus)) {
             taxa <- otus[[nam]]
-            ab[nam, ] <- colSums(matrix(d[taxa, ], ncol = nsamples(pseq)))
+            ab[nam, ] <- colSums(matrix(d[taxa, ], ncol=nsamples(pseq)))
         }
         
         # Create phyloseq object
-        OTU <- otu_table(ab, taxa_are_rows = TRUE)
+        OTU <- otu_table(ab, taxa_are_rows=TRUE)
         pseq2 <- phyloseq(OTU)
         
         # Remove all ambiguous levels

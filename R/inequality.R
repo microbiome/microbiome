@@ -34,7 +34,7 @@ inequality <- function(x) {
 
 
 
-inequality_help <- function(x, w = rep(1, length(x))) {
+inequality_help <- function(x, w=rep(1, length(x))) {
     # See also reldist::gini for an independent implementation
     o <- order(x)
     x <- x[o]

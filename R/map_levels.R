@@ -9,17 +9,17 @@
 #' @return mappings
 #' @examples
 #' data(dietswap)
-#' m <- map_levels('Akkermansia', from = 'Genus', to = 'Phylum',
+#' m <- map_levels('Akkermansia', from='Genus', to='Phylum',
 #' tax_table(dietswap))
-#' m <- map_levels('Verrucomicrobia', from = 'Phylum', to = 'Genus',
+#' m <- map_levels('Verrucomicrobia', from='Phylum', to='Genus',
 #' tax_table(dietswap))
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-map_levels <- function(taxa = NULL, from, to, data) {
+map_levels <- function(taxa=NULL, from, to, data) {
     
-    if (is.phyloseq(data)) {
+    if (class(data) == "phyloseq") {
         data <- tax_table(data)
     }
     

@@ -28,7 +28,7 @@ given population prevalence threshold at the given detection level.
 }
 \examples{
 data(dietswap)
-d <- core_abundance(dietswap, detection = 0.1/100, prevalence = 50/100)
+d <- core_abundance(dietswap, detection=0.1/100, prevalence=50/100)
 }
 \seealso{
 rarity

@@ -14,7 +14,7 @@
 #' The available diversity indices include the following:
 #' \itemize{
 #' \item{inverse_simpson }{Inverse  Simpson diversity:
-#' $1/lambda$ where $lambda = sum(p^2)$ and $p$ are relative abundances.}
+#' $1/lambda$ where $lambda=sum(p^2)$ and $p$ are relative abundances.}
 #' \item{gini_simpson }{Gini-Simpson diversity $1 - lambda$.
 #' This is also called Gibbs–Martin, or Blau index in sociology,
 #' psychology and management studies.}
@@ -44,7 +44,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso dominance, richness, evenness, rarity, global
 #' @keywords utilities
-diversities <- function(x, index = "all", zeroes = TRUE) {
+diversities <- function(x, index="all", zeroes=TRUE) {
 
     # Only include accepted indices
     index <- tolower(index)
@@ -67,7 +67,7 @@ diversities <- function(x, index = "all", zeroes = TRUE) {
     tab <- diversities_help(x, index, zeroes)
 
     if (is.vector(tab)) {
-        tab <- as.matrix(tab, ncol = 1)
+        tab <- as.matrix(tab, ncol=1)
         colnames(tab) <- index        
     }
     
@@ -77,12 +77,12 @@ diversities <- function(x, index = "all", zeroes = TRUE) {
 
 
 
-diversities_help <- function(x, index = "all", zeroes = TRUE) {
+diversities_help <- function(x, index="all", zeroes=TRUE) {
 
     if (length(index) > 1) {
         tab <- NULL
         for (idx in index) {
-            tab <- cbind(tab, diversities(x, index = idx, zeroes = TRUE))
+            tab <- cbind(tab, diversities(x, index=idx, zeroes=TRUE))
         }
         colnames(tab) <- index
         return(as.data.frame(tab))
@@ -93,18 +93,18 @@ diversities_help <- function(x, index = "all", zeroes = TRUE) {
     
     if (index == "inverse_simpson") {
         ev <- apply(otu, 2, function(x) {
-            inverse_simpson(x, zeroes = zeroes)
+            inverse_simpson(x, zeroes=zeroes)
         })
     } else if (index == "gini_simpson") {
         ev <- apply(otu, 2, function(x) {
-            gini_simpson(x, zeroes = zeroes)
+            gini_simpson(x, zeroes=zeroes)
         })
     } else if (index == "shannon") {
         ev <- apply(otu, 2, function(x) {
             shannon(x)
         })
     } else if (index == "fisher") {
-        ev <- fisher.alpha(otu, MARGIN = 2)
+        ev <- fisher.alpha(otu, MARGIN=2)
     } else if (index == "coverage") {
         ev <- unname(coverage(otu))
     }
@@ -118,10 +118,10 @@ diversities_help <- function(x, index = "all", zeroes = TRUE) {
 
 
 # x: Species count vector
-inverse_simpson <- function(x, zeroes = TRUE) {
+inverse_simpson <- function(x, zeroes=TRUE) {
     
     # Simpson index
-    lambda <- simpson_index(x, zeroes = zeroes)
+    lambda <- simpson_index(x, zeroes=zeroes)
     
     # Inverse Simpson diversity
     (1/lambda)
@@ -129,17 +129,17 @@ inverse_simpson <- function(x, zeroes = TRUE) {
 }
 
 # x: Species count vector
-gini_simpson <- function(x, zeroes = TRUE) {
+gini_simpson <- function(x, zeroes=TRUE) {
     
     # Simpson index
-    lambda <- simpson_index(x, zeroes = zeroes)
+    lambda <- simpson_index(x, zeroes=zeroes)
     
     # Gini-Simpson diversity
     1 - lambda
     
 }
 
-simpson_index <- function(x, zeroes = TRUE) {
+simpson_index <- function(x, zeroes=TRUE) {
     
     if (!zeroes) {
         x[x > 0]

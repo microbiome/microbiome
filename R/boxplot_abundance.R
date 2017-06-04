@@ -15,11 +15,11 @@
 #' @export
 #' @examples
 #' data(peerj32)
-#' p <- boxplot_abundance(peerj32$phyloseq, x = 'time', y = 'Akkermansia',
-#'     line = 'subject', color = 'gender')
+#' p <- boxplot_abundance(peerj32$phyloseq, x='time', y='Akkermansia',
+#'     line='subject', color='gender')
 #' @keywords utilities
-boxplot_abundance <- function(pseq, x, y, line = NULL, color = NULL,
-log10 = FALSE, violin = FALSE, na.rm = FALSE, show.points = TRUE) {
+boxplot_abundance <- function(pseq, x, y, line=NULL, color=NULL,
+log10=FALSE, violin=FALSE, na.rm=FALSE, show.points=TRUE) {
     
     change <- xvar <- yvar <- linevar <- colorvar <- NULL
     
@@ -59,18 +59,18 @@ log10 = FALSE, violin = FALSE, na.rm = FALSE, show.points = TRUE) {
     
     # Visualize example data with a boxplot
     theme_set(theme_bw(20))
-    p <- ggplot(df, aes(x = xvar, y = yvar))
+    p <- ggplot(df, aes(x=xvar, y=yvar))
     
     if (show.points) {
-        p <- p + geom_point(size = 2,
-        position = position_jitter(width = 0.3), alpha = 0.5)
+        p <- p + geom_point(size=2,
+        position=position_jitter(width=0.3), alpha=0.5)
     }
     
     # Box or Violin plot ?
     if (!violin) {
-        p <- p + geom_boxplot(fill = NA)
+        p <- p + geom_boxplot(fill=NA)
     } else {
-        p <- p + geom_violin(fill = NA)
+        p <- p + geom_violin(fill=NA)
     }
     
     # Add also subjects as lines and points
@@ -81,7 +81,7 @@ log10 = FALSE, violin = FALSE, na.rm = FALSE, show.points = TRUE) {
         df2 <- suppressWarnings(df %>%
         arrange(linevar, xvar) %>%
         group_by(linevar) %>% 
-            summarise(change = diff(yvar)))
+            summarise(change=diff(yvar)))
         
         # Map back to data
         df$change <- df2$change[match(df$linevar, df2$linevar)]
@@ -89,10 +89,10 @@ log10 = FALSE, violin = FALSE, na.rm = FALSE, show.points = TRUE) {
         # df$change <- sign(df$change) * log10(1 + abs(df$change))
         # Only show the sign of change for clarity
         df$change <- sign(df$change)
-        p <- p + geom_line(data = df,
-        aes(group = linevar, color = change), size = 1) +
-        scale_colour_gradient2(low = "blue", mid = "black", high = "red", 
-            midpoint = 0, na.value = "grey50", guide = "none")
+        p <- p + geom_line(data=df,
+        aes(group=linevar, color=change), size=1) +
+        scale_colour_gradient2(low="blue", mid="black", high="red", 
+            midpoint=0, na.value="grey50", guide="none")
     }
     
     
@@ -100,8 +100,8 @@ log10 = FALSE, violin = FALSE, na.rm = FALSE, show.points = TRUE) {
         
         df$colorvar <- factor(df[[color]])
         # Add legend
-        # p <- p + geom_point(data = df, aes(color = colorvar), size = 4)
-        # label p <- p + guides(color = guide_legend(title = color))
+        # p <- p + geom_point(data=df, aes(color=colorvar), size=4)
+        # label p <- p + guides(color=guide_legend(title=color))
         
     }
     

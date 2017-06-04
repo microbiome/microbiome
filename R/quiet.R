@@ -10,7 +10,7 @@
 #' Adapted from \url{https://gist.github.com/daattali/6ab55aee6b50e8929d89}
 #' @examples quiet(1 + 1)
 #' @export
-quiet <- function(expr, all = TRUE) {
+quiet <- function(expr, all=TRUE) {
     if (Sys.info()["sysname"] == "Windows") {
         file <- "NUL"
     } else {
@@ -20,8 +20,8 @@ quiet <- function(expr, all = TRUE) {
     if (all) {
         suppressWarnings(suppressMessages(
         suppressPackageStartupMessages(capture.output(expr, 
-            file = file))))
+            file=file))))
     } else {
-        capture.output(expr, file = file)
+        capture.output(expr, file=file)
     }
 }

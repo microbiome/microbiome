@@ -16,15 +16,15 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-get_ordination <- function(x, method = "NMDS", distance = "bray") {
+get_ordination <- function(x, method="NMDS", distance="bray") {
     
     x.ord <- ordinate(x, method, distance)
     
     # Pick the projected data (first two columns + metadata)
-    proj <- phyloseq::plot_ordination(x, x.ord, justDF = TRUE)
+    proj <- phyloseq::plot_ordination(x, x.ord, justDF=TRUE)
     
     # Rename the projection axes
-    names(proj)[1:2] <- paste("Comp", 1:2, sep = ".")
+    names(proj)[1:2] <- paste("Comp", 1:2, sep=".")
     
     proj
     

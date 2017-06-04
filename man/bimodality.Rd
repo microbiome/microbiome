@@ -12,7 +12,7 @@ bimodality(x, method = "potential_analysis", peak.threshold = 1,
 
 \item{method}{bimodality quantification method
 ('potential_analysis', 'Sarle.finite.sample', or 'Sarle.asymptotic').
-If method = 'all', then a data.frame with all scores is returned.}
+If method='all', then a data.frame with all scores is returned.}
 
 \item{peak.threshold}{Mode detection threshold}
 
@@ -54,12 +54,12 @@ the bootstrap score.}
 The coefficient lies in (0, 1).
 
 The 'Sarle.asymptotic' version is defined as
-\deqn{b = (g^2 + 1) / k}.
+\deqn{b=(g^2 + 1) / k}.
 This is coefficient of bimodality from Ellison
 AM Am. J. Bot. 1987, for microbiome analysis it has been used for
 instance in Shade et al. 2014.
 The formula for 'Sarle.finite.sample' (SAS 2012):
-\deqn{b = \frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
+\deqn{b=\frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
 where n is sample size and 
 In both formulas, \eqn{g} is sample skewness and \eqn{k} is the kth
 standardized moment (also called the sample kurtosis, or
@@ -67,11 +67,11 @@ excess kurtosis).
 }
 \examples{
 # In practice, use more bootstrap iterations   
-b <- bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)), bs.iter = 5)
+b <- bimodality(c(rnorm(100, mean=0), rnorm(100, mean=5)), bs.iter=5)
  
 # The classical DIP test:
 # quantifies unimodality. Values range between 0 to 1. 
-# dip.test(x, simulate.p.value = TRUE, B = 200)$statistic
+# dip.test(x, simulate.p.value=TRUE, B=200)$statistic
 # Values less than 0.05 indicate significant deviation from unimodality.
 # Therefore, to obtain an increasing multimodality score, use
 # library(diptest)

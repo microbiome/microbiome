@@ -25,18 +25,18 @@ plot_frequencies <- function(x, Groups, Factor) {
     x$Groups <- x[[Groups]]
     x$Factor <- x[[Factor]]
     x <- x %>% group_by(Groups, Factor) %>%
-        summarise(n = n()) %>%
-        mutate(pct = 100 * n/sum(n))
+        summarise(n=n()) %>%
+        mutate(pct=100 * n/sum(n))
     
     # Provide barplot of relative abundances
-    p <- ggplot(x, aes(x = Groups, y = pct, fill = Factor))
-    p <- p + geom_bar(position = "stack", stat = "identity")
+    p <- ggplot(x, aes(x=Groups, y=pct, fill=Factor))
+    p <- p + geom_bar(position="stack", stat="identity")
     
     # Rotate horizontal axis labels, and adjust
     p <- p + theme(axis.text.x =
-        element_text(angle = -90, vjust = 0.5, hjust = 0))
+        element_text(angle=-90, vjust=0.5, hjust=0))
     p <- p + ylab("Proportion (%)") + xlab("")
     
-    list(data = x, plot = p)
+    list(data=x, plot=p)
     
 }

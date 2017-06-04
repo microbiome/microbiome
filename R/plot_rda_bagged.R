@@ -20,9 +20,9 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-plot_rda_bagged <- function(x, which.bac = 1:nrow(x$loadings),
-    ptype = "spider", comp = 1:2, cex.bac = 0.5, plot.names = TRUE,
-    group.cols = as.numeric(unique(Y)), ...) {
+plot_rda_bagged <- function(x, which.bac=1:nrow(x$loadings),
+    ptype="spider", comp=1:2, cex.bac=0.5, plot.names=TRUE,
+    group.cols=as.numeric(unique(Y)), ...) {
 
     # TODO: can we speed up this function ?
     # For instance by switching from for loops to vectorization etc
@@ -35,15 +35,15 @@ plot_rda_bagged <- function(x, which.bac = 1:nrow(x$loadings),
     scaled.loadings <- (bag$loadings/max(abs(bag$loadings)))[, comp]
     scaled.scores <- (bag$scores/max(abs(bag$scores)))[, comp]
     
-    plot(rbind(scaled.scores, scaled.loadings), type = "n",
-        xlab = paste(names(bag$R2)[1], 
-        " (", format(100 * bag$R2[1], digits = 2), "%)", sep = ""),
-    ylab = paste(names(bag$R2)[2], 
-        " (", format(100 * bag$R2[2], digits = 2), "%)", sep = ""))
+    plot(rbind(scaled.scores, scaled.loadings), type="n",
+        xlab=paste(names(bag$R2)[1], 
+        " (", format(100 * bag$R2[1], digits=2), "%)", sep=""),
+    ylab=paste(names(bag$R2)[2], 
+        " (", format(100 * bag$R2[2], digits=2), "%)", sep=""))
     
     if (ptype == "spider") 
-        s.class(scaled.scores, factor(Y), grid = FALSE, col = group.cols,
-        cellipse = 0.5, cpoint = 0, add.plot = TRUE)
+        s.class(scaled.scores, factor(Y), grid=FALSE, col=group.cols,
+        cellipse=0.5, cpoint=0, add.plot=TRUE)
     
     # TODO: Same with ggplot (not ready)
     skip <- TRUE
@@ -54,17 +54,17 @@ plot_rda_bagged <- function(x, which.bac = 1:nrow(x$loadings),
         names(gg) <- c("x", "y")
         gg$cluster <- factor(Y)
         # calculate group centroid locations
-        centroids <- aggregate(cbind(x, y) ~ cluster, data = gg, mean)
+        centroids <- aggregate(cbind(x, y) ~ cluster, data=gg, mean)
         # merge centroid locations into ggplot dataframe
-        gg <- merge(gg, centroids, by = "cluster",
-        suffixes = c("", ".centroid"))
+        gg <- merge(gg, centroids, by="cluster",
+        suffixes=c("", ".centroid"))
         # generate star plot...
         ggplot(gg) +
-        geom_point(aes(x = x, y = y, color = cluster), size = 3) +
-        geom_point(data = centroids, 
-                aes(x = x, y = y, color = cluster), size = 4) +
-        geom_segment(aes(x = x.centroid, 
-                y = y.centroid, xend = x, yend = y, color = cluster))
+        geom_point(aes(x=x, y=y, color=cluster), size=3) +
+        geom_point(data=centroids, 
+                aes(x=x, y=y, color=cluster), size=4) +
+        geom_segment(aes(x=x.centroid, 
+                y=y.centroid, xend=x, yend=y, color=cluster))
     }
     
     if (ptype == "hull") {
@@ -72,15 +72,15 @@ plot_rda_bagged <- function(x, which.bac = 1:nrow(x$loadings),
         ll <- split(rownames(scaled.scores), Y)
         hulls <- lapply(ll, function(ii) ii[chull(scaled.scores[ii, ])])
         for (i in 1:length(hulls)) {
-            polygon(scaled.scores[hulls[[i]], ], border = group.cols[i])
+            polygon(scaled.scores[hulls[[i]], ], border=group.cols[i])
         }
     }
     if (plot.names) {
-        text(scaled.scores, rownames(scaled.scores), cex = 0.5, ...)
+        text(scaled.scores, rownames(scaled.scores), cex=0.5, ...)
     } else {
         points(scaled.scores, ...)
     }
     text(scaled.loadings[which.bac, ],
-        rownames(scaled.loadings)[which.bac], cex = cex.bac)
+        rownames(scaled.loadings)[which.bac], cex=cex.bac)
 }
 

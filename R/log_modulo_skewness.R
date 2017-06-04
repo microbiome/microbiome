@@ -30,7 +30,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' @seealso core_abundance, low_abundance, global
-log_modulo_skewness <- function(x, q = 0.5, n = 50) {
+log_modulo_skewness <- function(x, q=0.5, n=50) {
 
     # Get taxa x samples matrix
     a <- abundances(x)
@@ -41,7 +41,7 @@ log_modulo_skewness <- function(x, q = 0.5, n = 50) {
     # Tabulate the arithmetic abundance classes Use the same classes
     # for all samples for consistency
     
-    cutpoints <- c(seq(0, th1, length = n), Inf)
+    cutpoints <- c(seq(0, th1, length=n), Inf)
     
     # Check skewness of the abundance classes for each sample
     r <- apply(a, 2, function(x) {

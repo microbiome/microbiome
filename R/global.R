@@ -18,15 +18,15 @@
 #'
 #' @examples
 #' data(dietswap)
-#' d <- global(dietswap, index = 'gini')
-#' # d <- global(dietswap, index = 'all')
+#' d <- global(dietswap, index='gini')
+#' # d <- global(dietswap, index='all')
 #'
 #' @export
 #' @seealso global, dominance, rarity, phyloseq::estimate_richness
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-global <- function(x, index = "all") {
+global <- function(x, index="all") {
     
     tab <- NULL
     index <- tolower(index)
@@ -35,47 +35,47 @@ global <- function(x, index = "all") {
         a <- richness(x)
         if (!is.null(a)) {
             if (is.vector(a)) {
-                a <- as.matrix(a, ncol = 1)
+                a <- as.matrix(a, ncol=1)
             }
-            colnames(a) <- paste("richness_", colnames(a), sep = "")
+            colnames(a) <- paste("richness_", colnames(a), sep="")
             tab <- cbind(tab, a)
         }
     }
     
-    a <- diversities(x, index = gsub("diversity_", "", index))
+    a <- diversities(x, index=gsub("diversity_", "", index))
     if (!is.null(a)) {
         if (is.vector(a)) {
-            a <- as.matrix(a, ncol = 1)
+            a <- as.matrix(a, ncol=1)
         }
-        colnames(a) <- paste("diversities_", colnames(a), sep = "")
+        colnames(a) <- paste("diversities_", colnames(a), sep="")
         tab <- cbind(tab, a)
     }
     
-    a <- evenness(x, index = gsub("evenness_", "", index))
+    a <- evenness(x, index=gsub("evenness_", "", index))
     if (!is.null(a)) {
         if (is.vector(a)) {
-            a <- as.matrix(a, ncol = 1)
+            a <- as.matrix(a, ncol=1)
         }
-        colnames(a) <- paste("evenness_", colnames(a), sep = "")
+        colnames(a) <- paste("evenness_", colnames(a), sep="")
         tab <- cbind(tab, a)
     }
     
-    a <- dominance(x, index = gsub("dominance_", "", index))
+    a <- dominance(x, index=gsub("dominance_", "", index))
 
     if (!is.null(a)) {
         if (is.vector(a)) {
-            a <- as.matrix(a, ncol = 1)
+            a <- as.matrix(a, ncol=1)
         }
-        colnames(a) <- paste("dominance_", colnames(a), sep = "")
+        colnames(a) <- paste("dominance_", colnames(a), sep="")
         tab <- cbind(tab, a)
     }
 
-    a <- rarity(x, index = gsub("rarity_", "", index))
+    a <- rarity(x, index=gsub("rarity_", "", index))
     if (!is.null(a)) {
         if (is.vector(a)) {
-            a <- as.matrix(a, ncol = 1)
+            a <- as.matrix(a, ncol=1)
         }
-        colnames(a) <- paste("rarity_", colnames(a), sep = "")
+        colnames(a) <- paste("rarity_", colnames(a), sep="")
         tab <- cbind(tab, a)
     }
     

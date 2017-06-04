@@ -35,7 +35,7 @@ some subjects have multiple time points.
 data(atlas1006)
 pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
 pseq <- transform(pseq, 'compositional')
-p <- plot_tipping(pseq, 'Dialister', tipping.point = 1)
+p <- plot_tipping(pseq, 'Dialister', tipping.point=1)
 }
 \references{
 See citation('microbiome')

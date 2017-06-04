@@ -28,9 +28,9 @@ Biom file and mapping files will be converted to
 }
 \examples{
 \dontrun{
-p0 <- read_biom2phyloseq(otu.file = 'otu_table.biom',
-metadata.file = 'mapping.csv',
-taxonomy.file = NULL)
+p0 <- read_biom2phyloseq(otu.file='otu_table.biom',
+metadata.file='mapping.csv',
+taxonomy.file=NULL)
 }
 }
 \author{

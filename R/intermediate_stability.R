@@ -37,10 +37,10 @@
 #' data(atlas1006)
 #' x <- subset_samples(atlas1006, DNA_extraction_method == 'r')
 #' x <- prune_taxa(c('Akkermansia', 'Dialister'), x)
-#' res <- intermediate_stability(x, reference.point = NULL)
+#' res <- intermediate_stability(x, reference.point=NULL)
 #' @keywords utilities
-intermediate_stability <- function(x, reference.point = NULL,
-    method = "correlation", output = "scores") {
+intermediate_stability <- function(x, reference.point=NULL,
+    method="correlation", output="scores") {
     
     x0 <- x
     
@@ -49,15 +49,15 @@ intermediate_stability <- function(x, reference.point = NULL,
         scores <- c()
         for (i in 1:length(reference.point)) {
             scores[[i]] <- intermediate_stability(x,
-        reference.point = reference.point[[i]], 
-                method = method, output = output)
+        reference.point=reference.point[[i]], 
+                method=method, output=output)
         }
         
         if (ntaxa(x) > 1) {
-            scores <- as.data.frame(scores, nrow = ntaxa(x))
+            scores <- as.data.frame(scores, nrow=ntaxa(x))
         } else {
             scores <- as.data.frame(t(as.matrix(scores,
-            ncol = length(reference.point))))
+            ncol=length(reference.point))))
         }
         
         colnames(scores) <- as.character(reference.point)
@@ -85,8 +85,8 @@ intermediate_stability <- function(x, reference.point = NULL,
     spl.list <- list()
     for (i in 1:length(spl)) {
         # Ensure the measurements are ordered in time
-        spl.list[[i]] <- list(spl = spl[[i]][order(spl[[i]]$time), ],
-        time.difs = diff(spl[[i]]$time))
+        spl.list[[i]] <- list(spl=spl[[i]][order(spl[[i]]$time), ],
+        time.difs=diff(spl[[i]]$time))
     }
     
     for (tax in rownames(x)) {
@@ -96,8 +96,8 @@ intermediate_stability <- function(x, reference.point = NULL,
     # df <- df[keep,]
         
         stability[[tax]] <- estimate_stability(df,
-        reference.point = reference.point, 
-            method = method, spl.list)
+        reference.point=reference.point, 
+            method=method, spl.list)
         
     }
     
@@ -148,13 +148,13 @@ intermediate_stability <- function(x, reference.point = NULL,
 #' @examples
 #' \dontrun{
 #'  df <- data.frame(list(
-#'            subject = rep(paste('subject', 1:50, sep = '-'), each = 2), 
-#'            time = rep(1:2, 50),
-#'            data = rnorm(100)))
-#' s <- estimate_stability_single(df, reference.point = NULL, method = 'lm')
+#'            subject=rep(paste('subject', 1:50, sep='-'), each=2), 
+#'            time=rep(1:2, 50),
+#'            data=rnorm(100)))
+#' s <- estimate_stability_single(df, reference.point=NULL, method='lm')
 #' }
 #' @keywords internal
-estimate_stability <- function(df, reference.point = NULL, method = "lm",
+estimate_stability <- function(df, reference.point=NULL, method="lm",
     spl.list) {
     
     # Detect intermediate value in the overall data if reference point
@@ -174,7 +174,7 @@ estimate_stability <- function(df, reference.point = NULL, method = "lm",
     for (i in 1:length(spl.list)) {
         
         spli <- spl.list[[i]]$spl
-        spli$data <- unlist(df[rownames(spli), "data"], use.names = FALSE)
+        spli$data <- unlist(df[rownames(spli), "data"], use.names=FALSE)
         time.difs <- spl.list[[i]]$time.difs
         
         # Calculate differences between consecutive time points;
@@ -186,9 +186,9 @@ estimate_stability <- function(df, reference.point = NULL, method = "lm",
         start.reference.distance <- start.points - reference.point
         
         # Organize into data frame
-        dfi <- data.frame(change = data.difs,
-        time = time.difs, start = start.points, 
-            start.reference.distance = start.reference.distance)
+        dfi <- data.frame(change=data.difs,
+        time=time.difs, start=start.points, 
+            start.reference.distance=start.reference.distance)
         
         # Add to the collection
         dfis <- rbind(dfis, dfi)
@@ -236,25 +236,25 @@ estimate_stability <- function(df, reference.point = NULL, method = "lm",
     
         stability <- coef(summary(lm(abs(change) ~ time +
         abs(start.reference.distance), 
-            data = dfis)))["abs(start.reference.distance)", "Estimate"]
+            data=dfis)))["abs(start.reference.distance)", "Estimate"]
         
         if (nrow(dfis.left) > 10) {
             # Negative values for low stability
             stability.left <- coef(summary(lm(change ~ time +
             abs(start.reference.distance), 
-                data = dfis.left)))["abs(start.reference.distance)", "Estimate"]
+                data=dfis.left)))["abs(start.reference.distance)", "Estimate"]
         }
         if (nrow(dfis.right) > 10) {
             # Negative values for low stability
             stability.right <- -coef(summary(lm(change ~ time +
             abs(start.reference.distance), 
-            data = dfis.right)))["abs(start.reference.distance)", "Estimate"]
+            data=dfis.right)))["abs(start.reference.distance)", "Estimate"]
             
         }
     }
     
-    list(stability = stability,
-        stability.right = stability.right, stability.left = stability.left, 
-        data = dfis)
+    list(stability=stability,
+        stability.right=stability.right, stability.left=stability.left, 
+        data=dfis)
     
 }

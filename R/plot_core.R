@@ -9,7 +9,7 @@
 #' @param min.prevalence If minimum prevalence is set, then filter out those
 #' rows (taxa) and columns (detections) that never exceed this
 #' prevalence. This helps to zoom in on the actual core region
-#' of the heatmap. Only affects the plot.type = 'heatmap'.
+#' of the heatmap. Only affects the plot.type='heatmap'.
 #' @param taxa.order Ordering of the taxa: a vector of names.
 #' @param horizontal Logical. Horizontal figure.
 #' @return A list with three elements: the ggplot object and the data.
@@ -17,8 +17,8 @@
 #' Finally, the applied parameters are returned.
 #' @examples 
 #' data(atlas1006)
-#' p <- plot_core(atlas1006, prevalences = seq(0.1, 1, .1),
-#'     detections = c(0, 10^(0:4)))
+#' p <- plot_core(atlas1006, prevalences=seq(0.1, 1, .1),
+#'     detections=c(0, 10^(0:4)))
 #' @export 
 #' @references 
 #' A Salonen et al. The adult intestinal core microbiota is determined by 
@@ -27,13 +27,13 @@
 #' To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-plot_core <- function(x, prevalences = seq(, 1, 1, 0.1), detections = 20,
-    plot.type = "lineplot", colours = gray(seq(0, 1, length = 5)),
-    min.prevalence = NULL, taxa.order = NULL, horizontal = FALSE) {
+plot_core <- function(x, prevalences=seq(, 1, 1, 0.1), detections=20,
+    plot.type="lineplot", colours=gray(seq(0, 1, length=5)),
+    min.prevalence=NULL, taxa.order=NULL, horizontal=FALSE) {
     
     if (length(detections) == 1) {
         detections <- 10^seq(log10(0.001), log10(max(abundances(x),
-        na.rm = TRUE)), length = detections)
+        na.rm=TRUE)), length=detections)
     }
     
     if (plot.type == "lineplot") {
@@ -47,15 +47,15 @@ plot_core <- function(x, prevalences = seq(, 1, 1, 0.1), detections = 20,
         
         # Here we use taxon x abundance thresholds table indicating prevalences
         res <- core_heatmap(abundances(x),
-        detections = detections, colours = colours, 
-            min.prevalence = min.prevalence, taxa.order = taxa.order)
+        detections=detections, colours=colours, 
+            min.prevalence=min.prevalence, taxa.order=taxa.order)
         
     }
     
     p <- res$plot + ggtitle("Core")
     
     if (horizontal) {
-        p <- p + coord_flip() + theme(axis.text.x = element_text(angle = 90))
+        p <- p + coord_flip() + theme(axis.text.x=element_text(angle=90))
     }
     
     p
@@ -82,7 +82,7 @@ plot_core <- function(x, prevalences = seq(, 1, 1, 0.1), detections = 20,
 #' To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-core_matrix <- function(x, prevalences = seq(0.1, 1, , 1), detections = NULL) {
+core_matrix <- function(x, prevalences=seq(0.1, 1, , 1), detections=NULL) {
     
     # Pick abundances
     data <- abundances(x)
@@ -92,12 +92,12 @@ core_matrix <- function(x, prevalences = seq(0.1, 1, , 1), detections = NULL) {
     
     ## Intensity vector
     if (is.null(detections)) {
-        detections <- seq(min(data), max(data), length = 10)
+        detections <- seq(min(data), max(data), length=10)
     }
     i.seq <- detections
     
-    coreMat <- matrix(NA, nrow = length(i.seq), ncol = length(p.seq),
-        dimnames = list(i.seq, p.seq))
+    coreMat <- matrix(NA, nrow=length(i.seq), ncol=length(p.seq),
+        dimnames=list(i.seq, p.seq))
     
     n <- length(i.seq) * length(p.seq)
     cnt <- 0
@@ -137,15 +137,15 @@ core_matrix <- function(x, prevalences = seq(0.1, 1, , 1), detections = NULL) {
 #' To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-core_heatmap <- function(data, detections = 20,
-    colours = gray(seq(0, 1, length = 5)), 
-    min.prevalence = NULL, taxa.order = NULL) {
+core_heatmap <- function(data, detections=20,
+    colours=gray(seq(0, 1, length=5)), 
+    min.prevalence=NULL, taxa.order=NULL) {
     
     DetectionThreshold <- Taxa <- Prevalence <- NULL
     
     # Prevalences with varying detections
     prev <- lapply(detections, function(th) {
-        prevalence(data, detection = th)
+        prevalence(data, detection=th)
     })
     prev <- do.call("cbind", prev)
     colnames(prev) <- as.character(detections)
@@ -168,25 +168,25 @@ core_heatmap <- function(data, detections = 20,
     } else {
         o <- taxa.order
     }
-    df$Taxa <- factor(df$Taxa, levels = o)
+    df$Taxa <- factor(df$Taxa, levels=o)
     
     theme_set(theme_bw(10))
-    p <- ggplot(df, aes(x = DetectionThreshold, y = Taxa, fill = Prevalence))
+    p <- ggplot(df, aes(x=DetectionThreshold, y=Taxa, fill=Prevalence))
     p <- p + geom_tile()
     p <- p + xlab("Detection Threshold")
     p <- p + scale_x_log10()
     
     p <- p + scale_fill_gradientn("Prevalence",
-        breaks = seq(from = 0, to = 1, by = 0.1), 
-        colours = colours, limits = c(0, 1))
+        breaks=seq(from=0, to=1, by=0.1), 
+        colours=colours, limits=c(0, 1))
     
-    return(list(plot = p, data = df))
+    return(list(plot=p, data=df))
     
 }
 
 
-core_lineplot <- function(x, title = "Common core",
-    xlabel = "Abundance", ylabel = "Core size (N)") {
+core_lineplot <- function(x, title="Common core",
+    xlabel="Abundance", ylabel="Core size (N)") {
     
     Abundance <- Prevalence <- Count <- NULL
     
@@ -199,8 +199,8 @@ core_lineplot <- function(x, title = "Common core",
     df$Count <- as.numeric(as.character(df$Count))
     
     theme_set(theme_bw(20))
-    p <- ggplot(df, aes(x = Abundance, y = Count,
-        color = Prevalence, group = Prevalence))
+    p <- ggplot(df, aes(x=Abundance, y=Count,
+        color=Prevalence, group=Prevalence))
     
     p <- p + geom_line()
     p <- p + geom_point()
@@ -209,7 +209,7 @@ core_lineplot <- function(x, title = "Common core",
     p <- p + ylab(ylabel)
     p <- p + ggtitle(title)
     
-    list(plot = p, data = x)
+    list(plot=p, data=x)
 }
 
 

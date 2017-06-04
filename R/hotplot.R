@@ -15,13 +15,13 @@
 #' # Set a tipping point manually
 #' tipp <- .3/100 # .3 percent relative abundance
 #' # Bimodality is often best visible at log10 relative abundances
-#' p <- hotplot(pseq, 'Dialister', tipping.point = tipp, log10 = TRUE)
+#' p <- hotplot(pseq, 'Dialister', tipping.point=tipp, log10=TRUE)
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-hotplot <- function(x, taxon, tipping.point = NULL, lims = NULL,
-    shift = 0.001, log10 = TRUE) {
+hotplot <- function(x, taxon, tipping.point=NULL, lims=NULL,
+    shift=0.001, log10=TRUE) {
     
     if (log10) {
         x <- transform(x, "log10")
@@ -55,26 +55,26 @@ hotplot <- function(x, taxon, tipping.point = NULL, lims = NULL,
     lims <- lims + shift
     lim <- max(abs(lims))
     
-    breaks <- c(seq(floor(min(lims)), ceiling(max(lims)), by = 1))
+    breaks <- c(seq(floor(min(lims)), ceiling(max(lims)), by=1))
     names(breaks) <- as.character(10^breaks)
     
     lims2 <- c(tipping.point - lim - 0.2/100, tipping.point + lim + 0.2/100)
     
-    # Data bquote(paste('Signal (', Log[10], ')', sep = ''))
-    df <- data.frame(Abundance = d)
-    p <- ggplot(df, aes(x = Abundance, y = ..density.., fill = ..x..)) +
-        geom_histogram(col = "black", 
-        binwidth = 0.12) + ylab("Frequency") + xlab("") +
+    # Data bquote(paste('Signal (', Log[10], ')', sep=''))
+    df <- data.frame(Abundance=d)
+    p <- ggplot(df, aes(x=Abundance, y=..density.., fill=..x..)) +
+        geom_histogram(col="black", 
+        binwidth=0.12) + ylab("Frequency") + xlab("") +
     scale_fill_gradientn("Signal", 
-        breaks = breaks - 10^tipping.point,
-        colours = c(rep("darkblue", 3), "blue", 
+        breaks=breaks - 10^tipping.point,
+        colours=c(rep("darkblue", 3), "blue", 
             "white", "red", rep("darkred", 3)),
-        labels = names(breaks), limits = lims2) + 
-        guides(fill = FALSE) +
-    geom_vline(aes(xintercept = tipping.point), linetype = 2, size = 1) +
-    theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) + 
-        scale_x_continuous(breaks = breaks,
-        labels = names(breaks), limits = lims) + 
+        labels=names(breaks), limits=lims2) + 
+        guides(fill=FALSE) +
+    geom_vline(aes(xintercept=tipping.point), linetype=2, size=1) +
+    theme(axis.text.y=element_blank(), axis.ticks.y=element_blank()) + 
+        scale_x_continuous(breaks=breaks,
+        labels=names(breaks), limits=lims) + 
         # scale_x_log10() +
     ggtitle(taxon)
     

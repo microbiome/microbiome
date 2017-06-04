@@ -34,7 +34,7 @@ pseq <- transform(pseq, 'compositional')
 # Set a tipping point manually
 tipp <- .3/100 # .3 percent relative abundance
 # Bimodality is often best visible at log10 relative abundances
-p <- hotplot(pseq, 'Dialister', tipping.point = tipp, log10 = TRUE)
+p <- hotplot(pseq, 'Dialister', tipping.point=tipp, log10=TRUE)
 }
 \references{
 See citation('microbiome')

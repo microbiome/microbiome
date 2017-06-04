@@ -37,14 +37,14 @@ data(atlas1006)
 pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
 
 # Pick diversity and age
-diversity <- exp(global(pseq, index = 'shannon'))
+diversity <- exp(global(pseq, index='shannon'))
 age <- meta(pseq)$age
   
 # Run potential analysis
 # library(earlywarnings)
 # library(ggplot2)
 # suppressWarnings(res <- movpotential_ews(diversity, age)$res)
-# suppressWarnings(plot_potential(res, cutoff = 0.5))
+# suppressWarnings(plot_potential(res, cutoff=0.5))
 }
 \references{
 Lahti et al. Tipping elements of the human intestinal ecosystem.

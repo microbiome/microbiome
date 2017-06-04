@@ -6,7 +6,7 @@
 #' @export
 #' @examples
 #' data(dietswap)
-#' d <- low_abundance(dietswap, detection = 0.2/100)
+#' d <- low_abundance(dietswap, detection=0.2/100)
 #' @details The low_abundance index gives the concentration of species at low
 #' abundance, or the  relative proportion of rare species in [0,1].
 #' The species that are below the indicated detection threshold are
@@ -16,18 +16,18 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' @seealso core_abundance, rarity, global
-low_abundance <- function(x, detection = 0.2/100) {
+low_abundance <- function(x, detection=0.2/100) {
     
     if (length(detection) > 1) {
         tab <- sapply(detection, function(th) {
-            low_abundance(x, detection = th)
+            low_abundance(x, detection=th)
         })
         colnames(tab) <- as.character(detection)
         rownames(tab) <- colnames(abundances(x))
         return(tab)
     }
     
-    xc <- abundances(x, transform = "compositional")
+    xc <- abundances(x, transform="compositional")
     do <- apply(xc, 2, function(x) {
         sum(x[x < detection])
     })

@@ -30,7 +30,7 @@ within each sample, regardless of the population prevalence.
 }
 \examples{
 data(dietswap)
-d <- noncore_abundance(dietswap, detection = 0.1/100, prevalence = 50/100)
+d <- noncore_abundance(dietswap, detection=0.1/100, prevalence=50/100)
 }
 \seealso{
 core_abundance, rarity, diversity

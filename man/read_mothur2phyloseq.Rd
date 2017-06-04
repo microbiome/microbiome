@@ -32,9 +32,9 @@ Mothur shared and consensus taxonomy files will be converted to
 \examples{
 \dontrun{
 p0 <- read_mothur2phyloseq(
-    shared.file = 'mothur_shared.shared',
-    consensus.taxonomy.file = 'mothur_taxonomy.taxonomy',
-    mapping.file = 'mothur_mapping.csv')
+    shared.file='mothur_shared.shared',
+    consensus.taxonomy.file='mothur_taxonomy.taxonomy',
+    mapping.file='mothur_mapping.csv')
 }
 }
 \author{

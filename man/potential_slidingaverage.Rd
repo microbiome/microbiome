@@ -52,10 +52,10 @@ This function reconstructs a potential derived from data
 \examples{
   \dontrun{
    # Not exported
-   X <- c(rnorm(1000, mean = 0),
-           rnorm(1000, mean = -2),
-           rnorm(1000, mean = 2));
-       param = seq(0,5,length=3000); 
+   X <- c(rnorm(1000, mean=0),
+           rnorm(1000, mean=-2),
+           rnorm(1000, mean=2));
+       param=seq(0,5,length=3000); 
        res <- potential_slidingaverage(X, param)
    }
 }

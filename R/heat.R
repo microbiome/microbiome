@@ -27,18 +27,18 @@
 #' data(peerj32)
 #' d1 <- peerj32$lipids[, 1:10]
 #' d2 <- peerj32$microbes[, 1:10]
-#' cc <- associate(d1, d2, method = 'pearson') 
-#' p <- heat(cc, 'X1', 'X2', 'Correlation', star = 'p.adj')
+#' cc <- associate(d1, d2, method='pearson') 
+#' p <- heat(cc, 'X1', 'X2', 'Correlation', star='p.adj')
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-heat <- function(df, Xvar, Yvar, fill, star, p.adj.threshold = 1,
-    association.threshold = 0, 
-    step = 0.2, colours = c("darkblue", "blue", "white", "red", "darkred"),
-    limits = NULL, legend.text = "", order.rows = TRUE, order.cols = TRUE,
-    text.size = 10, filter.significant = TRUE, 
-    star.size = NULL, plot.values = FALSE) {
+heat <- function(df, Xvar, Yvar, fill, star, p.adj.threshold=1,
+    association.threshold=0, 
+    step=0.2, colours=c("darkblue", "blue", "white", "red", "darkred"),
+    limits=NULL, legend.text="", order.rows=TRUE, order.cols=TRUE,
+    text.size=10, filter.significant=TRUE, 
+    star.size=NULL, plot.values=FALSE) {
     
     if (is.null(limits)) {
         maxval <- max(abs(df[[fill]]))
@@ -77,7 +77,7 @@ heat <- function(df, Xvar, Yvar, fill, star, p.adj.threshold = 1,
         rnams <- unique(as.character(df[[Xvar]]))
         cnams <- unique(as.character(df[[Yvar]]))
         
-        mat <- matrix(0, nrow = length(rnams), ncol = length(cnams))
+        mat <- matrix(0, nrow=length(rnams), ncol=length(cnams))
         rownames(mat) <- rnams
         colnames(mat) <- cnams
         for (i in 1:nrow(df)) {            
@@ -90,9 +90,9 @@ heat <- function(df, Xvar, Yvar, fill, star, p.adj.threshold = 1,
         cind <- 1:ncol(mat)
         if (nrow(mat) > 1 && ncol(mat) > 1) {
             rind <- hclust(as.dist(1 - cor(t(mat),
-            use = "pairwise.complete.obs")))$order
+            use="pairwise.complete.obs")))$order
             cind <- hclust(as.dist(1 - cor(mat,
-            use = "pairwise.complete.obs")))$order
+            use="pairwise.complete.obs")))$order
             
         }
         if (ncol(mat) > 1 && nrow(mat) == 1) {
@@ -104,12 +104,12 @@ heat <- function(df, Xvar, Yvar, fill, star, p.adj.threshold = 1,
         
         if (order.cols) {
             message("Ordering columns")
-            df[[Xvar]] <- factor(df[[Xvar]], levels = rownames(mat)[rind])
+            df[[Xvar]] <- factor(df[[Xvar]], levels=rownames(mat)[rind])
         }
         
         if (order.rows) {
             message("Ordering rows")
-            df[[Yvar]] <- factor(df[[Yvar]], levels = colnames(mat)[cind])
+            df[[Yvar]] <- factor(df[[Yvar]], levels=colnames(mat)[cind])
         }
         
     }
@@ -119,15 +119,15 @@ heat <- function(df, Xvar, Yvar, fill, star, p.adj.threshold = 1,
     df[["YYYY"]] <- df[[Yvar]]
     df[["ffff"]] <- df[[fill]]
     
-    p <- ggplot(df, aes(x = XXXX, y = YYYY, fill = ffff))
+    p <- ggplot(df, aes(x=XXXX, y=YYYY, fill=ffff))
     p <- p + geom_tile()
     
     p <- p + scale_fill_gradientn(legend.text,
-        breaks = seq(from = min(limits), to = max(limits), 
-        by = step), colours = colours, limits = limits)
+        breaks=seq(from=min(limits), to=max(limits), 
+        by=step), colours=colours, limits=limits)
     
     p <- p + xlab("") + ylab("")
-    p <- p + theme(axis.text.x = element_text(angle = 90))
+    p <- p + theme(axis.text.x=element_text(angle=90))
     
     # Mark significant cells with stars
     inds <- which((df[[star]] < p.adj.threshold) &
@@ -139,12 +139,12 @@ heat <- function(df, Xvar, Yvar, fill, star, p.adj.threshold = 1,
             star.size <- max(1, floor(text.size/2))
         }
         
-        p <- p + geom_text(data = df.sub, aes(x = XXXX, y = YYYY, label = "+"),
-        col = "white", size = star.size)
+        p <- p + geom_text(data=df.sub, aes(x=XXXX, y=YYYY, label="+"),
+        col="white", size=star.size)
     }
     
     if (plot.values) {
-        p <- p + geom_text(aes(label = round(ffff, 2)), size = 3)
+        p <- p + geom_text(aes(label=round(ffff, 2)), size=3)
     }
     
     p

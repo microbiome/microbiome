@@ -20,7 +20,7 @@
 #' data(peerj32)
 #' # Take subset to speed up example
 #' x <- peerj32$microbes[1:10,1:10]
-#' xo <- neat(x, 'both', method = 'NMDS', distance = 'bray')
+#' xo <- neat(x, 'both', method='NMDS', distance='bray')
 #' 
 #' @references This function is partially based on code derived from the
 #' \pkg{phyloseq} package. However for the original
@@ -35,8 +35,8 @@
 #' point. The choice of the first sample may somewhat affect the overall
 #' ordering
 #' @keywords utilities
-neat <- function(x, arrange = "both", method = "NMDS", distance = "bray",
-    first.feature = NULL, first.sample = NULL, ...) {
+neat <- function(x, arrange="both", method="NMDS", distance="bray",
+    first.feature=NULL, first.sample=NULL, ...) {
     
     # Ensure data is in matrix form
     x <- abundances(x)
@@ -46,13 +46,13 @@ neat <- function(x, arrange = "both", method = "NMDS", distance = "bray",
     }
     
     if (is.null(colnames(x))) {
-        colnames(x) = as.character(1:ncol(x))
+        colnames(x)=as.character(1:ncol(x))
     }
     
     if (arrange %in% c("features", "both")) {
         if (nrow(x) > 2) {
-            sr <- neatsort(x, "features", method = method,
-            distance = distance, first = first.feature, 
+            sr <- neatsort(x, "features", method=method,
+            distance=distance, first=first.feature, 
                 ...)
             x <- x[sr, ]
         }
@@ -60,8 +60,8 @@ neat <- function(x, arrange = "both", method = "NMDS", distance = "bray",
     }
     if (arrange %in% c("samples", "both")) {
         if (ncol(x) > 2) {
-            sc <- neatsort(x, "samples", method = method,
-            distance = distance, first = first.sample, 
+            sc <- neatsort(x, "samples", method=method,
+            distance=distance, first=first.sample, 
                 ...)
             x <- x[, sc]
         }

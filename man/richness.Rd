@@ -25,7 +25,7 @@ returns richness with that detection threshold.
 }
 \examples{
 data(dietswap)
-d <- richness(dietswap, detection = 0)
+d <- richness(dietswap, detection=0)
 }
 \seealso{
 global

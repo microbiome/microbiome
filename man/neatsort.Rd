@@ -44,9 +44,9 @@ easy sample/taxon reordering for phyloseq objects.
 data(peerj32)
 pseq <- peerj32$phyloseq
 # For Phyloseq
-sort.otu <- neatsort(pseq, target = 'species')
+sort.otu <- neatsort(pseq, target='species')
 # For matrix
-# sort.rows <- neatsort(abundances(pseq), target = 'rows')
+# sort.rows <- neatsort(abundances(pseq), target='rows')
 
 }
 \references{

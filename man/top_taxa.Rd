@@ -20,5 +20,5 @@ all samples), sorted by abundance
 }
 \examples{
 data(dietswap)
-topx <- top_taxa(dietswap, n = 10)
+topx <- top_taxa(dietswap, n=10)
 }

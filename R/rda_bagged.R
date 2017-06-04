@@ -29,9 +29,9 @@
 #' @references See citation('microbiome') 
 #' @author Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-rda_bagged <- function(x, y, bs.iter = 100, verbose = TRUE) {
+rda_bagged <- function(x, y, bs.iter=100, verbose=TRUE) {
     
-    if (is.phyloseq(x)) {
+    if (class(x) == "phyloseq") {
     
         # Pick OTU matrix and the indicated annotation field
         if (!y %in% sample_variables(x)) {
@@ -40,7 +40,7 @@ rda_bagged <- function(x, y, bs.iter = 100, verbose = TRUE) {
                 phyloseq object i.e. sample_data(x). 
                 Only use variables listed in sample_variables(x) ie. 
                 one of the following: ", 
-                paste(names(sample_data(x)), collapse = " / "), sep = ""))
+                paste(names(sample_data(x)), collapse=" / "), sep=""))
         }
         
         if (!"sample" %in% sample_variables(x)) {
@@ -64,8 +64,8 @@ rda_bagged <- function(x, y, bs.iter = 100, verbose = TRUE) {
     while (!stop.run) {
         boot <- replicate(bs.iter,
         unlist(sapply(class.split, function(x) sample(x, 
-            length(x), replace = TRUE))), simplify = FALSE)
-        Bag.res <- Bagged.RDA(x, y, bs.iter = boot)
+            length(x), replace=TRUE))), simplify=FALSE)
+        Bag.res <- Bagged.RDA(x, y, bs.iter=boot)
         min.prob <- Bag.res$significance[[1]]
         if (length(levels(y)) > 2) {
             for (i in 1:nrow(x)) {
@@ -88,11 +88,11 @@ rda_bagged <- function(x, y, bs.iter = 100, verbose = TRUE) {
         rownames(x)[order(min.prob)[1:length(class.split)]]
     best.res <- which.min(mean.err)
     
-    Bag.res <- Bagged.RDA(x.all[dropped[1:best.res], ], y, bs.iter = boot)
-    Bag.res$data = x.all[dropped[1:best.res], ]
-    Bag.res$Err.selection = mean.err
-    Bag.res$dropped = dropped
-    Bag.res$variable = y
+    Bag.res <- Bagged.RDA(x.all[dropped[1:best.res], ], y, bs.iter=boot)
+    Bag.res$data=x.all[dropped[1:best.res], ]
+    Bag.res$Err.selection=mean.err
+    Bag.res$dropped=dropped
+    Bag.res$variable=y
     
     # if (plot) { plot(mean.err,xlab='x dimension')
     # points(best.res,mean.err[best.res],col='red') }    
@@ -123,28 +123,28 @@ rda_bagged <- function(x, y, bs.iter = 100, verbose = TRUE) {
 #' x <- as.matrix(peerj32$microbes)[1:20, 1:6]
 #' y <- rnorm(nrow(x))
 #' names(y) <- rownames(x)
-#' res <- Bagged.RDA(x, y , bs.iter = 5)
+#' res <- Bagged.RDA(x, y , bs.iter=5)
 #' }
 #' @references See citation('microbiome') 
 #' @author Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-Bagged.RDA <- function(X, Y, bs.iter = 100) {
+Bagged.RDA <- function(X, Y, bs.iter=100) {
     
     ## Jarkko Salojarvi 7.8.2012 #17.8.2012 fixed problem with multiclass RDA
     
     boot <- bs.iter
     
     if (is.numeric(boot)) {
-        class.split = split(names(Y), Y)
+        class.split=split(names(Y), Y)
         
         boot <- replicate(boot,
         unlist(sapply(class.split, function(x) sample(x, length(x), 
-            replace = TRUE))), simplify = FALSE)
+            replace=TRUE))), simplify=FALSE)
     }
     bs.iter <- length(boot)
     n.lev <- length(levels(Y))
     TT <- scores(rda(t(X) ~ Y),
-        choices = 1:max(n.lev - 1, 2), display = "sites")
+        choices=1:max(n.lev - 1, 2), display="sites")
     nRDA <- ncol(TT)
     
     # rotate
@@ -164,21 +164,21 @@ Bagged.RDA <- function(X, Y, bs.iter = 100) {
         nC <- length(levels(Y[x]))
         M <- rda(t(X[, x]) ~ Y[x])
         # get scores
-        TT.m <- scores(M, choices = 1:max(nC - 1, 2), display = "sites")
+        TT.m <- scores(M, choices=1:max(nC - 1, 2), display="sites")
         # bootstrap error
         testset <- setdiff(colnames(X), x)
         err <- NA
         if (length(testset) > 0) {
             Pr <- predict(M, t(as.data.frame(X[, testset])),
-            type = "wa", model = "CCA")
+            type="wa", model="CCA")
             centers <- apply(TT.m, 2,
             function(z) sapply(split(z, Y[x]), mean))
             if (nC == 2) 
                 y.pred <- apply(
             sapply(Pr,
                 function(x) (x - centers[, 1])^2), 2, which.min)
-            else y.pred = nearest.centers(Pr, centers)
-            err = mean(y.pred - as.numeric(Y[testset]) != 0)
+            else y.pred=nearest.centers(Pr, centers)
+            err=mean(y.pred - as.numeric(Y[testset]) != 0)
         }
         # procrustes rotation of scores
         TT.m <- rotateMat(TT.m, TT, x)
@@ -186,22 +186,22 @@ Bagged.RDA <- function(X, Y, bs.iter = 100) {
         a <- t(TT.m) %*% TT.m
         b <- as.matrix(X[, x] - rowMeans(X[, x]))
         loadingsX <- t(solve(a, t(b %*% TT.m)))
-        list(loadingsX = loadingsX, err = err)
+        list(loadingsX=loadingsX, err=err)
     })
     # significances
     sig.prob <- list()
     for (i in 1:nRDA) {
-        tmp = sapply(Tx, function(x) x$loadingsX[, i])
-        sig.prob[[i]] = apply(tmp, 1, function(x) {
-            x1 = sum(x > 0)/length(x)
-            x2 = 1 - x1
+        tmp=sapply(Tx, function(x) x$loadingsX[, i])
+        sig.prob[[i]]=apply(tmp, 1, function(x) {
+            x1=sum(x > 0)/length(x)
+            x2=1 - x1
             min(x1, x2)
         })
     }
     names(sig.prob) <- colnames(TT)
     # bagged estimates
     bagged.loadings <- Tx[[1]]$loadingsX
-    for (i in 2:bs.iter) bagged.loadings = bagged.loadings + Tx[[i]]$loadingsX
+    for (i in 2:bs.iter) bagged.loadings=bagged.loadings + Tx[[i]]$loadingsX
     bagged.loadings <- bagged.loadings / bs.iter
     colnames(bagged.loadings) <- colnames(TT)
     
@@ -209,7 +209,7 @@ Bagged.RDA <- function(X, Y, bs.iter = 100) {
     a <- t(bagged.loadings) %*% bagged.loadings
     b <- as.matrix(X - rowMeans(X))
     bagged.scores <- t(solve(a, t(bagged.loadings) %*% b))
-    colnames(bagged.scores) = colnames(TT)
+    colnames(bagged.scores)=colnames(TT)
     
     # Group centers
     Group.center <- apply(bagged.scores, 2,
@@ -218,13 +218,13 @@ Bagged.RDA <- function(X, Y, bs.iter = 100) {
         as.numeric(Y)) != 0)
     
     # bagged error
-    err.random = replicate(bs.iter,
+    err.random=replicate(bs.iter,
         mean((as.numeric(Y) - sample(as.numeric(Y))) != 0))
-    bagged.error <- mean(sapply(Tx, function(x) x$err), na.rm = TRUE)
+    bagged.error <- mean(sapply(Tx, function(x) x$err), na.rm=TRUE)
     R <- (bagged.error - err.t)/(mean(err.random) - err.t)
     R <- max(min(R, 1), 0)
     w <- 0.632/(1 - 0.368 * R)
-    bagged.R2 = (1 - w) * bagged.error + w * err.t
+    bagged.R2=(1 - w) * bagged.error + w * err.t
     
     can.cor.R <- apply(X, 1, function(x) cor(x, bagged.scores))^2
     Rsquare <- rowSums(can.cor.R)/sum(diag(var(t(X))))
@@ -232,11 +232,11 @@ Bagged.RDA <- function(X, Y, bs.iter = 100) {
     Rsquare.variable <- t(can.cor.R/apply(X, 1, var))
     colnames(Rsquare.variable) <- colnames(bagged.scores)
     
-    list(loadings = bagged.loadings, scores = bagged.scores,
-        significance = sig.prob, error = bagged.R2,
-        group.centers = Group.center, bootstrapped = Tx,
-        err.random = mean(err.random),
-        err.significance = sum(err.random > bagged.R2)/bs.iter, R2 = Rsquare,
-        R2.variables = Rsquare.variable)
+    list(loadings=bagged.loadings, scores=bagged.scores,
+        significance=sig.prob, error=bagged.R2,
+        group.centers=Group.center, bootstrapped=Tx,
+        err.random=mean(err.random),
+        err.significance=sum(err.random > bagged.R2)/bs.iter, R2=Rsquare,
+        R2.variables=Rsquare.variable)
 }
 

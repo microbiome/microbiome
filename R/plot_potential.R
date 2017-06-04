@@ -21,18 +21,18 @@
 #' pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
 #'
 #' # Pick diversity and age
-#' diversity <- exp(global(pseq, index = 'shannon'))
+#' diversity <- exp(global(pseq, index='shannon'))
 #' age <- meta(pseq)$age
 #'   
 #' # Run potential analysis
 #' # library(earlywarnings)
 #' # library(ggplot2)
 #' # suppressWarnings(res <- movpotential_ews(diversity, age)$res)
-#' # suppressWarnings(plot_potential(res, cutoff = 0.5))
+#' # suppressWarnings(plot_potential(res, cutoff=0.5))
 #' @seealso potential_analysis
 #' @keywords utils
-plot_potential <- function(res, cutoff = 0.5, plot.contours = TRUE,
-    binwidth = 0.2, bins = NULL) {
+plot_potential <- function(res, cutoff=0.5, plot.contours=TRUE,
+    binwidth=0.2, bins=NULL) {
     
     
     # TODO Experimental implementation including bootstrap as in Lahti
@@ -57,32 +57,32 @@ plot_potential <- function(res, cutoff = 0.5, plot.contours = TRUE,
     # Static contour Interpolate potential grid
     intp <- loess_interpolation(as.vector(covariates),
         as.vector(grid), as.vector(potentials), 
-        gridn = 2 * dim(potentials))
+        gridn=2 * dim(potentials))
     
     xy <- expand.grid(intp$x, intp$y)
     z <- as.vector(intp$z)
     z[is.na(z)] <- max(na.omit(z))
     
     potential <- NULL
-    df <- data.frame(list(bg.var = xy[, 1], phylotype = xy[, 2], potential = z))
+    df <- data.frame(list(bg.var=xy[, 1], phylotype=xy[, 2], potential=z))
     bg.var <- NULL
     phylotype <- NULL
     
     p <- ggplot(df)
-    p <- p + geom_tile(aes(x = bg.var, y = phylotype,
-        z = potential, fill = potential))
-    p <- p + scale_fill_gradient(low = "black", high = "white")
+    p <- p + geom_tile(aes(x=bg.var, y=phylotype,
+        z=potential, fill=potential))
+    p <- p + scale_fill_gradient(low="black", high="white")
     
     if (plot.contours) {
         if (!is.null(bins)) {
             warning("bins argument is overriding the binwidth argument!")
-            p <- p + stat_contour(bins = bins,
-            aes(x = bg.var, y = phylotype, z = potential, 
-                fill = potential))
+            p <- p + stat_contour(bins=bins,
+            aes(x=bg.var, y=phylotype, z=potential, 
+                fill=potential))
         } else {
-            p <- p + stat_contour(binwidth = binwidth,
-            aes(x = bg.var, y = phylotype, 
-                z = potential, fill = potential))
+            p <- p + stat_contour(binwidth=binwidth,
+            aes(x=bg.var, y=phylotype, 
+                z=potential, fill=potential))
         }
     }
     
@@ -93,7 +93,7 @@ plot_potential <- function(res, cutoff = 0.5, plot.contours = TRUE,
 
 
 
-loess_interpolation <- function(x, y, z, gridn = c(40, 40), span = 0.1, ...) {
+loess_interpolation <- function(x, y, z, gridn=c(40, 40), span=0.1, ...) {
     
     # Inspired by tgp::interp.loess but rewritten
     
@@ -105,18 +105,18 @@ loess_interpolation <- function(x, y, z, gridn = c(40, 40), span = 0.1, ...) {
         stop("x, y, z lengths are not equal")
     if (length(x) < 30 && span < 0.5) {
         warning("with less than 30 points, 
-        use span >> 0.5 or use akima", immediate. = TRUE)
+        use span >> 0.5 or use akima", immediate.=TRUE)
         message(paste("trying span ", span, "for", length(x), "points\n"))
     }
-    x0 <- seq(min(x), max(x), length = gridn[[1]])
-    y0 <- seq(min(y), max(y), length = gridn[[2]])
+    x0 <- seq(min(x), max(x), length=gridn[[1]])
+    y0 <- seq(min(y), max(y), length=gridn[[2]])
     
-    coords <- suppressWarnings(loess(z ~ x + y, data.frame(x = x, y = y),
-        span = span, 
+    coords <- suppressWarnings(loess(z ~ x + y, data.frame(x=x, y=y),
+        span=span, 
         ...))
-    g <- expand.grid(x = x0, y = y0)
+    g <- expand.grid(x=x0, y=y0)
     g.pred <- predict(coords, g)
     
-    list(x = x0, y = y0, z = matrix(g.pred, nrow = gridn))
+    list(x=x0, y=y0, z=matrix(g.pred, nrow=gridn))
     
 }

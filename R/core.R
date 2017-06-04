@@ -24,7 +24,7 @@
 #' # Detection threshold 0 (strictly greater by default);
 #' # Prevalence threshold 50 percent (strictly greater by default)
 #' pseq <- core(dietswap, 0, 50/100)
-core <- function(x, detection, prevalence, include.lowest = FALSE) {
+core <- function(x, detection, prevalence, include.lowest=FALSE) {
     
     xorig <- x
     
@@ -32,7 +32,7 @@ core <- function(x, detection, prevalence, include.lowest = FALSE) {
     # abundances would
     # sum up to 1 ?
     taxa <- core_members(x, detection, prevalence,
-        include.lowest = include.lowest)
+        include.lowest=include.lowest)
     
     prune_taxa(taxa, xorig)
     

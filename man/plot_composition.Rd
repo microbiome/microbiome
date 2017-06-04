@@ -58,6 +58,6 @@ Plot taxon abundance for samples.
 \examples{
 data(dietswap)
 pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR')
-plot_composition(pseq, taxonomic.level = 'Phylum')
+plot_composition(pseq, taxonomic.level='Phylum')
 }
 \keyword{utilities}

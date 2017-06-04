@@ -11,14 +11,14 @@
 #' data(dietswap)
 #' # Detection threshold: the taxa never exceed the given detection threshold
 #' # Prevalence threshold 20 percent (strictly greater by default)
-#' a <- rare_members(dietswap, detection = 100/100, prevalence = 20/100)
+#' a <- rare_members(dietswap, detection=100/100, prevalence=20/100)
 #' @seealso core_members, noncore_members
 #' @export
 #' @references
 #' To cite the microbiome R package, see citation('microbiome') 
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-rare_members <- function(x, detection = 100/100, prevalence = 20/100) {
+rare_members <- function(x, detection=100/100, prevalence=20/100) {
     
     # Pick taxa x samples matrix
     x <- abundances(x)
@@ -26,8 +26,8 @@ rare_members <- function(x, detection = 100/100, prevalence = 20/100) {
     taxa1 <- names(which(
     
         # Detected in at most given prevalence
-        prevalence(x, detection = 0,
-                include.lowest = FALSE) <= prevalence
+        prevalence(x, detection=0,
+                include.lowest=FALSE) <= prevalence
         ))
         
     # .. and never exceeds detection threshold

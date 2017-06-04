@@ -20,9 +20,9 @@
 #' data(peerj32)
 #' pseq <- peerj32$phyloseq
 #' # For Phyloseq
-#' sort.otu <- neatsort(pseq, target = 'species')
+#' sort.otu <- neatsort(pseq, target='species')
 #' # For matrix
-#' # sort.rows <- neatsort(abundances(pseq), target = 'rows')
+#' # sort.rows <- neatsort(abundances(pseq), target='rows')
 #'
 #' @references This function is partially based on code derived from the
 #' \pkg{phyloseq} package. For the original
@@ -36,8 +36,8 @@
 #' Implemented in the microbiome package to provide an independent method for
 #' easy sample/taxon reordering for phyloseq objects.
 #' @keywords utilities
-neatsort <- function(x, target, method = "NMDS", distance = "bray",
-    first = NULL,  ...) {
+neatsort <- function(x, target, method="NMDS", distance="bray",
+    first=NULL,  ...) {
     
     # TODO harmonize completely for matrices vs phyloseqs
     xo <- x
@@ -49,14 +49,14 @@ neatsort <- function(x, target, method = "NMDS", distance = "bray",
     target <- gsub("samples", "sites", target)
     target <- gsub("features", "species", target)
     
-    if (is.phyloseq(x)) {
+    if (class(x) == "phyloseq") {
         
         samples <- sample_names(x)
         features <- taxa(x)
         
         # Capture the output to keep the screen clean
         junk <- capture.output(ord <- ordinate(x, method, distance, ...),
-            file = NULL)
+            file=NULL)
     } else {
         
         samples <- colnames(x)
@@ -80,8 +80,8 @@ neatsort <- function(x, target, method = "NMDS", distance = "bray",
             d <- vegdist(x, distance)
         }
         
-        junk <- capture.output(ord <- metaMDS(d, wascores = FALSE,
-        autotransform = FALSE, noshare = FALSE), file = NULL)
+        junk <- capture.output(ord <- metaMDS(d, wascores=FALSE,
+        autotransform=FALSE, noshare=FALSE), file=NULL)
     }
     
     # ------------------------------------------------------------------
@@ -98,14 +98,14 @@ neatsort <- function(x, target, method = "NMDS", distance = "bray",
     }
     
     tmp <- try({
-        DF <- scores(ord, choices = c(1, 2), display = disp.target)
-    }, silent = TRUE)
-    # DF <- scores(ord, choices = c(1, 2), display = target)}, silent = TRUE)
+        DF <- scores(ord, choices=c(1, 2), display=disp.target)
+    }, silent=TRUE)
+    # DF <- scores(ord, choices=c(1, 2), display=target)}, silent=TRUE)
     
     if (inherits(tmp, "try-error")) {
         warning(paste("Order failed with ", target, ". 
             Using default ordering.", 
-            sep = ""))
+            sep=""))
     }
     
     if (!is.null(DF)) {
@@ -193,9 +193,9 @@ radial_theta <- function(x) {
 #' # chunk_reorder(LETTERS, 'Z') 
 #' # # What about when `newstart` is not in `x`? Return x as-is, throw warning.
 #' # chunk_reorder(LETTERS, 'g') 
-chunk_reorder <- function(x, newstart = x[[1]]) {
+chunk_reorder <- function(x, newstart=x[[1]]) {
     
-    pivot <- match(newstart[1], x, nomatch = NA)
+    pivot <- match(newstart[1], x, nomatch=NA)
     
     # If pivot is NA, then warn and return x as-is
     if (is.na(pivot)) {

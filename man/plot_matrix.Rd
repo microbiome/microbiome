@@ -22,7 +22,7 @@ if needed)}
 
 \item{midpoint}{middle point for the color plot: smaller values are 
 shown with blue, larger are shown with red 
-in type = 'twoway'}
+in type='twoway'}
 
 \item{palette}{Optional. Color palette.}
 
@@ -66,7 +66,7 @@ standard visualization choices made automatically.
 }
 \examples{
 mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2))
-res <- plot_matrix(mat, 'twoway', midpoint = 3) 
+res <- plot_matrix(mat, 'twoway', midpoint=3) 
 }
 \references{
 See citation('microbiome')

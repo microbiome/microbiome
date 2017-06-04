@@ -7,12 +7,12 @@
 #' the number of samples where the OTU is detected (strictly) above the given
 #' abundance threshold.
 #' @inheritParams core
-#' @details For vectors, calculates the fraction (count = FALSE) or
-#' number (count = TRUE) of samples that exceed the
+#' @details For vectors, calculates the fraction (count=FALSE) or
+#' number (count=TRUE) of samples that exceed the
 #' detection. For matrices, calculates this for each matrix
 #' column. For phyloseq objects, calculates this for each OTU. The
-#' relative prevalence (count = FALSE) is simply the absolute
-#' prevalence (count = TRUE) divided by the number of samples.
+#' relative prevalence (count=FALSE) is simply the absolute
+#' prevalence (count=TRUE) divided by the number of samples.
 #' @return For each OTU, the fraction of samples where a given OTU is
 #' detected. The output is readily given as a percentage.
 #' @references 
@@ -25,9 +25,9 @@
 #' @export
 #' @examples
 #' data(peerj32)     
-#' pr <- prevalence(peerj32$phyloseq, detection = 0, sort = TRUE, count = TRUE)
-prevalence <- function(x, detection = 0, sort = FALSE, count = FALSE,
-    include.lowest = FALSE) {
+#' pr <- prevalence(peerj32$phyloseq, detection=0, sort=TRUE, count=TRUE)
+prevalence <- function(x, detection=0, sort=FALSE, count=FALSE,
+    include.lowest=FALSE) {
     
     if (is.null(detection)) {
         detection <- (-Inf)
@@ -39,7 +39,7 @@ prevalence <- function(x, detection = 0, sort = FALSE, count = FALSE,
     }
     
     # Convert phyloseq to matrix
-    if (is.phyloseq(x)) {
+    if (class(x) == "phyloseq") {
         x <- abundances(x)
     }
     

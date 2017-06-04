@@ -29,8 +29,8 @@
 #'
 #' # Bootstrapped potential analysis
 #' # In practice, use more bootstrap iterations
-#' res <- potential_analysis(x, peak.threshold = 0, bw.adjust = 1,
-#'     bs.iter = 9, min.density = 1)
+#' res <- potential_analysis(x, peak.threshold=0, bw.adjust=1,
+#'     bs.iter=9, min.density=1)
 #'
 #' @seealso plot_potential
 #' @references
@@ -41,8 +41,8 @@
 #' \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
 #' ecosystem. \emph{Nature Communications} 5:4344.}
 #' }
-potential_analysis <- function(x, peak.threshold = 0, bw.adjust = 1,
-    bs.iter = 100, min.density = 1) {
+potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
+    bs.iter=100, min.density=1) {
     
     if (is.matrix(x) && nrow(x) == 1) {
         x <- as.vector(x)
@@ -56,13 +56,13 @@ potential_analysis <- function(x, peak.threshold = 0, bw.adjust = 1,
     for (r in 1:bs.iter) {
         
         # Bootstrap
-        rs <- sample(length(x), replace = TRUE)
+        rs <- sample(length(x), replace=TRUE)
         
         xbs <- na.omit(unname(x[rs]))
         
-        a <- potential_univariate(xbs, grid.size = floor(0.2 * length(x)),
-        peak.threshold = peak.threshold, 
-            bw.adjust = bw.adjust, min.density = min.density)
+        a <- potential_univariate(xbs, grid.size=floor(0.2 * length(x)),
+        peak.threshold=peak.threshold, 
+            bw.adjust=bw.adjust, min.density=min.density)
         
         nmodes[[r]] <- length(a$max.points)
         minpoints[[r]] <- a$min.points
@@ -79,9 +79,9 @@ potential_analysis <- function(x, peak.threshold = 0, bw.adjust = 1,
     
     # Return the most frequent number of modes and the corresponding
     # tipping points from the bootstrap analysis
-    list(modes = top.modes, minima = min.points, maxima = max.points,
-        unimodality.support = unimodality.support, 
-        bws = bws)
+    list(modes=top.modes, minima=min.points, maxima=max.points,
+        unimodality.support=unimodality.support, 
+        bws=bws)
     
 }
 
@@ -97,7 +97,7 @@ potential_analysis <- function(x, peak.threshold = 0, bw.adjust = 1,
 #' @param weights optional weights in ksdensity
 #'    (used by potential_slidingaverages).
 #' @param grid.size Grid size for potential estimation.
-#' of density kernel height dnorm(0, sd = bandwidth)/N
+#' of density kernel height dnorm(0, sd=bandwidth)/N
 #' @param bw.adjust The real bandwidth will be bw.adjust*bw; defaults to 1
 #' @param density.smoothing Add a small constant density across the
 #' whole observation range to regularize density estimation (and to
@@ -138,20 +138,20 @@ potential_analysis <- function(x, peak.threshold = 0, bw.adjust = 1,
 #' @seealso \code{\link{potential_slidingaverage}}
 #' @examples \dontrun{res <- potential_univariate(x)}
 #' @keywords early-warning
-potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
-    grid.size = NULL, 
-    peak.threshold = 1, bw.adjust = 1, density.smoothing = 0, min.density = 1) {
+potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
+    grid.size=NULL, 
+    peak.threshold=1, bw.adjust=1, density.smoothing=0, min.density=1) {
     
     if (is.null(grid.size)) {
         grid.size <- floor(0.2 * length(x))
     }
     
     # Density estimation
-    tmp <- try(de <- density(x, bw = bw, adjust = bw.adjust,
-        kernel = "gaussian", 
-        weights = weights, window = kernel, n = grid.size,
-    from = min(x), to = max(x), 
-        cut = 3, na.rm = FALSE))
+    tmp <- try(de <- density(x, bw=bw, adjust=bw.adjust,
+        kernel="gaussian", 
+        weights=weights, window=kernel, n=grid.size,
+    from=min(x), to=max(x), 
+        cut=3, na.rm=FALSE))
     if (class(tmp) == "try-error") {
         # Just use default parameters if failing otherwise
         warning("Density estimation with custom parameters failed. 
@@ -181,16 +181,16 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
     
     # Note mins and maxs for density given # here (not for potential, which h
     # has the opposite signs)
-    ops <- find_optima(f, peak.threshold = peak.threshold, bw = bw,
-        min.density = min.density)
+    ops <- find_optima(f, peak.threshold=peak.threshold, bw=bw,
+        min.density=min.density)
     min.points <- grid.points[ops$min]
     max.points <- grid.points[ops$max]
     peak.threshold2 <- ops$peak.threshold2
     
-    list(grid.points = grid.points, pot = U, density = f, min.inds = ops$min,
-        max.inds = ops$max, 
-        bw = bw, min.points = min.points, max.points = max.points,
-    peak.threshold2 = peak.threshold2)
+    list(grid.points=grid.points, pot=U, density=f, min.inds=ops$min,
+        max.inds=ops$max, 
+        bw=bw, min.points=min.points, max.points=max.points,
+    peak.threshold2=peak.threshold2)
     
 }
 
@@ -212,16 +212,16 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
 #' @examples
 #' \dontrun{
 #'    # Not exported
-#'    o <- find_optima(rnorm(100), bw = 1)
+#'    o <- find_optima(rnorm(100), bw=1)
 #' }
 #' @keywords utilities
-find_optima <- function(f, peak.threshold = 0, bw = 1, min.density = 1) {
+find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {
     
     # FIXME bw is now assumed to be 1. This may be far from optimal. Should be
     # determined automatically.
     
     # multiple of kernel height
-    kernel.height <- dnorm(0, sd = bw)/length(f)
+    kernel.height <- dnorm(0, sd=bw)/length(f)
     peak.threshold2 <- peak.threshold * kernel.height
     detl <- min.density * kernel.height
     
@@ -346,7 +346,7 @@ find_optima <- function(f, peak.threshold = 0, bw = 1, min.density = 1) {
         maxima <- maxima[!delmaxi]
     }
     
-    list(min = minima, max = maxima, peak.threshold2 = peak.threshold2)
+    list(min=minima, max=maxima, peak.threshold2=peak.threshold2)
     
 }
 
@@ -455,18 +455,18 @@ find_maxima <- function(f) {
 #' @examples
 #'   \dontrun{
 #'    # Not exported
-#'    X <- c(rnorm(1000, mean = 0),
-#'            rnorm(1000, mean = -2),
-#'            rnorm(1000, mean = 2));
-#'        param = seq(0,5,length=3000); 
+#'    X <- c(rnorm(1000, mean=0),
+#'            rnorm(1000, mean=-2),
+#'            rnorm(1000, mean=2));
+#'        param=seq(0,5,length=3000); 
 #'        res <- potential_slidingaverage(X, param)
 #'    }
 #' @keywords utils
-potential_slidingaverage <- function(X, param = NULL, bw = "nrd",
-    bw.adjust = 1, 
-    peak.threshold = 0.1, std = 1, grid.size = 50, plot.cutoff = 0.5,
-    plot.contours = TRUE, 
-    binwidth = 0.2, bins = NULL) {
+potential_slidingaverage <- function(X, param=NULL, bw="nrd",
+    bw.adjust=1, 
+    peak.threshold=0.1, std=1, grid.size=50, plot.cutoff=0.5,
+    plot.contours=TRUE, 
+    binwidth=0.2, bins=NULL) {
     
     if (is.null(param)) {
         param <- seq(1, length(X), 1)
@@ -487,11 +487,11 @@ potential_slidingaverage <- function(X, param = NULL, bw = "nrd",
     sdwindow <- step <- (maxparam - minparam)/grid.size
     
     # Place evaluation points evenly across data range
-    xi <- seq(min(X), max(X), length = grid.size)
+    xi <- seq(min(X), max(X), length=grid.size)
     
     # Initialize
-    xis <- pars <- pots <- matrix(0, nrow = grid.size, ncol = length(xi))
-    maxs <- mins <- matrix(0, nrow = grid.size, ncol = length(xi))
+    xis <- pars <- pots <- matrix(0, nrow=grid.size, ncol=length(xi))
+    maxs <- mins <- matrix(0, nrow=grid.size, ncol=length(xi))
     
     for (i in 1:grid.size) {
         
@@ -506,9 +506,9 @@ potential_slidingaverage <- function(X, param = NULL, bw = "nrd",
         weights <- weights/sum(weights)
         
         # Calculate the potential
-        tmp <- potential_univariate(x = X, std = std, bw = bw,
-        bw.adjust = bw.adjust, 
-            weights = weights, grid.size = grid.size)
+        tmp <- potential_univariate(x=X, std=std, bw=bw,
+        bw.adjust=bw.adjust, 
+            weights=weights, grid.size=grid.size)
         
         # Store variables
         pots[i, ] <- tmp$pot
@@ -519,16 +519,16 @@ potential_slidingaverage <- function(X, param = NULL, bw = "nrd",
         
     }
     
-    res <- list(pars = pars, xis = xis, pots = pots, mins = mins,
-        maxs = maxs, std = std)
+    res <- list(pars=pars, xis=xis, pots=pots, mins=mins,
+        maxs=maxs, std=std)
     
-    p <- plot_potential(res, cutoff = plot.cutoff,
-        plot.contours = plot.contours, 
-        binwidth = binwidth, bins = bins)
+    p <- plot_potential(res, cutoff=plot.cutoff,
+        plot.contours=plot.contours, 
+        binwidth=binwidth, bins=bins)
     
     p <- p + xlab("parameter/time") + ylab("state variable")
     
-    list(res = res, plot = p)
+    list(res=res, plot=p)
     
 }
 

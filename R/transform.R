@@ -7,7 +7,7 @@
 #' @param target Apply the transform for 'sample' or 'OTU'.
 #' Does not affect the log transform.
 #' @param shift A constant indicating how much to shift the baseline
-#' abundance (in transform = 'shift')
+#' abundance (in transform='shift')
 #' @return Transformed \code{\link{phyloseq}} object
 #' @details The relative abunance are returned as percentages in [0,
 #' 1]. The Hellinger transform is square root of the relative
@@ -34,16 +34,16 @@
 #' # xt <- transform(x, 'clr')
 #'
 #' # Shift the baseline
-#' # xt <- transform(x, 'shift', shift = 1)
+#' # xt <- transform(x, 'shift', shift=1)
 #'
 #' @keywords utilities
-transform <- function(x, transform = "identity", target = "OTU", shift = 0) {
+transform <- function(x, transform="identity", target="OTU", shift=0) {
 
     y <- NULL
     xorig <- x
 
     # If x is not a phyloseq object then assume that it is taxa x samples matrix
-    if (is.phyloseq(x)) {
+    if (class(x) == "phyloseq") {
         x <- abundances(x)
     }
 
@@ -136,7 +136,7 @@ transform <- function(x, transform = "identity", target = "OTU", shift = 0) {
         
     } else {
         
-        a <- try(xt <- decostand(x, method = transform, MARGIN = 2))
+        a <- try(xt <- decostand(x, method=transform, MARGIN=2))
         if (class(a) == "try-error") {
             xt <- NULL
             stop(paste("Transformation", transform, "not defined."))

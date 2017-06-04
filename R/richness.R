@@ -9,16 +9,16 @@
 #' @export
 #' @examples
 #' data(dietswap)
-#' d <- richness(dietswap, detection = 0)
+#' d <- richness(dietswap, detection=0)
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso global
 #' @keywords utilities
-richness <- function(x, detection = NULL) {
+richness <- function(x, detection=NULL) {
         
     tab <- richness_help(x, detection)
 
     if (is.vector(tab)) {
-        tab <- as.matrix(tab, ncol = 1)
+        tab <- as.matrix(tab, ncol=1)
         colnames(tab) <- gsub("%", "", as.character(detection))
     }
     
@@ -27,7 +27,7 @@ richness <- function(x, detection = NULL) {
 }
 
 
-richness_help <- function(x, detection = NULL) {
+richness_help <- function(x, detection=NULL) {
     
     # Pick data
     otu <- abundances(x)

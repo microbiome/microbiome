@@ -27,7 +27,7 @@ have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
 }
 \examples{
 data(dietswap)
-d <- coverage(dietswap, threshold = 0.5)
+d <- coverage(dietswap, threshold=0.5)
 }
 \seealso{
 dominance, global

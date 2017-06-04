@@ -33,12 +33,12 @@
 #' @examples
 #' data(dietswap)
 #' pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR')
-#' plot_composition(pseq, taxonomic.level = 'Phylum')
+#' plot_composition(pseq, taxonomic.level='Phylum')
 #' @keywords utilities
-plot_composition <- function(x, taxonomic.level = "OTU", sample.sort = NULL,
-    otu.sort = NULL, x.label = "sample", plot.type = "barplot",
-    verbose = FALSE, transform = NULL, 
-    mar = c(5, 12, 1, 1), average_by = NULL, ...) {
+plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
+    otu.sort=NULL, x.label="sample", plot.type="barplot",
+    verbose=FALSE, transform=NULL, 
+    mar=c(5, 12, 1, 1), average_by=NULL, ...) {
     
     # Avoid warnings
     Sample <- Abundance <- Taxon <- horiz <- value <-
@@ -79,7 +79,7 @@ plot_composition <- function(x, taxonomic.level = "OTU", sample.sort = NULL,
         dff <- as.data.frame(t(abu))
         dff$group <- sample_data(x)[[average_by]]
         if (is.numeric(dff$group)) {
-            dff$group <- factor(dff$group, levels = sort(unique(dff$group)))
+            dff$group <- factor(dff$group, levels=sort(unique(dff$group)))
         }
         # Remove samples with no group info
         dff <- dff %>% filter(!is.na(group))
@@ -104,8 +104,8 @@ plot_composition <- function(x, taxonomic.level = "OTU", sample.sort = NULL,
         # Use predefined order
         sample.sort <- sample.sort
     } else if (length(sample.sort) == 1 && sample.sort == "neatmap") {
-        sample.sort <- neatsort(x, method = "NMDS", distance = "bray",
-        target = "sites", first = NULL)
+        sample.sort <- neatsort(x, method="NMDS", distance="bray",
+        target="sites", first=NULL)
     } else if (!sample.sort %in% names(sample_data(x))) {
         warning(paste("The sample.sort argument", sample.sort,
         "is not included in sample_data(x). 
@@ -126,8 +126,8 @@ plot_composition <- function(x, taxonomic.level = "OTU", sample.sort = NULL,
         # Use predefined order
         otu.sort <- otu.sort
     } else if (length(otu.sort) == 1 && otu.sort == "neatmap") {
-        otu.sort <- neatsort(x, method = "NMDS", distance = "bray",
-        target = "species", first = NULL)
+        otu.sort <- neatsort(x, method="NMDS", distance="bray",
+        target="species", first=NULL)
     }
     
     if (verbose) {
@@ -136,8 +136,8 @@ plot_composition <- function(x, taxonomic.level = "OTU", sample.sort = NULL,
     # Abundances as data.frame dfm <- psmelt(x)
     dfm <- melt(abu)
     names(dfm) <- c("OTU", "Sample", "Abundance")
-    dfm$Sample <- factor(dfm$Sample, levels = sample.sort)
-    dfm$OTU <- factor(dfm$OTU, levels = otu.sort)
+    dfm$Sample <- factor(dfm$Sample, levels=sample.sort)
+    dfm$OTU <- factor(dfm$OTU, levels=otu.sort)
     
     # SampleIDs for plotting
     if (x.label %in% colnames(sample_data(x)) & is.null(average_by)) {
@@ -156,7 +156,7 @@ plot_composition <- function(x, taxonomic.level = "OTU", sample.sort = NULL,
             
         }
         
-        dfm$xlabel <- factor(dfm$xlabel, levels = lev)
+        dfm$xlabel <- factor(dfm$xlabel, levels=lev)
         
     } else {
         
@@ -172,9 +172,9 @@ plot_composition <- function(x, taxonomic.level = "OTU", sample.sort = NULL,
         
         # Provide barplot
         dfm <- dfm %>% arrange(OTU)  # Show OTUs always in the same order
-        p <- ggplot(dfm, aes(x = Sample, y = Abundance, fill = OTU))
-        p <- p + geom_bar(position = "stack", stat = "identity")
-        p <- p + scale_x_discrete(labels = dfm$xlabel, breaks = dfm$Sample)
+        p <- ggplot(dfm, aes(x=Sample, y=Abundance, fill=OTU))
+        p <- p + geom_bar(position="stack", stat="identity")
+        p <- p + scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
         
         # Name appropriately
         if (!is.null(transform) && transform == "relative.abundance") {
@@ -184,10 +184,10 @@ plot_composition <- function(x, taxonomic.level = "OTU", sample.sort = NULL,
         }
         
         # Rotate horizontal axis labels, and adjust
-        p <- p + theme(axis.text.x = element_text(angle = 90, vjust = 0.5,
-        hjust = 0))
-        p <- p + guides(fill = guide_legend(reverse = FALSE,
-        title = taxonomic.level))
+        p <- p + theme(axis.text.x=element_text(angle=90, vjust=0.5,
+        hjust=0))
+        p <- p + guides(fill=guide_legend(reverse=FALSE,
+        title=taxonomic.level))
         
     } else if (plot.type == "heatmap") {
         
@@ -206,7 +206,7 @@ plot_composition <- function(x, taxonomic.level = "OTU", sample.sort = NULL,
         
         # Plot TODO: move it in here from netresponse and return the
         # ggplot object as well
-        p <- plot_matrix(otu[otu.sort, sample.sort], type = "twoway", mar = mar)
+        p <- plot_matrix(otu[otu.sort, sample.sort], type="twoway", mar=mar)
         
     }
     

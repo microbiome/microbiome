@@ -8,8 +8,8 @@
 #' @export
 #' @examples
 #' data(dietswap)
-#' d <- rarity(dietswap, index = 'low_abundance')
-#' # d <- rarity(dietswap, index = 'all')
+#' d <- rarity(dietswap, index='low_abundance')
+#' # d <- rarity(dietswap, index='all')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso global, log_modulo_skewness, noncore_abundance, low_abundance
 #' @details
@@ -24,7 +24,7 @@
 #' right-skewed; to avoid taking log of occasional negative skews,
 #' we follow Locey & Lennon (2016) and use the log-modulo
 #' transformation that adds a value of one to each measure of skewness
-#' to allow logarithmization. The values q=0.5 and n = 50 are used here.}
+#' to allow logarithmization. The values q=0.5 and n=50 are used here.}
 #' \item{low_abundance }{Relative proportion of the least abundant species,
 #' below the detection level of 0.2\%. The least abundant species are
 #' determined separately for each sample regardless of their prevalence.}
@@ -46,7 +46,7 @@
 #' (Oxford Univ Press, Oxford), Vol 12
 #'
 #' @keywords utilities
-rarity <- function(x, index = "all") {
+rarity <- function(x, index="all") {
     
     # Only include accepted indices
     accepted <- c("log_modulo_skewness", "low_abundance",
@@ -69,7 +69,7 @@ rarity <- function(x, index = "all") {
     tab <- rarity_help(x, index)
 
     if (is.vector(tab)) {
-        tab <- as.matrix(tab, ncol = 1)
+        tab <- as.matrix(tab, ncol=1)
         colnames(tab) <- index        
     }
     
@@ -78,12 +78,12 @@ rarity <- function(x, index = "all") {
 }
 
 
-rarity_help <- function(x, index = "all") {
+rarity_help <- function(x, index="all") {
         
     if (length(index) > 1) {
         tab <- NULL
         for (idx in index) {
-            tab <- cbind(tab, rarity(x, index = idx))
+            tab <- cbind(tab, rarity(x, index=idx))
         }
         colnames(tab) <- index
         return(as.data.frame(tab))
@@ -95,22 +95,22 @@ rarity_help <- function(x, index = "all") {
     
     if (index == "log_modulo_skewness") {
     
-        r <- log_modulo_skewness(otu, q = 0.5, n = 50)
+        r <- log_modulo_skewness(otu, q=0.5, n=50)
     
     } else if (index == "low_abundance") {
     
         r <- apply(otu.relative, 2,
-                function(x) low_abundance(x, detection = 0.2/100))
+                function(x) low_abundance(x, detection=0.2/100))
     } else if (index == "noncore_abundance") {
     
-        r <- noncore_abundance(x, detection = 0.2/100,
-                                prevalence = 20/100)
+        r <- noncore_abundance(x, detection=0.2/100,
+                                prevalence=20/100)
         
     } else if (index == "rare_abundance") {
     
         s <- rare_members(otu.relative,
-                detection = 100/100, # All abundances accepted
-                prevalence = 20/100) # Less than this prevalence required
+                detection=100/100, # All abundances accepted
+                prevalence=20/100) # Less than this prevalence required
         r <- colSums(otu.relative[s, ])
     
     }

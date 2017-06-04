@@ -46,6 +46,6 @@ pseq.rel <- transform(dietswap, 'compositional')
 # Population density for Dialister spp.; with log10 on the abundance (X)
 # axis
 library(ggplot2)
-p <- plot_density(pseq.rel, variable = 'Dialister') + scale_x_log10()
+p <- plot_density(pseq.rel, variable='Dialister') + scale_x_log10()
 }
 \keyword{utilities}

@@ -66,7 +66,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso coverage, core_abundance, rarity, global
 #' @keywords utilities
-evenness <- function(x, index = "all", zeroes = TRUE) {
+evenness <- function(x, index="all", zeroes=TRUE) {
     
     # Only include accepted indices
     accepted <- c("camargo", "pielou", "simpson", "evar", "bulla")    
@@ -88,7 +88,7 @@ evenness <- function(x, index = "all", zeroes = TRUE) {
     tab <- evenness_help(x, index, zeroes)
 
     if (is.vector(tab)) {
-        tab <- as.matrix(tab, ncol = 1)
+        tab <- as.matrix(tab, ncol=1)
         colnames(tab) <- index        
     }
     
@@ -99,7 +99,7 @@ evenness <- function(x, index = "all", zeroes = TRUE) {
 
 
 
-evenness_help <- function(x, index = "all", zeroes = TRUE) {
+evenness_help <- function(x, index="all", zeroes=TRUE) {
     
     # Only include accepted indices
     accepted <- c("camargo", "pielou", "simpson", "evar", "bulla")
@@ -117,7 +117,7 @@ evenness_help <- function(x, index = "all", zeroes = TRUE) {
     if (length(index) > 1) {
         ev <- NULL
         for (idx in index) {
-            ev <- cbind(ev, evenness(x, index = idx, zeroes = TRUE))
+            ev <- cbind(ev, evenness(x, index=idx, zeroes=TRUE))
         }
         colnames(ev) <- index
         return(as.data.frame(ev))
@@ -128,11 +128,11 @@ evenness_help <- function(x, index = "all", zeroes = TRUE) {
     
     if (index == "camargo") {
         ev <- apply(otu, 2, function(x) {
-            camargo(x, zeroes = zeroes)
+            camargo(x, zeroes=zeroes)
         })
     } else if (index == "simpson") {
         ev <- apply(otu, 2, function(x) {
-            simpson_evenness(x, zeroes = zeroes)
+            simpson_evenness(x, zeroes=zeroes)
         })
     } else if (index == "pielou") {
         ev <- apply(otu, 2, function(x) {
@@ -140,11 +140,11 @@ evenness_help <- function(x, index = "all", zeroes = TRUE) {
         })
     } else if (index == "evar") {
         ev <- apply(otu, 2, function(x) {
-            evar(x, zeroes = zeroes)
+            evar(x, zeroes=zeroes)
         })
     } else if (index == "bulla") {
         ev <- apply(otu, 2, function(x) {
-            bulla(x, zeroes = zeroes)
+            bulla(x, zeroes=zeroes)
         })
     }
     
@@ -156,7 +156,7 @@ evenness_help <- function(x, index = "all", zeroes = TRUE) {
 
 
 
-bulla <- function(x, zeroes = TRUE) {
+bulla <- function(x, zeroes=TRUE) {
     
     if (!zeroes) {
         x[x > 0]
@@ -181,7 +181,7 @@ bulla <- function(x, zeroes = TRUE) {
 # by code from Pepijn de Vries and Zhou Xiang at
 # researchgate.net/post/How_can_we_calculate_the_Camargo_evenness_index_in_R
 # but rewritten here
-camargo <- function(x, zeroes = TRUE) {
+camargo <- function(x, zeroes=TRUE) {
     
     if (!zeroes) {
         x[x > 0]
@@ -202,7 +202,7 @@ camargo <- function(x, zeroes = TRUE) {
 
 
 # x: Species count vector
-simpson_evenness <- function(x, zeroes = TRUE) {
+simpson_evenness <- function(x, zeroes=TRUE) {
     
     if (!zeroes) {
         x[x > 0]
@@ -247,7 +247,7 @@ pielou <- function(x) {
 }
 
 # Smith and Wilson’s Evar index
-evar <- function(x, zeroes = TRUE) {
+evar <- function(x, zeroes=TRUE) {
     
     if (!zeroes) {
         x[x > 0]

@@ -30,24 +30,24 @@ plot_taxa_prevalence <- function(x, level) {
         Phylum <- as.vector(data.frame(tax_table(x))$Phylum)
         Phylum <- as.vector(Phylum)
         Phylum <- as.factor(Phylum)
-        xdf <- data.frame(abundance = log(tax.abun), prevalence = tax.prev, 
+        xdf <- data.frame(abundance=log(tax.abun), prevalence=tax.prev, 
             Phylum)
         plot.phylum <- ggplot(xdf,
-            aes(x = abundance, y = prevalence, color = Phylum)) + 
-            geom_point(shape = 16, alpha = 0.9) +
+            aes(x=abundance, y=prevalence, color=Phylum)) + 
+            geom_point(shape=16, alpha=0.9) +
         xlab("Average relative abundance (log scale)") + 
             ylab("Taxa prevalence") +
         theme_bw() +
-        theme(plot.background = element_blank(), 
-                panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank(), 
-                panel.background = element_blank(),
-        axis.text.x = element_text(angle = 90, 
-                    vjust = 0.5, size = 6)) +
-        geom_vline(xintercept = 0, linetype = "dashed", 
-                    color = "grey") +
+        theme(plot.background=element_blank(), 
+                panel.grid.major=element_blank(),
+            panel.grid.minor=element_blank(), 
+                panel.background=element_blank(),
+        axis.text.x=element_text(angle=90, 
+                    vjust=0.5, size=6)) +
+        geom_vline(xintercept=0, linetype="dashed", 
+                    color="grey") +
         facet_wrap(~Phylum) +
-        theme(strip.background = element_rect(fill = "white"))
+        theme(strip.background=element_rect(fill="white"))
         return(plot.phylum)
         
     } else if (level == "Family") {
@@ -56,24 +56,24 @@ plot_taxa_prevalence <- function(x, level) {
         Family <- as.vector(data.frame(tax_table(x))$Family)
         Family <- as.vector(Family)
         Family <- as.factor(Family)
-        xdf <- data.frame(abundance = log(tax.abun), prevalence = tax.prev, 
+        xdf <- data.frame(abundance=log(tax.abun), prevalence=tax.prev, 
             Family)
-        plot.fam <- ggplot(xdf, aes(x = abundance, y = prevalence,
-        color = Family)) + 
-            geom_point(shape = 16, alpha = 0.9) +
+        plot.fam <- ggplot(xdf, aes(x=abundance, y=prevalence,
+        color=Family)) + 
+            geom_point(shape=16, alpha=0.9) +
         xlab("Average relative abundance (log scale)") + 
             ylab("Taxa prevalence") +
         theme_bw() +
-        theme(plot.background = element_blank(), 
-            panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(), 
-            panel.background = element_blank(),
-        axis.text.x = element_text(angle = 90, 
-                vjust = 0.5, size = 6)) +
-        geom_vline(xintercept = 0, linetype = "dashed", 
-            color = "grey") +
+        theme(plot.background=element_blank(), 
+            panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(), 
+            panel.background=element_blank(),
+        axis.text.x=element_text(angle=90, 
+                vjust=0.5, size=6)) +
+        geom_vline(xintercept=0, linetype="dashed", 
+            color="grey") +
         facet_wrap(~Family) +
-        theme(strip.background = element_rect(fill = "white"))
+        theme(strip.background=element_rect(fill="white"))
         return(plot.fam)
     } else if (level == "Order") {
         tax.abun <- apply(otu_table(x), 1, mean)
@@ -83,24 +83,24 @@ plot_taxa_prevalence <- function(x, level) {
         Order <- as.factor(Order)
         # FIXME: Most of the time log10 is used for microbial abundances (not
         # log) - should change here for consistency?
-        xdf <- data.frame(abundance = log(tax.abun), prevalence = tax.prev, 
+        xdf <- data.frame(abundance=log(tax.abun), prevalence=tax.prev, 
             Order)
         plot.order <- ggplot(xdf,
-        aes(x = abundance, y = prevalence, color = Order)) + 
-            geom_point(shape = 16, alpha = 0.9) +
+        aes(x=abundance, y=prevalence, color=Order)) + 
+            geom_point(shape=16, alpha=0.9) +
         xlab("Average relative abundance (log scale)") + 
             ylab("Taxa prevalence") +
         theme_bw() +
-        theme(plot.background = element_blank(), 
-            panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(), 
-            panel.background = element_blank(),
-        axis.text.x = element_text(angle = 90, 
-                vjust = 0.5, size = 6)) +
-        geom_vline(xintercept = 0, linetype = "dashed", 
-            color = "grey") +
+        theme(plot.background=element_blank(), 
+            panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(), 
+            panel.background=element_blank(),
+        axis.text.x=element_text(angle=90, 
+                vjust=0.5, size=6)) +
+        geom_vline(xintercept=0, linetype="dashed", 
+            color="grey") +
         facet_wrap(~Order) +
-        theme(strip.background = element_rect(fill = "white"))
+        theme(strip.background=element_rect(fill="white"))
         return(plot.order)
     } else if (level == "Class") {
         tax.abun <- apply(otu_table(x), 1, mean)
@@ -108,24 +108,24 @@ plot_taxa_prevalence <- function(x, level) {
         Class <- as.vector(data.frame(tax_table(x))$Class)
         Class <- as.vector(Class)
         Class <- as.factor(Class)
-        xdf <- data.frame(abundance = log(tax.abun), prevalence = tax.prev, 
+        xdf <- data.frame(abundance=log(tax.abun), prevalence=tax.prev, 
             Class)
         plot.class <- ggplot(xdf,
-        aes(x = abundance, y = prevalence, color = Class)) + 
-            geom_point(shape = 16, alpha = 0.9) +
+        aes(x=abundance, y=prevalence, color=Class)) + 
+            geom_point(shape=16, alpha=0.9) +
         xlab("Average relative abundance (log scale)") + 
             ylab("Taxa prevalence") +
         theme_bw() +
-        theme(plot.background = element_blank(), 
-            panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank(), 
-            panel.background = element_blank(),
-            axis.text.x = element_text(angle = 90, 
-                vjust = 0.5, size = 6)) +
-        geom_vline(xintercept = 0, linetype = "dashed", 
-                color = "grey") +
+        theme(plot.background=element_blank(), 
+            panel.grid.major=element_blank(),
+            panel.grid.minor=element_blank(), 
+            panel.background=element_blank(),
+            axis.text.x=element_text(angle=90, 
+                vjust=0.5, size=6)) +
+        geom_vline(xintercept=0, linetype="dashed", 
+                color="grey") +
         facet_wrap(~Class) +
-        theme(strip.background = element_rect(fill = "white"))
+        theme(strip.background=element_rect(fill="white"))
         return(plot.class)
     }
     

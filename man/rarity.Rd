@@ -32,7 +32,7 @@ abundance classes (see Magurran & McGill 2011). These are typically
 right-skewed; to avoid taking log of occasional negative skews,
 we follow Locey & Lennon (2016) and use the log-modulo
 transformation that adds a value of one to each measure of skewness
-to allow logarithmization. The values q=0.5 and n = 50 are used here.}
+to allow logarithmization. The values q=0.5 and n=50 are used here.}
 \item{low_abundance }{Relative proportion of the least abundant species,
 below the detection level of 0.2\%. The least abundant species are
 determined separately for each sample regardless of their prevalence.}
@@ -46,8 +46,8 @@ prevalence, regardless of abundance.}
 }
 \examples{
 data(dietswap)
-d <- rarity(dietswap, index = 'low_abundance')
-# d <- rarity(dietswap, index = 'all')
+d <- rarity(dietswap, index='low_abundance')
+# d <- rarity(dietswap, index='all')
 }
 \references{
 Kenneth J. Locey and Jay T. Lennon.

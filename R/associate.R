@@ -21,7 +21,7 @@
 #' data(peerj32)
 #' d1 <- peerj32$microbes[1:20, 1:10]
 #' d2 <- peerj32$lipids[1:20,1:10]
-#' cc <- associate(d1, d2, method = 'pearson')
+#' cc <- associate(d1, d2, method='pearson')
 #' @export
 #' @details As the method=categorical (discrete) association measure
 #' for nominal (no order for levels) variables we use Goodman and
@@ -31,11 +31,11 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @aliases cross_correlate
 #' @keywords utilities
-associate <- function(x, y = NULL,
-method = "spearman", p.adj.threshold = Inf,
-cth = NULL, order = FALSE, n.signif = 0, mode = "table",
-p.adj.method = "fdr",
-verbose = FALSE, filter.self.correlations = FALSE) {
+associate <- function(x, y=NULL,
+method="spearman", p.adj.threshold=Inf,
+cth=NULL, order=FALSE, n.signif=0, mode="table",
+p.adj.method="fdr",
+verbose=FALSE, filter.self.correlations=FALSE) {
     
     if (is.null(y)) {
         message("Cross-correlating the data with itself")
@@ -51,7 +51,7 @@ verbose = FALSE, filter.self.correlations = FALSE) {
     y <- y  # numeric
     
     if (is.null(colnames(y))) {
-        colnames(y) <- paste("column-", 1:ncol(y), sep = "")
+        colnames(y) <- paste("column-", 1:ncol(y), sep="")
     }
     
     xnames <- colnames(x)
@@ -79,9 +79,9 @@ verbose = FALSE, filter.self.correlations = FALSE) {
     xnames <- inds
     
     if (!is.vector(x)) {
-        x <- suppressWarnings(as.matrix(x[, inds], ncol = length(inds)))
+        x <- suppressWarnings(as.matrix(x[, inds], ncol=length(inds)))
     } else {
-        x <- as.matrix(x[inds], ncol = length(inds))
+        x <- as.matrix(x[inds], ncol=length(inds))
     }
     
     colnames(x) <- xnames
@@ -108,8 +108,8 @@ verbose = FALSE, filter.self.correlations = FALSE) {
                 if (sum(!is.na(xi)) >= minobs) {
 
                     res <- suppressWarnings(
-                        cor.test(xi, unlist(y[, j], use.names = FALSE), 
-                    method = method, use = "pairwise.complete.obs"))
+                        cor.test(xi, unlist(y[, j], use.names=FALSE), 
+                    method=method, use="pairwise.complete.obs"))
 
                     res <- c(res$estimate, res$p.value)
 
@@ -135,7 +135,7 @@ verbose = FALSE, filter.self.correlations = FALSE) {
     } else if (method == "bicor") {
         
         t1 <- suppressWarnings(
-        bicorAndPvalue(x, y, use = "pairwise.complete.obs"))
+        bicorAndPvalue(x, y, use="pairwise.complete.obs"))
         Pc <- t1$p
         Cc <- t1$bicor
         
@@ -146,7 +146,7 @@ verbose = FALSE, filter.self.correlations = FALSE) {
             message(method)
         }
         
-        Cc <- matrix(NA, nrow = ncol(x), ncol = ncol(y))
+        Cc <- matrix(NA, nrow=ncol(x), ncol=ncol(y))
         rownames(Cc) <- colnames(x)
         colnames(Cc) <- colnames(y)
         
@@ -178,8 +178,8 @@ verbose = FALSE, filter.self.correlations = FALSE) {
         colnames(Cc) <- ynames
         
         # Corrected p-values
-        qv <- array(NA, dim = dim(Pc))
-        qv <- matrix(p.adjust(Pc, method = p.adj.method), nrow = nrow(Pc))
+        qv <- array(NA, dim=dim(Pc))
+        qv <- matrix(p.adjust(Pc, method=p.adj.method), nrow=nrow(Pc))
         dimnames(qv) <- dimnames(Pc)
         
     }
@@ -238,9 +238,9 @@ verbose = FALSE, filter.self.correlations = FALSE) {
             rnams <- rownames(Cc)[inds1]
             cnams <- colnames(Cc)[inds2]
             
-            Cc <- matrix(Cc[inds1, inds2, drop = FALSE], nrow = sum(inds1))
-            Pc <- matrix(Pc[inds1, inds2, drop = FALSE], nrow = sum(inds1))
-            qv <- matrix(qv[inds1, inds2, drop = FALSE], nrow = sum(inds1))
+            Cc <- matrix(Cc[inds1, inds2, drop=FALSE], nrow=sum(inds1))
+            Pc <- matrix(Pc[inds1, inds2, drop=FALSE], nrow=sum(inds1))
+            qv <- matrix(qv[inds1, inds2, drop=FALSE], nrow=sum(inds1))
             
             rownames(qv) <- rownames(Pc) <- rownames(Cc) <- rnams
             colnames(qv) <- colnames(Pc) <- colnames(Cc) <- cnams
@@ -253,9 +253,9 @@ verbose = FALSE, filter.self.correlations = FALSE) {
                 colnames(tmp) <- NULL
                 
                 rind <- hclust(as.dist(1 - cor(t(tmp),
-            use = "pairwise.complete.obs")))$order
+            use="pairwise.complete.obs")))$order
                 cind <- hclust(as.dist(1 - cor(tmp,
-            use = "pairwise.complete.obs")))$order
+            use="pairwise.complete.obs")))$order
                 
                 rnams <- rownames(Cc)[rind]
                 cnams <- colnames(Cc)[cind]
@@ -275,7 +275,7 @@ verbose = FALSE, filter.self.correlations = FALSE) {
         }
     }
     
-    res <- list(cor = Cc, pval = Pc, p.adj = qv)
+    res <- list(cor=Cc, pval=Pc, p.adj=qv)
     
     # message('Ignore self-correlations in filtering')
     
@@ -301,12 +301,12 @@ verbose = FALSE, filter.self.correlations = FALSE) {
 #' data(peerj32)
 #' d1 <- peerj32$microbes[1:20, 1:10]
 #' d2 <- peerj32$lipids[1:20,1:10]
-#' cc <- associate(d1, d2, mode = 'matrix', method = 'pearson')
-#' cmat <- associate(d1, d2, mode = 'table', method = 'spearman')
+#' cc <- associate(d1, d2, mode='matrix', method='pearson')
+#' cmat <- associate(d1, d2, mode='table', method='spearman')
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-cmat2table <- function(res, verbose = FALSE) {
+cmat2table <- function(res, verbose=FALSE) {
     
     ctab <- ID <- NULL
     
@@ -357,8 +357,8 @@ cmat2table <- function(res, verbose = FALSE) {
     ctab$X2 <- as.character(ctab$X2)
     
     # Keep the original order of factor levels
-    ctab$X1 <- factor(as.character(ctab$X1), levels = rownames(res$cor))
-    ctab$X2 <- factor(as.character(ctab$X2), levels = colnames(res$cor))
+    ctab$X1 <- factor(as.character(ctab$X1), levels=rownames(res$cor))
+    ctab$X2 <- factor(as.character(ctab$X2), levels=colnames(res$cor))
     
     # Remove NAs
     ctab <- ctab[!is.na(ctab$Correlation), ]

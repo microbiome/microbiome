@@ -20,7 +20,7 @@ scaled potentials)}
 (used by potential_slidingaverages).}
 
 \item{grid.size}{Grid size for potential estimation.
-of density kernel height dnorm(0, sd = bandwidth)/N}
+of density kernel height dnorm(0, sd=bandwidth)/N}
 
 \item{peak.threshold}{Mode detection threshold}
 

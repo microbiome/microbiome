@@ -29,11 +29,11 @@ to \code{\link{phyloseq-class}}.
 \dontrun{
 # TODO: add example files in inst/extdata/
 # and read here with
-# system.file('inst/extdata/..', package = 'microbiome') command
+# system.file('inst/extdata/..', package='microbiome') command
 # To make this example executable
-p0 <- read_csv2phyloseq(otu.file = 'otu_table.csv', 
-    taxonomy.file = 'taxa_table.csv', 
-    metadata.file = 'meta_table.csv')
+p0 <- read_csv2phyloseq(otu.file='otu_table.csv', 
+    taxonomy.file='taxa_table.csv', 
+    metadata.file='meta_table.csv')
 }
 }
 \author{

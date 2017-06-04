@@ -33,7 +33,7 @@ data(peerj32)
 x <- as.matrix(peerj32$microbes)[1:20, 1:6]
 y <- rnorm(nrow(x))
 names(y) <- rownames(x)
-res <- Bagged.RDA(x, y , bs.iter = 5)
+res <- Bagged.RDA(x, y , bs.iter=5)
 }
 }
 \references{

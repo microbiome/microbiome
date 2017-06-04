@@ -32,7 +32,7 @@ columns that satisfy these criteria.
 data(dietswap)
 # Detection threshold: the taxa never exceed the given detection threshold
 # Prevalence threshold 20 percent (strictly greater by default)
-a <- rare_members(dietswap, detection = 100/100, prevalence = 20/100)
+a <- rare_members(dietswap, detection=100/100, prevalence=20/100)
 }
 \references{
 To cite the microbiome R package, see citation('microbiome')

@@ -29,7 +29,7 @@ one column for each detection threshold.
 }
 \examples{
 data(dietswap)
-d <- low_abundance(dietswap, detection = 0.2/100)
+d <- low_abundance(dietswap, detection=0.2/100)
 }
 \seealso{
 core_abundance, rarity, global

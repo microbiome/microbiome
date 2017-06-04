@@ -18,7 +18,7 @@
 #' @references See citation('microbiome')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-baseline <- function(x, na.omit = TRUE) {
+baseline <- function(x, na.omit=TRUE) {
     
     # Arrange samples by time, and pick the first sample for each subject
     m <- meta(x)

@@ -37,11 +37,11 @@ species. This has been used also in microbiomics context
 \itemize{
 \item{'absolute' }{This is the most simple variant, giving the absolute
 abundance of the most abundant species (Magurran & McGill 2011).
-By default, this refers to the single most dominant species (rank = 1)
+By default, this refers to the single most dominant species (rank=1)
 but it is possible to calculate the absolute dominance with rank n based
 on the abundances of top-n species by tuning the rank argument.}
 \item{'relative' }{Relative abundance of the most abundant species.
-This is with rank = 1 by default but can be calculated for other ranks.}
+This is with rank=1 by default but can be calculated for other ranks.}
 \item{'DBP' }{Berger–Parker index, a special case of relative dominance
 with rank 1; This also equals the inverse of true diversity of the
 infinite order.}
@@ -62,17 +62,17 @@ exceed detection level 0.2\% in over 50\% of the samples}
 }
 
 By setting aggregate=FALSE, the abundance for the single n'th most dominant
-taxa (n = rank) is returned instead the sum of abundances up to that rank
+taxa (n=rank) is returned instead the sum of abundances up to that rank
 (the default).
 }
 \examples{
 data(dietswap)
 # vector
-d <- dominance(abundances(dietswap)[,1], rank = 1, relative = TRUE)
+d <- dominance(abundances(dietswap)[,1], rank=1, relative=TRUE)
 # matrix
-# d <- dominance(abundances(dietswap), rank = 1, relative = TRUE)
+# d <- dominance(abundances(dietswap), rank=1, relative=TRUE)
 # Phyloseq object
-# d <- dominance(dietswap, rank = 1, relative = TRUE)
+# d <- dominance(dietswap, rank=1, relative=TRUE)
 
 }
 \references{

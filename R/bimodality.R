@@ -3,7 +3,7 @@
 #' @param x A vector, matrix, or a phyloseq object
 #' @param method bimodality quantification method
 #' ('potential_analysis', 'Sarle.finite.sample', or 'Sarle.asymptotic').
-#' If method = 'all', then a data.frame with all scores is returned.
+#' If method='all', then a data.frame with all scores is returned.
 #' @param bw.adjust Bandwidth adjustment
 #' @param bs.iter Bootstrap iterations
 #' @param min.density minimum accepted density for a maximum;
@@ -34,12 +34,12 @@
 #' The coefficient lies in (0, 1).
 #' 
 #' The 'Sarle.asymptotic' version is defined as
-#' \deqn{b = (g^2 + 1) / k}.
+#' \deqn{b=(g^2 + 1) / k}.
 #' This is coefficient of bimodality from Ellison
 #' AM Am. J. Bot. 1987, for microbiome analysis it has been used for
 #' instance in Shade et al. 2014.
 #' The formula for 'Sarle.finite.sample' (SAS 2012):
-#' \deqn{b = \frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
+#' \deqn{b=\frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
 #' where n is sample size and 
 #' In both formulas, \eqn{g} is sample skewness and \eqn{k} is the kth
 #' standardized moment (also called the sample kurtosis, or
@@ -64,11 +64,11 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
 #' # In practice, use more bootstrap iterations   
-#' b <- bimodality(c(rnorm(100, mean = 0), rnorm(100, mean = 5)), bs.iter = 5)
+#' b <- bimodality(c(rnorm(100, mean=0), rnorm(100, mean=5)), bs.iter=5)
 #'  
 #' # The classical DIP test:
 #' # quantifies unimodality. Values range between 0 to 1. 
-#' # dip.test(x, simulate.p.value = TRUE, B = 200)$statistic
+#' # dip.test(x, simulate.p.value=TRUE, B=200)$statistic
 #' # Values less than 0.05 indicate significant deviation from unimodality.
 #' # Therefore, to obtain an increasing multimodality score, use
 #' # library(diptest)
@@ -76,9 +76,9 @@
 #' # function (x) {1 - unname(dip.test(x)$p.value)})
 #'
 #' @keywords utilities
-bimodality <- function(x, method = "potential_analysis", peak.threshold = 1,
-    bw.adjust = 1, 
-    bs.iter = 100, min.density = 1, verbose = TRUE) {
+bimodality <- function(x, method="potential_analysis", peak.threshold=1,
+    bw.adjust=1, 
+    bs.iter=100, min.density=1, verbose=TRUE) {
     accepted <- intersect(method, c("potential_analysis",
         "Sarle.finite.sample", "Sarle.asymptotic"))
     
@@ -86,7 +86,7 @@ bimodality <- function(x, method = "potential_analysis", peak.threshold = 1,
         method <- accepted
         tab <- NULL
         for (meth in method) {
-            b <- bimodality(x, method = meth, peak.threshold, bw.adjust,
+            b <- bimodality(x, method=meth, peak.threshold, bw.adjust,
                 bs.iter, min.density, verbose)
             tab <- cbind(tab, b)
         }
@@ -100,7 +100,7 @@ bimodality <- function(x, method = "potential_analysis", peak.threshold = 1,
         
         if (method %in% c("Sarle.finite.sample", "Sarle.asymptotic")) {
             
-            s <- bimodality_sarle(x, type = method)
+            s <- bimodality_sarle(x, type=method)
             
         } else if (method == "potential_analysis") {
             
@@ -120,18 +120,18 @@ bimodality <- function(x, method = "potential_analysis", peak.threshold = 1,
     } else if (is.matrix(x)) {
         
         s <- apply(x, 1, function(xi) {
-            bimodality(xi, method = method, peak.threshold = peak.threshold,
-            bw.adjust = bw.adjust, 
-                bs.iter = bs.iter, min.density = min.density, verbose = verbose)
+            bimodality(xi, method=method, peak.threshold=peak.threshold,
+            bw.adjust=bw.adjust, 
+                bs.iter=bs.iter, min.density=min.density, verbose=verbose)
         })
         
-    } else if (is.phyloseq(x)) {
+    } else if (class(x) == "phyloseq") {
         
         # Pick the data from phyloseq object
         x <- abundances(x)
-        s <- bimodality(x, method = method, peak.threshold = peak.threshold,
-        bw.adjust = bw.adjust, 
-            bs.iter = bs.iter, min.density = min.density, verbose = verbose)
+        s <- bimodality(x, method=method, peak.threshold=peak.threshold,
+        bw.adjust=bw.adjust, 
+            bs.iter=bs.iter, min.density=min.density, verbose=verbose)
         
     }
     
@@ -179,18 +179,18 @@ bimodality <- function(x, method = "potential_analysis", peak.threshold = 1,
 #' ecosystem. \emph{Nature Communications} 5:4344.}
 #' }
 #' @keywords utilities
-multimodality <- function(x, peak.threshold = 1, bw.adjust = 1,
-    bs.iter = 100, min.density = 1, verbose = TRUE) {
+multimodality <- function(x, peak.threshold=1, bw.adjust=1,
+    bs.iter=100, min.density=1, verbose=TRUE) {
     
     if (is.vector(x)) {
         
         # Add small noise to enable robust density estimation
         # (identical values may cause failure)
-        x <- x + rnorm(length(x), sd = sd(x)/100)
-        m <- potential_analysis(x, bw.adjust = bw.adjust, bs.iter = bs.iter,
-        min.density = min.density)
-        ret <- list(score = 1 - m$unimodality.support,
-        modes = m$modes, results = m)
+        x <- x + rnorm(length(x), sd=sd(x)/100)
+        m <- potential_analysis(x, bw.adjust=bw.adjust, bs.iter=bs.iter,
+        min.density=min.density)
+        ret <- list(score=1 - m$unimodality.support,
+        modes=m$modes, results=m)
         return(ret)
         
     } else {
@@ -217,8 +217,8 @@ multimodality <- function(x, peak.threshold = 1, bw.adjust = 1,
             1 - x$unimodality.support
         })
         
-        ret <- list(score = multimodality.score, modes = nmodes,
-        results = potential.results)
+        ret <- list(score=multimodality.score, modes=nmodes,
+        results=potential.results)
         
     }
     
@@ -237,19 +237,19 @@ multimodality <- function(x, peak.threshold = 1, bw.adjust = 1,
 #' @return Bimodality score
 #' @examples
 #' \dontrun{
-#' b <- bimodality_sarle(rnorm(100), type = 'Sarle.finite.sample')
+#' b <- bimodality_sarle(rnorm(100), type='Sarle.finite.sample')
 #' }
 #' @details The coefficient lies in (0, 1).
 #' 
 #' The 'Sarle.asymptotic' version is defined as
-#' \deqn{b = (g^2 + 1) / k}.
+#' \deqn{b=(g^2 + 1) / k}.
 #' This is coefficient of bimodality from Ellison AM Am. J. Bot. 1987, 
 #' for microbiome analysis it has been used for instance in
 #' Shade et al. 2014.
 #'
 #' The formula for 'Sarle.finite.sample' (SAS 2012):
 #'
-#' \deqn{b = \frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
+#' \deqn{b=\frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
 #' where n is sample size and 
 #' 
 #' In both formulas, \eqn{g} is sample skewness and \eqn{k} is the kth
@@ -267,8 +267,8 @@ multimodality <- function(x, peak.threshold = 1, bw.adjust = 1,
 #' @seealso Check the dip.test from the \pkg{DIP} package for a
 #' classical test of multimodality.
 #' @keywords utilities
-bimodality_sarle <- function(x, bs.iter = 1, na.rm = TRUE,
-type = "Sarle.finite.sample") {
+bimodality_sarle <- function(x, bs.iter=1, na.rm=TRUE,
+type="Sarle.finite.sample") {
     
     g <- skewness(x, na.rm)
     k <- kurtosis(x, na.rm)
@@ -287,8 +287,8 @@ type = "Sarle.finite.sample") {
     if (bs.iter > 1) {
         s <- c()
         for (i in 1:bs.iter) {
-            xbs <- sample(x, replace = TRUE)
-            s[[i]] <- bimodality_sarle(xbs, type = type)
+            xbs <- sample(x, replace=TRUE)
+            s[[i]] <- bimodality_sarle(xbs, type=type)
         }
         s <- mean(s)
     }

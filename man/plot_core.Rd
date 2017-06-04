@@ -23,7 +23,7 @@ or a scalar indicating the number of intervals in the data range.}
 \item{min.prevalence}{If minimum prevalence is set, then filter out those
 rows (taxa) and columns (detections) that never exceed this
 prevalence. This helps to zoom in on the actual core region
-of the heatmap. Only affects the plot.type = 'heatmap'.}
+of the heatmap. Only affects the plot.type='heatmap'.}
 
 \item{taxa.order}{Ordering of the taxa: a vector of names.}
 
@@ -39,8 +39,8 @@ Core visualization (2D).
 }
 \examples{
 data(atlas1006)
-p <- plot_core(atlas1006, prevalences = seq(0.1, 1, .1),
-    detections = c(0, 10^(0:4)))
+p <- plot_core(atlas1006, prevalences=seq(0.1, 1, .1),
+    detections=c(0, 10^(0:4)))
 }
 \references{
 A Salonen et al. The adult intestinal core microbiota is determined by 

@@ -16,11 +16,11 @@
 #' @examples
 #' data(dietswap)
 #' # vector
-#' d <- dominance(abundances(dietswap)[,1], rank = 1, relative = TRUE)
+#' d <- dominance(abundances(dietswap)[,1], rank=1, relative=TRUE)
 #' # matrix
-#' # d <- dominance(abundances(dietswap), rank = 1, relative = TRUE)
+#' # d <- dominance(abundances(dietswap), rank=1, relative=TRUE)
 #' # Phyloseq object
-#' # d <- dominance(dietswap, rank = 1, relative = TRUE)
+#' # d <- dominance(dietswap, rank=1, relative=TRUE)
 #'
 #' @details The dominance index gives the abundance of the most abundant
 #' species. This has been used also in microbiomics context
@@ -28,11 +28,11 @@
 #' \itemize{
 #' \item{'absolute' }{This is the most simple variant, giving the absolute
 #' abundance of the most abundant species (Magurran & McGill 2011).
-#' By default, this refers to the single most dominant species (rank = 1)
+#' By default, this refers to the single most dominant species (rank=1)
 #' but it is possible to calculate the absolute dominance with rank n based
 #' on the abundances of top-n species by tuning the rank argument.}
 #' \item{'relative' }{Relative abundance of the most abundant species.
-#' This is with rank = 1 by default but can be calculated for other ranks.}
+#' This is with rank=1 by default but can be calculated for other ranks.}
 #' \item{'DBP' }{Berger–Parker index, a special case of relative dominance
 #' with rank 1; This also equals the inverse of true diversity of the
 #' infinite order.}
@@ -53,7 +53,7 @@
 #' }
 #'
 #' By setting aggregate=FALSE, the abundance for the single n'th most dominant
-#' taxa (n = rank) is returned instead the sum of abundances up to that rank
+#' taxa (n=rank) is returned instead the sum of abundances up to that rank
 #' (the default).
 #'
 #' @references
@@ -69,8 +69,8 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso coverage, core_abundance, rarity, global
 #' @keywords utilities
-dominance <- function(x, index = "all", rank = 1, relative = TRUE,
-    aggregate = TRUE) {
+dominance <- function(x, index="all", rank=1, relative=TRUE,
+    aggregate=TRUE) {
 
     # Only include accepted indices
     accepted <- tolower(c("DBP", "DMN", "absolute", "relative",
@@ -89,10 +89,10 @@ dominance <- function(x, index = "all", rank = 1, relative = TRUE,
         return(NULL)
     }
     
-    do <- dominance_help(x, index, rank, relative = TRUE, aggregate)
+    do <- dominance_help(x, index, rank, relative=TRUE, aggregate)
 
     if (is.vector(do)) {
-        do <- as.matrix(do, ncol = 1)
+        do <- as.matrix(do, ncol=1)
         colnames(do) <- index        
     }
     
@@ -105,15 +105,15 @@ dominance <- function(x, index = "all", rank = 1, relative = TRUE,
 
 
 
-dominance_help <- function(x, index = "all", rank = 1, relative = TRUE,
-    aggregate = TRUE) {
+dominance_help <- function(x, index="all", rank=1, relative=TRUE,
+    aggregate=TRUE) {
     
     if (length(index) > 1) {
         tab <- NULL
         for (idx in index) {
-            tab <- cbind(tab, dominance(x, index = idx, rank = rank,
-                relative = relative, 
-                aggregate = aggregate))
+            tab <- cbind(tab, dominance(x, index=idx, rank=rank,
+                relative=relative, 
+                aggregate=aggregate))
         }
         
         colnames(tab) <- index
@@ -125,9 +125,9 @@ dominance_help <- function(x, index = "all", rank = 1, relative = TRUE,
     if (is.null(index)) {
         rank <- rank
     } else if (index == "absolute") {
-        relative <- FALSE  # Rank = 1 by default but can be tuned
+        relative <- FALSE  # Rank=1 by default but can be tuned
     } else if (index %in% c("relative")) {
-        relative <- TRUE  # Rank = 1 by default but can be tuned
+        relative <- TRUE  # Rank=1 by default but can be tuned
     } else if (index %in% c("DBP")) {
         # Berger-Parker
         rank <- 1
@@ -142,14 +142,14 @@ dominance_help <- function(x, index = "all", rank = 1, relative = TRUE,
             simpson_dominance(x)
         }))
     } else if (index %in% c("core_abundance")) {
-        return(core_abundance(otu, detection = 0.2/100, prevalence = 50/100))
+        return(core_abundance(otu, detection=0.2/100, prevalence=50/100))
     } else if (index == "gini") {
         return(inequality(otu))
     }
     
     if (relative) {
         otu <- apply(otu, 2, function(x) {
-            x/sum(x, na.rm = TRUE)
+            x/sum(x, na.rm=TRUE)
         })
     }
     
@@ -173,7 +173,7 @@ dominance_help <- function(x, index = "all", rank = 1, relative = TRUE,
 
 
 # x: Species count vector
-simpson_dominance <- function(x, zeroes = TRUE) {
+simpson_dominance <- function(x, zeroes=TRUE) {
     
     if (!zeroes) {
         x[x > 0]

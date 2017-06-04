@@ -47,7 +47,7 @@
 #' standard beta diversity measures
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-divergence <- function(x, method = "anticorrelation") {
+divergence <- function(x, method="anticorrelation") {
     
     # Abundance matrix (taxa x samples)
     x <- abundances(x)
@@ -55,7 +55,7 @@ divergence <- function(x, method = "anticorrelation") {
     if (method == "anticorrelation") {
         b <- anticorrelation(x, "spearman")
     } else if (method == "meanbeta") {
-        b <- beta(x, method = "bray")
+        b <- beta(x, method="bray")
     }
     
     b
@@ -63,11 +63,11 @@ divergence <- function(x, method = "anticorrelation") {
 }
 
 
-anticorrelation <- function(x, method = "spearman") {
+anticorrelation <- function(x, method="spearman") {
     
     # Correlations calculated against the mean of the sample set
     cors <- as.vector(cor(x, matrix(rowMeans(x)),
-        method = method, use = "pairwise.complete.obs"))
+        method=method, use="pairwise.complete.obs"))
     
     1 - cors
     
@@ -76,14 +76,14 @@ anticorrelation <- function(x, method = "spearman") {
 
 
 
-beta <- function(x, method = "bray") {
+beta <- function(x, method="bray") {
     
     # Correlations calculated against the mean of the sample set
     b <- c()
     m <- rowMeans(x)
     for (i in 1:ncol(x)) {
         xx <- rbind(x[, i], m)
-        xxx <- vegdist(xx, method = method)
+        xxx <- vegdist(xx, method=method)
         b[[i]] <- as.matrix(xxx)[1, 2]
     }
     

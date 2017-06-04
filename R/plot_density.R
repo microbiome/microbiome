@@ -23,12 +23,12 @@
 #' # Population density for Dialister spp.; with log10 on the abundance (X)
 #' # axis
 #' library(ggplot2)
-#' p <- plot_density(pseq.rel, variable = 'Dialister') + scale_x_log10()
+#' p <- plot_density(pseq.rel, variable='Dialister') + scale_x_log10()
 #' @keywords utilities
-plot_density <- function(x, variable = NULL, log10 = FALSE, adjust = 1,
-    kernel = "gaussian", 
-    trim = FALSE, na.rm = FALSE, fill = "gray", tipping.point = NULL,
-    xlim = NULL) {
+plot_density <- function(x, variable=NULL, log10=FALSE, adjust=1,
+    kernel="gaussian", 
+    trim=FALSE, na.rm=FALSE, fill="gray", tipping.point=NULL,
+    xlim=NULL) {
     
     x <- pickdata(x, variable)
     
@@ -36,15 +36,15 @@ plot_density <- function(x, variable = NULL, log10 = FALSE, adjust = 1,
         warning("The minimum abundance is 0. To avoid singularities with 
         log10, the abundances are shifted up by a small constant 
         (minimum non-zero value).")
-        x = x + min(x[!is.na(x) & (x > 0)])
+        x=x + min(x[!is.na(x) & (x > 0)])
     }
     
-    df <- data.frame(x = x)
-    p <- ggplot(df, aes(x = x))
+    df <- data.frame(x=x)
+    p <- ggplot(df, aes(x=x))
     
-    p <- p + geom_density(adjust = adjust, kernel = kernel, trim = trim,
-        na.rm = na.rm, 
-        fill = fill)
+    p <- p + geom_density(adjust=adjust, kernel=kernel, trim=trim,
+        na.rm=na.rm, 
+        fill=fill)
     
     if (log10) {
         p <- p + scale_x_log10()
@@ -58,8 +58,8 @@ plot_density <- function(x, variable = NULL, log10 = FALSE, adjust = 1,
     p <- p + ylab("Frequency")
     
     if (!is.null(tipping.point)) {
-        p <- p + geom_vline(aes(xintercept = tipping.point), linetype = 2,
-    size = 1)
+        p <- p + geom_vline(aes(xintercept=tipping.point), linetype=2,
+    size=1)
     }
     
     if (!is.null(xlim)) {

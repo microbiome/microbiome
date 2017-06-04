@@ -17,7 +17,7 @@ transform(x, transform = "identity", target = "OTU", shift = 0)
 Does not affect the log transform.}
 
 \item{shift}{A constant indicating how much to shift the baseline
-abundance (in transform = 'shift')}
+abundance (in transform='shift')}
 }
 \value{
 Transformed \code{\link{phyloseq}} object
@@ -51,7 +51,7 @@ xt <- transform(x, 'compositional')
 # xt <- transform(x, 'clr')
 
 # Shift the baseline
-# xt <- transform(x, 'shift', shift = 1)
+# xt <- transform(x, 'shift', shift=1)
 
 }
 \keyword{utilities}

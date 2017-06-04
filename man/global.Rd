@@ -31,8 +31,8 @@ function in the \pkg{phyloseq} package but not included here.
 }
 \examples{
 data(dietswap)
-d <- global(dietswap, index = 'gini')
-# d <- global(dietswap, index = 'all')
+d <- global(dietswap, index='gini')
+# d <- global(dietswap, index='all')
 
 }
 \references{

@@ -54,7 +54,7 @@ trick to circumvent logarithmization of zeroes.
 data(atlas1006)
 x <- subset_samples(atlas1006, DNA_extraction_method == 'r')
 x <- prune_taxa(c('Akkermansia', 'Dialister'), x)
-res <- intermediate_stability(x, reference.point = NULL)
+res <- intermediate_stability(x, reference.point=NULL)
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}
