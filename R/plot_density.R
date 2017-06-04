@@ -1,7 +1,7 @@
 #' @title Plot Density
 #' @description Plot abundance density across samples for a given taxon.
 #' @param x \code{\link{phyloseq-class}} object or an OTU matrix
-#'    (samples x phylotypes)
+#' (samples x phylotypes)
 #' @param variable OTU or metadata variable to visualize
 #' @param log10 Logical. Show log10 abundances or not.
 #' @param adjust see stat_density
@@ -9,24 +9,26 @@
 #' @param trim see stat_density
 #' @param na.rm see stat_density
 #' @param tipping.point Optional. Indicate critical point for abundance
-#'    variations to be highlighted.
+#' variations to be highlighted.
 #' @param fill Fill color
 #' @param xlim X axis limits
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
 #' @examples
-#'   # Load gut microbiota data on 1006 western adults
-#'   # (see help(atlas1006) for references and details)
-#'   data(dietswap)
-#'   # Use compositional abundances instead of absolute signal
-#'   pseq.rel <- transform(dietswap, 'compositional')
-#'   # Population density for Dialister spp.; with log10 on the abundance (X)
-#'   # axis
-#'   library(ggplot2)
-#'   p <- plot_density(pseq.rel, variable = 'Dialister') + scale_x_log10()
+#' # Load gut microbiota data on 1006 western adults
+#' # (see help(atlas1006) for references and details)
+#' data(dietswap)
+#' # Use compositional abundances instead of absolute signal
+#' pseq.rel <- transform(dietswap, 'compositional')
+#' # Population density for Dialister spp.; with log10 on the abundance (X)
+#' # axis
+#' library(ggplot2)
+#' p <- plot_density(pseq.rel, variable = 'Dialister') + scale_x_log10()
 #' @keywords utilities
-plot_density <- function(x, variable = NULL, log10 = FALSE, adjust = 1, kernel = "gaussian", 
-    trim = FALSE, na.rm = FALSE, fill = "gray", tipping.point = NULL, xlim = NULL) {
+plot_density <- function(x, variable = NULL, log10 = FALSE, adjust = 1,
+    kernel = "gaussian", 
+    trim = FALSE, na.rm = FALSE, fill = "gray", tipping.point = NULL,
+    xlim = NULL) {
     
     x <- pickdata(x, variable)
     
@@ -40,7 +42,8 @@ plot_density <- function(x, variable = NULL, log10 = FALSE, adjust = 1, kernel =
     df <- data.frame(x = x)
     p <- ggplot(df, aes(x = x))
     
-    p <- p + geom_density(adjust = adjust, kernel = kernel, trim = trim, na.rm = na.rm, 
+    p <- p + geom_density(adjust = adjust, kernel = kernel, trim = trim,
+        na.rm = na.rm, 
         fill = fill)
     
     if (log10) {
@@ -55,7 +58,8 @@ plot_density <- function(x, variable = NULL, log10 = FALSE, adjust = 1, kernel =
     p <- p + ylab("Frequency")
     
     if (!is.null(tipping.point)) {
-        p <- p + geom_vline(aes(xintercept = tipping.point), linetype = 2, size = 1)
+        p <- p + geom_vline(aes(xintercept = tipping.point), linetype = 2,
+    size = 1)
     }
     
     if (!is.null(xlim)) {
@@ -89,7 +93,8 @@ pickdata <- function(x, otu.name) {
         } else if (otu.name %in% colnames(meta)) {
             xxx <- unlist(meta[, otu.name])
         } else {
-            stop(paste("The provided variable name", otu.name, "cannot be found from OTUs or metadata"))
+            stop(paste("The provided variable name", otu.name,
+            "cannot be found from OTUs or metadata"))
         }
     }
     xxx

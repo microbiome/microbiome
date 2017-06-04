@@ -4,8 +4,8 @@
 #' @return Logical
 #' @export
 #' @examples
-#'   data(dietswap)
-#'   is.phyloseq(dietswap)
+#' data(dietswap)
+#' is.phyloseq(dietswap)
 is.phyloseq <- function(x) {
     class(x) == "phyloseq"
 }

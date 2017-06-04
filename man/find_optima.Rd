@@ -18,16 +18,16 @@ as a multiple of kernel height}
 }
 \value{
 A list with min (minima), max (maxima), and
-        peak.threshold (minimum detection density)
+       peak.threshold (minimum detection density)
 }
 \description{
 Detect optima, excluding local optima below peak.threshold.
 }
 \examples{
-  \dontrun{
-    # Not exported
-    o <- find_optima(rnorm(100), bw = 1)
-  }
+\dontrun{
+   # Not exported
+   o <- find_optima(rnorm(100), bw = 1)
+}
 }
 \references{
 See citation('microbiome')

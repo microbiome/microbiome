@@ -5,13 +5,13 @@
 #' @details A handy shortcut for phyloseq::taxa_names, with a potential to add
 #' to add some extra tweaks later.
 #' @references 
-#'   To cite the microbiome R package, see citation('microbiome') 
+#' To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' @export
 #' @examples
-#'   data(dietswap)
-#'   x <- taxa(dietswap)
+#' data(dietswap)
+#' x <- taxa(dietswap)
 taxa <- function(x) {
     
     taxa_names(x)

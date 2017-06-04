@@ -10,16 +10,16 @@
 #' @param na.rm Remove NAs
 #' @param show.points Include data points in the figure
 #' @details The directionality of change in paired boxplot is indicated by
-#'    the colors of the connecting lines.
+#' the colors of the connecting lines.
 #' @return A \code{\link{ggplot}} plot object
 #' @export
 #' @examples
-#'   data(peerj32)
-#'   p <- boxplot_abundance(peerj32$phyloseq, x = 'time', y = 'Akkermansia',
-#'                    line = 'subject', color = 'gender')
+#' data(peerj32)
+#' p <- boxplot_abundance(peerj32$phyloseq, x = 'time', y = 'Akkermansia',
+#'     line = 'subject', color = 'gender')
 #' @keywords utilities
-boxplot_abundance <- function(pseq, x, y, line = NULL, color = NULL, log10 = FALSE, 
-    violin = FALSE, na.rm = FALSE, show.points = TRUE) {
+boxplot_abundance <- function(pseq, x, y, line = NULL, color = NULL,
+    log10 = FALSE, violin = FALSE, na.rm = FALSE, show.points = TRUE) {
     
     change <- xvar <- yvar <- linevar <- colorvar <- NULL
     

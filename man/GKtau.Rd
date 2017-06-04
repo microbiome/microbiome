@@ -40,16 +40,18 @@ useful in predicting y, which may be very different than the extent to
 which the variable y is useful in predicting x.
 }
 \examples{
-  data(peerj32)
-  v1 <- unlist(peerj32$microbes[,1])
-  v2 <- unlist(peerj32$lipids[,1])
-  tc <- GKtau(v1, v2)
+data(peerj32)
+v1 <- unlist(peerj32$microbes[,1])
+v2 <- unlist(peerj32$lipids[,1])
+tc <- GKtau(v1, v2)
 
 }
 \references{
 Code modified from the original source:
-  \url{http://r-bloggers.com/measuring-associations-between-non-numeric-variables/}
-  To cite the microbiome R package, see citation('microbiome')
+\url{
+http://r-bloggers.com/measuring-associations-between-non-numeric-variables/
+}
+To cite the microbiome R package, see citation('microbiome')
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

@@ -39,15 +39,14 @@ relative prevalence (count = FALSE) is simply the absolute
 prevalence (count = TRUE) divided by the number of samples.
 }
 \examples{
-  data(peerj32)     
-  pr <- prevalence(peerj32$phyloseq, detection = 0,
-      sort = TRUE, count = TRUE)
+data(peerj32)     
+pr <- prevalence(peerj32$phyloseq, detection = 0, sort = TRUE, count = TRUE)
 }
 \references{
 A Salonen et al. The adult intestinal core microbiota is determined by 
-  analysis depth and health status. Clinical Microbiology and Infection 
-  18(S4):16 20, 2012. 
-  To cite the microbiome R package, see citation('microbiome')
+analysis depth and health status. Clinical Microbiology and Infection 
+18(S4):16 20, 2012. 
+To cite the microbiome R package, see citation('microbiome')
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

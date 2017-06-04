@@ -41,19 +41,19 @@ Implemented in the microbiome package to provide an independent method for
 easy sample/taxon reordering for phyloseq objects.
 }
 \examples{
-    data(peerj32)
-    pseq <- peerj32$phyloseq
-    # For Phyloseq
-    sort.otu <- neatsort(pseq, target = 'species')
-    # For matrix
-    # sort.rows <- neatsort(abundances(pseq), target = 'rows')
-  
+data(peerj32)
+pseq <- peerj32$phyloseq
+# For Phyloseq
+sort.otu <- neatsort(pseq, target = 'species')
+# For matrix
+# sort.rows <- neatsort(abundances(pseq), target = 'rows')
+
 }
 \references{
 This function is partially based on code derived from the
-             \pkg{phyloseq} package. For the original
-             neatmap approach for heatmap sorting, see (and cite):
-  Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map
-  alternatives in R. BMC Bioinformatics, 11, 45.
+\pkg{phyloseq} package. For the original
+neatmap approach for heatmap sorting, see (and cite):
+Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map
+alternatives in R. BMC Bioinformatics, 11, 45.
 }
 \keyword{utilities}

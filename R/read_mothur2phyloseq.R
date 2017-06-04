@@ -1,26 +1,24 @@
 #' @title Read Mothur Output into a Phyloseq Object
 #' @description Read mothur shared and consensus taxonomy files into a
-#'    \code{\link{phyloseq-class}} object.
+#' \code{\link{phyloseq-class}} object.
 #' @details Mothur shared and consensus taxonomy files will be converted to
-#'    \code{\link{phyloseq-class}}.
+#' \code{\link{phyloseq-class}}.
 #' @param shared.file A
-#'    \href{http://www.mothur.org/wiki/Shared_file}{shared file}
-#'    produced by \emph{mothur}. Identified from the .shared extension
-#' @param consensus.taxonomy.file
-#'    \href{http://www.mothur.org/wiki/ConTaxonomy_file}{consensus taxonomy file} produced by \emph{mothur}.
-#' Identified from with the .taxonomy extension. 
+#' \href{http://www.mothur.org/wiki/Shared_file}{shared file}
+#' produced by \emph{mothur}. Identified from the .shared extension
+#' @param consensus.taxonomy.file Consensus taxonomy file
+#' produced by \emph{mothur}. Identified from with the .taxonomy extension.
+#' See \url{http://www.mothur.org/wiki/ConTaxonomy_file}.
 #' @param mapping.file Metadata/mapping file with .csv extension
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
 #' @examples
-#'   \dontrun{
-#'     # Example data
-#'     library(microbiome)
-#'     p0 <- read_mothur2phyloseq(
-#'             shared.file = 'mothur_shared.shared',
-#'             consensus.taxonomy.file = 'mothur_taxonomy.taxonomy',
-#'           mapping.file = 'mothur_mapping.csv')
-#'   }
+#' \dontrun{
+#' p0 <- read_mothur2phyloseq(
+#'     shared.file = 'mothur_shared.shared',
+#'     consensus.taxonomy.file = 'mothur_taxonomy.taxonomy',
+#'     mapping.file = 'mothur_mapping.csv')
+#' }
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
 read_mothur2phyloseq <- function(shared.file, consensus.taxonomy.file, 
@@ -51,7 +49,8 @@ read_mothur2phyloseq <- function(shared.file, consensus.taxonomy.file,
     TaxonomyFile$Taxonomy <- gsub("[\"]", "", TaxonomyFile$Taxonomy)
     TaxonomyFile$Taxonomy <- gsub("[(1-100)]", "", TaxonomyFile$Taxonomy)
     mothur_tax <- separate(TaxonomyFile, "Taxonomy", into = c("Kingdom", 
-        "Phylum", "Order", "Class", "Family", "Genus"), sep = ";", extra = "merge")
+        "Phylum", "Order", "Class", "Family", "Genus"), sep = ";",
+        extra = "merge")
     mothur_tax$Genus <- gsub(";", "", mothur_tax$Genus)
     mothur_tax$Size <- NULL
     

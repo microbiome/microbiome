@@ -5,14 +5,14 @@
 \alias{peerj32}
 \title{Probiotics Intervention Data}
 \format{List of the following data matrices as described in detail in
-   Lahti et al. (2013):
+Lahti et al. (2013):
 \itemize{
-  \item lipids: Quantification of 389 blood serum lipids across 44 samples
-  \item microbes: Quantification of 130 genus-like taxa across 44 samples
-  \item meta: Sample metadata including time point, gender, subjectID,
-         sampleID and treatment group (probiotic LGG / Placebo)
-  \item phyloseq The microbiome data set converted into a
-         \code{\link{phyloseq-class}} object.
+\item lipids: Quantification of 389 blood serum lipids across 44 samples
+\item microbes: Quantification of 130 genus-like taxa across 44 samples
+\item meta: Sample metadata including time point, gender, subjectID,
+sampleID and treatment group (probiotic LGG / Placebo)
+\item phyloseq The microbiome data set converted into a
+\code{\link{phyloseq-class}} object.
 }}
 \usage{
 data(peerj32)
@@ -30,7 +30,7 @@ For details, see \url{http://dx.doi.org/10.7717/peerj.32}.
 }
 \references{
 Lahti et al. (2013) PeerJ 1:e32
-   \url{http://dx.doi.org/10.7717/peerj.32}
+\url{http://dx.doi.org/10.7717/peerj.32}
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}

@@ -20,12 +20,12 @@ Community richness index.
 }
 \details{
 By default, returns the richness for multiple detection thresholds
-   defined by the data quantiles. If the detection argument is provided,
-   returns richness with that detection threshold.
+defined by the data quantiles. If the detection argument is provided,
+returns richness with that detection threshold.
 }
 \examples{
-  data(dietswap)
-  d <- richness(dietswap, detection = 0)
+data(dietswap)
+d <- richness(dietswap, detection = 0)
 }
 \seealso{
 global

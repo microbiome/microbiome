@@ -19,17 +19,17 @@ Phyloseq object with only baseline time point samples selected.
 }
 \description{
 Identify and select the baseline timepoint samples in a
-  \code{\link{phyloseq}} object.
+\code{\link{phyloseq}} object.
 }
 \details{
 Arranges the samples by time and picks the first sample for each
-  subject. Compared to simple subsetting at time point zero, this checks
-  NAs and possibility for multiple samples at the baseline, and guarantees
-  that a single sample per subject is selected.
+subject. Compared to simple subsetting at time point zero, this checks
+NAs and possibility for multiple samples at the baseline, and guarantees
+that a single sample per subject is selected.
 }
 \examples{
-  data(peerj32)
-  a <- baseline(peerj32$phyloseq)
+data(peerj32)
+a <- baseline(peerj32$phyloseq)
 }
 \references{
 See citation('microbiome')

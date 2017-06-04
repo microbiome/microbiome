@@ -22,15 +22,14 @@ Writes the otu, taxonomy and metadata in csv files.
 }
 \examples{
 \dontrun{
-  library(microbiome)
-  data(dietswap)
-  pseq <- dietswap
-  # By default writes all info at once (ie OTU/TAXONOMY/METADATA)
-  write_phyloseq(pseq) 
-  write_phyloseq(pseq, 'OTU')
-  write_phyloseq(pseq, 'TAXONOMY')
-  write_phyloseq(pseq, 'METADATA')
- }
+data(dietswap)
+pseq <- dietswap
+# By default writes all info at once (ie OTU/TAXONOMY/METADATA)
+write_phyloseq(pseq) 
+write_phyloseq(pseq, 'OTU')
+write_phyloseq(pseq, 'TAXONOMY')
+write_phyloseq(pseq, 'METADATA')
+}
 }
 \seealso{
 read_phyloseq

@@ -3,24 +3,25 @@
 #' @param x \code{\link{phyloseq-class}} object
 #' @param taxon Taxonomic group to visualize.
 #' @param tipping.point Optional. Indicate critical point for abundance
-#'    variations to be highlighted.
+#' variations to be highlighted.
 #' @param lims Optional. Figure X axis limits.
 #' @param shift Small constant to avoid problems with zeroes in log10
 #' @param log10 Use log10 abundances for the OTU table and tipping point
 #' @return \code{\link{ggplot}} object
 #' @examples
-#'     data(atlas1006)
-#'     pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
-#'     pseq <- transform(pseq, 'compositional')
-#'     # Set a tipping point manually
-#'     tipp <- .3/100 # .3 percent relative abundance
-#'     # Bimodality is often best visible at log10 relative abundances
-#'     p <- hotplot(pseq, 'Dialister', tipping.point = tipp, log10 = TRUE)
+#' data(atlas1006)
+#' pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
+#' pseq <- transform(pseq, 'compositional')
+#' # Set a tipping point manually
+#' tipp <- .3/100 # .3 percent relative abundance
+#' # Bimodality is often best visible at log10 relative abundances
+#' p <- hotplot(pseq, 'Dialister', tipping.point = tipp, log10 = TRUE)
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-hotplot <- function(x, taxon, tipping.point = NULL, lims = NULL, shift = 0.001, log10 = TRUE) {
+hotplot <- function(x, taxon, tipping.point = NULL, lims = NULL,
+    shift = 0.001, log10 = TRUE) {
     
     if (log10) {
         x <- transform(x, "log10")
@@ -61,13 +62,19 @@ hotplot <- function(x, taxon, tipping.point = NULL, lims = NULL, shift = 0.001, 
     
     # Data bquote(paste('Signal (', Log[10], ')', sep = ''))
     df <- data.frame(Abundance = d)
-    p <- ggplot(df, aes(x = Abundance, y = ..density.., fill = ..x..)) + geom_histogram(col = "black", 
-        binwidth = 0.12) + ylab("Frequency") + xlab("") + scale_fill_gradientn("Signal", 
-        breaks = breaks - 10^tipping.point, colours = c(rep("darkblue", 3), "blue", 
-            "white", "red", rep("darkred", 3)), labels = names(breaks), limits = lims2) + 
-        guides(fill = FALSE) + geom_vline(aes(xintercept = tipping.point), linetype = 2, 
-        size = 1) + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) + 
-        scale_x_continuous(breaks = breaks, labels = names(breaks), limits = lims) + 
+    p <- ggplot(df, aes(x = Abundance, y = ..density.., fill = ..x..)) +
+        geom_histogram(col = "black", 
+        binwidth = 0.12) + ylab("Frequency") + xlab("") +
+    scale_fill_gradientn("Signal", 
+        breaks = breaks - 10^tipping.point,
+        colours = c(rep("darkblue", 3), "blue", 
+            "white", "red", rep("darkred", 3)),
+        labels = names(breaks), limits = lims2) + 
+        guides(fill = FALSE) +
+    geom_vline(aes(xintercept = tipping.point), linetype = 2, size = 1) +
+    theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) + 
+        scale_x_continuous(breaks = breaks,
+        labels = names(breaks), limits = lims) + 
         # scale_x_log10() +
     ggtitle(taxon)
     

@@ -1,23 +1,23 @@
 #' @title Bootstrapped Potential Analysis 
 #' @description Analysis of multimodality based on bootstrapped potential
-#'    analysis of Livina et al. (2010) as described in Lahti et al. (2014).
+#' analysis of Livina et al. (2010) as described in Lahti et al. (2014).
 #' @param x Input data vector
 #' @param peak.threshold Mode detection threshold
 #' @param bw.adjust Bandwidth adjustment
 #' @param bs.iter Bootstrap iterations
 #' @param min.density minimum accepted density for a maximum; as a multiple of
-#'    kernel height
+#' kernel height
 #' @return List with following elements:
 #' \itemize{
-#'   \item{modes}{Number of modes for the input data vector
-#'       (the most frequent number of modes from bootstrap)}
-#'   \item{minima}{Average of potential minima across the bootstrap samples
-#'       (for the most frequent number of modes)}
-#'   \item{maxima}{Average of potential maxima across the bootstrap samples
-#'       (for the most frequent number of modes)}
-#'   \item{unimodality.support}{Fraction of bootstrap samples exhibiting
-#'       unimodality}
-#'   \item{bws}{Bandwidths}
+#' \item{modes}{Number of modes for the input data vector
+#' (the most frequent number of modes from bootstrap)}
+#' \item{minima}{Average of potential minima across the bootstrap samples
+#' (for the most frequent number of modes)}
+#' \item{maxima}{Average of potential maxima across the bootstrap samples
+#' (for the most frequent number of modes)}
+#' \item{unimodality.support}{Fraction of bootstrap samples exhibiting
+#' unimodality}
+#' \item{bws}{Bandwidths}
 #' }
 #' @export
 #' @examples
@@ -30,19 +30,19 @@
 #' # Bootstrapped potential analysis
 #' # In practice, use more bootstrap iterations
 #' res <- potential_analysis(x, peak.threshold = 0, bw.adjust = 1,
-#'    bs.iter = 9, min.density = 1)
+#'     bs.iter = 9, min.density = 1)
 #'
 #' @seealso plot_potential
 #' @references
-#'  \itemize{
-#'   \item{}{Livina et al. (2010). Potential analysis reveals changing number
-#'      of climate states during the last 60 kyr.
-#'      \emph{Climate of the Past}, 6, 77-82.}
-#'   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
-#'       ecosystem. \emph{Nature Communications} 5:4344.}
-#'  }
-potential_analysis <- function(x, peak.threshold = 0, bw.adjust = 1, bs.iter = 100, 
-    min.density = 1) {
+#' \itemize{
+#' \item{}{Livina et al. (2010). Potential analysis reveals changing number
+#' of climate states during the last 60 kyr.
+#' \emph{Climate of the Past}, 6, 77-82.}
+#' \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
+#' ecosystem. \emph{Nature Communications} 5:4344.}
+#' }
+potential_analysis <- function(x, peak.threshold = 0, bw.adjust = 1,
+    bs.iter = 100, min.density = 1) {
     
     if (is.matrix(x) && nrow(x) == 1) {
         x <- as.vector(x)
@@ -60,7 +60,8 @@ potential_analysis <- function(x, peak.threshold = 0, bw.adjust = 1, bs.iter = 1
         
         xbs <- na.omit(unname(x[rs]))
         
-        a <- potential_univariate(xbs, grid.size = floor(0.2 * length(x)), peak.threshold = peak.threshold, 
+        a <- potential_univariate(xbs, grid.size = floor(0.2 * length(x)),
+        peak.threshold = peak.threshold, 
             bw.adjust = bw.adjust, min.density = min.density)
         
         nmodes[[r]] <- length(a$max.points)
@@ -76,9 +77,10 @@ potential_analysis <- function(x, peak.threshold = 0, bw.adjust = 1, bs.iter = 1
     max.points <- colMeans(do.call("rbind", maxpoints[nmodes == top.modes]))
     unimodality.support <- mean(nmodes <= 1)
     
-    # Return the most frequent number of modes and the corresponding tipping points
-    # from the bootstrap analysis
-    list(modes = top.modes, minima = min.points, maxima = max.points, unimodality.support = unimodality.support, 
+    # Return the most frequent number of modes and the corresponding
+    # tipping points from the bootstrap analysis
+    list(modes = top.modes, minima = min.points, maxima = max.points,
+        unimodality.support = unimodality.support, 
         bws = bws)
     
 }
@@ -108,35 +110,36 @@ potential_analysis <- function(x, peak.threshold = 0, bw.adjust = 1, bs.iter = 1
 #' @return \code{potential_univariate} returns a list with the
 #' following elements:
 #'   \itemize{
-#'     \item{xi}{the grid of points on which the potential is estimated}
-#'     \item{pot}{The estimated potential: -log(f)*std^2/2,
-#'         where f is the density.}
-#'     \item{density}{Density estimate corresponding to the potential.}
-#'     \item{min.inds}{indices of the grid points at which the density has
-#'         minimum values; (-potentials; neglecting local optima)}
-#'     \item{max.inds}{indices the grid points at which the density has
-#'         maximum values; (-potentials; neglecting local optima)}
-#'     \item{bw}{bandwidth of kernel used}
-#'     \item{min.points}{grid point values at which the density has
-#'         minimum values; (-potentials; neglecting local optima)}
-#'     \item{max.points}{grid point values at which the density has
-#'         maximum values; (-potentials; neglecting local optima)}
-#'  }
+#'    \item{xi}{the grid of points on which the potential is estimated}
+#'    \item{pot}{The estimated potential: -log(f)*std^2/2,
+#'        where f is the density.}
+#'    \item{density}{Density estimate corresponding to the potential.}
+#'    \item{min.inds}{indices of the grid points at which the density has
+#'        minimum values; (-potentials; neglecting local optima)}
+#'    \item{max.inds}{indices the grid points at which the density has
+#'        maximum values; (-potentials; neglecting local optima)}
+#'    \item{bw}{bandwidth of kernel used}
+#'    \item{min.points}{grid point values at which the density has
+#'        minimum values; (-potentials; neglecting local optima)}
+#'    \item{max.points}{grid point values at which the density has
+#'        maximum values; (-potentials; neglecting local optima)}
+#' }
 #' @references
-#'  \itemize{
-#'   \item{}{Livina et al. (2010).
-#'      Potential analysis reveals changing number of climate states during
-#'      the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
-#'   \item{}{Lahti et al. (2014).
-#'      Tipping elements of the human intestinal ecosystem.
-#'      \emph{Nature Communications} 5:4344.}
-#'  }
+#' \itemize{
+#'    \item{}{Livina et al. (2010).
+#'        Potential analysis reveals changing number of climate states during
+#'        the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
+#' \item{}{Lahti et al. (2014).
+#'        Tipping elements of the human intestinal ecosystem.
+#'        \emph{Nature Communications} 5:4344.}
+#' }
 #' @author Based on Matlab code from Egbert van Nes modified by Leo Lahti.
-#'     Extended from the initial version in the \pkg{earlywarnings} R package.
+#'    Extended from the initial version in the \pkg{earlywarnings} R package.
 #' @seealso \code{\link{potential_slidingaverage}}
 #' @examples \dontrun{res <- potential_univariate(x)}
 #' @keywords early-warning
-potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(), grid.size = NULL, 
+potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(),
+    grid.size = NULL, 
     peak.threshold = 1, bw.adjust = 1, density.smoothing = 0, min.density = 1) {
     
     if (is.null(grid.size)) {
@@ -144,19 +147,22 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(), grid.siz
     }
     
     # Density estimation
-    tmp <- try(de <- density(x, bw = bw, adjust = bw.adjust, kernel = "gaussian", 
-        weights = weights, window = kernel, n = grid.size, from = min(x), to = max(x), 
+    tmp <- try(de <- density(x, bw = bw, adjust = bw.adjust,
+        kernel = "gaussian", 
+        weights = weights, window = kernel, n = grid.size,
+    from = min(x), to = max(x), 
         cut = 3, na.rm = FALSE))
     if (class(tmp) == "try-error") {
         # Just use default parameters if failing otherwise
         warning("Density estimation with custom parameters failed. 
-                     Using the defaults.")
+            Using the defaults.")
         de <- density(x)
     }
     
-    # Smooth the estimated density (f <- de$y) by adding a small probability across
-    # the whole observation range (to avoid zero probabilities for points in the
-    # observation range)
+    # Smooth the estimated density (f <- de$y) by adding a small
+    # probability across
+    # the whole observation range (to avoid zero probabilities for points
+    # in the observation range)
     f <- de$y + density.smoothing * 1/diff(range(de$x))  # *max(de$y)
     
     # Normalize the density such that it integrates to unity
@@ -173,15 +179,18 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(), grid.siz
     
     # Ignore very local optima
     
-    # Note mins and maxs for density given # here (not for potential, which has the
-    # opposite signs)
-    ops <- find_optima(f, peak.threshold = peak.threshold, bw = bw, min.density = min.density)
+    # Note mins and maxs for density given # here (not for potential, which h
+    # has the opposite signs)
+    ops <- find_optima(f, peak.threshold = peak.threshold, bw = bw,
+        min.density = min.density)
     min.points <- grid.points[ops$min]
     max.points <- grid.points[ops$max]
     peak.threshold2 <- ops$peak.threshold2
     
-    list(grid.points = grid.points, pot = U, density = f, min.inds = ops$min, max.inds = ops$max, 
-        bw = bw, min.points = min.points, max.points = max.points, peak.threshold2 = peak.threshold2)
+    list(grid.points = grid.points, pot = U, density = f, min.inds = ops$min,
+        max.inds = ops$max, 
+        bw = bw, min.points = min.points, max.points = max.points,
+    peak.threshold2 = peak.threshold2)
     
 }
 
@@ -194,17 +203,17 @@ potential_univariate <- function(x, std = 1, bw = "nrd", weights = c(), grid.siz
 #' @param f density
 #' @param bw bandwidth
 #' @param min.density Minimun accepted density for a maximum; 
-#'                           as a multiple of kernel height
+#'                        as a multiple of kernel height
 #' @inheritParams potential_analysis
 #' @return A list with min (minima), max (maxima), and
-#'         peak.threshold (minimum detection density)
+#'        peak.threshold (minimum detection density)
 #' @references See citation('microbiome') 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
-#'   \dontrun{
-#'     # Not exported
-#'     o <- find_optima(rnorm(100), bw = 1)
-#'   }
+#' \dontrun{
+#'    # Not exported
+#'    o <- find_optima(rnorm(100), bw = 1)
+#' }
 #' @keywords utilities
 find_optima <- function(f, peak.threshold = 0, bw = 1, min.density = 1) {
     
@@ -216,8 +225,10 @@ find_optima <- function(f, peak.threshold = 0, bw = 1, min.density = 1) {
     peak.threshold2 <- peak.threshold * kernel.height
     detl <- min.density * kernel.height
     
-    # Detect minima and maxima of the density (see Livina et al.) these correspond to
-    # maxima and minima of the potential, respectively including end points of the
+    # Detect minima and maxima of the density (see Livina et al.)
+    # these correspond to
+    # maxima and minima of the potential, respectively including end
+    # points of the
     # vector
     maxima <- find_maxima(f)
     minima <- find_minima(f)
@@ -248,18 +259,20 @@ find_optima <- function(f, peak.threshold = 0, bw = 1, min.density = 1) {
                 minima.sneg <- minima[s < 0]
                 
                 if (length(minima.spos) > 0) {
-                  i1 <- min(minima.spos)
+                    i1 <- min(minima.spos)
                 }
                 if (length(minima.sneg) > 0) {
-                  i2 <- max(minima.sneg)
+                    i2 <- max(minima.sneg)
                 }
             }
             
-            # if no positive differences available, set it to same value with i2
+            # if no positive differences available, set it to
+        # same value with i2
             if ((is.null(i1) && !is.null(i2))) {
                 i1 <- i2
             } else if ((is.null(i2) && !is.null(i1))) {
-                # if no negative differences available, set it to same value with i1
+                # if no negative differences available,
+        # set it to same value with i1
                 i2 <- i1
             }
             
@@ -270,24 +283,27 @@ find_optima <- function(f, peak.threshold = 0, bw = 1, min.density = 1) {
                 i2 <- NULL
             }
             
-            # If a closest minimum exists, check differences and remove if difference is
+            # If a closest minimum exists, check differences and
+        # remove if difference is
             # under threshold
             if (!is.null(i1)) {
                 
-                # Smallest difference between this maximum and the closest minima
-                diff <- min(c((f[maxima[[j]]] - f[i1]), (f[maxima[[j]]] - f[i2])))
+                # Smallest difference between this maximum and the
+                # closest minima
+                diff <- min(c((f[maxima[[j]]] - f[i1]),
+            (f[maxima[[j]]] - f[i2])))
                 
                 if (diff < peak.threshold2) {
-                  
-                  # If difference is below threshold, delete this maximum
-                  delmaxi[[j]] <- TRUE
-                  
-                  # Delete the larger of the two neighboring minima
-                  if (f[[i1]] > f[[i2]]) {
-                    delmini[minima == i1] <- TRUE
-                  } else {
-                    delmini[minima == i2] <- TRUE
-                  }
+                
+                    # If difference is below threshold, delete this maximum
+                    delmaxi[[j]] <- TRUE
+                    
+                    # Delete the larger of the two neighboring minima
+                    if (f[[i1]] > f[[i2]]) {
+                        delmini[minima == i1] <- TRUE
+                    } else {
+                        delmini[minima == i2] <- TRUE
+                    }
                 }
                 
             } else {
@@ -310,12 +326,14 @@ find_optima <- function(f, peak.threshold = 0, bw = 1, min.density = 1) {
             cnt <- 0
             while (nominima & (i + cnt) < length(maxima)) {
                 cnt <- cnt + 1
-                nominima <- sum(minima > maxima[[i]] & minima < maxima[[i + cnt]]) == 
-                  0
+                nominima <- sum(minima > maxima[[i]] &
+            minima < maxima[[i + cnt]]) == 0
+                
                 # if (is.na(nominima)) {nominima <- TRUE}
             }
             maxs <- maxima[i:(i + cnt - 1)]
-            maxima2 <- c(maxima2, round(mean(maxs[which(f[maxs] == max(f[maxs]))])))
+            maxima2 <- c(maxima2,
+            round(mean(maxs[which(f[maxs] == max(f[maxs]))])))
         }
         if (!maxima[[length(maxima)]] %in% maxima2) {
             maxima2 <- c(maxima2, maxima[[length(maxima)]])
@@ -334,10 +352,11 @@ find_optima <- function(f, peak.threshold = 0, bw = 1, min.density = 1) {
 
 remove_obsolete_minima <- function(f, maxima, minima) {
     
-    # remove minima that now became obsolete If there are multiple minima between two
-    # consecutive maxima after removing the maxima that did not pass the threshold,
-    # take the average of the minima; return the list of indices such that between
-    # each pair of consecutive maxima, there is exactly one minimum
+    # remove minima that now became obsolete If there are multiple
+    # minima between two consecutive maxima after removing the maxima
+    # that did not pass the threshold, take the average of the minima;
+    # return the list of indices such that between each pair of
+    # consecutive maxima, there is exactly one minimum
     
     if (length(maxima) > 1) {
         minima <- sapply(2:length(maxima), function(i) {
@@ -399,52 +418,54 @@ find_maxima <- function(f) {
 
 #' @title Moving Average Potential
 #' @description This function reconstructs a potential derived from data
-#'              along a gradient of a given parameter.
+#'            along a gradient of a given parameter.
 #' @param X a vector of the X observations of the state variable of interest
 #' @param param parameter values corresponding to the observations in X 
 #' @param bw Bandwidth for smoothing kernels. Automatically determined
-#'           by default.
+#'            by default.
 #' @param bw.adjust Bandwidth adjustment constant
 #' @param std Standard deviation.
 #' @param grid.size number of evaluation points; number of steps between
-#'           min and max potential; also used as kernel window size
+#'         min and max potential; also used as kernel window size
 #' @param plot.cutoff cuttoff for potential minima and maxima in visualization
 #' @param plot.contours Plot contours on the landscape visualization
 #' @param binwidth binwidth for contour plot
 #' @param bins bins for contour plot. Overrides binwidth if given
 #' @inheritParams potential_analysis
 #' @return A list with the following elements:
-#'   \itemize{
-#'     \item{pars}{values of the covariate parameter as matrix}
-#'     \item{xis}{values of the x as matrix}
-#'     \item{pots}{smoothed potentials}
-#'     \item{mins}{minima in the densities
-#'         (-potentials; neglecting local optima)}
-#'     \item{maxs}{maxima in densities (-potentials; neglecting local optima)}
-#'     \item{plot}{an object that displays the potential estimated in 2D}
-#'   }
+#' \itemize{
+#'    \item{pars}{values of the covariate parameter as matrix}
+#'    \item{xis}{values of the x as matrix}
+#'    \item{pots}{smoothed potentials}
+#'    \item{mins}{minima in the densities
+#'        (-potentials; neglecting local optima)}
+#'    \item{maxs}{maxima in densities (-potentials; neglecting local optima)}
+#'    \item{plot}{an object that displays the potential estimated in 2D}
+#' }
 #' @references
 #'  \itemize{
 #'   \item{}{Hirota, M., Holmgren, M., van Nes, E.H. & Scheffer, M. (2011).
-#'           Global resilience of tropical forest and savanna to critical
-#'           transitions. \emph{Science}, 334, 232-235.}
+#'            Global resilience of tropical forest and savanna to critical
+#'            transitions. \emph{Science}, 334, 232-235.}
 #'   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
-#'           ecosystem. \emph{Nature Communications} 5:4344.}
+#'        ecosystem. \emph{Nature Communications} 5:4344.}
 #'  }
 #' @author Leo Lahti, adapted from original Matlab code by Egbert van Nes.
 #' @seealso \code{potential_univariate}
 #' @examples
 #'   \dontrun{
-#'     # Not exported
-#'     X <- c(rnorm(1000, mean = 0),
+#'    # Not exported
+#'    X <- c(rnorm(1000, mean = 0),
 #'            rnorm(1000, mean = -2),
 #'            rnorm(1000, mean = 2));
-#'          param = seq(0,5,length=3000); 
+#'        param = seq(0,5,length=3000); 
 #'        res <- potential_slidingaverage(X, param)
-#'     }
+#'    }
 #' @keywords utils
-potential_slidingaverage <- function(X, param = NULL, bw = "nrd", bw.adjust = 1, 
-    peak.threshold = 0.1, std = 1, grid.size = 50, plot.cutoff = 0.5, plot.contours = TRUE, 
+potential_slidingaverage <- function(X, param = NULL, bw = "nrd",
+    bw.adjust = 1, 
+    peak.threshold = 0.1, std = 1, grid.size = 50, plot.cutoff = 0.5,
+    plot.contours = TRUE, 
     binwidth = 0.2, bins = NULL) {
     
     if (is.null(param)) {
@@ -454,7 +475,7 @@ potential_slidingaverage <- function(X, param = NULL, bw = "nrd", bw.adjust = 1,
     nas <- is.na(param) | is.na(X)
     if (sum(nas) > 0) {
         warning("The data contains NAs, removing the associated samples from 
-                 X and param input arguments.")
+            X and param input arguments.")
         X <- X[!nas]
         param <- param[!nas]
     }
@@ -477,14 +498,16 @@ potential_slidingaverage <- function(X, param = NULL, bw = "nrd", bw.adjust = 1,
         # Increase the parameter at each step
         par <- minparam + (i - 0.5) * step
         
-        # Check which elements in evaluation range (param) are within 2*sd of par
+        # Check which elements in evaluation range (param) are within 2*sd
+        # of par
         weights <- exp(-0.5 * (abs(par - param)/sdwindow)^2)
         
         # LL: Normalization was added in the R implementation 16.5.2012
         weights <- weights/sum(weights)
         
         # Calculate the potential
-        tmp <- potential_univariate(x = X, std = std, bw = bw, bw.adjust = bw.adjust, 
+        tmp <- potential_univariate(x = X, std = std, bw = bw,
+        bw.adjust = bw.adjust, 
             weights = weights, grid.size = grid.size)
         
         # Store variables
@@ -496,9 +519,11 @@ potential_slidingaverage <- function(X, param = NULL, bw = "nrd", bw.adjust = 1,
         
     }
     
-    res <- list(pars = pars, xis = xis, pots = pots, mins = mins, maxs = maxs, std = std)
+    res <- list(pars = pars, xis = xis, pots = pots, mins = mins,
+        maxs = maxs, std = std)
     
-    p <- plot_potential(res, cutoff = plot.cutoff, plot.contours = plot.contours, 
+    p <- plot_potential(res, cutoff = plot.cutoff,
+        plot.contours = plot.contours, 
         binwidth = binwidth, bins = bins)
     
     p <- p + xlab("parameter/time") + ylab("state variable")

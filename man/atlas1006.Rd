@@ -13,17 +13,17 @@ Loads the data set in R.
 }
 \description{
 This data set contains genus-level microbiota profiling with
-   HITChip for 1006 western adults with no reported health complications,
-   reported in Lahti et al. (2014) \url{https://doi.org/10.1038/ncomms5344}.
+HITChip for 1006 western adults with no reported health complications,
+reported in Lahti et al. (2014) \url{https://doi.org/10.1038/ncomms5344}.
 }
 \details{
 The data is also available for download from the Data Dryad
-  \url{http://doi.org/10.5061/dryad.pk75d}.
+\url{http://doi.org/10.5061/dryad.pk75d}.
 }
 \references{
 Lahti et al. Tipping elements of the human intestinal ecosystem. 
-  Nature Communications 5:4344, 2014.
-  To cite the microbiome R package, see citation('microbiome')
+Nature Communications 5:4344, 2014.
+To cite the microbiome R package, see citation('microbiome')
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}

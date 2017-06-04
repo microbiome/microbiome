@@ -18,7 +18,7 @@ dissimilarity of the sample from the group-level mean.
 }
 \description{
 Quantify microbiota divergence (heterogeneity) within a
-   given sample set.
+given sample set.
 }
 \details{
 Microbiota divergence (heterogeneity / spread) within a given sample
@@ -41,10 +41,10 @@ the overall group-wise average. The inverse of this measure
 to quantify group homogeneity.
 }
 \examples{
-    # Assess beta diversity among the African samples
-    # in a diet swap study (see \\code{help(dietswap)} for references)
-    data(dietswap)
-    b <- divergence(subset_samples(dietswap, nationality == 'AFR'))
+# Assess beta diversity among the African samples
+# in a diet swap study (see \\code{help(dietswap)} for references)
+data(dietswap)
+b <- divergence(subset_samples(dietswap, nationality == 'AFR'))
 }
 \references{
 The inter- and intra-individual homogeneity measures used in

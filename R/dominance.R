@@ -1,55 +1,55 @@
 #' @title Dominance Index
 #' @description Calculates the community dominance index.
 #' @param index If the index is given, it will override the other parameters.
-#'    See the details below for description and references of the standard
-#'    dominance indices. By default, this function returns the Berger-Parker
-#'    index, ie relative dominance at rank 1.
+#' See the details below for description and references of the standard
+#' dominance indices. By default, this function returns the Berger-Parker
+#' index, ie relative dominance at rank 1.
 #' @param rank Optional. The rank of the dominant taxa to consider.
 #' @param relative Use relative abundances (default: TRUE)
 #' @param aggregate Aggregate (TRUE; default) the top members or not.
-#'    If aggregate=TRUE, then the sum of relative abundances is returned.
-#'    Otherwise the relative abundance is returned for the single taxa with
-#'    the indicated rank. 
+#' If aggregate=TRUE, then the sum of relative abundances is returned.
+#' Otherwise the relative abundance is returned for the single taxa with
+#' the indicated rank. 
 #' @inheritParams global
 #' @return A vector of dominance indices
 #' @export
 #' @examples
-#'   data(dietswap)
-#'   # vector
-#'   d <- dominance(abundances(dietswap)[,1], rank = 1, relative = TRUE)
-#'   # matrix
-#'   # d <- dominance(abundances(dietswap), rank = 1, relative = TRUE)
-#'   # Phyloseq object
-#'   # d <- dominance(dietswap, rank = 1, relative = TRUE)
+#' data(dietswap)
+#' # vector
+#' d <- dominance(abundances(dietswap)[,1], rank = 1, relative = TRUE)
+#' # matrix
+#' # d <- dominance(abundances(dietswap), rank = 1, relative = TRUE)
+#' # Phyloseq object
+#' # d <- dominance(dietswap, rank = 1, relative = TRUE)
 #'
 #' @details The dominance index gives the abundance of the most abundant
-#'    species. This has been used also in microbiomics context
-#'    (Locey & Lennon (2016)). The following indices are provided:
+#' species. This has been used also in microbiomics context
+#' (Locey & Lennon (2016)). The following indices are provided:
 #' \itemize{
-#'     \item{'absolute' }{This is the most simple variant, giving the absolute
-#'     abundance of the most abundant species (Magurran & McGill 2011).
-#'     By default, this refers to the single most dominant species (rank = 1)
-#'     but it is possible to calculate the absolute dominance with rank n based
-#'     on the abundances of top-n species by tuning the rank argument.}
-#'     \item{'relative' }{Relative abundance of the most abundant species.
-#'     This is with rank = 1 by default but can be calculated for other ranks.}
-#'     \item{'DBP' }{Berger–Parker index, a special case of relative dominance
-#'     with rank 1; This also equals the inverse of true diversity of the
-#'     infinite order.}
-#'     \item{'DMN' }{McNaughton’s dominance. This is the sum of the relative
-#'     abundance of the two most abundant taxa, or a special case of relative
-#'     dominance with rank 2}
-#'     \item{'simpson' }{Simpson's index ($sum(p^2)$) where p are relative
-#'     abundances has an interpretation as a dominance measure. Also the
-#'     version ($sum(q * (q-1)) / S(S-1)$) based on absolute abundances q has
-#'     been proposed by Simpson (1949) but not included here as it is not
-#'     within [0,1] range, and it is highly correlated with the simpler
-#'     Simpson dominance. Finally, it is also possible to calculated
-#'     dominances up to an arbitrary rank by setting the rank argument}
-#'     \item{'core_abundance' }{Relative proportion of the core species that
-#'     exceed detection level 0.2\% in over 50\% of the samples}
-#'     \item{'gini' }{Gini index is calculated with the function
-#'     \code{inequality}.}
+#' \item{'absolute' }{This is the most simple variant, giving the absolute
+#' abundance of the most abundant species (Magurran & McGill 2011).
+#' By default, this refers to the single most dominant species (rank = 1)
+#' but it is possible to calculate the absolute dominance with rank n based
+#' on the abundances of top-n species by tuning the rank argument.}
+#' \item{'relative' }{Relative abundance of the most abundant species.
+#' This is with rank = 1 by default but can be calculated for other ranks.}
+#' \item{'DBP' }{Berger–Parker index, a special case of relative dominance
+#' with rank 1; This also equals the inverse of true diversity of the
+#' infinite order.}
+#' \item{'DMN' }{McNaughton’s dominance. This is the sum of the relative
+#' abundance of the two most abundant taxa, or a special case of relative
+#' dominance with rank 2}
+#' \item{'simpson' }{Simpson's index ($sum(p^2)$) where p are relative
+#' abundances has an interpretation as a dominance measure. Also the
+#' version ($sum(q * (q-1)) / S(S-1)$) based on absolute abundances q has
+#' been proposed by Simpson (1949) but not included here as it is not
+#' within [0,1] range, and it is highly correlated with the simpler
+#' Simpson dominance. Finally, it is also possible to calculated
+#' dominances up to an arbitrary rank by setting the rank argument}
+#' \item{'core_abundance' }{Relative proportion of the core species that
+#' exceed detection level 0.2\% in over 50\% of the samples}
+#' \item{'gini' }{Gini index is calculated with the function
+#' \code{inequality}.}
 #' }
 #'
 #' By setting aggregate=FALSE, the abundance for the single n'th most dominant
@@ -75,7 +75,7 @@ dominance <- function(x, index = "all", rank = 1, relative = TRUE,
     # Only include accepted indices
     accepted <- tolower(c("DBP", "DMN", "absolute", "relative",
         "simpson", "core_abundance", "gini"))
-	
+    
     # Return all indices
     if (length(index) == 1 && index == "all") {
         index <- accepted
@@ -93,7 +93,7 @@ dominance <- function(x, index = "all", rank = 1, relative = TRUE,
 
     if (is.vector(do)) {
         do <- as.matrix(do, ncol = 1)
-        colnames(do) <- index    	
+        colnames(do) <- index        
     }
     
     do

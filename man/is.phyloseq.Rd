@@ -16,6 +16,6 @@ Logical
 Identifies whether a given object is from the phyloseq class
 }
 \examples{
-  data(dietswap)
-  is.phyloseq(dietswap)
+data(dietswap)
+is.phyloseq(dietswap)
 }

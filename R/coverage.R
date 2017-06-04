@@ -1,17 +1,17 @@
 #' @title Coverage Index
 #' @description Community coverage index.
 #' @details The coverage index gives the number of groups needed to
-#'   have a given proportion of the ecosystem occupied (by default 0.5 ie 50%). 
-#' @param threshold Indicates the fraction  of the ecosystem to be occupied by
-#'    the N most abundant species (N is returned by this function). If the
-#'    detection argument is a vector, then a data.frame is returned, one
-#'    column for each detection threshold.
+#' have a given proportion of the ecosystem occupied (by default 0.5 ie 50%). 
+#' @param threshold Indicates the fraction of the ecosystem to be occupied by
+#' the N most abundant species (N is returned by this function). If the
+#' detection argument is a vector, then a data.frame is returned, one
+#' column for each detection threshold.
 #' @inheritParams global
 #' @return A vector of coverage indices
 #' @export
 #' @examples
-#'   data(dietswap)
-#'   d <- coverage(dietswap, threshold = 0.5)
+#' data(dietswap)
+#' d <- coverage(dietswap, threshold = 0.5)
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso dominance, global
 #' @keywords utilities

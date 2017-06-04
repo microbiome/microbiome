@@ -2,33 +2,33 @@
 #' @description Sort samples or features based on the neatmap approach. 
 #' @param x \code{\link{phyloseq-class}} object or a matrix
 #' @param target For \code{\link{phyloseq-class}} input, the target is either
-#'     'sites' (samples) or 'species' (features) (taxa/OTUs); for matrices,
-#'     the target is 'rows' or 'cols'.
+#' 'sites' (samples) or 'species' (features) (taxa/OTUs); for matrices,
+#' the target is 'rows' or 'cols'.
 #' @param method Ordination method. See \code{\link{ordinate}}
-#'     from \pkg{phyloseq} package.
-#'     For matrices, only the NMDS method is available.
+#' from \pkg{phyloseq} package.
+#' For matrices, only the NMDS method is available.
 #' @param distance Distance method. See \code{\link{ordinate}}
-#'     from \pkg{phyloseq} package.
+#' from \pkg{phyloseq} package.
 #' @param first Optionally provide the name of the first sample/taxon to
-#'     start the ordering (the ordering is cyclic so we can start at any
-#'     point). The choice of the first sample may somewhat affect the
-#'     overall ordering.
+#' start the ordering (the ordering is cyclic so we can start at any
+#' point). The choice of the first sample may somewhat affect the
+#' overall ordering.
 #' @param ... Arguments to be passed.
 #' @return Vector of ordered elements
 #' @export
 #' @examples
-#'     data(peerj32)
-#'     pseq <- peerj32$phyloseq
-#'     # For Phyloseq
-#'     sort.otu <- neatsort(pseq, target = 'species')
-#'     # For matrix
-#'     # sort.rows <- neatsort(abundances(pseq), target = 'rows')
-#'   
+#' data(peerj32)
+#' pseq <- peerj32$phyloseq
+#' # For Phyloseq
+#' sort.otu <- neatsort(pseq, target = 'species')
+#' # For matrix
+#' # sort.rows <- neatsort(abundances(pseq), target = 'rows')
+#'
 #' @references This function is partially based on code derived from the
-#'              \pkg{phyloseq} package. For the original
-#'              neatmap approach for heatmap sorting, see (and cite):
-#'   Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map
-#'   alternatives in R. BMC Bioinformatics, 11, 45.
+#' \pkg{phyloseq} package. For the original
+#' neatmap approach for heatmap sorting, see (and cite):
+#' Rajaram, S., & Oono, Y. (2010). NeatMap--non-clustering heat map
+#' alternatives in R. BMC Bioinformatics, 11, 45.
 #'
 #' @details This function borrows elements from the heatmap implementation in
 #' the \pkg{phyloseq} package. The row/column sorting is there not available
@@ -36,8 +36,8 @@
 #' Implemented in the microbiome package to provide an independent method for
 #' easy sample/taxon reordering for phyloseq objects.
 #' @keywords utilities
-neatsort <- function(x, target, method = "NMDS", distance = "bray", first = NULL, 
-    ...) {
+neatsort <- function(x, target, method = "NMDS", distance = "bray",
+    first = NULL,  ...) {
     
     # TODO harmonize completely for matrices vs phyloseqs
     xo <- x
@@ -55,7 +55,8 @@ neatsort <- function(x, target, method = "NMDS", distance = "bray", first = NULL
         features <- taxa(x)
         
         # Capture the output to keep the screen clean
-        junk <- capture.output(ord <- ordinate(x, method, distance, ...), file = NULL)
+        junk <- capture.output(ord <- ordinate(x, method, distance, ...),
+            file = NULL)
     } else {
         
         samples <- colnames(x)
@@ -71,16 +72,16 @@ neatsort <- function(x, target, method = "NMDS", distance = "bray", first = NULL
             x <- t(x)
         }
         
-        # Neatmap sorting for matrices with NMDS Order Capture the output to keep the
-        # screen clean
+        # Neatmap sorting for matrices with NMDS Order Capture the output
+    # to keep the screen clean
         if (distance %in% c("euclidean")) {
             d <- dist(x, distance)
         } else {
             d <- vegdist(x, distance)
         }
         
-        junk <- capture.output(ord <- metaMDS(d, wascores = FALSE, autotransform = FALSE, 
-            noshare = FALSE), file = NULL)
+        junk <- capture.output(ord <- metaMDS(d, wascores = FALSE,
+        autotransform = FALSE, noshare = FALSE), file = NULL)
     }
     
     # ------------------------------------------------------------------
@@ -103,7 +104,7 @@ neatsort <- function(x, target, method = "NMDS", distance = "bray", first = NULL
     
     if (inherits(tmp, "try-error")) {
         warning(paste("Order failed with ", target, ". 
-               Using default ordering.", 
+            Using default ordering.", 
             sep = ""))
     }
     
@@ -199,7 +200,7 @@ chunk_reorder <- function(x, newstart = x[[1]]) {
     # If pivot is NA, then warn and return x as-is
     if (is.na(pivot)) {
         warning("The `newstart` argument was not in `x`. 
-          Returning `x` without reordering.")
+        Returning `x` without reordering.")
         newx <- x
     } else {
         newx <- c(tail(x, {

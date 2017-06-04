@@ -28,17 +28,16 @@ Filtered phyloseq object including only prevalent taxa
 Filter the phyloseq object to include only prevalent taxa.
 }
 \examples{
-  data(dietswap)
-  # Detection threshold 0 (strictly greater by default);
-  # Prevalence threshold 50 percent (strictly greater by default)
-  pseq <- core(dietswap, 0, 50/100)
-
+data(dietswap)
+# Detection threshold 0 (strictly greater by default);
+# Prevalence threshold 50 percent (strictly greater by default)
+pseq <- core(dietswap, 0, 50/100)
 }
 \references{
 Salonen A, Salojarvi J, Lahti L, de Vos WM. The adult intestinal
-  core microbiota is determined by analysis depth and health
-  status. Clinical Microbiology and Infection 18(S4):16-20, 2012
-  To cite the microbiome R package, see citation('microbiome')
+core microbiota is determined by analysis depth and health
+status. Clinical Microbiology and Infection 18(S4):16-20, 2012
+To cite the microbiome R package, see citation('microbiome')
 }
 \seealso{
 core_members, variable_members, noncore_members

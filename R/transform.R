@@ -2,39 +2,39 @@
 #' @description Standard transforms for \code{\link{phyloseq-class}}.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param transform Transformation to apply. The options include:
-#'   'compositional' (ie relative abundance), 'Z', 'log10', 'hellinger',
-#'   'identity', 'clr', or any method from the vegan::decostand function.
+#' 'compositional' (ie relative abundance), 'Z', 'log10', 'hellinger',
+#' 'identity', 'clr', or any method from the vegan::decostand function.
 #' @param target Apply the transform for 'sample' or 'OTU'.
-#'               Does not affect the log transform.
+#' Does not affect the log transform.
 #' @param shift A constant indicating how much to shift the baseline
-#'    abundance (in transform = 'shift')
+#' abundance (in transform = 'shift')
 #' @return Transformed \code{\link{phyloseq}} object
 #' @details The relative abunance are returned as percentages in [0,
-#'   1]. The Hellinger transform is square root of the relative
-#'   abundance but instead given at the scale [0,1].
+#' 1]. The Hellinger transform is square root of the relative
+#' abundance but instead given at the scale [0,1].
 #' @export
 #' @examples
 #'
-#'   data(dietswap)
-#'   x <- dietswap
+#' data(dietswap)
+#' x <- dietswap
 #'
-#'   # OTU relative abundances
-#'   xt <- transform(x, 'compositional')
+#' # OTU relative abundances
+#' xt <- transform(x, 'compositional')
 #' 
-#'   # Z-transform for OTUs
-#'   # xt <- transform(x, 'Z', 'OTU')
+#' # Z-transform for OTUs
+#' # xt <- transform(x, 'Z', 'OTU')
 #'
-#'   # Z-transform for samples
-#'   # xt <- transform(x, 'Z', 'sample')
+#' # Z-transform for samples
+#' # xt <- transform(x, 'Z', 'sample')
 #'
-#'   # Log10 transform (log(1+x) if the data contains zeroes)
-#'   # xt <- transform(x, 'log10')
+#' # Log10 transform (log(1+x) if the data contains zeroes)
+#' # xt <- transform(x, 'log10')
 #'
-#'   # CLR transform
-#'   # xt <- transform(x, 'clr')
+#' # CLR transform
+#' # xt <- transform(x, 'clr')
 #'
-#'   # Shift the baseline
-#'   # xt <- transform(x, 'shift', shift = 1)
+#' # Shift the baseline
+#' # xt <- transform(x, 'shift', shift = 1)
 #'
 #' @keywords utilities
 transform <- function(x, transform = "identity", target = "OTU", shift = 0) {
@@ -53,16 +53,19 @@ transform <- function(x, transform = "identity", target = "OTU", shift = 0) {
     
     if (!all(sample(round(prod(dim(abundances(x)))/10)))%%1 == 0) {
         warning("The OTU abundances are not integers. 
-             Check that the OTU input data is given as original counts 
-         to avoid transformation errors!")
+        Check that the OTU input data is given as original counts 
+        to avoid transformation errors!")
     }
     
     if (transform == "compositional") {
         
         # Assuming taxa x samples matrix
         if (target == "OTU") {
-            # Minor constant 1e-32 is compared to zero to avoid zero division.  Essentially
-            # zero counts will then remain zero and otherwise this wont have any effect.
+    
+            # Minor constant 1e-32 is compared to zero to avoid zero
+            # division.  Essentially zero counts will then remain zero
+            # and otherwise this wont have any effect.
+        
             xt <- apply(x, 2, function(x) {
                 x/max(sum(x), 1e-32)
             })
@@ -80,11 +83,13 @@ transform <- function(x, transform = "identity", target = "OTU", shift = 0) {
     } else if (transform == "clr") {
         
         if (any(abundances(x) < 0)) {
-            stop("Non-negative data matrix required for the clr transformation. Exiting.")
+            stop("Non-negative data matrix required for the 
+            clr transformation. Exiting.")
         }
         
-        # If the data has zeroes, then shift up with a negligible constant to avoid
-        # singularities
+        # If the data has zeroes, then shift up with a negligible
+        # constant to avoid singularities
+    
         xt <- x
         
         if (any(xt == 0)) {
@@ -182,14 +187,18 @@ ztransform <- function(x, which) {
         nullinds <- which(rowMeans(is.na(trans)) == 1)
         
         if (length(nullinds) > 0 & min(x) == 0) {
-            # warning('Setting undetected OTUs to zero in ztransform') Some OTUs have minimum
-            # signal in all samples and scaling gives NA.  In these cases just give 0 signal
-            # for these OTUs in all samples
+    
+            # warning('Setting undetected OTUs to zero in ztransform')
+            # Some OTUs have minimum signal in all samples and scaling
+            # gives NA.  In these cases just give 0 signal for these
+            # OTUs in all samples
+        
             trans[names(nullinds), ] <- 0
         }
         
-        # Use the same matrix format than in original data (taxa x samples or samples x
-        # taca)
+        # Use the same matrix format than in original data (taxa x
+        # samples or samples x taxa)
+    
         xz <- trans
         
     } else if (which == "sample") {

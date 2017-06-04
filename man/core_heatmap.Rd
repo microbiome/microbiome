@@ -30,9 +30,9 @@ Core heatmap.
 }
 \references{
 A Salonen et al. The adult intestinal core microbiota is determined by 
-  analysis depth and health status. Clinical Microbiology and Infection 
-  18(S4):16 20, 2012. 
-  To cite the microbiome R package, see citation('microbiome')
+analysis depth and health status. Clinical Microbiology and Infection 
+18(S4):16 20, 2012. 
+To cite the microbiome R package, see citation('microbiome')
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

@@ -27,31 +27,31 @@ Standard transforms for \code{\link{phyloseq-class}}.
 }
 \details{
 The relative abunance are returned as percentages in [0,
-  1]. The Hellinger transform is square root of the relative
-  abundance but instead given at the scale [0,1].
+1]. The Hellinger transform is square root of the relative
+abundance but instead given at the scale [0,1].
 }
 \examples{
 
-  data(dietswap)
-  x <- dietswap
+data(dietswap)
+x <- dietswap
 
-  # OTU relative abundances
-  xt <- transform(x, 'compositional')
+# OTU relative abundances
+xt <- transform(x, 'compositional')
 
-  # Z-transform for OTUs
-  # xt <- transform(x, 'Z', 'OTU')
+# Z-transform for OTUs
+# xt <- transform(x, 'Z', 'OTU')
 
-  # Z-transform for samples
-  # xt <- transform(x, 'Z', 'sample')
+# Z-transform for samples
+# xt <- transform(x, 'Z', 'sample')
 
-  # Log10 transform (log(1+x) if the data contains zeroes)
-  # xt <- transform(x, 'log10')
+# Log10 transform (log(1+x) if the data contains zeroes)
+# xt <- transform(x, 'log10')
 
-  # CLR transform
-  # xt <- transform(x, 'clr')
+# CLR transform
+# xt <- transform(x, 'clr')
 
-  # Shift the baseline
-  # xt <- transform(x, 'shift', shift = 1)
+# Shift the baseline
+# xt <- transform(x, 'shift', shift = 1)
 
 }
 \keyword{utilities}

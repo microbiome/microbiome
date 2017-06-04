@@ -17,22 +17,22 @@ Calculate Gini indices for a phyloseq object.
 }
 \details{
 Gini index is a common measure for relative inequality in
-   economical income, but can also be used as a community diversity
-   measure. Gini index is between [0,1], and increasing gini index implies
-   increasing inequality.
+economical income, but can also be used as a community diversity
+measure. Gini index is between [0,1], and increasing gini index implies
+increasing inequality.
 }
 \examples{
-  data(dietswap)
-  d <- inequality(dietswap)
+data(dietswap)
+d <- inequality(dietswap)
 }
 \references{
 Relative Distribution Methods in the Social Sciences. Mark S.
-  Handcock and Martina Morris, Springer-Verlag, Inc., New York,
-  1999. ISBN 0387987789.
+Handcock and Martina Morris, Springer-Verlag, Inc., New York,
+1999. ISBN 0387987789.
 }
 \seealso{
 diversity, reldist::gini (inspired by that implementation but
-   independently written here to avoid external depedencies)
+independently written here to avoid external depedencies)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

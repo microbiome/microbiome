@@ -9,27 +9,29 @@
 #' complement 1-prevalence to define core taxa. The remaining taxa are
 #' considered variable. The same detection threshold is used in all cases.
 #' @references
-#'   To cite the microbiome R package, see citation('microbiome') 
+#' To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' @seealso core_members, core, rare
 #' @export
 #' @examples
-#'   data(dietswap)
-#'   # Detection threshold 0 (strictly greater by default);
-#'   # Prevalence threshold 50 percent (strictly greater by default)
-#'   pseq.rel <- transform(dietswap, 'compositional')
-#'   pseq <- variable_members(pseq.rel, 0.5/100, 20/100)
-#'
-variable_members <- function(x, detection, prevalence, include.lowest = FALSE) {
+#' data(dietswap)
+#' # Detection threshold 0 (strictly greater by default);
+#' # Prevalence threshold 50 percent (strictly greater by default)
+#' pseq.rel <- transform(dietswap, 'compositional')
+#' pseq <- variable_members(pseq.rel, 0.5/100, 20/100)
+variable_members <- function(x, detection, prevalence,
+    include.lowest = FALSE) {
     
     xorig <- x
     
     # Noncore taxa (but using different prevalence than to define core)
-    rm <- taxa(noncore_members(x, detection, prevalence, include.lowest = include.lowest))
+    rm <- taxa(noncore_members(x, detection, prevalence,
+        include.lowest = include.lowest))
     
     # Core taxa (e.g. 80 percent prevalence - complement)
-    cm <- core_members(x, detection, 1 - prevalence, include.lowest = include.lowest)
+    cm <- core_members(x, detection, 1 - prevalence,
+        include.lowest = include.lowest)
     
     taxa <- setdiff(taxa(x), c(rm, cm))
     if (length(taxa) == 0) {

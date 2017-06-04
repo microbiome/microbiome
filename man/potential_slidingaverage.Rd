@@ -35,37 +35,37 @@ min and max potential; also used as kernel window size}
 }
 \value{
 A list with the following elements:
-  \itemize{
-    \item{pars}{values of the covariate parameter as matrix}
-    \item{xis}{values of the x as matrix}
-    \item{pots}{smoothed potentials}
-    \item{mins}{minima in the densities
-        (-potentials; neglecting local optima)}
-    \item{maxs}{maxima in densities (-potentials; neglecting local optima)}
-    \item{plot}{an object that displays the potential estimated in 2D}
-  }
+\itemize{
+   \item{pars}{values of the covariate parameter as matrix}
+   \item{xis}{values of the x as matrix}
+   \item{pots}{smoothed potentials}
+   \item{mins}{minima in the densities
+       (-potentials; neglecting local optima)}
+   \item{maxs}{maxima in densities (-potentials; neglecting local optima)}
+   \item{plot}{an object that displays the potential estimated in 2D}
+}
 }
 \description{
 This function reconstructs a potential derived from data
-             along a gradient of a given parameter.
+           along a gradient of a given parameter.
 }
 \examples{
   \dontrun{
-    # Not exported
-    X <- c(rnorm(1000, mean = 0),
+   # Not exported
+   X <- c(rnorm(1000, mean = 0),
            rnorm(1000, mean = -2),
            rnorm(1000, mean = 2));
-         param = seq(0,5,length=3000); 
+       param = seq(0,5,length=3000); 
        res <- potential_slidingaverage(X, param)
-    }
+   }
 }
 \references{
 \itemize{
   \item{}{Hirota, M., Holmgren, M., van Nes, E.H. & Scheffer, M. (2011).
-          Global resilience of tropical forest and savanna to critical
-          transitions. \emph{Science}, 334, 232-235.}
+           Global resilience of tropical forest and savanna to critical
+           transitions. \emph{Science}, 334, 232-235.}
   \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
-          ecosystem. \emph{Nature Communications} 5:4344.}
+       ecosystem. \emph{Nature Communications} 5:4344.}
  }
 }
 \seealso{

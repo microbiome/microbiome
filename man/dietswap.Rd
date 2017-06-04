@@ -13,18 +13,18 @@ Loads the data set in R.
 }
 \description{
 The diet swap data set represents a study with African
-   and African American groups undergoing a two-week diet swap.
+and African American groups undergoing a two-week diet swap.
 For details, see
-\url{http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html}.
+\url{dx.doi.org/10.1038/ncomms7342}.
 }
 \details{
 The data is also available for download from the Data Dryad
-  repository \url{http://datadryad.org/resource/doi:10.5061/dryad.1mn1n}.
+repository \url{http://datadryad.org/resource/doi:10.5061/dryad.1mn1n}.
 }
 \references{
 O'Keefe et al. Nature Communications 6:6342, 2015.
-\url{http://www.nature.com/ncomms/2015/150428/ncomms7342/full/ncomms7342.html}
-  To cite the microbiome R package, see citation('microbiome')
+\url{dx.doi.org/10.1038/ncomms7342}
+To cite the microbiome R package, see citation('microbiome')
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}

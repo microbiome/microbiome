@@ -1,24 +1,24 @@
 #' @title Visualize Samples of a Microbiota Atlas 
 #' @description Show all samples of a microbiota collection, colored by
-#'    specific factor levels (x axis) and signal (y axis). 
+#' specific factor levels (x axis) and signal (y axis). 
 #' @param pseq phyloseq object
 #' @param x Sorting variable for X axis and sample coloring
 #' @param y Signal variable for Y axis
 #' @param ncol Number of legend columns.
 #' @return ggplot object
 #' @details Arranges the samples based on the given grouping factor (x), and
-#'    plots the signal (y) on the Y axis. The samples are randomly ordered
-#'    within each factor level. The factor levels are ordered by standard
-#'    deviation of the signal (y axis).
+#' plots the signal (y) on the Y axis. The samples are randomly ordered
+#' within each factor level. The factor levels are ordered by standard
+#' deviation of the signal (y axis).
 #' @references See citation('microbiome');
-#'    Visualization inspired by Kilpinen et al. 2008,
-#'    Genome Biology 9:R139. DOI: 10.1186/gb-2008-9-9-r139
+#' Visualization inspired by Kilpinen et al. 2008,
+#' Genome Biology 9:R139. DOI: 10.1186/gb-2008-9-9-r139
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
-#'   data(atlas1006)
-#'   p <- plot_atlas(atlas1006, 'DNA_extraction_method', 'diversity')
-#'   p <- plot_atlas(atlas1006, 'DNA_extraction_method', 'Bifidobacterium')
+#' data(atlas1006)
+#' p <- plot_atlas(atlas1006, 'DNA_extraction_method', 'diversity')
+#' p <- plot_atlas(atlas1006, 'DNA_extraction_method', 'Bifidobacterium')
 #' @keywords utilities
 plot_atlas <- function(pseq, x, y, ncol = 2) {
     
@@ -38,11 +38,12 @@ plot_atlas <- function(pseq, x, y, ncol = 2) {
     df <- df[sample(nrow(df)), ]
     
     # Order the factor levels (x variables) by their standard deviation
-    df$xvar <- factor(df$xvar, levels = names(sort(sapply(split(df$signal, df$xvar), 
-        sd))))
+    df$xvar <- factor(df$xvar,
+        levels = names(sort(sapply(split(df$signal, df$xvar), sd))))
     
-    # Order by x variable (randomization affects the ordering within each factor
-    # level if this is a factor)
+    # Order by x variable (randomization affects the ordering within
+    # each factor level if this is a factor)
+    
     df <- df[order(df$xvar), ]
     
     df$index <- 1:nrow(df)

@@ -3,16 +3,16 @@
 #' @param x \code{\link{phyloseq-class}} object
 #' @param taxon Taxonomic group to visualize.
 #' @param tipping.point Optional. Indicate critical point for abundance
-#'    variations to be highlighted.
+#' variations to be highlighted.
 #' @param lims Optional. Figure X axis limits.
 #' @param shift Small constant to avoid problems with zeroes in log10
 #' @param xlim Horizontal axis limits
 #' @return \code{\link{ggplot}} object
 #' @examples
-#'    data(atlas1006)
-#'    pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
-#'    pseq <- transform(pseq, 'compositional')
-#'    p <- plot_tipping(pseq, 'Dialister', tipping.point = 1)
+#' data(atlas1006)
+#' pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
+#' pseq <- transform(pseq, 'compositional')
+#' p <- plot_tipping(pseq, 'Dialister', tipping.point = 1)
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -76,13 +76,13 @@ plot_tipping <- function(x, taxon, tipping.point = NULL,
     
     if (is.null(xlim)) {
         lims <- c(min(df$min) - 1e-2 * min(df$min),
-	            max(df$max) + 1e-2 * max(df$max))
+                max(df$max) + 1e-2 * max(df$max))
         p <- p + scale_y_log10(breaks = breaks,
             labels = names(breaks), limits = lims)
     } else {
         xlim <- sort(xlim)
-	xlim[[1]] <- min(min(df$min) - 1e-2 * min(df$min), xlim[[1]])
-	xlim[[2]] <- max(max(df$max) + 1e-2 * max(df$max), xlim[[2]])
+    xlim[[1]] <- min(min(df$min) - 1e-2 * min(df$min), xlim[[1]])
+    xlim[[2]] <- max(max(df$max) + 1e-2 * max(df$max), xlim[[2]])
         p <- p + scale_y_log10(breaks = breaks,
             labels = names(breaks), limits = xlim)
     }

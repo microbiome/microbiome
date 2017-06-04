@@ -14,14 +14,14 @@ plot_matrix(mat, type = "twoway", midpoint = 0, palette = NULL,
 \item{mat}{matrix}
 
 \item{type}{String. Specifies visualization type. Options: 'oneway' 
-        (color scale ranges from white to dark red; 
+(color scale ranges from white to dark red; 
 the color can be changed if needed); 
 'twoway' (color scale ranges from dark blue 
 through white to dark red; colors can be changed 
 if needed)}
 
 \item{midpoint}{middle point for the color plot: smaller values are 
-   shown with blue, larger are shown with red 
+shown with blue, larger are shown with red 
 in type = 'twoway'}
 
 \item{palette}{Optional. Color palette.}
@@ -58,15 +58,15 @@ see help(image) for further details}
 }
 \value{
 A list with the color palette (colors), 
-       color breakpoints (breaks), and palette function (palette.function)
+color breakpoints (breaks), and palette function (palette.function)
 }
 \description{
 Fast investigation of matrix objects;
-   standard visualization choices made automatically.
+standard visualization choices made automatically.
 }
 \examples{
-  mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2))
-  res <- plot_matrix(mat, 'twoway', midpoint = 3) 
+mat <- rbind(c(1,2,3,4,5), c(1, 3, 1), c(4,2,2))
+res <- plot_matrix(mat, 'twoway', midpoint = 3) 
 }
 \references{
 See citation('microbiome')

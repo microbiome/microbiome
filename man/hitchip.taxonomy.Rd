@@ -5,7 +5,7 @@
 \alias{hitchip.taxonomy}
 \title{HITChip Taxonomy}
 \format{List with the element 'filtered', including a simplified version
-         of the HITChip taxonomy.}
+of the HITChip taxonomy.}
 \usage{
 data(hitchip.taxonomy)
 }
@@ -17,8 +17,8 @@ HITChip taxonomy table.
 }
 \references{
 Lahti et al. Tipping elements of the human intestinal ecosystem. 
-  Nature Communications 5:4344, 2014.
-  To cite the microbiome R package, see citation('microbiome')
+Nature Communications 5:4344, 2014.
+To cite the microbiome R package, see citation('microbiome')
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}

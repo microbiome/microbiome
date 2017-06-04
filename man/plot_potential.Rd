@@ -27,28 +27,28 @@ Visualization of the potential function.
 }
 \details{
 Applied on the output of the
-         \code{\link{potential_slidingaverage}} function.
+\code{\link{potential_slidingaverage}} function.
 }
 \examples{
-  # Load gut microbiota data on 1006 western adults
-  # From http://doi.org/10.5061/dryad.pk75d
-  # (see help(atlas1006) for references and details)
-  data(atlas1006)
-  pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
+# Load gut microbiota data on 1006 western adults
+# From http://doi.org/10.5061/dryad.pk75d
+# (see help(atlas1006) for references and details)
+data(atlas1006)
+pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
 
-  # Pick diversity and age
-  diversity <- exp(global(pseq, index = 'shannon'))
-  age <- meta(pseq)$age
+# Pick diversity and age
+diversity <- exp(global(pseq, index = 'shannon'))
+age <- meta(pseq)$age
   
-  # Run potential analysis
-  # library(earlywarnings)
-  # library(ggplot2)
-  # suppressWarnings(res <- movpotential_ews(diversity, age)$res)
-  # suppressWarnings(plot_potential(res, cutoff = 0.5))
+# Run potential analysis
+# library(earlywarnings)
+# library(ggplot2)
+# suppressWarnings(res <- movpotential_ews(diversity, age)$res)
+# suppressWarnings(plot_potential(res, cutoff = 0.5))
 }
 \references{
 Lahti et al. Tipping elements of the human intestinal ecosystem.
-            \emph{Nature Communications} 5:4344, 2014.
+\emph{Nature Communications} 5:4344, 2014.
 }
 \seealso{
 potential_analysis

@@ -10,12 +10,12 @@
 #' @param ... Other arguments to be passed
 #' @return TBA
 #' @examples
-#'    data(peerj32)
-#'    x <- t(peerj32$microbes)
-#'    y <- factor(peerj32$meta$time); names(y) <- rownames(peerj32$meta)
-#'    # Use more iterations in practice
-#'    res <- rda_bagged(x, y, bs.iter=5)
-#'    tmp <- plot_rda_bagged(res)
+#' data(peerj32)
+#' x <- t(peerj32$microbes)
+#' y <- factor(peerj32$meta$time); names(y) <- rownames(peerj32$meta)
+#' # Use more iterations in practice
+#' res <- rda_bagged(x, y, bs.iter=5)
+#' tmp <- plot_rda_bagged(res)
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
@@ -72,8 +72,8 @@ plot_rda_bagged <- function(x, which.bac = 1:nrow(x$loadings),
         ll <- split(rownames(scaled.scores), Y)
         hulls <- lapply(ll, function(ii) ii[chull(scaled.scores[ii, ])])
         for (i in 1:length(hulls)) {
-	    polygon(scaled.scores[hulls[[i]], ], border = group.cols[i])
-	}
+            polygon(scaled.scores[hulls[[i]], ], border = group.cols[i])
+        }
     }
     if (plot.names) {
         text(scaled.scores, rownames(scaled.scores), cex = 0.5, ...)

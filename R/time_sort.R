@@ -1,15 +1,15 @@
 #' @title Temporal Sorting Within Subjects
 #' @description Within each subject, sort samples by time and calculate
-#'              distance from the baseline point (minimum time).
+#' distance from the baseline point (minimum time).
 #' @param x A metadata data.frame including the following columns:
-#'          time, subject, sample, signal. Or a phyloseq object.
+#' time, subject, sample, signal. Or a phyloseq object.
 #' @return A list with sorted metadata (data.frame) for each subject.
 #' @references See citation('microbiome')
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
-#'   data(atlas1006)
-#'   ts <- time_sort(meta(atlas1006))
+#' data(atlas1006)
+#' ts <- time_sort(meta(atlas1006))
 #' @keywords utilities
 time_sort <- function(x) {
     

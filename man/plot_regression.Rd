@@ -20,7 +20,7 @@ plot_regression(formula, data, B = 1000, shade = TRUE, shade.alpha = 0.1,
 \item{shade}{plot the shaded confidence region?}
 
 \item{shade.alpha}{shade.alpha: should the CI shading fade out at 
-  the edges? (by reducing alpha; 0 = no alpha decrease, 
+the edges? (by reducing alpha; 0 = no alpha decrease, 
 0.1 = medium alpha decrease, 0.5 = strong alpha decrease)}
 
 \item{spag}{plot spaghetti lines?}
@@ -63,19 +63,20 @@ ggplot2 object
 Draw regression curve with smoothed error bars 
 with Visually-Weighted Regression by Solomon M. Hsiang; see
 \url{http://www.fight-entropy.com/2012/07/visually-weighted-regression.html}
-The R is modified from Felix Schonbrodt's original code at
-\url{http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote}
+The R is modified from Felix Schonbrodt's original code
+http://www.nicebread.de/
+visually-weighted-watercolor-plots-new-variants-please-vote
 }
 \examples{
-    data(atlas1006)
-    pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
-    p <- plot_regression(diversity ~ age, meta(pseq))
+data(atlas1006)
+pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
+p <- plot_regression(diversity ~ age, meta(pseq))
 }
 \references{
 See citation('microbiome')
 }
 \author{
 Based on the original version from Felix Schonbrodt. 
-        Modified by Leo Lahti \email{microbiome-admin@googlegroups.com}
+Modified by Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \keyword{utilities}

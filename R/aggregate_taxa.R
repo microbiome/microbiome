@@ -1,19 +1,19 @@
 #' @title Summarize Taxa
 #' @description Summarize phyloseq data into a higher phylogenetic level.
 #' @details This provides a convenient way to aggregate phyloseq OTUs
-#'   (or other taxa) when the phylogenetic tree is missing. Calculates the
-#'   sum of OTU abundances over all OTUs that map to the same higher-level
-#'   group. Removes ambiguous levels from the taxonomy table. Returns a
-#'   phyloseq object with the summarized abundances.
+#' (or other taxa) when the phylogenetic tree is missing. Calculates the
+#' sum of OTU abundances over all OTUs that map to the same higher-level
+#' group. Removes ambiguous levels from the taxonomy table. Returns a
+#' phyloseq object with the summarized abundances.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param level Summarization level (from \code{rank_names(pseq)})
 #' @param top Keep the top-n taxa, and merge the rest under the category
-#'   'Other'. Instead of top-n numeric this can also be a character vector
-#'   listing the groups to combine.
+#' 'Other'. Instead of top-n numeric this can also be a character vector
+#' listing the groups to combine.
 #' @return Summarized phyloseq object
 #' @examples
-#'    data(dietswap)
-#'    s <- aggregate_taxa(dietswap, 'Phylum')
+#' data(dietswap)
+#' s <- aggregate_taxa(dietswap, 'Phylum')
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -68,8 +68,11 @@ aggregate_taxa <- function(x, level, top = NULL) {
         pseq2 <- phyloseq(OTU)
         
         # Remove all ambiguous levels
-        keep <- colnames(tax_table(pseq))[which(sapply(1:ncol(tax_table(pseq)), function(k) sum(sapply(split(as.character(tax_table(pseq)[, 
-            k]), as.character(tax_table(pseq)[, level])), function(x) {
+        keep <- colnames(
+        tax_table(pseq))[which(sapply(1:ncol(tax_table(pseq)),
+            function(k)
+            sum(sapply(split(as.character(tax_table(pseq)[, k]),
+            as.character(tax_table(pseq)[, level])), function(x) {
             length(unique(x))
         }) > 1)) == 0)]
         tax <- unique(tax_table(pseq)[, keep])

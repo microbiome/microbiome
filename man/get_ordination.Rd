@@ -22,12 +22,12 @@ Ordinate phyloseq data and merge it with sample metadata
 }
 \details{
 This is a wrapper for phyloseq ordination functions, providing
-  smooth access to ordinated data.frame with full info on the projection
-  and metadata necessary for further visualizations.
+smooth access to ordinated data.frame with full info on the projection
+and metadata necessary for further visualizations.
 }
 \examples{
-   data(dietswap)
-   fc <- get_ordination(dietswap)
+data(dietswap)
+fc <- get_ordination(dietswap)
 }
 \references{
 See citation('microbiome')

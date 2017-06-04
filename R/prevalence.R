@@ -16,17 +16,16 @@
 #' @return For each OTU, the fraction of samples where a given OTU is
 #' detected. The output is readily given as a percentage.
 #' @references 
-#'   A Salonen et al. The adult intestinal core microbiota is determined by 
-#'   analysis depth and health status. Clinical Microbiology and Infection 
-#'   18(S4):16 20, 2012. 
-#'   To cite the microbiome R package, see citation('microbiome') 
+#' A Salonen et al. The adult intestinal core microbiota is determined by 
+#' analysis depth and health status. Clinical Microbiology and Infection 
+#' 18(S4):16 20, 2012. 
+#' To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' @export
 #' @examples
-#'   data(peerj32)     
-#'   pr <- prevalence(peerj32$phyloseq, detection = 0,
-#'       sort = TRUE, count = TRUE)
+#' data(peerj32)     
+#' pr <- prevalence(peerj32$phyloseq, detection = 0, sort = TRUE, count = TRUE)
 prevalence <- function(x, detection = 0, sort = FALSE, count = FALSE,
     include.lowest = FALSE) {
     

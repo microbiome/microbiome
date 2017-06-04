@@ -15,11 +15,11 @@ A list with sorted metadata (data.frame) for each subject.
 }
 \description{
 Within each subject, sort samples by time and calculate
-             distance from the baseline point (minimum time).
+distance from the baseline point (minimum time).
 }
 \examples{
-  data(atlas1006)
-  ts <- time_sort(meta(atlas1006))
+data(atlas1006)
+ts <- time_sort(meta(atlas1006))
 }
 \references{
 See citation('microbiome')

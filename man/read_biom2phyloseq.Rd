@@ -20,20 +20,18 @@ within the biom}
 }
 \description{
 Read biom and mapping files into a \code{\link{phyloseq-class}}
-   object.
+object.
 }
 \details{
 Biom file and mapping files will be converted to
-   \code{\link{phyloseq-class}}.
+\code{\link{phyloseq-class}}.
 }
 \examples{
-  \dontrun{
-    # Example data
-    library(microbiome)
-    p0 <- read_biom2phyloseq(otu.file = 'otu_table.biom',
-                             metadata.file = 'mapping.csv',
-               taxonomy.file = NULL)
-  }
+\dontrun{
+p0 <- read_biom2phyloseq(otu.file = 'otu_table.biom',
+metadata.file = 'mapping.csv',
+taxonomy.file = NULL)
+}
 }
 \author{
 Sudarshan A. Shetty \email{sudarshanshetty9@gmail.com}

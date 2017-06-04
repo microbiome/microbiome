@@ -1,18 +1,18 @@
 #' @title Map Taxonomic Levels
 #' @description Map taxa between hierarchy levels.
 #' @param taxa taxa to convert; if NULL then considering all taxa in the
-#'    tax.table
+#' tax.table
 #' @param from convert from taxonomic level 
 #' @param to convert to taxonomic level
 #' @param data Either a \code{\link{phyloseq}} object or its
-#'    \code{\link{taxonomyTable-class}} , see the \pkg{phyloseq} package.
+#' \code{\link{taxonomyTable-class}} , see the \pkg{phyloseq} package.
 #' @return mappings
 #' @examples
-#'   data(dietswap)
-#'   m <- map_levels('Akkermansia', from = 'Genus', to = 'Phylum',
-#'          tax_table(dietswap))
-#'   m <- map_levels('Verrucomicrobia', from = 'Phylum', to = 'Genus',
-#'          tax_table(dietswap))
+#' data(dietswap)
+#' m <- map_levels('Akkermansia', from = 'Genus', to = 'Phylum',
+#' tax_table(dietswap))
+#' m <- map_levels('Verrucomicrobia', from = 'Phylum', to = 'Genus',
+#' tax_table(dietswap))
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

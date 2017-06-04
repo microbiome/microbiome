@@ -1,6 +1,6 @@
 #' @title Diversity within a Sample Group
 #' @description Quantify microbiota divergence (heterogeneity) within a
-#'    given sample set.
+#' given sample set.
 #'
 #' @details
 #'
@@ -25,15 +25,15 @@
 #' 
 #' @param x phyloseq object 
 #' @param method dissimilarity method ('anticorrelation' or any method
-#'    available via the vetan::vegdist function)
+#' available via the vetan::vegdist function)
 #' @return Vector with dissimilarities; one for each sample, quantifying the
 #' dissimilarity of the sample from the group-level mean.
 #' @export
 #' @examples
-#'     # Assess beta diversity among the African samples
-#'     # in a diet swap study (see \code{help(dietswap)} for references)
-#'     data(dietswap)
-#'     b <- divergence(subset_samples(dietswap, nationality == 'AFR'))
+#' # Assess beta diversity among the African samples
+#' # in a diet swap study (see \code{help(dietswap)} for references)
+#' data(dietswap)
+#' b <- divergence(subset_samples(dietswap, nationality == 'AFR'))
 #' @references
 #'
 #' The inter- and intra-individual homogeneity measures used in
@@ -66,7 +66,8 @@ divergence <- function(x, method = "anticorrelation") {
 anticorrelation <- function(x, method = "spearman") {
     
     # Correlations calculated against the mean of the sample set
-    cors <- as.vector(cor(x, matrix(rowMeans(x)), method = method, use = "pairwise.complete.obs"))
+    cors <- as.vector(cor(x, matrix(rowMeans(x)),
+        method = method, use = "pairwise.complete.obs"))
     
     1 - cors
     

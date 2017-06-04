@@ -12,8 +12,9 @@ read_mothur2phyloseq(shared.file, consensus.taxonomy.file,
 \href{http://www.mothur.org/wiki/Shared_file}{shared file}
 produced by \emph{mothur}. Identified from the .shared extension}
 
-\item{consensus.taxonomy.file}{\href{http://www.mothur.org/wiki/ConTaxonomy_file}{consensus taxonomy file} produced by \emph{mothur}.
-Identified from with the .taxonomy extension.}
+\item{consensus.taxonomy.file}{Consensus taxonomy file
+produced by \emph{mothur}. Identified from with the .taxonomy extension.
+See \url{http://www.mothur.org/wiki/ConTaxonomy_file}.}
 
 \item{mapping.file}{Metadata/mapping file with .csv extension}
 }
@@ -22,21 +23,19 @@ Identified from with the .taxonomy extension.}
 }
 \description{
 Read mothur shared and consensus taxonomy files into a
-   \code{\link{phyloseq-class}} object.
+\code{\link{phyloseq-class}} object.
 }
 \details{
 Mothur shared and consensus taxonomy files will be converted to
-   \code{\link{phyloseq-class}}.
+\code{\link{phyloseq-class}}.
 }
 \examples{
-  \dontrun{
-    # Example data
-    library(microbiome)
-    p0 <- read_mothur2phyloseq(
-            shared.file = 'mothur_shared.shared',
-            consensus.taxonomy.file = 'mothur_taxonomy.taxonomy',
-          mapping.file = 'mothur_mapping.csv')
-  }
+\dontrun{
+p0 <- read_mothur2phyloseq(
+    shared.file = 'mothur_shared.shared',
+    consensus.taxonomy.file = 'mothur_taxonomy.taxonomy',
+    mapping.file = 'mothur_mapping.csv')
+}
 }
 \author{
 Sudarshan A. Shetty \email{sudarshanshetty9@gmail.com}

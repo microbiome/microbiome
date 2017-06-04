@@ -4,13 +4,13 @@
 #' @inheritParams core_members
 #' @return Filtered phyloseq object including only rare taxa
 #' @references 
-#'   To cite the microbiome R package, see citation('microbiome') 
+#' To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 #' @export
 #' @examples
-#'   data(peerj32)
-#'   pseq <- noncore_members(peerj32$phyloseq, 200, 20/100)
+#' data(peerj32)
+#' pseq <- noncore_members(peerj32$phyloseq, 200, 20/100)
 noncore_members <- function(x, detection, prevalence, include.lowest = FALSE) {
     
     # TODO: add optional renormalization such that the abundances

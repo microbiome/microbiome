@@ -1,37 +1,38 @@
 #' @title Bagged RDA
 #' @description Bagged (or Bootstrap Aggregated) RDA feature selection
 #' @param x a matrix, samples on columns, variables (bacteria) on rows. 
-#'        Or a \code{\link{phyloseq-class}} object
+#' Or a \code{\link{phyloseq-class}} object
 #' @param y vector or factor with names(y)=rownames(X). 
-#'            Or name of phyloseq sample data variable name
-#'            (one of sample_variables(x)).
+#' Or name of phyloseq sample data variable name
+#' (one of sample_variables(x)).
 #' @param bs.iter Number of bootstrap iterations
 #' @param verbose verbose
 #' @return List with items:
-#'    \itemize{
-#'        \item{loadings}{bagged loadings}
-#'        \item{significance}{significances of X variables}
-#'        \item{scores}{bagged scores}
-#'        \item{group.centers}{group centers on latent space}
-#'        \item{bootstrapped}{bootstrapped loadings}
-#'        \item{data}{data set with non-significant components dropped out}
-#'    }
+#' \itemize{
+#' \item{loadings }{bagged loadings}
+#' \item{significance }{significances of X variables}
+#' \item{scores }{bagged scores}
+#' \item{group.centers }{group centers on latent space}
+#' \item{bootstrapped }{bootstrapped loadings}
+#' \item{data }{data set with non-significant components dropped out}
+#' }
 #' @examples
-#'   # RDA with phyloseq object
-#'   data(peerj32)
-#'   res <- rda_bagged(peerj32$phyloseq, 'gender', bs.iter=2)
+#' # RDA with phyloseq object
+#' data(peerj32)
+#' res <- rda_bagged(peerj32$phyloseq, 'gender', bs.iter=2)
 #' @export
 #' @seealso plot_rda_bagged, vegan::rda, phyloseq::ordinate
 #' @details Bootstrap aggregation (bagging) is expected to improve the
-#'    stability of the results. Aggregating results over several modeling runs
-#'    with different boostrap samples of the data are averaged to produce the
-#'    final summary.
+#' stability of the results. Aggregating results over several modeling runs
+#' with different boostrap samples of the data are averaged to produce the
+#' final summary.
 #' @references See citation('microbiome') 
 #' @author Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 rda_bagged <- function(x, y, bs.iter = 100, verbose = TRUE) {
     
     if (is.phyloseq(x)) {
+    
         # Pick OTU matrix and the indicated annotation field
         if (!y %in% sample_variables(x)) {
             
@@ -81,7 +82,7 @@ rda_bagged <- function(x, y, bs.iter = 100, verbose = TRUE) {
             x <- x[-which.max(min.prob), ]
         } else {
             stop.run <- TRUE
-	}   
+        }
     }
     dropped[1:length(class.split)] <-
         rownames(x)[order(min.prob)[1:length(class.split)]]
@@ -104,25 +105,25 @@ rda_bagged <- function(x, y, bs.iter = 100, verbose = TRUE) {
 
 #' @title Bagged RDA Auxiliary Function
 #' @description Bootstrap solutions that follows the Jack-knife estimation of
-#'            PLS by Martens and Martens, 2000.  Solves rotational
-#'            invariance of latent space by orthogonal procrustes rotations.
+#' PLS by Martens and Martens, 2000.  Solves rotational
+#' invariance of latent space by orthogonal procrustes rotations.
 #' @param X a matrix, samples on columns, variables (bacteria) on rows.
 #' @param Y vector with names(Y)=rownames(X), for example
 #' @inheritParams rda_bagged
 #' @return List with elements:
-#'    \itemize{
-#'        \item{loadings}{bagged loadings}
-#'        \item{scores}{bagged scores}
-#'        \item{significance}{significances of X variables}
-#'    }
+#' \itemize{
+#' \item{loadings }{bagged loadings}
+#' \item{scores }{bagged scores}
+#' \item{significance }{significances of X variables}
+#' }
 #' @examples
-#'  # Not exported
-#'  \dontrun{
-#'    data(peerj32)
-#'    x <- as.matrix(peerj32$microbes)[1:20, 1:6]
-#'    y <- rnorm(nrow(x))
-#'    names(y) <- rownames(x)
-#'    res <- Bagged.RDA(x, y , bs.iter = 5)
+#' # Not exported
+#' \dontrun{
+#' data(peerj32)
+#' x <- as.matrix(peerj32$microbes)[1:20, 1:6]
+#' y <- rnorm(nrow(x))
+#' names(y) <- rownames(x)
+#' res <- Bagged.RDA(x, y , bs.iter = 5)
 #' }
 #' @references See citation('microbiome') 
 #' @author Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}

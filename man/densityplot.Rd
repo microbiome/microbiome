@@ -35,9 +35,9 @@ ggplot2 object
 Density visualization for data points overlaid on cross-plot.
 }
 \examples{
-  \dontrun{
-   p <- densityplot(cbind(rnorm(100), rnorm(100)))
-  }
+   \dontrun{
+       p <- densityplot(cbind(rnorm(100), rnorm(100)))
+   }
 }
 \references{
 See citation('microbiome')

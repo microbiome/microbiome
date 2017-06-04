@@ -32,33 +32,33 @@ Calculates the community dominance index.
 }
 \details{
 The dominance index gives the abundance of the most abundant
-   species. This has been used also in microbiomics context
-   (Locey & Lennon (2016)). The following indices are provided:
+species. This has been used also in microbiomics context
+(Locey & Lennon (2016)). The following indices are provided:
 \itemize{
-    \item{'absolute' }{This is the most simple variant, giving the absolute
-    abundance of the most abundant species (Magurran & McGill 2011).
-    By default, this refers to the single most dominant species (rank = 1)
-    but it is possible to calculate the absolute dominance with rank n based
-    on the abundances of top-n species by tuning the rank argument.}
-    \item{'relative' }{Relative abundance of the most abundant species.
-    This is with rank = 1 by default but can be calculated for other ranks.}
-    \item{'DBP' }{Berger–Parker index, a special case of relative dominance
-    with rank 1; This also equals the inverse of true diversity of the
-    infinite order.}
-    \item{'DMN' }{McNaughton’s dominance. This is the sum of the relative
-    abundance of the two most abundant taxa, or a special case of relative
-    dominance with rank 2}
-    \item{'simpson' }{Simpson's index ($sum(p^2)$) where p are relative
-    abundances has an interpretation as a dominance measure. Also the
-    version ($sum(q * (q-1)) / S(S-1)$) based on absolute abundances q has
-    been proposed by Simpson (1949) but not included here as it is not
-    within [0,1] range, and it is highly correlated with the simpler
-    Simpson dominance. Finally, it is also possible to calculated
-    dominances up to an arbitrary rank by setting the rank argument}
-    \item{'core_abundance' }{Relative proportion of the core species that
-    exceed detection level 0.2\% in over 50\% of the samples}
-    \item{'gini' }{Gini index is calculated with the function
-    \code{inequality}.}
+\item{'absolute' }{This is the most simple variant, giving the absolute
+abundance of the most abundant species (Magurran & McGill 2011).
+By default, this refers to the single most dominant species (rank = 1)
+but it is possible to calculate the absolute dominance with rank n based
+on the abundances of top-n species by tuning the rank argument.}
+\item{'relative' }{Relative abundance of the most abundant species.
+This is with rank = 1 by default but can be calculated for other ranks.}
+\item{'DBP' }{Berger–Parker index, a special case of relative dominance
+with rank 1; This also equals the inverse of true diversity of the
+infinite order.}
+\item{'DMN' }{McNaughton’s dominance. This is the sum of the relative
+abundance of the two most abundant taxa, or a special case of relative
+dominance with rank 2}
+\item{'simpson' }{Simpson's index ($sum(p^2)$) where p are relative
+abundances has an interpretation as a dominance measure. Also the
+version ($sum(q * (q-1)) / S(S-1)$) based on absolute abundances q has
+been proposed by Simpson (1949) but not included here as it is not
+within [0,1] range, and it is highly correlated with the simpler
+Simpson dominance. Finally, it is also possible to calculated
+dominances up to an arbitrary rank by setting the rank argument}
+\item{'core_abundance' }{Relative proportion of the core species that
+exceed detection level 0.2\% in over 50\% of the samples}
+\item{'gini' }{Gini index is calculated with the function
+\code{inequality}.}
 }
 
 By setting aggregate=FALSE, the abundance for the single n'th most dominant
@@ -66,13 +66,13 @@ taxa (n = rank) is returned instead the sum of abundances up to that rank
 (the default).
 }
 \examples{
-  data(dietswap)
-  # vector
-  d <- dominance(abundances(dietswap)[,1], rank = 1, relative = TRUE)
-  # matrix
-  # d <- dominance(abundances(dietswap), rank = 1, relative = TRUE)
-  # Phyloseq object
-  # d <- dominance(dietswap, rank = 1, relative = TRUE)
+data(dietswap)
+# vector
+d <- dominance(abundances(dietswap)[,1], rank = 1, relative = TRUE)
+# matrix
+# d <- dominance(abundances(dietswap), rank = 1, relative = TRUE)
+# Phyloseq object
+# d <- dominance(dietswap, rank = 1, relative = TRUE)
 
 }
 \references{

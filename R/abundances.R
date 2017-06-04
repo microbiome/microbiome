@@ -1,7 +1,7 @@
 #' @title Abundance Matrix from Phyloseq
 #' @description Retrieves the taxon abundance table from
-#'    \code{\link{phyloseq-class}} object and ensures it is returned as
-#'    taxa x samples matrix.
+#' phyloseq-class object and ensures it is returned as
+#' taxa x samples matrix.
 #' @inheritParams transform
 #' @return Abundance matrix (OTU x samples).
 #' @references See citation('microbiome') 
@@ -9,9 +9,9 @@
 #' @export
 #' @aliases ab, otu
 #' @examples
-#'    data(dietswap)
-#'    a <- abundances(dietswap)
-#'    # b <- abundances(dietswap, transform = 'compositional')
+#' data(dietswap)
+#' a <- abundances(dietswap)
+#' # b <- abundances(dietswap, transform = 'compositional')
 #' @keywords utilities
 abundances <- function(x, transform = "identity") {
 
@@ -20,7 +20,7 @@ abundances <- function(x, transform = "identity") {
 
         # Pick OTU matrix
         otu <- get_taxa(x)
-	
+    
         # Ensure that taxa are on the rows
         if (!taxa_are_rows(x) && ntaxa(x) > 1 && nsamples(x) > 1) {
             otu <- t(otu)
@@ -44,7 +44,8 @@ abundances <- function(x, transform = "identity") {
         
     } else {
         
-        # If x is not vector or phyloseq object then let us assume it is a taxa x samples
+        # If x is not vector or phyloseq object then let us assume it is a
+        # taxa x samples
         # count matrix
         otu <- x
         

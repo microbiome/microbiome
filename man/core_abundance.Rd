@@ -23,12 +23,12 @@ Calculates the community core abundance index.
 }
 \details{
 The core abundance index gives the relative proportion of the core
-   species (in [0,1]). The core taxa are defined as those that exceed the
-   given population prevalence threshold at the given detection level.
+species (in [0,1]). The core taxa are defined as those that exceed the
+given population prevalence threshold at the given detection level.
 }
 \examples{
-  data(dietswap)
-  d <- core_abundance(dietswap, detection = 0.1/100, prevalence = 50/100)
+data(dietswap)
+d <- core_abundance(dietswap, detection = 0.1/100, prevalence = 50/100)
 }
 \seealso{
 rarity

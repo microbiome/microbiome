@@ -17,19 +17,19 @@ A vector of indicators.
 }
 \description{
 Calculates the concentration of low-abundance taxa below the
-   indicated detection threshold.
+indicated detection threshold.
 }
 \details{
 The low_abundance index gives the concentration of species at low
-   abundance, or the  relative proportion of rare species in [0,1].
-   The species that are below the indicated detection threshold are
-   considered rare. Note that population prevalence is not considered.
-   If the detection argument is a vector, then a data.frame is returned,
-   one column for each detection threshold.
+abundance, or the  relative proportion of rare species in [0,1].
+The species that are below the indicated detection threshold are
+considered rare. Note that population prevalence is not considered.
+If the detection argument is a vector, then a data.frame is returned,
+one column for each detection threshold.
 }
 \examples{
-  data(dietswap)
-  d <- low_abundance(dietswap, detection = 0.2/100)
+data(dietswap)
+d <- low_abundance(dietswap, detection = 0.2/100)
 }
 \seealso{
 core_abundance, rarity, global

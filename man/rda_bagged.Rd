@@ -20,28 +20,28 @@ Or name of phyloseq sample data variable name
 }
 \value{
 List with items:
-   \itemize{
-       \item{loadings}{bagged loadings}
-       \item{significance}{significances of X variables}
-       \item{scores}{bagged scores}
-       \item{group.centers}{group centers on latent space}
-       \item{bootstrapped}{bootstrapped loadings}
-       \item{data}{data set with non-significant components dropped out}
-   }
+\itemize{
+\item{loadings }{bagged loadings}
+\item{significance }{significances of X variables}
+\item{scores }{bagged scores}
+\item{group.centers }{group centers on latent space}
+\item{bootstrapped }{bootstrapped loadings}
+\item{data }{data set with non-significant components dropped out}
+}
 }
 \description{
 Bagged (or Bootstrap Aggregated) RDA feature selection
 }
 \details{
 Bootstrap aggregation (bagging) is expected to improve the
-   stability of the results. Aggregating results over several modeling runs
-   with different boostrap samples of the data are averaged to produce the
-   final summary.
+stability of the results. Aggregating results over several modeling runs
+with different boostrap samples of the data are averaged to produce the
+final summary.
 }
 \examples{
-  # RDA with phyloseq object
-  data(peerj32)
-  res <- rda_bagged(peerj32$phyloseq, 'gender', bs.iter=2)
+# RDA with phyloseq object
+data(peerj32)
+res <- rda_bagged(peerj32$phyloseq, 'gender', bs.iter=2)
 }
 \references{
 See citation('microbiome')

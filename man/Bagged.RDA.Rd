@@ -2,7 +2,7 @@
 % Please edit documentation in R/rda_bagged.R
 \name{Bagged.RDA}
 \alias{Bagged.RDA}
-\title{Bagged RDA}
+\title{Bagged RDA Auxiliary Function}
 \usage{
 Bagged.RDA(X, Y, bs.iter = 100)
 }
@@ -15,25 +15,25 @@ Bagged.RDA(X, Y, bs.iter = 100)
 }
 \value{
 List with elements:
-   \itemize{
-       \item{loadings}{bagged loadings}
-       \item{scores}{bagged scores}
-       \item{significance}{significances of X variables}
-   }
+\itemize{
+\item{loadings }{bagged loadings}
+\item{scores }{bagged scores}
+\item{significance }{significances of X variables}
+}
 }
 \description{
 Bootstrap solutions that follows the Jack-knife estimation of
-           PLS by Martens and Martens, 2000.  Solves rotational
-           invariance of latent space by orthogonal procrustes rotations.
+PLS by Martens and Martens, 2000.  Solves rotational
+invariance of latent space by orthogonal procrustes rotations.
 }
 \examples{
- # Not exported
- \dontrun{
-   data(peerj32)
-   x <- as.matrix(peerj32$microbes)[1:20, 1:6]
-   y <- rnorm(nrow(x))
-   names(y) <- rownames(x)
-   res <- Bagged.RDA(x, y , bs.iter = 5)
+# Not exported
+\dontrun{
+data(peerj32)
+x <- as.matrix(peerj32$microbes)[1:20, 1:6]
+y <- rnorm(nrow(x))
+names(y) <- rownames(x)
+res <- Bagged.RDA(x, y , bs.iter = 5)
 }
 }
 \references{

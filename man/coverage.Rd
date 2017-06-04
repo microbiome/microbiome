@@ -10,7 +10,7 @@ coverage(x, threshold = 0.5)
 \item{x}{A species abundance vector, or matrix (taxa/features x samples)
 with the absolute count data (no relative abundances), or}
 
-\item{threshold}{Indicates the fraction  of the ecosystem to be occupied by
+\item{threshold}{Indicates the fraction of the ecosystem to be occupied by
 the N most abundant species (N is returned by this function). If the
 detection argument is a vector, then a data.frame is returned, one
 column for each detection threshold.}
@@ -23,11 +23,11 @@ Community coverage index.
 }
 \details{
 The coverage index gives the number of groups needed to
-  have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
+have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
 }
 \examples{
-  data(dietswap)
-  d <- coverage(dietswap, threshold = 0.5)
+data(dietswap)
+d <- coverage(dietswap, threshold = 0.5)
 }
 \seealso{
 dominance, global

@@ -16,9 +16,9 @@ Character vector listing the top taxa
 }
 \description{
 Return n most abundant taxa (based on total abundance over
-   all samples), sorted by abundance
+all samples), sorted by abundance
 }
 \examples{
-  data(dietswap)
-  topx <- top_taxa(dietswap, n = 10)
+data(dietswap)
+topx <- top_taxa(dietswap, n = 10)
 }

@@ -37,14 +37,14 @@ A \code{\link{ggplot}} plot object.
 }
 \description{
 Plot abundance landscape ie. sample density in 2D
-   projection landscape
+projection landscape
 }
 \details{
 For consistent results, set random seet (set.seed) before
-   function call
+function call
 }
 \examples{
-  data(dietswap)
-  p <- plot_landscape(dietswap)
+data(dietswap)
+p <- plot_landscape(dietswap)
 }
 \keyword{utilities}

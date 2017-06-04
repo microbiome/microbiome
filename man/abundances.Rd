@@ -20,13 +20,13 @@ Abundance matrix (OTU x samples).
 }
 \description{
 Retrieves the taxon abundance table from
-   \code{\link{phyloseq-class}} object and ensures it is returned as
-   taxa x samples matrix.
+phyloseq-class object and ensures it is returned as
+taxa x samples matrix.
 }
 \examples{
-   data(dietswap)
-   a <- abundances(dietswap)
-   # b <- abundances(dietswap, transform = 'compositional')
+data(dietswap)
+a <- abundances(dietswap)
+# b <- abundances(dietswap, transform = 'compositional')
 }
 \references{
 See citation('microbiome')

@@ -31,22 +31,22 @@ of the heatmap. Only affects the plot.type = 'heatmap'.}
 }
 \value{
 A list with three elements: the ggplot object and the data.
-         The data has a different form for the lineplot and heatmap.
-         Finally, the applied parameters are returned.
+The data has a different form for the lineplot and heatmap.
+Finally, the applied parameters are returned.
 }
 \description{
 Core visualization (2D).
 }
 \examples{
-  data(atlas1006)
-  p <- plot_core(atlas1006, prevalences = seq(0.1, 1, .1),
-                    detections = c(0, 10^(0:4)))
+data(atlas1006)
+p <- plot_core(atlas1006, prevalences = seq(0.1, 1, .1),
+    detections = c(0, 10^(0:4)))
 }
 \references{
 A Salonen et al. The adult intestinal core microbiota is determined by 
-  analysis depth and health status. Clinical Microbiology and Infection 
-  18(S4):16 20, 2012. 
-  To cite the microbiome R package, see citation('microbiome')
+analysis depth and health status. Clinical Microbiology and Infection 
+18(S4):16 20, 2012. 
+To cite the microbiome R package, see citation('microbiome')
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

@@ -19,22 +19,22 @@ read_csv2phyloseq(otu.file = NULL, taxonomy.file = NULL,
 }
 \description{
 Read simple OTU tables, mapping and taxonomy files into a
-   \code{\link{phyloseq-class}} object.
+\code{\link{phyloseq-class}} object.
 }
 \details{
 Simple OTU tables, mapping and taxonomy files will be converted
-   to \code{\link{phyloseq-class}}.
+to \code{\link{phyloseq-class}}.
 }
 \examples{
-  \dontrun{
-    # TODO: add example files in inst/extdata/
-    # and read here with
-    # system.file('inst/extdata/..', package = 'microbiome') command
-    # To make this example executable
-    p0 <- read_csv2phyloseq(otu.file = 'otu_table.csv', 
-        taxonomy.file = 'taxa_table.csv', 
-        metadata.file = 'meta_table.csv')
-  }
+\dontrun{
+# TODO: add example files in inst/extdata/
+# and read here with
+# system.file('inst/extdata/..', package = 'microbiome') command
+# To make this example executable
+p0 <- read_csv2phyloseq(otu.file = 'otu_table.csv', 
+    taxonomy.file = 'taxa_table.csv', 
+    metadata.file = 'meta_table.csv')
+}
 }
 \author{
 Sudarshan A. Shetty \email{sudarshanshetty9@gmail.com}

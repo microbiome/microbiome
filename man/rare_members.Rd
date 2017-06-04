@@ -24,15 +24,15 @@ and prevalence threshold.
 }
 \details{
 For phyloseq object, lists taxa that are less prevalent than the
-  given prevalence threshold. Optionally, never exceeds the given abundance
-  threshold (by default, all abundanecs accepted). For matrix, lists
-  columns that satisfy these criteria.
+given prevalence threshold. Optionally, never exceeds the given abundance
+threshold (by default, all abundanecs accepted). For matrix, lists
+columns that satisfy these criteria.
 }
 \examples{
-  data(dietswap)
-  # Detection threshold: the taxa never exceed the given detection threshold
-  # Prevalence threshold 20 percent (strictly greater by default)
-  a <- rare_members(dietswap, detection = 100/100, prevalence = 20/100)
+data(dietswap)
+# Detection threshold: the taxa never exceed the given detection threshold
+# Prevalence threshold 20 percent (strictly greater by default)
+a <- rare_members(dietswap, detection = 100/100, prevalence = 20/100)
 }
 \references{
 To cite the microbiome R package, see citation('microbiome')

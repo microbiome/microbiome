@@ -22,20 +22,20 @@ kernel height}
 \value{
 List with following elements:
 \itemize{
-  \item{modes}{Number of modes for the input data vector
-      (the most frequent number of modes from bootstrap)}
-  \item{minima}{Average of potential minima across the bootstrap samples
-      (for the most frequent number of modes)}
-  \item{maxima}{Average of potential maxima across the bootstrap samples
-      (for the most frequent number of modes)}
-  \item{unimodality.support}{Fraction of bootstrap samples exhibiting
-      unimodality}
-  \item{bws}{Bandwidths}
+\item{modes}{Number of modes for the input data vector
+(the most frequent number of modes from bootstrap)}
+\item{minima}{Average of potential minima across the bootstrap samples
+(for the most frequent number of modes)}
+\item{maxima}{Average of potential maxima across the bootstrap samples
+(for the most frequent number of modes)}
+\item{unimodality.support}{Fraction of bootstrap samples exhibiting
+unimodality}
+\item{bws}{Bandwidths}
 }
 }
 \description{
 Analysis of multimodality based on bootstrapped potential
-   analysis of Livina et al. (2010) as described in Lahti et al. (2014).
+analysis of Livina et al. (2010) as described in Lahti et al. (2014).
 }
 \examples{
 # Example data; see help(peerj32) for details
@@ -47,17 +47,17 @@ x <- log10(abundances(peerj32$phyloseq)['Dialister',])
 # Bootstrapped potential analysis
 # In practice, use more bootstrap iterations
 res <- potential_analysis(x, peak.threshold = 0, bw.adjust = 1,
-   bs.iter = 9, min.density = 1)
+    bs.iter = 9, min.density = 1)
 
 }
 \references{
 \itemize{
-  \item{}{Livina et al. (2010). Potential analysis reveals changing number
-     of climate states during the last 60 kyr.
-     \emph{Climate of the Past}, 6, 77-82.}
-  \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
-      ecosystem. \emph{Nature Communications} 5:4344.}
- }
+\item{}{Livina et al. (2010). Potential analysis reveals changing number
+of climate states during the last 60 kyr.
+\emph{Climate of the Past}, 6, 77-82.}
+\item{}{Lahti et al. (2014). Tipping elements of the human intestinal
+ecosystem. \emph{Nature Communications} 5:4344.}
+}
 }
 \seealso{
 plot_potential

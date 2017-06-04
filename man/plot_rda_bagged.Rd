@@ -32,12 +32,12 @@ TBA
 Visualize rda_bagged output.
 }
 \examples{
-   data(peerj32)
-   x <- t(peerj32$microbes)
-   y <- factor(peerj32$meta$time); names(y) <- rownames(peerj32$meta)
-   # Use more iterations in practice
-   res <- rda_bagged(x, y, bs.iter=5)
-   tmp <- plot_rda_bagged(res)
+data(peerj32)
+x <- t(peerj32$microbes)
+y <- factor(peerj32$meta$time); names(y) <- rownames(peerj32$meta)
+# Use more iterations in practice
+res <- rda_bagged(x, y, bs.iter=5)
+tmp <- plot_rda_bagged(res)
 }
 \references{
 See citation('microbiome')

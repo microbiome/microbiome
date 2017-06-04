@@ -18,7 +18,8 @@ quiet <- function(expr, all = TRUE) {
     }
     
     if (all) {
-        suppressWarnings(suppressMessages(suppressPackageStartupMessages(capture.output(expr, 
+        suppressWarnings(suppressMessages(
+        suppressPackageStartupMessages(capture.output(expr, 
             file = file))))
     } else {
         capture.output(expr, file = file)

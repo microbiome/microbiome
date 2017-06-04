@@ -23,14 +23,14 @@ Summarize phyloseq data into a higher phylogenetic level.
 }
 \details{
 This provides a convenient way to aggregate phyloseq OTUs
-  (or other taxa) when the phylogenetic tree is missing. Calculates the
-  sum of OTU abundances over all OTUs that map to the same higher-level
-  group. Removes ambiguous levels from the taxonomy table. Returns a
-  phyloseq object with the summarized abundances.
+(or other taxa) when the phylogenetic tree is missing. Calculates the
+sum of OTU abundances over all OTUs that map to the same higher-level
+group. Removes ambiguous levels from the taxonomy table. Returns a
+phyloseq object with the summarized abundances.
 }
 \examples{
-   data(dietswap)
-   s <- aggregate_taxa(dietswap, 'Phylum')
+data(dietswap)
+s <- aggregate_taxa(dietswap, 'Phylum')
 }
 \references{
 See citation('microbiome')

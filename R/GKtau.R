@@ -27,16 +27,18 @@
 #' @return Dependency measure
 #'
 #' @examples 
-#'   data(peerj32)
-#'   v1 <- unlist(peerj32$microbes[,1])
-#'   v2 <- unlist(peerj32$lipids[,1])
-#'   tc <- GKtau(v1, v2)
+#' data(peerj32)
+#' v1 <- unlist(peerj32$microbes[,1])
+#' v2 <- unlist(peerj32$lipids[,1])
+#' tc <- GKtau(v1, v2)
 #'
 #' @export
 #' @references 
-#'   Code modified from the original source:
-#'   \url{http://r-bloggers.com/measuring-associations-between-non-numeric-variables/}
-#'   To cite the microbiome R package, see citation('microbiome') 
+#' Code modified from the original source:
+#' \url{
+#' http://r-bloggers.com/measuring-associations-between-non-numeric-variables/
+#' }
+#' To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 GKtau <- function(x, y) {

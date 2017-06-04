@@ -15,9 +15,9 @@ Phyloseq object with a normalized time field
 }
 \description{
 Shift the time field in phyloseq sample_data such that the
-   first time point of each subject is always 0.
+first time point of each subject is always 0.
 }
 \examples{
-    data(peerj32)
-    pseq <- time_normalize(peerj32$phyloseq)
+data(peerj32)
+pseq <- time_normalize(peerj32$phyloseq)
 }
