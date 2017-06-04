@@ -29,16 +29,18 @@ microbiome profiling studies [@lahti14natcomm, @Lahti13provasI,
 Tools are provided for the manipulation, statistical analysis, and
 visualization of taxonomic profiling data. In addition to targeted
 case-control studies, the package facilitates scalable exploration of
-large population cohorts [@Lahti14natcomm]. Whereas sample collections
+large population cohorts [@lahti14natcomm]. Whereas sample collections
 are rapidly accumulating for the human body and other environments,
 few general-purpose tools for analysis are available in R. This
 package supports the independent
 [phyloseq](http://joey711.github.io/phyloseq) data format and expands
 the available toolkit in order to facilitate the standardization of
-the analyses and the development of best practices. The aim is to
-complement the other available packages, in some cases alternative
-solutions are provided in order to improve complementarity or
-efficiency.
+the analyses and the development of best practices. See also the
+related [mare pipeline](https://github.com/katrikorpela/mare) for 16S
+rRNA amplicon analysis in R. The aim is to complement the other
+available packages, but in some cases alternative solutions have been
+necessary in order to streamline the tools and to improve
+complementarity.
 
 We welcome feedback, bug reports, and suggestions for new features
 from the user community via the [issue
@@ -54,7 +56,7 @@ Kindly cite the work as follows: "Leo Lahti [et
 al.](https://github.com/microbiome/microbiome/graphs/contributors)
 (2017). Tools for microbiome analysis in R. Microbiome package version
 0.99.2. URL:
-[http://microbiome.github.io/microbiome]
+(http://microbiome.github.io/microbiome)
 
 
 ## Installation
@@ -190,8 +192,8 @@ can be used to visualize sample variables
 here the relation between age and diversity. 
 This function operates on standard data frames.
 
-```{r reg, message=FALSE, fig.width=10, fig.height=5, 
-    warning=FALSE, dev="CairoPNG"}
+
+```r
 # Pick the sample metadata from a phyloseq object
 df <- meta(atlas1006)
 
@@ -201,6 +203,8 @@ df$diversity <- global(atlas1006, index = "shannon")
 # Compare age and microbiome diversity
 plot_regression(diversity ~ age, df)
 ```
+
+![plot of chunk reg](figure/reg-1.png)
 
 
 ### Beta diversity or divergence
@@ -220,7 +224,7 @@ have implemented the correlation-based divergence measure as in
 [@Salonen2014].
 
 As an example, let us compare beta diversity between two treatment
-groups in [@Lahti13ProvasI].
+groups in [@Lahti13provasI].
 
 
 ```r
@@ -236,7 +240,7 @@ b.lgg <- divergence(subset_samples(pseq, group == "LGG"))
 boxplot(list(LGG = b.lgg, Placebo = b.pla))
 ```
 
-![plot of chunk beta](figure/beta-1.png)
+<img src="figure/beta-1.png" title="plot of chunk beta" alt="plot of chunk beta" width="300px" />
 
 
 ## Core microbiota analysis
@@ -279,7 +283,7 @@ To visualize the core as in [@Shetty2017], use
 
 
 ```r
-library(ggplot2)
+library(ggplot2, quiet = TRUE)
 p <- plot_core(transform(dietswap.core, "compositional"), 
     plot.type = "heatmap", 
     colours = gray(seq(0,1,length=5)),
@@ -302,7 +306,7 @@ tmp <- plot_composition(dietswap.core, plot.type = "heatmap", transform = "Z",
             mar = c(6, 13, 1, 1), sample.sort = "nationality")
 ```
 
-![plot of chunk compheat](figure/compheat-1.png)
+<img src="figure/compheat-1.png" title="plot of chunk compheat" alt="plot of chunk compheat" width="300px" />
 
 
 Composition barplot
@@ -320,8 +324,8 @@ Visualize sample similarities, or the microbiome landscape
 methods](http://microbiome.github.io/microbiome/Ordination.html)
 (PCoA, NMDS, RDA etc) are available.
 
-```{r landscape4, message=FALSE, warning=FALSE, 
-    fig.width=8, fig.height=6, out.width="400px"}
+
+```r
 # Project the samples with the given method and dissimilarity measure. 
 # Ordinate the data; note that some ordinations are sensitive to random seed
 # "quiet" is used to suppress intermediate outputs
@@ -330,6 +334,8 @@ quiet(proj <- get_ordination(dietswap.core, "NMDS", "bray"))
 p <- plot_landscape(proj[, 1:2], col = proj$nationality, legend = TRUE)
 print(p)
 ```
+
+<img src="figure/landscape4-1.png" title="plot of chunk landscape4" alt="plot of chunk landscape4" width="400px" />
 
 
 
@@ -372,7 +378,7 @@ heat(correlation.table, "X1", "X2", fill = "Correlation",
     star = "p.adj", p.adj.threshold = 0.05) 
 ```
 
-![plot of chunk hm3](figure/hm3-1.png)
+<img src="figure/hm3-1.png" title="plot of chunk hm3" alt="plot of chunk hm3" width="300px" />
 
 
 ## Bistability and tipping elements
