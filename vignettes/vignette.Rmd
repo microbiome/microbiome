@@ -47,16 +47,18 @@ visualization of taxonomic profiling data. In addition to targeted
 case-control studies, the package facilitates scalable exploration of
 large population cohorts [@lahti14natcomm]. Whereas sample collections
 are rapidly accumulating for the human body and other environments,
-few general-purpose tools for targeted microbiome analysis are available in R.
-This package supports the independent
+few general-purpose tools for targeted microbiome analysis are
+available in R.  This package supports the independent
 [phyloseq](http://joey711.github.io/phyloseq) data format and expands
 the available toolkit in order to facilitate the standardization of
 the analyses and the development of best practices. See also the
-related [mare pipeline](https://github.com/katrikorpela/mare) for 16S
-rRNA amplicon analysis in R. The aim is to complement the other
-available packages, but in some cases alternative solutions have been
-necessary in order to streamline the tools and to improve
-complementarity.
+related [PathoStat
+pipeline](http://bioconductor.org/packages/release/bioc/vignettes/PathoStat/inst/doc/PathoStatIntro.html)
+[mare pipeline](https://github.com/katrikorpela/mare),
+[phylofactor](), and [structSSI]() for additional 16S rRNA amplicon
+analysis tools in R. The aim is to complement the other available
+packages, but in some cases alternative solutions have been necessary
+in order to streamline the tools and to improve complementarity.
 
 We welcome feedback, bug reports, and suggestions for new features
 from the user community via the [issue
