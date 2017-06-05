@@ -73,9 +73,10 @@ dominance <- function(x, index="all", rank=1, relative=TRUE,
     aggregate=TRUE) {
 
     # Only include accepted indices
+    index <- tolower(index)
     accepted <- tolower(c("DBP", "DMN", "absolute", "relative",
         "simpson", "core_abundance", "gini"))
-    
+
     # Return all indices
     if (length(index) == 1 && index == "all") {
         index <- accepted
@@ -84,19 +85,19 @@ dominance <- function(x, index="all", rank=1, relative=TRUE,
     if (!is.null(index)) {
         index <- intersect(index, accepted)
     }
-    
+
     if (!is.null(index) && length(index) == 0) {
-        return(NULL)
+        index <- NULL
     }
-    
-    do <- dominance_help(x, index, rank, relative=TRUE, aggregate)
+
+    do <- dominance_help(x, index, rank, relative=relative, aggregate)
 
     if (is.vector(do)) {
         do <- as.matrix(do, ncol=1)
         colnames(do) <- index        
     }
-    
-    do
+
+    as.data.frame(do)
 
 }
 
@@ -111,7 +112,7 @@ dominance_help <- function(x, index="all", rank=1, relative=TRUE,
     if (length(index) > 1) {
         tab <- NULL
         for (idx in index) {
-            tab <- cbind(tab, dominance(x, index=idx, rank=rank,
+            tab <- cbind(tab, dominance_help(x, index=idx, rank=rank,
                 relative=relative, 
                 aggregate=aggregate))
         }
@@ -121,18 +122,18 @@ dominance_help <- function(x, index="all", rank=1, relative=TRUE,
     }
     
     otu <- abundances(x)
-    
+
     if (is.null(index)) {
         rank <- rank
     } else if (index == "absolute") {
         relative <- FALSE  # Rank=1 by default but can be tuned
     } else if (index %in% c("relative")) {
         relative <- TRUE  # Rank=1 by default but can be tuned
-    } else if (index %in% c("DBP")) {
+    } else if (index %in% c("dbp")) {
         # Berger-Parker
         rank <- 1
         relative <- TRUE
-    } else if (index %in% c("DMN")) {
+    } else if (index %in% c("dmn")) {
         # McNaughton's dominance
         rank <- 2
         relative <- TRUE
@@ -146,7 +147,7 @@ dominance_help <- function(x, index="all", rank=1, relative=TRUE,
     } else if (index == "gini") {
         return(inequality(otu))
     }
-    
+
     if (relative) {
         otu <- apply(otu, 2, function(x) {
             x/sum(x, na.rm=TRUE)

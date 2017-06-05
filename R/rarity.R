@@ -49,6 +49,7 @@
 rarity <- function(x, index="all") {
     
     # Only include accepted indices
+    index <- tolower(index)    
     accepted <- c("log_modulo_skewness", "low_abundance",
                     "noncore_abundance", "rare_abundance")
     accepted <- tolower(accepted)
@@ -73,8 +74,8 @@ rarity <- function(x, index="all") {
         colnames(tab) <- index        
     }
     
-    tab
-    
+    as.data.frame(tab) 
+
 }
 
 
@@ -83,7 +84,7 @@ rarity_help <- function(x, index="all") {
     if (length(index) > 1) {
         tab <- NULL
         for (idx in index) {
-            tab <- cbind(tab, rarity(x, index=idx))
+            tab <- cbind(tab, rarity_help(x, index=idx))
         }
         colnames(tab) <- index
         return(as.data.frame(tab))

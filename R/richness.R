@@ -21,8 +21,8 @@ richness <- function(x, detection=NULL) {
         tab <- as.matrix(tab, ncol=1)
         colnames(tab) <- gsub("%", "", as.character(detection))
     }
-    
-    tab
+
+    as.data.frame(tab)
     
 }
 

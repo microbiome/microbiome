@@ -30,25 +30,39 @@ global <- function(x, index="all") {
     
     tab <- NULL
     index <- tolower(index)
-    
+
     if (any(c("all", "richness") %in% index)) {
         a <- richness(x)
+
         if (!is.null(a)) {
+
             if (is.vector(a)) {
                 a <- as.matrix(a, ncol=1)
             }
+
             colnames(a) <- paste("richness_", colnames(a), sep="")
-            tab <- cbind(tab, a)
+        
+            if (!is.null(tab)) {
+                tab <- cbind(tab, a)
+            } else {
+                tab <- a
+            }
         }
     }
-    
+
     a <- diversities(x, index=gsub("diversity_", "", index))
     if (!is.null(a)) {
         if (is.vector(a)) {
             a <- as.matrix(a, ncol=1)
         }
         colnames(a) <- paste("diversities_", colnames(a), sep="")
-        tab <- cbind(tab, a)
+    
+        if (!is.null(tab)) {
+            tab <- cbind(tab, a)
+        } else {
+            tab <- a
+        }
+
     }
     
     a <- evenness(x, index=gsub("evenness_", "", index))
@@ -57,7 +71,13 @@ global <- function(x, index="all") {
             a <- as.matrix(a, ncol=1)
         }
         colnames(a) <- paste("evenness_", colnames(a), sep="")
-        tab <- cbind(tab, a)
+
+        if (!is.null(tab)) {
+            tab <- cbind(tab, a)
+        } else {
+            tab <- a
+        }    
+
     }
     
     a <- dominance(x, index=gsub("dominance_", "", index))
@@ -67,7 +87,13 @@ global <- function(x, index="all") {
             a <- as.matrix(a, ncol=1)
         }
         colnames(a) <- paste("dominance_", colnames(a), sep="")
-        tab <- cbind(tab, a)
+
+        if (!is.null(tab)) {
+            tab <- cbind(tab, a)
+        } else {
+            tab <- a
+        }    
+
     }
 
     a <- rarity(x, index=gsub("rarity_", "", index))
@@ -76,7 +102,13 @@ global <- function(x, index="all") {
             a <- as.matrix(a, ncol=1)
         }
         colnames(a) <- paste("rarity_", colnames(a), sep="")
-        tab <- cbind(tab, a)
+
+        if (!is.null(tab)) {
+            tab <- cbind(tab, a)
+        } else {
+            tab <- a
+        }    
+
     }
     
     if (ncol(tab) > 1) {
@@ -85,7 +117,7 @@ global <- function(x, index="all") {
         tab <- tab[, 1]
     }
 
-    tab
+    as.data.frame(tab)
 }
 
 

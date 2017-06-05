@@ -68,10 +68,10 @@ diversities <- function(x, index="all", zeroes=TRUE) {
 
     if (is.vector(tab)) {
         tab <- as.matrix(tab, ncol=1)
-        colnames(tab) <- index        
+        colnames(tab) <- index
     }
-    
-    tab
+
+    as.data.frame(tab)
 
 }
 
@@ -82,7 +82,7 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
     if (length(index) > 1) {
         tab <- NULL
         for (idx in index) {
-            tab <- cbind(tab, diversities(x, index=idx, zeroes=TRUE))
+            tab <- cbind(tab, diversities_help(x, index=idx, zeroes=TRUE))
         }
         colnames(tab) <- index
         return(as.data.frame(tab))

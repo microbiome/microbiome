@@ -69,6 +69,7 @@
 evenness <- function(x, index="all", zeroes=TRUE) {
     
     # Only include accepted indices
+    index <- tolower(index)    
     accepted <- c("camargo", "pielou", "simpson", "evar", "bulla")    
     accepted <- tolower(accepted)
 
@@ -91,8 +92,8 @@ evenness <- function(x, index="all", zeroes=TRUE) {
         tab <- as.matrix(tab, ncol=1)
         colnames(tab) <- index        
     }
-    
-    tab
+
+    as.data.frame(tab)
     
 }
 
@@ -117,7 +118,7 @@ evenness_help <- function(x, index="all", zeroes=TRUE) {
     if (length(index) > 1) {
         ev <- NULL
         for (idx in index) {
-            ev <- cbind(ev, evenness(x, index=idx, zeroes=TRUE))
+            ev <- cbind(ev, evenness_help(x, index=idx, zeroes=TRUE))
         }
         colnames(ev) <- index
         return(as.data.frame(ev))
