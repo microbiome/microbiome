@@ -57,7 +57,12 @@ For direct access to the ordination coordinates, use the following:
 # Ordinate the data; note that some ordinations are sensitive to random seed
 # "quiet" is used to suppress intermediate outputs
 set.seed(423542)
-quiet(proj <- get_ordination(pseq.core, "NMDS", "bray"))
+x <- pseq.core
+quiet(x.ord <- ordinate(x, "NMDS", "bray"))
+# Pick the projected data (first two columns + metadata)
+proj <- phyloseq::plot_ordination(x, x.ord, justDF=TRUE)
+# Rename the projection axes
+names(proj)[1:2] <- paste("Comp", 1:2, sep=".")
 
 # Same with a generic data.frame
 # (note that random seed will affect the exact ordination)

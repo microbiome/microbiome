@@ -35,7 +35,8 @@ pseq <- peerj32$phyloseq # Rename the example data
 Abundance boxplot
 
 ```{r boxplot2, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, out.width="300px"}
-p <- boxplot_abundance(pseq, x = "time", y = "Akkermansia", line = "subject", color = "gender") + scale_y_log10()
+p <- boxplot_abundance(pseq, x = "time", y = "Akkermansia", line = "subject") +
+    scale_y_log10()
 print(p)
 ```
 

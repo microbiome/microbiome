@@ -100,8 +100,4 @@ plot_ordination(pseq, pseq.cca,
 
 
 
-### RDA
-
-See a separate page on [RDA](RDA.html).
-
 

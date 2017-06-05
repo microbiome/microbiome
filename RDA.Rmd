@@ -17,9 +17,13 @@ output:
 
 ## RDA analysis and visualization. 
 
+NOTE: These functions have unresolved issues and many
+dependencies. They will require thorough revision before inclusion to
+the package is possible.
+
 Load the package and example data:
 
-```{r rda, warning=FALSE, message=FALSE, eval=TRUE}
+```{r rda, warning=FALSE, message=FALSE, eval=FALSE}
 library(microbiome)
 data(peerj32) # Data from https://peerj.com/articles/32/
 pseq <- peerj32$phyloseq # phyloseq data
@@ -35,7 +39,7 @@ pseq.trans <- microbiome::transform(pseq, "hell") # Hellinger transform
 
 Bagged RDA provides added robustness in the analysis compared to the standard RDA. Fit bagged (bootstrap aggregated) RDA on a phyloseq object (alternatively you could apply it to the abundance matrix and covariates directly):
 
-```{r rda5, warning=FALSE, message=FALSE, eval=TRUE}
+```{r rda5, warning=FALSE, message=FALSE, eval=FALSE}
 # In any real study, use bs.iter = 100 or higher
 # to achieve meaningful benefits from the bagged version.
 # In this example we use bs.iter = 2 just to speed up the
@@ -45,7 +49,7 @@ res <- rda_bagged(pseq.trans, "group", bs.iter=2)
 
 Visualizing bagged RDA:
 
-```{r rda6, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval=TRUE}
+```{r rda6, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval=FALSE}
 plot_rda_bagged(res)
 ```
 
@@ -87,7 +91,7 @@ pl <- ordihull(rda.result, metadata$time, scaling = 3, label = TRUE)
 
 ### RDA significance test
 
-```{r rda2bc, warning=FALSE, message=FALSE, eval=TRUE}
+```{r rda2bc, warning=FALSE, message=FALSE, eval=FALSE}
 permutest(rda.result) 
 ```
 
@@ -97,7 +101,7 @@ permutest(rda.result)
 For more complex RDA scenarios, use the standard RDA available via the
 vegan R package.
 
-```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval=TRUE}
+```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval=FALSE}
 # Pick microbiota profiling data from the phyloseq object
 otu <- abundances(pseq.trans)
 

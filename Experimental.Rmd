@@ -23,5 +23,6 @@ Miscellaneous analysis examples in case they might be useful:
 * [Interactive](Interactive.html)
 * [Phylogenetic microarrays](HITChip.html)
 * [Potential analysis](Potential.html)
+* [RDA](RDA.html)
 * [Themes](Themes.html)
 * [Visualization](Visualization.html)

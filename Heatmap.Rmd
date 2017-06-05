@@ -38,16 +38,11 @@ pseqz <- microbiome::transform(pseq2, "Z")
 
 ### Matrix heatmaps
 
-Pick abundance matrix separately and use matrix visualization
-tools. Z-transforming OTUs ie. visualize deviation of all bacteria
-from their population mean (smaller: blue; higher: red):
+Visualize the Z-transformed abundance matrix
 
 ```{r heatmap-matvisu-example, fig.width=16, fig.height=5}
-# Pick OTU table
-x <- abundances(pseqz)
-
-# Plot heatmap
-tmp <- plot_matrix(x, type = "twoway", mar = c(5, 14, 1, 1))
+# Plot the abundances heatmap
+heat(melt(abundances(pseqz)), "Var1", "Var2", "value")
 ```
 
 
@@ -55,11 +50,13 @@ Find visually appealing order for rows and columns with the Neatmap approach:
 
 ```{r neatmap3, message=FALSE, warning=FALSE, fig.width=16, fig.height=5}
 # Sort the matrix rows and cols directly
-xo <- neat(x, method = "NMDS", distance = "euclidean") # Sorted matrix
-tmp <- plot_matrix(xo, type = "twoway", mar = c(5, 12, 1, 1))
+xo <- neat(abundances(pseqz), method = "NMDS", distance = "euclidean") 
+
+# Heatmap visualization
+heat(melt(xo), "Var1", "Var2", "value")
 
 # or use a shortcut to sorting rows (or columns) if just the order was needed 
-sorted.rows <- neatsort(x, "rows", method = "NMDS", distance = "euclidean") 
+sorted.rows <- neatsort(abundances(pseqz), "rows", method = "NMDS", distance = "euclidean") 
 ```
 
 
@@ -68,7 +65,7 @@ sorted.rows <- neatsort(x, "rows", method = "NMDS", distance = "euclidean")
 
 Cross-correlate columns of two data sets from related to microbiome and blood serum lipids associations ([PeerJ 1:e32](https://peerj.com/articles/32/)).
 
-The function returns correlations, raw p-values, and fdr estimates (not strictly proper as the comparisons are not independent). Here robust biweight midcorrelation ('bicor') from the [WGCNA package](http://labs.genetics.ucla.edu/horvath/CoexpressionNetwork/Rpackages/WGCNA/). Keep only those elements that have at least only one significant correlation (n.signif):
+The function returns correlations, raw p-values, and fdr estimates (not strictly proper as the comparisons are not independent). Keep only those elements that have at least only one significant correlation (n.signif):
 
 ```{r heatmap-crosscorrelate4, message=FALSE, warning=FALSE, fig.keep='none'}
 # Load example data 
@@ -80,10 +77,10 @@ x <- log10(otu) # OTU Log10 (44 samples x 130 genera)
 y <- as.matrix(lipids) # Lipids (44 samples x 389 lipids)
 
 # Cross correlate data sets
-correlations <- associate(x, y, method = "bicor", mode = "matrix", p.adj.threshold = 0.05, n.signif = 1)
+correlations <- associate(x, y, method = "spearman", mode = "matrix", p.adj.threshold = 0.05, n.signif = 1)
 
 # Or, alternatively, the same output is also available in a handy table format
-correlation.table <- associate(x, y, method = "bicor", mode = "table", p.adj.threshold = 0.05, n.signif = 1)
+correlation.table <- associate(x, y, method = "spearman", mode = "table", p.adj.threshold = 0.05, n.signif = 1)
 
 kable(head(correlation.table))
 ```
