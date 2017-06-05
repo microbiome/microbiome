@@ -39,8 +39,8 @@ Core visualization (2D).
 }
 \examples{
 data(atlas1006)
-p <- plot_core(atlas1006, prevalences=seq(0.1, 1, .1),
-    detections=c(0, 10^(0:4)))
+plot_core(transform(atlas1006, "compositional"),
+prevalences=seq(0.1, 1, .1), detections=seq(0.01, 1, length = 10))
 }
 \references{
 A Salonen et al. The adult intestinal core microbiota is determined by 
