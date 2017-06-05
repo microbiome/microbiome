@@ -13,54 +13,26 @@ biocViews: Clustering, Metagenomics, Microbiome, Sequencing, SystemsBiology
 License: BSD_2_clause + file LICENSE
 Depends:
     R (>= 3.4.0),
-    phyloseq
+    phyloseq,
+    ggplot2
 Imports:
-    ade4,
     dplyr,
-    ggplot2,
-    graphics,    
-    grDevices,    
-    MASS,
-    moments,
-    plyr,
     reshape2,
-    scales,
     stats,
     tidyr,
     utils,
-    vegan,
-    WGCNA
+    vegan
 Suggests:
     BiocGenerics,
     BiocStyle,
     Cairo,
     devtools,
-    DESeq2,
-    diptest,
-    FD,
-    GGally,
-    gcookbook,    
-    ggnet,
     gridExtra,
-    Hmisc,
-    hrbrthemes,
-    igraph,
-    intergraph,
     knitcitations,
     knitr,
-    limma,
-    lme4,
-    magrittr,
-    netresponse,
-    network,
-    RColorBrewer,
     rmarkdown,
-    sna,
-    SpiecEasi,
-    structSSI,
     testthat,
-    tidyverse,
-    viridis
+    tidyverse
 URL: http://microbiome.github.io/microbiome
 MailingList: microbiome <microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues

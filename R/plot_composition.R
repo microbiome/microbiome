@@ -84,7 +84,10 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
         # Remove samples with no group info
         dff <- dff %>% filter(!is.na(group))
         dff$group <- droplevels(dff$group)
-        av <- ddply(dff, "group", colwise(mean))
+	
+        # av <- ddply(dff, "group", colwise(mean))
+	av <- aggregate(. ~ group, data = dff, mean)
+
         rownames(av) <- as.character(av$group)
         av$group <- NULL
         abu <- t(av)  # taxa x groups
@@ -134,7 +137,8 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
         message("Prepare data.frame.")
     }
     # Abundances as data.frame dfm <- psmelt(x)
-    dfm <- melt(abu)
+    #dfm <- melt(abu)
+    dfm <- psmelt(otu_table(abu, taxa_are_rows = TRUE))
     names(dfm) <- c("OTU", "Sample", "Abundance")
     dfm$Sample <- factor(dfm$Sample, levels=sample.sort)
     dfm$OTU <- factor(dfm$OTU, levels=otu.sort)
@@ -205,8 +209,11 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
         sample.sort <- sample.sort[sample.sort %in% colnames(otu)]
         
         # Plot TODO: move it in here from netresponse and return the
-        # ggplot object as well
-        p <- plot_matrix(otu[otu.sort, sample.sort], type="twoway", mar=mar)
+        # #ggplot object as well
+        # p <- plot_matrix(otu[otu.sort, sample.sort], type="twoway", mar=mar)
+	tmp <- melt(otu[otu.sort, sample.sort])
+        p <- heat(tmp, colnames(tmp)[[1]], colnames(tmp)[[2]],
+	        colnames(tmp)[[3]])
         
     }
     

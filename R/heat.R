@@ -33,13 +33,13 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-heat <- function(df, Xvar, Yvar, fill, star, p.adj.threshold=1,
+heat <- function(df, Xvar, Yvar, fill, star = NULL, p.adj.threshold=1,
     association.threshold=0, 
     step=0.2, colours=c("darkblue", "blue", "white", "red", "darkred"),
     limits=NULL, legend.text="", order.rows=TRUE, order.cols=TRUE,
     text.size=10, filter.significant=TRUE, 
     star.size=NULL, plot.values=FALSE) {
-    
+
     if (is.null(limits)) {
         maxval <- max(abs(df[[fill]]))
         if (maxval <= 1) {
@@ -54,7 +54,7 @@ heat <- function(df, Xvar, Yvar, fill, star, p.adj.threshold=1,
         return(NULL)
     }
     
-    if (filter.significant) {
+    if (filter.significant & !is.null(star)) {
         keep.X <- as.character(unique(df[((df[[star]] < p.adj.threshold) &
         (abs(df[[fill]]) > association.threshold)), Xvar]))
         keep.Y <- as.character(unique(df[((df[[star]] < p.adj.threshold) &
@@ -130,10 +130,11 @@ heat <- function(df, Xvar, Yvar, fill, star, p.adj.threshold=1,
     p <- p + theme(axis.text.x=element_text(angle=90))
     
     # Mark significant cells with stars
-    inds <- which((df[[star]] < p.adj.threshold) &
-        (abs(df[[fill]]) > association.threshold))
-    if (!is.null(star) & length(inds) > 0) {
-        df.sub <- df[inds, ]
+    if (!is.null(star)) {
+        inds <- which((df[[star]] < p.adj.threshold) &
+            (abs(df[[fill]]) > association.threshold))
+        if (!is.null(star) & length(inds) > 0) {
+            df.sub <- df[inds, ]
         
         if (is.null(star.size)) {
             star.size <- max(1, floor(text.size/2))
@@ -141,8 +142,8 @@ heat <- function(df, Xvar, Yvar, fill, star, p.adj.threshold=1,
         
         p <- p + geom_text(data=df.sub, aes(x=XXXX, y=YYYY, label="+"),
         col="white", size=star.size)
+        }
     }
-    
     if (plot.values) {
         p <- p + geom_text(aes(label=round(ffff, 2)), size=3)
     }

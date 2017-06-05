@@ -4,7 +4,7 @@
 \alias{heat}
 \title{Association Heatmap}
 \usage{
-heat(df, Xvar, Yvar, fill, star, p.adj.threshold = 1,
+heat(df, Xvar, Yvar, fill, star = NULL, p.adj.threshold = 1,
   association.threshold = 0, step = 0.2, colours = c("darkblue", "blue",
   "white", "red", "darkred"), limits = NULL, legend.text = "",
   order.rows = TRUE, order.cols = TRUE, text.size = 10,

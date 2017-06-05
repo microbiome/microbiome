@@ -270,7 +270,7 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
 bimodality_sarle <- function(x, bs.iter=1, na.rm=TRUE,
 type="Sarle.finite.sample") {
     
-    g <- skewness(x, na.rm)
+    g <- skew(x)
     k <- kurtosis(x, na.rm)
     
     if (type == "Sarle.asymptotic") {
@@ -295,4 +295,27 @@ type="Sarle.finite.sample") {
     
     s
     
+}
+
+
+# Inspired by moments::kurtosis but rewritten. Internal.
+kurtosis <- function (x, na.rm=FALSE)
+{
+    if (is.matrix(x)) {
+        k <- apply(x, 2, kurtosis, na.rm=na.rm)
+	return(k)
+    } else if (is.vector(x)) {
+        if (na.rm) {
+            x <- x[!is.na(x)]
+	}
+        n <- length(x)
+        k <- n * sum((x - mean(x))^4)/(sum((x - mean(x))^2)^2)
+	return(k)
+    } else if (is.data.frame(x)) {
+        k <- sapply(x, kurtosis, na.rm = na.rm)
+        return(k)
+    } else {
+        kurtosis(as.vector(x), na.rm = na.rm)
+        return(k)
+    }
 }

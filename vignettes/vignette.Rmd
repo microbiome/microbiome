@@ -317,7 +317,7 @@ y <- as.matrix(peerj32$lipids) # Lipids (44 samples x 389 lipids)
 
 # Cross correlate data sets and return a table
 correlation.table <- associate(x, y, 
-    method = "bicor", mode = "table", p.adj.threshold = 0.05, n.signif = 1)
+    method = "spearman", mode = "table", p.adj.threshold = 0.05, n.signif = 1)
 
 kable(head(correlation.table))
 ```

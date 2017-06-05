@@ -10,6 +10,6 @@
 #' topx <- top_taxa(dietswap, n=10)
 top_taxa <- function(x, n=ntaxa(x)) {
     
-    names(sort(taxa_sums(x), decreasing=TRUE)[1:n])
+    names(sort(colSums(abundances(x)), decreasing=TRUE)[1:n])
     
 }

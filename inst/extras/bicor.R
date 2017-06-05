@@ -1,8 +1,10 @@
+#' @importFrom WGCNA bicorAndPvalue
+
 #' @title Cross Correlation Wrapper
 #' @description Cross-correlate columns of the input matrices.
 #' @param x matrix (samples x features if annotation matrix)
 #' @param y matrix (samples x features if cross-correlated with annotations)
-#' @param method association method ('pearson', or 'spearman'
+#' @param method association method ('pearson', 'spearman', or 'bicor' 
 #' for continuous; categorical for discrete)
 #' @param p.adj.threshold q-value threshold to include features 
 #' @param cth correlation threshold to include features 
@@ -57,7 +59,7 @@ verbose=FALSE, filter.self.correlations=FALSE) {
     xnames <- colnames(x)
     ynames <- colnames(y)
     qv <- NULL
-    numeric.methods <- c("spearman", "pearson")
+    numeric.methods <- c("spearman", "pearson", "bicor")
     categorical.methods <- c("categorical")
     
     # Rows paired.
@@ -65,7 +67,7 @@ verbose=FALSE, filter.self.correlations=FALSE) {
         inds <- sapply(x, is.numeric)
         if (any(!inds)) {
             warning("Considering only numeric annotations for \n       
-                    pearson/spearman")
+                    pearson/spearman/bicor/mi")
         }
         inds <- names(which(inds))
     } else if (method %in% categorical.methods) {
@@ -132,14 +134,14 @@ verbose=FALSE, filter.self.correlations=FALSE) {
             
         }
         
-    #} else if (method == "bicor") {
-    #    
-    #    t1 <- suppressWarnings(
-    #    bicorAndPvalue(x, y, use="pairwise.complete.obs"))
-    #    Pc <- t1$p
-    #    Cc <- t1$bicor
-    #    
-    #    
+    } else if (method == "bicor") {
+        
+        t1 <- suppressWarnings(
+        bicorAndPvalue(x, y, use="pairwise.complete.obs"))
+        Pc <- t1$p
+        Cc <- t1$bicor
+        
+        
     } else if (method == "categorical") {
         
         if (verbose) {

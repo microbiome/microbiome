@@ -3,7 +3,7 @@ title: "Introduction to the microbiome R package"
 author: "Leo Lahti, Sudarshan Shetty, et al."
 bibliography: 
 - bibliography.bib
-date: "2017-06-04"
+date: "2017-06-05"
 output:
   rmarkdown::md_document:
     toc: true
@@ -57,7 +57,7 @@ license](http://en.wikipedia.org/wiki/BSD\_licenses).
 Kindly cite the work as follows: "Leo Lahti [et
 al.](https://github.com/microbiome/microbiome/graphs/contributors)
 (2017). Tools for microbiome analysis in R. Microbiome package version
-0.99.2. URL:
+0.99.22. URL:
 (http://microbiome.github.io/microbiome)
 
 
@@ -308,8 +308,6 @@ tmp <- plot_composition(dietswap.core, plot.type = "heatmap", transform = "Z",
             mar = c(6, 13, 1, 1), sample.sort = "nationality")
 ```
 
-<img src="figure/compheat-1.png" title="plot of chunk compheat" alt="plot of chunk compheat" width="300px" />
-
 
 Composition barplot
         
@@ -355,21 +353,21 @@ y <- as.matrix(peerj32$lipids) # Lipids (44 samples x 389 lipids)
 
 # Cross correlate data sets and return a table
 correlation.table <- associate(x, y, 
-    method = "bicor", mode = "table", p.adj.threshold = 0.05, n.signif = 1)
+    method = "spearman", mode = "table", p.adj.threshold = 0.05, n.signif = 1)
 
 kable(head(correlation.table))
 ```
 
 
 
-|    |X1                               |X2         | Correlation|     p.adj|
-|:---|:--------------------------------|:----------|-----------:|---------:|
-|833 |Ruminococcus gnavus et rel.      |TG(54:5).2 |   0.7207818| 0.0017385|
-|547 |Ruminococcus gnavus et rel.      |TG(52:5)   |   0.6996301| 0.0031929|
-|141 |Eubacterium cylindroides et rel. |PC(40:3)   |  -0.6771286| 0.0038006|
-|144 |Helicobacter                     |PC(40:3)   |  -0.6838424| 0.0038006|
-|437 |Ruminococcus gnavus et rel.      |TG(50:4)   |   0.6852226| 0.0038006|
-|525 |Ruminococcus gnavus et rel.      |TG(52:4).1 |   0.6716223| 0.0038006|
+|     |X1                              |X2         | Correlation|     p.adj|
+|:----|:-------------------------------|:----------|-----------:|---------:|
+|1648 |Ruminococcus gnavus et rel.     |TG(54:5).2 |   0.7164958| 0.0022842|
+|384  |Moraxellaceae                   |PC(40:3e)  |  -0.6941863| 0.0029225|
+|1829 |Uncultured Bacteroidetes        |TG(56:2).1 |  -0.6987375| 0.0029225|
+|349  |Lactobacillus plantarum et rel. |PC(40:3)   |  -0.6877976| 0.0031520|
+|1198 |Ruminococcus gnavus et rel.     |TG(52:5)   |   0.6806216| 0.0037518|
+|264  |Moraxellaceae                   |PC(38:4).1 |  -0.6700504| 0.0038414|
 
 Let us rearrange the data and plot the heatmap and highlight
 significant correlations with stars as in [@Lahti13provasI].

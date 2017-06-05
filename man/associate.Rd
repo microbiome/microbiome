@@ -14,7 +14,7 @@ associate(x, y = NULL, method = "spearman", p.adj.threshold = Inf,
 
 \item{y}{matrix (samples x features if cross-correlated with annotations)}
 
-\item{method}{association method ('pearson', 'spearman', or 'bicor' 
+\item{method}{association method ('pearson', or 'spearman'
 for continuous; categorical for discrete)}
 
 \item{p.adj.threshold}{q-value threshold to include features}

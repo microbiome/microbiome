@@ -146,7 +146,7 @@ transform <- function(x, transform="identity", target="OTU", shift=0) {
     xret <- xt
     
     # If the input was phyloseq, then return phyloseq
-    if (is.phyloseq(xorig)) {
+    if (class(xorig) == "phyloseq") {
         if (taxa_are_rows(xorig)) {
             otu_table(xorig)@.Data <- xret
         } else {

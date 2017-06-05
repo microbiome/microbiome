@@ -99,7 +99,7 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
     df <- df[!(is.na(df[["x"]]) | is.na(df[["y"]])), ]
     
     # Determine bandwidth for density estimation
-    bw <- adjust * c(bandwidth.nrd(df[["x"]]), bandwidth.nrd(df[["y"]]))
+    bw <- adjust * c(bwi(df[["x"]]), bwi(df[["y"]]))
     if (any(bw == 0)) {
         warning("Zero bandwidths 
     (possibly due to small number of observations). Using minimal bandwidth.")
@@ -150,3 +150,9 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
 
 
 
+# Bandwidth
+# As in MASS::bandwidth.nrd but rewritten. Internal.
+bwi <- function (x) {
+    r <- quantile(x, c(0.25, 0.75))
+    4 * 1.06 * min(sd(x), (r[[2]] - r[[1]])/1.34) * length(x)^(-.2)
+}

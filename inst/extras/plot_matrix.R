@@ -50,8 +50,7 @@ plot_matrix <- function(mat, type="twoway", midpoint=0, palette=NULL,
     
     mat[mat > cap] <- cap
     mat[mat < -cap] <- (-cap)
-    
-    
+        
     if (length(col.breaks) == 0) {
         
         m <- max(round(max(abs(mat)), limit.trunc) - interval, 0)

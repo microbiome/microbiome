@@ -93,7 +93,7 @@ neatsort <- function(x, target, method="NMDS", distance="bray",
     # Define new sample ordering based on the ordination Quick fix: the scores
     # function fails otherwise.
     disp.target <- target
-    if (target == "species" && !is.phyloseq(xo)) {
+    if (target == "species" && !class(xo) == "phyloseq") {
         disp.target <- "sites"
     }
     

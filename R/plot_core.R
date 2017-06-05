@@ -28,7 +28,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 plot_core <- function(x, prevalences=seq(, 1, 1, 0.1), detections=20,
-    plot.type="lineplot", colours=gray(seq(0, 1, length=5)),
+    plot.type="lineplot", colours=NULL, # gray(seq(0, 1, length=5)),
     min.prevalence=NULL, taxa.order=NULL, horizontal=FALSE) {
     
     if (length(detections) == 1) {
@@ -138,7 +138,7 @@ core_matrix <- function(x, prevalences=seq(0.1, 1, , 1), detections=NULL) {
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 core_heatmap <- function(data, detections=20,
-    colours=gray(seq(0, 1, length=5)), 
+    colours=NULL, #gray(seq(0, 1, length=5)), 
     min.prevalence=NULL, taxa.order=NULL) {
     
     DetectionThreshold <- Taxa <- Prevalence <- NULL
@@ -175,10 +175,13 @@ core_heatmap <- function(data, detections=20,
     p <- p + geom_tile()
     p <- p + xlab("Detection Threshold")
     p <- p + scale_x_log10()
-    
-    p <- p + scale_fill_gradientn("Prevalence",
-        breaks=seq(from=0, to=1, by=0.1), 
-        colours=colours, limits=c(0, 1))
+
+    if (!is.null(colours)) {
+        p <- p + scale_fill_gradientn("Prevalence",
+            breaks=seq(from=0, to=1, by=0.1), 
+            colours=colours,
+            limits=c(0, 1))
+    }
     
     return(list(plot=p, data=df))
     

@@ -6,9 +6,8 @@
 \usage{
 plot_regression(formula, data, B = 1000, shade = TRUE, shade.alpha = 0.1,
   spag = FALSE, mweight = TRUE, show.lm = FALSE, show.median = TRUE,
-  median.col = "white", show.CI = FALSE, method = loess, bw = FALSE,
-  slices = 200, palette = colorRampPalette(c("#FFEDA0", "#DD0000"), bias =
-  2)(20), ylim = NULL, quantize = "continuous", show.points = TRUE, ...)
+  median.col = "white", show.CI = FALSE, method = loess, slices = 200,
+  ylim = NULL, quantize = "continuous", show.points = TRUE, ...)
 }
 \arguments{
 \item{formula}{formula}
@@ -37,13 +36,9 @@ the edges? (by reducing alpha; 0=no alpha decrease,
 
 \item{method}{the fitting function for the spaghettis; default: loess}
 
-\item{bw}{define a default b/w-palette (TRUE/FALSE)}
-
 \item{slices}{number of slices in x and y direction for the shaded
 region. Higher numbers make a smoother plot, but takes longer to
 draw. I wouldn'T go beyond 500}
-
-\item{palette}{provide a custom color palette for the watercolors}
 
 \item{ylim}{restrict range of the watercoloring}
 
