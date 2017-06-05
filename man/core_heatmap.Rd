@@ -4,20 +4,20 @@
 \alias{core_heatmap}
 \title{Core Heatmap}
 \usage{
-core_heatmap(x, detections = 20, colours = NULL, min.prevalence = NULL,
+core_heatmap(x, dets = 20, cols = NULL, min.prev = NULL,
   taxa.order = NULL)
 }
 \arguments{
 \item{x}{OTU matrix}
 
-\item{detections}{A vector or a scalar indicating the number of intervals
-in (0, log10(max(data))). The detections are calculated for relative
+\item{dets}{A vector or a scalar indicating the number of intervals
+in (0, log10(max(data))). The dets are calculated for relative
 abundancies.}
 
-\item{colours}{colours for the heatmap}
+\item{cols}{colours for the heatmap}
 
-\item{min.prevalence}{If minimum prevalence is set, then filter out those
-rows (taxa) and columns (detections) that never exceed this prevalence.
+\item{min.prev}{If minimum prevalence is set, then filter out those
+rows (taxa) and columns (dets) that never exceed this prevalence.
 This helps to zoom in on the actual core region of the heatmap.}
 
 \item{taxa.order}{Ordering of the taxa.}

@@ -47,8 +47,8 @@ plot_core <- function(x, prevalences=seq(, 1, 1, 0.1), detections=20,
         
         # Here we use taxon x abundance thresholds table indicating prevalences
         res <- core_heatmap(abundances(x),
-        detections=detections, colours=colours, 
-            min.prevalence=min.prevalence, taxa.order=taxa.order)
+        dets=detections, cols=colours, 
+            min.prev=min.prevalence, taxa.order=taxa.order)
         
     }
     
@@ -109,7 +109,7 @@ core_matrix <- function(x, prevalences=seq(0.1, 1, , 1), detections=NULL) {
         }
     }
     
-    # Convert Prevalences to percentages
+    # # Convert Prevalences to percentages
     colnames(coreMat) <- as.numeric(colnames(coreMat))/ncol(data)
     rownames(coreMat) <- as.character(as.numeric(rownames(coreMat)))
     
@@ -121,12 +121,12 @@ core_matrix <- function(x, prevalences=seq(0.1, 1, , 1), detections=NULL) {
 #' @title Core Heatmap
 #' @description Core heatmap.
 #' @param x OTU matrix
-#' @param detections A vector or a scalar indicating the number of intervals
-#' in (0, log10(max(data))). The detections are calculated for relative
+#' @param dets A vector or a scalar indicating the number of intervals
+#' in (0, log10(max(data))). The dets are calculated for relative
 #' abundancies.
-#' @param colours colours for the heatmap
-#' @param min.prevalence If minimum prevalence is set, then filter out those
-#' rows (taxa) and columns (detections) that never exceed this prevalence.
+#' @param cols colours for the heatmap
+#' @param min.prev If minimum prevalence is set, then filter out those
+#' rows (taxa) and columns (dets) that never exceed this prevalence.
 #' This helps to zoom in on the actual core region of the heatmap.
 #' @param taxa.order Ordering of the taxa.
 #' @return Used for its side effects
@@ -137,25 +137,25 @@ core_matrix <- function(x, prevalences=seq(0.1, 1, , 1), detections=NULL) {
 #' To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-core_heatmap <- function(x, detections=20, colours=NULL, min.prevalence=NULL,
-    taxa.order=NULL) {
+core_heatmap <- function(x, dets=20, cols=NULL, min.prev=NULL, taxa.order=NULL)
+{
 
     data <- x
 
     #colours <- gray(seq(0, 1, length=5)), 
     DetectionThreshold <- Taxa <- Prevalence <- NULL
     
-    # Prevalences with varying detections
-    prev <- lapply(detections, function(th) {
+    # Prevalences with varying dets
+    prev <- lapply(dets, function(th) {
         prevalence(data, detection=th)
     })
     prev <- do.call("cbind", prev)
-    colnames(prev) <- as.character(detections)
+    colnames(prev) <- as.character(dets)
     
-    # Exclude rows and cols that never exceed the given prevalence
-    if (!is.null(min.prevalence)) {
-        prev <- prev[rowMeans(prev > min.prevalence) > 0,
-        colMeans(prev > min.prevalence) > 0]
+    # # Exclude rows and cols that never exceed the given prevalence
+    if (!is.null(min.prev)) {
+        prev <- prev[rowMeans(prev > min.prev) > 0,
+        colMeans(prev > min.prev) > 0]
     }
     
     df <- as.data.frame(prev)
@@ -178,10 +178,10 @@ core_heatmap <- function(x, detections=20, colours=NULL, min.prevalence=NULL,
     p <- p + xlab("Detection Threshold")
     p <- p + scale_x_log10()
 
-    if (!is.null(colours)) {
+    if (!is.null(cols)) {
         p <- p + scale_fill_gradientn("Prevalence",
             breaks=seq(from=0, to=1, by=0.1), 
-            colours=colours,
+            colours=cols,
             limits=c(0, 1))
     }
     

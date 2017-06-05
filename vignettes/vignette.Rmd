@@ -53,7 +53,7 @@ available in R.  This package supports the independent
 the available toolkit in order to facilitate the standardization of
 the analyses and the development of best practices. See also the
 related [PathoStat
-pipeline](http://bioconductor.org/packages/release/bioc/vignettes/PathoStat/inst/doc/PathoStatIntro.html)
+pipeline](http://bioconductor.org/packages/release/bioc/html/PathoStat.html)
 [mare pipeline](https://github.com/katrikorpela/mare),
 [phylofactor](), and [structSSI]() for additional 16S rRNA amplicon
 analysis tools in R. The aim is to complement the other available
