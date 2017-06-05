@@ -127,25 +127,3 @@ print(tipping.point)
 ```
 
 
-### Visualization with variation lineplot and bimodality hotplot
-
-Pick subset of the [HITChip Atlas data set](http://doi.org/10.5061/dryad.pk75d) and plot the subject abundance variation lineplot (**Variation lineplot**) and **Bimodality hotplot** for a given taxon as in [Lahti et al. 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). The bi-stable Dialister has bimodal population distribution and reduced temporal stability within subjects at intermediate abundances.
-
-
-Variation plot:
-
-```{r stability-variationplot, message=FALSE, warning=FALSE, fig.show='hold', out.width="430px"}
-# Indicates the abundance variation range for subjects with multiple time points
-pv <- plot_tipping(pseq, tax, tipping.point = tipping.point)
-print(pv)
-```
-
-Bimodality hotplot:
-
-```{r hotplot, message=FALSE, warning=FALSE, fig.show='hold', out.width="430px"}
-# Consider a unique sample from each subject: the baseline time point 
-ph <- hotplot(pseq0, tax, tipping.point = tipping.point)
-print(ph)
-```
-
-

@@ -40,7 +40,7 @@ pseqz <- microbiome::transform(pseq2, "Z")
 
 Visualize the Z-transformed abundance matrix
 
-```{r heatmap-matvisu-example, fig.width=16, fig.height=5}
+```{r hn122, fig.width=16, fig.height=8, message=FALSE, warning=FALSE}
 # Plot the abundances heatmap
 heat(melt(abundances(pseqz)), "Var1", "Var2", "value")
 ```
@@ -92,7 +92,7 @@ Rearrange the data and plot the heatmap and mark significant correlations with s
 ```{r heatmap-example-stars2, message=FALSE, warning=FALSE, fig.keep='none'}
 p <- heat(correlation.table, "X1", "X2", fill = "Correlation", star = "p.adj", p.adj.threshold = 0.05) 
 ```
-```{r heatmap-example-stars3, fig.width=12, fig.height=8, message=FALSE, warning=FALSE}
+```{r heatmap-example-stars3, fig.width=12, fig.height=10, message=FALSE, warning=FALSE}
 print(p)
 ```
 

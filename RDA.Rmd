@@ -31,7 +31,7 @@ pseq <- peerj32$phyloseq # phyloseq data
 # Only check the core taxa to speed up examples
 pseq <- core(pseq, detection = 10^2, prevalence = 95/100)
 
-pseq.trans <- microbiome::transform(pseq, "hell") # Hellinger transform
+pseq.trans <- transform(pseq, "hell") # Hellinger transform
 ```
 
 
@@ -61,7 +61,7 @@ Standard RDA for microbiota profiles versus the given (here 'time')
 variable from sample metadata (see also the RDA method in
 phyloseq::ordinate)
 
-```{r rda2, warning=FALSE, message=FALSE}
+```{r rda2, warning=FALSE, message=FALSE, eval=FALSE}
 x <- pseq.trans
 otu <- abundances(x)
 metadata <- meta(x)
@@ -73,7 +73,7 @@ rda.result <- vegan::rda(t(otu) ~ factor(metadata$time),
 
 Proportion explained by the given factor
 
-```{r rda2b, warning=FALSE, message=FALSE}
+```{r rda2b, warning=FALSE, message=FALSE, eval=FALSE}
 summary(rda.result)$constr.chi/summary(rda.result)$tot.chi
 ```
 
@@ -82,7 +82,7 @@ summary(rda.result)$constr.chi/summary(rda.result)$tot.chi
 
 Visualize the standard RDA output.
 
-```{r rda4, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
+```{r rda4, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval=FALSE}
 plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = metadata$time)
 points(rda.result, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = metadata$time)
 pl <- ordihull(rda.result, metadata$time, scaling = 3, label = TRUE)

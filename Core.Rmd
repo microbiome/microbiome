@@ -90,17 +90,11 @@ core.abundance <- sample_sums(core(pseq.rel, detection = .01, prevalence = .95))
 Determine core microbiota across various abundance/prevalence
 thresholds with the blanket analysis [(Salonen et al. CMI, 2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) based on various signal and prevalences.
 
-```{r core-example2, fig.width=9, fig.heigth=6, fig.show='hold', out.width="400px", warning=FALSE}
-# With absolute read counts
-det <- c(0, 10, 50, 200, 500, 2000)
-prevalences <- seq(.05, 1, .05)
-p <- plot_core(pseq, prevalences = prevalences, detections = det, plot.type = "lineplot")
-p + xlab("Abundance (OTU read count)")
-
+```{r core2, fig.width=9, fig.heigth=6, out.width="400px", warning=FALSE}
 # With compositional (relative) abundances
 det <- c(0, 0.1, 0.5, 2, 5, 20)/100
-p <- plot_core(pseq.rel, prevalences = prevalences, detections = det, plot.type = "lineplot")
-p + xlab("Relative Abundance (%)")
+prevalences <- seq(.05, 1, .05)
+plot_core(pseq.rel, prevalences = prevalences, detections = det, plot.type = "lineplot") + xlab("Relative Abundance (%)")
 ```
 
 
@@ -110,7 +104,7 @@ This visualization method has been used for instance in [Intestinal microbiome l
 
 Note that you can order the taxa on the heatmap with the order.taxa argument.
 
-```{r core-example3, fig.width=8, fig.heigth=18, fig.show='hold', out.width = '200px'}
+```{r core-example3, fig.width=8, fig.heigth=18, fig.show='hold', out.width = '200px', warning=FALSE}
 # Core with compositionals:
 prevalences <- seq(.05, 1, .05)
 detections <- 10^seq(log10(1e-3), log10(.2), length = 10)
