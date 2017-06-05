@@ -4,15 +4,12 @@
 \alias{bimodality_sarle}
 \title{Sarle's Bimodality Coefficient}
 \usage{
-bimodality_sarle(x, bs.iter = 1, na.rm = TRUE,
-  type = "Sarle.finite.sample")
+bimodality_sarle(x, bs.iter = 1, type = "Sarle.finite.sample")
 }
 \arguments{
 \item{x}{Data vector for which bimodality will be quantified}
 
 \item{bs.iter}{Bootstrap iterations}
-
-\item{na.rm}{Remove NAs}
 
 \item{type}{Score type ('Sarle.finite.sample' or 'Sarle.asymptotic')}
 }

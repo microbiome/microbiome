@@ -120,7 +120,7 @@ core_matrix <- function(x, prevalences=seq(0.1, 1, , 1), detections=NULL) {
 
 #' @title Core Heatmap
 #' @description Core heatmap.
-#' @param data OTU matrix
+#' @param x OTU matrix
 #' @param detections A vector or a scalar indicating the number of intervals
 #' in (0, log10(max(data))). The detections are calculated for relative
 #' abundancies.
@@ -137,10 +137,12 @@ core_matrix <- function(x, prevalences=seq(0.1, 1, , 1), detections=NULL) {
 #' To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-core_heatmap <- function(data, detections=20,
-    colours=NULL, #gray(seq(0, 1, length=5)), 
-    min.prevalence=NULL, taxa.order=NULL) {
-    
+core_heatmap <- function(x, detections=20, colours=NULL, min.prevalence=NULL,
+    taxa.order=NULL) {
+
+    data <- x
+
+    #colours <- gray(seq(0, 1, length=5)), 
     DetectionThreshold <- Taxa <- Prevalence <- NULL
     
     # Prevalences with varying detections

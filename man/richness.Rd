@@ -8,7 +8,8 @@ richness(x, detection = NULL)
 }
 \arguments{
 \item{x}{A species abundance vector, or matrix (taxa/features x samples)
-with the absolute count data (no relative abundances), or}
+with the absolute count data (no relative abundances), or
+\code{\link{phyloseq-class}} object}
 
 \item{detection}{Detection threshold.}
 }

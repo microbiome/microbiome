@@ -22,10 +22,12 @@ vignette: >
 
 The [microbiome R package](http://microbiome.github.io/microbiome)
 facilitates exploration and analysis of microbiome profiling data, in
-particular 16S taxonomic profiling. Here we provide a brief overview
-of the package functionality with example data sets from published gut
-microbiome profiling studies [@lahti14natcomm, @Lahti13provasI,
-@OKeefe15]. A more comprehensive tutorial is available
+particular 16S taxonomic profiling.
+
+This vignette provides a brief overview
+with example data sets from published microbiome profiling studies
+[@lahti14natcomm, @Lahti13provasI, @OKeefe15].
+A more comprehensive tutorial is available
 [on-line](http://microbiome.github.io/microbiome).
 
 Tools are provided for the manipulation, statistical analysis, and
@@ -33,8 +35,8 @@ visualization of taxonomic profiling data. In addition to targeted
 case-control studies, the package facilitates scalable exploration of
 large population cohorts [@lahti14natcomm]. Whereas sample collections
 are rapidly accumulating for the human body and other environments,
-few general-purpose tools for analysis are available in R. This
-package supports the independent
+few general-purpose tools for targeted microbiome analysis are available in R.
+This package supports the independent
 [phyloseq](http://joey711.github.io/phyloseq) data format and expands
 the available toolkit in order to facilitate the standardization of
 the analyses and the development of best practices. See also the
@@ -157,10 +159,10 @@ and otherwise manipulated. For a comprehensive list of tools, see the
 [online
 tutorial](http://microbiome.github.io/microbiome/Preprocessing.html).
 
-The microbiome package complements the toolkit by providing a wrapper
-for many standard transformations such as Z, centered log-ratio,
-hellinger, log10, and other transformations. To convert absolute
-counts to compositional (relative) abundances, for instance, use
+The microbiome package provides a wrapper for many standard
+transformations such as Z, centered log-ratio, hellinger, log10, and
+others. To convert absolute counts to compositional (relative)
+abundances, for instance, use
 
 
 ```r
@@ -174,7 +176,7 @@ dietswap.compositional <- transform(dietswap, "compositional")
 
 ### Alpha diversity, richness, evenness, dominance, and rarity
 
-Common ecosystem state variables include various indices to quantify
+Commonly used ecosystem state variables include various indices to quantify
 alpha diversities, richness, evenness, dominance, and rarity (see
 functions with similar names). The microbiome package provides a
 comprehensive set of such indices via a standardized interface.
@@ -330,7 +332,15 @@ methods](http://microbiome.github.io/microbiome/Ordination.html)
 # Ordinate the data; note that some ordinations are sensitive to random seed
 # "quiet" is used to suppress intermediate outputs
 set.seed(423542)
-quiet(proj <- get_ordination(dietswap.core, "NMDS", "bray"))
+
+# Get ordination
+x <- dietswap.core
+quiet(x.ord <- ordinate(x, method = "NMDS", distance = "bray"))
+# Pick the projected data (first two columns + metadata)
+quiet(proj <- phyloseq::plot_ordination(x, x.ord, justDF=TRUE))
+# Rename the projection axes
+names(proj)[1:2] <- paste("Comp", 1:2, sep=".")
+
 p <- plot_landscape(proj[, 1:2], col = proj$nationality, legend = TRUE)
 print(p)
 ```

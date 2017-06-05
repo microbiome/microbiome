@@ -36,7 +36,7 @@
 #' pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
 #' p <- plot_regression(diversity ~ age, meta(pseq))
 #' @references See citation('microbiome') 
-#' @author Based on the original version from Felix Schonbrodt. 
+#' @author Based on the original version from F. Schonbrodt. 
 #' Modified by Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 plot_regression <- function(formula, data, B=1000, shade=TRUE,
@@ -46,10 +46,10 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     ylim=NULL, quantize="continuous", show.points=TRUE, 
     ...) {
     
-    # Some transparency problems solved with:
-    # http://tinyheero.github.io/2015/09/15/semi-transparency-r.html
+    # # Some transparency problems solved with:
+    # # http://tinyheero.github.io/2015/09/15/semi-transparency-r.html
     
-    # Circumvent global variable binding warnings
+    # # Circumvent global variable binding warnings
     . <- NULL
     aes <- NULL
     x <- NA
@@ -63,7 +63,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     UL <- NA
     LL <- NA
     
-    # ------------------
+    # # ------------------
     
     IV <- all.vars(formula)[[2]]
     DV <- all.vars(formula)[[1]]
@@ -103,7 +103,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     }
     
     
-    # compute median and CI limits of bootstrap
+    # # Compute median and CI limits of bootstrap
     CI.boot <- t(apply(l0.boot, 1, function(x)
         quantile(x, prob=c(0.025, 0.5, 0.975, 
         pnorm(c(-3, -2, -1, 0, 1, 2, 3))), na.rm=TRUE)))
@@ -113,8 +113,8 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     CI.boot$x <- newx[, 1]
     CI.boot$width <- CI.boot$UL - CI.boot$LL
     
-    # scale the CI width to the range 0 to 1 and flip it (bigger
-    # numbers=narrower CI)
+    # # Scale the CI width to the range 0 to 1 and flip it (bigger
+    # # numbers=narrower CI)
     
     CI.boot$w2 <- (CI.boot$width - min(CI.boot$width))
     CI.boot$w3 <- 1 - (CI.boot$w2/max(CI.boot$w2))
@@ -163,9 +163,9 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
         d2$alpha.factor <- d2$dens.scaled^shade.alpha
         p1 <- p1 + geom_tile(data=d2,
             aes(x=x, y=y, fill=dens.scaled, alpha=alpha.factor))
-	#if (!is.null(palette)) {
+        #if (!is.null(palette)) {
         #    p1 <- p1 + scale_fill_gradientn("dens.scaled", colours=palette)
-	#}
+        #}
         p1 <- p1 + scale_alpha_continuous(range=c(0.001, 1))
         
     }
@@ -228,12 +228,10 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     
     if (show.points) {
         p1 <- p1 + geom_point(size=1, shape=21, fill="white",
-        color="black")
+            color="black")
     }
     
-    p <- p1
-    p <- p + xlab(IV)
-    p <- p + ylab(DV)
+    p <- p1 + labs(xlab = IV, ylab = DV)
     
     p
     

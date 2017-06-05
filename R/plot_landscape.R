@@ -1,7 +1,10 @@
 #' @title Landscape Plot
 #' @description Plot abundance landscape ie. sample density in 2D
 #' projection landscape
-#' @inheritParams get_ordination
+#' @param x \code{\link{phyloseq-class}} object or a data matrix 
+#' (features x samples; eg. HITChip taxa vs. samples)
+#' @param method Ordination method, see phyloseq::plot_ordination
+#' @param distance Ordination distance, see phyloseq::plot_ordination
 #' @param col Variable name to highlight samples (points) with colors
 #' @param main title text
 #' @param x.ticks Number of ticks on the X axis
@@ -23,7 +26,13 @@ plot_landscape <- function(x, method="NMDS", distance="bray",
     adjust=1, size=1, legend=FALSE) {
 
     if (class(x) == "phyloseq") {
-        quiet(proj <- get_ordination(x, method, distance))
+        #quiet(proj <- get_ordination(x, method, distance))
+        quiet(x.ord <- ordinate(x, method, distance))
+        # Pick the projected data (first two columns + metadata)
+        quiet(proj <- phyloseq::plot_ordination(x, x.ord, justDF=TRUE))
+        # Rename the projection axes
+        names(proj)[1:2] <- paste("Comp", 1:2, sep=".")
+
     } else if (is.matrix(x) || is.data.frame(x)) {
         proj <- as.data.frame(x)
         if (ncol(x) > 2) {

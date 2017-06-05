@@ -4,11 +4,11 @@
 \alias{core_heatmap}
 \title{Core Heatmap}
 \usage{
-core_heatmap(data, detections = 20, colours = NULL, min.prevalence = NULL,
+core_heatmap(x, detections = 20, colours = NULL, min.prevalence = NULL,
   taxa.order = NULL)
 }
 \arguments{
-\item{data}{OTU matrix}
+\item{x}{OTU matrix}
 
 \item{detections}{A vector or a scalar indicating the number of intervals
 in (0, log10(max(data))). The detections are calculated for relative

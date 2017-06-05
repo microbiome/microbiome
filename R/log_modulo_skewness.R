@@ -39,8 +39,7 @@ log_modulo_skewness <- function(x, q=0.5, n=50) {
     th1 <- quantile(max(a), q)
     
     # Tabulate the arithmetic abundance classes Use the same classes
-    # for all samples for consistency
-    
+    # for all samples for consistency    
     cutpoints <- c(seq(0, th1, length=n), Inf)
     
     # Check skewness of the abundance classes for each sample

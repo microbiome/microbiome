@@ -16,7 +16,7 @@ vignette: >
 ---
 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE}
 library(knitr)
 require(knitcitations)
 # cleanbib()
@@ -27,16 +27,19 @@ bib <- read.bibtex("bibliography.bib")
 # $Y = X\beta + \epsilon$, footnotes^[A footnote here.]
 # > "He who gives up [code] safety for [code] speed deserves neither."
 # ([via](https://twitter.com/hadleywickham/status/504368538874703872))
+knitr::opts_chunk$set(fig.width=10, fig.height=10, message=FALSE, warning=FALSE)
 ```
 
 ## Introduction
 
 The [microbiome R package](http://microbiome.github.io/microbiome)
 facilitates exploration and analysis of microbiome profiling data, in
-particular 16S taxonomic profiling. Here we provide a brief overview
-of the package functionality with example data sets from published gut
-microbiome profiling studies [@lahti14natcomm, @Lahti13provasI,
-@OKeefe15]. A more comprehensive tutorial is available
+particular 16S taxonomic profiling.
+
+This vignette provides a brief overview
+with example data sets from published microbiome profiling studies
+[@lahti14natcomm, @Lahti13provasI, @OKeefe15].
+A more comprehensive tutorial is available
 [on-line](http://microbiome.github.io/microbiome).
 
 Tools are provided for the manipulation, statistical analysis, and
@@ -44,8 +47,8 @@ visualization of taxonomic profiling data. In addition to targeted
 case-control studies, the package facilitates scalable exploration of
 large population cohorts [@lahti14natcomm]. Whereas sample collections
 are rapidly accumulating for the human body and other environments,
-few general-purpose tools for analysis are available in R. This
-package supports the independent
+few general-purpose tools for targeted microbiome analysis are available in R.
+This package supports the independent
 [phyloseq](http://joey711.github.io/phyloseq) data format and expands
 the available toolkit in order to facilitate the standardization of
 the analyses and the development of best practices. See also the
@@ -76,14 +79,14 @@ al.](https://github.com/microbiome/microbiome/graphs/contributors)
 
 To install microbiome package (the latest development version) in R, use
 
-```{r microbiomeinstall, message=FALSE, warning=FALSE, eval=FALSE}
+```{r microbiomeinstall, eval=FALSE}
 library(devtools) # Load the devtools package
 install_github("microbiome/microbiome") # Install the package
 ```
 
 Then load the package in R
 
-```{r loading, eval=TRUE, message=FALSE}
+```{r loading}
 library(microbiome)  
 ```
 
@@ -149,10 +152,10 @@ and otherwise manipulated. For a comprehensive list of tools, see the
 [online
 tutorial](http://microbiome.github.io/microbiome/Preprocessing.html).
 
-The microbiome package complements the toolkit by providing a wrapper
-for many standard transformations such as Z, centered log-ratio,
-hellinger, log10, and other transformations. To convert absolute
-counts to compositional (relative) abundances, for instance, use
+The microbiome package provides a wrapper for many standard
+transformations such as Z, centered log-ratio, hellinger, log10, and
+others. To convert absolute counts to compositional (relative)
+abundances, for instance, use
 
 ```{r compositional}
 # dietswap is a phyloseq object; see above
@@ -165,7 +168,7 @@ dietswap.compositional <- transform(dietswap, "compositional")
 
 ### Alpha diversity, richness, evenness, dominance, and rarity
 
-Common ecosystem state variables include various indices to quantify
+Commonly used ecosystem state variables include various indices to quantify
 alpha diversities, richness, evenness, dominance, and rarity (see
 functions with similar names). The microbiome package provides a
 comprehensive set of such indices via a standardized interface.
@@ -174,7 +177,7 @@ The function `global` calls these indicators with default parameters.
 For further options, see 
 [tutorial](http://microbiome.github.io/microbiome/Diversity.html). 
 
-```{r global, warning=FALSE, message=FALSE, results="asis"}
+```{r global, results="asis"}
 g <- global(atlas1006, index = "gini")
 ```
 
@@ -184,7 +187,7 @@ can be used to visualize sample variables
 here the relation between age and diversity. 
 This function operates on standard data frames.
 
-```{r reg, message=FALSE, fig.width=10, fig.height=5, warning=FALSE, dev="CairoPNG"}
+```{r reg, fig.width=10, fig.height=5, dev="CairoPNG"}
 # Pick the sample metadata from a phyloseq object
 df <- meta(atlas1006)
 
@@ -215,7 +218,7 @@ have implemented the correlation-based divergence measure as in
 As an example, let us compare beta diversity between two treatment
 groups in [@Lahti13provasI].
 
-```{r beta, message=FALSE, fig.width=5, fig.height=5, warning=FALSE, out.width="300px"}
+```{r beta, fig.width=5, fig.height=5, out.width="300px"}
 # Pick phyloseq object containing the microbiome data in
 # https://peerj.com/articles/32/
 pseq <- peerj32$phyloseq
@@ -243,7 +246,7 @@ a remarkable fraction of the population above a given abundance
 threshold [see e.g. @Jalanka-Tuovinen11, @Salonen12cmi]. The core
 subset can be sliced from a phyloseq object as follows.
 
-```{r core-data, message=FALSE, warning=FALSE}
+```{r core-data}
 # Taxa with over 50% prevance at .2% relative abundance
 dietswap.core <- core(dietswap.compositional, 
                     detection = .2/100, prevalence = 50/100)
@@ -274,7 +277,7 @@ print(p)
 
 Composition heatmap: Z-transformed taxon abundances
 
-```{r compheat, message=FALSE, warning=FALSE, fig.height=8, fig.width=12, out.width="300px"}
+```{r compheat, fig.height=8, fig.width=12, out.width="300px"}
 tmp <- plot_composition(dietswap.core, plot.type = "heatmap", transform = "Z", 
             mar = c(6, 13, 1, 1), sample.sort = "nationality")
 ```   
@@ -282,7 +285,7 @@ tmp <- plot_composition(dietswap.core, plot.type = "heatmap", transform = "Z",
 
 Composition barplot
         
-```{r compbar, message=FALSE, warning=FALSE, fig.height=6, fig.width=12}
+```{r compbar, fig.height=6, fig.width=12}
 plot_composition(transform(dietswap.core, "compositional"), 
     plot.type = "barplot", sample.sort = "neatmap")
 ```
@@ -292,12 +295,20 @@ Visualize sample similarities, or the microbiome landscape
 methods](http://microbiome.github.io/microbiome/Ordination.html)
 (PCoA, NMDS, RDA etc) are available.
 
-```{r landscape4, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, out.width="400px"}
+```{r landscape4, fig.width=8, fig.height=6, out.width="400px"}
 # Project the samples with the given method and dissimilarity measure. 
 # Ordinate the data; note that some ordinations are sensitive to random seed
 # "quiet" is used to suppress intermediate outputs
 set.seed(423542)
-quiet(proj <- get_ordination(dietswap.core, "NMDS", "bray"))
+
+# Get ordination
+x <- dietswap.core
+quiet(x.ord <- ordinate(x, method = "NMDS", distance = "bray"))
+# Pick the projected data (first two columns + metadata)
+quiet(proj <- phyloseq::plot_ordination(x, x.ord, justDF=TRUE))
+# Rename the projection axes
+names(proj)[1:2] <- paste("Comp", 1:2, sep=".")
+
 p <- plot_landscape(proj[, 1:2], col = proj$nationality, legend = TRUE)
 print(p)
 ```
@@ -309,7 +320,7 @@ print(p)
 Let us cross-correlate example data containing microbiome profiling
 and blood serum lipids study [@Lahti13ProvasI].
 
-```{r heatmap-crosscorrelate4, message=FALSE, warning=FALSE, fig.keep='none'}
+```{r heatmap-crosscorrelate4, fig.keep='none'}
 # Define data sets to cross-correlate
 data(peerj32)
 x <- log10(peerj32$microbes)   # OTU Log10 (44 samples x 130 genera)
@@ -325,7 +336,7 @@ kable(head(correlation.table))
 Let us rearrange the data and plot the heatmap and highlight
 significant correlations with stars as in [@Lahti13provasI].
 
-```{r hm3, fig.width=12, fig.height=9, message=FALSE, warning=FALSE, out.width="400px"}
+```{r hm3, fig.width=12, fig.height=9, out.width="400px"}
 heat(correlation.table, "X1", "X2", fill = "Correlation", 
     star = "p.adj", p.adj.threshold = 0.05) 
 ```
@@ -340,7 +351,7 @@ example. The tipping point is here set manually but it can also be
 [estimated from the
 data](http://microbiome.github.io/microbiome/Stability.html).
 
-```{r varpl2, message=FALSE, warning=FALSE, fig.show='hold', out.width="430px"}
+```{r varpl2, fig.show='hold', out.width="430px"}
 # Use relative abundances and plot subject variation 
 # during the follow-up period
 pseq <- transform(atlas1006, "compositional")
@@ -383,7 +394,7 @@ extensions, including ade4 [@Chessel_2004], dplyr [@dplyr], ggplot2
 
 # References
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE,results="asis"}
+```{r, echo=FALSE,results="asis"}
 bibliography()
 ```
 

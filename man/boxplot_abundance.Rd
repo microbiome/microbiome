@@ -4,21 +4,17 @@
 \alias{boxplot_abundance}
 \title{Abundance Boxplot}
 \usage{
-boxplot_abundance(pseq, x, y, line = NULL, color = NULL, log10 = FALSE,
-  violin = FALSE, na.rm = FALSE, show.points = TRUE)
+boxplot_abundance(d, x, y, line = NULL, violin = FALSE, na.rm = FALSE,
+  show.points = TRUE)
 }
 \arguments{
-\item{pseq}{\code{\link{phyloseq-class}} object}
+\item{d}{\code{\link{phyloseq-class}} object}
 
 \item{x}{Metadata variable to map to the horizontal axis.}
 
 \item{y}{OTU to map on the vertical axis}
 
 \item{line}{The variable to map on lines}
-
-\item{color}{The variable to map on colors}
-
-\item{log10}{show y axis on log scale}
 
 \item{violin}{Use violin version of the boxplot}
 
@@ -39,6 +35,6 @@ the colors of the connecting lines.
 \examples{
 data(peerj32)
 p <- boxplot_abundance(peerj32$phyloseq, x='time', y='Akkermansia',
-    line='subject', color='gender')
+    line='subject')
 }
 \keyword{utilities}

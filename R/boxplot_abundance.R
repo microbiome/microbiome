@@ -1,11 +1,9 @@
 #' @title Abundance Boxplot
 #' @description Plot phyloseq abundances.
-#' @param pseq \code{\link{phyloseq-class}} object
+#' @param d \code{\link{phyloseq-class}} object
 #' @param x Metadata variable to map to the horizontal axis.
 #' @param y OTU to map on the vertical axis
 #' @param line The variable to map on lines
-#' @param color The variable to map on colors
-#' @param log10 show y axis on log scale
 #' @param violin Use violin version of the boxplot
 #' @param na.rm Remove NAs
 #' @param show.points Include data points in the figure
@@ -16,13 +14,14 @@
 #' @examples
 #' data(peerj32)
 #' p <- boxplot_abundance(peerj32$phyloseq, x='time', y='Akkermansia',
-#'     line='subject', color='gender')
+#'     line='subject')
 #' @keywords utilities
-boxplot_abundance <- function(pseq, x, y, line=NULL, color=NULL,
-log10=FALSE, violin=FALSE, na.rm=FALSE, show.points=TRUE) {
+boxplot_abundance <- function(d, x, y, line=NULL, violin=FALSE, na.rm=FALSE,
+    show.points=TRUE) {
     
     change <- xvar <- yvar <- linevar <- colorvar <- NULL
-    
+    pseq <- d
+
     otu <- abundances(pseq)
     # otu <- abundances(pseq) if (!taxa_are_rows(pseq)) {otu <- t(otu)}
     
@@ -85,8 +84,7 @@ log10=FALSE, violin=FALSE, na.rm=FALSE, show.points=TRUE) {
         
         # Map back to data
         df$change <- df2$change[match(df$linevar, df2$linevar)]
-        # Log10 for line colors
-        # df$change <- sign(df$change) * log10(1 + abs(df$change))
+
         # Only show the sign of change for clarity
         df$change <- sign(df$change)
         p <- p + geom_line(data=df,
@@ -96,18 +94,12 @@ log10=FALSE, violin=FALSE, na.rm=FALSE, show.points=TRUE) {
     }
     
     
-    if (!is.null(color)) {
-        
-        df$colorvar <- factor(df[[color]])
-        # Add legend
-        # p <- p + geom_point(data=df, aes(color=colorvar), size=4)
-        # label p <- p + guides(color=guide_legend(title=color))
-        
-    }
-    
-    if (log10) {
-        p <- p + scale_y_log10()
-    }
+    #if (!is.null(color)) {   
+    #    df$colorvar <- factor(df[[color]])
+    #    # Add legend
+    #    # p <- p + geom_point(data=df, aes(color=colorvar), size=4)
+    #    # label p <- p + guides(color=guide_legend(title=color))
+    #}
     
     # Add axis tests
     p <- p + xlab(x) + ylab(y)

@@ -26,13 +26,10 @@ Suggests:
     BiocGenerics,
     BiocStyle,
     Cairo,
-    devtools,
-    gridExtra,
     knitcitations,
     knitr,
     rmarkdown,
-    testthat,
-    tidyverse
+    testthat
 URL: http://microbiome.github.io/microbiome
 MailingList: microbiome <microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues

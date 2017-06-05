@@ -167,10 +167,10 @@ radial_theta <- function(x) {
 
 #' @title Chunk Reorder
 #' @description Chunk re-order a vector so that specified newstart is first.
-#'    Different than relevel.
+#' Different than relevel.
 #' @keywords internal
 #' @details Borrowed from \pkg{phyloseq} package as needed here and not
-#'    exported there.
+#' exported there. Rewritten.
 #' @return Reordered x
 #' @examples 
 #' # Typical use-case
@@ -199,8 +199,8 @@ chunk_reorder <- function(x, newstart=x[[1]]) {
     
     # If pivot is NA, then warn and return x as-is
     if (is.na(pivot)) {
-        warning("The `newstart` argument was not in `x`. 
-        Returning `x` without reordering.")
+        warning("`newstart` argument not found from `x`. 
+        - returning `x` with no reordering.")
         newx <- x
     } else {
         newx <- c(tail(x, {

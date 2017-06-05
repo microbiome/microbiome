@@ -11,11 +11,11 @@ Reordered x
 }
 \description{
 Chunk re-order a vector so that specified newstart is first.
-   Different than relevel.
+Different than relevel.
 }
 \details{
 Borrowed from \pkg{phyloseq} package as needed here and not
-   exported there.
+exported there. Rewritten.
 }
 \examples{
 # Typical use-case

@@ -77,8 +77,8 @@
 #'
 #' @keywords utilities
 bimodality <- function(x, method="potential_analysis", peak.threshold=1,
-    bw.adjust=1, 
-    bs.iter=100, min.density=1, verbose=TRUE) {
+bw.adjust=1, bs.iter=100, min.density=1, verbose=TRUE) {
+
     accepted <- intersect(method, c("potential_analysis",
         "Sarle.finite.sample", "Sarle.asymptotic"))
     
@@ -232,7 +232,6 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
 #' @description Sarle's bimodality coefficient.
 #' @param x Data vector for which bimodality will be quantified
 #' @param bs.iter Bootstrap iterations
-#' @param na.rm Remove NAs
 #' @param type Score type ('Sarle.finite.sample' or 'Sarle.asymptotic')
 #' @return Bimodality score
 #' @examples
@@ -267,11 +266,10 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
 #' @seealso Check the dip.test from the \pkg{DIP} package for a
 #' classical test of multimodality.
 #' @keywords utilities
-bimodality_sarle <- function(x, bs.iter=1, na.rm=TRUE,
-type="Sarle.finite.sample") {
+bimodality_sarle <- function(x, bs.iter=1, type="Sarle.finite.sample") {
     
     g <- skew(x)
-    k <- kurtosis(x, na.rm)
+    k <- kurtosis(x)
     
     if (type == "Sarle.asymptotic") {
         
@@ -299,18 +297,18 @@ type="Sarle.finite.sample") {
 
 
 # Inspired by moments::kurtosis but rewritten. Internal.
-kurtosis <- function (x, na.rm=FALSE)
+kurtosis <- function (x, na.rm=TRUE)
 {
     if (is.matrix(x)) {
         k <- apply(x, 2, kurtosis, na.rm=na.rm)
-	return(k)
+        return(k)
     } else if (is.vector(x)) {
         if (na.rm) {
             x <- x[!is.na(x)]
-	}
+    }
         n <- length(x)
         k <- n * sum((x - mean(x))^4)/(sum((x - mean(x))^2)^2)
-	return(k)
+        return(k)
     } else if (is.data.frame(x)) {
         k <- sapply(x, kurtosis, na.rm = na.rm)
         return(k)

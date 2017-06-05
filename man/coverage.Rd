@@ -8,7 +8,8 @@ coverage(x, threshold = 0.5)
 }
 \arguments{
 \item{x}{A species abundance vector, or matrix (taxa/features x samples)
-with the absolute count data (no relative abundances), or}
+with the absolute count data (no relative abundances), or
+\code{\link{phyloseq-class}} object}
 
 \item{threshold}{Indicates the fraction of the ecosystem to be occupied by
 the N most abundant species (N is returned by this function). If the

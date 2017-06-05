@@ -71,7 +71,7 @@ p <- plot_regression(diversity ~ age, meta(pseq))
 See citation('microbiome')
 }
 \author{
-Based on the original version from Felix Schonbrodt. 
+Based on the original version from F. Schonbrodt. 
 Modified by Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \keyword{utilities}

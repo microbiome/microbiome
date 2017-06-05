@@ -8,7 +8,8 @@ rarity(x, index = "all")
 }
 \arguments{
 \item{x}{A species abundance vector, or matrix (taxa/features x samples)
-with the absolute count data (no relative abundances), or}
+with the absolute count data (no relative abundances), or
+\code{\link{phyloseq-class}} object}
 
 \item{index}{If the index is given, it will override the other parameters.
 See the details below for description and references of the standard
