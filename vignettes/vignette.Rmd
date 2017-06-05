@@ -373,11 +373,12 @@ provide a compact overview.
 ## Acknowledgements
 
 Thanks to all
-[contributors](https://github.com/microbiome/microbiome/graphs/contributors). 
-Financial support has been provided by Academy of Finland (grants 256950 and
-295741), [University of Turku](http://www.utu.fi/en/Pages/home.aspx),
-Department of Mathematics and Statistics, [VIB lab for Bioinformatics
-and (eco-)systems
+[contributors](https://github.com/microbiome/microbiome/graphs/contributors).
+Financial support has been provided by Academy of Finland (grants
+256950 and 295741), [University of
+Turku](http://www.utu.fi/en/Pages/home.aspx), Department of
+Mathematics and Statistics, [VIB lab for Bioinformatics and
+(eco-)systems
 biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx),
 VIB/KULeuven, Belgium, [Molecular Ecology
 group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology,
@@ -387,9 +388,8 @@ University of Helsinki, Finland. This work relies on the independent
 [phyloseq](https://github.com/joey711/phyloseq) package and data
 structures for R-based microbiome analysis developed by Paul McMurdie
 and Susan Holmes. This work also utilizes a number of independent R
-extensions, including ade4 [@Chessel_2004], dplyr [@dplyr], ggplot2
-[@Wickham_2009], MASS [@MASS], phyloseq [@McMurdie2013], RColorBrewer
-[@RColorBrewer], tidyr [@tidyr], and vegan [@Oksanen_2015].
+extensions, including dplyr [@dplyr], ggplot2 [@Wickham_2009],
+phyloseq [@McMurdie2013], and vegan [@Oksanen_2015].
 
 
 # References
