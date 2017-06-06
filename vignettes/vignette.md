@@ -3,7 +3,7 @@ title: "Introduction to the microbiome R package"
 author: "Leo Lahti, Sudarshan Shetty, et al."
 bibliography: 
 - bibliography.bib
-date: "2017-06-05"
+date: "2017-06-06"
 output:
   rmarkdown::md_document:
     toc: true
@@ -35,16 +35,18 @@ visualization of taxonomic profiling data. In addition to targeted
 case-control studies, the package facilitates scalable exploration of
 large population cohorts [@lahti14natcomm]. Whereas sample collections
 are rapidly accumulating for the human body and other environments,
-few general-purpose tools for targeted microbiome analysis are available in R.
-This package supports the independent
+few general-purpose tools for targeted microbiome analysis are
+available in R.  This package supports the independent
 [phyloseq](http://joey711.github.io/phyloseq) data format and expands
 the available toolkit in order to facilitate the standardization of
 the analyses and the development of best practices. See also the
-related [mare pipeline](https://github.com/katrikorpela/mare) for 16S
-rRNA amplicon analysis in R. The aim is to complement the other
-available packages, but in some cases alternative solutions have been
-necessary in order to streamline the tools and to improve
-complementarity.
+related [PathoStat
+pipeline](http://bioconductor.org/packages/release/bioc/html/PathoStat.html)
+[mare pipeline](https://github.com/katrikorpela/mare),
+[phylofactor](), and [structSSI]() for additional 16S rRNA amplicon
+analysis tools in R. The aim is to complement the other available
+packages, but in some cases alternative solutions have been necessary
+in order to streamline the tools and to improve complementarity.
 
 We welcome feedback, bug reports, and suggestions for new features
 from the user community via the [issue
@@ -59,7 +61,7 @@ license](http://en.wikipedia.org/wiki/BSD\_licenses).
 Kindly cite the work as follows: "Leo Lahti [et
 al.](https://github.com/microbiome/microbiome/graphs/contributors)
 (2017). Tools for microbiome analysis in R. Microbiome package version
-0.99.22. URL:
+0.99.32. URL:
 (http://microbiome.github.io/microbiome)
 
 
@@ -198,14 +200,11 @@ This function operates on standard data frames.
 
 
 ```r
-# Pick the sample metadata from a phyloseq object
-df <- meta(atlas1006)
-
-# Estimate Shannon diversity and add it to the data frame
-df$diversity <- global(atlas1006, index = "shannon")
+# Estimate Shannon diversity and add it to the phyloseq object
+sample_data(atlas1006)$diversity <- global(atlas1006, index = "shannon")[,1]
 
 # Compare age and microbiome diversity
-plot_regression(diversity ~ age, df)
+plot_regression(diversity ~ age, meta(atlas1006))
 ```
 
 ![plot of chunk reg](figure/reg-1.png)
@@ -425,11 +424,12 @@ provide a compact overview.
 ## Acknowledgements
 
 Thanks to all
-[contributors](https://github.com/microbiome/microbiome/graphs/contributors). 
-Financial support has been provided by Academy of Finland (grants 256950 and
-295741), [University of Turku](http://www.utu.fi/en/Pages/home.aspx),
-Department of Mathematics and Statistics, [VIB lab for Bioinformatics
-and (eco-)systems
+[contributors](https://github.com/microbiome/microbiome/graphs/contributors).
+Financial support has been provided by Academy of Finland (grants
+256950 and 295741), [University of
+Turku](http://www.utu.fi/en/Pages/home.aspx), Department of
+Mathematics and Statistics, [VIB lab for Bioinformatics and
+(eco-)systems
 biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx),
 VIB/KULeuven, Belgium, [Molecular Ecology
 group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology,
@@ -439,9 +439,8 @@ University of Helsinki, Finland. This work relies on the independent
 [phyloseq](https://github.com/joey711/phyloseq) package and data
 structures for R-based microbiome analysis developed by Paul McMurdie
 and Susan Holmes. This work also utilizes a number of independent R
-extensions, including ade4 [@Chessel_2004], dplyr [@dplyr], ggplot2
-[@Wickham_2009], MASS [@MASS], phyloseq [@McMurdie2013], RColorBrewer
-[@RColorBrewer], tidyr [@tidyr], and vegan [@Oksanen_2015].
+extensions, including dplyr [@dplyr], ggplot2 [@Wickham_2009],
+phyloseq [@McMurdie2013], and vegan [@Oksanen_2015].
 
 
 # References

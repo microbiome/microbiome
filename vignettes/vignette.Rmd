@@ -190,14 +190,11 @@ here the relation between age and diversity.
 This function operates on standard data frames.
 
 ```{r reg, fig.width=10, fig.height=5, dev="CairoPNG"}
-# Pick the sample metadata from a phyloseq object
-df <- meta(atlas1006)
-
-# Estimate Shannon diversity and add it to the data frame
-df$diversity <- global(atlas1006, index = "shannon")
+# Estimate Shannon diversity and add it to the phyloseq object
+sample_data(atlas1006)$diversity <- global(atlas1006, index = "shannon")[,1]
 
 # Compare age and microbiome diversity
-plot_regression(diversity ~ age, df)
+plot_regression(diversity ~ age, meta(atlas1006))
 ```
 
 
