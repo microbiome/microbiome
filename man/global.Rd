@@ -29,6 +29,10 @@ options. All indicators from the richness, diversities, evenness,
 dominance, and rarity functions are available. Some additional measures,
 such as Chao1 and ACE are available via \code{\link{estimate_richness}}
 function in the \pkg{phyloseq} package but not included here.
+The index names are given the prefix richness_, evenness_, diversities_,
+dominance_, or rarity_ in the output table to avoid confusion between
+similarly named but different indices
+(e.g. Simpson diversity and Simpson dominance).
 }
 \examples{
 data(dietswap)

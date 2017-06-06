@@ -92,8 +92,7 @@ boxplot_abundance <- function(d, x, y, line=NULL, violin=FALSE, na.rm=FALSE,
         scale_colour_gradient2(low="blue", mid="black", high="red", 
             midpoint=0, na.value="grey50", guide="none")
     }
-    
-    
+        
     #if (!is.null(color)) {   
     #    df$colorvar <- factor(df[[color]])
     #    # Add legend

@@ -67,11 +67,11 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     
     IV <- all.vars(formula)[[2]]
     DV <- all.vars(formula)[[1]]
-    
+
     data$IV <- data[[IV]]
     data$DV <- data[[DV]]
     data[[IV]] <- data[[DV]] <- NULL
-    
+
     data <- arrange(data, IV) %>% select(IV, DV) %>%
                                 filter(!is.na(IV) & !is.na(DV)) %>% 
         filter(!is.infinite(IV) & !is.infinite(DV))
@@ -230,7 +230,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
         p1 <- p1 + geom_point(size=1, shape=21, fill="white",
             color="black")
     }
-    
+
     p <- p1 + labs(xlab = IV, ylab = DV)
     
     p

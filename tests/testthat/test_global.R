@@ -11,7 +11,10 @@ test_that("global indices work correctly", {
   expect_true(is.data.frame(diversities(pseq)))
   expect_true(is.data.frame(evenness(pseq)))      
  
-  expect_true(max(low_abundance(transform(pseq, "compositional"))) <= 1)  
+  expect_true(max(low_abundance(transform(pseq, "compositional"))) <= 1)
+
+  expect_true(all(c("evenness_simpson", "dominance_simpson") %in%
+      names(global(pseq, index = "simpson"))))
 
   #expect_equal(rare_abundance(pseq, detection = 0.1/100, prevalence = 50/100),
   #  1 - core_abundance(pseq, detection = 0.1/100, prevalence = 50/100))
@@ -26,7 +29,9 @@ test_that("dominance works correctly", {
   data(peerj32)
   pseq <- peerj32$phyloseq
   
-  expect_true(all(dominance(pseq)$dbp == dominance(pseq, index = "DBP")))
+  expect_true(is.null(dominance(pseq, index = "shannon")))
+  
+  expect_true(all(dominance(pseq)$dbp == dominance(pseq, index = "DBP")))  
 
   expect_true(all(dominance(pseq, index = NULL, relative = FALSE, rank = 1) ==
                dominance(pseq, index = "absolute")))

@@ -15,6 +15,10 @@
 #' dominance, and rarity functions are available. Some additional measures,
 #' such as Chao1 and ACE are available via \code{\link{estimate_richness}}
 #' function in the \pkg{phyloseq} package but not included here.
+#' The index names are given the prefix richness_, evenness_, diversities_,
+#' dominance_, or rarity_ in the output table to avoid confusion between
+#' similarly named but different indices
+#' (e.g. Simpson diversity and Simpson dominance).
 #'
 #' @examples
 #' data(dietswap)
@@ -64,7 +68,7 @@ global <- function(x, index="all") {
         }
 
     }
-    
+
     a <- evenness(x, index=gsub("evenness_", "", index))
     if (!is.null(a)) {
         if (is.vector(a)) {
@@ -81,7 +85,6 @@ global <- function(x, index="all") {
     }
     
     a <- dominance(x, index=gsub("dominance_", "", index))
-
     if (!is.null(a)) {
         if (is.vector(a)) {
             a <- as.matrix(a, ncol=1)
@@ -109,12 +112,6 @@ global <- function(x, index="all") {
             tab <- a
         }    
 
-    }
-    
-    if (ncol(tab) > 1) {
-        tab <- as.data.frame(tab)
-    } else {
-        tab <- tab[, 1]
     }
 
     as.data.frame(tab)

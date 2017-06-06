@@ -1,3 +1,7 @@
+CHANGES IN VERSION 0.99.3 (2017-06-05)
+  o Reduced the number of dependencies
+  o Removed marginal functionality
+
 CHANGES IN VERSION 0.99.1 (2017-05-15)
   o Major rewrite of the package
   o Switched to support the phyloseq class

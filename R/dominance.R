@@ -69,11 +69,11 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso coverage, core_abundance, rarity, global
 #' @keywords utilities
-dominance <- function(x, index="all", rank=1, relative=TRUE,
-    aggregate=TRUE) {
+dominance <- function(x, index="all", rank=1, relative=TRUE, aggregate=TRUE) {
 
     # Only include accepted indices
-    index <- tolower(index)
+    if (!is.null(index)) {index <- tolower(index)}
+    
     accepted <- tolower(c("DBP", "DMN", "absolute", "relative",
         "simpson", "core_abundance", "gini"))
 
@@ -82,45 +82,40 @@ dominance <- function(x, index="all", rank=1, relative=TRUE,
         index <- accepted
     }
 
+    if (!is.null(index) && !any(index %in% accepted)) {
+        return(NULL)
+    }
+
     if (!is.null(index)) {
         index <- intersect(index, accepted)
     }
 
-    if (!is.null(index) && length(index) == 0) {
-        index <- NULL
+    tab <- NULL
+    if (!is.null(index)) {
+        for (idx in index) {
+            tab <- cbind(tab,
+            dominance_help(x, index=idx, rank=rank,
+                relative=relative, 
+                aggregate=aggregate))
     }
-
-    do <- dominance_help(x, index, rank, relative=relative, aggregate)
-
-    if (is.vector(do)) {
-        do <- as.matrix(do, ncol=1)
-        colnames(do) <- index        
+    } else {
+            tab <- cbind(tab,
+            dominance_help(x, index=NULL, rank=rank,
+                relative=relative, 
+                aggregate=aggregate))
     }
-
-    as.data.frame(do)
+    colnames(tab) <- index
+    tab <- as.data.frame(tab)
+    
+    tab
 
 }
 
 
 
-
-
-
 dominance_help <- function(x, index="all", rank=1, relative=TRUE,
     aggregate=TRUE) {
-    
-    if (length(index) > 1) {
-        tab <- NULL
-        for (idx in index) {
-            tab <- cbind(tab, dominance_help(x, index=idx, rank=rank,
-                relative=relative, 
-                aggregate=aggregate))
-        }
-        
-        colnames(tab) <- index
-        return(as.data.frame(tab))
-    }
-    
+
     otu <- abundances(x)
 
     if (is.null(index)) {
@@ -139,13 +134,19 @@ dominance_help <- function(x, index="all", rank=1, relative=TRUE,
         relative <- TRUE
         aggregate <- TRUE
     } else if (index %in% c("simpson")) {
-        return(apply(otu, 2, function(x) {
-            simpson_dominance(x)
-        }))
+        tmp <- apply(otu, 2, function(x) {
+            simpson_dominance(x)})
+        return(tmp)
     } else if (index %in% c("core_abundance")) {
         return(core_abundance(otu, detection=0.2/100, prevalence=50/100))
     } else if (index == "gini") {
         return(inequality(otu))
+    }
+
+    if (rank == 1 && relative) {
+        index <- "dbp"
+    } else if (rank == 2 && relative && aggregate) {
+        index <- "dmn"
     }
 
     if (relative) {
@@ -165,7 +166,12 @@ dominance_help <- function(x, index="all", rank=1, relative=TRUE,
     }
     
     names(do) <- colnames(otu)
-    
+
+    if (is.vector(do)) {
+        do <- as.matrix(do, ncol=1)
+        colnames(do) <- index        
+    }
+
     do
     
 }
