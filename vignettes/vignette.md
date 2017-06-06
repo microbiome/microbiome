@@ -7,6 +7,8 @@ date: "2017-06-06"
 output:
   rmarkdown::md_document:
     toc: true
+  rmarkdown::pdf_document:
+    toc: true    
   rmarkdown::html_vignette:
     fig_caption: yes    
 vignette: >
