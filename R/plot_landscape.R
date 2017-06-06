@@ -45,7 +45,7 @@ plot_landscape <- function(x, method="NMDS", distance="bray",
     
     if (is.null(col)) {
         proj$col <- as.factor(rep("black", nrow(proj)))
-    } else if (length(col) == 1 & col %in% colnames(proj)) {
+    } else if (length(col) == 1 && col %in% colnames(proj)) {
         proj$col <- proj[[col]]
     } else {
         proj$col <- col
