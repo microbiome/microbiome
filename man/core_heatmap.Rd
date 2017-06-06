@@ -4,8 +4,7 @@
 \alias{core_heatmap}
 \title{Core Heatmap}
 \usage{
-core_heatmap(x, dets = 20, cols = NULL, min.prev = NULL,
-  taxa.order = NULL)
+core_heatmap(x, dets, cols, min.prev, taxa.order)
 }
 \arguments{
 \item{x}{OTU matrix}

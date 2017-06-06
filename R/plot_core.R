@@ -137,7 +137,7 @@ core_matrix <- function(x, prevalences=seq(0.1, 1, , 1), detections=NULL) {
 #' To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-core_heatmap <- function(x, dets=20, cols=NULL, min.prev=NULL, taxa.order=NULL)
+core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
 {
 
     data <- x
