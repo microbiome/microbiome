@@ -5,12 +5,13 @@ bibliography:
 - bibliography.bib
 date: "2017-06-06"
 output:
+  BiocStyle::html_document:
+    toc: true
+    fig_caption: yes    
   rmarkdown::md_document:
     toc: true
   rmarkdown::pdf_document:
     toc: true    
-  rmarkdown::html_vignette:
-    fig_caption: yes    
 vignette: >
   %\VignetteIndexEntry{microbiome R package}
   %\VignetteEngine{knitr::rmarkdown}
@@ -63,7 +64,7 @@ license](http://en.wikipedia.org/wiki/BSD\_licenses).
 Kindly cite the work as follows: "Leo Lahti [et
 al.](https://github.com/microbiome/microbiome/graphs/contributors)
 (2017). Tools for microbiome analysis in R. Microbiome package version
-0.99.32. URL:
+0.99.36. URL:
 (http://microbiome.github.io/microbiome)
 
 

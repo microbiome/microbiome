@@ -20,9 +20,9 @@
 #' @keywords utilities
 aggregate_taxa <- function(x, level, top=NULL) {
     
-    pseq <- x
+    mypseq <- x
     
-    if (!is.null(pseq@phy_tree)) {
+    if (!is.null(mypseq@phy_tree)) {
         
         if (!is.null(top)) {
             warning("The top parameter to be implemented when phy_tree 
@@ -30,52 +30,52 @@ aggregate_taxa <- function(x, level, top=NULL) {
         }
         
         # Agglomerate taxa
-        pseq2 <- tax_glom(pseq, level)
+        mypseq2 <- tax_glom(mypseq, level)
         
     } else {
         
-        tt <- tax_table(pseq)
+        tt <- tax_table(mypseq)
         if (!is.null(top)) {
             if (is.numeric(top)) {
-                top <- top_taxa(aggregate_taxa(pseq, level), top)
+                top <- top_taxa(aggregate_taxa(mypseq, level), top)
             }
             
             tt[which(!tt[, level] %in% top), level] <- "Other"
-            tax_table(pseq) <- tt
+            tax_table(mypseq) <- tt
         }
         
         # Split the OTUs in tax_table by the given taxonomic level otus <-
-        # split(rownames(tax_table(pseq)), tax_table(pseq)[, level])
+        # split(rownames(tax_table(mypseq)), tax_table(mypseq)[, level])
         current.level <- names(which(apply(tt, 2, function(x) {
             length(unique(x))
-        }) == ntaxa(pseq)))
+        }) == ntaxa(mypseq)))
         
-        otus <- map_levels(data=pseq, to=current.level, from=level)
+        otus <- map_levels(data=mypseq, to=current.level, from=level)
         
-        ab <- matrix(NA, nrow=length(otus), ncol=nsamples(pseq))
+        ab <- matrix(NA, nrow=length(otus), ncol=nsamples(mypseq))
         rownames(ab) <- names(otus)
-        colnames(ab) <- sample_names(pseq)
+        colnames(ab) <- sample_names(mypseq)
         
-        d <- abundances(pseq)
+        d <- abundances(mypseq)
         
         for (nam in names(otus)) {
             taxa <- otus[[nam]]
-            ab[nam, ] <- colSums(matrix(d[taxa, ], ncol=nsamples(pseq)))
+            ab[nam, ] <- colSums(matrix(d[taxa, ], ncol=nsamples(mypseq)))
         }
         
         # Create phyloseq object
         OTU <- otu_table(ab, taxa_are_rows=TRUE)
-        pseq2 <- phyloseq(OTU)
+        mypseq2 <- phyloseq(OTU)
         
         # Remove all ambiguous levels
         keep <- colnames(
-        tax_table(pseq))[which(sapply(1:ncol(tax_table(pseq)),
+        tax_table(mypseq))[which(sapply(1:ncol(tax_table(mypseq)),
             function(k)
-            sum(sapply(split(as.character(tax_table(pseq)[, k]),
-            as.character(tax_table(pseq)[, level])), function(x) {
+            sum(sapply(split(as.character(tax_table(mypseq)[, k]),
+            as.character(tax_table(mypseq)[, level])), function(x) {
             length(unique(x))
         }) > 1)) == 0)]
-        tax <- unique(tax_table(pseq)[, keep])
+        tax <- unique(tax_table(mypseq)[, keep])
         
         # Rename the lowest level
         tax <- as.data.frame(tax)
@@ -87,14 +87,14 @@ aggregate_taxa <- function(x, level, top=NULL) {
         TAX <- tax_table(tax)
         
         # Combine OTU and Taxon matrix into Phyloseq object
-        pseq2 <- merge_phyloseq(pseq2, TAX)
+        mypseq2 <- merge_phyloseq(mypseq2, TAX)
         
         # Add the metadata as is
-        pseq2 <- merge_phyloseq(pseq2, sample_data(pseq))
+        mypseq2 <- merge_phyloseq(mypseq2, sample_data(mypseq))
         
     }
     
-    pseq2
+    mypseq2
     
 }
 

@@ -5,12 +5,13 @@ bibliography:
 - bibliography.bib
 date: "`r Sys.Date()`"
 output:
+  BiocStyle::html_document:
+    toc: true
+    fig_caption: yes    
   rmarkdown::md_document:
     toc: true
   rmarkdown::pdf_document:
     toc: true    
-  rmarkdown::html_vignette:
-    fig_caption: yes    
 vignette: >
   %\VignetteIndexEntry{microbiome R package}
   %\VignetteEngine{knitr::rmarkdown}
