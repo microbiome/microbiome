@@ -4,12 +4,12 @@
 \alias{divergence}
 \title{Diversity within a Sample Group}
 \usage{
-divergence(x, method = "anticorrelation")
+divergence(x, method = "spearman")
 }
 \arguments{
 \item{x}{phyloseq object}
 
-\item{method}{dissimilarity method ('anticorrelation' or any method
+\item{method}{dissimilarity method ('spearman' or any method
 available via the vetan::vegdist function)}
 }
 \value{
@@ -34,10 +34,10 @@ Note that this measure is still affected by sample size.
 Subsampling or bootstrapping can be applied to equalize sample sizes
 between comparisons.
 
-The anticorrelation mode is a simple indicator that returns
+The spearman mode is a simple indicator that returns
 average spearman correlation between samples of the input data and
 the overall group-wise average. The inverse of this measure
-(ie cor instead of 1-cor as in here) was used in Salonen et al. (2014)
+(ie rho instead of 1-rho as in here) was used in Salonen et al. (2014)
 to quantify group homogeneity.
 }
 \examples{
@@ -50,7 +50,7 @@ b <- divergence(subset_samples(dietswap, nationality == 'AFR'))
 The inter- and intra-individual homogeneity measures used in
 Salonen et al. ISME J. 8:2218-30, 2014 were obtained as
 1 - beta where beta is the group diversity as quantified by the
-anticorrelation method.
+spearman method.
 
 To cite this R package, see citation('microbiome')
 }
