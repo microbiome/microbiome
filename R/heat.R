@@ -71,7 +71,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
     
     df[[Xvar]] <- factor(df[[Xvar]])
     df[[Yvar]] <- factor(df[[Yvar]])
-    
+
     # TODO neatmap
     if (order.rows || order.cols) {
         
@@ -91,9 +91,9 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
         cind <- 1:ncol(mat)
         if (nrow(mat) > 1 && ncol(mat) > 1) {
             rind <- hclust(as.dist(1 - cor(t(mat),
-            use="pairwise.complete.obs")))$order
+                use="pairwise.complete.obs")))$order
             cind <- hclust(as.dist(1 - cor(mat,
-            use="pairwise.complete.obs")))$order
+                use="pairwise.complete.obs")))$order
             
         }
         if (ncol(mat) > 1 && nrow(mat) == 1) {
@@ -112,7 +112,6 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
             message("Ordering rows")
             df[[Yvar]] <- factor(df[[Yvar]], levels=colnames(mat)[cind])
         }
-        
     }
     
     XXXX <- YYYY <- ffff <- NULL

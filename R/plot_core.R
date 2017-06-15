@@ -27,7 +27,7 @@
 #' To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-plot_core <- function(x, prevalences=seq(, 1, 1, 0.1), detections=20,
+plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
     plot.type="lineplot", colours=NULL, # gray(seq(0, 1, length=5)),
     min.prevalence=NULL, taxa.order=NULL, horizontal=FALSE) {
     
