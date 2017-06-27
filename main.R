@@ -50,7 +50,7 @@ namespaces0 <-  loadedNamespaces()
 for (myfile in fs) {
     print(myfile)
     # times[[myfile]] <- system.time(knit(myfile))[["elapsed"]]
-    # rmarkdown::render(myfile, "md_document")
+    rmarkdown::render(myfile, "md_document")
     # rmarkdown::render(myfile, "all")
     rmarkdown::render(myfile, "html_document")    
 
