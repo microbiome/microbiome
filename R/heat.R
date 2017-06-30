@@ -46,10 +46,11 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
         if (maxval <= 1) {
             limits <- c(-1, 1)
         } else {
+	    maxval <- ceiling(maxval)
             limits <- c(-maxval, maxval)
         }
     }
-    
+
     if (nrow(df) == 0) {
         warning("Input data frame is empty.")
         return(NULL)
