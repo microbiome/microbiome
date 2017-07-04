@@ -46,7 +46,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
         if (maxval <= 1) {
             limits <- c(-1, 1)
         } else {
-	    maxval <- ceiling(maxval)
+            xmaxval <- ceiling(maxval)
             limits <- c(-maxval, maxval)
         }
     }

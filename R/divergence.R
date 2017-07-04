@@ -3,7 +3,6 @@
 #' given sample set.
 #'
 #' @details
-#'
 #' Microbiota divergence (heterogeneity / spread) within a given sample
 #' set can be quantified by the average sample dissimilarity or beta
 #' diversity. Taking average over
@@ -110,7 +109,7 @@ beta.pairs <- function(x, method="bray", n = ncol(x)) {
     for (i in 1:ncol(x)) {
         i2 <- sample(setdiff(1:ncol(x), i), 1)
         #i1 <- pairs[1, i]
-        #i2 <- pairs[2, i]	
+        #i2 <- pairs[2, i]
         xx <- t(x[, c(i, i2)])
         b[[i]] <- as.vector(vegdist(xx, method=method)) 
     }

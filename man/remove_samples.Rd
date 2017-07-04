@@ -18,7 +18,8 @@ Filtered phyloseq object.
 Filter out selected samples from a phyloseq object.
 }
 \details{
-This complements the phyloseq function prune_samples by providing a way to exclude given groups from a phyloseq object.
+This complements the phyloseq function prune_samples by providing
+a way to exclude given groups from a phyloseq object.
 }
 \examples{
 data(dietswap)

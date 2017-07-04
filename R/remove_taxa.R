@@ -9,13 +9,14 @@
 #' @keywords utilities
 #' @export
 #' @seealso phyloseq::prune_taxa, phyloseq::subset_taxa
-#' @details This complements the phyloseq function prune_taxa by providing a way to exclude given groups from a phyloseq object.
+#' @details This complements the phyloseq function prune_taxa by providing
+#' a way to exclude given groups from a phyloseq object.
 #' @examples
 #' data(dietswap)
 #' pseq <- remove_taxa(c("Akkermansia", "Dialister"), dietswap)
 remove_taxa <- function(taxa = NULL, x) {
 
-    if (is.null(taxa)) {return(x)}	     
+    if (is.null(taxa)) {return(x)}     
     keep <- setdiff(taxa(x), taxa)
     prune_taxa(keep, x)
     
