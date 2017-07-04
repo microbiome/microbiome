@@ -1,5 +1,6 @@
 # Extra material related but not to be included in the package
 inst/extras/..Rcheck
+inst/extras/microbiome.Rcheck
 inst/extras/*
 inst/extras/homepage
 inst/extras/.*
