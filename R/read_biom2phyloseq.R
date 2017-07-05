@@ -11,8 +11,8 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' p0 <- read_biom2phyloseq(otu.file='otu_table.biom',
-#' metadata.file='mapping.csv',
+#' p0 <- read_biom2phyloseq(otu.file='qiita1629.biom',
+#' metadata.file='qiita1629_mapping.csv',
 #' taxonomy.file=NULL)
 #' }
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
