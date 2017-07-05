@@ -15,9 +15,9 @@
 #' @examples
 #' \dontrun{
 #' p0 <- read_mothur2phyloseq(
-#'     shared.file='mothur_shared.shared',
-#'     consensus.taxonomy.file='mothur_taxonomy.taxonomy',
-#'     mapping.file='mothur_mapping.csv')
+#'     shared.file='Baxter_FITs_Microbiome_2016_fit.final.tx.1.subsample.shared',
+#'     consensus.taxonomy.file='Baxter_FITs_Microbiome_2016_fit.final.tx.1.cons.taxonomy',
+#'     mapping.file='Baxter_FITs_Microbiome_2016_mapping.csv')
 #' }
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
