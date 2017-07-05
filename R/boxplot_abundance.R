@@ -14,14 +14,14 @@
 #' @examples
 #' data(peerj32)
 #' p <- boxplot_abundance(peerj32$phyloseq, x='time', y='Akkermansia',
-#'     line='subject')
+#'    line='subject')
 #' @keywords utilities
 boxplot_abundance <- function(d, x, y, line=NULL, violin=FALSE, na.rm=FALSE,
     show.points=TRUE) {
     
     change <- xvar <- yvar <- linevar <- colorvar <- NULL
     pseq <- d
-
+    
     otu <- abundances(pseq)
     # otu <- abundances(pseq) if (!taxa_are_rows(pseq)) {otu <- t(otu)}
     
@@ -84,7 +84,7 @@ boxplot_abundance <- function(d, x, y, line=NULL, violin=FALSE, na.rm=FALSE,
         
         # Map back to data
         df$change <- df2$change[match(df$linevar, df2$linevar)]
-
+        
         # Only show the sign of change for clarity
         df$change <- sign(df$change)
         p <- p + geom_line(data=df,
@@ -92,7 +92,6 @@ boxplot_abundance <- function(d, x, y, line=NULL, violin=FALSE, na.rm=FALSE,
         scale_colour_gradient2(low="blue", mid="black", high="red", 
             midpoint=0, na.value="grey50", guide="none")
     }
-        
     #if (!is.null(color)) {   
     #    df$colorvar <- factor(df[[color]])
     #    # Add legend

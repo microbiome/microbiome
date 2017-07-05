@@ -78,7 +78,7 @@
 #' @keywords utilities
 bimodality <- function(x, method="potential_analysis", peak.threshold=1,
 bw.adjust=1, bs.iter=100, min.density=1, verbose=TRUE) {
-
+    
     accepted <- intersect(method, c("potential_analysis",
         "Sarle.finite.sample", "Sarle.asymptotic"))
     

@@ -104,13 +104,13 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
             jc <- apply(x, 2, function(xi) {
                 
                 if (sum(!is.na(xi)) >= minobs) {
-
+                    
                     res <- suppressWarnings(
                         cor.test(xi, unlist(y[, j], use.names=FALSE), 
                     method=method, use="pairwise.complete.obs"))
-
+                    
                     res <- c(res$estimate, res$p.value)
-
+                    
                 } else {
                 
                     warning(paste("Not enough observations (",
