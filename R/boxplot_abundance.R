@@ -16,8 +16,8 @@
 #' p <- boxplot_abundance(peerj32$phyloseq, x='time', y='Akkermansia',
 #'    line='subject')
 #' @keywords utilities
-boxplot_abundance <- function(d, x, y, line=NULL, violin=FALSE, na.rm=FALSE,
-    show.points=TRUE) {
+boxplot_abundance <-
+    function(d, x, y, line=NULL, violin=FALSE, na.rm=FALSE, show.points=TRUE) {
     
     change <- xvar <- yvar <- linevar <- colorvar <- NULL
     pseq <- d
