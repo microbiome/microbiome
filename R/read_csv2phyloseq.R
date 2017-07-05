@@ -14,9 +14,12 @@
 #' # and read here with
 #' # system.file('inst/extdata/..', package='microbiome') command
 #' # To make this example executable
-#' p0 <- read_csv2phyloseq(otu.file='qiita1629_otu_table.csv', 
-#'     taxonomy.file='qiita1629_taxonomy_table.csv', 
-#'     metadata.file='qiita1629_mapping_subset.csv')
+#' qiita1629_otu_table <- system.file('inst/extdata/qiita1629_otu_table.csv', package='microbiome')
+#' qiita1629_taxonomy_table <- system.file('inst/extdata/qiita1629_taxonomy_table.csv', package='microbiome')
+#' qiita1629_mapping_subset <- system.file('inst/extdata/qiita1629_mapping_subset.csv', package='microbiome')
+#' p0 <- read_csv2phyloseq(otu.file='qiita1629_otu_table', 
+#'     taxonomy.file='qiita1629_taxonomy_table', 
+#'     metadata.file='qiita1629_mapping_subset')
 #' }
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
