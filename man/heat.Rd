@@ -38,9 +38,9 @@ association higher than this value}
 
 \item{legend.text}{legend text}
 
-\item{order.rows}{Order rows to enhance visualization interpretability}
+\item{order.rows}{Order rows to enhance visualization interpretability. If this is logical, then hclust is applied. If this is a vector then the rows are ordered using this index.}
 
-\item{order.cols}{Order columns to enhance visualization interpretability}
+\item{order.cols}{Order columns to enhance visualization interpretability. If this is logical, then hclust is applied. If this is a vector then the rows are ordered using this index.}
 
 \item{text.size}{Adjust text size}
 
