@@ -28,8 +28,10 @@ Biom file and mapping files will be converted to
 }
 \examples{
 \dontrun{
-p0 <- read_biom2phyloseq(otu.file='otu_table.biom',
-metadata.file='mapping.csv',
+otu.table.biom <- system.file('inst/extdata/qiita1629.biom', package='microbiome')
+mapping <- system.file('inst/extdata/qiita1629_mapping.csv', package='microbiome')
+p0 <- read_biom2phyloseq(otu.file='otu.table.biom',
+metadata.file='mapping',
 taxonomy.file=NULL)
 }
 }

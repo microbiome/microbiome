@@ -31,10 +31,14 @@ Mothur shared and consensus taxonomy files will be converted to
 }
 \examples{
 \dontrun{
+
+mothur.shared <- system.file('inst/extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.subsample.shared', package='microbiome')
+mothur.con.taxonomy <- system.file('inst/extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.cons.taxonomy', package='microbiome')
+mothur_mapping <- system.file('inst/extdata/Baxter_FITs_Microbiome_2016_mapping.csv', package='microbiome')
 p0 <- read_mothur2phyloseq(
-    shared.file='mothur_shared.shared',
-    consensus.taxonomy.file='mothur_taxonomy.taxonomy',
-    mapping.file='mothur_mapping.csv')
+    shared.file='mothur.shared',
+    consensus.taxonomy.file='mothur.con.taxonomy',
+    mapping.file='mothur_mapping')
 }
 }
 \author{
