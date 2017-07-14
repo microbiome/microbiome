@@ -4,9 +4,6 @@
   %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}
 -->
-Introduction to the microbiome R package
-========================================
-
 [![Build
 Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)
 

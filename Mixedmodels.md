@@ -49,6 +49,10 @@ Test individual taxonomic group
     ## 
     ##     tril, triu
 
+    ## The following object is masked from 'package:S4Vectors':
+    ## 
+    ##     expand
+
     ## The following object is masked from 'package:tidyr':
     ## 
     ##     expand
