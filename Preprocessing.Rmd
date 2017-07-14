@@ -283,3 +283,10 @@ print(res$plot)
 kable(head(res$data), digits = 2)
 ```
 
+
+Custom functions are provided to cut age or BMI information into discrete classes.
+
+```{r preprocessing-metadata2, warning=FALSE, message=FALSE}
+group_bmi(c(22, 28, 31), "standard")
+group_age(c(17, 41, 102), "decades")
+```
