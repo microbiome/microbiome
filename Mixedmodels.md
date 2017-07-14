@@ -45,6 +45,10 @@ Test individual taxonomic group
     ## 
     ## Attaching package: 'Matrix'
 
+    ## The following objects are masked from 'package:SpiecEasi':
+    ## 
+    ##     tril, triu
+
     ## The following object is masked from 'package:tidyr':
     ## 
     ##     expand

@@ -66,10 +66,6 @@ with the neatmap method:
                           sample.sort = "neatmap", otu.sort = "neatmap",
                           mar = c(6, 13, 1, 1))
 
-    ## Ordering columns
-
-    ## Ordering rows
-
 ### Plot taxa prevalence
 
 We use the Dynamics IBD data set from [Halfvarson J., et al. Nature

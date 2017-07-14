@@ -381,3 +381,16 @@ groups (group):
 </tr>
 </tbody>
 </table>
+
+Custom functions are provided to cut age or BMI information into
+discrete classes.
+
+    group_bmi(c(22, 28, 31), "standard")
+
+    ## [1] lean       overweight obese     
+    ## Levels: underweight lean overweight obese severe morbid super
+
+    group_age(c(17, 41, 102), "decades")
+
+    ## [1] [10,20)   [40,50)   [100,110]
+    ## 10 Levels: [10,20) [20,30) [30,40) [40,50) [50,60) [60,70) ... [100,110]

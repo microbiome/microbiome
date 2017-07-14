@@ -121,5 +121,5 @@ Wickham. *scales: Scale Functions for Visualization*. R package version
 'gather()' Functions*. R package version 0.6.3. 2017. &lt;URL:
 <https://CRAN.R-project.org/package=tidyr>&gt;. \[1\] H. Wickham, R.
 Francois, L. Henry, et al. *dplyr: A Grammar of Data Manipulation*. R
-package version 0.7.0. 2017. &lt;URL:
+package version 0.7.1. 2017. &lt;URL:
 <https://CRAN.R-project.org/package=dplyr>&gt;.

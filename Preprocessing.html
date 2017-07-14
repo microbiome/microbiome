@@ -424,6 +424,13 @@ kable(head(res$data), digits = 2)</code></pre>
 </tr>
 </tbody>
 </table>
+<p>Custom functions are provided to cut age or BMI information into discrete classes.</p>
+<pre class="r"><code>group_bmi(c(22, 28, 31), &quot;standard&quot;)</code></pre>
+<pre><code>## [1] lean       overweight obese     
+## Levels: underweight lean overweight obese severe morbid super</code></pre>
+<pre class="r"><code>group_age(c(17, 41, 102), &quot;decades&quot;)</code></pre>
+<pre><code>## [1] [10,20)   [40,50)   [100,110]
+## 10 Levels: [10,20) [20,30) [30,40) [40,50) [50,60) [60,70) ... [100,110]</code></pre>
 </div>
 </div>
 
