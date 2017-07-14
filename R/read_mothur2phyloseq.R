@@ -15,15 +15,15 @@
 #' @examples
 #'
 #' otu.file <- system.file(
-#' "inst/extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.subsample.shared",
+#' "extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.subsample.shared",
 #'    package='microbiome')
 #'
 #' tax.file <- system.file(
-#' "inst/extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.cons.taxonomy",
+#' "extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.cons.taxonomy",
 #'    package='microbiome')
 #'
 #' meta.file <- system.file(
-#' "inst/extdata/Baxter_FITs_Microbiome_2016_mapping.csv",
+#' "extdata/Baxter_FITs_Microbiome_2016_mapping.csv",
 #'    package='microbiome')
 #' 
 #' p0 <- read_mothur2phyloseq(

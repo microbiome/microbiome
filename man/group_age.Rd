@@ -11,8 +11,8 @@ group_age(x, breaks = "decades", n = 10, labels = NULL,
 \arguments{
 \item{x}{Numeric vector (age in years)}
 
-\item{breaks}{Class break points. Either a vector of breakpoints, or one of the predefined
-options ("years", "decades", "even").}
+\item{breaks}{Class break points. Either a vector of breakpoints,
+or one of the predefined options ("years", "decades", "even").}
 
 \item{n}{Number of groups for the breaks = "even" option.}
 
@@ -40,7 +40,9 @@ Factor of age groups.
 Cut age information to discrete factors.
 }
 \details{
-Regarding the breaks arguments, the "even" option aims to cut the samples in groups with approximately the same size (by quantiles). The "years" and "decades" options are self-explanatory.
+Regarding the breaks arguments, the "even" option aims to
+cut the samples in groups with approximately the same size (by
+quantiles). The "years" and "decades" options are self-explanatory.
 }
 \examples{
 data(atlas1006)

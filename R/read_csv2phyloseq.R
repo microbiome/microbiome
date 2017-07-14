@@ -11,13 +11,13 @@
 #' @examples
 #'
 #' otu.file <-
-#'    system.file("inst/extdata/qiita1629_otu_table.csv",
+#'    system.file("extdata/qiita1629_otu_table.csv",
 #'        package='microbiome')
 #'
-#' tax.file <- system.file("inst/extdata/qiita1629_taxonomy_table.csv",
+#' tax.file <- system.file("extdata/qiita1629_taxonomy_table.csv",
 #'        package='microbiome')
 #'
-#' meta.file <- system.file("inst/extdata/qiita1629_mapping_subset.csv",
+#' meta.file <- system.file("extdata/qiita1629_mapping_subset.csv",
 #'        package='microbiome')
 #'
 #' p0 <- read_csv2phyloseq(

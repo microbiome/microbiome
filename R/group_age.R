@@ -1,15 +1,17 @@
 #' @title Age Classes
 #' @description Cut age information to discrete factors.
 #' @param x Numeric vector (age in years)
-#' @param breaks Class break points. Either a vector of breakpoints, or one of the predefined
-#'    options ("years", "decades", "even").
+#' @param breaks Class break points. Either a vector of breakpoints,
+#' or one of the predefined options ("years", "decades", "even").
 #' @param n Number of groups for the breaks = "even" option.
 #' @inheritParams base::cut
 #' @return Factor of age groups.
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @export
-#' @details Regarding the breaks arguments, the "even" option aims to cut the samples in groups with approximately the same size (by quantiles). The "years" and "decades" options are self-explanatory.
+#' @details Regarding the breaks arguments, the "even" option aims to
+#' cut the samples in groups with approximately the same size (by
+#' quantiles). The "years" and "decades" options are self-explanatory.
 #' @seealso base::cut
 #' @examples
 #' data(atlas1006)
@@ -17,8 +19,8 @@
 #' age.factor <- group_age(age.numeric)
 #' @keywords utilities
 group_age <- function(x, breaks = "decades", n = 10, labels = NULL,
-         include.lowest = TRUE, right = FALSE, dig.lab = 3,
-         ordered_result = FALSE) {
+        include.lowest = TRUE, right = FALSE, dig.lab = 3,
+        ordered_result = FALSE) {
 
     # Predefined groups.
     # Each interval is taken as semi-open to the right by default
