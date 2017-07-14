@@ -147,7 +147,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
         } else {
 
             order.cols <- colnames(mat)[cind]
-     
+
         }
      
     }
