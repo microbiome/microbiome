@@ -1,6 +1,6 @@
 ---
 title: "Introduction to the microbiome R package"
-author: "Leo Lahti et al. `r Sys.Date()`"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
 output: 
@@ -35,9 +35,6 @@ opts_knit$set(self.contained = TRUE,
               header = c(highlight = style))
 ```
 
-
-Introduction to the microbiome R package
-===========
 
 [![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)
 
