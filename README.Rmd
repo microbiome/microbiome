@@ -8,7 +8,7 @@ microbiome R package
 
 [![Join the chat at https://gitter.im/microbiome/microbiome](https://badges.gitter.im/microbiome/microbiome.svg)](https://gitter.im/microbiome/microbiome?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)
-[![codecov.io](https://codecov.io/github/microbiome/microbiome/coverage.svg?branch=master)](https://codecov.io/github/microbiome/microbiome?branch=master)  
+[![codecov.io](https://codecov.io/github/microbiome/microbiome/coverage.svg?branch=master)](https://codecov.io/github/microbiome/microbiome?branch=master)
 [![PRs Welcome][prs-badge]][prs]
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
@@ -33,19 +33,14 @@ microbiome R package
 
 
 
-Tools for the exploration and analysis of microbiome profiling data,
-with a focus on large-scale population studies and 16S taxonomic
-profiling. This package extends the generic
-[phyloseq](https://github.com/joey711/phyloseq) framework for R based
-microbiome analysis.  Your feedback, suggestions and bug reports are
-welcome.
+Tools for the exploration and analysis of microbiome profiling data, in particular large-scale population studies and 16S taxonomic profiling. 
 
 
 ### Installation and use
 
 See the package [tutorial](http://microbiome.github.io/microbiome/).
 
-
+**Kindly cite** as follows: "Leo Lahti [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). Tools for microbiome analysis in R. Microbiome package version `r sessionInfo()$otherPkgs$microbiome$Version`. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). See also the relevant references listed in the manual page of each function. 
 ### Contribute
 
 Contributions are very welcome:
@@ -57,9 +52,6 @@ Contributions are very welcome:
 
 
 ### Publications using the microbiome package
-
-**Kindly cite this work** as follows: "Leo Lahti [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). Tools for microbiome analysis in R. Microbiome package version `r sessionInfo()$otherPkgs$microbiome$Version`. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). See also the relevant references listed in the manual page of each function. 
-
 
 Below some publications that utilize the tools implemented in this package. The list of publications is not exhaustive. Let us know if you know of further publications using the microbiome package; we are collecting these on the website.
 
@@ -80,11 +72,11 @@ Below some publications that utilize the tools implemented in this package. The 
 
 Main developer: [Leo Lahti](https://github.com/antagomir/)
 
-Co-authors: Jarkko Salojärvi, Sudarshan Shetty. 
+Co-authors: Sudarshan Shetty, Jarkko Salojärvi. 
 
-Contributors: Tineka Blake and [other contributors](https://github.com/microbiome/microbiome/graphs/contributors).
+[Full list of contributors](https://github.com/microbiome/microbiome/graphs/contributors).
 
-Financial support has been provided by the following bodies:
+The work has been supported by the following bodies:
 
   * Academy of Finland (grants 256950 and 295741)
   * [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics
