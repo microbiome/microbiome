@@ -527,36 +527,6 @@ core species. Non-core abundance provides the complement (1-x; see
 noncore\_abundance).
 
     tab <- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
-    kable(head(tab))
-
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">Sample-1</td>
-<td align="right">0.9665105</td>
-</tr>
-<tr class="even">
-<td align="left">Sample-2</td>
-<td align="right">0.9591670</td>
-</tr>
-<tr class="odd">
-<td align="left">Sample-3</td>
-<td align="right">0.9720652</td>
-</tr>
-<tr class="even">
-<td align="left">Sample-4</td>
-<td align="right">0.9372630</td>
-</tr>
-<tr class="odd">
-<td align="left">Sample-5</td>
-<td align="right">0.9851720</td>
-</tr>
-<tr class="even">
-<td align="left">Sample-6</td>
-<td align="right">0.9703755</td>
-</tr>
-</tbody>
-</table>
 
 ### Gini index
 
@@ -565,36 +535,6 @@ inverse gini index (1/x) can also be used as a community diversity
 measure.
 
     tab <- inequality(pseq)
-    kable(head(tab))
-
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">Sample-1</td>
-<td align="right">0.8621955</td>
-</tr>
-<tr class="even">
-<td align="left">Sample-2</td>
-<td align="right">0.8840651</td>
-</tr>
-<tr class="odd">
-<td align="left">Sample-3</td>
-<td align="right">0.9080567</td>
-</tr>
-<tr class="even">
-<td align="left">Sample-4</td>
-<td align="right">0.8566033</td>
-</tr>
-<tr class="odd">
-<td align="left">Sample-5</td>
-<td align="right">0.9209336</td>
-</tr>
-<tr class="even">
-<td align="left">Sample-6</td>
-<td align="right">0.9188604</td>
-</tr>
-</tbody>
-</table>
 
 ### Evenness
 

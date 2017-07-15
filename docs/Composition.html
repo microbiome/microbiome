@@ -140,8 +140,8 @@ pseq &lt;- core(dietswap, detection = 10^3, prevalence = 95/100)
 # Pick sample subset
 library(phyloseq)
 pseq2 &lt;- subset_samples(pseq, group == &quot;DI&quot; &amp; nationality == &quot;AFR&quot; &amp; timepoint.within.group == 1)</code></pre>
-<div id="barplots-for-composition" class="section level3">
-<h3>Barplots for composition</h3>
+<div id="composition-barplots" class="section level3">
+<h3>Composition barplots</h3>
 <p>Same with compositional (relative) abundances; for each sample (left), or averafged by group (right).</p>
 <pre class="r"><code># Try another theme
 # from https://github.com/hrbrmstr/hrbrthemes

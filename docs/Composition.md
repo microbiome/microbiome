@@ -24,7 +24,7 @@ study](http://dx.doi.org/10.1038/ncomms7342):
     library(phyloseq)
     pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR" & timepoint.within.group == 1)
 
-### Barplots for composition
+### Composition barplots
 
 Same with compositional (relative) abundances; for each sample (left),
 or averafged by group (right).

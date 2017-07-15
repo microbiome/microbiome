@@ -29,21 +29,25 @@ Load example data:
 Relative population frequencies; at 1% compositional abundance
 threshold:
 
-    head(prevalence(pseq.rel, detection = 1, sort = TRUE))
+    head(prevalence(pseq.rel, detection = 1/100, sort = TRUE))
 
-    ##  Yersinia et rel.  Xanthomonadaceae  Wissella et rel.            Vibrio 
-    ##                 0                 0                 0                 0 
-    ## Weissella et rel.       Veillonella 
-    ##                 0                 0
+    ## Roseburia intestinalis et rel.     Eubacterium hallii et rel. 
+    ##                      1.0000000                      1.0000000 
+    ##     Clostridium nexile et rel.     Ruminococcus obeum et rel. 
+    ##                      1.0000000                      0.9772727 
+    ##   Coprococcus eutactus et rel.  Ruminococcus lactaris et rel. 
+    ##                      0.9772727                      0.9545455
 
 Absolute population frequencies (sample count):
 
-    head(prevalence(pseq.rel, detection = 1, sort = TRUE, count = TRUE))
+    head(prevalence(pseq.rel, detection = 1/100, sort = TRUE, count = TRUE))
 
-    ##  Yersinia et rel.  Xanthomonadaceae  Wissella et rel.            Vibrio 
-    ##                 0                 0                 0                 0 
-    ## Weissella et rel.       Veillonella 
-    ##                 0                 0
+    ## Roseburia intestinalis et rel.     Eubacterium hallii et rel. 
+    ##                             44                             44 
+    ##     Clostridium nexile et rel.     Ruminococcus obeum et rel. 
+    ##                             44                             43 
+    ##   Coprococcus eutactus et rel.  Ruminococcus lactaris et rel. 
+    ##                             43                             42
 
 ### Core microbiota analysis
 

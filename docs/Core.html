@@ -143,17 +143,21 @@ pseq.rel &lt;- microbiome::transform(pseq, &quot;compositional&quot;)</code></pr
 <div id="prevalence-of-taxonomic-groups" class="section level3">
 <h3>Prevalence of taxonomic groups</h3>
 <p>Relative population frequencies; at 1% compositional abundance threshold:</p>
-<pre class="r"><code>head(prevalence(pseq.rel, detection = 1, sort = TRUE))</code></pre>
-<pre><code>##  Yersinia et rel.  Xanthomonadaceae  Wissella et rel.            Vibrio 
-##                 0                 0                 0                 0 
-## Weissella et rel.       Veillonella 
-##                 0                 0</code></pre>
+<pre class="r"><code>head(prevalence(pseq.rel, detection = 1/100, sort = TRUE))</code></pre>
+<pre><code>## Roseburia intestinalis et rel.     Eubacterium hallii et rel. 
+##                      1.0000000                      1.0000000 
+##     Clostridium nexile et rel.     Ruminococcus obeum et rel. 
+##                      1.0000000                      0.9772727 
+##   Coprococcus eutactus et rel.  Ruminococcus lactaris et rel. 
+##                      0.9772727                      0.9545455</code></pre>
 <p>Absolute population frequencies (sample count):</p>
-<pre class="r"><code>head(prevalence(pseq.rel, detection = 1, sort = TRUE, count = TRUE))</code></pre>
-<pre><code>##  Yersinia et rel.  Xanthomonadaceae  Wissella et rel.            Vibrio 
-##                 0                 0                 0                 0 
-## Weissella et rel.       Veillonella 
-##                 0                 0</code></pre>
+<pre class="r"><code>head(prevalence(pseq.rel, detection = 1/100, sort = TRUE, count = TRUE))</code></pre>
+<pre><code>## Roseburia intestinalis et rel.     Eubacterium hallii et rel. 
+##                             44                             44 
+##     Clostridium nexile et rel.     Ruminococcus obeum et rel. 
+##                             44                             43 
+##   Coprococcus eutactus et rel.  Ruminococcus lactaris et rel. 
+##                             43                             42</code></pre>
 </div>
 <div id="core-microbiota-analysis-1" class="section level3">
 <h3>Core microbiota analysis</h3>

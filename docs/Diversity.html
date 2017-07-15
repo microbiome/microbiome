@@ -622,70 +622,12 @@ kable(head(tab))</code></pre>
 <div id="core-abundance" class="section level3">
 <h3>Core abundance</h3>
 <p>The core_abundance function refers to the relative proportion of the core species. Non-core abundance provides the complement (1-x; see noncore_abundance).</p>
-<pre class="r"><code>tab &lt;- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
-kable(head(tab))</code></pre>
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">Sample-1</td>
-<td align="right">0.9665105</td>
-</tr>
-<tr class="even">
-<td align="left">Sample-2</td>
-<td align="right">0.9591670</td>
-</tr>
-<tr class="odd">
-<td align="left">Sample-3</td>
-<td align="right">0.9720652</td>
-</tr>
-<tr class="even">
-<td align="left">Sample-4</td>
-<td align="right">0.9372630</td>
-</tr>
-<tr class="odd">
-<td align="left">Sample-5</td>
-<td align="right">0.9851720</td>
-</tr>
-<tr class="even">
-<td align="left">Sample-6</td>
-<td align="right">0.9703755</td>
-</tr>
-</tbody>
-</table>
+<pre class="r"><code>tab &lt;- core_abundance(pseq, detection = .1/100, prevalence = 50/100)</code></pre>
 </div>
 <div id="gini-index" class="section level3">
 <h3>Gini index</h3>
 <p>Gini index is a common measure for inequality in economical income. The inverse gini index (1/x) can also be used as a community diversity measure.</p>
-<pre class="r"><code>tab &lt;- inequality(pseq)
-kable(head(tab))</code></pre>
-<table>
-<tbody>
-<tr class="odd">
-<td align="left">Sample-1</td>
-<td align="right">0.8621955</td>
-</tr>
-<tr class="even">
-<td align="left">Sample-2</td>
-<td align="right">0.8840651</td>
-</tr>
-<tr class="odd">
-<td align="left">Sample-3</td>
-<td align="right">0.9080567</td>
-</tr>
-<tr class="even">
-<td align="left">Sample-4</td>
-<td align="right">0.8566033</td>
-</tr>
-<tr class="odd">
-<td align="left">Sample-5</td>
-<td align="right">0.9209336</td>
-</tr>
-<tr class="even">
-<td align="left">Sample-6</td>
-<td align="right">0.9188604</td>
-</tr>
-</tbody>
-</table>
+<pre class="r"><code>tab &lt;- inequality(pseq)</code></pre>
 </div>
 <div id="evenness" class="section level3">
 <h3>Evenness</h3>

@@ -11,8 +11,11 @@ Tools for microbiome analysis; with multiple example data sets from
 published studies; extending the
 [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 
+Installation and use
+====================
+
 Getting started
-===============
+---------------
 
 -   [Overview (vignette)](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
 -   [Installation](Template.html)
@@ -20,7 +23,7 @@ Getting started
 -   [Data manipulation](Preprocessing.html)
 
 Microbiome analysis
-===================
+-------------------
 
 -   [Alpha diversity](Diversity.html)
 -   [Beta diversity / Community heterogeneity](Betadiversity.html)
@@ -30,7 +33,7 @@ Microbiome analysis
 -   [Stability and tipping elements](Stability.html)
 
 Visualization and related tools
-===============================
+-------------------------------
 
 -   [Heatmaps](Heatmap.html)
 -   [Networks](Networks.html)
@@ -38,7 +41,7 @@ Visualization and related tools
 -   [Regression](Regression.html)
 
 Statistical analysis
-====================
+--------------------
 
 -   [Bimodality](Bimodality.html)
 -   [Community comparisons](Comparisons.html) ([limma](limma.html),
@@ -50,22 +53,19 @@ Development
 ===========
 
 New examples, tutorial pages, and other contributions are
-[welcome](Contributing.html)
+[welcome](Contributing.html). The material can be freely used, modified
+and distributed under the [Two-clause FreeBSD
+license](http://en.wikipedia.org/wiki/BSD_licenses). For source code,
+see the [Github page](https://github.com/microbiome/microbiome/).
 
-This work can be freely used, modified and distributed under the
-[Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD_licenses).
-
-References
-==========
+Acknowledgements
+================
 
 **Kindly cite this work** as follows: "Leo Lahti, Sudarshan Shetty [et
 al.](https://github.com/microbiome/microbiome/graphs/contributors)
 (2017). Tools for microbiome analysis in R. Version 0.99.49. URL:
 <http://microbiome.github.com/microbiome>. Check also the relevant
 references listed in the manual page of each function.
-
-Dependencies
-------------
 
 The package utilizes tools from a number of other R extensions,
 including dplyr (Wickham, Francois, Henry, and Müller, 2017), ggplot2
