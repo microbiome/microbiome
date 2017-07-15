@@ -45,10 +45,6 @@ Test individual taxonomic group
     ## 
     ## Attaching package: 'Matrix'
 
-    ## The following object is masked from 'package:S4Vectors':
-    ## 
-    ##     expand
-
     ## The following object is masked from 'package:tidyr':
     ## 
     ##     expand

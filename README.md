@@ -5,8 +5,22 @@
 microbiome R package
 ==========
 
+
+
+
+<br>
+
 [![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)
 [![codecov.io](https://codecov.io/github/microbiome/microbiome/coverage.svg?branch=master)](https://codecov.io/github/microbiome/microbiome?branch=master)  
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+[![PRs Welcome][prs-badge]][prs]
+[![Code of Conduct][coc-badge]][coc]
+[![Gitter](https://badges.gitter.im/microbiome/microbiome.svg)](https://gitter.im/microbiome/microbiome?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Watch on GitHub][github-watch-badge]][github-watch]
+[![Star on GitHub][github-star-badge]][github-star]
+<!--[![Follow](https://img.shields.io/twitter/follow/antagomir.svg?style=social)](https://twitter.com/intent/follow?screen_name=antagomir)-->
+
+<br>
 
 
 Tools for the exploration and analysis of microbiome profiling data,
@@ -34,7 +48,10 @@ Contributions are very welcome:
 
 ### Publications using the microbiome package
 
-**Kindly cite this work** as follows: "Leo Lahti [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). Tools for microbiome analysis in R. Microbiome package version 0.99.48. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome), and the relevant references listed in the manual page of each function. The list of publications is not exhaustive. Let us know if you know of further publications using the microbiome package; we are collecting these on the website.
+**Kindly cite this work** as follows: "Leo Lahti [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). Tools for microbiome analysis in R. Microbiome package version . URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). See also the relevant references listed in the manual page of each function. 
+
+
+Below some publications that utilize the tools implemented in this package. The list of publications is not exhaustive. Let us know if you know of further publications using the microbiome package; we are collecting these on the website.
 
 [Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Shetty S, Hugenholtz F, Lahti L, Smidt H, de Vos WM, Danchin A. _FEMS Microbiology Reviews_ fuw045, 2017.
 
@@ -68,4 +85,31 @@ Financial support has been provided by the following bodies:
 This work relies on the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis developed by Paul McMurdie and Susan Holmes. 
 
 
+
+
+
+[chat-badge]: https://img.shields.io/badge/chat-on%20gitter-46BC99.svg?style=flat-square
+[chat]: https://gitter.im/kentcdodds/all-contributors?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+[build-badge]: https://img.shields.io/travis/kentcdodds/all-contributors.svg?style=flat-square
+[build]: https://travis-ci.org/kentcdodds/all-contributors
+[version-badge]: https://img.shields.io/npm/v/all-contributors.svg?style=flat-square
+[package]: https://www.npmjs.com/package/all-contributors
+[license-badge]: https://img.shields.io/npm/l/all-contributors.svg?style=flat-square
+[license]: https://github.com/kentcdodds/all-contributors/blob/master/LICENSE
+[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+[prs]: http://makeapullrequest.com
+[donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square
+[donate]: http://kcd.im/donate
+[coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
+[coc]: https://github.com/kentcdodds/all-contributors/blob/master/other/CODE_OF_CONDUCT.md
+[implementations-badge]: https://img.shields.io/badge/%F0%9F%92%A1-implementations-8C8E93.svg?style=flat-square
+[implementations]: https://github.com/kentcdodds/all-contributors/blob/master/other/IMPLEMENTATIONS.md
+[github-watch-badge]: https://img.shields.io/github/watchers/kentcdodds/all-contributors.svg?style=social
+[github-watch]: https://github.com/kentcdodds/all-contributors/watchers
+[github-star-badge]: https://img.shields.io/github/stars/kentcdodds/all-contributors.svg?style=social
+[github-star]: https://github.com/kentcdodds/all-contributors/stargazers
+[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20all-contributors!%20%E2%9C%A8%20Recognize%20all%20contributors,%20not%20just%20the%20ones%20who%20commit%20code%20%E2%9C%A8%20https://github.com/kentcdodds/all-contributors%20%F0%9F%A4%97
+[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/kentcdodds/all-contributors.svg?style=social
+[emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
+[all-contributors]: https://github.com/kentcdodds/all-contributors
 

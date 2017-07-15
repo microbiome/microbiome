@@ -72,12 +72,15 @@ env:
   - secure: kuJcKMx91ikYgbamYDep0b/44kXiHCJU5vn832tVWMm9VEYNqnOtfiWrJinFcwcTNsoVbQvH07xz1VobSFCsGn6bjxxAoM3WLe34+SWp8eWiZ8GQHU4tsVcxCJw+ZTzSS+cLs+JguQs+WCKU/0QOWRY77fUbBQg6v7B0z2Wy8N0=
 before_install:
 - pip install --user codecov
-- chmod 755 ./.deploy.sh
+#- chmod 755 ./.deploy.sh
 - sudo apt-get install -y tcl tk tk-dev
 - sudo apt-get install -y libmagick++-dev
 #script:
 #
+
 after_success:
-- bash <(curl -s https://codecov.io/bash)
+  # - bash <(curl -s https://codecov.io/bash) 
+  - Rscript -e 'covr::codecov()'
+  
 #- bash ./.push_to_master # Not ready: sync successful devel to master
 # - bash ./.deploy.sh # Something broken

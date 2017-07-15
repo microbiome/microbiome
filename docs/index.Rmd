@@ -37,7 +37,7 @@ opts_knit$set(self.contained = TRUE,
 ```
 
 
-[![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)
+[![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)  
 
 Tools for common analysis tasks in microbiome profiling studies;
 illustrated with multiple example data sets from published studies;
@@ -111,4 +111,5 @@ including dplyr `r citep(citation("dplyr"))`, ggplot2 `r citep(citation("ggplot2
 ```{r, echo=FALSE, message=FALSE, results='asis'}
 bibliography()
 ```
+
 
