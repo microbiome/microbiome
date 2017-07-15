@@ -88,17 +88,12 @@ New examples and tutorial pages from the user community are welcome:
 This work can be freely used, modified and distributed under the
 [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses).
 
-Kindly cite this work as follows:
-
-```{r sotkanetIndicators, warning=FALSE, message=FALSE, eval=TRUE}
-citation('microbiome')
-```
-
+**Kindly cite this work** as follows: "Leo Lahti, Sudarshan Shetty [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). Tools for microbiome analysis in R. Version `r sessionInfo()$otherPkgs$microbiome$Version`. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). Check also the relevant references listed in the manual page of each function. 
 
 ### Dependencies
 
 The package utilizes tools from a number of other R extensions,
-including ade4 `r citep(citation("ade4"))`, dplyr `r citep(citation("dplyr"))`, ggplot2 `r citep(citation("ggplot2"))`, MASS `r citep(citation("MASS"))`, moments `r citep(citation("moments"))`, phyloseq `r citep(citation("phyloseq"))`, RColorBrewer `r citep(citation("RColorBrewer"))`, scales `r citep(citation("scales"))`, stats `r citep(citation("stats"))`, tidyr `r citep(citation("tidyr"))`, vegan `r citep(citation("vegan"))`.
+including dplyr `r citep(citation("dplyr"))`, ggplot2 `r citep(citation("ggplot2"))`, phyloseq `r citep(citation("phyloseq"))`, stats `r citep(citation("stats"))`, tidyr `r citep(citation("tidyr"))`, vegan `r citep(citation("vegan"))`.
 
 
 ### References
