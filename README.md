@@ -30,17 +30,14 @@ microbiome R package
 [microbiome]: https://github.com/microbiome/microbiome
 
 
-
-
-
-Tools for the exploration and analysis of microbiome profiling data, in particular large-scale population studies and 16S taxonomic profiling. 
+Tools for the exploration and analysis of microbiome profiling data sets, in particular large-scale population studies and 16S taxonomic profiling. 
 
 
 ### Installation and use
 
 See the package [tutorial](http://microbiome.github.io/microbiome/).
 
-**Kindly cite** as follows: "Leo Lahti [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). Tools for microbiome analysis in R. Microbiome package version . URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). See also the relevant references listed in the manual page of each function. 
+**Kindly cite** as follows: "Leo Lahti, Sudarshan Shetty [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). Tools for microbiome analysis in R. Microbiome package version 0.99.51. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). See also the relevant references listed in the manual page of each function. 
 ### Contribute
 
 Contributions are very welcome:
