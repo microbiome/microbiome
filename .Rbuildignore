@@ -1,3 +1,6 @@
+# Homepage
+docs
+
 # Extra material related but not to be included in the package
 inst/extras/..Rcheck
 inst/extras/microbiome.Rcheck

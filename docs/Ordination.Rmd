@@ -1,0 +1,103 @@
+---
+title: "Ordination analysis"
+bibliography: 
+- bibliography.bib
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - ordination}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
+## Ordination examples
+
+Full examples for standard ordination techniques applied to phyloseq data, based on the [phyloseq ordination tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). For handy wrappers for some common ordination tasks in microbiome analysis, see [landscaping examples](Landscaping.html)
+
+
+Load example data:
+
+```{r ordination1, message=FALSE, warning=FALSE, eval=TRUE}
+library(microbiome)
+library(phyloseq)
+library(ggplot2)
+data(dietswap)
+pseq <- dietswap
+
+# Convert to compositional data
+pseq.rel <- microbiome::transform(pseq, "compositional")
+
+# Pick core taxa with with the given prevalence and detection limits
+pseq.core <- core(pseq.rel, detection = .1/100, prevalence = 90/100)
+
+# Use relative abundances for the core
+pseq.core <- microbiome::transform(pseq.core, "compositional")
+```
+
+
+### Sample ordination
+
+Project the samples with the given method and dissimilarity measure. 
+
+```{r ordination2, message=FALSE, warning=FALSE, results="hide"}
+# Ordinate the data
+set.seed(4235421)
+# proj <- get_ordination(pseq, "MDS", "bray")
+ord <- ordinate(pseq, "MDS", "bray")
+```
+
+```{r ordination-pca-ordination21, message=FALSE, message=FALSE, fig.height=5, fig.width=8}
+# "quiet" is here used to suppress intermediate output
+quiet(p <- plot_ordination(pseq, ord, type = "taxa", color = "Phylum", title = "Taxa ordination"))
+print(p)
+```
+
+Grouping per phyla could be done with:
+
+```{r ordination-pca-ordination22, message=FALSE, message=FALSE, fig.height=10, fig.width=9, eval=FALSE}
+p + facet_wrap(~Phylum, 5)
+```
+
+
+### Multidimensional scaling (MDS / PCoA)
+
+```{r ordination-ordinate23, warning=FALSE, message=FALSE, fig.width=10, fig.height=8, out.width="200px"}
+plot_ordination(pseq, ord, color = "nationality") +
+                geom_point(size = 5)
+```
+
+
+### Canonical correspondence analysis (CCA)
+
+```{r ordination-ordinate24a, warning=FALSE, message=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
+# With samples
+pseq.cca <- ordinate(pseq, "CCA")
+p <- plot_ordination(pseq, pseq.cca,
+       type = "samples", color = "nationality")
+p <- p + geom_point(size = 4)
+print(p)
+
+# With taxa:
+p <- plot_ordination(pseq, pseq.cca,
+       type = "taxa", color = "Phylum")
+p <- p + geom_point(size = 4)
+print(p)
+```
+
+
+### Split plot
+
+```{r ordination-ordinate25, warning=FALSE, message=FALSE, fig.width=14, fig.height=5}
+plot_ordination(pseq, pseq.cca,
+		      type = "split", shape = "nationality", 
+    		      color = "Phylum", label = "nationality")
+```
+
+
+
+

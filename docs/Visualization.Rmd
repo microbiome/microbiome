@@ -1,0 +1,27 @@
+---
+title: "Visualization"
+bibliography: 
+- bibliography.bib
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - stability}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
+## Experimental functions
+
+
+### Time series for individual subjects
+
+```{r homogeneity-timeseries, message=FALSE, warning=FALSE, fig.height=5, fig.height=5, eval=FALSE}
+source(system.file("extdata/plot_longitudinal.R", package = "microbiome"))
+p <- plot_longitudinal(pseq, "Dialister", subject = "831", tipping.point = 0.5)
+print(p)
+```

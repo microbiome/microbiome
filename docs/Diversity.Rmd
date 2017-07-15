@@ -1,0 +1,122 @@
+---
+title: "Diversity"
+bibliography: 
+- bibliography.bib
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - diversity}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
+## Global Ecosystem State Variables 
+
+Load example data:
+
+```{r divdata, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
+library(microbiome)
+data(dietswap)
+pseq <- dietswap
+```
+
+
+### Global indicators
+
+
+A comprehensive list of global indicators of the ecosystem state can be obtained as follows. This includes various measures of richness, evenness, diversity, dominance, and rarity with default parameters. See the individual functions for more options regarding parameter tuning.
+
+```{r global, warning=FALSE, message=FALSE, fig.height=3, fig.width=5, results="asis"}
+tab <- global(pseq, index = "all")
+kable(head(tab))
+```
+
+
+### Alpha diversity
+
+This returns a table with selected diversity indicators. See a separate page on [Beta diversity](Betadiversity.html).
+
+```{r alpha, warning=FALSE, message=FALSE, fig.height=3, fig.width=5, results="asis"}
+tab <- diversities(pseq, index = "all")
+kable(head(tab))
+```
+
+
+### Richness
+
+This returns observed richness with given detection threshold(s).
+
+```{r divest, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
+tab <- richness(pseq)
+kable(head(tab))
+```
+
+
+### Dominance 
+
+The dominance index refers to the abundance of the most abundant species. Various dominance indices are available (see the function help for a list of options).
+
+```{r dominance, warning=FALSE, message=FALSE}
+# Absolute abundances for the single most abundant taxa in each sample
+tab <- dominance(pseq, index = "all")
+kable(head(tab))
+```
+
+
+
+### Rarity and low abundance
+
+The rarity indices quantify the concentration of rare or low abundance taxa. Various rarity indices are available (see the function help for a list of options).
+
+```{r lowab, warning=FALSE, message=FALSE}
+tab <- rarity(pseq, index = "all")
+kable(head(tab))
+```
+
+
+
+### Coverage
+
+The coverage index gives the number of groups needed to have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
+
+```{r coverage, warning=FALSE, message=FALSE, eval=FALSE}
+tab <- coverage(pseq, threshold = 0.5)
+kable(head(tab))
+```
+
+
+### Core abundance
+
+The core_abundance function refers to the relative proportion of the core species. Non-core abundance provides the complement (1-x; see noncore_abundance).
+
+```{r divest5, warning=FALSE, message=FALSE}
+tab <- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
+kable(head(tab))
+```
+
+
+### Gini index
+
+Gini index is a common measure for inequality in economical income. The inverse gini index (1/x) can also be used as a community diversity measure.
+
+```{r divest6, warning=FALSE, message=FALSE}
+tab <- inequality(pseq)
+kable(head(tab))
+```
+
+
+### Evenness
+
+Various evenness measures are also available.
+
+```{r evenness, warning=FALSE, message=FALSE}
+tab <- evenness(pseq, "all")
+kable(head(tab))
+```
+
+
