@@ -18,6 +18,7 @@ output:
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Handle citations
 require(knitcitations)
+require(bookdown)
 # cleanbib()
 # options("citation_format" = "pandoc")
 # bib <- read.bibtex("bibliography.bib")

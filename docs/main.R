@@ -19,7 +19,7 @@ library(intergraph) # ggnet2 works also with igraph with this
 #load_all()
 library(microbiome)
 
-#library(rmarkdown)
+library(rmarkdown)
 #rmarkdown::render("index.Rmd")
 #rmarkdown::render("Template.Rmd")
 #rmarkdown::render("Atlas.Rmd", "all")
