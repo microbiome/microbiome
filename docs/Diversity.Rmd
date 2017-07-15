@@ -96,7 +96,6 @@ The core_abundance function refers to the relative proportion of the core specie
 
 ```{r divest5, warning=FALSE, message=FALSE}
 tab <- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
-kable(head(tab))
 ```
 
 
@@ -106,7 +105,6 @@ Gini index is a common measure for inequality in economical income. The inverse 
 
 ```{r divest6, warning=FALSE, message=FALSE}
 tab <- inequality(pseq)
-kable(head(tab))
 ```
 
 
