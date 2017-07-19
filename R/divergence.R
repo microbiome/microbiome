@@ -23,8 +23,9 @@
 #' to quantify group homogeneity.
 #' 
 #' @param x phyloseq object 
-#' @param method dissimilarity method ('spearman' or any method
-#' available via the vetan::vegdist function)
+#' @param method dissimilarity method: any method available via
+#' stats::cor or phyloseq::distance function. Note that some methods
+#' ("jsd" for instance) do not work with the group divergence.
 #' @return Vector with dissimilarities; one for each sample, quantifying the
 #' dissimilarity of the sample from the group-level mean.
 #' @export
@@ -50,19 +51,18 @@ divergence <- function(x, method="spearman") {
     
     # Abundance matrix (taxa x samples)
     x <- abundances(x)
-    
-    if (method == "spearman") {
-        b <- spearman(x, "spearman")
-    } else if (method == "bray") {
-        b <- beta.mean(x, method="bray")
+
+    if (method %in% c("spearman", "pearson", "kendall")) {
+        b <- correlation_divergence(x)
+    } else {
+        b <- beta.mean(x, method=method)
     }
     
     b
     
 }
 
-
-spearman <- function(x, method="spearman") {
+correlation_divergence <- function(x, method="spearman") {
     
     # Correlations calculated against the mean of the sample set
     cors <- as.vector(cor(x, matrix(rowMeans(x)),
@@ -82,7 +82,8 @@ beta.mean <- function(x, method="bray") {
     m <- rowMeans(x)
     for (i in 1:ncol(x)) {
         xx <- rbind(x[, i], m)
-        xxx <- vegdist(xx, method=method)
+        # xxx <- vegdist(xx, method=method)
+        xxx <- distance(otu_table(t(xx), taxa_are_rows = TRUE), method=method)
         b[[i]] <- as.matrix(xxx)[1, 2]
     }
     

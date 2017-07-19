@@ -54,6 +54,7 @@
 #' @importFrom ggplot2 theme
 #' @importFrom ggplot2 xlab
 #' @importFrom ggplot2 ylab
+#' @importFrom phyloseq distance
 #' @importFrom phyloseq estimate_richness
 #' @importFrom phyloseq get_taxa
 #' @importFrom phyloseq get_variable
