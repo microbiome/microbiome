@@ -9,8 +9,9 @@ divergence(x, method = "spearman")
 \arguments{
 \item{x}{phyloseq object}
 
-\item{method}{dissimilarity method ('spearman' or any method
-available via the vetan::vegdist function)}
+\item{method}{dissimilarity method: any method available via
+stats::cor or phyloseq::distance function. Note that some methods
+("jsd" for instance) do not work with the group divergence.}
 }
 \value{
 Vector with dissimilarities; one for each sample, quantifying the

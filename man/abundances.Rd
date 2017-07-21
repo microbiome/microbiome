@@ -20,7 +20,7 @@ Abundance matrix (OTU x samples).
 }
 \description{
 Retrieves the taxon abundance table from
-phyloseq-class object and ensures it is returned as
+phyloseq-class object and ensures it is systematically returned as
 taxa x samples matrix.
 }
 \examples{

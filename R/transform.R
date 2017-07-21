@@ -105,15 +105,17 @@ transform <- function(x, transform="identity", target="OTU", shift=0) {
         d <- t(apply(xt, 2, function(x) {
             log(x) - mean(log(x))
         }))
-        
-        if (nrow(d) == length(colnames(xt))) {
+
+        if (nrow(d) == ncol(xt)) {
             rownames(d) <- colnames(xt)
             colnames(d) <- rownames(xt)
         } else {
             colnames(d) <- colnames(xt)
             rownames(d) <- rownames(xt)
         }
-        
+
+        xt <- t(d)
+
     } else if (transform == "log10") {
         
         # Log transform:
