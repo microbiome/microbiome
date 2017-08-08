@@ -37,7 +37,7 @@
 #' # xt <- transform(x, 'shift', shift=1)
 #'
 #' @keywords utilities
-transform <- function(x, transform="identity", target="OTU", shift=0) {
+transform <- function(x, transform = "identity", target = "OTU", shift = 0) {
 
     y <- NULL
     xorig <- x
@@ -89,7 +89,7 @@ transform <- function(x, transform="identity", target="OTU", shift=0) {
         
         # If the data has zeroes, then shift up with a negligible
         # constant to avoid singularities
-    
+
         xt <- x
         
         if (any(xt == 0)) {
@@ -100,7 +100,8 @@ transform <- function(x, transform="identity", target="OTU", shift=0) {
         
         # Then transform to compositional data
         xt <- transform(xt, "compositional")
-        
+	colnames(xt) <- colnames(x)
+
         # Pick samples x taxa abundance matrix
         d <- t(apply(xt, 2, function(x) {
             log(x) - mean(log(x))

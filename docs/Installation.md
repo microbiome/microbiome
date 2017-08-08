@@ -6,11 +6,11 @@
 -->
 ### Installing R
 
-**If you do not already have R/RStudio installed**, do the following.
+**If you do not already have R/RStudio installed**, do as follows.
 
 1.  Install [R](http://www.r-project.org/)
-2.  Consider installing [RStudio](http://rstudio.org); GUI for R
-3.  With Windows, install
+2.  Install [RStudio](http://rstudio.org)
+3.  With Windows, install also
     [RTools](http://cran.r-project.org/bin/windows/Rtools/) (version
     corresponding to your R version)
 
@@ -22,37 +22,18 @@ following commands (see
 file for a full list of dependencies):
 
     source("http://www.bioconductor.org/biocLite.R")
-    biocLite("ade4")
-    install.packages("bayesm")
-    biocLite("fastcluster")
-    biocLite("compositions")
     biocLite("devtools")
-    biocLite("dplyr")
-    install.packages("energy")
-    biocLite("FD")
-    biocLite("ggplot2")
-    biocLite("HMisc")
-    biocLite("knitcitations")
-    biocLite("knitr")
-    biocLite("magrittr")
-    install.packages("maptree")
-    biocLite("MASS")
-    biocLite("Matrix")
-    biocLite("minet")
-    biocLite("mixOmics")
-    biocLite("moments")
     biocLite("phyloseq")
-    biocLite("plyr")
-    biocLite("qvalue")
+    biocLite("ggplot2")
+    biocLite("dplyr")
     biocLite("reshape2")
-    biocLite("rmarkdown")
-    install.packages("robustbase")
-    biocLite("rpart")
-    install.packages("tensorA")
-    biocLite("tgp")
     biocLite("tidyr")
     biocLite("vegan")
-    biocLite("WGCNA")
+    biocLite("knitr")
+    biocLite("knitcitations")
+    biocLite("compositions")
+    biocLite("qvalue")
+    biocLite("rmarkdown")
 
 If some of these installations fail, ensure from the RStudio tools panel
 that you have access to CRAN and Bioconductor repositories. If you

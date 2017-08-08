@@ -62,9 +62,7 @@ or averafged by group (right).
 Heatmap for CLR-transformed abundances, with samples and OTUs sorted
 with the neatmap method:
 
-    tmp <- plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
-                          sample.sort = "neatmap", otu.sort = "neatmap",
-                          mar = c(6, 13, 1, 1))
+    tmp <- plot_composition(pseq2, plot.type = "heatmap", transform = "compositional", sample.sort = "neatmap", otu.sort = "neatmap", mar = c(6, 13, 1, 1))
 
 ### Plot taxa prevalence
 

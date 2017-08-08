@@ -67,7 +67,7 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
     } else {
         x <- transform(x, transform)
     }
-    
+
     # -----------------------------------------------------------------------
     
     # Pick the abundance matrix taxa x samples
@@ -86,13 +86,13 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
         dff$group <- droplevels(dff$group)
     
         # av <- ddply(dff, "group", colwise(mean))
-    av <- aggregate(. ~ group, data = dff, mean)
+        av <- aggregate(. ~ group, data = dff, mean)
 
         rownames(av) <- as.character(av$group)
         av$group <- NULL
         abu <- t(av)  # taxa x groups
     }
-    
+
     # Sort samples
     if (is.null(sample.sort) || sample.sort == "none" || !is.null(average_by)) {
         # No sorting sample.sort <- sample_names(x)
@@ -107,15 +107,17 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
         # Use predefined order
         sample.sort <- sample.sort
     } else if (length(sample.sort) == 1 && sample.sort == "neatmap") {
+
         sample.sort <- neatsort(x, method="NMDS", distance="bray",
-        target="sites", first=NULL)
+            target="sites", first=NULL)
+	
     } else if (!sample.sort %in% names(sample_data(x))) {
         warning(paste("The sample.sort argument", sample.sort,
         "is not included in sample_data(x). 
             Using original sample ordering."))
         sample.sort <- sample_names(x)
     }
-    
+
     # Sort taxa
     if (is.null(otu.sort) || otu.sort == "none") {
         # No sorting
