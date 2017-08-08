@@ -48,17 +48,18 @@ neatsort <- function(x, target, method="NMDS", distance="bray",
     target <- gsub("rows", "species", target)
     target <- gsub("samples", "sites", target)
     target <- gsub("features", "species", target)
-    
-    if (class(x) == "phyloseq") {
-        
+
+    if (class(x) %in% c("phyloseq", "otu_table")) {
+
         samples <- sample_names(x)
         features <- taxa(x)
         
         # Capture the output to keep the screen clean
-        junk <- capture.output(ord <- ordinate(x, method, distance, ...),
+        junk <- capture.output(ord <- ordinate(x, method = method, distance = distance, ...),
             file=NULL)
+	    
     } else {
-        
+
         samples <- colnames(x)
         features <- rownames(x)
         
@@ -73,7 +74,7 @@ neatsort <- function(x, target, method="NMDS", distance="bray",
         }
         
         # Neatmap sorting for matrices with NMDS Order Capture the output
-    # to keep the screen clean
+        # to keep the screen clean
         if (distance %in% c("euclidean")) {
             d <- dist(x, distance)
         } else {
@@ -85,7 +86,7 @@ neatsort <- function(x, target, method="NMDS", distance="bray",
     }
     
     # ------------------------------------------------------------------
-    
+
     # Order items with the NeatMap procedure Reorder by the angle in radial
     # coordinates on the 2-axis plane.
     DF <- NULL

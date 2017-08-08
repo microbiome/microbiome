@@ -2,7 +2,7 @@
 % Please edit documentation in R/aggregate_taxa.R
 \name{aggregate_taxa}
 \alias{aggregate_taxa}
-\title{Summarize Taxa}
+\title{Aggregate Taxa}
 \usage{
 aggregate_taxa(x, level, top = NULL)
 }
