@@ -1,0 +1,273 @@
+---
+title: "Core microbiome analysis for Amplicon data"
+bibliography: 
+- bibliography.bib
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - core}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+## Make phyloseq object
+
+This tutorial is useful for analysis of output files from [(Mothur)](https://www.mothur.org/), [(QIIME or QIIME2)](https://qiime2.org/) or any tool that gives a biom file as output. There is also a simple way to read comma seperated (*.csv) files.  
+
+Simple comma seperated files:  
+
+```{r, read-simple-csv-otu-tables, warning=FALSE, message=FALSE}
+library(microbiome)
+
+
+otu.file <-
+    system.file("extdata/qiita1629_otu_table.csv",
+        package='microbiome')
+
+tax.file <- system.file("extdata/qiita1629_taxonomy_table.csv",
+        package='microbiome')
+
+meta.file <- system.file("extdata/qiita1629_mapping_subset.csv",
+        package='microbiome')
+
+pseq.csv <- read_phyloseq(
+          otu.file=otu.file, 
+          taxonomy.file=tax.file, 
+          metadata.file=meta.file, type = "simple")
+
+
+```
+
+Biom file:  
+
+```{r, read-otu-biom}
+
+# Read the biom file
+biom.file <- 
+  system.file("extdata/qiita1629.biom", 
+              package = "microbiome")
+
+# Read the mapping/metadata file
+ meta.file <- 
+  system.file("extdata/qiita1629_mapping.csv", 
+              package = "microbiome")
+# Make phyloseq object
+pseq.biom <- read_phyloseq(otu.file = biom.file, 
+                         metadata.file = meta.file, 
+                         taxonomy.file = NULL, type = "biom")
+```
+
+
+Mothur shared OTUs and Consensus Taxonomy:  
+
+```{r, read-otu-mothur}
+otu.file <- system.file(
+ "extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.subsample.shared",
+    package='microbiome')
+
+tax.file <- system.file(
+ "extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.cons.taxonomy",
+    package='microbiome')
+
+meta.file <- system.file(
+ "extdata/Baxter_FITs_Microbiome_2016_mapping.csv",
+    package='microbiome')
+ 
+pseq.mothur <- read_phyloseq(otu.file=otu.file,
+        taxonomy.file =tax.file,
+        metadata.file=meta.file, type = "mothur")
+print(pseq.mothur)
+
+```
+
+Now, we proceed to core microbiota analysis.
+
+## Core microbiota analysis  
+
+Here the data from [(Halfvarson et al. Nature Microbiology 2, 2017)](http://www.nature.com/articles/nmicrobiol20174) will be used and only healthy samples will be included.  
+
+```{r, core-microbiota-amplicon-data}
+
+# check the data 
+print(pseq.biom) 
+
+# Filter the data to include only healthy subjects
+pseq.1 <- subset_samples(pseq.biom, ibd_subtype == "HC" & timepoint == "1") 
+print(pseq.1)
+# keep only taxa with positive sums
+pseq.2 <- prune_taxa(taxa_sums(pseq.1) > 0, pseq.1)
+
+print(pseq.2)
+
+# Calculate compositional version of the data
+# (relative abundances)
+pseq.rel <- microbiome::transform(pseq.2, "compositional")
+
+```
+
+
+### Prevalence of taxonomic groups
+
+Relative population frequencies; at 1% compositional abundance threshold:
+
+```{r core-prevalence2}
+head(prevalence(pseq.rel, detection = 1, sort = TRUE))
+```
+
+We can see that only OTU ids are listed with no taxonomic information.
+Absolute population frequencies (sample count):
+
+```{r core-prevalence2b}
+head(prevalence(pseq.rel, detection = 1, sort = TRUE, count = TRUE))
+```
+
+
+### Core microbiota analysis
+
+If you only need the names of the core taxa, do as follows. This returns the taxa that exceed the given prevalence and detection thresholds. 
+
+```{r core-members, message=FALSE, warning=FALSE, eval = FALSE}
+core.taxa.standard <- core_members(pseq.rel, detection = 0, prevalence = 50/100)
+```
+
+
+A full phyloseq object of the core microbiota is obtained as follows:
+
+```{r core-data, message=FALSE, warning=FALSE}
+pseq.core <- core(pseq.rel, detection = 0, prevalence = .5)
+```
+
+
+Retrieving the associated taxa names from the phyloseq object:
+
+```{r core-taxa, message=FALSE, warning=FALSE}
+core.taxa <- taxa(pseq.core)
+class(core.taxa)
+# get the taxonomy data
+tax.mat <- tax_table(pseq.core)
+tax.df <- as.data.frame(tax.mat)
+
+# add the OTus to last column
+tax.df$OTU <- rownames(tax.df)
+
+# select taxonomy of only 
+# those OTUs that are core memebers based on the thresholds that were used.
+core.taxa.class <- dplyr::filter(tax.df, rownames(tax.df) %in% core.taxa)
+knitr::kable(head(core.taxa.class))
+
+```
+
+
+
+### Core abundance and diversity
+
+Total core abundance in each sample (sum of abundances of the core members):
+
+```{r core-ab, message=FALSE, warning=FALSE}
+core.abundance <- sample_sums(core(pseq.rel, detection = .001, prevalence = .95))
+```
+
+
+## Core visualization
+
+### Core line plots
+
+Determine core microbiota across various abundance/prevalence
+thresholds with the blanket analysis [(Salonen et al. CMI, 2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) based on various signal and prevalences.
+
+```{r core2, fig.width=9, fig.heigth=6, out.width="400px", warning=FALSE}
+# With compositional (relative) abundances
+det <- c(0, 0.1, 0.5, 2, 5, 20)/100
+prevalences <- seq(.05, 1, .05)
+plot_core(pseq.rel, prevalences = prevalences, detections = det, plot.type = "lineplot") + xlab("Relative Abundance (%)")
+```
+
+
+### Core heatmaps
+
+This visualization method has been used for instance in [Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Shetty et al. _FEMS Microbiology Reviews_ fuw045, 2017.
+
+Note that you can order the taxa on the heatmap with the order.taxa argument.
+
+```{r core-example3, fig.width=8, fig.heigth=18, fig.show='hold', out.width = '200px', warning=FALSE}
+# Core with compositionals:
+prevalences <- seq(.05, 1, .05)
+detections <- 10^seq(log10(1e-5), log10(.2), length = 10)
+
+# Also define gray color palette
+gray <- gray(seq(0,1,length=5))
+p <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray,
+    prevalences = prevalences, detections = detections, min.prevalence = .5) +
+    xlab("Detection Threshold (Relative Abundance (%))")
+print(p)    
+
+
+# Same with the viridis color palette
+# color-blind friendly and uniform
+# options: viridis, magma, plasma, inferno
+# https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
+# Also discrete=TRUE versions available
+library(viridis)
+print(p + scale_fill_viridis())
+
+
+```
+
+As it can be seen, we see only OTu IDs and this may not be useful to interpret the data. We need to repreoccess this figure to include taxonomic information. We can do this as follows:  
+
+```{r,core-example4, fig.width=14, fig.heigth=18, fig.show='hold', out.width = '200px', warning=FALSE}
+library(RColorBrewer)
+library(knitr)
+# Core with absolute counts and vertical view:
+# and minimum population prevalence (given as percentage)
+detections <- 10^seq(log10(1), log10(max(abundances(pseq.2))/10), length = 10)
+
+healthycore <- plot_core(pseq.2, plot.type = "heatmap", 
+       		 prevalences = prevalences,
+       		 detections = detections,
+		 colours = rev(brewer.pal(5, "Spectral")),
+		 min.prevalence = .90, horizontal = F)
+# get the data used for plotting 
+df <- healthycore$data 
+
+# get the list of OTUs
+list <- df$Taxa 
+
+# check the OTU ids
+# print(list) 
+
+# get the taxonomy data
+tax <- tax_table(pseq.2)
+tax <- as.data.frame(tax)
+
+# add the OTus to last column
+tax$OTU <- rownames(tax)
+
+# select taxonomy of only 
+# those OTUs that are used in the plot
+tax2 <- dplyr::filter(tax, rownames(tax) %in% list) 
+
+# head(tax2)
+
+# We will merege all the column into one except the Doamin as all is bacteria in this case
+tax.unit <- tidyr::unite(tax2, Taxa_level,c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species", "OTU"), sep = "_;", remove = TRUE)
+
+tax.unit$Taxa_level <- gsub(pattern="[a-z]__",replacement="", tax.unit$Taxa_level)
+
+# add this new information into the plot data df
+
+df$Taxa <- tax.unit$Taxa_level
+
+# you can see now we have the taxonomic information
+knitr::kable(head(df))
+
+# replace the data in the plot object
+healthycore$data <- df
+
+plot(healthycore + theme(axis.text.y = element_text(face="italic")))
+
+```
