@@ -83,7 +83,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
     # TODO neatmap with options
     # xo <- neat(mat, method = "NMDS", distance = "euclidean",
     # first.row = "VDP.03231", first.col = "Paraprevotella") 
-
+    
     if (is.logical(order.rows) || is.logical(order.cols)) {
         
         rnams <- unique(as.character(df[[Xvar]]))
@@ -149,7 +149,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
             order.cols <- colnames(mat)[cind]
 
         }
-     
+             
     }
 
     df[[Yvar]] <- factor(df[[Yvar]], levels=order.rows)

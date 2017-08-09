@@ -60,7 +60,9 @@ Tools for microbiome analysis; with multiple example data sets from published st
 * [Alpha diversity](Diversity.html)
 * [Beta diversity / Community heterogeneity](Betadiversity.html)
 * [Community composition](Composition.html)
+* [Community composition Amplicon data](CompositionAmplicondata.html)
 * [Core microbiota](Core.html)
+* [Core microbiota Amplicon data](CoremicrobiotaAmplicon.html)
 * [Landscapes](Landscaping.html) (population density analysis)
 * [Stability and tipping elements](Stability.html)
 

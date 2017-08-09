@@ -100,7 +100,7 @@ transform <- function(x, transform = "identity", target = "OTU", shift = 0) {
         
         # Then transform to compositional data
         xt <- transform(xt, "compositional")
-	colnames(xt) <- colnames(x)
+            colnames(xt) <- colnames(x)
 
         # Pick samples x taxa abundance matrix
         d <- t(apply(xt, 2, function(x) {

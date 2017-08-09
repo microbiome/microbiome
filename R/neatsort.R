@@ -55,9 +55,10 @@ neatsort <- function(x, target, method="NMDS", distance="bray",
         features <- taxa(x)
         
         # Capture the output to keep the screen clean
-        junk <- capture.output(ord <- ordinate(x, method = method, distance = distance, ...),
-            file=NULL)
-	    
+        junk <- capture.output(
+            ord <- ordinate(x, method = method, distance = distance, ...),
+                file=NULL)
+        
     } else {
 
         samples <- colnames(x)

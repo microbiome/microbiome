@@ -110,7 +110,7 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
 
         sample.sort <- neatsort(x, method="NMDS", distance="bray",
             target="sites", first=NULL)
-	
+    
     } else if (!sample.sort %in% names(sample_data(x))) {
         warning(paste("The sample.sort argument", sample.sort,
         "is not included in sample_data(x). 
