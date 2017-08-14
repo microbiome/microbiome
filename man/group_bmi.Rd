@@ -12,7 +12,7 @@ group_bmi(x, breaks = "decades", n = 10, labels = NULL,
 \item{x}{Numeric vector (BMI)}
 
 \item{breaks}{Class break points. Either a vector of breakpoints, or one of the predefined
-options ("standard", "even").}
+options ("standard", "standard_truncated", "even").}
 
 \item{n}{Number of groups for the breaks = "even" option.}
 
@@ -40,7 +40,7 @@ Factor of BMI groups.
 Cut BMI information to standard discrete factors.
 }
 \details{
-Regarding the breaks arguments, the "even" option aims to cut the samples in groups with approximately the same size (by quantiles). The "standard" option corresponds to standard obesity categories.
+Regarding the breaks arguments, the "even" option aims to cut the samples in groups with approximately the same size (by quantiles). The "standard" option corresponds to standard obesity categories defined by the cutoffs <18.5 (underweight); <25 (lean); <30 (obese); <35 (severe obese); <40 (morbid obese); <45 (super obese). The standard_truncated combines the severe, morbid and super obese into a single group.
 }
 \examples{
 data(atlas1006)
