@@ -27,13 +27,19 @@ Biom file and mapping files will be converted to
 \code{\link{phyloseq-class}}.
 }
 \examples{
-\dontrun{
-otu.table.biom <- system.file('inst/extdata/qiita1629.biom', package='microbiome')
-mapping <- system.file('inst/extdata/qiita1629_mapping.csv', package='microbiome')
-p0 <- read_biom2phyloseq(otu.file='otu.table.biom',
-metadata.file='mapping',
-taxonomy.file=NULL)
-}
+
+biom.file <- 
+   system.file("extdata/qiita1629.biom", 
+           package = "microbiome")
+
+meta.file <- 
+system.file("extdata/qiita1629_mapping.csv", 
+           package = "microbiome")
+
+p0 <- read_biom2phyloseq(otu.file = biom.file, 
+                       metadata.file = meta.file, 
+                       taxonomy.file = NULL)
+
 }
 \author{
 Sudarshan A. Shetty \email{sudarshanshetty9@gmail.com}

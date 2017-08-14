@@ -1,6 +1,6 @@
 #' @title Abundance Matrix from Phyloseq
 #' @description Retrieves the taxon abundance table from
-#' phyloseq-class object and ensures it is returned as
+#' phyloseq-class object and ensures it is systematically returned as
 #' taxa x samples matrix.
 #' @inheritParams transform
 #' @return Abundance matrix (OTU x samples).
@@ -19,7 +19,7 @@ abundances <- function(x, transform="identity") {
     if (class(x) == "phyloseq") {
 
         # Pick OTU matrix
-        otu <- get_taxa(x)
+        otu <- as(otu_table(x), "matrix") # get_taxa(x)
     
         # Ensure that taxa are on the rows
         if (!taxa_are_rows(x) && ntaxa(x) > 1 && nsamples(x) > 1) {

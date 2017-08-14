@@ -1,4 +1,4 @@
-#' @title Summarize Taxa
+#' @title Aggregate Taxa
 #' @description Summarize phyloseq data into a higher phylogenetic level.
 #' @details This provides a convenient way to aggregate phyloseq OTUs
 #' (or other taxa) when the phylogenetic tree is missing. Calculates the
@@ -36,6 +36,8 @@ aggregate_taxa <- function(x, level, top=NULL) {
         
         tt <- tax_table(mypseq)
         if (!is.null(top)) {
+
+            # Merge the remaining taxa into a single group named "Other"
             if (is.numeric(top)) {
                 top <- top_taxa(aggregate_taxa(mypseq, level), top)
             }

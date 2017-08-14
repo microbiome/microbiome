@@ -1,7 +1,7 @@
 #' @title Exporting phyloseq Data in CSV Files
 #' @description Writes the otu, taxonomy and metadata in csv files.
 #' @param x \code{\link{phyloseq-class}} object
-#' @param type 'OTU' or 'TAXA' or 'METADATA'
+#' @param type 'OTU' or 'TAXONOMY' or 'METADATA'
 #' @param path Path to the directory/folder where the data will be written.
 #' Uses the working directory by default.
 #' @return  Output file path (a string)

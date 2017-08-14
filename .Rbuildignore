@@ -1,5 +1,11 @@
+# Homepage
+docs
+
 # Extra material related but not to be included in the package
+inst/extras
+inst/extras/*
 inst/extras/..Rcheck
+inst/extras/archive
 inst/extras/microbiome.Rcheck
 inst/extras/*
 inst/extras/homepage
@@ -7,7 +13,6 @@ inst/extras/.*
 inst/extras/.RData
 inst/extras/legacy
 inst/extras/travis-tool.sh
-inst/extras
 inst/extras/*.tar.gz
 inst/win-install*
 

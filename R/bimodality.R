@@ -112,7 +112,7 @@ bimodality <-
             } else {
                 
                 # Shift the data. This does not affect mode detection but
-        # avoids errors with nonnegatives.
+                # avoids errors with nonnegatives.
                 s <- multimodality(x, peak.threshold, bw.adjust,
                 bs.iter, min.density, verbose)$score
             }

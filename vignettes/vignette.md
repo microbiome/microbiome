@@ -3,7 +3,7 @@ title: "Introduction to the microbiome R package"
 author: "Leo Lahti, Sudarshan Shetty, et al."
 bibliography: 
 - bibliography.bib
-date: "2017-06-06"
+date: "2017-07-15"
 output:
   BiocStyle::html_document:
     toc: true
@@ -21,7 +21,7 @@ vignette: >
 
 
 
-## Introduction
+# Introduction
 
 The [microbiome R package](http://microbiome.github.io/microbiome)
 facilitates exploration and analysis of microbiome profiling data, in
@@ -64,11 +64,11 @@ license](http://en.wikipedia.org/wiki/BSD\_licenses).
 Kindly cite the work as follows: "Leo Lahti [et
 al.](https://github.com/microbiome/microbiome/graphs/contributors)
 (2017). Tools for microbiome analysis in R. Microbiome package version
-0.99.36. URL:
+0.99.49. URL:
 (http://microbiome.github.io/microbiome)
 
 
-## Installation
+# Installation
 
 To install microbiome package (the latest development version) in R, use
 
@@ -86,7 +86,7 @@ library(microbiome)
 ```
 
 
-## Data
+# Data
 
 The microbiome package relies on the independent
 [phyloseq](http://joey711.github.io/phyloseq) data format. A
@@ -97,7 +97,7 @@ taxonomic classifications), and a phylogenetic tree (relations between
 the taxa).
 
 
-### Example data sets
+## Example data sets
 
 Example data sets are provided to facilitate reproducible examples and
 further methods development.
@@ -150,14 +150,14 @@ data(peerj32) # Data from https://peerj.com/articles/32/
 ```
 
 
-### Data import
+## Data import
 
 The [tutorial](http://microbiome.github.io/microbiome/Data.html)
 describes how to import data from standard formats (Mother, BIOM, CSV,
 etc.).
 
 
-### Data manipulation
+## Data manipulation
 
 A phyloseq object can be subsetted, filtered, aggregated, transformed,
 and otherwise manipulated. For a comprehensive list of tools, see the
@@ -177,9 +177,9 @@ dietswap.compositional <- transform(dietswap, "compositional")
 
 
 
-## Ecosystem indices
+# Ecosystem indices
 
-### Alpha diversity, richness, evenness, dominance, and rarity
+## Alpha diversity, richness, evenness, dominance, and rarity
 
 Commonly used ecosystem state variables include various indices to quantify
 alpha diversities, richness, evenness, dominance, and rarity (see
@@ -213,7 +213,7 @@ plot_regression(diversity ~ age, meta(atlas1006))
 ![plot of chunk reg](figure/reg-1.png)
 
 
-### Beta diversity or divergence
+## Beta diversity or divergence
 
 Also [beta
 diversity](http://microbiome.github.io/microbiome/Betadiversity.html)
@@ -249,7 +249,7 @@ boxplot(list(LGG = b.lgg, Placebo = b.pla))
 <img src="figure/beta-1.png" title="plot of chunk beta" alt="plot of chunk beta" width="300px" />
 
 
-## Core microbiota analysis
+# Core microbiota analysis
 
 Population frequencies, or **prevalence**, of the taxonomic groups
 exceeding a given detection thresholld can be calculated with
@@ -302,7 +302,7 @@ print(p)
 <img src="figure/corevisu-1.png" title="plot of chunk corevisu" alt="plot of chunk corevisu" width="350px" />
 
 
-## Microbiome composition
+# Microbiome composition
 
 Composition heatmap: Z-transformed taxon abundances
 
@@ -351,7 +351,7 @@ print(p)
 
 
 
-### Association heatmaps
+# Association heatmaps
 
 Let us cross-correlate example data containing microbiome profiling
 and blood serum lipids study [@Lahti13ProvasI].
@@ -393,7 +393,7 @@ heat(correlation.table, "X1", "X2", fill = "Correlation",
 <img src="figure/hm3-1.png" title="plot of chunk hm3" alt="plot of chunk hm3" width="400px" />
 
 
-## Bistability and tipping elements
+# Bistability and tipping elements
 
 The microbiome package provides tools to [quantify stability and
 bimodality](http://microbiome.github.io/microbiome/Stability.html) in
@@ -416,7 +416,7 @@ hotplot(pseq, "Dialister", tipping.point = 0.004)
 <img src="figure/varpl2-1.png" title="plot of chunk varpl2" alt="plot of chunk varpl2" width="430px" /><img src="figure/varpl2-2.png" title="plot of chunk varpl2" alt="plot of chunk varpl2" width="430px" />
 
 
-## Further reading
+# Further reading
 
 The [on-line tutorial](http://microbiome.github.io/microbiome)
 provides many additional examples and more thorough descriptions of
@@ -424,7 +424,7 @@ the tools. This vignette intentionally omits many details in order to
 provide a compact overview.
 
 
-## Acknowledgements
+# Acknowledgements
 
 Thanks to all
 [contributors](https://github.com/microbiome/microbiome/graphs/contributors).

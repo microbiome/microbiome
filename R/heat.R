@@ -15,8 +15,12 @@
 #' @param colours heatmap colours
 #' @param limits colour scale limits
 #' @param legend.text legend text
-#' @param order.rows Order rows to enhance visualization interpretability. If this is logical, then hclust is applied. If this is a vector then the rows are ordered using this index. 
-#' @param order.cols Order columns to enhance visualization interpretability. If this is logical, then hclust is applied. If this is a vector then the rows are ordered using this index. 
+#' @param order.rows Order rows to enhance visualization
+#' interpretability. If this is logical, then hclust is applied. If this
+#' is a vector then the rows are ordered using this index.
+#' @param order.cols Order columns to enhance visualization
+#' interpretability. If this is logical, then hclust is applied. If this
+#' is a vector then the rows are ordered using this index.
 #' @param text.size Adjust text size
 #' @param filter.significant Keep only the elements with at least one 
 #' significant entry
@@ -77,8 +81,9 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
     df[[Yvar]] <- factor(df[[Yvar]])
     
     # TODO neatmap with options
-    # xo <- neat(mat, method = "NMDS", distance = "euclidean", first.row = "VDP.03231", first.col = "Paraprevotella") 
-
+    # xo <- neat(mat, method = "NMDS", distance = "euclidean",
+    # first.row = "VDP.03231", first.col = "Paraprevotella") 
+    
     if (is.logical(order.rows) || is.logical(order.cols)) {
         
         rnams <- unique(as.character(df[[Xvar]]))
@@ -89,7 +94,8 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
         rownames(mat) <- rnams
         colnames(mat) <- cnams
         for (i in 1:nrow(df)) {
-            mat[as.character(df[i, Xvar]), as.character(df[i, Yvar])] <- df[i, fill]
+            mat[as.character(df[i, Xvar]),
+                as.character(df[i, Yvar])] <- df[i, fill]
         }
         
         mat <- t(mat)
@@ -141,9 +147,9 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
         } else {
 
             order.cols <- colnames(mat)[cind]
-     
+
         }
-     
+             
     }
 
     df[[Yvar]] <- factor(df[[Yvar]], levels=order.rows)

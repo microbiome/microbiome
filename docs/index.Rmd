@@ -1,0 +1,109 @@
+---
+title: "Introduction to the microbiome R package"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+csl: ieee.csl
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+  bookdown::html_document2:
+    fig_caption: yes
+---
+<!--
+  %\VignetteIndexEntry{microbiome tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
+-->
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Handle citations
+require(knitcitations)
+require(bookdown)
+# cleanbib()
+# options("citation_format" = "pandoc")
+bib <- read.bibtex("bibliography.bib")
+#opts_chunk$set(fig.width=4, fig.height=3, par=TRUE, out.width='2in', fig.pos='H')
+library(knitr)
+knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
+
+#----------------------------
+
+# CSS Style
+### Import the style from CSS file 'css_path' 
+style <- paste(readLines("bioc.css"), collapse = "\n")
+opts_knit$set(self.contained = TRUE,
+              upload.fun = image_uri, ## optional
+              header = c(highlight = style))
+```
+
+
+[![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)  
+
+Tools for microbiome analysis; with multiple example data sets from published studies; extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
+
+# Installation and use
+
+
+## Getting started
+
+* [Overview (vignette)](https://github.com/microbiome/microbiome/blob/master/vignettes/vignette.md)
+* [Installation](Template.html) 
+* [Example data](Data.html)
+* [Data manipulation](Preprocessing.html)
+
+
+## Microbiome analysis
+
+* [Alpha diversity](Diversity.html)
+* [Beta diversity / Community heterogeneity](Betadiversity.html)
+* [Community composition](Composition.html)
+* [Community composition Amplicon data](CompositionAmplicondata.html)
+* [Core microbiota](Core.html)
+* [Core microbiota Amplicon data](CoremicrobiotaAmplicon.html)
+* [Landscapes](Landscaping.html) (population density analysis)
+* [Stability and tipping elements](Stability.html)
+
+
+## Visualization and related tools
+
+* [Heatmaps](Heatmap.html)
+* [Networks](Networks.html)
+* [Ordination](Ordination.html) (PCA, PCoA, NMDS, RDA etc.)
+* [Regression](Regression.html)
+
+
+## Statistical analysis
+
+* [Bimodality](Bimodality.html)
+* [Community comparisons](Comparisons.html) ([limma](limma.html), [PERMANOVA](PERMANOVA.html), [mixed models](Mixedmodels.html), [negative binomial](Negativebinomial.html)  etc)
+* [Experimental tools](Experimental.html)
+
+
+# Development
+
+New examples, tutorial pages, and other contributions are [welcome](Contributing.html). The material can be freely used, modified and distributed under the [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses). For source code, see the [Github page](https://github.com/microbiome/microbiome/).
+
+# Acknowledgements
+
+**Kindly cite this work** as follows: "Leo Lahti, Sudarshan Shetty [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). Tools for microbiome analysis in R. Version `r sessionInfo()$otherPkgs$microbiome$Version`. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). Check also the relevant references listed in the manual page of each function. 
+
+The package utilizes tools from a number of other R extensions, including dplyr `r citep(bib[["Wickham_2017"]])`, ggplot2 `r citep(bib[["Wickham_2009"]])`, phyloseq `r citep(bib[["McMurdie_2013"]])`, tidyr `r citep(bib[["Wickham_2017a"]])`, vegan `r citep(bib[["Oksanen_2017"]])`.
+
+
+```{r, echo=FALSE, message=FALSE}
+#You can embed citations, for example: `r citep(bib[["lahti14natcomm"]])`
+#You can embed citations, for example2: @lahti14natcomm
+#Cite with DOI: `r citep("10.1890/11-0011.1")`
+#Cite URL `r citep("http://knowledgeblog.org/greycite")`
+#For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). 
+# write.bibtex(file="references.bib")
+```
+
+```{r, echo=FALSE, message=FALSE, results='asis'}
+# bibliography(style="html")
+```
+
+

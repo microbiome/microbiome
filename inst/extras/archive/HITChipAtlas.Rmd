@@ -1,0 +1,114 @@
+---
+title: "HITChip Atlas Overview"
+author: "Leo Lahti, Jarkko Salojarvi, Anne Salonen, Willem M de Vos"
+date: "`r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+
+output: 
+  rmarkdown::html_vignette
+---
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Handle citations
+require(knitcitations)
+cleanbib()
+#options("citation_format" = "pandoc")
+bib <- read.bibtex("bibliography.bib")
+#opts_chunk$set(fig.width=4, fig.height=3, par=TRUE, out.width='2in', fig.pos='H')
+#knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
+```
+
+
+HITChip Atlas Overview
+===========
+
+The HITChip Atlas data collection covers microbial abundance profiles
+for 130 genus-like taxa across over 10,000 samples, measured with 16S
+rRNA phylogenetic microarrays. This page contains a reproducible
+summary and overview of this data collection.
+
+The analyses are based on the microbiome R package, which provides
+convenient wrappers for many standard tasks encountered in microbiome
+studies. The microbiome R package extends the
+[phyloseq](http://joey711.github.io/phyloseq/import-data) class, a
+standard representation format in R for taxonomic profiling.
+
+
+
+### Data overview
+
+Downloading the data in R:
+
+```{r hatlas-data2, eval=TRUE}
+# Download the required R packages and then the HITChip Atlas data set
+library("microbiome")
+
+# Load the data (not yet public)
+atlas <- readRDS("Atlas.RData")
+```
+
+The data contains:
+
+ * ```r nsamples(atlas)``` samples
+ * ```r length(unique(sample_data(atlas)$subject))``` unique subjects
+ * ```r round(100 * prop.table(table(subset(sample_data(atlas), sex %in% c("male", "female"))$sex))[["female"]], 1)```% female ratio. Altogether, sex information is available for ```round(100 * sum(table(subset(sample_data(atlas))$sex)[c("male", "female")])/nsamples(atlas), 1)```% of the samples.
+ * ```r nsamples(subset_samples(atlas, health_status == "compromised"))``` samples (```r round(100 * nsamples(subset_samples(atlas, health_status == "compromised"))/nsamples(atlas), 1)```%) from ```r length(unique(sample_data(subset_samples(atlas,  health_status == "compromised"))$subject))``` unique subjects with reported health problems ('compromised')
+ * ```r nsamples(subset_samples(atlas, antibio == 1))``` samples from ```r length(unique(sample_data(subset_samples(atlas, antibio == 1))$subject))``` unique subjects with reported antibiotics use.
+ * ```r nsamples(subset_samples(atlas, probiotics == 1))``` samples from ```r length(unique(sample_data(subset_samples(atlas, probiotics == 1))$subject))``` subjects with reported probiotics use.
+ * ```r nsamples(subset_samples(atlas, medication == 1))``` samples from ```r length(unique(sample_data(subset_samples(atlas, medication == 1))$subject))``` subjects with reported medication.  
+ 
+
+```{r hatlas-sampletype, fig.width=7, fig.height=6, message=FALSE, warning=FALSE, fig.show = "hold", out.width = "280px", echo=FALSE}
+meta <- sample_data(atlas)
+for (varname in c("sample_type", "DNA_extraction_method", "nationality", "age", "bmi_group")) {
+  meta$varname <- meta[[varname]]
+  if (is.factor(meta$varname)) {
+    meta$varname <- factor(meta$varname, levels = names(sort(table(meta$varname))))
+  }
+  p <- ggplot(meta, aes(x = varname)) + geom_bar() + coord_flip() + ggtitle(varname) + ylab("Samples (n)")
+  print(p)
+}
+```
+
+
+### Diversity vs. host variables
+
+```{r hatlas-example3, fig.width=8, fig.height=5, message=FALSE, warning=FALSE, out.width="800px"}
+# Pick the subset of RBB-preprocessed samples from time point 0
+pseq <- subset_samples(atlas, time == 0 & DNA_extraction_method == "rbb")
+
+p <- plot_regression(diversity~age, sample_data(pseq))
+print(p)
+
+#p <- boxplot_abundance(pseq, x = "bmi_group", y = "Dialister")
+#print(p)
+```
+
+
+
+### Licensing and Citations
+
+This material can be freely used, modified and distributed under the
+[Two-clause FreeBSD
+license](http://en.wikipedia.org/wiki/BSD\_licenses). Kindly cite as
+'Leo Lahti, Jarkko Salojarvi, Anne Salonen and Willem M de
+Vos. HITChip Atlas. URL: http://microbiome.github.com'.
+
+
+### References
+
+```{r, echo=FALSE, message=FALSE}
+#You can embed citations, for example: `r citep(bib[["lahti14natcomm"]])`
+#You can embed citations, for example2: @lahti14natcomm
+#Cite with DOI: `r citep("10.1890/11-0011.1")`
+#Cite URL `r citep("http://knowledgeblog.org/greycite")`
+#For automated markdown citations, check [this](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html), [this](https://github.com/cboettig/knitcitations), and [this](http://www.carlboettiger.info/2012/03/24/citations-in-markdown-using-knitr.html). 
+#write.bibtex(file="references.bib")
+```
+
+```{r, echo=FALSE, message=FALSE, results='asis'}
+bibliography()
+```
+

@@ -4,15 +4,15 @@
 \alias{group_bmi}
 \title{Body-Mass Index (BMI) Classes}
 \usage{
-group_bmi(x, breaks = "decades", n = 10, labels = NULL,
+group_bmi(x, breaks = "standard", n = 10, labels = NULL,
   include.lowest = TRUE, right = FALSE, dig.lab = 3,
   ordered_result = FALSE)
 }
 \arguments{
 \item{x}{Numeric vector (BMI)}
 
-\item{breaks}{Class break points. Either a vector of breakpoints, or one of the predefined
-options ("standard", "standard_truncated", "even").}
+\item{breaks}{Class break points. Either a vector of breakpoints, or one of
+the predefined options ("standard", "standard_truncated", "even").}
 
 \item{n}{Number of groups for the breaks = "even" option.}
 
@@ -40,10 +40,15 @@ Factor of BMI groups.
 Cut BMI information to standard discrete factors.
 }
 \details{
-Regarding the breaks arguments, the "even" option aims to cut the samples in groups with approximately the same size (by quantiles). The "standard" option corresponds to standard obesity categories defined by the cutoffs <18.5 (underweight); <25 (lean); <30 (obese); <35 (severe obese); <40 (morbid obese); <45 (super obese). The standard_truncated combines the severe, morbid and super obese into a single group.
+Regarding the breaks arguments, the "even" option aims to
+cut the samples in groups with approximately the same size (by
+quantiles). The "standard" option corresponds to standard obesity
+categories defined by the cutoffs <18.5 (underweight); <25 (lean);
+<30 (obese); <35 (severe obese); <40 (morbid obese); <45 (super
+obese). The standard_truncated combines the severe, morbid and super
+obese into a single group.
 }
 \examples{
-data(atlas1006)
 bmi.numeric <- range(rnorm(100, mean = 25, sd = 3))
 bmi.factor <- group_bmi(bmi.numeric)
 }

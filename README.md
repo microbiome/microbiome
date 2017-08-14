@@ -1,27 +1,43 @@
 <!--![Banner](https://github.com/microbiome/microbiome/blob/master/vignettes/figure/composition-example4-1.png)-->
 <!--[![Follow](https://img.shields.io/twitter/follow/ropengov.svg?style=social)](https://twitter.com/intent/follow?screen_name=ropengov)-->
 
-
 microbiome R package
 ==========
 
+<br>
+
+[![Join the chat at https://gitter.im/microbiome/microbiome](https://badges.gitter.im/microbiome/microbiome.svg)](https://gitter.im/microbiome/microbiome?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)
-[![codecov.io](https://codecov.io/github/microbiome/microbiome/coverage.svg?branch=master)](https://codecov.io/github/microbiome/microbiome?branch=master)  
+[![codecov.io](https://codecov.io/github/microbiome/microbiome/coverage.svg?branch=master)](https://codecov.io/github/microbiome/microbiome?branch=master)
+[![PRs Welcome][prs-badge]][prs]
+[![Watch on GitHub][github-watch-badge]][github-watch]
+[![Star on GitHub][github-star-badge]][github-star]
+<!--[![Follow](https://img.shields.io/twitter/follow/antagomir.svg?style=social)](https://twitter.com/intent/follow?screen_name=antagomir)-->
+
+<br>
 
 
-Tools for the exploration and analysis of microbiome profiling data,
-with a focus on large-scale population studies and 16S taxonomic
-profiling. This package extends the generic
-[phyloseq](https://github.com/joey711/phyloseq) framework for R based
-microbiome analysis.  Your feedback, suggestions and bug reports are
-welcome.
+[prs]: http://makeapullrequest.com
+[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+
+[github-watch-badge]: https://img.shields.io/github/watchers/microbiome/microbiome.svg?style=social
+[github-watch]: https://github.com/microbiome/microbiome/watchers
+
+[github-star-badge]: https://img.shields.io/github/stars/microbiome/microbiome.svg?style=social
+[github-star]: https://github.com/microbiome/microbiome/stargazers
+[license-badge]: https://img.shields.io/npm/l/microbiome.svg?style=flat-square
+[license]: https://github.com/microbiome/microbiome/blob/master/LICENSE
+[microbiome]: https://github.com/microbiome/microbiome
+
+
+Tools for the exploration and analysis of microbiome profiling data sets, in particular large-scale population studies and 16S taxonomic profiling. 
 
 
 ### Installation and use
 
 See the package [tutorial](http://microbiome.github.io/microbiome/).
 
-
+**Kindly cite** as follows: "Leo Lahti, Sudarshan Shetty [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). Tools for microbiome analysis in R. Microbiome package version 0.99.52. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). See also the relevant references listed in the manual page of each function. 
 ### Contribute
 
 Contributions are very welcome:
@@ -34,7 +50,7 @@ Contributions are very welcome:
 
 ### Publications using the microbiome package
 
-**Kindly cite this work** as follows: "Leo Lahti [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). Tools for microbiome analysis in R. Microbiome package version . URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome), and the relevant references listed in the manual page of each function. The list of publications is not exhaustive. Let us know if you know of further publications using the microbiome package; we are collecting these on the website.
+Below some publications that utilize the tools implemented in this package. The list of publications is not exhaustive. Let us know if you know of further publications using the microbiome package; we are collecting these on the website.
 
 [Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Shetty S, Hugenholtz F, Lahti L, Smidt H, de Vos WM, Danchin A. _FEMS Microbiology Reviews_ fuw045, 2017.
 
@@ -53,11 +69,11 @@ Contributions are very welcome:
 
 Main developer: [Leo Lahti](https://github.com/antagomir/)
 
-Co-authors: Jarkko Salojärvi, Sudarshan Shetty. 
+Co-authors: Sudarshan Shetty, Jarkko Salojärvi. 
 
-Contributors: Tineka Blake and [other contributors](https://github.com/microbiome/microbiome/graphs/contributors).
+[Full list of contributors](https://github.com/microbiome/microbiome/graphs/contributors).
 
-Financial support has been provided by the following bodies:
+The work has been supported by the following bodies:
 
   * Academy of Finland (grants 256950 and 295741)
   * [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics
@@ -66,6 +82,8 @@ Financial support has been provided by the following bodies:
   * [Department of Veterinary Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm), University of Helsinki, Finland.
 
 This work relies on the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis developed by Paul McMurdie and Susan Holmes. 
+
+
 
 
 

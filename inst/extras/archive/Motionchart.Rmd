@@ -1,0 +1,54 @@
+### Interactive motioncharts with googleVis
+
+This provides interactive charts where you can change the variables at
+X/Y axis, point size and color as you like. With time series data
+moving animations are also possible.
+
+
+Prepare the data:
+
+```{r motionchart-example, fig.width=8, fig.height=8, message=FALSE}
+library(microbiome)  
+
+data(peerj32)
+
+# Species-level data in phyloseq format
+pseq <- peerj32$phyloseq
+
+# Retrieve L2 (genus-like) data in phyloseq format
+pseq.L2 <- aggregate_taxa(pseq, level = "L2")
+
+# Convert L2 to matrix format
+genus.matrix.log10.simulated <- log10(otu_table(pseq.L2)@.Data)
+
+# Combine phylotype profiling data and sample metadata
+df <- cbind(metadata.simulated, t(genus.matrix.log10.simulated))  
+```
+
+Plot a Motion Chart using googleVis - package. Note: this requires
+flash and internet connection. 
+
+Form a motion chart from example data NOTE: the data set must be given
+as data.frame which can contain NUMERIC and CHARACTER fields (NO
+FACTORS, NOR LOGICAL variables!). The FIRST FOUR FIELDS must be
+provided in the following order: idvar, timevar, two numeric fields,
+then any number of numeric and character fields.
+
+The plot shows only the first time point.  Replace the time field with
+a constant to plot all in one figure using df$time <- rep(1, nrow(df))
+
+```{r motionchart-example-2, fig.width=8, fig.height=8, message=FALSE}
+library(googleVis)  
+
+# See help(gvisMotionChart) for further details
+mchart <- gvisMotionChart(df, idvar = "sample", timevar = "time")  
+
+# Plot immediately (opens in browser, requires flash)
+plot(mchart)  
+```
+
+Save as html (needs javascript to open!). NOTE: html file viewing does not work locally - store the html file on server and view through internet:
+
+```{r motionchart-example2, fig.width=8, fig.height=8, eval=FALSE}
+print(mchart, file="~/MotionChart.html")
+```

@@ -13,16 +13,24 @@
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
 #' @examples
-#' \dontrun{
 #'
-#' mothur.shared <- system.file('inst/extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.subsample.shared', package='microbiome')
-#' mothur.con.taxonomy <- system.file('inst/extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.cons.taxonomy', package='microbiome')
-#' mothur_mapping <- system.file('inst/extdata/Baxter_FITs_Microbiome_2016_mapping.csv', package='microbiome')
+#' otu.file <- system.file(
+#' "extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.subsample.shared",
+#'    package='microbiome')
+#'
+#' tax.file <- system.file(
+#' "extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.cons.taxonomy",
+#'    package='microbiome')
+#'
+#' meta.file <- system.file(
+#' "extdata/Baxter_FITs_Microbiome_2016_mapping.csv",
+#'    package='microbiome')
+#' 
 #' p0 <- read_mothur2phyloseq(
-#'     shared.file='mothur.shared',
-#'     consensus.taxonomy.file='mothur.con.taxonomy',
-#'     mapping.file='mothur_mapping')
-#' }
+#'        shared.file=otu.file,
+#'        consensus.taxonomy.file=tax.file,
+#'        mapping.file=meta.file)
+#'
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
 read_mothur2phyloseq <- function(shared.file, consensus.taxonomy.file, 

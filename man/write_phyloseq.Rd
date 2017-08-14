@@ -9,7 +9,7 @@ write_phyloseq(x, type = "all", path = getwd())
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
-\item{type}{'OTU' or 'TAXA' or 'METADATA'}
+\item{type}{'OTU' or 'TAXONOMY' or 'METADATA'}
 
 \item{path}{Path to the directory/folder where the data will be written.
 Uses the working directory by default.}

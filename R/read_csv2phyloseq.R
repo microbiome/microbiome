@@ -9,18 +9,22 @@
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
 #' @examples
-#' \dontrun{
-#' # TODO: add example files in inst/extdata/
-#' # and read here with
-#' # system.file('inst/extdata/..', package='microbiome') command
-#' # To make this example executable
-#' qiita1629_otu_table <- system.file('inst/extdata/qiita1629_otu_table.csv', package='microbiome')
-#' qiita1629_taxonomy_table <- system.file('inst/extdata/qiita1629_taxonomy_table.csv', package='microbiome')
-#' qiita1629_mapping_subset <- system.file('inst/extdata/qiita1629_mapping_subset.csv', package='microbiome')
-#' p0 <- read_csv2phyloseq(otu.file='qiita1629_otu_table', 
-#'     taxonomy.file='qiita1629_taxonomy_table', 
-#'     metadata.file='qiita1629_mapping_subset')
-#' }
+#'
+#' otu.file <-
+#'    system.file("extdata/qiita1629_otu_table.csv",
+#'        package='microbiome')
+#'
+#' tax.file <- system.file("extdata/qiita1629_taxonomy_table.csv",
+#'        package='microbiome')
+#'
+#' meta.file <- system.file("extdata/qiita1629_mapping_subset.csv",
+#'        package='microbiome')
+#'
+#' p0 <- read_csv2phyloseq(
+#'          otu.file=otu.file, 
+#'          taxonomy.file=tax.file, 
+#'          metadata.file=meta.file)
+#'
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
 read_csv2phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,

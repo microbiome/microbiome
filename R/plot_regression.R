@@ -26,6 +26,7 @@
 #' @param quantize either 'continuous', or 'SD'. In the latter case, 
 #' we get three color regions for 1, 2, and 3 SD (an idea of John Mashey)
 #' @param show.points Show points.
+#' @param color Point colors
 #' @param ... further parameters passed to the fitting function, 
 #' in the case of loess, for example, 'span=.9', or 
 #' 'family='symmetric''
@@ -43,7 +44,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     shade.alpha=0.1, spag=FALSE, mweight=TRUE, show.lm=FALSE,
     show.median=TRUE, median.col="white", 
     show.CI=FALSE, method=loess, slices=200,
-    ylim=NULL, quantize="continuous", show.points=TRUE, 
+    ylim=NULL, quantize="continuous", show.points=TRUE, color = NULL,
     ...) {
     
     # # Some transparency problems solved with:
@@ -63,19 +64,18 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     UL <- NA
     LL <- NA
     
-    # # ------------------
-    
+    # ------------------
+
     IV <- all.vars(formula)[[2]]
     DV <- all.vars(formula)[[1]]
 
     data$IV <- data[[IV]]
     data$DV <- data[[DV]]
     data[[IV]] <- data[[DV]] <- NULL
-
-    data <- arrange(data, IV) %>% select(IV, DV) %>%
+    data <- arrange(data, IV) %>% 
                                 filter(!is.na(IV) & !is.na(DV)) %>% 
-        filter(!is.infinite(IV) & !is.infinite(DV))
-    
+                                filter(!is.infinite(IV) & !is.infinite(DV))
+
     #if (bw) {
     #    palette <- colorRampPalette(c("#EEEEEE", "#999999", "#333333"),
     #bias=2)(20)
@@ -126,7 +126,15 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     b2$x <- newx[, 1]
     colnames(b2) <- c("index", "B", "value", "x")
     b2$value <- as.numeric(as.character(b2$value))
-    p1 <- ggplot(data, aes_string(x="IV", y="DV"))
+
+    if (is.null(color)) {
+        data$color <- rep(1, nrow(data))
+    } else {
+        data$color <- data[[color]]
+    }
+
+    p1 <- ggplot(data, aes_string(x="IV", y="DV"), aes(color = "color"))
+    
     p1 <- p1 + theme_bw()
     
     if (shade) {
@@ -146,7 +154,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
         }
         
         message("Vertical cross-sectional density estimate")
-        d2 <- b2 %>% select(x, value) %>%
+        d2 <- b2 %>% # select(x, value) %>%
         group_by(x) %>%
         do(data.frame(density(.$value, na.rm=TRUE,
             n=slices, from=ylim[[1]], to=ylim[[2]])[c("x", "y")]))
@@ -225,10 +233,10 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     if (show.lm) {
         p1 <- p1 + geom_smooth(method="lm", color="darkgreen", se=FALSE)
     }
-    
+
     if (show.points) {
         p1 <- p1 + geom_point(size=1, shape=21, fill="white",
-            color="black")
+            aes(color=color), data = data)
     }
 
     p <- p1 + labs(xlab = IV, ylab = DV)
