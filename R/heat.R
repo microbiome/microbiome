@@ -149,7 +149,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
             order.cols <- colnames(mat)[cind]
 
         }
-             
+        
     }
 
     df[[Yvar]] <- factor(df[[Yvar]], levels=order.rows)

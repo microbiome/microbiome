@@ -28,24 +28,24 @@
 read_biom2phyloseq <- function(otu.file = NULL, 
                             taxonomy.file = NULL, metadata.file = NULL)
 {
-  levels <- c("Domain", "Phylum", 
+    levels <- c("Domain", "Phylum", 
             "Class", "Order", "Family", 
             "Genus")
-  
-  otu_biom <- import_biom(otu.file, 
-                          parseFunction = parse_taxonomy_default)
-  map <- read.csv(metadata.file, 
-                  check.names = FALSE, row.names = 1)
-  s.map <- sample_data(map)
-  phyobj <- merge_phyloseq(otu_biom, 
+      
+    otu_biom <- import_biom(otu.file, 
+                        parseFunction = parse_taxonomy_default)
+    map <- read.csv(metadata.file, 
+                check.names = FALSE, row.names = 1)
+    s.map <- sample_data(map)
+    phyobj <- merge_phyloseq(otu_biom, 
                         s.map)
-  if (ncol(tax_table(phyobj)) == 6) {
-    colnames(tax_table(phyobj)) <- levels
+    if (ncol(tax_table(phyobj)) == 6) {
+        colnames(tax_table(phyobj)) <- levels
     
     return(phyobj)
   } else if (ncol(tax_table(phyobj)) == 7) {
     colnames(tax_table(phyobj)) <- c(levels, 
-                                     "Species")
+                                    "Species")
   }
   return(phyobj)
 }
