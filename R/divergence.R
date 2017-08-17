@@ -26,6 +26,7 @@
 #' @param method dissimilarity method: any method available via
 #' stats::cor or phyloseq::distance function. Note that some methods
 #' ("jsd" for instance) do not work with the group divergence.
+#' @param coreset phyloseq object; the samples to be used to define the centroid
 #' @return Vector with dissimilarities; one for each sample, quantifying the
 #' dissimilarity of the sample from the group-level mean.
 #' @export
@@ -47,15 +48,20 @@
 #' standard beta diversity measures
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-divergence <- function(x, method="spearman") {
-    
+divergence <- function(x, method="spearman", coreset = NULL) {
+
+    if (is.null(coreset)) {
+      coreset <- x
+    }
+
     # Abundance matrix (taxa x samples)
     x <- abundances(x)
+    coreset <- abundances(coreset)    
 
     if (method %in% c("spearman", "pearson", "kendall")) {
-        b <- correlation_divergence(x)
+        b <- correlation_divergence(x, method = method, coreset = coreset)
     } else {
-        b <- beta.mean(x, method=method)
+        b <- beta.mean(x, method = method, coreset = coreset)
     }
 
     # Add sample names
@@ -65,10 +71,10 @@ divergence <- function(x, method="spearman") {
     
 }
 
-correlation_divergence <- function(x, method="spearman") {
-    
+correlation_divergence <- function(x, method="spearman", coreset) {
+
     # Correlations calculated against the mean of the sample set
-    cors <- as.vector(cor(x, matrix(rowMeans(x)),
+    cors <- as.vector(cor(x, matrix(rowMeans(coreset)),
         method=method, use="pairwise.complete.obs"))
     
     1 - cors
@@ -78,11 +84,11 @@ correlation_divergence <- function(x, method="spearman") {
 
 
 
-beta.mean <- function(x, method="bray") {
+beta.mean <- function(x, method="bray", coreset) {
     
     # Divergence calculated against the mean of the sample set
     b <- c()
-    m <- rowMeans(x)
+    m <- rowMeans(coreset)
     for (i in 1:ncol(x)) {
         xx <- rbind(x[, i], m)
         # xxx <- vegdist(xx, method=method)
