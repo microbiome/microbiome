@@ -57,7 +57,10 @@ divergence <- function(x, method="spearman") {
     } else {
         b <- beta.mean(x, method=method)
     }
-    
+
+    # Add sample names
+    names(b) <- colnames(x)
+
     b
     
 }
