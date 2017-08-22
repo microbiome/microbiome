@@ -223,7 +223,7 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
         dfm <- dfm %>% arrange(OTU)  # Show OTUs always in the same order
         p <- ggplot(dfm, aes(x=Sample, y=Abundance, color=OTU, group = OTU))
         p <- p + geom_point()
-        p <- p + geom_line()	
+        p <- p + geom_line()    
         p <- p + scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
         
         # Name appropriately

@@ -41,7 +41,7 @@ plot_landscape <- function(x, method="NMDS", distance="bray",
             proj <- x[, 1:2]
         } else if (ncol(x) == 2) {
             proj <- as.data.frame(x)
-	}
+    }
     }
 
     guide.title <- "color"
@@ -49,7 +49,7 @@ plot_landscape <- function(x, method="NMDS", distance="bray",
         proj$col <- as.factor(rep("black", nrow(proj)))
     } else if (length(col) == 1 && col %in% colnames(x)) {
         proj$col <- x[, col]
-	guide.title <- col
+    guide.title <- col
     } else {
         proj$col <- col
     }
@@ -57,7 +57,7 @@ plot_landscape <- function(x, method="NMDS", distance="bray",
     p <- densityplot(proj[, 1:2], main=NULL, x.ticks=10,
         rounding=0, add.points=TRUE, 
         adjust=1, size=1, col=proj$col, legend = TRUE) +
-	guides(color = guide_legend(title = guide.title))
+    guides(color = guide_legend(title = guide.title))
     
     p
     

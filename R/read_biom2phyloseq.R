@@ -31,7 +31,7 @@ read_biom2phyloseq <- function(otu.file = NULL,
     levels <- c("Domain", "Phylum", 
             "Class", "Order", "Family", 
             "Genus")
-      
+  
     otu_biom <- import_biom(otu.file, 
                         parseFunction = parse_taxonomy_default)
     map <- read.csv(metadata.file, 
@@ -42,12 +42,14 @@ read_biom2phyloseq <- function(otu.file = NULL,
     if (ncol(tax_table(phyobj)) == 6) {
         colnames(tax_table(phyobj)) <- levels
     
-    return(phyobj)
-  } else if (ncol(tax_table(phyobj)) == 7) {
-    colnames(tax_table(phyobj)) <- c(levels, 
+        return(phyobj)
+    } else if (ncol(tax_table(phyobj)) == 7) {
+        colnames(tax_table(phyobj)) <- c(levels, 
                                     "Species")
-  }
-  return(phyobj)
+    }
+    
+    return(phyobj)
+
 }
 
 

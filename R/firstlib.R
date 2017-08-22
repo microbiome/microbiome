@@ -47,6 +47,7 @@
 #' @importFrom ggplot2 scale_y_discrete
 #' @importFrom ggplot2 scale_y_continuous
 #' @importFrom ggplot2 scale_size_manual
+#' @importFrom ggplot2 scale_size
 #' @importFrom ggplot2 scale_color_manual
 #' @importFrom ggplot2 stat_density2d
 #' @importFrom ggplot2 theme_set
