@@ -1,5 +1,6 @@
 CHANGES IN VERSION 0.99.6 (2017-07-21)
   o Fixed bug in transform option "clr"
+  o "lineplot" option added in plot_composition
 
 CHANGES IN VERSION 0.99.5 (2017-07-07)
   o fixed vignette headers

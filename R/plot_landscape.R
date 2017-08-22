@@ -34,26 +34,30 @@ plot_landscape <- function(x, method="NMDS", distance="bray",
         names(proj)[1:2] <- paste("Comp", 1:2, sep=".")
 
     } else if (is.matrix(x) || is.data.frame(x)) {
-        proj <- as.data.frame(x)
         if (ncol(x) > 2) {
             warning("More than two dimensions in the matrix. 
                     Projection methods not implemented for matrices. 
                     Using the first two columns for visualization.")
             proj <- x[, 1:2]
-        }
+        } else if (ncol(x) == 2) {
+            proj <- as.data.frame(x)
+	}
     }
-    
+
+    guide.title <- "color"
     if (is.null(col)) {
         proj$col <- as.factor(rep("black", nrow(proj)))
-    } else if (length(col) == 1 && col %in% colnames(proj)) {
-        proj$col <- proj[[col]]
+    } else if (length(col) == 1 && col %in% colnames(x)) {
+        proj$col <- x[, col]
+	guide.title <- col
     } else {
         proj$col <- col
     }
     
     p <- densityplot(proj[, 1:2], main=NULL, x.ticks=10,
         rounding=0, add.points=TRUE, 
-        adjust=1, size=1, col=proj$col, legend=TRUE)
+        adjust=1, size=1, col=proj$col, legend = TRUE) +
+	guides(color = guide_legend(title = guide.title))
     
     p
     

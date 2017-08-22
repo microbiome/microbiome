@@ -15,11 +15,11 @@
 #' with the function.
 #' }
 #' @param otu.sort Order taxa. Same options as for the sample.sort argument
-#' but instead of metadata, taxonomic table is used.
+#' but instead of metadata, taxonomic xtable is used.
 #' Also possible to sort by 'abundance'.
 #' @param x.label Specify how to label the x axis.
 #' This should be one of the variables in sample_variables(x).
-#' @param plot.type Plot type: 'barplot' or 'heatmap'
+#' @param plot.type Plot type: 'barplot', 'lineplot', or 'heatmap'
 #' @param verbose verbose
 #' @param transform Data transform to be used in plotting
 #'  (but not in sample/taxon ordering).
@@ -217,6 +217,28 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
         p <- heat(tmp, colnames(tmp)[[1]], colnames(tmp)[[2]],
             colnames(tmp)[[3]])
         
+    } else if (plot.type == "lineplot") {
+
+        # Provide barplot
+        dfm <- dfm %>% arrange(OTU)  # Show OTUs always in the same order
+        p <- ggplot(dfm, aes(x=Sample, y=Abundance, color=OTU, group = OTU))
+        p <- p + geom_point()
+        p <- p + geom_line()	
+        p <- p + scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
+        
+        # Name appropriately
+        if (!is.null(transform) && transform == "relative.abundance") {
+            p <- p + ylab("Relative abundance (%)")
+        } else {
+            p <- p + ylab("Abundance")
+        }
+        
+        # Rotate horizontal axis labels, and adjust
+        p <- p + theme(axis.text.x=element_text(angle=90, vjust=0.5,
+        hjust=0))
+        p <- p + guides(fill=guide_legend(reverse=FALSE,
+        title=taxonomic.level))
+
     }
     
     p

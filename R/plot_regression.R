@@ -27,6 +27,7 @@
 #' we get three color regions for 1, 2, and 3 SD (an idea of John Mashey)
 #' @param show.points Show points.
 #' @param color Point colors
+#' @param pointsize Point sizes
 #' @param ... further parameters passed to the fitting function, 
 #' in the case of loess, for example, 'span=.9', or 
 #' 'family='symmetric''
@@ -44,7 +45,8 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     shade.alpha=0.1, spag=FALSE, mweight=TRUE, show.lm=FALSE,
     show.median=TRUE, median.col="white", 
     show.CI=FALSE, method=loess, slices=200,
-    ylim=NULL, quantize="continuous", show.points=TRUE, color = NULL,
+    ylim=NULL, quantize="continuous", show.points=TRUE,
+    color = NULL, pointsize = NULL,
     ...) {
     
     # # Some transparency problems solved with:
@@ -81,7 +83,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     #bias=2)(20)
     #}
     
-    message("Computing boostrapped smoothers ...")
+    message("Computing bootsrapped smoothers ...")
     newx <- data.frame(seq(min(data$IV), max(data$IV), length=slices))
     colnames(newx) <- "IV"
     
@@ -133,7 +135,15 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
         data$color <- data[[color]]
     }
 
-    p1 <- ggplot(data, aes_string(x="IV", y="DV"), aes(color = "color"))
+
+    if (is.null(pointsize)) {
+        data$pointsize <- rep(1, nrow(data))
+    } else {
+        data$pointsize <- data[[pointsize]]
+    }
+
+    p1 <- ggplot(data, aes_string(x="IV", y="DV"))
+                       #aes(color = "color", size = "pointsize"))
     
     p1 <- p1 + theme_bw()
     
@@ -235,8 +245,9 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     }
 
     if (show.points) {
-        p1 <- p1 + geom_point(size=1, shape=21, fill="white",
-            aes(color=color), data = data)
+        #p1 <- p1 + geom_point(size=1, shape=21, fill="white",
+        p1 <- p1 + geom_point(aes(color=color, size=pointsize), data = data) +
+	           scale_size(range = c(1,3)) 
     }
 
     p <- p1 + labs(xlab = IV, ylab = DV)
