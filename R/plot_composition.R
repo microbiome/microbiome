@@ -1,8 +1,6 @@
 #' @title Taxonomic Composition Plot
 #' @description Plot taxon abundance for samples.
 #' @param x \code{\link{phyloseq-class}} object
-#' @param taxonomic.level Merge the OTUs (for phyloseq object) into a higher
-#' taxonomic level. This has to be one from colnames(tax_table(x)).
 #' @param sample.sort Order samples. Various criteria are available:
 #' \itemize{
 #' \item NULL or 'none': No sorting
@@ -21,7 +19,6 @@
 #' This should be one of the variables in sample_variables(x).
 #' @param plot.type Plot type: 'barplot', 'lineplot', or 'heatmap'
 #' @param verbose verbose
-#' @param transform Data transform to be used in plotting
 #'  (but not in sample/taxon ordering).
 #' The options are 'Z-OTU', 'Z-Sample', 'log10' and 'compositional'.
 #' See the \code{\link{transform}} function.
@@ -33,40 +30,18 @@
 #' @examples
 #' data(dietswap)
 #' pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR')
-#' plot_composition(pseq, taxonomic.level='Phylum')
+#' plot_composition(pseq)
 #' @keywords utilities
-plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
+plot_composition <- function(x, sample.sort=NULL,
     otu.sort=NULL, x.label="sample", plot.type="barplot",
-    verbose=FALSE, transform=NULL, 
+    verbose=FALSE, 
     mar=c(5, 12, 1, 1), average_by=NULL, ...) {
     
     # Avoid warnings
     Sample <- Abundance <- Taxon <- horiz <- value <-
         scales <- ID <- meta <- OTU <- NULL
     
-    # Merge the taxa at a higher taxonomic level
-    if (!taxonomic.level == "OTU") {
-        if (verbose) {
-            message("Aggregating the taxa.")
-        }
-        x <- aggregate_taxa(x, taxonomic.level)
-    }
-    
-    if (verbose) {
-        message("Check data transforms.")
-    }
     xorig <- x
-    if (is.null(transform)) {
-        x <- x
-    } else if (transform == "Z-OTU") {
-        x <- transform(x, "Z", "OTU")
-    } else if (transform == "Z-Sample") {
-        x <- transform(x, "Z", "Sample")
-    } else if (transform == "compositional") {
-        x <- transform(x, "compositional", "OTU")
-    } else {
-        x <- transform(x, transform)
-    }
 
     # -----------------------------------------------------------------------
     
@@ -84,10 +59,7 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
         # Remove samples with no group info
         dff <- dff %>% filter(!is.na(group))
         dff$group <- droplevels(dff$group)
-    
-        # av <- ddply(dff, "group", colwise(mean))
         av <- aggregate(. ~ group, data = dff, mean)
-
         rownames(av) <- as.character(av$group)
         av$group <- NULL
         abu <- t(av)  # taxa x groups
@@ -181,20 +153,15 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
         p <- ggplot(dfm, aes(x=Sample, y=Abundance, fill=OTU))
         p <- p + geom_bar(position="stack", stat="identity")
         p <- p + scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
-        
+
         # Name appropriately
-        if (!is.null(transform) && transform == "relative.abundance") {
-            p <- p + ylab("Relative abundance (%)")
-        } else {
-            p <- p + ylab("Abundance")
-        }
+        p <- p + ylab("Abundance")
         
         # Rotate horizontal axis labels, and adjust
         p <- p + theme(axis.text.x=element_text(angle=90, vjust=0.5,
-        hjust=0))
-        p <- p + guides(fill=guide_legend(reverse=FALSE,
-        title=taxonomic.level))
-        
+            hjust=0))
+        p <- p + guides(fill=guide_legend(reverse=FALSE))
+
     } else if (plot.type == "heatmap") {
         
         if (verbose) {
@@ -221,26 +188,32 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
 
         # Provide barplot
         dfm <- dfm %>% arrange(OTU)  # Show OTUs always in the same order
-        p <- ggplot(dfm, aes(x=Sample, y=Abundance, color=OTU, group = OTU))
-        p <- p + geom_point()
-        p <- p + geom_line()    
-        p <- p + scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
-        
-        # Name appropriately
-        if (!is.null(transform) && transform == "relative.abundance") {
-            p <- p + ylab("Relative abundance (%)")
-        } else {
-            p <- p + ylab("Abundance")
+
+	if (is.numeric(meta(xorig)[[average_by]])) {
+            dfm$Sample <- as.numeric(as.character(dfm$Sample))
+	    labels <- sort(unique(dfm$Sample))
+        } else if (is.factor(meta(xorig)[[average_by]])) {
+            labels <- levels(meta(xorig)[[average_by]])
         }
-        
+
+        p <- ggplot(dfm, aes(x=Sample, y=Abundance, color=OTU, group = OTU)) +
+	        geom_point() +
+                geom_line()	
+
+        p <- p + ylab("Abundance")
+
         # Rotate horizontal axis labels, and adjust
-        p <- p + theme(axis.text.x=element_text(angle=90, vjust=0.5,
-        hjust=0))
-        p <- p + guides(fill=guide_legend(reverse=FALSE,
-        title=taxonomic.level))
+	if (is.numeric(meta(xorig)[[average_by]])) {
+            p <- p + scale_x_continuous(labels=as.character(labels), breaks=as.numeric(labels))
+        } else {
+	    NULL
+        }
+	
+        p <- p + theme(axis.text.x=element_text(angle=0, vjust=0.5, hjust=0))
+        p <- p + guides(fill=guide_legend(reverse=FALSE))
 
     }
-    
+
     p
     
 }
