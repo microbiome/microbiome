@@ -15,11 +15,11 @@
 #' with the function.
 #' }
 #' @param otu.sort Order taxa. Same options as for the sample.sort argument
-#' but instead of metadata, taxonomic xtable is used.
+#' but instead of metadata, taxonomic table is used.
 #' Also possible to sort by 'abundance'.
 #' @param x.label Specify how to label the x axis.
 #' This should be one of the variables in sample_variables(x).
-#' @param plot.type Plot type: 'barplot', 'lineplot', or 'heatmap'
+#' @param plot.type Plot type: 'barplot' or 'heatmap'
 #' @param verbose verbose
 #' @param transform Data transform to be used in plotting
 #'  (but not in sample/taxon ordering).
@@ -40,9 +40,18 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
     verbose=FALSE, transform=NULL, 
     mar=c(5, 12, 1, 1), average_by=NULL, ...) {
     
-    # Avoid warnings
-    Sample <- Abundance <- Taxon <- horiz <- value <-
-        scales <- ID <- meta <- OTU <- NULL
+  # Avoid warnings
+  Sample <- Abundance <- Taxon <- horiz <- value <- scales <- ID <- 
+    meta <- OTU <- taxic <- otu.df <- taxmat <-  new.tax<- NULL
+  if (!is.null(x@phy_tree)){
+    x@phy_tree= NULL
+  }
+  taxic <- as.data.frame(x@tax_table) 
+  otu.df <- as.data.frame(otu_table(x))
+  taxic$OTU <- row.names(otu.df)
+  taxmat <- as.matrix(taxic) # convert it into a matrix.
+  new.tax <- tax_table(taxmat)  # convert into phyloseq compaitble file.
+  tax_table(x) <- new.tax # incroporate into phyloseq Object
     
     # Merge the taxa at a higher taxonomic level
     if (!taxonomic.level == "OTU") {
@@ -67,7 +76,7 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
     } else {
         x <- transform(x, transform)
     }
-
+    
     # -----------------------------------------------------------------------
     
     # Pick the abundance matrix taxa x samples
@@ -86,13 +95,13 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
         dff$group <- droplevels(dff$group)
     
         # av <- ddply(dff, "group", colwise(mean))
-        av <- aggregate(. ~ group, data = dff, mean)
+    av <- aggregate(. ~ group, data = dff, mean)
 
         rownames(av) <- as.character(av$group)
         av$group <- NULL
         abu <- t(av)  # taxa x groups
     }
-
+    
     # Sort samples
     if (is.null(sample.sort) || sample.sort == "none" || !is.null(average_by)) {
         # No sorting sample.sort <- sample_names(x)
@@ -107,17 +116,15 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
         # Use predefined order
         sample.sort <- sample.sort
     } else if (length(sample.sort) == 1 && sample.sort == "neatmap") {
-
         sample.sort <- neatsort(x, method="NMDS", distance="bray",
-            target="sites", first=NULL)
-    
+        target="sites", first=NULL)
     } else if (!sample.sort %in% names(sample_data(x))) {
         warning(paste("The sample.sort argument", sample.sort,
         "is not included in sample_data(x). 
             Using original sample ordering."))
         sample.sort <- sample_names(x)
     }
-
+    
     # Sort taxa
     if (is.null(otu.sort) || otu.sort == "none") {
         # No sorting
@@ -217,28 +224,6 @@ plot_composition <- function(x, taxonomic.level="OTU", sample.sort=NULL,
         p <- heat(tmp, colnames(tmp)[[1]], colnames(tmp)[[2]],
             colnames(tmp)[[3]])
         
-    } else if (plot.type == "lineplot") {
-
-        # Provide barplot
-        dfm <- dfm %>% arrange(OTU)  # Show OTUs always in the same order
-        p <- ggplot(dfm, aes(x=Sample, y=Abundance, color=OTU, group = OTU))
-        p <- p + geom_point()
-        p <- p + geom_line()    
-        p <- p + scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
-        
-        # Name appropriately
-        if (!is.null(transform) && transform == "relative.abundance") {
-            p <- p + ylab("Relative abundance (%)")
-        } else {
-            p <- p + ylab("Abundance")
-        }
-        
-        # Rotate horizontal axis labels, and adjust
-        p <- p + theme(axis.text.x=element_text(angle=90, vjust=0.5,
-        hjust=0))
-        p <- p + guides(fill=guide_legend(reverse=FALSE,
-        title=taxonomic.level))
-
     }
     
     p
