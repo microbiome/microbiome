@@ -4,7 +4,7 @@
 \alias{divergence}
 \title{Diversity within a Sample Group}
 \usage{
-divergence(x, method = "spearman")
+divergence(x, method = "spearman", coreset = NULL)
 }
 \arguments{
 \item{x}{phyloseq object}
@@ -12,6 +12,8 @@ divergence(x, method = "spearman")
 \item{method}{dissimilarity method: any method available via
 stats::cor or phyloseq::distance function. Note that some methods
 ("jsd" for instance) do not work with the group divergence.}
+
+\item{coreset}{phyloseq object; the samples to be used to define the centroid}
 }
 \value{
 Vector with dissimilarities; one for each sample, quantifying the
