@@ -4,12 +4,14 @@
 \alias{plot_taxa_prevalence}
 \title{Visualize Prevalence Distributions for Taxa}
 \usage{
-plot_taxa_prevalence(x, level)
+plot_taxa_prevalence(x, level, detection = 0)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
 \item{level}{Phylum/Order/Class/Family}
+
+\item{detection}{Detection threshold for presence (prevalance)}
 }
 \value{
 A \code{\link{ggplot}} plot object.
@@ -24,15 +26,11 @@ affiliation of rare and abundant taxa in the data.
 This may be helpful for data filtering or other downstream analysis.
 }
 \examples{
-data(DynamicsIBD)
+data(atlas1006)
 # Pick data subset to speed up example
-p0 <- subset_samples(DynamicsIBD, sex == 'male' & timepoint == 1)
-# Check the names of the taxonomic level 
-colnames(tax_table(p0)) 
-# Change the "Rank" label to taxonomic levels
-colnames(tax_table(p0)) <- c("Kingdom", "Phylum", "Class", "Order",
-    "Family", "Genus", "Species")
-p <- plot_taxa_prevalence(p0, 'Phylum')
+p0 <- subset_samples(atlas1006, DNA_extraction_method == "r")
+# Detection threshold (0 by default; higher especially with HITChip)
+p <- plot_taxa_prevalence(p0, 'Phylum', detection = 1)
 print(p)
 }
 \author{

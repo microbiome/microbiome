@@ -26,6 +26,7 @@ Simple OTU tables, mapping and taxonomy files will be converted
 to \code{\link{phyloseq-class}}.
 }
 \examples{
+\dontrun{
 
 otu.file <-
    system.file("extdata/qiita1629_otu_table.csv",
@@ -42,6 +43,7 @@ p0 <- read_csv2phyloseq(
          taxonomy.file=tax.file, 
          metadata.file=meta.file)
 
+}
 }
 \author{
 Sudarshan A. Shetty \email{sudarshanshetty9@gmail.com}

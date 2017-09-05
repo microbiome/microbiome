@@ -10,6 +10,7 @@
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
 #' @examples
+#' \dontrun{
 #'
 #' biom.file <- 
 #'    system.file("extdata/qiita1629.biom", 
@@ -22,7 +23,7 @@
 #' p0 <- read_biom2phyloseq(otu.file = biom.file, 
 #'                        metadata.file = meta.file, 
 #'                        taxonomy.file = NULL)
-#'
+#' }
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
 read_biom2phyloseq <- function(otu.file = NULL, 

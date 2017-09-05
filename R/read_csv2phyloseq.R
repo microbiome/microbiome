@@ -9,6 +9,7 @@
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
 #' @examples
+#' \dontrun{
 #'
 #' otu.file <-
 #'    system.file("extdata/qiita1629_otu_table.csv",
@@ -25,6 +26,7 @@
 #'          taxonomy.file=tax.file, 
 #'          metadata.file=meta.file)
 #'
+#' }
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
 read_csv2phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,

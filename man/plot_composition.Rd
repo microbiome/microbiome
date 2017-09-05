@@ -4,16 +4,12 @@
 \alias{plot_composition}
 \title{Taxonomic Composition Plot}
 \usage{
-plot_composition(x, taxonomic.level = "OTU", sample.sort = NULL,
-  otu.sort = NULL, x.label = "sample", plot.type = "barplot",
-  verbose = FALSE, transform = NULL, mar = c(5, 12, 1, 1),
-  average_by = NULL, ...)
+plot_composition(x, sample.sort = NULL, otu.sort = NULL,
+  x.label = "sample", plot.type = "barplot", verbose = FALSE, mar = c(5,
+  12, 1, 1), average_by = NULL, ...)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
-
-\item{taxonomic.level}{Merge the OTUs (for phyloseq object) into a higher
-taxonomic level. This has to be one from colnames(tax_table(x)).}
 
 \item{sample.sort}{Order samples. Various criteria are available:
 \itemize{
@@ -36,9 +32,7 @@ This should be one of the variables in sample_variables(x).}
 
 \item{plot.type}{Plot type: 'barplot', 'lineplot', or 'heatmap'}
 
-\item{verbose}{verbose}
-
-\item{transform}{Data transform to be used in plotting
+\item{verbose}{verbose
  (but not in sample/taxon ordering).
 The options are 'Z-OTU', 'Z-Sample', 'log10' and 'compositional'.
 See the \code{\link{transform}} function.}
@@ -58,6 +52,6 @@ Plot taxon abundance for samples.
 \examples{
 data(dietswap)
 pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR')
-plot_composition(pseq, taxonomic.level='Phylum')
+plot_composition(pseq)
 }
 \keyword{utilities}

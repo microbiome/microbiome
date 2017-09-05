@@ -6,27 +6,27 @@
 #' This may be helpful for data filtering or other downstream analysis.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param level Phylum/Order/Class/Family
+#' @param detection Detection threshold for presence (prevalance)
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
 #' @examples
-#' data(DynamicsIBD)
+#' data(atlas1006)
 #' # Pick data subset to speed up example
-#' p0 <- subset_samples(DynamicsIBD, sex == 'male' & timepoint == 1)
-#' # Check the names of the taxonomic level 
-#' colnames(tax_table(p0)) 
-#' # Change the "Rank" label to taxonomic levels
-#' colnames(tax_table(p0)) <- c("Kingdom", "Phylum", "Class", "Order",
-#'     "Family", "Genus", "Species")
-#' p <- plot_taxa_prevalence(p0, 'Phylum')
+#' p0 <- subset_samples(atlas1006, DNA_extraction_method == "r")
+#' # Detection threshold (0 by default; higher especially with HITChip)
+#' p <- plot_taxa_prevalence(p0, 'Phylum', detection = 1)
 #' print(p)
 #' @keywords utilities
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
-plot_taxa_prevalence <- function(x, level) {
+plot_taxa_prevalence <- function(x, level, detection = 0) {
     abundance <- NULL
     prevalence <- NULL
     if (level == "Phylum") {
         tax.abun <- apply(otu_table(x), 1, mean)
-        tax.prev <- rowSums(otu_table(x) != 0)/nsamples(x)
+	
+        #tax.prev <- rowSums(otu_table(x) != 0)/nsamples(x)
+        tax.prev <- prevalence(x, detection = detection)
+	
         Phylum <- as.vector(data.frame(tax_table(x))$Phylum)
         Phylum <- as.vector(Phylum)
         Phylum <- as.factor(Phylum)
