@@ -23,10 +23,10 @@ plot_taxa_prevalence <- function(x, level, detection = 0) {
     prevalence <- NULL
     if (level == "Phylum") {
         tax.abun <- apply(otu_table(x), 1, mean)
-	
+    
         #tax.prev <- rowSums(otu_table(x) != 0)/nsamples(x)
         tax.prev <- prevalence(x, detection = detection)
-	
+    
         Phylum <- as.vector(data.frame(tax_table(x))$Phylum)
         Phylum <- as.vector(Phylum)
         Phylum <- as.factor(Phylum)

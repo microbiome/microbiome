@@ -32,7 +32,7 @@ read_biom2phyloseq <- function(otu.file = NULL,
     levels <- c("Domain", "Phylum", 
             "Class", "Order", "Family", 
             "Genus")
-  
+
     otu_biom <- import_biom(otu.file, 
                         parseFunction = parse_taxonomy_default)
     map <- read.csv(metadata.file, 

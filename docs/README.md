@@ -35,7 +35,7 @@ Contributions are very welcome:
 **Kindly cite this work** as follows: "Leo Lahti [et
 al.](https://github.com/microbiome/microbiome/graphs/contributors)
 (2017). Tools for microbiome analysis in R. Microbiome package version
-0.99.52. URL: <http://microbiome.github.com/microbiome>, and the
+0.99.71. URL: <http://microbiome.github.com/microbiome>, and the
 relevant references listed in the manual page of each function. The list
 of publications is not exhaustive. Let us know if you know of further
 publications using the microbiome package; we are collecting these on

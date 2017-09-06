@@ -13,9 +13,9 @@
 #' The simple format refers to the set of CSV files written by the
 #' \code{\link{write_phyloseq}} function.
 #' @examples \dontrun{
-#' pseq <- read_phyloseq(otu.file=NULL, 
-#'                      taxonomy.file=NULL, 
-#'                      metadata.file=NULL, 
+#' pseq <- read_phyloseq(otu.file, 
+#'                      taxonomy.file, 
+#'                      metadata.file, 
 #'                      type=c('mothur', 'simple', 'biom'))
 #' }
 #' @seealso write_phyloseq
@@ -28,16 +28,16 @@ read_phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,
     
     if (type == "mothur") {
         pseq <- read_mothur2phyloseq(otu.file, 
-                                     taxonomy.file, 
-                                     metadata.file)
+                                    taxonomy.file, 
+                                    metadata.file)
     } else if (type == "simple") {
         pseq <- read_csv2phyloseq(otu.file, 
-                                  taxonomy.file, 
-                                  metadata.file)
+                                    taxonomy.file, 
+                                    metadata.file)
     } else if (type == "biom") {
         pseq <- read_biom2phyloseq(otu.file, 
-                                   taxonomy.file, 
-                                   metadata.file)
+                                    taxonomy.file, 
+                                    metadata.file)
     } else {
         stop("Unrecognized type in read_phyloseq input. Exiting.")
     }

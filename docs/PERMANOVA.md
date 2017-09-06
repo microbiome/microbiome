@@ -50,7 +50,7 @@ PERMANOVA:
     # P-value
     print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
 
-    ## [1] 0.21
+    ## [1] 0.36
 
 ### Checking the homogeneity condition
 

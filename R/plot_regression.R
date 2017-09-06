@@ -246,7 +246,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     if (show.points) {
         #p1 <- p1 + geom_point(size=1, shape=21, fill="white",
         p1 <- p1 + geom_point(aes(color=color, size=pointsize), data = data) +
-	        scale_size(range = c(1,3)) 
+            scale_size(range = c(1,3)) 
     }
 
     p <- p1 + labs(xlab = IV, ylab = DV)

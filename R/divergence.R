@@ -51,7 +51,7 @@
 divergence <- function(x, method="spearman", coreset = NULL) {
 
     if (is.null(coreset)) {
-      coreset <- x
+        coreset <- x
     }
 
     # Abundance matrix (taxa x samples)

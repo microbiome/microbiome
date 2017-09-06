@@ -189,26 +189,27 @@ plot_composition <- function(x, sample.sort=NULL,
         # Provide barplot
         dfm <- dfm %>% arrange(OTU)  # Show OTUs always in the same order
 
-	if (is.numeric(meta(xorig)[[average_by]])) {
+    if (is.numeric(meta(xorig)[[average_by]])) {
             dfm$Sample <- as.numeric(as.character(dfm$Sample))
-	    labels <- sort(unique(dfm$Sample))
+        labels <- sort(unique(dfm$Sample))
         } else if (is.factor(meta(xorig)[[average_by]])) {
             labels <- levels(meta(xorig)[[average_by]])
         }
 
         p <- ggplot(dfm, aes(x=Sample, y=Abundance, color=OTU, group = OTU)) +
-	        geom_point() +
-                geom_line()	
+            geom_point() +
+                geom_line()    
 
         p <- p + ylab("Abundance")
 
         # Rotate horizontal axis labels, and adjust
-	if (is.numeric(meta(xorig)[[average_by]])) {
-            p <- p + scale_x_continuous(labels=as.character(labels), breaks=as.numeric(labels))
+    if (is.numeric(meta(xorig)[[average_by]])) {
+            p <- p + scale_x_continuous(labels=as.character(labels),
+                breaks=as.numeric(labels))
         } else {
-	    NULL
+        NULL
         }
-	
+    
         p <- p + theme(axis.text.x=element_text(angle=0, vjust=0.5, hjust=0))
         p <- p + guides(fill=guide_legend(reverse=FALSE))
 

@@ -20,7 +20,7 @@ This tutorial is useful for analysis of output files from [(Mothur)](https://www
 
 Simple comma seperated files:  
 
-```{r, read-simple-csv-otu-tables, warning=FALSE, message=FALSE}
+```{r, read-simple-csv-otu-tables, warning=FALSE, message=FALSE, eval=FALSE}
 library(microbiome)
 
 
@@ -38,13 +38,11 @@ pseq.csv <- read_phyloseq(
           otu.file=otu.file, 
           taxonomy.file=tax.file, 
           metadata.file=meta.file, type = "simple")
-
-
 ```
 
 Biom file:  
 
-```{r, read-otu-biom}
+```{r, read-otu-biom, eval=FALSE}
 
 # Read the biom file
 biom.file <- 
@@ -64,7 +62,7 @@ pseq.biom <- read_phyloseq(otu.file = biom.file,
 
 Mothur shared OTUs and Consensus Taxonomy:  
 
-```{r, read-otu-mothur}
+```{r, read-otu-mothur, eval=FALSE}
 otu.file <- system.file(
  "extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.subsample.shared",
     package='microbiome')
@@ -81,7 +79,6 @@ pseq.mothur <- read_phyloseq(otu.file=otu.file,
         taxonomy.file =tax.file,
         metadata.file=meta.file, type = "mothur")
 print(pseq.mothur)
-
 ```
 
 Now, we proceed to core microbiota analysis.
@@ -90,8 +87,7 @@ Now, we proceed to core microbiota analysis.
 
 Here the data from [(Halfvarson et al. Nature Microbiology 2, 2017)](http://www.nature.com/articles/nmicrobiol20174) will be used and only healthy samples will be included.  
 
-```{r, core-microbiota-amplicon-data}
-
+```{r, core-microbiota-amplicon-data, eval=FALSE}
 # check the data 
 print(pseq.biom) 
 
@@ -106,7 +102,6 @@ print(pseq.2)
 # Calculate compositional version of the data
 # (relative abundances)
 pseq.rel <- microbiome::transform(pseq.2, "compositional")
-
 ```
 
 
@@ -114,14 +109,14 @@ pseq.rel <- microbiome::transform(pseq.2, "compositional")
 
 Relative population frequencies; at 1% compositional abundance threshold:
 
-```{r core-prevalence2}
+```{r core-prevalence2, eval=FALSE}
 head(prevalence(pseq.rel, detection = 1, sort = TRUE))
 ```
 
 We can see that only OTU ids are listed with no taxonomic information.
 Absolute population frequencies (sample count):
 
-```{r core-prevalence2b}
+```{r core-prevalence2b, eval=FALSE}
 head(prevalence(pseq.rel, detection = 1, sort = TRUE, count = TRUE))
 ```
 
@@ -144,7 +139,7 @@ pseq.core <- core(pseq.rel, detection = 0, prevalence = .5)
 
 Retrieving the associated taxa names from the phyloseq object:
 
-```{r core-taxa, message=FALSE, warning=FALSE}
+```{r core-taxa, message=FALSE, warning=FALSE, eval=FALSE}
 core.taxa <- taxa(pseq.core)
 class(core.taxa)
 # get the taxonomy data
@@ -158,7 +153,6 @@ tax.df$OTU <- rownames(tax.df)
 # those OTUs that are core memebers based on the thresholds that were used.
 core.taxa.class <- dplyr::filter(tax.df, rownames(tax.df) %in% core.taxa)
 knitr::kable(head(core.taxa.class))
-
 ```
 
 
@@ -167,7 +161,7 @@ knitr::kable(head(core.taxa.class))
 
 Total core abundance in each sample (sum of abundances of the core members):
 
-```{r core-ab, message=FALSE, warning=FALSE}
+```{r core-ab, message=FALSE, warning=FALSE, eval=FALSE}
 core.abundance <- sample_sums(core(pseq.rel, detection = .001, prevalence = .95))
 ```
 
@@ -179,7 +173,7 @@ core.abundance <- sample_sums(core(pseq.rel, detection = .001, prevalence = .95)
 Determine core microbiota across various abundance/prevalence
 thresholds with the blanket analysis [(Salonen et al. CMI, 2012)](http://onlinelibrary.wiley.com/doi/10.1111/j.1469-0691.2012.03855.x/abstract) based on various signal and prevalences.
 
-```{r core2, fig.width=9, fig.heigth=6, out.width="400px", warning=FALSE}
+```{r core2, fig.width=9, fig.heigth=6, out.width="400px", warning=FALSE, eval=FALSE}
 # With compositional (relative) abundances
 det <- c(0, 0.1, 0.5, 2, 5, 20)/100
 prevalences <- seq(.05, 1, .05)
@@ -193,7 +187,7 @@ This visualization method has been used for instance in [Intestinal microbiome l
 
 Note that you can order the taxa on the heatmap with the order.taxa argument.
 
-```{r core-example3, fig.width=8, fig.heigth=18, fig.show='hold', out.width = '200px', warning=FALSE}
+```{r core-example3, fig.width=8, fig.heigth=18, fig.show='hold', out.width = '200px', warning=FALSE, eval=FALSE}
 # Core with compositionals:
 prevalences <- seq(.05, 1, .05)
 detections <- 10^seq(log10(1e-5), log10(.2), length = 10)
@@ -213,13 +207,11 @@ print(p)
 # Also discrete=TRUE versions available
 library(viridis)
 print(p + scale_fill_viridis())
-
-
 ```
 
 As it can be seen, we see only OTu IDs and this may not be useful to interpret the data. We need to repreoccess this figure to include taxonomic information. We can do this as follows:  
 
-```{r,core-example4, fig.width=14, fig.heigth=18, fig.show='hold', out.width = '200px', warning=FALSE}
+```{r,core-example4, fig.width=14, fig.heigth=18, fig.show='hold', out.width = '200px', warning=FALSE, eval=FALSE}
 library(RColorBrewer)
 library(knitr)
 # Core with absolute counts and vertical view:
@@ -269,5 +261,4 @@ knitr::kable(head(df))
 healthycore$data <- df
 
 plot(healthycore + theme(axis.text.y = element_text(face="italic")))
-
 ```
