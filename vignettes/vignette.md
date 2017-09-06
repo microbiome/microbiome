@@ -3,7 +3,7 @@ title: "Introduction to the microbiome R package"
 author: "Leo Lahti, Sudarshan Shetty, et al."
 bibliography: 
 - bibliography.bib
-date: "2017-07-15"
+date: "2017-09-06"
 output:
   BiocStyle::html_document:
     toc: true
@@ -64,7 +64,7 @@ license](http://en.wikipedia.org/wiki/BSD\_licenses).
 Kindly cite the work as follows: "Leo Lahti [et
 al.](https://github.com/microbiome/microbiome/graphs/contributors)
 (2017). Tools for microbiome analysis in R. Microbiome package version
-0.99.49. URL:
+0.99.72. URL:
 (http://microbiome.github.io/microbiome)
 
 
@@ -312,6 +312,10 @@ tmp <- plot_composition(dietswap.core, plot.type = "heatmap", transform = "Z",
             mar = c(6, 13, 1, 1), sample.sort = "nationality")
 ```
 
+```
+## Error in transform == "Z-OTU": comparison (1) is possible only for atomic and list types
+```
+
 
 Composition barplot
         
@@ -321,7 +325,9 @@ plot_composition(transform(dietswap.core, "compositional"),
     plot.type = "barplot", sample.sort = "neatmap")
 ```
 
-![plot of chunk compbar](figure/compbar-1.png)
+```
+## Error in transform == "Z-OTU": comparison (1) is possible only for atomic and list types
+```
 
 Visualize sample similarities, or the microbiome landscape
 [@Shetty2017] on an ordination map. A number of other [ordination

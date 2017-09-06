@@ -24,13 +24,13 @@ with the function.
 }}
 
 \item{otu.sort}{Order taxa. Same options as for the sample.sort argument
-but instead of metadata, taxonomic xtable is used.
+but instead of metadata, taxonomic table is used.
 Also possible to sort by 'abundance'.}
 
 \item{x.label}{Specify how to label the x axis.
 This should be one of the variables in sample_variables(x).}
 
-\item{plot.type}{Plot type: 'barplot', 'lineplot', or 'heatmap'}
+\item{plot.type}{Plot type: 'barplot' or 'heatmap'}
 
 \item{verbose}{verbose
  (but not in sample/taxon ordering).

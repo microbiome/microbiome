@@ -2,6 +2,7 @@ CHANGES IN VERSION 0.99.7 (2017-08-21)
   o Added sample names in divergence output
   o coreset option added in divergence
   o plot_taxa_prevalence argument "detection" added
+  o transform argument removed from plot_composition for simplicity
   o data/DynamicsIBD data set and associated documentation removed to shrink the package
   o inst/extdata/qiita data sets and associated documentation removed to shrink the package
 

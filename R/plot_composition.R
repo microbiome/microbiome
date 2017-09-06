@@ -37,33 +37,21 @@ plot_composition <- function(x, sample.sort=NULL,
     verbose=FALSE, 
     mar=c(5, 12, 1, 1), average_by=NULL, ...) {
     
-  # Avoid warnings
-  Sample <- Abundance <- Taxon <- horiz <- value <- scales <- ID <- 
-    meta <- OTU <- taxic <- otu.df <- taxmat <-  new.tax<- NULL
-  if (!is.null(x@phy_tree)){
-    x@phy_tree= NULL
-  }
-  taxic <- as.data.frame(x@tax_table) 
-  otu.df <- as.data.frame(otu_table(x))
-  taxic$OTU <- row.names(otu.df)
-  taxmat <- as.matrix(taxic) # convert it into a matrix.
-  new.tax <- tax_table(taxmat)  # convert into phyloseq compaitble file.
-  tax_table(x) <- new.tax # incroporate into phyloseq Object
+    # Avoid warnings
+    Sample <- Abundance <- Taxon <- horiz <- value <- scales <- ID <- 
+        meta <- OTU <- taxic <- otu.df <- taxmat <-  new.tax<- NULL
+    if (!is.null(x@phy_tree)){
+        x@phy_tree= NULL
+    }
+    taxic <- as.data.frame(x@tax_table) 
+    otu.df <- as.data.frame(otu_table(x))
+    taxic$OTU <- row.names(otu.df)
+    taxmat <- as.matrix(taxic) # convert it into a matrix.
+    new.tax <- tax_table(taxmat)  # convert into phyloseq compaitble file.
+    tax_table(x) <- new.tax # incroporate into phyloseq Object
     
     xorig <- x
 
-    if (is.null(transform)) {
-        x <- x
-    } else if (transform == "Z-OTU") {
-        x <- transform(x, "Z", "OTU")
-    } else if (transform == "Z-Sample") {
-        x <- transform(x, "Z", "Sample")
-    } else if (transform == "compositional") {
-        x <- transform(x, "compositional", "OTU")
-    } else {
-        x <- transform(x, transform)
-    }
-        
     # Pick the abundance matrix taxa x samples
     abu <- abundances(x)
     
