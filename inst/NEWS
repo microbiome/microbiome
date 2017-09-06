@@ -2,8 +2,8 @@ CHANGES IN VERSION 0.99.7 (2017-08-21)
   o Added sample names in divergence output
   o coreset option added in divergence
   o plot_taxa_prevalence argument "detection" added
-  o data/DynamicsIBD data set removed to shrink the package
-  o inst/extdata/qiita data sets removed to shrink the package
+  o data/DynamicsIBD data set and associated documentation removed to shrink the package
+  o inst/extdata/qiita data sets and associated documentation removed to shrink the package
 
 CHANGES IN VERSION 0.99.6 (2017-07-21)
   o Fixed bug in transform option "clr"
