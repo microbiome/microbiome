@@ -24,6 +24,7 @@
 read_phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,
     metadata.file=NULL, type=c("simple", "mothur", "biom")) {
     
+    message("Time to complete depends on OTU file size")
     # TODO add automated recognition of the type?
     
     if (type == "mothur") {
