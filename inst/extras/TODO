@@ -7,7 +7,7 @@
   abund <- getVarianceStabilizedData(ps_dds)
 
 - structSSI: Multiple Testing for Hypotheses with Hierarchical or Group Structure
-.
+
 
 
 Gini index and wealth coefficient from Sudarshan-2016 ?
