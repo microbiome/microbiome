@@ -208,8 +208,7 @@ plot_composition <- function(x, sample.sort=NULL,
         # Rotate horizontal axis labels, and adjust
         p <- p + theme(axis.text.x=element_text(angle=90, vjust=0.5,
         hjust=0))
-        p <- p + guides(fill=guide_legend(reverse=FALSE,
-        title=taxonomic.level))
+        p <- p + guides(fill=guide_legend(reverse=FALSE))
 
     }
 

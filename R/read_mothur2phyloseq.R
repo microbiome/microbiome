@@ -13,6 +13,7 @@
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
 #' @examples
+#' \dontrun{
 #'
 #' otu.file <- system.file(
 #' "extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.subsample.shared",
@@ -30,7 +31,7 @@
 #'        shared.file=otu.file,
 #'        consensus.taxonomy.file=tax.file,
 #'        mapping.file=meta.file)
-#'
+#' }
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
 read_mothur2phyloseq <- function(shared.file, consensus.taxonomy.file, 

@@ -30,6 +30,7 @@ Mothur shared and consensus taxonomy files will be converted to
 \code{\link{phyloseq-class}}.
 }
 \examples{
+\dontrun{
 
 otu.file <- system.file(
 "extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.subsample.shared",
@@ -47,7 +48,7 @@ p0 <- read_mothur2phyloseq(
        shared.file=otu.file,
        consensus.taxonomy.file=tax.file,
        mapping.file=meta.file)
-
+}
 }
 \author{
 Sudarshan A. Shetty \email{sudarshanshetty9@gmail.com}
