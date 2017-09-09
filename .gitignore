@@ -3,7 +3,7 @@ vignettes/vignette.md
 figure/
 
 # Do not add maintenance material
-inst/extras
+# inst/extras
 
 # Never put this in version control
 OAtoken
