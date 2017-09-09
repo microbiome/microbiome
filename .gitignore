@@ -1,15 +1,9 @@
-<<<<<<< HEAD
-# Do not add website material
-figure/
-||||||| merged common ancestors
-=======
 # Do not add website material
 vignettes/vignette.md
 figure/
 
 # Do not add maintenance material
 # inst/extras
->>>>>>> devel
 
 # Never put this in version control
 OAtoken
