@@ -1,0 +1,40 @@
+- Use variance stabilizing transformation instead of log (DEseq2); how
+  relates to Hellinger? Add to microbiome transformations
+  ps_dds <- phyloseq_to_deseq2(ps, ~ age_binned + family_relationship)
+  varianceStabilizingTransformation(ps_dds, blind = TRUE, fitType = "parametric")
+  ps_dds <- estimateSizeFactors(ps_dds)
+  ps_dds <- estimateDispersions(ps_dds)
+  abund <- getVarianceStabilizedData(ps_dds)
+
+- structSSI: Multiple Testing for Hypotheses with Hierarchical or Group Structure
+
+
+
+Gini index and wealth coefficient from Sudarshan-2016 ?
+
+rdryad and phyloseq depend on RJSONIO:
+library("tools")
+dependsOnPkgs("RJSONIO")
+This causes the BioC warnings in build/check
+Could be replaced by custom copies of the necessary functions to get rid of this. Postponing for now.
+
+
+
+
+
+if (probe.parameters == "frpa.HITChip") {
+    if (verbose) {message("Loading pre-calculated preprocessing parameters")}
+    rpa.hitchip.species.probe.parameters <- list()
+    load(system.file("extdata/probe.parameters.rda", package = "HITChipDB"))
+    probe.parameters <- rpa.hitchip.species.probe.parameters
+
+    # Ensure we use only those parameters that are in the filtered phylogeny
+    for (bac in names(probe.parameters)) {
+      probe.parameters[[bac]] <- probe.parameters[[bac]][intersect(names(probe.parameters[[bac]]), probesets[[bac]])]
+    }
+  } else if (is.null(probe.parameters)) {
+    probe.parameters <- list()
+  }
+
+
+
