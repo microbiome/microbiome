@@ -128,48 +128,29 @@ $(document).ready(function () {
 -->
 <div id="installing-r" class="section level3">
 <h3>Installing R</h3>
-<p><strong>If you do not already have R/RStudio installed</strong>, do the following.</p>
+<p><strong>If you do not already have R/RStudio installed</strong>, do as follows.</p>
 <ol style="list-style-type: decimal">
 <li>Install <a href="http://www.r-project.org/">R</a></li>
-<li>Consider installing <a href="http://rstudio.org">RStudio</a>; GUI for R</li>
-<li>With Windows, install <a href="http://cran.r-project.org/bin/windows/Rtools/">RTools</a> (version corresponding to your R version)</li>
+<li>Install <a href="http://rstudio.org">RStudio</a></li>
+<li>With Windows, install also <a href="http://cran.r-project.org/bin/windows/Rtools/">RTools</a> (version corresponding to your R version)</li>
 </ol>
 </div>
 <div id="install-dependencies" class="section level3">
 <h3>Install dependencies</h3>
 <p>Open R and install dependencies from the Tools panel, or run the following commands (see <a href="https://github.com/microbiome/microbiome/blob/master/DESCRIPTION">DESCRIPTION</a> file for a full list of dependencies):</p>
 <pre class="r"><code>source(&quot;http://www.bioconductor.org/biocLite.R&quot;)
-biocLite(&quot;ade4&quot;)
-install.packages(&quot;bayesm&quot;)
-biocLite(&quot;fastcluster&quot;)
-biocLite(&quot;compositions&quot;)
 biocLite(&quot;devtools&quot;)
-biocLite(&quot;dplyr&quot;)
-install.packages(&quot;energy&quot;)
-biocLite(&quot;FD&quot;)
-biocLite(&quot;ggplot2&quot;)
-biocLite(&quot;HMisc&quot;)
-biocLite(&quot;knitcitations&quot;)
-biocLite(&quot;knitr&quot;)
-biocLite(&quot;magrittr&quot;)
-install.packages(&quot;maptree&quot;)
-biocLite(&quot;MASS&quot;)
-biocLite(&quot;Matrix&quot;)
-biocLite(&quot;minet&quot;)
-biocLite(&quot;mixOmics&quot;)
-biocLite(&quot;moments&quot;)
 biocLite(&quot;phyloseq&quot;)
-biocLite(&quot;plyr&quot;)
-biocLite(&quot;qvalue&quot;)
+biocLite(&quot;ggplot2&quot;)
+biocLite(&quot;dplyr&quot;)
 biocLite(&quot;reshape2&quot;)
-biocLite(&quot;rmarkdown&quot;)
-install.packages(&quot;robustbase&quot;)
-biocLite(&quot;rpart&quot;)
-install.packages(&quot;tensorA&quot;)
-biocLite(&quot;tgp&quot;)
 biocLite(&quot;tidyr&quot;)
 biocLite(&quot;vegan&quot;)
-biocLite(&quot;WGCNA&quot;)</code></pre>
+biocLite(&quot;knitr&quot;)
+biocLite(&quot;knitcitations&quot;)
+biocLite(&quot;compositions&quot;)
+biocLite(&quot;qvalue&quot;)
+biocLite(&quot;rmarkdown&quot;)</code></pre>
 <p>If some of these installations fail, ensure from the RStudio tools panel that you have access to CRAN and Bioconductor repositories. If you cannot install some packages, some functionality in microbiome may not work.</p>
 </div>
 <div id="installupdate-the-microbiome-package" class="section level3">

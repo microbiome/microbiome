@@ -34,7 +34,7 @@ library(phyloseq)
 pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR" & timepoint.within.group == 1)
 ```
 
-### Barplots for composition
+### Composition barplots
 
 Same with compositional (relative) abundances; for each sample (left), or averafged by group (right).
   
@@ -75,38 +75,29 @@ Heatmap for CLR-transformed abundances, with samples and OTUs sorted
 with the neatmap method:
   
 ```{r composition-example7, fig.width=10, fig.height=4}
-tmp <- plot_composition(pseq2, plot.type = "heatmap", transform = "clr",
-                      sample.sort = "neatmap", otu.sort = "neatmap",
-                      mar = c(6, 13, 1, 1))
+tmp <- plot_composition(pseq2, plot.type = "heatmap", transform = "compositional", 
+            sample.sort = "neatmap", otu.sort = "neatmap", mar = c(6, 13, 1, 1))
 ```
 
 
 
 ### Plot taxa prevalence
 
-We use the Dynamics IBD data set from [Halfvarson J., et al. Nature
-Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174) as
-downloaded from [Qiita ID
-1629](https://qiita.ucsd.edu/study/description/1629). This function
+This function
 allows you to have an overview of OTU prevalences alongwith their
 taxonomic affiliations. This will aid in checking if you filter OTUs
 based on prevalence, then what taxonomic affliations will be lost.
 
 ```{r plot_prev, fig.height=6, fig.width=8, dev="CairoPNG"}
-data(DynamicsIBD)
+data(atlas1006)
 
 # Use sample and taxa subset to speed up example
-p0 <- subset_samples(DynamicsIBD, sex == "male" & timepoint == 1)
+p0 <- subset_samples(atlas1006, DNA_extraction_method == "r")
 
-# Check the names of the taxonomic level 
-colnames(tax_table(p0)) 
-
-# Change the "Rank" label to taxonomic levels
-colnames(tax_table(p0)) <- c("Kingdom", "Phylum", "Class", "Order", "Family", "Genus", "Species")
-
+# Define detection and prevalence thresholds to filter out rare taxa
 p0 <- core(p0, detection = 10, prevalence = 0)
 
 # For the available taxonomic levels
-plot_taxa_prevalence(p0, "Phylum")
+plot_taxa_prevalence(p0, "Phylum", detection = 10)
 ```
 

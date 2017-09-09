@@ -19,7 +19,7 @@ library(intergraph) # ggnet2 works also with igraph with this
 #load_all()
 library(microbiome)
 
-#library(rmarkdown)
+library(rmarkdown)
 #rmarkdown::render("index.Rmd")
 #rmarkdown::render("Template.Rmd")
 #rmarkdown::render("Atlas.Rmd", "all")
@@ -48,9 +48,9 @@ times <- c()
 namespaces0 <-  loadedNamespaces()
 
 for (myfile in fs) {
-    print(myfile)
+    #print(myfile)
     # times[[myfile]] <- system.time(knit(myfile))[["elapsed"]]
-    rmarkdown::render(myfile, "md_document")
+    #rmarkdown::render(myfile, "md_document")
     # rmarkdown::render(myfile, "all")
     rmarkdown::render(myfile, "html_document")    
 
@@ -72,6 +72,6 @@ for (myfile in fs) {
 #system("git add *.Rmd")
 system("git add *.html")
 system("git commit -a -m'homepage update'")
-system("git push origin gh-pages")
-system("rm -rf cache")
-system("rm -rf figure")
+#system("git push origin gh-pages")
+#system("rm -rf cache")
+#system("rm -rf figure")
