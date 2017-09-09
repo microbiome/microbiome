@@ -1,5 +1,15 @@
+<<<<<<< HEAD
 # Do not add website material
 figure/
+||||||| merged common ancestors
+=======
+# Do not add website material
+vignettes/vignette.md
+figure/
+
+# Do not add maintenance material
+# inst/extras
+>>>>>>> devel
 
 # Never put this in version control
 OAtoken
@@ -26,6 +36,7 @@ inst/extras/*.Rcheck
 inst/extras/misc.Rmd
 inst/extras/debug.R
 inst/extras/tmp.R
+
 
 
 
