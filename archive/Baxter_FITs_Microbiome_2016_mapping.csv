@@ -1,0 +1,809 @@
+sample,type,fit_result,Dx_Bin,dx,stage
+2003650,stool,0,High Risk Normal,normal,0
+2005650,stool,0,High Risk Normal,normal,0
+2009650,stool,10,Adenoma,adenoma,0
+2013660,stool,0,Normal,normal,0
+2015650,stool,0,High Risk Normal,normal,0
+2017660,stool,7,Cancer,cancer,3
+2019651,stool,19,Normal,normal,0
+2023680,stool,0,High Risk Normal,normal,0
+2025653,stool,1509,Cancer,cancer,4
+2027653,stool,0,Normal,normal,0
+2029650,stool,0,Adenoma,adenoma,0
+2033650,stool,0,High Risk Normal,normal,0
+2035650,stool,0,adv Adenoma,adenoma,0
+2037653,stool,72,Cancer,cancer,3
+2039650,stool,0,Normal,normal,0
+2041650,stool,0,Adenoma,adenoma,0
+2043650,stool,5,High Risk Normal,normal,0
+2045653,stool,0,Normal,normal,0
+2049653,stool,0,Adenoma,adenoma,0
+2051660,stool,0,Adenoma,adenoma,0
+2057650,stool,0,High Risk Normal,normal,0
+2059653,stool,0,adv Adenoma,adenoma,0
+2061650,stool,0,High Risk Normal,normal,0
+2067650,stool,21,Adenoma,adenoma,0
+2071650,stool,0,High Risk Normal,normal,0
+2073650,stool,0,High Risk Normal,normal,0
+2077653,stool,0,Normal,normal,0
+2081660,stool,0,High Risk Normal,normal,0
+2083650,stool,0,High Risk Normal,normal,0
+2085653,stool,7,Normal,normal,0
+2087650,stool,5,High Risk Normal,normal,0
+2093650,stool,286,Normal,normal,0
+2097653,stool,0,Normal,normal,0
+2103650,stool,0,Normal,normal,0
+2105652,stool,314,Normal,normal,0
+2107650,stool,0,High Risk Normal,normal,0
+2109653,stool,0,Normal,normal,0
+2113670,stool,10,Adenoma,adenoma,0
+2115650,stool,0,High Risk Normal,normal,0
+2119650,stool,0,High Risk Normal,normal,0
+2123652,stool,0,Adenoma,adenoma,0
+2125650,stool,0,Adenoma,adenoma,0
+2127650,stool,0,Adenoma,adenoma,0
+2131650,stool,0,Adenoma,adenoma,0
+2133650,stool,0,adv Adenoma,adenoma,0
+2137650,stool,0,High Risk Normal,normal,0
+2139650,stool,0,adv Adenoma,adenoma,0
+2143653,stool,0,adv Adenoma,adenoma,0
+2151650,stool,0,High Risk Normal,normal,0
+2153660,stool,47,Adenoma,adenoma,0
+2155650,stool,0,Adenoma,adenoma,0
+2157660,stool,0,High Risk Normal,normal,0
+2159650,stool,1,Adenoma,adenoma,0
+2161653,stool,0,Normal,normal,0
+2163653,stool,0,Normal,normal,0
+2165652,stool,0,Normal,normal,0
+2167670,stool,0,High Risk Normal,normal,0
+2169653,stool,0,Normal,normal,0
+2171690,stool,0,Normal,normal,0
+2173650,stool,0,Adenoma,adenoma,0
+2177653,stool,0,Normal,normal,0
+2179650,stool,71,adv Adenoma,adenoma,0
+2181650,stool,0,High Risk Normal,normal,0
+2183650,stool,0,Adenoma,adenoma,0
+2185670,stool,982,adv Adenoma,adenoma,0
+2187680,stool,1200,Cancer,cancer,3
+2189650,stool,0,High Risk Normal,normal,0
+2193650,stool,0,High Risk Normal,normal,0
+2197670,stool,1,adv Adenoma,adenoma,0
+2199650,stool,0,Adenoma,adenoma,0
+2201650,stool,0,High Risk Normal,normal,0
+2203653,stool,1992,Cancer,cancer,2
+2207653,stool,0,adv Adenoma,adenoma,0
+2215650,stool,0,Normal,normal,0
+2219650,stool,0,Adenoma,adenoma,0
+2221650,stool,0,adv Adenoma,adenoma,0
+2225650,stool,0,Normal,normal,0
+2227660,stool,0,adv Adenoma,adenoma,0
+2229653,stool,0,adv Adenoma,adenoma,0
+2239650,stool,14,Adenoma,adenoma,0
+2241650,stool,40,adv Adenoma,adenoma,0
+2243651,stool,0,adv Adenoma,adenoma,0
+2253660,stool,0,adv Adenoma,adenoma,0
+2255653,stool,140,Cancer,cancer,3
+2257660,stool,0,High Risk Normal,normal,0
+2261650,stool,0,Adenoma,adenoma,0
+2265651,stool,0,adv Adenoma,adenoma,0
+2267653,stool,149,Cancer,cancer,4
+2277650,stool,0,High Risk Normal,normal,0
+2279650,stool,0,Normal,normal,0
+2281651,stool,0,adv Adenoma,adenoma,0
+2285653,stool,0,Cancer,cancer,1
+2287660,stool,939,Cancer,cancer,4
+2289650,stool,0,High Risk Normal,normal,0
+2291653,stool,1379,Cancer,cancer,3
+2293650,stool,0,Normal,normal,0
+2295650,stool,0,adv Adenoma,adenoma,0
+2297650,stool,0,Adenoma,adenoma,0
+2301650,stool,37,Adenoma,adenoma,0
+2305651,stool,0,Cancer,cancer,3
+2309650,stool,1,High Risk Normal,normal,0
+2313680,stool,0,adv Adenoma,adenoma,0
+2315650,stool,0,Normal,normal,0
+2321650,stool,148,Normal,normal,0
+2325660,stool,211,Cancer,cancer,2
+2327650,stool,12,Adenoma,adenoma,0
+2329650,stool,0,Normal,normal,0
+2337650,stool,0,High Risk Normal,normal,0
+2339651,stool,1278,Cancer,cancer,3
+2341650,stool,0,High Risk Normal,normal,0
+2349653,stool,668,Cancer,cancer,2
+2353670,stool,0,High Risk Normal,normal,0
+2355653,stool,29,Cancer,cancer,3
+2365651,stool,1,Cancer,cancer,3
+2367650,stool,0,Normal,normal,0
+2373690,stool,70,Cancer,cancer,4
+2375650,stool,0,Adenoma,adenoma,0
+2389650,stool,0,Normal,normal,0
+2393650,stool,2544,adv Adenoma,adenoma,0
+2395670,stool,938,Cancer,cancer,1
+2405680,stool,420,Cancer,cancer,2
+2409670,stool,237,Cancer,cancer,2
+2411660,stool,0,adv Adenoma,adenoma,0
+2413660,stool,0,adv Adenoma,adenoma,0
+2419660,stool,994,Cancer,cancer,1
+2421651,stool,133,Cancer,cancer,1
+2427660,stool,0,Normal,normal,0
+2431660,stool,1297,Cancer,cancer,3
+2435680,stool,0,Adenoma,adenoma,0
+2437680,stool,0,adv Adenoma,adenoma,0
+2447651,stool,0,adv Adenoma,adenoma,0
+2449650,stool,0,adv Adenoma,adenoma,0
+2453653,stool,31,adv Adenoma,adenoma,0
+2455650,stool,1374,Cancer,cancer,3
+2457670,stool,870,Cancer,cancer,2
+2461651,stool,0,adv Adenoma,adenoma,0
+2463651,stool,45,Cancer,cancer,2
+2471651,stool,3,Cancer,cancer,1
+2473660,stool,0,Normal,normal,0
+2475653,stool,0,adv Adenoma,adenoma,0
+2487651,stool,0,adv Adenoma,adenoma,0
+2491670,stool,166,adv Adenoma,adenoma,0
+2495653,stool,94,adv Adenoma,adenoma,0
+2499660,stool,842,Cancer,cancer,2
+2503650,stool,0,adv Adenoma,adenoma,0
+2505651,stool,29,Cancer,cancer,1
+2507651,stool,2168,Cancer,cancer,2
+2513680,stool,97,Cancer,cancer,2
+2517650,stool,0,Adenoma,adenoma,0
+2519650,stool,0,Adenoma,adenoma,0
+2523653,stool,392,Cancer,cancer,3
+2525651,stool,118,Cancer,cancer,1
+2527670,stool,916,Cancer,cancer,2
+2529680,stool,18,Cancer,cancer,2
+2531651,stool,0,adv Adenoma,adenoma,0
+2539660,stool,485,Cancer,cancer,3
+2541670,stool,371,Cancer,cancer,1
+2543653,stool,2470,Cancer,cancer,3
+2545651,stool,301,adv Adenoma,adenoma,0
+2547670,stool,15,Cancer,cancer,3
+2551650,stool,1,adv Adenoma,adenoma,0
+2555653,stool,0,adv Adenoma,adenoma,0
+2565650,stool,5,Adenoma,adenoma,0
+2571650,stool,135,Cancer,cancer,3
+2575653,stool,492,Cancer,cancer,3
+2579680,stool,5,Cancer,cancer,3
+2581651,stool,11,Adenoma,adenoma,0
+2583650,stool,145,adv Adenoma,adenoma,0
+2587650,stool,628,adv Adenoma,adenoma,0
+2589650,stool,252,adv Adenoma,adenoma,0
+2597670,stool,0,adv Adenoma,adenoma,0
+2599650,stool,0,Adenoma,adenoma,0
+2603650,stool,0,Normal,normal,0
+2611670,stool,314,Cancer,cancer,3
+2617653,stool,616,Cancer,cancer,1
+2619653,stool,554,Cancer,cancer,1
+2633670,stool,258,Cancer,cancer,2
+2639690,stool,0,Adenoma,adenoma,0
+2641650,stool,0,Adenoma,adenoma,0
+2643651,stool,101,adv Adenoma,adenoma,0
+2647650,stool,0,Adenoma,adenoma,0
+2657651,stool,349,adv Adenoma,adenoma,0
+2665650,stool,0,Normal,normal,0
+2667653,stool,340,Cancer,cancer,2
+2669660,stool,0,Normal,normal,0
+2671660,stool,1432,Cancer,cancer,3
+2677650,stool,0,Normal,normal,0
+2681650,stool,0,Normal,normal,0
+2695652,stool,0,Normal,normal,0
+2703653,stool,460,Cancer,cancer,2
+2705653,stool,265,Cancer,cancer,1
+2709650,stool,1206,Cancer,cancer,1
+2713651,stool,345,adv Adenoma,adenoma,0
+2719650,stool,110,Adenoma,adenoma,0
+2727653,stool,1062,Cancer,cancer,1
+2731670,stool,0,Normal,normal,0
+2733650,stool,0,Normal,normal,0
+2743650,stool,0,Normal,normal,0
+2751650,stool,2589,adv Adenoma,adenoma,0
+2757652,stool,0,adv Adenoma,adenoma,0
+2767650,stool,83,adv Adenoma,adenoma,0
+2769660,stool,0,Cancer,cancer,1
+2773651,stool,581,Cancer,cancer,1
+2775653,stool,263,adv Adenoma,adenoma,0
+2777670,stool,83,Cancer,cancer,2
+2779670,stool,0,Normal,normal,0
+2787660,stool,1640,Cancer,cancer,2
+2795690,stool,0,adv Adenoma,adenoma,0
+2801653,stool,2010,Cancer,cancer,2
+2803670,stool,0,adv Adenoma,adenoma,0
+2805660,stool,957,Cancer,cancer,2
+2807650,stool,3,adv Adenoma,adenoma,0
+2811650,stool,0,Adenoma,adenoma,0
+2815650,stool,1086,Adenoma,adenoma,0
+2817670,stool,87,adv Adenoma,adenoma,0
+2823650,stool,0,adv Adenoma,adenoma,0
+2827650,stool,1135,Cancer,cancer,4
+2829660,stool,0,Cancer,cancer,2
+2831680,stool,0,adv Adenoma,adenoma,0
+2837680,stool,1443,Cancer,cancer,2
+2841680,stool,0,Cancer,cancer,2
+2843670,stool,141,Adenoma,adenoma,0
+2853660,stool,1,High Risk Normal,normal,0
+2859650,stool,51,adv Adenoma,adenoma,0
+2861650,stool,0,Adenoma,adenoma,0
+2863680,stool,2230,Cancer,cancer,1
+2871650,stool,0,adv Adenoma,adenoma,0
+2873653,stool,101,adv Adenoma,adenoma,0
+2879660,stool,101,Cancer,cancer,1
+2883650,stool,0,Adenoma,adenoma,0
+2887670,stool,548,Cancer,cancer,3
+2889660,stool,0,Adenoma,adenoma,0
+2893660,stool,0,Cancer,cancer,4
+2895650,stool,783,Adenoma,adenoma,0
+2903653,stool,989,Cancer,cancer,1
+2905650,stool,0,Normal,normal,0
+2907653,stool,0,Normal,normal,0
+2909653,stool,0,Normal,normal,0
+2911680,stool,0,Cancer,cancer,1
+2923650,stool,5,adv Adenoma,adenoma,0
+2929650,stool,1,Adenoma,adenoma,0
+2931650,stool,79,adv Adenoma,adenoma,0
+2935650,stool,0,Adenoma,adenoma,0
+2937653,stool,90,adv Adenoma,adenoma,0
+2939650,stool,0,adv Adenoma,adenoma,0
+2955670,stool,85,Cancer,cancer,1
+2957680,stool,1812,Cancer,cancer,3
+2959660,stool,0,Cancer,cancer,1
+2961650,stool,0,Adenoma,adenoma,0
+2963670,stool,5,Adenoma,adenoma,0
+2965650,stool,0,Adenoma,adenoma,0
+2967680,stool,32,adv Adenoma,adenoma,0
+2969650,stool,626,Adenoma,adenoma,0
+2971660,stool,177,adv Adenoma,adenoma,0
+2981651,stool,0,Normal,normal,0
+2987670,stool,0,Normal,normal,0
+2991650,stool,0,Adenoma,adenoma,0
+2993690,stool,1,Adenoma,adenoma,0
+2995660,stool,10,adv Adenoma,adenoma,0
+2997651,stool,0,Normal,normal,0
+2999650,stool,0,Adenoma,adenoma,0
+3001670,stool,2964,Cancer,cancer,4
+3005653,stool,204,Cancer,cancer,1
+3009670,stool,0,Normal,normal,0
+3011651,stool,422,Cancer,cancer,1
+3015650,stool,0,adv Adenoma,adenoma,0
+3021690,stool,12,Normal,normal,0
+3023652,stool,0,Normal,normal,0
+3025650,stool,0,Normal,normal,0
+3031650,stool,251,adv Adenoma,adenoma,0
+3033660,stool,0,Cancer,cancer,2
+3043652,stool,0,Normal,normal,0
+3047652,stool,0,Normal,normal,0
+3049660,stool,0,Normal,normal,0
+3053650,stool,0,Normal,normal,0
+3061660,stool,0,Normal,normal,0
+3063660,stool,0,Normal,normal,0
+3065652,stool,770,Cancer,cancer,1
+3069660,stool,30,Normal,normal,0
+3073680,stool,5,Normal,normal,0
+3075653,stool,0,Normal,normal,0
+3081660,stool,203,Cancer,cancer,1
+3085650,stool,0,High Risk Normal,normal,0
+3087661,stool,1,Normal,normal,0
+3089650,stool,10,Normal,normal,0
+3091650,stool,5,Normal,normal,0
+3099680,stool,356,High Risk Normal,normal,0
+3101650,stool,0,Normal,normal,0
+3103670,stool,10,adv Adenoma,adenoma,0
+3105660,stool,74,Adenoma,adenoma,0
+3109650,stool,1,Normal,normal,0
+3113650,stool,0,Adenoma,adenoma,0
+3117652,stool,658,Cancer,cancer,2
+3119660,stool,207,Cancer,cancer,1
+3123653,stool,0,Normal,normal,0
+3125660,stool,0,Normal,normal,0
+3127690,stool,0,Adenoma,adenoma,0
+3129670,stool,10,adv Adenoma,adenoma,0
+3131650,stool,0,Adenoma,adenoma,0
+3135660,stool,1072,Cancer,cancer,4
+3137650,stool,118,Normal,normal,0
+3139650,stool,1477,Adenoma,adenoma,0
+3143650,stool,0,adv Adenoma,adenoma,0
+3145650,stool,13,Adenoma,adenoma,0
+3149653,stool,6,adv Adenoma,adenoma,0
+3153670,stool,0,adv Adenoma,adenoma,0
+3155690,stool,2600,Cancer,cancer,1
+3159650,stool,0,Normal,normal,0
+3161650,stool,20,adv Adenoma,adenoma,0
+3163690,stool,264,Adenoma,adenoma,0
+3169650,stool,23,Adenoma,adenoma,0
+3173650,stool,5,adv Adenoma,adenoma,0
+3181650,stool,0,High Risk Normal,normal,0
+3185650,stool,0,Normal,normal,0
+3187680,stool,0,adv Adenoma,adenoma,0
+3189650,stool,0,adv Adenoma,adenoma,0
+3191650,stool,0,Normal,normal,0
+3211670,stool,0,Normal,normal,0
+3215650,stool,148,Cancer,cancer,3
+3219650,stool,1,High Risk Normal,normal,0
+3221650,stool,29,High Risk Normal,normal,0
+3223650,stool,0,adv Adenoma,adenoma,0
+3225690,stool,88,adv Adenoma,adenoma,0
+3231650,stool,0,Adenoma,adenoma,0
+3241660,stool,0,Normal,normal,0
+3243680,stool,0,Adenoma,adenoma,0
+3245680,stool,0,Normal,normal,0
+3247652,stool,0,Normal,normal,0
+3249650,stool,0,adv Adenoma,adenoma,0
+3257660,stool,0,Normal,normal,0
+3263650,stool,12,Cancer,cancer,1
+3267660,stool,2426,Cancer,cancer,1
+3279650,stool,0,adv Adenoma,adenoma,0
+3283690,stool,0,Adenoma,adenoma,0
+3289650,stool,1885,Cancer,cancer,3
+3291670,stool,0,Normal,normal,0
+3301660,stool,660,Cancer,cancer,3
+3311680,stool,9,Normal,normal,0
+3313650,stool,0,Cancer,cancer,1
+3315650,stool,497,Cancer,cancer,1
+3319650,stool,130,Adenoma,adenoma,0
+3321660,stool,1211,Cancer,cancer,2
+3323670,stool,3,Normal,normal,0
+3335650,stool,0,High Risk Normal,normal,0
+3337650,stool,154,Cancer,cancer,1
+3339680,stool,0,Normal,normal,0
+3341680,stool,0,Normal,normal,0
+3343650,stool,0,Adenoma,adenoma,0
+3345650,stool,0,Normal,normal,0
+3347653,stool,0,Normal,normal,0
+3357650,stool,0,High Risk Normal,normal,0
+3361650,stool,29,Adenoma,adenoma,0
+3363660,stool,0,Normal,normal,0
+3365650,stool,0,Adenoma,adenoma,0
+3367653,stool,0,Normal,normal,0
+3371650,stool,16,Adenoma,adenoma,0
+3373660,stool,7,Cancer,cancer,3
+3375670,stool,0,Adenoma,adenoma,0
+3377650,stool,0,Normal,normal,0
+3381650,stool,2472,Cancer,cancer,3
+3387660,stool,354,Cancer,cancer,2
+3389690,stool,933,Cancer,cancer,2
+3391652,stool,73,adv Adenoma,adenoma,0
+3399653,stool,62,adv Adenoma,adenoma,0
+3401650,stool,813,adv Adenoma,adenoma,0
+3403653,stool,0,Normal,normal,0
+3409650,stool,877,Cancer,cancer,4
+3411650,stool,0,Adenoma,adenoma,0
+3417653,stool,0,adv Adenoma,adenoma,0
+3419660,stool,0,Adenoma,adenoma,0
+3427670,stool,0,Normal,normal,0
+3431650,stool,1089,Cancer,cancer,3
+3433650,stool,0,High Risk Normal,normal,0
+3435690,stool,810,Cancer,cancer,1
+3437650,stool,527,Adenoma,adenoma,0
+3439680,stool,5,Normal,normal,0
+3441650,stool,0,Adenoma,adenoma,0
+3443650,stool,5,Adenoma,adenoma,0
+3445670,stool,1982,Cancer,cancer,3
+3447650,stool,0,Adenoma,adenoma,0
+3453650,stool,752,Cancer,cancer,3
+3455650,stool,0,Adenoma,adenoma,0
+3477660,stool,20,Normal,normal,0
+3483651,stool,0,Normal,normal,0
+3485680,stool,0,Normal,normal,0
+3487650,stool,0,Normal,normal,0
+3489670,stool,2867,Cancer,cancer,3
+3491650,stool,0,Normal,normal,0
+3497650,stool,0,adv Adenoma,adenoma,0
+3499660,stool,0,Normal,normal,0
+3501650,stool,0,High Risk Normal,normal,0
+3503650,stool,47,Cancer,cancer,1
+3509661,stool,0,Adenoma,adenoma,0
+3511650,stool,0,Normal,normal,0
+3515660,stool,0,Normal,normal,0
+3519670,stool,0,High Risk Normal,normal,0
+3523650,stool,0,Adenoma,adenoma,0
+3525650,stool,0,adv Adenoma,adenoma,0
+3527670,stool,25,High Risk Normal,normal,0
+3531650,stool,0,Normal,normal,0
+3535650,stool,0,adv Adenoma,adenoma,0
+3537650,stool,0,Normal,normal,0
+3551650,stool,0,Adenoma,adenoma,0
+3561650,stool,0,Normal,normal,0
+fit2003650,fit,0,High Risk Normal,normal,0
+fit2005650,fit,0,High Risk Normal,normal,0
+fit2009650,fit,10,Adenoma,adenoma,0
+fit2013660,fit,0,Normal,normal,0
+fit2015650,fit,0,High Risk Normal,normal,0
+fit2017660,fit,7,Cancer,cancer,3
+fit2019651,fit,19,Normal,normal,0
+fit2023680,fit,0,High Risk Normal,normal,0
+fit2025653,fit,1509,Cancer,cancer,4
+fit2027653,fit,0,Normal,normal,0
+fit2029650,fit,0,Adenoma,adenoma,0
+fit2033650,fit,0,High Risk Normal,normal,0
+fit2035650,fit,0,adv Adenoma,adenoma,0
+fit2037653,fit,72,Cancer,cancer,3
+fit2039650,fit,0,Normal,normal,0
+fit2041650,fit,0,Adenoma,adenoma,0
+fit2043650,fit,5,High Risk Normal,normal,0
+fit2045653,fit,0,Normal,normal,0
+fit2049653,fit,0,Adenoma,adenoma,0
+fit2051660,fit,0,Adenoma,adenoma,0
+fit2057650,fit,0,High Risk Normal,normal,0
+fit2059653,fit,0,adv Adenoma,adenoma,0
+fit2061650,fit,0,High Risk Normal,normal,0
+fit2067650,fit,21,Adenoma,adenoma,0
+fit2071650,fit,0,High Risk Normal,normal,0
+fit2073650,fit,0,High Risk Normal,normal,0
+fit2077653,fit,0,Normal,normal,0
+fit2081660,fit,0,High Risk Normal,normal,0
+fit2083650,fit,0,High Risk Normal,normal,0
+fit2085653,fit,7,Normal,normal,0
+fit2087650,fit,5,High Risk Normal,normal,0
+fit2093650,fit,286,Normal,normal,0
+fit2097653,fit,0,Normal,normal,0
+fit2103650,fit,0,Normal,normal,0
+fit2105652,fit,314,Normal,normal,0
+fit2107650,fit,0,High Risk Normal,normal,0
+fit2109653,fit,0,Normal,normal,0
+fit2113670,fit,10,Adenoma,adenoma,0
+fit2115650,fit,0,High Risk Normal,normal,0
+fit2119650,fit,0,High Risk Normal,normal,0
+fit2123652,fit,0,Adenoma,adenoma,0
+fit2125650,fit,0,Adenoma,adenoma,0
+fit2127650,fit,0,Adenoma,adenoma,0
+fit2131650,fit,0,Adenoma,adenoma,0
+fit2133650,fit,0,adv Adenoma,adenoma,0
+fit2137650,fit,0,High Risk Normal,normal,0
+fit2139650,fit,0,adv Adenoma,adenoma,0
+fit2143653,fit,0,adv Adenoma,adenoma,0
+fit2151650,fit,0,High Risk Normal,normal,0
+fit2153660,fit,47,Adenoma,adenoma,0
+fit2155650,fit,0,Adenoma,adenoma,0
+fit2157660,fit,0,High Risk Normal,normal,0
+fit2159650,fit,1,Adenoma,adenoma,0
+fit2161653,fit,0,Normal,normal,0
+fit2163653,fit,0,Normal,normal,0
+fit2165652,fit,0,Normal,normal,0
+fit2167670,fit,0,High Risk Normal,normal,0
+fit2169653,fit,0,Normal,normal,0
+fit2171690,fit,0,Normal,normal,0
+fit2173650,fit,0,Adenoma,adenoma,0
+fit2177653,fit,0,Normal,normal,0
+fit2179650,fit,71,adv Adenoma,adenoma,0
+fit2181650,fit,0,High Risk Normal,normal,0
+fit2183650,fit,0,Adenoma,adenoma,0
+fit2185670,fit,982,adv Adenoma,adenoma,0
+fit2187680,fit,1200,Cancer,cancer,3
+fit2189650,fit,0,High Risk Normal,normal,0
+fit2193650,fit,0,High Risk Normal,normal,0
+fit2197670,fit,1,adv Adenoma,adenoma,0
+fit2199650,fit,0,Adenoma,adenoma,0
+fit2201650,fit,0,High Risk Normal,normal,0
+fit2203653,fit,1992,Cancer,cancer,2
+fit2207653,fit,0,adv Adenoma,adenoma,0
+fit2215650,fit,0,Normal,normal,0
+fit2219650,fit,0,Adenoma,adenoma,0
+fit2221650,fit,0,adv Adenoma,adenoma,0
+fit2225650,fit,0,Normal,normal,0
+fit2227660,fit,0,adv Adenoma,adenoma,0
+fit2229653,fit,0,adv Adenoma,adenoma,0
+fit2239650,fit,14,Adenoma,adenoma,0
+fit2241650,fit,40,adv Adenoma,adenoma,0
+fit2243651,fit,0,adv Adenoma,adenoma,0
+fit2253660,fit,0,adv Adenoma,adenoma,0
+fit2255653,fit,140,Cancer,cancer,3
+fit2257660,fit,0,High Risk Normal,normal,0
+fit2261650,fit,0,Adenoma,adenoma,0
+fit2265651,fit,0,adv Adenoma,adenoma,0
+fit2267653,fit,149,Cancer,cancer,4
+fit2277650,fit,0,High Risk Normal,normal,0
+fit2279650,fit,0,Normal,normal,0
+fit2281651,fit,0,adv Adenoma,adenoma,0
+fit2285653,fit,0,Cancer,cancer,1
+fit2287660,fit,939,Cancer,cancer,4
+fit2289650,fit,0,High Risk Normal,normal,0
+fit2291653,fit,1379,Cancer,cancer,3
+fit2293650,fit,0,Normal,normal,0
+fit2295650,fit,0,adv Adenoma,adenoma,0
+fit2297650,fit,0,Adenoma,adenoma,0
+fit2301650,fit,37,Adenoma,adenoma,0
+fit2305651,fit,0,Cancer,cancer,3
+fit2309650,fit,1,High Risk Normal,normal,0
+fit2313680,fit,0,adv Adenoma,adenoma,0
+fit2315650,fit,0,Normal,normal,0
+fit2321650,fit,148,Normal,normal,0
+fit2325660,fit,211,Cancer,cancer,2
+fit2327650,fit,12,Adenoma,adenoma,0
+fit2329650,fit,0,Normal,normal,0
+fit2337650,fit,0,High Risk Normal,normal,0
+fit2339651,fit,1278,Cancer,cancer,3
+fit2341650,fit,0,High Risk Normal,normal,0
+fit2349653,fit,668,Cancer,cancer,2
+fit2353670,fit,0,High Risk Normal,normal,0
+fit2355653,fit,29,Cancer,cancer,3
+fit2365651,fit,1,Cancer,cancer,3
+fit2367650,fit,0,Normal,normal,0
+fit2373690,fit,70,Cancer,cancer,4
+fit2375650,fit,0,Adenoma,adenoma,0
+fit2389650,fit,0,Normal,normal,0
+fit2393650,fit,2544,adv Adenoma,adenoma,0
+fit2395670,fit,938,Cancer,cancer,1
+fit2405680,fit,420,Cancer,cancer,2
+fit2409670,fit,237,Cancer,cancer,2
+fit2411660,fit,0,adv Adenoma,adenoma,0
+fit2413660,fit,0,adv Adenoma,adenoma,0
+fit2419660,fit,994,Cancer,cancer,1
+fit2421651,fit,133,Cancer,cancer,1
+fit2427660,fit,0,Normal,normal,0
+fit2431660,fit,1297,Cancer,cancer,3
+fit2435680,fit,0,Adenoma,adenoma,0
+fit2437680,fit,0,adv Adenoma,adenoma,0
+fit2447651,fit,0,adv Adenoma,adenoma,0
+fit2449650,fit,0,adv Adenoma,adenoma,0
+fit2453653,fit,31,adv Adenoma,adenoma,0
+fit2455650,fit,1374,Cancer,cancer,3
+fit2457670,fit,870,Cancer,cancer,2
+fit2461651,fit,0,adv Adenoma,adenoma,0
+fit2463651,fit,45,Cancer,cancer,2
+fit2471651,fit,3,Cancer,cancer,1
+fit2473660,fit,0,Normal,normal,0
+fit2475653,fit,0,adv Adenoma,adenoma,0
+fit2487651,fit,0,adv Adenoma,adenoma,0
+fit2491670,fit,166,adv Adenoma,adenoma,0
+fit2495653,fit,94,adv Adenoma,adenoma,0
+fit2499660,fit,842,Cancer,cancer,2
+fit2503650,fit,0,adv Adenoma,adenoma,0
+fit2505651,fit,29,Cancer,cancer,1
+fit2507651,fit,2168,Cancer,cancer,2
+fit2513680,fit,97,Cancer,cancer,2
+fit2517650,fit,0,Adenoma,adenoma,0
+fit2519650,fit,0,Adenoma,adenoma,0
+fit2523653,fit,392,Cancer,cancer,3
+fit2525651,fit,118,Cancer,cancer,1
+fit2527670,fit,916,Cancer,cancer,2
+fit2529680,fit,18,Cancer,cancer,2
+fit2531651,fit,0,adv Adenoma,adenoma,0
+fit2539660,fit,485,Cancer,cancer,3
+fit2541670,fit,371,Cancer,cancer,1
+fit2543653,fit,2470,Cancer,cancer,3
+fit2545651,fit,301,adv Adenoma,adenoma,0
+fit2547670,fit,15,Cancer,cancer,3
+fit2551650,fit,1,adv Adenoma,adenoma,0
+fit2555653,fit,0,adv Adenoma,adenoma,0
+fit2565650,fit,5,Adenoma,adenoma,0
+fit2571650,fit,135,Cancer,cancer,3
+fit2575653,fit,492,Cancer,cancer,3
+fit2579680,fit,5,Cancer,cancer,3
+fit2581651,fit,11,Adenoma,adenoma,0
+fit2583650,fit,145,adv Adenoma,adenoma,0
+fit2587650,fit,628,adv Adenoma,adenoma,0
+fit2589650,fit,252,adv Adenoma,adenoma,0
+fit2597670,fit,0,adv Adenoma,adenoma,0
+fit2599650,fit,0,Adenoma,adenoma,0
+fit2603650,fit,0,Normal,normal,0
+fit2611670,fit,314,Cancer,cancer,3
+fit2617653,fit,616,Cancer,cancer,1
+fit2619653,fit,554,Cancer,cancer,1
+fit2633670,fit,258,Cancer,cancer,2
+fit2639690,fit,0,Adenoma,adenoma,0
+fit2641650,fit,0,Adenoma,adenoma,0
+fit2643651,fit,101,adv Adenoma,adenoma,0
+fit2647650,fit,0,Adenoma,adenoma,0
+fit2657651,fit,349,adv Adenoma,adenoma,0
+fit2665650,fit,0,Normal,normal,0
+fit2667653,fit,340,Cancer,cancer,2
+fit2669660,fit,0,Normal,normal,0
+fit2671660,fit,1432,Cancer,cancer,3
+fit2677650,fit,0,Normal,normal,0
+fit2681650,fit,0,Normal,normal,0
+fit2695652,fit,0,Normal,normal,0
+fit2703653,fit,460,Cancer,cancer,2
+fit2705653,fit,265,Cancer,cancer,1
+fit2709650,fit,1206,Cancer,cancer,1
+fit2713651,fit,345,adv Adenoma,adenoma,0
+fit2719650,fit,110,Adenoma,adenoma,0
+fit2727653,fit,1062,Cancer,cancer,1
+fit2731670,fit,0,Normal,normal,0
+fit2733650,fit,0,Normal,normal,0
+fit2743650,fit,0,Normal,normal,0
+fit2751650,fit,2589,adv Adenoma,adenoma,0
+fit2757652,fit,0,adv Adenoma,adenoma,0
+fit2767650,fit,83,adv Adenoma,adenoma,0
+fit2769660,fit,0,Cancer,cancer,1
+fit2773651,fit,581,Cancer,cancer,1
+fit2775653,fit,263,adv Adenoma,adenoma,0
+fit2777670,fit,83,Cancer,cancer,2
+fit2779670,fit,0,Normal,normal,0
+fit2787660,fit,1640,Cancer,cancer,2
+fit2795690,fit,0,adv Adenoma,adenoma,0
+fit2801653,fit,2010,Cancer,cancer,2
+fit2803670,fit,0,adv Adenoma,adenoma,0
+fit2805660,fit,957,Cancer,cancer,2
+fit2807650,fit,3,adv Adenoma,adenoma,0
+fit2811650,fit,0,Adenoma,adenoma,0
+fit2815650,fit,1086,Adenoma,adenoma,0
+fit2817670,fit,87,adv Adenoma,adenoma,0
+fit2823650,fit,0,adv Adenoma,adenoma,0
+fit2827650,fit,1135,Cancer,cancer,4
+fit2829660,fit,0,Cancer,cancer,2
+fit2831680,fit,0,adv Adenoma,adenoma,0
+fit2837680,fit,1443,Cancer,cancer,2
+fit2841680,fit,0,Cancer,cancer,2
+fit2843670,fit,141,Adenoma,adenoma,0
+fit2853660,fit,1,High Risk Normal,normal,0
+fit2859650,fit,51,adv Adenoma,adenoma,0
+fit2861650,fit,0,Adenoma,adenoma,0
+fit2863680,fit,2230,Cancer,cancer,1
+fit2871650,fit,0,adv Adenoma,adenoma,0
+fit2873653,fit,101,adv Adenoma,adenoma,0
+fit2879660,fit,101,Cancer,cancer,1
+fit2883650,fit,0,Adenoma,adenoma,0
+fit2887670,fit,548,Cancer,cancer,3
+fit2889660,fit,0,Adenoma,adenoma,0
+fit2893660,fit,0,Cancer,cancer,4
+fit2895650,fit,783,Adenoma,adenoma,0
+fit2903653,fit,989,Cancer,cancer,1
+fit2905650,fit,0,Normal,normal,0
+fit2907653,fit,0,Normal,normal,0
+fit2909653,fit,0,Normal,normal,0
+fit2911680,fit,0,Cancer,cancer,1
+fit2923650,fit,5,adv Adenoma,adenoma,0
+fit2929650,fit,1,Adenoma,adenoma,0
+fit2931650,fit,79,adv Adenoma,adenoma,0
+fit2935650,fit,0,Adenoma,adenoma,0
+fit2937653,fit,90,adv Adenoma,adenoma,0
+fit2939650,fit,0,adv Adenoma,adenoma,0
+fit2955670,fit,85,Cancer,cancer,1
+fit2957680,fit,1812,Cancer,cancer,3
+fit2959660,fit,0,Cancer,cancer,1
+fit2961650,fit,0,Adenoma,adenoma,0
+fit2963670,fit,5,Adenoma,adenoma,0
+fit2965650,fit,0,Adenoma,adenoma,0
+fit2967680,fit,32,adv Adenoma,adenoma,0
+fit2969650,fit,626,Adenoma,adenoma,0
+fit2971660,fit,177,adv Adenoma,adenoma,0
+fit2981651,fit,0,Normal,normal,0
+fit2987670,fit,0,Normal,normal,0
+fit2991650,fit,0,Adenoma,adenoma,0
+fit2993690,fit,1,Adenoma,adenoma,0
+fit2995660,fit,10,adv Adenoma,adenoma,0
+fit2997651,fit,0,Normal,normal,0
+fit2999650,fit,0,Adenoma,adenoma,0
+fit3001670,fit,2964,Cancer,cancer,4
+fit3005653,fit,204,Cancer,cancer,1
+fit3009670,fit,0,Normal,normal,0
+fit3011651,fit,422,Cancer,cancer,1
+fit3015650,fit,0,adv Adenoma,adenoma,0
+fit3021690,fit,12,Normal,normal,0
+fit3023652,fit,0,Normal,normal,0
+fit3025650,fit,0,Normal,normal,0
+fit3031650,fit,251,adv Adenoma,adenoma,0
+fit3033660,fit,0,Cancer,cancer,2
+fit3043652,fit,0,Normal,normal,0
+fit3047652,fit,0,Normal,normal,0
+fit3049660,fit,0,Normal,normal,0
+fit3053650,fit,0,Normal,normal,0
+fit3061660,fit,0,Normal,normal,0
+fit3063660,fit,0,Normal,normal,0
+fit3065652,fit,770,Cancer,cancer,1
+fit3069660,fit,30,Normal,normal,0
+fit3073680,fit,5,Normal,normal,0
+fit3075653,fit,0,Normal,normal,0
+fit3081660,fit,203,Cancer,cancer,1
+fit3085650,fit,0,High Risk Normal,normal,0
+fit3087661,fit,1,Normal,normal,0
+fit3089650,fit,10,Normal,normal,0
+fit3091650,fit,5,Normal,normal,0
+fit3099680,fit,356,High Risk Normal,normal,0
+fit3101650,fit,0,Normal,normal,0
+fit3103670,fit,10,adv Adenoma,adenoma,0
+fit3105660,fit,74,Adenoma,adenoma,0
+fit3109650,fit,1,Normal,normal,0
+fit3113650,fit,0,Adenoma,adenoma,0
+fit3117652,fit,658,Cancer,cancer,2
+fit3119660,fit,207,Cancer,cancer,1
+fit3123653,fit,0,Normal,normal,0
+fit3125660,fit,0,Normal,normal,0
+fit3127690,fit,0,Adenoma,adenoma,0
+fit3129670,fit,10,adv Adenoma,adenoma,0
+fit3131650,fit,0,Adenoma,adenoma,0
+fit3135660,fit,1072,Cancer,cancer,4
+fit3137650,fit,118,Normal,normal,0
+fit3139650,fit,1477,Adenoma,adenoma,0
+fit3143650,fit,0,adv Adenoma,adenoma,0
+fit3145650,fit,13,Adenoma,adenoma,0
+fit3149653,fit,6,adv Adenoma,adenoma,0
+fit3153670,fit,0,adv Adenoma,adenoma,0
+fit3155690,fit,2600,Cancer,cancer,1
+fit3159650,fit,0,Normal,normal,0
+fit3161650,fit,20,adv Adenoma,adenoma,0
+fit3163690,fit,264,Adenoma,adenoma,0
+fit3169650,fit,23,Adenoma,adenoma,0
+fit3173650,fit,5,adv Adenoma,adenoma,0
+fit3181650,fit,0,High Risk Normal,normal,0
+fit3185650,fit,0,Normal,normal,0
+fit3187680,fit,0,adv Adenoma,adenoma,0
+fit3189650,fit,0,adv Adenoma,adenoma,0
+fit3191650,fit,0,Normal,normal,0
+fit3211670,fit,0,Normal,normal,0
+fit3215650,fit,148,Cancer,cancer,3
+fit3219650,fit,1,High Risk Normal,normal,0
+fit3221650,fit,29,High Risk Normal,normal,0
+fit3223650,fit,0,adv Adenoma,adenoma,0
+fit3225690,fit,88,adv Adenoma,adenoma,0
+fit3231650,fit,0,Adenoma,adenoma,0
+fit3241660,fit,0,Normal,normal,0
+fit3243680,fit,0,Adenoma,adenoma,0
+fit3245680,fit,0,Normal,normal,0
+fit3247652,fit,0,Normal,normal,0
+fit3249650,fit,0,adv Adenoma,adenoma,0
+fit3257660,fit,0,Normal,normal,0
+fit3263650,fit,12,Cancer,cancer,1
+fit3267660,fit,2426,Cancer,cancer,1
+fit3279650,fit,0,adv Adenoma,adenoma,0
+fit3283690,fit,0,Adenoma,adenoma,0
+fit3289650,fit,1885,Cancer,cancer,3
+fit3291670,fit,0,Normal,normal,0
+fit3301660,fit,660,Cancer,cancer,3
+fit3311680,fit,9,Normal,normal,0
+fit3313650,fit,0,Cancer,cancer,1
+fit3315650,fit,497,Cancer,cancer,1
+fit3319650,fit,130,Adenoma,adenoma,0
+fit3321660,fit,1211,Cancer,cancer,2
+fit3323670,fit,3,Normal,normal,0
+fit3335650,fit,0,High Risk Normal,normal,0
+fit3337650,fit,154,Cancer,cancer,1
+fit3339680,fit,0,Normal,normal,0
+fit3341680,fit,0,Normal,normal,0
+fit3343650,fit,0,Adenoma,adenoma,0
+fit3345650,fit,0,Normal,normal,0
+fit3347653,fit,0,Normal,normal,0
+fit3357650,fit,0,High Risk Normal,normal,0
+fit3361650,fit,29,Adenoma,adenoma,0
+fit3363660,fit,0,Normal,normal,0
+fit3365650,fit,0,Adenoma,adenoma,0
+fit3367653,fit,0,Normal,normal,0
+fit3371650,fit,16,Adenoma,adenoma,0
+fit3373660,fit,7,Cancer,cancer,3
+fit3375670,fit,0,Adenoma,adenoma,0
+fit3377650,fit,0,Normal,normal,0
+fit3381650,fit,2472,Cancer,cancer,3
+fit3387660,fit,354,Cancer,cancer,2
+fit3389690,fit,933,Cancer,cancer,2
+fit3391652,fit,73,adv Adenoma,adenoma,0
+fit3399653,fit,62,adv Adenoma,adenoma,0
+fit3401650,fit,813,adv Adenoma,adenoma,0
+fit3403653,fit,0,Normal,normal,0
+fit3409650,fit,877,Cancer,cancer,4
+fit3411650,fit,0,Adenoma,adenoma,0
+fit3417653,fit,0,adv Adenoma,adenoma,0
+fit3419660,fit,0,Adenoma,adenoma,0
+fit3427670,fit,0,Normal,normal,0
+fit3431650,fit,1089,Cancer,cancer,3
+fit3433650,fit,0,High Risk Normal,normal,0
+fit3435690,fit,810,Cancer,cancer,1
+fit3437650,fit,527,Adenoma,adenoma,0
+fit3439680,fit,5,Normal,normal,0
+fit3441650,fit,0,Adenoma,adenoma,0
+fit3443650,fit,5,Adenoma,adenoma,0
+fit3445670,fit,1982,Cancer,cancer,3
+fit3447650,fit,0,Adenoma,adenoma,0
+fit3453650,fit,752,Cancer,cancer,3
+fit3455650,fit,0,Adenoma,adenoma,0
+fit3477660,fit,20,Normal,normal,0
+fit3483651,fit,0,Normal,normal,0
+fit3485680,fit,0,Normal,normal,0
+fit3487650,fit,0,Normal,normal,0
+fit3489670,fit,2867,Cancer,cancer,3
+fit3491650,fit,0,Normal,normal,0
+fit3497650,fit,0,adv Adenoma,adenoma,0
+fit3499660,fit,0,Normal,normal,0
+fit3501650,fit,0,High Risk Normal,normal,0
+fit3503650,fit,47,Cancer,cancer,1
+fit3509661,fit,0,Adenoma,adenoma,0
+fit3511650,fit,0,Normal,normal,0
+fit3515660,fit,0,Normal,normal,0
+fit3519670,fit,0,High Risk Normal,normal,0
+fit3523650,fit,0,Adenoma,adenoma,0
+fit3525650,fit,0,adv Adenoma,adenoma,0
+fit3527670,fit,25,High Risk Normal,normal,0
+fit3531650,fit,0,Normal,normal,0
+fit3535650,fit,0,adv Adenoma,adenoma,0
+fit3537650,fit,0,Normal,normal,0
+fit3551650,fit,0,Adenoma,adenoma,0
+fit3561650,fit,0,Normal,normal,0

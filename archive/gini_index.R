@@ -1,0 +1,9 @@
+
+gini_index <- function() {
+
+
+
+}
+
+
+
