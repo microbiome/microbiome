@@ -1,0 +1,2 @@
+Workflow to sync between github and bioc versions:
+https://bioconductor.org/developers/how-to/git/sync-existing-repositories/

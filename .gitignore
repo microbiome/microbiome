@@ -1,6 +1,7 @@
 # Do not add website material
 vignettes/vignette.md
 figure/
+archive
 
 # Do not add maintenance material
 inst/extras
