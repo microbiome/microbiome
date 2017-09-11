@@ -1,0 +1,25 @@
+---
+title: "TODO"
+prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - Installation}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+List of issues to improve the package and tutorials:
+
+* Merge with [microbiomeSeq]() R package
+* Add a list of related resources ([pathoStat]())
+* Lay out overall project roadmap
+* Consider package/tutorial collection instead of a single package
+
+### Related work
+
+ * [metagenomeSeq](https://bioconductor.org/packages/release/bioc/html/metagenomeSeq.html)
+ * [microbiomeSeq]()
+ * [pathoStat]()  

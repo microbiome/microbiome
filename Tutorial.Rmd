@@ -1,0 +1,89 @@
+---
+title: "Tutorial"
+bibliography: 
+- bibliography.bib
+output: 
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - Installation}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
+This tutorial helps You to get started with the microbiome R tools,
+and expand the analysis further.
+
+
+### Installation
+
+ * Launch R/RStudio (see [installation instructions](http://microbiome.github.io/microbiome/Installation.html))
+
+
+### Reproducible document generation
+
+To test reproducible document generation:
+
+ 1. Open a new Rmarkdown (.html) file 
+ 1. Convert that .html file with the 'knit' button
+ 1. Modify the file and knit again to make your own reproducible report
+
+
+### Example data: intestinal microbiota of 1006 Western adults
+
+Example data set will be the [HITChip Atlas](Atlas.html), which is available via the microbiome R package in phyloseq format. This data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) comes with 130 genus-like taxonomic groups across 1006 western adults with no reported health complications. Some subjects have also short time series. Load the data in R with:
+
+```{r atlasdata, message=FALSE, warning=FALSE}
+# Data citation doi: 10.1038/ncomms5344
+library(microbiome)
+data(atlas1006) 
+print(atlas1006)
+```
+
+### Phyloseq data format
+
+Explore the phyloseq data format for taxonomic profiling. See [examples on microbiome data manipulation](Preprocessing.html).
+
+
+### Diversity
+
+Explore the estimation and analysis of various [diversity indices](Diversity.html) and [taxonomic composition](Composition.html).
+
+```{r diversity, message=FALSE, warning=FALSE}
+plot_regression(diversity ~ age, meta(atlas1006)) +
+  xlab("Age") + ylab("Diversity")
+```
+
+
+### Technical biases
+
+Explore potential technical biases in the data. DNA extraction method has a remarkable effect on sample grouping.
+
+```{r dnaextraction, message=FALSE, warning=FALSE}
+# Use relative abundance data
+ps <- microbiome::transform(pseq, "compositional")
+
+# For this example, choose adult samples that have
+# DNA extraction information available
+ps <- subset_samples(ps , age > 16 & !is.na(DNA_extraction_method))
+
+# Illustrate sample similarities with PCoA (NMDS)
+plot_landscape(ps, "NMDS", "bray", col = "DNA_extraction_method")
+```
+
+
+### Core microbiota
+
+[Core microbiota](Core.html) refers to the set of species shared by (almost) all individuals.
+
+
+
+### Other tools
+
+Have a look at further tools in [microbiome tutorial](http://microbiome.github.io/microbiome/).
+
+
