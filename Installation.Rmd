@@ -24,57 +24,61 @@ output:
   1. With Windows, install also [RTools](http://cran.r-project.org/bin/windows/Rtools/) (version corresponding to your R version)
 
 
-### Install dependencies
+### Installation
 
-Open R and install dependencies from the Tools panel, or run the
-following commands (see [DESCRIPTION](https://github.com/microbiome/microbiome/blob/master/DESCRIPTION) file for a full list of dependencies):
+Open R and install the package. If the installation fails, ensure from
+the RStudio tools panel that you have access to the Bioconductor
+repository.
 
 ```{r installation, message=FALSE, warning=FALSE, eval=FALSE}
+library(BiocInstaller)
 source("http://www.bioconductor.org/biocLite.R")
-biocLite("devtools")
-biocLite("phyloseq")
-biocLite("ggplot2")
-biocLite("dplyr")
-biocLite("reshape2")
-biocLite("tidyr")
-biocLite("vegan")
-biocLite("knitr")
-biocLite("knitcitations")
-biocLite("compositions")
-biocLite("qvalue")
-biocLite("rmarkdown")
+useDevel()
+biocLite("microbiome")
 ```
 
-If some of these installations fail, ensure from the RStudio tools
-panel that you have access to CRAN and Bioconductor repositories. If
-you cannot install some packages, some functionality in microbiome may
-not work.
-
-
-### Install/update the microbiome package
-
-To install microbiome package and recommended dependencies, run in R:
+Alternatively, to install the bleeding edge (potentially unstable)
+development version, run in R:
 
 ```{r microbiomeinstall, message=FALSE, warning=FALSE, eval=FALSE}
 library(devtools) # Load the devtools package
 install_github("microbiome/microbiome") # Install the package
 ```
 
-### Loading the package
+### Use 
 
-Once the package has been installed, load it in R (also to test successful installation):
+Once the package has been installed, load it in R
 
 ```{r loading, eval=TRUE, message=FALSE}
 library(microbiome)  
 ```
 
-See further usage examples in [microbiome tutorial](https://github.com/microbiome/microbiome/blob/master/index./index.html)
+For a brief overview, see the [package vignette](https://bioconductor.org/packages/devel/bioc/vignettes/microbiome/inst/doc/vignette.html) and the more extensive [on-line tutorial](http://microbiome.github.io/microbiome/).
 
 
 
-### Installing R packages from CRAN/Bioconductor/Github
+### Reproducible document generation
 
-R packages are maintained in three distinct repositories: CRAN, Bioconductor and Github. You need to somehow find out which repository your desired package is in, or just try out the three alternatives:
+To test reproducible document generation:
+
+ 1. Start [RStudio](http://www.rstudio.com/)
+ 1. Open a new Rmarkdown (.html) file 
+ 1. Convert that .html file with the 'knit' button
+ 1. Modify the .html file and knit it again to make your own reproducible report
+
+
+### Further reading
+
+ * [Rmarkdown tips](http://rmarkdown.rstudio.com/)
+ * [R cheat sheets](http://devcheatsheet.com/tag/r/)
+ * [Using Github with R and RStudio](http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/)
+ * [Molecular ecologist's view on code sharing](http://www.molecularecologist.com/2013/08/want-to-share-your-code/)
+
+
+### General instructions to install R packages
+
+Most R packages are maintained in CRAN, Bioconductor or Github. To
+install the package from each, use:
 
 ```{r generalinstall, message=FALSE, warning=FALSE, eval=FALSE}
 # Installing from Bioconductor

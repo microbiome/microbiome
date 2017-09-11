@@ -36,29 +36,10 @@ pseq3 <- read_phyloseq(otu.file, taxonomy.file, metadata.file, type = "biom")
 You can also use additional [import functions](http://joey711.github.io/phyloseq/import-data) from the independent phyloseq R package. 
 
 
-### Converting data to phyloseq format in R
+### Converting you own data to phyloseq format in R
 
-Alternatively, you can read your data in R (read.table, read.csv or other standard functions) and convert into phyloseq format. The procedure is well explained in the [phyloseq tutorial](http://joey711.github.io/phyloseq/import-data) from the independent phyloseq R package. 
+Alternatively, you can read your data in R (read.table, read.csv or other standard functions) and convert into phyloseq format. The procedure is well explained in the [phyloseq tutorial](http://joey711.github.io/phyloseq/import-data) from the independent phyloseq R package. See also examples on [manipulating](Preprocessing.html) for phyloseq objects.
 
-See also examples on [filtering, subsetting and other data processing](Preprocessing.html) for phyloseq objects.
-
-
-### Adding metadata to phyloseq 
-
-This shows how to add metadata to a phyloseq object. For reproducibility, we just put use the existing metadata, but this could be replaced by another data.frame (samples x fields). 
-
-```{r add_metadata, eval=TRUE}
-# Example data
-data(dietswap)
-pseq <- dietswap
-
-# Pick the existing metadata from a phyloseq object
-# (or retrieve this from another source)
-df <- meta(pseq)
-
-# Merge the metadata back in the phyloseq object
-pseq2 <- merge_phyloseq(pseq, sample_data(df))
-```
 
 
 ## Microbiome example data sets
@@ -68,6 +49,7 @@ pseq2 <- merge_phyloseq(pseq, sample_data(df))
 [The HITChip Atlas](Atlas.html) data set is available via the microbiome R package in phyloseq format, and via [Data Dryad](http://doi.org/10.5061/dryad.pk75d) in tabular format. This data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) comes with 130 genus-like taxonomic groups across 1006 western adults with no reported health complications. Some subjects have also short time series. Load the data in R with:
 
 ```{r atlasdata}
+# Data citation doi: 10.1038/ncomms5344
 library(microbiome)
 data(atlas1006) 
 print(atlas1006)
@@ -83,22 +65,22 @@ available for download from [Data
 Dryad](http://dx.doi.org/10.5061/dryad.1mn1n). Load in R with:
 
 ```{r dietswap2}
+# Data citation doi: 10.1038/ncomms7342
 data(dietswap)
 print(dietswap)
 ```
 
 
-
-
 ### Intestinal microbiota versus blood metabolites
 
 Data set from [Lahti et al. PeerJ 1:e32,
-2013](https://peerj.com/articles/32/) characterizes associations
+2013](https://doi.org/10.7717/peerj.32) characterizes associations
 between human intestinal microbiota and blood serum lipids. Note that
 this data set contains an additional data matrix of lipid
 species. Load the data in R with:
 
 ```{r peerj2}
+# Data citation doi: 10.7717/peerj.32
 data(peerj32)
 print(names(peerj32))
 ```

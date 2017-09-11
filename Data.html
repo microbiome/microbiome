@@ -141,24 +141,9 @@ pseq2 &lt;- read_phyloseq(otu.file, taxonomy.file, metadata.file, type = &quot;m
 pseq3 &lt;- read_phyloseq(otu.file, taxonomy.file, metadata.file, type = &quot;biom&quot;)</code></pre>
 <p>You can also use additional <a href="http://joey711.github.io/phyloseq/import-data">import functions</a> from the independent phyloseq R package.</p>
 </div>
-<div id="converting-data-to-phyloseq-format-in-r" class="section level3">
-<h3>Converting data to phyloseq format in R</h3>
-<p>Alternatively, you can read your data in R (read.table, read.csv or other standard functions) and convert into phyloseq format. The procedure is well explained in the <a href="http://joey711.github.io/phyloseq/import-data">phyloseq tutorial</a> from the independent phyloseq R package.</p>
-<p>See also examples on <a href="Preprocessing.html">filtering, subsetting and other data processing</a> for phyloseq objects.</p>
-</div>
-<div id="adding-metadata-to-phyloseq" class="section level3">
-<h3>Adding metadata to phyloseq</h3>
-<p>This shows how to add metadata to a phyloseq object. For reproducibility, we just put use the existing metadata, but this could be replaced by another data.frame (samples x fields).</p>
-<pre class="r"><code># Example data
-data(dietswap)
-pseq &lt;- dietswap
-
-# Pick the existing metadata from a phyloseq object
-# (or retrieve this from another source)
-df &lt;- meta(pseq)
-
-# Merge the metadata back in the phyloseq object
-pseq2 &lt;- merge_phyloseq(pseq, sample_data(df))</code></pre>
+<div id="converting-you-own-data-to-phyloseq-format-in-r" class="section level3">
+<h3>Converting you own data to phyloseq format in R</h3>
+<p>Alternatively, you can read your data in R (read.table, read.csv or other standard functions) and convert into phyloseq format. The procedure is well explained in the <a href="http://joey711.github.io/phyloseq/import-data">phyloseq tutorial</a> from the independent phyloseq R package. See also examples on <a href="Preprocessing.html">manipulating</a> for phyloseq objects.</p>
 </div>
 </div>
 <div id="microbiome-example-data-sets" class="section level2">
@@ -166,7 +151,8 @@ pseq2 &lt;- merge_phyloseq(pseq, sample_data(df))</code></pre>
 <div id="intestinal-microbiota-profiling-of-1006-western-adults" class="section level3">
 <h3>Intestinal microbiota profiling of 1006 Western adults</h3>
 <p><a href="Atlas.html">The HITChip Atlas</a> data set is available via the microbiome R package in phyloseq format, and via <a href="http://doi.org/10.5061/dryad.pk75d">Data Dryad</a> in tabular format. This data set from <a href="http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html">Lahti et al. Nat. Comm. 5:4344, 2014</a> comes with 130 genus-like taxonomic groups across 1006 western adults with no reported health complications. Some subjects have also short time series. Load the data in R with:</p>
-<pre class="r"><code>library(microbiome)
+<pre class="r"><code># Data citation doi: 10.1038/ncomms5344
+library(microbiome)
 data(atlas1006) 
 print(atlas1006)</code></pre>
 <pre><code>## phyloseq-class experiment-level object
@@ -177,7 +163,8 @@ print(atlas1006)</code></pre>
 <div id="diet-swap-between-rural-and-western-populations" class="section level3">
 <h3>Diet swap between Rural and Western populations</h3>
 <p>A two-week diet swap study between western (USA) and traditional (rural Africa) diets, reported in <a href="http://dx.doi.org/10.1038/ncomms7342">O’Keefe et al. Nat. Comm. 6:6342, 2015</a>. The data is also available for download from <a href="http://dx.doi.org/10.5061/dryad.1mn1n">Data Dryad</a>. Load in R with:</p>
-<pre class="r"><code>data(dietswap)
+<pre class="r"><code># Data citation doi: 10.1038/ncomms7342
+data(dietswap)
 print(dietswap)</code></pre>
 <pre><code>## phyloseq-class experiment-level object
 ## otu_table()   OTU Table:         [ 130 taxa and 222 samples ]
@@ -186,8 +173,9 @@ print(dietswap)</code></pre>
 </div>
 <div id="intestinal-microbiota-versus-blood-metabolites" class="section level3">
 <h3>Intestinal microbiota versus blood metabolites</h3>
-<p>Data set from <a href="https://peerj.com/articles/32/">Lahti et al. PeerJ 1:e32, 2013</a> characterizes associations between human intestinal microbiota and blood serum lipids. Note that this data set contains an additional data matrix of lipid species. Load the data in R with:</p>
-<pre class="r"><code>data(peerj32)
+<p>Data set from <a href="https://doi.org/10.7717/peerj.32">Lahti et al. PeerJ 1:e32, 2013</a> characterizes associations between human intestinal microbiota and blood serum lipids. Note that this data set contains an additional data matrix of lipid species. Load the data in R with:</p>
+<pre class="r"><code># Data citation doi: 10.7717/peerj.32
+data(peerj32)
 print(names(peerj32))</code></pre>
 <pre><code>## [1] &quot;lipids&quot;   &quot;microbes&quot; &quot;meta&quot;     &quot;phyloseq&quot;</code></pre>
 </div>

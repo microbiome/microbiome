@@ -89,3 +89,33 @@ p <- ggplot(df, aes(class, n)) +
 
 print(p)
 ```
+
+
+### Viridis scale
+
+
+```{r core2, fig.width=9, fig.heigth=6, out.width="400px", warning=FALSE}
+# Load data
+library(microbiome)
+data(peerj32)
+
+# Rename the data
+pseq <- peerj32$phyloseq
+
+# Calculate compositional version of the data
+# (relative abundances)
+pseq.rel <- microbiome::transform(pseq, "compositional")
+
+# With compositional (relative) abundances
+det <- c(0, 0.1, 0.5, 2, 5, 20)/100
+prevalences <- seq(.05, 1, .05)
+p <- plot_core(pseq.rel, prevalences = prevalences, detections = det, plot.type = "lineplot") + xlab("Relative Abundance (%)")
+
+# Same with the viridis color palette
+# color-blind friendly and uniform
+# options: viridis, magma, plasma, inferno
+# https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
+# Also discrete=TRUE versions available
+library(viridis)
+print(p + scale_fill_viridis())
+```

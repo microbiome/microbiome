@@ -1,5 +1,5 @@
 ---
-title: "Preprocessing of taxonomic profiling data"
+title: "Microbiome data manipulation"
 bibliography: 
 - bibliography.bib
 output: 
@@ -15,7 +15,7 @@ output:
 -->
 
 
-## Processing taxonomic profiling data
+## Processing phyloseq objects
 
 Instructions to manipulate microbiome data sets using tools from the [phyloseq package](http://joey711.github.io/phyloseq/) and some extensions from the [microbiome package](https://github.com/microbiome/microbiome), including subsetting, aggregating and filtering.
 
@@ -290,3 +290,20 @@ Custom functions are provided to cut age or BMI information into discrete classe
 group_bmi(c(22, 28, 31), "standard")
 group_age(c(17, 41, 102), "decades")
 ```
+
+
+You can add metadata to a phyloseq object. For reproducibility, we just put use the existing metadata, but this could be replaced by another data.frame (samples x fields). 
+
+```{r add_metadata, eval=TRUE}
+# Example data
+data(dietswap)
+pseq <- dietswap
+
+# Pick the existing metadata from a phyloseq object
+# (or retrieve this from another source)
+df <- meta(pseq)
+
+# Merge the metadata back in the phyloseq object
+pseq2 <- merge_phyloseq(pseq, sample_data(df))
+```
+

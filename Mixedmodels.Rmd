@@ -45,7 +45,7 @@ print(p)
 
 Test individual taxonomic group
 
-```{r comparisons-lmer}
+```{r comparisons-lmer, message=FALSE, warning=FALSE}
 # Get sample metadata
 dfs <- meta(pseq)
 

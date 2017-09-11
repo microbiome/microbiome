@@ -117,14 +117,6 @@ p <- plot_core(pseq.rel, plot.type = "heatmap", colours = gray,
 print(p)    
 
 
-# Same with the viridis color palette
-# color-blind friendly and uniform
-# options: viridis, magma, plasma, inferno
-# https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
-# Also discrete=TRUE versions available
-library(viridis)
-print(p + scale_fill_viridis())
-
 # Core with absolute counts and horizontal view:
 # and minimum population prevalence (given as percentage)
 detections <- 10^seq(log10(1), log10(max(abundances(pseq))/10), length = 10)
@@ -137,4 +129,9 @@ p <- plot_core(pseq, plot.type = "heatmap",
 		 min.prevalence = .2, horizontal = TRUE)
 print(p)
 ```
+
+### Amplicon data
+
+See further examples on [core composition for amplicon data](CoremicrobiotaAmplicon.html).
+
 

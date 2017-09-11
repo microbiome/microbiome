@@ -101,3 +101,7 @@ p0 <- core(p0, detection = 10, prevalence = 0)
 plot_taxa_prevalence(p0, "Phylum", detection = 10)
 ```
 
+### Amplicon data
+
+See further examples on [community composition for amplicon data](CompositionAmplicondata.html).
+
