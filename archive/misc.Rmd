@@ -1,15 +1,13 @@
-We use the Dynamics IBD data set from [Halfvarson J., et al. Nature
-Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174) as
-downloaded from [Qiita ID
-1629](https://qiita.ucsd.edu/study/description/1629).
-
-### Dynamics of the human gut microbiome in inflammatory bowel disease
-
-Data set from [Halfvarson et al. Nature Microbiology 2, 2017](http://www.nature.com/articles/nmicrobiol20174) characterizes longitudinal fluctuations of human intestinal microbiota in Inflammatory bowel disease (IBD) subjects and compare it with those of healthy individuals. The authors use Illumina HiSeq 2000 for the V4 region with 515F/806RBC. This data was downloaded from [Qiita](https://qiita.ucsd.edu/study/description/1629) and the Qiita study ID is 1629.
-Load the data in R with:
-
-```{r DynamicsIBD}
-data(DynamicsIBD)
-print(DynamicsIBD)
-```
+biocLite("devtools")
+biocLite("phyloseq")
+biocLite("ggplot2")
+biocLite("dplyr")
+biocLite("reshape2")
+biocLite("tidyr")
+biocLite("vegan")
+biocLite("knitr")
+biocLite("knitcitations")
+biocLite("compositions")
+biocLite("qvalue")
+biocLite("rmarkdown")
 
