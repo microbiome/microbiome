@@ -26,8 +26,11 @@ Load example data:
 library(phyloseq)
 library(microbiome)
 
-data(atlas1006)   # Load the data
-pseq <- core(subset_samples(atlas1006, nationality == "EasternEurope"), detection = 10^2, prevalence = 50/100) # Rename the data and pick subset for faster examples
+# Load example data
+data(atlas1006)   
+
+# Let us rename the example data (which is a phyloseq object)
+pseq <- atlas1006
 ```
 
 

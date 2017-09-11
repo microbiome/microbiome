@@ -57,16 +57,6 @@ For a brief overview, see the [package vignette](https://bioconductor.org/packag
 
 
 
-### Reproducible document generation
-
-To test reproducible document generation:
-
- 1. Start [RStudio](http://www.rstudio.com/)
- 1. Open a new Rmarkdown (.html) file 
- 1. Convert that .html file with the 'knit' button
- 1. Modify the .html file and knit it again to make your own reproducible report
-
-
 ### Further reading
 
  * [Rmarkdown tips](http://rmarkdown.rstudio.com/)

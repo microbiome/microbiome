@@ -100,4 +100,33 @@ plot_ordination(pseq, pseq.cca,
 
 
 
+### t-SNE
+
+t-SNE is a popular new ordination technique.
+
+```{r tsne, warning=FALSE, message=FALSE, fig.width=14, fig.height=5}
+library(vegan)
+library(microbiome)
+library(Rtsne) # Load package
+set.seed(423542)
+
+method <- "tsne"
+trans <- "hellinger"
+distance <- "euclidean"
+
+# Distance matrix for samples
+ps <- microbiome::transform(pseq, trans)
+
+# Calculate sample similarities
+dm <- vegdist(otu_table(ps), distance)
+
+# Run TSNE
+tsne_out <- Rtsne(dm, dims = 2) 
+proj <- tsne_out$Y
+rownames(proj) <- rownames(otu_table(ps))
+
+library(ggplot2)
+p <- plot_landscape(proj, legend = T, size = 1) 
+print(p)
+```
 

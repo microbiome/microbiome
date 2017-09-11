@@ -153,8 +153,7 @@ library(tidyverse)
 p &lt;- plot_composition(pseq2,
               taxonomic.level = &quot;OTU&quot;,
                       sample.sort = &quot;nationality&quot;,
-                      x.label = &quot;nationality&quot;,
-                      transform = &quot;compositional&quot;) +
+                      x.label = &quot;nationality&quot;) +
      guides(fill = guide_legend(ncol = 1)) +
      scale_y_percent() +
      labs(x = &quot;Samples&quot;, y = &quot;Relative abundance (%)&quot;,
