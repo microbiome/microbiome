@@ -81,6 +81,20 @@ plot_landscape(ps, "NMDS", "bray", col = "DNA_extraction_method")
 [Core microbiota](Core.html) refers to the set of species shared by (almost) all individuals.
 
 
+```{r core-example3, fig.width=8, fig.heigth=18, fig.show='hold', warning=FALSE, out.width = '200px', warning=FALSE}
+# Core with compositionals:
+prevalences <- seq(.05, 1, .05)
+detections <- 10^seq(log10(1e-3), log10(.2), length = 10)
+
+# Compositional abundances
+pseq.rel <- microbiome::transform(pseq, "compositional")
+
+p <- plot_core(pseq.rel, plot.type = "heatmap",
+    prevalences = prevalences, detections = detections) +
+    xlab("Detection Threshold (Relative Abundance)")
+print(p)    
+```
+
 
 ### Other tools
 
