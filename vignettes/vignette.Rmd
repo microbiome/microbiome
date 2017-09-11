@@ -82,11 +82,13 @@ al.](https://github.com/microbiome/microbiome/graphs/contributors)
 
 # Installation
 
-To install microbiome package (the latest development version) in R, use
+To install microbiome package in R, use
 
-```{r microbiomeinstall, eval=FALSE}
-library(devtools) # Load the devtools package
-install_github("microbiome/microbiome") # Install the package
+```{r install, eval=FALSE}
+library(BiocInstaller)
+source("http://www.bioconductor.org/biocLite.R")
+useDevel()
+biocLite("microbiome")
 ```
 
 Then load the package in R
