@@ -3,12 +3,11 @@ Type: Package
 Title: Microbiome Analytics
 Description: Utilities for microbiome analysis.
 Encoding: UTF-8
-Version: 0.99.84
-Date: 2017-09-10
+Version: 0.99.85
+Date: 2017-09-11
 Authors@R: c(
     person("Leo", "Lahti", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
-    person("Sudarshan", "Shetty", role = "aut"),    
-    person("Jarkko", "Salojarvi", role = "ctb"))
+    person("Sudarshan", "Shetty", role = "aut"))
 biocViews: Clustering, Metagenomics, Microbiome, Sequencing, SystemsBiology
 License: BSD_2_clause + file LICENSE
 Depends:

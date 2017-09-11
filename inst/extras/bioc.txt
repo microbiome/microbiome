@@ -1,2 +1,17 @@
 Workflow to sync between github and bioc versions:
 https://bioconductor.org/developers/how-to/git/sync-existing-repositories/
+
+Build reports
+https://bioconductor.org/checkResults/3.6/bioc-LATEST/
+
+Site
+https://bioconductor.org/packages/microbiome/
+
+------------------------------
+
+git fetch --all
+git merge origin/master
+git merge upstream/master
+
+#git push upstream master
+#git push origin master

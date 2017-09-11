@@ -59,6 +59,8 @@ r_github_packages:
 - zdk123/SpiecEasi
 - briatte/ggnet
 - earlywarningtoolbox/earlywarnings-R/earlywarnings
+- jimhester/covr
+
 env:
   global:
   - WARNINGS_ARE_ERRORS=1
