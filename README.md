@@ -8,7 +8,7 @@ microbiome R package
 
 [![Join the chat at https://gitter.im/microbiome/microbiome](https://badges.gitter.im/microbiome/microbiome.svg)](https://gitter.im/microbiome/microbiome?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)
-[![Bioconductor](http://bioconductor.org/shields/build/release/bioc/BiocGenerics.svg)](https://bioconductor.org/packages/devel/bioc/html/microbiome.html)
+<!--[![Bioconductor](http://bioconductor.org/shields/build/release/bioc/BiocGenerics.svg)](https://bioconductor.org/packages/devel/bioc/html/microbiome.html)-->
 [![codecov.io](https://codecov.io/github/microbiome/microbiome/coverage.svg?branch=master)](https://codecov.io/github/microbiome/microbiome?branch=master)
 [![PRs Welcome][prs-badge]][prs]
 [![Watch on GitHub][github-watch-badge]][github-watch]
@@ -39,7 +39,8 @@ Tools for the exploration and analysis of microbiome profiling data sets, in par
 
 See the package [tutorial](http://microbiome.github.io/microbiome/).
 
-**Kindly cite** as follows: "Leo Lahti, Sudarshan Shetty [et al.](https://github.com/microbiome/microbiome/graphs/contributors) (2017). Tools for microbiome analysis in R. Microbiome package version 0.99.85. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). See also the relevant references listed in the manual page of each function. 
+**Kindly cite** as follows: "Leo Lahti, Sudarshan Shetty [et al.](https://github.com/microbiome/microbiome/graphs/contributors) ([Bioconductor, 2017](https://bioconductor.org/packages/devel/bioc/html/microbiome.html)). Tools for microbiome analysis in R. Microbiome package version 0.99.86. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). See also the relevant references listed in the manual page of each function. 
+
 ### Contribute
 
 Contributions are very welcome:
