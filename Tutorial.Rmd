@@ -15,13 +15,13 @@ output:
 -->
 
 
-This tutorial gets You started with the microbiome R tools. The aims are as follows:
+This tutorial gets You started with R tools for microbial ecologym, in particular to get an introduction to
 
- * Familiarize with the available R tools for microbial ecology
-
- * Understand possibilities and challenges with population-level
-   microbiome profiling studies
-
+ * R tools for microbial ecology
+ * Significance of custom data formats and tools
+ * Reproducible document generation 
+ * Possibilities and challenges with population-level microbiome profiling studies
+ 
 
 ### Installation
 
