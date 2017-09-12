@@ -23,8 +23,7 @@ This tutorial gets You started with R tools for microbial ecology. In particular
  * Possibilities and challenges in population-level microbiome profiling studies
 
 
-The tutorial slides are available [here](https://github.com/antagomir/antagomir.github.com/blob/master/files/publications/slides/20170913-Leuven-Tutorial-Lahti.odp).
-
+The tutorial slides are available [here](https://github.com/antagomir/antagomir.github.io/blob/master/files/publications/slides/20170913-Leuven-Tutorial-Lahti.odp?raw=true)
 
 ### Installation
 
@@ -87,6 +86,9 @@ ps <- microbiome::transform(pseq, "compositional")
 
 # For this example, choose samples with DNA extraction information available
 ps <- subset_samples(ps, !is.na(DNA_extraction_method))
+
+# Or: you could focus on a single DNA extraction method
+# ps <- subset_samples(ps, DNA_extraction_method == "r")
 
 # Illustrate sample similarities with PCoA (NMDS)
 plot_landscape(ps, "NMDS", "bray", col = "DNA_extraction_method")
