@@ -14,8 +14,6 @@ output:
   %\VignetteEncoding{UTF-8}  
 -->
 
-## Core microbiota analysis
-
 See also related functions for the analysis of rare and variable taxa (noncore_members; noncore_abundance; rare_members; rare_abundance; low_abundance).
 
 Load example data:

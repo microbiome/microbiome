@@ -15,18 +15,19 @@ output:
 -->
 
 
-This tutorial helps You to get started with the microbiome R tools,
-and expand the analysis further.
+This tutorial gets You started with the microbiome R tools. The aims are as follows:
+
+ * Familiarize with the available R tools for microbial ecology
+
+ * Understand possibilities and challenges with population-level
+   microbiome profiling studies
 
 
 ### Installation
 
- * Launch R/RStudio (see [installation instructions](http://microbiome.github.io/microbiome/Installation.html))
+Launch R/RStudio (see [installation instructions](http://microbiome.github.io/microbiome/Installation.html))
 
-
-### Reproducible document generation
-
-To test reproducible document generation:
+To initiate reproducible documentation, do the following in RStudio:
 
  1. Open a new Rmarkdown (.html) file 
  1. Convert that .html file with the 'knit' button
@@ -42,20 +43,34 @@ Example data set will be the [HITChip Atlas](Atlas.html), which is available via
 library(microbiome)
 data(atlas1006) 
 print(atlas1006)
+
+# Rename the data
+pseq <- atlas1006
 ```
 
-### Phyloseq data format
+### Phyloseq data stucture for taxonomic profiling
 
-Explore the phyloseq data format for taxonomic profiling. See [examples on microbiome data manipulation](Preprocessing.html).
+Explore the phyloseq data format. See [examples on microbiome data manipulation](Preprocessing.html).
 
 
 ### Diversity
 
 Explore the estimation and analysis of various [diversity indices](Diversity.html) and [taxonomic composition](Composition.html).
 
+```{r global, message=FALSE, warning=FALSE}
+tab <- global(pseq, index = "all")
+kable(head(tab))
+```
+
+Assign the estimated diversity to sample metadata
+```{r global2, message=FALSE, warning=FALSE}
+sample_data(pseq)$diversity <- tab$diversities_shannon
+```
+
+Visualize the data
+
 ```{r diversity, message=FALSE, warning=FALSE}
-plot_regression(diversity ~ age, meta(atlas1006)) +
-  xlab("Age") + ylab("Diversity")
+p <- plot_regression(diversity ~ age, meta(pseq)) + xlab("Age") + ylab("Diversity")
 ```
 
 
@@ -63,13 +78,12 @@ plot_regression(diversity ~ age, meta(atlas1006)) +
 
 Explore potential technical biases in the data. DNA extraction method has a remarkable effect on sample grouping.
 
-```{r dnaextraction, message=FALSE, warning=FALSE}
+```{r dnaextraction, message=FALSE, warning=FALSE, fig.width=12, fig.height=8}
 # Use relative abundance data
 ps <- microbiome::transform(pseq, "compositional")
 
-# For this example, choose adult samples that have
-# DNA extraction information available
-ps <- subset_samples(ps , age > 16 & !is.na(DNA_extraction_method))
+# For this example, choose samples with DNA extraction information available
+ps <- subset_samples(ps, !is.na(DNA_extraction_method))
 
 # Illustrate sample similarities with PCoA (NMDS)
 plot_landscape(ps, "NMDS", "bray", col = "DNA_extraction_method")
@@ -81,13 +95,22 @@ plot_landscape(ps, "NMDS", "bray", col = "DNA_extraction_method")
 [Core microbiota](Core.html) refers to the set of species shared by (almost) all individuals.
 
 
+A full phyloseq object with just the core taxa is obtained as follows:
+
+```{r core-data, message=FALSE, warning=FALSE}
+# Transform to compositional abundances
+pseq.rel <- microbiome::transform(pseq, "compositional")
+
+# Pick the core (>0.1% relative abundance in >50% of the samples)
+pseq.core <- core(pseq.rel, detection = 0.1/100, prevalence = 50/100)
+```
+
+Visualizing the core
+
 ```{r core-example3, fig.width=8, fig.heigth=18, fig.show='hold', warning=FALSE, out.width = '200px', warning=FALSE}
 # Core with compositionals:
 prevalences <- seq(.05, 1, .05)
 detections <- 10^seq(log10(1e-3), log10(.2), length = 10)
-
-# Compositional abundances
-pseq.rel <- microbiome::transform(pseq, "compositional")
 
 p <- plot_core(pseq.rel, plot.type = "heatmap",
     prevalences = prevalences, detections = detections) +
@@ -98,6 +121,6 @@ print(p)
 
 ### Other tools
 
-Have a look at further tools in [microbiome tutorial](http://microbiome.github.io/microbiome/).
+Explore further tools in [microbiome tutorial](http://microbiome.github.io/microbiome/).
 
 

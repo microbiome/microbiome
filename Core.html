@@ -126,8 +126,6 @@ $(document).ready(function () {
   %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}  
 -->
-<div id="core-microbiota-analysis" class="section level2">
-<h2>Core microbiota analysis</h2>
 <p>See also related functions for the analysis of rare and variable taxa (noncore_members; noncore_abundance; rare_members; rare_abundance; low_abundance).</p>
 <p>Load example data:</p>
 <pre class="r"><code># Load data
@@ -159,7 +157,7 @@ pseq.rel &lt;- microbiome::transform(pseq, &quot;compositional&quot;)</code></pr
 ##   Coprococcus eutactus et rel.  Ruminococcus lactaris et rel. 
 ##                             43                             42</code></pre>
 </div>
-<div id="core-microbiota-analysis-1" class="section level3">
+<div id="core-microbiota-analysis" class="section level3">
 <h3>Core microbiota analysis</h3>
 <p>If you only need the names of the core taxa, do as follows. This returns the taxa that exceed the given prevalence and detection thresholds.</p>
 <pre class="r"><code>core.taxa.standard &lt;- core_members(pseq.rel, detection = 0, prevalence = 50/100)</code></pre>
@@ -172,7 +170,6 @@ pseq.rel &lt;- microbiome::transform(pseq, &quot;compositional&quot;)</code></pr
 <h3>Core abundance and diversity</h3>
 <p>Total core abundance in each sample (sum of abundances of the core members):</p>
 <pre class="r"><code>core.abundance &lt;- sample_sums(core(pseq.rel, detection = .01, prevalence = .95))</code></pre>
-</div>
 </div>
 <div id="core-visualization" class="section level2">
 <h2>Core visualization</h2>
