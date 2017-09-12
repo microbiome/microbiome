@@ -15,7 +15,7 @@ output:
 -->
 
 
-### Installing R
+### Installing R/RStudio
 
 **If you do not already have R/RStudio installed**, do as follows. 
 
@@ -24,7 +24,7 @@ output:
   1. With Windows, install also [RTools](http://cran.r-project.org/bin/windows/Rtools/) (version corresponding to your R version)
 
 
-### Installation
+### Installing microbiome R package
 
 Open R and install the package. If the installation fails, ensure from
 the RStudio tools panel that you have access to the Bioconductor
@@ -45,7 +45,7 @@ library(devtools) # Load the devtools package
 install_github("microbiome/microbiome") # Install the package
 ```
 
-### Use 
+### Using the tools
 
 Once the package has been installed, load it in R
 

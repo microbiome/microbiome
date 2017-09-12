@@ -126,8 +126,8 @@ $(document).ready(function () {
   %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}  
 -->
-<div id="installing-r" class="section level3">
-<h3>Installing R</h3>
+<div id="installing-rrstudio" class="section level3">
+<h3>Installing R/RStudio</h3>
 <p><strong>If you do not already have R/RStudio installed</strong>, do as follows.</p>
 <ol style="list-style-type: decimal">
 <li>Install <a href="http://www.r-project.org/">R</a></li>
@@ -135,8 +135,8 @@ $(document).ready(function () {
 <li>With Windows, install also <a href="http://cran.r-project.org/bin/windows/Rtools/">RTools</a> (version corresponding to your R version)</li>
 </ol>
 </div>
-<div id="installation" class="section level3">
-<h3>Installation</h3>
+<div id="installing-microbiome-r-package" class="section level3">
+<h3>Installing microbiome R package</h3>
 <p>Open R and install the package. If the installation fails, ensure from the RStudio tools panel that you have access to the Bioconductor repository.</p>
 <pre class="r"><code>library(BiocInstaller)
 source(&quot;http://www.bioconductor.org/biocLite.R&quot;)
@@ -146,8 +146,8 @@ biocLite(&quot;microbiome&quot;)</code></pre>
 <pre class="r"><code>library(devtools) # Load the devtools package
 install_github(&quot;microbiome/microbiome&quot;) # Install the package</code></pre>
 </div>
-<div id="use" class="section level3">
-<h3>Use</h3>
+<div id="using-the-tools" class="section level3">
+<h3>Using the tools</h3>
 <p>Once the package has been installed, load it in R</p>
 <pre class="r"><code>library(microbiome)  </code></pre>
 <p>For a brief overview, see the <a href="https://bioconductor.org/packages/devel/bioc/vignettes/microbiome/inst/doc/vignette.html">package vignette</a> and the more extensive <a href="http://microbiome.github.io/microbiome/">on-line tutorial</a>.</p>
