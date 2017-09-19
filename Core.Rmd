@@ -100,7 +100,7 @@ plot_core(pseq.rel, prevalences = prevalences, detections = det, plot.type = "li
 
 This visualization method has been used for instance in [Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Shetty et al. _FEMS Microbiology Reviews_ fuw045, 2017.
 
-Note that you can order the taxa on the heatmap with the order.taxa argument.
+Note that you can order the taxa on the heatmap with the taxa.order argument.
 
 ```{r core-example3, fig.width=8, fig.heigth=18, fig.show='hold', warning=FALSE, out.width = '200px', warning=FALSE}
 # Core with compositionals:
