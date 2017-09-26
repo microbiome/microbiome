@@ -102,5 +102,5 @@ plot_taxa_prevalence(p0, "Phylum", detection = 10)
 
 ### Amplicon data
 
-See further examples on [community composition for amplicon data](CompositionAmplicondata.html).
+See further examples on [community composition for amplicon data](CompositionAmplicondata2.html).
 
