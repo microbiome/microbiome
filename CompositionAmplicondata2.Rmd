@@ -18,7 +18,7 @@ output:
   
 Also see [phyloseq barplot examples](http://joey711.github.io/phyloseq/plot_bar-examples.html).
   
-Check the [core microbiome page](http://microbiome.github.io/microbiome/Composition.html) which shows how to read the your files into R and make a phyloseq object.  
+Check the [core microbiome page](http://microbiome.github.io/microbiome/CoremicrobiotaAmplicon.html) which shows how to read the your files into R and make a phyloseq object.  
 
 Here, an example data is used which is not available in the package currently due to size limitations. We will directly strat from a ready phyloseq object. Please test your own data and give your feedback on the [issues page](https://github.com/microbiome/microbiome/issues). 
 
