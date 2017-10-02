@@ -48,7 +48,7 @@
 #' standard beta diversity measures
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-divergence <- function(x, method="spearman", coreset = NULL) {
+divergence <- function(x, method="bray", coreset = NULL) {
 
     if (is.null(coreset)) {
         coreset <- x
@@ -74,7 +74,8 @@ divergence <- function(x, method="spearman", coreset = NULL) {
 correlation_divergence <- function(x, method="spearman", coreset) {
 
     # Correlations calculated against the mean of the sample set
-    cors <- as.vector(cor(x, matrix(rowMeans(coreset)),
+    m <- matrix(rowMeans(coreset))
+    cors <- as.vector(cor(x, m,
         method=method, use="pairwise.complete.obs"))
     
     1 - cors
@@ -82,16 +83,14 @@ correlation_divergence <- function(x, method="spearman", coreset) {
 }
 
 
-
-
 beta.mean <- function(x, method="bray", coreset) {
     
     # Divergence calculated against the mean of the sample set
     b <- c()
     m <- rowMeans(coreset)
+
     for (i in 1:ncol(x)) {
         xx <- rbind(x[, i], m)
-        # xxx <- vegdist(xx, method=method)
         xxx <- distance(otu_table(t(xx), taxa_are_rows = TRUE), method=method)
         b[[i]] <- as.matrix(xxx)[1, 2]
     }
