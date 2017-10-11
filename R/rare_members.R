@@ -18,7 +18,7 @@
 #' To cite the microbiome R package, see citation('microbiome') 
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-rare_members <- function(x, detection=100/100, prevalence=20/100) {
+rare_members <- function(x, detection=Inf, prevalence=20/100) {
     
     # Pick taxa x samples matrix
     x <- abundances(x)
