@@ -35,11 +35,16 @@ read_biom2phyloseq <- function(otu.file = NULL,
 
     otu_biom <- import_biom(otu.file, 
                         parseFunction = parse_taxonomy_default)
-    map <- read.csv(metadata.file, 
+    phyobj <- otu_biom
+
+    if (!is.null(metadata.file)) {
+      map <- read.csv(metadata.file, 
                 check.names = FALSE, row.names = 1)
-    s.map <- sample_data(map)
-    phyobj <- merge_phyloseq(otu_biom, 
+      s.map <- sample_data(map)
+      phyobj <- merge_phyloseq(otu_biom, 
                         s.map)
+    }
+    
     if (ncol(tax_table(phyobj)) == 6) {
         colnames(tax_table(phyobj)) <- levels
     

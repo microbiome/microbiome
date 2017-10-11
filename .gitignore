@@ -2,6 +2,7 @@
 vignettes/vignette.md
 figure/
 archive
+Preprocessing.md
 
 # Do not add maintenance material
 inst/extras

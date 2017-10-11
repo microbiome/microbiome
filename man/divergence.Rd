@@ -4,7 +4,7 @@
 \alias{divergence}
 \title{Diversity within a Sample Group}
 \usage{
-divergence(x, method = "spearman", coreset = NULL)
+divergence(x, method = "bray", coreset = NULL)
 }
 \arguments{
 \item{x}{phyloseq object}
