@@ -4,7 +4,7 @@
 \alias{rare_members}
 \title{Rare Taxa}
 \usage{
-rare_members(x, detection = 100/100, prevalence = 20/100)
+rare_members(x, detection = Inf, prevalence = 20/100)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
