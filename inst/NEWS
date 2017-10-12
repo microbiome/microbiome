@@ -1,4 +1,5 @@
 CHANGES IN VERSION 0.99.8 (2017-08-21)
+  o Added new function merge_taxa2
   o Added sample names in divergence output
   o coreset option added in divergence
   o plot_taxa_prevalence argument "detection" added
