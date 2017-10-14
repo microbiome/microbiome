@@ -37,6 +37,7 @@ r_packages:
 - robustbase
 - rpart
 - scales
+- shiny
 - structSSI
 - survival
 - tensorA
