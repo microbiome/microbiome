@@ -60,6 +60,7 @@
 #' @importFrom phyloseq get_taxa
 #' @importFrom phyloseq get_variable
 #' @importFrom phyloseq merge_phyloseq
+#' @importFrom phyloseq merge_taxa
 #' @importFrom phyloseq nsamples
 #' @importFrom phyloseq ntaxa
 #' @importFrom phyloseq ordinate
