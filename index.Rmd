@@ -48,8 +48,6 @@ opts_knit$set(self.contained = TRUE,
 
 Tools for microbiome analysis; with multiple example data sets from published studies; extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 
-**Installation and use**
-
 
 # Getting started
 
@@ -84,7 +82,11 @@ Tools for microbiome analysis; with multiple example data sets from published st
 * [Community comparisons](Comparisons.html) ([limma](limma.html), [PERMANOVA](PERMANOVA.html), [mixed models](Mixedmodels.html), [negative binomial](Negativebinomial.html)  etc)
 * [Experimental tools](Experimental.html)
 
+# Tutorial Workflows  
 
+* [HITChip Atlas](Tutorial.html)  
+
+  
 # Development  
 
 New examples, tutorial pages, and other contributions are [welcome](Contributing.html). The material can be freely used, modified and distributed under the [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses). For source code, see the [Github page](https://github.com/microbiome/microbiome/).  
