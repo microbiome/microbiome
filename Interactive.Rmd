@@ -1,11 +1,16 @@
 ---
 title: "Interactive examples"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -17,10 +22,13 @@ output:
 
 ## Interactive plots
 
-```{r interactive-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, eval = FALSE}
+```{r interactive-example, warning=FALSE, message=FALSE, fig.height=5, eval = TRUE}
 library(ggplot2)
 library(rvg)
 library(ggiraph)
+library(microbiome)
+data("atlas1006")
+pseq <- atlas1006
 x <- microbiome::transform(atlas1006, "compositional")
 
 mytheme_main <- theme( panel.background = element_blank(), 
@@ -44,6 +52,6 @@ gg_point_1 <- ggplot(df, aes(x = Prevotella, y = Dialister,
     geom_point_interactive(size=3)
 
 # htmlwidget call
-ggiraph(code = {print(gg_point_1 + mytheme_main)}, width = 7, height = 6)
+ggiraph(code = {print(gg_point_1 + mytheme_main)})
 ```
 

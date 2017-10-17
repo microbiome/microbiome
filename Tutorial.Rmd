@@ -1,11 +1,16 @@
 ---
 title: "Tutorial on Microbiome Data Analysis"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -25,7 +30,7 @@ This tutorial gets You started with R tools for microbial ecology. In particular
 
 The tutorial slides are available [here](https://github.com/antagomir/antagomir.github.io/blob/master/files/publications/slides/20170913-Leuven-Tutorial-Lahti.pdf)
 
-### Installation
+# Installation
 
 Launch R/RStudio and install the microbiome R package (see [installation instructions](http://microbiome.github.io/microbiome/Installation.html)).
 
@@ -36,13 +41,14 @@ To initiate reproducible documentation, do the following in RStudio:
  1. Modify the file and knit again to make your own reproducible report
 
 
-### Example data: intestinal microbiota of 1006 Western adults
+# Example data: Intestinal microbiota of 1006 Western adults
 
 Example data set will be the [HITChip Atlas](Atlas.html), which is available via the microbiome R package in phyloseq format. This data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) comes with 130 genus-like taxonomic groups across 1006 western adults with no reported health complications. Some subjects have also short time series. Load the data in R with:
 
 ```{r atlasdata, message=FALSE, warning=FALSE}
 # Data citation doi: 10.1038/ncomms5344
 library(microbiome)
+library(knitr)
 data(atlas1006) 
 print(atlas1006)
 
@@ -50,12 +56,12 @@ print(atlas1006)
 pseq <- atlas1006
 ```
 
-### Phyloseq data stucture for taxonomic profiling
+# Phyloseq data stucture for taxonomic profiling
 
 Explore the phyloseq data format. See [examples on microbiome data manipulation](Preprocessing.html).
 
 
-### Diversity
+# Diversity
 
 Explore the estimation and analysis of various [diversity indices](Diversity.html) and [taxonomic composition](Composition.html).
 
@@ -76,7 +82,7 @@ p <- plot_regression(diversity ~ age, meta(pseq)) + xlab("Age") + ylab("Diversit
 ```
 
 
-### Technical biases
+# Technical biases
 
 Explore potential technical biases in the data. DNA extraction method has a remarkable effect on sample grouping.
 
@@ -95,7 +101,7 @@ plot_landscape(ps, "NMDS", "bray", col = "DNA_extraction_method")
 ```
 
 
-### Core microbiota
+# Core microbiota
 
 [Core microbiota](Core.html) refers to the set of species shared by (almost) all individuals.
 
@@ -124,7 +130,7 @@ print(p)
 ```
 
 
-### Other tools
+# Other tools
 
 Explore further tools in [microbiome tutorial](http://microbiome.github.io/microbiome/).
 

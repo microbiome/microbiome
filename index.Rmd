@@ -4,12 +4,14 @@ author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
 csl: ieee.csl
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
-  bookdown::html_document2:
-    fig_caption: yes
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteIndexEntry{microbiome tutorial}
@@ -17,6 +19,7 @@ output:
   %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}
 -->
+
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Handle citations
@@ -42,12 +45,13 @@ opts_knit$set(self.contained = TRUE,
 
 [![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)  
 
+
 Tools for microbiome analysis; with multiple example data sets from published studies; extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
 
-# Installation and use
+**Installation and use**
 
 
-## Getting started
+# Getting started
 
 * [Overview (vignette)](https://bioconductor.org/packages/devel/bioc/vignettes/microbiome/inst/doc/vignette.html)
 * [Installation](Installation.html) 
@@ -55,7 +59,7 @@ Tools for microbiome analysis; with multiple example data sets from published st
 * [Data manipulation](Preprocessing.html)
 
 
-## Microbiome analysis
+# Microbiome analysis
 
 * [Alpha diversity](Diversity.html)
 * [Beta diversity / Community heterogeneity](Betadiversity.html)
@@ -65,7 +69,7 @@ Tools for microbiome analysis; with multiple example data sets from published st
 * [Stability and tipping elements](Stability.html)
 
 
-## Visualization and related tools
+# Visualization and related tools  
 
 * [Heatmaps](Heatmap.html)
 * [Networks](Networks.html)
@@ -74,16 +78,34 @@ Tools for microbiome analysis; with multiple example data sets from published st
 * [Generating output files/figures](Output.html)
 
 
-## Statistical analysis
+# Statistical analysis  
 
 * [Bimodality](Bimodality.html)
 * [Community comparisons](Comparisons.html) ([limma](limma.html), [PERMANOVA](PERMANOVA.html), [mixed models](Mixedmodels.html), [negative binomial](Negativebinomial.html)  etc)
 * [Experimental tools](Experimental.html)
 
 
-# Development
+# Development  
 
-New examples, tutorial pages, and other contributions are [welcome](Contributing.html). The material can be freely used, modified and distributed under the [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses). For source code, see the [Github page](https://github.com/microbiome/microbiome/).
+New examples, tutorial pages, and other contributions are [welcome](Contributing.html). The material can be freely used, modified and distributed under the [Two-clause FreeBSD license](http://en.wikipedia.org/wiki/BSD\_licenses). For source code, see the [Github page](https://github.com/microbiome/microbiome/).  
+
+
+# Contribute  
+
+Contributions are very welcome:
+
+  * [Issue Tracker](https://github.com/microbiome/microbiome/issues) 
+  * [Pull requests](https://github.com/microbiome/microbiome/)
+  * Subscribe to the [mailing list](https://groups.google.com/forum/#!forum/microbiome-devel) (microbiome-devel@googlegroups.com)
+  * [Star us on the Github page](https://github.com/microbiome/microbiome)
+
+
+## Contibuting new tutorials or examples
+
+We welcome new examples and tutorials to be added in this collection, and will fully acknowledge such contributions.
+
+You can modify one of the existing examples (.html) and make a pull request. Or, you can propose a new tutorial page. The Rmarkdown source code (..html) for all [tutorials](http://microbiome.github.io/microbiome/) is available in the Github [index.page](https://github.com/microbiome/microbiome/tree/master/index.). Fork the repository, clone it, modify the tutorials, and make a pull request.  
+
 
 # Acknowledgements
 

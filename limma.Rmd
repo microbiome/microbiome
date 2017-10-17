@@ -1,11 +1,16 @@
 ---
 title: "Limma - linear models for microarrays"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,7 +20,7 @@ output:
 -->
 
 
-# Two-group comparison at community level with limma
+## Two-group comparison at community level with limma
 
 Load example data:
 
@@ -35,7 +40,7 @@ meta <- meta(pseq)
 ```
 
 
-### Linear models with limma
+## Linear models with limma
 
 Identify most significantly different taxa between males and females using the limma method. See [limma homepage](http://bioinf.wehi.edu.au/limma/) and [limma User's guide](http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf) for details. For discussion on why limma is preferred over t-test, see [this
 article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
@@ -80,7 +85,7 @@ volcanoplot(fit, coef = coef.index, highlight = coef.index)
 ```
 
 
-### Comparison between limma and t-test
+## Comparison between limma and t-test
 
 Order the taxa with t-test for comparison and validation purposes. The
 differences are small in this simulated example, but can be
@@ -108,7 +113,7 @@ abline(0,1,lty = 2)
 ```
 
 
-### Continuous variables
+## Continuous variables
 
 Rapid quantification of continuous associations can be done with the
 lm_phyloseq wrapper function.

@@ -1,11 +1,16 @@
 ---
-title: "Stability"
+title: "Microbiome stability analysis"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,7 +20,7 @@ output:
 -->
 
 
-## Microbiome stability analysis
+
 
 Get example data - [HITChip Atlas of 130 genus-like taxa across 1006 healthy western adults](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html). A subset of 76 subjects have also short time series available for temporal stability analysis:
 
@@ -23,6 +28,7 @@ Get example data - [HITChip Atlas of 130 genus-like taxa across 1006 healthy wes
 # Load the example data
 set.seed(134)
 library(microbiome)
+library(dplyr)
 data(atlas1006)
 
 # Rename the example data
@@ -42,7 +48,7 @@ pseq0 <- baseline(pseq)
 ```
 
 
-### Intermediate stability quantification
+## Intermediate stability quantification
 
 It has been reported that certain microbial groups exhibit bi-stable
 abundance distributions with distinct peaks at low and high
@@ -55,7 +61,7 @@ intermediate.stability <- intermediate_stability(pseq, output = "scores")
 ```
 
 
-### Bimodality quantification
+## Bimodality quantification
 
 Check the [bimodality page](Bimodality.html) for more examples on bimodality indicators.
 
@@ -79,7 +85,7 @@ bimodality.score <- bimodality(pseq0.log10, method = "potential_analysis",
 ```
 
 
-### Comparing bimodality and intermediate stability
+## Comparing bimodality and intermediate stability
 
 The analysis suggests that bimodal population distribution across individuals is often associated with instable intermediate abundances within individuals. The specific bi-stable groups in the upper left corner were suggested to constitute bistable tipping elements of the human intestinal microbiota in [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html):
 
@@ -98,7 +104,7 @@ print(p)
 ```
 
 
-### Tipping point detection
+## Tipping point detection
 
 Identify potential minima in cross-section population data as
 tipping point candidates. 

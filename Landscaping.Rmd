@@ -1,11 +1,16 @@
 ---
 title: "Microbiome Landscapes"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,7 +23,7 @@ output:
 [Microbiome Landscaping](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539) refers to the analysis and illustration of population frequencies. Typically, these are wrappers based on standard ordination methods (for more examples, see [ordination examples](Ordination.html))
 
 
-### Two-dimensional microbiome landscape
+## Two-dimensional microbiome landscape
 
 Load example data:
 
@@ -76,7 +81,7 @@ print(p)
 ```
 
 
-### Abundance histograms (one-dimensional landscapes)
+## Abundance histograms (one-dimensional landscapes)
 
 Population densities for Dialister:
 

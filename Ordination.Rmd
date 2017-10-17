@@ -1,11 +1,16 @@
 ---
 title: "Ordination analysis"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,7 +20,7 @@ output:
 -->
 
 
-## Ordination examples
+
 
 Full examples for standard ordination techniques applied to phyloseq data, based on the [phyloseq ordination tutorial](http://joey711.github.io/phyloseq/plot_ordination-examples.html). For handy wrappers for some common ordination tasks in microbiome analysis, see [landscaping examples](Landscaping.html)
 
@@ -40,7 +45,7 @@ pseq.core <- microbiome::transform(pseq.core, "compositional")
 ```
 
 
-### Sample ordination
+## Sample ordination
 
 Project the samples with the given method and dissimilarity measure. 
 
@@ -64,7 +69,7 @@ p + facet_wrap(~Phylum, 5)
 ```
 
 
-### Multidimensional scaling (MDS / PCoA)
+## Multidimensional scaling (MDS / PCoA)
 
 ```{r ordination-ordinate23, warning=FALSE, message=FALSE, fig.width=10, fig.height=8, out.width="200px"}
 plot_ordination(pseq, ord, color = "nationality") +
@@ -72,7 +77,7 @@ plot_ordination(pseq, ord, color = "nationality") +
 ```
 
 
-### Canonical correspondence analysis (CCA)
+## Canonical correspondence analysis (CCA)
 
 ```{r ordination-ordinate24a, warning=FALSE, message=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
 # With samples
@@ -90,7 +95,7 @@ print(p)
 ```
 
 
-### Split plot
+## Split plot
 
 ```{r ordination-ordinate25, warning=FALSE, message=FALSE, fig.width=14, fig.height=5}
 plot_ordination(pseq, pseq.cca,
@@ -100,7 +105,7 @@ plot_ordination(pseq, pseq.cca,
 
 
 
-### t-SNE
+## t-SNE
 
 t-SNE is a popular new ordination technique.
 

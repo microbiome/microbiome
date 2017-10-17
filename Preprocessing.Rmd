@@ -1,11 +1,16 @@
 ---
 title: "Microbiome data manipulation"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,17 +20,17 @@ output:
 -->
 
 
-## Processing phyloseq objects
+**Processing phyloseq objects**
 
 Instructions to manipulate microbiome data sets using tools from the [phyloseq package](http://joey711.github.io/phyloseq/) and some extensions from the [microbiome package](https://github.com/microbiome/microbiome), including subsetting, aggregating and filtering.
 
 
 Load example data:
 
-```{r data21}
+```{r data21, warning=FALSE, message=FALSE}
 library(phyloseq)
 library(microbiome)
-
+library(knitr)
 # Load example data
 data(atlas1006)   
 
@@ -34,7 +39,7 @@ pseq <- atlas1006
 ```
 
 
-### Retrieving data elements from a phyloseq object  
+## Retrieving data elements from a phyloseq object  
 
 A phyloseq object contains OTU table (taxa abundances), sample
 metadata, taxonomy table (mapping between OTUs and higher-level
@@ -75,7 +80,7 @@ kable(head(df))
 
 
 
-### Sample operations
+## Sample operations
 
 Sample names and variables
 
@@ -130,7 +135,7 @@ pseq0 <- baseline(pseq)
 
 
 
-### Data transformations
+## Data transformations
 
 The microbiome package provides a wrapper for standard sample/OTU transforms. For arbitrary transforms, use the transform_sample_counts function in the phyloseq package. Log10 transform is log(1+x) if the data contains zeroes. Also "Z",
 "clr", "hellinger", and "shift" are available as common
@@ -142,7 +147,7 @@ pseq.compositional <- microbiome::transform(pseq, "compositional")
 ```
 
 
-### Variable operations
+## Variable operations
 
 Sample variable names
 
@@ -167,8 +172,7 @@ sample_data(pseq)$diversity <- div
 ```
 
 
-
-### Taxa operations
+## Taxa operations
 
 
 Number of taxa
@@ -237,7 +241,7 @@ tax.abundances <- abundances(pseq)[, samplename]
 ```
 
 
-### Merging operations
+## Merging operations
 
 Aggregate taxa to higher taxonomic levels. This is particularly useful if the phylogenetic tree is missing. When it is available, see [merge_samples, merge_taxa and tax_glom](http://joey711.github.io/phyloseq/merge.html)).
 
@@ -255,14 +259,14 @@ merge_phyloseq(pseqA, pseqB)
 ```
 
 
-### Rarification
+## Rarification
 
 ```{r preprocess-rarify, warning=FALSE, message=FALSE, eval=FALSE}
 pseq.rarified <- rarefy_even_depth(pseq)
 ```
 
 
-### Taxonomy 
+## Taxonomy 
 
 Convert between taxonomic levels (here from Genus (Akkermansia) to
 Phylum (Verrucomicrobia):
@@ -273,7 +277,7 @@ print(m)
 ```
 
 
-### Metadata
+## Metadata
 
 Visualize frequencies of given factor (sex) levels within the
 indicated groups (group):

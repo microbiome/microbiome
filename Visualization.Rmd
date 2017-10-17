@@ -1,11 +1,16 @@
 ---
 title: "Visualization"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,10 +20,10 @@ output:
 -->
 
 
-## Experimental functions
+# Experimental functions
 
 
-### Time series for individual subjects
+**Time series for individual subjects**
 
 ```{r homogeneity-timeseries, message=FALSE, warning=FALSE, fig.height=5, fig.height=5, eval=FALSE}
 source(system.file("extdata/plot_longitudinal.R", package = "microbiome"))

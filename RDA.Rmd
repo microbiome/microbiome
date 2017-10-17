@@ -1,11 +1,16 @@
 ---
 title: "RDA"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -35,7 +40,7 @@ pseq.trans <- transform(pseq, "hell") # Hellinger transform
 ```
 
 
-### Bagged RDA
+## Bagged RDA
 
 Bagged RDA provides added robustness in the analysis compared to the standard RDA. Fit bagged (bootstrap aggregated) RDA on a phyloseq object (alternatively you could apply it to the abundance matrix and covariates directly):
 
@@ -55,7 +60,7 @@ plot_rda_bagged(res)
 
 
 
-### Standard RDA 
+## Standard RDA 
 
 Standard RDA for microbiota profiles versus the given (here 'time')
 variable from sample metadata (see also the RDA method in
@@ -78,7 +83,7 @@ summary(rda.result)$constr.chi/summary(rda.result)$tot.chi
 ```
 
 
-### RDA visualization
+## RDA visualization
 
 Visualize the standard RDA output.
 
@@ -89,14 +94,14 @@ pl <- ordihull(rda.result, metadata$time, scaling = 3, label = TRUE)
 ```
 
 
-### RDA significance test
+## RDA significance test
 
 ```{r rda2bc, warning=FALSE, message=FALSE, eval=FALSE}
 permutest(rda.result) 
 ```
 
 
-### RDA with confounding variables 
+## RDA with confounding variables 
 
 For more complex RDA scenarios, use the standard RDA available via the
 vegan R package.

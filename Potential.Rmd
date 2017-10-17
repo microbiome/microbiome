@@ -1,11 +1,16 @@
 ---
 title: "Potential analysis"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -41,7 +46,7 @@ res <- movpotential_ews(diversity, age)
 ```
 
 
-Visualize
+## Visualize
 
 ```{r movpotential3, message=FALSE, warning=FALSE, fig.width=8, fig.height=5, out.width="300px", eval=FALSE}
 p <- plot_potential(res$res) + xlab("Age") + ylab("Diversity")

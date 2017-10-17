@@ -1,11 +1,16 @@
 ---
 title: "Installation of microbiome R tools"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,7 +20,7 @@ output:
 -->
 
 
-### Installing R/RStudio
+## Installing R/RStudio
 
 **If you do not already have R/RStudio installed**, do as follows. 
 
@@ -24,7 +29,7 @@ output:
   1. With Windows, install also [RTools](http://cran.r-project.org/bin/windows/Rtools/) (version corresponding to your R version)
 
 
-### Installing microbiome R package
+## Installing microbiome R package
 
 Open R and install the package. If the installation fails, ensure from
 the RStudio tools panel that you have access to the Bioconductor
@@ -45,7 +50,7 @@ library(devtools) # Load the devtools package
 install_github("microbiome/microbiome") # Install the package
 ```
 
-### Using the tools
+## Using the tools
 
 Once the package has been installed, load it in R
 
@@ -57,7 +62,7 @@ For a brief overview, see the [package vignette](https://bioconductor.org/packag
 
 
 
-### Further reading
+## Further reading
 
  * [Rmarkdown tips](http://rmarkdown.rstudio.com/)
  * [R cheat sheets](http://devcheatsheet.com/tag/r/)
@@ -65,7 +70,7 @@ For a brief overview, see the [package vignette](https://bioconductor.org/packag
  * [Molecular ecologist's view on code sharing](http://www.molecularecologist.com/2013/08/want-to-share-your-code/)
 
 
-### General instructions to install R packages
+## General instructions to install R packages
 
 Most R packages are maintained in CRAN, Bioconductor or Github. To
 install the package from each, use:

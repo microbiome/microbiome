@@ -1,11 +1,16 @@
 ---
 title: "Probe-level analysis for phylogenetic microarrays"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,13 +20,14 @@ output:
 -->
 
 
-### Probe summarization
+## Probe summarization
 
 Summarize (preprocessed) oligo-level data into phylotype level; examples with simulated data; see [read_hitchip](reading) to use your own data. We use and recommend the [Robust Probabilistic Averaging (RPA)](https://github.com/antagomir/RPA/wiki) for probe summarization.
 
 
 ```{r probelevel-ex, eval=FALSE}
 library(microbiome)
+
 library(HITChipDB)
 data.directory <- system.file("extdata", package = "microbiome")
 
@@ -44,7 +50,7 @@ dat <- RPA::summarize_probedata(
 ```
 
 
-### Retrieve probe-level data
+## Retrieve probe-level data
 
 Get probes for each probeset:
 

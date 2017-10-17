@@ -1,11 +1,16 @@
 ---
 title: "Comparisons of microbiome community composition"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -41,7 +46,7 @@ print(p)
 ```
 
 
-### Linear model comparison with random effect subject term
+## Linear model comparison with random effect subject term
 
 Test individual taxonomic group
 

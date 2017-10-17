@@ -1,11 +1,16 @@
 ---
 title: "Group-wise comparisons of microbiome composition"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -40,7 +45,7 @@ meta <- meta(pseq.rel)
 ```
 
 
-### Visualize microbiome variation
+## Visualize microbiome variation
 
 Visualize the population density and highlight sample groups (probiotic treatment LGG  vs Placebo):
 
@@ -50,7 +55,7 @@ print(p)
 ```
 
 
-### PERMANOVA significance test for group-level differences
+## PERMANOVA significance test for group-level differences
 
 Now let us evaluate whether the group (probiotics vs. placebo) has a
 significant effect on overall gut microbiota composition. Perform PERMANOVA: 
@@ -66,7 +71,7 @@ print(as.data.frame(permanova$aov.tab)["group", "Pr(>F)"])
 ```
 
 
-### Checking the homogeneity condition
+## Checking the homogeneity condition
 
 Check that variance homogeneity assumptions hold (to ensure the reliability of the results):
 
@@ -80,7 +85,7 @@ dist <- vegdist(t(otu))
 anova(betadisper(dist, meta$group))
 ```
 
-### Investigate the top factors
+## Investigate the top factors
 
 Show coefficients for the top taxa separating the groups
 
