@@ -1,11 +1,16 @@
 ---
 title: "Data"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -48,7 +53,7 @@ Alternatively, you can read your data in R (read.table, read.csv or other standa
 
 [The HITChip Atlas](Atlas.html) data set is available via the microbiome R package in phyloseq format, and via [Data Dryad](http://doi.org/10.5061/dryad.pk75d) in tabular format. This data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) comes with 130 genus-like taxonomic groups across 1006 western adults with no reported health complications. Some subjects have also short time series. Load the data in R with:
 
-```{r atlasdata}
+```{r atlasdata, warning=FALSE, message=FALSE}
 # Data citation doi: 10.1038/ncomms5344
 library(microbiome)
 data(atlas1006) 

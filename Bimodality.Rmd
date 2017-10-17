@@ -1,11 +1,16 @@
 ---
 title: "Bimodality analysis"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -20,6 +25,7 @@ Get example data - [HITChip Atlas of 130 genus-like taxa across 1006 healthy wes
 ```{r bistability, message=FALSE}
 # Load the example data
 library(microbiome)
+library(dplyr)
 data(atlas1006)
 
 # Rename the example data
@@ -40,7 +46,7 @@ pseq0 <- subset_samples(pseq, time == 0)
 ```
 
 
-### Bimodality indicators
+# Bimodality indicators
 
 Bimodality of the abundance distribution provides an indirect
 indicator of bistability, although other explanations such as sampling
@@ -57,7 +63,9 @@ pseq0.log10 <- microbiome::transform(pseq0, "log10")
 bimodality <- bimodality(pseq0.log10, method = "potential_analysis", bs.iter = 20)
 ```
 
-### Visualize population densities for unimodal and bimodal groups
+# Visualization   
+
+**Visualize population densities for unimodal and bimodal groups**
 
 ```{r stability2, message=FALSE, warning=FALSE, fig.width=12, fig.height=5, out.width="500px"}
 # Pick the most and least bimodal taxa as examples
@@ -75,7 +83,7 @@ grid.arrange(p1, p2, nrow = 1)
 ```
 
 
-## Tipping point detection
+# Tipping point detection
 
 Identify potential minima in cross-section population data as tipping
 point candidates (note that [longitudinal analysis](Stability.html)

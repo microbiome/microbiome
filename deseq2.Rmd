@@ -1,11 +1,16 @@
 ---
 title: "DESeq2"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -60,7 +65,7 @@ print(head(kable((df))))
 ```
 
 
-Validating DESeq2 results
+## Validating DESeq2 results
 
 ```{r deseq2-validate, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, eval=FALSE}
 # Identify top taxa based on standard ANOVA

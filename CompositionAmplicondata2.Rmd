@@ -1,11 +1,16 @@
 ---
 title: "Microbiome composition for Amplicon data"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
   <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -164,7 +169,7 @@ print(p)
 
 ```
 
-## Heatmap composition  
+# Heatmap composition  
 
 ```{r composition-amplicon-example6, fig.width=12, fig.height=5, out.width="400px", fig.show="hold", warning=FALSE, message=FALSE, eval=FALSE}
 
@@ -181,7 +186,7 @@ print(p.famrel.heatmap)
 ```
 
 
-### Plot taxa prevalence
+# Plot taxa prevalence
 
 We use the Dynamics IBD data set from [Halfvarson J., et al. Nature
 Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174) as

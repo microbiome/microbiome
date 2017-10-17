@@ -1,11 +1,16 @@
 ---
 title: "Cluster analysis"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,7 +20,7 @@ output:
 -->
 
 
-### Multivariate (infinite) Gaussian mixture model
+## Multivariate (infinite) Gaussian mixture model
 
 Fit and visualize Variational Dirichlet process multivariate infinite Gaussian mixture. This variational version has been partially written in C and it is relatively fast. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short). Note that the implementation uses diagonal covariances on the Gaussian modes. The C code was partially derived from [Honkela et al. 2008](http://www.sciencedirect.com/science/article/pii/S0925231208000659).
 
@@ -42,7 +47,7 @@ m <- mixture.model(D, mixture.method = "vdp", pca.basis = FALSE)
 p <- PlotMixtureMultivariate(D, means = m$mu, sds = m$sd, ws = m$w, modes = apply(m$qofz,1,which.max))
 ```
 
-### Univariate (infinite) Gaussian mixture model
+## Univariate (infinite) Gaussian mixture model
 
 Fit and visualize Variational Dirichlet process univariate infinite Gaussian mixture. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short) for the code.
 
@@ -59,7 +64,7 @@ p <- PlotMixtureUnivariate(x, means = m$mu, sds = m$sd, ws = m$w, binwidth = 0.1
 print(p)
 ```
 
-### Clustering samples with mixed variables
+## Clustering samples with mixed variables
 
 Gower distance is useful for samples with mixed-type variables (binary, factor, numeric)):
 

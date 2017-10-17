@@ -1,11 +1,16 @@
 ---
 title: "Diversity"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,18 +20,19 @@ output:
 -->
 
 
-## Global Ecosystem State Variables 
+# Global Ecosystem State Variables 
 
 Load example data:
 
 ```{r divdata, warning=FALSE, message=FALSE, fig.height=3, fig.width=5}
 library(microbiome)
+library(knitr)
 data(dietswap)
 pseq <- dietswap
 ```
 
 
-### Global indicators
+## Global indicators
 
 
 A comprehensive list of global indicators of the ecosystem state can be obtained as follows. This includes various measures of richness, evenness, diversity, dominance, and rarity with default parameters. See the individual functions for more options regarding parameter tuning.
@@ -37,7 +43,7 @@ kable(head(tab))
 ```
 
 
-### Alpha diversity
+## Alpha diversity
 
 This returns a table with selected diversity indicators. See a separate page on [Beta diversity](Betadiversity.html).
 
@@ -47,7 +53,7 @@ kable(head(tab))
 ```
 
 
-### Richness
+## Richness
 
 This returns observed richness with given detection threshold(s).
 
@@ -57,7 +63,7 @@ kable(head(tab))
 ```
 
 
-### Dominance 
+## Dominance 
 
 The dominance index refers to the abundance of the most abundant species. Various dominance indices are available (see the function help for a list of options).
 
@@ -68,8 +74,7 @@ kable(head(tab))
 ```
 
 
-
-### Rarity and low abundance
+## Rarity and low abundance
 
 The rarity indices quantify the concentration of rare or low abundance taxa. Various rarity indices are available (see the function help for a list of options).
 
@@ -80,7 +85,7 @@ kable(head(tab))
 
 
 
-### Coverage
+## Coverage
 
 The coverage index gives the number of groups needed to have a given proportion of the ecosystem occupied (by default 0.5 ie 50%).
 
@@ -90,7 +95,7 @@ kable(head(tab))
 ```
 
 
-### Core abundance
+## Core abundance
 
 The core_abundance function refers to the relative proportion of the core species. Non-core abundance provides the complement (1-x; see noncore_abundance).
 
@@ -99,7 +104,7 @@ tab <- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
 ```
 
 
-### Gini index
+## Gini index
 
 Gini index is a common measure for inequality in economical income. The inverse gini index (1/x) can also be used as a community diversity measure.
 
@@ -108,7 +113,7 @@ tab <- inequality(pseq)
 ```
 
 
-### Evenness
+## Evenness
 
 Various evenness measures are also available.
 

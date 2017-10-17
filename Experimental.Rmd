@@ -1,11 +1,16 @@
 ---
 title: "Experimental methods"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -15,14 +20,459 @@ output:
 -->
 
 
-### Experimental tools
+# Clustering  
 
-Miscellaneous analysis examples in case they might be useful:
+## Multivariate (infinite) Gaussian mixture model
 
-* [Clustering](Clustering.html)
-* [Interactive](Interactive.html)
-* [Phylogenetic microarrays](HITChip.html)
-* [Potential analysis](Potential.html)
-* [RDA](RDA.html)
-* [Themes](Themes.html)
-* [Visualization](Visualization.html)
+Fit and visualize Variational Dirichlet process multivariate infinite Gaussian mixture. This variational version has been partially written in C and it is relatively fast. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short). Note that the implementation uses diagonal covariances on the Gaussian modes. The C code was partially derived from [Honkela et al. 2008](http://www.sciencedirect.com/science/article/pii/S0925231208000659).
+
+```{r LCA2, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, eval=FALSE}
+library(netresponse)
+
+# Generate simulated data
+res <- generate.toydata(Dim = 2)
+D <- res$data
+component.means <- res$means
+component.sds   <- res$sds
+
+# Fit the mixture
+m <- mixture.model(D, mixture.method = "vdp", pca.basis = FALSE)
+
+# Plot the data, and indicate estimated modes with colors. 
+# If data dimensionality exceeds 2, 
+# the results are visualized on PCA projection
+# (with pca.basis = TRUE the data is projected on PCA coordinates;
+# without loss of information. This trick can help to avoid overlearning 
+# as the variational mixture relies
+# on diagonal covariance matrices, so the ellipsoidal axes of the 
+# Gaussian modes are parallel to the coordinate axes.)
+p <- PlotMixtureMultivariate(D, means = m$mu, sds = m$sd, ws = m$w, modes = apply(m$qofz,1,which.max))
+```
+
+## Univariate (infinite) Gaussian mixture model
+
+Fit and visualize Variational Dirichlet process univariate infinite Gaussian mixture. Kindly cite [this article](http://bioinformatics.oxfordjournals.org/content/26/21/2713.short) for the code.
+
+```{r LCA1, fig.width=7, fig.height=5, warning=FALSE, message=FALSE, eval=FALSE}
+# Generate simulated bimodal univariate data
+x <- c(rnorm(200), rnorm(200, mean = 5))
+
+# Variational Dirichlet process univariate Gaussian mixture
+m <- mixture.model(x, mixture.method = "vdp", max.responses = 10) 
+
+# Plot the data and estimated modes
+p <- PlotMixtureUnivariate(x, means = m$mu, sds = m$sd, ws = m$w, binwidth = 0.1, qofz = m$qofz)
+
+print(p)
+```
+
+## Clustering samples with mixed variables
+
+Gower distance is useful for samples with mixed-type variables (binary, factor, numeric)):
+
+```{r clustering-gower, fig.width=10, fig.height=4, warning=FALSE, message=FALSE, eval=FALSE}
+# Example data
+data("dietswap")
+
+library(FD)
+d <- gowdis(as(sample_data(dietswap), "data.frame"))
+
+plot(hclust(d))
+```
+
+
+
+# Interactive Interactive plots 
+
+```{r interactive-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, eval = FALSE}
+library(ggplot2)
+library(rvg)
+library(ggiraph)
+x <- microbiome::transform(atlas1006, "compositional")
+
+mytheme_main <- theme( panel.background = element_blank(), 
+  panel.grid.major = element_line(colour = "#dddddd"), 
+  axis.ticks = element_line(colour = "#dddddd") )
+
+mytheme_map <- theme(
+  panel.background = element_blank(), axis.title.x = element_blank(),
+  axis.text = element_blank(), axis.line.x = element_blank(),
+  axis.line.y = element_blank(), axis.title.y = element_blank(),
+  axis.ticks.x = element_blank(), axis.ticks.y = element_blank() )
+
+df <- as(sample_data(x), "data.frame")
+df$Dialister <- get_sample(x, "Dialister")
+df$Prevotella <- get_sample(x, "Prevotella melaninogenica et rel.")
+df$sample <- row.names(df)
+
+# geom_point_interactive example
+gg_point_1 <- ggplot(df, aes(x = Prevotella, y = Dialister, 
+        color = age, tooltip = sample) ) + 
+    geom_point_interactive(size=3)
+
+# htmlwidget call
+ggiraph(code = {print(gg_point_1 + mytheme_main)}, width = 7, height = 6)
+```
+
+
+# Phylogenetic microarrays
+
+**HITChip and other phylogenetic microarrays**
+
+  * [Extracting data from HITChip database](https://github.com/microbiome/HITChipDB/blob/master/index./index.html)
+  * [Probe level studies (phylogenetic microarrays)](Probelevel.html)
+
+
+
+## Importing HITChip data to phyloseq format
+
+Define the data folder. 
+
+```{r datapeer, eval=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
+# Define example data path (replace here data.directory with your own path)
+library(microbiome)
+data.directory <- system.file("extdata", package = "microbiome")
+print(data.directory)
+```
+
+
+## Installing HITChipDB package 
+
+The HITChipDB package contains additional routines to fetch and
+preprocess HITChip (or MIT/PITChip) data from the MySQL database. Note
+that this package is **not needed by most users** and the data is
+protected by password/IP combinations. Ask details from
+admins. Install the package in R with:
+
+```{r HITChipDBinstalltest, message=FALSE, warning=FALSE, eval=FALSE}
+library(microbiome)
+```
+
+```{r HITChipDBinstall, message=FALSE, warning=FALSE, eval=FALSE}
+# Install additional dependencies
+source("http://www.bioconductor.org/biocLite.R")
+
+biocLite("DBI")
+biocLite("RPA")
+biocLite("svDialogs")
+
+library(devtools) # Load the devtools package
+install_github("microbiome/HITChipDB") # Install the package
+# Also install RMySQL, multicore and tcltk !
+source("http://www.bioconductor.org/biocLite.R")
+biocLite("RMySQL") # multicore, tcltk?
+# Test installation by loading the microbiome package in R
+library("HITChipDB")
+```
+
+
+With HITChip,
+[fRPA](http://www.computer.org/csdl/trans/tb/2011/01/ttb2011010217-abs.html)
+is the recommended preprocessing method. You can add new metadata
+fields in the template metadata file in your HITChip data folder and
+exporting it again to tab-separated .tab format. Some standard,
+self-explanatory field names include 'sample', 'time', 'subject',
+'group', 'gender', 'diet', 'age'. You can leave these out or include
+further fields. Import HITChip phylotype-level data in
+[phyloseq](https://github.com/joey711/phyloseq) format (note: the
+precalculated matrices are calculated with detection = 0):
+
+```{r pseqconversion, eval=FALSE}
+library(HITChipDB)
+pseq <- HITChipDB::read_hitchip(data.directory, method = "frpa")$pseq
+```
+
+Get higher taxonomic levels, use (on HITChip we use L1/L2 instead of Phylum/Genus):
+
+```{r pseqconversion4, eval=FALSE}
+pseq.L2 <- aggregate_taxa(pseq, level = "L2")
+pseq.L1 <- aggregate_taxa(pseq, level = "L1")
+```
+
+Importing HITChip probe-level data and taxonomy from HITChip
+output directory (these are not available in the phyloseq object):
+
+```{r pseqconversion3, eval=FALSE}
+probedata <- HITChipDB::read_hitchip(data.directory, method = "frpa")$probedata
+taxonomy.full <- HITChipDB::read_hitchip(data.directory, method = "frpa")$taxonomy.full
+```
+
+Convert your own data into phyloseq format as follows:
+
+```{r pseqconversion2, eval=FALSE}
+# We need to choose the HITChip data level to be used in the analyses
+# In this example use HITChip L2 data (note: this is in absolute scale)
+res <- read_hitchip(method = "frpa", data.dir = data.directory)
+
+# Species-level data matrix
+otu <- abundances(res$pseq)@.Data 
+
+# Corresponding sample metadata
+meta <- res$meta
+
+# Taxonomy
+# First get an experimental function from the microbiome package
+f <- system.file("inst/extdata/get_hitchip_taxonomy.R", package = "microbiome")
+source(f)
+taxonomy <- get_hitchip_taxonomy("HITChip", "filtered")
+taxonomy <- unique(as.data.frame(taxonomy[, c("L1", "L2", "species")]))
+rownames(taxonomy) <- as.vector(taxonomy[, "species"])
+
+# Merging data matrices into phyloseq format:
+pseq <- HITChipDB::hitchip2physeq(t(otu), meta, taxonomy)
+```
+
+
+# Potential analysis  
+
+
+Potential analysis (following [Hirota et al. Science, 334, 232-235.](http://www.sciencemag.org/content/334/6053/232.long)) provides tools to assess how states of an indicator variable vary with respect to a given background variable.
+
+Load example data:
+
+```{r movpotential, message=FALSE, warning=FALSE, fig.width=5, fig.height=5}
+library(microbiome)
+data(atlas1006) # From http://doi.org/10.5061/dryad.pk75d
+pseq <- atlas1006 
+```
+
+
+Assess the relationship between age and microbiome diversity:
+
+```{r movpotential2, message=FALSE, warning=FALSE, fig.width=5, fig.height=5, eval=FALSE}
+# Pick diversity and age
+diversity <- exp(microbiome::diversity(pseq)$Shannon)
+age <- meta(pseq)$age
+
+# Run potential analysis
+library(earlywarnings)
+res <- movpotential_ews(diversity, age)
+```
+
+
+Visualize
+
+```{r movpotential3, message=FALSE, warning=FALSE, fig.width=8, fig.height=5, out.width="300px", eval=FALSE}
+p <- plot_potential(res$res) + xlab("Age") + ylab("Diversity")
+print(p)
+```
+
+
+
+# RDA analysis and visualization. 
+
+NOTE: These functions have unresolved issues and many
+dependencies. They will require thorough revision before inclusion to
+the package is possible.
+
+Load the package and example data:
+
+```{r rda, warning=FALSE, message=FALSE, eval=FALSE}
+library(microbiome)
+data(peerj32) # Data from https://peerj.com/articles/32/
+pseq <- peerj32$phyloseq # phyloseq data
+
+# Only check the core taxa to speed up examples
+pseq <- core(pseq, detection = 10^2, prevalence = 95/100)
+
+pseq.trans <- transform(pseq, "hell") # Hellinger transform
+```
+
+
+## Bagged RDA
+
+Bagged RDA provides added robustness in the analysis compared to the standard RDA. Fit bagged (bootstrap aggregated) RDA on a phyloseq object (alternatively you could apply it to the abundance matrix and covariates directly):
+
+```{r rda5, warning=FALSE, message=FALSE, eval=FALSE}
+# In any real study, use bs.iter = 100 or higher
+# to achieve meaningful benefits from the bagged version.
+# In this example we use bs.iter = 2 just to speed up the
+# example code for educational purposes
+res <- rda_bagged(pseq.trans, "group", bs.iter=2)
+```
+
+Visualizing bagged RDA:
+
+```{r rda6, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval=FALSE}
+plot_rda_bagged(res)
+```
+
+
+
+## Standard RDA 
+
+Standard RDA for microbiota profiles versus the given (here 'time')
+variable from sample metadata (see also the RDA method in
+phyloseq::ordinate)
+
+```{r rda2, warning=FALSE, message=FALSE, eval=FALSE}
+x <- pseq.trans
+otu <- abundances(x)
+metadata <- meta(x)
+
+library(vegan)
+rda.result <- vegan::rda(t(otu) ~ factor(metadata$time),
+                         na.action = na.fail, scale = TRUE)
+```
+
+Proportion explained by the given factor
+
+```{r rda2b, warning=FALSE, message=FALSE, eval=FALSE}
+summary(rda.result)$constr.chi/summary(rda.result)$tot.chi
+```
+
+
+## RDA visualization
+
+Visualize the standard RDA output.
+
+```{r rda4, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval=FALSE}
+plot(rda.result, choices = c(1,2), type = "points", pch = 15, scaling = 3, cex = 0.7, col = metadata$time)
+points(rda.result, choices = c(1,2), pch = 15, scaling = 3, cex = 0.7, col = metadata$time)
+pl <- ordihull(rda.result, metadata$time, scaling = 3, label = TRUE)
+```
+
+
+## RDA significance test
+
+```{r rda2bc, warning=FALSE, message=FALSE, eval=FALSE}
+permutest(rda.result) 
+```
+
+
+## RDA with confounding variables 
+
+For more complex RDA scenarios, use the standard RDA available via the
+vegan R package.
+
+```{r rda3, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, eval=FALSE}
+# Pick microbiota profiling data from the phyloseq object
+otu <- abundances(pseq.trans)
+
+# Sample annotations
+metadata <- meta(pseq.trans)
+
+# RDA with confounders using the vegan function
+rda.result2 <- vegan::rda(t(otu) ~ metadata$time + Condition(metadata$subject + metadata$gender))
+```
+
+
+# Themes  
+
+## Cross-plot themes
+
+
+Load example data:
+
+```{r core-prevalence}
+# Load data
+library(microbiome)
+data(atlas1006)
+
+# Rename the data
+pseq <- subset_samples(atlas1006, DNA_extraction_method == "r")
+```
+
+
+```{r crossplot1, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.show="hold", out.width="300px"}
+library(hrbrthemes)
+library(gcookbook)
+library(tidyverse)
+# Themes from https://github.com/hrbrmstr/hrbrthemse
+
+p <- ggplot(meta(pseq), aes(age, diversity)) +
+  geom_point() +
+  labs(x="Age (y)", y="Diversity (Shannon)",
+       title="HITChip Atlas",
+       subtitle="Age-diversity relation",
+       caption="Caption shown here 'g'") 
+
+
+print(p + theme_ipsum() + ggtitle("HITChip - theme_ipsum"))
+print(p + theme_ipsum_rc() + ggtitle("HITChip - theme_ipsum_rc"))
+```
+
+
+## Color fill example
+
+```{r crossplot2, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.show="hold", out.width="300px"}
+# Theme from https://github.com/hrbrmstr/hrbrthemse
+p <- ggplot(uspopage, aes(x=Year, y=Thousands, fill=AgeGroup)) + 
+  geom_area() +
+  scale_fill_ipsum() +
+  scale_x_continuous(expand=c(0,0)) +
+  scale_y_comma() +
+  labs(title="Age distribution of population in the U.S., 1900-2002",
+       subtitle="Example data from the R Graphics Cookbook",
+       caption="Source: R Graphics Cookbook") +
+  theme_ipsum_rc(grid="XY") +
+  theme(axis.text.x=element_text(hjust=c(0, 0.5, 0.5, 0.5, 1))) +
+  theme(legend.position="bottom")
+print(p)  
+```
+
+## Barplot example
+
+```{r crossplot3, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.show="hold", out.width="300px", eval=FALSE}
+update_geom_font_defaults(font_rc_light)
+df <- count(mpg, class) %>% 
+  mutate(n = n*2000) %>% 
+  arrange(n) %>% 
+  mutate(class=factor(class, levels=class)) 
+
+p <- ggplot(df, aes(class, n)) +
+  geom_col() +
+  geom_text(aes(label=scales::comma(n)), hjust=0, nudge_y=2000) +
+  scale_y_comma(limits=c(0,150000)) +
+  coord_flip() +
+  labs(x="Fuel effiiency (mpg)", y="Weight (tons)",
+       title="Seminal ggplot2 column chart example with commas",
+       subtitle="A plot that is only useful for demonstration purposes, esp since you'd never\nreally want direct labels and axis labels",
+       caption="Caption goes here") + 
+  theme_ipsum_rc(grid="X")
+
+print(p)
+```
+
+
+## Viridis scale
+
+
+```{r core2, fig.width=9, fig.heigth=6, out.width="400px", warning=FALSE}
+# Load data
+library(microbiome)
+data(peerj32)
+
+# Rename the data
+pseq <- peerj32$phyloseq
+
+# Calculate compositional version of the data
+# (relative abundances)
+pseq.rel <- microbiome::transform(pseq, "compositional")
+
+# With compositional (relative) abundances
+det <- c(0, 0.1, 0.5, 2, 5, 20)/100
+prevalences <- seq(.05, 1, .05)
+p <- plot_core(pseq.rel, prevalences = prevalences, detections = det, plot.type = "lineplot") + xlab("Relative Abundance (%)")
+
+# Same with the viridis color palette
+# color-blind friendly and uniform
+# options: viridis, magma, plasma, inferno
+# https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
+# Also discrete=TRUE versions available
+library(viridis)
+print(p + scale_fill_viridis())
+```
+
+
+# Experimental functions Visualisation
+
+
+## Time series for individual subjects
+
+```{r homogeneity-timeseries, message=FALSE, warning=FALSE, fig.height=5, fig.height=5, eval=FALSE}
+source(system.file("extdata/plot_longitudinal.R", package = "microbiome"))
+p <- plot_longitudinal(pseq, "Dialister", subject = "831", tipping.point = 0.5)
+print(p)
+```
+

@@ -1,11 +1,16 @@
 ---
 title: "Core microbiome analysis for Amplicon data"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -132,7 +137,7 @@ core.taxa.standard <- core_members(pseq.rel, detection = 0, prevalence = 50/100)
 
 A full phyloseq object of the core microbiota is obtained as follows:
 
-```{r core-data, message=FALSE, warning=FALSE}
+```{r core-data, message=FALSE, warning=FALSE, eval=FALSE}
 pseq.core <- core(pseq.rel, detection = 0, prevalence = .5)
 ```
 

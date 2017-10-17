@@ -1,11 +1,16 @@
 ---
 title: "Beta diversity and microbiome divergence"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
-output: 
-  prettydoc::html_pretty:
-    theme: cayman
-    highlight: github
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
@@ -24,12 +29,13 @@ Load example data
 
 ```{r divergence-example2, message=FALSE}
 library(microbiome)
+library(dplyr)
 data(peerj32)
 pseq <- peerj32$phyloseq
 ```
 
 
-### Quantifying group divergence / spread 
+## Quantifying group divergence / spread 
 
 Divergence of a given sample set can be quantified as the average dissimilarity of each sample from the group mean; the dissimilarity can be quantified by beta diversity, for instance. This was applied in group-level comparisons for instance in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) (they focused on homogeneity using inverse correlation, whereas here we focus on divergence using correlation but the measure is essentially the same). 
 
@@ -50,7 +56,7 @@ The **inter- and intra-invididual stability** (or homogeneity) measures are obta
 
 
 
-### Intra-individual divergence 
+## Intra-individual divergence 
 
 Quantify beta diversity within subjects over time (as in [Salonen et al. ISME J 2014](http://www.nature.com/ismej/journal/v8/n11/full/ismej201463a.html) for intra-individual stability)
 
@@ -82,7 +88,7 @@ boxplot(betas)
 ```
 
 
-### Beta diversity within individual over time
+## Beta diversity within individual over time
 
 Calculate change in beta diversity (community dissimilarity) over time within a single individual
 
