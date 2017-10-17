@@ -20,7 +20,7 @@ output:
 -->
 
 
-# Global Ecosystem State Variables 
+## Global Ecosystem State Variables 
 
 Load example data:
 
@@ -33,7 +33,6 @@ pseq <- dietswap
 
 
 ## Global indicators
-
 
 A comprehensive list of global indicators of the ecosystem state can be obtained as follows. This includes various measures of richness, evenness, diversity, dominance, and rarity with default parameters. See the individual functions for more options regarding parameter tuning.
 
@@ -122,4 +121,4 @@ tab <- evenness(pseq, "all")
 kable(head(tab))
 ```
 
-
+For tutorial on plotting the output of diversities functions please check [PlotDiversity](PlotDiversity.html)
