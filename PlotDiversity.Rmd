@@ -22,7 +22,7 @@ output:
 
 ## Diversity plots  
 
-Using the `global` function in `microbiome R packge` you can calculate a wide variaty of diversity indices. Comparison and visualising group based differecences or similarities is also important. Here, we show steps from calculating diversity indices using microbiome R package and visualising the differences and or similarities between groups. A useful R package is [ggpubr](http://www.sthda.com/english/rpkgs/ggpubr/). If you have not installed it please install it.     
+Using the `global` function in `microbiome R packge` you can calculate a wide variaty of diversity indices. Comparison and visualising group based differecences or similarities is also important. Here, we show steps from calculating diversity indices using microbiome R package and visualising the differences and/or similarities between groups. A useful R package is [ggpubr](http://www.sthda.com/english/rpkgs/ggpubr/). If you have not installed it, please install it.     
 
 Load libraries and data.
 
@@ -53,7 +53,7 @@ kable(head(tab))
 ```
 
 
-## Prepapre data for vizualisation
+## Prepare data for vizualisation
 Now, get the metadata (sample_data) from the `phyloseq` object
 
 ```{r Ad-plot2, warning=FALSE, message=FALSE, results="asis"}

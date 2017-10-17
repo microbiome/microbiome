@@ -93,7 +93,7 @@ $(document).ready(function () {
       <ul>
       <li><a href="#diversity-plots">Diversity plots</a></li>
       <li><a href="#alpha-diversity">Alpha diversity</a></li>
-      <li><a href="#prepapre-data-for-vizualisation">Prepapre data for vizualisation</a></li>
+      <li><a href="#prepare-data-for-vizualisation">Prepare data for vizualisation</a></li>
       <li><a href="#violin-plot">Violin plot</a></li>
       <li><a href="#statistics">Statistics</a></li>
       </ul>
@@ -109,7 +109,7 @@ $(document).ready(function () {
 -->
 <div id="diversity-plots" class="section level2">
 <h2>Diversity plots</h2>
-<p>Using the <code>global</code> function in <code>microbiome R packge</code> you can calculate a wide variaty of diversity indices. Comparison and visualising group based differecences or similarities is also important. Here, we show steps from calculating diversity indices using microbiome R package and visualising the differences and or similarities between groups. A useful R package is <a href="http://www.sthda.com/english/rpkgs/ggpubr/">ggpubr</a>. If you have not installed it please install it.</p>
+<p>Using the <code>global</code> function in <code>microbiome R packge</code> you can calculate a wide variaty of diversity indices. Comparison and visualising group based differecences or similarities is also important. Here, we show steps from calculating diversity indices using microbiome R package and visualising the differences and/or similarities between groups. A useful R package is <a href="http://www.sthda.com/english/rpkgs/ggpubr/">ggpubr</a>. If you have not installed it, please install it.</p>
 <p>Load libraries and data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(microbiome)
 <span class="kw">library</span>(ggpubr)
@@ -189,8 +189,8 @@ tab &lt;-<span class="st"> </span><span class="kw">diversities</span>(ps1, <span
 </tbody>
 </table>
 </div>
-<div id="prepapre-data-for-vizualisation" class="section level2">
-<h2>Prepapre data for vizualisation</h2>
+<div id="prepare-data-for-vizualisation" class="section level2">
+<h2>Prepare data for vizualisation</h2>
 <p>Now, get the metadata (sample_data) from the <code>phyloseq</code> object</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ps1.meta &lt;-<span class="st"> </span><span class="kw">meta</span>(ps1)
 <span class="kw">kable</span>(<span class="kw">head</span>(ps1.meta))</code></pre></div>
