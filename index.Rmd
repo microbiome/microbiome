@@ -115,6 +115,7 @@ You can modify one of the existing examples (.html) and make a pull request. Or,
 
 The package utilizes tools from a number of other R extensions, including dplyr `r citep(bib[["Wickham_2017"]])`, ggplot2 `r citep(bib[["Wickham_2009"]])`, phyloseq `r citep(bib[["McMurdie_2013"]])`, tidyr `r citep(bib[["Wickham_2017a"]])`, vegan `r citep(bib[["Oksanen_2017"]])`.
 
+This website theme was created by modifiying the [rmdformats](https://github.com/juba/rmdformats) **readthedown** format.  
 
 ```{r, echo=FALSE, message=FALSE}
 #You can embed citations, for example: `r citep(bib[["lahti14natcomm"]])`
