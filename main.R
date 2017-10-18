@@ -52,7 +52,8 @@ for (myfile in fs) {
     # times[[myfile]] <- system.time(knit(myfile))[["elapsed"]]
     #rmarkdown::render(myfile, "md_document")
     # rmarkdown::render(myfile, "all")
-    rmarkdown::render(myfile, "html_document")    
+    #rmarkdown::render(myfile, "html_document") 
+    rmarkdown::render(myfile)
 
     # Must do to clean up some space
     #for (i in 1:10) {
