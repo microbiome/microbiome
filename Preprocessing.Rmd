@@ -252,6 +252,13 @@ pseq2 <- aggregate_taxa(pseq, "Phylum", top = 5)
 ```
 
 
+Merge the desired taxa into "Other" category. Here, we merge all Bacteroides groups into a single group named Bacteroides.
+
+```{r merge2}
+pseq2 <- merge_taxa2(pseq, pattern = "^Bacteroides", name = "Bacteroides") 
+```
+
+
 Merging phyloseq objects with the phyloseq package:
 
 ```{r preprocess-merge, warning=FALSE, message=FALSE, eval=FALSE}

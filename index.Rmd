@@ -67,7 +67,7 @@ Tools for microbiome analysis; with multiple example data sets from published st
 * [Stability and tipping elements](Stability.html)
 
 
-# Visualization and related tools  
+# Visualization and related
 
 * [Heatmaps](Heatmap.html)
 * [Networks](Networks.html)
@@ -82,7 +82,7 @@ Tools for microbiome analysis; with multiple example data sets from published st
 * [Community comparisons](Comparisons.html) ([limma](limma.html), [PERMANOVA](PERMANOVA.html), [mixed models](Mixedmodels.html), [negative binomial](Negativebinomial.html)  etc)
 * [Experimental tools](Experimental.html)
 
-# Tutorial Workflows  
+# Tutorial workflows  
 
 * [HITChip Atlas](Tutorial.html)  
 
