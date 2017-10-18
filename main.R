@@ -23,7 +23,7 @@ library(rmarkdown)
 #rmarkdown::render("index.Rmd")
 #rmarkdown::render("Template.Rmd")
 #rmarkdown::render("Atlas.Rmd", "all")
-
+# remove html_document
 #render("index.Rmd", "html_document")
 #rmarkdown::render("index.Rmd", "all")
 library(knitr)
