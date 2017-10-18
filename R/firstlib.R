@@ -75,6 +75,7 @@
 #' @importFrom phyloseq sample_names
 #' @importFrom phyloseq taxa_are_rows
 #' @importFrom phyloseq taxa_names
+#' @importFrom phyloseq taxa_names<-
 #' @importFrom phyloseq tax_glom
 #' @importFrom phyloseq tax_table
 #' @importFrom phyloseq tax_table<-

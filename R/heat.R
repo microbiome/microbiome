@@ -54,15 +54,16 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
             limits <- c(-maxval, maxval)
         }
     }
+
     # Truncate anything exceeding the limits
     df[df[[fill]] < limits[[1]], fill] <- limits[[1]]
     df[df[[fill]] > limits[[2]], fill] <- limits[[2]]
-    
+
     if (nrow(df) == 0) {
         warning("Input data frame is empty.")
         return(NULL)
     }
-    
+
     if (filter.significant & !is.null(star)) {
         keep.X <- as.character(unique(df[((df[[star]] < p.adj.threshold) &
         (abs(df[[fill]]) > association.threshold)), Xvar]))
@@ -71,7 +72,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
             association.threshold)), Yvar]))
         df <- df[((df[[Xvar]] %in% keep.X) & (df[[Yvar]] %in% keep.Y)), ]
     }
-    
+
     theme_set(theme_bw(text.size))
     if (any(c("XXXX", "YYYY", "ffff") %in% names(df))) {
         stop("XXXX, YYYY, ffff are not allowed in df")
@@ -79,7 +80,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
     
     df[[Xvar]] <- factor(df[[Xvar]])
     df[[Yvar]] <- factor(df[[Yvar]])
-    
+
     # TODO neatmap with options
     # xo <- neat(mat, method = "NMDS", distance = "euclidean",
     # first.row = "VDP.03231", first.col = "Paraprevotella") 
@@ -88,11 +89,13 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
         
         rnams <- unique(as.character(df[[Xvar]]))
         cnams <- unique(as.character(df[[Yvar]]))    
-        
+
         # Rearrange into matrix
+        # FIXME: could be better done with cast
         mat <- matrix(0, nrow=length(rnams), ncol=length(cnams))
         rownames(mat) <- rnams
         colnames(mat) <- cnams
+
         for (i in 1:nrow(df)) {
             mat[as.character(df[i, Xvar]),
                 as.character(df[i, Yvar])] <- df[i, fill]
@@ -103,7 +106,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
         rind <- 1:nrow(mat)
     
     } 
-    
+
     if (is.logical(order.rows)) {
     
         if (order.rows) {
