@@ -241,7 +241,7 @@ Assess the relationship between age and microbiome diversity:
 
 ```{r movpotential2, message=FALSE, warning=FALSE, fig.width=5, fig.height=5, eval=FALSE}
 # Pick diversity and age
-diversity <- exp(microbiome::diversity(pseq)$Shannon)
+diversity <- exp(microbiome::diversities(pseq)$shannon)
 age <- meta(pseq)$age
 
 # Run potential analysis

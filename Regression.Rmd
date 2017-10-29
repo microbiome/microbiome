@@ -23,7 +23,7 @@ output:
 ## Regression plots
 
 Regression curve with smoothed error bars based on
-the [Visually-Weighted Regression](http://www.fight-entropy.com/2012/07/visually-weighted-regression.html) by Solomon M. Hsiang. The sorvi implementation extends [Felix Schonbrodt's original code](http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/). See also [potential analysis](Potential.html).
+the [Visually-Weighted Regression](http://www.fight-entropy.com/2012/07/visually-weighted-regression.html) by Solomon M. Hsiang. The sorvi implementation extends [Felix Schonbrodt's original code](http://www.nicebread.de/visually-weighted-watercolor-plots-new-variants-please-vote/). See also [potential analysis](Experimental.html).
 
 
 ```{r variability-regression, message=FALSE, fig.width=10, fig.height=5, warning=FALSE, dev="CairoPNG"}

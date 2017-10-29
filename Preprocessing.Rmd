@@ -101,14 +101,6 @@ head(abundances(pseq)["Akkermansia",])
 ```
 
 
-Filtering samples
-
-```{r preprocess3, warning=FALSE, message=FALSE, eval=FALSE}
-f1 <- filterfun_sample(topp(0.1))
-taxa <- genefilter_sample(pseq, f1, A = round(0.5 * nsamples(pseq)))
-```
-
-
 Select a subset by metadata fields:
 
 ```{r data-subsetting, eval=FALSE}
