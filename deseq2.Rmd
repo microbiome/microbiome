@@ -46,9 +46,6 @@ Toy example, to be polished:
 
 ```{r deseq2-example2, warning=FALSE, message=FALSE, fig.width=8, fig.height=5}
 library(phyloseq)
-library(structSSI)
-library(plyr)
-library(dplyr)
 library(reshape2)
 library(DESeq2)
 

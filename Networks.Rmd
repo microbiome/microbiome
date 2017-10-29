@@ -44,10 +44,8 @@ via the [SpiecEasi package](https://github.com/zdk123/SpiecEasi). Note
 that the execution is slow.
 
 ```{r networks4, warning=FALSE, message=FALSE, fig.width=10, fig.height=10}
-library(SpiecEasi) #install_github("zdk123/SpiecEasi")
-library(phyloseq)
-
 # Pick the OTU table
+library(phyloseq)
 otu <- abundances(pseq)
 ```
 
@@ -55,6 +53,7 @@ otu <- abundances(pseq)
 ```{r spieceasi, warning=FALSE, message=FALSE, fig.width=10, fig.height=10, eval=TRUE}
 # SPIEC-EASI network reconstruction
 # In practice, use more repetitions
+library(SpiecEasi) #install_github("zdk123/SpiecEasi")
 net <- spiec.easi(t(otu), method='mb', lambda.min.ratio=1e-2, nlambda=5, icov.select.params=list(rep.num=1))
 
 ## Create graph object
@@ -91,7 +90,7 @@ plot(0:(length(dd)-1), dd, ylim = c(0,.35), type = 'b',
 
 Visualize the network with [ggnet2](https://briatte.github.io/ggnet):
 
-```{r networks5, warning=FALSE, message=FALSE, fig.width=12, fig.height=7}
+```{r networks5, warning=FALSE, message=FALSE, fig.width=12, fig.height=7, eval = FALSE}
 library(GGally)
 library(ggnet)
 library(network)

@@ -5,15 +5,8 @@ library(MASS)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-library(sorvi)
-library(limma)
 library(devtools)
-library(GGally)
-library(ggnet)
-library(network)
-library(sna)
 library(ggplot2)
-library(intergraph) # ggnet2 works also with igraph with this
 
 #library(devtools)
 #load_all()
@@ -47,6 +40,7 @@ knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
 times <- c()
 namespaces0 <-  loadedNamespaces()
 
+#for (myfile in setdiff(fs, "Themes.Rmd")) {
 for (myfile in fs) {
     #print(myfile)
     # times[[myfile]] <- system.time(knit(myfile))[["elapsed"]]

@@ -19,6 +19,10 @@ output:
   %\VignetteEncoding{UTF-8}  
 -->
 
+# Networks
+
+* [Networks](Networks.html)
+
 
 # Clustering  
 
@@ -357,115 +361,8 @@ rda.result2 <- vegan::rda(t(otu) ~ metadata$time + Condition(metadata$subject + 
 ```
 
 
-# Themes  
-
-## Cross-plot themes
-
-
-Load example data:
-
-```{r core-prevalence}
-# Load data
-library(microbiome)
-data(atlas1006)
-
-# Rename the data
-pseq <- subset_samples(atlas1006, DNA_extraction_method == "r")
-```
-
-
-```{r crossplot1, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.show="hold", out.width="300px"}
-library(hrbrthemes)
-library(gcookbook)
-library(tidyverse)
-# Themes from https://github.com/hrbrmstr/hrbrthemse
-
-p <- ggplot(meta(pseq), aes(age, diversity)) +
-  geom_point() +
-  labs(x="Age (y)", y="Diversity (Shannon)",
-       title="HITChip Atlas",
-       subtitle="Age-diversity relation",
-       caption="Caption shown here 'g'") 
-
-
-print(p + theme_ipsum() + ggtitle("HITChip - theme_ipsum"))
-print(p + theme_ipsum_rc() + ggtitle("HITChip - theme_ipsum_rc"))
-```
-
-
-## Color fill example
-
-```{r crossplot2, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.show="hold", out.width="300px"}
-# Theme from https://github.com/hrbrmstr/hrbrthemse
-p <- ggplot(uspopage, aes(x=Year, y=Thousands, fill=AgeGroup)) + 
-  geom_area() +
-  scale_fill_ipsum() +
-  scale_x_continuous(expand=c(0,0)) +
-  scale_y_comma() +
-  labs(title="Age distribution of population in the U.S., 1900-2002",
-       subtitle="Example data from the R Graphics Cookbook",
-       caption="Source: R Graphics Cookbook") +
-  theme_ipsum_rc(grid="XY") +
-  theme(axis.text.x=element_text(hjust=c(0, 0.5, 0.5, 0.5, 1))) +
-  theme(legend.position="bottom")
-print(p)  
-```
-
-## Barplot example
-
-```{r crossplot3, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.show="hold", out.width="300px", eval=FALSE}
-update_geom_font_defaults(font_rc_light)
-df <- count(mpg, class) %>% 
-  mutate(n = n*2000) %>% 
-  arrange(n) %>% 
-  mutate(class=factor(class, levels=class)) 
-
-p <- ggplot(df, aes(class, n)) +
-  geom_col() +
-  geom_text(aes(label=scales::comma(n)), hjust=0, nudge_y=2000) +
-  scale_y_comma(limits=c(0,150000)) +
-  coord_flip() +
-  labs(x="Fuel effiiency (mpg)", y="Weight (tons)",
-       title="Seminal ggplot2 column chart example with commas",
-       subtitle="A plot that is only useful for demonstration purposes, esp since you'd never\nreally want direct labels and axis labels",
-       caption="Caption goes here") + 
-  theme_ipsum_rc(grid="X")
-
-print(p)
-```
-
-
-## Viridis scale
-
-
-```{r core2, fig.width=9, fig.heigth=6, out.width="400px", warning=FALSE}
-# Load data
-library(microbiome)
-data(peerj32)
-
-# Rename the data
-pseq <- peerj32$phyloseq
-
-# Calculate compositional version of the data
-# (relative abundances)
-pseq.rel <- microbiome::transform(pseq, "compositional")
-
-# With compositional (relative) abundances
-det <- c(0, 0.1, 0.5, 2, 5, 20)/100
-prevalences <- seq(.05, 1, .05)
-p <- plot_core(pseq.rel, prevalences = prevalences, detections = det, plot.type = "lineplot") + xlab("Relative Abundance (%)")
-
-# Same with the viridis color palette
-# color-blind friendly and uniform
-# options: viridis, magma, plasma, inferno
-# https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
-# Also discrete=TRUE versions available
-library(viridis)
-print(p + scale_fill_viridis())
-```
-
-
 # Experimental functions Visualisation
+
 
 
 ## Time series for individual subjects

@@ -70,7 +70,6 @@ Tools for microbiome analysis; with multiple example data sets from published st
 # Visualization and related
 
 * [Heatmaps](Heatmap.html)
-* [Networks](Networks.html)
 * [Ordination](Ordination.html) (PCA, PCoA, NMDS, RDA etc.)
 * [Regression](Regression.html)
 * [Generating output files/figures](Output.html)
