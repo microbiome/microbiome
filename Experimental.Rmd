@@ -363,7 +363,7 @@ rda.result2 <- vegan::rda(t(otu) ~ metadata$time + Condition(metadata$subject + 
 
 # Experimental functions Visualisation
 
-
+* [Themes](Themes.html)
 
 ## Time series for individual subjects
 
