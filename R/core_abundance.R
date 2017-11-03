@@ -21,7 +21,7 @@ core_abundance <- function(x, detection=0.1/100, prevalence=50/100) {
     cm <- core_members(xcomp, detection, prevalence)
     
     # Pick the core and calculate abundance
-    if (ncol(xcomp) > 1) {
+    if (ncol(xcomp) > 1 || length(cm) == 1) {
         colSums(xcomp[cm, ])
     } else {
         sum(xcomp[cm, ])
