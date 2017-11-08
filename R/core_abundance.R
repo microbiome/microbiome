@@ -18,14 +18,19 @@ core_abundance <- function(x, detection=0.1/100, prevalence=50/100) {
     xcomp <- abundances(x, transform="compositional")
     
     # Core members
-    cm <- core_members(xcomp, detection, prevalence)
-    
+    cm <- core_members(x, detection, prevalence)
+
     # Pick the core and calculate abundance
-    if (ncol(xcomp) > 1 || length(cm) == 1) {
-        colSums(xcomp[cm, ])
-    } else {
-        sum(xcomp[cm, ])
+    if (is.vector(xcomp)) {
+        ret <- xcomp # 1 OTU x N samples        
+    } else if (length(cm) == 1) {
+        ret <- xcomp[cm,]
+    } else if (ncol(xcomp) > 1 && length(cm) > 1) {
+        ret <- colSums(xcomp[cm, ])		
+    } else if (ncol(xcomp) == 1) {
+        ret <- sum(xcomp[cm, ])
     }
+    ret
 }
 
 

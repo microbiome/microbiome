@@ -2,7 +2,7 @@
 #' @description Coloured bimodality plot.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param taxon Taxonomic group to visualize.
-#' @param tipping.point Optional. Indicate critical point for abundance
+#' @param tipping.point Indicate critical point for abundance
 #' variations to be highlighted.
 #' @param lims Optional. Figure X axis limits.
 #' @param shift Small constant to avoid problems with zeroes in log10

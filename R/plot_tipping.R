@@ -38,7 +38,10 @@ plot_tipping <- function(x, taxon, tipping.point=NULL,
     time.subjects <- names(which(table(m$subject) > 1))
     keep <- which(m$subject %in% time.subjects)
 
-    if (length(keep) == 0) { warning("No time series in the data."); return(ggplot())}
+    if (length(keep) == 0) {
+        warning("No time series in the data.");
+        return(ggplot())
+    }
 
     ranges <- t(sapply(split(d[keep], as.character(m$subject[keep])), range))
     colnames(ranges) <- c("min", "max")

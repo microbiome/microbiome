@@ -18,6 +18,9 @@ test_that("global indices work correctly", {
 
   #expect_equal(rare_abundance(pseq, detection = 0.1/100, prevalence = 50/100),
   #  1 - core_abundance(pseq, detection = 0.1/100, prevalence = 50/100))
+  expect_true(is.vector(core_abundance(pseq, detection = 0.1/100, prevalence = 50/100)))
+  expect_equal(length(core_abundance(prune_samples("sample-1", pseq), detection = 100/100, prevalence = 100/100)), 1)
+  expect_equal(length(core_abundance(prune_taxa("Vibrio", pseq), detection = 100/100, prevalence = 100/100)), 44)  
 
 })
 

@@ -12,7 +12,7 @@ hotplot(x, taxon, tipping.point = NULL, lims = NULL, shift = 0.001,
 
 \item{taxon}{Taxonomic group to visualize.}
 
-\item{tipping.point}{Optional. Indicate critical point for abundance
+\item{tipping.point}{Indicate critical point for abundance
 variations to be highlighted.}
 
 \item{lims}{Optional. Figure X axis limits.}
