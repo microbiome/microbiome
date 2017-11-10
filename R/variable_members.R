@@ -31,13 +31,12 @@ variable_members <- function(x, detection, prevalence,
     
     # Core taxa (e.g. 80 percent prevalence - complement)
     cm <- core_members(x, detection, 1 - prevalence,
-        include.lowest=include.lowest)
+        include.lowest = include.lowest)
     
     taxa <- setdiff(taxa(x), c(rm, cm))
     if (length(taxa) == 0) {
         taxa <- NULL
     }
-    # prune_taxa(taxa, xorig)
     
     if (is.null(taxa)) {
         warning("No variable taxa with the given thresholds. Returning NULL.")

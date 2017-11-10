@@ -9,7 +9,8 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
 #' data(atlas1006)
-#' ts <- time_sort(meta(atlas1006))
+#' pseq <- subset_samples(atlas1006, DNA_extraction_method == "r")
+#' ts <- time_sort(meta(pseq))
 #' @keywords utilities
 time_sort <- function(x) {
     

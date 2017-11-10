@@ -18,8 +18,11 @@
 #' data(dietswap)
 #' x <- dietswap
 #'
+#' # No transformation
+#' xt <- transform(x, 'identity')
+#' 
 #' # OTU relative abundances
-#' xt <- transform(x, 'compositional')
+#' # xt <- transform(x, 'compositional')
 #' 
 #' # Z-transform for OTUs
 #' # xt <- transform(x, 'Z', 'OTU')

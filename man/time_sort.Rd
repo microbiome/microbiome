@@ -19,7 +19,8 @@ distance from the baseline point (minimum time).
 }
 \examples{
 data(atlas1006)
-ts <- time_sort(meta(atlas1006))
+pseq <- subset_samples(atlas1006, DNA_extraction_method == "r")
+ts <- time_sort(meta(pseq))
 }
 \references{
 See citation('microbiome')
