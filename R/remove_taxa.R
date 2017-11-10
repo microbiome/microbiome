@@ -16,14 +16,19 @@
 #' pseq <- remove_taxa(c("Akkermansia", "Dialister"), dietswap)
 remove_taxa <- function(taxa = NULL, x) {
 
-    if (is.null(taxa)) {return(x)}     
+    if (is.null(taxa)) {return(x)}
+
+    i <- taxa %in% taxa(x)
+
+    if (!all(i)) {
+        warning(paste("Of the given OTU removal list, ", round(100*mean(i)), "% (n=", sum(i), ") match the data. Removing these.", sep = ""))
+    }    
+
     keep <- setdiff(taxa(x), taxa)
+    
     prune_taxa(keep, x)
     
 }
-
-
-
 
 
 
