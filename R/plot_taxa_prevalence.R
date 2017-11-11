@@ -11,8 +11,9 @@
 #' @export
 #' @examples
 #' data(atlas1006)
-#' # Pick data subset to speed up example
+#' # Pick data subset just to speed up example
 #' p0 <- subset_samples(atlas1006, DNA_extraction_method == "r")
+#' p0 <- prune_taxa(taxa(p0)[grep("Bacteroides", taxa(p0))], p0)
 #' # Detection threshold (0 by default; higher especially with HITChip)
 #' p <- plot_taxa_prevalence(p0, 'Phylum', detection = 1)
 #' print(p)

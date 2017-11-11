@@ -19,7 +19,7 @@
 #' function call
 #' @examples
 #' data(dietswap)
-#' p <- plot_landscape(dietswap)
+#' p <- plot_landscape(abundances(transform(dietswap, "log10"))[, 1:2])
 #' @keywords utilities
 plot_landscape <- function(x, method="NMDS", distance="bray",
     col=NULL, main=NULL, x.ticks=10, rounding=0, add.points=TRUE,

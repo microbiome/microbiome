@@ -30,7 +30,7 @@
 #' @examples
 #' data(dietswap)
 #' pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR')
-#' plot_composition(pseq)
+#' p <- plot_composition(pseq)
 #' @keywords utilities
 plot_composition <- function(x, sample.sort=NULL,
     otu.sort=NULL, x.label="sample", plot.type="barplot",

@@ -17,8 +17,9 @@
 #' Finally, the applied parameters are returned.
 #' @examples 
 #' data(atlas1006)
-#' plot_core(transform(atlas1006, "compositional"),
-#' prevalences=seq(0.1, 1, .1), detections=seq(0.01, 1, length = 10))
+#' pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
+#' p <- plot_core(transform(pseq, "compositional"),
+#'   prevalences=seq(0.1, 1, .1), detections=seq(0.01, 1, length = 10))
 #' @export 
 #' @references 
 #' A Salonen et al. The adult intestinal core microbiota is determined by 

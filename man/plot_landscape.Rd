@@ -45,6 +45,6 @@ function call
 }
 \examples{
 data(dietswap)
-p <- plot_landscape(dietswap)
+p <- plot_landscape(abundances(transform(dietswap, "log10"))[, 1:2])
 }
 \keyword{utilities}

@@ -52,6 +52,6 @@ Plot taxon abundance for samples.
 \examples{
 data(dietswap)
 pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR')
-plot_composition(pseq)
+p <- plot_composition(pseq)
 }
 \keyword{utilities}
