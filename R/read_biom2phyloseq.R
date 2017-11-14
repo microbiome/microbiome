@@ -11,15 +11,8 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'
-#' biom.file <- 
-#'    system.file("extdata/qiita1629.biom", 
-#'            package = "microbiome")
-#'
-#' meta.file <- 
-#' system.file("extdata/qiita1629_mapping.csv", 
-#'            package = "microbiome")
-#'
+#' biom.file <- qiita1629.biom"
+#' meta.file <- qiita1629_mapping.csv"
 #' p0 <- read_biom2phyloseq(otu.file = biom.file, 
 #'                        metadata.file = meta.file, 
 #'                        taxonomy.file = NULL)
@@ -38,10 +31,10 @@ read_biom2phyloseq <- function(otu.file = NULL,
     phyobj <- otu_biom
 
     if (!is.null(metadata.file)) {
-      map <- read.csv(metadata.file, 
+        map <- read.csv(metadata.file, 
                 check.names = FALSE, row.names = 1)
-      s.map <- sample_data(map)
-      phyobj <- merge_phyloseq(otu_biom, 
+        s.map <- sample_data(map)
+        phyobj <- merge_phyloseq(otu_biom, 
                         s.map)
     }
     

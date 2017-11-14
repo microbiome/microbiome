@@ -341,7 +341,11 @@ hotplot(pseq, "Dialister", tipping.point = 0.004)
 
 The [on-line tutorial](http://microbiome.github.io/microbiome)
 provides many additional tools and examples, with more thorough
-descriptions. This package and tutorials are work in progress. We welcome feedback, for instance via [issue Tracker](https://github.com/microbiome/microbiome/issues), [pull requests](https://github.com/microbiome/microbiome/), or via [Gitter](https://gitter.im/microbiome).
+descriptions. This package and tutorials are work in progress. We
+welcome feedback, for instance via [issue
+Tracker](https://github.com/microbiome/microbiome/issues), [pull
+requests](https://github.com/microbiome/microbiome/), or via
+[Gitter](https://gitter.im/microbiome).
 
 
 
@@ -352,8 +356,8 @@ Thanks to all
 Financial support has been provided by Academy of Finland (grants
 256950 and 295741), [University of
 Turku](http://www.utu.fi/en/Pages/home.aspx), Department of
-Mathematics and Statistics. In addition, the work has been supported by [VIB lab for Bioinformatics and
-(eco-)systems
+Mathematics and Statistics. In addition, the work has been supported
+by [VIB lab for Bioinformatics and (eco-)systems
 biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx),
 VIB/KULeuven, Belgium, [Molecular Ecology
 group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology,
