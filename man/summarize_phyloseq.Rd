@@ -16,7 +16,7 @@ Prints basic information of \code{\link{phyloseq-class}} object.
 Prints basic information of data.
 }
 \details{
-The summarize_phyloseq function will give information on reads (min. max, median, average), sparsity, 
+The summarize_phyloseq function will give information on weather data is compositional or not, reads (min. max, median, average), sparsity, 
 presence of singletons and sample variables.
 }
 \examples{
