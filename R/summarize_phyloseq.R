@@ -43,8 +43,9 @@ summarize_phyloseq <- function(x)
   sR2 <- paste0("9] Percent of OTUs that are singletons ", 
                 length(taxa_sums(x)[taxa_sums(x) <= 1])/nrow(otu_table(x)) * 
                   100)
-  svar <- paste0("10] Sample variables are:")
-  sam_var <- sample_variables(x)
+  svar <- paste0("10] Number of sample variables are: ", 
+                 ncol(meta(x)))
+  sam_var <- colnames(meta(x))
   
   cat(minR, maxR, tR, aR, mR, zno, sR, sR1, sR2, 
       svar, sam_var, fill = 2)
