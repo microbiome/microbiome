@@ -21,7 +21,9 @@ remove_samples <- function(samples = NULL, x) {
     i <- samples %in% sample_names(x)
 
     if (!all(i)) {
-        warning(paste("Of the given sample removal list, ", round(100*mean(i)), "% (n=", sum(i), ") match the data. Removing these.", sep = ""))
+        warning(paste("Of the given sample removal list, ",
+        round(100*mean(i)), "% (n=", sum(i), ") match the data. 
+        Removing these.", sep = ""))
     }    
 
     keep <- setdiff(sample_names(x), samples)

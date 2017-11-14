@@ -21,7 +21,9 @@ remove_taxa <- function(taxa = NULL, x) {
     i <- taxa %in% taxa(x)
 
     if (!all(i)) {
-        warning(paste("Of the given OTU removal list, ", round(100*mean(i)), "% (n=", sum(i), ") match the data. Removing these.", sep = ""))
+        warning(paste("Of the given OTU removal list, ",
+        round(100*mean(i)), "% (n=", sum(i), ") match the data. 
+        Removing these.", sep = ""))
     }    
 
     keep <- setdiff(taxa(x), taxa)

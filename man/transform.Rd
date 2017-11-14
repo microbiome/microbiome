@@ -10,7 +10,7 @@ transform(x, transform = "identity", target = "OTU", shift = 0)
 \item{x}{\code{\link{phyloseq-class}} object}
 
 \item{transform}{Transformation to apply. The options include:
-'compositional' (ie relative abundance), 'Z', 'log10', 'hellinger',
+'compositional' (ie relative abundance), 'Z', 'log10', 'log10p', 'hellinger',
 'identity', 'clr', or any method from the vegan::decostand function.}
 
 \item{target}{Apply the transform for 'sample' or 'OTU'.
@@ -28,7 +28,9 @@ Standard transforms for \code{\link{phyloseq-class}}.
 \details{
 The relative abunance are returned as percentages in [0,
 1]. The Hellinger transform is square root of the relative
-abundance but instead given at the scale [0,1].
+abundance but instead given at the scale [0,1]. The log10p transformation
+refers to log10(1 + x). The log10 transformation is applied as log10(1 + x)
+if the data contains zeroes.
 }
 \examples{
 
@@ -47,8 +49,11 @@ xt <- transform(x, 'identity')
 # Z-transform for samples
 # xt <- transform(x, 'Z', 'sample')
 
-# Log10 transform (log(1+x) if the data contains zeroes)
+# Log10 transform (log10(1+x) if the data contains zeroes)
 # xt <- transform(x, 'log10')
+
+# Log10p transform (log10(1+x) always)
+# xt <- transform(x, 'log10p')
 
 # CLR transform
 # xt <- transform(x, 'clr')

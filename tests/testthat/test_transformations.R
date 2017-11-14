@@ -16,7 +16,9 @@ test_that("transform works correctly", {
   expect_equal(sum(apply(abundances(z), 1, mean)), 0, tolerance = 1e-10)
   
   expect_equal(ntaxa(transform(dietswap, "clr")), ntaxa(dietswap))
-  expect_equal(ntaxa(transform(dietswap, "log10")), ntaxa(dietswap))  
+  expect_equal(ntaxa(transform(dietswap, "log10")), ntaxa(dietswap))
+  expect_true(all(transform(abundances(dietswap)[1:3, 1:3], "log10") == transform(abundances(dietswap)[1:3, 1:3] - 1, "log10p")))    
+
   expect_equal(ntaxa(transform(dietswap, "shift", shift = 1)), ntaxa(dietswap))      
   expect_equal(ntaxa(transform(dietswap, "compositional")), ntaxa(dietswap))
   expect_true(sum(colSums(abundances(transform(dietswap, "compositional"))) - 1) < 1e-15)
