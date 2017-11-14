@@ -19,7 +19,7 @@ summarize_phyloseq <- function(x)
   ave <- sum(sample_sums(x))/nsamples(x)
   
   minR <- paste0("1] Min. number of reads = ", min(sample_sums(x)))
-  maxR <- paste0("2] Max. number of reads = ", max(taxa_sums(x)))
+  maxR <- paste0("2] Max. number of reads = ", max(sample_sums(x)))
   tR <- paste0("3] Total number of reads = ", sum(sample_sums(x)))
   aR <- paste0("4] Average number of reads = ", ave)
   mR <- paste0("5] Median number of reads = ", median(sample_sums(x)))
