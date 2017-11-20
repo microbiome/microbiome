@@ -298,7 +298,7 @@ group_age(c(17, 41, 102), "decades")
 ```
 
 
-You can add metadata to a phyloseq object. For reproducibility, we just put use the existing metadata, but this could be replaced by another data.frame (samples x fields). 
+Add metadata to a phyloseq object. For reproducibility, we just use the existing metadata in this example, but this can be replaced by another data.frame (samples x fields). 
 
 ```{r add_metadata, eval=TRUE}
 # Example data
