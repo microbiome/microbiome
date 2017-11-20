@@ -44,8 +44,11 @@
 #' # Shift the baseline
 #' # xt <- transform(x, 'shift', shift=1)
 #'
+#' # Scale
+#' # xt <- transform(x, 'scale', scale=1)
+#'
 #' @keywords utilities
-transform <- function(x, transform = "identity", target = "OTU", shift = 0) {
+transform <- function(x, transform = "identity", target = "OTU", shift = 0, scale = 1) {
 
     y <- NULL
     xorig <- x
@@ -138,7 +141,7 @@ transform <- function(x, transform = "identity", target = "OTU", shift = 0) {
 
     } else if (transform == "log10p") {
 
-            xt <- log10(1 + x)
+        xt <- log10(1 + x)
         
     } else if (transform == "identity") {
         
@@ -148,6 +151,10 @@ transform <- function(x, transform = "identity", target = "OTU", shift = 0) {
     } else if (transform == "shift") {
         
         xt <- x + shift
+	
+    } else if (transform == "scale") {
+        
+        xt <- scale * x 
         
     } else {
         

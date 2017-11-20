@@ -1,5 +1,6 @@
 CHANGES IN VERSION 1.1.1 (2017-11-11)
-  o New bioc devel version
+  o New options added to transform: scale, log10p
+  o New bioc devel version  
 
 CHANGES IN VERSION 0.99.8 (2017-08-21)
   o Added new function merge_taxa2
