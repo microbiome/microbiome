@@ -4,7 +4,8 @@
 \alias{transform}
 \title{Data Transformations for phyloseq Objects}
 \usage{
-transform(x, transform = "identity", target = "OTU", shift = 0)
+transform(x, transform = "identity", target = "OTU", shift = 0,
+  scale = 1)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -60,6 +61,9 @@ xt <- transform(x, 'identity')
 
 # Shift the baseline
 # xt <- transform(x, 'shift', shift=1)
+
+# Scale
+# xt <- transform(x, 'scale', scale=1)
 
 }
 \keyword{utilities}
