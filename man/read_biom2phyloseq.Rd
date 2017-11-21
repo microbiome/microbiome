@@ -4,11 +4,11 @@
 \alias{read_biom2phyloseq}
 \title{Read BIOM File into a Phyloseq Object}
 \usage{
-read_biom2phyloseq(otu.file = NULL, taxonomy.file = NULL,
+read_biom2phyloseq(biom.file = NULL, taxonomy.file = NULL,
   metadata.file = NULL)
 }
 \arguments{
-\item{otu.file}{A biom file with '.biom' extension}
+\item{biom.file}{A biom file with '.biom' extension}
 
 \item{taxonomy.file}{NULL the latest version has taxonomic information
 within the biom}
@@ -30,7 +30,7 @@ Biom file and mapping files will be converted to
 \dontrun{
 biom.file <- qiita1629.biom"
 meta.file <- qiita1629_mapping.csv"
-p0 <- read_biom2phyloseq(otu.file = biom.file, 
+p0 <- read_biom2phyloseq(biom.file = biom.file, 
                        metadata.file = meta.file, 
                        taxonomy.file = NULL)
 }

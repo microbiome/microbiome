@@ -3,7 +3,7 @@
 #' object.
 #' @details Biom file and mapping files will be converted to
 #' \code{\link{phyloseq-class}}.
-#' @param otu.file A biom file with '.biom' extension 
+#' @param biom.file A biom file with '.biom' extension 
 #' @param taxonomy.file NULL the latest version has taxonomic information
 #' within the biom 
 #' @param metadata.file A simple metadata/mapping file with .csv extension
@@ -13,20 +13,20 @@
 #' \dontrun{
 #' biom.file <- qiita1629.biom"
 #' meta.file <- qiita1629_mapping.csv"
-#' p0 <- read_biom2phyloseq(otu.file = biom.file, 
+#' p0 <- read_biom2phyloseq(biom.file = biom.file, 
 #'                        metadata.file = meta.file, 
 #'                        taxonomy.file = NULL)
 #' }
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
-read_biom2phyloseq <- function(otu.file = NULL, 
+read_biom2phyloseq <- function(biom.file = NULL, 
                             taxonomy.file = NULL, metadata.file = NULL)
 {
     levels <- c("Domain", "Phylum", 
             "Class", "Order", "Family", 
             "Genus")
 
-    otu_biom <- import_biom(otu.file, 
+    otu_biom <- import_biom(biom.file, 
                         parseFunction = parse_taxonomy_default)
     phyobj <- otu_biom
 
