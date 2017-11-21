@@ -37,12 +37,17 @@ read_biom2phyloseq <- function(otu.file = NULL,
         phyobj <- merge_phyloseq(otu_biom, 
                         s.map)
     }
+
+    if (!is.null(taxonomy.file)) {
+        taxtab <- read_taxtable(taxonomy.file)
+    }
+    tax_table(phyobj) <- tax_table(taxtab)
     
     if (ncol(tax_table(phyobj)) == 6) {
         colnames(tax_table(phyobj)) <- levels
     
         return(phyobj)
-    } else if (ncol(tax_table(phyobj)) == 7) {
+    } else if (ncol(taxtab) == 7) {
         colnames(tax_table(phyobj)) <- c(levels, 
                                     "Species")
     }

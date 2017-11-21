@@ -10,6 +10,9 @@
 #' @export
 #' @examples
 #' \dontrun{
+#' # NOTE: the system.file command reads these example files from the
+#' # microbiome R package. To use your own local files, simply write
+#' # otu.file <- "/path/to/my/file.csv" etc.
 #'
 #' otu.file <-
 #'    system.file("extdata/qiita1629_otu_table.csv",
@@ -33,12 +36,12 @@ read_csv2phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,
     metadata.file=NULL) {
     s.otu <- read.csv(otu.file, row.names=1, check.names=FALSE)
     s.otu.table <- otu_table(s.otu, taxa_are_rows=TRUE)
-    s.tax <- read.csv(taxonomy.file, row.names=1, check.names=FALSE)
-    s.taxmat <- as.matrix(s.tax)
-    s.tax_table=tax_table(s.taxmat)
+    s.tax_table <- read_taxtable(taxonomy.file)
     s.meta <- read.csv(metadata.file, row.names=1, check.names=FALSE)
-    s.smapledata=sample_data(s.meta)
+    s.smapledata <- sample_data(s.meta)
     simple_pseq <- merge_phyloseq(s.otu.table, s.tax_table, s.smapledata)    
     return(simple_pseq)
 }
+
+
 
