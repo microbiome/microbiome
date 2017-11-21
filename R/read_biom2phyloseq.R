@@ -38,11 +38,15 @@ read_biom2phyloseq <- function(biom.file = NULL,
                         s.map)
     }
 
-    if (!is.null(taxonomy.file)) {
+    taxtab <- tax_table(phyobj)	
+    if (!is.null(taxonomy.file) && is.null(tax_table(phyobj))) {
         taxtab <- read_taxtable(taxonomy.file)
+    } else if (!is.null(taxonomy.file) && !is.null(tax_table(phyobj))) {
+        warning("Taxonomy is available both in the biom file and in the separate taxonomy.file. Using the biom file version here. To change this original taxonomy, do it explicitly in your code by modifying tax_table(physeq).")
     }
+
     tax_table(phyobj) <- tax_table(taxtab)
-    
+
     if (ncol(tax_table(phyobj)) == 6) {
         colnames(tax_table(phyobj)) <- levels
     
