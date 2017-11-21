@@ -8,6 +8,7 @@
 #' Does not affect the log transform.
 #' @param shift A constant indicating how much to shift the baseline
 #' abundance (in transform='shift')
+#' @param scale Scaling constant for the abundance values when transform = "scale".
 #' @return Transformed \code{\link{phyloseq}} object
 #' @details The relative abunance are returned as percentages in [0,
 #' 1]. The Hellinger transform is square root of the relative

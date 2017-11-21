@@ -18,8 +18,12 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-aggregate_taxa <- function(x, level, top=NULL) {
-    
+aggregate_taxa <- function(x, level, top = NULL) {
+
+    # FIXME: this function contains quick hacks to circumvent
+    # missing tax_table and sample_data. Those would be better handled
+    # in the original reading functions.
+
     mypseq <- x
     
     if (!is.null(mypseq@phy_tree)) {
@@ -51,7 +55,11 @@ aggregate_taxa <- function(x, level, top=NULL) {
         current.level <- names(which(apply(tt, 2, function(x) {
             length(unique(x))
         }) == ntaxa(mypseq)))
-        
+	if (length(current.level) == 0) {
+            current.level <- "unique"
+	    tax_table(mypseq) <- tax_table(cbind(tax_table(mypseq), unique = rownames(tax_table(mypseq))))
+        }
+
         otus <- map_levels(data=mypseq, to=current.level, from=level)
         
         ab <- matrix(NA, nrow=length(otus), ncol=nsamples(mypseq))
@@ -90,10 +98,11 @@ aggregate_taxa <- function(x, level, top=NULL) {
         
         # Combine OTU and Taxon matrix into Phyloseq object
         mypseq2 <- merge_phyloseq(mypseq2, TAX)
-        
+
         # Add the metadata as is
-        mypseq2 <- merge_phyloseq(mypseq2, sample_data(mypseq))
-        
+	if (!is.null(mypseq@sam_data)) {
+            mypseq2 <- merge_phyloseq(mypseq2, sample_data(mypseq))
+        }      
     }
     
     mypseq2

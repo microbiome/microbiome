@@ -27,6 +27,9 @@ to \code{\link{phyloseq-class}}.
 }
 \examples{
 \dontrun{
+# NOTE: the system.file command reads these example files from the
+# microbiome R package. To use your own local files, simply write
+# otu.file <- "/path/to/my/file.csv" etc.
 
 otu.file <-
    system.file("extdata/qiita1629_otu_table.csv",

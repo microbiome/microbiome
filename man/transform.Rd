@@ -19,6 +19,8 @@ Does not affect the log transform.}
 
 \item{shift}{A constant indicating how much to shift the baseline
 abundance (in transform='shift')}
+
+\item{scale}{Scaling constant for the abundance values when transform = "scale".}
 }
 \value{
 Transformed \code{\link{phyloseq}} object

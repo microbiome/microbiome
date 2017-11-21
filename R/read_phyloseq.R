@@ -36,7 +36,7 @@ read_phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,
                                     taxonomy.file, 
                                     metadata.file)
     } else if (type == "biom") {
-        pseq <- read_biom2phyloseq(otu.file, 
+        pseq <- read_biom2phyloseq(biom.file = otu.file, 
                                     taxonomy.file, 
                                     metadata.file)
     } else {
