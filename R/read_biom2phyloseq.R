@@ -7,6 +7,7 @@
 #' @param taxonomy.file NULL the latest version has taxonomic information
 #' within the biom 
 #' @param metadata.file A simple metadata/mapping file with .csv extension
+#' @param ... Arguments to pass for import_biom
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
 #' @examples
@@ -20,14 +21,13 @@
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
 read_biom2phyloseq <- function(biom.file = NULL, 
-                            taxonomy.file = NULL, metadata.file = NULL)
+                            taxonomy.file = NULL, metadata.file = NULL, ...)
 {
     levels <- c("Domain", "Phylum", 
             "Class", "Order", "Family", 
             "Genus")
 
-    otu_biom <- import_biom(biom.file, 
-                        parseFunction = parse_taxonomy_default)
+    otu_biom <- import_biom(biom.file, ...)
     phyobj <- otu_biom
 
     if (!is.null(metadata.file)) {
@@ -40,9 +40,9 @@ read_biom2phyloseq <- function(biom.file = NULL,
 
     if (!is.null(taxonomy.file)) {
         taxtab <- read_taxtable(taxonomy.file)
+        tax_table(phyobj) <- tax_table(taxtab)	
     }
-    tax_table(phyobj) <- tax_table(taxtab)
-    
+
     if (ncol(tax_table(phyobj)) == 6) {
         colnames(tax_table(phyobj)) <- levels
     
