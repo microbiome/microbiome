@@ -4,7 +4,8 @@
 \alias{rarity}
 \title{Rarity Index}
 \usage{
-rarity(x, index = "all")
+rarity(x, index = "all", rarity.detection = 0.2/100,
+  rarity.prevalence = 20/100)
 }
 \arguments{
 \item{x}{A species abundance vector, or matrix (taxa/features x samples)
@@ -14,6 +15,10 @@ with the absolute count data (no relative abundances), or
 \item{index}{If the index is given, it will override the other parameters.
 See the details below for description and references of the standard
 rarity indices.}
+
+\item{rarity.detection}{Detection threshold for determining rare taxa.}
+
+\item{rarity.prevalence}{Prevalence threshold for determining rare taxa.}
 }
 \value{
 A vector of rarity indices
@@ -35,14 +40,14 @@ we follow Locey & Lennon (2016) and use the log-modulo
 transformation that adds a value of one to each measure of skewness
 to allow logarithmization. The values q=0.5 and n=50 are used here.}
 \item{low_abundance }{Relative proportion of the least abundant species,
-below the detection level of 0.2\%. The least abundant species are
-determined separately for each sample regardless of their prevalence.}
+below the rarity.detection level of 0.2\%. The least abundant species are
+determined separately for each sample regardless of their rarity.prevalence.}
 \item{noncore_abundance }{Relative proportion of the non-core species,
-exceed the detection level of 0.2\% at 50\% prevalence at most.
+exceed the rarity.detection level of 0.2\% at 50\% rarity.prevalence at most.
 This is complement of the core with the same thresholds.}
 \item{rare_abundance }{Relative proportion of the rare 
 taxa in [0,1] - the rare taxa are detected with less than 20\%
-prevalence, regardless of abundance.}
+rarity.prevalence, regardless of abundance.}
 }
 }
 \examples{

@@ -6,6 +6,8 @@
 #' \code{\link{phyloseq-class}} object
 #' @param index Default is ‘NULL’, meaning that all available global indices
 #' will be included. For specific options, see details.
+#' @param rarity.prevalence Prevalence threshold for determining rare taxa.
+#' @param rarity.detection Detection threshold for determining rare taxa.
 #' @inheritParams core
 #' @return A data.frame of samples x global indicators
 #' @details This function returns global indices of the ecosystem state using
@@ -30,11 +32,12 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-global <- function(x, index="all") {
-    
+global <- function(x, index="all", rarity.detection = 0.2/100, rarity.prevalence = 20/100) {
+
     tab <- NULL
     index <- tolower(index)
 
+    message("Richness")
     if (any(c("all", "richness") %in% index)) {
         a <- richness(x)
 
@@ -54,6 +57,7 @@ global <- function(x, index="all") {
         }
     }
 
+    message("Diversity")
     a <- diversities(x, index=gsub("diversity_", "", index))
     if (!is.null(a)) {
         if (is.vector(a)) {
@@ -69,6 +73,7 @@ global <- function(x, index="all") {
 
     }
 
+    message("Evenness")
     a <- evenness(x, index=gsub("evenness_", "", index))
     if (!is.null(a)) {
         if (is.vector(a)) {
@@ -83,7 +88,8 @@ global <- function(x, index="all") {
         }    
 
     }
-    
+
+    message("Dominance")
     a <- dominance(x, index=gsub("dominance_", "", index))
     if (!is.null(a)) {
         if (is.vector(a)) {
@@ -99,7 +105,8 @@ global <- function(x, index="all") {
 
     }
 
-    a <- rarity(x, index=gsub("rarity_", "", index))
+    message("Rarity")
+    a <- rarity(x, index=gsub("rarity_", "", index), rarity.detection, rarity.prevalence)
     if (!is.null(a)) {
         if (is.vector(a)) {
             a <- as.matrix(a, ncol=1)

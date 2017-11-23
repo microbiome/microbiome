@@ -5,7 +5,7 @@
 \title{Read BIOM File into a Phyloseq Object}
 \usage{
 read_biom2phyloseq(biom.file = NULL, taxonomy.file = NULL,
-  metadata.file = NULL)
+  metadata.file = NULL, ...)
 }
 \arguments{
 \item{biom.file}{A biom file with '.biom' extension}
@@ -14,6 +14,8 @@ read_biom2phyloseq(biom.file = NULL, taxonomy.file = NULL,
 within the biom}
 
 \item{metadata.file}{A simple metadata/mapping file with .csv extension}
+
+\item{...}{Arguments to pass for import_biom}
 }
 \value{
 \code{\link{phyloseq-class}} object.
