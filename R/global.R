@@ -39,6 +39,7 @@ global <- function(x, index="all", rarity.detection = 0.2/100, rarity.prevalence
 
     message("Richness")
     if (any(c("all", "richness") %in% index)) {
+    
         a <- richness(x)
 
         if (!is.null(a)) {
@@ -48,6 +49,27 @@ global <- function(x, index="all", rarity.detection = 0.2/100, rarity.prevalence
             }
 
             colnames(a) <- paste("richness_", colnames(a), sep="")
+        
+            if (!is.null(tab)) {
+                tab <- cbind(tab, a)
+            } else {
+                tab <- a
+            }
+        }
+    }
+
+    message("Observed (richness 0)")
+    if (any(c("all", "observed") %in% index)) {
+    
+        a <- richness(x, detection = 0)
+
+        if (!is.null(a)) {
+
+            if (is.vector(a)) {
+                a <- as.matrix(a, ncol=1)
+            }
+
+            colnames(a) <- "observed"
         
             if (!is.null(tab)) {
                 tab <- cbind(tab, a)

@@ -1,4 +1,5 @@
-CHANGES IN VERSION 1.1.1 (2017-11-11)
+CHANGES IN VERSION 1.1.1 (2017-30-11)
+  o Added index "observed" in function global
   o New options added to transform: scale, log10p
   o New bioc devel version  
 
