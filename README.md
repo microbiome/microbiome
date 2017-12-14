@@ -54,7 +54,10 @@ Contributions and feedback are very welcome:
 
 ### Publications using the microbiome package
 
-Below some publications that utilize the tools implemented in this package. The list of publications is not exhaustive. Let us know if you know of further publications using the microbiome package; we are collecting these on the website.
+Below some publications that utilize the tools implemented in this package. The list of publications is not exhaustive. Let us know if you know of further publications using the microbiome package; we are collecting these on the website.  
+
+
+[Comparison of Small Gut and Whole Gut Microbiota of First-Degree Relatives with Adult Patients with Celiac Disease and Controls](https://www.biorxiv.org/content/early/2017/12/06/227272.full.pdf+html). Shetty SA, Bodkhe R, Dhotre DP, et al. _bioRxiv__preprint_  227272, 2017.
 
 [Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Shetty S, Hugenholtz F, Lahti L, Smidt H, de Vos WM, Danchin A. _FEMS Microbiology Reviews_ fuw045, 2017.
 
