@@ -6,6 +6,7 @@
 #' file with the .taxonomy extension)
 #' @param metadata.file File containing samples x variables metadata.
 #' @param type Input data type: 'mothur' or 'simple' or 'biom' type.
+#' @param sep CSV file separator
 #' @return \code{\link{phyloseq-class}} object
 #' @export
 #' @details See help(read_mothur2phyloseq) for details on the Mothur input
@@ -22,7 +23,7 @@
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
 read_phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,
-    metadata.file=NULL, type=c("simple", "mothur", "biom")) {
+    metadata.file=NULL, type=c("simple", "mothur", "biom"), sep = ",") {
     
     message("Time to complete depends on OTU file size")
     # TODO add automated recognition of the type?
@@ -34,7 +35,7 @@ read_phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,
     } else if (type == "simple") {
         pseq <- read_csv2phyloseq(otu.file, 
                                     taxonomy.file, 
-                                    metadata.file)
+                                    metadata.file, sep = sep)
     } else if (type == "biom") {
         pseq <- read_biom2phyloseq(biom.file = otu.file, 
                                     taxonomy.file, 

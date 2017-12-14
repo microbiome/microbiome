@@ -5,7 +5,7 @@
 \title{Read Simple OTU Tables into a Phyloseq Object}
 \usage{
 read_csv2phyloseq(otu.file = NULL, taxonomy.file = NULL,
-  metadata.file = NULL)
+  metadata.file = NULL, sep = ",")
 }
 \arguments{
 \item{otu.file}{A simple otu_table with '.csv' extension}
@@ -13,6 +13,8 @@ read_csv2phyloseq(otu.file = NULL, taxonomy.file = NULL,
 \item{taxonomy.file}{A simple taxonomy file with '.csv' extension}
 
 \item{metadata.file}{A simple metadata/mapping file with .csv extension}
+
+\item{sep}{CSV file separator}
 }
 \value{
 \code{\link{phyloseq-class}} object.

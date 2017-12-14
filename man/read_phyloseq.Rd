@@ -5,7 +5,7 @@
 \title{Import phyloseq Data}
 \usage{
 read_phyloseq(otu.file = NULL, taxonomy.file = NULL, metadata.file = NULL,
-  type = c("simple", "mothur", "biom"))
+  type = c("simple", "mothur", "biom"), sep = ",")
 }
 \arguments{
 \item{otu.file}{File containing the OTU table (for mothur this is the file
@@ -17,6 +17,8 @@ file with the .taxonomy extension)}
 \item{metadata.file}{File containing samples x variables metadata.}
 
 \item{type}{Input data type: 'mothur' or 'simple' or 'biom' type.}
+
+\item{sep}{CSV file separator}
 }
 \value{
 \code{\link{phyloseq-class}} object

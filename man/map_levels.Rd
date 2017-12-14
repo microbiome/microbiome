@@ -16,6 +16,8 @@ tax.table}
 
 \item{data}{Either a \code{\link{phyloseq}} object or its
 \code{\link{taxonomyTable-class}} , see the \pkg{phyloseq} package.}
+
+\item{keep.na}{Logical. Keep "NA" level as its own category.}
 }
 \value{
 mappings

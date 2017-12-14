@@ -12,8 +12,8 @@
 #' listing the groups to combine.
 #' @return Summarized phyloseq object
 #' @examples
-#' data(dietswap)
-#' s <- aggregate_taxa(dietswap, 'Phylum')
+#'   data(dietswap)
+#'   s <- aggregate_taxa(dietswap, 'Phylum')
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -52,9 +52,9 @@ aggregate_taxa <- function(x, level, top = NULL) {
         
         # Split the OTUs in tax_table by the given taxonomic level otus <-
         # split(rownames(tax_table(mypseq)), tax_table(mypseq)[, level])
-        current.level <- names(which(apply(tt, 2, function(x) {
-            length(unique(x))
-        }) == ntaxa(mypseq)))
+        current.level <- names(which.max(apply(tt, 2, function(x) {
+            mean(taxa(mypseq) %in% unique(x))
+        })))
 	if (length(current.level) == 0) {
             current.level <- "unique"
 	    tax_table(mypseq) <- tax_table(cbind(tax_table(mypseq), unique = rownames(tax_table(mypseq))))
@@ -77,7 +77,9 @@ aggregate_taxa <- function(x, level, top = NULL) {
         OTU <- otu_table(ab, taxa_are_rows=TRUE)
         mypseq2 <- phyloseq(OTU)
         
-        # Remove all ambiguous levels
+        # Remove ambiguous levels
+	## First remove NA entries from the target level	
+	tax_table(mypseq) <- tax_table(mypseq)[!is.na(tax_table(mypseq)[, level]),]
         keep <- colnames(
         tax_table(mypseq))[which(sapply(1:ncol(tax_table(mypseq)),
             function(k)
@@ -86,7 +88,7 @@ aggregate_taxa <- function(x, level, top = NULL) {
             length(unique(x))
         }) > 1)) == 0)]
         tax <- unique(tax_table(mypseq)[, keep])
-        
+
         # Rename the lowest level
         tax <- as.data.frame(tax)
         rownames(tax) <- tax[, level]

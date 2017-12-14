@@ -6,6 +6,7 @@
 #' @param otu.file A simple otu_table with '.csv' extension 
 #' @param taxonomy.file A simple taxonomy file with '.csv' extension 
 #' @param metadata.file A simple metadata/mapping file with .csv extension
+#' @param sep CSV file separator
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
 #' @examples
@@ -33,14 +34,30 @@
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
 read_csv2phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,
-    metadata.file=NULL) {
-    s.otu <- read.csv(otu.file, row.names=1, check.names=FALSE)
+    metadata.file=NULL, sep = ",") {
+
+    s.meta <- read.csv(metadata.file, row.names=1, check.names=FALSE, sep = sep)
+    s.sampledata <- sample_data(s.meta)
+    
+    s.otu <- read.csv(otu.file, row.names=1, check.names=FALSE, sep = sep)
+
+    # Ensure that the OTU table is OTU x samples
+    if (any(rownames(s.otu) %in% rownames(s.meta))) {
+      s.otu <- t(s.otu)
+    }
+
     s.otu.table <- otu_table(s.otu, taxa_are_rows=TRUE)
-    s.tax_table <- read_taxtable(taxonomy.file)
-    s.meta <- read.csv(metadata.file, row.names=1, check.names=FALSE)
-    s.smapledata <- sample_data(s.meta)
-    simple_pseq <- merge_phyloseq(s.otu.table, s.tax_table, s.smapledata)    
-    return(simple_pseq)
+    s.tax_table <- read_taxtable(taxonomy.file, sep = sep)
+
+    # Add the finest observation level to the tax table
+    # (not sufficient to have it as row.names)
+    if (!all(rownames(s.tax_table) == s.tax_table[, ncol(s.tax_table)])) {
+      s.tax_table <- cbind(s.tax_table, OTU = rownames(s.tax_table))
+      s.tax_table <- tax_table(s.tax_table)
+    }
+ 
+    pseq <- merge_phyloseq(s.otu.table, s.tax_table, s.sampledata)    
+    return(pseq)
 }
 
 

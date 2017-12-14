@@ -6,6 +6,7 @@
 #' @param to convert to taxonomic level
 #' @param data Either a \code{\link{phyloseq}} object or its
 #' \code{\link{taxonomyTable-class}} , see the \pkg{phyloseq} package.
+#' @param keep.na Logical. Keep "NA" level as its own category.
 #' @return mappings
 #' @examples
 #' data(dietswap)
@@ -29,7 +30,7 @@ map_levels <- function(taxa=NULL, from, to, data) {
     }
     
     df <- data
-    
+
     if (from == to) {
         df <- list()
         df[[to]] <- factor(taxa)
@@ -38,12 +39,12 @@ map_levels <- function(taxa=NULL, from, to, data) {
     }
     
     if (is.null(taxa)) {
-        taxa <- as.character(unique(df[, from]))
+        taxa <- na.omit(as.character(unique(df[, from])))
     }
     
     # From higher to lower level
     if (length(unique(df[, from])) <= length(unique(df[, to]))) {
-        
+
         sl <- list()
         for (pt in taxa) {
             

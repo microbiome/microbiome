@@ -1,8 +1,9 @@
-read_taxtable <- function (taxonomy.file) {
+read_taxtable <- function (taxonomy.file, sep = ",") {
 
-    s.tax <- read.csv(taxonomy.file, row.names=1, check.names=FALSE)
+    s.tax <- read.csv(taxonomy.file, row.names=1, check.names=FALSE, sep = sep)
     s.taxmat <- as.matrix(s.tax)
-    s.tax_table <- tax_table(s.taxmat)
-    s.tax_table
+
+    tax_table(s.taxmat)
+
 }
 
