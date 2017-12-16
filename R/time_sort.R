@@ -20,10 +20,11 @@ time_sort <- function(x) {
     
     # Keep only samples with time point info
     x <- subset(x, !is.na(time))
-    
+
     if (nrow(x) == 0) {
         return(NULL)
     }
+
     if (is.null(x$signal)) {
         x$signal <- rep(NA, nrow(x))
     }

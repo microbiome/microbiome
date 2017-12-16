@@ -63,7 +63,7 @@ diversities <- function(x, index="all", zeroes=TRUE) {
     if (!is.null(index) && length(index) == 0) {
         return(NULL)
     }
-    
+
     tab <- diversities_help(x, index, zeroes)
 
     if (is.vector(tab)) {
@@ -90,7 +90,7 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
     
     # Pick data
     otu <- abundances(x)
-    
+
     if (index == "inverse_simpson") {
         ev <- apply(otu, 2, function(x) {
             inverse_simpson(x, zeroes=zeroes)

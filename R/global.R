@@ -36,6 +36,8 @@ global <- function(x, index="all", rarity.detection = 0.2/100, rarity.prevalence
 
     tab <- NULL
     index <- tolower(index)
+    index <- gsub("diversities_shannon", "shannon", index)
+    index <- unique(index)
 
     message("Richness")
     if (any(c("all", "richness") %in% index)) {
@@ -80,7 +82,7 @@ global <- function(x, index="all", rarity.detection = 0.2/100, rarity.prevalence
     }
 
     message("Diversity")
-    a <- diversities(x, index=gsub("diversity_", "", index))
+    a <- diversities(x, index=gsub("diversities_", "", gsub("diversity_", "", index)))
     if (!is.null(a)) {
         if (is.vector(a)) {
             a <- as.matrix(a, ncol=1)

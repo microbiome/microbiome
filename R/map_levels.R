@@ -6,7 +6,6 @@
 #' @param to convert to taxonomic level
 #' @param data Either a \code{\link{phyloseq}} object or its
 #' \code{\link{taxonomyTable-class}} , see the \pkg{phyloseq} package.
-#' @param keep.na Logical. Keep "NA" level as its own category.
 #' @return mappings
 #' @examples
 #' data(dietswap)

@@ -39,7 +39,7 @@ Tools for the exploration and analysis of microbiome profiling data sets, in par
 
 See the package [tutorial](http://microbiome.github.io/microbiome/).
 
-**Kindly cite** as follows: "Leo Lahti, Sudarshan Shetty [et al.](https://github.com/microbiome/microbiome/graphs/contributors) ([Bioconductor, 2017](https://bioconductor.org/packages/devel/bioc/html/microbiome.html)). Tools for microbiome analysis in R. Microbiome package version . URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). See also the relevant references listed in the manual page of each function. 
+**Kindly cite** as follows: "Leo Lahti, Sudarshan Shetty [et al.](https://github.com/microbiome/microbiome/graphs/contributors) ([Bioconductor, 2017](https://bioconductor.org/packages/devel/bioc/html/microbiome.html)). Tools for microbiome analysis in R. Microbiome package version 1.1.10010. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). See also the relevant references listed in the manual page of each function. 
 
 ### Contribute
 
@@ -54,10 +54,7 @@ Contributions and feedback are very welcome:
 
 ### Publications using the microbiome package
 
-Below some publications that utilize the tools implemented in this package. The list of publications is not exhaustive. Let us know if you know of further publications using the microbiome package; we are collecting these on the website.  
-
-
-[Comparison of Small Gut and Whole Gut Microbiota of First-Degree Relatives with Adult Patients with Celiac Disease and Controls](https://www.biorxiv.org/content/early/2017/12/06/227272.full.pdf+html). Shetty SA, Bodkhe R, Dhotre DP, et al. _bioRxiv__preprint_  227272, 2017.
+Below some publications that utilize the tools implemented in this package. The list of publications is not exhaustive. Let us know if you know of further publications using the microbiome package; we are collecting these on the website.
 
 [Intestinal microbiome landscaping: Insight in community assemblage and implications for microbial modulation strategies](https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuw045/2979411/Intestinal-microbiome-landscaping-insight-in#58802539). Shetty S, Hugenholtz F, Lahti L, Smidt H, de Vos WM, Danchin A. _FEMS Microbiology Reviews_ fuw045, 2017.
 
