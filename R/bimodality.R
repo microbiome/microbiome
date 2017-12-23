@@ -21,11 +21,11 @@
 #' }
 #' @details
 #' \itemize{
-#' \item{Sarle.finite.sample}{Coefficient of bimodality for
+#' \item{Sarle.finite.sample}{ Coefficient of bimodality for
 #' finite sample. See SAS 2012.}
-#' \item{Sarle.asymptotic}{Coefficient of bimodality, used and described
+#' \item{Sarle.asymptotic}{ Coefficient of bimodality, used and described
 #' in Shade et al. (2014) and Ellison AM (1987).}
-#' \item{potential_analysis}{Repeats potential analysis
+#' \item{potential_analysis}{ Repeats potential analysis
 #' (Livina et al. 2010) multiple times with bootstrap sampling for
 #' each row of the input data (as in Lahti et al. 2014) and returns
 #' the bootstrap score.}
@@ -199,6 +199,7 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
         # Univariate potential analysis for all taxa with full data
         potential.results <- list()
         nmodes <- c()
+	
         if (is.null(rownames(x))) {
             rownames(x) <- as.character(1:nrow(x))
         }
@@ -208,8 +209,7 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
                 message(tax)
             }
             m <- multimodality(as.numeric(x[tax, ]), peak.threshold,
-            bw.adjust, bs.iter, 
-                min.density, verbose)
+                bw.adjust, bs.iter, min.density, verbose)
             nmodes[[tax]] <- m$modes
             potential.results[[tax]] <- m
         }
@@ -218,8 +218,9 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
             1 - x$unimodality.support
         })
         
-        ret <- list(score=multimodality.score, modes=nmodes,
-        results=potential.results)
+        ret <- list(score=multimodality.score,
+	            modes=nmodes,
+                    results=potential.results)
         
     }
     
