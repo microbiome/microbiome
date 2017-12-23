@@ -126,13 +126,9 @@ meta &lt;-<span class="st"> </span><span class="kw">meta</span>(pseq)</code></pr
 <h2>Linear models with limma</h2>
 <p>Identify most significantly different taxa between males and females using the limma method. See <a href="http://bioinf.wehi.edu.au/limma/">limma homepage</a> and <a href="http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf">limma User’s guide</a> for details. For discussion on why limma is preferred over t-test, see <a href="http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336">this article</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compare the two groups with limma</span>
-<span class="kw">library</span>(limma)</code></pre></div>
-<pre><code>## 
-## Attaching package: 'limma'</code></pre>
-<pre><code>## The following object is masked from 'package:BiocGenerics':
-## 
-##     plotMA</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Prepare the design matrix which states the groups for each sample</span>
+<span class="kw">library</span>(limma)
+
+<span class="co"># Prepare the design matrix which states the groups for each sample</span>
 <span class="co"># in the otu</span>
 design &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">intercept =</span> <span class="dv">1</span>, <span class="dt">Grp2vs1 =</span> meta[[<span class="st">&quot;gender&quot;</span>]])
 <span class="kw">rownames</span>(design) &lt;-<span class="st"> </span><span class="kw">rownames</span>(meta)
