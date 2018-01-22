@@ -9,6 +9,8 @@ https://bioconductor.org/packages/microbiome/
 
 ------------------------------
 
+#git remote add upstream git@git.bioconductor.org:packages/microbiome.git
+
 git fetch --all
 git merge origin/master
 git merge upstream/master
