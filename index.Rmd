@@ -43,10 +43,15 @@ opts_knit$set(self.contained = TRUE,
 ```
 
 
+<small>
 [![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)  
+[![Join the chat at https://gitter.im/microbiome/microbiome](https://badges.gitter.im/microbiome/microbiome.svg)](https://gitter.im/microbiome/microbiome?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![codecov.io](https://codecov.io/github/microbiome/microbiome/coverage.svg?branch=master)](https://codecov.io/github/microbiome/microbiome?branch=master)
+</small>
 
 
-Tools for microbiome analysis; with multiple example data sets from published studies; extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class.
+
+Tools for microbiome analysis; with multiple example data sets from published studies; extending the [phyloseq](http://joey711.github.io/phyloseq/import-data) class. The package is in [Bioconductor](https://bioconductor.org/packages/devel/bioc/html/microbiome.html) and aims to provide a comprehensive collection of tools and tutorials, with a particular focus on amplicon sequencing data.
 
 
 # Getting started
