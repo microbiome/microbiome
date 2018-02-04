@@ -25,6 +25,8 @@ output:
 
 Some examples on calculating beta diversity and using it to quantify community divergence within a given sample set.
 
+See [Community comparisons](Comparisons.html) page for examples on group-level comparisons based on beta diversity measures, including [limma](limma.html), [PERMANOVA](PERMANOVA.html), [mixed models](Mixedmodels.html), and [negative binomial](Negativebinomial.html).
+
 Load example data
 
 ```{r divergence-example2, message=FALSE}
