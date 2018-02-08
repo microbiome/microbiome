@@ -242,7 +242,6 @@ p <- plot_core(transform(dietswap.core, "compositional"),
     detections = 10^seq(log10(1e-3), log10(.2), length = 10), 
     horizontal = TRUE) +
     xlab("Detection Threshold (Relative Abundance (%))") 
-    
 print(p)    
 ```
 

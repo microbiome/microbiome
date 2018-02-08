@@ -36,21 +36,21 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
         detections <- 10^seq(log10(0.001), log10(max(abundances(x),
         na.rm=TRUE)), length=detections)
     }
-    
+
     if (plot.type == "lineplot") {
-        
+
         # Calculate the core matrix (prevalences x abundance thresholds)
         coremat <- core_matrix(x, prevalences, detections)
-        
+
         res <- core_lineplot(coremat)
-        
+
     } else if (plot.type == "heatmap") {
         
         # Here we use taxon x abundance thresholds table indicating prevalences
         res <- core_heatmap(abundances(x),
         dets=detections, cols=colours, 
             min.prev=min.prevalence, taxa.order=taxa.order)
-        
+
     }
     
     p <- res$plot + ggtitle("Core")
@@ -152,7 +152,7 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
     })
     prev <- do.call("cbind", prev)
     colnames(prev) <- as.character(dets)
-    
+
     # # Exclude rows and cols that never exceed the given prevalence
     if (!is.null(min.prev)) {
         prev <- prev[rowMeans(prev > min.prev) > 0,
@@ -161,11 +161,11 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
     
     df <- as.data.frame(prev)
     df$ID <- rownames(prev)
-    df <- gather(df, "ID")
+    df <- melt(df, "ID")
     names(df) <- c("Taxa", "DetectionThreshold", "Prevalence")
     df$DetectionThreshold <- as.numeric(as.character(df$DetectionThreshold))
     df$Prevalence <- as.numeric(as.character(df$Prevalence))
-    
+
     if (is.null(taxa.order)) {
         o <- names(sort(rowSums(prev)))
     } else {
@@ -195,11 +195,13 @@ core_lineplot <- function(x, title="Common core",
     xlabel="Abundance", ylabel="Core size (N)") {
     
     Abundance <- Prevalence <- Count <- NULL
-    
+
     df <- as.data.frame(x)
     df$ID <- rownames(x)
-    df <- gather(df, "ID")
+    #df <- tidyr::gather(df, "ID")
+    df <- melt(df, "ID")    
     names(df) <- c("Abundance", "Prevalence", "Count")
+    
     df$Abundance <- as.numeric(as.character(df$Abundance))
     df$Prevalence <- as.numeric(as.character(df$Prevalence))
     df$Count <- as.numeric(as.character(df$Count))

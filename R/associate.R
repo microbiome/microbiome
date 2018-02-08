@@ -94,7 +94,7 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
     if (verbose) {
         message(method)
     }
-    
+
     if (method %in% c("pearson", "spearman")) {
         
         minobs <- 8
@@ -124,7 +124,7 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
                 res
                 
             })
-            
+
             Cc[, j] <- jc[1, ]
             Pc[, j] <- jc[2, ]
             
@@ -166,25 +166,25 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
             }
         }
     }
-    
+
     if (!all(is.na(Pc))) {
-        
+
         rownames(Pc) <- xnames
         colnames(Pc) <- ynames
         
         rownames(Cc) <- xnames
         colnames(Cc) <- ynames
-        
+
         # Corrected p-values
         qv <- array(NA, dim=dim(Pc))
         qv <- matrix(p.adjust(Pc, method=p.adj.method), nrow=nrow(Pc))
         dimnames(qv) <- dimnames(Pc)
-        
+
     }
-    
+
     # Filter
     if (!is.null(p.adj.threshold) || !is.null(cth)) {
-        
+
         # Replace NAs with extreme values for filtering purposes
         qv[is.na(qv)] <- 1
         Pc[is.na(qv)] <- 1
@@ -227,8 +227,8 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
         }
         
         Cmat <- as.matrix(0)
-        
-        # TODO: add also correlation filter, not only significance
+
+    # TODO: add also correlation filter, not only significance
     # Require each has at least n.signif. correlations
         
         if (sum(inds1) >= n.signif && sum(inds2) >= n.signif) {
@@ -272,7 +272,7 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
             Cc <- Pc <- qv <- NULL
         }
     }
-    
+
     res <- list(cor=Cc, pval=Pc, p.adj=qv)
     
     # message('Ignore self-correlations in filtering')
@@ -280,7 +280,7 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
     if (nrow(x) == nrow(y) && ncol(x) == ncol(y) && filter.self.correlations) {
         diag(res$cor) <- diag(res$pval) <- diag(res$p.adj) <- NA
     }
-    
+
     if (mode == "table") {
         res <- cmat2table(res)
     }
@@ -307,29 +307,30 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
 cmat2table <- function(res, verbose=FALSE) {
     
     ctab <- ID <- NULL
-    
+
     if (!is.null(res$cor)) {
         ctab <- as.data.frame(res$cor)
         ctab$ID <- rownames(res$cor)
-        ctab <- gather(ctab, ID)
+        ctab <- melt(ctab, "ID")
+
         colnames(ctab) <- c("X1", "X2", "Correlation")
         ctab$Correlation <- as.numeric(as.character(ctab$Correlation))
     }
     
     correlation <- NULL  # circumwent warning on globabl vars
-    
+
     if (!is.null(res$p.adj)) {
         
         if (verbose) {
             message("Arranging the table")
         }
-        
+
         ctab2 <- as.data.frame(res$p.adj)
         ctab2$ID <- rownames(res$p.adj)
-        ctab2 <- gather(ctab2, ID)
+        ctab2 <- melt(ctab2, "ID")
         colnames(ctab2) <- c("X1", "X2", "p.adj")
         ctab2$p.adj <- as.numeric(as.character(ctab2$p.adj))
-        
+
         ctab <- cbind(ctab, ctab2$p.adj)
         colnames(ctab) <- c("X1", "X2", "Correlation", "p.adj")
         ctab <- ctab[order(ctab$p.adj), ]
@@ -341,7 +342,7 @@ cmat2table <- function(res, verbose=FALSE) {
             
             ctab2 <- as.data.frame(res$pval)
             ctab2$ID <- rownames(res$pval)
-            ctab2 <- gather(ctab2, ID)
+            ctab2 <- melt(ctab2, "ID")
             colnames(ctab2) <- c("X1", "X2", "value")
             ctab2$value <- as.numeric(as.character(ctab2$value))
             
@@ -350,7 +351,7 @@ cmat2table <- function(res, verbose=FALSE) {
             colnames(ctab) <- c("X1", "X2", "Correlation", "pvalue")
         }
     }
-    
+
     ctab$X1 <- as.character(ctab$X1)
     ctab$X2 <- as.character(ctab$X2)
     

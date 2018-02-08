@@ -108,7 +108,6 @@
 #' @importFrom stats sd
 #' @importFrom stats time
 #' @importFrom stats frequency
-#' @importFrom tidyr gather
 #' @importFrom tidyr separate
 #' @importFrom utils capture.output
 #' @importFrom utils flush.console
@@ -125,7 +124,7 @@
 #' @importFrom vegan wascores
 .onAttach <- function(lib, pkg) {
     packageStartupMessage("\nmicrobiome R package (microbiome.github.com)
-    \n\n\n Copyright (C) 2011-2017 Leo Lahti et al. <microbiome.github.io>\n")
+    \n\n\n Copyright (C) 2011-2018 Leo Lahti et al. <microbiome.github.io>\n")
 }
 
 # As far as I understand the problem, running into this error / limit is _not_
