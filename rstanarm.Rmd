@@ -75,7 +75,8 @@ library(rstanarm)
 
 # Example data
 
-You can use your own data set, or load this example data. This data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) includes microbiota profiles for 130 genus-like taxa across 1006 normal western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d). Load the data in R:
+
+You can use your own data set, ready-made R example data sets, or load the following example data. This data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) includes microbiota profiles for 130 genus-like taxa across 1006 normal western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d). Load the data in R:
 
 ```{r data, warning=FALSE, message=FALSE}
 # Load example data
