@@ -97,16 +97,12 @@ $(document).ready(function () {
       </ul></li>
       <li><a href="#the-tools-rstanarm">The tools: rstanarm</a></li>
       <li><a href="#example-data">Example data</a></li>
-      <li><a href="#tasks-for-the-exercise-session-1">Tasks for the exercise session 1</a><ul>
-      <li><a href="#interactive-shinystan">Interactive ShinyStan</a></li>
-      <li><a href="#bayesian-priors">Bayesian priors</a></li>
-      </ul></li>
+      <li><a href="#tasks-for-the-exercise-session-1">Tasks for the exercise session 1</a></li>
       <li><a href="#tasks-for-the-exercise-session-2">Tasks for the exercise session 2</a><ul>
       <li><a href="#tasks-extend-and-vary-the-linear-model">Tasks: extend and vary the linear model</a></li>
       </ul></li>
       <li><a href="#tasks-for-the-exercise-session-3">Tasks for the exercise session 3</a></li>
       <li><a href="#troubleshooting">Troubleshooting</a></li>
-      <li><a href="#other-examples">Other examples</a></li>
       <li><a href="#further-resources-and-literature">Further Resources and literature</a></li>
       <li><a href="#contact-and-acknowledgement">Contact and acknowledgement</a></li>
       </ul>
@@ -152,57 +148,46 @@ x &lt;-<span class="st"> </span><span class="kw">baseline</span>(dietswap)
 df &lt;-<span class="st"> </span><span class="kw">meta</span>(x)
 df<span class="op">$</span>diversity &lt;-<span class="st"> </span><span class="kw">diversities</span>(x, <span class="st">&quot;shannon&quot;</span>)<span class="op">$</span>shannon</code></pre></div>
 <p>You can study the effects of the various parameters in this data.frame on microbiota diversity using ANOVA, linear models, mixed models, and generalized linear models in rstanarm.</p>
+<p>For further example data sets from microbial ecology, see <a href="http://microbiome.github.io/microbiome/rstanarm.html">microbiome tutorial</a>.</p>
 </div>
 <div id="tasks-for-the-exercise-session-1" class="section level1">
 <h1>Tasks for the exercise session 1</h1>
 <ul>
-<li><p>Try out the linear model examples with <a href="http://mc-stan.org/rstanarm/articles/aov.html">ANOVA in rstanarm</a></p></li>
-<li></li>
+<li><p>Check the tutorial, and try out rstanarm examples with <a href="http://mc-stan.org/rstanarm/articles/aov.html">ANOVA in rstanarm</a>.</p></li>
+<li><p>Explore the use of <a href="http://mc-stan.org/users/interfaces/shinystan">shinystan R package</a>. This provides tools to diagnose stan models visually and numerically, including model parameters and convergence diagnostics for MCMC simulations.</p></li>
+<li><p>Compare the results between rstanarm and standard alternatives (lm vs. stan_lm; aov vs. stan_aov) etc.</p></li>
+<li><p>If the time allows, you can also make rstanarm examples with <a href="http://mc-stan.org/rstanarm/articles/lm.html">linear models in rstanarm</a>.</p></li>
 </ul>
-<div id="interactive-shinystan" class="section level2">
-<h2>Interactive ShinyStan</h2>
-<p>Explore the use of <a href="http://mc-stan.org/users/interfaces/shinystan">shinystan R package</a>. This provides tools to diagnose stan models visually and numerically, including model parameters and convergence diagnostics for MCMC simulations.</p>
-<p>ShinyStan is widely applicable to MCMC outputs from Stan, JAGS, BUGS, MCMCPack, NIMBLE, emcee, SAS, and others.</p>
-<div id="further-model-diagnostics" class="section level3">
-<h3>Further model diagnostics</h3>
-<ul>
-<li>Posterior predictive checks</li>
-<li>Leave-one-out cross-validation</li>
-</ul>
-</div>
-</div>
-<div id="bayesian-priors" class="section level2">
-<h2>Bayesian priors</h2>
-<p>Find out more about Bayesian priors in linear models (including ANOVA):</p>
-<ul>
-<li><p><a href="http://mc-stan.org/rstanarm/articles/lm.html">Priors in linear models</a></p></li>
-<li><p><a href="http://mc-stan.org/rstanarm/articles/priors.html">More on priors in rstanarm</a></p></li>
-</ul>
-</div>
 </div>
 <div id="tasks-for-the-exercise-session-2" class="section level1">
 <h1>Tasks for the exercise session 2</h1>
 <div id="tasks-extend-and-vary-the-linear-model" class="section level2">
 <h2>Tasks: extend and vary the linear model</h2>
-<p>For standard group-wise comparisons and random effects, see the tutorial on <a href="http://mc-stan.org/rstanarm/articles/aov.html">ANOVA and mixed linear models</a>. Experiment with the different options using either the provided example data, or a data set of your own.</p>
+<ul>
+<li><p>Try out alternative formulations of the <a href="http://mc-stan.org/rstanarm/articles/lm.html">linear model</a> (stan_lm and stan_glm)</p></li>
+<li><p>Increase the number of predictors in the linear model (instead of gender, use gender, nationality, and BMI, for instance) and investigate how this affects the inference</p></li>
+<li><p><a href="http://mc-stan.org/rstanarm/articles/lm.html">Read about priors in linear models</a>. Experiment with different priors and see how this affects the results (gaussian, cauchy, uniform, different parameter values). You can also read <a href="http://mc-stan.org/rstanarm/articles/priors.html">more on priors in rstanarm</a>.</p></li>
+</ul>
 </div>
 </div>
 <div id="tasks-for-the-exercise-session-3" class="section level1">
 <h1>Tasks for the exercise session 3</h1>
+<ul>
+<li><p>Compare alternative models with the <a href="https://cran.r-project.org/web/packages/loo/vignettes/loo-example.html">loo package</a></p></li>
+<li><p>Experiment with more complex models in the <a href="http://mc-stan.org/rstanarm/articles/index.html">rstanarm tutorials</a></p></li>
+<li><p>You can also try the full (more involved but also more flexible) <a href="https://www.r-bloggers.com/bayesian-regression-with-stan-part-1-normal-regression/">rstan implementation of the linear model</a></p></li>
+</ul>
 </div>
 <div id="troubleshooting" class="section level1">
 <h1>Troubleshooting</h1>
 <p>Ask the instructors, or see the <a href="http://mc-stan.org/rstanarm/articles/rstanarm.html">rstanarm tutorial</a> for tips on common problems that may arise when altering the model.</p>
-</div>
-<div id="other-examples" class="section level1">
-<h1>Other examples</h1>
-<p>You can also change modeling assumptions, or construct more complex models. See the <a href="http://mc-stan.org/rstanarm/articles/index.html">rstanarm tutorials</a> for more examples. You can try these out, and we aim to support in the process!</p>
 </div>
 <div id="further-resources-and-literature" class="section level1">
 <h1>Further Resources and literature</h1>
 <p><a href="https://thinkinator.com/2016/01/12/r-users-will-now-inevitably-become-bayesians/">R users will now inevitably become Bayesians</a></p>
 <p><a href="http://mc-stan.org/rstanarm/">Online manual for rstanarm</a></p>
 <p><a href="https://www.youtube.com/watch?v=z7zOzL9Rrzs">Video tutorial on rstanarm</a></p>
+<p><a href="http://mc-stan.org/users/documentation/tutorials">Stan tutorials</a></p>
 </div>
 <div id="contact-and-acknowledgement" class="section level1">
 <h1>Contact and acknowledgement</h1>
