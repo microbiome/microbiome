@@ -96,7 +96,7 @@ generalized linear models in rstanarm.
 For further example data sets from microbial ecology, see [microbiome tutorial](http://microbiome.github.io/microbiome/rstanarm.html).
 
 
-# Tasks for the exercise session 1
+# Exercise session 1: introduction to rstanarm
 
 - Check the tutorial, and try out rstanarm examples with [ANOVA in rstanarm](http://mc-stan.org/rstanarm/articles/aov.html). 
 
@@ -109,9 +109,7 @@ For further example data sets from microbial ecology, see [microbiome tutorial](
 
 
 
-# Tasks for the exercise session 2
-
-## Tasks: extend and vary the linear model
+# Exercise session 2: extend and vary the linear model
 
 - Try out alternative formulations of the [linear model](http://mc-stan.org/rstanarm/articles/lm.html) (stan_lm and stan_glm)
 
@@ -120,7 +118,7 @@ For further example data sets from microbial ecology, see [microbiome tutorial](
 - [Read about priors in linear models](http://mc-stan.org/rstanarm/articles/lm.html). Experiment with different priors and see how this affects the results (gaussian, cauchy, uniform, different parameter values). You can also read [more on priors in rstanarm](http://mc-stan.org/rstanarm/articles/priors.html).
 
 
-# Tasks for the exercise session 3
+# Exercise session 3: further resources
 
 - Compare alternative models with the [loo package](https://cran.r-project.org/web/packages/loo/vignettes/loo-example.html)
 
