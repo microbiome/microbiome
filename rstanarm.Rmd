@@ -1,0 +1,170 @@
+---
+title: "Linear models and probabilistic programming"
+author: "Leo Lahti and Ville Laitinen | VIB / KU Leuven, Belgium - Feb 27, 2018"
+date: "`r Sys.Date()`"
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - rstanarm}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
+```{r setup, echo=FALSE, message=FALSE, warning=FALSE}
+library(devtools)
+library(gridExtra)
+library(dplyr)
+library(reshape2)
+library(tidyr)
+library(cowplot)
+library(ggplot2)
+
+# Defaults
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.path = "figs/")
+knitr::opts_chunk$set(dev="CairoPNG")
+knitr::opts_chunk$set(cache=FALSE)
+
+# http://derekogle.com/fishR/2015-09-17-Figure-Table-Captions-in-Markdown
+library(captioner)
+tbls <- captioner(prefix="Table")
+figs <- captioner(prefix="Fig.")
+```
+
+
+# Introduction
+
+**Target group**: those who are willing to have their first encounters with Bayesian modeling and inference 
+
+**Learning goals** This tutorial gets you started in probabilistic programming. The aim is to learn how basic linear models can be implemented and extended using probabilistic programming tools, and understanding the underlying motivations and challenges.
+
+**Teaching method** This material provides pointers for experimentation and online resources. The material is intended to be used in combination with lectures and hands-on instruction. 
+
+## Probabilistic versus frequentist models
+
+Probabilistic programming provides alternatives to classical models. Often, the models are identical under particular modeling assumptions. The probabilistic framework provides expanded opportunities to modify the model structure, distributional assumptions, and prior information.
+
+This is particularly useful in cases where analytical solutions are not available, and classical counterparts may not exist. When both alternatives are available, incorporation of prior information can help to avoid overfitting and deal with small sample sizes, adding robustness in probabilistic models.
+
+In standard cases, the Bayesian and frequentist versions give mostly similar estimates for the model parameters. This is not always the case, however. An example is given in the [stan_lm](http://mc-stan.org/rstanarm/articles/lm.html) page. In that example, the use of Bayesian prior helps to avoid overfitting and finds a more accurate solution when the sample size is small compared to the model complexity.
+
+Due to time limitations, comparisons to the classical/frequentist models are not considered in this workshop. Instead, we focus on the use and interpretation of the probabilistic version.
+
+
+# The tools: rstanarm
+
+The [rstanarm R package](http://mc-stan.org/rstanarm/) is based on the Stan probabilistic programming language, but uses syntax that is familiar to R users who are familiar with traditional linear models.
+
+For a more comprehensive introduction, check the [rstanarm tutorial](http://mc-stan.org/rstanarm/articles/aov.html).
+
+Let us load the necessary libraries in R:
+
+```{r libraries, echo=FALSE, message=FALSE, warning=FALSE}
+library(rstan)
+library(rstanarm)
+```
+
+# Example data
+
+You can use your own data set, or load this example data. This data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) includes microbiota profiles for 130 genus-like taxa across 1006 normal western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d). Load the data in R:
+
+```{r data, warning=FALSE, message=FALSE}
+# Load example data
+library(microbiome)
+data(dietswap)
+
+# Some necessary data preparations
+sample_data(dietswap)$time <- sample_data(dietswap)$timepoint
+x <- baseline(dietswap)
+df <- meta(x)
+df$diversity <- diversities(x, "shannon")$shannon
+```
+
+You can study the effects of the various parameters in this data.frame
+on microbiota diversity using ANOVA, linear models, mixed models, and
+generalized linear models in rstanarm.
+
+
+
+# Tasks for the exercise session 1
+
+- Try out the linear model examples with [ANOVA in rstanarm](http://mc-stan.org/rstanarm/articles/aov.html)
+
+- 
+
+## Interactive ShinyStan 
+
+Explore the use of [shinystan R package](http://mc-stan.org/users/interfaces/shinystan). This provides tools to diagnose stan models visually and numerically, including model parameters and convergence diagnostics for MCMC simulations.
+
+```{r shiny, echo=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
+launch_shinystan(post)
+```
+
+ShinyStan is widely applicable to MCMC outputs from Stan, JAGS, BUGS, MCMCPack, NIMBLE, emcee, SAS, and others.
+
+### Further model diagnostics
+
+* Posterior predictive checks
+* Leave-one-out cross-validation
+
+
+## Bayesian priors
+
+Find out more about Bayesian priors in linear models (including ANOVA):
+
+ - [Priors in linear models](http://mc-stan.org/rstanarm/articles/lm.html)
+
+ - [More on priors in rstanarm](http://mc-stan.org/rstanarm/articles/priors.html)
+
+
+# Tasks for the exercise session 2
+
+## Tasks: extend and vary the linear model
+
+For standard group-wise comparisons and random effects, see the tutorial on [ANOVA and mixed linear models](http://mc-stan.org/rstanarm/articles/aov.html). Experiment with the different options using either the provided example data, or a data set of your own.
+
+
+# Tasks for the exercise session 3
+
+
+
+# Troubleshooting
+
+Ask the instructors, or see the [rstanarm tutorial](http://mc-stan.org/rstanarm/articles/rstanarm.html) for tips on common problems that may arise when altering the model.
+
+# Other examples
+
+You can also change modeling assumptions, or construct more complex models. See the [rstanarm tutorials](http://mc-stan.org/rstanarm/articles/index.html) for more examples. You can try these out, and we aim to support in the process!
+
+
+# Further Resources and  literature
+
+[R users will now inevitably become Bayesians](https://thinkinator.com/2016/01/12/r-users-will-now-inevitably-become-bayesians/)
+
+[Online manual for rstanarm](http://mc-stan.org/rstanarm/)
+
+[Video tutorial on rstanarm](https://www.youtube.com/watch?v=z7zOzL9Rrzs)
+
+
+
+
+# Contact and acknowledgement
+
+[Link to the feedback form](https://docs.google.com/forms/d/e/1FAIpQLSdMegb7DaxXz7gaSTd2CiOlSW07EsjMZ-4zCKKi3ZEn8wYzOg/viewform?usp=sf_link)
+
+Regarding the course content, you can contact [Leo Lahti](http://www.iki.fi/Leo.Lahti).
+
+We are grateful for the developers of rstan, rstanarm, and shinystan. Regarding the external tutorials used in this assignment, contact the respective authors.
+
+
+
+
