@@ -159,7 +159,9 @@ Ask the instructors, or see the [rstanarm tutorial](http://mc-stan.org/rstanarm/
 
 # Contact and acknowledgement
 
-[Link to the feedback form](https://docs.google.com/forms/d/e/1FAIpQLSdMegb7DaxXz7gaSTd2CiOlSW07EsjMZ-4zCKKi3ZEn8wYzOg/viewform?usp=sf_link)
+[Feedback form](https://docs.google.com/forms/d/e/1FAIpQLSdMegb7DaxXz7gaSTd2CiOlSW07EsjMZ-4zCKKi3ZEn8wYzOg/viewform?usp=sf_link)
+
+[Lecture slides](https://github.com/antagomir/antagomir.github.io/raw/master/files/publications/slides/20180226-rstan-VIB.odp)
 
 Regarding the course content, you can contact [Leo Lahti](http://www.iki.fi/Leo.Lahti).
 
