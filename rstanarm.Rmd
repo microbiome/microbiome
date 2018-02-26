@@ -78,15 +78,24 @@ library(rstanarm)
 
 You can use your own data set, ready-made R example data sets, or load the following example data. This data set from [Lahti et al. Nat. Comm. 5:4344, 2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html) includes microbiota profiles for 130 genus-like taxa across 1006 normal western adults from [Data Dryad](http://doi.org/10.5061/dryad.pk75d). Load the data in R:
 
-```{r data, warning=FALSE, message=FALSE}
+```{r data, warning=FALSE, message=FALSE, eval=FALSE}
+# Install the example data set used in rstanarm tutorials
+install.packages("HSAUR3")
+
 # Load example data
 library(microbiome)
 data(dietswap)
 
 # Some necessary data preparations
 sample_data(dietswap)$time <- sample_data(dietswap)$timepoint
+
+# Pick jist the baseline data points (first time point 1)
 x <- baseline(dietswap)
+
+# Pick metadata from the phyloseq object
 df <- meta(x)
+
+# Add microbiome diversity to the metadata
 df$diversity <- diversities(x, "shannon")$shannon
 ```
 
@@ -103,7 +112,7 @@ For further example data sets from microbial ecology, see [microbiome tutorial](
 
 - Explore the use of [shinystan R package](http://mc-stan.org/users/interfaces/shinystan). This provides tools to diagnose stan models visually and numerically, including model parameters and convergence diagnostics for MCMC simulations.
 
-- Compare the results between rstanarm and standard alternatives (lm vs. stan_lm; aov vs. stan_aov) etc.
+- Compare the results between rstanarm and standard alternatives (lm vs. stan_lm or aov vs. stan_aov) etc.
 
 - If the time allows, you can also make rstanarm examples with [linear models in rstanarm](http://mc-stan.org/rstanarm/articles/lm.html). 
 
@@ -112,7 +121,7 @@ For further example data sets from microbial ecology, see [microbiome tutorial](
 
 # Exercise session 2: extend and vary the linear model
 
-- Try out alternative formulations of the [linear model](http://mc-stan.org/rstanarm/articles/lm.html) (stan_lm and stan_glm)
+- Try out alternative formulations of the [linear model](http://mc-stan.org/rstanarm/articles/lm.html) (stan_lm; stan_glm; stan_lmer)
 
 - Increase the number of predictors in the linear model (instead of gender, use gender, nationality, and BMI, for instance) and investigate how this affects the inference
 

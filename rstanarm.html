@@ -136,14 +136,23 @@ $(document).ready(function () {
 <div id="example-data" class="section level1">
 <h1>Example data</h1>
 <p>You can use your own data set, ready-made R example data sets, or load the following example data. This data set from <a href="http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html">Lahti et al. Nat. Comm. 5:4344, 2014</a> includes microbiota profiles for 130 genus-like taxa across 1006 normal western adults from <a href="http://doi.org/10.5061/dryad.pk75d">Data Dryad</a>. Load the data in R:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load example data</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Install the example data set used in rstanarm tutorials</span>
+<span class="kw">install.packages</span>(<span class="st">&quot;HSAUR3&quot;</span>)
+
+<span class="co"># Load example data</span>
 <span class="kw">library</span>(microbiome)
 <span class="kw">data</span>(dietswap)
 
 <span class="co"># Some necessary data preparations</span>
 <span class="kw">sample_data</span>(dietswap)<span class="op">$</span>time &lt;-<span class="st"> </span><span class="kw">sample_data</span>(dietswap)<span class="op">$</span>timepoint
+
+<span class="co"># Pick jist the baseline data points (first time point 1)</span>
 x &lt;-<span class="st"> </span><span class="kw">baseline</span>(dietswap)
+
+<span class="co"># Pick metadata from the phyloseq object</span>
 df &lt;-<span class="st"> </span><span class="kw">meta</span>(x)
+
+<span class="co"># Add microbiome diversity to the metadata</span>
 df<span class="op">$</span>diversity &lt;-<span class="st"> </span><span class="kw">diversities</span>(x, <span class="st">&quot;shannon&quot;</span>)<span class="op">$</span>shannon</code></pre></div>
 <p>You can study the effects of the various parameters in this data.frame on microbiota diversity using ANOVA, linear models, mixed models, and generalized linear models in rstanarm.</p>
 <p>For further example data sets from microbial ecology, see <a href="http://microbiome.github.io/microbiome/rstanarm.html">microbiome tutorial</a>.</p>
@@ -153,14 +162,14 @@ df<span class="op">$</span>diversity &lt;-<span class="st"> </span><span class="
 <ul>
 <li><p>Check the tutorial, and try out rstanarm examples with <a href="http://mc-stan.org/rstanarm/articles/aov.html">ANOVA in rstanarm</a>.</p></li>
 <li><p>Explore the use of <a href="http://mc-stan.org/users/interfaces/shinystan">shinystan R package</a>. This provides tools to diagnose stan models visually and numerically, including model parameters and convergence diagnostics for MCMC simulations.</p></li>
-<li><p>Compare the results between rstanarm and standard alternatives (lm vs. stan_lm; aov vs. stan_aov) etc.</p></li>
+<li><p>Compare the results between rstanarm and standard alternatives (lm vs. stan_lm or aov vs. stan_aov) etc.</p></li>
 <li><p>If the time allows, you can also make rstanarm examples with <a href="http://mc-stan.org/rstanarm/articles/lm.html">linear models in rstanarm</a>.</p></li>
 </ul>
 </div>
 <div id="exercise-session-2-extend-and-vary-the-linear-model" class="section level1">
 <h1>Exercise session 2: extend and vary the linear model</h1>
 <ul>
-<li><p>Try out alternative formulations of the <a href="http://mc-stan.org/rstanarm/articles/lm.html">linear model</a> (stan_lm and stan_glm)</p></li>
+<li><p>Try out alternative formulations of the <a href="http://mc-stan.org/rstanarm/articles/lm.html">linear model</a> (stan_lm; stan_glm; stan_lmer)</p></li>
 <li><p>Increase the number of predictors in the linear model (instead of gender, use gender, nationality, and BMI, for instance) and investigate how this affects the inference</p></li>
 <li><p><a href="http://mc-stan.org/rstanarm/articles/lm.html">Read about priors in linear models</a>. Experiment with different priors and see how this affects the results (gaussian, cauchy, uniform, different parameter values). You can also read <a href="http://mc-stan.org/rstanarm/articles/priors.html">more on priors in rstanarm</a>.</p></li>
 </ul>
