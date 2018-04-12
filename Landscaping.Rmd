@@ -39,7 +39,7 @@ pseq <- dietswap
 pseq.rel <- microbiome::transform(pseq, "compositional")
 
 # Pick core taxa
-pseq.core <- core(pseq.rel, detection = 5/100, prevalence = 50/100)
+pseq.core <- core(pseq.rel, detection = 5/100, prevalence = 5/100)
 pseq.core <- subset_samples(pseq.core, sex == "Female" &
 	                               bmi_group == "overweight")
 ```
@@ -53,24 +53,28 @@ Visualize the microbiome landscape (sample similarities on two-dimensional proje
 ### PCA
 
 ```{r landscape_pca, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
-p <- plot_landscape(pseq.core, "PCA", transformation = "clr")
-print(p)
+# PCA with euclidean distance and CLR transformation
+p.pca <- plot_landscape(pseq, method = "PCA", transformation = "clr") +
+       labs(title = paste("PCA / CLR"))
 ```
 
 
 ### PCoA / MDS
 
 ```{r landscape_pcoa, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
-p <- plot_landscape(abundances(transform(pseq.core, "log10"))[, 1:2], method = "PCoA")
-print(p)
+# PCoA for compositional data with Bray-Curtis distances
+p.pcoa <- plot_landscape(transform(pseq.core, "compositional"),
+                      method = "PCoA", distance = "bray") +
+       labs(title = paste("PCoA / Compositional / Bray-Curtis"))
 ```
 
 
 ### t-SNE
 
 ```{r landscape_tsne, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
-p <- plot_landscape(pseq, "t-SNE", distance = "bray", transformation = "compositional")
-print(p)
+p.tsne <- plot_landscape(pseq, "t-SNE",
+       distance = "euclidean", transformation = "hellinger") +
+       labs(title = paste("t-SNE / Hellinger / Euclidean"))       
 ```
 
 
@@ -78,8 +82,15 @@ print(p)
 
 ```{r landscape3, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
 # Landscape plot directly from phyloseq object
-p <- plot_landscape(pseq.core, "NMDS", "bray", col = "nationality")
-print(p)
+p.nmds <- plot_landscape(pseq.core, "NMDS", "bray", col = "nationality") +
+       labs(title = paste("NMDS / Bray-Curtis"))       
+```
+
+
+
+```{r landscapes, message=FALSE, warning=FALSE, fig.width=24, fig.height=6, fig.show="hold", out.width="800px"}
+library(patchwork)
+print(p.pca + p.pcoa + p.tsne + p.nmds)
 ```
 
 For direct access to the ordination coordinates, use the following:
