@@ -54,8 +54,9 @@ Visualize the microbiome landscape (sample similarities on two-dimensional proje
 
 ```{r landscape_pca, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
 # PCA with euclidean distance and CLR transformation
-p.pca <- plot_landscape(pseq, method = "PCA", transformation = "clr") +
+p <- plot_landscape(pseq, method = "PCA", transformation = "clr") +
        labs(title = paste("PCA / CLR"))
+print(p)
 ```
 
 
@@ -63,18 +64,20 @@ p.pca <- plot_landscape(pseq, method = "PCA", transformation = "clr") +
 
 ```{r landscape_pcoa, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
 # PCoA for compositional data with Bray-Curtis distances
-p.pcoa <- plot_landscape(transform(pseq.core, "compositional"),
+p <- plot_landscape(transform(pseq.core, "compositional"),
                       method = "PCoA", distance = "bray") +
        labs(title = paste("PCoA / Compositional / Bray-Curtis"))
+print(p)
 ```
 
 
 ### t-SNE
 
 ```{r landscape_tsne, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
-p.tsne <- plot_landscape(pseq, "t-SNE",
+p <- plot_landscape(pseq, "t-SNE",
        distance = "euclidean", transformation = "hellinger") +
        labs(title = paste("t-SNE / Hellinger / Euclidean"))       
+print(p)
 ```
 
 
@@ -82,17 +85,13 @@ p.tsne <- plot_landscape(pseq, "t-SNE",
 
 ```{r landscape3, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
 # Landscape plot directly from phyloseq object
-p.nmds <- plot_landscape(pseq.core, "NMDS", "bray", col = "nationality") +
+p <- plot_landscape(pseq.core, "NMDS", "bray", col = "nationality") +
        labs(title = paste("NMDS / Bray-Curtis"))       
 ```
 
 
 
-```{r landscapes, message=FALSE, warning=FALSE, fig.width=24, fig.height=6}
-library(gridExtra)
-grid.arrange(p.pca, p.pcoa, p.tsne, p.nmds, nrow = 2)
-#print(p.pca + p.pcoa + p.tsne + p.nmds + plot_layout(nrow = 1))
-```
+
 
 For direct access to the ordination coordinates, use the following:
 
