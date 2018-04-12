@@ -45,7 +45,36 @@ pseq.core <- subset_samples(pseq.core, sex == "Female" &
 ```
 
 
-Visualize the microbiome landscape (sample similarities on two-dimensional projection):
+## Landscape figure
+
+Visualize the microbiome landscape (sample similarities on two-dimensional projection). When using these tools, kindly cite Shetty et al. FEMS Microbiology Reviews, 41(2):182–199, 2017 [doi:10.1093/femsre/fuw045](https://doi.org/10.1093/femsre/fuw045).
+
+
+### PCA
+
+```{r landscape_pca, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
+p <- plot_landscape(dietswap, "PCA", transformation = "clr")
+print(p)
+```
+
+
+### PCoA / MDS
+
+```{r landscape_pcoa, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
+p <- plot_landscape(abundances(transform(pseq, "log10"))[, 1:2], method = "PCoA")
+print(p)
+```
+
+
+### t-SNE
+
+```{r landscape_tsne, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
+p <- plot_landscape(atlas1006, "t-SNE", distance = "bray", transformation = "compositional")
+print(p)
+```
+
+
+### NMDS
 
 ```{r landscape3, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
 # Landscape plot directly from phyloseq object

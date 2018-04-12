@@ -35,13 +35,15 @@ library(knitr)
 #fs <- "RDA.Rmd"
 #fs <- "SQL.Rmd"
 #fs <- "index.Rmd"
-fs <- sample(list.files(pattern = ".Rmd$"))
+fs <- "rstanarm.Rmd"
+#fs <- sample(list.files(pattern = ".Rmd$"))
 knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
 times <- c()
 namespaces0 <-  loadedNamespaces()
 
 #for (myfile in setdiff(fs, "Themes.Rmd")) {
 for (myfile in fs) {
+
     #print(myfile)
     # times[[myfile]] <- system.time(knit(myfile))[["elapsed"]]
     #rmarkdown::render(myfile, "md_document")
