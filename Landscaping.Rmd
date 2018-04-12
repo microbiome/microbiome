@@ -88,9 +88,9 @@ p.nmds <- plot_landscape(pseq.core, "NMDS", "bray", col = "nationality") +
 
 
 
-```{r landscapes, message=FALSE, warning=FALSE, fig.width=24, fig.height=6, fig.show="hold", out.width="800px"}
+```{r landscapes, message=FALSE, warning=FALSE, fig.width=24, fig.height=6}
 library(patchwork)
-print(p.pca + p.pcoa + p.tsne + p.nmds)
+print(p.pca + p.pcoa + p.tsne + p.nmds + plot_layout(nrow = 1))
 ```
 
 For direct access to the ordination coordinates, use the following:
