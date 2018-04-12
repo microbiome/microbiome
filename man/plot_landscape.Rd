@@ -17,7 +17,8 @@ then it is plotted as is.}
 \item{method}{Ordination method, see phyloseq::plot_ordination; or "PCA",
 or "t-SNE" (from the \pkg{Rtsne} package)}
 
-\item{distance}{Ordination distance, see phyloseq::plot_ordination}
+\item{distance}{Ordination distance, see phyloseq::plot_ordination; for
+method = "PCA", only euclidean distance is implemented now.}
 
 \item{transformation}{Transformation applied on the input object x}
 
@@ -50,16 +51,18 @@ function call. Note that the distance and transformation arguments may
 have a drastic effect on the outputs.
 }
 \examples{
+
 data(dietswap)
 
 # PCoA
-p <- plot_landscape(abundances(transform(dietswap, "log10"))[, 1:2])
+p <- plot_landscape(transform(dietswap, "compositional"),
+   distance = "bray", method = "PCoA")
 
-p <- plot_landscape(dietswap, "t-SNE", distance = "bray",
+p <- plot_landscape(dietswap, method = "t-SNE", distance = "bray",
        transformation = "compositional")
 
 # PCA
-p <- plot_landscape(dietswap, "PCA", transformation = "clr")
+p <- plot_landscape(dietswap, method = "PCA", transformation = "clr")
 
 }
 \keyword{utilities}
