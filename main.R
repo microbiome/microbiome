@@ -35,7 +35,8 @@ library(knitr)
 #fs <- "RDA.Rmd"
 #fs <- "SQL.Rmd"
 #fs <- "index.Rmd"
-fs <- "rstanarm.Rmd"
+#fs <- "rstanarm.Rmd"
+fs <- "Landscaping.Rmd"
 #fs <- sample(list.files(pattern = ".Rmd$"))
 knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
 times <- c()

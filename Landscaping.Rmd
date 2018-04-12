@@ -53,7 +53,7 @@ Visualize the microbiome landscape (sample similarities on two-dimensional proje
 ### PCA
 
 ```{r landscape_pca, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
-p <- plot_landscape(dietswap, "PCA", transformation = "clr")
+p <- plot_landscape(pseq.core, "PCA", transformation = "clr")
 print(p)
 ```
 
@@ -61,7 +61,7 @@ print(p)
 ### PCoA / MDS
 
 ```{r landscape_pcoa, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
-p <- plot_landscape(abundances(transform(pseq, "log10"))[, 1:2], method = "PCoA")
+p <- plot_landscape(abundances(transform(pseq.core, "log10"))[, 1:2], method = "PCoA")
 print(p)
 ```
 
@@ -69,7 +69,7 @@ print(p)
 ### t-SNE
 
 ```{r landscape_tsne, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
-p <- plot_landscape(atlas1006, "t-SNE", distance = "bray", transformation = "compositional")
+p <- plot_landscape(pseq, "t-SNE", distance = "bray", transformation = "compositional")
 print(p)
 ```
 
