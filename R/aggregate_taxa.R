@@ -55,9 +55,9 @@ aggregate_taxa <- function(x, level, top = NULL) {
         current.level <- names(which.max(apply(tt, 2, function(x) {
             mean(taxa(mypseq) %in% unique(x))
         })))
-	if (length(current.level) == 0) {
+    if (length(current.level) == 0) {
             current.level <- "unique"
-	    tax_table(mypseq) <- tax_table(cbind(tax_table(mypseq), unique = rownames(tax_table(mypseq))))
+        tax_table(mypseq) <- tax_table(cbind(tax_table(mypseq), unique = rownames(tax_table(mypseq))))
         }
 
         otus <- map_levels(data=mypseq, to=current.level, from=level)
@@ -78,8 +78,8 @@ aggregate_taxa <- function(x, level, top = NULL) {
         mypseq2 <- phyloseq(OTU)
         
         # Remove ambiguous levels
-	## First remove NA entries from the target level	
-	tax_table(mypseq) <- tax_table(mypseq)[!is.na(tax_table(mypseq)[, level]),]
+    ## First remove NA entries from the target level    
+    tax_table(mypseq) <- tax_table(mypseq)[!is.na(tax_table(mypseq)[, level]),]
         keep <- colnames(
         tax_table(mypseq))[which(sapply(1:ncol(tax_table(mypseq)),
             function(k)
@@ -102,7 +102,7 @@ aggregate_taxa <- function(x, level, top = NULL) {
         mypseq2 <- merge_phyloseq(mypseq2, TAX)
 
         # Add the metadata as is
-	if (!is.null(mypseq@sam_data)) {
+        if (!is.null(mypseq@sam_data)) {
             mypseq2 <- merge_phyloseq(mypseq2, sample_data(mypseq))
         }      
     }

@@ -106,7 +106,7 @@ rarity_help <- function(x, index="all", rarity.detection, rarity.prevalence) {
     } else if (index == "noncore_abundance") {
     
         r <- noncore_abundance(x, detection=rarity.detection,
-                                  prevalence=rarity.prevalence)
+                                prevalence=rarity.prevalence)
         
     } else if (index == "rare_abundance") {
     

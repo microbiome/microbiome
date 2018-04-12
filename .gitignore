@@ -1,5 +1,9 @@
+
+
 # Do not add website material
+*_files/
 vignettes/vignette.md
+vignettes/*_files/
 figure/
 archive
 Preprocessing.md

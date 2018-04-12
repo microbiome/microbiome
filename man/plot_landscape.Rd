@@ -4,17 +4,22 @@
 \alias{plot_landscape}
 \title{Landscape Plot}
 \usage{
-plot_landscape(x, method = "NMDS", distance = "bray", col = NULL,
-  main = NULL, x.ticks = 10, rounding = 0, add.points = TRUE,
-  adjust = 1, size = 1, legend = FALSE)
+plot_landscape(x, method = "NMDS", distance = "bray",
+  transformation = "identity", col = NULL, main = NULL, x.ticks = 10,
+  rounding = 0, add.points = TRUE, adjust = 1, size = 1,
+  legend = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object or a data matrix 
-(features x samples; eg. HITChip taxa vs. samples)}
+(samples x features; eg. samples vs. OTUs). If the input x is a 2D matrix
+then it is plotted as is.}
 
-\item{method}{Ordination method, see phyloseq::plot_ordination}
+\item{method}{Ordination method, see phyloseq::plot_ordination; or "PCA",
+or "t-SNE" (from the \pkg{Rtsne} package)}
 
 \item{distance}{Ordination distance, see phyloseq::plot_ordination}
+
+\item{transformation}{Transformation applied on the input object x}
 
 \item{col}{Variable name to highlight samples (points) with colors}
 
@@ -36,15 +41,25 @@ plot_landscape(x, method = "NMDS", distance = "bray", col = NULL,
 A \code{\link{ggplot}} plot object.
 }
 \description{
-Plot abundance landscape ie. sample density in 2D
-projection landscape
+Wrapper for visualizing sample similarity landscape
+ie. sample density in various 2D projections.
 }
 \details{
 For consistent results, set random seet (set.seed) before
-function call
+function call. Note that the distance and transformation arguments may
+have a drastic effect on the outputs.
 }
 \examples{
 data(dietswap)
+
+# PCoA
 p <- plot_landscape(abundances(transform(dietswap, "log10"))[, 1:2])
+
+p <- plot_landscape(dietswap, "t-SNE", distance = "bray",
+       transformation = "compositional")
+
+# PCA
+p <- plot_landscape(dietswap, "PCA", transformation = "clr")
+
 }
 \keyword{utilities}

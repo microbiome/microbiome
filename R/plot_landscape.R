@@ -1,10 +1,13 @@
 #' @title Landscape Plot
-#' @description Plot abundance landscape ie. sample density in 2D
-#' projection landscape
+#' @description Wrapper for visualizing sample similarity landscape
+#' ie. sample density in various 2D projections.
 #' @param x \code{\link{phyloseq-class}} object or a data matrix 
-#' (features x samples; eg. HITChip taxa vs. samples)
-#' @param method Ordination method, see phyloseq::plot_ordination
+#' (samples x features; eg. samples vs. OTUs). If the input x is a 2D matrix
+#' then it is plotted as is.
+#' @param method Ordination method, see phyloseq::plot_ordination; or "PCA",
+#'        or "t-SNE" (from the \pkg{Rtsne} package)
 #' @param distance Ordination distance, see phyloseq::plot_ordination
+#' @param transformation Transformation applied on the input object x
 #' @param col Variable name to highlight samples (points) with colors
 #' @param main title text
 #' @param x.ticks Number of ticks on the X axis
@@ -16,33 +19,76 @@
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
 #' @details For consistent results, set random seet (set.seed) before
-#' function call
+#' function call. Note that the distance and transformation arguments may
+#' have a drastic effect on the outputs.
 #' @examples
 #' data(dietswap)
+#'
+#' # PCoA
 #' p <- plot_landscape(abundances(transform(dietswap, "log10"))[, 1:2])
+#'
+#  # t-SNE
+#' p <- plot_landscape(dietswap, "t-SNE", distance = "bray",
+#'        transformation = "compositional")
+#'
+#' # PCA
+#' p <- plot_landscape(dietswap, "PCA", transformation = "clr")
+#'
 #' @keywords utilities
 plot_landscape <- function(x, method="NMDS", distance="bray",
+    transformation = "identity", 
     col=NULL, main=NULL, x.ticks=10, rounding=0, add.points=TRUE,
     adjust=1, size=1, legend=FALSE) {
 
-    if (class(x) == "phyloseq") {
-        #quiet(proj <- get_ordination(x, method, distance))
-        quiet(x.ord <- ordinate(x, method, distance))
-        # Pick the projected data (first two columns + metadata)
-        quiet(proj <- phyloseq::plot_ordination(x, x.ord, justDF=TRUE))
-        # Rename the projection axes
-        names(proj)[1:2] <- paste("Comp", 1:2, sep=".")
+    if (is.matrix(x) || is.data.frame(x)) {
 
-    } else if (is.matrix(x) || is.data.frame(x)) {
-        if (ncol(x) > 2) {
-            warning("More than two dimensions in the matrix. 
-                    Projection methods not implemented for matrices. 
-                    Using the first two columns for visualization.")
-            proj <- x[, 1:2]
-        } else if (ncol(x) == 2) {
+        if (ncol(x) == 2) {
             proj <- as.data.frame(x)
+        } else if (ncol(x) > 2) {
+            # Convert the matrix into phyloseq object
+            x <- phyloseq(otu_table(t(x), taxa_are_rows = TRUE))
+        }
     }
+
+    if (class(x) == "phyloseq") {
+
+        x <- transform(x, transformation)
+
+        if (method == "PCA") {
+
+            # TODO: add option to calculate PCA with different
+            # distances using the distance argument
+            # (now assumes the default and cannot be altered)
+            d <- t(abundances(x))
+
+            proj <- princomp(d)$scores[, 1:2]
+            rownames(proj) <- sample_names(x)
+
+            # TODO add robust PCA
+            #(pc.rob <- princomp(stackloss, covmat = MASS::cov.rob(stackloss)))
+        
+        } else if (method == "t-SNE") {
+
+            dm <- vegdist(t(otu_table(x)), distance)
+
+            ## Run TSNE
+            tsne_out <- Rtsne(dm, dims = 2)
+            proj <- tsne_out$Y
+            rownames(proj) <- sample_names(x)
+
+        } else {
+    
+            #quiet(proj <- get_ordination(x, method, distance))
+            quiet(x.ord <- ordinate(x, method, distance))
+            # Pick the projected data (first two columns + metadata)
+            quiet(proj <- phyloseq::plot_ordination(x, x.ord, justDF=TRUE))
+            # Rename the projection axes
+        } 
+        
     }
+
+    proj <- as.data.frame(proj)
+    colnames(proj) <- paste("Comp", 1:2, sep=".")
 
     guide.title <- "color"
     if (is.null(col)) {
@@ -62,6 +108,10 @@ plot_landscape <- function(x, method="NMDS", distance="bray",
     p
     
 }
+
+
+
+
 
 #' @title Density Plot
 #' @description Density visualization for data points overlaid on cross-plot.

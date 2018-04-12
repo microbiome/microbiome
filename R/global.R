@@ -82,7 +82,8 @@ global <- function(x, index="all", rarity.detection = 0.2/100, rarity.prevalence
     }
 
     message("Diversity")
-    a <- diversities(x, index=gsub("diversities_", "", gsub("diversity_", "", index)))
+    a <- diversities(x, index=gsub("diversities_", "",
+        gsub("diversity_", "", index)))
     if (!is.null(a)) {
         if (is.vector(a)) {
             a <- as.matrix(a, ncol=1)
@@ -125,12 +126,13 @@ global <- function(x, index="all", rarity.detection = 0.2/100, rarity.prevalence
             tab <- cbind(tab, a)
         } else {
             tab <- a
-        }    
+        }
 
     }
 
     message("Rarity")
-    a <- rarity(x, index=gsub("rarity_", "", index), rarity.detection, rarity.prevalence)
+    a <- rarity(x, index=gsub("rarity_", "", index),
+        rarity.detection, rarity.prevalence)
     if (!is.null(a)) {
         if (is.vector(a)) {
             a <- as.matrix(a, ncol=1)

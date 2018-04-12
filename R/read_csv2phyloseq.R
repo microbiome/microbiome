@@ -43,7 +43,7 @@ read_csv2phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,
 
     # Ensure that the OTU table is OTU x samples
     if (any(rownames(s.otu) %in% rownames(s.meta))) {
-      s.otu <- t(s.otu)
+        s.otu <- t(s.otu)
     }
 
     s.otu.table <- otu_table(s.otu, taxa_are_rows=TRUE)
@@ -52,8 +52,8 @@ read_csv2phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,
     # Add the finest observation level to the tax table
     # (not sufficient to have it as row.names)
     if (!all(rownames(s.tax_table) == s.tax_table[, ncol(s.tax_table)])) {
-      s.tax_table <- cbind(s.tax_table, OTU = rownames(s.tax_table))
-      s.tax_table <- tax_table(s.tax_table)
+        s.tax_table <- cbind(s.tax_table, OTU = rownames(s.tax_table))
+        s.tax_table <- tax_table(s.tax_table)
     }
  
     pseq <- merge_phyloseq(s.otu.table, s.tax_table, s.sampledata)    

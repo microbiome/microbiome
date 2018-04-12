@@ -34,6 +34,7 @@ r_packages:
 - scales
 - survival
 - tgp
+- Rtsne
 - tidyr
 - vegan
 - WGCNA
