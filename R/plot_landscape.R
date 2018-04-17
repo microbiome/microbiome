@@ -38,7 +38,7 @@
 #' p <- plot_landscape(dietswap, method = "PCA", transformation = "clr")
 #'
 #' @keywords utilities
-plot_landscape <- function(x, method="NMDS", distance="bray",
+plot_landscape <- function(x, method="PCoA", distance="bray",
     transformation = "identity", 
     col=NULL, main=NULL, x.ticks=10, rounding=0, add.points=TRUE,
     adjust=1, size=1, legend=FALSE) {
