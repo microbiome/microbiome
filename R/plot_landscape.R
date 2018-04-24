@@ -102,7 +102,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
     } else {
         proj$col <- col
     }
-    
+
     p <- densityplot(proj[, 1:2], main=NULL, x.ticks=10,
         rounding=0, add.points=TRUE, 
         adjust=1, size=1, col=proj$col, legend = TRUE) +
@@ -138,7 +138,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
 #' @keywords utilities
 densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
     add.points=TRUE, col="black", adjust=1, size=1, legend=FALSE) {
-    
+
     df <- x
     if (!is.data.frame(df)) {
         df <- as.data.frame(as.matrix(df))
@@ -147,10 +147,12 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
     # Avoid warnings
     x <- y <- ..density.. <- color <- NULL
     
-    # If colors are NA:
-    if (!is.numeric(col)) {
+    # If colors are NA then mark them dark gray
+    lev <- levels(col)
+    if (!is.numeric(col) & any(is.na(col))) {
         col <- as.character(col)
         col[unname(which(is.na(col)))] <- "darkgray"
+        col <- factor(col, levels = unique(c(lev, "darkgray")))    
     }
     
     theme_set(theme_bw(20))
@@ -158,6 +160,7 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
     yvar <- colnames(df)[[2]]
     df[["x"]] <- df[, 1]
     df[["y"]] <- df[, 2]
+
     df[["color"]] <- col
     df[["size"]] <- size
     
@@ -177,11 +180,10 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
         stat_density2d(aes(x, y, fill=..density..), geom="raster", h=bw, 
         contour=FALSE)
     p <- p + scale_fill_gradient(low="white", high="black")
-    
-    
+
     if (add.points) {
-        if (length(unique(df$color)) == 1 && length(unique(df$size)) == 1) {
-            
+
+        if (length(unique(df$color)) == 1 && length(unique(df$size)) == 1) {            
             p <- p + geom_point(aes(x=x, y=y),
             col=unique(df$color), size=unique(df$size))
         } else if (length(unique(df$color)) == 1 &&
