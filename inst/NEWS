@@ -1,3 +1,7 @@
+CHANGES IN VERSION 1.1.2 (TBA)
+  o Color order in plot_landscape legend now follows the factor levels of the col argument
+  o Various minor fixes; see github commits for many more details
+
 CHANGES IN VERSION 1.1.1 (2017-30-11)
   o Added index "observed" in function global
   o New options added to transform: scale, log10p
