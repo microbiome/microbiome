@@ -4,7 +4,7 @@
 \alias{plot_landscape}
 \title{Landscape Plot}
 \usage{
-plot_landscape(x, method = "NMDS", distance = "bray",
+plot_landscape(x, method = "PCoA", distance = "bray",
   transformation = "identity", col = NULL, main = NULL, x.ticks = 10,
   rounding = 0, add.points = TRUE, adjust = 1, size = 1,
   legend = FALSE)
