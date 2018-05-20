@@ -86,7 +86,7 @@ plot(hclust(d))
 
 
 
-# Interactive Interactive plots 
+# Interactive plots 
 
 ```{r interactive-example, warning=FALSE, message=FALSE, fig.width=8, fig.height=5, eval = FALSE}
 library(ggplot2)
