@@ -4,7 +4,7 @@
 #' distribution in the data. It also gives an idea about the taxonomic
 #' affiliation of rare and abundant taxa in the data.
 #' This may be helpful for data filtering or other downstream analysis.
-#' @param x \code{\link{phyloseq-class}} object
+#' @param x \code{\link{phyloseq-class}} object, OTU data must be counts and not relative abundance or other transformed data.
 #' @param level Phylum/Order/Class/Family
 #' @param detection Detection threshold for presence (prevalance)
 #' @return A \code{\link{ggplot}} plot object.
@@ -36,7 +36,7 @@ plot_taxa_prevalence <- function(x, level, detection = 0) {
         plot.phylum <- ggplot(xdf,
             aes(x=abundance, y=prevalence, color=Phylum)) + 
             geom_point(shape=16, alpha=0.9) +
-        xlab("Average relative abundance (log scale)") + 
+        xlab("Average count abundance (log scale)") + 
             ylab("Taxa prevalence") +
         theme_bw() +
         theme(plot.background=element_blank(), 
@@ -62,7 +62,7 @@ plot_taxa_prevalence <- function(x, level, detection = 0) {
         plot.fam <- ggplot(xdf, aes(x=abundance, y=prevalence,
         color=Family)) + 
             geom_point(shape=16, alpha=0.9) +
-        xlab("Average relative abundance (log scale)") + 
+        xlab("Average count abundance (log scale)") + 
             ylab("Taxa prevalence") +
         theme_bw() +
         theme(plot.background=element_blank(), 
@@ -89,7 +89,7 @@ plot_taxa_prevalence <- function(x, level, detection = 0) {
         plot.order <- ggplot(xdf,
         aes(x=abundance, y=prevalence, color=Order)) + 
             geom_point(shape=16, alpha=0.9) +
-        xlab("Average relative abundance (log scale)") + 
+        xlab("Average count abundance (log scale)") + 
             ylab("Taxa prevalence") +
         theme_bw() +
         theme(plot.background=element_blank(), 
@@ -114,7 +114,7 @@ plot_taxa_prevalence <- function(x, level, detection = 0) {
         plot.class <- ggplot(xdf,
         aes(x=abundance, y=prevalence, color=Class)) + 
             geom_point(shape=16, alpha=0.9) +
-        xlab("Average relative abundance (log scale)") + 
+        xlab("Average count abundance (log scale)") + 
             ylab("Taxa prevalence") +
         theme_bw() +
         theme(plot.background=element_blank(), 
