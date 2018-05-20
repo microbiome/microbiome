@@ -1,5 +1,16 @@
 CHANGES IN VERSION 1.1.2 (TBA)
-  o Color order in plot_landscape legend now follows the factor levels of the col argument
+
+# New features
+  o In atlas1006 data set, pseudocount of +1 in otu table has been
+    removed to facilitate comparison with sequencing data sets and to
+    avoid confusion
+  o In atlas1006 data set, only a single replicate per subject-time
+    combination is chosen (at random)
+  o New function collapse_replicates has been added
+
+# Minor changes
+  o Color order in plot_landscape legend now follows the factor levels
+    of the col argument
   o Various minor fixes; see github commits for many more details
 
 CHANGES IN VERSION 1.1.1 (2017-30-11)

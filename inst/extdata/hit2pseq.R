@@ -4,6 +4,7 @@
 #' @param meta Sample x features metadata data.frame
 #' @param taxonomy OTU x Taxonomy data.frame (HITChip taxonomy used by default)
 #' @param detection.limit HITChip signal detection limit (absence / presence)
+#' @param pseudocount Pseudocount to be added
 #' @return phyloseq object
 #' @importFrom phyloseq otu_table
 #' @importFrom phyloseq tax_table
@@ -23,12 +24,12 @@
 #'             For this function, see citation('microbiome').  
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 10^1.8) {
+hitchip2physeq <- function (otu, meta, taxonomy = NULL, detection.limit = 10^1.8, pseudocount = 1) {
 
   # OTU x Sample matrix: absolute 'read counts'
   x <- t(otu) - detection.limit # HITChip detection limit
   x[x < 0] <- 0
-  x <- 1 + x
+  x <- pseudocount + x
 
   # -------------------------
 

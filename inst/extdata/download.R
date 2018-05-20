@@ -75,7 +75,7 @@ download_peerj32 <- function (...) {
 
 #' @title Download HITChip Atlas
 #' @description Download HITChip Atlas 
-#' @param format "phyloseq" or "original"
+#' @param ... Arguments to pass
 #' @return Data set
 #' @examples \dontrun{download_atlas()}
 #' @importFrom rdryad download_url
@@ -85,7 +85,7 @@ download_peerj32 <- function (...) {
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords internal
-download_atlas <- function (format = "phyloseq") {
+download_atlas <- function (,,,) {
 
   message("Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from 
   		       Data Dryad: http://doi.org/10.5061/dryad.pk75d")
@@ -110,8 +110,6 @@ download_atlas <- function (format = "phyloseq") {
   # Convert to matrix 
   otu <- as.matrix(data)
 
-  # -------------------------------------------
-
   url <- download_url('10255/dryad.64666')
   meta <- read.table(url, sep = "\t", row.names = 1, header = TRUE)
 
@@ -128,13 +126,14 @@ download_atlas <- function (format = "phyloseq") {
   # Harmonize field contents
   meta <- harmonize_fields(meta)
 
-  if (format == "phyloseq") {
-    # Convert in phyloseq format
-    physeq <- hitchip2physeq(otu, meta)
-    res <- physeq 
-  } else {
-    res <- list(otu = otu, meta = meta)
-  }
+  # Convert in phyloseq format
+  physeq <- hitchip2physeq(otu, meta, pseudocount = 0)
+  res <- physeq
+
+  # Remove a single sample per subject/timepoint combination
+  # since this R package version is mainly for pedagogical purposes
+  # and the original data is available at the original publication
+  res <- collapse_replicates(res, replicate_fields = c("subject", "time"))
   
   res
 

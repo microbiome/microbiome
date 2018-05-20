@@ -7,7 +7,7 @@ source("download.R")
 library("rdryad")
 library("microbiome")
 pseq <- download_microbiome("atlas1006", "phyloseq")
-atlas1006 = pseq
+atlas1006 <- pseq
 save(atlas1006, file = "../../data/atlas1006.rda")
 
 # -------------------------------------------------------
