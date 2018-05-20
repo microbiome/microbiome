@@ -29,6 +29,7 @@ library(knitcitations)
 
 library(knitr)
 #fs <- "Density.Rmd"
+fs <- "Experimental.Rmd"
 #fs <- "Diversity.Rmd"
 #fs <- "Heatmap.Rmd"
 #fs <- "Profiling.Rmd"
@@ -36,8 +37,8 @@ library(knitr)
 #fs <- "SQL.Rmd"
 #fs <- "index.Rmd"
 #fs <- "rstanarm.Rmd"
-fs <- "Landscaping.Rmd"
-#fs <- sample(list.files(pattern = ".Rmd$"))
+#fs <- "Landscaping.Rmd"
+#fs <- sample(list.files(pattern = ".Rmd$"), 20)
 knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
 times <- c()
 namespaces0 <-  loadedNamespaces()
