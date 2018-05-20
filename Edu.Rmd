@@ -1,0 +1,40 @@
+
+# Differential abundance: univariate case
+
+  - Univariate examples: Wilcoxon, Kruskal-Wallis, t-test
+  
+  - Standard linear model including covariates
+  
+  - Extra: mixed models
+  
+  - Extra: Generalized linear models (glmulti package for instance),
+
+
+# Differential abundance: multivariate case
+
+
+## PERMANOVA
+
+
+
+
+## Pooled analyses of individual taxa
+  - Multiple testing
+  - Multivariate case: DESeq2, pros & cons
+    sparsity, counts, long tails, overdispersion
+
+
+# Unimodality vs. bi/multimodality
+
+How this may affect the results in the above tests
+
+How to quantify
+
+
+# Dirichlet Mixture Model (DMM) 
+
+- Clustering
+
+- Nonparametric models
+
+
