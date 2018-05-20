@@ -53,7 +53,6 @@ Project the samples with the given method and dissimilarity measure.
 # Ordinate the data
 set.seed(4235421)
 # proj <- get_ordination(pseq, "MDS", "bray")
-pseq <- transform(pseq, "compositional")
 ord <- ordinate(pseq, "MDS", "bray")
 ```
 
