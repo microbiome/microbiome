@@ -222,88 +222,125 @@ res <- glm(Log10_Abundance ~ Group, data = df, family = "gaussian")
 Let us investigate model coefficients
 
 ```{r lm_coefs, warning=FALSE, message=FALSE}
-print(summary(res)$coefficients)
+print(kable(summary(res)$coefficients))
 ```
+
+There are also other ways to print the output nicely
 
 ```{r lm_coefs2, warning=FALSE, message=FALSE, results="asis"}
 stargazer(res, type="html")
 ```
 
 
-The intercept equals to the mean in the first group. The group term
-equals to the difference between group means.
+The intercept equals to the mean in the first group:
+
 
 ```{r lm_coefs3, warning=FALSE, message=FALSE}
 print(mean(subset(df, Group == "AAM")$Log10_Abundance))
+```
+
+The group term equals to the difference between group means:
+
+```{r lm_coefs3b, warning=FALSE, message=FALSE}
 print(mean(subset(df, Group == "AFR")$Log10_Abundance) - mean(subset(df, Group == "AAM")$Log10_Abundance))
 ```
 
 
-Significance with t-test assuming equal variances.
+Note that the linear model (default) significance equals to t-test assuming equal variances.
 
 ```{r lm_signif, warning=FALSE, message=FALSE}
 print(t.test(Log10_Abundance ~ Group, data = df, var.equal=TRUE)$p.value)
 ```
 
 
-Now, using the linear model allows incorporation of additional variables,
-for instance potential confounders.
+An important advantag of linear models, compared to plain t-test is
+that they allow incorporating additional variables, such as potential
+confounders (age, BMI, gender..):
 
 ```{r lm_glm, warning=FALSE, message=FALSE}
+# Add a covariate:
 df$sex <- meta(d)$sex
+
+# Fit the model:
 res <- glm(Log10_Abundance ~ Group + sex, data = df, family = "gaussian")
 ```
 
 
-Generalized linear models
+## Generalized linear models: a very brief overview
 
-The GLM consists of three elements:
-    1. A probability distribution (from exponential family)
-    1. A linear predictor η = Xβ .
-    1. A link function g such that E(Y) = μ = g−1(η).
+Let us briefly discuss the ideas underlying generalized linear models
+before proceeding to the next section.
 
-We use Poisson with (its natural) log-link.
+The Generalized linear model (GLM) allows a richer family of
+probability distributions to describe the data. Intuitively speaking,
+GLMs allow the modeling of nonlinear, nonsymmetric, and nongaussian
+associations. GLMs consist of three elements:
+  - A probability distribution (from exponential family)
+  - A linear predictor η = Xβ .
+  - A link function g such that $E(Y) = μ = g^{−1}(η)$.
+
+We use Poisson with (its natural) log-link. Fit abundance (read
+counts) assuming that the data is Poisson distributed, and the
+logarithm of its mean, or expectation, is obtained with a linear
+model.
 
 ```{r lm_glm2, warning=FALSE, message=FALSE}
 res <- glm(Abundance ~ Group, data = df, family = "poisson")
-print(summary(res))
+```
+
+
+Investigate the model output:
+
+```{r lm_glm2b, warning=FALSE, message=FALSE}
+print(coef(res))
 ```
 
 
 
 
+# Advanced models of differential abundance
 
-# Advanced models of differential abundance for sequencing data
+GLMs are the basis for advanced testing of differential abundance in
+sequencing data. This is necessary, as the sequencing data sets
+deviate from symmetric, continuous, Gaussian assumptions in many ways.
 
 
-Motivation: non-gaussianity
-
-
-Counts
+Sequencing data consists of discrete counts:
 
 ```{r pooled2, warning=FALSE, message=FALSE}
 print(abundances(d)[1:5,1:3])
 ```
 
 
-Sparsity
+The data is sparse:
 
-```{r pooled3, warning=FALSE, message=FALSE}
-print(hist(log10(1 + abundances(d)), 100))
+```{r pooled3, warning=FALSE, message=print, fig.width=8, fig.height=8}
+hist(log10(1 + abundances(d)), 100)
+```
 
-# - huge tail of rare taxa:
-# median abundance per taxa
+
+Huge tail of rare taxa (median abundance per taxa is shown):
+
+```{r tail, warning=FALSE, message=print, fig.width=8, fig.height=8}
 medians <- apply(abundances(d),1,median)/1e3
-medians <- data.frame(Rank = rank(-medians),
-                      Median = medians,
-		      Taxon = names(medians))
-p <- ggplot(medians, aes(x = Rank, y = Median)) +
-        geom_point() +
-	labs(y = "Median Abundance (reads)")
+#medians <- data.frame(Rank = rank(-medians),
+#                      Median = medians,
+#		      Taxon = names(medians))
+#p <- ggplot(medians, aes(x = Rank, y = Median)) +
+#        geom_point() +#
+#	labs(y = "Median Abundance (reads)")
+
+A <- melt(abundances(d))
+A$Var1 <- factor(A$Var1, levels = rev(names(sort(medians))))
+p <- ggplot(A, aes(x = Var1, y = value)) +
+        geom_boxplot() +
+	labs(y = "Abundance (reads)") +
+	scale_y_log10()
+	
 print(p)
 ```
 
-Overdispersion
+Overdispersion (variance exceeds the mean):
 
 ```{r pooled_overdispersion, warning=FALSE, message=FALSE}
 means <- apply(abundances(d),1,mean)
@@ -330,30 +367,33 @@ print(p)
 ```
 
 
+## DESeq2: differential abundance testing for sequencing data
+
 Running DESeq2. Running the DESeq2 analysis. Convert phyloseq object to deseq2 format.
 
 ```{r pooled_deseq, warning=FALSE, message=FALSE}
 library(DESeq2)
 ds2 <- phyloseq_to_deseq2(d, ~ group + nationality)
+
 # Run DESeq2 analysis (all taxa at once!)
 dds <- DESeq(ds2)
+
 # Investigate results
 res <- results(dds)
 deseq.results <- as.data.frame(res)
-
 df <- deseq.results
 df$taxon <- rownames(df)
 df <- df %>% arrange(log2FoldChange, padj)
 
-# Print the results; fitered and sorted by pvalue and effectsize
+# Print the results; flitered and sorted by pvalue and effectsize
 library(knitr)
 df <- df %>% filter(pvalue < 0.05 & log2FoldChange > 1) %>%
              arrange(pvalue, log2FoldChange)
-print(kable(df, digits = 5))
+kable(df, digits = 5)
 ```
 
 
-Now identify top taxa based on Wilcoxon test.
+For comparison purposes, assess significances and effect sizes based on Wilcoxon test.
 
 ```{r pooled_topw, warning=FALSE, message=FALSE}
 test.taxa <- taxa(d)
@@ -372,9 +412,9 @@ for (taxa in test.taxa) {
 pvalue.wilcoxon.adjusted <- p.adjust(pvalue.wilcoxon)
 ```
 
-Also the lowest p-values are well correlated (higher not so).
 
-```{r pooled_pcomp, warning=FALSE, message=FALSE}
+
+```{r pooled_pcomp, warning=FALSE, message=FALSE, fig.width=10, fig.height=5}
 par(mfrow = c(1,2))
 plot(deseq.results$padj, pvalue.wilcoxon.adjusted,
   xlab = "DESeq2 adjusted p-value",
@@ -388,8 +428,6 @@ plot(deseq.results$log2FoldChange, foldchange,
   main = "Effect size comparison")
 abline(0,1)
 ```
-
-
 
 
 
