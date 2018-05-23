@@ -1,0 +1,41 @@
+---
+title: "Linear models"
+author: "`r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - atlas}
+  %\usepackage[utf8]{inputenc}
+-->
+
+
+
+# Other usefulf models and algorithms
+
+- envfit / bioenvfit
+- ordistep
+- mixed models
+    
+
+# Unimodality vs. bi/multimodality
+
+- How this may affect the results in the above tests
+- How to quantify
+
+
+# Dirichlet Mixture Model (DMM) 
+
+- Clustering
+- Nonparametric models
+
+
