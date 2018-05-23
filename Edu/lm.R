@@ -19,6 +19,19 @@ output:
 -->
 
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Handle citations
+require(knitcitations)
+require(bookdown)
+# cleanbib()
+# options("citation_format" = "pandoc")
+bib <- read.bibtex("bibliography.bib")
+#opts_chunk$set(fig.width=4, fig.height=3, par=TRUE, out.width='2in', fig.pos='H')
+library(knitr)
+knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
+```
+
+
 # Linear models
 
 This section provides a hands-on introduction to linear and
