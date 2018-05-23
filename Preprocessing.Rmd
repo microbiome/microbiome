@@ -39,6 +39,17 @@ pseq <- atlas1006
 ```
 
 
+## Summarizing the contents of a phyloseq object  
+
+```{r}
+
+summarize_phyloseq(pseq)
+
+```
+
+
+
+
 ## Retrieving data elements from a phyloseq object  
 
 A phyloseq object contains OTU table (taxa abundances), sample
@@ -312,4 +323,3 @@ df <- meta(pseq)
 # Merge the metadata back in the phyloseq object
 pseq2 <- merge_phyloseq(pseq, sample_data(df))
 ```
-
