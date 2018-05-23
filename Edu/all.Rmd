@@ -38,12 +38,12 @@ theme_set(theme_bw(20))
 
 This section covers basic univariate tests for two-group comparison,
 covering t-test, Wilcoxon test, and multiple testing.
-  
+
 The following example compares the abundance of a selected bug between
 two conditions. Let us assume that the data is already properly
 normalized.
 
-Let us load exmaple data
+Let us load example data
 
 ```{r univariate1, warning=FALSE, message=FALSE}
 library(microbiome)
@@ -69,7 +69,7 @@ values. Hence we choose the commonly used, although somewhat
 problematic, log10(1+x) transformation (right).
 
 
-```{r univariate_boxplot, warning=FALSE, message=FALSE, fig.width=10, fig.height=5}
+```{r univariate_boxplot, warning=FALSE, message=FALSE, fig.width=10, fig.height=5, out.width="200px"}
 p1 <- ggplot(df, aes(x = Group, y = Abundance)) +
        geom_boxplot() +
        labs(title = "Absolute abundances", y = "Abundance (read count)")
@@ -170,7 +170,7 @@ pvalues$pvalue.wilcoxon.adjusted <- p.adjust(pvalues$pvalue.wilcoxon)
 
 Compare the p-value histograms between raw and adjusteed p-values.
 
-```{r univariate5, warning=FALSE, message=FALSE, fig.width=10, fig.height=5}
+```{r univariate5, warning=FALSE, message=FALSE, fig.width=10, fig.height=5, out.width="200px"}
 p1 <- ggplot(pvalues, aes(x = pvalue.wilcoxon)) +
         geom_histogram() +
         labs(title = "Raw p-values") +
@@ -188,7 +188,7 @@ print(p1 + p2)
 Now compare these adjusted p-values between t-test and Wilcoxon test. Let us
 also highlight the p = 0.05 intervals.
 
-```{r univariate6, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
+```{r univariate6, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, out.width="200px"}
 p <- ggplot(data = pvalues,
          aes(x = pvalue.ttest.adjusted,
 	     y = pvalue.wilcoxon.adjusted)) +
@@ -222,13 +222,7 @@ res <- glm(Log10_Abundance ~ Group, data = df, family = "gaussian")
 Let us investigate model coefficients
 
 ```{r lm_coefs, warning=FALSE, message=FALSE}
-print(kable(summary(res)$coefficients))
-```
-
-There are also other ways to print the output nicely
-
-```{r lm_coefs2, warning=FALSE, message=FALSE, results="asis"}
-stargazer(res, type="html")
+kable(summary(res)$coefficients, digits = 5)
 ```
 
 
@@ -242,7 +236,8 @@ print(mean(subset(df, Group == "AAM")$Log10_Abundance))
 The group term equals to the difference between group means:
 
 ```{r lm_coefs3b, warning=FALSE, message=FALSE}
-print(mean(subset(df, Group == "AFR")$Log10_Abundance) - mean(subset(df, Group == "AAM")$Log10_Abundance))
+print(mean(subset(df, Group == "AFR")$Log10_Abundance) -
+      mean(subset(df, Group == "AAM")$Log10_Abundance))
 ```
 
 
@@ -253,7 +248,7 @@ print(t.test(Log10_Abundance ~ Group, data = df, var.equal=TRUE)$p.value)
 ```
 
 
-An important advantag of linear models, compared to plain t-test is
+An important advantage of linear models, compared to plain t-test is
 that they allow incorporating additional variables, such as potential
 confounders (age, BMI, gender..):
 
@@ -292,7 +287,7 @@ res <- glm(Abundance ~ Group, data = df, family = "poisson")
 Investigate the model output:
 
 ```{r lm_glm2b, warning=FALSE, message=FALSE}
-print(coef(res))
+kable(summary(res)$coefficients, digits = 5)
 ```
 
 
@@ -319,22 +314,15 @@ hist(log10(1 + abundances(d)), 100)
 ```
 
 
-Huge tail of rare taxa (median abundance per taxa is shown):
+Long tails of rare taxa:
 
-```{r tail, warning=FALSE, message=print, fig.width=8, fig.height=8}
+```{r tail, warning=FALSE, message=print, fig.width=16, fig.height=8, out.width="200px"}
 medians <- apply(abundances(d),1,median)/1e3
-#medians <- data.frame(Rank = rank(-medians),
-#                      Median = medians,
-#		      Taxon = names(medians))
-#p <- ggplot(medians, aes(x = Rank, y = Median)) +
-#        geom_point() +#
-#	labs(y = "Median Abundance (reads)")
-
 A <- melt(abundances(d))
 A$Var1 <- factor(A$Var1, levels = rev(names(sort(medians))))
 p <- ggplot(A, aes(x = Var1, y = value)) +
         geom_boxplot() +
-	labs(y = "Abundance (reads)") +
+	labs(y = "Abundance (reads)", x = "Taxonomic Group") +
 	scale_y_log10()
 	
 print(p)
@@ -342,7 +330,7 @@ print(p)
 
 Overdispersion (variance exceeds the mean):
 
-```{r pooled_overdispersion, warning=FALSE, message=FALSE}
+```{r pooled_overdispersion, warning=FALSE, message=FALSE, fig.width=8, fig.height=8, out.width="200px"}
 means <- apply(abundances(d),1,mean)
 variances <- apply(abundances(d),1,var)
 
@@ -369,9 +357,11 @@ print(p)
 
 ## DESeq2: differential abundance testing for sequencing data
 
-Running DESeq2. Running the DESeq2 analysis. Convert phyloseq object to deseq2 format.
+DESeq2 analysis can accommodate those particular assumptions about
+sequencing data. 
 
 ```{r pooled_deseq, warning=FALSE, message=FALSE}
+# Start by converting phyloseq object to deseq2 format
 library(DESeq2)
 ds2 <- phyloseq_to_deseq2(d, ~ group + nationality)
 
@@ -387,7 +377,7 @@ df <- df %>% arrange(log2FoldChange, padj)
 
 # Print the results; flitered and sorted by pvalue and effectsize
 library(knitr)
-df <- df %>% filter(pvalue < 0.05 & log2FoldChange > 1) %>%
+df <- df %>% filter(pvalue < 0.05 & log2FoldChange > 1.5) %>%
              arrange(pvalue, log2FoldChange)
 kable(df, digits = 5)
 ```
@@ -395,7 +385,7 @@ kable(df, digits = 5)
 
 For comparison purposes, assess significances and effect sizes based on Wilcoxon test.
 
-```{r pooled_topw, warning=FALSE, message=FALSE}
+```{r pooled_topw, warning=FALSE, message=FALSE, fig.width=10, fig.height=5, out.width="200px"}
 test.taxa <- taxa(d)
 pvalue.wilcoxon <- c()
 foldchange <- c()
