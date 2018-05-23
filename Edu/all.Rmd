@@ -1,5 +1,5 @@
 ---
-title: "Univariate tests"
+title: "Differential abundance testing"
 author: "`r Sys.Date()`"
 bibliography: 
 - bibliography.bib
@@ -30,10 +30,11 @@ bib <- read.bibtex("bibliography.bib")
 #opts_chunk$set(fig.width=4, fig.height=3, par=TRUE, out.width='2in', fig.pos='H')
 library(knitr)
 knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
+theme_set(theme_bw(20))
 ```
 
 
-# Differential abundance testing for univariate data
+# Differential abundance testing: univariate data
 
 This section covers basic univariate tests for two-group comparison,
 covering t-test, Wilcoxon test, and multiple testing.
@@ -60,35 +61,36 @@ df <- data.frame(Abundance = abundances(d)[taxa,],
 ```
 
 
-Compare the groups visually using a boxplot.
-
-```{r univariate_boxplot, warning=FALSE, message=FALSE}
-p <- ggplot(df, aes(x = Group, y = Abundance)) +
-       geom_boxplot()
-print(p)
-```
-
+Compare the groups visually using a boxplot (left). However, we
+observe that the abundances are in absolute scale and therefore the
+comparison is not clear.  Let us try the log10 transformation.  Now,
+the data contains many zeros and taking log10 will yield infinite
+values. Hence we choose the commonly used, although somewhat
+problematic, log10(1+x) transformation (right).
 
 
-The abundances are in absolute scale and comparison is not clear.
-Therefore, let us use the log10 transformation.
-Now, the data contains many zeros and taking log10 will yield
-infinite values. Let us use the standard log10(1+x) transformation.
+```{r univariate_boxplot, warning=FALSE, message=FALSE, fig.width=10, fig.height=5}
+p1 <- ggplot(df, aes(x = Group, y = Abundance)) +
+       geom_boxplot() +
+       labs(title = "Absolute abundances", y = "Abundance (read count)")
 
-```{r univariate2, warning=FALSE, message=FALSE}
+# Let us add the log10(1+x) version:
 df$Log10_Abundance <- log10(1 + df$Abundance)
-p <- ggplot(df, aes(x = Group, y = Log10_Abundance)) +
-       geom_boxplot()
-print(p)
+p2 <- ggplot(df, aes(x = Group, y = Log10_Abundance)) +
+       geom_boxplot() +
+       labs(title = "Log10 abundances", y = "Abundance (log10(1+x) read count)")       
+
+library(patchwork)
+p1 + p2
 ```
 
 
 
-The groups seems to differ. Let us test the difference statistically.
+The groups seem to differ. Let us test the difference statistically.
 First, let us perform t-test, which is based on Gaussian assumptions.
 Each group is expected to follow Gaussian distribution.
 
-Significance with t-test:
+Significance p-value with t-test:
 
 ```{r univariate2b, warning=FALSE, message=FALSE}
 print(t.test(Log10_Abundance ~ Group, data = df)$p.value)
@@ -106,41 +108,44 @@ print(p)
 ```
 
 
-The data is not Gaussian distributed.  In such cases, a common
+Apparently, the data is not Gaussian distributed.  In such cases, a common
 procedure is to use non-parametric tests. These do not make
 assumptions of the data distribution but instead compare the ordering
 of the samples.
 
 
-Significance with Wilcoxon test (log10 data):
+
+So, let us look at the significance p-value with Wilcoxon test (log10 data):
 
 ```{r univariate_wilcoxon, warning=FALSE, message=FALSE}
 print(wilcox.test(Log10_Abundance ~ Group, data = df)$p.value)
 ```
 
 
-However, since the test is non-parametric, we do not ned need
-log10(1+x) transformation since this is a monotonous transformation
-that does not affect sample ordering. Let us verify that the absolute
-abundances yield the same p-value:
+But since the test is non-parametric, we can as well use the original absolute abundances since the 
+log transformation does not change sample ordering on which the Wilcoxon test is based.
 
-Significance with Wilcoxon test (absolute data:
+Let us verify that the absolute abundances yield the same p-value for Wilcoxon test:
 
 ```{r univariate_wilcoxon2, warning=FALSE, message=FALSE}
 print(wilcox.test(Abundance ~ Group, data = df)$p.value)
 ```
 
 
-Let us compare how much the results would differ in the whole data Let
-us only invetigate core taxa that are observed in more than 20% of the
-samples with more than 3 reads.
+Let us compare how much the results would differ in the whole data
+between t-test and Wilcoxon test. To remove non-varying taxa that
+would demand extra scripting, let us for demonstration purposes now
+focus on core taxa that are observed in more than 20% of the samples
+with more than 3 reads.
 
 ```{r univariate4, warning=FALSE, message=FALSE}
-all.taxa <- core_members(d, prevalence = 20/100, detection = 3)
+# Core taxa to be tested
+test.taxa <- core_members(d, prevalence = 20/100, detection = 3)
 
+# Calculate p-values with the two different methods for each taxonomic unit
 pvalue.ttest <- c()
 pvalue.wilcoxon <- c()
-for (taxa in all.taxa) {
+for (taxa in test.taxa) {
   # Create a new data frame for each taxonomic group
   df <- data.frame(Abundance = abundances(d)[taxa,],
                    Log10_Abundance = log10(1 + abundances(d)[taxa,]),  
@@ -149,11 +154,12 @@ for (taxa in all.taxa) {
   pvalue.ttest[[taxa]] <- t.test(Log10_Abundance ~ Group, data = df)$p.value
   pvalue.wilcoxon[[taxa]] <- wilcox.test(Abundance ~ Group, data = df)$p.value  
 }
-pvalues <- data.frame(taxon = all.taxa,
+# Arrange the results in a data.frame
+pvalues <- data.frame(taxon = test.taxa,
 	              pvalue.ttest = pvalue.ttest,
                       pvalue.wilcoxon = pvalue.wilcoxon)
 
-# Now, note that multiple testing occurs.
+# Note that multiple testing occurs.
 # We must correct the p-values.
 # let us apply the standard Benjamini-Hochberg False Discovery Rate (FDR)
 # correction
@@ -164,35 +170,32 @@ pvalues$pvalue.wilcoxon.adjusted <- p.adjust(pvalues$pvalue.wilcoxon)
 
 Compare the p-value histograms between raw and adjusteed p-values.
 
-```{r univariate5, warning=FALSE, message=FALSE}
+```{r univariate5, warning=FALSE, message=FALSE, fig.width=10, fig.height=5}
 p1 <- ggplot(pvalues, aes(x = pvalue.wilcoxon)) +
         geom_histogram() +
-        labs(title = "Raw p-values") #+
-	#ylim(c(0, 80))
+        labs(title = "Raw p-values") +
+	ylim(c(0, 80))
 
 p2 <- ggplot(pvalues, aes(x = pvalue.wilcoxon.adjusted)) +
         geom_histogram() +
-        labs(title = "Adjusted p-values") #+
-	#ylim(c(0, 80))	
+        labs(title = "Adjusted p-values") +
+	ylim(c(0, 80))	
 
-library(patchwork)
 print(p1 + p2)
 ```
 
 
-Compare adjusted p-values between t-test and Wilcoxon test. Let us
+Now compare these adjusted p-values between t-test and Wilcoxon test. Let us
 also highlight the p = 0.05 intervals.
 
-```{r univariate6, warning=FALSE, message=FALSE}
+```{r univariate6, warning=FALSE, message=FALSE, fig.width=8, fig.height=8}
 p <- ggplot(data = pvalues,
          aes(x = pvalue.ttest.adjusted,
 	     y = pvalue.wilcoxon.adjusted)) +
        geom_text(aes(label = taxon)) + 
        geom_abline(aes(intercept = 0, slope = 1)) +
-       geom_hline(aes(yintercept = 0.05)) +
-       geom_vline(aes(xintercept = 0.05)) #+
-       #scale_x_log10() +
-       #scale_y_log10()        
+       geom_hline(aes(yintercept = 0.05), shape = 2) +
+       geom_vline(aes(xintercept = 0.05), shape = 2)
 print(p)
 ```
 
@@ -201,45 +204,36 @@ print(p)
 
 
 
-# Linear models
+# Linear models: the role of covariates
 
-This section provides a hands-on introduction to linear and
-generalized linear models, including covariates.
-
-
-Load example data.
-
-```{r lm1, warning=FALSE, message=FALSE}
-library(microbiome)
-data(dietswap)
-d <- dietswap
-
-# Pick microbial abundances for a given taxonomic group
-taxa <- "Dialister"
-```
+This section provides a brief hands-on introduction to the practical motivations
+and use linear (and generalized linear) models.
 
 
-Construct a data.frame with the selected taxonomic group and grouping.
+Let us compare two groups with a linear model. We use Log10 abundances
+since this is closer to the Gaussian assumptions than the absolute
+count data. We can fit a linear model with Gaussian variation as follows:
 
-```{r lm2, warning=FALSE, message=FALSE}
-df <- data.frame(Abundance = abundances(d)[taxa,],
-                 Group = meta(d)$nationality,
-		 Log10_Abundance = log10(1 + df$Abundance)		 
-		 )
-
-# Compare the groups with a linear model.
-# Use Log10 abundances 
+```{r lm, warning=FALSE, message=FALSE}
 res <- glm(Log10_Abundance ~ Group, data = df, family = "gaussian")
 ```
 
 
-Investigate model coefficients
+Let us investigate model coefficients
 
 ```{r lm_coefs, warning=FALSE, message=FALSE}
 print(summary(res)$coefficients)
+```
 
-# The intercept equals to the mean in the first group
-# The group term equals to the difference between group means
+```{r lm_coefs2, warning=FALSE, message=FALSE, results="asis"}
+stargazer(res, type="html")
+```
+
+
+The intercept equals to the mean in the first group. The group term
+equals to the difference between group means.
+
+```{r lm_coefs3, warning=FALSE, message=FALSE}
 print(mean(subset(df, Group == "AAM")$Log10_Abundance))
 print(mean(subset(df, Group == "AFR")$Log10_Abundance) - mean(subset(df, Group == "AAM")$Log10_Abundance))
 ```
@@ -279,27 +273,7 @@ print(summary(res))
 
 
 
-# Pooled models
-
-Example data:
-
-
-```{r pooled1, warning=FALSE, message=FALSE}
-library(microbiome)
-data(dietswap)
-d <- dietswap
-
-# Pick microbial abundances for a given taxonomic group
-taxa <- "Dialister"
-
-# Construct a data.frame with the selected
-# taxonomic group and grouping
-df <- data.frame(Abundance = abundances(d)[taxa,],
-                 Group = meta(d)$nationality,
-		 Log10_Abundance = log10(1 + abundances(d)[taxa,])
-		 )
-```
-
+# Advanced models of differential abundance for sequencing data
 
 
 Motivation: non-gaussianity
@@ -382,10 +356,10 @@ print(kable(df, digits = 5))
 Now identify top taxa based on Wilcoxon test.
 
 ```{r pooled_topw, warning=FALSE, message=FALSE}
-all.taxa <- taxa(d)
+test.taxa <- taxa(d)
 pvalue.wilcoxon <- c()
 foldchange <- c()
-for (taxa in all.taxa) {
+for (taxa in test.taxa) {
   # Create a new data frame for each taxonomic group
   df <- data.frame(Abundance = abundances(d)[taxa,],
                    Log10_Abundance = log10(1 + abundances(d)[taxa,]),
