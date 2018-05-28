@@ -92,7 +92,7 @@ $(document).ready(function () {
     <div id="text-table-of-contents">
       <ul>
       <li><a href="#summarizing-the-contents-of-a-phyloseq-object">Summarizing the contents of a phyloseq object</a></li>
-      <li><a href="#retrieving-data-elements-from-a-phyloseq-object">Retrieving data elements from a phyloseq object</a></li>
+      <li><a href="#retrieving-data-elements-from-phyloseq-object">Retrieving data elements from phyloseq object</a></li>
       <li><a href="#sample-operations">Sample operations</a></li>
       <li><a href="#data-transformations">Data transformations</a></li>
       <li><a href="#variable-operations">Variable operations</a></li>
@@ -118,10 +118,8 @@ $(document).ready(function () {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(phyloseq)
 <span class="kw">library</span>(microbiome)
 <span class="kw">library</span>(knitr)
-<span class="co"># Load example data</span>
 <span class="kw">data</span>(atlas1006)   
-
-<span class="co"># Let us rename the example data (which is a phyloseq object)</span>
+<span class="co"># Rename the example data (which is a phyloseq object)</span>
 pseq &lt;-<span class="st"> </span>atlas1006</code></pre></div>
 <div id="summarizing-the-contents-of-a-phyloseq-object" class="section level2">
 <h2>Summarizing the contents of a phyloseq object</h2>
@@ -148,8 +146,8 @@ pseq &lt;-<span class="st"> </span>atlas1006</code></pre></div>
 ## time 
 ## sample</code></pre>
 </div>
-<div id="retrieving-data-elements-from-a-phyloseq-object" class="section level2">
-<h2>Retrieving data elements from a phyloseq object</h2>
+<div id="retrieving-data-elements-from-phyloseq-object" class="section level2">
+<h2>Retrieving data elements from phyloseq object</h2>
 <p>A phyloseq object contains OTU table (taxa abundances), sample metadata, taxonomy table (mapping between OTUs and higher-level taxonomic classifications), and phylogenetic tree (relations between the taxa). Some of these are optional.</p>
 <p>Pick metadata as data.frame:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meta &lt;-<span class="st"> </span><span class="kw">meta</span>(pseq)</code></pre></div>

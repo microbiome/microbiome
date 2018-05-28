@@ -31,32 +31,26 @@ Load example data:
 library(phyloseq)
 library(microbiome)
 library(knitr)
-# Load example data
 data(atlas1006)   
-
-# Let us rename the example data (which is a phyloseq object)
+# Rename the example data (which is a phyloseq object)
 pseq <- atlas1006
 ```
 
 
 ## Summarizing the contents of a phyloseq object  
 
-```{r}
-
+```{r summarize_pseq} 
 summarize_phyloseq(pseq)
-
 ```
 
 
 
-
-## Retrieving data elements from a phyloseq object  
+## Retrieving data elements from phyloseq object  
 
 A phyloseq object contains OTU table (taxa abundances), sample
 metadata, taxonomy table (mapping between OTUs and higher-level
 taxonomic classifications), and phylogenetic tree (relations between
 the taxa). Some of these are optional.
-
 
 Pick metadata as data.frame:
 
