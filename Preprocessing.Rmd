@@ -143,6 +143,21 @@ to be in absolute scale, not logarithmic!):
 pseq.compositional <- microbiome::transform(pseq, "compositional")
 ```
 
+The CLR ("clr") transformation is also available, and comes with a pseudocount to avoid zeroes. An alternative method is to impute the zero-inflated unobserved values. Sometimes a multiplicative Kaplan-Meier smoothing spline (KMSS) replacement, multiplicative lognormal replacement, or multiplicative simple replacement are used. These are available in the zCompositions R package (functions multKM, multLN, and multRepl, respectively). Use at least n.draws = 1000 in practice, here less used to speed up example.
+
+```{r data10b}
+library(zCompositions)
+# Remove pseudocount that exists in the example data
+data(atlas1006)
+x <- abundances(atlas1006) - 1 
+# Compositional data without pseudocount
+x2 <- transform(x, "compositional")
+# KMSS replacement for zero-inflated compositional values
+x3 <- multKM(x2, label = 0, dl = rep(0, ncol(x)), n.draws = 10, n.knots = NULL)
+# CLR transformation for the augmented compositional data
+x4 <- transform(x3, "clr")
+```
+
 
 ## Variable operations
 
