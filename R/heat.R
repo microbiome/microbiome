@@ -21,7 +21,6 @@
 #' @param order.cols Order columns to enhance visualization
 #' interpretability. If this is logical, then hclust is applied. If this
 #' is a vector then the rows are ordered using this index.
-#' @param text.size Adjust text size
 #' @param filter.significant Keep only the elements with at least one 
 #' significant entry
 #' @param star.size NULL Determine size of the highlight symbols
@@ -42,7 +41,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
     association.threshold=0, 
     step=0.2, colours=c("darkblue", "blue", "white", "red", "darkred"),
     limits=NULL, legend.text="", order.rows=TRUE, order.cols=TRUE,
-    text.size=10, filter.significant=TRUE, 
+    filter.significant=TRUE, 
     star.size=NULL, plot.values=FALSE) {
     
     if (is.null(limits)) {
@@ -73,7 +72,6 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
         df <- df[((df[[Xvar]] %in% keep.X) & (df[[Yvar]] %in% keep.Y)), ]
     }
 
-    theme_set(theme_bw(text.size))
     if (any(c("XXXX", "YYYY", "ffff") %in% names(df))) {
         stop("XXXX, YYYY, ffff are not allowed in df")
     }
@@ -181,7 +179,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
             df.sub <- df[inds, ]
         
         if (is.null(star.size)) {
-            star.size <- max(1, floor(text.size/2))
+            star.size <- 1 # max(1, floor(text.size/2))
         }
         
         p <- p + geom_text(data=df.sub, aes(x=XXXX, y=YYYY, label="+"),
