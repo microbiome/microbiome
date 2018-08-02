@@ -48,8 +48,11 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
         
         # Here we use taxon x abundance thresholds table indicating prevalences
         res <- core_heatmap(abundances(x),
-        dets=detections, cols=colours, 
-            min.prev=min.prevalence, taxa.order=taxa.order)
+                    dets=detections,
+		    cols=colours, 
+                    min.prev=min.prevalence,
+		    taxa.order=taxa.order)
+		
 
     }
     
@@ -177,7 +180,7 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
     p <- ggplot(df, aes(x=DetectionThreshold, y=Taxa, fill=Prevalence))
     p <- p + geom_tile()
     p <- p + xlab("Detection Threshold")
-    p <- p + scale_x_log10()
+    p <- p + scale_x_log10(labels = scales::percent)
 
     if (!is.null(cols)) {
         p <- p + scale_fill_gradientn("Prevalence",
