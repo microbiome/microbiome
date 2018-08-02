@@ -12,6 +12,7 @@ microbiome R package
 [![PRs Welcome][prs-badge]][prs]
 [![Watch on GitHub][github-watch-badge]][github-watch]
 [![Star on GitHub][github-star-badge]][github-star]
+[![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat-square)](http://bioconda.github.io/recipes/bioconductor-microbiome/README.html)
 <!--[![Follow](https://img.shields.io/twitter/follow/antagomir.svg?style=social)](https://twitter.com/intent/follow?screen_name=antagomir)-->
 <!--[![Bioconductor](http://bioconductor.org/shields/build/release/bioc/BiocGenerics.svg)](https://bioconductor.org/packages/devel/bioc/html/microbiome.html)-->
 
@@ -73,19 +74,19 @@ Below some publications that utilize the tools implemented in this package. The 
 
 Main developer: [Leo Lahti](https://github.com/antagomir/)
 
-Co-authors: Sudarshan Shetty
+Main co-authors: Sudarshan Shetty
 
 [Contributors](https://github.com/microbiome/microbiome/graphs/contributors)
 
+Thanks for [@johanneskoester] and [@nick-youngblut] for contributing [Bioconda installation recipe](https://bioconda.github.io/recipes/bioconductor-microbiome/README.html).
+
 The work has been supported by the following bodies:
 
-  * Academy of Finland (grants 256950 and 295741)
+  * Academy of Finland (grants 256950, 295741, 307127)
   * [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics
-  * [VIB lab for Bioinformatics and (eco-)systems biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx), VIB/KULeuven, Belgium
   * [Molecular Ecology group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology, Wageningen University, Netherlands
-  * [Department of Veterinary Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm), University of Helsinki, Finland.
 
-This work relies on the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis developed by Paul McMurdie and Susan Holmes. 
+This work extends the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis. 
 
 
 
