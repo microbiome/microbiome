@@ -16,9 +16,8 @@
 #' The data has a different form for the lineplot and heatmap.
 #' Finally, the applied parameters are returned.
 #' @examples 
-#' data(atlas1006)
-#' pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
-#' p <- plot_core(transform(pseq, "compositional"),
+#' data(dietswap)
+#' p <- plot_core(transform(dietswap, "compositional"),
 #'   prevalences=seq(0.1, 1, .1), detections=seq(0.01, 1, length = 10))
 #' @export 
 #' @references 
