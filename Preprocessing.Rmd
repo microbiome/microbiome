@@ -147,10 +147,9 @@ The CLR ("clr") transformation is also available, and comes with a pseudocount t
 
 ```{r data10b}
 library(zCompositions)
-# Remove pseudocount that exists in the example data
 data(atlas1006)
-x <- abundances(atlas1006) - 1 
-# Compositional data without pseudocount
+x <- abundances(atlas1006)
+# Compositional data 
 x2 <- transform(x, "compositional")
 # KMSS replacement for zero-inflated compositional values
 x3 <- multKM(x2, label = 0, dl = rep(0, ncol(x)), n.draws = 10, n.knots = NULL)

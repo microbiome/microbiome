@@ -65,7 +65,7 @@ library(network)
 netw <- network(as.matrix(n), directed = FALSE)
 
 # igraph format
-# library(igraph)
+library(igraph)
 # ig <- graph.adjacency(n, mode='undirected', add.rownames = TRUE)
 
 # Network layout
