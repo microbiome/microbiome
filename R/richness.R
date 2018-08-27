@@ -13,7 +13,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso global
 #' @keywords utilities
-richness <- function(x, detection = NULL) {
+richness <- function(x, detection=0) {
         
     tab <- richness_help(x, detection)
 
