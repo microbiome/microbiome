@@ -19,6 +19,5 @@ save(dietswap, file = "../../data/dietswap.rda")
 # ----------------------------------------------
 
 library(microbiome)
-data.peerj32 <- download_microbiome("peerj32")
-peerj32 = data.peerj32
+peerj32 <- download_microbiome("peerj32")
 save(peerj32, file = "../../data/peerj32.rda")

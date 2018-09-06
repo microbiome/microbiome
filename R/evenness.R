@@ -203,14 +203,14 @@ camargo <- function(x, zeroes=TRUE) {
 
 
 # x: Species count vector
-simpson_evenness <- function(x, zeroes=TRUE) {
+simpson_evenness <- function(x, detection = 0, zeroes=TRUE) {
     
     if (!zeroes) {
         x[x > 0]
     }
     
     # Species richness (number of species)
-    S <- length(x)
+    S <- sum(x > detection, na.rm = TRUE)
     
     # Relative abundances
     p <- x/sum(x)
