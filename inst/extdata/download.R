@@ -206,7 +206,7 @@ download_dietswap <- function (...) {
   # atlas <- list(microbes = data, meta = meta)
 
   # Convert in phyloseq format
-  pseq <- hitchip2physeq(data, meta, pseudocount = 0)
+  pseq <- hitchip2physeq(data, meta)
 
   pseq
 
