@@ -43,7 +43,7 @@ plot_tipping <- function(x, taxon, tipping.point=NULL,
         return(ggplot())
     }
 
-    ranges <- t(vapply(split(d[keep], as.character(m$subject[keep])), range))
+    ranges <- t(vapply(split(d[keep], as.character(m$subject[keep])), range, c(1,1)))
     colnames(ranges) <- c("min", "max")
     
     df <- as.data.frame(ranges)

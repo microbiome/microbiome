@@ -51,16 +51,18 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
     if (is.null(colnames(y))) {
         colnames(y) <- paste("column-", 1:ncol(y), sep="")
     }
-    
+
     xnames <- colnames(x)
     ynames <- colnames(y)
     qv <- NULL
     numeric.methods <- c("spearman", "pearson")
     categorical.methods <- c("categorical")
-    
+
     # Rows paired.
     if (method %in% numeric.methods) {
-        inds <- vapply(x, is.numeric)
+
+        inds <- vapply(x, is.numeric, TRUE)
+
         if (any(!inds)) {
             warning("Considering only numeric annotations for \n       
                     pearson/spearman")
@@ -75,7 +77,7 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
     }
     
     xnames <- inds
-    
+
     if (!is.vector(x)) {
         x <- suppressWarnings(as.matrix(x[, inds], ncol=length(inds)))
     } else {
