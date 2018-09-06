@@ -139,7 +139,7 @@ evenness_help <- function(x, index="all", zeroes=TRUE) {
         })
     } else if (index == "simpson") {
         ev <- apply(otu, 2, function(x) {
-            simpson_evenness(x, zeroes=zeroes)
+            simpson_evenness(x)
         })
     } else if (index == "pielou") {
         ev <- apply(otu, 2, function(x) {
@@ -209,21 +209,14 @@ camargo <- function(x, zeroes=TRUE) {
 
 
 # x: Species count vector
-simpson_evenness <- function(x, zeroes=TRUE) {
-    
-    if (!zeroes) {
-        x[x > 0]
-    }
+simpson_evenness <- function(x) {
     
     # Species richness (number of species)
     S <- sum(x > 0, na.rm = TRUE)
-    
-    # Relative abundances
-    p <- x/sum(x)
-    
+
     # Simpson index
-    lambda <- sum(p^2)
-    
+    lambda <- simpson_index(x)
+
     # Simpson evenness (Simpson diversity per richness)
     (1/lambda)/S
     

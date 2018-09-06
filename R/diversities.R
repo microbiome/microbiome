@@ -93,11 +93,11 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
 
     if (index == "inverse_simpson") {
         ev <- apply(otu, 2, function(x) {
-            inverse_simpson(x, zeroes=zeroes)
+            inverse_simpson(x)
         })
     } else if (index == "gini_simpson") {
         ev <- apply(otu, 2, function(x) {
-            gini_simpson(x, zeroes=zeroes)
+            gini_simpson(x)
         })
     } else if (index == "shannon") {
         ev <- apply(otu, 2, function(x) {
@@ -118,10 +118,10 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
 
 
 # x: Species count vector
-inverse_simpson <- function(x, zeroes=TRUE) {
+inverse_simpson <- function(x) {
     
     # Simpson index
-    lambda <- simpson_index(x, zeroes=zeroes)
+    lambda <- simpson_index(x)
     
     # Inverse Simpson diversity
     (1/lambda)
@@ -129,21 +129,17 @@ inverse_simpson <- function(x, zeroes=TRUE) {
 }
 
 # x: Species count vector
-gini_simpson <- function(x, zeroes=TRUE) {
+gini_simpson <- function(x) {
     
     # Simpson index
-    lambda <- simpson_index(x, zeroes=zeroes)
+    lambda <- simpson_index(x)
     
     # Gini-Simpson diversity
     1 - lambda
     
 }
 
-simpson_index <- function(x, zeroes=TRUE) {
-    
-    if (!zeroes) {
-        x[x > 0]
-    }
+simpson_index <- function(x) {
     
     # Relative abundances
     p <- x/sum(x)
