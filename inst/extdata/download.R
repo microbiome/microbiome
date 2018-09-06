@@ -93,7 +93,7 @@ download_atlas <- function (...) {
   		       Data Dryad: http://doi.org/10.5061/dryad.pk75d")
 
   # Define the data URL
-  url <- download_url('10255/dryad.64665')
+  url <- download_url('10255/dryad.64665')[[1]]
 
   # Download the data
   data <- read.table(url, sep = "\t", row.names = 1, header = TRUE)
@@ -112,8 +112,8 @@ download_atlas <- function (...) {
   # Convert to matrix 
   otu <- as.matrix(data)
 
-  url <- download_url('10255/dryad.64666')
-  meta <- read.table(url, sep = "\t", row.names = 1, header = TRUE)
+  url <- download_url('10255/dryad.64666')[[1]]
+  meta <- unique(read.table(url, sep = "\t", row.names = 1, header = TRUE))
 
   # Add SampleIDs as a separate column from rownames
   meta$sample <- rownames(meta)
@@ -129,7 +129,7 @@ download_atlas <- function (...) {
   meta <- harmonize_fields(meta)
 
   # Convert in phyloseq format
-  physeq <- hitchip2physeq(otu, meta, pseudocount = 0)
+  physeq <- hitchip2physeq(otu, meta)
   res <- physeq
 
   # Remove a single sample per subject/timepoint combination
