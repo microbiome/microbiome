@@ -213,7 +213,7 @@ simpson_evenness <- function(x) {
     
     # Species richness (number of species)
     S <- sum(x > 0, na.rm = TRUE)
-print(S)
+
     # Simpson index
     lambda <- simpson_index(x)
 
