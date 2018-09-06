@@ -33,7 +33,7 @@ time_sort <- function(x) {
     spl <- split(x, as.character(x$subject))
     
     # Keep only subjects with multiple time points
-    spl <- spl[names(which(sapply(spl, function(s) {
+    spl <- spl[names(which(vapply(spl, function(s) {
         length(unique(na.omit(s$time)))
     }) > 1))]
     

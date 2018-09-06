@@ -18,7 +18,7 @@
 coverage <- function(x, threshold=0.5) {
     
     if (length(threshold) > 1) {
-        tab <- sapply(threshold, function(th) {
+        tab <- vapply(threshold, function(th) {
             coverage(x, threshold=th)
         })
         colnames(tab) <- as.character(threshold)

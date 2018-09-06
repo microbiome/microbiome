@@ -45,7 +45,8 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
 
     } else if (plot.type == "heatmap") {
         
-        # Here we use taxon x abundance thresholds table indicating prevalences
+        # Here we use taxon x abundance thresholds table
+	#  indicating prevalences
         res <- core_heatmap(abundances(x),
                     dets=detections,
 		    cols=colours, 

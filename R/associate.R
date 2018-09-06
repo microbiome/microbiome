@@ -60,14 +60,14 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
     
     # Rows paired.
     if (method %in% numeric.methods) {
-        inds <- sapply(x, is.numeric)
+        inds <- vapply(x, is.numeric)
         if (any(!inds)) {
             warning("Considering only numeric annotations for \n       
                     pearson/spearman")
         }
         inds <- names(which(inds))
     } else if (method %in% categorical.methods) {
-        inds <- sapply(x, is.factor)
+        inds <- vapply(x, is.factor)
         if (any(!inds)) {
             warning("Considering only categorical annotations for factors")
         }

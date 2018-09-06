@@ -19,7 +19,7 @@
 low_abundance <- function(x, detection=0.2/100) {
     
     if (length(detection) > 1) {
-        tab <- sapply(detection, function(th) {
+        tab <- vapply(detection, function(th) {
             low_abundance(x, detection=th)
         })
         colnames(tab) <- as.character(detection)

@@ -2,6 +2,7 @@
 #' @description Various community evenness indices.
 #' @param index Evenness index. See details for options.
 #' @param zeroes Include zero counts in the evenness estimation.
+#' @param detection Detection threshold
 #' @inheritParams global
 #' @return A vector of evenness indices
 #' @export
@@ -66,7 +67,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso coverage, core_abundance, rarity, global
 #' @keywords utilities
-evenness <- function(x, index="all", zeroes=TRUE) {
+evenness <- function(x, index="all", zeroes=TRUE, detection = 0) {
     
     # Only include accepted indices
     index <- tolower(index)    
@@ -85,7 +86,11 @@ evenness <- function(x, index="all", zeroes=TRUE) {
     if (!is.null(index) && length(index) == 0) {
         return(NULL)
     }
-    
+
+    if (detection > 0) {
+        x[x <= detection] <- 0
+    }
+
     tab <- evenness_help(x, index, zeroes)
 
     if (is.vector(tab)) {
@@ -104,7 +109,7 @@ evenness_help <- function(x, index="all", zeroes=TRUE) {
     
     # Only include accepted indices
     accepted <- c("camargo", "pielou", "simpson", "evar", "bulla")
-    
+
     # Return all indices
     if ("all" %in% index) {
         index <- accepted
@@ -118,7 +123,8 @@ evenness_help <- function(x, index="all", zeroes=TRUE) {
     if (length(index) > 1) {
         ev <- NULL
         for (idx in index) {
-            ev <- cbind(ev, evenness_help(x, index=idx, zeroes=TRUE))
+            ev <- cbind(ev,
+	        evenness_help(x, index=idx, zeroes))
         }
         colnames(ev) <- index
         return(as.data.frame(ev))
@@ -164,7 +170,7 @@ bulla <- function(x, zeroes=TRUE) {
     }
     
     # Species richness (number of species)
-    S <- length(x)
+    S <- sum(x>0, na.rm = TRUE)
     
     # Relative abundances
     p <- x/sum(x)
@@ -188,7 +194,7 @@ camargo <- function(x, zeroes=TRUE) {
         x[x > 0]
     }
     
-    N <- length(x)
+    N <- sum(x > 0, na.rm = TRUE)
     
     xx <- 0
     for (i in 1:(N - 1)) {
@@ -203,14 +209,14 @@ camargo <- function(x, zeroes=TRUE) {
 
 
 # x: Species count vector
-simpson_evenness <- function(x, detection = 0, zeroes=TRUE) {
+simpson_evenness <- function(x, zeroes=TRUE) {
     
     if (!zeroes) {
         x[x > 0]
     }
     
     # Species richness (number of species)
-    S <- sum(x > detection, na.rm = TRUE)
+    S <- sum(x > 0, na.rm = TRUE)
     
     # Relative abundances
     p <- x/sum(x)
@@ -233,8 +239,8 @@ pielou <- function(x) {
     # Remove zeroes
     x <- x[x > 0]
     
-    # Species richness (number of species)
-    S <- length(x)
+    # Species richness (number of detected species)
+    S <- sum(x, na.rm = TRUE)
     
     # Relative abundances
     p <- x/sum(x)
@@ -254,7 +260,7 @@ evar <- function(x, zeroes=TRUE) {
         x[x > 0]
     }
     
-    n <- length(x)
+    n <- sum(x, na.rm = TRUE)
     d <- rep(NA, n)
     
     # Log abundance

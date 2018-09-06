@@ -47,7 +47,7 @@ read_mothur2phyloseq <- function(shared.file, consensus.taxonomy.file,
     m.otu$Group <- NULL
     rownames(m.otu) <- NULL
     rownames(m.otu) <- x
-    m.otu[, c(2:(ncol(m.otu) - 1))] <- sapply(m.otu[, c(2:(ncol(m.otu) - 
+    m.otu[, c(2:(ncol(m.otu) - 1))] <- vapply(m.otu[, c(2:(ncol(m.otu) - 
         1))], as.numeric)
     mothur_otu_table <- (otu_table(t(as.matrix(m.otu)), taxa_are_rows=TRUE))
     

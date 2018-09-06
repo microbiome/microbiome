@@ -15,29 +15,32 @@
 #' pseq <- collapse_replicates(atlas1006,
 #'           method = "sample",
 #'           replicate_fields = c("subject", "time"))
-collapse_replicates <- function (x, method = "sample", replicate_id = NULL, replicate_fields = NULL) {
+collapse_replicates <- function (x, method = "sample",
+    replicate_id = NULL, replicate_fields = NULL) {
 
-  if (!is.null(replicate_fields)) {
-    if (!is.null(replicate_id)) {
-      stop("Provide only replicate_id OR replicate_fields argument for clarity.")
+    if (!is.null(replicate_fields)) {
+        if (!is.null(replicate_id)) {
+            stop("Provide only replicate_id 
+                OR replicate_fields argument for clarity.")
+        }
+        replicate_id <- unname(apply(meta(x)[, replicate_fields],
+	    1, function (x) {paste(x, collapse = "-")}))    
     }
-    replicate_id <- unname(apply(meta(x)[, replicate_fields], 1, function (x) {paste(x, collapse = "-")}))    
-  }
 
-  # Sample names grouped by replicate
-  spl <- split(sample_names(x), replicate_id)
+    # Sample names grouped by replicate
+    spl <- split(sample_names(x), replicate_id)
 
-  if (method == "sample") {
-    # Pick one of the replicates at random
-    s <- unname(sapply(spl, function (x) {sample(x, 1)}) )
-    x <- prune_samples(s, x)
-  }
-  # TODO
-  # Add averaging of replicates.
-  # This is more challenging as we should decide how to merge metadata
-  # To be on the safe side, this could be merged only when identical
-  # between replicates. Will require checks
+    if (method == "sample") {
+        # Pick one of the replicates at random
+        s <- unname(vapply(spl, function (x) {sample(x, 1)}) )
+        x <- prune_samples(s, x)
+    }
+    # TODO
+    # Add averaging of replicates.
+    # This is more challenging as we should decide how to merge metadata
+    # To be on the safe side, this could be merged only when identical
+    # between replicates. Will require checks
 
-  x
+    x
 
 }
