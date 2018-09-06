@@ -69,7 +69,7 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
         }
         inds <- names(which(inds))
     } else if (method %in% categorical.methods) {
-        inds <- vapply(x, is.factor)
+        inds <- sapply(x, is.factor)
         if (any(!inds)) {
             warning("Considering only categorical annotations for factors")
         }

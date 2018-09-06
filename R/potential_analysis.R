@@ -358,7 +358,7 @@ remove_obsolete_minima <- function(f, maxima, minima) {
     # consecutive maxima, there is exactly one minimum
     
     if (length(maxima) > 1) {
-        minima <- vapply(2:length(maxima), function(i) {
+        minima <- sapply(2:length(maxima), function(i) {
             
             mins <- minima[minima >= maxima[[i - 1]] & minima <= maxima[[i]]]
             if (length(mins) > 0) {

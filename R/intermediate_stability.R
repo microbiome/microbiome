@@ -104,7 +104,7 @@ intermediate_stability <- function(x, reference.point=NULL,
     if (output == "full") {
         return(stability)
     } else if (output == "scores") {
-        intermediate.stability <- vapply(stability, function(x) {
+        intermediate.stability <- sapply(stability, function(x) {
             x$stability
         })
         return(intermediate.stability)

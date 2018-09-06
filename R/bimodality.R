@@ -214,7 +214,7 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
             potential.results[[tax]] <- m
         }
         
-        multimodality.score <- vapply(potential.results, function(x) {
+        multimodality.score <- sapply(potential.results, function(x) {
             1 - x$unimodality.support
         })
         
@@ -312,7 +312,7 @@ kurtosis <- function (x, na.rm=TRUE)
         k <- n * sum((x - mean(x))^4)/(sum((x - mean(x))^2)^2)
         return(k)
     } else if (is.data.frame(x)) {
-        k <- vapply(x, kurtosis, na.rm = na.rm)
+        k <- sapply(x, kurtosis, na.rm = na.rm)
         return(k)
     } else {
         kurtosis(as.vector(x), na.rm = na.rm)

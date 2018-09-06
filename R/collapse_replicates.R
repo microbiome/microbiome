@@ -32,7 +32,7 @@ collapse_replicates <- function (x, method = "sample",
 
     if (method == "sample") {
         # Pick one of the replicates at random
-        s <- unname(vapply(spl, function (x) {sample(x, 1)}) )
+        s <- unname(sapply(spl, function (x) {sample(x, 1)}) )
         x <- prune_samples(s, x)
     }
     # TODO
