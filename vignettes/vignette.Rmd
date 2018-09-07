@@ -89,7 +89,7 @@ use
 library(BiocManager)
 if (!requireNamespace("BiocManager", quietly=TRUE))
     install.packages("BiocManager")
-useDevel()
+BiocManager::install(version = "devel")
 BiocManager::install("microbiome")
 ```
 
