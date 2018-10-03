@@ -102,7 +102,7 @@ rarity_help <- function(x, index="all", rarity.detection, rarity.prevalence) {
 
         r <- apply(otu.relative, 2,
                 function(x) low_abundance(x, detection=rarity.detection))
-		
+        
     } else if (index == "noncore_abundance") {
     
         r <- noncore_abundance(x, detection=rarity.detection,

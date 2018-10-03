@@ -20,7 +20,12 @@ core_abundance <- function(x, detection = 0.1/100, prevalence = 50/100) {
     # Core members
     cm <- core_members(x, detection, prevalence)
 
-    if (length(cm) == 0) {warning("Core is empty with the given abundance and prevalence thresholds. Returning NA for core_abundance. Try to change rarity.detection, rarity.prevalence parameters."); ret <- NA}
+    if (length(cm) == 0) {
+      warning("Core is empty with the given abundance and prevalence 
+            thresholds. Returning NA for core_abundance. Try to 
+            change rarity.detection, rarity.prevalence parameters.");
+      ret <- NA
+    }
 
     # Pick the core and calculate abundance
     if (is.vector(xcomp)) {
@@ -28,7 +33,7 @@ core_abundance <- function(x, detection = 0.1/100, prevalence = 50/100) {
     } else if (length(cm) == 1) {
         ret <- xcomp[cm,]
     } else if (ncol(xcomp) > 1 && length(cm) > 1) {
-        ret <- colSums(xcomp[cm, ])		
+        ret <- colSums(xcomp[cm, ])        
     } else if (ncol(xcomp) == 1) {
         ret <- sum(xcomp[cm, ])
     }

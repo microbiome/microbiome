@@ -57,7 +57,8 @@ aggregate_taxa <- function(x, level, top = NULL) {
         })))
     if (length(current.level) == 0) {
             current.level <- "unique"
-        tax_table(mypseq) <- tax_table(cbind(tax_table(mypseq), unique = rownames(tax_table(mypseq))))
+        tax_table(mypseq) <- tax_table(cbind(tax_table(mypseq),
+	    unique = rownames(tax_table(mypseq))))
         }
 
         otus <- map_levels(data=mypseq, to=current.level, from=level)
@@ -81,11 +82,14 @@ aggregate_taxa <- function(x, level, top = NULL) {
     ## First remove NA entries from the target level    
     tax_table(mypseq) <- tax_table(mypseq)[!is.na(tax_table(mypseq)[, level]),]
         keep <- colnames(
-        tax_table(mypseq))[which(sapply(1:ncol(tax_table(mypseq)),
-            function(k)
-            sum(sapply(split(as.character(tax_table(mypseq)[, k]),
-            as.character(tax_table(mypseq)[, level])), function(x) {
-            length(unique(x))
+        tax_table(mypseq))[
+	  which(
+	    sapply(seq(ncol(tax_table(mypseq))),
+              function(k)
+              sum(
+	    sapply(split(as.character(tax_table(mypseq)[, k]),
+              as.character(tax_table(mypseq)[, level])), function(x) {
+              length(unique(x))
         }) > 1)) == 0)]
         tax <- unique(tax_table(mypseq)[, keep])
 

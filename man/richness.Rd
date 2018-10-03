@@ -4,7 +4,7 @@
 \alias{richness}
 \title{Richness Index}
 \usage{
-richness(x, detection = NULL)
+richness(x, detection = 0)
 }
 \arguments{
 \item{x}{A species abundance vector, or matrix (taxa/features x samples)

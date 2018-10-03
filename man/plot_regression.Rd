@@ -4,11 +4,12 @@
 \alias{plot_regression}
 \title{Visually Weighted Regression Plot}
 \usage{
-plot_regression(formula, data, B = 1000, shade = TRUE, shade.alpha = 0.1,
-  spag = FALSE, mweight = TRUE, show.lm = FALSE, show.median = TRUE,
-  median.col = "white", show.CI = FALSE, method = loess, slices = 200,
-  ylim = NULL, quantize = "continuous", show.points = TRUE,
-  color = NULL, pointsize = NULL, ...)
+plot_regression(formula, data, B = 1000, shade = TRUE,
+  shade.alpha = 0.1, spag = FALSE, mweight = TRUE, show.lm = FALSE,
+  show.median = TRUE, median.col = "white", show.CI = FALSE,
+  method = loess, slices = 200, ylim = NULL,
+  quantize = "continuous", show.points = TRUE, color = NULL,
+  pointsize = NULL, ...)
 }
 \arguments{
 \item{formula}{formula}
@@ -71,7 +72,7 @@ visually-weighted-watercolor-plots-new-variants-please-vote
 data(atlas1006)
 pseq <- subset_samples(atlas1006,
    DNA_extraction_method == 'r' &
-   gender == "female" &
+   sex == "female" &
    nationality == "UKIE")
 p <- plot_regression(diversity ~ age, meta(pseq))
 }

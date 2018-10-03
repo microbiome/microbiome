@@ -81,3 +81,4 @@ hotplot <- function(x, taxon, tipping.point=NULL, lims=NULL,
     p
     
 }
+

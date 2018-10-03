@@ -8,7 +8,13 @@ CHANGES IN VERSION 1.1.2 (TBA)
     combination is chosen (at random)
   o New function collapse_replicates has been added
 
+# Major changes
+  o Abundance matrices (otu tables) for all example data sets now
+    starting from 0 without pseudocount
+
 # Minor changes
+  o Changed the default for the detection argument in the richness function to
+    detection=0
   o Color order in plot_landscape legend now follows the factor levels
     of the col argument
   o Various minor fixes; see github commits for many more details

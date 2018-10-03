@@ -6,10 +6,10 @@
 \usage{
 heat(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
   fill = names(df)[[3]], star = NULL, p.adj.threshold = 1,
-  association.threshold = 0, step = 0.2, colours = c("darkblue", "blue",
-  "white", "red", "darkred"), limits = NULL, legend.text = "",
-  order.rows = TRUE, order.cols = TRUE, text.size = 10,
-  filter.significant = TRUE, star.size = NULL, plot.values = FALSE)
+  association.threshold = 0, step = 0.2, colours = c("darkblue",
+  "blue", "white", "red", "darkred"), limits = NULL, legend.text = "",
+  order.rows = TRUE, order.cols = TRUE, filter.significant = TRUE,
+  star.size = NULL, plot.values = FALSE)
 }
 \arguments{
 \item{df}{Data frame. Each row corresponds to a pair of associated 
@@ -45,8 +45,6 @@ is a vector then the rows are ordered using this index.}
 \item{order.cols}{Order columns to enhance visualization
 interpretability. If this is logical, then hclust is applied. If this
 is a vector then the rows are ordered using this index.}
-
-\item{text.size}{Adjust text size}
 
 \item{filter.significant}{Keep only the elements with at least one 
 significant entry}

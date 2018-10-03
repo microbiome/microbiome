@@ -37,7 +37,7 @@
 #' data(atlas1006)
 #' pseq <- subset_samples(atlas1006,
 #'    DNA_extraction_method == 'r' &
-#'    gender == "female" &
+#'    sex == "female" &
 #'    nationality == "UKIE")
 #' p <- plot_regression(diversity ~ age, meta(pseq))
 #' @references See citation('microbiome') 

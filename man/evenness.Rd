@@ -4,7 +4,7 @@
 \alias{evenness}
 \title{Evenness Index}
 \usage{
-evenness(x, index = "all", zeroes = TRUE)
+evenness(x, index = "all", zeroes = TRUE, detection = 0)
 }
 \arguments{
 \item{x}{A species abundance vector, or matrix (taxa/features x samples)
@@ -14,6 +14,8 @@ with the absolute count data (no relative abundances), or
 \item{index}{Evenness index. See details for options.}
 
 \item{zeroes}{Include zero counts in the evenness estimation.}
+
+\item{detection}{Detection threshold}
 }
 \value{
 A vector of evenness indices

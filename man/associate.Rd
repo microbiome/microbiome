@@ -7,7 +7,8 @@
 \usage{
 associate(x, y = NULL, method = "spearman", p.adj.threshold = Inf,
   cth = NULL, order = FALSE, n.signif = 0, mode = "table",
-  p.adj.method = "fdr", verbose = FALSE, filter.self.correlations = FALSE)
+  p.adj.method = "fdr", verbose = FALSE,
+  filter.self.correlations = FALSE)
 }
 \arguments{
 \item{x}{matrix (samples x features if annotation matrix)}

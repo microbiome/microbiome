@@ -41,7 +41,7 @@ download_peerj32 <- function (...) {
     message("Downloading data set from Lahti et al. PeerJ, 2013: https://peerj.com/articles/32/")
 
     peerj32 <- list()
-    data.dir <- system.file("extdata", package = "microbiome")
+    data.dir <- system.file("inst/extdata", package = "microbiome")
     for (nam in c("lipids", "microbes", "meta")) {
       peerj32[[nam]] <- read.table(paste0(data.dir, "/peerj32_", nam, ".csv"), sep = "\t", header = T, row.names = 1)
     }
@@ -65,7 +65,9 @@ download_peerj32 <- function (...) {
     # Convert in phyloseq format
     physeq <- hitchip2physeq(data$microbes, data$meta)
 
-    list(physeq = physeq, data = data)
+    data$phyloseq <- physeq
+    
+    return(data)     #list(physeq = physeq, data = data)
 
 }
 
@@ -85,13 +87,13 @@ download_peerj32 <- function (...) {
 #'   To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords internal
-download_atlas <- function (,,,) {
+download_atlas <- function (...) {
 
   message("Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from 
   		       Data Dryad: http://doi.org/10.5061/dryad.pk75d")
 
   # Define the data URL
-  url <- download_url('10255/dryad.64665')
+  url <- download_url('10255/dryad.64665')[[1]]
 
   # Download the data
   data <- read.table(url, sep = "\t", row.names = 1, header = TRUE)
@@ -110,8 +112,8 @@ download_atlas <- function (,,,) {
   # Convert to matrix 
   otu <- as.matrix(data)
 
-  url <- download_url('10255/dryad.64666')
-  meta <- read.table(url, sep = "\t", row.names = 1, header = TRUE)
+  url <- download_url('10255/dryad.64666')[[1]]
+  meta <- unique(read.table(url, sep = "\t", row.names = 1, header = TRUE))
 
   # Add SampleIDs as a separate column from rownames
   meta$sample <- rownames(meta)
@@ -127,7 +129,7 @@ download_atlas <- function (,,,) {
   meta <- harmonize_fields(meta)
 
   # Convert in phyloseq format
-  physeq <- hitchip2physeq(otu, meta, pseudocount = 0)
+  physeq <- hitchip2physeq(otu, meta)
   res <- physeq
 
   # Remove a single sample per subject/timepoint combination
@@ -157,7 +159,7 @@ download_dietswap <- function (...) {
   message("Downloading data set from O'Keefe et al. Nat. Comm. 6:6342, 2015 from Data Dryad: http://datadryad.org/resource/doi:10.5061/dryad.1mn1n")
 
   # Define the data URL
-  url <- download_url('10255/dryad.78878')
+  url <- unique(download_url('10255/dryad.78878'))
 
   # Download the data
   data <- read.table(url, sep = ",", row.names = 1, header = TRUE)
@@ -177,7 +179,7 @@ download_dietswap <- function (...) {
 
   # -------------------------------------------
 
-  url <- download_url('10255/dryad.78880')
+  url <- unique(download_url('10255/dryad.78880'))
   meta <- read.table(url, sep = ",", row.names = 1, header = TRUE)
 
   # Add SampleIDs as a separate column from rownames
@@ -201,7 +203,7 @@ download_dietswap <- function (...) {
   meta <- suppressWarnings(harmonize_fields(meta))
 
   # Collect the atlas data and metadata into a single object
-  atlas <- list(microbes = data, meta = meta)
+  # atlas <- list(microbes = data, meta = meta)
 
   # Convert in phyloseq format
   pseq <- hitchip2physeq(data, meta)

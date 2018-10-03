@@ -16,9 +16,8 @@
 #' The data has a different form for the lineplot and heatmap.
 #' Finally, the applied parameters are returned.
 #' @examples 
-#' data(atlas1006)
-#' pseq <- subset_samples(atlas1006, DNA_extraction_method == 'r')
-#' p <- plot_core(transform(pseq, "compositional"),
+#' data(dietswap)
+#' p <- plot_core(transform(dietswap, "compositional"),
 #'   prevalences=seq(0.1, 1, .1), detections=seq(0.01, 1, length = 10))
 #' @export 
 #' @references 
@@ -46,10 +45,14 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
 
     } else if (plot.type == "heatmap") {
         
-        # Here we use taxon x abundance thresholds table indicating prevalences
+        # Here we use taxon x abundance thresholds table
+	#  indicating prevalences
         res <- core_heatmap(abundances(x),
-        dets=detections, cols=colours, 
-            min.prev=min.prevalence, taxa.order=taxa.order)
+                    dets=detections,
+		    cols=colours, 
+                    min.prev=min.prevalence,
+		    taxa.order=taxa.order)
+		
 
     }
     
@@ -177,7 +180,7 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
     p <- ggplot(df, aes(x=DetectionThreshold, y=Taxa, fill=Prevalence))
     p <- p + geom_tile()
     p <- p + xlab("Detection Threshold")
-    p <- p + scale_x_log10()
+    p <- p + scale_x_log10(labels = scales::percent)
 
     if (!is.null(cols)) {
         p <- p + scale_fill_gradientn("Prevalence",

@@ -199,7 +199,7 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
         # Univariate potential analysis for all taxa with full data
         potential.results <- list()
         nmodes <- c()
-	
+    
         if (is.null(rownames(x))) {
             rownames(x) <- as.character(1:nrow(x))
         }
@@ -219,7 +219,7 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
         })
         
         ret <- list(score=multimodality.score,
-	            modes=nmodes,
+                    modes=nmodes,
                     results=potential.results)
         
     }

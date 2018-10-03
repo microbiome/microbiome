@@ -82,7 +82,7 @@ test_that("richness works correctly", {
   pseq <- peerj32$phyloseq
   
   expect_true(all(richness(abundances(pseq)) == richness(pseq)))
-  expect_true(all(richness(pseq, detection = 1) == richness(pseq)[,1])  )
+  expect_true(all(richness(pseq, detection = 0) == richness(pseq)[,1])  )
 
 
 })
