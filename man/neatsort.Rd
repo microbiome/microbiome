@@ -4,8 +4,7 @@
 \alias{neatsort}
 \title{Neatmap Sorting}
 \usage{
-neatsort(x, target, method = "NMDS", distance = "bray", first = NULL,
-  ...)
+neatsort(x, target, method = "NMDS", distance = "bray", first = NULL, ...)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object or a matrix}

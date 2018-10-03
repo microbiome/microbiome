@@ -19,7 +19,8 @@ richness <- function(x, index = c("observed", "chao1"), detection=0) {
     # This already ensures that taxa are on the rows	 
     x <- abundances(x)
     tab <- NULL
-    
+    index <- tolower(index)
+
     if ("observed" %in% index) {
       tab <- richness_help(x, detection)
       if (is.vector(tab)) {
@@ -77,10 +78,19 @@ richness_help <- function(x, detection=NULL) {
 }
 
 
+# This calculates Chao1 per sample
 chao1 <- function (x) {
 
-    x <- as.matrix(x)    
-    x <- rowSums(x)
+    x <- as.matrix(x)
+
+    # This can be done to calculate Chao1 for the total sample
+    #x <- rowSums(x)
+    apply(x, 2, function (xi) {chao1_per_sample(xi)})
+    
+}
+
+
+chao1_per_sample <- function (x) {
 
     s0 <- sum(x>0, na.rm = TRUE)
     s1 <- sum(x==1, na.rm = TRUE)
@@ -94,6 +104,4 @@ chao1 <- function (x) {
     r
 
 }
-
-
 
