@@ -93,7 +93,7 @@ intermediate_stability <- function(x, reference.point=NULL,
         
         df$data <- x[tax, rownames(df)]
         # Remove NAs and Infinities keep <- which(!is.na(df$data))
-    # df <- df[keep,]
+        # df <- df[keep,]
         
         stability[[tax]] <- estimate_stability(df,
         reference.point=reference.point, 

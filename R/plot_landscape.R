@@ -105,7 +105,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
 
     p <- densityplot(proj[, 1:2], main=NULL, x.ticks=10,
         rounding=0, add.points=TRUE, 
-        adjust=1, size=1, col=proj$col, legend = TRUE) +
+        adjust=1, size=size, col=proj$col, legend = TRUE) +
     guides(color = guide_legend(title = guide.title))
     
     p
@@ -176,9 +176,8 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
     }
     
     # Construct the figure
-    p <- ggplot(df) +
-        stat_density2d(aes(x, y, fill=..density..), geom="raster", h=bw, 
-        contour=FALSE)
+    p <- ggplot(df)
+    p <- p + stat_density2d(aes(x, y, fill=..density..), geom="raster", h=bw, contour=FALSE)
     p <- p + scale_fill_gradient(low="white", high="black")
 
     if (add.points) {
