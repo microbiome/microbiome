@@ -40,7 +40,7 @@ global <- function(x, index="all", rarity.detection = 0.2/100, rarity.prevalence
     index <- unique(index)
 
     message("Richness")
-    if (any(c("all", "richness") %in% index)) {
+    if (any(c("all", "richness", "chao1") %in% index)) {
     
         a <- richness(x)
 
