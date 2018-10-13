@@ -4,14 +4,16 @@
 \alias{richness}
 \title{Richness Index}
 \usage{
-richness(x, detection = 0)
+richness(x, index = c("observed", "chao1"), detection = 0)
 }
 \arguments{
 \item{x}{A species abundance vector, or matrix (taxa/features x samples)
 with the absolute count data (no relative abundances), or
 \code{\link{phyloseq-class}} object}
 
-\item{detection}{Detection threshold.}
+\item{index}{"observed" or "chao1"}
+
+\item{detection}{Detection threshold. Used for the "observed" index.}
 }
 \value{
 A vector of richness indices

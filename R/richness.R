@@ -1,7 +1,8 @@
 #' @title Richness Index
 #' @description Community richness index.
 #' @inheritParams global
-#' @param detection Detection threshold.
+#' @param index "observed" or "chao1"
+#' @param detection Detection threshold. Used for the "observed" index.
 #' @return A vector of richness indices
 #' @details By default, returns the richness for multiple detection thresholds
 #' defined by the data quantiles. If the detection argument is provided,
@@ -13,16 +14,26 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso global
 #' @keywords utilities
-richness <- function(x, detection=0) {
-        
-    tab <- richness_help(x, detection)
+richness <- function(x, index = c("observed", "chao1"), detection=0) {
 
-    if (is.vector(tab)) {
+    # This already ensures that taxa are on the rows	 
+    x <- abundances(x)
+    tab <- NULL
+    index <- tolower(index)
+
+    if ("observed" %in% index) {
+      tab <- richness_help(x, detection)
+      if (is.vector(tab)) {
         tab <- as.matrix(tab, ncol=1)
         colnames(tab) <- gsub("%", "", as.character(detection))
+      }
     }
 
-    as.data.frame(tab)
+    if ("chao1" %in% index) {
+      chao <- chao1(x)      	   
+    }
+
+    as.data.frame(cbind(tab, chao1 = chao))
     
 }
 
@@ -30,7 +41,7 @@ richness <- function(x, detection=0) {
 richness_help <- function(x, detection=NULL) {
     
     # Pick data
-    otu <- abundances(x)
+    otu <- x
     
     # Check with varying detection thresholds
     if (is.null(detection) || length(detection) > 0) {
@@ -66,4 +77,31 @@ richness_help <- function(x, detection=NULL) {
     
 }
 
+
+# This calculates Chao1 per sample
+chao1 <- function (x) {
+
+    x <- as.matrix(x)
+
+    # This can be done to calculate Chao1 for the total sample
+    #x <- rowSums(x)
+    apply(x, 2, function (xi) {chao1_per_sample(xi)})
+    
+}
+
+
+chao1_per_sample <- function (x) {
+
+    s0 <- sum(x>0, na.rm = TRUE)
+    s1 <- sum(x==1, na.rm = TRUE)
+    s2 <- sum(x==2, na.rm = TRUE)
+    if ((s1-s2)^2==(s1+s2)^2) {
+      r <- s0+s1*(s1-1)/((s2+1)*2)
+    } else {
+      r <- s0+s1^2/(s2*2)
+    }
+
+    r
+
+}
 

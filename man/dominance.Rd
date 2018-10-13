@@ -4,8 +4,7 @@
 \alias{dominance}
 \title{Dominance Index}
 \usage{
-dominance(x, index = "all", rank = 1, relative = TRUE,
-  aggregate = TRUE)
+dominance(x, index = "all", rank = 1, relative = TRUE, aggregate = TRUE)
 }
 \arguments{
 \item{x}{A species abundance vector, or matrix (taxa/features x samples)

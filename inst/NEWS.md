@@ -1,6 +1,7 @@
 CHANGES IN VERSION 1.1.2 (TBA)
 
 # New features
+  o Added Chao1 index in richness function
   o In atlas1006 data set, pseudocount of +1 in otu table has been
     removed to facilitate comparison with sequencing data sets and to
     avoid confusion
