@@ -7,7 +7,7 @@
 #' @export
 #' @examples
 #' data(atlas1006)
-#' x <- timesplit(atlas1006, DNA_extraction_method == 'r')
+#' x <- timesplit(subset_samples(atlas1006, DNA_extraction_method == 'r'))
 #' @keywords utilities
 timesplit <- function(x) {
     

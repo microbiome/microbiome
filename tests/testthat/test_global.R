@@ -79,10 +79,9 @@ test_that("global indices are harmonized", {
 test_that("richness works correctly", {
 
   data(peerj32)
-  pseq <- peerj32$phyloseq
-  
+  pseq <- peerj32$phyloseq  
   expect_true(all(richness(abundances(pseq)) == richness(pseq)))
-  expect_true(all(richness(pseq, detection = 0) == richness(pseq)[,1])  )
+  expect_true(all(richness(pseq, detection = 0)[,1] == richness(pseq)[,1])  )
 
 
 })

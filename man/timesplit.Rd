@@ -15,7 +15,7 @@ For each subject, return temporally consecutive sample pairs
 }
 \examples{
 data(atlas1006)
-x <- timesplit(atlas1006, DNA_extraction_method == 'r')
+x <- timesplit(subset_samples(atlas1006, DNA_extraction_method == 'r'))
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

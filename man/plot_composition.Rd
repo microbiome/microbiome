@@ -5,8 +5,8 @@
 \title{Taxonomic Composition Plot}
 \usage{
 plot_composition(x, sample.sort = NULL, otu.sort = NULL,
-  x.label = "sample", plot.type = "barplot", verbose = FALSE, mar = c(5,
-  12, 1, 1), average_by = NULL, ...)
+  x.label = "sample", plot.type = "barplot", verbose = FALSE,
+  mar = c(5, 12, 1, 1), average_by = NULL, ...)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
