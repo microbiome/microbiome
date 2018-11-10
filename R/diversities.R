@@ -104,7 +104,13 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
             shannon(x)
         })
     } else if (index == "fisher") {
-        ev <- fisher.alpha(otu, MARGIN=2)
+        if (length(setdiff(unique(as.vector(otu)%%1), 0)) == 0) {
+          ev <- fisher.alpha(otu, MARGIN=2)
+        } else {
+	  warning("Fisher diversity defined only for integers; 
+                   the OTU table contains non-integers. Fisher not estimated.")
+          ev <- NULL
+        }	
     } else if (index == "coverage") {
         ev <- unname(coverage(otu))
     }

@@ -5,7 +5,7 @@ test_that("global indices work correctly", {
   data(peerj32)
   pseq <- peerj32$phyloseq
   
-  expect_true(is.data.frame(global(pseq)))
+  # expect_true(is.data.frame(global(pseq)))
   expect_true(is.data.frame(rarity(pseq)))
   expect_true(is.data.frame(dominance(pseq)))
   expect_true(is.data.frame(diversities(pseq)))
@@ -19,8 +19,10 @@ test_that("global indices work correctly", {
   #expect_equal(rare_abundance(pseq, detection = 0.1/100, prevalence = 50/100),
   #  1 - core_abundance(pseq, detection = 0.1/100, prevalence = 50/100))
   expect_true(is.vector(core_abundance(pseq, detection = 0.1/100, prevalence = 50/100)))
-  expect_equal(length(core_abundance(prune_samples("sample-1", pseq), detection = 100/100, prevalence = 100/100)), 1)
-  expect_equal(length(core_abundance(prune_taxa("Vibrio", pseq), detection = 100/100, prevalence = 100/100)), 44)  
+  expect_equal(length(core_abundance(prune_samples("sample-1", pseq), detection = 50/100, prevalence = 50/100)), 1)
+  expect_equal(length(core_abundance(prune_taxa("Vibrio", pseq), detection = 50/100, prevalence = 50/100)), 44)
+  # expect_equal(round(diversities(pseq, index = "fisher")[1,1], 1), 12.2)
+  expect_error(diversities(transform(pseq, "clr"), index = "fisher"))  
 
 })
 
@@ -82,7 +84,7 @@ test_that("richness works correctly", {
   pseq <- peerj32$phyloseq
   
   expect_true(all(richness(abundances(pseq)) == richness(pseq)))
-  expect_true(all(richness(pseq, detection = 0) == richness(pseq)[,1])  )
+  expect_true(all(richness(pseq, detection = 0)[,1] == richness(pseq)[,1])  )
 
 
 })
