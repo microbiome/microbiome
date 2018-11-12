@@ -41,7 +41,7 @@ aggregate_taxa <- function(x, level, top = NULL) {
 	a <- abundances(mypseq2)
 	nams <- as.character(tax_table(mypseq2)[, level])
         rownames(a) <- nams
-        tt <- tax_table(mypseq2)
+        tt <- tax_table(mypseq2)[, 1:match(level, colnames(tax_table(mypseq2)))]
         rownames(tt) <- nams
 
 	mypseq2 <- phyloseq(otu_table(a, taxa_are_rows=TRUE), 

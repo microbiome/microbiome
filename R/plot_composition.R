@@ -87,8 +87,12 @@ plot_composition <- function(x, sample.sort=NULL,
         # Use predefined order
         sample.sort <- sample.sort
     } else if (length(sample.sort) == 1 && sample.sort == "neatmap") {
+    
         sample.sort <- neatsort(x, method="NMDS", distance="bray",
         target="sites", first=NULL)
+
+    } else if (is.vector(sample.sort) && length(sample.sort) > 1) {
+        sample.sort <- sample_names(x)[sample.sort]        	
     } else if (!sample.sort %in% names(sample_data(x))) {
         warning(paste("The sample.sort argument", sample.sort,
         "is not included in sample_data(x). 
@@ -120,6 +124,7 @@ plot_composition <- function(x, sample.sort=NULL,
     #dfm <- melt(abu)
     dfm <- psmelt(otu_table(abu, taxa_are_rows = TRUE))
     names(dfm) <- c("OTU", "Sample", "Abundance")
+
     dfm$Sample <- factor(dfm$Sample, levels=sample.sort)
     dfm$OTU <- factor(dfm$OTU, levels=otu.sort)
     
@@ -156,6 +161,7 @@ plot_composition <- function(x, sample.sort=NULL,
         
         # Provide barplot
         dfm <- dfm %>% arrange(OTU)  # Show OTUs always in the same order
+
         p <- ggplot(dfm, aes(x=Sample, y=Abundance, fill=OTU))
         p <- p + geom_bar(position="stack", stat="identity")
         p <- p + scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
