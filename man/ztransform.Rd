@@ -23,8 +23,8 @@ Performs centering (to zero) and scaling (to unit
 }
 \examples{
 \dontrun{
-  data(peerj32)
-  pseqz <- ztransform(abundances(peerj32$phyloseq))
+  #data(peerj32)
+  #pseqz <- ztransform(abundances(peerj32$phyloseq))
 }
 }
 \references{

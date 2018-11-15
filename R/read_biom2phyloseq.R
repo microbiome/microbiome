@@ -11,13 +11,13 @@
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
 #' @examples
-#' \dontrun{
-#' biom.file <- qiita1629.biom"
-#' meta.file <- qiita1629_mapping.csv"
-#' p0 <- read_biom2phyloseq(biom.file = biom.file, 
-#'                        metadata.file = meta.file, 
-#'                        taxonomy.file = NULL)
-#' }
+#' #\dontrun{
+#' #biom.file <- qiita1629.biom"
+#' #meta.file <- qiita1629_mapping.csv"
+#' #p0 <- read_biom2phyloseq(biom.file = biom.file, 
+#' #                       metadata.file = meta.file, 
+#' #                       taxonomy.file = NULL)
+#' #}
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
 read_biom2phyloseq <- function(biom.file = NULL, 

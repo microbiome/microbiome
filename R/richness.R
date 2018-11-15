@@ -6,7 +6,8 @@
 #' @return A vector of richness indices
 #' @details By default, returns the richness for multiple detection thresholds
 #' defined by the data quantiles. If the detection argument is provided,
-#' returns richness with that detection threshold.
+#' returns richness with that detection threshold. The "observed" richness corresponds to
+#' index="observed", detection=0.
 #' @export
 #' @examples
 #' data(dietswap)
@@ -30,10 +31,14 @@ richness <- function(x, index = c("observed", "chao1"), detection=0) {
     }
 
     if ("chao1" %in% index) {
-      chao <- chao1(x)      	   
+      chao <- chao1(x)
+      tab <- cbind(tab, chao1 = chao)
     }
 
-    as.data.frame(cbind(tab, chao1 = chao))
+    colnames(tab) <- gsub("^richness_0$", "observed", colnames(tab))
+    colnames(tab) <- gsub("^0$", "observed", colnames(tab))    
+
+    as.data.frame(tab)
     
 }
 

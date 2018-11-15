@@ -33,20 +33,20 @@ to \code{\link{phyloseq-class}}.
 # microbiome R package. To use your own local files, simply write
 # otu.file <- "/path/to/my/file.csv" etc.
 
-otu.file <-
-   system.file("extdata/qiita1629_otu_table.csv",
-       package='microbiome')
+#otu.file <-
+#   system.file("extdata/qiita1629_otu_table.csv",
+#       package='microbiome')
 
-tax.file <- system.file("extdata/qiita1629_taxonomy_table.csv",
-       package='microbiome')
+#tax.file <- system.file("extdata/qiita1629_taxonomy_table.csv",
+#       package='microbiome')
 
-meta.file <- system.file("extdata/qiita1629_mapping_subset.csv",
-       package='microbiome')
+#meta.file <- system.file("extdata/qiita1629_mapping_subset.csv",
+#       package='microbiome')
 
-p0 <- read_csv2phyloseq(
-         otu.file=otu.file, 
-         taxonomy.file=tax.file, 
-         metadata.file=meta.file)
+#p0 <- read_csv2phyloseq(
+#         otu.file=otu.file, 
+#         taxonomy.file=tax.file, 
+#         metadata.file=meta.file)
 
 }
 }

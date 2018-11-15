@@ -39,45 +39,30 @@ global <- function(x, index="all", rarity.detection = 0.2/100, rarity.prevalence
     index <- gsub("diversities_shannon", "shannon", index)
     index <- unique(index)
 
-    message("Richness")
-    if (any(c("all", "richness") %in% index)) {
-    
-        a <- richness(x)
-
-        if (!is.null(a)) {
-
-            if (is.vector(a)) {
-                a <- as.matrix(a, ncol=1)
-            }
-
-            colnames(a) <- paste("richness_", colnames(a), sep="")
-        
-            if (!is.null(tab)) {
-                tab <- cbind(tab, a)
-            } else {
-                tab <- a
-            }
-        }
-    }
-
-    message("Observed (richness 0)")
+    message("Observed richness")
     if (any(c("all", "observed") %in% index)) {
     
-        a <- richness(x, detection = 0)
-
-        if (!is.null(a)) {
-
-            if (is.vector(a)) {
-                a <- as.matrix(a, ncol=1)
-            }
-
-            colnames(a) <- "observed"
+        a <- richness(x, detection = 0, index = "observed")
+        a <- as.matrix(a, ncol=1)
+        colnames(a) <- "observed"
         
-            if (!is.null(tab)) {
-                tab <- cbind(tab, a)
-            } else {
-                tab <- a
-            }
+        if (!is.null(tab)) {
+            tab <- cbind(tab, a)
+        } else {
+            tab <- a
+        }   
+    }
+
+    message("Other forms of richness")
+    if (any(c("all", "chao1") %in% index)) {
+        a <- richness(x, index = "chao1")
+        a <- as.matrix(a, ncol=1)
+        colnames(a) <- "chao1"
+
+        if (!is.null(tab)) {
+            tab <- cbind(tab, a)
+        } else {
+            tab <- a
         }
     }
 

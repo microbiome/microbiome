@@ -135,7 +135,7 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
 #' }
 #' @author Based on Matlab code from Egbert van Nes modified by Leo Lahti.
 #' Extended from the initial version in the \pkg{earlywarnings} R package.
-#' @examples \dontrun{res <- potential_univariate(x)}
+#' @examples # \dontrun{res <- potential_univariate(x)}
 #' @keywords early-warning
 potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
     grid.size=NULL, 

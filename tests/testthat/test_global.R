@@ -9,8 +9,10 @@ test_that("global indices work correctly", {
   expect_true(is.data.frame(rarity(pseq)))
   expect_true(is.data.frame(dominance(pseq)))
   expect_true(is.data.frame(diversities(pseq)))
-  expect_true(is.data.frame(evenness(pseq)))      
- 
+  expect_true(is.data.frame(evenness(pseq)))
+
+  expect_true(all(unlist(richness(dietswap, index='observed') ) == unlist(global(dietswap, index='observed') )))      
+
   expect_true(max(low_abundance(transform(pseq, "compositional"))) <= 1)
 
   expect_true(all(c("evenness_simpson", "dominance_simpson") %in%

@@ -39,7 +39,7 @@
 #'    DNA_extraction_method == 'r' &
 #'    sex == "female" &
 #'    nationality == "UKIE")
-#' p <- plot_regression(diversity ~ age, meta(pseq))
+#' p <- plot_regression(diversity ~ age, meta(pseq)[1:20,])
 #' @references See citation('microbiome') 
 #' @author Based on the original version from F. Schonbrodt. 
 #' Modified by Leo Lahti \email{microbiome-admin@@googlegroups.com}

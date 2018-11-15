@@ -18,10 +18,10 @@
 #' identical items.
 #' @return List with cor, pval, pval.adjusted
 #' @examples 
-#' data(peerj32)
-#' d1 <- peerj32$microbes[1:20, 1:10]
-#' d2 <- peerj32$lipids[1:20,1:10]
-#' cc <- associate(d1, d2, method='pearson')
+#'   data(peerj32)
+#'   d1 <- peerj32$microbes[1:20, 1:10]
+#'   d2 <- peerj32$lipids[1:20,1:10]
+#'   cc <- associate(d1, d2, method='pearson')
 #' @export
 #' @details As the method=categorical (discrete) association measure
 #' for nominal (no order for levels) variables we use Goodman and

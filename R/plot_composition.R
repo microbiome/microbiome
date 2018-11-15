@@ -29,7 +29,7 @@
 #' @export
 #' @examples
 #' data(dietswap)
-#' pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR')
+#' pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR' & sex == "female")
 #' p <- plot_composition(pseq)
 #' @keywords utilities
 plot_composition <- function(x, sample.sort=NULL,
