@@ -1,3 +1,6 @@
+# Set baseline to 0 (in this data set it appears to be 1)
+pseq <- microbiome::transform(dietswap, "shift", shift = -1)
+
 ```{r ordination-pca-ordination21, message=FALSE, message=FALSE, fig.height=5, fig.width=10}
 # "quiet" is here used to suppress intermediate output
 quiet(p <- plot_ordination(pseq, ord, type = "taxa", color = "Phylum", title = "Taxa ordination"))

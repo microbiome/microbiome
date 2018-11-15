@@ -51,7 +51,7 @@ library(limma)
 
 # Prepare the design matrix which states the groups for each sample
 # in the otu
-design <- cbind(intercept = 1, Grp2vs1 = meta[["gender"]])
+design <- cbind(intercept = 1, Grp2vs1 = meta[["sex"]])
 rownames(design) <- rownames(meta)
 design <- design[colnames(otu), ]
 
@@ -98,8 +98,8 @@ article](http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336).
 # Compare the two groups with t-test
 library(dplyr)
 pvalues.ttest <- c()
-male.samples <- dplyr::filter(meta, gender == "male")$sample
-female.samples <- dplyr::filter(meta, gender == "female")$sample
+male.samples <- dplyr::filter(meta, sex == "male")$sample
+female.samples <- dplyr::filter(meta, sex == "female")$sample
 for (tax in rownames(otu)) {
   pvalues.ttest[[tax]] <- t.test(otu[tax, male.samples], otu[tax, female.samples])$p.value
 }

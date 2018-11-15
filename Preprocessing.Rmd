@@ -147,14 +147,18 @@ The CLR ("clr") transformation is also available, and comes with a pseudocount t
 
 ```{r data10b}
 library(zCompositions)
-data(atlas1006)
-x <- abundances(atlas1006)
+data(dietswap)
+x <- dietswap
 # Compositional data 
-x2 <- transform(x, "compositional")
-# KMSS replacement for zero-inflated compositional values
-x3 <- multKM(x2, label = 0, dl = rep(0, ncol(x)), n.draws = 10, n.knots = NULL)
+x <- microbiome::transform(x, "compositional")
 # CLR transformation for the augmented compositional data
-x4 <- transform(x3, "clr")
+x <- microbiome::transform(x, "clr")
+
+# This would be recommended for compositional zero-inflated data:
+# KMSS replacement for zero-inflated compositional values
+# x3 <- multKM(transform(x, "compositional"),
+#         label = 0, dl = rep(0, ncol(x)), n.draws = 10, n.knots = NULL)
+# x4 <- transform(x3, "clr")
 ```
 
 
@@ -301,7 +305,7 @@ Visualize frequencies of given factor (sex) levels within the
 indicated groups (group):
 
 ```{r phylogeny-example3, warning=FALSE, message=FALSE, fig.width=10, fig.height=6}
-res <- plot_frequencies(sample_data(pseq), "bmi_group", "gender")
+res <- plot_frequencies(sample_data(pseq), "bmi_group", "sex")
 print(res$plot)
 
 # Retrieving the actual data values:

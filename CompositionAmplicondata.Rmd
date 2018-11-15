@@ -31,7 +31,7 @@ data(dietswap)
 
 # Just use prevalent taxa to speed up examples
 # (not absolute counts used in this example)
-pseq <- core(dietswap, detection = 10^3, prevalence = 95/100)
+pseq <- core(dietswap, detection = 8^2, prevalence = 90/100)
 
 # Pick sample subset
 library(phyloseq)
