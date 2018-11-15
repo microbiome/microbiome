@@ -2,12 +2,13 @@
 #' @description For each subject, return temporally consecutive sample pairs
 #'   together with the corresponding time difference.
 #' @param x \pkg{phyloseq} object.
-#' @return 
+#' @return data.frame
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @export
 #' @examples
 #' data(atlas1006)
-#' x <- timesplit(subset_samples(atlas1006, DNA_extraction_method == 'r'))
+#' x <- timesplit(subset_samples(atlas1006,
+#'   DNA_extraction_method == 'r' & sex == "male"))
 #' @keywords utilities
 timesplit <- function(x) {
     

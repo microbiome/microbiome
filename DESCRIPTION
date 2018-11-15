@@ -3,8 +3,8 @@ Type: Package
 Title: Microbiome Analytics
 Description: Utilities for microbiome analysis.
 Encoding: UTF-8
-Version: 1.1.10018
-Date: 2018-10-03
+Version: 1.5.10003
+Date: 2018-11-14
 Authors@R: c(
     person("Leo", "Lahti", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Sudarshan", "Shetty", role = "aut"))
@@ -18,6 +18,7 @@ Imports:
     dplyr,
     reshape2,
     Rtsne,
+    scales,
     stats,
     tidyr,
     utils,

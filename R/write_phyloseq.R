@@ -8,13 +8,13 @@
 #' @seealso read_phyloseq
 #' @export
 #' @examples \dontrun{
-#' data(dietswap)
-#' pseq <- dietswap
-#' # By default writes all info at once (ie OTU/TAXONOMY/METADATA)
-#' write_phyloseq(pseq) 
-#' write_phyloseq(pseq, 'OTU')
-#' write_phyloseq(pseq, 'TAXONOMY')
-#' write_phyloseq(pseq, 'METADATA')
+#' #data(dietswap)
+#' #pseq <- dietswap
+#' ## By default writes all info at once (ie OTU/TAXONOMY/METADATA)
+#' #write_phyloseq(pseq) 
+#' #write_phyloseq(pseq, 'OTU')
+#' #write_phyloseq(pseq, 'TAXONOMY')
+#' #write_phyloseq(pseq, 'METADATA')
 #' }
 #' @keywords utilities
 write_phyloseq <- function(x, type="all", path=getwd()) {

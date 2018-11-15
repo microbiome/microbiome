@@ -193,8 +193,8 @@ transform <- function(x, transform = "identity", target = "OTU", shift = 0, scal
 #' @param which margin
 #' @return Z-transformed matrix
 #' @examples \dontrun{
-#'   data(peerj32)
-#'   pseqz <- ztransform(abundances(peerj32$phyloseq))
+#'   #data(peerj32)
+#'   #pseqz <- ztransform(abundances(peerj32$phyloseq))
 #' }
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}

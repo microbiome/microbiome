@@ -86,6 +86,7 @@
 #' @importFrom phyloseq import_biom
 #' @importFrom phyloseq parse_taxonomy_default
 #' @importFrom reshape2 melt
+#' @importFrom scales percent
 #' @importFrom stats aggregate
 #' @importFrom stats as.dist
 #' @importFrom stats coef

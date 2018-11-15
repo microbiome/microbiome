@@ -24,6 +24,8 @@ aggregate_taxa <- function(x, level, top = NULL) {
     # missing tax_table and sample_data. Those would be better handled
     # in the original reading functions.
 
+    x <- check_phyloseq(x)
+
     mypseq <- x
     
     if (!is.null(mypseq@phy_tree)) {
@@ -35,7 +37,17 @@ aggregate_taxa <- function(x, level, top = NULL) {
         
         # Agglomerate taxa
         mypseq2 <- tax_glom(mypseq, level)
-        
+    mypseq2@phy_tree <- NULL # Remove tree 
+    a <- abundances(mypseq2)
+    nams <- as.character(tax_table(mypseq2)[, level])
+        rownames(a) <- nams
+        tt <- tax_table(mypseq2)[, 1:match(level, colnames(tax_table(mypseq2)))]
+        rownames(tt) <- nams
+
+    mypseq2 <- phyloseq(otu_table(a, taxa_are_rows=TRUE), 
+               sample_data(mypseq2), 
+               tax_table(tt))
+
     } else {
         
         tt <- tax_table(mypseq)
@@ -58,7 +70,7 @@ aggregate_taxa <- function(x, level, top = NULL) {
     if (length(current.level) == 0) {
             current.level <- "unique"
         tax_table(mypseq) <- tax_table(cbind(tax_table(mypseq),
-	    unique = rownames(tax_table(mypseq))))
+        unique = rownames(tax_table(mypseq))))
         }
 
         otus <- map_levels(data=mypseq, to=current.level, from=level)
@@ -78,16 +90,16 @@ aggregate_taxa <- function(x, level, top = NULL) {
         OTU <- otu_table(ab, taxa_are_rows=TRUE)
         mypseq2 <- phyloseq(OTU)
         
-        # Remove ambiguous levels
+    # Remove ambiguous levels
     ## First remove NA entries from the target level    
     tax_table(mypseq) <- tax_table(mypseq)[!is.na(tax_table(mypseq)[, level]),]
         keep <- colnames(
         tax_table(mypseq))[
-	  which(
-	    sapply(seq(ncol(tax_table(mypseq))),
+      which(
+        sapply(seq(ncol(tax_table(mypseq))),
               function(k)
               sum(
-	    sapply(split(as.character(tax_table(mypseq)[, k]),
+        sapply(split(as.character(tax_table(mypseq)[, k]),
               as.character(tax_table(mypseq)[, level])), function(x) {
               length(unique(x))
         }) > 1)) == 0)]

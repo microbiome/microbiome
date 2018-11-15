@@ -9,13 +9,17 @@ timesplit(x)
 \arguments{
 \item{x}{\pkg{phyloseq} object.}
 }
+\value{
+data.frame
+}
 \description{
 For each subject, return temporally consecutive sample pairs
   together with the corresponding time difference.
 }
 \examples{
 data(atlas1006)
-x <- timesplit(subset_samples(atlas1006, DNA_extraction_method == 'r'))
+x <- timesplit(subset_samples(atlas1006,
+  DNA_extraction_method == 'r' & sex == "male"))
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

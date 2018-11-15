@@ -35,10 +35,10 @@ The simple format refers to the set of CSV files written by the
 }
 \examples{
 \dontrun{
-pseq <- read_phyloseq(otu.file, 
-                     taxonomy.file, 
-                     metadata.file, 
-                     type=c('mothur', 'simple', 'biom'))
+#  pseq <- read_phyloseq(otu.file, 
+#                     taxonomy.file, 
+#                     metadata.file, 
+#                     type=c('mothur', 'simple', 'biom'))
 }
 }
 \seealso{

@@ -146,13 +146,13 @@ intermediate_stability <- function(x, reference.point=NULL,
 #' excluded.       
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
-#' \dontrun{
-#'  df <- data.frame(list(
-#'            subject=rep(paste('subject', 1:50, sep='-'), each=2), 
-#'            time=rep(1:2, 50),
-#'            data=rnorm(100)))
-#' s <- estimate_stability_single(df, reference.point=NULL, method='lm')
-#' }
+#' #\dontrun{
+#' # df <- data.frame(list(
+#' #           subject=rep(paste('subject', 1:50, sep='-'), each=2), 
+#' #           time=rep(1:2, 50),
+#' #           data=rnorm(100)))
+#' #s <- estimate_stability_single(df, reference.point=NULL, method='lm')
+#' #}
 #' @keywords internal
 estimate_stability <- function(df, reference.point=NULL, method="lm",
     spl.list) {

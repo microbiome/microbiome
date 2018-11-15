@@ -180,7 +180,7 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
     p <- ggplot(df, aes(x=DetectionThreshold, y=Taxa, fill=Prevalence))
     p <- p + geom_tile()
     p <- p + xlab("Detection Threshold")
-    p <- p + scale_x_log10(labels = scales::percent)
+    p <- p + scale_x_log10(labels = percent)
 
     if (!is.null(cols)) {
         p <- p + scale_fill_gradientn("Prevalence",

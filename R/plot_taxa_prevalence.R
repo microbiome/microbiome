@@ -20,8 +20,12 @@
 #' @keywords utilities
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 plot_taxa_prevalence <- function(x, level, detection = 0) {
+
     abundance <- NULL
     prevalence <- NULL
+
+    x <- check_phyloseq(x)
+
     if (level == "Phylum") {
         tax.abun <- apply(otu_table(x), 1, mean)
     
