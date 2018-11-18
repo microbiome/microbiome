@@ -85,16 +85,24 @@ print(bmi.pairs)
 ```
 
 
+## Violin plot  
+
+Using `ggpubr` a violin plot will be created
+
+```{r Ad-plot5, warning=FALSE, message=FALSE, fig.width=8, fig.height=6, eval=FALSE}
+p1 <- ggviolin(ps1.meta, x = "bmi_group", y = "Shannon",
+ add = "boxplot", fill = "bmi_group", palette = c("#a6cee3", "#b2df8a", "#fdbf6f")) 
+print(p1)
+```
+
+
 ## Statistics  
 
 Pairwise comparision using non-parametric test (Wilcoxon test).
 
-```{r Ad-plot6, warning=FALSE, message=FALSE}
-
+```{r Ad-plot6, warning=FALSE, message=FALSE, eval=FALSE}
 p1 <- p1 + stat_compare_means(comparisons = bmi.pairs) 
-
 print(p1)
-
 ```
 
 For more information and useful tips and suggestions check the [Statistical tools for high-throughput data analysis](http://www.sthda.com/english/rpkgs/ggpubr/).  
