@@ -41,13 +41,13 @@ pseq <- dietswap
 
 ## Alpha diversity
 
-This returns a table with selected diversity indicators. Check a separate page on [Diversities](Diversity.html) for other functions.
+This returns a table with selected diversity indicators. Check a separate page on [Alpha](Diversity.html) for other functions.
 
 ```{r Ad-plot1, warning=FALSE, message=FALSE, results="asis"}
 
 ps1 <- prune_taxa(taxa_sums(pseq) > 0, pseq)
 
-tab <- diversities(ps1, index = "all")
+tab <- alpha(ps1, index = "all")
 kable(head(tab))
 
 ```
@@ -82,19 +82,6 @@ bmi <- levels(ps1.meta$bmi_group) # get the variables
 bmi.pairs <- combn(seq_along(bmi), 2, simplify = FALSE, FUN = function(i)bmi[i])
 
 print(bmi.pairs)
-```
-
-## Violin plot  
-
-Using `ggpubr` a violin plot will be created
-
-```{r Ad-plot5, warning=FALSE, message=FALSE, fig.width=8, fig.height=6}
-
-p1 <- ggviolin(ps1.meta, x = "bmi_group", y = "Shannon",
- add = "boxplot", fill = "bmi_group", palette = c("#a6cee3", "#b2df8a", "#fdbf6f")) 
-
-print(p1)
-
 ```
 
 

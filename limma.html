@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content="Leo Lahti, Sudarshan Shetty et al. 2018-08-13" />
+<meta name="author" content="Leo Lahti, Sudarshan Shetty et al. 2018-11-19" />
 
 
 <title>Limma - linear models for microarrays</title>
@@ -126,15 +126,11 @@ meta &lt;-<span class="st"> </span><span class="kw">meta</span>(pseq)</code></pr
 <h2>Linear models with limma</h2>
 <p>Identify most significantly different taxa between males and females using the limma method. See <a href="http://bioinf.wehi.edu.au/limma/">limma homepage</a> and <a href="http://www.lcg.unam.mx/~lcollado/R/resources/limma-usersguide.pdf">limma User’s guide</a> for details. For discussion on why limma is preferred over t-test, see <a href="http://www.plosone.org/article/info:doi/10.1371/journal.pone.0012336">this article</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compare the two groups with limma</span>
-<span class="kw">library</span>(limma)</code></pre></div>
-<pre><code>## 
-## Attaching package: 'limma'</code></pre>
-<pre><code>## The following object is masked from 'package:BiocGenerics':
-## 
-##     plotMA</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Prepare the design matrix which states the groups for each sample</span>
+<span class="kw">library</span>(limma)
+
+<span class="co"># Prepare the design matrix which states the groups for each sample</span>
 <span class="co"># in the otu</span>
-design &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">intercept =</span> <span class="dv">1</span>, <span class="dt">Grp2vs1 =</span> meta[[<span class="st">&quot;gender&quot;</span>]])
+design &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dt">intercept =</span> <span class="dv">1</span>, <span class="dt">Grp2vs1 =</span> meta[[<span class="st">&quot;sex&quot;</span>]])
 <span class="kw">rownames</span>(design) &lt;-<span class="st"> </span><span class="kw">rownames</span>(meta)
 design &lt;-<span class="st"> </span>design[<span class="kw">colnames</span>(otu), ]
 
@@ -220,8 +216,8 @@ efs.limma &lt;-<span class="st">  </span>fit<span class="op">$</span>coefficient
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Compare the two groups with t-test</span>
 <span class="kw">library</span>(dplyr)
 pvalues.ttest &lt;-<span class="st"> </span><span class="kw">c</span>()
-male.samples &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(meta, gender <span class="op">==</span><span class="st"> &quot;male&quot;</span>)<span class="op">$</span>sample
-female.samples &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(meta, gender <span class="op">==</span><span class="st"> &quot;female&quot;</span>)<span class="op">$</span>sample
+male.samples &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(meta, sex <span class="op">==</span><span class="st"> &quot;male&quot;</span>)<span class="op">$</span>sample
+female.samples &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(meta, sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>)<span class="op">$</span>sample
 <span class="cf">for</span> (tax <span class="cf">in</span> <span class="kw">rownames</span>(otu)) {
   pvalues.ttest[[tax]] &lt;-<span class="st"> </span><span class="kw">t.test</span>(otu[tax, male.samples], otu[tax, female.samples])<span class="op">$</span>p.value
 }
@@ -249,7 +245,7 @@ tab &lt;-<span class="st"> </span><span class="kw">lm_phyloseq</span>(atlas1006,
 </div>
 
 <div id="postamble" data-toggle="wy-nav-shift" class="status">
-<p class="author"><span class="glyphicon glyphicon-user"></span> Leo Lahti, Sudarshan Shetty et al. 2018-08-13</p>
+<p class="author"><span class="glyphicon glyphicon-user"></span> Leo Lahti, Sudarshan Shetty et al. 2018-11-19</p>
 </div>
 
 

@@ -96,7 +96,7 @@ x <- baseline(dietswap)
 df <- meta(x)
 
 # Add microbiome diversity to the metadata
-df$diversity <- diversities(x, "shannon")$shannon
+df$diversity <- alpha(x, "shannon")$shannon
 ```
 
 You can study the effects of the various parameters in this data.frame

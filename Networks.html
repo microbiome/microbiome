@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content="Leo Lahti, Sudarshan Shetty et al. 2018-08-13" />
+<meta name="author" content="Leo Lahti, Sudarshan Shetty et al. 2018-11-19" />
 
 
 <title>Taxonomic network visualization</title>
@@ -107,7 +107,7 @@ $(document).ready(function () {
 pseq &lt;-<span class="st"> </span>dietswap
 
 <span class="co"># Keep only the prevalent taxa to speed up examples</span>
-pseq &lt;-<span class="st"> </span><span class="kw">core</span>(pseq, <span class="dt">detection =</span> <span class="dv">10</span><span class="op">^</span><span class="dv">3</span>, <span class="dt">prevalence =</span> <span class="dv">80</span><span class="op">/</span><span class="dv">100</span>)
+pseq &lt;-<span class="st"> </span><span class="kw">core</span>(pseq, <span class="dt">detection =</span> <span class="dv">5</span><span class="op">^</span><span class="dv">2</span>, <span class="dt">prevalence =</span> <span class="dv">80</span><span class="op">/</span><span class="dv">100</span>)
 pseq &lt;-<span class="st"> </span><span class="kw">subset_samples</span>(pseq, nationality <span class="op">==</span><span class="st"> &quot;AFR&quot;</span> <span class="op">&amp;</span><span class="st"> </span>group <span class="op">==</span><span class="st"> &quot;DI&quot;</span> <span class="op">&amp;</span><span class="st"> </span>bmi_group <span class="op">==</span><span class="st"> &quot;lean&quot;</span>)</code></pre></div>
 <div id="taxonomic-network-reconstruction" class="section level3">
 <h3>Taxonomic network reconstruction</h3>
@@ -167,7 +167,7 @@ p &lt;-<span class="st"> </span><span class="kw">ggnet2</span>(netw, <span class
 </div>
 
 <div id="postamble" data-toggle="wy-nav-shift" class="status">
-<p class="author"><span class="glyphicon glyphicon-user"></span> Leo Lahti, Sudarshan Shetty et al. 2018-08-13</p>
+<p class="author"><span class="glyphicon glyphicon-user"></span> Leo Lahti, Sudarshan Shetty et al. 2018-11-19</p>
 </div>
 
 

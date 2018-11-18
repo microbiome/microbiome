@@ -34,11 +34,8 @@ library(ggplot2)
 # Probiotics intervention example data 
 data(dietswap) 
 
-# Set baseline to 0 (in this data set it appears to be 1)
-pseq <- microbiome::transform(dietswap, "shift", shift = -1)
-
 # Only check the core taxa to speed up examples
-pseq <- core(pseq, detection = 10^3, prevalence = 95/100)
+pseq <- core(pseq, detection = 500, prevalence = 80/100)
 ```
 
 

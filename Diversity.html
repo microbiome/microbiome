@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content="Leo Lahti, Sudarshan Shetty et al. 2018-07-22" />
+<meta name="author" content="Leo Lahti, Sudarshan Shetty et al. 2018-11-19" />
 
 
 <title>Diversity</title>
@@ -129,16 +129,13 @@ pseq &lt;-<span class="st"> </span>dietswap</code></pre></div>
 <thead>
 <tr class="header">
 <th></th>
-<th align="right">richness_0</th>
-<th align="right">richness_20</th>
-<th align="right">richness_50</th>
-<th align="right">richness_80</th>
 <th align="right">observed</th>
-<th align="right">diversities_inverse_simpson</th>
-<th align="right">diversities_gini_simpson</th>
-<th align="right">diversities_shannon</th>
-<th align="right">diversities_fisher</th>
-<th align="right">diversities_coverage</th>
+<th align="right">chao1</th>
+<th align="right">diversity_inverse_simpson</th>
+<th align="right">diversity_gini_simpson</th>
+<th align="right">diversity_shannon</th>
+<th align="right">diversity_fisher</th>
+<th align="right">diversity_coverage</th>
 <th align="right">evenness_camargo</th>
 <th align="right">evenness_pielou</th>
 <th align="right">evenness_simpson</th>
@@ -160,177 +157,159 @@ pseq &lt;-<span class="st"> </span>dietswap</code></pre></div>
 <tbody>
 <tr class="odd">
 <td>Sample-1</td>
-<td align="right">112</td>
 <td align="right">104</td>
-<td align="right">61</td>
-<td align="right">27</td>
-<td align="right">130</td>
-<td align="right">7.562984</td>
-<td align="right">0.8677771</td>
-<td align="right">2.942723</td>
-<td align="right">12.16148</td>
+<td align="right">114.6667</td>
+<td align="right">7.561722</td>
+<td align="right">0.8677550</td>
+<td align="right">2.940698</td>
+<td align="right">16.69360</td>
 <td align="right">4</td>
-<td align="right">0.1378045</td>
-<td align="right">0.6045614</td>
-<td align="right">0.0581768</td>
-<td align="right">0.0736465</td>
-<td align="right">0.2925991</td>
-<td align="right">0.3279166</td>
-<td align="right">0.4296966</td>
-<td align="right">175035</td>
-<td align="right">0.3279166</td>
-<td align="right">0.1322229</td>
-<td align="right">1</td>
-<td align="right">0.8621955</td>
-<td align="right">2.059086</td>
-<td align="right">0.0291825</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="right">0.2014036</td>
+<td align="right">0.3251910</td>
+<td align="right">0.0727089</td>
+<td align="right">0.1709714</td>
+<td align="right">0.3298916</td>
+<td align="right">0.3279347</td>
+<td align="right">0.4297198</td>
+<td align="right">2774</td>
+<td align="right">0.3279347</td>
+<td align="right">0.1322450</td>
+<td align="right">0.9992907</td>
+<td align="right">0.8625360</td>
+<td align="right">2.057691</td>
+<td align="right">0.0289632</td>
+<td align="right">0.0000000</td>
+<td align="right">0.0000000</td>
 </tr>
 <tr class="even">
 <td>Sample-2</td>
-<td align="right">118</td>
 <td align="right">110</td>
-<td align="right">68</td>
-<td align="right">39</td>
-<td align="right">130</td>
-<td align="right">8.105283</td>
-<td align="right">0.8766237</td>
-<td align="right">2.824184</td>
-<td align="right">11.11824</td>
+<td align="right">121.6364</td>
+<td align="right">8.102943</td>
+<td align="right">0.8765881</td>
+<td align="right">2.822472</td>
+<td align="right">15.20257</td>
 <td align="right">3</td>
-<td align="right">0.1159349</td>
-<td align="right">0.5802083</td>
-<td align="right">0.0623483</td>
-<td align="right">0.0722394</td>
-<td align="right">0.2506029</td>
-<td align="right">0.2428268</td>
-<td align="right">0.4655585</td>
-<td align="right">323085</td>
-<td align="right">0.2428268</td>
-<td align="right">0.1233763</td>
-<td align="right">1</td>
-<td align="right">0.8840651</td>
-<td align="right">2.058747</td>
-<td align="right">0.0302304</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="right">0.2261992</td>
+<td align="right">0.2834842</td>
+<td align="right">0.0736631</td>
+<td align="right">0.1334372</td>
+<td align="right">0.2755652</td>
+<td align="right">0.2428626</td>
+<td align="right">0.4656170</td>
+<td align="right">5121</td>
+<td align="right">0.2428626</td>
+<td align="right">0.1234119</td>
+<td align="right">0.9994309</td>
+<td align="right">0.8843695</td>
+<td align="right">2.057552</td>
+<td align="right">0.0299725</td>
+<td align="right">0.0004268</td>
+<td align="right">0.0004268</td>
 </tr>
 <tr class="odd">
 <td>Sample-3</td>
-<td align="right">113</td>
-<td align="right">104</td>
-<td align="right">71</td>
-<td align="right">37</td>
-<td align="right">130</td>
-<td align="right">4.292701</td>
-<td align="right">0.7670464</td>
-<td align="right">2.409584</td>
-<td align="right">10.80073</td>
+<td align="right">103</td>
+<td align="right">107.5000</td>
+<td align="right">4.291085</td>
+<td align="right">0.7669587</td>
+<td align="right">2.407963</td>
+<td align="right">13.42077</td>
 <td align="right">2</td>
-<td align="right">0.0919433</td>
-<td align="right">0.4950318</td>
-<td align="right">0.0330208</td>
-<td align="right">0.0608332</td>
-<td align="right">0.2233591</td>
-<td align="right">0.4593873</td>
-<td align="right">0.5602856</td>
-<td align="right">837328</td>
-<td align="right">0.4593873</td>
-<td align="right">0.2329536</td>
-<td align="right">1</td>
-<td align="right">0.9080567</td>
-<td align="right">2.056009</td>
-<td align="right">0.0341229</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="right">0.2109176</td>
+<td align="right">0.2344427</td>
+<td align="right">0.0416610</td>
+<td align="right">0.1373098</td>
+<td align="right">0.2541325</td>
+<td align="right">0.4594744</td>
+<td align="right">0.5603989</td>
+<td align="right">13271</td>
+<td align="right">0.4594744</td>
+<td align="right">0.2330413</td>
+<td align="right">0.9999654</td>
+<td align="right">0.9083094</td>
+<td align="right">2.052324</td>
+<td align="right">0.0339646</td>
+<td align="right">0.0000000</td>
+<td align="right">0.0000000</td>
 </tr>
 <tr class="even">
 <td>Sample-4</td>
-<td align="right">114</td>
-<td align="right">106</td>
-<td align="right">73</td>
-<td align="right">30</td>
-<td align="right">130</td>
-<td align="right">7.937365</td>
-<td align="right">0.8740136</td>
-<td align="right">2.994672</td>
-<td align="right">11.62450</td>
+<td align="right">105</td>
+<td align="right">112.1429</td>
+<td align="right">7.930799</td>
+<td align="right">0.8739093</td>
+<td align="right">2.992482</td>
+<td align="right">15.56061</td>
 <td align="right">4</td>
-<td align="right">0.1433967</td>
-<td align="right">0.6152338</td>
-<td align="right">0.0610567</td>
-<td align="right">0.0692447</td>
-<td align="right">0.2829995</td>
-<td align="right">0.3229230</td>
-<td align="right">0.3956421</td>
-<td align="right">269963</td>
-<td align="right">0.3229230</td>
-<td align="right">0.1259864</td>
-<td align="right">1</td>
-<td align="right">0.8566033</td>
-<td align="right">2.054981</td>
-<td align="right">0.0349690</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="right">0.3422309</td>
+<td align="right">0.3152844</td>
+<td align="right">0.0755314</td>
+<td align="right">0.1711334</td>
+<td align="right">0.3176017</td>
+<td align="right">0.3230653</td>
+<td align="right">0.3957720</td>
+<td align="right">4279</td>
+<td align="right">0.3230653</td>
+<td align="right">0.1260907</td>
+<td align="right">0.9995470</td>
+<td align="right">0.8569405</td>
+<td align="right">2.051175</td>
+<td align="right">0.0348056</td>
+<td align="right">0.0002265</td>
+<td align="right">0.0002265</td>
 </tr>
 <tr class="odd">
 <td>Sample-5</td>
-<td align="right">112</td>
-<td align="right">104</td>
-<td align="right">65</td>
-<td align="right">25</td>
-<td align="right">130</td>
-<td align="right">3.172320</td>
-<td align="right">0.6847733</td>
-<td align="right">2.108225</td>
-<td align="right">11.32472</td>
+<td align="right">103</td>
+<td align="right">110.6818</td>
+<td align="right">3.170738</td>
+<td align="right">0.6846160</td>
+<td align="right">2.106022</td>
+<td align="right">14.53671</td>
 <td align="right">1</td>
-<td align="right">0.0790664</td>
-<td align="right">0.4331198</td>
-<td align="right">0.0244025</td>
-<td align="right">0.0709762</td>
-<td align="right">0.2066856</td>
-<td align="right">0.5448817</td>
-<td align="right">0.6315785</td>
-<td align="right">596658</td>
-<td align="right">0.5448817</td>
-<td align="right">0.3152267</td>
-<td align="right">1</td>
-<td align="right">0.9209336</td>
-<td align="right">2.060330</td>
-<td align="right">0.0443278</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="right">0.1407817</td>
+<td align="right">0.2157511</td>
+<td align="right">0.0307839</td>
+<td align="right">0.1661081</td>
+<td align="right">0.2310307</td>
+<td align="right">0.5450144</td>
+<td align="right">0.6317579</td>
+<td align="right">9456</td>
+<td align="right">0.5450144</td>
+<td align="right">0.3153840</td>
+<td align="right">0.9998847</td>
+<td align="right">0.9212609</td>
+<td align="right">2.059634</td>
+<td align="right">0.0441499</td>
+<td align="right">0.0000000</td>
+<td align="right">0.0000000</td>
 </tr>
 <tr class="even">
 <td>Sample-6</td>
-<td align="right">112</td>
 <td align="right">105</td>
-<td align="right">73</td>
-<td align="right">30</td>
-<td align="right">130</td>
-<td align="right">2.955214</td>
-<td align="right">0.6616150</td>
-<td align="right">2.073329</td>
-<td align="right">11.18672</td>
+<td align="right">113.9091</td>
+<td align="right">2.953753</td>
+<td align="right">0.6614476</td>
+<td align="right">2.071136</td>
+<td align="right">14.55619</td>
 <td align="right">1</td>
-<td align="right">0.0811396</td>
-<td align="right">0.4259505</td>
-<td align="right">0.0227324</td>
-<td align="right">0.0685637</td>
-<td align="right">0.2084814</td>
-<td align="right">0.5692406</td>
-<td align="right">0.6428424</td>
-<td align="right">709407</td>
-<td align="right">0.5692406</td>
-<td align="right">0.3383850</td>
-<td align="right">1</td>
-<td align="right">0.9188604</td>
-<td align="right">2.060149</td>
-<td align="right">0.0378701</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="right">0.1709221</td>
+<td align="right">0.2094022</td>
+<td align="right">0.0281310</td>
+<td align="right">0.1625409</td>
+<td align="right">0.2308364</td>
+<td align="right">0.5693811</td>
+<td align="right">0.6430163</td>
+<td align="right">11243</td>
+<td align="right">0.5693811</td>
+<td align="right">0.3385524</td>
+<td align="right">0.9993923</td>
+<td align="right">0.9192203</td>
+<td align="right">2.059421</td>
+<td align="right">0.0375772</td>
+<td align="right">0.0000506</td>
+<td align="right">0.0000506</td>
 </tr>
 </tbody>
 </table>
@@ -338,67 +317,193 @@ pseq &lt;-<span class="st"> </span>dietswap</code></pre></div>
 <div id="alpha-diversity" class="section level2">
 <h2>Alpha diversity</h2>
 <p>This returns a table with selected diversity indicators. See a separate page on <a href="Betadiversity.html">Beta diversity</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tab &lt;-<span class="st"> </span><span class="kw">diversities</span>(pseq, <span class="dt">index =</span> <span class="st">&quot;all&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tab &lt;-<span class="st"> </span><span class="kw">alpha</span>(pseq, <span class="dt">index =</span> <span class="st">&quot;all&quot;</span>)
 <span class="kw">kable</span>(<span class="kw">head</span>(tab))</code></pre></div>
 <table>
 <thead>
 <tr class="header">
 <th></th>
-<th align="right">inverse_simpson</th>
-<th align="right">gini_simpson</th>
-<th align="right">shannon</th>
-<th align="right">fisher</th>
-<th align="right">coverage</th>
+<th align="right">observed</th>
+<th align="right">chao1</th>
+<th align="right">diversity_inverse_simpson</th>
+<th align="right">diversity_gini_simpson</th>
+<th align="right">diversity_shannon</th>
+<th align="right">diversity_fisher</th>
+<th align="right">diversity_coverage</th>
+<th align="right">evenness_camargo</th>
+<th align="right">evenness_pielou</th>
+<th align="right">evenness_simpson</th>
+<th align="right">evenness_evar</th>
+<th align="right">evenness_bulla</th>
+<th align="right">dominance_dbp</th>
+<th align="right">dominance_dmn</th>
+<th align="right">dominance_absolute</th>
+<th align="right">dominance_relative</th>
+<th align="right">dominance_simpson</th>
+<th align="right">dominance_core_abundance</th>
+<th align="right">dominance_gini</th>
+<th align="right">rarity_log_modulo_skewness</th>
+<th align="right">rarity_low_abundance</th>
+<th align="right">rarity_noncore_abundance</th>
+<th align="right">rarity_rare_abundance</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Sample-1</td>
-<td align="right">7.562984</td>
-<td align="right">0.8677771</td>
-<td align="right">2.942723</td>
-<td align="right">12.16148</td>
+<td align="right">104</td>
+<td align="right">114.6667</td>
+<td align="right">7.561722</td>
+<td align="right">0.8677550</td>
+<td align="right">2.940698</td>
+<td align="right">16.69360</td>
 <td align="right">4</td>
+<td align="right">0.2014036</td>
+<td align="right">0.3251910</td>
+<td align="right">0.0727089</td>
+<td align="right">0.1709714</td>
+<td align="right">0.3298916</td>
+<td align="right">0.3279347</td>
+<td align="right">0.4297198</td>
+<td align="right">2774</td>
+<td align="right">0.3279347</td>
+<td align="right">0.1322450</td>
+<td align="right">0.9992907</td>
+<td align="right">0.8625360</td>
+<td align="right">2.057691</td>
+<td align="right">0.0289632</td>
+<td align="right">0.0000000</td>
+<td align="right">0.0000000</td>
 </tr>
 <tr class="even">
 <td>Sample-2</td>
-<td align="right">8.105283</td>
-<td align="right">0.8766237</td>
-<td align="right">2.824184</td>
-<td align="right">11.11824</td>
+<td align="right">110</td>
+<td align="right">121.6364</td>
+<td align="right">8.102943</td>
+<td align="right">0.8765881</td>
+<td align="right">2.822472</td>
+<td align="right">15.20257</td>
 <td align="right">3</td>
+<td align="right">0.2261992</td>
+<td align="right">0.2834842</td>
+<td align="right">0.0736631</td>
+<td align="right">0.1334372</td>
+<td align="right">0.2755652</td>
+<td align="right">0.2428626</td>
+<td align="right">0.4656170</td>
+<td align="right">5121</td>
+<td align="right">0.2428626</td>
+<td align="right">0.1234119</td>
+<td align="right">0.9994309</td>
+<td align="right">0.8843695</td>
+<td align="right">2.057552</td>
+<td align="right">0.0299725</td>
+<td align="right">0.0004268</td>
+<td align="right">0.0004268</td>
 </tr>
 <tr class="odd">
 <td>Sample-3</td>
-<td align="right">4.292701</td>
-<td align="right">0.7670464</td>
-<td align="right">2.409584</td>
-<td align="right">10.80073</td>
+<td align="right">103</td>
+<td align="right">107.5000</td>
+<td align="right">4.291085</td>
+<td align="right">0.7669587</td>
+<td align="right">2.407963</td>
+<td align="right">13.42077</td>
 <td align="right">2</td>
+<td align="right">0.2109176</td>
+<td align="right">0.2344427</td>
+<td align="right">0.0416610</td>
+<td align="right">0.1373098</td>
+<td align="right">0.2541325</td>
+<td align="right">0.4594744</td>
+<td align="right">0.5603989</td>
+<td align="right">13271</td>
+<td align="right">0.4594744</td>
+<td align="right">0.2330413</td>
+<td align="right">0.9999654</td>
+<td align="right">0.9083094</td>
+<td align="right">2.052324</td>
+<td align="right">0.0339646</td>
+<td align="right">0.0000000</td>
+<td align="right">0.0000000</td>
 </tr>
 <tr class="even">
 <td>Sample-4</td>
-<td align="right">7.937365</td>
-<td align="right">0.8740136</td>
-<td align="right">2.994672</td>
-<td align="right">11.62450</td>
+<td align="right">105</td>
+<td align="right">112.1429</td>
+<td align="right">7.930799</td>
+<td align="right">0.8739093</td>
+<td align="right">2.992482</td>
+<td align="right">15.56061</td>
 <td align="right">4</td>
+<td align="right">0.3422309</td>
+<td align="right">0.3152844</td>
+<td align="right">0.0755314</td>
+<td align="right">0.1711334</td>
+<td align="right">0.3176017</td>
+<td align="right">0.3230653</td>
+<td align="right">0.3957720</td>
+<td align="right">4279</td>
+<td align="right">0.3230653</td>
+<td align="right">0.1260907</td>
+<td align="right">0.9995470</td>
+<td align="right">0.8569405</td>
+<td align="right">2.051175</td>
+<td align="right">0.0348056</td>
+<td align="right">0.0002265</td>
+<td align="right">0.0002265</td>
 </tr>
 <tr class="odd">
 <td>Sample-5</td>
-<td align="right">3.172320</td>
-<td align="right">0.6847733</td>
-<td align="right">2.108225</td>
-<td align="right">11.32472</td>
+<td align="right">103</td>
+<td align="right">110.6818</td>
+<td align="right">3.170738</td>
+<td align="right">0.6846160</td>
+<td align="right">2.106022</td>
+<td align="right">14.53671</td>
 <td align="right">1</td>
+<td align="right">0.1407817</td>
+<td align="right">0.2157511</td>
+<td align="right">0.0307839</td>
+<td align="right">0.1661081</td>
+<td align="right">0.2310307</td>
+<td align="right">0.5450144</td>
+<td align="right">0.6317579</td>
+<td align="right">9456</td>
+<td align="right">0.5450144</td>
+<td align="right">0.3153840</td>
+<td align="right">0.9998847</td>
+<td align="right">0.9212609</td>
+<td align="right">2.059634</td>
+<td align="right">0.0441499</td>
+<td align="right">0.0000000</td>
+<td align="right">0.0000000</td>
 </tr>
 <tr class="even">
 <td>Sample-6</td>
-<td align="right">2.955214</td>
-<td align="right">0.6616150</td>
-<td align="right">2.073329</td>
-<td align="right">11.18672</td>
+<td align="right">105</td>
+<td align="right">113.9091</td>
+<td align="right">2.953753</td>
+<td align="right">0.6614476</td>
+<td align="right">2.071136</td>
+<td align="right">14.55619</td>
 <td align="right">1</td>
+<td align="right">0.1709221</td>
+<td align="right">0.2094022</td>
+<td align="right">0.0281310</td>
+<td align="right">0.1625409</td>
+<td align="right">0.2308364</td>
+<td align="right">0.5693811</td>
+<td align="right">0.6430163</td>
+<td align="right">11243</td>
+<td align="right">0.5693811</td>
+<td align="right">0.3385524</td>
+<td align="right">0.9993923</td>
+<td align="right">0.9192203</td>
+<td align="right">2.059421</td>
+<td align="right">0.0375772</td>
+<td align="right">0.0000506</td>
+<td align="right">0.0000506</td>
 </tr>
 </tbody>
 </table>
@@ -412,54 +517,40 @@ pseq &lt;-<span class="st"> </span>dietswap</code></pre></div>
 <thead>
 <tr class="header">
 <th></th>
-<th align="right">0</th>
-<th align="right">20</th>
-<th align="right">50</th>
-<th align="right">80</th>
+<th align="right">observed</th>
+<th align="right">chao1</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Sample-1</td>
-<td align="right">112</td>
 <td align="right">104</td>
-<td align="right">61</td>
-<td align="right">27</td>
+<td align="right">114.6667</td>
 </tr>
 <tr class="even">
 <td>Sample-2</td>
-<td align="right">118</td>
 <td align="right">110</td>
-<td align="right">68</td>
-<td align="right">39</td>
+<td align="right">121.6364</td>
 </tr>
 <tr class="odd">
 <td>Sample-3</td>
-<td align="right">113</td>
-<td align="right">104</td>
-<td align="right">71</td>
-<td align="right">37</td>
+<td align="right">103</td>
+<td align="right">107.5000</td>
 </tr>
 <tr class="even">
 <td>Sample-4</td>
-<td align="right">114</td>
-<td align="right">106</td>
-<td align="right">73</td>
-<td align="right">30</td>
+<td align="right">105</td>
+<td align="right">112.1429</td>
 </tr>
 <tr class="odd">
 <td>Sample-5</td>
-<td align="right">112</td>
-<td align="right">104</td>
-<td align="right">65</td>
-<td align="right">25</td>
+<td align="right">103</td>
+<td align="right">110.6818</td>
 </tr>
 <tr class="even">
 <td>Sample-6</td>
-<td align="right">112</td>
 <td align="right">105</td>
-<td align="right">73</td>
-<td align="right">30</td>
+<td align="right">113.9091</td>
 </tr>
 </tbody>
 </table>
@@ -486,63 +577,63 @@ tab &lt;-<span class="st"> </span><span class="kw">dominance</span>(pseq, <span 
 <tbody>
 <tr class="odd">
 <td>Sample-1</td>
-<td align="right">0.3279166</td>
-<td align="right">0.4296966</td>
-<td align="right">175035</td>
-<td align="right">0.3279166</td>
-<td align="right">0.1322229</td>
-<td align="right">1</td>
-<td align="right">0.8621955</td>
+<td align="right">0.3279347</td>
+<td align="right">0.4297198</td>
+<td align="right">2774</td>
+<td align="right">0.3279347</td>
+<td align="right">0.1322450</td>
+<td align="right">0.9992907</td>
+<td align="right">0.8625360</td>
 </tr>
 <tr class="even">
 <td>Sample-2</td>
-<td align="right">0.2428268</td>
-<td align="right">0.4655585</td>
-<td align="right">323085</td>
-<td align="right">0.2428268</td>
-<td align="right">0.1233763</td>
-<td align="right">1</td>
-<td align="right">0.8840651</td>
+<td align="right">0.2428626</td>
+<td align="right">0.4656170</td>
+<td align="right">5121</td>
+<td align="right">0.2428626</td>
+<td align="right">0.1234119</td>
+<td align="right">0.9994309</td>
+<td align="right">0.8843695</td>
 </tr>
 <tr class="odd">
 <td>Sample-3</td>
-<td align="right">0.4593873</td>
-<td align="right">0.5602856</td>
-<td align="right">837328</td>
-<td align="right">0.4593873</td>
-<td align="right">0.2329536</td>
-<td align="right">1</td>
-<td align="right">0.9080567</td>
+<td align="right">0.4594744</td>
+<td align="right">0.5603989</td>
+<td align="right">13271</td>
+<td align="right">0.4594744</td>
+<td align="right">0.2330413</td>
+<td align="right">0.9999654</td>
+<td align="right">0.9083094</td>
 </tr>
 <tr class="even">
 <td>Sample-4</td>
-<td align="right">0.3229230</td>
-<td align="right">0.3956421</td>
-<td align="right">269963</td>
-<td align="right">0.3229230</td>
-<td align="right">0.1259864</td>
-<td align="right">1</td>
-<td align="right">0.8566033</td>
+<td align="right">0.3230653</td>
+<td align="right">0.3957720</td>
+<td align="right">4279</td>
+<td align="right">0.3230653</td>
+<td align="right">0.1260907</td>
+<td align="right">0.9995470</td>
+<td align="right">0.8569405</td>
 </tr>
 <tr class="odd">
 <td>Sample-5</td>
-<td align="right">0.5448817</td>
-<td align="right">0.6315785</td>
-<td align="right">596658</td>
-<td align="right">0.5448817</td>
-<td align="right">0.3152267</td>
-<td align="right">1</td>
-<td align="right">0.9209336</td>
+<td align="right">0.5450144</td>
+<td align="right">0.6317579</td>
+<td align="right">9456</td>
+<td align="right">0.5450144</td>
+<td align="right">0.3153840</td>
+<td align="right">0.9998847</td>
+<td align="right">0.9212609</td>
 </tr>
 <tr class="even">
 <td>Sample-6</td>
-<td align="right">0.5692406</td>
-<td align="right">0.6428424</td>
-<td align="right">709407</td>
-<td align="right">0.5692406</td>
-<td align="right">0.3383850</td>
-<td align="right">1</td>
-<td align="right">0.9188604</td>
+<td align="right">0.5693811</td>
+<td align="right">0.6430163</td>
+<td align="right">11243</td>
+<td align="right">0.5693811</td>
+<td align="right">0.3385524</td>
+<td align="right">0.9993923</td>
+<td align="right">0.9192203</td>
 </tr>
 </tbody>
 </table>
@@ -565,45 +656,45 @@ tab &lt;-<span class="st"> </span><span class="kw">dominance</span>(pseq, <span 
 <tbody>
 <tr class="odd">
 <td>Sample-1</td>
-<td align="right">2.059086</td>
-<td align="right">0.0291825</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="right">2.057691</td>
+<td align="right">0.0289632</td>
+<td align="right">0.0000000</td>
+<td align="right">0.0000000</td>
 </tr>
 <tr class="even">
 <td>Sample-2</td>
-<td align="right">2.058747</td>
-<td align="right">0.0302304</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="right">2.057552</td>
+<td align="right">0.0299725</td>
+<td align="right">0.0004268</td>
+<td align="right">0.0004268</td>
 </tr>
 <tr class="odd">
 <td>Sample-3</td>
-<td align="right">2.056009</td>
-<td align="right">0.0341229</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="right">2.052324</td>
+<td align="right">0.0339646</td>
+<td align="right">0.0000000</td>
+<td align="right">0.0000000</td>
 </tr>
 <tr class="even">
 <td>Sample-4</td>
-<td align="right">2.054981</td>
-<td align="right">0.0349690</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="right">2.051175</td>
+<td align="right">0.0348056</td>
+<td align="right">0.0002265</td>
+<td align="right">0.0002265</td>
 </tr>
 <tr class="odd">
 <td>Sample-5</td>
-<td align="right">2.060330</td>
-<td align="right">0.0443278</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="right">2.059634</td>
+<td align="right">0.0441499</td>
+<td align="right">0.0000000</td>
+<td align="right">0.0000000</td>
 </tr>
 <tr class="even">
 <td>Sample-6</td>
-<td align="right">2.060149</td>
-<td align="right">0.0378701</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="right">2.059421</td>
+<td align="right">0.0375772</td>
+<td align="right">0.0000506</td>
+<td align="right">0.0000506</td>
 </tr>
 </tbody>
 </table>
@@ -643,55 +734,55 @@ tab &lt;-<span class="st"> </span><span class="kw">dominance</span>(pseq, <span 
 <tbody>
 <tr class="odd">
 <td>Sample-1</td>
-<td align="right">0.1378045</td>
-<td align="right">0.6045614</td>
-<td align="right">0.0581768</td>
-<td align="right">0.0736465</td>
-<td align="right">0.2925991</td>
+<td align="right">0.2014036</td>
+<td align="right">0.3251910</td>
+<td align="right">0.0727089</td>
+<td align="right">0.1709714</td>
+<td align="right">0.3298916</td>
 </tr>
 <tr class="even">
 <td>Sample-2</td>
-<td align="right">0.1159349</td>
-<td align="right">0.5802083</td>
-<td align="right">0.0623483</td>
-<td align="right">0.0722394</td>
-<td align="right">0.2506029</td>
+<td align="right">0.2261992</td>
+<td align="right">0.2834842</td>
+<td align="right">0.0736631</td>
+<td align="right">0.1334372</td>
+<td align="right">0.2755652</td>
 </tr>
 <tr class="odd">
 <td>Sample-3</td>
-<td align="right">0.0919433</td>
-<td align="right">0.4950318</td>
-<td align="right">0.0330208</td>
-<td align="right">0.0608332</td>
-<td align="right">0.2233591</td>
+<td align="right">0.2109176</td>
+<td align="right">0.2344427</td>
+<td align="right">0.0416610</td>
+<td align="right">0.1373098</td>
+<td align="right">0.2541325</td>
 </tr>
 <tr class="even">
 <td>Sample-4</td>
-<td align="right">0.1433967</td>
-<td align="right">0.6152338</td>
-<td align="right">0.0610567</td>
-<td align="right">0.0692447</td>
-<td align="right">0.2829995</td>
+<td align="right">0.3422309</td>
+<td align="right">0.3152844</td>
+<td align="right">0.0755314</td>
+<td align="right">0.1711334</td>
+<td align="right">0.3176017</td>
 </tr>
 <tr class="odd">
 <td>Sample-5</td>
-<td align="right">0.0790664</td>
-<td align="right">0.4331198</td>
-<td align="right">0.0244025</td>
-<td align="right">0.0709762</td>
-<td align="right">0.2066856</td>
+<td align="right">0.1407817</td>
+<td align="right">0.2157511</td>
+<td align="right">0.0307839</td>
+<td align="right">0.1661081</td>
+<td align="right">0.2310307</td>
 </tr>
 <tr class="even">
 <td>Sample-6</td>
-<td align="right">0.0811396</td>
-<td align="right">0.4259505</td>
-<td align="right">0.0227324</td>
-<td align="right">0.0685637</td>
-<td align="right">0.2084814</td>
+<td align="right">0.1709221</td>
+<td align="right">0.2094022</td>
+<td align="right">0.0281310</td>
+<td align="right">0.1625409</td>
+<td align="right">0.2308364</td>
 </tr>
 </tbody>
 </table>
-<p>For tutorial on plotting the output of diversities functions please check <a href="PlotDiversity.html">PlotDiversity</a></p>
+<p>For tutorial on plotting the output of alpha diversity please check <a href="PlotDiversity.html">PlotDiversity</a></p>
 </div>
 </div>
 
@@ -699,7 +790,7 @@ tab &lt;-<span class="st"> </span><span class="kw">dominance</span>(pseq, <span 
 </div>
 
 <div id="postamble" data-toggle="wy-nav-shift" class="status">
-<p class="author"><span class="glyphicon glyphicon-user"></span> Leo Lahti, Sudarshan Shetty et al. 2018-07-22</p>
+<p class="author"><span class="glyphicon glyphicon-user"></span> Leo Lahti, Sudarshan Shetty et al. 2018-11-19</p>
 </div>
 
 

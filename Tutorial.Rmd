@@ -72,7 +72,7 @@ kable(head(tab))
 
 Assign the estimated diversity to sample metadata
 ```{r global2, message=FALSE, warning=FALSE}
-sample_data(pseq)$diversity <- tab$diversities_shannon
+sample_data(pseq)$diversity <- tab$diversity_shannon
 ```
 
 Visualize the data
@@ -90,11 +90,11 @@ Explore potential technical biases in the data. DNA extraction method has a rema
 # Use relative abundance data
 ps <- microbiome::transform(pseq, "compositional")
 
+# Pick core taxa
+ps <- core(ps, detection = 0, prevalence = 80/100)
+
 # For this example, choose samples with DNA extraction information available
 ps <- subset_samples(ps, !is.na(DNA_extraction_method))
-
-# Or: you could focus on a single DNA extraction method
-# ps <- subset_samples(ps, DNA_extraction_method == "r")
 
 # Illustrate sample similarities with PCoA (NMDS)
 plot_landscape(ps, "NMDS", "bray", col = "DNA_extraction_method")

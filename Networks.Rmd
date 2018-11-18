@@ -28,7 +28,7 @@ data(dietswap)
 pseq <- dietswap
 
 # Keep only the prevalent taxa to speed up examples
-pseq <- core(pseq, detection = 10^3, prevalence = 80/100)
+pseq <- core(pseq, detection = 5^2, prevalence = 80/100)
 pseq <- subset_samples(pseq, nationality == "AFR" & group == "DI" & bmi_group == "lean")
 ```
 

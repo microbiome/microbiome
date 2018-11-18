@@ -152,9 +152,9 @@ x <- abundances(atlas1006)
 # Compositional data 
 x2 <- transform(x, "compositional")
 # KMSS replacement for zero-inflated compositional values
-x3 <- multKM(x2, label = 0, dl = rep(0, ncol(x)), n.draws = 10, n.knots = NULL)
+# x3 <- multKM(x2, label = 0, dl = rep(0, ncol(x)), n.draws = 10, n.knots = NULL)
 # CLR transformation for the augmented compositional data
-x4 <- transform(x3, "clr")
+# x4 <- transform(x3, "clr")
 ```
 
 
@@ -301,11 +301,8 @@ Visualize frequencies of given factor (sex) levels within the
 indicated groups (group):
 
 ```{r phylogeny-example3, warning=FALSE, message=FALSE, fig.width=10, fig.height=6}
-res <- plot_frequencies(sample_data(pseq), "bmi_group", "gender")
-print(res$plot)
-
-# Retrieving the actual data values:
-kable(head(res$data), digits = 2)
+p <- plot_frequencies(sample_data(pseq), "bmi_group", "sex")
+print(p)
 ```
 
 

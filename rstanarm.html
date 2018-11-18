@@ -10,7 +10,7 @@
 
 <meta name="author" content="Leo Lahti and Ville Laitinen | VIB / KU Leuven, Belgium - Feb 27, 2018" />
 
-<meta name="date" content="2018-07-22" />
+<meta name="date" content="2018-11-19" />
 
 <title>Linear models and probabilistic programming</title>
 
@@ -153,7 +153,7 @@ x &lt;-<span class="st"> </span><span class="kw">baseline</span>(dietswap)
 df &lt;-<span class="st"> </span><span class="kw">meta</span>(x)
 
 <span class="co"># Add microbiome diversity to the metadata</span>
-df<span class="op">$</span>diversity &lt;-<span class="st"> </span><span class="kw">diversities</span>(x, <span class="st">&quot;shannon&quot;</span>)<span class="op">$</span>shannon</code></pre></div>
+df<span class="op">$</span>diversity &lt;-<span class="st"> </span><span class="kw">alpha</span>(x, <span class="st">&quot;shannon&quot;</span>)<span class="op">$</span>shannon</code></pre></div>
 <p>You can study the effects of the various parameters in this data.frame on microbiota diversity using ANOVA, linear models, mixed models, and generalized linear models in rstanarm.</p>
 <p>For further example data sets from microbial ecology, see <a href="http://microbiome.github.io/microbiome/rstanarm.html">microbiome tutorial</a>.</p>
 </div>
@@ -208,7 +208,7 @@ df<span class="op">$</span>diversity &lt;-<span class="st"> </span><span class="
 
 <div id="postamble" data-toggle="wy-nav-shift" class="status">
 <p class="author"><span class="glyphicon glyphicon-user"></span> Leo Lahti and Ville Laitinen | VIB / KU Leuven, Belgium - Feb 27, 2018</p>
-<p class="date"><span class="glyphicon glyphicon-calendar"></span> 2018-07-22</p>
+<p class="date"><span class="glyphicon glyphicon-calendar"></span> 2018-11-19</p>
 </div>
 
 

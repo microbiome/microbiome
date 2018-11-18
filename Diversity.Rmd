@@ -47,7 +47,7 @@ kable(head(tab))
 This returns a table with selected diversity indicators. See a separate page on [Beta diversity](Betadiversity.html).
 
 ```{r alpha, warning=FALSE, message=FALSE, fig.height=3, fig.width=5, results="asis"}
-tab <- diversities(pseq, index = "all")
+tab <- alpha(pseq, index = "all")
 kable(head(tab))
 ```
 
@@ -121,4 +121,4 @@ tab <- evenness(pseq, "all")
 kable(head(tab))
 ```
 
-For tutorial on plotting the output of diversities functions please check [PlotDiversity](PlotDiversity.html)
+For tutorial on plotting the output of alpha diversity please check [PlotDiversity](PlotDiversity.html)

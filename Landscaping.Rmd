@@ -40,7 +40,7 @@ pseq.rel <- microbiome::transform(pseq, "compositional")
 
 # Pick core taxa
 pseq.core <- core(pseq.rel, detection = 5/100, prevalence = 5/100)
-pseq.core <- subset_samples(pseq.core, sex == "Female" &
+pseq.core <- subset_samples(pseq.core, sex == "female" &
 	                               bmi_group == "overweight")
 ```
 
@@ -62,7 +62,7 @@ print(p)
 
 ### PCoA / MDS
 
-```{r landscape_pcoa, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px"}
+```{r landscape_pcoa, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px", eval=FALSE}
 # PCoA for compositional data with Bray-Curtis distances
 p <- plot_landscape(transform(pseq.core, "compositional"),
                       method = "PCoA", distance = "bray") +
