@@ -64,7 +64,7 @@ print(p)
 
 ```{r landscape_pcoa, message=FALSE, warning=FALSE, fig.width=8, fig.height=6, fig.show="hold", out.width="400px", eval=FALSE}
 # PCoA for compositional data with Bray-Curtis distances
-p <- plot_landscape(transform(pseq.core, "compositional"),
+p <- plot_landscape(microbiome::transform(pseq.core, "compositional"),
                       method = "PCoA", distance = "bray") +
        labs(title = paste("PCoA / Compositional / Bray-Curtis"))
 print(p)
