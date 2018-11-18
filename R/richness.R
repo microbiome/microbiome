@@ -1,19 +1,19 @@
 #' @title Richness Index
 #' @description Community richness index.
-#' @inheritParams global
+#' @inheritParams alpha
 #' @param index "observed" or "chao1"
 #' @param detection Detection threshold. Used for the "observed" index.
 #' @return A vector of richness indices
 #' @details By default, returns the richness for multiple detection thresholds
 #' defined by the data quantiles. If the detection argument is provided,
-#' returns richness with that detection threshold. The "observed" richness corresponds to
-#' index="observed", detection=0.
+#' returns richness with that detection threshold. The "observed" richness
+#' corresponds to index="observed", detection=0.
 #' @export
 #' @examples
 #' data(dietswap)
 #' d <- richness(dietswap, detection=0)
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @seealso global
+#' @seealso alpha
 #' @keywords utilities
 richness <- function(x, index = c("observed", "chao1"), detection=0) {
 

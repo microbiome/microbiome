@@ -26,7 +26,7 @@ Detect optima, excluding local optima below peak.threshold.
 \examples{
 \dontrun{
    # Not exported
-   o <- find_optima(rnorm(100), bw=1)
+   # o <- find_optima(rnorm(100), bw=1)
 }
 }
 \references{

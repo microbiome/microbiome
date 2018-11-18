@@ -40,19 +40,18 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
 
         # Calculate the core matrix (prevalences x abundance thresholds)
         coremat <- core_matrix(x, prevalences, detections)
-
         res <- core_lineplot(coremat)
 
     } else if (plot.type == "heatmap") {
         
         # Here we use taxon x abundance thresholds table
-	#  indicating prevalences
+    #  indicating prevalences
         res <- core_heatmap(abundances(x),
                     dets=detections,
-		    cols=colours, 
+            cols=colours, 
                     min.prev=min.prevalence,
-		    taxa.order=taxa.order)
-		
+            taxa.order=taxa.order)
+        
 
     }
     
@@ -76,8 +75,8 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
 #' @examples
 #' \dontrun{
 #'     # Not exported
-#'     data(peerj32)
-#'     core <- core_matrix(peerj32$phyloseq)
+#'     #data(peerj32)
+#'     #core <- core_matrix(peerj32$phyloseq)
 #' }
 #' @references 
 #' A Salonen et al. The adult intestinal core microbiota is determined by 

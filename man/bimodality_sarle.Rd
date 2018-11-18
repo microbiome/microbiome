@@ -39,7 +39,7 @@ excess kurtosis).
 }
 \examples{
 \dontrun{
-b <- bimodality_sarle(rnorm(100), type='Sarle.finite.sample')
+    # b <- bimodality_sarle(rnorm(100), type='Sarle.finite.sample')
 }
 }
 \references{

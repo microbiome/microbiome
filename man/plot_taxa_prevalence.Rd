@@ -7,7 +7,8 @@
 plot_taxa_prevalence(x, level, detection = 0)
 }
 \arguments{
-\item{x}{\code{\link{phyloseq-class}} object, OTU data must be counts and not relative abundance or other transformed data.}
+\item{x}{\code{\link{phyloseq-class}} object, OTU data must be counts and
+not relative abundance or other transformed data.}
 
 \item{level}{Phylum/Order/Class/Family}
 

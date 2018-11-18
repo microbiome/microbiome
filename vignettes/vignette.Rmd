@@ -127,61 +127,6 @@ data(atlas1006)
 atlas1006
 ```
 
-The two-week diet swap study between western (USA) and traditional
-(rural Africa) diets, reported in [O'Keefe et al. Nat. Comm. 6:6342,
-2015](http://dx.doi.org/10.1038/ncomms7342)
-
-```{r dietswapdata}
-data(dietswap) # Data from http://dx.doi.org/10.1038/ncomms7342
-dietswap
-```
-
-A parallel profiling of gut microbiota versus blood metabolites from
-[Lahti et al. PeerJ 1:e32, 2013](https://peerj.com/articles/32/) to
-characterize associations between human intestinal microbiota and
-blood serum lipids
-
-```{r peerjdata}
-data(peerj32) # Data from https://peerj.com/articles/32/
-```
-
-
-
-## Data manipulation
-
-A phyloseq object can be subsetted, filtered, aggregated, transformed,
-and otherwise manipulated. For a comprehensive list of tools, see the
-[online
-tutorial](http://microbiome.github.io/microbiome/Preprocessing.html).
-
-To convert absolute counts to compositional (relative)
-abundances, for instance, use
-
-```{r compositional}
-# dietswap is a phyloseq object; see above
-dietswap.compositional <- transform(dietswap, "compositional")
-```
-
-
-
-# Ecosystem indices
-
-## Alpha diversity, richness, evenness, dominance, and rarity
-
-Commonly used ecosystem state variables include various indices to quantify
-alpha diversities, richness, evenness, dominance, and rarity (see
-functions with similar names). We provide a
-comprehensive set of such indices via a standardized interface.
-
-The function `global` calls these indicators with default parameters. 
-For further options, see 
-[tutorial](http://microbiome.github.io/microbiome/Diversity.html). 
-
-```{r global, results="asis"}
-g <- global(dietswap, index = "gini")
-```
-
-
 
 # Further reading
 
@@ -200,19 +145,7 @@ requests](https://github.com/microbiome/microbiome/), or via
 Thanks to all
 [contributors](https://github.com/microbiome/microbiome/graphs/contributors).
 Financial support has been provided by Academy of Finland (grants
-256950 and 295741), [University of
-Turku](http://www.utu.fi/en/Pages/home.aspx), Department of
-Mathematics and Statistics. In addition, the work has been supported
-by [VIB lab for Bioinformatics and (eco-)systems
-biology](http://www.vib.be/en/research/scientists/Pages/Jeroen-Raes-Lab.aspx),
-VIB/KULeuven, Belgium, [Molecular Ecology
-group](http://www.mib.wur.nl/UK/), Laboratory of Microbiology,
-Wageningen University, Netherlands, and [Department of Veterinary
-Bioscience](http://www.vetmed.helsinki.fi/apalva/index.htm),
-University of Helsinki, Finland. This work relies on the independent
-[phyloseq](https://github.com/joey711/phyloseq) package and data
-structures for R-based microbiome analysis developed by Paul McMurdie
-and Susan Holmes. This work also utilizes a number of independent R
+256950 and 295741), [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics. In addition, the work has been supported by Laboratory of Microbiology, Wageningen University, The Netherlands. This work relies on the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis developed by Paul McMurdie and Susan Holmes. This work also utilizes a number of independent R
 extensions, including dplyr [@dplyr], ggplot2 [@Wickham_2009],
 phyloseq [@McMurdie2013], and vegan [@Oksanen_2015].
 

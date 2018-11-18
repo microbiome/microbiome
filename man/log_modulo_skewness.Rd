@@ -45,7 +45,7 @@ Biological Diversity: Frontiers in Measurement and Assessment
 (Oxford Univ Press, Oxford), Vol 12
 }
 \seealso{
-core_abundance, low_abundance, global
+core_abundance, low_abundance, alpha
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

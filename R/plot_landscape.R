@@ -131,7 +131,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
 #' @return ggplot2 object
 #' @examples
 #'    \dontrun{
-#'        p <- densityplot(cbind(rnorm(100), rnorm(100)))
+#'        # p <- densityplot(cbind(rnorm(100), rnorm(100)))
 #'    }
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -177,12 +177,13 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
     
     # Construct the figure
     p <- ggplot(df)
-    p <- p + stat_density2d(aes(x, y, fill=..density..), geom="raster", h=bw, contour=FALSE)
+    p <- p + stat_density2d(aes(x, y, fill=..density..),
+        geom="raster", h=bw, contour=FALSE)
     p <- p + scale_fill_gradient(low="white", high="black")
 
     if (add.points) {
 
-        if (length(unique(df$color)) == 1 && length(unique(df$size)) == 1) {            
+        if (length(unique(df$color)) == 1 && length(unique(df$size)) == 1) {
             p <- p + geom_point(aes(x=x, y=y),
             col=unique(df$color), size=unique(df$size))
         } else if (length(unique(df$color)) == 1 &&

@@ -32,7 +32,7 @@ data(dietswap)
 d <- richness(dietswap, detection=0)
 }
 \seealso{
-global
+alpha
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

@@ -10,7 +10,7 @@
 #' If aggregate=TRUE, then the sum of relative abundances is returned.
 #' Otherwise the relative abundance is returned for the single taxa with
 #' the indicated rank. 
-#' @inheritParams global
+#' @inheritParams alpha
 #' @return A vector of dominance indices
 #' @export
 #' @examples
@@ -67,7 +67,7 @@
 #'   (Oxford Univ Press, Oxford), Vol 12
 #'
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @seealso coverage, core_abundance, rarity, global
+#' @seealso coverage, core_abundance, rarity, alpha
 #' @keywords utilities
 dominance <- function(x, index="all", rank=1, relative=TRUE, aggregate=TRUE) {
 

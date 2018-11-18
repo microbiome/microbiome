@@ -29,8 +29,9 @@
 #' @export
 #' @examples
 #' data(dietswap)
-#' pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR' & sex == "female")
-#' p <- plot_composition(pseq)
+#' pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR' &
+#'    sex == "female")
+#' p <- plot_composition(pseq, plot.type = "lineplot", verbose = TRUE)
 #' @keywords utilities
 plot_composition <- function(x, sample.sort=NULL,
     otu.sort=NULL, x.label="sample", plot.type="barplot",
@@ -41,7 +42,7 @@ plot_composition <- function(x, sample.sort=NULL,
     Sample <- Abundance <- Taxon <- horiz <- value <- scales <- ID <- 
         meta <- OTU <- taxic <- otu.df <- taxmat <-  new.tax<- NULL
     if (!is.null(x@phy_tree)){
-        x@phy_tree= NULL
+        x@phy_tree <- NULL
     }
     taxic <- as.data.frame(x@tax_table) 
     otu.df <- as.data.frame(otu_table(x))
@@ -74,7 +75,8 @@ plot_composition <- function(x, sample.sort=NULL,
     }
     
     # Sort samples
-    if (is.null(sample.sort) || sample.sort == "none" || !is.null(average_by)) {
+    if (is.null(sample.sort) || sample.sort == "none" ||
+        !is.null(average_by)) {
         # No sorting sample.sort <- sample_names(x)
         sample.sort <- colnames(abu)
     } else if (length(sample.sort) == 1 &&
@@ -87,10 +89,8 @@ plot_composition <- function(x, sample.sort=NULL,
         # Use predefined order
         sample.sort <- sample.sort
     } else if (length(sample.sort) == 1 && sample.sort == "neatmap") {
-    
         sample.sort <- neatsort(x, method="NMDS", distance="bray",
         target="sites", first=NULL)
-
     } else if (is.vector(sample.sort) && length(sample.sort) > 1) {
         sample.sort <- sample_names(x)[sample.sort]        	
     } else if (!sample.sort %in% names(sample_data(x))) {
@@ -120,8 +120,8 @@ plot_composition <- function(x, sample.sort=NULL,
     if (verbose) {
         message("Prepare data.frame.")
     }
+    
     # Abundances as data.frame dfm <- psmelt(x)
-    #dfm <- melt(abu)
     dfm <- psmelt(otu_table(abu, taxa_are_rows = TRUE))
     names(dfm) <- c("OTU", "Sample", "Abundance")
 
@@ -205,11 +205,11 @@ plot_composition <- function(x, sample.sort=NULL,
         p <- p + scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
         
         # Name appropriately
-        if (!is.null(transform) && transform == "relative.abundance") {
-            p <- p + ylab("Relative abundance (%)")
-        } else {
-            p <- p + ylab("Abundance")
-        }
+        #if (!is.null(transform) && transform == "compositional") {
+        #    p <- p + ylab("Relative abundance (%)")
+        #} else {
+        p <- p + ylab("Abundance")
+        #}
         
         # Rotate horizontal axis labels, and adjust
         p <- p + theme(axis.text.x=element_text(angle=90, vjust=0.5,

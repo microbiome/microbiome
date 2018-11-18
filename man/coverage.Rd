@@ -31,7 +31,7 @@ data(dietswap)
 d <- coverage(dietswap, threshold=0.5)
 }
 \seealso{
-dominance, global
+dominance, alpha
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

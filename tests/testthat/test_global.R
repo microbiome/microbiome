@@ -1,30 +1,26 @@
-context("global")
+context("alpha")
 
-test_that("global indices work correctly", {
+test_that("alpha indices work correctly", {
 
   data(peerj32)
   pseq <- peerj32$phyloseq
   
-  # expect_true(is.data.frame(global(pseq)))
+  # expect_true(is.data.frame(alpha(pseq)))
   expect_true(is.data.frame(rarity(pseq)))
   expect_true(is.data.frame(dominance(pseq)))
-  expect_true(is.data.frame(diversities(pseq)))
+  expect_true(is.data.frame(alpha(pseq)))
   expect_true(is.data.frame(evenness(pseq)))
 
-  expect_true(all(unlist(richness(dietswap, index='observed') ) == unlist(global(dietswap, index='observed') )))      
+  expect_true(all(unlist(richness(dietswap, index='observed') ) == unlist(alpha(dietswap, index='observed') )))      
 
   expect_true(max(low_abundance(transform(pseq, "compositional"))) <= 1)
 
   expect_true(all(c("evenness_simpson", "dominance_simpson") %in%
-      names(global(pseq, index = "simpson"))))
+      names(alpha(pseq, index = "simpson"))))
 
-  #expect_equal(rare_abundance(pseq, detection = 0.1/100, prevalence = 50/100),
-  #  1 - core_abundance(pseq, detection = 0.1/100, prevalence = 50/100))
   expect_true(is.vector(core_abundance(pseq, detection = 0.1/100, prevalence = 50/100)))
   expect_equal(length(core_abundance(prune_samples("sample-1", pseq), detection = 50/100, prevalence = 50/100)), 1)
-  expect_equal(length(core_abundance(prune_taxa("Vibrio", pseq), detection = 50/100, prevalence = 50/100)), 44)
-  # expect_equal(round(diversities(pseq, index = "fisher")[1,1], 1), 12.2)
-  expect_error(diversities(transform(pseq, "clr"), index = "fisher"))  
+  expect_error(suppressWarnings(alpha(transform(pseq, "clr"), index = "fisher")))
 
 })
 
@@ -67,12 +63,12 @@ test_that("evenness works correctly", {
 
 
 
-test_that("global indices are harmonized", {
+test_that("alpha indices are harmonized", {
 
   data(peerj32)
   pseq <- peerj32$phyloseq
   expect_true(is.data.frame(evenness(abundances(pseq), index = "camargo")))
-  expect_true(is.data.frame(diversities(abundances(pseq), index = "shannon")))
+  expect_true(is.data.frame(alpha(abundances(pseq), index = "shannon")))
 
 })
 

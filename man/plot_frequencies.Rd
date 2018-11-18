@@ -14,18 +14,18 @@ plot_frequencies(x, Groups, Factor)
 \item{Factor}{Name of the frequency variable}
 }
 \value{
-A list with two elements:
-\itemize{
-\item{data}{Table with the indicated frequencies.}
-\item{plot}{\code{\link{ggplot}} plot object.}
-}
+\code{\link{ggplot}} plot object.
 }
 \description{
 Plot relative frequencies within each Group for the
 levels of the given factor.
 }
+\details{
+For table with the indicated frequencies, see the returned
+phyloseq object.
+}
 \examples{
 data(dietswap)
-p <- plot_frequencies(sample_data(dietswap), 'group', 'sex')
+p <- plot_frequencies(meta(dietswap), 'group', 'sex')
 }
 \keyword{utilities}

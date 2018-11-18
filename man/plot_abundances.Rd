@@ -13,12 +13,16 @@ plot_abundances(x, level = "Phylum", tax = "Bacteroidetes")
 
 \item{tax}{Taxonomic group to use in sorting.}
 }
+\value{
+\code{\link{ggplot}} object
+}
 \description{
 Plot taxon abundance for samples.
 }
 \examples{
 data(dietswap)
-pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR' & sex == "female")
+pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR' &
+   sex == "female")
 p <- plot_abundances(pseq)
 }
 \keyword{utilities}

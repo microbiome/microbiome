@@ -87,7 +87,7 @@ Kenneth J. Locey and Jay T. Lennon.
   (Oxford Univ Press, Oxford), Vol 12
 }
 \seealso{
-coverage, core_abundance, rarity, global
+coverage, core_abundance, rarity, alpha
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

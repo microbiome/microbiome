@@ -22,8 +22,8 @@ Creates the core matrix.
 \examples{
 \dontrun{
     # Not exported
-    data(peerj32)
-    core <- core_matrix(peerj32$phyloseq)
+    #data(peerj32)
+    #core <- core_matrix(peerj32$phyloseq)
 }
 }
 \references{

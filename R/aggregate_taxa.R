@@ -45,8 +45,8 @@ aggregate_taxa <- function(x, level, top = NULL) {
         rownames(tt) <- nams
 
     mypseq2 <- phyloseq(otu_table(a, taxa_are_rows=TRUE), 
-               sample_data(mypseq2), 
-               tax_table(tt))
+                sample_data(mypseq2), 
+                tax_table(tt))
 
     } else {
         
@@ -95,13 +95,13 @@ aggregate_taxa <- function(x, level, top = NULL) {
     tax_table(mypseq) <- tax_table(mypseq)[!is.na(tax_table(mypseq)[, level]),]
         keep <- colnames(
         tax_table(mypseq))[
-      which(
+    which(
         sapply(seq(ncol(tax_table(mypseq))),
-              function(k)
-              sum(
+            function(k)
+            sum(
         sapply(split(as.character(tax_table(mypseq)[, k]),
-              as.character(tax_table(mypseq)[, level])), function(x) {
-              length(unique(x))
+            as.character(tax_table(mypseq)[, level])), function(x) {
+            length(unique(x))
         }) > 1)) == 0)]
         tax <- unique(tax_table(mypseq)[, keep])
 

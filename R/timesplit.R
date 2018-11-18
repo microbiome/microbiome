@@ -32,17 +32,17 @@ timesplit <- function(x) {
         
         spli <- spl.list[[i]]$spl
         time.difs <- spl.list[[i]]$time.difs
-	n <- nrow(spl.list[[i]]$spl)
-	subject <- unique(spli$subject)
-	sample1 <- spl.list[[i]]$spl$sample[1:(n-1)]
-	sample2 <- spl.list[[i]]$spl$sample[2:n]	
-     
+    n <- nrow(spl.list[[i]]$spl)
+    subject <- unique(spli$subject)
+    sample1 <- spl.list[[i]]$spl$sample[1:(n-1)]
+    sample2 <- spl.list[[i]]$spl$sample[2:n]    
+ 
         # Organize into data frame
         dfi <- data.frame(
-	    subject = rep(subject, n-1),
-	    sample1 = sample1,
-	    sample2 = sample2,
-	    time=time.difs)
+        subject = rep(subject, n-1),
+        sample1 = sample1,
+        sample2 = sample2,
+        time=time.difs)
         
         # Add to the collection
         dfis <- rbind(dfis, dfi)
@@ -52,6 +52,3 @@ timesplit <- function(x) {
     dfis
     
 }
-
-
-    

@@ -3,7 +3,7 @@
 #' @param index Evenness index. See details for options.
 #' @param zeroes Include zero counts in the evenness estimation.
 #' @param detection Detection threshold
-#' @inheritParams global
+#' @inheritParams alpha
 #' @return A vector of evenness indices
 #' @export
 #' @examples
@@ -27,7 +27,7 @@
 #' and a plea for more rigorous use of species richness,
 #' species diversity and the ‘Shannon–Wiener’ Index.
 #' Spellerberg and Fedor.
-#' Global Ecology & Biogeography (2003) 12, 177–197
+#' Alpha Ecology & Biogeography (2003) 12, 177–197
 #' 4) 'evar': Smith and Wilson’s Evar index (Smith & Wilson 1996)
 #' 5) 'bulla': Bulla’s index (O) (Bulla 1994)
 #'   
@@ -65,7 +65,7 @@
 #' Oikos 76(1):70-82, 1996.
 #'
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @seealso coverage, core_abundance, rarity, global
+#' @seealso coverage, core_abundance, rarity, alpha
 #' @keywords utilities
 evenness <- function(x, index="all", zeroes=TRUE, detection = 0) {
     

@@ -211,7 +211,7 @@ potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
 #' @examples
 #' \dontrun{
 #'    # Not exported
-#'    o <- find_optima(rnorm(100), bw=1)
+#'    # o <- find_optima(rnorm(100), bw=1)
 #' }
 #' @keywords utilities
 find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {

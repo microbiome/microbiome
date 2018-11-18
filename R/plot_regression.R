@@ -38,7 +38,9 @@
 #' pseq <- subset_samples(atlas1006,
 #'    DNA_extraction_method == 'r' &
 #'    sex == "female" &
-#'    nationality == "UKIE")
+#'    nationality == "UKIE",
+#'    B=10, slices=10 # non-default used here to speed up examples
+#'    )
 #' p <- plot_regression(diversity ~ age, meta(pseq)[1:20,])
 #' @references See citation('microbiome') 
 #' @author Based on the original version from F. Schonbrodt. 
@@ -55,7 +57,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     # # Some transparency problems solved with:
     # # http://tinyheero.github.io/2015/09/15/semi-transparency-r.html
     
-    # # Circumvent global variable binding warnings
+    # # Circumvent variable binding warnings
     . <- NULL
     aes <- NULL
     x <- NA

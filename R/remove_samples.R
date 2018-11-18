@@ -13,7 +13,7 @@
 #' a way to exclude given groups from a phyloseq object.
 #' @examples
 #' data(dietswap)
-#' pseq <- remove_samples(c("Akkermansia", "Dialister"), dietswap)
+#' pseq <- remove_samples(c("Sample-182", "Sample-222"), dietswap)
 remove_samples <- function(samples = NULL, x) {
 
     if (is.null(samples)) {return(x)}

@@ -4,15 +4,13 @@
 #' @param x \code{\link{data.frame}} 
 #' @param Groups Name of the grouping variable
 #' @param Factor Name of the frequency variable
-#' @return A list with two elements:
-#' \itemize{
-#' \item{data}{Table with the indicated frequencies.}
-#' \item{plot}{\code{\link{ggplot}} plot object.}
-#' }
+#' @return \code{\link{ggplot}} plot object.
+#' @details For table with the indicated frequencies, see the returned
+#' phyloseq object.
 #' @export
 #' @examples
 #' data(dietswap)
-#' p <- plot_frequencies(sample_data(dietswap), 'group', 'sex')
+#' p <- plot_frequencies(meta(dietswap), 'group', 'sex')
 #' @keywords utilities
 plot_frequencies <- function(x, Groups, Factor) {
     
@@ -29,14 +27,14 @@ plot_frequencies <- function(x, Groups, Factor) {
         mutate(pct=100 * n/sum(n))
     
     # Provide barplot of relative abundances
-    p <- ggplot(x, aes(x=Groups, y=pct, fill=Factor))
-    p <- p + geom_bar(position="stack", stat="identity")
+    p <- ggplot(x, aes(x=Groups, y=pct, fill=Factor)) +
+        geom_bar(position="stack", stat="identity")
     
     # Rotate horizontal axis labels, and adjust
     p <- p + theme(axis.text.x =
-        element_text(angle=-90, vjust=0.5, hjust=0))
-    p <- p + ylab("Proportion (%)") + xlab("")
+        element_text(angle=-90, vjust=0.5, hjust=0)) +
+        labs(x = "", y = "Proportion (%)") 
     
-    list(data=x, plot=p)
+    p
     
 }

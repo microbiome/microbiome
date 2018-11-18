@@ -73,7 +73,9 @@ data(atlas1006)
 pseq <- subset_samples(atlas1006,
    DNA_extraction_method == 'r' &
    sex == "female" &
-   nationality == "UKIE")
+   nationality == "UKIE",
+   B=10, slices=10 # non-default used here to speed up examples
+   )
 p <- plot_regression(diversity ~ age, meta(pseq)[1:20,])
 }
 \references{

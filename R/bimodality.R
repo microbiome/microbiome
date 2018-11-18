@@ -168,8 +168,8 @@ bimodality <-
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
 #' \dontrun{
-#' data(peerj32)
-#' s <- multimodality(t(peerj32$microbes[, c('Akkermansia', 'Dialister')]))
+#' #data(peerj32)
+#' #s <- multimodality(t(peerj32$microbes[, c('Akkermansia', 'Dialister')]))
 #' }
 #' @references
 #' \itemize{
@@ -238,7 +238,7 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
 #' @return Bimodality score
 #' @examples
 #' \dontrun{
-#' b <- bimodality_sarle(rnorm(100), type='Sarle.finite.sample')
+#'     # b <- bimodality_sarle(rnorm(100), type='Sarle.finite.sample')
 #' }
 #' @details The coefficient lies in (0, 1).
 #' 
