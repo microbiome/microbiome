@@ -21,8 +21,8 @@
 #' (e.g. Simpson diversity and Simpson dominance).
 #'
 #' @examples
-#' #data(dietswap)
-#' #d <- alpha(dietswap, index='gini')
+#' data(dietswap)
+#' d <- alpha(dietswap, index='observed')
 #'
 #' @export
 #' @seealso global, dominance, rarity, phyloseq::estimate_richness

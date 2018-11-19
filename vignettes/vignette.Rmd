@@ -145,7 +145,14 @@ requests](https://github.com/microbiome/microbiome/), or via
 Thanks to all
 [contributors](https://github.com/microbiome/microbiome/graphs/contributors).
 Financial support has been provided by Academy of Finland (grants
-256950 and 295741), [University of Turku](http://www.utu.fi/en/Pages/home.aspx), Department of Mathematics and Statistics. In addition, the work has been supported by Laboratory of Microbiology, Wageningen University, The Netherlands. This work relies on the independent [phyloseq](https://github.com/joey711/phyloseq) package and data structures for R-based microbiome analysis developed by Paul McMurdie and Susan Holmes. This work also utilizes a number of independent R
+256950 and 295741), [University of
+Turku](http://www.utu.fi/en/Pages/home.aspx), Department of
+Mathematics and Statistics. In addition, the work has been supported
+by Laboratory of Microbiology, Wageningen University, The
+Netherlands. This work relies on the independent
+[phyloseq](https://github.com/joey711/phyloseq) package and data
+structures for R-based microbiome analysis developed by Paul McMurdie
+and Susan Holmes. This work also utilizes a number of independent R
 extensions, including dplyr [@dplyr], ggplot2 [@Wickham_2009],
 phyloseq [@McMurdie2013], and vegan [@Oksanen_2015].
 

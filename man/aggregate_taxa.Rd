@@ -29,8 +29,8 @@ group. Removes ambiguous levels from the taxonomy table. Returns a
 phyloseq object with the summarized abundances.
 }
 \examples{
-  data(dietswap)
-  s <- aggregate_taxa(dietswap, 'Phylum')
+data(dietswap)
+s <- aggregate_taxa(dietswap, 'Phylum')
 }
 \references{
 See citation('microbiome')

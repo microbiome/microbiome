@@ -19,7 +19,7 @@ richness <- function(x, index = c("observed", "chao1"), detection=0) {
 
     index <- gsub("richness_", "", index)
 
-    # This already ensures that taxa are on the rows	 
+    # This already ensures that taxa are on the rows     
     x <- abundances(x)
     tab <- NULL
     index <- tolower(index)
@@ -104,9 +104,9 @@ chao1_per_sample <- function (x) {
     s1 <- sum(x==1, na.rm = TRUE)
     s2 <- sum(x==2, na.rm = TRUE)
     if ((s1-s2)^2==(s1+s2)^2) {
-      r <- s0+s1*(s1-1)/((s2+1)*2)
+        r <- s0+s1*(s1-1)/((s2+1)*2)
     } else {
-      r <- s0+s1^2/(s2*2)
+        r <- s0+s1^2/(s2*2)
     }
 
     r

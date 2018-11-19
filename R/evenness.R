@@ -124,7 +124,7 @@ evenness_help <- function(x, index="all", zeroes=TRUE) {
         ev <- NULL
         for (idx in index) {
             ev <- cbind(ev,
-	        evenness_help(x, index=idx, zeroes))
+            evenness_help(x, index=idx, zeroes))
         }
         colnames(ev) <- index
         return(as.data.frame(ev))

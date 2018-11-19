@@ -36,7 +36,7 @@ timesplit <- function(x) {
     subject <- unique(spli$subject)
     sample1 <- spl.list[[i]]$spl$sample[seq_len(n-1)]
     sample2 <- spl.list[[i]]$spl$sample[seq(2, n)]    
- 
+
         # Organize into data frame
         dfi <- data.frame(
         subject = rep(subject, n-1),

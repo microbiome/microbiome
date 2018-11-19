@@ -18,10 +18,10 @@
 #' identical items.
 #' @return List with cor, pval, pval.adjusted
 #' @examples 
-#'   data(peerj32)
-#'   d1 <- peerj32$microbes[1:20, 1:10]
-#'   d2 <- peerj32$lipids[1:20,1:10]
-#'   cc <- associate(d1, d2, method='pearson')
+#' data(peerj32)
+#' d1 <- peerj32$microbes[1:20, 1:10]
+#' d2 <- peerj32$lipids[1:20,1:10]
+#' cc <- associate(d1, d2, method='pearson')
 #' @export
 #' @details As the method=categorical (discrete) association measure
 #' for nominal (no order for levels) variables we use Goodman and
@@ -32,8 +32,8 @@
 #' @aliases cross_correlate
 #' @keywords utilities
 associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
-    cth=NULL, order=FALSE, n.signif=0, mode="table", p.adj.method="fdr",
-    verbose=FALSE, filter.self.correlations=FALSE) {
+cth=NULL, order=FALSE, n.signif=0, mode="table", p.adj.method="fdr",
+verbose=FALSE, filter.self.correlations=FALSE) {
     
     if (is.null(y)) {
         message("Cross-correlating the data with itself")
@@ -69,7 +69,7 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
         }
         inds <- names(which(inds))
     } else if (method %in% categorical.methods) {
-        inds <- sapply(x, is.factor)
+        inds <- vapply(x, is.factor, TRUE)
         if (any(!inds)) {
             warning("Considering only categorical annotations for factors")
         }

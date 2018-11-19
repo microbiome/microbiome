@@ -157,7 +157,7 @@ transform <- function(x, transform = "identity", target = "OTU",
     } else if (transform == "shift") {
         
         xt <- x + shift
-	
+    
     } else if (transform == "scale") {
         
         xt <- scale * x 

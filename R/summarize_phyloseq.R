@@ -50,7 +50,8 @@ summarize_phyloseq <- function(x)
     zno <- paste0("7] Sparsity = ", length(which(abundances(x) == 
         0))/length(abundances(x)))
     
-    sR1 <- paste0("8] Number of singletons = ", length(taxa_sums(x)[taxa_sums(x) <= 
+    sR1 <- paste0("8] Number of singletons = ",
+        length(taxa_sums(x)[taxa_sums(x) <= 
         1]))
     sR2 <- paste0("9] Percent of OTUs that are singletons ", 
         length(taxa_sums(x)[taxa_sums(x) <= 1])/nrow(otu_table(x)) * 

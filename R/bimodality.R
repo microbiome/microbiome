@@ -76,9 +76,8 @@
 #' # function (x) {1 - unname(dip.test(x)$p.value)})
 #'
 #' @keywords utilities
-bimodality <-
-    function(x, method="potential_analysis", peak.threshold=1, bw.adjust=1,
-        bs.iter=100, min.density=1, verbose=TRUE) {
+bimodality <- function(x, method="potential_analysis", peak.threshold=1, bw.adjust=1,
+bs.iter=100, min.density=1, verbose=TRUE) {
     
     accepted <- intersect(method, c("potential_analysis",
         "Sarle.finite.sample", "Sarle.asymptotic"))
@@ -214,9 +213,9 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
             potential.results[[tax]] <- m
         }
         
-        multimodality.score <- sapply(potential.results, function(x) {
+        multimodality.score <- vapply(potential.results, function(x) {
             1 - x$unimodality.support
-        })
+        }, 1)
         
         ret <- list(score=multimodality.score,
                     modes=nmodes,
@@ -312,7 +311,7 @@ kurtosis <- function (x, na.rm=TRUE)
         k <- n * sum((x - mean(x))^4)/(sum((x - mean(x))^2)^2)
         return(k)
     } else if (is.data.frame(x)) {
-        k <- sapply(x, kurtosis, na.rm = na.rm)
+        k <- vapply(x, kurtosis, 1, na.rm = na.rm)
         return(k)
     } else {
         kurtosis(as.vector(x), na.rm = na.rm)

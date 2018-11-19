@@ -12,8 +12,8 @@
 #' listing the groups to combine.
 #' @return Summarized phyloseq object
 #' @examples
-#'   data(dietswap)
-#'   s <- aggregate_taxa(dietswap, 'Phylum')
+#' data(dietswap)
+#' s <- aggregate_taxa(dietswap, 'Phylum')
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -41,7 +41,8 @@ aggregate_taxa <- function(x, level, top = NULL) {
     a <- abundances(mypseq2)
     nams <- as.character(tax_table(mypseq2)[, level])
         rownames(a) <- nams
-        tt <- tax_table(mypseq2)[, seq_len(match(level, colnames(tax_table(mypseq2))))]
+        tt <- tax_table(mypseq2)[, seq_len(match(level,
+        colnames(tax_table(mypseq2))))]
         rownames(tt) <- nams
 
     mypseq2 <- phyloseq(otu_table(a, taxa_are_rows=TRUE), 
@@ -96,13 +97,13 @@ aggregate_taxa <- function(x, level, top = NULL) {
         keep <- colnames(
         tax_table(mypseq))[
     which(
-        sapply(seq(ncol(tax_table(mypseq))),
+        vapply(seq(ncol(tax_table(mypseq))),
             function(k)
             sum(
-        sapply(split(as.character(tax_table(mypseq)[, k]),
+        vapply(split(as.character(tax_table(mypseq)[, k]),
             as.character(tax_table(mypseq)[, level])), function(x) {
             length(unique(x))
-        }) > 1)) == 0)]
+        }, 1) > 1), 1) == 0)]
         tax <- unique(tax_table(mypseq)[, keep])
 
         # Rename the lowest level
