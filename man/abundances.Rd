@@ -12,8 +12,9 @@ abundances(x, transform = "identity")
 \item{x}{\code{\link{phyloseq-class}} object}
 
 \item{transform}{Transformation to apply. The options include:
-'compositional' (ie relative abundance), 'Z', 'log10', 'log10p', 'hellinger',
-'identity', 'clr', or any method from the vegan::decostand function.}
+'compositional' (ie relative abundance), 'Z', 'log10', 'log10p',
+'hellinger', 'identity', 'clr', or any method from the
+vegan::decostand function.}
 }
 \value{
 Abundance matrix (OTU x samples).

@@ -53,6 +53,6 @@ Plot taxon abundance for samples.
 data(dietswap)
 pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR' &
    sex == "female")
-p <- plot_composition(pseq, plot.type = "lineplot", verbose = TRUE)
+p <- plot_composition(pseq, verbose = TRUE)
 }
 \keyword{utilities}

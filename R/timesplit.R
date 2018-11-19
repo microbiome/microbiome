@@ -25,7 +25,7 @@ timesplit <- function(x) {
     spl <- split(df, as.character(df$subject))
     spl.list <- list()
     dfis <- NULL    
-    for (i in 1:length(spl)) {
+    for (i in seq_len(length(spl))) {
         # Ensure the measurements are ordered in time
         spl.list[[i]] <- list(spl=spl[[i]][order(spl[[i]]$time), ],
         time.difs=diff(spl[[i]]$time))
@@ -34,8 +34,8 @@ timesplit <- function(x) {
         time.difs <- spl.list[[i]]$time.difs
     n <- nrow(spl.list[[i]]$spl)
     subject <- unique(spli$subject)
-    sample1 <- spl.list[[i]]$spl$sample[1:(n-1)]
-    sample2 <- spl.list[[i]]$spl$sample[2:n]    
+    sample1 <- spl.list[[i]]$spl$sample[seq_len(n-1)]
+    sample2 <- spl.list[[i]]$spl$sample[seq(2, n)]    
  
         # Organize into data frame
         dfi <- data.frame(

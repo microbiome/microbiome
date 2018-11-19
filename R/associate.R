@@ -49,7 +49,7 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
     y <- y  # numeric
     
     if (is.null(colnames(y))) {
-        colnames(y) <- paste("column-", 1:ncol(y), sep="")
+        colnames(y) <- paste("column-", seq_len(ncol(y)), sep="")
     }
 
     xnames <- colnames(x)
@@ -101,7 +101,7 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
         
         minobs <- 8
         
-        for (j in 1:ncol(y)) {
+        for (j in seq_len(ncol(y))) {
             
             jc <- apply(x, 2, function(xi) {
                 

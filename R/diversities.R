@@ -158,9 +158,9 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
         })
     } else if (index == "fisher") {
         if (length(setdiff(unique(as.vector(otu)%%1), 0)) == 0) {
-          ev <- fisher.alpha(otu, MARGIN=2)
+            ev <- fisher.alpha(otu, MARGIN=2)
         } else {
-          warning("Fisher diversity defined only for integers; 
+            warning("Fisher diversity defined only for integers; 
             the OTU table contains non-integers. Fisher not estimated.")
             ev <- NULL
         }

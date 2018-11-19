@@ -201,7 +201,7 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
         nmodes <- c()
     
         if (is.null(rownames(x))) {
-            rownames(x) <- as.character(1:nrow(x))
+            rownames(x) <- as.character(seq_len(nrow(x)))
         }
         
         for (tax in rownames(x)) {
@@ -286,7 +286,7 @@ bimodality_sarle <- function(x, bs.iter=1, type="Sarle.finite.sample") {
     
     if (bs.iter > 1) {
         s <- c()
-        for (i in 1:bs.iter) {
+        for (i in seq_len(bs.iter)) {
             xbs <- sample(x, replace=TRUE)
             s[[i]] <- bimodality_sarle(xbs, type=type)
         }

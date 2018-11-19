@@ -64,7 +64,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
             # (now assumes the default and cannot be altered)
             d <- t(abundances(x))
 
-            proj <- princomp(d)$scores[, 1:2]
+            proj <- princomp(d)$scores[, c(1,2)]
             rownames(proj) <- sample_names(x)
 
             # TODO add robust PCA
@@ -91,7 +91,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
     }
 
     proj <- as.data.frame(proj)
-    colnames(proj) <- paste("Comp", 1:2, sep=".")
+    colnames(proj) <- paste("Comp", c(1,2), sep=".")
 
     guide.title <- "color"
     if (is.null(col)) {
@@ -103,7 +103,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
         proj$col <- col
     }
 
-    p <- densityplot(proj[, 1:2], main=NULL, x.ticks=10,
+    p <- densityplot(proj[, c(1,2)], main=NULL, x.ticks=10,
         rounding=0, add.points=TRUE, 
         adjust=1, size=size, col=proj$col, legend = TRUE) +
     guides(color = guide_legend(title = guide.title))

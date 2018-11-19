@@ -47,7 +47,7 @@ intermediate_stability <- function(x, reference.point=NULL,
     if (length(reference.point) > 1 && output == "scores") {
         
         scores <- c()
-        for (i in 1:length(reference.point)) {
+        for (i in seq_len(length(reference.point))) {
             scores[[i]] <- intermediate_stability(x,
         reference.point=reference.point[[i]], 
                 method=method, output=output)
@@ -83,7 +83,7 @@ intermediate_stability <- function(x, reference.point=NULL,
     # Split data by subject
     spl <- split(df, as.character(df$subject))
     spl.list <- list()
-    for (i in 1:length(spl)) {
+    for (i in seq_len(length(spl))) {
         # Ensure the measurements are ordered in time
         spl.list[[i]] <- list(spl=spl[[i]][order(spl[[i]]$time), ],
         time.difs=diff(spl[[i]]$time))
@@ -171,7 +171,7 @@ estimate_stability <- function(df, reference.point=NULL, method="lm",
     
     dfis <- NULL
     
-    for (i in 1:length(spl.list)) {
+    for (i in seq_len(length(spl.list))) {
         
         spli <- spl.list[[i]]$spl
         spli$data <- unlist(df[rownames(spli), "data"], use.names=FALSE)

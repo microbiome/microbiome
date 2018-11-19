@@ -89,7 +89,7 @@ beta.mean <- function(x, method="bray", coreset) {
     b <- c()
     m <- rowMeans(coreset)
 
-    for (i in 1:ncol(x)) {
+    for (i in seq_len(ncol(x))) {
         xx <- rbind(x[, i], m)
         xxx <- distance(otu_table(t(xx), taxa_are_rows = TRUE), method=method)
         b[[i]] <- as.matrix(xxx)[1, 2]
@@ -115,10 +115,8 @@ beta.pairs <- function(x, method="bray", n = ncol(x)) {
     # inds <- sample(ncol(pairs), n)
 
     # Distance between each sample and a random pair
-    for (i in 1:ncol(x)) {
-        i2 <- sample(setdiff(1:ncol(x), i), 1)
-        #i1 <- pairs[1, i]
-        #i2 <- pairs[2, i]
+    for (i in seq_len(ncol(x))) {
+        i2 <- sample(setdiff(seq_len(ncol(x)), i), 1)
         xx <- t(x[, c(i, i2)])
         b[[i]] <- as.vector(vegdist(xx, method=method)) 
     }

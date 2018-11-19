@@ -2,13 +2,15 @@
 #' @description Standard transforms for \code{\link{phyloseq-class}}.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param transform Transformation to apply. The options include:
-#' 'compositional' (ie relative abundance), 'Z', 'log10', 'log10p', 'hellinger',
-#' 'identity', 'clr', or any method from the vegan::decostand function.
+#' 'compositional' (ie relative abundance), 'Z', 'log10', 'log10p',
+#' 'hellinger', 'identity', 'clr', or any method from the
+#' vegan::decostand function.
 #' @param target Apply the transform for 'sample' or 'OTU'.
 #' Does not affect the log transform.
 #' @param shift A constant indicating how much to shift the baseline
 #' abundance (in transform='shift')
-#' @param scale Scaling constant for the abundance values when transform = "scale".
+#' @param scale Scaling constant for the abundance values when
+#' transform = "scale".
 #' @return Transformed \code{\link{phyloseq}} object
 #' @details In transformation typ, the 'compositional' abunances are returned
 #' as relative abundances in [0, 1] (convert to percentages by multiplying
@@ -50,12 +52,14 @@
 #' # xt <- transform(x, 'scale', scale=1)
 #'
 #' @keywords utilities
-transform <- function(x, transform = "identity", target = "OTU", shift = 0, scale = 1) {
+transform <- function(x, transform = "identity", target = "OTU",
+                    shift = 0, scale = 1) {
 
     y <- NULL
     xorig <- x
 
-    # If x is not a phyloseq object then assume that it is taxa x samples matrix
+    # If x is not a phyloseq object then assume that it is
+    # taxa x samples matrix
     if (class(x) == "phyloseq") {
         x <- abundances(x)
     }

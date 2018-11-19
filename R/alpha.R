@@ -6,6 +6,7 @@
 #' \code{\link{phyloseq-class}} object
 #' @param index Default is ‘NULL’, meaning that all available indices
 #' will be included. For specific options, see details.
+#' @param zeroes Include zero counts in the diversity estimation.
 #' @inheritParams core
 #' @return A data.frame of samples x alpha diversity indicators
 #' @details This function returns various indices of the ecosystem state.
@@ -35,7 +36,7 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-alpha <- function(x, index="all") {
+alpha <- function(x, index="all", zeroes=TRUE) {
 
     tab <- NULL
     index <- tolower(index)
@@ -69,7 +70,7 @@ alpha <- function(x, index="all") {
 
     message("Diversity")
     a <- diversity(x, index=gsub("diversity_", "",
-        gsub("diversity_", "", index)))
+        gsub("diversity_", "", index)), zeroes=zeroes)
     if (!is.null(a)) {
         if (is.vector(a)) {
             a <- as.matrix(a, ncol=1)

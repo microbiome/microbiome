@@ -24,8 +24,8 @@ Community richness index.
 \details{
 By default, returns the richness for multiple detection thresholds
 defined by the data quantiles. If the detection argument is provided,
-returns richness with that detection threshold. The "observed" richness corresponds to
-index="observed", detection=0.
+returns richness with that detection threshold. The "observed" richness
+corresponds to index="observed", detection=0.
 }
 \examples{
 data(dietswap)

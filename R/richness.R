@@ -17,7 +17,7 @@
 #' @keywords utilities
 richness <- function(x, index = c("observed", "chao1"), detection=0) {
 
-   index <- gsub("richness_", "", index)
+    index <- gsub("richness_", "", index)
 
     # This already ensures that taxa are on the rows	 
     x <- abundances(x)
@@ -25,16 +25,16 @@ richness <- function(x, index = c("observed", "chao1"), detection=0) {
     index <- tolower(index)
 
     if ("observed" %in% index) {
-      tab <- richness_help(x, detection)
-      if (is.vector(tab)) {
-        tab <- as.matrix(tab, ncol=1)
-        colnames(tab) <- gsub("%", "", as.character(detection))
-      }
+        tab <- richness_help(x, detection)
+        if (is.vector(tab)) {
+            tab <- as.matrix(tab, ncol=1)
+            colnames(tab) <- gsub("%", "", as.character(detection))
+        }
     }
 
     if ("chao1" %in% index) {
-      chao <- chao1(x)
-      tab <- cbind(tab, chao1 = chao)
+        chao <- chao1(x)
+        tab <- cbind(tab, chao1 = chao)
     }
 
     colnames(tab) <- gsub("^richness_0$", "observed", colnames(tab))

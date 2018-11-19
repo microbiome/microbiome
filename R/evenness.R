@@ -197,7 +197,7 @@ camargo <- function(x, zeroes=TRUE) {
     N <- sum(x > 0, na.rm = TRUE)
     
     xx <- 0
-    for (i in 1:(N - 1)) {
+    for (i in seq_len(N - 1)) {
         xx <- xx + sum(abs(x[(i + 1):N] - x[i]))
     }
     

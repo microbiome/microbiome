@@ -50,7 +50,7 @@ plot_tipping <- function(x, taxon, tipping.point=NULL,
     df <- as.data.frame(ranges)
     df$mid <- rowMeans(ranges)
     df <- df[order(df$mid), ]
-    df$pos <- 1:nrow(df)
+    df$pos <- seq_len(nrow(df))
     
     # Switches the state
     df$len <- df$max - df$min  # Range length

@@ -114,7 +114,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     CI.boot <- t(apply(l0.boot, 1, function(x)
         quantile(x, prob=c(0.025, 0.5, 0.975, 
         pnorm(c(-3, -2, -1, 0, 1, 2, 3))), na.rm=TRUE)))
-    colnames(CI.boot)[1:10] <- c("LL", "M", "UL", paste0("SD", 1:7))
+    colnames(CI.boot)[seq_len(10)] <- c("LL", "M", "UL", paste0("SD", seq_len(7)))
     
     CI.boot <- as.data.frame(CI.boot)
     CI.boot$x <- newx[, 1]
@@ -194,11 +194,11 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
     
     if (quantize == "SD") {
         message("Polygon approach")
-        SDs <- melt(CI.boot[, c("x", paste0("SD", 1:7))], id.vars="x")
+        SDs <- melt(CI.boot[, c("x", paste0("SD", seq_len(7)))], id.vars="x")
         count <- 0
         d3 <- data.frame()
         col <- c(1, 2, 3, 3, 2, 1)
-        for (i in 1:6) {
+        for (i in seq_len(6)) {
             seg1 <- SDs[SDs$variable == paste0("SD", i), ]
             seg2 <- SDs[SDs$variable == paste0("SD", i + 1), ]
             seg <- rbind(seg1, seg2[nrow(seg2):1, ])

@@ -31,7 +31,7 @@
 #' data(dietswap)
 #' pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR' &
 #'    sex == "female")
-#' p <- plot_composition(pseq, plot.type = "lineplot", verbose = TRUE)
+#' p <- plot_composition(pseq, verbose = TRUE)
 #' @keywords utilities
 plot_composition <- function(x, sample.sort=NULL,
     otu.sort=NULL, x.label="sample", plot.type="barplot",
@@ -44,19 +44,17 @@ plot_composition <- function(x, sample.sort=NULL,
     if (!is.null(x@phy_tree)){
         x@phy_tree <- NULL
     }
-    taxic <- as.data.frame(x@tax_table) 
-    otu.df <- as.data.frame(otu_table(x))
-    taxic$OTU <- row.names(otu.df)
-    taxmat <- as.matrix(taxic) # convert it into a matrix.
-    new.tax <- tax_table(taxmat)  # convert into phyloseq compaitble file.
-    tax_table(x) <- new.tax # incroporate into phyloseq Object
-    
+        
     xorig <- x
 
-    # Pick the abundance matrix taxa x samples
+    if (verbose) {
+        message("Pick the abundance matrix taxa x samples")
+    }
     abu <- abundances(x)
-    
-    # Average the samples by group
+
+    if (verbose) {
+        message("Average the samples by group")
+    }
     group <- NULL
     if (!is.null(average_by)) {
         dff <- as.data.frame(t(abu))
@@ -73,8 +71,10 @@ plot_composition <- function(x, sample.sort=NULL,
         av$group <- NULL
         abu <- t(av)  # taxa x groups
     }
-    
-    # Sort samples
+
+    if (verbose) {
+        message("Sort samples")
+    }
     if (is.null(sample.sort) || sample.sort == "none" ||
         !is.null(average_by)) {
         # No sorting sample.sort <- sample_names(x)
@@ -92,7 +92,7 @@ plot_composition <- function(x, sample.sort=NULL,
         sample.sort <- neatsort(x, method="NMDS", distance="bray",
         target="sites", first=NULL)
     } else if (is.vector(sample.sort) && length(sample.sort) > 1) {
-        sample.sort <- sample_names(x)[sample.sort]        	
+        sample.sort <- sample_names(x)[sample.sort]            
     } else if (!sample.sort %in% names(sample_data(x))) {
         warning(paste("The sample.sort argument", sample.sort,
         "is not included in sample_data(x). 
@@ -108,6 +108,12 @@ plot_composition <- function(x, sample.sort=NULL,
         otu.sort <- rev(names(sort(rowSums(abu))))
     } else if (length(otu.sort) == 1 && otu.sort %in% names(tax_table(x))) {
         # Sort by phylogenetic group
+        #taxic <- as.data.frame(x@tax_table) 
+        #otu.df <- as.data.frame(otu_table(x))
+        #taxic$OTU <- row.names(otu.df)
+        #taxmat <- as.matrix(taxic) # convert it into a matrix.
+        #new.tax <- tax_table(taxmat)  # convert into phyloseq compaitble file.
+        #tax_table(x) <- new.tax # incroporate into phyloseq Object    
         otu.sort <- rownames(sample_data(x))[order(tax_table(x)[[otu.sort]])]
     } else if (all(otu.sort %in% taxa(x))) {
         # Use predefined order

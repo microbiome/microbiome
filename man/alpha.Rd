@@ -4,7 +4,7 @@
 \alias{alpha}
 \title{Global Ecosystem State Variables}
 \usage{
-alpha(x, index = "all")
+alpha(x, index = "all", zeroes = TRUE)
 }
 \arguments{
 \item{x}{A species abundance vector, or matrix (taxa/features x samples)
@@ -13,6 +13,8 @@ with the absolute count data (no relative abundances), or
 
 \item{index}{Default is ‘NULL’, meaning that all available indices
 will be included. For specific options, see details.}
+
+\item{zeroes}{Include zero counts in the diversity estimation.}
 }
 \value{
 A data.frame of samples x alpha diversity indicators

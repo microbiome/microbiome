@@ -42,11 +42,11 @@ neat <- function(x, arrange="both", method="NMDS", distance="bray",
     x <- abundances(x)
     
     if (is.null(rownames(x))) {
-        rownames(x) <- as.character(1:nrow(x))
+        rownames(x) <- as.character(seq_len(nrow(x)))
     }
     
     if (is.null(colnames(x))) {
-        colnames(x)=as.character(1:ncol(x))
+        colnames(x)=as.character(seq_len(ncol(x)))
     }
     
     if (arrange %in% c("features", "both")) {

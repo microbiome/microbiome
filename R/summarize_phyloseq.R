@@ -1,6 +1,8 @@
 #' @title Summarize phyloseq object
 #' @description Prints basic information of data.
-#' @details The summarize_phyloseq function will give information on weather data is compositional or not, reads (min. max, median, average), sparsity, 
+#' @details The summarize_phyloseq function will give information on weather
+#'    data is compositional or not, reads (min. max, median, average),
+#'    sparsity, 
 #' presence of singletons and sample variables. 
 #' @param x Input is a \code{\link{phyloseq-class}} object.
 #' @return Prints basic information of \code{\link{phyloseq-class}} object.
@@ -14,7 +16,8 @@
 summarize_phyloseq <- function(x)
 {
     
-    ave <- minR <- maxR <- tR <- aR <- mR <- sR <- sR1 <- sR2 <- svar <- sam_var <- zno <- comp <- NULL
+    ave <- minR <- maxR <- tR <- aR <- mR <- sR <- sR1 <- sR2 <- svar <- NULL
+    sam_var <- zno <- comp <- NULL
     
     ave <- sum(sample_sums(x))/nsamples(x)
     

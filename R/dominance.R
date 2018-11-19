@@ -161,7 +161,7 @@ dominance_help <- function(x, index="all", rank=1, relative=TRUE,
         })
     } else {
         do <- apply(otu, 2, function(x) {
-            sum(rev(sort(x))[1:rank])
+            sum(rev(sort(x))[seq_len(rank)])
         })
     }
     

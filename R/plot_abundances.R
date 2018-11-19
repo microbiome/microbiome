@@ -14,7 +14,6 @@
 plot_abundances <- function(x, level = "Phylum", tax = "Bacteroidetes") {
 
     x <- aggregate_taxa(x, level = level)
-
     xc <- transform(x, "compositional")
     sample.sort <- rev(sample_names(x)[order(abundances(xc)[tax,])])
     

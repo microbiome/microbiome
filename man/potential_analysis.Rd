@@ -42,7 +42,7 @@ analysis of Livina et al. (2010) as described in Lahti et al. (2014).
 data(peerj32)
 
 # Log10 abundance of Dialister
-x <- log10(abundances(peerj32$phyloseq)['Dialister',])
+x <- abundances(transform(peerj32$phyloseq, "clr"))['Dialister',]
 
 # Bootstrapped potential analysis
 # In practice, use more bootstrap iterations

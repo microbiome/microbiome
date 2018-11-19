@@ -6,5 +6,5 @@ check_phyloseq <- function (x) {
     }
     
     x
-  
+
 }

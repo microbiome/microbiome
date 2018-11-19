@@ -23,7 +23,7 @@
 #' #        package='microbiome')
 #'
 #' #meta.file <- system.file("extdata/qiita1629_mapping_subset.csv",
-#' #       package='microbiome')
+#' #     package='microbiome')
 #'
 #' #p0 <- read_csv2phyloseq(
 #' #        otu.file=otu.file, 
@@ -55,7 +55,7 @@ read_csv2phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,
         s.tax_table <- cbind(s.tax_table, OTU = rownames(s.tax_table))
         s.tax_table <- tax_table(s.tax_table)
     }
- 
+
     pseq <- merge_phyloseq(s.otu.table, s.tax_table, s.sampledata) 
     return(pseq)
 }
