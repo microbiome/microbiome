@@ -46,7 +46,7 @@ kable(head(tab))
 
 This returns a table with selected diversity indicators. See a separate page on [Beta diversity](Betadiversity.html).
 
-```{r alpha, warning=FALSE, message=FALSE, fig.height=3, fig.width=5, results="asis"}
+```{r alpha2, warning=FALSE, message=FALSE, fig.height=3, fig.width=5, results="asis"}
 tab <- alpha(pseq, index = "all")
 kable(head(tab))
 ```

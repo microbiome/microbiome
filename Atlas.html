@@ -108,8 +108,8 @@ $(document).ready(function () {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Download the required R packages and then the HITChip Atlas data set</span>
 <span class="kw">library</span>(microbiome)
 <span class="kw">data</span>(atlas1006)</code></pre></div>
-<p>Estimate global ecosystem indicators for this data set:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tab &lt;-<span class="st"> </span><span class="kw">global</span>(atlas1006, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;shannon&quot;</span>, <span class="st">&quot;invsimpson&quot;</span>))
+<p>Estimate ecosystem alpha diversity and related indicators for this data set:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tab &lt;-<span class="st"> </span><span class="kw">alpha</span>(atlas1006, <span class="dt">index =</span> <span class="kw">c</span>(<span class="st">&quot;shannon&quot;</span>, <span class="st">&quot;invsimpson&quot;</span>))
 
 <span class="kw">library</span>(knitr)
 <span class="kw">kable</span>(<span class="kw">head</span>(tab))</code></pre></div>
@@ -117,105 +117,33 @@ $(document).ready(function () {
 <thead>
 <tr class="header">
 <th></th>
-<th align="left">diversity_shannon</th>
+<th align="right">diversity_shannon</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Sample-1</td>
-<td align="left">function ()</td>
+<td align="right">3.187815</td>
 </tr>
 <tr class="even">
-<td>{</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td>abort(“</td>
-<td align="left">This function should not be called directly“)</td>
-</tr>
-<tr class="even">
-<td>}</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
 <td>Sample-2</td>
-<td align="left">function ()</td>
-</tr>
-<tr class="even">
-<td>{</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td>abort(“</td>
-<td align="left">This function should not be called directly“)</td>
-</tr>
-<tr class="even">
-<td>}</td>
-<td align="left"></td>
+<td align="right">3.394462</td>
 </tr>
 <tr class="odd">
 <td>Sample-3</td>
-<td align="left">function ()</td>
+<td align="right">2.864855</td>
 </tr>
 <tr class="even">
-<td>{</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td>abort(“</td>
-<td align="left">This function should not be called directly“)</td>
-</tr>
-<tr class="even">
-<td>}</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
 <td>Sample-4</td>
-<td align="left">function ()</td>
-</tr>
-<tr class="even">
-<td>{</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td>abort(“</td>
-<td align="left">This function should not be called directly“)</td>
-</tr>
-<tr class="even">
-<td>}</td>
-<td align="left"></td>
+<td align="right">3.056922</td>
 </tr>
 <tr class="odd">
 <td>Sample-5</td>
-<td align="left">function ()</td>
+<td align="right">3.073742</td>
 </tr>
 <tr class="even">
-<td>{</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td>abort(“</td>
-<td align="left">This function should not be called directly“)</td>
-</tr>
-<tr class="even">
-<td>}</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
 <td>Sample-6</td>
-<td align="left">function ()</td>
-</tr>
-<tr class="even">
-<td>{</td>
-<td align="left"></td>
-</tr>
-<tr class="odd">
-<td>abort(“</td>
-<td align="left">This function should not be called directly“)</td>
-</tr>
-<tr class="even">
-<td>}</td>
-<td align="left"></td>
+<td align="right">2.941993</td>
 </tr>
 </tbody>
 </table>
