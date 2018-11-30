@@ -86,10 +86,11 @@ To install microbiome package in R (Bioconductor development version),
 use
 
 ```{r install, eval=FALSE}
-library(BiocInstaller)
-source("http://www.bioconductor.org/biocLite.R")
-useDevel()
-biocLite("microbiome")
+library(BiocManager)
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install(version = "devel")
+BiocManager::install("microbiome")
 ```
 
 Then load the package in R
