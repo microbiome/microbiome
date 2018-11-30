@@ -23,8 +23,9 @@ aggregate_taxa <- function(x, level, top = NULL) {
     # FIXME: this function contains quick hacks to circumvent
     # missing tax_table and sample_data. Those would be better handled
     # in the original reading functions.
+
     mypseq <- check_phyloseq(x)
-    
+
     if (!is.null(mypseq@phy_tree)) {
         
         if (!is.null(top)) {
@@ -42,12 +43,12 @@ aggregate_taxa <- function(x, level, top = NULL) {
         colnames(tax_table(mypseq2))))]
         rownames(tt) <- nams
 
-    mypseq2 <- phyloseq(otu_table(a, taxa_are_rows=TRUE), 
+        mypseq2 <- phyloseq(otu_table(a, taxa_are_rows=TRUE), 
                 sample_data(mypseq2), 
                 tax_table(tt))
 
     } else {
-        
+
         tt <- tax_table(mypseq)
         if (!is.null(top)) {
 
@@ -60,21 +61,22 @@ aggregate_taxa <- function(x, level, top = NULL) {
             tax_table(mypseq) <- tt
         }
 
-        # Split the OTUs in tax_table by the given taxonomic level otus <-
-        # split(rownames(tax_table(mypseq)), tax_table(mypseq)[, level])
-        v <- apply(tt, 2, function(x) {mean(taxa(mypseq) %in% unique(x))})
-        if (max(v) > 0) {
-            current.level <- names(which.max(v))
-        } else {
-            stop("The taxa are not found in tax_table in aggregate_taxa") 
-        }
-        if (length(current.level) == 0) {
-            current.level <- "unique"
-            tax_table(mypseq) <- tax_table(cbind(tax_table(mypseq),
-            unique = rownames(tax_table(mypseq))))
+        # Split the OTUs in tax_table by the given taxonomic level
+        if (all(taxa(mypseq) == rownames(tax_table(mypseq)))) {
+            level.from <- taxa(mypseq)
+        } else {     
+            v <- apply(tt, 2, function(x) {
+                mean(taxa(mypseq) %in% unique(x))})            
+            if (max(v) > 0) {
+                current.level <- names(which.max(v))
+                level.from <-  as.vector(tt[, 4])
+            } else {
+                stop("Taxa not found in aggregate_taxa. Halting.")
+            }
         }
 
-        otus <- map_levels(data=mypseq, to=current.level, from=level)
+        level.to <- as.vector(tax_table(mypseq)[, level])        
+        otus <- split(level.from, level.to)
 
         ab <- matrix(NA, nrow=length(otus), ncol=nsamples(mypseq))
         rownames(ab) <- names(otus)
@@ -87,7 +89,6 @@ aggregate_taxa <- function(x, level, top = NULL) {
             ab[nam, ] <- colSums(matrix(d[taxa, ], ncol=nsamples(mypseq)),
             na.rm = TRUE)
         }
-
 
         # Create phyloseq object
         OTU <- otu_table(ab, taxa_are_rows=TRUE)
@@ -114,10 +115,10 @@ aggregate_taxa <- function(x, level, top = NULL) {
         rownames(tax) <- tax[, level]
         tax$OTU <- rownames(tax)
         tax <- as.matrix(tax)
-        
+
         # Convert to taxonomy table
         TAX <- tax_table(tax)
-        
+
         # Combine OTU and Taxon matrix into Phyloseq object
         mypseq2 <- merge_phyloseq(mypseq2, TAX)
 
