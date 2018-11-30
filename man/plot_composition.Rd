@@ -6,7 +6,7 @@
 \usage{
 plot_composition(x, sample.sort = NULL, otu.sort = NULL,
   x.label = "sample", plot.type = "barplot", verbose = FALSE,
-  mar = c(5, 12, 1, 1), average_by = NULL, ...)
+  average_by = NULL, ...)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -15,7 +15,8 @@ plot_composition(x, sample.sort = NULL, otu.sort = NULL,
 \itemize{
 \item NULL or 'none': No sorting
 \item A single character string: indicate the metadata field to be used
- for ordering
+ for ordering. Or: if this string is found from the tax_table, then sort by the
+ corresponding taxonomic group.
 \item A character vector: sample IDs indicating the sample ordering.
 \item 'neatmap' Order samples based on the neatmap approach.
 See \code{\link{neatsort}}. By default, 'NMDS' method with 'bray'
@@ -37,8 +38,6 @@ This should be one of the variables in sample_variables(x).}
 The options are 'Z-OTU', 'Z-Sample', 'log10' and 'compositional'.
 See the \code{\link{transform}} function.}
 
-\item{mar}{Figure margins}
-
 \item{average_by}{Average the samples by the average_by variable}
 
 \item{...}{Arguments to be passed (for \code{\link{neatsort}} function)}
@@ -50,9 +49,13 @@ A \code{\link{ggplot}} plot object.
 Plot taxon abundance for samples.
 }
 \examples{
-data(dietswap)
-pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR' &
-   sex == "female")
-p <- plot_composition(pseq, verbose = TRUE)
+library(dplyr)
+data(atlas1006)
+pseq <- atlas1006 \%>\%
+   subset_samples(DNA_extraction_method == "r") \%>\%
+   aggregate_taxa(level = "Phylum") \%>\%
+   transform(transform = "compositional")
+p <- plot_composition(pseq, sample.sort = "Firmicutes", otu.sort = "abudance", verbose = TRUE) +
+         scale_fill_manual(values = default_colors("Phylum")[taxa(pseq)]) # Use custom colors
 }
 \keyword{utilities}

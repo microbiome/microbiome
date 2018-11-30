@@ -5,7 +5,8 @@
 #' \itemize{
 #' \item NULL or 'none': No sorting
 #' \item A single character string: indicate the metadata field to be used
-#'  for ordering
+#'  for ordering. Or: if this string is found from the tax_table, then sort by the
+#'  corresponding taxonomic group.
 #' \item A character vector: sample IDs indicating the sample ordering.
 #' \item 'neatmap' Order samples based on the neatmap approach.
 #' See \code{\link{neatsort}}. By default, 'NMDS' method with 'bray'
@@ -22,30 +23,34 @@
 #'  (but not in sample/taxon ordering).
 #' The options are 'Z-OTU', 'Z-Sample', 'log10' and 'compositional'.
 #' See the \code{\link{transform}} function.
-#' @param mar Figure margins
 #' @param average_by Average the samples by the average_by variable 
 #' @param ... Arguments to be passed (for \code{\link{neatsort}} function)
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
 #' @examples
-#' data(dietswap)
-#' pseq <- subset_samples(dietswap, group == 'DI' & nationality == 'AFR' &
-#'    sex == "female")
-#' p <- plot_composition(pseq, verbose = TRUE)
+#' library(dplyr)
+#' data(atlas1006)
+#' pseq <- atlas1006 %>%
+#'    subset_samples(DNA_extraction_method == "r") %>%
+#'    aggregate_taxa(level = "Phylum") %>%
+#'    transform(transform = "compositional")
+#' p <- plot_composition(pseq, sample.sort = "Firmicutes", otu.sort = "abudance", verbose = TRUE) +
+#'          scale_fill_manual(values = default_colors("Phylum")[taxa(pseq)]) # Use custom colors
 #' @keywords utilities
 plot_composition <- function(x, sample.sort=NULL,
     otu.sort=NULL, x.label="sample", plot.type="barplot",
     verbose=FALSE, 
-    mar=c(5, 12, 1, 1), average_by=NULL, ...) {
+    average_by=NULL, ...) {
     
     # Avoid warnings
-    Sample <- Abundance <- Taxon <- horiz <- value <- scales <- ID <- 
+    Sample <- Abundance <- Taxon <- Tax <- horiz <- value <- scales <- ID <- 
         meta <- OTU <- taxic <- otu.df <- taxmat <-  new.tax<- NULL
     if (!is.null(x@phy_tree)){
         x@phy_tree <- NULL
     }
         
     xorig <- x
+
 
     if (verbose) {
         message("Pick the abundance matrix taxa x samples")
@@ -79,6 +84,9 @@ plot_composition <- function(x, sample.sort=NULL,
         !is.null(average_by)) {
         # No sorting sample.sort <- sample_names(x)
         sample.sort <- colnames(abu)
+    } else if (length(sample.sort) == 1 && sample.sort %in% taxa(xorig)) {
+        tax <- sample.sort
+        sample.sort <- rev(sample_names(x)[order(abundances(x)[tax,])])
     } else if (length(sample.sort) == 1 &&
         sample.sort %in% names(sample_data(x)) && 
         is.null(average_by)) {
@@ -104,6 +112,8 @@ plot_composition <- function(x, sample.sort=NULL,
     if (is.null(otu.sort) || otu.sort == "none") {
         # No sorting
         otu.sort <- taxa(x)
+    } else if (length(otu.sort) == 1 && otu.sort == "abundance2") {
+        otu.sort <- rev(c(rev(names(sort(rowSums(abu)))[seq(1, nrow(abu), 2)]), names(sort(rowSums(abu)))[seq(2, nrow(abu), 2)]))
     } else if (length(otu.sort) == 1 && otu.sort == "abundance") {
         otu.sort <- rev(names(sort(rowSums(abu))))
     } else if (length(otu.sort) == 1 && otu.sort %in% names(tax_table(x))) {
@@ -129,10 +139,10 @@ plot_composition <- function(x, sample.sort=NULL,
     
     # Abundances as data.frame dfm <- psmelt(x)
     dfm <- psmelt(otu_table(abu, taxa_are_rows = TRUE))
-    names(dfm) <- c("OTU", "Sample", "Abundance")
+    names(dfm) <- c("Tax", "Sample", "Abundance")
 
     dfm$Sample <- factor(dfm$Sample, levels=sample.sort)
-    dfm$OTU <- factor(dfm$OTU, levels=otu.sort)
+    dfm$Tax <- factor(dfm$Tax, levels=otu.sort)
     
     # SampleIDs for plotting
     if (x.label %in% colnames(sample_data(x)) & is.null(average_by)) {
@@ -166,9 +176,9 @@ plot_composition <- function(x, sample.sort=NULL,
     if (plot.type == "barplot") {
         
         # Provide barplot
-        dfm <- dfm %>% arrange(OTU)  # Show OTUs always in the same order
+        dfm <- dfm %>% arrange(Tax)  # Show Taxs always in the same order
 
-        p <- ggplot(dfm, aes(x=Sample, y=Abundance, fill=OTU))
+        p <- ggplot(dfm, aes(x=Sample, y=Abundance, fill=Tax))
         p <- p + geom_bar(position="stack", stat="identity")
         p <- p + scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
 
@@ -195,17 +205,14 @@ plot_composition <- function(x, sample.sort=NULL,
         otu.sort <- otu.sort[otu.sort %in% rownames(otu)]
         sample.sort <- sample.sort[sample.sort %in% colnames(otu)]
         
-        # Plot TODO: move it in here from netresponse and return the
-        # #ggplot object as well
-        # p <- plot_matrix(otu[otu.sort, sample.sort], type="twoway", mar=mar)
         tmp <- melt(otu[otu.sort, sample.sort])
         p <- heat(tmp, colnames(tmp)[[1]], colnames(tmp)[[2]],
             colnames(tmp)[[3]])
         
     } else if (plot.type == "lineplot") {
 
-        dfm <- dfm %>% arrange(OTU)  # Show OTUs always in the same order
-        p <- ggplot(dfm, aes(x=Sample, y=Abundance, color=OTU, group = OTU))
+        dfm <- dfm %>% arrange(Tax)  # Show Taxs always in the same order
+        p <- ggplot(dfm, aes(x=Sample, y=Abundance, color=Tax, group = Tax))
         p <- p + geom_point()
         p <- p + geom_line()    
         p <- p + scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)

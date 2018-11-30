@@ -1,4 +1,7 @@
 Changes in version 1.5.2 (2018-11-20)
++ plot_composition function: new options for sample.sort and otu.sort
++ Added Phylum level to taxonomy tables in example data sets 
+* New function: dominant
 + The diversities function is now replaces by alpha function. The alpha is more
   generic and can return also other alpha diversity indices.
 + plot_frequencies function now only returns the ggplot object

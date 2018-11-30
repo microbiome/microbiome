@@ -11,7 +11,9 @@ test_that("alpha indices work correctly", {
   expect_true(is.data.frame(alpha(pseq)))
   expect_true(is.data.frame(evenness(pseq)))
 
-  expect_true(all(unlist(richness(dietswap, index='observed') ) == unlist(alpha(dietswap, index='observed') )))      
+  expect_true(all(rownames(abundances(pseq)) == taxa(pseq)))
+
+  expect_true(all(unlist(richness(pseq, index='observed') ) == unlist(alpha(pseq, index='observed') )))      
 
   expect_true(max(low_abundance(transform(pseq, "compositional"))) <= 1)
 
