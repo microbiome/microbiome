@@ -55,18 +55,19 @@ alpha <- function(x, index="all", zeroes=TRUE) {
         }   
     }
 
+
     message("Other forms of richness")
     if (any(c("all", "chao1") %in% index)) {
         a <- richness(x, index = "chao1")
         a <- as.matrix(a, ncol=1)
         colnames(a) <- "chao1"
-
         if (!is.null(tab)) {
             tab <- cbind(tab, a)
         } else {
             tab <- a
         }
     }
+
 
     message("Diversity")
     a <- diversity(x, index=gsub("diversity_", "",
@@ -76,7 +77,6 @@ alpha <- function(x, index="all", zeroes=TRUE) {
             a <- as.matrix(a, ncol=1)
         }
         colnames(a) <- paste("diversity_", colnames(a), sep="")
-    
         if (!is.null(tab)) {
             tab <- cbind(tab, a)
         } else {

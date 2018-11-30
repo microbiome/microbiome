@@ -5,7 +5,8 @@
 #' \itemize{
 #' \item NULL or 'none': No sorting
 #' \item A single character string: indicate the metadata field to be used
-#'  for ordering. Or: if this string is found from the tax_table, then sort by the
+#'  for ordering. Or: if this string is found from the tax_table, then sort
+#'  by the
 #'  corresponding taxonomic group.
 #' \item A character vector: sample IDs indicating the sample ordering.
 #' \item 'neatmap' Order samples based on the neatmap approach.
@@ -34,8 +35,9 @@
 #'    subset_samples(DNA_extraction_method == "r") %>%
 #'    aggregate_taxa(level = "Phylum") %>%
 #'    transform(transform = "compositional")
-#' p <- plot_composition(pseq, sample.sort = "Firmicutes", otu.sort = "abudance", verbose = TRUE) +
-#'          scale_fill_manual(values = default_colors("Phylum")[taxa(pseq)]) # Use custom colors
+#' p <- plot_composition(pseq, sample.sort = "Firmicutes",
+#'          otu.sort = "abudance", verbose = TRUE) +
+#'      scale_fill_manual(values = default_colors("Phylum")[taxa(pseq)]) 
 #' @keywords utilities
 plot_composition <- function(x, sample.sort=NULL,
     otu.sort=NULL, x.label="sample", plot.type="barplot",
@@ -113,7 +115,8 @@ plot_composition <- function(x, sample.sort=NULL,
         # No sorting
         otu.sort <- taxa(x)
     } else if (length(otu.sort) == 1 && otu.sort == "abundance2") {
-        otu.sort <- rev(c(rev(names(sort(rowSums(abu)))[seq(1, nrow(abu), 2)]), names(sort(rowSums(abu)))[seq(2, nrow(abu), 2)]))
+        otu.sort <- rev(c(rev(names(sort(rowSums(abu)))[seq(1, nrow(abu), 2)]),
+        names(sort(rowSums(abu)))[seq(2, nrow(abu), 2)]))
     } else if (length(otu.sort) == 1 && otu.sort == "abundance") {
         otu.sort <- rev(names(sort(rowSums(abu))))
     } else if (length(otu.sort) == 1 && otu.sort %in% names(tax_table(x))) {

@@ -153,9 +153,11 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
             gini_simpson(x)
         })
     } else if (index == "shannon") {
+
         ev <- apply(otu, 2, function(x) {
             shannon(x)
         })
+
     } else if (index == "fisher") {
         if (length(setdiff(unique(as.vector(otu)%%1), 0)) == 0) {
             ev <- fisher.alpha(otu, MARGIN=2)
@@ -214,7 +216,7 @@ simpson_index <- function(x) {
 
 # x: Species count vector
 shannon <- function(x) {
-    
+
     # Ignore zeroes
     x <- x[x > 0]
     
@@ -226,7 +228,7 @@ shannon <- function(x) {
     
     # Shannon index
     (-sum(p * log(p)))
-    n
+    
 }
 
 

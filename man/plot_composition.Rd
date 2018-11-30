@@ -15,7 +15,8 @@ plot_composition(x, sample.sort = NULL, otu.sort = NULL,
 \itemize{
 \item NULL or 'none': No sorting
 \item A single character string: indicate the metadata field to be used
- for ordering. Or: if this string is found from the tax_table, then sort by the
+ for ordering. Or: if this string is found from the tax_table, then sort
+ by the
  corresponding taxonomic group.
 \item A character vector: sample IDs indicating the sample ordering.
 \item 'neatmap' Order samples based on the neatmap approach.
@@ -55,7 +56,8 @@ pseq <- atlas1006 \%>\%
    subset_samples(DNA_extraction_method == "r") \%>\%
    aggregate_taxa(level = "Phylum") \%>\%
    transform(transform = "compositional")
-p <- plot_composition(pseq, sample.sort = "Firmicutes", otu.sort = "abudance", verbose = TRUE) +
-         scale_fill_manual(values = default_colors("Phylum")[taxa(pseq)]) # Use custom colors
+p <- plot_composition(pseq, sample.sort = "Firmicutes",
+         otu.sort = "abudance", verbose = TRUE) +
+     scale_fill_manual(values = default_colors("Phylum")[taxa(pseq)]) 
 }
 \keyword{utilities}

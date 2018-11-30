@@ -4,10 +4,12 @@
 \alias{dominant}
 \title{Dominant taxa}
 \usage{
-dominant(x)
+dominant(x, level = NULL)
 }
 \arguments{
 \item{x}{A \code{\link{phyloseq-class}} object}
+
+\item{level}{Optional. Taxonomic level.}
 }
 \value{
 A vector of dominance indices

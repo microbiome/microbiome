@@ -10,21 +10,21 @@
 #' @keywords utilities
 default_colors <- function (x, v=NULL) {
 
-  if (x == "Phylum") {
-    #http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
-    #https://www.r-graph-gallery.com/42-colors-names/
-    col <- c(
-        "Actinobacteria" = "darkgreen",
-	"Firmicutes" = "blue",
-	"Proteobacteria" = "black",
-	"Verrucomicrobia" = "darkblue",
-	"Bacteroidetes" = "red",
-	"Spirochaetes" = "darkgray",
-	"Fusobacteria" = "lightblue",
-	"Cyanobacteria" = "deepskyblue3")
-  }      
+    if (x == "Phylum") {
+        #http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
+        #https://www.r-graph-gallery.com/42-colors-names/
+        col <- c(
+            "Actinobacteria" = "darkgreen",
+            "Firmicutes" = "blue",
+            "Proteobacteria" = "black",
+            "Verrucomicrobia" = "darkblue",
+            "Bacteroidetes" = "red",
+            "Spirochaetes" = "darkgray",
+            "Fusobacteria" = "lightblue",
+            "Cyanobacteria" = "deepskyblue3")
+    }      
 
-  col
+    col
 
 }
 
