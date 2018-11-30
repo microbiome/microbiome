@@ -50,9 +50,23 @@ library(hrbrthemes)
 library(gcookbook)
 library(tidyverse)
 
+
+data(atlas1006)
+pseq <- atlas1006 %>%
+          subset_samples(DNA_extraction_method == "r") %>%
+          aggregate_taxa(level = "Phylum") %>%	
+          transform(transform = "compositional")
+
+p <- pseq %>%
+    plot_composition(sample.sort = "Firmicutes", otu.sort = "abundance") +
+          scale_fill_manual(values = default_colors("Phylum")[taxa(pseq)]) # Set custom colors
+
+print(p)
+
+
 # Limit the analysis on core taxa and specific sample group
 p <- plot_composition(pseq2,
-		      taxonomic.level = "OTU",
+		      taxonomic.level = "Genus",
                       sample.sort = "nationality",
                       x.label = "nationality") +
      guides(fill = guide_legend(ncol = 1)) +

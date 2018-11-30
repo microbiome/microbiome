@@ -31,13 +31,7 @@ data(dietswap)
 
 # Just use prevalent taxa to speed up examples
 # (not absolute counts used in this example)
-<<<<<<< HEAD
-pseq <- core(dietswap, detection = 100, prevalence = 50/100)
-||||||| merged common ancestors
-pseq <- core(dietswap, detection = 10^3, prevalence = 95/100)
-=======
 pseq <- core(dietswap, detection = 8^2, prevalence = 90/100)
->>>>>>> 371ff05b569a6264d9798b347807497f5edc6dbd
 
 # Pick sample subset
 library(phyloseq)
