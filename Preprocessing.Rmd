@@ -178,7 +178,7 @@ Assign new fields to metadata
 
 ```{r preprocess4b2, warning=FALSE, message=FALSE}
 # Calculate diversity for samples
-div <- global(pseq, index = "shannon")
+div <- alpha(pseq, index = "shannon")
 
 # Assign the estimated diversity to sample metadata
 sample_data(pseq)$diversity <- div
@@ -303,11 +303,11 @@ Visualize frequencies of given factor (sex) levels within the
 indicated groups (group):
 
 ```{r phylogeny-example3, warning=FALSE, message=FALSE, fig.width=10, fig.height=6}
-res <- plot_frequencies(sample_data(pseq), "bmi_group", "gender")
-print(res$plot)
+p <- plot_frequencies(sample_data(pseq), "bmi_group", "sex")
+print(p)
 
 # Retrieving the actual data values:
-kable(head(res$data), digits = 2)
+# kable(head(p@data), digits = 2)
 ```
 
 

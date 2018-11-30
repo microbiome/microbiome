@@ -66,12 +66,12 @@ Explore the phyloseq data format. See [examples on microbiome data manipulation]
 Explore the estimation and analysis of various [diversity indices](Diversity.html) and [taxonomic composition](Composition.html).
 
 ```{r global, message=FALSE, warning=FALSE}
-tab <- global(pseq, index = "all")
+tab <- alpha(pseq, index = "all")
 kable(head(tab))
 ```
 
 Assign the estimated diversity to sample metadata
-```{r global2, message=FALSE, warning=FALSE}
+```{r alpha2, message=FALSE, warning=FALSE}
 sample_data(pseq)$diversity <- tab$diversity_shannon
 ```
 

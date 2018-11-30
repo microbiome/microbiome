@@ -36,8 +36,8 @@ pseq <- dietswap
 
 A comprehensive list of global indicators of the ecosystem state can be obtained as follows. This includes various measures of richness, evenness, diversity, dominance, and rarity with default parameters. See the individual functions for more options regarding parameter tuning.
 
-```{r global, warning=FALSE, message=FALSE, fig.height=3, fig.width=5, results="asis"}
-tab <- global(pseq, index = "all")
+```{r alpha, warning=FALSE, message=FALSE, fig.height=3, fig.width=5, results="asis"}
+tab <- alpha(pseq, index = "all")
 kable(head(tab))
 ```
 
@@ -71,6 +71,14 @@ The dominance index refers to the abundance of the most abundant species. Variou
 tab <- dominance(pseq, index = "all")
 kable(head(tab))
 ```
+
+We also have a function to list the dominating (most abundant) taxa in each sample.
+
+
+```{r dominant, warning=FALSE, message=FALSE, results="hide"}
+dominant(pseq)
+```
+
 
 
 ## Rarity and low abundance
