@@ -29,6 +29,9 @@ library(microbiome)
 library(dplyr)
 data(dietswap)
 
+# Make sure we use functions from correct package
+transform <- microbiome::transform
+
 # Just use prevalent taxa to speed up examples
 # (not absolute counts used in this example)
 pseq <- core(dietswap, detection = 50, prevalence = 50/100)
@@ -83,6 +86,7 @@ print(p)
 p <- plot_composition(pseq2,
                       average_by = "bmi_group", transform = "compositional")
 print(p)
+p <- NULL
 ```
 
 
@@ -93,7 +97,7 @@ Heatmap for CLR-transformed abundances, with samples and OTUs sorted
 with the neatmap method:
   
 ```{r composition-example7, fig.width=10, fig.height=8, out.width="800px"}
-p <- plot_composition(transform(pseq, "compositional"),
+p <- plot_composition(microbiome::transform(pseq, "compositional"),
 	                plot.type = "heatmap",
                         sample.sort = "neatmap",
 			otu.sort = "neatmap")
@@ -225,8 +229,7 @@ print(p.fam)
 ## Plot relative abundance
 
 ```{r composition-amplicon-example4, fig.width=12, fig.height=5, out.width="400px", fig.show="hold", warning=FALSE, message=FALSE}
-
-pseq.famrel <- transform(pseq.fam, "compositional")
+pseq.famrel <- microbiome::transform(pseq.fam, "compositional")
 
 p.famrel <- plot_composition(pseq.famrel, sample.sort = NULL, otu.sort = NULL,
   x.label = "ibd_subtype", plot.type = "barplot", verbose = FALSE)
@@ -253,22 +256,4 @@ p.famrel <- plot_composition(pseq.famrel,
 print(p.famrel)
 ```
 
-
-Average by group
-
-```{r composition-amplicon-example5, fig.width=12, fig.height=5, out.width="400px", fig.show="hold", warning=FALSE, message=FALSE}
-# Averaged by group
-p <- plot_composition(pseq.famrel,
-                      average_by = "ibd_subtype") + 
-  guides(fill = guide_legend(ncol = 1)) + 
-  scale_y_percent() + 
-  labs(x = "Samples", 
-       y = "Relative abundance (%)",
-       title = "Relative abundance data", 
-       subtitle = "Subtitle",
-       caption = "Caption text.") + 
-     theme_ipsum(grid="Y")
-
-print(p)
-```
 
