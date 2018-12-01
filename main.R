@@ -13,17 +13,8 @@ library(ggplot2)
 library(microbiome)
 
 library(rmarkdown)
-#rmarkdown::render("index.Rmd")
-#rmarkdown::render("Template.Rmd")
-#rmarkdown::render("Atlas.Rmd", "all")
-# remove html_document
-#render("index.Rmd", "html_document")
-#rmarkdown::render("index.Rmd", "all")
 library(knitr)
 library(knitcitations)
-#knit("index.Rmd")
-#library(knitr)
-#knit("Atlas.Rmd")
 
 # ---------------------------------------------
 
@@ -40,7 +31,9 @@ fs <- "Experimental.Rmd"
 #fs <- "Landscaping.Rmd"
 #fs <- sample(list.files(pattern = ".Rmd$"), 20)
 fs <- sample(list.files(pattern = ".Rmd$")) # Random order
+
 knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
+
 times <- c()
 namespaces0 <-  loadedNamespaces()
 
@@ -57,8 +50,8 @@ for (myfile in fs) {
 #system("git add *.md")
 #system("git add figure/*")
 #system("git add *.Rmd")
- system("git add *.html")
- system("git commit -a -m'homepage update'")
-#system("git push origin gh-pages")
+system("git add *.html")
+system("git commit -a -m'homepage update'")
+system("git push origin gh-pages")
 #system("rm -rf cache")
 #system("rm -rf figure")

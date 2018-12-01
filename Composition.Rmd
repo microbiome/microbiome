@@ -53,13 +53,13 @@ pseq3 <- atlas1006 %>%
 
 Same with compositional (relative) abundances; for each sample (left), or averafged by group (right).
   
-```{r composition-example4b, fig.width=10, fig.height=8, out.width="400px", fig.show="hold", warning=FALSE, message=FALSE}
+```{r composition-example4b, fig.width=10, fig.height=8, out.width="50%", fig.show="hold", warning=FALSE, message=FALSE}
 # Try another theme
 # from https://github.com/hrbrmstr/hrbrthemes
 library(hrbrthemes)
 library(gcookbook)
 library(tidyverse)
-theme_set(theme_bw(20))
+theme_set(theme_bw(21))
 p <- pseq3 %>%
     plot_composition(sample.sort = "Firmicutes", otu.sort = "abundance") +
          # Set custom colors
@@ -81,7 +81,10 @@ p <- plot_composition(pseq2,
                                    caption = "Caption text.") + 
      theme_ipsum(grid="Y")
 print(p)  
+```
 
+
+```{r composition-example4c, fig.width=10, fig.height=8, out.width="80%", fig.show="hold", warning=FALSE, message=FALSE}
 # Averaged by group
 p <- plot_composition(pseq2,
                       average_by = "bmi_group", transform = "compositional")
