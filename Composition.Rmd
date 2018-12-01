@@ -6,7 +6,7 @@ bibliography:
 output:
   rmdformats::readthedown:
     self_contained: true
-    thumbnails: true
+    thumbnails: false
     lightbox: true
     gallery: true
     use_bookdown: false
