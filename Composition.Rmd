@@ -16,7 +16,8 @@ output:
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteIndexEntry{microbiome tutorial - composition}
   %\usepackage[utf8]{inputenc}
-  %\VignetteEncoding{UTF-8}  
+  %\VignetteEncoding{UTF-8}
+  %\setkeys{Gin}{width=\linewidth,height=\textheight,keepaspectratio}
 -->
   
   
@@ -53,7 +54,7 @@ pseq3 <- atlas1006 %>%
 
 Same with compositional (relative) abundances; for each sample (left), or averafged by group (right).
   
-```{r composition-example4b, fig.width=10, fig.height=8, out.width="50%", fig.show="hold", warning=FALSE, message=FALSE}
+```{r composition-example4b, fig.width=10, fig.height=8, out.width="100%", fig.show="hold", warning=FALSE, message=FALSE}
 # Try another theme
 # from https://github.com/hrbrmstr/hrbrthemes
 library(hrbrthemes)
@@ -66,8 +67,10 @@ p <- pseq3 %>%
           scale_fill_manual(values = default_colors("Phylum")[taxa(pseq)]) 
 
 print(p)
+```
 
 
+```{r composition-example4c, fig.width=10, fig.height=8, out.width="50%", fig.show="hold", warning=FALSE, message=FALSE}
 # Limit the analysis on core taxa and specific sample group
 p <- plot_composition(pseq2,
 		      taxonomic.level = "Genus",
@@ -81,10 +84,8 @@ p <- plot_composition(pseq2,
                                    caption = "Caption text.") + 
      theme_ipsum(grid="Y")
 print(p)  
-```
 
 
-```{r composition-example4c, fig.width=10, fig.height=8, out.width="80%", fig.show="hold", warning=FALSE, message=FALSE}
 # Averaged by group
 p <- plot_composition(pseq2,
                       average_by = "bmi_group", transform = "compositional")
