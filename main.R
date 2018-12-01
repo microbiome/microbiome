@@ -38,7 +38,8 @@ fs <- "Experimental.Rmd"
 #fs <- "index.Rmd"
 #fs <- "rstanarm.Rmd"
 #fs <- "Landscaping.Rmd"
-fs <- sample(list.files(pattern = ".Rmd$"), 20)
+#fs <- sample(list.files(pattern = ".Rmd$"), 20)
+fs <- sample(list.files(pattern = ".Rmd$")) # Random order
 knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
 times <- c()
 namespaces0 <-  loadedNamespaces()

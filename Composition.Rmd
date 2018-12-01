@@ -36,6 +36,14 @@ pseq <- core(dietswap, detection = 50, prevalence = 50/100)
 # Pick sample subset
 library(phyloseq)
 pseq2 <- subset_samples(pseq, group == "DI" & nationality == "AFR" & timepoint.within.group == 1)
+
+# Normal western adults
+data(atlas1006)
+pseq3 <- atlas1006 %>%
+          subset_samples(DNA_extraction_method == "r") %>%
+          aggregate_taxa(level = "Phylum") %>%	
+          microbiome::transform(transform = "compositional")
+
 ```
 
 ## Composition barplots
@@ -48,13 +56,6 @@ Same with compositional (relative) abundances; for each sample (left), or averaf
 library(hrbrthemes)
 library(gcookbook)
 library(tidyverse)
-
-
-data(atlas1006)
-pseq3 <- atlas1006 %>%
-          subset_samples(DNA_extraction_method == "r") %>%
-          aggregate_taxa(level = "Phylum") %>%	
-          transform(transform = "compositional")
 
 p <- pseq3 %>%
     plot_composition(sample.sort = "Firmicutes", otu.sort = "abundance") +
@@ -298,13 +299,12 @@ taxonomic affiliations. This will aid in checking if you filter OTUs
 based on prevalence, then what taxonomic affliations will be lost.
 
 ```{r plot_prev1, fig.height=6, fig.width=8}
-# We will use the ps1 object we created previously.
-print(ps1)
 # Use sample and taxa subset to speed up example
-p0 <- subset_samples(ps1, sex == "male" & timepoint == 1)
+p0 <- subset_samples(ps1, DiseaseState == "H")
 
 # For the available taxonomic levels
-plot_taxa_prevalence(p0, "Phylum")
+p <- plot_taxa_prevalence(p0, "Phylum")
+print(p)
 ```
 
 

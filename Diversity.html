@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
-<meta name="author" content="Leo Lahti, Sudarshan Shetty et al. 2018-11-19" />
+<meta name="author" content="Leo Lahti, Sudarshan Shetty et al. 2018-12-01" />
 
 
 <title>Diversity</title>
@@ -123,7 +123,7 @@ pseq &lt;-<span class="st"> </span>dietswap</code></pre></div>
 <div id="global-indicators" class="section level2">
 <h2>Global indicators</h2>
 <p>A comprehensive list of global indicators of the ecosystem state can be obtained as follows. This includes various measures of richness, evenness, diversity, dominance, and rarity with default parameters. See the individual functions for more options regarding parameter tuning.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tab &lt;-<span class="st"> </span><span class="kw">global</span>(pseq, <span class="dt">index =</span> <span class="st">&quot;all&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tab &lt;-<span class="st"> </span><span class="kw">alpha</span>(pseq, <span class="dt">index =</span> <span class="st">&quot;all&quot;</span>)
 <span class="kw">kable</span>(<span class="kw">head</span>(tab))</code></pre></div>
 <table>
 <thead>
@@ -637,6 +637,8 @@ tab &lt;-<span class="st"> </span><span class="kw">dominance</span>(pseq, <span 
 </tr>
 </tbody>
 </table>
+<p>We also have a function to list the dominating (most abundant) taxa in each sample.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dominant</span>(pseq)</code></pre></div>
 </div>
 <div id="rarity-and-low-abundance" class="section level2">
 <h2>Rarity and low abundance</h2>
@@ -790,7 +792,7 @@ tab &lt;-<span class="st"> </span><span class="kw">dominance</span>(pseq, <span 
 </div>
 
 <div id="postamble" data-toggle="wy-nav-shift" class="status">
-<p class="author"><span class="glyphicon glyphicon-user"></span> Leo Lahti, Sudarshan Shetty et al. 2018-11-19</p>
+<p class="author"><span class="glyphicon glyphicon-user"></span> Leo Lahti, Sudarshan Shetty et al. 2018-12-01</p>
 </div>
 
 
