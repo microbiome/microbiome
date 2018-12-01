@@ -54,7 +54,7 @@ pseq3 <- atlas1006 %>%
 
 Same with compositional (relative) abundances; for each sample (left), or averafged by group (right).
   
-```{r composition-example4b, fig.width=10, fig.height=8, out.width="100%", fig.show="hold", warning=FALSE, message=FALSE}
+```{r composition-example4b, fig.width=10, fig.height=6, out.width="80%", fig.show="hold", warning=FALSE, message=FALSE}
 # Try another theme
 # from https://github.com/hrbrmstr/hrbrthemes
 library(hrbrthemes)
@@ -64,7 +64,7 @@ theme_set(theme_bw(21))
 p <- pseq3 %>%
     plot_composition(sample.sort = "Firmicutes", otu.sort = "abundance") +
          # Set custom colors
-          scale_fill_manual(values = default_colors("Phylum")[taxa(pseq)]) 
+          scale_fill_manual(values = default_colors("Phylum")[taxa(pseq3)]) 
 
 print(p)
 ```
