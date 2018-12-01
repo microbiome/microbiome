@@ -50,13 +50,13 @@ pseq3 <- atlas1006 %>%
 
 Same with compositional (relative) abundances; for each sample (left), or averafged by group (right).
   
-```{r composition-example4b, fig.width=6, fig.height=4, out.width="400px", fig.show="hold", warning=FALSE, message=FALSE}
+```{r composition-example4b, fig.width=10, fig.height=8, out.width="400px", fig.show="hold", warning=FALSE, message=FALSE}
 # Try another theme
 # from https://github.com/hrbrmstr/hrbrthemes
 library(hrbrthemes)
 library(gcookbook)
 library(tidyverse)
-
+theme_set(theme_bw(20))
 p <- pseq3 %>%
     plot_composition(sample.sort = "Firmicutes", otu.sort = "abundance") +
          # Set custom colors
@@ -92,7 +92,7 @@ print(p)
 Heatmap for CLR-transformed abundances, with samples and OTUs sorted
 with the neatmap method:
   
-```{r composition-example7, fig.width=10, fig.height=4}
+```{r composition-example7, fig.width=10, fig.height=8, out.width="800px"}
 p <- plot_composition(transform(pseq, "compositional"),
 	                plot.type = "heatmap",
                         sample.sort = "neatmap",
@@ -108,7 +108,7 @@ allows you to have an overview of OTU prevalences alongwith their
 taxonomic affiliations. This will aid in checking if you filter OTUs
 based on prevalence, then what taxonomic affliations will be lost.
 
-```{r plot_prev, fig.height=6, fig.width=8, dev="CairoPNG", out.width="800px"}
+```{r plot_prev, fig.height=6, fig.width=8, dev="CairoPNG", out.width="100%"}
 data(atlas1006)
 
 # Use sample and taxa subset to speed up example
@@ -120,6 +120,7 @@ p0 <- core(p0, detection = 10, prevalence = 0)
 # For the available taxonomic levels
 plot_taxa_prevalence(p0, "Phylum", detection = 10)
 ```
+
 
 ## Amplicon data
 
@@ -252,9 +253,10 @@ p.famrel <- plot_composition(pseq.famrel,
 print(p.famrel)
 ```
 
+
 Average by group
 
-```{r composition-amplicon-example5, fig.width=12, fig.height=5, out.width="400px", fig.show="hold", warning=FALSE, message=FALSE, eval=FALSE}
+```{r composition-amplicon-example5, fig.width=12, fig.height=5, out.width="400px", fig.show="hold", warning=FALSE, message=FALSE}
 # Averaged by group
 p <- plot_composition(pseq.famrel,
                       average_by = "ibd_subtype") + 
@@ -268,44 +270,5 @@ p <- plot_composition(pseq.famrel,
      theme_ipsum(grid="Y")
 
 print(p)
-
 ```
-
-# Heatmap composition  
-
-```{r composition-amplicon-example6, fig.width=12, fig.height=5, out.width="400px", fig.show="hold", warning=FALSE, message=FALSE, eval=FALSE}
-
-pseq.famlog <- transform(pseq.fam, "log10")
-
-p.famrel.heatmap <- plot_composition(pseq.famlog, 
-                             sample.sort = NULL, 
-                             otu.sort = NULL, 
-                             x.label = "ibd_subtype", 
-                             plot.type = "heatmap", 
-                             verbose = FALSE)
-
-print(p.famrel.heatmap)
-```
-
-
-# Plot taxa prevalence
-
-We use the Dynamics IBD data set from [Halfvarson J., et al. Nature
-Microbiology, 2017](http://www.nature.com/articles/nmicrobiol20174) as
-downloaded from [Qiita ID
-1629](https://qiita.ucsd.edu/study/description/1629). This function
-allows you to have an overview of OTU prevalences alongwith their
-taxonomic affiliations. This will aid in checking if you filter OTUs
-based on prevalence, then what taxonomic affliations will be lost.
-
-```{r plot_prev1, fig.height=6, fig.width=8}
-# Use sample and taxa subset to speed up example
-p0 <- subset_samples(ps1, DiseaseState == "H")
-
-# For the available taxonomic levels
-p <- plot_taxa_prevalence(p0, "Phylum")
-print(p)
-```
-
-
 
