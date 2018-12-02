@@ -131,6 +131,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
 #' @param adjust Kernel width adjustment
 #' @param size point size
 #' @param legend plot legend TRUE/FALSE
+#' @param shading Shading
 #' @return ggplot2 object
 #' @examples
 #'    \dontrun{

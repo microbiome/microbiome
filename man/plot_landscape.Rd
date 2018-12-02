@@ -7,7 +7,7 @@
 plot_landscape(x, method = "PCoA", distance = "bray",
   transformation = "identity", col = NULL, main = NULL,
   x.ticks = 10, rounding = 0, add.points = TRUE, adjust = 1,
-  size = 1, legend = FALSE)
+  size = 1, legend = FALSE, shading = TRUE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object or a data matrix 
@@ -37,6 +37,8 @@ method = "PCA", only euclidean distance is implemented now.}
 \item{size}{point size}
 
 \item{legend}{plot legend TRUE/FALSE}
+
+\item{shading}{Add shading in the background.}
 }
 \value{
 A \code{\link{ggplot}} plot object.
