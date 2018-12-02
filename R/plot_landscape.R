@@ -92,11 +92,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
     }
 
     proj <- as.data.frame(proj)
-<<<<<<< HEAD
     colnames(proj) <- paste0("PC", 1:2)
-=======
-    colnames(proj) <- paste("Comp", c(1,2), sep=".")
->>>>>>> 2ccb390dc39c7389ab7df43de52ceee4225ada7a
 
     guide.title <- "color"
     if (is.null(col)) {
@@ -108,7 +104,6 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
         proj$col <- col
     }
 
-<<<<<<< HEAD
     p <- densityplot(proj[, 1:2], main=NULL, x.ticks=10,
              rounding=0, add.points=TRUE, 
              adjust=1, size=size, col=proj$col,
@@ -116,14 +111,6 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
 	     shading=shading) +
              guides(color = guide_legend(title = guide.title))
 
-
-=======
-    p <- densityplot(proj[, c(1,2)], main=NULL, x.ticks=10,
-        rounding=0, add.points=TRUE, 
-        adjust=1, size=size, col=proj$col, legend = TRUE) +
-    guides(color = guide_legend(title = guide.title))
-    
->>>>>>> 2ccb390dc39c7389ab7df43de52ceee4225ada7a
     p
     
 }
@@ -196,12 +183,6 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
     
     # Construct the figure
     p <- ggplot(df)
-<<<<<<< HEAD
-=======
-    p <- p + stat_density2d(aes(x, y, fill=..density..),
-        geom="raster", h=bw, contour=FALSE)
-    p <- p + scale_fill_gradient(low="white", high="black")
->>>>>>> 2ccb390dc39c7389ab7df43de52ceee4225ada7a
 
     if (shading) {
         p <- p + stat_density2d(aes(x, y, fill=..density..),
@@ -212,11 +193,7 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
     
     if (add.points) {
 
-<<<<<<< HEAD
         if (length(unique(df$color)) == 1 && length(unique(df$size)) == 1) {    
-=======
-        if (length(unique(df$color)) == 1 && length(unique(df$size)) == 1) {
->>>>>>> 2ccb390dc39c7389ab7df43de52ceee4225ada7a
             p <- p + geom_point(aes(x=x, y=y),
             col=unique(df$color), size=unique(df$size))
         } else if (length(unique(df$color)) == 1 &&
