@@ -4,7 +4,8 @@
 #' distribution in the data. It also gives an idea about the taxonomic
 #' affiliation of rare and abundant taxa in the data.
 #' This may be helpful for data filtering or other downstream analysis.
-#' @param x \code{\link{phyloseq-class}} object, OTU data must be counts and not relative abundance or other transformed data.
+#' @param x \code{\link{phyloseq-class}} object, OTU data must be counts and
+#'        not relative abundance or other transformed data.
 #' @param level Phylum/Order/Class/Family
 #' @param detection Detection threshold for presence (prevalance)
 #' @return A \code{\link{ggplot}} plot object.

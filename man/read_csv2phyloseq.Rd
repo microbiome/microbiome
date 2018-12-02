@@ -35,18 +35,18 @@ to \code{\link{phyloseq-class}}.
 
 #otu.file <-
 #   system.file("extdata/qiita1629_otu_table.csv",
-#       package='microbiome')
+#   package='microbiome')
 
 #tax.file <- system.file("extdata/qiita1629_taxonomy_table.csv",
-#       package='microbiome')
+#        package='microbiome')
 
 #meta.file <- system.file("extdata/qiita1629_mapping_subset.csv",
-#       package='microbiome')
+#     package='microbiome')
 
 #p0 <- read_csv2phyloseq(
-#         otu.file=otu.file, 
-#         taxonomy.file=tax.file, 
-#         metadata.file=meta.file)
+#        otu.file=otu.file, 
+#        taxonomy.file=tax.file, 
+#        metadata.file=meta.file)
 
 }
 }

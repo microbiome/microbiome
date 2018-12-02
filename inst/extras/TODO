@@ -1,3 +1,27 @@
+ CITE: theseus R package https://www.biorxiv.org/content/biorxiv/early/2018/04/05/295675.full.pdf
+
+- mare for preprocessing, significance tests (continuous and discrete;
+  neg binomial; with some standard covariates) and analysis workflow;
+  very useful tools but implementation is half-way
+
+- PathoStat has a Shiny and number of features already implemented in R and
+  operating with phyloseq that can be utilized: PCoA, UniFrac,
+  Exploratory Trees, Limma, DeSeq2, time series visualizations. The
+  core and diversity stuff is less developed than in microbiome
+  package.
+
+- structSSI for hierarchical testing should be used
+
+- treeDA provides a more rigorous replacement for LEFSe (sparsity +
+  discrimnant analysis to identify differential taxa)
+
+- agPCA for phylogeny aware PCA
+
+- phylofactor for phylogeny aware factor analysis
+
+-> Many of these could also have Bayesian variants. Start with
+   hierarchical testing procedures.
+
 otu arcsin-square root transformed abundance transformation for OTU abundances -> used at least in Huttenhower MaAsLin method. What is the advantage?
 
 - Alternatives to EMD could be provided by indicator species and phi-coefficient analysis that have has been used to identify OTUs associated with disease states `r citep(bib[["Griffin2017"]])`. The indicator species analysis quantifies the association between the given taxonomic group and condition based on a score derived from the occurrence probability and its specificity mean abundance in the condition `r citep(bib[["Dufrene1997"]])`. The Phi-coefficient analysis measures the correlation between the presence or absence of the taxonomic group and the given condition `r citep(bib[["Griffin2017"]])`. The community indicator value (CIV) quantifies how skewed the indicator species are towards a given condition `r citep(bib[["Griffin2017"]])`. The recent development of such metric highlights the need to develop measures of community differences that can identify responder subsets from a wider population `r citep(bib[["Salonen2014diethealth"]])`.

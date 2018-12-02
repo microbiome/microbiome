@@ -24,15 +24,15 @@ Community richness index.
 \details{
 By default, returns the richness for multiple detection thresholds
 defined by the data quantiles. If the detection argument is provided,
-returns richness with that detection threshold. The "observed" richness corresponds to
-index="observed", detection=0.
+returns richness with that detection threshold. The "observed" richness
+corresponds to index="observed", detection=0.
 }
 \examples{
 data(dietswap)
 d <- richness(dietswap, detection=0)
 }
 \seealso{
-global
+alpha
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

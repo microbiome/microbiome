@@ -31,11 +31,11 @@ time_sort <- function(x) {
     
     # Pick data for each subject separately
     spl <- split(x, as.character(x$subject))
-    
+
     # Keep only subjects with multiple time points
-    spl <- spl[names(which(sapply(spl, function(s) {
+    spl <- spl[names(which(vapply(spl, function(s) {
         length(unique(na.omit(s$time)))
-    }) > 1))]
+    }, 1) > 1))]
     
     # Ignore NA times
     spl <- lapply(spl, function(s) {

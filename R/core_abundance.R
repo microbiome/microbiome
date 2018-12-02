@@ -15,16 +15,16 @@
 core_abundance <- function(x, detection = 0.1/100, prevalence = 50/100) {
     
     # Pick taxa x samples compositional matrix
-    xcomp <- abundances(x, transform="compositional")
+    xcomp <- abundances(transform(x, "compositional"))
     
     # Core members
     cm <- core_members(x, detection, prevalence)
 
     if (length(cm) == 0) {
-      warning("Core is empty with the given abundance and prevalence 
+        warning("Core is empty with the given abundance and prevalence 
             thresholds. Returning NA for core_abundance. Try to 
-            change rarity.detection, rarity.prevalence parameters.");
-      ret <- NA
+            change detection and prevalence parameters.");
+        ret <- NA
     }
 
     # Pick the core and calculate abundance

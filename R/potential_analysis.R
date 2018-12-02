@@ -25,7 +25,7 @@
 #' data(peerj32)
 #' 
 #' # Log10 abundance of Dialister
-#' x <- log10(abundances(peerj32$phyloseq)['Dialister',])
+#' x <- abundances(transform(peerj32$phyloseq, "clr"))['Dialister',]
 #'
 #' # Bootstrapped potential analysis
 #' # In practice, use more bootstrap iterations
@@ -53,7 +53,7 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
     maxpoints <- list()
     bws <- c()
     
-    for (r in 1:bs.iter) {
+    for (r in seq_len(bs.iter)) {
         
         # Bootstrap
         rs <- sample(length(x), replace=TRUE)
@@ -165,7 +165,7 @@ potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
     f <- de$y + density.smoothing * 1/diff(range(de$x))  # *max(de$y)
     
     # Normalize the density such that it integrates to unity
-    f <- f/sum(diff(de$x[1:2]) * f)
+    f <- f/sum(diff(de$x[seq_len(2)]) * f)
     
     # Final grid points and bandwidth
     grid.points <- de$x
@@ -211,7 +211,7 @@ potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
 #' @examples
 #' \dontrun{
 #'    # Not exported
-#'    o <- find_optima(rnorm(100), bw=1)
+#'    # o <- find_optima(rnorm(100), bw=1)
 #' }
 #' @keywords utilities
 find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {
@@ -242,7 +242,7 @@ find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {
     delmini <- logical(length(minima))
     delmaxi <- logical(length(maxima))
     if (length(maxima) > 0) {
-        for (j in 1:length(maxima)) {
+        for (j in seq_len(length(maxima))) {
             
             # Calculate distance of this maximum to all minima
             s <- minima - maxima[[j]]
@@ -320,7 +320,7 @@ find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {
     # Combine maxima that do not have minima in between
     if (length(maxima) > 1) {
         maxima2 <- c()
-        for (i in 1:(length(maxima) - 1)) {
+        for (i in seq_len((length(maxima) - 1))) {
             nominima <- TRUE
             cnt <- 0
             while (nominima & (i + cnt) < length(maxima)) {
@@ -358,7 +358,7 @@ remove_obsolete_minima <- function(f, maxima, minima) {
     # consecutive maxima, there is exactly one minimum
     
     if (length(maxima) > 1) {
-        minima <- sapply(2:length(maxima), function(i) {
+        minima <- vapply(2:length(maxima), function(i) {
             
             mins <- minima[minima >= maxima[[i - 1]] & minima <= maxima[[i]]]
             if (length(mins) > 0) {
@@ -366,7 +366,7 @@ remove_obsolete_minima <- function(f, maxima, minima) {
             } else {
                 NULL
             }
-        })
+        }, 1)
         
     } else {
         minima <- NULL

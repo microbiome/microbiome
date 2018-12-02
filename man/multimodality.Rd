@@ -42,8 +42,8 @@ with bootstrap sampling for each row of the input data
 }
 \examples{
 \dontrun{
-data(peerj32)
-s <- multimodality(t(peerj32$microbes[, c('Akkermansia', 'Dialister')]))
+#data(peerj32)
+#s <- multimodality(t(peerj32$microbes[, c('Akkermansia', 'Dialister')]))
 }
 }
 \references{

@@ -29,7 +29,7 @@
 #' @export
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-#' @seealso core_abundance, low_abundance, global
+#' @seealso core_abundance, low_abundance, alpha
 log_modulo_skewness <- function(x, q=0.5, n=50) {
 
     # Get taxa x samples matrix

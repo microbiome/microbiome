@@ -94,14 +94,14 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
         rownames(mat) <- rnams
         colnames(mat) <- cnams
 
-        for (i in 1:nrow(df)) {
+        for (i in seq_len(nrow(df))) {
             mat[as.character(df[i, Xvar]),
                 as.character(df[i, Yvar])] <- df[i, fill]
         }
         
         mat <- t(mat)
-        cind <- 1:ncol(mat)
-        rind <- 1:nrow(mat)
+        cind <- seq_len(ncol(mat))
+        rind <- seq_len(nrow(mat))
     
     } 
 

@@ -6,8 +6,6 @@
 #' \code{\link{phyloseq-class}} object
 #' @param index Default is ‘NULL’, meaning that all available global indices
 #' will be included. For specific options, see details.
-#' @param rarity.prevalence Prevalence threshold for determining rare taxa.
-#' @param rarity.detection Detection threshold for determining rare taxa.
 #' @inheritParams core
 #' @return A data.frame of samples x global indicators
 #' @details This function returns global indices of the ecosystem state using
@@ -24,115 +22,19 @@
 #'
 #' @examples
 #' data(dietswap)
-#' d <- global(dietswap, index='gini')
-#' # d <- global(dietswap, index='all')
+#' d <- alpha(dietswap, index='observed')
 #'
 #' @export
 #' @seealso global, dominance, rarity, phyloseq::estimate_richness
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-global <- function(x, index="all", rarity.detection = 0.2/100, rarity.prevalence = 20/100) {
+global <- function(x, index="all") {
 
-    tab <- NULL
-    index <- tolower(index)
-    index <- gsub("diversities_shannon", "shannon", index)
-    index <- unique(index)
+    .Deprecated("alpha", msg = "The microbiome::global function is deprecated. 
+        Use the function microbiome::alpha instead.")
+    alpha(x, index) 
 
-    message("Observed richness")
-    if (any(c("all", "observed") %in% index)) {
-    
-        a <- richness(x, detection = 0, index = "observed")
-        a <- as.matrix(a, ncol=1)
-        colnames(a) <- "observed"
-        
-        if (!is.null(tab)) {
-            tab <- cbind(tab, a)
-        } else {
-            tab <- a
-        }   
-    }
-
-    message("Other forms of richness")
-    if (any(c("all", "chao1") %in% index)) {
-        a <- richness(x, index = "chao1")
-        a <- as.matrix(a, ncol=1)
-        colnames(a) <- "chao1"
-
-        if (!is.null(tab)) {
-            tab <- cbind(tab, a)
-        } else {
-            tab <- a
-        }
-    }
-
-    message("Diversity")
-    a <- diversities(x, index=gsub("diversities_", "",
-        gsub("diversity_", "", index)))
-    if (!is.null(a)) {
-        if (is.vector(a)) {
-            a <- as.matrix(a, ncol=1)
-        }
-        colnames(a) <- paste("diversities_", colnames(a), sep="")
-    
-        if (!is.null(tab)) {
-            tab <- cbind(tab, a)
-        } else {
-            tab <- a
-        }
-
-    }
-
-    message("Evenness")
-    a <- evenness(x, index=gsub("evenness_", "", index))
-    if (!is.null(a)) {
-        if (is.vector(a)) {
-            a <- as.matrix(a, ncol=1)
-        }
-        colnames(a) <- paste("evenness_", colnames(a), sep="")
-
-        if (!is.null(tab)) {
-            tab <- cbind(tab, a)
-        } else {
-            tab <- a
-        }    
-
-    }
-
-    message("Dominance")
-    a <- dominance(x, index=gsub("dominance_", "", index))
-    if (!is.null(a)) {
-        if (is.vector(a)) {
-            a <- as.matrix(a, ncol=1)
-        }
-        colnames(a) <- paste("dominance_", colnames(a), sep="")
-
-        if (!is.null(tab)) {
-            tab <- cbind(tab, a)
-        } else {
-            tab <- a
-        }
-
-    }
-
-    message("Rarity")
-    a <- rarity(x, index=gsub("rarity_", "", index),
-        rarity.detection, rarity.prevalence)
-    if (!is.null(a)) {
-        if (is.vector(a)) {
-            a <- as.matrix(a, ncol=1)
-        }
-        colnames(a) <- paste("rarity_", colnames(a), sep="")
-
-        if (!is.null(tab)) {
-            tab <- cbind(tab, a)
-        } else {
-            tab <- a
-        }    
-
-    }
-
-    as.data.frame(tab)
 }
 
 

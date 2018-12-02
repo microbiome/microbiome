@@ -4,21 +4,20 @@
 \alias{rarity}
 \title{Rarity Index}
 \usage{
-rarity(x, index = "all", rarity.detection = 0.2/100,
-  rarity.prevalence = 20/100)
+rarity(x, index = "all", detection = 0.2/100, prevalence = 20/100)
 }
 \arguments{
-\item{x}{A species abundance vector, or matrix (taxa/features x samples)
-with the absolute count data (no relative abundances), or
-\code{\link{phyloseq-class}} object}
+\item{x}{\code{\link{phyloseq-class}} object}
 
 \item{index}{If the index is given, it will override the other parameters.
 See the details below for description and references of the standard
 rarity indices.}
 
-\item{rarity.detection}{Detection threshold for determining rare taxa.}
+\item{detection}{Detection threshold for absence/presence
+(strictly greater by default).}
 
-\item{rarity.prevalence}{Prevalence threshold for determining rare taxa.}
+\item{prevalence}{Prevalence threshold (in [0, 1];
+strictly greater by default)}
 }
 \value{
 A vector of rarity indices
@@ -40,14 +39,14 @@ we follow Locey & Lennon (2016) and use the log-modulo
 transformation that adds a value of one to each measure of skewness
 to allow logarithmization. The values q=0.5 and n=50 are used here.}
 \item{low_abundance }{Relative proportion of the least abundant species,
-below the rarity.detection level of 0.2\%. The least abundant species are
-determined separately for each sample regardless of their rarity.prevalence.}
+below the detection level of 0.2\%. The least abundant species are
+determined separately for each sample regardless of their prevalence.}
 \item{noncore_abundance }{Relative proportion of the non-core species,
-exceed the rarity.detection level of 0.2\% at 50\% rarity.prevalence at most.
+exceed the detection level of 0.2\% at 50\% prevalence at most.
 This is complement of the core with the same thresholds.}
 \item{rare_abundance }{Relative proportion of the rare 
 taxa in [0,1] - the rare taxa are detected with less than 20\%
-rarity.prevalence, regardless of abundance.}
+prevalence, regardless of abundance.}
 }
 }
 \examples{
@@ -65,7 +64,7 @@ Biological Diversity: Frontiers in Measurement and Assessment
 (Oxford Univ Press, Oxford), Vol 12
 }
 \seealso{
-global, log_modulo_skewness, noncore_abundance, low_abundance
+alpha, log_modulo_skewness, noncore_abundance, low_abundance
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

@@ -39,14 +39,14 @@ plot_atlas <- function(pseq, x, y, ncol=2) {
     
     # Order the factor levels (x variables) by their standard deviation
     df$xvar <- factor(df$xvar,
-        levels=names(sort(sapply(split(df$signal, df$xvar), sd))))
+        levels=names(sort(vapply(split(df$signal, df$xvar), sd, 1))))
     
     # Order by x variable (randomization affects the ordering within
     # each factor level if this is a factor)
     
     df <- df[order(df$xvar), ]
     
-    df$index <- 1:nrow(df)
+    df$index <- seq_len(nrow(df))
     
     theme_set(theme_bw(20))
     p <- ggplot(df, aes(x=index, y=signal, color=xvar))

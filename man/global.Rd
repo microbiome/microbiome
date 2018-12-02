@@ -4,8 +4,7 @@
 \alias{global}
 \title{Global Ecosystem State Variables}
 \usage{
-global(x, index = "all", rarity.detection = 0.2/100,
-  rarity.prevalence = 20/100)
+global(x, index = "all")
 }
 \arguments{
 \item{x}{A species abundance vector, or matrix (taxa/features x samples)
@@ -14,10 +13,6 @@ with the absolute count data (no relative abundances), or
 
 \item{index}{Default is ‘NULL’, meaning that all available global indices
 will be included. For specific options, see details.}
-
-\item{rarity.detection}{Detection threshold for determining rare taxa.}
-
-\item{rarity.prevalence}{Prevalence threshold for determining rare taxa.}
 }
 \value{
 A data.frame of samples x global indicators
@@ -41,8 +36,7 @@ similarly named but different indices
 }
 \examples{
 data(dietswap)
-d <- global(dietswap, index='gini')
-# d <- global(dietswap, index='all')
+d <- alpha(dietswap, index='observed')
 
 }
 \references{

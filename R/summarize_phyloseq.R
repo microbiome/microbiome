@@ -1,6 +1,8 @@
 #' @title Summarize phyloseq object
 #' @description Prints basic information of data.
-#' @details The summarize_phyloseq function will give information on weather data is compositional or not, reads (min. max, median, average), sparsity, 
+#' @details The summarize_phyloseq function will give information on weather
+#'    data is compositional or not, reads (min. max, median, average),
+#'    sparsity, 
 #' presence of singletons and sample variables. 
 #' @param x Input is a \code{\link{phyloseq-class}} object.
 #' @return Prints basic information of \code{\link{phyloseq-class}} object.
@@ -14,7 +16,8 @@
 summarize_phyloseq <- function(x)
 {
     
-    ave <- minR <- maxR <- tR <- aR <- mR <- sR <- sR1 <- sR2 <- svar <- sam_var <- zno <- comp <- NULL
+    ave <- minR <- maxR <- tR <- aR <- mR <- sR <- sR1 <- sR2 <- svar <- NULL
+    sam_var <- zno <- comp <- NULL
     
     ave <- sum(sample_sums(x))/nsamples(x)
     
@@ -47,7 +50,8 @@ summarize_phyloseq <- function(x)
     zno <- paste0("7] Sparsity = ", length(which(abundances(x) == 
         0))/length(abundances(x)))
     
-    sR1 <- paste0("8] Number of singletons = ", length(taxa_sums(x)[taxa_sums(x) <= 
+    sR1 <- paste0("8] Number of singletons = ",
+        length(taxa_sums(x)[taxa_sums(x) <= 
         1]))
     sR2 <- paste0("9] Percent of OTUs that are singletons ", 
         length(taxa_sums(x)[taxa_sums(x) <= 1])/nrow(otu_table(x)) * 

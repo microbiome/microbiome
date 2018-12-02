@@ -6,21 +6,21 @@
 #' the N most abundant species (N is returned by this function). If the
 #' detection argument is a vector, then a data.frame is returned, one
 #' column for each detection threshold.
-#' @inheritParams global
+#' @inheritParams alpha
 #' @return A vector of coverage indices
 #' @export
 #' @examples
 #' data(dietswap)
 #' d <- coverage(dietswap, threshold=0.5)
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @seealso dominance, global
+#' @seealso dominance, alpha
 #' @keywords utilities
 coverage <- function(x, threshold=0.5) {
     
     if (length(threshold) > 1) {
-        tab <- sapply(threshold, function(th) {
+        tab <- vapply(threshold, function(th) {
             coverage(x, threshold=th)
-        })
+        }, 1)
         colnames(tab) <- as.character(threshold)
         rownames(tab) <- colnames(abundances(x))
         return(tab)

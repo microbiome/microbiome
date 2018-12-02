@@ -76,9 +76,8 @@
 #' # function (x) {1 - unname(dip.test(x)$p.value)})
 #'
 #' @keywords utilities
-bimodality <-
-    function(x, method="potential_analysis", peak.threshold=1, bw.adjust=1,
-        bs.iter=100, min.density=1, verbose=TRUE) {
+bimodality <- function(x, method="potential_analysis", peak.threshold=1,
+    bw.adjust=1, bs.iter=100, min.density=1, verbose=TRUE) {
     
     accepted <- intersect(method, c("potential_analysis",
         "Sarle.finite.sample", "Sarle.asymptotic"))
@@ -168,8 +167,8 @@ bimodality <-
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
 #' \dontrun{
-#' data(peerj32)
-#' s <- multimodality(t(peerj32$microbes[, c('Akkermansia', 'Dialister')]))
+#' #data(peerj32)
+#' #s <- multimodality(t(peerj32$microbes[, c('Akkermansia', 'Dialister')]))
 #' }
 #' @references
 #' \itemize{
@@ -201,7 +200,7 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
         nmodes <- c()
     
         if (is.null(rownames(x))) {
-            rownames(x) <- as.character(1:nrow(x))
+            rownames(x) <- as.character(seq_len(nrow(x)))
         }
         
         for (tax in rownames(x)) {
@@ -214,9 +213,9 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
             potential.results[[tax]] <- m
         }
         
-        multimodality.score <- sapply(potential.results, function(x) {
+        multimodality.score <- vapply(potential.results, function(x) {
             1 - x$unimodality.support
-        })
+        }, 1)
         
         ret <- list(score=multimodality.score,
                     modes=nmodes,
@@ -238,7 +237,7 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
 #' @return Bimodality score
 #' @examples
 #' \dontrun{
-#' b <- bimodality_sarle(rnorm(100), type='Sarle.finite.sample')
+#'     # b <- bimodality_sarle(rnorm(100), type='Sarle.finite.sample')
 #' }
 #' @details The coefficient lies in (0, 1).
 #' 
@@ -286,7 +285,7 @@ bimodality_sarle <- function(x, bs.iter=1, type="Sarle.finite.sample") {
     
     if (bs.iter > 1) {
         s <- c()
-        for (i in 1:bs.iter) {
+        for (i in seq_len(bs.iter)) {
             xbs <- sample(x, replace=TRUE)
             s[[i]] <- bimodality_sarle(xbs, type=type)
         }
@@ -312,7 +311,7 @@ kurtosis <- function (x, na.rm=TRUE)
         k <- n * sum((x - mean(x))^4)/(sum((x - mean(x))^2)^2)
         return(k)
     } else if (is.data.frame(x)) {
-        k <- sapply(x, kurtosis, na.rm = na.rm)
+        k <- vapply(x, kurtosis, 1, na.rm = na.rm)
         return(k)
     } else {
         kurtosis(as.vector(x), na.rm = na.rm)

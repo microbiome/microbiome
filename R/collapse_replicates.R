@@ -13,8 +13,8 @@
 #' @examples
 #' data(atlas1006)
 #' pseq <- collapse_replicates(atlas1006,
-#'           method = "sample",
-#'           replicate_fields = c("subject", "time"))
+#'         method = "sample",
+#'         replicate_fields = c("subject", "time"))
 collapse_replicates <- function (x, method = "sample",
     replicate_id = NULL, replicate_fields = NULL) {
 
@@ -24,7 +24,7 @@ collapse_replicates <- function (x, method = "sample",
                 OR replicate_fields argument for clarity.")
         }
         replicate_id <- unname(apply(meta(x)[, replicate_fields],
-	    1, function (x) {paste(x, collapse = "-")}))    
+        1, function (x) {paste(x, collapse = "-")}))    
     }
 
     # Sample names grouped by replicate
@@ -32,7 +32,7 @@ collapse_replicates <- function (x, method = "sample",
 
     if (method == "sample") {
         # Pick one of the replicates at random
-        s <- unname(sapply(spl, function (x) {sample(x, 1)}) )
+        s <- unname(vapply(spl, function (x) {sample(x, 1)}, "char"))
         x <- prune_samples(s, x)
     }
     # TODO

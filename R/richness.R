@@ -1,44 +1,47 @@
 #' @title Richness Index
 #' @description Community richness index.
-#' @inheritParams global
+#' @inheritParams alpha
 #' @param index "observed" or "chao1"
 #' @param detection Detection threshold. Used for the "observed" index.
 #' @return A vector of richness indices
 #' @details By default, returns the richness for multiple detection thresholds
 #' defined by the data quantiles. If the detection argument is provided,
-#' returns richness with that detection threshold. The "observed" richness corresponds to
-#' index="observed", detection=0.
+#' returns richness with that detection threshold. The "observed" richness
+#' corresponds to index="observed", detection=0.
 #' @export
 #' @examples
 #' data(dietswap)
 #' d <- richness(dietswap, detection=0)
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @seealso global
+#' @seealso alpha
 #' @keywords utilities
 richness <- function(x, index = c("observed", "chao1"), detection=0) {
 
-    # This already ensures that taxa are on the rows	 
+    index <- gsub("richness_", "", index)
+
+    # This already ensures that taxa are on the rows     
     x <- abundances(x)
     tab <- NULL
     index <- tolower(index)
 
     if ("observed" %in% index) {
-      tab <- richness_help(x, detection)
-      if (is.vector(tab)) {
-        tab <- as.matrix(tab, ncol=1)
-        colnames(tab) <- gsub("%", "", as.character(detection))
-      }
+        tab <- richness_help(x, detection)
+        if (is.vector(tab)) {
+            tab <- as.matrix(tab, ncol=1)
+            colnames(tab) <- gsub("%", "", as.character(detection))
+        }
     }
 
     if ("chao1" %in% index) {
-      chao <- chao1(x)
-      tab <- cbind(tab, chao1 = chao)
+        chao <- chao1(x)
+        tab <- cbind(tab, chao1 = chao)
     }
 
     colnames(tab) <- gsub("^richness_0$", "observed", colnames(tab))
     colnames(tab) <- gsub("^0$", "observed", colnames(tab))    
 
     as.data.frame(tab)
+
     
 }
 
@@ -101,9 +104,9 @@ chao1_per_sample <- function (x) {
     s1 <- sum(x==1, na.rm = TRUE)
     s2 <- sum(x==2, na.rm = TRUE)
     if ((s1-s2)^2==(s1+s2)^2) {
-      r <- s0+s1*(s1-1)/((s2+1)*2)
+        r <- s0+s1*(s1-1)/((s2+1)*2)
     } else {
-      r <- s0+s1^2/(s2*2)
+        r <- s0+s1^2/(s2*2)
     }
 
     r

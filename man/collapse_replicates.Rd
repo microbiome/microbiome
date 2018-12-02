@@ -25,8 +25,8 @@ Collapse samples, mostly meant for technical replicates.
 \examples{
 data(atlas1006)
 pseq <- collapse_replicates(atlas1006,
-          method = "sample",
-          replicate_fields = c("subject", "time"))
+        method = "sample",
+        replicate_fields = c("subject", "time"))
 }
 \references{
 To cite the microbiome R package, see citation('microbiome')

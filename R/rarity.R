@@ -3,7 +3,7 @@
 #' @param index If the index is given, it will override the other parameters.
 #' See the details below for description and references of the standard
 #' rarity indices. 
-#' @inheritParams global
+#' @inheritParams core
 #' @return A vector of rarity indices
 #' @export
 #' @examples
@@ -11,7 +11,7 @@
 #' d <- rarity(dietswap, index='low_abundance')
 #' # d <- rarity(dietswap, index='all')
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
-#' @seealso global, log_modulo_skewness, noncore_abundance, low_abundance
+#' @seealso alpha, log_modulo_skewness, noncore_abundance, low_abundance
 #' @details
 #' The rarity index characterizes the concentration of species at
 #' low abundance.
@@ -26,14 +26,14 @@
 #' transformation that adds a value of one to each measure of skewness
 #' to allow logarithmization. The values q=0.5 and n=50 are used here.}
 #' \item{low_abundance }{Relative proportion of the least abundant species,
-#' below the rarity.detection level of 0.2\%. The least abundant species are
-#' determined separately for each sample regardless of their rarity.prevalence.}
+#' below the detection level of 0.2\%. The least abundant species are
+#' determined separately for each sample regardless of their prevalence.}
 #' \item{noncore_abundance }{Relative proportion of the non-core species,
-#' exceed the rarity.detection level of 0.2\% at 50\% rarity.prevalence at most.
+#' exceed the detection level of 0.2\% at 50\% prevalence at most.
 #' This is complement of the core with the same thresholds.}
 #' \item{rare_abundance }{Relative proportion of the rare 
 #' taxa in [0,1] - the rare taxa are detected with less than 20\%
-#' rarity.prevalence, regardless of abundance.}
+#' prevalence, regardless of abundance.}
 #' }
 #' 
 #' @references
@@ -46,7 +46,7 @@
 #' (Oxford Univ Press, Oxford), Vol 12
 #'
 #' @keywords utilities
-rarity <- function(x, index = "all", rarity.detection = 0.2/100, rarity.prevalence = 20/100) {
+rarity <- function(x, index = "all", detection = 0.2/100, prevalence = 20/100) {
 
     # Only include accepted indices
     index <- tolower(index)    
@@ -67,7 +67,7 @@ rarity <- function(x, index = "all", rarity.detection = 0.2/100, rarity.prevalen
         return(NULL)
     }
 
-    tab <- rarity_help(x, index, rarity.detection, rarity.prevalence)
+    tab <- rarity_help(x, index, detection, prevalence)
 
     if (is.vector(tab)) {
         tab <- as.matrix(tab, ncol=1)
@@ -79,12 +79,12 @@ rarity <- function(x, index = "all", rarity.detection = 0.2/100, rarity.prevalen
 }
 
 
-rarity_help <- function(x, index="all", rarity.detection, rarity.prevalence) {
+rarity_help <- function(x, index="all", detection, prevalence) {
 
     if (length(index) > 1) {
         tab <- NULL
         for (idx in index) {
-            tab <- cbind(tab, rarity_help(x, index=idx, rarity.detection, rarity.prevalence))
+            tab <- cbind(tab, rarity_help(x, index=idx, detection, prevalence))
         }
         colnames(tab) <- index
         return(as.data.frame(tab))
@@ -101,18 +101,18 @@ rarity_help <- function(x, index="all", rarity.detection, rarity.prevalence) {
     } else if (index == "low_abundance") {
 
         r <- apply(otu.relative, 2,
-                function(x) low_abundance(x, detection=rarity.detection))
+                function(x) low_abundance(x, detection=detection))
         
     } else if (index == "noncore_abundance") {
     
-        r <- noncore_abundance(x, detection=rarity.detection,
-                                prevalence=rarity.prevalence)
+        r <- noncore_abundance(x, detection=detection,
+                                prevalence=prevalence)
         
     } else if (index == "rare_abundance") {
     
         s <- rare_members(otu.relative,
                 detection=100/100, # All abundances accepted
-                prevalence=rarity.prevalence) # Less than this prevalence required
+                prevalence=prevalence) # Less than this prevalence required
         r <- colSums(otu.relative[s, ])
     
     }

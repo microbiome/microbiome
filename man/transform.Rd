@@ -11,8 +11,9 @@ transform(x, transform = "identity", target = "OTU", shift = 0,
 \item{x}{\code{\link{phyloseq-class}} object}
 
 \item{transform}{Transformation to apply. The options include:
-'compositional' (ie relative abundance), 'Z', 'log10', 'log10p', 'hellinger',
-'identity', 'clr', or any method from the vegan::decostand function.}
+'compositional' (ie relative abundance), 'Z', 'log10', 'log10p',
+'hellinger', 'identity', 'clr', or any method from the
+vegan::decostand function.}
 
 \item{target}{Apply the transform for 'sample' or 'OTU'.
 Does not affect the log transform.}
@@ -20,7 +21,8 @@ Does not affect the log transform.}
 \item{shift}{A constant indicating how much to shift the baseline
 abundance (in transform='shift')}
 
-\item{scale}{Scaling constant for the abundance values when transform = "scale".}
+\item{scale}{Scaling constant for the abundance values when
+transform = "scale".}
 }
 \value{
 Transformed \code{\link{phyloseq}} object
