@@ -1,4 +1,5 @@
 Changes in version 1.5.2 (2018-11-20)
+* New function: readcount
 + plot_composition function: new options for sample.sort and otu.sort
 + Added Phylum level to taxonomy tables in example data sets 
 * New function: dominant

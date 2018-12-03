@@ -105,11 +105,11 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
     }
 
     p <- densityplot(proj[, 1:2], main=NULL, x.ticks=10,
-             rounding=0, add.points=TRUE, 
-             adjust=1, size=size, col=proj$col,
-	     legend = TRUE,
-	     shading=shading) +
-             guides(color = guide_legend(title = guide.title))
+            rounding=0, add.points=TRUE, 
+            adjust=1, size=size, col=proj$col,
+            legend = TRUE,
+            shading=shading) +
+            guides(color = guide_legend(title = guide.title))
 
     p
     
@@ -177,8 +177,8 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
     bw <- adjust * c(bwi(df[["x"]]), bwi(df[["y"]]))
     if (any(bw == 0)) {
         warning("Zero bandwidths 
-                 (possibly due to small number of observations). 
-		 Using minimal bandwidth.")
+                (possibly due to small number of observations). 
+                Using minimal bandwidth.")
         bw[bw == 0]=bw[bw == 0] + min(bw[!bw == 0])
     }
     
@@ -187,9 +187,9 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
 
     if (shading) {
         p <- p + stat_density2d(aes(x, y, fill=..density..),
-	             geom="raster", h=bw, 
-        	     contour=FALSE)
-        p <- p + scale_fill_gradient(low="white", high="black")		     
+                geom="raster", h=bw, 
+                contour=FALSE)
+        p <- p + scale_fill_gradient(low="white", high="black")             
     }
     
     if (add.points) {
