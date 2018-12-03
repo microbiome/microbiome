@@ -3,8 +3,8 @@ Type: Package
 Title: Microbiome Analytics
 Description: Utilities for microbiome analysis.
 Encoding: UTF-8
-Version: 1.5.22
-Date: 2018-11-29
+Version: 1.5.23
+Date: 2018-12-01
 Authors@R: c(
     person("Leo", "Lahti", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Sudarshan", "Shetty", role = "aut"))
