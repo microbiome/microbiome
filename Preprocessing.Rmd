@@ -1,5 +1,5 @@
 ---
-title: "Microbiome data manipulation"
+title: "Microbiome data processing"
 author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
 bibliography: 
 - bibliography.bib
@@ -73,6 +73,14 @@ otu.absolute <- abundances(pseq)
 
 # Relative abundances
 otu.relative <- abundances(pseq, "compositional")
+```
+
+
+Total read counts:
+
+
+```{r reads}
+r <- readcount(pseq)
 ```
 
 

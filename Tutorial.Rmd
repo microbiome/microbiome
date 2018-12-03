@@ -58,7 +58,7 @@ pseq <- atlas1006
 
 # Phyloseq data stucture for taxonomic profiling
 
-Explore the phyloseq data format. See [examples on microbiome data manipulation](Preprocessing.html).
+Explore the phyloseq data format. See [examples on microbiome data processing](Preprocessing.html).
 
 
 # Diversity

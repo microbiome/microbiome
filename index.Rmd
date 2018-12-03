@@ -59,7 +59,7 @@ Tools for microbiome analysis; with multiple example data sets from published st
 * [Overview (vignette)](https://bioconductor.org/packages/devel/bioc/vignettes/microbiome/inst/doc/vignette.html)
 * [Installation](Installation.html) 
 * [Example data](Data.html)
-* [Data manipulation](Preprocessing.html)
+* [Data operations](Preprocessing.html) (subsetting, transformations etc.)
 
 
 # Microbiome analysis
