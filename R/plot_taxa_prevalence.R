@@ -25,7 +25,7 @@ plot_taxa_prevalence <- function(x, level, detection = 0) {
     abundance <- NULL
     prevalence <- NULL
 
-    x <- check_phyloseq(x)
+    x <- check_phyloseq(x, fill_na_taxa = TRUE)
 
     if (level == "Phylum") {
         tax.abun <- apply(otu_table(x), 1, mean)

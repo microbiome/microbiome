@@ -23,7 +23,7 @@ aggregate_taxa <- function(x, level, top = NULL) {
     # FIXME: this function contains quick hacks to circumvent
     # missing tax_table and sample_data. Those would be better handled
     # in the original reading functions.
-    mypseq <- check_phyloseq(x)
+    mypseq <- check_phyloseq(x, fill_na_taxa = TRUE)
 
     if (!is.null(mypseq@phy_tree)) {
 
@@ -34,7 +34,7 @@ aggregate_taxa <- function(x, level, top = NULL) {
         
         # Agglomerate taxa
         # First remove cases where the higher level taxa are NA
-        mypseq <- remove_taxa(rownames(tax_table(mypseq))[which(is.na(tax_table(mypseq)[, level]))], mypseq)
+        #mypseq <- remove_taxa(rownames(tax_table(mypseq))[which(is.na(tax_table(mypseq)[, level]))], mypseq)
         # Then agglomerate to the given level
 
         mypseq2 <- tax_glom(mypseq, level)
