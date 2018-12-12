@@ -4,7 +4,7 @@
 \alias{aggregate_taxa}
 \title{Aggregate Taxa}
 \usage{
-aggregate_taxa(x, level, top = NULL)
+aggregate_taxa(x, level, top = NULL, fill_na_taxa = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -14,6 +14,8 @@ aggregate_taxa(x, level, top = NULL)
 \item{top}{Keep the top-n taxa, and merge the rest under the category
 'Other'. Instead of top-n numeric this can also be a character vector
 listing the groups to combine.}
+
+\item{fill_na_taxa}{If TRUE, the NA entries in tax_table(x) will be replaced by "Unknown"}
 }
 \value{
 Summarized phyloseq object

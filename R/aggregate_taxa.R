@@ -10,6 +10,7 @@
 #' @param top Keep the top-n taxa, and merge the rest under the category
 #' 'Other'. Instead of top-n numeric this can also be a character vector
 #' listing the groups to combine.
+#' @param fill_na_taxa If TRUE, the NA entries in tax_table(x) will be replaced by "Unknown"
 #' @return Summarized phyloseq object
 #' @examples
 #' data(dietswap)
@@ -18,12 +19,12 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-aggregate_taxa <- function(x, level, top = NULL) {
+aggregate_taxa <- function(x, level, top = NULL, fill_na_taxa = FALSE) {
 
     # FIXME: this function contains quick hacks to circumvent
     # missing tax_table and sample_data. Those would be better handled
     # in the original reading functions.
-    mypseq <- check_phyloseq(x, fill_na_taxa = TRUE)
+    mypseq <- check_phyloseq(x, fill_na_taxa = fill_na_taxa)
 
     if (!is.null(mypseq@phy_tree)) {
 
@@ -34,7 +35,7 @@ aggregate_taxa <- function(x, level, top = NULL) {
         
         # Agglomerate taxa
         # First remove cases where the higher level taxa are NA
-        #mypseq <- remove_taxa(rownames(tax_table(mypseq))[which(is.na(tax_table(mypseq)[, level]))], mypseq)
+        mypseq <- remove_taxa(rownames(tax_table(mypseq))[which(is.na(tax_table(mypseq)[, level]))], mypseq)
         # Then agglomerate to the given level
 
         mypseq2 <- tax_glom(mypseq, level)
