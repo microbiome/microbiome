@@ -35,7 +35,9 @@ aggregate_taxa <- function(x, level, top = NULL, fill_na_taxa = FALSE) {
         
         # Agglomerate taxa
         # First remove cases where the higher level taxa are NA
-        mypseq <- remove_taxa(rownames(tax_table(mypseq))[which(is.na(tax_table(mypseq)[, level]))], mypseq)
+	toremove <- rownames(tax_table(mypseq))[which(is.na(tax_table(mypseq)[, level]))]
+        mypseq <- remove_taxa(toremove, mypseq)
+
         # Then agglomerate to the given level
 
         mypseq2 <- tax_glom(mypseq, level)

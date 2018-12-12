@@ -7,10 +7,13 @@ check_phyloseq <- function (x, fill_na_taxa = TRUE) {
 
     if (fill_na_taxa) {
       M <- as.matrix(tax_table(x))
+      if (!taxa_are_rows(x)) {
+        M <- t(M)
+      }
       M[is.na(M)] <- "Unknown"
       x@tax_table <- tax_table(M)
     }
-    
+
     x
 
 }

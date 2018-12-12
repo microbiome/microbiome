@@ -13,9 +13,12 @@
 #' data(dietswap)
 #' x <- taxa(dietswap)
 taxa <- function(x) {
-    
-    taxa_names(x)
-    
+
+    if (taxa_are_rows(x)) {
+      taxa_names(x)
+    } else {
+      rownames(otu_table(x))    
+    }  
 }
 
 
