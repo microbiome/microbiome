@@ -24,15 +24,19 @@ aggregate_taxa <- function(x, level, top = NULL) {
     # missing tax_table and sample_data. Those would be better handled
     # in the original reading functions.
     mypseq <- check_phyloseq(x)
-    
+
     if (!is.null(mypseq@phy_tree)) {
-        
+
         if (!is.null(top)) {
             warning("The top parameter to be implemented when phy_tree 
                 is available.")
         }
         
         # Agglomerate taxa
+        # First remove cases where the higher level taxa are NA
+        mypseq <- remove_taxa(rownames(tax_table(mypseq))[which(is.na(tax_table(mypseq)[, level]))], mypseq)
+        # Then agglomerate to the given level
+
         mypseq2 <- tax_glom(mypseq, level)
         mypseq2@phy_tree <- NULL # Remove tree 
         a <- abundances(mypseq2)

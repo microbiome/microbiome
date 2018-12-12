@@ -57,7 +57,7 @@ pseq <- atlas1006 \%>\%
    aggregate_taxa(level = "Phylum") \%>\%
    transform(transform = "compositional")
 p <- plot_composition(pseq, sample.sort = "Firmicutes",
-         otu.sort = "abudance", verbose = TRUE) +
+         otu.sort = "abundance", verbose = TRUE) +
      scale_fill_manual(values = default_colors("Phylum")[taxa(pseq)]) 
 }
 \keyword{utilities}

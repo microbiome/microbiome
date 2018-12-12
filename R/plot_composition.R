@@ -36,11 +36,14 @@
 #'    aggregate_taxa(level = "Phylum") %>%
 #'    transform(transform = "compositional")
 #' p <- plot_composition(pseq, sample.sort = "Firmicutes",
-#'          otu.sort = "abudance", verbose = TRUE) +
+#'          otu.sort = "abundance", verbose = TRUE) +
 #'      scale_fill_manual(values = default_colors("Phylum")[taxa(pseq)]) 
 #' @keywords utilities
-plot_composition <- function(x, sample.sort=NULL,
-    otu.sort=NULL, x.label="sample", plot.type="barplot",
+plot_composition <- function(x,
+    sample.sort=NULL,
+    otu.sort=NULL,
+    x.label="sample",
+    plot.type="barplot",
     verbose=FALSE, 
     average_by=NULL, ...) {
     
@@ -82,11 +85,13 @@ plot_composition <- function(x, sample.sort=NULL,
     if (verbose) {
         message("Sort samples")
     }
+
     if (is.null(sample.sort) || sample.sort == "none" ||
         !is.null(average_by)) {
         # No sorting sample.sort <- sample_names(x)
         sample.sort <- colnames(abu)
     } else if (length(sample.sort) == 1 && sample.sort %in% taxa(xorig)) {
+
         tax <- sample.sort
         sample.sort <- rev(sample_names(x)[order(abundances(x)[tax,])])
     } else if (length(sample.sort) == 1 &&
@@ -109,7 +114,7 @@ plot_composition <- function(x, sample.sort=NULL,
             Using original sample ordering."))
         sample.sort <- sample_names(x)
     }
-    
+
     # Sort taxa
     if (is.null(otu.sort) || otu.sort == "none") {
         # No sorting
@@ -119,7 +124,8 @@ plot_composition <- function(x, sample.sort=NULL,
         names(sort(rowSums(abu)))[seq(2, nrow(abu), 2)]))
     } else if (length(otu.sort) == 1 && otu.sort == "abundance") {
         otu.sort <- rev(names(sort(rowSums(abu))))
-    } else if (length(otu.sort) == 1 && otu.sort %in% names(tax_table(x))) {
+    } else if (length(otu.sort) == 1 && otu.sort %in% colnames(tax_table(x))) {
+
         # Sort by phylogenetic group
         #taxic <- as.data.frame(x@tax_table) 
         #otu.df <- as.data.frame(otu_table(x))
@@ -145,6 +151,7 @@ plot_composition <- function(x, sample.sort=NULL,
     names(dfm) <- c("Tax", "Sample", "Abundance")
 
     dfm$Sample <- factor(dfm$Sample, levels=sample.sort)
+
     dfm$Tax <- factor(dfm$Tax, levels=otu.sort)
     
     # SampleIDs for plotting
@@ -180,6 +187,7 @@ plot_composition <- function(x, sample.sort=NULL,
         
         # Provide barplot
         dfm <- dfm %>% arrange(Tax)  # Show Taxs always in the same order
+	dfm$Tax <- factor(dfm$Tax, levels = unique(dfm$Tax))
 
         p <- ggplot(dfm, aes(x=Sample, y=Abundance, fill=Tax))
         p <- p + geom_bar(position="stack", stat="identity")
