@@ -5,13 +5,20 @@ check_phyloseq <- function (x, fill_na_taxa = TRUE) {
         x@otu_table <- otu_table(t(otu_table(x)), taxa_are_rows = TRUE)
     }
 
-    if (fill_na_taxa) {
+    if (fill_na_taxa || is.character(fill_na_taxa)) {
       M <- as.matrix(tax_table(x))
       if (!taxa_are_rows(x)) {
         M <- t(M)
       }
-      M[is.na(M)] <- "Unknown"
+
+      if (!is.character(fill_na_taxa)) {
+          fill_na_taxa <- "Unknown"
+      }
+
+      M[is.na(M)] <- fill_na_taxa
+
       x@tax_table <- tax_table(M)
+      
     }
 
     x

@@ -21,100 +21,93 @@
 #' @keywords utilities
 aggregate_taxa <- function(x, level, top = NULL, fill_na_taxa = FALSE) {
 
-    # FIXME: this function contains quick hacks to circumvent
-    # missing tax_table and sample_data. Those would be better handled
-    # in the original reading functions.
-    mypseq <- check_phyloseq(x, fill_na_taxa = fill_na_taxa)
+    # Sanity checks for a phyloseq object. Required with some methods.
+    if (!taxa_are_rows(x)) {
+        x@otu_table <- otu_table(t(otu_table(x)), taxa_are_rows = TRUE)
+    }
 
-    if (!is.null(mypseq@phy_tree)) {
+    if (fill_na_taxa == TRUE && !is.character(fill_na_taxa)) {
+      fill_na_taxa <- "Unknown"
+    }
 
-        if (!is.null(top)) {
-            warning("The top parameter to be implemented when phy_tree 
-                is available.")
-        }
-        
-        # Agglomerate taxa
-        # First remove cases where the higher level taxa are NA
-	toremove <- rownames(tax_table(mypseq))[which(is.na(tax_table(mypseq)[, level]))]
-        mypseq <- remove_taxa(toremove, mypseq)
+    if (!is.logical(fill_na_taxa) && is.character(fill_na_taxa)) {    
+      M <- as.matrix(tax_table(x))
+      if (!taxa_are_rows(x)) {
+        M <- t(M)
+      }
 
-        # Then agglomerate to the given level
+      # Fill in missing entries down to the given level (do not fill lower levels)
+      for (i in 1:match(level, colnames(M))) {
+        if (any(is.na(M[,i]))) {
+          M[which(is.na(M[, i])), i] <- fill_na_taxa
+	}
+      }
 
-        mypseq2 <- tax_glom(mypseq, level)
-        mypseq2@phy_tree <- NULL # Remove tree 
-        a <- abundances(mypseq2)
-        nams <- as.character(tax_table(mypseq2)[, level])
-        rownames(a) <- nams
-        tt <- tax_table(mypseq2)[, seq_len(match(level,
-        colnames(tax_table(mypseq2))))]
-        rownames(tt) <- nams
-
-    mypseq2 <- phyloseq(otu_table(a, taxa_are_rows=TRUE), 
-                sample_data(mypseq2), 
-                tax_table(tt))
-
-    } else {
-        
-        tt <- tax_table(mypseq)
-        if (!is.null(top)) {
+      x@tax_table <- tax_table(M)
+      
+    }
+   
+    tt <- tax_table(x)
+    if (!is.null(top)) {
 
             # Merge the remaining taxa into a single group named "Other"
             if (is.numeric(top)) {
-                top <- top_taxa(aggregate_taxa(mypseq, level), top)
+                top <- top_taxa(aggregate_taxa(x, level), top)
             }
             
             tt[which(!tt[, level] %in% top), level] <- "Other"
-            tax_table(mypseq) <- tt
-        }
+            tax_table(x) <- tt
+    }
 
         # Split the OTUs in tax_table by the given taxonomic level otus <-
-        # split(rownames(tax_table(mypseq)), tax_table(mypseq)[, level])
-        v <- apply(tt, 2, function(x) {mean(taxa(mypseq) %in% unique(x))})
+        v <- apply(tt, 2, function(i) {mean(taxa(x) %in% unique(i))})
+	
         if (max(v) > 0) {
             current.level <- names(which.max(v))
         } else {
             stop("The taxa are not found in tax_table in aggregate_taxa") 
         }
+
         if (length(current.level) == 0) {
             current.level <- "unique"
-            tax_table(mypseq) <- tax_table(cbind(tax_table(mypseq),
-            unique = rownames(tax_table(mypseq))))
+            tax_table(x) <- tax_table(cbind(tax_table(x),
+            unique = rownames(tax_table(x))))
         }
 
-        otus <- map_levels(data=mypseq, to=current.level, from=level)
+        otus <- map_levels(data=x, to=current.level, from=level)
 
-        ab <- matrix(NA, nrow=length(otus), ncol=nsamples(mypseq))
+        ab <- matrix(NA, nrow=length(otus), ncol=nsamples(x))
         rownames(ab) <- names(otus)
-        colnames(ab) <- sample_names(mypseq)
+        colnames(ab) <- sample_names(x)
 
-        d <- abundances(mypseq)
+        d <- abundances(x)
 
         for (nam in names(otus)) {
             taxa <- otus[[nam]]
-            ab[nam, ] <- colSums(matrix(d[taxa, ], ncol=nsamples(mypseq)),
+            ab[nam, ] <- colSums(matrix(d[taxa, ], ncol=nsamples(x)),
             na.rm = TRUE)
         }
 
 
         # Create phyloseq object
         OTU <- otu_table(ab, taxa_are_rows=TRUE)
-        mypseq2 <- phyloseq(OTU)
+        x2 <- phyloseq(OTU)
 
         # Remove ambiguous levels
         ## First remove NA entries from the target level
-        keep <- !is.na(tax_table(mypseq)[, level])
-        tax_table(mypseq) <- tax_table(mypseq)[keep,]
+        keep <- !is.na(tax_table(x)[, level])
+        tax_table(x) <- tax_table(x)[keep,]
         keep <- colnames(
-        tax_table(mypseq))[
+        tax_table(x))[
         which(
-            vapply(seq(ncol(tax_table(mypseq))),
+            vapply(seq(ncol(tax_table(x))),
             function(k)
             sum(
-            vapply(split(as.character(tax_table(mypseq)[, k]),
-            as.character(tax_table(mypseq)[, level])), function(x) {
+            vapply(split(as.character(tax_table(x)[, k]),
+            as.character(tax_table(x)[, level])), function(x) {
             length(unique(x))
         }, 1) > 1), 1) == 0)]
-        tax <- unique(tax_table(mypseq)[, keep])
+        tax <- unique(tax_table(x)[, keep])
 
         # Rename the lowest level
         tax <- as.data.frame(tax)
@@ -126,15 +119,15 @@ aggregate_taxa <- function(x, level, top = NULL, fill_na_taxa = FALSE) {
         TAX <- tax_table(tax)
         
         # Combine OTU and Taxon matrix into Phyloseq object
-        mypseq2 <- merge_phyloseq(mypseq2, TAX)
+        x2 <- merge_phyloseq(x2, TAX)
 
         # Add the metadata as is
-        if (!is.null(mypseq@sam_data)) {
-            mypseq2 <- merge_phyloseq(mypseq2, sample_data(mypseq))
+        if (!is.null(x@sam_data)) {
+            x2 <- merge_phyloseq(x2, sample_data(x))
         }      
-    }
+
     
-    mypseq2
+    x2
     
 }
 
