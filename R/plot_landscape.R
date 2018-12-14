@@ -92,7 +92,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
     }
 
     proj <- as.data.frame(proj)
-    colnames(proj) <- paste0("PC", 1:2)
+    colnames(proj) <- paste0("PC", c(1,2))
 
     guide.title <- "color"
     if (is.null(col)) {
@@ -104,7 +104,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
         proj$col <- col
     }
 
-    p <- densityplot(proj[, 1:2], main=NULL, x.ticks=10,
+    p <- densityplot(proj[, c(1,2)], main=NULL, x.ticks=10,
             rounding=0, add.points=TRUE, 
             adjust=1, size=size, col=proj$col,
             legend = TRUE,

@@ -15,7 +15,8 @@ aggregate_taxa(x, level, top = NULL, fill_na_taxa = FALSE)
 'Other'. Instead of top-n numeric this can also be a character vector
 listing the groups to combine.}
 
-\item{fill_na_taxa}{If TRUE, the NA entries in tax_table(x) will be replaced by "Unknown"}
+\item{fill_na_taxa}{If TRUE, the NA entries in tax_table(x) will be
+replaced by "Unknown"}
 }
 \value{
 Summarized phyloseq object

@@ -10,7 +10,8 @@
 #' @param top Keep the top-n taxa, and merge the rest under the category
 #' 'Other'. Instead of top-n numeric this can also be a character vector
 #' listing the groups to combine.
-#' @param fill_na_taxa If TRUE, the NA entries in tax_table(x) will be replaced by "Unknown"
+#' @param fill_na_taxa If TRUE, the NA entries in tax_table(x) will be
+#'    replaced by "Unknown"
 #' @return Summarized phyloseq object
 #' @examples
 #' data(dietswap)
@@ -24,28 +25,31 @@ aggregate_taxa <- function(x, level, top = NULL, fill_na_taxa = FALSE) {
     # Sanity checks for a phyloseq object. Required with some methods.
     if (!taxa_are_rows(x)) {
         x@otu_table <- otu_table(t(otu_table(x)), taxa_are_rows = TRUE)
-	taxa_are_rows(x) <- TRUE
+    taxa_are_rows(x) <- TRUE
     }
 
     if (fill_na_taxa == TRUE && !is.character(fill_na_taxa)) {
-      fill_na_taxa <- "Unknown"
+        fill_na_taxa <- "Unknown"
     }
 
     if (!is.logical(fill_na_taxa) && is.character(fill_na_taxa)) {    
-      M <- as.matrix(tax_table(x))
+        M <- as.matrix(tax_table(x))
 
-      # Fill in missing entries down to the given level (do not fill lower levels)
-      for (i in 1:match(level, colnames(M))) {
-        if (any(is.na(M[,i]))) {
-          M[which(is.na(M[, i])), i] <- fill_na_taxa
-	}
-      }
-      # Ensure that the filled entries are unique
-      inds <- which(M[, level] == fill_na_taxa)
-      inds2 <- match(level, colnames(M))
-      M[inds, inds2] <- apply(M[inds, 1:inds2], 1, function (xx) {paste(xx, collapse = "_")})
-      x@tax_table <- tax_table(M)
-      
+        # Fill in missing entries down to the given level
+        # (do not fill lower levels)
+        for (i in seq_len(match(level, colnames(M)))) {
+            if (any(is.na(M[,i]))) {
+                M[which(is.na(M[, i])), i] <- fill_na_taxa
+            }
+        }
+
+        # Ensure that the filled entries are unique
+        inds <- which(M[, level] == fill_na_taxa)
+        inds2 <- match(level, colnames(M))
+        M[inds, inds2] <- apply(M[inds, seq_len(inds2)], 1,
+            function (xx) {paste(xx, collapse = "_")})
+        x@tax_table <- tax_table(M)
+        
     }
     tt <- tax_table(x)
 
@@ -95,16 +99,15 @@ aggregate_taxa <- function(x, level, top = NULL, fill_na_taxa = FALSE) {
     tax_table(x) <- tax_table(x)[keep,]
 
     keep <- colnames(
-      tax_table(x))[
-          which(
-              vapply(seq(ncol(tax_table(x))),
-                 function(k)
-                     sum(
-			vapply(split(as.character(tax_table(x)[, k]),
-        		   as.character(tax_table(x)[, level])),
-			       function(x) {length(unique(x))
-        		}, 1) > 1), 1) == 0)]
-
+        tax_table(x))[
+            which(
+                vapply(seq(ncol(tax_table(x))),
+                    function(k)
+                        sum(
+                vapply(split(as.character(tax_table(x)[, k]),
+                    as.character(tax_table(x)[, level])),
+                    function(x) {length(unique(x))
+                }, 1) > 1), 1) == 0)]
 
     #tax <- unique(tax_table(x)[, 1:match(keep, colnames(tax_table(x)))])
     tax <- unique(tax_table(x)[, keep])    

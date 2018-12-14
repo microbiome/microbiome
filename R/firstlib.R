@@ -73,6 +73,7 @@
 #' @importFrom phyloseq sample_sums
 #' @importFrom phyloseq sample_data<-
 #' @importFrom phyloseq sample_names
+#' @importFrom phyloseq taxa_are_rows<-
 #' @importFrom phyloseq taxa_are_rows
 #' @importFrom phyloseq taxa_names
 #' @importFrom phyloseq taxa_sums
