@@ -42,89 +42,92 @@ aggregate_taxa <- function(x, level, top = NULL, fill_na_taxa = FALSE) {
           M[which(is.na(M[, i])), i] <- fill_na_taxa
 	}
       }
-
+      # Ensure that the filled entries are unique
+      inds <- which(M[, level] == fill_na_taxa)
+      inds2 <- match(level, colnames(M))
+      M[inds, inds2] <- apply(M[inds, 1:inds2], 1, function (xx) {paste(xx, collapse = "_")})
       x@tax_table <- tax_table(M)
       
     }
-   
     tt <- tax_table(x)
-    if (!is.null(top)) {
 
-            # Merge the remaining taxa into a single group named "Other"
-            if (is.numeric(top)) {
-                top <- top_taxa(aggregate_taxa(x, level), top)
-            }
-            
-            tt[which(!tt[, level] %in% top), level] <- "Other"
-            tax_table(x) <- tt
+    if (!is.null(top)) {
+        # Merge the remaining taxa into a single group named "Other"
+        if (is.numeric(top)) {
+            top <- top_taxa(aggregate_taxa(x, level), top)
+        }    
+        tt[which(!tt[, level] %in% top), level] <- "Other"
+        tax_table(x) <- tt
     }
 
-        # Split the OTUs in tax_table by the given taxonomic level otus <-
-        v <- apply(tt, 2, function(i) {mean(taxa(x) %in% unique(i))})
+    # Split the OTUs in tax_table by the given taxonomic level 
+    v <- apply(tt, 2, function(i) {mean(taxa(x) %in% unique(i))})
 	
-        if (max(v) > 0) {
-            current.level <- names(which.max(v))
-        } else {
-            stop("The taxa are not found in tax_table in aggregate_taxa") 
-        }
+    if (max(v) > 0) {
+        current.level <- names(which.max(v))
+    } else {
+        stop("The taxa are not found in tax_table in aggregate_taxa") 
+    }
 
-        if (length(current.level) == 0) {
-            current.level <- "unique"
+    if (length(current.level) == 0) {
+        current.level <- "unique"
             tax_table(x) <- tax_table(cbind(tax_table(x),
-            unique = rownames(tax_table(x))))
-        }
+                unique = rownames(tax_table(x))))
+    }
 
-        otus <- map_levels(data=x, to=current.level, from=level)
+    otus <- map_levels(data=x, to=current.level, from=level)
+    ab <- matrix(NA, nrow=length(otus), ncol=nsamples(x))
+    rownames(ab) <- names(otus)
+    colnames(ab) <- sample_names(x)
 
-        ab <- matrix(NA, nrow=length(otus), ncol=nsamples(x))
-        rownames(ab) <- names(otus)
-        colnames(ab) <- sample_names(x)
+    d <- abundances(x)
+    for (nam in names(otus)) {
+        taxa <- otus[[nam]]
+        ab[nam, ] <- colSums(matrix(d[taxa, ], ncol=nsamples(x)), na.rm = TRUE)
+    }
 
-        d <- abundances(x)
+    # Create phyloseq object
+    OTU <- otu_table(ab, taxa_are_rows=TRUE)
+    x2 <- phyloseq(OTU)
 
-        for (nam in names(otus)) {
-            taxa <- otus[[nam]]
-            ab[nam, ] <- colSums(matrix(d[taxa, ], ncol=nsamples(x)),
-            na.rm = TRUE)
-        }
+    # Remove ambiguous levels
+    ## First remove NA entries from the target level
+    keep <- !is.na(tax_table(x)[, level])
+    tax_table(x) <- tax_table(x)[keep,]
+
+    keep <- colnames(
+      tax_table(x))[
+          which(
+              vapply(seq(ncol(tax_table(x))),
+                 function(k)
+                     sum(
+			vapply(split(as.character(tax_table(x)[, k]),
+        		   as.character(tax_table(x)[, level])),
+			       function(x) {length(unique(x))
+        		}, 1) > 1), 1) == 0)]
 
 
-        # Create phyloseq object
-        OTU <- otu_table(ab, taxa_are_rows=TRUE)
-        x2 <- phyloseq(OTU)
+    #tax <- unique(tax_table(x)[, 1:match(keep, colnames(tax_table(x)))])
+    tax <- unique(tax_table(x)[, keep])    
 
-        # Remove ambiguous levels
-        ## First remove NA entries from the target level
-        keep <- !is.na(tax_table(x)[, level])
-        tax_table(x) <- tax_table(x)[keep,]
-        keep <- colnames(
-        tax_table(x))[
-        which(
-            vapply(seq(ncol(tax_table(x))),
-            function(k)
-            sum(
-            vapply(split(as.character(tax_table(x)[, k]),
-            as.character(tax_table(x)[, level])), function(x) {
-            length(unique(x))
-        }, 1) > 1), 1) == 0)]
-        tax <- unique(tax_table(x)[, keep])
+    # Rename the lowest level
+    tax <- as.data.frame(tax)
 
-        # Rename the lowest level
-        tax <- as.data.frame(tax)
-        rownames(tax) <- tax[, level]
-        tax$OTU <- rownames(tax)
-        tax <- as.matrix(tax)
-        
-        # Convert to taxonomy table
-        TAX <- tax_table(tax)
-        
-        # Combine OTU and Taxon matrix into Phyloseq object
-        x2 <- merge_phyloseq(x2, TAX)
+    rownames(tax) <- tax[, level]
 
-        # Add the metadata as is
-        if (!is.null(x@sam_data)) {
-            x2 <- merge_phyloseq(x2, sample_data(x))
-        }      
+    tax$OTU <- rownames(tax)
+    tax <- as.matrix(tax)
+    
+    # Convert to taxonomy table
+    TAX <- tax_table(tax)
+
+    # Combine OTU and Taxon matrix into Phyloseq object
+    x2 <- merge_phyloseq(x2, TAX)
+
+    # Add the metadata as is
+    if (!is.null(x@sam_data)) {
+        x2 <- merge_phyloseq(x2, sample_data(x))
+    }      
 
     
     x2
