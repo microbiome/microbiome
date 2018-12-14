@@ -24,6 +24,7 @@ aggregate_taxa <- function(x, level, top = NULL, fill_na_taxa = FALSE) {
     # Sanity checks for a phyloseq object. Required with some methods.
     if (!taxa_are_rows(x)) {
         x@otu_table <- otu_table(t(otu_table(x)), taxa_are_rows = TRUE)
+	taxa_are_rows(x) <- TRUE
     }
 
     if (fill_na_taxa == TRUE && !is.character(fill_na_taxa)) {
@@ -32,9 +33,6 @@ aggregate_taxa <- function(x, level, top = NULL, fill_na_taxa = FALSE) {
 
     if (!is.logical(fill_na_taxa) && is.character(fill_na_taxa)) {    
       M <- as.matrix(tax_table(x))
-      if (!taxa_are_rows(x)) {
-        M <- t(M)
-      }
 
       # Fill in missing entries down to the given level (do not fill lower levels)
       for (i in 1:match(level, colnames(M))) {
@@ -60,9 +58,10 @@ aggregate_taxa <- function(x, level, top = NULL, fill_na_taxa = FALSE) {
         tax_table(x) <- tt
     }
 
+    mytaxa <- taxa(x)
     # Split the OTUs in tax_table by the given taxonomic level 
-    v <- apply(tt, 2, function(i) {mean(taxa(x) %in% unique(i))})
-	
+    v <- apply(tt, 2, function(i) {mean(mytaxa %in% unique(i))})
+
     if (max(v) > 0) {
         current.level <- names(which.max(v))
     } else {
