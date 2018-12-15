@@ -6,18 +6,18 @@ check_phyloseq <- function (x, fill_na_taxa = TRUE) {
     }
 
     if (fill_na_taxa || is.character(fill_na_taxa)) {
-      M <- as.matrix(tax_table(x))
-      if (!taxa_are_rows(x)) {
-        M <- t(M)
-      }
+        M <- as.matrix(tax_table(x))
+        if (!taxa_are_rows(x)) {
+            M <- t(M)
+        }
 
-      if (!is.character(fill_na_taxa)) {
-          fill_na_taxa <- "Unknown"
-      }
+        if (!is.character(fill_na_taxa)) {
+            fill_na_taxa <- "Unknown"
+        }
 
-      M[is.na(M)] <- fill_na_taxa
+        M[is.na(M)] <- fill_na_taxa
 
-      x@tax_table <- tax_table(M)
+        x@tax_table <- tax_table(M)
       
     }
 
@@ -27,8 +27,3 @@ check_phyloseq <- function (x, fill_na_taxa = TRUE) {
 
 
 
-
-#aggregate_na_level <- function (x) {
-#  tx <- rownames(tax_table(x))[which(is.na(tax_table(x)[, level]))]
-#  x <- remove_taxa(taxa, x)
-#}

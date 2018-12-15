@@ -23,10 +23,9 @@
 aggregate_taxa <- function(x, level, top = NULL, fill_na_taxa = FALSE) {
 
     # Check if the object is already at the given level	       
-    if (all(tax_table(x)[, level] == tax_table(x)[, "OTU"])) {
+    if (all(tax_table(x)[, level] == tax_table(x)[, ncol(tax_table(x))])) {
         return(x)
     }
-
 
     # Sanity checks for a phyloseq object. Required with some methods.
     if (!taxa_are_rows(x)) {
