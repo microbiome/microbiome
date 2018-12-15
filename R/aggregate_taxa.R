@@ -22,10 +22,16 @@
 #' @keywords utilities
 aggregate_taxa <- function(x, level, top = NULL, fill_na_taxa = FALSE) {
 
+    # Check if the object is already at the given level	       
+    if (all(tax_table(x)[, level] == tax_table(x)[, "OTU"])) {
+        return(x)
+    }
+
+
     # Sanity checks for a phyloseq object. Required with some methods.
     if (!taxa_are_rows(x)) {
         x@otu_table <- otu_table(t(otu_table(x)), taxa_are_rows = TRUE)
-    taxa_are_rows(x) <- TRUE
+        taxa_are_rows(x) <- TRUE
     }
 
     if (fill_na_taxa == TRUE && !is.character(fill_na_taxa)) {
