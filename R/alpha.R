@@ -41,6 +41,7 @@ alpha <- function(x, index="all", zeroes=TRUE) {
     tab <- NULL
     index <- tolower(index)
     index <- gsub("diversity_shannon", "shannon", index)
+    index <- gsub("richness_", "", index)    
     index <- unique(index)
 
     message("Observed richness")
