@@ -15,9 +15,9 @@
 taxa <- function(x) {
 
     if (taxa_are_rows(x)) {
-      rownames(otu_table(x))    
+        rownames(otu_table(x))    
     } else {
-      colnames(otu_table(x))    
+        colnames(otu_table(x))    
     }  
 }
 
