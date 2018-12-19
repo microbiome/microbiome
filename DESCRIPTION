@@ -11,7 +11,7 @@ Authors@R: c(
 biocViews: Clustering, Metagenomics, Microbiome, Sequencing,SystemsBiology,ImmunoOncology
 License: BSD_2_clause + file LICENSE
 Depends:
-    R (>= 3.0.3),
+    R (>= 3.3.0),
     phyloseq,
     ggplot2
 Imports:
