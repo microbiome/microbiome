@@ -1,4 +1,4 @@
-#' @title Taxonomic Composition Plot
+x#' @title Taxonomic Composition Plot
 #' @description Plot taxon abundance for samples.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param sample.sort Order samples. Various criteria are available:
@@ -187,7 +187,7 @@ plot_composition <- function(x,
         
         # Provide barplot
         dfm <- dfm %>% arrange(Tax)  # Show Taxs always in the same order
-	dfm$Tax <- factor(dfm$Tax, levels = unique(dfm$Tax))
+        dfm$Tax <- factor(dfm$Tax, levels = unique(dfm$Tax))
 
         p <- ggplot(dfm, aes(x=Sample, y=Abundance, fill=Tax))
         p <- p + geom_bar(position="stack", stat="identity")

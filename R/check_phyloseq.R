@@ -18,7 +18,7 @@ check_phyloseq <- function (x, fill_na_taxa = TRUE) {
         M[is.na(M)] <- fill_na_taxa
 
         x@tax_table <- tax_table(M)
-      
+
     }
 
     x

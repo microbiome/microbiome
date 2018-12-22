@@ -64,7 +64,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
             # distances using the distance argument
             # (now assumes the default and cannot be altered)
             d <- t(abundances(x))
-	    pca <- princomp(d)
+            pca <- princomp(d)
             proj <- pca$scores[, c(1,2)]
             rownames(proj) <- sample_names(x)
 
