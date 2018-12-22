@@ -1,4 +1,4 @@
-x#' @title Taxonomic Composition Plot
+#' @title Taxonomic Composition Plot
 #' @description Plot taxon abundance for samples.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param sample.sort Order samples. Various criteria are available:

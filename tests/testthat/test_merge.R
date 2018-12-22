@@ -13,6 +13,7 @@ test_that("Merging ok", {
 
   #x <- dietswap
   library(phyloseq)
+  data(GlobalPatterns)
   x <- GlobalPatterns
   a1 <- abundances(aggregate_taxa(x, level = "Genus"))
   a2 <- colSums(abundances(x)[which(tax_table(x)[, "Genus"] == "Dialister"), ])
