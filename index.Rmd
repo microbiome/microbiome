@@ -69,6 +69,7 @@ Tools for microbiome analysis; with multiple example data sets from published st
 * [Beta diversity / Community heterogeneity](Betadiversity.html)
 * [Community composition](Composition.html)
 * [Core microbiota](Core.html)
+* [Dirichlet Mixture Model (DMM) community typing](DMM.html)
 * [Landscapes](Landscaping.html) (population density analysis)
 * [Stability and tipping elements](Stability.html)
 

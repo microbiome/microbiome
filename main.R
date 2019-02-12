@@ -20,7 +20,8 @@ library(knitcitations)
 
 library(knitr)
 #fs <- "Density.Rmd"
-fs <- "Experimental.Rmd"
+#fs <- "Experimental.Rmd"
+fs <- "DMM.Rmd"
 #fs <- "Diversity.Rmd"
 #fs <- "Heatmap.Rmd"
 #fs <- "Profiling.Rmd"
@@ -30,7 +31,7 @@ fs <- "Experimental.Rmd"
 #fs <- "rstanarm.Rmd"
 #fs <- "Landscaping.Rmd"
 #fs <- sample(list.files(pattern = ".Rmd$"), 20)
-fs <- sample(list.files(pattern = ".Rmd$")) # Random order
+#fs <- sample(list.files(pattern = ".Rmd$")) # Random order
 
 knitr::opts_chunk$set(fig.path = "figure/", dev="CairoPNG")
 
