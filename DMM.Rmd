@@ -1,0 +1,85 @@
+---
+title: "Dirichlet Multinomial Mixtures"
+author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
+bibliography: 
+- bibliography.bib
+output:
+  rmdformats::readthedown:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: true
+    use_bookdown: false
+    highlight: haddock
+---
+<!--
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{microbiome tutorial - Experimental}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}  
+-->
+
+
+# Clustering with Dirichlet Multinomial Mixtures
+
+
+```{r DMM, fig.width=6, fig.height=5, warning=FALSE, message=FALSE}
+library(microbiome)
+library(DirichletMultinomial)
+
+# Load example data
+data(dietswap)
+pseq <- dietswap
+
+# To speed up, only consider the core taxa
+# that are prevalent at 0.1% relative abundance in 50% of the samples
+# (note that this is not strictly correct as information is
+# being discarded; one alternative would be to aggregate rare taxa)
+taxa <- core_members(transform(pseq, "compositional"), detection = 0.1/100, prevalence = 50/100)
+pseq <- prune_taxa(taxa, pseq)
+
+# Pick the OTU count matrix
+dat <- abundances(dietswap)
+# Convert it into samples x taxa format
+count <- as.matrix(t(dat))
+
+# Fit the DMM model. Just max 3 components to speed up
+fit <- mclapply(1:3, dmn, count = count, verbose=TRUE)
+```
+
+
+Check model fit different number of mixture components
+
+```{r DMMplot, fig.width=6, fig.height=5, warning=FALSE, message=FALSE}
+lplc <- sapply(fit, laplace) # AIC / BIC / Laplace
+aic  <- sapply(fit, AIC) # AIC / BIC / Laplace
+bic  <- sapply(fit, BIC) # AIC / BIC / Laplace
+plot(lplc, type="b", xlab="Number of Dirichlet Components", ylab="Model Fit")
+lines(aic, type="b", lty = 2)
+lines(bic, type="b", lty = 3)
+```
+
+Pick the optimal model
+
+```{r DMM3, fig.width=6, fig.height=5, warning=FALSE, message=FALSE}
+best <- fit[[which.min(lplc)]]
+```
+
+Mixture parameters pi and theta
+
+```{r DMM4, fig.width=6, fig.height=5, warning=FALSE, message=FALSE}
+mixturewt(best)
+```
+
+Sample-component assignments
+
+```{r DMM5, fig.width=6, fig.height=5, warning=FALSE, message=FALSE} 
+ass <- apply(mixture(best), 1, which.max)
+```
+
+Contribution of each taxonomic group
+
+```{r DMM6, fig.width=6, fig.height=5, warning=FALSE, message=FALSE}
+# splom(log(fitted(best)))
+```
+
