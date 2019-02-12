@@ -17,6 +17,7 @@
 #' @param adjust Kernel width adjustment
 #' @param size point size
 #' @param legend plot legend TRUE/FALSE
+#' @param shading Add shading in the background.
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
 #' @details For consistent results, set random seet (set.seed) before
@@ -41,7 +42,7 @@
 plot_landscape <- function(x, method="PCoA", distance="bray",
     transformation = "identity", 
     col=NULL, main=NULL, x.ticks=10, rounding=0, add.points=TRUE,
-    adjust=1, size=1, legend=FALSE) {
+    adjust=1, size=1, legend=FALSE, shading=TRUE) {
 
     if (is.matrix(x) || is.data.frame(x)) {
 
@@ -63,8 +64,8 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
             # distances using the distance argument
             # (now assumes the default and cannot be altered)
             d <- t(abundances(x))
-
-            proj <- princomp(d)$scores[, c(1,2)]
+            pca <- princomp(d)
+            proj <- pca$scores[, c(1,2)]
             rownames(proj) <- sample_names(x)
 
             # TODO add robust PCA
@@ -91,7 +92,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
     }
 
     proj <- as.data.frame(proj)
-    colnames(proj) <- paste("Comp", c(1,2), sep=".")
+    colnames(proj) <- paste0("PC", c(1,2))
 
     guide.title <- "color"
     if (is.null(col)) {
@@ -104,10 +105,12 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
     }
 
     p <- densityplot(proj[, c(1,2)], main=NULL, x.ticks=10,
-        rounding=0, add.points=TRUE, 
-        adjust=1, size=size, col=proj$col, legend = TRUE) +
-    guides(color = guide_legend(title = guide.title))
-    
+            rounding=0, add.points=TRUE, 
+            adjust=1, size=size, col=proj$col,
+            legend = TRUE,
+            shading=shading) +
+            guides(color = guide_legend(title = guide.title))
+
     p
     
 }
@@ -128,6 +131,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
 #' @param adjust Kernel width adjustment
 #' @param size point size
 #' @param legend plot legend TRUE/FALSE
+#' @param shading Shading
 #' @return ggplot2 object
 #' @examples
 #'    \dontrun{
@@ -137,7 +141,9 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
-    add.points=TRUE, col="black", adjust=1, size=1, legend=FALSE) {
+    add.points=TRUE, col="black",
+    adjust=1, size=1,
+    legend=FALSE, shading=TRUE) {
 
     df <- x
     if (!is.data.frame(df)) {
@@ -171,19 +177,24 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
     bw <- adjust * c(bwi(df[["x"]]), bwi(df[["y"]]))
     if (any(bw == 0)) {
         warning("Zero bandwidths 
-    (possibly due to small number of observations). Using minimal bandwidth.")
+                (possibly due to small number of observations). 
+                Using minimal bandwidth.")
         bw[bw == 0]=bw[bw == 0] + min(bw[!bw == 0])
     }
     
     # Construct the figure
     p <- ggplot(df)
-    p <- p + stat_density2d(aes(x, y, fill=..density..),
-        geom="raster", h=bw, contour=FALSE)
-    p <- p + scale_fill_gradient(low="white", high="black")
 
+    if (shading) {
+        p <- p + stat_density2d(aes(x, y, fill=..density..),
+                geom="raster", h=bw, 
+                contour=FALSE)
+        p <- p + scale_fill_gradient(low="white", high="black")             
+    }
+    
     if (add.points) {
 
-        if (length(unique(df$color)) == 1 && length(unique(df$size)) == 1) {
+        if (length(unique(df$color)) == 1 && length(unique(df$size)) == 1) {    
             p <- p + geom_point(aes(x=x, y=y),
             col=unique(df$color), size=unique(df$size))
         } else if (length(unique(df$color)) == 1 &&

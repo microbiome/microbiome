@@ -17,7 +17,6 @@
 remove_taxa <- function(taxa = NULL, x) {
 
     if (is.null(taxa)) {return(x)}
-
     i <- taxa %in% taxa(x)
 
     if (!all(i)) {
@@ -27,9 +26,9 @@ remove_taxa <- function(taxa = NULL, x) {
     }    
 
     keep <- setdiff(taxa(x), taxa)
-    
+
     prune_taxa(keep, x)
-    
+
 }
 
 

@@ -3,15 +3,23 @@ Type: Package
 Title: Microbiome Analytics
 Description: Utilities for microbiome analysis.
 Encoding: UTF-8
+<<<<<<< HEAD
 Version: 1.5.21
 Date: 2018-11-29
+||||||| merged common ancestors
+Version: 1.5.2
+Date: 2018-11-29
+=======
+Version: 1.5.27
+Date: 2019-25-01
+>>>>>>> db93d7a2dda19314c25956730051e0f5b79b68e7
 Authors@R: c(
     person("Leo", "Lahti", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Sudarshan", "Shetty", role = "aut"))
 biocViews: Clustering, Metagenomics, Microbiome, Sequencing,SystemsBiology,ImmunoOncology
 License: BSD_2_clause + file LICENSE
 Depends:
-    R (>= 3.5.0),
+    R (>= 3.3.0),
     phyloseq,
     ggplot2
 Imports:

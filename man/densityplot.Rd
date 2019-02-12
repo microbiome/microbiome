@@ -6,7 +6,7 @@
 \usage{
 densityplot(x, main = NULL, x.ticks = 10, rounding = 0,
   add.points = TRUE, col = "black", adjust = 1, size = 1,
-  legend = FALSE)
+  legend = FALSE, shading = TRUE)
 }
 \arguments{
 \item{x}{Data matrix to plot. The first two columns will be visualized as a
@@ -27,6 +27,8 @@ cross-plot.}
 \item{size}{point size}
 
 \item{legend}{plot legend TRUE/FALSE}
+
+\item{shading}{Shading}
 }
 \value{
 ggplot2 object

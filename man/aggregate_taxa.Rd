@@ -4,16 +4,16 @@
 \alias{aggregate_taxa}
 \title{Aggregate Taxa}
 \usage{
-aggregate_taxa(x, level, top = NULL)
+aggregate_taxa(x, level, rm.na = TRUE, verbose = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
 \item{level}{Summarization level (from \code{rank_names(pseq)})}
 
-\item{top}{Keep the top-n taxa, and merge the rest under the category
-'Other'. Instead of top-n numeric this can also be a character vector
-listing the groups to combine.}
+\item{rm.na}{Remove NA taxa}
+
+\item{verbose}{verbose}
 }
 \value{
 Summarized phyloseq object

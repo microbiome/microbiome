@@ -1,4 +1,6 @@
 Changes in version 1.5.2 (2018-11-20)
++ New functions: readcount, bfratio, aggregate_top_taxa
++ rewritten aggregate_taxa and moved the top argument in the new function aggregate_top_taxa 
 + plot_composition function: new options for sample.sort and otu.sort
 + Added Phylum level to taxonomy tables in example data sets 
 * New function: dominant
