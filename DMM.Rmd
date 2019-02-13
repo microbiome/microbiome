@@ -88,7 +88,7 @@ ass <- apply(mixture(best), 1, which.max)
 
 Contribution of each taxonomic group to each component
 
-```{r DMM6, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.show="keep", out.width="33%"}
+```{r DMM6, fig.width=6, fig.height=5, warning=FALSE, message=FALSE, fig.show="hold", out.width="33%"}
 for (k in ncol(fitted(best))) {
   d <- melt(fitted(best))
   colnames(d) <- c("OTU", "cluster", "value")
