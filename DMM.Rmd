@@ -20,10 +20,14 @@ output:
 -->
 
 
-# Clustering with Dirichlet Multinomial Mixtures
+## Community typing with Dirichlet Multinomial Mixtures
+
+[Dirichlet Multinomial Mixtures (DMM)](https://doi.org/10.1371/journal.pone.0030126) (Quince et al. 2012) is a probabilistic method for community typing (or clustering) of microbial community profiling data. It is an infinite mixture model, which means that the method can infer the optimal number of community types. Note that the number of community types is likely to grow with data size.
 
 
-```{r DMM, fig.width=6, fig.height=5, warning=FALSE, message=FALSE}
+Let us load example data.
+
+```{r DMM0, fig.width=6, fig.height=5, warning=FALSE, message=FALSE}
 library(microbiome)
 library(DirichletMultinomial)
 
@@ -35,20 +39,25 @@ pseq <- dietswap
 # that are prevalent at 0.1% relative abundance in 50% of the samples
 # (note that this is not strictly correct as information is
 # being discarded; one alternative would be to aggregate rare taxa)
-taxa <- core_members(transform(pseq, "compositional"), detection = 0.1/100, prevalence = 50/100)
+pseq.comp <- microbiome::transform(pseq, "compositional")
+taxa <- core_members(pseq.comp, detection = 0.1/100, prevalence = 50/100)
 pseq <- prune_taxa(taxa, pseq)
 
 # Pick the OTU count matrix
-dat <- abundances(dietswap)
-# Convert it into samples x taxa format
+# and convert it into samples x taxa format
+dat <- abundances(pseq)
 count <- as.matrix(t(dat))
+```
 
-# Fit the DMM model. Just max 3 components to speed up
+
+Fit the DMM model. Let us set the maximum allowed number of community types to 3 to speed up the example.
+
+```{r DMM, fig.width=6, fig.height=5, warning=FALSE, message=FALSE}
 fit <- mclapply(1:3, dmn, count = count, verbose=TRUE)
 ```
 
 
-Check model fit different number of mixture components
+Check model fit with different number of mixture components using standard information criteria
 
 ```{r DMMplot, fig.width=6, fig.height=5, warning=FALSE, message=FALSE}
 lplc <- sapply(fit, laplace) # AIC / BIC / Laplace

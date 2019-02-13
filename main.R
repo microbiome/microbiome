@@ -21,7 +21,7 @@ library(knitcitations)
 library(knitr)
 #fs <- "Density.Rmd"
 #fs <- "Experimental.Rmd"
-fs <- "DMM.Rmd"
+fs <- c("DMM.Rmd", "index.Rmd")
 #fs <- "Diversity.Rmd"
 #fs <- "Heatmap.Rmd"
 #fs <- "Profiling.Rmd"
