@@ -1,6 +1,6 @@
 ---
 title: "Dirichlet Multinomial Mixtures"
-author: "Leo Lahti, Sudarshan Shetty et al. `r Sys.Date()`"
+author: "`r Sys.Date()`"
 bibliography: 
 - bibliography.bib
 output:
@@ -14,7 +14,7 @@ output:
 ---
 <!--
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{microbiome tutorial - Experimental}
+  %\VignetteIndexEntry{microbiome tutorial - DMM}
   %\usepackage[utf8]{inputenc}
   %\VignetteEncoding{UTF-8}  
 -->
