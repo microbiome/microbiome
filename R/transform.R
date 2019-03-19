@@ -17,7 +17,9 @@
 #' with a factor of 100). The Hellinger transform is square root of the
 #' relative abundance but instead given at the scale [0,1]. The log10p
 #' transformation refers to log10(1 + x). The log10 transformation is applied
-#' as log10(1 + x) if the data contains zeroes.
+#' as log10(1 + x) if the data contains zeroes. CLR transform applies
+#' a pseudocount of min(relative abundance)/2 to exact zero relative
+#' abundance entries in OTU table before taking logs.
 #' @export
 #' @examples
 #'
@@ -109,15 +111,16 @@ transform <- function(x, transform = "identity", target = "OTU",
 
         xt <- x
         
+        # Then transform to compositional data
+        xt <- transform(xt, "compositional")
+        colnames(xt) <- colnames(x)
+
         if (any(xt == 0)) {
-            v <- as.vector(x)
+            v <- as.vector(xt)
             minval <- min(v[v > 0])/2
             xt <- xt + minval
         }
         
-        # Then transform to compositional data
-        xt <- transform(xt, "compositional")
-            colnames(xt) <- colnames(x)
 
         # Pick samples x taxa abundance matrix
         d <- t(apply(xt, 2, function(x) {
