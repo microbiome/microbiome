@@ -21,7 +21,6 @@ bioc_packages:
 - BiocInstaller
 - phyloseq
 r_github_packages:
-- cran/RUnit
 - jimhester/covr
 env:
   global:
