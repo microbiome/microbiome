@@ -36,7 +36,9 @@ as relative abundances in [0, 1] (convert to percentages by multiplying
 with a factor of 100). The Hellinger transform is square root of the
 relative abundance but instead given at the scale [0,1]. The log10p
 transformation refers to log10(1 + x). The log10 transformation is applied
-as log10(1 + x) if the data contains zeroes.
+as log10(1 + x) if the data contains zeroes. CLR transform applies
+a pseudocount of min(relative abundance)/2 to exact zero relative
+abundance entries in OTU table before taking logs.
 }
 \examples{
 

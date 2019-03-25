@@ -228,12 +228,12 @@ simpson_evenness <- function(x) {
 
 # x: Species count vector
 pielou <- function(x) {
-    
+
     # Remove zeroes
     x <- x[x > 0]
     
     # Species richness (number of detected species)
-    S <- sum(x, na.rm = TRUE)
+    S <- sum(x > 0, na.rm = TRUE)
     
     # Relative abundances
     p <- x/sum(x)
