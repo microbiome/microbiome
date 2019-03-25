@@ -33,7 +33,7 @@ microbiome R package
 [microbiome]: https://github.com/microbiome/microbiome
 
 
-Tools for the exploration and analysis of microbiome profiling data sets, in particular large-scale population studies and 16S taxonomic profiling. 
+Tools for the exploration and analysis of microbiome profiling data sets, in particular large-scale population studies and 16S rRNA gene taxonomic profiling. 
 
 
 ### Installation and use
