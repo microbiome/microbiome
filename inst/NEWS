@@ -1,5 +1,6 @@
 
 Changes in version 1.5.4 (2018-11-20)
++ Removed theme() commands from functions to give the choice to user
 + Fixed bug in merge_taxa2
 + Fixed bug in Pielou's evenness
 + New functions: readcount, bfratio, aggregate_top_taxa
