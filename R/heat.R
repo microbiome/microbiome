@@ -168,7 +168,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
         breaks=seq(from=min(limits), to=max(limits), 
         by=step), colours=colours, limits=limits)
     
-    p <- p + xlab("") + ylab("")
+    p <- p + labs(x = "", y = "")
     p <- p + theme(axis.text.x=element_text(angle=90))
     
     # Mark significant cells with stars

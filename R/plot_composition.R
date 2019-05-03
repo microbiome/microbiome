@@ -227,17 +227,11 @@ plot_composition <- function(x,
         p <- p + geom_point()
         p <- p + geom_line()    
         p <- p + scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
-        
-        # Name appropriately
-        #if (!is.null(transform) && transform == "compositional") {
-        #    p <- p + ylab("Relative abundance (%)")
-        #} else {
         p <- p + ylab("Abundance")
-        #}
         
         # Rotate horizontal axis labels, and adjust
         p <- p + theme(axis.text.x=element_text(angle=90, vjust=0.5,
-        hjust=0))
+            hjust=0))
         p <- p + guides(fill=guide_legend(reverse=FALSE))
 
     }

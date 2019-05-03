@@ -48,7 +48,6 @@ plot_atlas <- function(pseq, x, y, ncol=2) {
     
     df$index <- seq_len(nrow(df))
     
-    theme_set(theme_bw(20))
     p <- ggplot(df, aes(x=index, y=signal, color=xvar))
     p <- p + geom_point()
     p <- p + guides(color=guide_legend(ncol=ncol, title=x))

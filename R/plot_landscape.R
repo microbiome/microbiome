@@ -161,7 +161,6 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
         col <- factor(col, levels = unique(c(lev, "darkgray")))    
     }
     
-    theme_set(theme_bw(20))
     xvar <- colnames(df)[[1]]
     yvar <- colnames(df)[[2]]
     df[["x"]] <- df[, 1]

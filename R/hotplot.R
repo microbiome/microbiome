@@ -74,7 +74,8 @@ hotplot <- function(x, taxon, tipping.point=NULL, lims=NULL,
     geom_vline(aes(xintercept=tipping.point), linetype=2, size=1) +
     theme(axis.text.y=element_blank(), axis.ticks.y=element_blank()) + 
         scale_x_continuous(breaks=breaks,
-        labels=names(breaks), limits=lims) + 
+            labels=names(breaks),
+            limits=lims) + 
         # scale_x_log10() +
     ggtitle(taxon)
     

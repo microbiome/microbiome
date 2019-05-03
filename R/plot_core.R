@@ -175,7 +175,6 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
     }
     df$Taxa <- factor(df$Taxa, levels=o)
     
-    theme_set(theme_bw(10))
     p <- ggplot(df, aes(x=DetectionThreshold, y=Taxa, fill=Prevalence))
     p <- p + geom_tile()
     p <- p + xlab("Detection Threshold")
@@ -208,7 +207,6 @@ core_lineplot <- function(x, title="Common core",
     df$Prevalence <- as.numeric(as.character(df$Prevalence))
     df$Count <- as.numeric(as.character(df$Count))
     
-    theme_set(theme_bw(20))
     p <- ggplot(df, aes(x=Abundance, y=Count,
         color=Prevalence, group=Prevalence))
     

@@ -57,7 +57,6 @@ boxplot_abundance <-
     df$xvar <- factor(df$xvar)
     
     # Visualize example data with a boxplot
-    theme_set(theme_bw(20))
     p <- ggplot(df, aes(x=xvar, y=yvar))
     
     if (show.points) {
