@@ -17,11 +17,9 @@ r_packages:
 - scales
 - tidyr
 - vegan
-bioc_packages:
-- BiocInstaller
-- phyloseq
 r_github_packages:
 - jimhester/covr
+- joey711/phyloseq
 env:
   global:
   - WARNINGS_ARE_ERRORS=1
