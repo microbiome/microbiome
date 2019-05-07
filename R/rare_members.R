@@ -21,7 +21,7 @@
 rare_members <- function(x, detection=1/100, prevalence=50/100, include.lowest = FALSE) {
     
     # Pick core taxa 
-    cm <- core_members(x, detection = detecton,
+    cm <- core_members(x, detection = detection,
                          prevalence = prevalence, 
                          include.lowest = include.lowest)
 

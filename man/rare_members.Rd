@@ -4,7 +4,8 @@
 \alias{rare_members}
 \title{Rare Taxa}
 \usage{
-rare_members(x, detection = Inf, prevalence = 20/100)
+rare_members(x, detection = 1/100, prevalence = 50/100,
+  include.lowest = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -14,6 +15,9 @@ rare_members(x, detection = Inf, prevalence = 20/100)
 
 \item{prevalence}{Prevalence threshold (in [0, 1];
 strictly greater by default)}
+
+\item{include.lowest}{Include the lower boundary of the detection and
+prevalence cutoffs. FALSE by default.}
 }
 \value{
 Vector of rare taxa
@@ -38,7 +42,7 @@ a <- rare_members(dietswap, detection=100/100, prevalence=20/100)
 To cite the microbiome R package, see citation('microbiome')
 }
 \seealso{
-core_members, noncore_members
+core_members
 }
 \author{
 Leo Lahti \email{microbiome-admin@googlegroups.com}

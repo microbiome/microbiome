@@ -4,7 +4,8 @@
 \alias{core_abundance}
 \title{Core Abundance}
 \usage{
-core_abundance(x, detection = 0.1/100, prevalence = 50/100)
+core_abundance(x, detection = 0.1/100, prevalence = 50/100,
+  include.lowest = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -14,6 +15,9 @@ core_abundance(x, detection = 0.1/100, prevalence = 50/100)
 
 \item{prevalence}{Prevalence threshold (in [0, 1];
 strictly greater by default)}
+
+\item{include.lowest}{Include the lower boundary of the detection and
+prevalence cutoffs. FALSE by default.}
 }
 \value{
 A vector of core abundance indices

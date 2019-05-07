@@ -41,7 +41,7 @@ to allow logarithmization. The values q=0.5 and n=50 are used here.}
 \item{low_abundance }{Relative proportion of the least abundant species,
 below the detection level of 0.2\%. The least abundant species are
 determined separately for each sample regardless of their prevalence.}
-\item{noncore_abundance }{Relative proportion of the non-core species,
+\item{rare_abundance }{Relative proportion of the non-core species,
 exceed the detection level of 0.2\% at 50\% prevalence at most.
 This is complement of the core with the same thresholds.}
 \item{rare_abundance }{Relative proportion of the rare 
@@ -64,7 +64,7 @@ Biological Diversity: Frontiers in Measurement and Assessment
 (Oxford Univ Press, Oxford), Vol 12
 }
 \seealso{
-alpha, log_modulo_skewness, noncore_abundance, low_abundance
+alpha, log_modulo_skewness, rare_abundance, low_abundance
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
