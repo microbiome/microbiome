@@ -18,25 +18,41 @@
 #' To cite the microbiome R package, see citation('microbiome') 
 #' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-rare_members <- function(x, detection=Inf, prevalence=20/100) {
-    
-    # Pick taxa x samples matrix
-    x <- abundances(x)
-    
-    taxa1 <- names(which(
-    
-        # Detected in at most given prevalence
-        prevalence(x, detection=0,
-                include.lowest=FALSE) <= prevalence
-        ))
-        
-    # .. and never exceeds detection threshold
-    taxa2 <- names(which(apply(x <= detection, 1, all)))
 
-    taxa <- intersect(taxa1, taxa2)
-
-    taxa
+#' @inheritParams core_members
+#' @return Filtered phyloseq object including only rare taxa
+#' @references 
+#' To cite the microbiome R package, see citation('microbiome') 
+#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#' @keywords utilities
+#' @export
+#' @examples
+#' data(peerj32)
+#' pseq <- noncore_members(peerj32$phyloseq, 200, 20/100)
+noncore_members <- function(x, detection, prevalence, include.lowest=FALSE) {
+    
+    # TODO: add optional renormalization such that the abundances
+    # would sum up to 1 ?
+    
+    # Core taxa
+    cm <- core_members(x, detection, prevalence,
+                    include.lowest=include.lowest)
+    
+    # Non-core taxa as complement of core taxa
+    rt <- setdiff(taxa(x), cm)
+    
+    # Pick the subset
+    ret <- NULL
+    if (length(rt) > 0) {
+        ret <- prune_taxa(rt, x)
+    } else {
+        warning("No rare taxa with the given thresholds. Returning NULL.")
+    }
+    
+    ret
     
 }
+
+
 
 
