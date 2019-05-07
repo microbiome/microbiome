@@ -12,13 +12,13 @@
 #' @seealso rarity
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-core_abundance <- function(x, detection = 0.1/100, prevalence = 50/100) {
+core_abundance <- function(x, detection = 0.1/100, prevalence = 50/100, include.lowest = FALSE) {
     
     # Pick taxa x samples compositional matrix
     xcomp <- abundances(transform(x, "compositional"))
     
     # Core members
-    cm <- core_members(x, detection, prevalence)
+    cm <- core_members(x, detection, prevalence, include.lowest)
 
     if (length(cm) == 0) {
         warning("Core is empty with the given abundance and prevalence 
