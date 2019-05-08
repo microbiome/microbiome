@@ -104,7 +104,7 @@ kable(head(tab))
 
 ## Core abundance
 
-The core_abundance function refers to the relative proportion of the core species. Non-core abundance provides the complement (1-x; see noncore_abundance).
+The core_abundance function refers to the relative proportion of the core species. Non-core abundance provides the complement (1-x; see rare_abundance).
 
 ```{r divest5, warning=FALSE, message=FALSE}
 tab <- core_abundance(pseq, detection = .1/100, prevalence = 50/100)
