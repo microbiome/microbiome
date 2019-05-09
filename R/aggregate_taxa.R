@@ -23,8 +23,8 @@ aggregate_taxa <- function(x, level, verbose = FALSE) {
 
     if (!level %in% rank_names(x)) {
         stop("The level argument should be one of the options 
-              given by rank_names(x): ",
-	      paste(rank_names(x), collapse = " / "))
+            given by rank_names(x): ",
+            paste(rank_names(x), collapse = " / "))
     }
 
     # Check if the object is already at the given level

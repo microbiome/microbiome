@@ -16,7 +16,8 @@
 #' @seealso core_abundance, rarity, diversity
 noncore_abundance <- function(x, detection=0.1/100, prevalence=50/100) {
 
-    .Deprecated("rare_abundance", "The microbiome::noncore_abundance has been deprecated.")
+    .Deprecated("rare_abundance",
+        "The microbiome::noncore_abundance has been deprecated.")
 
     1 - core_abundance(x, detection, prevalence)
     
