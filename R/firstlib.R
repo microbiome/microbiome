@@ -69,6 +69,7 @@
 #' @importFrom phyloseq psmelt
 #' @importFrom phyloseq prune_samples
 #' @importFrom phyloseq prune_taxa
+#' @importFrom phyloseq rank_names
 #' @importFrom phyloseq sample_data
 #' @importFrom phyloseq sample_sums
 #' @importFrom phyloseq sample_data<-

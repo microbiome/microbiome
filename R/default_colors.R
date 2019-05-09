@@ -6,7 +6,7 @@
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("microbiome")
 #' @export
-#' @examples \dontrun{col <- default_colors("Phylum")}
+#' @examples col <- default_colors("Phylum")
 #' @keywords utilities
 default_colors <- function (x, v=NULL) {
 

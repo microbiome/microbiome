@@ -2,6 +2,7 @@ Changes in version 2.0 (2019-08-20)
 + removed rm.na option from aggregate_taxa
 + Deprecating noncore_* functions (replacing with rare_* functions everywhere)
 + Removed variable_members function
++ Support removed from R-3.3.3 and lower
 
 Changes in version 1.5.4 (2018-11-20)
 + Removed theme() commands from functions to give the choice to user

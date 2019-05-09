@@ -18,11 +18,19 @@
 #' @keywords utilities
 aggregate_taxa <- function(x, level, verbose = FALSE) {
 
-    # x <- GlobalPatterns; level <- "Phylum"; top <- NULL; fill_na_taxa <- FALSE;
+    # x <- GlobalPatterns;
+    # level <- "Phylum"; top <- NULL; fill_na_taxa <- FALSE;
+
+    if (!level %in% rank_names(x)) {
+        stop("The level argument should be one of the options 
+              given by rank_names(x): ",
+	      paste(rank_names(x), collapse = " / "))
+    }
 
     # Check if the object is already at the given level
-
-    check1 <- length(which(all(tax_table(x)[, level] == tax_table(x)[, ncol(tax_table(x))]))) > 0
+    inds <- all(tax_table(x)[, level] == tax_table(x)[, ncol(tax_table(x))])
+    inds <- which(inds)
+    check1 <- length(inds) > 0
     check2 <- !any(duplicated(tax_table(x)[, level]))
     if (check1 && check2) {
         return(x)
@@ -54,8 +62,10 @@ aggregate_taxa <- function(x, level, verbose = FALSE) {
     }
 
     if (verbose) {print("Mark the potentially ambiguous taxa")}
-    # Some genera for instance belong to multiple Phyla and perhaps these are different
-    # genera. For instance there is genus Clostridium in Tenericutes and Firmicutes.
+    # Some genera for instance belong to multiple Phyla and perhaps these
+    # are different
+    # genera. For instance there is genus Clostridium in Tenericutes
+    # and Firmicutes.
     # (GlobalPatterns data set) and even more families.
     
     tt <- tax_table(x)
@@ -68,7 +78,8 @@ aggregate_taxa <- function(x, level, verbose = FALSE) {
 
     if (verbose) {print("-- sum")}
     d <- abundances(x)
-    ab <- t(sapply(otus, function (taxa) {colSums(matrix(d[taxa, ], ncol=nsamples(x)), na.rm = TRUE)}))
+    ab <- t(sapply(otus, function (taxa) {colSums(matrix(d[taxa, ],
+        ncol=nsamples(x)), na.rm = TRUE)}))
     colnames(ab) <- colnames(d)
     rownames(ab) <- names(otus)
 
@@ -80,7 +91,8 @@ aggregate_taxa <- function(x, level, verbose = FALSE) {
     ## First remove NA entries from the target level
     inds3 <- match(level, colnames(tt@.Data))
     inds4 <- match("unique", colnames(tt@.Data))    
-    taxtab <- tt@.Data[which(!is.na(tt@.Data[, level])), c(seq_len(inds3), inds4)]
+    taxtab <- tt@.Data[which(!is.na(tt@.Data[, level])),
+        c(seq_len(inds3), inds4)]
 
     if (verbose) {print("-- unique")}
     tax <- unique(taxtab)

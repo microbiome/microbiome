@@ -22,8 +22,8 @@ rare_members <- function(x, detection=1/100, prevalence=50/100, include.lowest =
     
     # Pick core taxa 
     cm <- core_members(x, detection = detection,
-                         prevalence = prevalence, 
-                         include.lowest = include.lowest)
+                        prevalence = prevalence, 
+                        include.lowest = include.lowest)
 
     # Take complement
     taxa <- setdiff(taxa(x), cm)
