@@ -7,7 +7,6 @@
 #' phyloseq object with the summarized abundances.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param level Summarization level (from \code{rank_names(pseq)})
-#' @param rm.na Remove NA taxa
 #' @param verbose verbose
 #' @return Summarized phyloseq object
 #' @examples
@@ -17,7 +16,7 @@
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-aggregate_taxa <- function(x, level, rm.na = TRUE, verbose = FALSE) {
+aggregate_taxa <- function(x, level, verbose = FALSE) {
 
     # x <- GlobalPatterns; level <- "Phylum"; top <- NULL; fill_na_taxa <- FALSE;
 

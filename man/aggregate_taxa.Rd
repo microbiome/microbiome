@@ -4,14 +4,12 @@
 \alias{aggregate_taxa}
 \title{Aggregate Taxa}
 \usage{
-aggregate_taxa(x, level, rm.na = TRUE, verbose = FALSE)
+aggregate_taxa(x, level, verbose = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
 
 \item{level}{Summarization level (from \code{rank_names(pseq)})}
-
-\item{rm.na}{Remove NA taxa}
 
 \item{verbose}{verbose}
 }
