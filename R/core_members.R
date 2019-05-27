@@ -24,7 +24,12 @@
 #' @keywords utilities
 core_members <- function(x, detection=1/100, prevalence=50/100,
     include.lowest=FALSE) {
-    
+
+    if ((detection < 0) | (detection > 1) |
+        (prevalence < 0) | (prevalence > 1)) {
+      stop("The detection and prevalence arguments should be in [0, 1].")
+    }
+
     # Pick taxa x samples matrix
     x <- abundances(x)
     
