@@ -9,8 +9,8 @@
 #' @keywords utilities
 #' @export
 #' @examples
-#' data(peerj32)
-#' pseq <- noncore_members(peerj32$phyloseq, 200, 20/100)
+#' #data(peerj32)
+#' #pseq <- noncore_members(peerj32$phyloseq, 200, 20/100)
 noncore_members <- function(x, detection, prevalence, include.lowest=FALSE) {
 
     .Deprecated("rare_members", "The microbiome::noncore_members has been deprecated.")

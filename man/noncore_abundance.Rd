@@ -12,8 +12,9 @@ noncore_abundance(x, detection = 0.1/100, prevalence = 50/100)
 \item{detection}{Detection threshold for absence/presence
 (strictly greater by default).}
 
-\item{prevalence}{Prevalence threshold (in [0, 1];
-strictly greater by default)}
+\item{prevalence}{Prevalence threshold (in [0, 1]). The
+required prevalence is strictly greater by default. To include the
+limit, set include.lowest to TRUE.}
 }
 \value{
 A vector of indices

@@ -13,8 +13,9 @@ core(x, detection, prevalence, include.lowest = FALSE)
 \item{detection}{Detection threshold for absence/presence
 (strictly greater by default).}
 
-\item{prevalence}{Prevalence threshold (in [0, 1];
-strictly greater by default)}
+\item{prevalence}{Prevalence threshold (in [0, 1]). The
+required prevalence is strictly greater by default. To include the
+limit, set include.lowest to TRUE.}
 
 \item{include.lowest}{Include the lower boundary of the detection and
 prevalence cutoffs. FALSE by default.}
@@ -32,6 +33,11 @@ data(dietswap)
 # Detection threshold 0 (strictly greater by default);
 # Prevalence threshold 50 percent (strictly greater by default)
 pseq <- core(dietswap, 0, 50/100)
+# Detection threshold 0 (strictly greater by default);
+# Prevalence threshold exactly 100 percent; for this set
+# include.lowest=TRUE, otherwise the required prevalence is 
+# strictly greater than 100
+pseq <- core(dietswap, 0, 100/100, include.lowest = TRUE)
 }
 \references{
 Salonen A, Salojarvi J, Lahti L, de Vos WM. The adult intestinal

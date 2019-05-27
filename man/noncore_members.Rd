@@ -12,8 +12,9 @@ noncore_members(x, detection, prevalence, include.lowest = FALSE)
 \item{detection}{Detection threshold for absence/presence
 (strictly greater by default).}
 
-\item{prevalence}{Prevalence threshold (in [0, 1];
-strictly greater by default)}
+\item{prevalence}{Prevalence threshold (in [0, 1]). The
+required prevalence is strictly greater by default. To include the
+limit, set include.lowest to TRUE.}
 
 \item{include.lowest}{Include the lower boundary of the detection and
 prevalence cutoffs. FALSE by default.}
@@ -26,8 +27,8 @@ Filter the phyloseq object to include only taxa that do not
 belong to the core set defined by the detection and prevalence thresholds.
 }
 \examples{
-data(peerj32)
-pseq <- noncore_members(peerj32$phyloseq, 200, 20/100)
+#data(peerj32)
+#pseq <- noncore_members(peerj32$phyloseq, 200, 20/100)
 }
 \references{
 To cite the microbiome R package, see citation('microbiome')
