@@ -1,5 +1,12 @@
 citHeader("Please cite the package as follows:")
 
+Jari Oksanen, F. Guillaume Blanchet, Michael Friendly, Roeland Kindt,
+  Pierre Legendre, Dan McGlinn, Peter R. Minchin, R. B. O'Hara, Gavin
+  L. Simpson, Peter Solymos, M. Henry H. Stevens, Eduard Szoecs and
+  Helene Wagner (2019). vegan: Community Ecology Package. R package
+  version 2.5-5. https://CRAN.R-project.org/package=vegan
+
+
 citEntry(entry="misc",
          title = "microbiome R package",
          author = personList(

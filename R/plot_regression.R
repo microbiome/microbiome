@@ -142,8 +142,6 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
 
     p1 <- ggplot(data, aes_string(x="IV", y="DV"))
     
-    p1 <- p1 + theme_bw()
-    
     if (shade) {
         
         quantize <- match.arg(quantize, c("continuous", "SD"))

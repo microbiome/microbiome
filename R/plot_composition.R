@@ -190,7 +190,7 @@ plot_composition <- function(x,
         dfm$Tax <- factor(dfm$Tax, levels = unique(dfm$Tax))
 
         p <- ggplot(dfm, aes(x=Sample, y=Abundance, fill=Tax))
-        p <- p + geom_bar(position="stack", stat="identity")
+        p <- p + geom_bar(position="stack", stat="identity", color = "black")
         p <- p + scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
 
         # Name appropriately
