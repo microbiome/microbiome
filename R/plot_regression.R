@@ -13,8 +13,8 @@
 #' the edges? (by reducing alpha; 0=no alpha decrease, 
 #' 0.1=medium alpha decrease, 0.5=strong alpha decrease)
 #' @param spag plot spaghetti lines?
-#' @param mweight should the median smoother be visually weighted?
-#' @param show.lm should the linear regresison line be plotted?
+#' @param mweight visually weight the median smoother
+#' @param show.lm plot the linear regression line
 #' @param show.median show median smoother
 #' @param median.col median color
 #' @param show.CI should the 95\% CI limits be plotted?
