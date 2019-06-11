@@ -6,7 +6,7 @@
 \usage{
 plot_composition(x, sample.sort = NULL, otu.sort = NULL,
   x.label = "sample", plot.type = "barplot", verbose = FALSE,
-  average_by = NULL, ...)
+  average_by = NULL, group_by = NULL, ...)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -40,6 +40,8 @@ The options are 'Z-OTU', 'Z-Sample', 'log10' and 'compositional'.
 See the \code{\link{transform}} function.}
 
 \item{average_by}{Average the samples by the average_by variable}
+
+\item{group_by}{Group by this variable (in plot.type "barplot")}
 
 \item{...}{Arguments to be passed (for \code{\link{neatsort}} function)}
 }
