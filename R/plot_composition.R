@@ -24,7 +24,8 @@
 #'  (but not in sample/taxon ordering).
 #' The options are 'Z-OTU', 'Z-Sample', 'log10' and 'compositional'.
 #' See the \code{\link{transform}} function.
-#' @param average_by Average the samples by the average_by variable 
+#' @param average_by Average the samples by the average_by variable
+#' @param group_by Group by this variable (in plot.type "barplot")
 #' @param ... Arguments to be passed (for \code{\link{neatsort}} function)
 #' @return A \code{\link{ggplot}} plot object.
 #' @export
@@ -45,17 +46,18 @@ plot_composition <- function(x,
     x.label="sample",
     plot.type="barplot",
     verbose=FALSE, 
-    average_by=NULL, ...) {
+    average_by=NULL,
+    group_by = NULL, ...) {
     
     # Avoid warnings
-    Sample <- Abundance <- Taxon <- Tax <- horiz <- value <- scales <- ID <- 
+    Sample <- Abundance <- Taxon <- Group <- Tax <-
+        horiz <- value <- scales <- ID <- 
         meta <- OTU <- taxic <- otu.df <- taxmat <-  new.tax<- NULL
     if (!is.null(x@phy_tree)){
         x@phy_tree <- NULL
     }
         
     xorig <- x
-
 
     if (verbose) {
         message("Pick the abundance matrix taxa x samples")
@@ -91,7 +93,6 @@ plot_composition <- function(x,
         # No sorting sample.sort <- sample_names(x)
         sample.sort <- colnames(abu)
     } else if (length(sample.sort) == 1 && sample.sort %in% taxa(xorig)) {
-
         tax <- sample.sort
         sample.sort <- rev(sample_names(x)[order(abundances(x)[tax,])])
     } else if (length(sample.sort) == 1 &&
@@ -149,11 +150,13 @@ plot_composition <- function(x,
     # Abundances as data.frame dfm <- psmelt(x)
     dfm <- psmelt(otu_table(abu, taxa_are_rows = TRUE))
     names(dfm) <- c("Tax", "Sample", "Abundance")
-
     dfm$Sample <- factor(dfm$Sample, levels=sample.sort)
-
     dfm$Tax <- factor(dfm$Tax, levels=otu.sort)
-    
+
+    if (!is.null(group_by)) {
+	dfm$Group <- meta(x)[[group_by]][match(as.character(dfm$Sample), sample_names(x))]
+    }
+
     # SampleIDs for plotting
     if (x.label %in% colnames(sample_data(x)) & is.null(average_by)) {
         
@@ -189,17 +192,22 @@ plot_composition <- function(x,
         dfm <- dfm %>% arrange(Tax)  # Show Taxs always in the same order
         dfm$Tax <- factor(dfm$Tax, levels = unique(dfm$Tax))
 
-        p <- ggplot(dfm, aes(x=Sample, y=Abundance, fill=Tax))
-        p <- p + geom_bar(position="stack", stat="identity", color = "black")
-        p <- p + scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
+
+        p <- ggplot(dfm, aes(x=Sample, y=Abundance, fill=Tax)) +
+	       geom_bar(position="stack", stat="identity", color = "black") +
+	       scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
 
         # Name appropriately
-        p <- p + ylab("Abundance")
+        p <- p + labs(y = "Abundance")
         
         # Rotate horizontal axis labels, and adjust
         p <- p + theme(axis.text.x=element_text(angle=90, vjust=0.5,
             hjust=0))
         p <- p + guides(fill=guide_legend(reverse=FALSE))
+
+        if (!is.null(group_by)) {
+	  p <- p + facet_grid(.~Group, drop = TRUE, space = "free", scales = "free") 
+	}
 
     } else if (plot.type == "heatmap") {
         

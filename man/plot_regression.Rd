@@ -26,9 +26,9 @@ the edges? (by reducing alpha; 0=no alpha decrease,
 
 \item{spag}{plot spaghetti lines?}
 
-\item{mweight}{should the median smoother be visually weighted?}
+\item{mweight}{visually weight the median smoother}
 
-\item{show.lm}{should the linear regresison line be plotted?}
+\item{show.lm}{plot the linear regression line}
 
 \item{show.median}{show median smoother}
 
