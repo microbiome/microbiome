@@ -49,6 +49,11 @@ As the method=categorical (discrete) association measure
 for nominal (no order for levels) variables we use Goodman and
 Kruskal tau based on
 r-bloggers.com/measuring-associations-between-non-numeric-variables/
+
+The p-values in the output table depend on the method. For the spearman
+and pearson correlation values, the p-values are provided by the default
+method in the cor.test function. For the categorical method, the p-value is
+estimated with the microbiome::gktau function (see the separate help page).
 }
 \examples{
 data(peerj32)
