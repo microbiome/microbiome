@@ -1,6 +1,8 @@
 #' @title Abundance Spread Plot
 #' @description Visualize abundance spread for OTUs
-#' @param x \code{\link{phyloseq-class}} object; or a data.frame with fields "otu" (otu name); "sample" (sample name); and "abundance" (otu abundance in the given sample)
+#' @param x \code{\link{phyloseq-class}} object; or a data.frame with fields
+#'        "otu" (otu name); "sample" (sample name); and "abundance"
+#'        (otu abundance in the given sample)
 #' @param trunc Truncate abundances lower than this to zero
 #' @return ggplot2 object
 #' @references See citation('microbiome') 
@@ -12,18 +14,22 @@
 #' @keywords utilities
 spreadplot <- function (x, trunc = 0.001/100) {
 
-  # df: data.frame with fields "otu" (otu name); "sample" (sample name); and "abundance" (otu abundance in the given sample)
+  otu <- sample <- abundance <- NULL
+
+  # df: data.frame with fields "otu" (otu name);
+  # "sample" (sample name); and "abundance"
+  # (otu abundance in the given sample)
 
   df <- melt(abundances(x)) 
   names(df) <- gsub("Var1", "otu", names(df))
   names(df) <- gsub("Var2", "sample", names(df))
-  names(df) <- gsub("value", "abundance", names(df))    
-	       
+  names(df) <- gsub("value", "abundance", names(df))
+  
   o <- df %>% group_by(otu) %>%
-             summarise(median = median(abundance),
-	               mean = mean(abundance)) %>%
-	     arrange(median) %>%
-	     mutate(otu = factor(otu, unique(otu)))
+            summarise(median = median(abundance),
+	            mean = mean(abundance)) %>%
+	    arrange(median) %>%
+	    mutate(otu = factor(otu, unique(otu)))
 
   top <- rev(as.character(levels(o$otu))) #[1:50]
   df <- subset(df, otu %in% top)
@@ -33,15 +39,15 @@ spreadplot <- function (x, trunc = 0.001/100) {
   df$abundance[df$abundance < trunc] <- trunc
 
   p <- ggplot(df, aes(x=otu, y=abundance)) +
-       # geom_boxplot(fill = "gray") +
-       geom_jitter(alpha = 0.15, width = 0.35) +       
-       scale_y_continuous(# labels=scales::percent,
-                          labels = paste0(100 * brs, "%"),        
-       	          	  trans  = "log10",
-                          breaks = brs
-			  #limits = c(1e-5, 1)
-			  ) +
-       coord_flip()
+        # geom_boxplot(fill = "gray") +
+        geom_jitter(alpha = 0.15, width = 0.35) +       
+        scale_y_continuous(# labels=scales::percent,
+                        labels = paste0(100 * brs, "%"),        
+                        trans  = "log10",
+                        breaks = brs
+			#limits = c(1e-5, 1)
+			) +
+        coord_flip()
        
   p
 

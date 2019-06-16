@@ -154,7 +154,7 @@ plot_composition <- function(x,
     dfm$Tax <- factor(dfm$Tax, levels=otu.sort)
 
     if (!is.null(group_by)) {
-	dfm$Group <- meta(x)[[group_by]][match(as.character(dfm$Sample), sample_names(x))]
+    dfm$Group <- meta(x)[[group_by]][match(as.character(dfm$Sample), sample_names(x))]
     }
 
     # SampleIDs for plotting
@@ -194,8 +194,8 @@ plot_composition <- function(x,
 
 
         p <- ggplot(dfm, aes(x=Sample, y=Abundance, fill=Tax)) +
-	       geom_bar(position="stack", stat="identity", color = "black") +
-	       scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
+            geom_bar(position="stack", stat="identity", color = "black") +
+            scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
 
         # Name appropriately
         p <- p + labs(y = "Abundance")
@@ -206,8 +206,9 @@ plot_composition <- function(x,
         p <- p + guides(fill=guide_legend(reverse=FALSE))
 
         if (!is.null(group_by)) {
-	  p <- p + facet_grid(.~Group, drop = TRUE, space = "free", scales = "free") 
-	}
+            p <- p + facet_grid(.~Group, drop = TRUE,
+                    space = "free", scales = "free") 
+    }
 
     } else if (plot.type == "heatmap") {
         

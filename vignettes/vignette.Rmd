@@ -82,18 +82,7 @@ package version `r sessionInfo()$otherPkgs$microbiome$Version`. URL:
 
 # Installation
 
-To install microbiome package in R (Bioconductor development version),
-use
-
-```{r install, eval=FALSE}
-library(BiocManager)
-if (!requireNamespace("BiocManager", quietly=TRUE))
-    install.packages("BiocManager")
-BiocManager::install(version = "devel")
-BiocManager::install("microbiome")
-```
-
-Then load the package in R
+Loading the package in R (after installation from Bioconductor):
 
 ```{r loading}
 library(microbiome)  
