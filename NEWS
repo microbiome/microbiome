@@ -1,5 +1,6 @@
 Changes in version 2.0 (2019-08-20)
-* removed ready made themes from functions
++ spreadplot function added
++ removed ready made themes from functions
 + Added is.compositional
 + Fixed a bug in core_members (also non-compositional detection now allowed)
 + removed rm.na option from aggregate_taxa

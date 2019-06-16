@@ -2,6 +2,7 @@
 #' @importFrom dplyr do
 #' @importFrom dplyr filter
 #' @importFrom dplyr group_by
+#' @importFrom dplyr rename
 #' @importFrom dplyr select
 #' @importFrom dplyr summarise
 #' @importFrom dplyr n
