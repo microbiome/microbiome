@@ -125,7 +125,8 @@ plot_composition <- function(x,
         names(sort(rowSums(abu)))[seq(2, nrow(abu), 2)]))
     } else if (length(otu.sort) == 1 && otu.sort == "abundance") {
         otu.sort <- rev(names(sort(rowSums(abu))))
-    } else if (length(otu.sort) == 1 && otu.sort %in% colnames(tax_table(x))) {
+    } else if (length(otu.sort) == 1 && otu.sort %in%
+        colnames(tax_table(x))) {
 
         # Sort by phylogenetic group
         #taxic <- as.data.frame(x@tax_table) 
@@ -154,7 +155,8 @@ plot_composition <- function(x,
     dfm$Tax <- factor(dfm$Tax, levels=otu.sort)
 
     if (!is.null(group_by)) {
-    dfm$Group <- meta(x)[[group_by]][match(as.character(dfm$Sample), sample_names(x))]
+    dfm$Group <- meta(x)[[group_by]][match(as.character(dfm$Sample),
+        sample_names(x))]
     }
 
     # SampleIDs for plotting

@@ -13,7 +13,8 @@
 #' #pseq <- noncore_members(peerj32$phyloseq, 200, 20/100)
 noncore_members <- function(x, detection, prevalence, include.lowest=FALSE) {
 
-    .Deprecated("rare_members", "The microbiome::noncore_members has been deprecated.")
+    .Deprecated("rare_members",
+        "The microbiome::noncore_members has been deprecated.")
 
     # TODO: add optional renormalization such that the abundances
     # would sum up to 1 ?

@@ -19,7 +19,7 @@
 #' @keywords utilities
 map_levels <- function(taxa=NULL, from, to, data) {
     
-    if (is.phyloseq(data)) {
+    if (class(data) == "phyloseq") {
         data <- tax_table(data)
     }
     
