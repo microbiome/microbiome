@@ -22,6 +22,18 @@ default_colors <- function (x, v=NULL) {
             "Spirochaetes" = "darkgray",
             "Fusobacteria" = "lightblue",
             "Cyanobacteria" = "deepskyblue3")
+    }
+
+    if (x == "Genus") {
+        col <- c(
+	  "Faecalibacterium" = "blue",
+	  "Bifidobacterium" = "magenta",
+	  "Escherichia" = "black",
+	  "Alistipes" = "lightblue",    
+	  "Other" = "darkgray",
+	  "Prevotella" = "darkgreen",
+	  "Bacteroides" = "red"
+      )
     }      
 
     col
