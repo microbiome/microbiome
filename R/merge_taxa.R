@@ -33,6 +33,10 @@ merge_taxa2 <- function(x, taxa = NULL, pattern = NULL, name = "Merged") {
             mytaxa <- taxa(x)
         }
 
+        if (length(grep(pattern, mytaxa)) == 0) {
+            return(x)
+        }
+
         mytaxa <- mytaxa[grep(pattern, mytaxa)]
 
     } else if (is.null(taxa)) {
