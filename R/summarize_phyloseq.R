@@ -25,10 +25,10 @@ summarize_phyloseq <- function(x)
     
     if (comp == 0)
     {
-        cat("Compositional = YES", fill = 2)
+        message("Compositional = YES", fill = 2)
     } else
     {
-        cat("Compositional = NO", fill = 2)
+        message("Compositional = NO", fill = 2)
     }
     
     
@@ -53,13 +53,18 @@ summarize_phyloseq <- function(x)
     sR1 <- paste0("8] Number of singletons = ",
         length(taxa_sums(x)[taxa_sums(x) <= 
         1]))
-    sR2 <- paste0("9] Percent of OTUs that are singletons ", 
-        length(taxa_sums(x)[taxa_sums(x) <= 1])/nrow(otu_table(x)) * 
-            100)
+    sR2 <- paste0("9] Percent of OTUs that are singletons 
+        (i.e. exactly one read detected across all samples)",
+        mean(taxa_sums(x) == 1) * 100)
+        #length(taxa_sums(x)[taxa_sums(x) <= 1])/nrow(otu_table(x)) * 
+        #    100)
     svar <- paste0("10] Number of sample variables are: ", ncol(meta(x)))
     sam_var <- colnames(meta(x))
     
-    cat(minR, maxR, tR, aR, mR, zno, sR, sR1, sR2, svar, sam_var, 
+    message(minR, maxR, tR, aR, mR, zno, sR, sR1, sR2, svar, sam_var, 
         fill = 2)
+
+    # Return?
+    list(minR, maxR, tR, aR, mR, zno, sR, sR1, sR2, svar, sam_var)
     
 }
