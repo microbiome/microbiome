@@ -43,7 +43,8 @@ download_peerj32 <- function (...) {
     peerj32 <- list()
     data.dir <- system.file("inst/extdata", package = "microbiome")
     for (nam in c("lipids", "microbes", "meta")) {
-      peerj32[[nam]] <- read.table(paste0(data.dir, "/peerj32_", nam, ".csv"), sep = "\t", header = T, row.names = 1)
+      peerj32[[nam]] <- read.table(paste0(data.dir, "/peerj32_", nam, ".csv"), 
+         sep = "\t", header = TRUE, row.names = 1)
     }
 
     data <- peerj32
@@ -90,7 +91,7 @@ download_peerj32 <- function (...) {
 download_atlas <- function (...) {
 
   message("Downloading data set from Lahti et al. Nat. Comm. 5:4344, 2014 from 
-  		       Data Dryad: http://doi.org/10.5061/dryad.pk75d")
+  Data Dryad: http://doi.org/10.5061/dryad.pk75d")
 
   # Define the data URL
   url <- download_url('10255/dryad.64665')[[1]]

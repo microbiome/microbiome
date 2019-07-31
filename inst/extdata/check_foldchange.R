@@ -37,11 +37,11 @@ check_foldchange <- function (x, group, sort = FALSE, paired = FALSE) {
   # Calculate fold changes
   if (paired) {
     fc <- apply(x, 1, function (xi) {spl <- split(xi, g);
-      log10(mean(spl[[2]] - spl[[1]], na.rm = T))
+      log10(mean(spl[[2]] - spl[[1]], na.rm = TRUE))
 		 })
   } else {
     fc <- apply(x, 1, function (xi) {spl <- split(xi, g);
-      log10(mean(spl[[2]], na.rm = T)) - log10(mean(spl[[1]], na.rm = T))
+      log10(mean(spl[[2]], na.rm = T)) - log10(mean(spl[[1]], na.rm = TRUE))
 		 })
 
   }

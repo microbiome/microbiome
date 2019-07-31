@@ -26,15 +26,15 @@ default_colors <- function (x, v=NULL) {
 
     if (x == "Genus") {
         col <- c(
-	  "Faecalibacterium" = "blue",
-	  "Bifidobacterium" = "magenta",
-	  "Escherichia" = "black",
-	  "Alistipes" = "lightblue",    
-	  "Other" = "darkgray",
-	  "Prevotella" = "darkgreen",
-	  "Bacteroides" = "red"
-      )
-    }      
+	    "Faecalibacterium" = "blue",
+	    "Bifidobacterium" = "magenta",
+	    "Escherichia" = "black",
+	    "Alistipes" = "lightblue",    
+	    "Other" = "darkgray",
+	    "Prevotella" = "darkgreen",
+	    "Bacteroides" = "red"
+        )
+    }  
 
     col
 

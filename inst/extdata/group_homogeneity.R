@@ -135,8 +135,8 @@ group_homogeneity <- function(x, type = "interindividual", group_by = "group", m
       pval <- anova(lm(correlation ~ group, data = dfs))[["Pr(>F)"]][[1]]      
       stats <- dfs %>%
                  group_by(group) %>%
-                 summarize(mean = mean(correlation, na.rm = T),
-		           sd = sd(correlation, na.rm = T))
+                 summarize(mean = mean(correlation, na.rm = TRUE),
+		           sd = sd(correlation, na.rm = TRUE))
 			   
       homogeneity <- list(data = dfs, statistics = stats, p.value = pval)
 
