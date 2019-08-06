@@ -4,7 +4,7 @@
 \alias{spreadplot}
 \title{Abundance Spread Plot}
 \usage{
-spreadplot(x, trunc = 0.001/100)
+spreadplot(x, trunc = 0.001/100, alpha = 0.15, width = 0.35)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object; or a data.frame with fields
@@ -12,6 +12,10 @@ spreadplot(x, trunc = 0.001/100)
 (otu abundance in the given sample)}
 
 \item{trunc}{Truncate abundances lower than this to zero}
+
+\item{alpha}{Alpha level for point transparency}
+
+\item{width}{Width for point spread}
 }
 \value{
 ggplot2 object
