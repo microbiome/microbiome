@@ -1,6 +1,7 @@
-# https://support.rstudio.com/hc/en-us/articles/200626518-Customizing-Package-Bubuiild-Options
-#/usr/bin/R CMD BATCH document.R
-/usr/bin/R CMD build ../../ --resave-data #--no-examples  --no-build-vignettes 
-/usr/bin/R CMD check microbiome_1.9.16.tar.gz #--no-build-vignettes --no-examples
-/usr/bin/R CMD BiocCheck microbiome_1.9.16.tar.gz
-/usr/bin/R CMD INSTALL microbiome_1.9.16.tar.gz 
+# https://support.rstudio.com/hc/en-us/articles/200626518-Customizing-Package-Build-Options
+#~/bin/R-3.5.0/bin/R CMD BATCH document.R
+
+~/bin/R-3.6.1/bin/R CMD build ../../ --resave-data #--no-examples  --no-build-vignettes 
+~/bin/R-3.6.1/bin/R CMD check microbiome_1.9.18.tar.gz #--no-build-vignettes --no-examples
+~/bin/R-3.6.1/bin/R CMD BiocCheck microbiome_1.9.18.tar.gz
+~/bin/R-3.6.1/bin/R CMD INSTALL microbiome_1.9.18.tar.gz 

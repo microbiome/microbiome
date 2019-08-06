@@ -43,7 +43,7 @@ This vignette provides a brief overview
 with example data sets from published microbiome profiling studies
 [@lahti14natcomm, @Lahti13provasI, @OKeefe15].
 A more comprehensive tutorial is available
-[on-line](http://microbiome.github.io/microbiome).
+[on-line](http://microbiome.github.io/tutorials).
 
 Tools are provided for the manipulation, statistical analysis, and
 visualization of taxonomic profiling data. In addition to targeted
@@ -75,7 +75,7 @@ license](http://en.wikipedia.org/wiki/BSD\_licenses).
 
 Kindly cite the work as follows: "Leo Lahti [et
 al.](https://github.com/microbiome/microbiome/graphs/contributors)
-(Bioconductor, 2017). Tools for microbiome analysis in R. Microbiome
+(Bioconductor, 2017-2019). Tools for microbiome analysis in R. Microbiome
 package version `r sessionInfo()$otherPkgs$microbiome$Version`. URL:
 (http://microbiome.github.io/microbiome)
 
