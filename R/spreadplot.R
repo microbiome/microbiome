@@ -4,6 +4,8 @@
 #'        "otu" (otu name); "sample" (sample name); and "abundance"
 #'        (otu abundance in the given sample)
 #' @param trunc Truncate abundances lower than this to zero
+#' @param alpha Alpha level for point transparency
+#' @param width Width for point spread
 #' @return ggplot2 object
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
@@ -12,7 +14,7 @@
 #' data(dietswap)
 #' p <- spreadplot(transform(dietswap, "compositional"))
 #' @keywords utilities
-spreadplot <- function (x, trunc = 0.001/100) {
+spreadplot <- function (x, trunc = 0.001/100, alpha = 0.15, width = 0.35) {
 
     otu <- sample <- abundance <- NULL
 
@@ -40,7 +42,7 @@ spreadplot <- function (x, trunc = 0.001/100) {
 
     p <- ggplot(df, aes(x=otu, y=abundance)) +
         # geom_boxplot(fill = "gray") +
-        geom_jitter(alpha = 0.15, width = 0.35) +       
+        geom_jitter(alpha = alpha, width = width) +       
         scale_y_continuous(# labels=scales::percent,
                         labels = paste0(100 * brs, "%"),        
                         trans  = "log10",
