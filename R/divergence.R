@@ -25,7 +25,7 @@
 #' @param x phyloseq object 
 #' @param method dissimilarity method: any method available via
 #' stats::cor or phyloseq::distance function. Note that some methods
-#' ("jsd" for instance) do not work with the group divergence.
+#' ("jsd" and 'unifrac' for instance) do not work with the group divergence.
 #' @param coreset phyloseq object; the samples to be used to define the centroid
 #' @return Vector with dissimilarities; one for each sample, quantifying the
 #' dissimilarity of the sample from the group-level mean.
