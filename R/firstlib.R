@@ -116,6 +116,7 @@
 #' @importFrom stats sd
 #' @importFrom stats time
 #' @importFrom stats frequency
+#' @importFrom tibble data_frame
 #' @importFrom tidyr separate
 #' @importFrom utils capture.output
 #' @importFrom utils flush.console

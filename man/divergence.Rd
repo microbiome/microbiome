@@ -11,7 +11,7 @@ divergence(x, method = "bray", coreset = NULL)
 
 \item{method}{dissimilarity method: any method available via
 stats::cor or phyloseq::distance function. Note that some methods
-("jsd" for instance) do not work with the group divergence.}
+("jsd" and 'unifrac' for instance) do not work with the group divergence.}
 
 \item{coreset}{phyloseq object; the samples to be used to define the centroid}
 }
