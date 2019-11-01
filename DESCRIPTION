@@ -20,6 +20,7 @@ Imports:
     Rtsne,
     scales,
     stats,
+    tibble,
     tidyr,
     utils,
     vegan
