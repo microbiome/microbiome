@@ -12,7 +12,7 @@
 #' @param scale Scaling constant for the abundance values when
 #' transform = "scale".
 #' @return Transformed \code{\link{phyloseq}} object
-#' @details In transformation typ, the 'compositional' abunances are returned
+#' @details In transformation typ, the 'compositional' abundances are returned
 #' as relative abundances in [0, 1] (convert to percentages by multiplying
 #' with a factor of 100). The Hellinger transform is square root of the
 #' relative abundance but instead given at the scale [0,1]. The log10p

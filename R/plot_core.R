@@ -36,6 +36,12 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
         na.rm=TRUE)), length=detections)
     }
 
+   if (!is_compositional(x)) {
+       warning("The plot_core function is typically used with compositional 
+                data. The data is not compositional. Make sure that you
+                 intend to operate on non-compositional data.")
+   }
+
     if (plot.type == "lineplot") {
 
         # Calculate the core matrix (prevalences x abundance thresholds)
@@ -45,7 +51,7 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
     } else if (plot.type == "heatmap") {
         
         # Here we use taxon x abundance thresholds table
-    #  indicating prevalences
+        #  indicating prevalences
         res <- core_heatmap(abundances(x),
                     dets=detections,
             cols=colours, 
@@ -55,7 +61,7 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
 
     }
     
-    p <- res$plot + ggtitle("Core")
+    p <- res$plot # + ggtitle("Core")
     
     if (horizontal) {
         p <- p + coord_flip() + theme(axis.text.x=element_text(angle=90))
@@ -178,8 +184,13 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
     p <- ggplot(df, aes(x=DetectionThreshold, y=Taxa, fill=Prevalence))
     p <- p + geom_tile()
     p <- p + xlab("Detection Threshold")
-    p <- p + scale_x_log10(labels = percent)
 
+    if (is_compositional(x)) {
+        p <- p + scale_x_log10(labels = scales::percent)
+    } else {
+        p <- p + labs(x = "Abundance")
+    }
+    
     if (!is.null(cols)) {
         p <- p + scale_fill_gradientn("Prevalence",
             breaks=seq(from=0, to=1, by=0.1), 
@@ -192,7 +203,7 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
 }
 
 
-core_lineplot <- function(x, title="Common core",
+core_lineplot <- function(x, 
     xlabel="Abundance", ylabel="Core size (N)") {
     
     Abundance <- Prevalence <- Count <- NULL
@@ -215,7 +226,6 @@ core_lineplot <- function(x, title="Common core",
     p <- p + scale_x_log10()
     p <- p + xlab(xlabel)
     p <- p + ylab(ylabel)
-    p <- p + ggtitle(title)
     
     list(plot=p, data=x)
 }

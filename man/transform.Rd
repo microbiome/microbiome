@@ -31,7 +31,7 @@ Transformed \code{\link{phyloseq}} object
 Standard transforms for \code{\link{phyloseq-class}}.
 }
 \details{
-In transformation typ, the 'compositional' abunances are returned
+In transformation typ, the 'compositional' abundances are returned
 as relative abundances in [0, 1] (convert to percentages by multiplying
 with a factor of 100). The Hellinger transform is square root of the
 relative abundance but instead given at the scale [0,1]. The log10p

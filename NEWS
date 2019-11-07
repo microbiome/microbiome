@@ -1,7 +1,10 @@
-Changes in version 2.0 (2019-08-20)
+Changes in version 1.9.2 (2019-11-07)
++ Removed noncore_abundance
++ Fixing plot_core axis labeling
++ is.compositional function added
 + spreadplot function added
 + removed ready made themes from functions
-+ Added is.compositional
++ Renamed is.compositional to is_compositional
 + Fixed a bug in core_members (also non-compositional detection now allowed)
 + removed rm.na option from aggregate_taxa
 + Deprecating noncore_* functions (replacing with rare_* functions everywhere)
