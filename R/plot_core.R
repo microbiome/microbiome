@@ -52,15 +52,15 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
         
         # Here we use taxon x abundance thresholds table
         #  indicating prevalences
-        res <- core_heatmap(abundances(x),
+        res <- core_heatmap(
+	            abundances(x),
                     dets=detections,
-            cols=colours, 
+                    cols=colours, 
                     min.prev=min.prevalence,
-            taxa.order=taxa.order)
-        
+                    taxa.order=taxa.order)
 
     }
-    
+
     p <- res$plot # + ggtitle("Core")
     
     if (horizontal) {
@@ -150,8 +150,6 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
 {
 
     data <- x
-
-    #colours <- gray(seq(0, 1, length=5)), 
     DetectionThreshold <- Taxa <- Prevalence <- NULL
     
     # Prevalences with varying dets
@@ -161,18 +159,21 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
     prev <- do.call("cbind", prev)
     colnames(prev) <- as.character(dets)
 
-    # # Exclude rows and cols that never exceed the given prevalence
+    # Exclude rows and cols that never exceed the given prevalence
     if (!is.null(min.prev)) {
         prev <- prev[rowMeans(prev > min.prev) > 0,
-        colMeans(prev > min.prev) > 0]
+                     colMeans(prev > min.prev) > 0]
     }
-    
+
     df <- as.data.frame(prev)
+
     df$ID <- rownames(prev)
     df <- melt(df, "ID")
     names(df) <- c("Taxa", "DetectionThreshold", "Prevalence")
     df$DetectionThreshold <- as.numeric(as.character(df$DetectionThreshold))
     df$Prevalence <- as.numeric(as.character(df$Prevalence))
+
+    df$DetectionThreshold <- factor(df$DetectionThreshold)
 
     if (is.null(taxa.order)) {
         o <- names(sort(rowSums(prev)))
@@ -180,15 +181,15 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
         o <- taxa.order
     }
     df$Taxa <- factor(df$Taxa, levels=o)
-    
-    p <- ggplot(df, aes(x=DetectionThreshold, y=Taxa, fill=Prevalence))
-    p <- p + geom_tile()
-    p <- p + xlab("Detection Threshold")
+
+    p <- ggplot(df, aes(x=DetectionThreshold, y=Taxa, fill=Prevalence)) +
+             geom_tile() +
+	     labs(y = "")
 
     if (is_compositional(x)) {
         p <- p + scale_x_log10(labels = scales::percent)
     } else {
-        p <- p + labs(x = "Abundance")
+        p <- p + labs(x = "Detection Threshold")
     }
     
     if (!is.null(cols)) {
