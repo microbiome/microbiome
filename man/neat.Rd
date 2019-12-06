@@ -4,8 +4,15 @@
 \alias{neat}
 \title{Neatmap Sorting}
 \usage{
-neat(x, arrange = "both", method = "NMDS", distance = "bray",
-  first.feature = NULL, first.sample = NULL, ...)
+neat(
+  x,
+  arrange = "both",
+  method = "NMDS",
+  distance = "bray",
+  first.feature = NULL,
+  first.sample = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{A matrix or phyloseq object.}

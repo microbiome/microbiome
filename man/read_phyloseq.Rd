@@ -4,9 +4,13 @@
 \alias{read_phyloseq}
 \title{Import phyloseq Data}
 \usage{
-read_phyloseq(otu.file = NULL, taxonomy.file = NULL,
-  metadata.file = NULL, type = c("simple", "mothur", "biom"),
-  sep = ",")
+read_phyloseq(
+  otu.file = NULL,
+  taxonomy.file = NULL,
+  metadata.file = NULL,
+  type = c("simple", "mothur", "biom"),
+  sep = ","
+)
 }
 \arguments{
 \item{otu.file}{File containing the OTU table (for mothur this is the file

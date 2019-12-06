@@ -4,9 +4,16 @@
 \alias{group_age}
 \title{Age Classes}
 \usage{
-group_age(x, breaks = "decades", n = 10, labels = NULL,
-  include.lowest = TRUE, right = FALSE, dig.lab = 3,
-  ordered_result = FALSE)
+group_age(
+  x,
+  breaks = "decades",
+  n = 10,
+  labels = NULL,
+  include.lowest = TRUE,
+  right = FALSE,
+  dig.lab = 3,
+  ordered_result = FALSE
+)
 }
 \arguments{
 \item{x}{Numeric vector (age in years)}

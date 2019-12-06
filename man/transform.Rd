@@ -4,8 +4,7 @@
 \alias{transform}
 \title{Data Transformations for phyloseq Objects}
 \usage{
-transform(x, transform = "identity", target = "OTU", shift = 0,
-  scale = 1)
+transform(x, transform = "identity", target = "OTU", shift = 0, scale = 1)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -64,7 +63,7 @@ xt <- transform(x, 'identity')
 # xt <- transform(x, 'log10p')
 
 # CLR transform
-# xt <- transform(x, 'clr')
+xt <- microbiome::transform(x, 'clr')
 
 # Shift the baseline
 # xt <- transform(x, 'shift', shift=1)

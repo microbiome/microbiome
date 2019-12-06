@@ -4,8 +4,14 @@
 \alias{multimodality}
 \title{Multimodality Score}
 \usage{
-multimodality(x, peak.threshold = 1, bw.adjust = 1, bs.iter = 100,
-  min.density = 1, verbose = TRUE)
+multimodality(
+  x,
+  peak.threshold = 1,
+  bw.adjust = 1,
+  bs.iter = 100,
+  min.density = 1,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{x}{A vector, or data matrix (variables x samples)}

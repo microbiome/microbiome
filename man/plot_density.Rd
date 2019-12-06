@@ -4,9 +4,18 @@
 \alias{plot_density}
 \title{Plot Density}
 \usage{
-plot_density(x, variable = NULL, log10 = FALSE, adjust = 1,
-  kernel = "gaussian", trim = FALSE, na.rm = FALSE, fill = "gray",
-  tipping.point = NULL, xlim = NULL)
+plot_density(
+  x,
+  variable = NULL,
+  log10 = FALSE,
+  adjust = 1,
+  kernel = "gaussian",
+  trim = FALSE,
+  na.rm = FALSE,
+  fill = "gray",
+  tipping.point = NULL,
+  xlim = NULL
+)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object or an OTU matrix

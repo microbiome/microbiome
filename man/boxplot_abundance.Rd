@@ -4,8 +4,15 @@
 \alias{boxplot_abundance}
 \title{Abundance Boxplot}
 \usage{
-boxplot_abundance(d, x, y, line = NULL, violin = FALSE,
-  na.rm = FALSE, show.points = TRUE)
+boxplot_abundance(
+  d,
+  x,
+  y,
+  line = NULL,
+  violin = FALSE,
+  na.rm = FALSE,
+  show.points = TRUE
+)
 }
 \arguments{
 \item{d}{\code{\link{phyloseq-class}} object}

@@ -5,8 +5,7 @@
 \alias{prevalent_taxa}
 \title{Core Taxa}
 \usage{
-core_members(x, detection = 1/100, prevalence = 50/100,
-  include.lowest = FALSE)
+core_members(x, detection = 1/100, prevalence = 50/100, include.lowest = FALSE)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}

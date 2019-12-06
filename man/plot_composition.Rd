@@ -4,9 +4,17 @@
 \alias{plot_composition}
 \title{Taxonomic Composition Plot}
 \usage{
-plot_composition(x, sample.sort = NULL, otu.sort = NULL,
-  x.label = "sample", plot.type = "barplot", verbose = FALSE,
-  average_by = NULL, group_by = NULL, ...)
+plot_composition(
+  x,
+  sample.sort = NULL,
+  otu.sort = NULL,
+  x.label = "sample",
+  plot.type = "barplot",
+  verbose = FALSE,
+  average_by = NULL,
+  group_by = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}

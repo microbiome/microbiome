@@ -4,8 +4,7 @@
 \alias{read_mothur2phyloseq}
 \title{Read Mothur Output into a Phyloseq Object}
 \usage{
-read_mothur2phyloseq(shared.file, consensus.taxonomy.file,
-  mapping.file = NULL)
+read_mothur2phyloseq(shared.file, consensus.taxonomy.file, mapping.file = NULL)
 }
 \arguments{
 \item{shared.file}{A
@@ -31,23 +30,22 @@ Mothur shared and consensus taxonomy files will be converted to
 }
 \examples{
 \dontrun{
+otu.file <- system.file(
+"extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.subsample.shared",
+   package='microbiome')
 
-#otu.file <- system.file(
-#"extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.subsample.shared",
-#   package='microbiome')
+tax.file <- system.file(
+"extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.cons.taxonomy",
+   package='microbiome')
 
-#tax.file <- system.file(
-#"extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.cons.taxonomy",
-#   package='microbiome')
+meta.file <- system.file(
+"extdata/Baxter_FITs_Microbiome_2016_mapping.csv",
+   package='microbiome')
 
-#meta.file <- system.file(
-#"extdata/Baxter_FITs_Microbiome_2016_mapping.csv",
-#   package='microbiome')
-
-#p0 <- read_mothur2phyloseq(
-#       shared.file=otu.file,
-#       consensus.taxonomy.file=tax.file,
-#       mapping.file=meta.file)
+p0 <- read_mothur2phyloseq(
+       shared.file=otu.file,
+       consensus.taxonomy.file=tax.file,
+       mapping.file=meta.file)
 }
 }
 \author{

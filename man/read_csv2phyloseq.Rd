@@ -4,8 +4,12 @@
 \alias{read_csv2phyloseq}
 \title{Read Simple OTU Tables into a Phyloseq Object}
 \usage{
-read_csv2phyloseq(otu.file = NULL, taxonomy.file = NULL,
-  metadata.file = NULL, sep = ",")
+read_csv2phyloseq(
+  otu.file = NULL,
+  taxonomy.file = NULL,
+  metadata.file = NULL,
+  sep = ","
+)
 }
 \arguments{
 \item{otu.file}{A simple otu_table with '.csv' extension}

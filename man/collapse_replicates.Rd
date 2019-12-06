@@ -4,8 +4,12 @@
 \alias{collapse_replicates}
 \title{Collapse Replicate Samples}
 \usage{
-collapse_replicates(x, method = "sample", replicate_id = NULL,
-  replicate_fields = NULL)
+collapse_replicates(
+  x,
+  method = "sample",
+  replicate_id = NULL,
+  replicate_fields = NULL
+)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}

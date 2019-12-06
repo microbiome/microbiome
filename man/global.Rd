@@ -11,7 +11,7 @@ global(x, index = "all")
 with the absolute count data (no relative abundances), or
 \code{\link{phyloseq-class}} object}
 
-\item{index}{Default is ‘NULL’, meaning that all available global indices
+\item{index}{Default is ‘NULL’, meaning that all available indices
 will be included. For specific options, see details.}
 }
 \value{

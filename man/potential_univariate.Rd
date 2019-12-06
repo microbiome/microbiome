@@ -4,9 +4,17 @@
 \alias{potential_univariate}
 \title{Potential Analysis for Univariate Data}
 \usage{
-potential_univariate(x, std = 1, bw = "nrd", weights = c(),
-  grid.size = NULL, peak.threshold = 1, bw.adjust = 1,
-  density.smoothing = 0, min.density = 1)
+potential_univariate(
+  x,
+  std = 1,
+  bw = "nrd",
+  weights = c(),
+  grid.size = NULL,
+  peak.threshold = 1,
+  bw.adjust = 1,
+  density.smoothing = 0,
+  min.density = 1
+)
 }
 \arguments{
 \item{x}{Univariate data (vector) for which the potentials shall be estimated}

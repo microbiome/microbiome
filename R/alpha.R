@@ -7,7 +7,6 @@
 #' @param index Default is ‘NULL’, meaning that all available indices
 #' will be included. For specific options, see details.
 #' @param zeroes Include zero counts in the diversity estimation.
-#' @inheritParams core
 #' @return A data.frame of samples x alpha diversity indicators
 #' @details This function returns various indices of the ecosystem state.
 #' The function is named alpha (global in some previous versions of this

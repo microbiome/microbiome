@@ -14,26 +14,26 @@
 #' @export
 #' @examples
 #' \dontrun{
+#' otu.file <- system.file(
+#' "extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.subsample.shared",
+#'    package='microbiome')
 #'
-#' #otu.file <- system.file(
-#' #"extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.subsample.shared",
-#' #   package='microbiome')
+#' tax.file <- system.file(
+#' "extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.cons.taxonomy",
+#'    package='microbiome')
 #'
-#' #tax.file <- system.file(
-#' #"extdata/Baxter_FITs_Microbiome_2016_fit.final.tx.1.cons.taxonomy",
-#' #   package='microbiome')
-#'
-#' #meta.file <- system.file(
-#' #"extdata/Baxter_FITs_Microbiome_2016_mapping.csv",
-#' #   package='microbiome')
+#' meta.file <- system.file(
+#' "extdata/Baxter_FITs_Microbiome_2016_mapping.csv",
+#'    package='microbiome')
 #' 
-#' #p0 <- read_mothur2phyloseq(
-#' #       shared.file=otu.file,
-#' #       consensus.taxonomy.file=tax.file,
-#' #       mapping.file=meta.file)
+#' p0 <- read_mothur2phyloseq(
+#'        shared.file=otu.file,
+#'        consensus.taxonomy.file=tax.file,
+#'        mapping.file=meta.file)
 #' }
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
+#'
 read_mothur2phyloseq <- function(shared.file, consensus.taxonomy.file, 
     mapping.file=NULL) {
     
@@ -47,8 +47,10 @@ read_mothur2phyloseq <- function(shared.file, consensus.taxonomy.file,
     m.otu$Group <- NULL
     rownames(m.otu) <- NULL
     rownames(m.otu) <- x
-    m.otu[, c(2:(ncol(m.otu) - 1))] <- sapply(m.otu[, c(2:(ncol(m.otu) - 
-        1))], as.numeric, 1)
+    #m.otu[, c(2:(ncol(m.otu) - 1))] <- sapply(m.otu[, c(2:(ncol(m.otu) - 
+    #    1))], as.numeric, 1)
+    m.otu[, c(2:(ncol(m.otu) - 1))] <- vapply(m.otu[, c(2:(ncol(m.otu) - 
+        1))], as.numeric, as.numeric(m.otu[,1]))	
     mothur_otu_table <- (otu_table(t(as.matrix(m.otu)), taxa_are_rows=TRUE))
     
     # message('Converted Shared to OTU table')

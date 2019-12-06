@@ -4,9 +4,16 @@
 \alias{group_bmi}
 \title{Body-Mass Index (BMI) Classes}
 \usage{
-group_bmi(x, breaks = "standard", n = 10, labels = NULL,
-  include.lowest = TRUE, right = FALSE, dig.lab = 3,
-  ordered_result = FALSE)
+group_bmi(
+  x,
+  breaks = "standard",
+  n = 10,
+  labels = NULL,
+  include.lowest = TRUE,
+  right = FALSE,
+  dig.lab = 3,
+  ordered_result = FALSE
+)
 }
 \arguments{
 \item{x}{Numeric vector (BMI)}

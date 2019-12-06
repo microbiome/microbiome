@@ -4,8 +4,14 @@
 \alias{hotplot}
 \title{Univariate Bimodality Plot}
 \usage{
-hotplot(x, taxon, tipping.point = NULL, lims = NULL, shift = 0.001,
-  log10 = TRUE)
+hotplot(
+  x,
+  taxon,
+  tipping.point = NULL,
+  lims = NULL,
+  shift = 0.001,
+  log10 = TRUE
+)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}

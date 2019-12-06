@@ -4,8 +4,13 @@
 \alias{potential_analysis}
 \title{Bootstrapped Potential Analysis}
 \usage{
-potential_analysis(x, peak.threshold = 0, bw.adjust = 1,
-  bs.iter = 100, min.density = 1)
+potential_analysis(
+  x,
+  peak.threshold = 0,
+  bw.adjust = 1,
+  bs.iter = 100,
+  min.density = 1
+)
 }
 \arguments{
 \item{x}{Input data vector}

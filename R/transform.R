@@ -45,7 +45,7 @@
 #' # xt <- transform(x, 'log10p')
 #'
 #' # CLR transform
-#' # xt <- transform(x, 'clr')
+#' xt <- microbiome::transform(x, 'clr')
 #'
 #' # Shift the baseline
 #' # xt <- transform(x, 'shift', shift=1)

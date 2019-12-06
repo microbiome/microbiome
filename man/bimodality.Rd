@@ -4,8 +4,15 @@
 \alias{bimodality}
 \title{Bimodality Analysis}
 \usage{
-bimodality(x, method = "potential_analysis", peak.threshold = 1,
-  bw.adjust = 1, bs.iter = 100, min.density = 1, verbose = TRUE)
+bimodality(
+  x,
+  method = "potential_analysis",
+  peak.threshold = 1,
+  bw.adjust = 1,
+  bs.iter = 100,
+  min.density = 1,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{x}{A vector, matrix, or a phyloseq object}

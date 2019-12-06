@@ -11,7 +11,9 @@
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @references See citation("bibliographica")
-#' @examples \dontrun{p <- top(df, field, 10)}
+#' @examples
+#'   data(dietswap)
+#'   p <- top(meta(dietswap), "group", 10)
 #' @keywords utilities
 top <- function (x, field = NULL, n = NULL, output = "vector", round = NULL, na.rm = FALSE, include.rank = FALSE) {
 

@@ -4,8 +4,12 @@
 \alias{intermediate_stability}
 \title{Intermediate Stability}
 \usage{
-intermediate_stability(x, reference.point = NULL,
-  method = "correlation", output = "scores")
+intermediate_stability(
+  x,
+  reference.point = NULL,
+  method = "correlation",
+  output = "scores"
+)
 }
 \arguments{
 \item{x}{\pkg{phyloseq} object.

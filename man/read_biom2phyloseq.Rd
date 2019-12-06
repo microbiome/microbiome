@@ -4,8 +4,12 @@
 \alias{read_biom2phyloseq}
 \title{Read BIOM File into a Phyloseq Object}
 \usage{
-read_biom2phyloseq(biom.file = NULL, taxonomy.file = NULL,
-  metadata.file = NULL, ...)
+read_biom2phyloseq(
+  biom.file = NULL,
+  taxonomy.file = NULL,
+  metadata.file = NULL,
+  ...
+)
 }
 \arguments{
 \item{biom.file}{A biom file with '.biom' extension}

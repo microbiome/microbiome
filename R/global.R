@@ -1,12 +1,7 @@
 #' @title Global Ecosystem State Variables 
 #' @description Global indicators of the ecoystem state, including richness,
 #' evenness, diversity, and other indicators
-#' @param x A species abundance vector, or matrix (taxa/features x samples)
-#' with the absolute count data (no relative abundances), or
-#' \code{\link{phyloseq-class}} object
-#' @param index Default is ‘NULL’, meaning that all available global indices
-#' will be included. For specific options, see details.
-#' @inheritParams core
+#' @inheritParams alpha
 #' @return A data.frame of samples x global indicators
 #' @details This function returns global indices of the ecosystem state using
 #' default choices for detection, prevalence and other parameters for

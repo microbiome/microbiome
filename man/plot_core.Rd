@@ -4,9 +4,16 @@
 \alias{plot_core}
 \title{Visualize OTU Core}
 \usage{
-plot_core(x, prevalences = seq(0.1, 1, 0.1), detections = 20,
-  plot.type = "lineplot", colours = NULL, min.prevalence = NULL,
-  taxa.order = NULL, horizontal = FALSE)
+plot_core(
+  x,
+  prevalences = seq(0.1, 1, 0.1),
+  detections = 20,
+  plot.type = "lineplot",
+  colours = NULL,
+  min.prevalence = NULL,
+  taxa.order = NULL,
+  horizontal = FALSE
+)
 }
 \arguments{
 \item{x}{A \code{\link{phyloseq}} object or a core matrix}

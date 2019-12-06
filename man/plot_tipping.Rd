@@ -4,8 +4,14 @@
 \alias{plot_tipping}
 \title{Variation Line Plot}
 \usage{
-plot_tipping(x, taxon, tipping.point = NULL, lims = NULL,
-  shift = 0.001, xlim = NULL)
+plot_tipping(
+  x,
+  taxon,
+  tipping.point = NULL,
+  lims = NULL,
+  shift = 0.001,
+  xlim = NULL
+)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}

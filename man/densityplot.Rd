@@ -4,9 +4,18 @@
 \alias{densityplot}
 \title{Density Plot}
 \usage{
-densityplot(x, main = NULL, x.ticks = 10, rounding = 0,
-  add.points = TRUE, col = "black", adjust = 1, size = 1,
-  legend = FALSE, shading = TRUE)
+densityplot(
+  x,
+  main = NULL,
+  x.ticks = 10,
+  rounding = 0,
+  add.points = TRUE,
+  col = "black",
+  adjust = 1,
+  size = 1,
+  legend = FALSE,
+  shading = TRUE
+)
 }
 \arguments{
 \item{x}{Data matrix to plot. The first two columns will be visualized as a

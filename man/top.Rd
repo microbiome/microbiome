@@ -4,8 +4,15 @@
 \alias{top}
 \title{Identify Top Entries}
 \usage{
-top(x, field = NULL, n = NULL, output = "vector", round = NULL,
-  na.rm = FALSE, include.rank = FALSE)
+top(
+  x,
+  field = NULL,
+  n = NULL,
+  output = "vector",
+  round = NULL,
+  na.rm = FALSE,
+  include.rank = FALSE
+)
 }
 \arguments{
 \item{x}{data.frame, matrix, or vector}
@@ -29,7 +36,8 @@ Vector of top counts, named by the corresponding entries
 Identify the top entries in a vector or for a given field in a data frame.
 }
 \examples{
-\dontrun{p <- top(df, field, 10)}
+  data(dietswap)
+  p <- top(meta(dietswap), "group", 10)
 }
 \references{
 See citation("bibliographica")
