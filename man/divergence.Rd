@@ -45,7 +45,7 @@ to quantify group homogeneity.
 }
 \examples{
 # Assess beta diversity among the African samples
-# in a diet swap study (see \\code{help(dietswap)} for references)
+# in a diet swap study (see \code{help(dietswap)} for references)
 data(dietswap)
 b <- divergence(subset_samples(dietswap, nationality == 'AFR'))
 }

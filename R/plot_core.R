@@ -49,7 +49,7 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
         res <- core_lineplot(coremat)
 
     } else if (plot.type == "heatmap") {
-        
+
         # Here we use taxon x abundance thresholds table
         #  indicating prevalences
         res <- core_heatmap(
@@ -58,10 +58,9 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
                     cols=colours, 
                     min.prev=min.prevalence,
                     taxa.order=taxa.order)
-
     }
 
-    p <- res$plot # + ggtitle("Core")
+    p <- res$plot
     
     if (horizontal) {
         p <- p + coord_flip() + theme(axis.text.x=element_text(angle=90))
@@ -187,11 +186,12 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
 	     labs(y = "")
 
     if (is_compositional(x)) {
-        p <- p + scale_x_log10(labels = scales::percent)
+        #p <- p + scale_x_log10(labels = scales::percent)
+        p <- p + labs(x = "Detection Threshold")	
     } else {
         p <- p + labs(x = "Detection Threshold")
     }
-    
+
     if (!is.null(cols)) {
         p <- p + scale_fill_gradientn("Prevalence",
             breaks=seq(from=0, to=1, by=0.1), 
