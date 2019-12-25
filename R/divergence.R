@@ -1,69 +1,65 @@
-#' @title Diversity within a Sample Group
+#' @title Divergence within a Sample Group
 #' @description Quantify microbiota divergence (heterogeneity) within a
-#' given sample set.
+#' given sample set with respect to a reference.
 #'
 #' @details
 #' Microbiota divergence (heterogeneity / spread) within a given sample
 #' set can be quantified by the average sample dissimilarity or beta
-#' diversity. Taking average over
-#' all pairwise dissimilarities is sensitive to sample size and heavily biased
-#' as the similarity values are not independent. To reduce this bias, the
-#' dissimilarity of each sample against the group mean is calculated. This
-#' generates one value per sample. These can be compared between groups in
-#' order to compare differences in group homogeneity. 
+#' diversity with respect to a given reference sample.
 #'
-#' Note that this measure is still affected by sample size.
+#' This measure is sensitive to sample size.
 #' Subsampling or bootstrapping can be applied to equalize sample sizes
 #' between comparisons.
 #' 
-#' The spearman mode is a simple indicator that returns
-#' average spearman correlation between samples of the input data and
-#' the overall group-wise average. The inverse of this measure
-#' (ie rho instead of 1-rho as in here) was used in Salonen et al. (2014)
-#' to quantify group homogeneity.
-#' 
-#' @param x phyloseq object 
+#' @param x phyloseq object or a vector
+#' @param y Reference sample. A vector. 
 #' @param method dissimilarity method: any method available via
-#' stats::cor or phyloseq::distance function. Note that some methods
+#' phyloseq::distance function. Note that some methods
 #' ("jsd" and 'unifrac' for instance) do not work with the group divergence.
-#' @param coreset phyloseq object; the samples to be used to define the centroid
 #' @return Vector with dissimilarities; one for each sample, quantifying the
-#' dissimilarity of the sample from the group-level mean.
+#' dissimilarity of the sample from the reference sample.
 #' @export
+#'
 #' @examples
 #' # Assess beta diversity among the African samples
 #' # in a diet swap study (see \code{help(dietswap)} for references)
 #' data(dietswap)
-#' b <- divergence(subset_samples(dietswap, nationality == 'AFR'))
+#' pseq <- subset_samples(dietswap, nationality == 'AFR')
+#' reference <- apply(abundances(pseq), 1, median)
+#' b <- divergence(pseq, reference, method = "bray")
+#'
 #' @references
 #'
-#' The inter- and intra-individual homogeneity measures used in
-#' Salonen et al. ISME J. 8:2218-30, 2014 were obtained as
-#' 1 - beta where beta is the group diversity as quantified by the
-#' spearman method.
-#' 
 #' To cite this R package, see citation('microbiome')
 #' 
 #' @seealso the vegdist function from the \pkg{vegan} package provides many
 #' standard beta diversity measures
-#' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
+#'
+#' @author Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
-divergence <- function(x, method="bray", coreset = NULL) {
-
-    if (is.null(coreset)) {
-        coreset <- x
-    }
+divergence <- function(x, y, method="bray") {
 
     # Abundance matrix (taxa x samples)
-    x <- abundances(x)
-    coreset <- abundances(coreset)    
-
-    if (method %in% c("spearman", "pearson", "kendall")) {
-        b <- correlation_divergence(x, method = method, coreset = coreset)
-    } else {
-        b <- beta.mean(x, method = method, coreset = coreset)
+    if (class(x) == "phyloseq") {
+         x <- abundances(x)
     }
 
+    if (!is.matrix(x)) {
+      x <- matrix(x, nrow = length(x))
+    }
+
+    y <- as.vector(y)
+
+    # Divergence against the reference
+    b <- c()
+    for (i in seq_len(ncol(x))) {
+        xx <- rbind(x[, i], y)
+
+        xxx <- distance(otu_table(t(xx), taxa_are_rows = TRUE), method=method)
+
+        b[[i]] <- as.matrix(xxx)[1, 2]
+    }
+    
     # Add sample names
     names(b) <- colnames(x)
 
@@ -71,58 +67,6 @@ divergence <- function(x, method="bray", coreset = NULL) {
     
 }
 
-correlation_divergence <- function(x, method="spearman", coreset) {
 
-    # Correlations calculated against the mean of the sample set
-    m <- matrix(rowMeans(coreset))
-    cors <- as.vector(cor(x, m,
-        method=method, use="pairwise.complete.obs"))
     
-    1 - cors
-    
-}
-
-
-beta.mean <- function(x, method="bray", coreset) {
-    
-    # Divergence calculated against the mean of the sample set
-    b <- c()
-    m <- rowMeans(coreset)
-
-    for (i in seq_len(ncol(x))) {
-        xx <- rbind(x[, i], m)
-        xxx <- distance(otu_table(t(xx), taxa_are_rows = TRUE), method=method)
-        b[[i]] <- as.matrix(xxx)[1, 2]
-    }
-    
-    b
-    
-}
-
-
-
-
-
-beta.pairs <- function(x, method="bray", n = ncol(x)) {
-    
-    # Divergence calculated against the mean of the sample set
-    b <- c()
-
-    # All index pairs
-    # pairs <- combn(1:ncol(x), 2)
-
-    # Pick n pairs without replacement
-    # inds <- sample(ncol(pairs), n)
-
-    # Distance between each sample and a random pair
-    for (i in seq_len(ncol(x))) {
-        i2 <- sample(setdiff(seq_len(ncol(x)), i), 1)
-        xx <- t(x[, c(i, i2)])
-        b[[i]] <- as.vector(vegdist(xx, method=method)) 
-    }
-    
-    b
-    
-}
-
 

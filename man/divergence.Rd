@@ -2,59 +2,46 @@
 % Please edit documentation in R/divergence.R
 \name{divergence}
 \alias{divergence}
-\title{Diversity within a Sample Group}
+\title{Divergence within a Sample Group}
 \usage{
-divergence(x, method = "bray", coreset = NULL)
+divergence(x, y, method = "bray")
 }
 \arguments{
-\item{x}{phyloseq object}
+\item{x}{phyloseq object or a vector}
+
+\item{y}{Reference sample. A vector.}
 
 \item{method}{dissimilarity method: any method available via
-stats::cor or phyloseq::distance function. Note that some methods
+phyloseq::distance function. Note that some methods
 ("jsd" and 'unifrac' for instance) do not work with the group divergence.}
-
-\item{coreset}{phyloseq object; the samples to be used to define the centroid}
 }
 \value{
 Vector with dissimilarities; one for each sample, quantifying the
-dissimilarity of the sample from the group-level mean.
+dissimilarity of the sample from the reference sample.
 }
 \description{
 Quantify microbiota divergence (heterogeneity) within a
-given sample set.
+given sample set with respect to a reference.
 }
 \details{
 Microbiota divergence (heterogeneity / spread) within a given sample
 set can be quantified by the average sample dissimilarity or beta
-diversity. Taking average over
-all pairwise dissimilarities is sensitive to sample size and heavily biased
-as the similarity values are not independent. To reduce this bias, the
-dissimilarity of each sample against the group mean is calculated. This
-generates one value per sample. These can be compared between groups in
-order to compare differences in group homogeneity. 
+diversity with respect to a given reference sample.
 
-Note that this measure is still affected by sample size.
+This measure is sensitive to sample size.
 Subsampling or bootstrapping can be applied to equalize sample sizes
 between comparisons.
-
-The spearman mode is a simple indicator that returns
-average spearman correlation between samples of the input data and
-the overall group-wise average. The inverse of this measure
-(ie rho instead of 1-rho as in here) was used in Salonen et al. (2014)
-to quantify group homogeneity.
 }
 \examples{
 # Assess beta diversity among the African samples
 # in a diet swap study (see \code{help(dietswap)} for references)
 data(dietswap)
-b <- divergence(subset_samples(dietswap, nationality == 'AFR'))
+pseq <- subset_samples(dietswap, nationality == 'AFR')
+reference <- apply(abundances(pseq), 1, median)
+b <- divergence(pseq, reference, method = "bray")
+
 }
 \references{
-The inter- and intra-individual homogeneity measures used in
-Salonen et al. ISME J. 8:2218-30, 2014 were obtained as
-1 - beta where beta is the group diversity as quantified by the
-spearman method.
-
 To cite this R package, see citation('microbiome')
 }
 \seealso{
@@ -62,6 +49,6 @@ the vegdist function from the \pkg{vegan} package provides many
 standard beta diversity measures
 }
 \author{
-Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}
+Leo Lahti \email{microbiome-admin@googlegroups.com}
 }
 \keyword{utilities}
