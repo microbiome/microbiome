@@ -29,10 +29,13 @@ default_colors <- function (x, v=NULL) {
         "Faecalibacterium" = "blue",
         "Bifidobacterium" = "magenta",
         "Escherichia" = "black",
+        "Pathogens" = "black",	
         "Alistipes" = "lightblue",    
         "Other" = "darkgray",
         "Prevotella" = "darkgreen",
-        "Bacteroides" = "red"
+        "Bacteroides" = "red",
+        "Ruminococcus" = "darkblue",
+        "Oscillospira" = "pink"		
         )
     }  
 
