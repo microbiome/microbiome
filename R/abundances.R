@@ -16,7 +16,7 @@
 abundances <- function(x, transform="identity") {
 
     # Pick the OTU data
-    if (class(x) == "phyloseq") {
+    if (length(is(x)) == 1 && is(x) == "phyloseq") {
 
         # Pick OTU matrix
         otu <- as(otu_table(x), "matrix") # get_taxa(x)

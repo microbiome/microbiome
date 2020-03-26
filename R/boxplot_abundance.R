@@ -29,7 +29,7 @@ boxplot_abundance <-
     # in metadata and HITChip data.  FIXME: this can be removed when official
     # phyloseq package is fixed so as to retain the factor level ordering
     
-    df <- sample_data(pseq)
+    df <- meta(pseq)
     
     df$xvar <- df[[x]]
     if (!is.factor(df[[x]])) {
@@ -77,9 +77,9 @@ boxplot_abundance <-
         
         # Calculate change directionality
         df2 <- suppressWarnings(df %>%
-        arrange(linevar, xvar) %>%
-        group_by(linevar) %>% 
-            summarise(change=diff(yvar)))
+                                arrange(linevar, xvar) %>%
+                                group_by(linevar) %>% 
+                                summarise(change=diff(yvar)))
         
         # Map back to data
         df$change <- df2$change[match(df$linevar, df2$linevar)]

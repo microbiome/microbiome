@@ -23,14 +23,15 @@ check_foldchange <- function (x, group, sort = FALSE, paired = FALSE) {
     if (!is.factor(g)) {
       warning(paste("Converting the grouping variable", group, "into a factor."))
       g <- as.factor(g)
-    }    
+    }
+    
     g <- droplevels(g)
     if (!length(levels(g)) == 2) {
       stop(paste("check_foldchange is currently implemented only for two-group comparisons. The selected variable", group, "has", length(unique(g)), "levels: ", paste(unique(g), collapse = "/")))
     }
   }
 
-  if (class(x) == "phyloseq") {    
+  if (is(x) == "phyloseq") {    
     x <- abundances(x)
   }
 
@@ -41,7 +42,7 @@ check_foldchange <- function (x, group, sort = FALSE, paired = FALSE) {
 		 })
   } else {
     fc <- apply(x, 1, function (xi) {spl <- split(xi, g);
-      log10(mean(spl[[2]], na.rm = T)) - log10(mean(spl[[1]], na.rm = TRUE))
+      log10(mean(spl[[2]], na.rm = TRUE)) - log10(mean(spl[[1]], na.rm = TRUE))
 		 })
 
   }

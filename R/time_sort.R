@@ -14,7 +14,7 @@
 #' @keywords utilities
 time_sort <- function(x) {
     
-    if (class(x) == "phyloseq") {
+    if (is.phyloseq(x)) {
         x <- meta(x)
     }
     

@@ -4,7 +4,7 @@
 \alias{rare}
 \title{Rare Microbiota}
 \usage{
-rare(x, detection, prevalence, include.lowest = FALSE)
+rare(x, detection, prevalence, include.lowest = FALSE, ...)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}

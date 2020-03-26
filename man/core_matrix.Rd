@@ -20,11 +20,9 @@ Estimated core microbiota
 Creates the core matrix.
 }
 \examples{
-\dontrun{
-    # Not exported
-    #data(peerj32)
-    #core <- core_matrix(peerj32$phyloseq)
-}
+# Not exported
+#data(peerj32)
+#core <- core_matrix(peerj32$phyloseq)
 }
 \references{
 A Salonen et al. The adult intestinal core microbiota is determined by 

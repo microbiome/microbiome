@@ -40,12 +40,12 @@
 divergence <- function(x, y, method="bray") {
 
     # Abundance matrix (taxa x samples)
-    if (class(x) == "phyloseq") {
-         x <- abundances(x)
+    if (is.phyloseq(x)) {
+        x <- abundances(x)
     }
 
     if (!is.matrix(x)) {
-      x <- matrix(x, nrow = length(x))
+        x <- matrix(x, nrow = length(x))
     }
 
     y <- as.vector(y)

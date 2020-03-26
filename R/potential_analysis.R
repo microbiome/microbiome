@@ -135,7 +135,8 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
 #' }
 #' @author Based on Matlab code from Egbert van Nes modified by Leo Lahti.
 #' Extended from the initial version in the \pkg{earlywarnings} R package.
-#' @examples # \dontrun{res <- potential_univariate(x)}
+#' @examples 
+#' # res <- potential_univariate(x)
 #' @keywords early-warning
 potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
     grid.size=NULL, 
@@ -151,7 +152,7 @@ potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
         weights=weights, window=kernel, n=grid.size,
     from=min(x), to=max(x), 
         cut=3, na.rm=FALSE))
-    if (class(tmp) == "try-error") {
+    if (is(tmp) == "try-error") {
         # Just use default parameters if failing otherwise
         warning("Density estimation with custom parameters failed. 
             Using the defaults.")
@@ -209,10 +210,8 @@ potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
 #' @references See citation('microbiome') 
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
-#' \dontrun{
 #'    # Not exported
 #'    # o <- find_optima(rnorm(100), bw=1)
-#' }
 #' @keywords utilities
 find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {
     

@@ -4,7 +4,8 @@
 \name{peerj32}
 \alias{peerj32}
 \title{Probiotics Intervention Data}
-\format{List of the following data matrices as described in detail in
+\format{
+List of the following data matrices as described in detail in
 Lahti et al. (2013):
 \itemize{
 \item lipids: Quantification of 389 blood serum lipids across 44 samples
@@ -13,7 +14,8 @@ Lahti et al. (2013):
 sampleID and treatment group (probiotic LGG / Placebo)
 \item phyloseq The microbiome data set converted into a
 \code{\link{phyloseq-class}} object.
-}}
+}
+}
 \usage{
 data(peerj32)
 }

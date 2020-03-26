@@ -47,10 +47,8 @@ with bootstrap sampling for each row of the input data
 (as in Lahti et al. 2014) and returns the specified results.
 }
 \examples{
-\dontrun{
 #data(peerj32)
 #s <- multimodality(t(peerj32$microbes[, c('Akkermansia', 'Dialister')]))
-}
 }
 \references{
 \itemize{

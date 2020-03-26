@@ -32,7 +32,6 @@ Simple OTU tables, mapping and taxonomy files will be converted
 to \code{\link{phyloseq-class}}.
 }
 \examples{
-\dontrun{
 # NOTE: the system.file command reads these example files from the
 # microbiome R package. To use your own local files, simply write
 # otu.file <- "/path/to/my/file.csv" etc.
@@ -51,8 +50,6 @@ to \code{\link{phyloseq-class}}.
 #        otu.file=otu.file, 
 #        taxonomy.file=tax.file, 
 #        metadata.file=meta.file)
-
-}
 }
 \author{
 Sudarshan A. Shetty \email{sudarshanshetty9@gmail.com}

@@ -4,8 +4,10 @@
 \name{hitchip.taxonomy}
 \alias{hitchip.taxonomy}
 \title{HITChip Taxonomy}
-\format{List with the element 'filtered', including a simplified version
-of the HITChip taxonomy.}
+\format{
+List with the element 'filtered', including a simplified version
+of the HITChip taxonomy.
+}
 \usage{
 data(hitchip.taxonomy)
 }

@@ -13,12 +13,11 @@
 #' format; and help(read_biom2phyloseq) for details on the biom format.
 #' The simple format refers to the set of CSV files written by the
 #' \code{\link{write_phyloseq}} function.
-#' @examples \dontrun{
+#' @examples 
 #' #  pseq <- read_phyloseq(otu.file, 
 #' #                     taxonomy.file, 
 #' #                     metadata.file, 
 #' #                     type=c('mothur', 'simple', 'biom'))
-#' }
 #' @seealso write_phyloseq
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities

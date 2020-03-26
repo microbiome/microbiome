@@ -22,10 +22,8 @@ Performs centering (to zero) and scaling (to unit
   variance) across samples for each taxa.
 }
 \examples{
-\dontrun{
-  #data(peerj32)
-  #pseqz <- ztransform(abundances(peerj32$phyloseq))
-}
+#data(peerj32)
+#pseqz <- ztransform(abundances(peerj32$phyloseq))
 }
 \references{
 See citation('microbiome')

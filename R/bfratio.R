@@ -13,6 +13,5 @@ bfratio <- function (x) {
     a <- transform(aggregate_taxa(x, level = "Phylum"), "compositional")
     b <- abundances(a)["Bacteroidetes",]
     f <- abundances(a)["Firmicutes",]  
-    #data.frame(Bacteroidetes = b, Firmicutes = f, Ratio = b/f)
     b/f
 }

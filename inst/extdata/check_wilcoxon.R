@@ -35,7 +35,7 @@ check_wilcoxon <- function (x, group, p.adjust.method = "BH", sort = FALSE, pair
     }
   }
 
-  if (class(x) == "phyloseq") {    
+  if (is(x) == "phyloseq") {    
     x <- log10(otu_table(x)@.Data)
   }
 

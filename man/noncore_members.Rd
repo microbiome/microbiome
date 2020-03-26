@@ -27,8 +27,8 @@ Filter the phyloseq object to include only taxa that do not
 belong to the core set defined by the detection and prevalence thresholds.
 }
 \examples{
-#data(peerj32)
-#pseq <- noncore_members(peerj32$phyloseq, 200, 20/100)
+data(dietswap)
+pseq <- noncore_members(dietswap, 200, 20/100)
 }
 \references{
 To cite the microbiome R package, see citation('microbiome')

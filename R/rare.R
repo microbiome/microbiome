@@ -23,7 +23,7 @@
 #' # Detection threshold 0 (strictly greater by default);
 #' # Prevalence threshold 50 percent (strictly greater by default)
 #' pseq <- rare(dietswap, 0, 50/100)
-rare <- function(x, detection, prevalence, include.lowest=FALSE) {
+rare <- function(x, detection, prevalence, include.lowest=FALSE, ...) {
     
     xorig <- x
     

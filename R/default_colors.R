@@ -30,16 +30,16 @@ default_colors <- function (x, v=NULL) {
         "Bifidobacterium" = "magenta",
         "Escherichia" = "black",
         "Proteobacteria" = "black",
-	"Streptococcus" = "black",
-	"Enterococcus" = "black",
-	"Staphylococcus" = "black",
-        "Pathogens" = "black",	
+        "Streptococcus" = "black",
+        "Enterococcus" = "black",
+        "Staphylococcus" = "black",
+        "Pathogens" = "black",    
         "Alistipes" = "lightblue",    
         "Other" = "darkgray",
         "Prevotella" = "darkgreen",
         "Bacteroides" = "red",
         "Ruminococcus" = "darkblue",
-        "Oscillospira" = "pink"		
+        "Oscillospira" = "pink"
         )
     }  
 

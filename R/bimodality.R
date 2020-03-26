@@ -125,7 +125,7 @@ bimodality <- function(x, method="potential_analysis", peak.threshold=1,
                 bs.iter=bs.iter, min.density=min.density, verbose=verbose)
         })
         
-    } else if (class(x) == "phyloseq") {
+    } else if (is.phyloseq(x)) {
         
         # Pick the data from phyloseq object
         x <- abundances(x)
@@ -166,10 +166,8 @@ bimodality <- function(x, method="potential_analysis", peak.threshold=1,
 #' (as in Lahti et al. 2014) and returns the specified results.
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
 #' @examples
-#' \dontrun{
 #' #data(peerj32)
 #' #s <- multimodality(t(peerj32$microbes[, c('Akkermansia', 'Dialister')]))
-#' }
 #' @references
 #' \itemize{
 #' \item{}{Livina et al. (2010). Potential analysis reveals changing
@@ -236,9 +234,7 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
 #' @param type Score type ('Sarle.finite.sample' or 'Sarle.asymptotic')
 #' @return Bimodality score
 #' @examples
-#' \dontrun{
-#'     # b <- bimodality_sarle(rnorm(100), type='Sarle.finite.sample')
-#' }
+#' # b <- bimodality_sarle(rnorm(50), type='Sarle.finite.sample')
 #' @details The coefficient lies in (0, 1).
 #' 
 #' The 'Sarle.asymptotic' version is defined as
@@ -258,10 +254,10 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
 #'
 #' @references
 #' \itemize{
-#' \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
-#' \item{}{Ellison AM (1987) Am J Botany 74(8):1280-1288.}
-#' \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
-#' \item{}{To cite the microbiome R package, see citation('microbiome')}
+#'   \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
+#'   \item{}{Ellison AM (1987) Am J Botany 74(8):1280-1288.}
+#'   \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
+#'   \item{}{To cite the microbiome R package, see citation('microbiome')}
 #' }
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso Check the dip.test from the \pkg{DIP} package for a

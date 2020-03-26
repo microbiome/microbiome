@@ -1,5 +1,5 @@
 #' @title Identify Top Entries
-#' @description Identify the top entries in a vector or for a given field in a data frame.
+#' @description Identify top entries in a vector or given field in data frame.
 #' @param x data.frame, matrix, or vector 
 #' @param field Field or column to check for a data.frame or matrix
 #' @param n Number of top entries to show
@@ -17,57 +17,63 @@
 #' @keywords utilities
 top <- function (x, field = NULL, n = NULL, output = "vector", round = NULL, na.rm = FALSE, include.rank = FALSE) {
 
-  if (is.factor(x)) {
-    x <- as.character(x)
-  }
-
-  if (is.vector(x)) {
-    if (na.rm) {
-      inds <- which(x == "NA")
-      if (length(inds) > 0) {
-        x[inds] <- NA
-	warning(paste("Interpreting NA string as missing value NA. Removing", length(inds), "entries"))
-      }
-      x <- x[!is.na(x)]
+    if (is.factor(x)) {
+        x <- as.character(x)
     }
+
+    if (is.vector(x)) {
+        if (na.rm) {
+        inds <- which(x == "NA")
+        if (length(inds) > 0) {
+            x[inds] <- NA
+            warning(paste("Interpreting NA string as missing value NA. 
+            Removing", length(inds), "entries"))
+        }
+        x <- x[!is.na(x)]
+    }
+    
     s <- rev(sort(table(x)))
     N <- length(x)
-  } else if (is.data.frame(x) || is.matrix(x)) {
-    if (is.null(field)) {
-      #warning("Indicate the selected field for the top function.")
-      return(NULL)
+    
+    } else if (is.data.frame(x) || is.matrix(x)) {
+        if (is.null(field)) {
+        return(NULL)
     }
 
     x <- x[, field]
     if (na.rm) {
-      inds <- which(x == "NA")
-      if (length(inds) > 0) {
-        x[inds] <- NA
-	warning(paste("Interpreting NA string as missing value NA. Removing", length(inds), "entries"))
-      }
-      x <- x[!is.na(x)]
+        inds <- which(x == "NA")
+        if (length(inds) > 0) {
+            x[inds] <- NA
+            warning(
+            paste("Interpreting NA string as missing value NA. Removing",
+            length(inds), "entries"))
+        }
+        x <- x[!is.na(x)]
     }
     N <- length(x)
     s <- rev(sort(table(x)))
-  }
-
-  if (!is.null(n)) {
-    s <- s[1:min(n, length(s))]
-  }
-
-  if (output == "data.frame") {
-    s <- data_frame(name = names(s), n = unname(s), fraction = 100*unname(s)/N)
-    if (is.null(field)) {field <- "Field"}
-    names(s) <- c(field, "Entries (N)", "Fraction (%)")
-    if (!is.null(round)) {
-      s[,3] = round(s[,3], round)
     }
-    if (include.rank) {
-      s <- cbind(Rank = 1:nrow(s), s)
-    } 
-  }
 
-  s
+    if (!is.null(n)) {
+        s <- s[seq_len(min(n, length(s)))]
+    }
+
+    if (output == "data.frame") {
+        s <- data_frame(name = names(s),
+                    n = unname(s),
+                    fraction = 100*unname(s)/N)
+        if (is.null(field)) {field <- "Field"}
+        names(s) <- c(field, "Entries (N)", "Fraction (%)")
+        if (!is.null(round)) {
+            s[,3] = round(s[,3], round)
+        }
+        if (include.rank) {
+            s <- cbind(Rank = seq_len(nrow(s)), s)
+        } 
+    }
+
+    s
 
 }
 

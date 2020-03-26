@@ -3,15 +3,15 @@ Type: Package
 Title: Microbiome Analytics
 Description: Utilities for microbiome analysis.
 Encoding: UTF-8
-Version: 1.9.20
-Date: 2019-11-01
+Version: 1.9.9
+Date: 2020-03-26
 Authors@R: c(
     person("Leo", "Lahti", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Sudarshan", "Shetty", role = "aut"))
-biocViews: Clustering, Metagenomics, Microbiome, Sequencing,SystemsBiology,ImmunoOncology
+biocViews: Metagenomics,Microbiome,Sequencing,SystemsBiology
 License: BSD_2_clause + file LICENSE
 Depends:
-    R (>= 3.3.0),
+    R (>= 3.6.0),
     phyloseq,
     ggplot2
 Imports:
@@ -37,4 +37,4 @@ MailingList: microbiome <microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues
 VignetteBuilder: knitr
 Packaged: 2014-09-14 14:19:39 UTC; lei
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0

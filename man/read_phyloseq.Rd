@@ -38,12 +38,10 @@ The simple format refers to the set of CSV files written by the
 \code{\link{write_phyloseq}} function.
 }
 \examples{
-\dontrun{
 #  pseq <- read_phyloseq(otu.file, 
 #                     taxonomy.file, 
 #                     metadata.file, 
 #                     type=c('mothur', 'simple', 'biom'))
-}
 }
 \seealso{
 write_phyloseq

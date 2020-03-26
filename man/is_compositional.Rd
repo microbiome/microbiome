@@ -15,7 +15,7 @@ is_compositional(x, tolerance = 1e-06)
 Logical TRUE/FALSE
 }
 \description{
-Test whether phyloseq object has been transformed into compositional data.
+Test if phyloseq object is compositional.
 }
 \details{
 This function tests that the sum of abundances within each sample

@@ -46,13 +46,13 @@ neat <- function(x, arrange="both", method="NMDS", distance="bray",
     }
     
     if (is.null(colnames(x))) {
-        colnames(x)=as.character(seq_len(ncol(x)))
+        colnames(x) <- as.character(seq_len(ncol(x)))
     }
     
     if (arrange %in% c("features", "both")) {
         if (nrow(x) > 2) {
             sr <- neatsort(x, "features", method=method,
-            distance=distance, first=first.feature, 
+                    distance=distance, first=first.feature, 
                 ...)
             x <- x[sr, ]
         }

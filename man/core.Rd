@@ -5,7 +5,7 @@
 \alias{filter_prevalent}
 \title{Core Microbiota}
 \usage{
-core(x, detection, prevalence, include.lowest = FALSE)
+core(x, detection, prevalence, include.lowest = FALSE, ...)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
