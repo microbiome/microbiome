@@ -149,8 +149,10 @@ potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
     # Density estimation
     tmp <- try(de <- density(x, bw=bw, adjust=bw.adjust,
         kernel="gaussian", 
-        weights=weights, window=kernel, n=grid.size,
-    from=min(x), to=max(x), 
+        weights=weights,
+        window=kernel,
+        n=grid.size,
+        from=min(x), to=max(x), 
         cut=3, na.rm=FALSE))
     if (is(tmp) == "try-error") {
         # Just use default parameters if failing otherwise
