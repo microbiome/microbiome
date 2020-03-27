@@ -4,7 +4,9 @@
 \name{dietswap}
 \alias{dietswap}
 \title{Diet Swap Data}
-\format{The data set in \code{\link{phyloseq-class}} format.}
+\format{
+The data set in \code{\link{phyloseq-class}} format.
+}
 \usage{
 data(dietswap)
 }

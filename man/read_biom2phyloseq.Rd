@@ -33,13 +33,11 @@ Biom file and mapping files will be converted to
 \code{\link{phyloseq-class}}.
 }
 \examples{
-#\dontrun{
 #biom.file <- qiita1629.biom"
 #meta.file <- qiita1629_mapping.csv"
 #p0 <- read_biom2phyloseq(biom.file = biom.file, 
 #                       metadata.file = meta.file, 
 #                       taxonomy.file = NULL)
-#}
 }
 \author{
 Sudarshan A. Shetty \email{sudarshanshetty9@gmail.com}

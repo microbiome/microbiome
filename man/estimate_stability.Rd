@@ -46,13 +46,11 @@ Samples with missing data, and subjects with less than two time point are
 excluded.
 }
 \examples{
-#\dontrun{
 # df <- data.frame(list(
 #           subject=rep(paste('subject', 1:50, sep='-'), each=2), 
 #           time=rep(1:2, 50),
 #           data=rnorm(100)))
 #s <- estimate_stability_single(df, reference.point=NULL, method='lm')
-#}
 }
 \author{
 Leo Lahti \email{leo.lahti@iki.fi}

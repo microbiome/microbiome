@@ -33,7 +33,7 @@ top(
 Vector of top counts, named by the corresponding entries
 }
 \description{
-Identify the top entries in a vector or for a given field in a data frame.
+Identify top entries in a vector or given field in data frame.
 }
 \examples{
   data(dietswap)

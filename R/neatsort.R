@@ -49,7 +49,7 @@ neatsort <- function(x, target, method="NMDS", distance="bray",
     target <- gsub("samples", "sites", target)
     target <- gsub("features", "species", target)
 
-    if (class(x) %in% c("phyloseq", "otu_table")) {
+    if (length(is(x)) == 1 && is(x) %in% c("phyloseq", "otu_table")) {
 
         samples <- sample_names(x)
         features <- taxa(x)
@@ -95,14 +95,13 @@ neatsort <- function(x, target, method="NMDS", distance="bray",
     # Define new sample ordering based on the ordination Quick fix: the scores
     # function fails otherwise.
     disp.target <- target
-    if (target == "species" && !class(xo) == "phyloseq") {
+    if (target == "species" && !is.phyloseq(xo)) {
         disp.target <- "sites"
     }
     
     tmp <- try({
         DF <- scores(ord, choices=c(1, 2), display=disp.target)
     }, silent=TRUE)
-    # DF <- scores(ord, choices=c(1, 2), display=target)}, silent=TRUE)
     
     if (inherits(tmp, "try-error")) {
         warning(paste("Order failed with ", target, ". 

@@ -4,7 +4,9 @@
 \name{atlas1006}
 \alias{atlas1006}
 \title{HITChip Atlas with 1006 Western Adults}
-\format{The data set in \code{\link{phyloseq-class}} format.}
+\format{
+The data set in \code{\link{phyloseq-class}} format.
+}
 \usage{
 data(atlas1006)
 }

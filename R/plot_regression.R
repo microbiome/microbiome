@@ -94,7 +94,7 @@ plot_regression <- function(formula, data, B=1000, shade=TRUE,
         data2 <- data[sample(nrow(data), replace=TRUE), ]
         data2 <- data2[order(data2$IV), ]
         
-        if (class(l0) == "loess") {
+        if (is(l0) == "loess") {
             m1 <- method(formula, data2,
         control=loess.control(surface="i", statistics="a", 
                 trace.hat="a"), ...)

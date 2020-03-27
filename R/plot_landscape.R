@@ -54,7 +54,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
         }
     }
 
-    if (class(x) == "phyloseq") {
+    if (is.phyloseq(x)) {
 
         x <- transform(x, transformation)
 
@@ -134,9 +134,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
 #' @param shading Shading
 #' @return ggplot2 object
 #' @examples
-#'    \dontrun{
-#'        # p <- densityplot(cbind(rnorm(100), rnorm(100)))
-#'    }
+#' # p <- densityplot(cbind(rnorm(100), rnorm(100)))
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities

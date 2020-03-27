@@ -30,7 +30,7 @@
 #' # include.lowest=TRUE, otherwise the required prevalence is 
 #' # strictly greater than 100
 #' pseq <- core(dietswap, 0, 100/100, include.lowest = TRUE)
-core <- function(x, detection, prevalence, include.lowest=FALSE) {
+core <- function(x, detection, prevalence, include.lowest=FALSE, ...) {
     
     xorig <- x
     
@@ -39,9 +39,9 @@ core <- function(x, detection, prevalence, include.lowest=FALSE) {
     # sum up to 1 ?
     taxa <- core_members(x, detection, prevalence,
         include.lowest=include.lowest)
-    
+
     prune_taxa(taxa, xorig)
-    
+
 }
 
 

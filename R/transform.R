@@ -62,7 +62,7 @@ transform <- function(x, transform = "identity", target = "OTU",
 
     # If x is not a phyloseq object then assume that it is
     # taxa x samples matrix
-    if (class(x) == "phyloseq") {
+    if (length(is(x)) == 1 && is.phyloseq(x)) {
         x <- abundances(x)
     }
 
@@ -168,7 +168,7 @@ transform <- function(x, transform = "identity", target = "OTU",
     } else {
         
         a <- try(xt <- decostand(x, method=transform, MARGIN=2))
-        if (class(a) == "try-error") {
+        if (length(is(a)) == 1 && is(a) == "try-error") {
             xt <- NULL
             stop(paste("Transformation", transform, "not defined."))
         }
@@ -177,7 +177,7 @@ transform <- function(x, transform = "identity", target = "OTU",
     xret <- xt
     
     # If the input was phyloseq, then return phyloseq
-    if (class(xorig) == "phyloseq") {
+    if (length(is(xorig)) && is.phyloseq(xorig)) {
         if (taxa_are_rows(xorig)) {
             otu_table(xorig)@.Data <- xret
         } else {
@@ -199,10 +199,9 @@ transform <- function(x, transform = "identity", target = "OTU",
 #' @param x a matrix
 #' @param which margin
 #' @return Z-transformed matrix
-#' @examples \dontrun{
-#'   #data(peerj32)
-#'   #pseqz <- ztransform(abundances(peerj32$phyloseq))
-#' }
+#' @examples
+#' #data(peerj32)
+#' #pseqz <- ztransform(abundances(peerj32$phyloseq))
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords internal
@@ -210,6 +209,7 @@ ztransform <- function(x, which) {
     
     # Start with log10 transform of the absolute counts
     x <- transform(x, "log10")
+
     
     if (which == "OTU") {
         
@@ -226,12 +226,12 @@ ztransform <- function(x, which) {
         
             trans[names(nullinds), ] <- 0
         }
-        
+
         # Use the same matrix format than in original data (taxa x
         # samples or samples x taxa)
     
         xz <- trans
-        
+
     } else if (which == "sample") {
         
         # Z transform samples
@@ -240,7 +240,7 @@ ztransform <- function(x, which) {
         })
         
     }
-    
+
     xz
     
 }

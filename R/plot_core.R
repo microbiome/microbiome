@@ -36,11 +36,11 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
         na.rm=TRUE)), length=detections)
     }
 
-   if (!is_compositional(x)) {
-       warning("The plot_core function is typically used with compositional 
+    if (!is_compositional(x)) {
+        warning("The plot_core function is typically used with compositional 
                 data. The data is not compositional. Make sure that you
-                 intend to operate on non-compositional data.")
-   }
+                intend to operate on non-compositional data.")
+    }
 
     if (plot.type == "lineplot") {
 
@@ -53,7 +53,7 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
         # Here we use taxon x abundance thresholds table
         #  indicating prevalences
         res <- core_heatmap(
-	            abundances(x),
+                abundances(x),
                     dets=detections,
                     cols=colours, 
                     min.prev=min.prevalence,
@@ -78,11 +78,9 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
 #' @param detections a vector of intensities around the data range
 #' @return Estimated core microbiota
 #' @examples
-#' \dontrun{
-#'     # Not exported
-#'     #data(peerj32)
-#'     #core <- core_matrix(peerj32$phyloseq)
-#' }
+#' # Not exported
+#' #data(peerj32)
+#' #core <- core_matrix(peerj32$phyloseq)
 #' @references 
 #' A Salonen et al. The adult intestinal core microbiota is determined by 
 #' analysis depth and health status. Clinical Microbiology and Infection 
@@ -161,7 +159,7 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
     # Exclude rows and cols that never exceed the given prevalence
     if (!is.null(min.prev)) {
         prev <- prev[rowMeans(prev > min.prev) > 0,
-                     colMeans(prev > min.prev) > 0]
+                    colMeans(prev > min.prev) > 0]
     }
 
     df <- as.data.frame(prev)
@@ -182,12 +180,11 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
     df$Taxa <- factor(df$Taxa, levels=o)
 
     p <- ggplot(df, aes(x=DetectionThreshold, y=Taxa, fill=Prevalence)) +
-             geom_tile() +
-	     labs(y = "")
+            geom_tile() +
+            labs(y = "")
 
     if (is_compositional(x)) {
-        #p <- p + scale_x_log10(labels = scales::percent)
-        p <- p + labs(x = "Detection Threshold")	
+        p <- p + labs(x = "Detection Threshold")    
     } else {
         p <- p + labs(x = "Detection Threshold")
     }

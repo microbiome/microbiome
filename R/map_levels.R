@@ -19,12 +19,12 @@
 #' @keywords utilities
 map_levels <- function(taxa=NULL, from, to, data) {
     
-    if (class(data) == "phyloseq") {
+    if (is.phyloseq(data)) {
         data <- tax_table(data)
     }
     
     # If taxonomy table is from phyloseq, pick the data matrix separately
-    if (class(data) == "taxonomyTable") {
+    if (length(is(data)) == 1 && is(data) == "taxonomyTable") {
         data <- tax_table(data)
     }
     

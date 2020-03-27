@@ -74,7 +74,7 @@ plot_density <- function(x, variable=NULL, log10=FALSE, adjust=1,
 
 pickdata <- function(x, otu.name) {
     
-    if (!class("a") == "character") {
+    if (!is("a") == "character") {
         stop("Provide proper variable name for pickdata function.")
     }
     
@@ -82,7 +82,7 @@ pickdata <- function(x, otu.name) {
         
         xxx <- x
         
-    } else if (class(x) == "phyloseq") {
+    } else if (is.phyloseq(x)) {
         
         xx <- abundances(x)
         meta <- sample_data(x)

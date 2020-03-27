@@ -24,6 +24,3 @@ check_phyloseq <- function (x, fill_na_taxa = TRUE) {
     x
 
 }
-
-
-

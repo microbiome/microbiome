@@ -10,7 +10,6 @@
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
 #' @examples
-#' \dontrun{
 #' # NOTE: the system.file command reads these example files from the
 #' # microbiome R package. To use your own local files, simply write
 #' # otu.file <- "/path/to/my/file.csv" etc.
@@ -29,8 +28,6 @@
 #' #        otu.file=otu.file, 
 #' #        taxonomy.file=tax.file, 
 #' #        metadata.file=meta.file)
-#'
-#' }
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
 read_csv2phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,

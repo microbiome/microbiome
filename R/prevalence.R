@@ -39,7 +39,7 @@ prevalence <- function(x, detection=0, sort=FALSE, count=FALSE,
     }
     
     # Convert phyloseq to matrix
-    if (class(x) == "phyloseq") {
+    if (is.phyloseq(x)) {
         x <- abundances(x)
     }
     

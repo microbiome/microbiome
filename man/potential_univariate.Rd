@@ -66,7 +66,7 @@ maximum values; (-potentials; neglecting local optima)}
 One-dimensional potential estimation for univariate timeseries.
 }
 \examples{
-# \dontrun{res <- potential_univariate(x)}
+# res <- potential_univariate(x)
 }
 \references{
 \itemize{
