@@ -105,7 +105,7 @@ plot_landscape <- function(x, method="PCoA", distance="bray",
     }
 
     p <- densityplot(proj[, c(1,2)], main=NULL, x.ticks=10,
-            rounding=0, add.points=TRUE, 
+            rounding=0, add.points=add.points, 
             adjust=1, size=size, col=proj$col,
             legend = TRUE,
             shading=shading) +

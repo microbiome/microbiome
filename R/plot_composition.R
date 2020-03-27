@@ -127,14 +127,6 @@ plot_composition <- function(x,
         otu.sort <- rev(names(sort(rowSums(abu))))
     } else if (length(otu.sort) == 1 && otu.sort %in%
         colnames(tax_table(x))) {
-
-        # Sort by phylogenetic group
-        #taxic <- as.data.frame(x@tax_table) 
-        #otu.df <- as.data.frame(otu_table(x))
-        #taxic$OTU <- row.names(otu.df)
-        #taxmat <- as.matrix(taxic) # convert it into a matrix.
-        #new.tax <- tax_table(taxmat)  # convert into phyloseq compaitble file.
-        #tax_table(x) <- new.tax # incroporate into phyloseq Object    
         otu.sort <- rownames(sample_data(x))[order(tax_table(x)[[otu.sort]])]
     } else if (all(otu.sort %in% taxa(x))) {
         # Use predefined order
@@ -194,9 +186,8 @@ plot_composition <- function(x,
         dfm <- dfm %>% arrange(Tax)  # Show Taxs always in the same order
         dfm$Tax <- factor(dfm$Tax, levels = unique(dfm$Tax))
 
-
         p <- ggplot(dfm, aes(x=Sample, y=Abundance, fill=Tax)) +
-            geom_bar(position="stack", stat="identity", color = "black") +
+            geom_bar(position="stack", stat="identity") +
             scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
 
         # Name appropriately
