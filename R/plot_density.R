@@ -49,17 +49,17 @@ plot_density <- function(x, variable=NULL, log10=FALSE, adjust=1,
     if (log10) {
         p <- p + scale_x_log10()
         p <- p + ggtitle(paste(variable))
-        p <- p + xlab("Abundance (Log10)")
+        p <- p + labs(x = "Abundance (Log10)")
     } else {
         p <- p + ggtitle(paste(variable))
-        p <- p + xlab("Abundance")
+        p <- p + labs(x = "Abundance")
     }
     
-    p <- p + ylab("Frequency")
+    p <- p + labs(y = "Frequency")
     
     if (!is.null(tipping.point)) {
         p <- p + geom_vline(aes(xintercept=tipping.point), linetype=2,
-    size=1)
+                    size=1)
     }
     
     if (!is.null(xlim)) {
@@ -74,7 +74,7 @@ plot_density <- function(x, variable=NULL, log10=FALSE, adjust=1,
 
 pickdata <- function(x, otu.name) {
     
-    if (!is("a") == "character") {
+    if (length(is(a)) == 1 && !is("a") == "character") {
         stop("Provide proper variable name for pickdata function.")
     }
     

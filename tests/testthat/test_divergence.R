@@ -2,6 +2,7 @@ context("divergence")
 
 test_that("Divergence", {
 
+  skip_on_bioc()
 
   data(dietswap)
   pseq <- subset_samples(dietswap, nationality == 'AFR')
