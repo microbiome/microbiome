@@ -73,8 +73,8 @@ plot_density <- function(x, variable=NULL, log10=FALSE, adjust=1,
 
 
 pickdata <- function(x, otu.name) {
-    
-    if (length(is(a)) == 1 && !is("a") == "character") {
+
+    if (length(is(x)) == 1 && !is("x") == "character") {
         stop("Provide proper variable name for pickdata function.")
     }
     

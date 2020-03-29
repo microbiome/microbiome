@@ -74,8 +74,8 @@ excess kurtosis).
 }
 \examples{
 # In practice, use more bootstrap iterations   
-b <- bimodality(c(rnorm(100, mean=0), rnorm(100, mean=5)), method = "Sarle.finite.sample", bs.iter=5)
- 
+b <- bimodality(c(rnorm(100, mean=0), rnorm(100, mean=5)),
+    method = "Sarle.finite.sample", bs.iter=5)
 # The classical DIP test:
 # quantifies unimodality. Values range between 0 to 1. 
 # dip.test(x, simulate.p.value=TRUE, B=200)$statistic
