@@ -37,9 +37,7 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @aliases cross_correlate
 #' @keywords utilities
-associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf,
-cth=NULL, order=FALSE, n.signif=0, mode="table", p.adj.method="fdr",
-verbose=FALSE, filter.self.correlations=FALSE) {
+associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NULL, order=FALSE, n.signif=0, mode="table", p.adj.method="fdr", verbose=FALSE, filter.self.correlations=FALSE) {
     
     if (is.null(y)) {
         message("Cross-correlating the data with itself")

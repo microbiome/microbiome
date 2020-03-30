@@ -73,10 +73,6 @@ plot_density <- function(x, variable=NULL, log10=FALSE, adjust=1,
 
 
 pickdata <- function(x, otu.name) {
-
-    if (length(is(x)) == 1 && !is("x") == "character") {
-        stop("Provide proper variable name for pickdata function.")
-    }
     
     if (is.vector(x)) {
         
@@ -89,13 +85,25 @@ pickdata <- function(x, otu.name) {
         
         # If OTU name not in otu data then try metadata
         if (otu.name %in% rownames(xx)) {
+    
             xxx <- as.vector(xx[otu.name, ])
+        
         } else if (otu.name %in% colnames(meta)) {
+    
             xxx <- unlist(meta[, otu.name])
+        
         } else {
+    
             stop(paste("The provided variable name", otu.name,
-            "cannot be found from OTUs or metadata"))
+                "cannot be found from OTUs or metadata"))
+        
         }
+    
+    } else {
+
+        stop("Provide proper variable for pickdata function.")
+    
     }
+    
     xxx
 }
