@@ -38,7 +38,7 @@
 #' @aliases cross_correlate
 #' @keywords utilities
 associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NULL, order=FALSE, n.signif=0, mode="table", p.adj.method="fdr", verbose=FALSE, filter.self.correlations=FALSE) {
-    
+     
     if (is.null(y)) {
         message("Cross-correlating the data with itself")
         y <- x
@@ -55,7 +55,7 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
     if (is.null(colnames(y))) {
         colnames(y) <- paste("column-", seq_len(ncol(y)), sep="")
     }
-
+    
     xnames <- colnames(x)
     ynames <- colnames(y)
     qv <- NULL
@@ -136,14 +136,6 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
             
         }
         
-    #} else if (method == "bicor") {
-    #    
-    #    t1 <- suppressWarnings(
-    #    bicorAndPvalue(x, y, use="pairwise.complete.obs"))
-    #    Pc <- t1$p
-    #    Cc <- t1$bicor
-    #    
-    #    
     } else if (method == "categorical") {
         
         if (verbose) {
@@ -280,8 +272,6 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
     }
 
     res <- list(cor=Cc, pval=Pc, p.adj=qv)
-    
-    # message('Ignore self-correlations in filtering')
     
     if (nrow(x) == nrow(y) && ncol(x) == ncol(y) && filter.self.correlations) {
         diag(res$cor) <- diag(res$pval) <- diag(res$p.adj) <- NA

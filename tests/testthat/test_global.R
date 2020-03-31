@@ -19,12 +19,10 @@ test_that("alpha indices work correctly", {
 
   expect_true(all(c("evenness_simpson", "dominance_simpson") %in%
       names(alpha(pseq, index = "simpson"))))
-
-  expect_true(is.vector(core_abundance(pseq, detection = 0.1/100, prevalence = 50/100)))
-  expect_equal(length(core_abundance(prune_samples("sample-1", pseq), detection = 50/100, prevalence = 50/100)), 1)
   expect_error(suppressWarnings(alpha(transform(pseq, "clr"), index = "fisher")))
 
 })
+
 
 
 

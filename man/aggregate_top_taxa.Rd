@@ -19,7 +19,7 @@ listing the groups to combine.}
 \code{\link{phyloseq-class}} object
 }
 \description{
-Summarize phyloseq data by combining the most abundant taxa.
+Summarize phyloseq: combine other than the most abundant taxa.
 }
 \examples{
 data(dietswap)

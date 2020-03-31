@@ -11,6 +11,7 @@
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
 #' @examples
+#' p0 <- read_biom2phyloseq() 
 #' #biom.file <- qiita1629.biom"
 #' #meta.file <- qiita1629_mapping.csv"
 #' #p0 <- read_biom2phyloseq(biom.file = biom.file, 
@@ -21,6 +22,9 @@
 read_biom2phyloseq <- function(biom.file = NULL, 
                             taxonomy.file = NULL, metadata.file = NULL, ...)
 {
+
+    if (is.null(biom.file)) {return(NULL)}
+
     levels <- c("Domain", "Phylum", 
             "Class", "Order", "Family", 
             "Genus")

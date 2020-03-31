@@ -58,15 +58,9 @@ plot_composition <- function(x,
     }
         
     xorig <- x
-
-    if (verbose) {
-        message("Pick the abundance matrix taxa x samples")
-    }
+    if (verbose) {message("Pick the abundance matrix taxa x samples")}
     abu <- abundances(x)
-
-    if (verbose) {
-        message("Average the samples by group")
-    }
+    if (verbose) {message("Average the samples by group")}
     group <- NULL
     if (!is.null(average_by)) {
         dff <- as.data.frame(t(abu))
@@ -84,10 +78,7 @@ plot_composition <- function(x,
         abu <- t(av)  # taxa x groups
     }
 
-    if (verbose) {
-        message("Sort samples")
-    }
-
+    if (verbose) {message("Sort samples")}
     if (is.null(sample.sort) || sample.sort == "none" ||
         !is.null(average_by)) {
         # No sorting sample.sort <- sample_names(x)
@@ -136,10 +127,6 @@ plot_composition <- function(x,
         target="species", first=NULL)
     }
     
-    if (verbose) {
-        message("Prepare data.frame.")
-    }
-    
     # Abundances as data.frame dfm <- psmelt(x)
     dfm <- psmelt(otu_table(abu, taxa_are_rows = TRUE))
     names(dfm) <- c("Tax", "Sample", "Abundance")
@@ -158,30 +145,51 @@ plot_composition <- function(x,
         dfm$xlabel <- as.vector(unlist(meta[as.character(dfm$Sample), x.label]))
         
         # Sort the levels as in the original metadata
-        if (is.factor(meta[, x.label])) {
-            
-            lev <- levels(meta[, x.label])
-            
-        } else {
-            
+        if (is.factor(meta[, x.label])) {            
+            lev <- levels(meta[, x.label])            
+        } else {            
             lev <- unique(as.character(unname(unlist(meta[, x.label]))))
-            
-        }
-        
-        dfm$xlabel <- factor(dfm$xlabel, levels=lev)
-        
-    } else {
-        
-        dfm$xlabel <- dfm$Sample
-        
+        }       
+        dfm$xlabel <- factor(dfm$xlabel, levels=lev)        
+    } else {       
+        dfm$xlabel <- dfm$Sample        
     }
     
-    if (verbose) {
-        message("Construct the plots")
-    }
-    
+    if (verbose) {message("Construct the plots")}   
     if (plot.type == "barplot") {
+        p <- make_barplot1(dfm, group_by)
+    } else if (plot.type == "heatmap") {
+        p <- make_heatmap1()        
+    } else if (plot.type == "lineplot") {
+        p <- make_lineplot1(dfm) 
+    } else {
+        stop("plot.type argument not recognized")
+    }
+
+    p
+    
+}
+
+make_heatmap1 <- function (x, verbose) {
+
+        if (verbose) { message("Constructing the heatmap.") }
         
+        # Taxa x samples otu matrix
+        otu <- abundances(x)
+        
+        # Remove NAs after the transform
+        otu <- otu[rowMeans(is.na(otu)) < 1, colMeans(is.na(otu)) < 1]       
+        otu.sort <- otu.sort[otu.sort %in% rownames(otu)]
+        sample.sort <- sample.sort[sample.sort %in% colnames(otu)]        
+        tmp <- melt(otu[otu.sort, sample.sort])
+        p <- heat(tmp, colnames(tmp)[[1]], colnames(tmp)[[2]],
+            colnames(tmp)[[3]])
+
+    p
+}
+
+make_barplot1 <- function (dfm, group_by) {
+
         # Provide barplot
         dfm <- dfm %>% arrange(Tax)  # Show Taxs always in the same order
         dfm$Tax <- factor(dfm$Tax, levels = unique(dfm$Tax))
@@ -201,44 +209,22 @@ plot_composition <- function(x,
         if (!is.null(group_by)) {
             p <- p + facet_grid(.~Group, drop = TRUE,
                     space = "free", scales = "free") 
-    }
 
-    } else if (plot.type == "heatmap") {
-        
-        if (verbose) {
-            message("Constructing the heatmap.")
         }
-        
-        # Taxa x samples otu matrix
-        otu <- abundances(x)
-        
-        # Remove NAs after the transform
-        otu <- otu[rowMeans(is.na(otu)) < 1, colMeans(is.na(otu)) < 1]
-        
-        otu.sort <- otu.sort[otu.sort %in% rownames(otu)]
-        sample.sort <- sample.sort[sample.sort %in% colnames(otu)]
-        
-        tmp <- melt(otu[otu.sort, sample.sort])
-        p <- heat(tmp, colnames(tmp)[[1]], colnames(tmp)[[2]],
-            colnames(tmp)[[3]])
-        
-    } else if (plot.type == "lineplot") {
-
-        dfm <- dfm %>% arrange(Tax)  # Show Taxs always in the same order
-        p <- ggplot(dfm, aes(x=Sample, y=Abundance, color=Tax, group = Tax))
-        p <- p + geom_point()
-        p <- p + geom_line()    
-        p <- p + scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample)
-        p <- p + ylab("Abundance")
-        
-        # Rotate horizontal axis labels, and adjust
-        p <- p + theme(axis.text.x=element_text(angle=90, vjust=0.5,
-            hjust=0))
-        p <- p + guides(fill=guide_legend(reverse=FALSE))
-
-    }
-
     p
-    
 }
 
+make_lineplot1 <- function (dfm) {
+
+        dfm <- dfm %>% arrange(Tax)  # Show Taxs always in the same order
+        p <- ggplot(dfm, aes(x=Sample, y=Abundance, color=Tax, group = Tax)) +
+        geom_point() +
+        geom_line() +
+        scale_x_discrete(labels=dfm$xlabel, breaks=dfm$Sample) +
+        labs(y = "Abundance") +
+        theme(axis.text.x=element_text(angle=90, vjust=0.5, hjust=0)) +
+        guides(fill=guide_legend(reverse=FALSE))
+
+    p
+
+}
