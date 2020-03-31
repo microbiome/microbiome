@@ -1,5 +1,5 @@
 #' @title Aggregate Top Taxa
-#' @description Summarize phyloseq data by combining the most abundant taxa.
+#' @description Summarize phyloseq: combine other than the most abundant taxa.
 #' @param x \code{\link{phyloseq-class}} object
 #' @param top Keep the top-n taxa, and merge the rest under the category
 #' 'Other'. Instead of top-n numeric this can also be a character vector
