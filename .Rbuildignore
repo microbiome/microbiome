@@ -35,6 +35,9 @@ vignettes/*.RData
 vignettes/misc*
 vignettes/tmp*
 vignettes/*~
+vignettes/*.pdf
+vignettes/*.md
+vignettes/*.html
 
 # Git related
 .git*
