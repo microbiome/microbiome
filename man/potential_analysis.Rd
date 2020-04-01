@@ -43,6 +43,7 @@ Analysis of multimodality based on bootstrapped potential
 analysis of Livina et al. (2010) as described in Lahti et al. (2014).
 }
 \examples{
+
 # Example data; see help(peerj32) for details
 data(peerj32)
 
@@ -51,8 +52,8 @@ x <- abundances(transform(peerj32$phyloseq, "clr"))['Dialister',]
 
 # Bootstrapped potential analysis
 # In practice, use more bootstrap iterations
-res <- potential_analysis(x, peak.threshold=0, bw.adjust=1,
-    bs.iter=9, min.density=1)
+# res <- potential_analysis(x, peak.threshold=0, bw.adjust=1,
+#    bs.iter=9, min.density=1)
 
 }
 \references{

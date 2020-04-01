@@ -21,6 +21,7 @@
 #' }
 #' @export
 #' @examples
+#' 
 #' # Example data; see help(peerj32) for details
 #' data(peerj32)
 #' 
@@ -29,8 +30,8 @@
 #'
 #' # Bootstrapped potential analysis
 #' # In practice, use more bootstrap iterations
-#' res <- potential_analysis(x, peak.threshold=0, bw.adjust=1,
-#'     bs.iter=9, min.density=1)
+#' # res <- potential_analysis(x, peak.threshold=0, bw.adjust=1,
+#' #    bs.iter=9, min.density=1)
 #'
 #' @seealso plot_potential
 #' @references
@@ -60,8 +61,9 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
         
         xbs <- na.omit(unname(x[rs]))
         
-        a <- potential_univariate(xbs, grid.size=floor(0.2 * length(x)),
-        peak.threshold=peak.threshold, 
+        a <- potential_univariate(xbs,
+            grid.size=floor(0.2 * length(x)),
+            peak.threshold=peak.threshold, 
             bw.adjust=bw.adjust, min.density=min.density)
         
         nmodes[[r]] <- length(a$max.points)
@@ -72,16 +74,17 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
     }
     
     # Most frequently observed number of modes
-    top.modes <- as.numeric(names(which.max(table(nmodes))))
+    top.modes  <- as.numeric(names(which.max(table(nmodes))))
     min.points <- colMeans(do.call("rbind", minpoints[nmodes == top.modes]))
     max.points <- colMeans(do.call("rbind", maxpoints[nmodes == top.modes]))
     unimodality.support <- mean(nmodes <= 1)
     
     # Return the most frequent number of modes and the corresponding
     # tipping points from the bootstrap analysis
-    list(modes=top.modes, minima=min.points, maxima=max.points,
-        unimodality.support=unimodality.support, 
-        bws=bws)
+    list(modes=top.modes,
+         minima=min.points, maxima=max.points,
+         unimodality.support=unimodality.support, 
+         bws=bws)
     
 }
 
@@ -154,7 +157,7 @@ potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
         n=grid.size,
         from=min(x), to=max(x), 
         cut=3, na.rm=FALSE))
-    if (is(tmp) == "try-error") {
+    if (length(tmp) == 1 && is(tmp) == "try-error") {
         # Just use default parameters if failing otherwise
         warning("Density estimation with custom parameters failed. 
             Using the defaults.")

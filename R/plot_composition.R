@@ -190,6 +190,8 @@ make_heatmap1 <- function (x, verbose) {
 
 make_barplot1 <- function (dfm, group_by) {
 
+    Tax <- Sample <- Abundance <- NULL
+
         # Provide barplot
         dfm <- dfm %>% arrange(Tax)  # Show Taxs always in the same order
         dfm$Tax <- factor(dfm$Tax, levels = unique(dfm$Tax))
@@ -215,6 +217,8 @@ make_barplot1 <- function (dfm, group_by) {
 }
 
 make_lineplot1 <- function (dfm) {
+
+    Tax <- Sample <- Abundance <- NULL
 
         dfm <- dfm %>% arrange(Tax)  # Show Taxs always in the same order
         p <- ggplot(dfm, aes(x=Sample, y=Abundance, color=Tax, group = Tax)) +
