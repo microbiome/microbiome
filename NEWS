@@ -1,4 +1,7 @@
-Changes in version 1.9.9 (2019-12-25)
+Changes in version 2.1.1 (2020-04-06)
++ Added overlap function
+
+Changes in version 1.9.9 (2020-04-05)
 + noncore_members removed
 + Added aggregate_rare function
 + Bioc polishing
