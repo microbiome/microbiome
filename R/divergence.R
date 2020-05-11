@@ -63,7 +63,7 @@ divergence <- function(x, y, method="bray") {
     # Add sample names
     names(b) <- colnames(x)
 
-    b
+    unlist(b)
     
 }
 

@@ -21,7 +21,7 @@ overlap <- function(x, detection = 0) {
     O <- matrix(0, nrow = ncol(a), ncol = ncol(a))
     for (i in seq_len(ncol(a)-1)) {
         for (j in seq(i+1, ncol(a))) {
-	    O[i, j] <- O[j, i] <- olap(a[,i], a[, j], detection = detection)
+            O[i, j] <- O[j, i] <- olap(a[,i], a[, j], detection = detection)
         }
     }
 

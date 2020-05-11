@@ -82,9 +82,9 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
     # Return the most frequent number of modes and the corresponding
     # tipping points from the bootstrap analysis
     list(modes=top.modes,
-         minima=min.points, maxima=max.points,
-         unimodality.support=unimodality.support, 
-         bws=bws)
+        minima=min.points, maxima=max.points,
+        unimodality.support=unimodality.support, 
+        bws=bws)
     
 }
 
