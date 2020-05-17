@@ -31,7 +31,10 @@ write_phyloseq <- function(x, type="all", path=getwd()) {
         # samples always
         y <- abundances(x)
         write.csv(y, file=f, fileEncoding="UTF-16LE")
-    } else if (type == "TAXONOMY" || type == "all") {
+
+    }
+
+    if (type == "TAXONOMY" || type == "all") {
         # Renamed from TAXA to TAXONOMY as the latter is used elsewhere
         f <- paste(path, "taxonomy_table.csv", sep="/")
         message("Writing TAXONOMY in the file ", f)
@@ -41,7 +44,10 @@ write_phyloseq <- function(x, type="all", path=getwd()) {
         }
         y <- as.data.frame(tax_table(x))
         write.csv(y, file=f, fileEncoding="UTF-16LE")
-    } else if (type == "METADATA" || type == "all") {
+
+    }
+    
+    if (type == "METADATA" || type == "all") {
         f <- paste(path, "metadata_table.csv", sep="/")
         message("Writing METADATA in the file ", f)
         if (f %in% dir(path)) {
