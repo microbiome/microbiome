@@ -169,7 +169,6 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
     names(df) <- c("Taxa", "DetectionThreshold", "Prevalence")
     df$DetectionThreshold <- as.numeric(as.character(df$DetectionThreshold))
     df$Prevalence <- as.numeric(as.character(df$Prevalence))
-
     df$DetectionThreshold <- factor(df$DetectionThreshold)
 
     if (is.null(taxa.order)) {
@@ -184,17 +183,34 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
             labs(y = "")
 
     if (is_compositional(x)) {
-        p <- p + labs(x = "Detection Threshold")    
-    } else {
-        p <- p + labs(x = "Detection Threshold")
-    }
 
-    if (!is.null(cols)) {
-        p <- p + scale_fill_gradientn("Prevalence",
-            breaks=seq(from=0, to=1, by=0.1), 
-            colours=cols,
-            limits=c(0, 1))
+    lab <- paste0(100 *
+        as.numeric(as.character(unique(df$DetectionThreshold))), "%")
+    print(lab)
+        p <- p + scale_x_discrete(labels=lab)
+
+        if (!is.null(cols)) {
+            p <- p + scale_fill_gradientn("Prevalence",
+                    breaks=seq(from=0, to=1, by=0.1),
+                    labels=scales::percent,                
+                    colours=cols,
+                    limits=c(0, 1))
+        }
+
+    } else {
+
+        if (!is.null(cols)) {
+
+            p <- p + scale_fill_gradientn("Prevalence",
+                breaks=seq(from=0, to=1, by=0.1),
+                colours=cols,
+                limits=c(0, 1))
+        }
+
     }
+    p <- p + labs(x = "Detection Threshold")
+    
+
     
     return(list(plot=p, data=df))
     

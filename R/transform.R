@@ -168,6 +168,7 @@ transform <- function(x, transform = "identity", target = "OTU",
     } else {
         
         a <- try(xt <- decostand(x, method=transform, MARGIN=2))
+	
         if (length(is(a)) == 1 && is(a) == "try-error") {
             xt <- NULL
             stop(paste("Transformation", transform, "not defined."))
