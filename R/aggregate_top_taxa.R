@@ -15,6 +15,8 @@
 #' @keywords utilities
 aggregate_top_taxa <- function (x, top, level) {
 
+   .Deprecated("aggregate_rare", "The microbiome::aggregate_top_taxa function is deprecated.")
+
         x <- aggregate_taxa(x, level)
 
         tops <- top_taxa(x, top)

@@ -159,7 +159,7 @@ plot_composition <- function(x,
     if (plot.type == "barplot") {
         p <- make_barplot1(dfm, group_by)
     } else if (plot.type == "heatmap") {
-        p <- make_heatmap1()        
+        p <- make_heatmap1(x, otu.sort, sample.sort, verbose)        
     } else if (plot.type == "lineplot") {
         p <- make_lineplot1(dfm) 
     } else {
@@ -170,18 +170,23 @@ plot_composition <- function(x,
     
 }
 
-make_heatmap1 <- function (x, verbose) {
+make_heatmap1 <- function (x, otu.sort, sample.sort, verbose=FALSE) {
 
         if (verbose) { message("Constructing the heatmap.") }
-        
+
         # Taxa x samples otu matrix
         otu <- abundances(x)
-        
+
         # Remove NAs after the transform
-        otu <- otu[rowMeans(is.na(otu)) < 1, colMeans(is.na(otu)) < 1]       
+        otu <- otu[rowMeans(is.na(otu)) < 1, colMeans(is.na(otu)) < 1]
+
+
+
+
         otu.sort <- otu.sort[otu.sort %in% rownames(otu)]
-        sample.sort <- sample.sort[sample.sort %in% colnames(otu)]        
+        sample.sort <- sample.sort[sample.sort %in% colnames(otu)]
         tmp <- melt(otu[otu.sort, sample.sort])
+
         p <- heat(tmp, colnames(tmp)[[1]], colnames(tmp)[[2]],
             colnames(tmp)[[3]])
 

@@ -75,12 +75,9 @@ aggregate_taxa <- function(x, level, verbose = FALSE) {
 
     if (verbose) {print("-- sum")}
     d <- abundances(x)
-    #ab <- t(sapply(otus, function (taxa) {colSums(matrix(d[taxa, ],
-    #    ncol=nsamples(x)), na.rm = TRUE)}))
 
     ab <- t(vapply(otus, function (taxa) {
-        as.integer(colSums(matrix(d[taxa, ],
-        ncol=nsamples(x)), na.rm = TRUE))
+        as.numeric(colSums(matrix(d[taxa, ], ncol=nsamples(x)), na.rm = TRUE))
     }, FUN.VALUE = unname(d[1,])))
     
     colnames(ab) <- colnames(d)

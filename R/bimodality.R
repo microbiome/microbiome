@@ -103,17 +103,14 @@ bimodality <- function(x, method="potential_analysis", peak.threshold=1,
             s <- bimodality_sarle(x, type=method)
             
         } else if (method == "potential_analysis") {
-            
-            if (length(unique(x)) == 1) {
-                
-                s <- 0
-                
+
+            if (length(unique(x)) == 1) {                
+                s <- 0               
             } else {
-                
                 # Shift the data. This does not affect mode detection but
                 # avoids errors with nonnegatives.
                 s <- multimodality(x, peak.threshold, bw.adjust,
-                bs.iter, min.density, verbose)$score
+                                    bs.iter, min.density, verbose)$score
             }
         }
         
@@ -181,12 +178,12 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
     bs.iter=100, min.density=1, verbose=TRUE) {
     
     if (is.vector(x)) {
-        
+
         # Add small noise to enable robust density estimation
         # (identical values may cause failure)
         x <- x + rnorm(length(x), sd=sd(x)/100)
         m <- potential_analysis(x, bw.adjust=bw.adjust, bs.iter=bs.iter,
-        min.density=min.density)
+                min.density=min.density)
         ret <- list(score=1 - m$unimodality.support,
         modes=m$modes, results=m)
         return(ret)

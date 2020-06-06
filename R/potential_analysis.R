@@ -44,7 +44,7 @@
 #' }
 potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
     bs.iter=100, min.density=1) {
-    
+
     if (is.matrix(x) && nrow(x) == 1) {
         x <- as.vector(x)
     }
@@ -72,13 +72,17 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
         bws[[r]] <- a$bw
         
     }
-    
+
+    nmodes <- unlist(nmodes)
+
     # Most frequently observed number of modes
     top.modes  <- as.numeric(names(which.max(table(nmodes))))
+
     min.points <- colMeans(do.call("rbind", minpoints[nmodes == top.modes]))
     max.points <- colMeans(do.call("rbind", maxpoints[nmodes == top.modes]))
+
     unimodality.support <- mean(nmodes <= 1)
-    
+
     # Return the most frequent number of modes and the corresponding
     # tipping points from the bootstrap analysis
     list(modes=top.modes,
@@ -238,6 +242,7 @@ find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {
     
     # remove maxima that are below min.density
     maxima <- maxima[f[maxima] >= detl]
+
     minima <- remove_obsolete_minima(f, maxima, minima)
     minima <- unlist(minima)
     maxima <- unlist(maxima)
@@ -413,7 +418,7 @@ find_maxima <- function(f) {
         }
         cnt <- cnt + 1
     }
-    ops
+    unlist(ops)
 }
 
 
