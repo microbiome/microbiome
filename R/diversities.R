@@ -162,20 +162,20 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
     
         if (length(setdiff(unique(as.vector(otu)%%1), 0)) == 0) {
 
-	    estimate <- colSums(otu > 0) > 1
-	    f <- rep(NA, ncol(otu))
+        estimate <- colSums(otu > 0) > 1
+        f <- rep(NA, ncol(otu))
             f[estimate] <- fisher.alpha(otu[,estimate], MARGIN=2)
-	    ev <- f
-	    if (!all(estimate)) {
-	        warning("Some Fisher diversities could not be estimated due to limited observations")
-	    }
+        ev <- f
+        if (!all(estimate)) {
+            warning("Some Fisher diversities could not be estimated due to limited observations")
+        }
 
         } else {
-	
+    
             warning("Fisher diversity defined only for integers; 
             the OTU table contains non-integers. Fisher not estimated.")
             ev <- NULL
-	    
+        
         }
     } else if (index == "coverage") {
         ev <- unname(coverage(otu))
