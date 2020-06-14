@@ -17,7 +17,9 @@
 #' #write_phyloseq(pseq, 'METADATA')
 #' @keywords utilities
 write_phyloseq <- function(x, type="all", path=getwd()) {
-    
+
+    type <- toupper(type)
+
     # TODO make read_phyloseq as well
     if (type == "OTU" || type == "all") {
         f <- paste(path, "otu_table.csv", sep="/")
