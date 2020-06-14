@@ -1,3 +1,8 @@
+Changes in version 2.1.2 (2020-07-01)
++ Core heatmap labeling improved
++ aggregate_top_taxa deprecated
++ bimodality and potential_analysis functions fixed
+
 Changes in version 2.1.1 (2020-04-06)
 + Added overlap function
 

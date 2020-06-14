@@ -66,8 +66,8 @@ intermediate_stability <- function(x, reference.point=NULL,
         return(scores)
     }
     
-    # Logarithmize the data with log10(1 + x) trick
-    x <- abundances(transform(x0, "log10"))
+    # Logarithmize the data with CLR 
+    x <- abundances(transform(x0, "clr"))
     meta <- sample_data(x0)
     
     # Estimate stabilities for each OTU

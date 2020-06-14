@@ -43,7 +43,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
     limits=NULL, legend.text="", order.rows=TRUE, order.cols=TRUE,
     filter.significant=TRUE, 
     star.size=NULL, plot.values=FALSE) {
-    
+
     if (is.null(limits)) {
         maxval <- max(abs(df[[fill]]))
         if (maxval <= 1) {

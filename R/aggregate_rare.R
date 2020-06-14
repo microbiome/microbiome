@@ -14,23 +14,23 @@
 #' @keywords utilities
 aggregate_rare <- function (x, level, detection, prevalence, include.lowest=FALSE, ...) {
 
-        x <- aggregate_taxa(x, level)
+    x <- aggregate_taxa(x, level)
 
     rare <- rare_members(x, detection, prevalence, include.lowest)
     
-        tax <- tax_table(x)
+    tax <- tax_table(x)
 
-        inds <- which(rownames(tax) %in% rare)
+    inds <- which(rownames(tax) %in% rare)
 
-        tax[inds, level] <- "Other"
+    tax[inds, level] <- "Other"
 
-        tax_table(x) <- tax
+    tax_table(x) <- tax
 
-        tt <- tax_table(x)[, level]
+    tt <- tax_table(x)[, level]
 
-        tax_table(x) <- tax_table(tt)
+    tax_table(x) <- tax_table(tt)
 
-        aggregate_taxa(x, level)
+    aggregate_taxa(x, level)
 
 }
 
