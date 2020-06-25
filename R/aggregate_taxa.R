@@ -78,7 +78,7 @@ aggregate_taxa <- function(x, level, verbose = FALSE) {
 
     ab <- t(vapply(otus, function (taxa) {
         as.numeric(colSums(matrix(d[taxa, ], ncol=nsamples(x)), na.rm = TRUE))
-    }, FUN.VALUE = unname(d[1,])))
+    }, FUN.VALUE = unname(as.numeric(d[1,]))))
     
     colnames(ab) <- colnames(d)
     rownames(ab) <- names(otus)
