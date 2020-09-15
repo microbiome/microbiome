@@ -49,7 +49,7 @@ rarity <- function(x, index = "all", detection = 0.2/100, prevalence = 20/100) {
     # Only include accepted indices
     index <- tolower(index)    
     accepted <- c("log_modulo_skewness", "low_abundance",
-                  "rare_abundance", "rare_members")
+                  "rare_abundance")
     accepted <- tolower(accepted)
 
     # Return all indices
@@ -82,8 +82,9 @@ rarity_help <- function(x, index="all", detection, prevalence) {
     if ( length(index) > 1 ) {
     
         tab <- NULL
+	
         for (idx in index) {
-            tab <- cbind(tab, rarity_help(x, index=idx, detection, prevalence))
+            tab <- cbind(tab, rarity_help(x, index = idx, detection, prevalence))
         }
 
         colnames(tab) <- index
@@ -92,7 +93,7 @@ rarity_help <- function(x, index="all", detection, prevalence) {
     }
 
     # Pick data
-    otu <- abundances(x)
+    otu  <- abundances(x)
     otuc <- transform(x, "compositional")
     otu.relative <- abundances(otuc)
 

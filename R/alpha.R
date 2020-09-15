@@ -120,6 +120,7 @@ alpha <- function(x, index="all", zeroes=TRUE) {
     message("Rarity")
     a <- rarity(x, index=gsub("rarity_", "", index))
     if (!is.null(a)) {
+    
         if (is.vector(a)) {
             a <- as.matrix(a, ncol=1)
         }
