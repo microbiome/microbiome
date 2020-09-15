@@ -3,8 +3,8 @@ Type: Package
 Title: Microbiome Analytics
 Description: Utilities for microbiome analysis.
 Encoding: UTF-8
-Version: 2.1.26
-Date: 2020-06-25
+Version: 2.1.27
+Date: 2020-09-16
 Authors@R: c(
     person("Leo", "Lahti", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Sudarshan", "Shetty", role = "aut"))
@@ -37,4 +37,4 @@ MailingList: microbiome <microbiome-devel@googlegroups.com>
 BugReports: https://github.com/microbiome/microbiome/issues
 VignetteBuilder: knitr
 Packaged: 2014-09-14 14:19:39 UTC; lei
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1

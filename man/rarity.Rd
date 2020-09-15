@@ -43,11 +43,9 @@ to allow logarithmization. The values q=0.5 and n=50 are used here.}
 below the detection level of 0.2\%. The least abundant species are
 determined separately for each sample regardless of their prevalence.}
 \item{rare_abundance }{Relative proportion of the non-core species,
-exceed the detection level of 0.2\% at 50\% prevalence at most.
+exceed the given detection level (default 20%)
+at the given prevalence (default 20%).
 This is complement of the core with the same thresholds.}
-\item{rare_abundance }{Relative proportion of the rare 
-taxa in [0,1] - the rare taxa are detected with less than 20\%
-prevalence, regardless of abundance.}
 }
 }
 \examples{

@@ -29,11 +29,9 @@
 #' below the detection level of 0.2\%. The least abundant species are
 #' determined separately for each sample regardless of their prevalence.}
 #' \item{rare_abundance }{Relative proportion of the non-core species,
-#' exceed the detection level of 0.2\% at 50\% prevalence at most.
+#' exceed the given detection level (default 20%)
+#' at the given prevalence (default 20%).
 #' This is complement of the core with the same thresholds.}
-#' \item{rare_abundance }{Relative proportion of the rare 
-#' taxa in [0,1] - the rare taxa are detected with less than 20\%
-#' prevalence, regardless of abundance.}
 #' }
 #' 
 #' @references
@@ -51,7 +49,7 @@ rarity <- function(x, index = "all", detection = 0.2/100, prevalence = 20/100) {
     # Only include accepted indices
     index <- tolower(index)    
     accepted <- c("log_modulo_skewness", "low_abundance",
-                    "rare_abundance", "rare_abundance")
+                  "rare_abundance", "rare_members")
     accepted <- tolower(accepted)
 
     # Return all indices
@@ -81,19 +79,23 @@ rarity <- function(x, index = "all", detection = 0.2/100, prevalence = 20/100) {
 
 rarity_help <- function(x, index="all", detection, prevalence) {
 
-    if (length(index) > 1) {
+    if ( length(index) > 1 ) {
+    
         tab <- NULL
         for (idx in index) {
             tab <- cbind(tab, rarity_help(x, index=idx, detection, prevalence))
         }
+
         colnames(tab) <- index
         return(as.data.frame(tab))
+	
     }
-    
+
     # Pick data
     otu <- abundances(x)
-    otu.relative <- abundances(transform(x, "compositional"))
-    
+    otuc <- transform(x, "compositional")
+    otu.relative <- abundances(otuc)
+
     if (index == "log_modulo_skewness") {
     
         r <- log_modulo_skewness(otu, q=0.5, n=50)
@@ -106,15 +108,8 @@ rarity_help <- function(x, index="all", detection, prevalence) {
     } else if (index == "rare_abundance") {
     
         r <- rare_abundance(x, detection=detection,
-                                prevalence=prevalence)
-        
-    } else if (index == "rare_abundance") {
-    
-        s <- rare_members(otu.relative,
-                detection=100/100, # All abundances accepted
-                prevalence=prevalence) # Less than this prevalence required
-        r <- colSums(otu.relative[s, ])
-    
+                               prevalence=prevalence)
+            
     }
     
     names(r) <- colnames(otu)
