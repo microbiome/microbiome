@@ -19,7 +19,7 @@ core_abundance <- function(x, detection = 0.1/100, prevalence = 50/100,
     xcomp <- abundances(transform(x, "compositional"))
     
     # Core members
-    cm <- core_members(x, detection, prevalence, include.lowest)
+    cm <- core_members(xcomp, detection, prevalence, include.lowest)
 
     if (length(cm) == 0) {
         warning("Core is empty with the given abundance and prevalence 
