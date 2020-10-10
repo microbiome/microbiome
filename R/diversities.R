@@ -167,7 +167,8 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
             f[estimate] <- fisher.alpha(otu[,estimate], MARGIN=2)
         ev <- f
         if (!all(estimate)) {
-            warning("Some Fisher diversities could not be estimated due to limited observations")
+            warning("Some Fisher diversities could not be 
+            estimated due to limited observations")
         }
 
         } else {

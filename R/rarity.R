@@ -82,14 +82,15 @@ rarity_help <- function(x, index="all", detection, prevalence) {
     if ( length(index) > 1 ) {
     
         tab <- NULL
-	
+    
         for (idx in index) {
-            tab <- cbind(tab, rarity_help(x, index = idx, detection, prevalence))
+            tab <- cbind(tab,
+        rarity_help(x, index = idx, detection, prevalence))
         }
 
         colnames(tab) <- index
         return(as.data.frame(tab))
-	
+    
     }
 
     # Pick data
