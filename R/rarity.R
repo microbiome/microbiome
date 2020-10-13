@@ -49,7 +49,7 @@ rarity <- function(x, index = "all", detection = 0.2/100, prevalence = 20/100) {
     # Only include accepted indices
     index <- tolower(index)    
     accepted <- c("log_modulo_skewness", "low_abundance",
-                  "rare_abundance")
+                "rare_abundance")
     accepted <- tolower(accepted)
 
     # Return all indices
@@ -110,7 +110,7 @@ rarity_help <- function(x, index="all", detection, prevalence) {
     } else if (index == "rare_abundance") {
     
         r <- rare_abundance(x, detection=detection,
-                               prevalence=prevalence)
+                            prevalence=prevalence)
             
     }
     

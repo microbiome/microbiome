@@ -18,7 +18,8 @@
 #' @keywords utilities
 write_phyloseq <- function(x, type="all", path=getwd()) {
 
-    .Deprecated("", "The microbiome::write_phyloseq will be deprecated in a future release.")
+    .Deprecated("", "The microbiome::write_phyloseq will be 
+    deprecated in a future release.")
 
     type <- toupper(type)
 
