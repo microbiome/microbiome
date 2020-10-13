@@ -21,10 +21,6 @@ listing the groups to combine.}
 \description{
 Summarize phyloseq: combine other than the most abundant taxa.
 }
-\examples{
-data(dietswap)
-s <- aggregate_top_taxa(dietswap, top = 3, 'Phylum')
-}
 \references{
 See citation('microbiome')
 }

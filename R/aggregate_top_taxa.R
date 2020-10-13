@@ -6,9 +6,6 @@
 #' listing the groups to combine.
 #' @param level Summarization level (from \code{rank_names(pseq)})
 #' @return \code{\link{phyloseq-class}} object
-#' @examples
-#' data(dietswap)
-#' s <- aggregate_top_taxa(dietswap, top = 3, 'Phylum')
 #' @export
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
