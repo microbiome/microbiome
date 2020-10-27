@@ -14,7 +14,10 @@ densityplot(
   adjust = 1,
   size = 1,
   legend = FALSE,
-  shading = TRUE
+  shading = TRUE,
+  shading.low = "white",
+  shading.high = "black",
+  point.opacity = 0.75
 )
 }
 \arguments{
@@ -38,6 +41,12 @@ cross-plot.}
 \item{legend}{plot legend TRUE/FALSE}
 
 \item{shading}{Shading}
+
+\item{shading.low}{Color for shading low density regions}
+
+\item{shading.high}{Color for shading high density regions}
+
+\item{point.opacity}{Transparency-level for points}
 }
 \value{
 ggplot2 object

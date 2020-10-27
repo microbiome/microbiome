@@ -17,11 +17,14 @@ plot_landscape(
   adjust = 1,
   size = 1,
   legend = FALSE,
-  shading = TRUE
+  shading = TRUE,
+  shading.low = "#ebf4f5",
+  shading.high = "#e9b7ce",
+  point.opacity = 0.75
 )
 }
 \arguments{
-\item{x}{\code{\link{phyloseq-class}} object or a data matrix 
+\item{x}{\code{\link{phyloseq-class}} object or a data matrix
 (samples x features; eg. samples vs. OTUs). If the input x is a 2D matrix
 then it is plotted as is.}
 
@@ -50,6 +53,12 @@ method = "PCA", only euclidean distance is implemented now.}
 \item{legend}{plot legend TRUE/FALSE}
 
 \item{shading}{Add shading in the background.}
+
+\item{shading.low}{Color for shading low density regions}
+
+\item{shading.high}{Color for shading high density regions}
+
+\item{point.opacity}{Transparency-level for points}
 }
 \value{
 A \code{\link{ggplot}} plot object.
