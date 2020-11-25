@@ -21,11 +21,6 @@ vignette: >
 
 ```{r, echo=FALSE, message=FALSE}
 library(knitr)
-require(knitcitations)
-# cleanbib()
-# options("citation_format" = "pandoc")
-bib <- read.bibtex("bibliography.bib")
-
 # Can also write math expressions, e.g. 
 # $Y = X\beta + \epsilon$, footnotes^[A footnote here.]
 # > "He who gives up [code] safety for [code] speed deserves neither."
@@ -40,42 +35,38 @@ facilitates exploration and analysis of microbiome profiling data, in
 particular 16S taxonomic profiling.
 
 This vignette provides a brief overview
-with example data sets from published microbiome profiling studies
-[@lahti14natcomm, @Lahti13provasI, @OKeefe15].
+with example data sets from published microbiome profiling studies.
+
 A more comprehensive tutorial is available
 [on-line](http://microbiome.github.io/tutorials).
 
 Tools are provided for the manipulation, statistical analysis, and
 visualization of taxonomic profiling data. In addition to targeted
 case-control studies, the package facilitates scalable exploration of
-large population cohorts [@lahti14natcomm]. Whereas sample collections
-are rapidly accumulating for the human body and other environments,
-few general-purpose tools for targeted microbiome analysis are
-available in R.  This package supports the independent
+population cohorts. Whereas sample collections are rapidly
+accumulating for the human body and other environments, few
+general-purpose tools for targeted microbiome analysis are available
+in R.  This package supports the independent
 [phyloseq](http://joey711.github.io/phyloseq) data format and expands
 the available toolkit in order to facilitate the standardization of
-the analyses and the development of best practices. See also the
-related [PathoStat
-pipeline](http://bioconductor.org/packages/release/bioc/html/PathoStat.html)
-[mare pipeline](https://github.com/katrikorpela/mare),
-[phylofactor](), and [structSSI]() for additional 16S rRNA amplicon
-analysis tools in R. The aim is to complement the other available
-packages, but in some cases alternative solutions have been necessary
-in order to streamline the tools and to improve complementarity.
+the analyses and the development of best practices. See also
+phylofactor for additional 16S rRNA amplicon analysis tools in R. The
+aim is to complement the other available packages, but in some cases
+alternative solutions have been necessary in order to streamline the
+tools and to improve complementarity.
 
 We welcome feedback, bug reports, and suggestions for new features
 from the user community via the [issue
 tracker](https://github.com/microbiome/microbiome/issues) and [pull
 requests](http://microbiome.github.io/microbiome/Contributing.html). See
 the [Github site](https://github.com/microbiome/microbiome) for source
-code and other details. These R tools have been utilized in recent
-publications and in introductory courses [@salonen14, @Faust15,
-@Shetty2017], and they are released under the [Two-clause FreeBSD
+code and other details. These R tools are released under the
+[Two-clause FreeBSD
 license](http://en.wikipedia.org/wiki/BSD\_licenses).
 
 Kindly cite the work as follows: "Leo Lahti [et
 al.](https://github.com/microbiome/microbiome/graphs/contributors)
-(Bioconductor, 2017-2019). Tools for microbiome analysis in R. Microbiome
+(Bioconductor, 2017-2020). Tools for microbiome analysis in R. Microbiome
 package version `r sessionInfo()$otherPkgs$microbiome$Version`. URL:
 (http://microbiome.github.io/microbiome)
 
@@ -86,35 +77,6 @@ Loading the package in R (after installation from Bioconductor):
 
 ```{r loading}
 library(microbiome)  
-```
-
-
-
-# Data
-
-The microbiome package relies on the independent
-[phyloseq](http://joey711.github.io/phyloseq) data format. This
-contains an OTU table (taxa abundances), sample metadata (age, BMI,
-sex, ...), taxonomy table (mapping between OTUs and higher-level
-taxonomic classifications), and a phylogenetic tree (relations between
-the taxa).
-
-
-## Example data sets
-
-Example data sets are provided to facilitate reproducible examples and
-further methods development.
-
-The HITChip Atlas data set [Lahti et al. Nat. Comm. 5:4344,
-2014](http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html)
-contains 130 genus-level taxonomic groups across 1006 western
-adults. Load the example data in R with
-
-```{r atlasdata}
-# Data from 
-# http://www.nature.com/ncomms/2014/140708/ncomms5344/full/ncomms5344.html
-data(atlas1006) 
-atlas1006
 ```
 
 
@@ -129,28 +91,16 @@ requests](https://github.com/microbiome/microbiome/), or via
 [Gitter](https://gitter.im/microbiome).
 
 
-
 # Acknowledgements
 
 Thanks to all
 [contributors](https://github.com/microbiome/microbiome/graphs/contributors).
 Financial support has been provided by Academy of Finland (grants
 256950 and 295741), [University of
-Turku](http://www.utu.fi/en/Pages/home.aspx), Department of
-Mathematics and Statistics. In addition, the work has been supported
-by Laboratory of Microbiology, Wageningen University, The
-Netherlands. This work relies on the independent
+Turku](http://www.utu.fi/en/Pages/home.aspx). 
+
+This work relies heavily on the independent
 [phyloseq](https://github.com/joey711/phyloseq) package and data
 structures for R-based microbiome analysis developed by Paul McMurdie
-and Susan Holmes. This work also utilizes a number of independent R
-extensions, including dplyr [@dplyr], ggplot2 [@Wickham_2009],
-phyloseq [@McMurdie2013], and vegan [@Oksanen_2015].
-
-
-# References
-
-```{r, echo=FALSE,results="asis"}
-bibliography()
-```
-
+and Susan Holmes. 
 
