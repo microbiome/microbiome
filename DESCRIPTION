@@ -3,8 +3,8 @@ Type: Package
 Title: Microbiome Analytics
 Description: Utilities for microbiome analysis.
 Encoding: UTF-8
-Version: 1.13.2
-Date: 2020-11-27
+Version: 1.13.3
+Date: 2020-11-28
 Authors@R: c(
     person("Leo", "Lahti", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
     person("Sudarshan", "Shetty", role = "aut"))
@@ -28,7 +28,6 @@ Suggests:
     BiocGenerics,
     BiocStyle,
     Cairo,
-    knitcitations,
     knitr,
     rmarkdown,
     testthat

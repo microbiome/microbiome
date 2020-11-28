@@ -167,7 +167,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
     p <- p + scale_fill_gradientn(legend.text,
             breaks=seq(from=min(limits), to=max(limits), 
             by=step), colours=colours, limits=limits) +
-	    labs(x = "", y = "") +
+            labs(x = "", y = "") +
             theme(axis.text.x=element_text(angle=90))
     
     # Mark significant cells with stars
