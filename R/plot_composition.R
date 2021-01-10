@@ -65,7 +65,7 @@ plot_composition <- function(x,
     if (!is.null(average_by)) {
         dff <- as.data.frame(t(abu))
         dff$group <- sample_data(x)[[average_by]]
-        if (is.numeric(dff$group)) {
+        if (is.numeric(dff$group) || is.character(dff$group)) {
             dff$group <- factor(dff$group, levels=sort(unique(dff$group)))
         }
         # Remove samples with no group info
