@@ -11,6 +11,7 @@
 #' abundance (in transform='shift')
 #' @param scale Scaling constant for the abundance values when
 #' transform = "scale".
+#' @param log10 Used only for Z transformation. Apply log10 before Z.
 #' @return Transformed \code{\link{phyloseq}} object
 #' @details In transformation typ, the 'compositional' abundances are returned
 #' as relative abundances in [0, 1] (convert to percentages by multiplying
@@ -55,7 +56,7 @@
 #'
 #' @keywords utilities
 transform <- function(x, transform = "identity", target = "OTU",
-                    shift = 0, scale = 1) {
+                    shift = 0, scale = 1, log10=TRUE) {
 
     y <- NULL
     xorig <- x
@@ -97,7 +98,7 @@ transform <- function(x, transform = "identity", target = "OTU",
     } else if (transform == "Z") {
         
         # Z transform for sample or OTU
-        xt <- ztransform(x, target)
+        xt <- ztransform(x, target, log10)
         
     } else if (transform == "clr") {
         
@@ -199,6 +200,7 @@ transform <- function(x, transform = "identity", target = "OTU",
 #'   variance) across samples for each taxa.
 #' @param x a matrix
 #' @param which margin
+#' @param log10 apply log10 transformation before Z
 #' @return Z-transformed matrix
 #' @examples
 #' #data(peerj32)
@@ -206,11 +208,12 @@ transform <- function(x, transform = "identity", target = "OTU",
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords internal
-ztransform <- function(x, which) {
+ztransform <- function(x, which, log10=TRUE) {
     
     # Start with log10 transform of the absolute counts
-    x <- transform(x, "log10")
-
+    if (log10) {
+      x <- transform(x, "log10")
+    }
     
     if (which == "OTU") {
         
