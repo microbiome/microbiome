@@ -28,9 +28,9 @@ plot_taxa_prevalence <- function(x, level, detection = 0) {
     x <- check_phyloseq(x, fill_na_taxa = TRUE)
 
     if (level == "Phylum") {
-        tax.abun <- apply(otu_table(x), 1, mean)
+        tax.abun <- apply(abundances(x), 1, mean)
     
-        #tax.prev <- rowSums(otu_table(x) != 0)/nsamples(x)
+        #tax.prev <- rowSums(abundances(x) != 0)/nsamples(x)
         tax.prev <- prevalence(x, detection = detection)
     
         Phylum <- as.vector(data.frame(tax_table(x))$Phylum)
@@ -57,8 +57,8 @@ plot_taxa_prevalence <- function(x, level, detection = 0) {
         return(plot.phylum)
         
     } else if (level == "Family") {
-        tax.abun <- apply(otu_table(x), 1, mean)
-        tax.prev <- rowSums(otu_table(x) != 0)/nsamples(x)
+        tax.abun <- apply(abundances(x), 1, mean)
+        tax.prev <- rowSums(abundances(x) != 0)/nsamples(x)
         Family <- as.vector(data.frame(tax_table(x))$Family)
         Family <- as.vector(Family)
         Family <- as.factor(Family)
@@ -82,8 +82,8 @@ plot_taxa_prevalence <- function(x, level, detection = 0) {
         theme(strip.background=element_rect(fill="white"))
         return(plot.fam)
     } else if (level == "Order") {
-        tax.abun <- apply(otu_table(x), 1, mean)
-        tax.prev <- rowSums(otu_table(x) != 0)/nsamples(x)
+        tax.abun <- apply(abundances(x), 1, mean)
+        tax.prev <- rowSums(abundances(x) != 0)/nsamples(x)
         Order <- as.vector(data.frame(tax_table(x))$Order)
         Order <- as.vector(Order)
         Order <- as.factor(Order)
@@ -109,8 +109,8 @@ plot_taxa_prevalence <- function(x, level, detection = 0) {
         theme(strip.background=element_rect(fill="white"))
         return(plot.order)
     } else if (level == "Class") {
-        tax.abun <- apply(otu_table(x), 1, mean)
-        tax.prev <- rowSums(otu_table(x) != 0)/nsamples(x)
+        tax.abun <- apply(abundances(x), 1, mean)
+        tax.prev <- rowSums(abundances(x) != 0)/nsamples(x)
         Class <- as.vector(data.frame(tax_table(x))$Class)
         Class <- as.vector(Class)
         Class <- as.factor(Class)
