@@ -61,12 +61,28 @@ transform <- function(x, transform = "identity", target = "OTU",
     y <- NULL
     xorig <- x
 
-    # If x is not a phyloseq object then assume that it is
-    # taxa x samples matrix
-    if (length(is(x)) == 1 && is.phyloseq(x)) {
-        x <- abundances(x)
+    if (target == "sample" && !(transform == "Z")) {
+        warning(paste(transform, "transformation is not typically used and not recommended for samples. Consider using target = OTU."))
     }
 
+    # If x is not a phyloseq object then assume that it is
+    # taxa x samples matrix
+    x0 <- xorig
+
+    # If x is a phyloseq then make sure we pick taxa x samples matrix
+    if (any(c("otu_table", "phyloseq") %in% is(x))) {
+        # This always returns taxa x samples matrix
+        x0 <- as.matrix(abundances(xorig))
+    }
+
+    # For transforming OTUs (per sample) just keep as is
+    # For transforming samples (per OTU): tranpose
+    x <- x0      
+    if (target == "sample") {
+          x <- t(x0)
+    }
+
+    
     if (transform == "relative.abundance") {
         transform <- "compositional"
     }
@@ -76,11 +92,8 @@ transform <- function(x, transform = "identity", target = "OTU",
         Check that the OTU input data is given as original counts 
         to avoid transformation errors!")
     }
-    
+
     if (transform == "compositional") {
-        
-        # Assuming taxa x samples matrix
-        if (target == "OTU") {
     
             # Minor constant 1e-32 is compared to zero to avoid zero
             # division.  Essentially zero counts will then remain zero
@@ -89,17 +102,12 @@ transform <- function(x, transform = "identity", target = "OTU",
             xt <- apply(x, 2, function(x) {
                 x/max(sum(x), 1e-32)
             })
-        } else if (target == "sample") {
-            xt <- apply(x, 1, function(x) {
-                x/max(sum(x), 1e-32)
-            })
-        }
         
     } else if (transform == "Z") {
         
-        # Z transform for sample or OTU
+        # Z transform 
         xt <- ztransform(x, target, log10)
-        
+
     } else if (transform == "clr") {
         
         if (any(abundances(x) < 0)) {
@@ -109,7 +117,6 @@ transform <- function(x, transform = "identity", target = "OTU",
         
         # If the data has zeroes, then shift up with a negligible
         # constant to avoid singularities
-
         xt <- x
         
         # Then transform to compositional data
@@ -122,7 +129,6 @@ transform <- function(x, transform = "identity", target = "OTU",
             xt <- xt + minval
         }
         
-
         # Pick samples x taxa abundance matrix
         d <- t(apply(xt, 2, function(x) {
             log(x) - mean(log(x))
@@ -177,9 +183,13 @@ transform <- function(x, transform = "identity", target = "OTU",
     }
     
     xret <- xt
-    
+
+    if (target == "sample") {
+        xret <- t(xret)
+    }
+
     # If the input was phyloseq, then return phyloseq
-    if (length(is(xorig)) && is.phyloseq(xorig)) {
+    if (any(is(xorig) %in% c("otu_table", "phyloseq"))) {
         if (taxa_are_rows(xorig)) {
             otu_table(xorig)@.Data <- xret
         } else {
@@ -187,7 +197,7 @@ transform <- function(x, transform = "identity", target = "OTU",
         }
         xret <- xorig
     }
-    
+
     xret
     
 }
@@ -209,16 +219,19 @@ transform <- function(x, transform = "identity", target = "OTU",
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords internal
 ztransform <- function(x, which, log10=TRUE) {
-    
+
     # Start with log10 transform of the absolute counts
     if (log10) {
       x <- transform(x, "log10")
     }
-    
+
+    # Z transform 
+    xz <- t(scale(t(x)))
+
     if (which == "OTU") {
-        
-        # Z transform OTUs
-        trans <- t(scale(t(x)))
+
+        trans <- xz
+
         nullinds <- which(rowMeans(is.na(trans)) == 1)
         
         if (length(nullinds) > 0 & min(x) == 0) {
@@ -236,13 +249,6 @@ ztransform <- function(x, which, log10=TRUE) {
     
         xz <- trans
 
-    } else if (which == "sample") {
-        
-        # Z transform samples
-        xz <- apply(x, 2, function(y) {
-            (y - mean(y))/sd(y)
-        })
-        
     }
 
     xz
