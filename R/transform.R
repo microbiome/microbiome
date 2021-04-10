@@ -62,7 +62,8 @@ transform <- function(x, transform = "identity", target = "OTU",
     xorig <- x
 
     if (target == "sample" && !(transform == "Z")) {
-        warning(paste(transform, "transformation is not typically used and not recommended for samples. Consider using target = OTU."))
+        warning(paste(transform, "transformation is not typically 
+        used and not recommended for samples. Consider using target = OTU."))
     }
 
     # If x is not a phyloseq object then assume that it is
@@ -79,7 +80,7 @@ transform <- function(x, transform = "identity", target = "OTU",
     # For transforming samples (per OTU): tranpose
     x <- x0      
     if (target == "sample") {
-          x <- t(x0)
+        x <- t(x0)
     }
 
     
@@ -222,7 +223,7 @@ ztransform <- function(x, which, log10=TRUE) {
 
     # Start with log10 transform of the absolute counts
     if (log10) {
-      x <- transform(x, "log10")
+        x <- transform(x, "log10")
     }
 
     # Z transform 
