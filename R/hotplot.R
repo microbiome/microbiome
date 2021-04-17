@@ -64,7 +64,7 @@ hotplot <- function(x, taxon, tipping.point=NULL, lims=NULL,
     df <- data.frame(Abundance=d)
     p <- ggplot(df, aes(x=Abundance, y=..density.., fill=..x..)) +
         geom_histogram(col="black", 
-        binwidth=0.12) + ylab("Frequency") + xlab("") +
+        binwidth=0.01) + ylab("Frequency") + xlab("") +
     scale_fill_gradientn("Signal", 
         breaks=breaks - 10^tipping.point,
         colours=c(rep("darkblue", 3), "blue", 
