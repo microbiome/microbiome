@@ -162,6 +162,7 @@ bimodality <- function(x, method="potential_analysis", peak.threshold=1,
 #' with bootstrap sampling for each row of the input data
 #' (as in Lahti et al. 2014) and returns the specified results.
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
+#' @export
 #' @examples
 #' #data(peerj32)
 #' #s <- multimodality(t(peerj32$microbes[, c('Akkermansia', 'Dialister')]))
