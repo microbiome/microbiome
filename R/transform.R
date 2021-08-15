@@ -88,7 +88,7 @@ transform <- function(x, transform = "identity", target = "OTU",
         transform <- "compositional"
     }
     
-    if (!all(sample(round(prod(dim(abundances(x)))/10)))%%1 == 0) {
+    if(!all(abundances(y)%%1 == 0)) { 
         warning("The OTU abundances are not integers. 
         Check that the OTU input data is given as original counts 
         to avoid transformation errors!")

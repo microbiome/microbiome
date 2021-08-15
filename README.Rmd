@@ -35,6 +35,7 @@ microbiome R package
 
 Tools for the exploration and analysis of microbiome profiling data sets, in particular large-scale population studies and 16S taxonomic profiling. 
 
+This R package extends the phyloseq data container; for related recent work with (Tree)SummarizedExperiment containers, see [microbiome.github.io](microbiome.github.io)
 
 ### Installation and use
 
