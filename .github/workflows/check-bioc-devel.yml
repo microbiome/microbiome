@@ -40,7 +40,7 @@ name: R-CMD-check-bioc-devel
 env:
   has_testthat: 'true'
   run_covr: 'true'
-  run_pkgdown: 'true'
+  run_pkgdown: 'false'
   has_RUnit: 'false'
   cache-version: 'cache-v1'
 
