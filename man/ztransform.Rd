@@ -4,12 +4,14 @@
 \alias{ztransform}
 \title{Z Transformation}
 \usage{
-ztransform(x, which)
+ztransform(x, which, log10 = TRUE)
 }
 \arguments{
 \item{x}{a matrix}
 
 \item{which}{margin}
+
+\item{log10}{apply log10 transformation before Z}
 }
 \value{
 Z-transformed matrix

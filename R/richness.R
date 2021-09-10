@@ -103,11 +103,12 @@ chao1_per_sample <- function (x) {
     s0 <- sum(x>0, na.rm = TRUE)
     s1 <- sum(x==1, na.rm = TRUE)
     s2 <- sum(x==2, na.rm = TRUE)
-    if ((s1-s2)^2==(s1+s2)^2) {
+    # if ((s1-s2)^2==(s1+s2)^2) {
+        # Bias corrected version / See issue #150
         r <- s0+s1*(s1-1)/((s2+1)*2)
-    } else {
-        r <- s0+s1^2/(s2*2)
-    }
+    #} else {
+    #    r <- s0+s1^2/(s2*2)
+    #}
 
     r
 

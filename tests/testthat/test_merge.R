@@ -19,15 +19,5 @@ test_that("Merging ok", {
   a2 <- colSums(abundances(x)[which(tax_table(x)[, "Genus"] == "Dialister"), ])
   expect_equal(a1["Dialister",], a2)
 
-  # Top taxa aggregation
-  x <- dietswap
-  a3 <- abundances(aggregate_top_taxa(x, top = 3, level = "Phylum"))
-  x1 <- a3["Bacteroidetes",]
-  inds <- which(tax_table(x)[, "Phylum"] == "Bacteroidetes")
-  mytaxa <- rownames(abundances(x))[inds]
-  x2 <- colSums(abundances(x)[inds,])
-  expect_equal(x1, x2)    
- 
-
 })
 

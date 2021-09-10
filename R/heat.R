@@ -161,15 +161,14 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
     df[["YYYY"]] <- df[[Yvar]]
     df[["ffff"]] <- df[[fill]]
     
-    p <- ggplot(df, aes(x=XXXX, y=YYYY, fill=ffff))
-    p <- p + geom_tile()
+    p <- ggplot(df, aes(x=XXXX, y=YYYY, fill=ffff)) +
+            geom_tile()
     
     p <- p + scale_fill_gradientn(legend.text,
-        breaks=seq(from=min(limits), to=max(limits), 
-        by=step), colours=colours, limits=limits)
-    
-    p <- p + labs(x = "", y = "")
-    p <- p + theme(axis.text.x=element_text(angle=90))
+            breaks=seq(from=min(limits), to=max(limits), 
+            by=step), colours=colours, limits=limits) +
+            labs(x = "", y = "") +
+            theme(axis.text.x=element_text(angle=90))
     
     # Mark significant cells with stars
     if (!is.null(star)) {
@@ -183,7 +182,7 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
         }
         
         p <- p + geom_text(data=df.sub, aes(x=XXXX, y=YYYY, label="+"),
-        col="white", size=star.size)
+                           col="white", size=star.size)
         }
     }
     if (plot.values) {

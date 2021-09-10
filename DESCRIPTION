@@ -3,10 +3,12 @@ Type: Package
 Title: Microbiome Analytics
 Description: Utilities for microbiome analysis.
 Encoding: UTF-8
-Version: 1.11.3
-Date: 2020-10-13
+Version: 1.13.12
+Date: 2021-08-15
 Authors@R: c(
-    person("Leo", "Lahti", email = "leo.lahti@iki.fi", role = c("aut", "cre")),
+    person("Leo", "Lahti", email = "leo.lahti@iki.fi",
+             role = c("aut", "cre"),
+	     comment = c(ORCID = "0000-0001-5537-637X")),
     person("Sudarshan", "Shetty", role = "aut"))
 biocViews: Metagenomics,Microbiome,Sequencing,SystemsBiology
 License: BSD_2_clause + file LICENSE
@@ -28,7 +30,6 @@ Suggests:
     BiocGenerics,
     BiocStyle,
     Cairo,
-    knitcitations,
     knitr,
     rmarkdown,
     testthat

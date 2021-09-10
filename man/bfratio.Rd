@@ -4,10 +4,14 @@
 \alias{bfratio}
 \title{Bacteroidetes-Firmicutes Ratio}
 \usage{
-bfratio(x)
+bfratio(x, b = "Bacteroidetes", f = "Firmicutes")
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
+
+\item{b}{Term used for Bacteroidetes}
+
+\item{f}{Term used for Firmicutes}
 }
 \value{
 Numeric vector (B/F-ratio)
@@ -17,7 +21,7 @@ Estimates Bacteroidetes-Firmicutes ratio.
 }
 \examples{
 data(dietswap)
-bf <- bfratio(dietswap)
+bf <- bfratio(dietswap, "Bacteroidetes", "Firmicutes")
 }
 \references{
 See citation('microbiome')

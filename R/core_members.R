@@ -30,7 +30,7 @@ core_members <- function(x, detection=1/100, prevalence=50/100,
     }
 
     if (is_compositional(x)) {
-        if ((prevalence < 0) | (prevalence > 1)) {
+        if ((detection < 0) | (detection > 1)) {
             stop("The detection arguments should be in [0, 1] for 
             compositional data.")
         }      

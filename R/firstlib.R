@@ -133,7 +133,7 @@
 #' @importFrom vegan wascores
 .onAttach <- function(lib, pkg) {
     packageStartupMessage("\nmicrobiome R package (microbiome.github.com)
-    \n\n\n Copyright (C) 2011-2020 Leo Lahti, 
+    \n\n\n Copyright (C) 2011-2021 Leo Lahti, 
     Sudarshan Shetty et al. <microbiome.github.io>\n")
 }
 

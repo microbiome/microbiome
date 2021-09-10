@@ -4,7 +4,14 @@
 \alias{transform}
 \title{Data Transformations for phyloseq Objects}
 \usage{
-transform(x, transform = "identity", target = "OTU", shift = 0, scale = 1)
+transform(
+  x,
+  transform = "identity",
+  target = "OTU",
+  shift = 0,
+  scale = 1,
+  log10 = TRUE
+)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -22,6 +29,8 @@ abundance (in transform='shift')}
 
 \item{scale}{Scaling constant for the abundance values when
 transform = "scale".}
+
+\item{log10}{Used only for Z transformation. Apply log10 before Z.}
 }
 \value{
 Transformed \code{\link{phyloseq}} object
