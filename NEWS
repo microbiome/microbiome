@@ -1,3 +1,6 @@
+Changes in version 1.14.1 (2021-09-29)
++ Removed categorical method from associate function
+
 Changes in version 2.1.2 (2020-07-01)
 + Core heatmap labeling improved
 + aggregate_top_taxa deprecated

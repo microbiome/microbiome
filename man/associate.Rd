@@ -25,7 +25,7 @@ associate(
 \item{y}{matrix (samples x features if cross-correlated with annotations)}
 
 \item{method}{association method ('pearson', or 'spearman'
-for continuous; categorical for discrete)}
+for continuous)}
 
 \item{p.adj.threshold}{q-value threshold to include features}
 
@@ -54,15 +54,9 @@ List with cor, pval, pval.adjusted
 Cross-correlate columns of the input matrices.
 }
 \details{
-As the method=categorical (discrete) association measure
-for nominal (no order for levels) variables we use Goodman and
-Kruskal tau based on
-r-bloggers.com/measuring-associations-between-non-numeric-variables/
-
 The p-values in the output table depend on the method. For the spearman
 and pearson correlation values, the p-values are provided by the default
-method in the cor.test function. For the categorical method, the p-value is
-estimated with the microbiome::gktau function (see the separate help page).
+method in the cor.test function.
 }
 \examples{
 data(peerj32)

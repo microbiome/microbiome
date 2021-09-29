@@ -41,8 +41,8 @@ which the variable y is useful in predicting x.
 }
 \examples{
 data(peerj32)
-v1 <- unlist(peerj32$microbes[,1])
-v2 <- unlist(peerj32$lipids[,1])
+v1 <- factor(peerj32$microbes[,1])
+v2 <- factor(peerj32$meta$gender)
 tc <- gktau(v1, v2)
 
 }

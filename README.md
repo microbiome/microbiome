@@ -35,13 +35,13 @@ microbiome R package
 
 Tools for the exploration and analysis of microbiome profiling data sets, in particular large-scale population studies and 16S taxonomic profiling. 
 
-This R package extends the phyloseq data container; for related recent work with (Tree)SummarizedExperiment containers, see [https://microbiome.github.io/](https://microbiome.github.io/).
+This R package extends the phyloseq data container; for related recent work with (Tree)SummarizedExperiment containers, see [microbiome.github.io](https://microbiome.github.io/)
 
 ### Installation and use
 
 See the package [tutorial](http://microbiome.github.io/tutorials/).
 
-**Kindly cite** as follows: "Leo Lahti, Sudarshan Shetty [et al.](https://github.com/microbiome/microbiome/graphs/contributors) ([Bioconductor, 2017](https://bioconductor.org/packages/devel/bioc/html/microbiome.html)). Tools for microbiome analysis in R. Microbiome package version 1.13.12. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). See also the relevant references listed in the manual page of each function. 
+**Kindly cite** as follows: "Leo Lahti, Sudarshan Shetty [et al.](https://github.com/microbiome/microbiome/graphs/contributors) ([Bioconductor, 2017](https://bioconductor.org/packages/devel/bioc/html/microbiome.html)). Tools for microbiome analysis in R. Microbiome package version 1.13.14. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). See also the relevant references listed in the manual page of each function. 
 
 ### Contribute
 

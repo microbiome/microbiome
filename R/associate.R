@@ -3,7 +3,7 @@
 #' @param x matrix (samples x features if annotation matrix)
 #' @param y matrix (samples x features if cross-correlated with annotations)
 #' @param method association method ('pearson', or 'spearman'
-#' for continuous; categorical for discrete)
+#' for continuous)
 #' @param p.adj.threshold q-value threshold to include features 
 #' @param cth correlation threshold to include features 
 #' @param order order the results
@@ -23,16 +23,12 @@
 #' d2 <- peerj32$lipids[1:20,1:10]
 #' cc <- associate(d1, d2, method='pearson')
 #' @export
-#' @details As the method=categorical (discrete) association measure
-#' for nominal (no order for levels) variables we use Goodman and
-#' Kruskal tau based on
-#' r-bloggers.com/measuring-associations-between-non-numeric-variables/
+#' @details
 #'
 #' The p-values in the output table depend on the method. For the spearman
 #' and pearson correlation values, the p-values are provided by the default
-#' method in the cor.test function. For the categorical method, the p-value is
-#' estimated with the microbiome::gktau function (see the separate help page).
-#' 
+#' method in the cor.test function.
+#'
 #' @references See citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @aliases cross_correlate
@@ -62,22 +58,15 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
     numeric.methods <- c("spearman", "pearson")
     categorical.methods <- c("categorical")
 
-    # Rows paired.
     if (method %in% numeric.methods) {
 
         inds <- vapply(x, is.numeric, TRUE)
-
         if (any(!inds)) {
             warning("Considering only numeric annotations for \n       
                     pearson/spearman")
         }
         inds <- names(which(inds))
-    } else if (method %in% categorical.methods) {
-        inds <- vapply(x, is.factor, TRUE)
-        if (any(!inds)) {
-            warning("Considering only categorical annotations for factors")
-        }
-        inds <- names(which(inds))
+    
     }
     
     xnames <- inds
@@ -136,33 +125,6 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
             
         }
         
-    } else if (method == "categorical") {
-        
-        if (verbose) {
-            message(method)
-        }
-        
-        Cc <- matrix(NA, nrow=ncol(x), ncol=ncol(y))
-        rownames(Cc) <- colnames(x)
-        colnames(Cc) <- colnames(y)
-        
-        for (varname in colnames(x)) {
-            
-            for (lev in colnames(y)) {
-                
-                xvec <- x[, varname]
-                yvec <- y[, lev]
-                keep <- rowSums(is.na(cbind(xvec, yvec))) == 0
-                xvec <- xvec[keep]
-                yvec <- yvec[keep]
-                
-                # Number of data-annotation samples for
-                # calculating the correlations
-                n <- sum(keep)
-                Cc[varname, lev] <- gktau(xvec, yvec) 
-                
-            }
-        }
     }
 
     if (!all(is.na(Pc))) {
@@ -187,7 +149,7 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
         qv[is.na(qv)] <- 1
         Pc[is.na(qv)] <- 1
         Cc[is.na(Cc)] <- 0
-        
+
         # Filter by adjusted pvalues and correlations
         inds1.q <- inds2.q <- inds1.c <- inds2.c <- NULL
         
@@ -226,8 +188,8 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
         
         Cmat <- as.matrix(0)
 
-    # TODO: add also correlation filter, not only significance
-    # Require each has at least n.signif. correlations
+        # TODO: add also correlation filter, not only significance
+        # Require each has at least n.signif. correlations
         
         if (sum(inds1) >= n.signif && sum(inds2) >= n.signif) {
             
