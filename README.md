@@ -7,7 +7,7 @@ microbiome R package
 <br>
 
 [![Join the chat at https://gitter.im/microbiome/microbiome](https://badges.gitter.im/microbiome/microbiome.svg)](https://gitter.im/microbiome/microbiome?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://api.travis-ci.org/microbiome/microbiome.png)](https://travis-ci.org/microbiome/microbiome)
+[![Build Status](https://github.com/microbiome/microbiome/actions/workflows/check-bioc-devel.yml/badge.svg)](https://github.com/microbiome/microbiome/actions/workflows/check-bioc-devel.yml)
 [![codecov.io](https://codecov.io/github/microbiome/microbiome/coverage.svg?branch=master)](https://codecov.io/github/microbiome/microbiome?branch=master)
 [![PRs Welcome][prs-badge]][prs]
 [![Watch on GitHub][github-watch-badge]][github-watch]
