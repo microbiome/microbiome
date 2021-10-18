@@ -92,7 +92,7 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
 
     if (method %in% c("pearson", "spearman")) {
         
-        minobs <- 8
+        minobs <- 6
         
         for (j in seq_len(ncol(y))) {
             
