@@ -12,6 +12,9 @@
 #' bf <- bfratio(dietswap, "Bacteroidetes", "Firmicutes")
 #' @keywords utilities
 bfratio <- function (x, b = "Bacteroidetes", f = "Firmicutes") {
+
+    .Deprecated("The bfratio function will be removed in the future releases of microbiome R package. We recommend to calculate this manually.")
+
     a <- transform(aggregate_taxa(x, level = "Phylum"), "compositional")
     if (all(c(b, f) %in% taxa(a))) {
         b <- abundances(a)[b,]
