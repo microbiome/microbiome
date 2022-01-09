@@ -13,7 +13,7 @@
 #' @keywords utilities
 bfratio <- function (x, b = "Bacteroidetes", f = "Firmicutes") {
 
-    .Deprecated("The bfratio function will be removed in the future releases of microbiome R package. We recommend to calculate this manually.")
+    .Deprecated(new="abundances", msg="The bfratio function will be removed in the future releases of microbiome R package. We recommend to calculate this manually using the function abundances.")
 
     a <- transform(aggregate_taxa(x, level = "Phylum"), "compositional")
     if (all(c(b, f) %in% taxa(a))) {
