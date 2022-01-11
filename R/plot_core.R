@@ -158,13 +158,14 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
 
     # Exclude rows and cols that never exceed the given prevalence
     if (!is.null(min.prev)) {
-        prev <- prev[rowMeans(prev > min.prev) > 0,
-                    colMeans(prev > min.prev) > 0]
+        rinds <- rowMeans(prev > min.prev) > 0
+	cinds <- colMeans(prev > min.prev) > 0
+        prev <- prev[rinds, cinds, drop=FALSE]	
     }
 
     df <- as.data.frame(prev)
-
     df$ID <- rownames(prev)
+
     df <- melt(df, "ID")
     names(df) <- c("Taxa", "DetectionThreshold", "Prevalence")
     df$DetectionThreshold <- as.numeric(as.character(df$DetectionThreshold))
@@ -184,9 +185,9 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
 
     if (is_compositional(x)) {
 
-    lab <- paste0(100 *
-        as.numeric(as.character(unique(df$DetectionThreshold))), "%")
-    print(lab)
+        lab <- paste0(100 *
+             as.numeric(as.character(unique(df$DetectionThreshold))), "%")
+	
         p <- p + scale_x_discrete(labels=lab)
 
         if (!is.null(cols)) {
@@ -209,9 +210,7 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
 
     }
     p <- p + labs(x = "Detection Threshold")
-    
-
-    
+        
     return(list(plot=p, data=df))
     
 }
@@ -219,12 +218,11 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
 
 core_lineplot <- function(x, 
     xlabel="Abundance", ylabel="Core size (N)") {
-    
+
     Abundance <- Prevalence <- Count <- NULL
 
     df <- as.data.frame(x)
     df$ID <- rownames(x)
-    #df <- tidyr::gather(df, "ID")
     df <- melt(df, "ID")    
     names(df) <- c("Abundance", "Prevalence", "Count")
     

@@ -1,3 +1,7 @@
+Changes in version 1.17.1 (2022-01-11)
++ Fixed bug in plot_core
++ bfratio function removed
+
 Changes in version 1.15.3 (2021-10-27)
 + Deprecated bfratio function
 
