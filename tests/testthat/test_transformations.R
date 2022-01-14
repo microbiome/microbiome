@@ -20,7 +20,7 @@ test_that("transform works correctly", {
   pseq <- dietswap
   dietswap_transpose <- otu_table(t(as.matrix(abundances(pseq))), taxa_are_rows = FALSE)
 
-  z <- transform(dietswap, "Z", target = "OTU")
+  # z <- transform(dietswap, "Z", target = "OTU")
   expect_equal(max(abs(rowMeans(abundances(z)))), 0, tolerance = 1e-10)
   expect_true(all(dim(z) == dim(dietswap)))
 
@@ -45,6 +45,8 @@ test_that("transform works correctly", {
   expect_equal(ntaxa(transform(dietswap, "shift", shift = 1)), ntaxa(dietswap))      
   expect_equal(ntaxa(transform(dietswap, "compositional")), ntaxa(dietswap))
   expect_true(sum(colSums(abundances(transform(dietswap, "compositional"))) - 1) < 1e-15)
+
+  expect_equal(sum(abundances(transform(dietswap, "alr", shift=1)) - as.matrix(compositions::alr(abundances(dietswap)+1))), 0, tolerance=1e-6)
 
 })
 

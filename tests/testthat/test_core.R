@@ -11,7 +11,7 @@ test_that("alpha indices work correctly", {
 
   expect_true(is.vector(core_abundance(pseq, detection = 0.1/100, prevalence = 50/100)))
   
-  expect_equal(length(core_abundance(prune_samples("Sample-1", pseq), detection = 50/100, prevalence = 50/100)), 1)
+  expect_equal(length(core_abundance(prune_samples("Sample-1", pseq), detection = 10/100, prevalence = 50/100)), 1)
 
 
 })

@@ -3,7 +3,7 @@
 #' @param x \code{\link{phyloseq-class}} object
 #' @param transform Transformation to apply. The options include:
 #' 'compositional' (ie relative abundance), 'Z', 'log10', 'log10p',
-#' 'hellinger', 'identity', 'clr', or any method from the
+#' 'hellinger', 'identity', 'clr', 'alr', or any method from the
 #' vegan::decostand function.
 #' @param target Apply the transform for 'sample' or 'OTU'.
 #' Does not affect the log transform.
@@ -21,6 +21,7 @@
 #' as log10(1 + x) if the data contains zeroes. CLR transform applies
 #' a pseudocount of min(relative abundance)/2 to exact zero relative
 #' abundance entries in OTU table before taking logs.
+#' @param ... arguments to be passed
 #' @export
 #' @examples
 #'
@@ -46,7 +47,12 @@
 #' # xt <- transform(x, 'log10p')
 #'
 #' # CLR transform
+#' # Note that small pseudocount is added if data contains zeroes
 #' xt <- microbiome::transform(x, 'clr')
+#'
+#' # ALR transform
+#' # The pseudocount must be specified explicitly
+#' xt <- microbiome::transform(x, 'alr', shift=1)
 #'
 #' # Shift the baseline
 #' # xt <- transform(x, 'shift', shift=1)
@@ -56,7 +62,8 @@
 #'
 #' @keywords utilities
 transform <- function(x, transform = "identity", target = "OTU",
-                    shift = 0, scale = 1, log10=TRUE) {
+                    shift = 0, scale = 1, log10=TRUE, ...) {
+
 
     y <- NULL
     xorig <- x
@@ -108,6 +115,10 @@ transform <- function(x, transform = "identity", target = "OTU",
         
         # Z transform 
         xt <- ztransform(x, target, log10)
+
+    } else if (transform == "alr") {#
+
+	xt <- as.matrix(compositions::alr(x+shift, ...))
 
     } else if (transform == "clr") {
         

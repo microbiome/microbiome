@@ -10,7 +10,8 @@ transform(
   target = "OTU",
   shift = 0,
   scale = 1,
-  log10 = TRUE
+  log10 = TRUE,
+  ...
 )
 }
 \arguments{
@@ -18,7 +19,7 @@ transform(
 
 \item{transform}{Transformation to apply. The options include:
 'compositional' (ie relative abundance), 'Z', 'log10', 'log10p',
-'hellinger', 'identity', 'clr', or any method from the
+'hellinger', 'identity', 'clr', 'alr', or any method from the
 vegan::decostand function.}
 
 \item{target}{Apply the transform for 'sample' or 'OTU'.
@@ -31,6 +32,8 @@ abundance (in transform='shift')}
 transform = "scale".}
 
 \item{log10}{Used only for Z transformation. Apply log10 before Z.}
+
+\item{...}{arguments to be passed}
 }
 \value{
 Transformed \code{\link{phyloseq}} object
@@ -72,7 +75,12 @@ xt <- transform(x, 'identity')
 # xt <- transform(x, 'log10p')
 
 # CLR transform
+# Note that small pseudocount is added if data contains zeroes
 xt <- microbiome::transform(x, 'clr')
+
+# ALR transform
+# The pseudocount must be specified explicitly
+xt <- microbiome::transform(x, 'alr', shift=1)
 
 # Shift the baseline
 # xt <- transform(x, 'shift', shift=1)
