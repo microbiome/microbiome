@@ -12,6 +12,7 @@
 #' @param scale Scaling constant for the abundance values when
 #' transform = "scale".
 #' @param log10 Used only for Z transformation. Apply log10 before Z.
+#' @param reference Reference feature for the alr transformation.
 #' @return Transformed \code{\link{phyloseq}} object
 #' @details In transformation typ, the 'compositional' abundances are returned
 #' as relative abundances in [0, 1] (convert to percentages by multiplying
@@ -52,7 +53,8 @@
 #'
 #' # ALR transform
 #' # The pseudocount must be specified explicitly
-#' xt <- microbiome::transform(x, 'alr', shift=1)
+#' # The reference feature is 1 by default
+#' xt <- microbiome::transform(x, 'alr', shift=1, reference=1)
 #'
 #' # Shift the baseline
 #' # xt <- transform(x, 'shift', shift=1)
@@ -62,7 +64,7 @@
 #'
 #' @keywords utilities
 transform <- function(x, transform = "identity", target = "OTU",
-                    shift = 0, scale = 1, log10=TRUE, ...) {
+                    shift = 0, scale = 1, log10=TRUE, reference=1, ...) {
 
 
     y <- NULL
@@ -118,7 +120,7 @@ transform <- function(x, transform = "identity", target = "OTU",
 
     } else if (transform == "alr") {#
 
-	xt <- as.matrix(compositions::alr(x+shift, ...))
+	xt <- as.matrix(compositions::alr(x+shift, ivar=reference, ...))
 
     } else if (transform == "clr") {
         

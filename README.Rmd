@@ -33,6 +33,14 @@ microbiome R package
 [microbiome]: https://github.com/microbiome/microbiome
 
 
+
+**NOTE** While we continue to maintain this R package, the development
+has been discontinued as we have shifted to supporting methods
+development based on the new TreeSummarizedExperiment data container,
+which provides added capabilities for multi-omics data analysis. Check
+the [miaverse project](https://microbiome.github.io/) for details.
+
+
 Tools for the exploration and analysis of microbiome profiling data
 sets.
 

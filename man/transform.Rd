@@ -11,6 +11,7 @@ transform(
   shift = 0,
   scale = 1,
   log10 = TRUE,
+  reference = 1,
   ...
 )
 }
@@ -32,6 +33,8 @@ abundance (in transform='shift')}
 transform = "scale".}
 
 \item{log10}{Used only for Z transformation. Apply log10 before Z.}
+
+\item{reference}{Reference feature for the alr transformation.}
 
 \item{...}{arguments to be passed}
 }
@@ -80,7 +83,8 @@ xt <- microbiome::transform(x, 'clr')
 
 # ALR transform
 # The pseudocount must be specified explicitly
-xt <- microbiome::transform(x, 'alr', shift=1)
+# The reference feature is 1 by default
+xt <- microbiome::transform(x, 'alr', shift=1, reference=1)
 
 # Shift the baseline
 # xt <- transform(x, 'shift', shift=1)
