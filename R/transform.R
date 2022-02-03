@@ -86,7 +86,7 @@ transform <- function(x, transform = "identity", target = "OTU",
     }
 
     # For transforming OTUs (per sample) just keep as is
-    # For transforming samples (per OTU): tranpose
+    # For transforming samples (per OTU): transpose
     x <- x0      
     if (target == "sample") {
         x <- t(x0)
@@ -204,10 +204,13 @@ transform <- function(x, transform = "identity", target = "OTU",
 
     # If the input was phyloseq, then return phyloseq
     if (any(is(xorig) %in% c("otu_table", "phyloseq"))) {
+        
+        xret <- otu_table(xret, taxa_are_rows = T)
+        
         if (taxa_are_rows(xorig)) {
-            otu_table(xorig)@.Data <- xret
+            otu_table(xorig) <- xret
         } else {
-            otu_table(xorig)@.Data <- t(xret)
+            otu_table(xorig) <- t(xret)
         }
         xret <- xorig
     }
