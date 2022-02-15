@@ -25,7 +25,7 @@ test_that("transform works correctly", {
   expect_true(all(dim(z) == dim(dietswap)))
 
   z <- transform(dietswap_transpose, "Z", target = "OTU")
-  expect_equal(min(abs(rowMeans(abundances(z)))), 0.00368, tolerance = 1e-3)
+  expect_equal(min(abs(rowMeans(abundances(z)))), 0, tolerance = 1e-10)
   expect_true(all(dim(z) == dim(dietswap_transpose)))
 
 
@@ -34,7 +34,7 @@ test_that("transform works correctly", {
   expect_true(all(dim(z) == dim(dietswap)))
 
   z <- transform(dietswap_transpose, "Z", target = "sample")
-  expect_equal(min(abs(colMeans(abundances(z)))), 0.0267, tolerance = 1e-3)
+  expect_equal(min(abs(colMeans(abundances(z)))), 0, tolerance = 1e-10)
   expect_true(all(dim(z) == dim(dietswap_transpose)))
 
 

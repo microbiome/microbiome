@@ -1,3 +1,6 @@
+Changes in version 1.17.2 (2022-02-15)
++ Bug fix error in transform when taxa_are_rows is FALSE
+
 Changes in version 1.17.2 (2022-02-03)
 + Merge microbiomeutilites functionality
   * Convert phyloseq slots to tibbles
