@@ -164,6 +164,8 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
     }
 
     df <- as.data.frame(prev)
+    if (nrow(df) == 0) {stop("Too few taxa fulfil the criteria on detection and prevalence. Apply less conservative limits.")}
+    
     df$ID <- rownames(prev)
 
     df <- melt(df, "ID")
