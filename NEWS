@@ -1,3 +1,14 @@
+Changes in version 1.17.2 (2022-02-15)
++ Bug fix error in transform when taxa_are_rows is FALSE
+
+Changes in version 1.17.2 (2022-02-03)
++ Merge microbiomeutilites functionality
+  * Convert phyloseq slots to tibbles
+  * Combine_otu_tax joins otu_table and tax_table
+  * Merged add_besthit a fine tuned version from format_to_besthit 
+  * Merged psmelt2 a fine tuned version from phy_to_ldf 
+  * Bug fix in transform method alr 
+
 Changes in version 1.17.2 (2022-01-15)
 + alr transformation added
 
