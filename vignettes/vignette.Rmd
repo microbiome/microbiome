@@ -31,32 +31,30 @@ knitr::opts_chunk$set(fig.width=10, fig.height=10, message=FALSE, warning=FALSE)
 # Introduction
 
 The [microbiome R package](http://microbiome.github.io/microbiome)
-facilitates exploration and analysis of microbiome profiling data, in
-particular 16S taxonomic profiling.
-
-This vignette provides a brief overview
-with example data sets from published microbiome profiling studies.
-
-A more comprehensive tutorial is available
+facilitates phyloseq-based exploration and analysis of taxonomic
+profiling data.  This vignette provides a brief overview with example
+data sets from published microbiome profiling studies. A more
+comprehensive tutorial is available
 [on-line](http://microbiome.github.io/tutorials).
 
-Tools are provided for the manipulation, statistical analysis, and
-visualization of taxonomic profiling data. In addition to targeted
-case-control studies, the package facilitates scalable exploration of
-population cohorts. Whereas sample collections are rapidly
-accumulating for the human body and other environments, few
-general-purpose tools for targeted microbiome analysis are available
-in R.  This package supports the independent
+While we continue to maintain this R package, the development has been
+discontinued as we have shifted to supporting methods development
+based on the new TreeSummarizedExperiment data container, which
+provides added capabilities for multi-omics data analysis. Check the
+[miaverse project](https://microbiome.github.io/) for details. 
+
+In the microbiome R package, tools are provided for the manipulation,
+statistical analysis, and visualization of taxonomic profiling
+data. In addition to targeted case-control studies, the package
+facilitates scalable exploration of population cohorts. Whereas sample
+collections are rapidly accumulating for the human body and other
+environments, few general-purpose tools for targeted microbiome
+analysis are available in R.  This package supports the independent
 [phyloseq](http://joey711.github.io/phyloseq) data format and expands
 the available toolkit in order to facilitate the standardization of
-the analyses and the development of best practices. See also
-phylofactor for additional 16S rRNA amplicon analysis tools in R. The
-aim is to complement the other available packages, but in some cases
-alternative solutions have been necessary in order to streamline the
-tools and to improve complementarity.
+the analyses and the development of best practices. 
 
-We welcome feedback, bug reports, and suggestions for new features
-from the user community via the [issue
+We welcome bug reports from the user community via the [issue
 tracker](https://github.com/microbiome/microbiome/issues) and [pull
 requests](http://microbiome.github.io/microbiome/Contributing.html). See
 the [Github site](https://github.com/microbiome/microbiome) for source

@@ -49,6 +49,10 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
         x <- as.vector(x)
     }
     
+    # TODO :
+    # Use densEstBayes() for density estimation and uncertainty analysis
+    # https://arxiv.org/abs/2009.06182
+
     nmodes <- c()
     minpoints <- list()
     maxpoints <- list()

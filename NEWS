@@ -1,3 +1,24 @@
+Changes in version 1.17.2 (2022-02-15)
++ Bug fix error in transform when taxa_are_rows is FALSE
+
+Changes in version 1.17.2 (2022-02-03)
++ Merge microbiomeutilites functionality
+  * Convert phyloseq slots to tibbles
+  * Combine_otu_tax joins otu_table and tax_table
+  * Merged add_besthit a fine tuned version from format_to_besthit 
+  * Merged psmelt2 a fine tuned version from phy_to_ldf 
+  * Bug fix in transform method alr 
+
+Changes in version 1.17.2 (2022-01-15)
++ alr transformation added
+
+Changes in version 1.17.1 (2022-01-11)
++ Fixed bug in plot_core
++ bfratio function removed
+
+Changes in version 1.15.3 (2021-10-27)
++ Deprecated bfratio function
+
 Changes in version 1.14.1 (2021-09-29)
 + Removed categorical method from associate function
 

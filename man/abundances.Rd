@@ -13,7 +13,7 @@ abundances(x, transform = "identity")
 
 \item{transform}{Transformation to apply. The options include:
 'compositional' (ie relative abundance), 'Z', 'log10', 'log10p',
-'hellinger', 'identity', 'clr', or any method from the
+'hellinger', 'identity', 'clr', 'alr', or any method from the
 vegan::decostand function.}
 }
 \value{

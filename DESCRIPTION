@@ -3,8 +3,8 @@ Type: Package
 Title: Microbiome Analytics
 Description: Utilities for microbiome analysis.
 Encoding: UTF-8
-Version: 1.15.2
-Date: 2021-10-18
+Version: 1.17.41
+Date: 2022-02-16
 Authors@R: c(
     person("Leo", "Lahti", email = "leo.lahti@iki.fi",
              role = c("aut", "cre"),
@@ -18,6 +18,8 @@ Depends:
     phyloseq,
     ggplot2
 Imports:
+    Biostrings,
+    compositions,
     dplyr,
     reshape2,
     Rtsne,
