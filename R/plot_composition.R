@@ -134,9 +134,14 @@ plot_composition <- function(x,
     dfm$Tax <- factor(dfm$Tax, levels=otu.sort)
 
     if (!is.null(group_by)) {
-    dfm$Group <- meta(x)[[group_by]][match(as.character(dfm$Sample),
-        sample_names(x))]
-    }
+    	if (!is.null(average_by)) {
+      		dfm$Group <- meta(x)[[group_by]][match(as.character(dfm$Sample),
+                                             meta(x)[[average_by]])]
+    	}else{
+	    	dfm$Group <- meta(x)[[group_by]][match(as.character(dfm$Sample),
+        				sample_names(x))]
+    	}
+	  }
 
     # SampleIDs for plotting
     if (x.label %in% colnames(sample_data(x)) & is.null(average_by)) {
