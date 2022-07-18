@@ -114,7 +114,6 @@ alpha <- function(x, index="all", zeroes=TRUE) {
         } else {
             tab <- a
         }
-
     }
 
     message("Rarity")
@@ -187,8 +186,7 @@ diversity <- function(x, index="all", zeroes=TRUE) {
 
     # Only include accepted indices
     index <- tolower(index)
-    accepted <- c("inverse_simpson", "gini_simpson", "shannon",
-                    "fisher", "coverage")
+    accepted <- .accepted_diversities()
 
     # Return all indices
     if (length(index) == 1 && index == "all") {
@@ -218,12 +216,22 @@ diversity <- function(x, index="all", zeroes=TRUE) {
 
 diversities_help <- function(x, index="all", zeroes=TRUE) {
 
+    if (length(index)==1 && index=="all") {
+        index <- .accepted_diversities()
+    }
+    
     if (length(index) > 1) {
         tab <- NULL
+        nams <- c()
         for (idx in index) {
-            tab <- cbind(tab, diversities_help(x, index=idx, zeroes=TRUE))
+            newind <- diversities_help(x, index=idx, zeroes=TRUE)
+            tab <- cbind(tab, newind)
+                if (length(newind)>0) {
+                nams <- c(nams, idx)
+            }
         }
-        colnames(tab) <- index
+
+        colnames(tab) <- nams
         return(as.data.frame(tab))
     }
     
@@ -267,14 +275,20 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
     } else if (index == "coverage") {
         ev <- unname(coverage(otu))
     }
-    
-    names(ev) <- colnames(otu)
+
+    if (!is.null(ev)) {
+        names(ev) <- colnames(otu)
+    }
     
     ev
     
 }
 
 
+.accepted_diversities <- function () { 
+  c("inverse_simpson", "gini_simpson", "shannon",
+                    "fisher", "coverage")
+}
 
 # x: Species count vector
 inverse_simpson <- function(x) {
