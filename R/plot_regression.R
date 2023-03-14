@@ -21,7 +21,7 @@
 #' @param method the fitting function for the spaghettis; default: loess
 #' @param slices number of slices in x and y direction for the shaded
 #' region. Higher numbers make a smoother plot, but takes longer to
-#' draw. I wouldn'T go beyond 500
+#' draw. I wouldn't go beyond 500
 #' @param ylim restrict range of the watercoloring
 #' @param quantize either 'continuous', or 'SD'. In the latter case, 
 #' we get three color regions for 1, 2, and 3 SD (an idea of John Mashey)
