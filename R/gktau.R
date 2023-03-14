@@ -3,7 +3,7 @@
 #' variables 
 #' @details Measure association between nominal (no order for levels) variables 
 #' using Goodman and Kruskal tau. Code modified from the original source:
-#' r-bloggers.com/measuring-associations-between-non-numeric-variables/
+#' \url{r-bloggers.com/measuring-associations-between-non-numeric-variables/}
 #' An important feature of this procedure is that it allows missing
 #' values in either of the variables x or y, treating 'missing' as an
 #' additional level.  In practice, this is sometimes very important since
