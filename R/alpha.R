@@ -1,5 +1,5 @@
 #' @title Global Ecosystem State Variables 
-#' @description Global indicators of the ecoystem state, including richness,
+#' @description Global indicators of the ecosystem state, including richness,
 #' evenness, diversity, and other indicators
 #' @param x A species abundance vector, or matrix (taxa/features x samples)
 #' with the absolute count data (no relative abundances), or
