@@ -35,9 +35,7 @@
 #' @export
 #' @references 
 #' Code modified from the original source:
-#' \url{
-#' http://r-bloggers.com/measuring-associations-between-non-numeric-variables/
-#' }
+#' \url{http://r-bloggers.com/measuring-associations-between-non-numeric-variables}
 #' To cite the microbiome R package, see citation('microbiome') 
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
