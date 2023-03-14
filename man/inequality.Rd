@@ -32,7 +32,7 @@ Handcock and Martina Morris, Springer-Verlag, Inc., New York,
 }
 \seealso{
 diversity, reldist::gini (inspired by that implementation but
-independently written here to avoid external depedencies)
+independently written here to avoid external dependencies)
 }
 \author{
 Contact: Leo Lahti \email{microbiome-admin@googlegroups.com}

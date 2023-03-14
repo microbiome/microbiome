@@ -33,7 +33,7 @@ for continuous)}
 
 \item{order}{order the results}
 
-\item{n.signif}{mininum number of significant correlations for each 
+\item{n.signif}{minimum number of significant correlations for each 
 element}
 
 \item{mode}{Specify output format ('table' or 'matrix')}

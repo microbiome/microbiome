@@ -20,7 +20,7 @@ will be included. For specific options, see details.}
 A data.frame of samples x alpha diversity indicators
 }
 \description{
-Global indicators of the ecoystem state, including richness,
+Global indicators of the ecosystem state, including richness,
 evenness, diversity, and other indicators
 }
 \details{

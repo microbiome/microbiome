@@ -29,7 +29,7 @@ and prevalence threshold.
 \details{
 For phyloseq object, lists taxa that are less prevalent than the
 given prevalence threshold. Optionally, never exceeds the given abundance
-threshold (by default, all abundanecs accepted). For matrix, lists
+threshold (by default, all abundaneces accepted). For matrix, lists
 columns that satisfy these criteria.
 }
 \examples{
