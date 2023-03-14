@@ -264,7 +264,7 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git config --global --add safe.directory /__w/mia/mia
+          git config --global --add safe.directory /__w/microbiome/microbiome
           Rscript -e "pkgdown::deploy_to_branch(new_process = FALSE)"
         shell: bash {0}
         ## Note that you need to run pkgdown::deploy_to_branch(new_process = FALSE)
