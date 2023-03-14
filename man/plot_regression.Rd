@@ -55,7 +55,7 @@ the edges? (by reducing alpha; 0=no alpha decrease,
 
 \item{slices}{number of slices in x and y direction for the shaded
 region. Higher numbers make a smoother plot, but takes longer to
-draw. I wouldn'T go beyond 500}
+draw. I wouldn't go beyond 500}
 
 \item{ylim}{restrict range of the watercoloring}
 
