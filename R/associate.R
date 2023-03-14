@@ -7,7 +7,7 @@
 #' @param p.adj.threshold q-value threshold to include features 
 #' @param cth correlation threshold to include features 
 #' @param order order the results
-#' @param n.signif mininum number of significant correlations for each 
+#' @param n.signif minimum number of significant correlations for each 
 #' element
 #' @param mode Specify output format ('table' or 'matrix')
 #' @param p.adj.method p-value multiple testing correction method. 
@@ -275,7 +275,7 @@ cmat2table <- function(res, verbose=FALSE) {
         ctab$Correlation <- as.numeric(as.character(ctab$Correlation))
     }
     
-    correlation <- NULL  # circumwent warning on globabl vars
+    correlation <- NULL  # circumvent warning on globabl vars
 
     if (!is.null(res$p.adj)) {
         

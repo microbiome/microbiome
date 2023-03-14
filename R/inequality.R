@@ -10,7 +10,7 @@
 #' Handcock and Martina Morris, Springer-Verlag, Inc., New York,
 #' 1999. ISBN 0387987789.
 #' @seealso diversity, reldist::gini (inspired by that implementation but
-#' independently written here to avoid external depedencies)
+#' independently written here to avoid external dependencies)
 #' @details Gini index is a common measure for relative inequality in
 #' economical income, but can also be used as a community diversity
 #' measure. Gini index is between [0,1], and increasing gini index implies
