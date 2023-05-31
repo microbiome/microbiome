@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">microbiome</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.21.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.23.1</span>
       </span>
     </div>
 
@@ -110,21 +110,21 @@ of slot.</p></dd>
 <span class="r-in"><span><span class="va">otu_tax</span> <span class="op">&lt;-</span> <span class="fu">combine_otu_tax</span><span class="op">(</span><span class="va">dietswap</span>,column.id <span class="op">=</span> <span class="st">"FeatureID"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">otu_tax</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 226</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   FeatureID  Phylum Family Genus Sampl…¹ Sampl…² Sampl…³ Sampl…⁴ Sampl…⁵ Sampl…⁶</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Actinomyc… Actin… Actin… Acti…       0       1       0       1       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Aerococcus Firmi… Bacil… Aero…       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Aeromonas  Prote… Prote… Aero…       0       0       0       0       0       0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Akkermans… Verru… Verru… Akke…      18      97      67     256      21      16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Alcaligen… Prote… Prote… Alca…       1       2       3       2       2       2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Allistipe… Bacte… Bacte… Alli…     336      63      36      96      49      17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 216 more variables: `Sample-7` &lt;dbl&gt;, `Sample-8` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Sample-9` &lt;dbl&gt;, `Sample-10` &lt;dbl&gt;, `Sample-11` &lt;dbl&gt;, `Sample-12` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Sample-13` &lt;dbl&gt;, `Sample-14` &lt;dbl&gt;, `Sample-15` &lt;dbl&gt;, `Sample-16` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Sample-17` &lt;dbl&gt;, `Sample-18` &lt;dbl&gt;, `Sample-19` &lt;dbl&gt;, `Sample-20` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Sample-21` &lt;dbl&gt;, `Sample-22` &lt;dbl&gt;, `Sample-23` &lt;dbl&gt;, `Sample-24` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Sample-25` &lt;dbl&gt;, `Sample-26` &lt;dbl&gt;, `Sample-27` &lt;dbl&gt;, `Sample-28` &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Sample-29` &lt;dbl&gt;, `Sample-30` &lt;dbl&gt;, `Sample-31` &lt;dbl&gt;, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   FeatureID      Phylum Family Genus `Sample-1` `Sample-2` `Sample-3` `Sample-4`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Actinomycetac… Actin… Actin… Acti…          0          1          0          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Aerococcus     Firmi… Bacil… Aero…          0          0          0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Aeromonas      Prote… Prote… Aero…          0          0          0          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Akkermansia    Verru… Verru… Akke…         18         97         67        256</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Alcaligenes f… Prote… Prote… Alca…          1          2          3          2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Allistipes et… Bacte… Bacte… Alli…        336         63         36         96</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 218 more variables: `Sample-5` &lt;dbl&gt;, `Sample-6` &lt;dbl&gt;, `Sample-7` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Sample-8` &lt;dbl&gt;, `Sample-9` &lt;dbl&gt;, `Sample-10` &lt;dbl&gt;, `Sample-11` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Sample-12` &lt;dbl&gt;, `Sample-13` &lt;dbl&gt;, `Sample-14` &lt;dbl&gt;, `Sample-15` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Sample-16` &lt;dbl&gt;, `Sample-17` &lt;dbl&gt;, `Sample-18` &lt;dbl&gt;, `Sample-19` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Sample-20` &lt;dbl&gt;, `Sample-21` &lt;dbl&gt;, `Sample-22` &lt;dbl&gt;, `Sample-23` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Sample-24` &lt;dbl&gt;, `Sample-25` &lt;dbl&gt;, `Sample-26` &lt;dbl&gt;, `Sample-27` &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   `Sample-28` &lt;dbl&gt;, `Sample-29` &lt;dbl&gt;, `Sample-30` &lt;dbl&gt;, …</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
