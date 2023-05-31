@@ -132,9 +132,6 @@ transform <- function(x, transform = "identity", target = "OTU",
         # If the data has zeroes, then shift up with a negligible
         # constant to avoid singularities
         xt <- x
-        
-        # Then transform to compositional data
-        xt <- transform(xt, "compositional")
         colnames(xt) <- colnames(x)
         
         if (any(xt == 0)) {
