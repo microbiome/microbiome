@@ -275,7 +275,7 @@ cmat2table <- function(res, verbose=FALSE) {
         ctab$Correlation <- as.numeric(as.character(ctab$Correlation))
     }
     
-    correlation <- NULL  # circumvent warning on globabl vars
+    correlation <- NULL  # circumvent warning on global vars
 
     if (!is.null(res$p.adj)) {
         
