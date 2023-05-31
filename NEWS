@@ -1,3 +1,6 @@
+Changes in version 1.23.1 (2023-05-31)
++ Removed compositional transformation as part of CLR
+
 Changes in version 1.17.2 (2022-02-15)
 + Bug fix error in transform when taxa_are_rows is FALSE
 
