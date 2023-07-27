@@ -7,6 +7,8 @@
 #' @param taxonomy.file NULL the latest version has taxonomic information
 #' within the biom 
 #' @param metadata.file A simple metadata/mapping file with .csv extension
+#' @param sep Separator of the metadata file in case it isn't comma-delimited.
+#' Default is ","
 #' @param ... Arguments to pass for import_biom
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
