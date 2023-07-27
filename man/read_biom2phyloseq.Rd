@@ -8,6 +8,7 @@ read_biom2phyloseq(
   biom.file = NULL,
   taxonomy.file = NULL,
   metadata.file = NULL,
+  sep = ",",
   ...
 )
 }
@@ -18,6 +19,9 @@ read_biom2phyloseq(
 within the biom}
 
 \item{metadata.file}{A simple metadata/mapping file with .csv extension}
+
+\item{sep}{Separator of the metadata file in case it isn't comma-delimited.
+Default is ","}
 
 \item{...}{Arguments to pass for import_biom}
 }

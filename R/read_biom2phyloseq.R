@@ -7,6 +7,8 @@
 #' @param taxonomy.file NULL the latest version has taxonomic information
 #' within the biom 
 #' @param metadata.file A simple metadata/mapping file with .csv extension
+#' @param sep Separator of the metadata file in case it isn't comma-delimited.
+#' Default is ","
 #' @param ... Arguments to pass for import_biom
 #' @return  \code{\link{phyloseq-class}} object.
 #' @export
@@ -20,7 +22,7 @@
 #' @author Sudarshan A. Shetty \email{sudarshanshetty9@@gmail.com}
 #' @keywords utilities
 read_biom2phyloseq <- function(biom.file = NULL, 
-                            taxonomy.file = NULL, metadata.file = NULL, ...)
+                            taxonomy.file = NULL, metadata.file = NULL, sep = ",", ...)
 {
 
     if (is.null(biom.file)) {return(NULL)}
@@ -34,7 +36,7 @@ read_biom2phyloseq <- function(biom.file = NULL,
 
     if (!is.null(metadata.file)) {
         map <- read.csv(metadata.file, 
-                check.names = FALSE, row.names = 1)
+                check.names = FALSE, row.names = 1, sep = sep)
         s.map <- sample_data(map)
         phyobj <- merge_phyloseq(otu_biom, 
                         s.map)
