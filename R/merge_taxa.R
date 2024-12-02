@@ -49,7 +49,7 @@ merge_taxa2 <- function(x, taxa = NULL, pattern = NULL, name = "Merged") {
 
     mytaxa <- gsub("\\)", "\\\\)", gsub("\\(", "\\\\(", mytaxa))
     taxa_names(x2) <- gsub(mytaxa[[1]], name, taxa_names(x2))
-    tax_table(x2)[nrow(tax_table(x2)),] <- rep(name, ncol(tax_table(x2)))
+    tax_table(x2)[1,] <- rep(name, ncol(tax_table(x2)))
     
     x2
     
