@@ -13,7 +13,6 @@
 #'
 #' @name microbiome-package
 #' @aliases microbiome
-#' @docType package
 #' @title R package for microbiome studies
 #'
 #' @author Leo Lahti et al.
