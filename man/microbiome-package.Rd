@@ -27,6 +27,14 @@ citation('microbiome')
 See citation('microbiome')
 \url{http://microbiome.github.io}
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{http://microbiome.github.io/microbiome}
+  \item Report bugs at \url{https://github.com/microbiome/microbiome/issues}
+}
+
+}
 \author{
 Leo Lahti et al.
   \email{microbiome-admin@googlegroups.com}
