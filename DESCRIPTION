@@ -17,7 +17,7 @@ Authors@R: c(
 biocViews: Metagenomics,Microbiome,Sequencing,SystemsBiology
 License: BSD_2_clause + file LICENSE
 Depends:
-    R (>= 4.6.0),
+    R (>= 4.5.0),
     phyloseq,
     ggplot2
 Imports:
