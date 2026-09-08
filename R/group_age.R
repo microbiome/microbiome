@@ -35,7 +35,7 @@ group_age <- function(x, breaks = "decades", n = 10, labels = NULL,
             breaks <- quantile(na.omit(x), seq(0,1,length=n+1))
         }
     }
-    
+
     cut(x, breaks, labels, include.lowest, right, dig.lab, ordered_result)
 
 }

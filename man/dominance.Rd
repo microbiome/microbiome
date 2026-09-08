@@ -35,7 +35,7 @@ Calculates the community dominance index.
 The dominance index gives the abundance of the most abundant
 species. This has been used also in microbiomics context
 (Locey & Lennon (2016)). The following indices are provided:
-\itemize{
+\describe{
 \item{'absolute' }{This is the most simple variant, giving the absolute
 abundance of the most abundant species (Magurran & McGill 2011).
 By default, this refers to the single most dominant species (rank=1)

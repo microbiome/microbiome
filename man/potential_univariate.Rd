@@ -46,7 +46,6 @@ multiple of kernel height}
 \value{
 \code{potential_univariate} returns a list with the
 following elements:
-\itemize{
 \item{xi }{the grid of points on which the potential is estimated}
 \item{pot }{The estimated potential: -log(f)*std^2/2,
 where f is the density.}
@@ -61,7 +60,6 @@ minimum values; (-potentials; neglecting local optima)}
 \item{max.points }{grid point values at which the density has
 maximum values; (-potentials; neglecting local optima)}
 }
-}
 \description{
 One-dimensional potential estimation for univariate timeseries.
 }
@@ -70,12 +68,12 @@ One-dimensional potential estimation for univariate timeseries.
 }
 \references{
 \itemize{
-\item{}{Livina et al. (2010).
+\item Livina et al. (2010).
  Potential analysis reveals changing number of climate states during
- the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
-\item{}{Lahti et al. (2014).
+ the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.
+\item Lahti et al. (2014).
  Tipping elements of the human intestinal ecosystem.
- \emph{Nature Communications} 5:4344.}
+ \emph{Nature Communications} 5:4344.
 }
 }
 \author{

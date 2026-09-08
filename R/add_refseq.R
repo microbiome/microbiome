@@ -16,17 +16,18 @@
 #' @keywords utilities
 #' @importFrom Biostrings DNAStringSet
 add_refseq <- function(x, tag="ASV"){
-    
-    if (class(x)!="phyloseq"){
+
+    if (!is(x, "phyloseq")){
         stop("Input is not an object of phyloseq class")
     }
-    
+    .deprecate_phyloseq(x)
+
     nucl <- Biostrings::DNAStringSet(taxa_names(x))
     names(nucl) <- taxa_names(x)
     x <- merge_phyloseq(x, nucl)
-    
+
     rm(nucl)
-    
+
     if(is.na(tag) || is.null(tag)){
         taxa_names(x) <- paste0("taxa", seq(ntaxa(x)))
         return(x)
@@ -34,5 +35,5 @@ add_refseq <- function(x, tag="ASV"){
         taxa_names(x) <- paste0(tag, seq(ntaxa(x)))
         return(x)
     }
-    
+
 }

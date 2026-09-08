@@ -4,7 +4,7 @@
 \alias{top_taxa}
 \title{Top Taxa}
 \usage{
-top_taxa(x, n = ntaxa(x))
+top_taxa(x, n = .ntaxa(x))
 }
 \arguments{
 \item{x}{phyloseq object}

@@ -17,7 +17,7 @@ aggregate_rare <- function (x, level, detection, prevalence, include.lowest=FALS
     x <- aggregate_taxa(x, level)
 
     rare <- rare_members(x, detection, prevalence, include.lowest)
-    
+
     tax <- tax_table(x)
 
     inds <- which(rownames(tax) %in% rare)

@@ -16,7 +16,7 @@
 overlap <- function(x, detection = 0) {
 
     # taxa x samples
-    a <- abundances(transform(x, "compositional"))
+    a <- abundances(x, transform="compositional")
     # samples x samples
     O <- matrix(0, nrow = ncol(a), ncol = ncol(a))
     for (i in seq_len(ncol(a)-1)) {
@@ -26,7 +26,7 @@ overlap <- function(x, detection = 0) {
     }
 
     O
-    
+
 }
 
 

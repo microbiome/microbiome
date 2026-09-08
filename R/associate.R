@@ -38,20 +38,20 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
     if (is.null(y)) {
         message("Cross-correlating the data with itself")
         y <- x
-        
+
         if (filter.self.correlations) {
             # Ignore self-correlations in filtering
             n.signif <- n.signif + 1
         }
     }
-    
+
     x <- as.data.frame(x)  # numeric or discrete
     y <- y  # numeric
-    
+
     if (is.null(colnames(y))) {
         colnames(y) <- paste("column-", seq_len(ncol(y)), sep="")
     }
-    
+
     xnames <- colnames(x)
     ynames <- colnames(y)
     qv <- NULL
@@ -66,9 +66,9 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
                     pearson/spearman")
         }
         inds <- names(which(inds))
-    
+
     }
-    
+
     xnames <- inds
 
     if (!is.vector(x)) {
@@ -76,62 +76,60 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
     } else {
         x <- as.matrix(x[inds], ncol=length(inds))
     }
-    
+
     colnames(x) <- xnames
-    
+
     Pc <- matrix(NA, ncol(x), ncol(y))
     Cc <- matrix(NA, ncol(x), ncol(y))
     rownames(Cc) <- colnames(x)
     colnames(Cc) <- colnames(y)
     rownames(Pc) <- colnames(x)
     colnames(Pc) <- colnames(y)
-    
+
     if (verbose) {
         message(method)
     }
 
     if (method %in% c("pearson", "spearman")) {
-        
+
         minobs <- 6
-        
+
         for (j in seq_len(ncol(y))) {
-            
+
             jc <- apply(x, 2, function(xi) {
-                
+
                 if (sum(!is.na(xi)) >= minobs) {
-                    
+
                     res <- suppressWarnings(
                         cor.test(xi, unlist(y[, j], use.names=FALSE), 
                     method=method, use="pairwise.complete.obs"))
-                    
+
                     res <- c(res$estimate, res$p.value)
-                    
+
                 } else {
-                
-                    warning(paste("Not enough observations (",
-                minobs, "required); \n   
-                        (", 
-                    sum(!is.na(xi)), ") \n \n 
-                        - skipping correlation estimation"))
+
+                    warning("Not enough observations (", minobs,
+                        " required, ", sum(!is.na(xi)),
+                        " available); skipping correlation estimation")
                     res <- c(NA, NA)
-                
+
                 }
                 res
-                
+
             })
 
             Cc[, j] <- jc[1, ]
             Pc[, j] <- jc[2, ]
-            
+
         }
-        
+
     }
 
     if (!all(is.na(Pc))) {
 
         rownames(Pc) <- xnames
         colnames(Pc) <- ynames
-        
+
         rownames(Cc) <- xnames
         colnames(Cc) <- ynames
 
@@ -152,18 +150,18 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
 
         # Filter by adjusted pvalues and correlations
         inds1.q <- inds2.q <- inds1.c <- inds2.c <- NULL
-        
+
         if (!is.null(p.adj.threshold)) {
-            
+
             inds1.q <- apply(qv, 1, function(x) {
                 sum(x < p.adj.threshold) >= n.signif
             })
-            
+
             inds2.q <- apply(qv, 2, function(x) {
                 sum(x < p.adj.threshold) >= n.signif
             })
         }
-        
+
         if (!is.null(cth)) {
             inds1.c <- apply(abs(Cc), 1, function(x) {
                 sum(x > cth) >= n.signif
@@ -172,12 +170,12 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
                 sum(x > cth) >= n.signif
             })
         }
-        
+
         if (!is.null(p.adj.threshold) && !is.null(cth)) {
-            
+
             inds1 <- inds1.q & inds1.c
             inds2 <- inds2.q & inds2.c
-            
+
         } else if (is.null(p.adj.threshold) && !is.null(cth)) {
             inds1 <- inds1.c
             inds2 <- inds2.c
@@ -185,48 +183,48 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
             inds1 <- inds1.q
             inds2 <- inds2.q
         }
-        
+
         Cmat <- as.matrix(0)
 
         # TODO: add also correlation filter, not only significance
         # Require each has at least n.signif. correlations
-        
+
         if (sum(inds1) >= n.signif && sum(inds2) >= n.signif) {
-            
+
             rnams <- rownames(Cc)[inds1]
             cnams <- colnames(Cc)[inds2]
-            
+
             Cc <- matrix(Cc[inds1, inds2, drop=FALSE], nrow=sum(inds1))
             Pc <- matrix(Pc[inds1, inds2, drop=FALSE], nrow=sum(inds1))
             qv <- matrix(qv[inds1, inds2, drop=FALSE], nrow=sum(inds1))
-            
+
             rownames(qv) <- rownames(Pc) <- rownames(Cc) <- rnams
             colnames(qv) <- colnames(Pc) <- colnames(Cc) <- cnams
-            
+
             if (order && sum(inds1) >= 2 && sum(inds2) >= 2) {
-                
+
                 # Order in visually appealing order
                 tmp <- Cc
                 rownames(tmp) <- NULL
                 colnames(tmp) <- NULL
-                
+
                 rind <- hclust(as.dist(1 - cor(t(tmp),
             use="pairwise.complete.obs")))$order
                 cind <- hclust(as.dist(1 - cor(tmp,
             use="pairwise.complete.obs")))$order
-                
+
                 rnams <- rownames(Cc)[rind]
                 cnams <- colnames(Cc)[cind]
-                
+
                 Cc <- Cc[rind, cind]
                 Pc <- Pc[rind, cind]
                 qv <- qv[rind, cind]
-                
+
                 rownames(qv) <- rownames(Pc) <- rownames(Cc) <- rnams
                 colnames(qv) <- colnames(Pc) <- colnames(Cc) <- cnams
-                
+
             }
-            
+
         } else {
             message("No significant correlations with the given criteria\n")
             Cc <- Pc <- qv <- NULL
@@ -234,7 +232,7 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
     }
 
     res <- list(cor=Cc, pval=Pc, p.adj=qv)
-    
+
     if (nrow(x) == nrow(y) && ncol(x) == ncol(y) && filter.self.correlations) {
         diag(res$cor) <- diag(res$pval) <- diag(res$p.adj) <- NA
     }
@@ -242,9 +240,9 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
     if (mode == "table") {
         res <- cmat2table(res)
     }
-    
+
     res
-    
+
 }
 
 
@@ -263,7 +261,7 @@ associate <- function(x, y=NULL, method="spearman", p.adj.threshold=Inf, cth=NUL
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 cmat2table <- function(res, verbose=FALSE) {
-    
+
     ctab <- ID <- NULL
 
     if (!is.null(res$cor)) {
@@ -274,11 +272,11 @@ cmat2table <- function(res, verbose=FALSE) {
         colnames(ctab) <- c("X1", "X2", "Correlation")
         ctab$Correlation <- as.numeric(as.character(ctab$Correlation))
     }
-    
+
     correlation <- NULL  # circumvent warning on global vars
 
     if (!is.null(res$p.adj)) {
-        
+
         if (verbose) {
             message("Arranging the table")
         }
@@ -293,17 +291,17 @@ cmat2table <- function(res, verbose=FALSE) {
         colnames(ctab) <- c("X1", "X2", "Correlation", "p.adj")
         ctab <- ctab[order(ctab$p.adj), ]
         colnames(ctab) <- c("X1", "X2", "Correlation", "p.adj")
-        
+
     } else {
         message("No significant adjusted p-values")
         if (!is.null(ctab)) {
-            
+
             ctab2 <- as.data.frame(res$pval)
             ctab2$ID <- rownames(res$pval)
             ctab2 <- melt(ctab2, "ID")
             colnames(ctab2) <- c("X1", "X2", "value")
             ctab2$value <- as.numeric(as.character(ctab2$value))
-            
+
             ctab <- cbind(ctab, ctab2$value)
             ctab <- ctab[order(-abs(ctab$Correlation)), ]
             colnames(ctab) <- c("X1", "X2", "Correlation", "pvalue")
@@ -312,23 +310,23 @@ cmat2table <- function(res, verbose=FALSE) {
 
     ctab$X1 <- as.character(ctab$X1)
     ctab$X2 <- as.character(ctab$X2)
-    
+
     # Keep the original order of factor levels
     ctab$X1 <- factor(as.character(ctab$X1), levels=rownames(res$cor))
     ctab$X2 <- factor(as.character(ctab$X2), levels=colnames(res$cor))
-    
+
     # Remove NAs
     ctab <- ctab[!is.na(ctab$Correlation), ]
-    
+
     # Order the table by p-value
     if ("p.adj" %in% colnames(ctab)) {
         ctab <- ctab[order(ctab$p.adj), ]
     } else if ("pvalue" %in% colnames(ctab)) {
         ctab <- ctab[order(ctab$pvalue), ]
     }
-    
+
     ctab
-    
+
 }
 
 

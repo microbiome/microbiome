@@ -21,58 +21,59 @@
 #' @keywords utilities
 
 add_besthit <- function(x, sep=":"){
-  
-  Class<-Domain<- Family<- Genus<- Genus.Species<- NULL
-  Order<- Phylum<- Species<-NULL
-  
-  x.nw <- x
-  if(length(rank_names(x.nw))== 6){
+    .deprecate_phyloseq(x)
+
+    Class<-Domain<- Family<- Genus<- Genus.Species<- NULL
+    Order<- Phylum<- Species<-NULL
+
+    x.nw <- x
+    if(length(rank_names(x.nw))== 6){
     colnames(tax_table(x.nw)) <- c("Domain", "Phylum", "Class", "Order", "Family", "Genus")
-  }
-  if(length(rank_names(x.nw))==7){
+    }
+    if(length(rank_names(x.nw))==7){
     colnames(tax_table(x.nw)) <- c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species")
-  }
-  
-  tax.tib <- .get_taxa_tib_unite(x)
-  
-  tax.tib <- tax.tib %>% 
+    }
+
+    tax.tib <- .get_taxa_tib_unite(x)
+
+    tax.tib <- tax.tib %>% 
     dplyr::mutate(Domain =ifelse(is.na(Domain), "Unclassifed", Domain),
-                  Phylum =ifelse(is.na(Phylum), Domain, Phylum),
-                  Class =ifelse(is.na(Class), Phylum, Class),
-                  Order =ifelse(is.na(Order), Class, Order),
-                  Family =ifelse(is.na(Family), Order, Family),
-                  Genus =ifelse(is.na(Genus), Family, Genus)) 
-  if(length(rank_names(x))==7){
+                Phylum =ifelse(is.na(Phylum), Domain, Phylum),
+                Class =ifelse(is.na(Class), Phylum, Class),
+                Order =ifelse(is.na(Order), Class, Order),
+                Family =ifelse(is.na(Family), Order, Family),
+                Genus =ifelse(is.na(Genus), Family, Genus)) 
+    if(length(rank_names(x))==7){
     tax.tib <- tax.tib %>%
-      dplyr::mutate(Species =ifelse(is.na(Species), Genus, Species))
-  }
-  
-  best_hit <- paste0(taxa_names(x), sep,tax.tib[,ncol(tax.tib)])
-  
-  taxa_names(x) <- best_hit
-  return(x)
+        dplyr::mutate(Species =ifelse(is.na(Species), Genus, Species))
+    }
+
+    best_hit <- paste0(taxa_names(x), sep,tax.tib[,ncol(tax.tib)])
+
+    taxa_names(x) <- best_hit
+    return(x)
 }
 
 
 
 .get_taxa_tib_unite <- function(x){
-  
-  Genus<- Species <- Genus.Species<- NULL
-  tax.tib <- tax_table(x) %>% 
+
+    Genus<- Species <- Genus.Species<- NULL
+    tax.tib <- tax_table(x) %>% 
     as.matrix() %>% 
     as.data.frame() 
-  
-  #n.rk <- length(rank_names(x))
-  if(any(rank_names(x) == "Species") && any(rank_names(x) == "Genus")){
-    
+
+    #n.rk <- length(rank_names(x))
+    if(any(rank_names(x) == "Species") && any(rank_names(x) == "Genus")){
+
     tax.tib <- tax.tib %>% 
-      dplyr::mutate(Genus.Species = ifelse(!is.na(Species), 
-                                           paste0(Genus, ".", Species), Species)) %>%
-      dplyr::select(-Species) %>%
-      dplyr::rename(Species = Genus.Species)
-    
-  }
-  return(tax.tib)
+        dplyr::mutate(Genus.Species = ifelse(!is.na(Species), 
+                                            paste0(Genus, ".", Species), Species)) %>%
+        dplyr::select(-Species) %>%
+        dplyr::rename(Species = Genus.Species)
+
+    }
+    return(tax.tib)
 }
 
 

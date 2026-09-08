@@ -21,19 +21,19 @@
 #' some subjects have multiple time points.
 plot_tipping <- function(x, taxon, tipping.point=NULL,
     lims=NULL, shift=0.001, xlim=NULL) {
-    
+
     pos <- abundance <- NULL
-    
+
     m <- meta(x)
     otu <- abundances(x)
-    
+
     d <- otu[taxon, ]
 
     if (is.null(tipping.point)) {
         message("No tipping point given, indicating the median by dashed line.")
         tipping.point <- median(d)
     }
-    
+
     # Pick subjects with multiple timepoints
     time.subjects <- names(which(table(m$subject) > 1))
     keep <- which(m$subject %in% time.subjects)
@@ -46,15 +46,15 @@ plot_tipping <- function(x, taxon, tipping.point=NULL,
     ranges <- t(vapply(split(d[keep], as.character(m$subject[keep])),
         range, c(1,1)))
     colnames(ranges) <- c("min", "max")
-    
+
     df <- as.data.frame(ranges)
     df$mid <- rowMeans(ranges)
     df <- df[order(df$mid), ]
     df$pos <- seq_len(nrow(df))
-    
+
     # Switches the state
     df$len <- df$max - df$min  # Range length
-    
+
     df$switch <- abs(df$mid - tipping.point) < df$len/2
     dforig <- data.frame(list(abundance=d, subject=m$subject))
     dforig$pos <- df[as.character(dforig$subject), "pos"]
@@ -72,14 +72,14 @@ plot_tipping <- function(x, taxon, tipping.point=NULL,
     p <- p + geom_point(data=dforig, aes(x=pos, y=abundance))
     p <- p + theme(axis.text.y=element_blank(),
                     axis.ticks.y=element_blank())
-    
+
     # Assuming relative abundances
     breaks <- 10^seq(-3, 2, 1)
     if (!is.null(xlim)) {
         breaks <- breaks[breaks < max(xlim)]
     }
     names(breaks) <- as.character(breaks)
-    
+
     if (is.null(xlim)) {
         lims <- c(min(df$min) - 1e-2 * min(df$min),
                 max(df$max) + 1e-2 * max(df$max))
@@ -93,7 +93,7 @@ plot_tipping <- function(x, taxon, tipping.point=NULL,
             labels=names(breaks), limits=xlim)
     }
     p <- p + ggtitle(taxon)
-    
+
     p
-    
+
 }

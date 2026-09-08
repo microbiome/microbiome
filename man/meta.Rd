@@ -2,12 +2,12 @@
 % Please edit documentation in R/meta.R
 \name{meta}
 \alias{meta}
-\title{Retrieve Phyloseq Metadata as Data Frame}
+\title{Retrieve Sample Metadata as Data Frame}
 \usage{
 meta(x)
 }
 \arguments{
-\item{x}{a phyloseq object}
+\item{x}{a phyloseq or SummarizedExperiment-derived object}
 }
 \value{
 Sample metadata as a data.frame
@@ -15,7 +15,9 @@ Sample metadata as a data.frame
 \description{
 The output of the phyloseq::sample_data() function does not
 return data.frame, which is needed for many applications.
-This function retrieves the sample data as a data.frame
+This function retrieves the sample data as a data.frame. For
+SummarizedExperiment-derived objects (including
+TreeSummarizedExperiment) the colData is returned instead.
 }
 \examples{
 data(dietswap); df <- meta(dietswap)

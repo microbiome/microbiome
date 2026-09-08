@@ -1,7 +1,18 @@
 # https://support.rstudio.com/hc/en-us/articles/200626518-Customizing-Package-Build-Options
-#~/bin/R-3.5.0/bin/R CMD BATCH document.R
+#
+# Build, check and install the package from a clean tarball.
+# Run this from inst/extras. Regenerate the man pages and README first:
+#
+#   $R/bin/Rscript document.R
+#
+# The version is read from DESCRIPTION so it does not need updating here.
 
-~/bin/R-4.3.2/bin/R CMD build ../../ #--resave-data #--no-examples  --no-build-vignettes 
-~/bin/R-4.3.2/bin/R CMD check microbiome_1.31.2.tar.gz #--no-build-vignettes --no-examples
-~/bin/R-4.3.2/bin/R CMD BiocCheck microbiome_1.31.2.tar.gz
-~/bin/R-4.3.2/bin/R CMD INSTALL microbiome_1.31.2.tar.gz 
+# Override to check against another R, e.g. the one Bioc devel builds on:
+#   R=$HOME/bin/R-devel/bin/R sh build.sh
+R=${R:-$HOME/bin/R-4.5.1/bin/R}
+TARBALL=microbiome_$(awk '/^Version:/ {print $2}' ../../DESCRIPTION).tar.gz
+
+$R CMD build ../../ || exit 1 #--resave-data #--no-examples  --no-build-vignettes
+$R CMD check $TARBALL #--no-build-vignettes --no-examples
+$R --vanilla -q -e "BiocCheck::BiocCheck('$TARBALL')" # R CMD BiocCheck is gone
+$R CMD INSTALL $TARBALL

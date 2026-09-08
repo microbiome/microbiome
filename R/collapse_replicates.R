@@ -23,17 +23,19 @@ collapse_replicates <- function (x, method = "sample",
             stop("Provide only replicate_id 
                 OR replicate_fields argument for clarity.")
         }
-        replicate_id <- unname(apply(meta(x)[, replicate_fields],
-        1, function (x) {paste(x, collapse = "-")}))    
+        # drop=FALSE keeps this working for a single replicate field,
+        # which would otherwise collapse to a vector and break apply()
+        replicate_id <- unname(apply(meta(x)[, replicate_fields, drop=FALSE],
+        1, function (x) {paste(x, collapse = "-")}))
     }
 
     # Sample names grouped by replicate
-    spl <- split(sample_names(x), replicate_id)
+    spl <- split(.sample_names(x), replicate_id)
 
     if (method == "sample") {
         # Pick one of the replicates at random
         s <- unname(vapply(spl, function (x) {sample(x, 1)}, "char"))
-        x <- prune_samples(s, x)
+        x <- .subset_samples_obj(x, s)
     }
     # TODO
     # Add averaging of replicates.

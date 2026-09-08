@@ -11,16 +11,14 @@
 #' @param verbose Verbose
 #' @inheritParams potential_analysis
 #' @return A list with following elements:
-#' \itemize{
 #' \item{score}{Fraction of bootstrap samples where multiple modes are
 #' observed}
 #' \item{nmodes}{The most frequently observed number of modes in
 #' bootstrap sampling results.}
 #' \item{results}{Full results of potential_analysis for each row of the
 #' input matrix.}
-#' }
 #' @details
-#' \itemize{
+#' \describe{
 #' \item{Sarle.finite.sample}{ Coefficient of bimodality for
 #' finite sample. See SAS 2012.}
 #' \item{Sarle.asymptotic}{ Coefficient of bimodality, used and described
@@ -50,15 +48,15 @@
 #'
 #' @references
 #' \itemize{
-#' \item{}{Livina et al. (2010). Potential analysis 
+#' \item Livina et al. (2010). Potential analysis
 #' reveals changing number of climate states during the last 60
-#' kyr. \emph{Climate of the Past}, 6, 77-82.}
-#' \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
-#' ecosystem. \emph{Nature Communications} 5:4344.}
-#' \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
-#' \item{}{AM Ellison, Am. J. Bot 74:1280-8, 1987.}
-#' \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
-#' \item{}{To cite the microbiome R package, see citation('microbiome')}
+#' kyr. \emph{Climate of the Past}, 6, 77-82.
+#' \item Lahti et al. (2014). Tipping elements of the human intestinal
+#' ecosystem. \emph{Nature Communications} 5:4344.
+#' \item Shade et al. mBio 5(4):e01371-14, 2014.
+#' \item AM Ellison, Am. J. Bot 74:1280-8, 1987.
+#' \item SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.
+#' \item To cite the microbiome R package, see citation('microbiome')
 #' }
 #' @export
 #' @author Leo Lahti \email{leo.lahti@@iki.fi}
@@ -78,10 +76,10 @@
 #' @keywords utilities
 bimodality <- function(x, method="potential_analysis", peak.threshold=1,
     bw.adjust=1, bs.iter=100, min.density=1, verbose=TRUE) {
-    
+
     accepted <- intersect(method, c("potential_analysis",
         "Sarle.finite.sample", "Sarle.asymptotic"))
-    
+
     if (length(method) > 1 || method == "all") {
         method <- accepted
         tab <- NULL
@@ -94,14 +92,14 @@ bimodality <- function(x, method="potential_analysis", peak.threshold=1,
         tab <- as.data.frame(tab)
         return(tab)
     }
-    
-    
+
+
     if (is.vector(x)) {
-        
+
         if (method %in% c("Sarle.finite.sample", "Sarle.asymptotic")) {
-            
+
             s <- bimodality_sarle(x, type=method)
-            
+
         } else if (method == "potential_analysis") {
 
             if (length(unique(x)) == 1) {                
@@ -113,27 +111,27 @@ bimodality <- function(x, method="potential_analysis", peak.threshold=1,
                                     bs.iter, min.density, verbose)$score
             }
         }
-        
+
     } else if (is.matrix(x)) {
-        
+
         s <- apply(x, 1, function(xi) {
             bimodality(xi, method=method, peak.threshold=peak.threshold,
             bw.adjust=bw.adjust, 
                 bs.iter=bs.iter, min.density=min.density, verbose=verbose)
         })
-        
-    } else if (is.phyloseq(x)) {
-        
-        # Pick the data from phyloseq object
+
+    } else if (.is_data_object(x)) {
+
+        # Pick the data from phyloseq / SummarizedExperiment object
         x <- abundances(x)
         s <- bimodality(x, method=method, peak.threshold=peak.threshold,
         bw.adjust=bw.adjust, 
             bs.iter=bs.iter, min.density=min.density, verbose=verbose)
-        
+
     }
-    
+
     s
-    
+
 }
 
 
@@ -149,15 +147,13 @@ bimodality <- function(x, method="potential_analysis", peak.threshold=1,
 #' as a multiple of kernel height
 #' @param verbose Verbose
 #' @inheritParams potential_analysis
-#' @return A list with following elements: 
-#' \itemize{
+#' @return A list with following elements:
 #' \item{score}{Fraction of bootstrap samples with multiple
 #' observed modes}
 #' \item{nmodes}{The most frequently observed number of modes
 #' in bootstrap}
 #' \item{results}{Full results of potential_analysis for each
 #' row of the input matrix.}
-#' }
 #' @details Repeats potential analysis (Livina et al. 2010) multiple times
 #' with bootstrap sampling for each row of the input data
 #' (as in Lahti et al. 2014) and returns the specified results.
@@ -168,16 +164,16 @@ bimodality <- function(x, method="potential_analysis", peak.threshold=1,
 #' #s <- multimodality(t(peerj32$microbes[, c('Akkermansia', 'Dialister')]))
 #' @references
 #' \itemize{
-#' \item{}{Livina et al. (2010). Potential analysis reveals changing
+#' \item Livina et al. (2010). Potential analysis reveals changing
 #' number of climate states during the last 60 kyr.
-#' \emph{Climate of the Past}, 6, 77-82.}
-#' \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
-#' ecosystem. \emph{Nature Communications} 5:4344.}
+#' \emph{Climate of the Past}, 6, 77-82.
+#' \item Lahti et al. (2014). Tipping elements of the human intestinal
+#' ecosystem. \emph{Nature Communications} 5:4344.
 #' }
 #' @keywords utilities
 multimodality <- function(x, peak.threshold=1, bw.adjust=1,
     bs.iter=100, min.density=1, verbose=TRUE) {
-    
+
     if (is.vector(x)) {
 
         # Add small noise to enable robust density estimation
@@ -188,17 +184,17 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
         ret <- list(score=1 - m$unimodality.support,
         modes=m$modes, results=m)
         return(ret)
-        
+
     } else {
-        
+
         # Univariate potential analysis for all taxa with full data
         potential.results <- list()
         nmodes <- c()
-    
+
         if (is.null(rownames(x))) {
             rownames(x) <- as.character(seq_len(nrow(x)))
         }
-        
+
         for (tax in rownames(x)) {
             if (verbose) {
                 message(tax)
@@ -208,19 +204,19 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
             nmodes[[tax]] <- m$modes
             potential.results[[tax]] <- m
         }
-        
+
         multimodality.score <- vapply(potential.results, function(x) {
             1 - x$unimodality.support
         }, 1)
-        
+
         ret <- list(score=multimodality.score,
                     modes=nmodes,
                     results=potential.results)
-        
+
     }
-    
+
     ret
-    
+
 }
 
 
@@ -252,31 +248,31 @@ multimodality <- function(x, peak.threshold=1, bw.adjust=1,
 #'
 #' @references
 #' \itemize{
-#'   \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
-#'   \item{}{Ellison AM (1987) Am J Botany 74(8):1280-1288.}
-#'   \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
-#'   \item{}{To cite the microbiome R package, see citation('microbiome')}
+#'   \item Shade et al. mBio 5(4):e01371-14, 2014.
+#'   \item Ellison AM (1987) Am J Botany 74(8):1280-1288.
+#'   \item SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.
+#'   \item To cite the microbiome R package, see citation('microbiome')
 #' }
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @seealso Check the dip.test from the \pkg{DIP} package for a
 #' classical test of multimodality.
 #' @keywords utilities
 bimodality_sarle <- function(x, bs.iter=1, type="Sarle.finite.sample") {
-    
+
     g <- skew(x)
     k <- kurtosis(x)
-    
+
     if (type == "Sarle.asymptotic") {
-        
+
         s <- (1 + g^2)/(k + 3)
-        
+
     } else if (type == "Sarle.finite.sample") {
-        
+
         n <- length(x)
         s <- (g^2 + 1)/(k + (3 * (n - 1)^2)/((n - 2) * (n - 3)))
-        
+
     }
-    
+
     if (bs.iter > 1) {
         s <- c()
         for (i in seq_len(bs.iter)) {
@@ -285,9 +281,9 @@ bimodality_sarle <- function(x, bs.iter=1, type="Sarle.finite.sample") {
         }
         s <- mean(s)
     }
-    
+
     s
-    
+
 }
 
 

@@ -26,7 +26,6 @@ kernel height}
 }
 \value{
 List with following elements:
-\itemize{
 \item{modes}{Number of modes for the input data vector
 (the most frequent number of modes from bootstrap)}
 \item{minima}{Average of potential minima across the bootstrap samples
@@ -36,7 +35,6 @@ List with following elements:
 \item{unimodality.support}{Fraction of bootstrap samples exhibiting
 unimodality}
 \item{bws}{Bandwidths}
-}
 }
 \description{
 Analysis of multimodality based on bootstrapped potential
@@ -58,11 +56,11 @@ x <- abundances(transform(peerj32$phyloseq, "clr"))['Dialister',]
 }
 \references{
 \itemize{
-\item{}{Livina et al. (2010). Potential analysis reveals changing number
+\item Livina et al. (2010). Potential analysis reveals changing number
 of climate states during the last 60 kyr.
-\emph{Climate of the Past}, 6, 77-82.}
-\item{}{Lahti et al. (2014). Tipping elements of the human intestinal
-ecosystem. \emph{Nature Communications} 5:4344.}
+\emph{Climate of the Past}, 6, 77-82.
+\item Lahti et al. (2014). Tipping elements of the human intestinal
+ecosystem. \emph{Nature Communications} 5:4344.
 }
 }
 \seealso{

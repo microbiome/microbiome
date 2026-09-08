@@ -8,7 +8,6 @@
 #' @param min.density minimum accepted density for a maximum; as a multiple of
 #' kernel height
 #' @return List with following elements:
-#' \itemize{
 #' \item{modes}{Number of modes for the input data vector
 #' (the most frequent number of modes from bootstrap)}
 #' \item{minima}{Average of potential minima across the bootstrap samples
@@ -18,7 +17,6 @@
 #' \item{unimodality.support}{Fraction of bootstrap samples exhibiting
 #' unimodality}
 #' \item{bws}{Bandwidths}
-#' }
 #' @export
 #' @examples
 #' 
@@ -36,11 +34,11 @@
 #' @seealso plot_potential
 #' @references
 #' \itemize{
-#' \item{}{Livina et al. (2010). Potential analysis reveals changing number
+#' \item Livina et al. (2010). Potential analysis reveals changing number
 #' of climate states during the last 60 kyr.
-#' \emph{Climate of the Past}, 6, 77-82.}
-#' \item{}{Lahti et al. (2014). Tipping elements of the human intestinal
-#' ecosystem. \emph{Nature Communications} 5:4344.}
+#' \emph{Climate of the Past}, 6, 77-82.
+#' \item Lahti et al. (2014). Tipping elements of the human intestinal
+#' ecosystem. \emph{Nature Communications} 5:4344.
 #' }
 potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
     bs.iter=100, min.density=1) {
@@ -48,7 +46,7 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
     if (is.matrix(x) && nrow(x) == 1) {
         x <- as.vector(x)
     }
-    
+
     # TODO :
     # Use densEstBayes() for density estimation and uncertainty analysis
     # https://arxiv.org/abs/2009.06182
@@ -57,24 +55,24 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
     minpoints <- list()
     maxpoints <- list()
     bws <- c()
-    
+
     for (r in seq_len(bs.iter)) {
-        
+
         # Bootstrap
         rs <- sample(length(x), replace=TRUE)
-        
+
         xbs <- na.omit(unname(x[rs]))
-        
+
         a <- potential_univariate(xbs,
             grid.size=floor(0.2 * length(x)),
             peak.threshold=peak.threshold, 
             bw.adjust=bw.adjust, min.density=min.density)
-        
+
         nmodes[[r]] <- length(a$max.points)
         minpoints[[r]] <- a$min.points
         maxpoints[[r]] <- a$max.points
         bws[[r]] <- a$bw
-        
+
     }
 
     nmodes <- unlist(nmodes)
@@ -93,7 +91,7 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
         minima=min.points, maxima=max.points,
         unimodality.support=unimodality.support, 
         bws=bws)
-    
+
 }
 
 
@@ -120,7 +118,6 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
 #' @inheritParams potential_analysis
 #' @return \code{potential_univariate} returns a list with the
 #' following elements:
-#' \itemize{
 #' \item{xi }{the grid of points on which the potential is estimated}
 #' \item{pot }{The estimated potential: -log(f)*std^2/2,
 #' where f is the density.}
@@ -134,15 +131,14 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
 #' minimum values; (-potentials; neglecting local optima)}
 #' \item{max.points }{grid point values at which the density has
 #' maximum values; (-potentials; neglecting local optima)}
-#' }
 #' @references
 #' \itemize{
-#' \item{}{Livina et al. (2010).
+#' \item Livina et al. (2010).
 #'  Potential analysis reveals changing number of climate states during
-#'  the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.}
-#' \item{}{Lahti et al. (2014).
+#'  the last 60 kyr. \emph{Climate of the Past}, 6, 77-82.
+#' \item Lahti et al. (2014).
 #'  Tipping elements of the human intestinal ecosystem.
-#'  \emph{Nature Communications} 5:4344.}
+#'  \emph{Nature Communications} 5:4344.
 #' }
 #' @author Based on Matlab code from Egbert van Nes modified by Leo Lahti.
 #' Extended from the initial version in the \pkg{earlywarnings} R package.
@@ -152,11 +148,11 @@ potential_analysis <- function(x, peak.threshold=0, bw.adjust=1,
 potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
     grid.size=NULL, 
     peak.threshold=1, bw.adjust=1, density.smoothing=0, min.density=1) {
-    
+
     if (is.null(grid.size)) {
         grid.size <- floor(0.2 * length(x))
     }
-    
+
     # Density estimation
     tmp <- try(de <- density(x, bw=bw, adjust=bw.adjust,
         kernel="gaussian", 
@@ -165,33 +161,33 @@ potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
         n=grid.size,
         from=min(x), to=max(x), 
         cut=3, na.rm=FALSE))
-    if (length(tmp) == 1 && is(tmp) == "try-error") {
+    if (is(tmp, "try-error")) {
         # Just use default parameters if failing otherwise
         warning("Density estimation with custom parameters failed. 
             Using the defaults.")
         de <- density(x)
     }
-    
+
     # Smooth the estimated density (f <- de$y) by adding a small
     # probability across
     # the whole observation range (to avoid zero probabilities for points
     # in the observation range)
     f <- de$y + density.smoothing * 1/diff(range(de$x))  # *max(de$y)
-    
+
     # Normalize the density such that it integrates to unity
     f <- f/sum(diff(de$x[seq_len(2)]) * f)
-    
+
     # Final grid points and bandwidth
     grid.points <- de$x
     bw <- de$bw
-    
+
     # Compute potential
     U <- -log(f) * std^2/2
-    
+
     # Backtransform to density distribution f <- exp(-2*U/std^2)
-    
+
     # Ignore very local optima
-    
+
     # Note mins and maxs for density given # here (not for potential, which h
     # has the opposite signs)
     ops <- find_optima(f, peak.threshold=peak.threshold, bw=bw,
@@ -199,12 +195,12 @@ potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
     min.points <- grid.points[ops$min]
     max.points <- grid.points[ops$max]
     peak.threshold2 <- ops$peak.threshold2
-    
+
     list(grid.points=grid.points, pot=U, density=f, min.inds=ops$min,
         max.inds=ops$max, 
         bw=bw, min.points=min.points, max.points=max.points,
     peak.threshold2=peak.threshold2)
-    
+
 }
 
 
@@ -227,15 +223,15 @@ potential_univariate <- function(x, std=1, bw="nrd", weights=c(),
 #'    # o <- find_optima(rnorm(100), bw=1)
 #' @keywords utilities
 find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {
-    
+
     # FIXME bw is now assumed to be 1. This may be far from optimal. Should be
     # determined automatically.
-    
+
     # multiple of kernel height
     kernel.height <- dnorm(0, sd=bw)/length(f)
     peak.threshold2 <- peak.threshold * kernel.height
     detl <- min.density * kernel.height
-    
+
     # Detect minima and maxima of the density (see Livina et al.)
     # these correspond to
     # maxima and minima of the potential, respectively including end
@@ -243,33 +239,33 @@ find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {
     # vector
     maxima <- find_maxima(f)
     minima <- find_minima(f)
-    
+
     # remove maxima that are below min.density
     maxima <- maxima[f[maxima] >= detl]
 
     minima <- remove_obsolete_minima(f, maxima, minima)
     minima <- unlist(minima)
     maxima <- unlist(maxima)
-    
+
     # Remove minima and maxima that are too shallow
     delmini <- logical(length(minima))
     delmaxi <- logical(length(maxima))
     if (length(maxima) > 0) {
         for (j in seq_len(length(maxima))) {
-            
+
             # Calculate distance of this maximum to all minima
             s <- minima - maxima[[j]]
-            
+
             # Set distances to deleted minima to zero
             s[delmini] <- 0
-            
+
             # identify the closest remaining minima
             i1 <- i2 <- NULL
             if (length(s) > 0) {
-                
+
                 minima.spos <- minima[s > 0]
                 minima.sneg <- minima[s < 0]
-                
+
                 if (length(minima.spos) > 0) {
                     i1 <- min(minima.spos)
                 }
@@ -277,7 +273,7 @@ find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {
                     i2 <- max(minima.sneg)
                 }
             }
-            
+
             # if no positive differences available, set it to
         # same value with i2
             if ((is.null(i1) && !is.null(i2))) {
@@ -287,29 +283,29 @@ find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {
         # set it to same value with i1
                 i2 <- i1
             }
-            
+
             if (!is.null(i1) && is.na(i1)) {
                 i1 <- NULL
             }
             if (!is.null(i2) && is.na(i2)) {
                 i2 <- NULL
             }
-            
+
             # If a closest minimum exists, check differences and
         # remove if difference is
             # under threshold
             if (!is.null(i1)) {
-                
+
                 # Smallest difference between this maximum and the
                 # closest minima
                 diff <- min(c((f[maxima[[j]]] - f[i1]),
             (f[maxima[[j]]] - f[i2])))
-                
+
                 if (diff < peak.threshold2) {
-                
+
                     # If difference is below threshold, delete this maximum
                     delmaxi[[j]] <- TRUE
-                    
+
                     # Delete the larger of the two neighboring minima
                     if (f[[i1]] > f[[i2]]) {
                         delmini[minima == i1] <- TRUE
@@ -317,7 +313,7 @@ find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {
                         delmini[minima == i2] <- TRUE
                     }
                 }
-                
+
             } else {
                 # if both i1 and i2 are NULL, do nothing
             }
@@ -329,7 +325,7 @@ find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {
     if (length(minima) > 0 && sum(delmini) > 0) {
         minima <- minima[!delmini]
     }
-    
+
     # Combine maxima that do not have minima in between
     if (length(maxima) > 1) {
         maxima2 <- c()
@@ -340,7 +336,7 @@ find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {
                 cnt <- cnt + 1
                 nominima <- sum(minima > maxima[[i]] &
             minima < maxima[[i + cnt]]) == 0
-                
+
                 # if (is.na(nominima)) {nominima <- TRUE}
             }
             maxs <- maxima[i:(i + cnt - 1)]
@@ -352,27 +348,27 @@ find_optima <- function(f, peak.threshold=0, bw=1, min.density=1) {
         }
         maxima <- maxima2
     }
-    
-    
+
+
     if (length(maxima) > 0 && sum(delmaxi) > 0) {
         maxima <- maxima[!delmaxi]
     }
-    
+
     list(min=minima, max=maxima, peak.threshold2=peak.threshold2)
-    
+
 }
 
 remove_obsolete_minima <- function(f, maxima, minima) {
-    
+
     # remove minima that now became obsolete If there are multiple
     # minima between two consecutive maxima after removing the maxima
     # that did not pass the threshold, take the average of the minima;
     # return the list of indices such that between each pair of
     # consecutive maxima, there is exactly one minimum
-    
+
     if (length(maxima) > 1) {
         minima <- vapply(2:length(maxima), function(i) {
-            
+
             mins <- minima[minima >= maxima[[i - 1]] & minima <= maxima[[i]]]
             if (length(mins) > 0) {
                 round(mean(mins[which(f[mins] == min(f[mins]))]))
@@ -380,14 +376,14 @@ remove_obsolete_minima <- function(f, maxima, minima) {
                 NULL
             }
         }, 1)
-        
+
     } else {
         minima <- NULL
     }
-    
+
     # Remove minima that are outside the most extreme maxima
     minima <- minima[minima > min(maxima) & minima < max(maxima)]
-    
+
     minima
 }
 
@@ -398,7 +394,7 @@ find_minima <- function(f) {
 }
 
 find_maxima <- function(f) {
-    
+
     f2 <- c(Inf, -f, Inf)
     cnt <- 1
     ops <- c()

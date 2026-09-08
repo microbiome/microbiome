@@ -13,7 +13,8 @@ taxa(x)
 A vector with taxon names.
 }
 \description{
-List the names of taxonomic groups in a phyloseq object.
+List the names of taxonomic groups in a phyloseq or
+SummarizedExperiment-derived object.
 }
 \details{
 A handy shortcut for phyloseq::taxa_names, with a potential to add

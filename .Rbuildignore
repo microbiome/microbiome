@@ -30,7 +30,7 @@ vignettes/Example_files
 vignettes/cache
 vignettes/figure
 vignettes/.RData
-vignettes/*.R
+^vignettes/.*\.R$
 vignettes/*.RData
 vignettes/misc*
 vignettes/tmp*
@@ -41,6 +41,9 @@ vignettes/*.html
 
 # Git related
 .git*
+
+# Tooling
+^\.claude$
 
 # Travis scripts
 README.Rmd

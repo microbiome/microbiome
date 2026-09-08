@@ -26,15 +26,15 @@ top <- function (x, field = NULL, n = NULL, output = "vector", round = NULL, na.
         inds <- which(x == "NA")
         if (length(inds) > 0) {
             x[inds] <- NA
-            warning(paste("Interpreting NA string as missing value NA. 
-            Removing", length(inds), "entries"))
+            warning("Interpreting NA string as missing value NA.",
+                " Removing ", length(inds), " entries")
         }
         x <- x[!is.na(x)]
     }
-    
+
     s <- rev(sort(table(x)))
     N <- length(x)
-    
+
     } else if (is.data.frame(x) || is.matrix(x)) {
         if (is.null(field)) {
         return(NULL)
@@ -45,9 +45,8 @@ top <- function (x, field = NULL, n = NULL, output = "vector", round = NULL, na.
         inds <- which(x == "NA")
         if (length(inds) > 0) {
             x[inds] <- NA
-            warning(
-            paste("Interpreting NA string as missing value NA. Removing",
-            length(inds), "entries"))
+            warning("Interpreting NA string as missing value NA.",
+                " Removing ", length(inds), " entries")
         }
         x <- x[!is.na(x)]
     }
@@ -66,7 +65,7 @@ top <- function (x, field = NULL, n = NULL, output = "vector", round = NULL, na.
         if (is.null(field)) {field <- "Field"}
         names(s) <- c(field, "Entries (N)", "Fraction (%)")
         if (!is.null(round)) {
-            s[,3] = round(s[,3], round)
+            s[,3] <- round(s[,3], round)
         }
         if (include.rank) {
             s <- cbind(Rank = seq_len(nrow(s)), s)

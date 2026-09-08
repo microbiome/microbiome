@@ -4,6 +4,9 @@
 \alias{microbiome-package}
 \alias{microbiome}
 \title{R package for microbiome studies}
+\value{
+This package-level documentation page does not return a value.
+}
 \description{
 Brief summary of the microbiome package
 }

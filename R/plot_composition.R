@@ -48,7 +48,7 @@ plot_composition <- function(x,
     verbose=FALSE, 
     average_by=NULL,
     group_by = NULL, ...) {
-    
+
     # Avoid warnings
     Sample <- Abundance <- Taxon <- Group <- Tax <-
         horiz <- value <- scales <- ID <- 
@@ -56,7 +56,7 @@ plot_composition <- function(x,
     if (!is.null(x@phy_tree)){
         x@phy_tree <- NULL
     }
-        
+
     xorig <- x
     if (verbose) {message("Pick the abundance matrix taxa x samples")}
     abu <- abundances(x)
@@ -101,9 +101,9 @@ plot_composition <- function(x,
     } else if (is.vector(sample.sort) && length(sample.sort) > 1) {
         sample.sort <- sample_names(x)[sample.sort]            
     } else if (!sample.sort %in% names(sample_data(x))) {
-        warning(paste("The sample.sort argument", sample.sort,
-        "is not included in sample_data(x). 
-            Using original sample ordering."))
+        warning("The sample.sort argument ", sample.sort,
+            " is not included in sample_data(x).",
+            " Using original sample ordering.")
         sample.sort <- sample_names(x)
     }
 
@@ -126,7 +126,7 @@ plot_composition <- function(x,
         otu.sort <- neatsort(x, method="NMDS", distance="bray",
         target="species", first=NULL)
     }
-    
+
     # Abundances as data.frame dfm <- psmelt(x)
     dfm <- psmelt(otu_table(abu, taxa_are_rows = TRUE))
     names(dfm) <- c("Tax", "Sample", "Abundance")
@@ -135,8 +135,8 @@ plot_composition <- function(x,
 
     if (!is.null(group_by)) {
     	if (!is.null(average_by)) {
-      		dfm$Group <- meta(x)[[group_by]][match(as.character(dfm$Sample),
-                                             meta(x)[[average_by]])]
+        		dfm$Group <- meta(x)[[group_by]][match(as.character(dfm$Sample),
+                                            meta(x)[[average_by]])]
     	}else{
 	    	dfm$Group <- meta(x)[[group_by]][match(as.character(dfm$Sample),
         				sample_names(x))]
@@ -145,10 +145,10 @@ plot_composition <- function(x,
 
     # SampleIDs for plotting
     if (x.label %in% colnames(sample_data(x)) & is.null(average_by)) {
-        
+
         meta <- sample_data(x)
         dfm$xlabel <- as.vector(unlist(meta[as.character(dfm$Sample), x.label]))
-        
+
         # Sort the levels as in the original metadata
         if (is.factor(meta[, x.label])) {            
             lev <- levels(meta[, x.label])            
@@ -159,7 +159,7 @@ plot_composition <- function(x,
     } else {       
         dfm$xlabel <- dfm$Sample        
     }
-    
+
     if (verbose) {message("Construct the plots")}   
     if (plot.type == "barplot") {
         p <- make_barplot1(dfm, group_by)
@@ -172,7 +172,7 @@ plot_composition <- function(x,
     }
 
     p
-    
+
 }
 
 make_heatmap1 <- function (x, otu.sort, sample.sort, verbose=FALSE) {
@@ -212,7 +212,7 @@ make_barplot1 <- function (dfm, group_by) {
 
         # Name appropriately
         p <- p + labs(y = "Abundance")
-        
+
         # Rotate horizontal axis labels, and adjust
         p <- p + theme(axis.text.x=element_text(angle=90, vjust=0.5,
             hjust=0))

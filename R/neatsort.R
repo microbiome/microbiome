@@ -38,10 +38,10 @@
 #' @keywords utilities
 neatsort <- function(x, target, method="NMDS", distance="bray",
     first=NULL,  ...) {
-    
+
     # TODO harmonize completely for matrices vs phyloseqs
     xo <- x
-    
+
     # Remame matrix targets as in phyloseq
     target <- gsub("columns", "sites", target)
     target <- gsub("cols", "sites", target)
@@ -53,27 +53,27 @@ neatsort <- function(x, target, method="NMDS", distance="bray",
 
         samples <- sample_names(x)
         features <- taxa(x)
-        
+
         # Capture the output to keep the screen clean
         junk <- capture.output(
             ord <- ordinate(x, method = method, distance = distance, ...),
                 file=NULL)
-        
+
     } else {
 
         samples <- colnames(x)
         features <- rownames(x)
-        
+
         if (!method == "NMDS") {
             warning("Only NMDS dissimilarity implemented for matrices. 
                     Using NMDS for sorting.")
             method <- "NMDS"
         }
-        
+
         if (target == "sites") {
             x <- t(x)
         }
-        
+
         # Neatmap sorting for matrices with NMDS Order Capture the output
         # to keep the screen clean
         if (distance %in% c("euclidean")) {
@@ -81,34 +81,33 @@ neatsort <- function(x, target, method="NMDS", distance="bray",
         } else {
             d <- vegdist(x, distance)
         }
-        
+
         junk <- capture.output(ord <- metaMDS(d, wascores=FALSE,
         autotransform=FALSE, noshare=FALSE), file=NULL)
     }
-    
+
     # ------------------------------------------------------------------
 
     # Order items with the NeatMap procedure Reorder by the angle in radial
     # coordinates on the 2-axis plane.
     DF <- NULL
-    
+
     # Define new sample ordering based on the ordination Quick fix: the scores
     # function fails otherwise.
     disp.target <- target
     if (target == "species" && !is.phyloseq(xo)) {
         disp.target <- "sites"
     }
-    
+
     tmp <- try({
         DF <- scores(ord, choices=c(1, 2), display=disp.target)
     }, silent=TRUE)
-    
+
     if (inherits(tmp, "try-error")) {
-        warning(paste("Order failed with ", target, ". 
-            Using default ordering.", 
-            sep=""))
+        warning("Order failed with ", target,
+            ". Using default ordering.")
     }
-    
+
     if (!is.null(DF)) {
         # If the score accession worked, replace order
         if (target == "sites") {
@@ -119,7 +118,7 @@ neatsort <- function(x, target, method="NMDS", distance="bray",
             stop("Target should be either sites, cols, species or rows")
         }
     } else if (length(DF) > 1) {
-        
+
         if (target == "sites") {
             ordering <- samples[order(DF)]  # 1:nsamples(x)
         } else if (target == "species") {
@@ -136,14 +135,14 @@ neatsort <- function(x, target, method="NMDS", distance="bray",
             stop("Target should be either sites or species")
         }
     }
-    
+
     # Determine the starting item (OTU or sample)
     if (!is.null(first)) {
         ordering <- chunk_reorder(ordering, first)
     }
-    
+
     ordering
-    
+
 }
 
 
@@ -157,13 +156,13 @@ neatsort <- function(x, target, method="NMDS", distance="bray",
 #' @return theta
 #' @keywords internal
 radial_theta <- function(x) {
-    
+
     x <- as(x, "matrix")
     theta <- atan2((x[, 2] - mean(x[, 2])), (x[, 1] - mean(x[, 1])))
     names(theta) <- rownames(x)
-    
+
     theta
-    
+
 }
 
 #' @title Chunk Reorder
@@ -195,9 +194,9 @@ radial_theta <- function(x) {
 #' # # What about when `newstart` is not in `x`? Return x as-is, throw warning.
 #' # chunk_reorder(LETTERS, 'g') 
 chunk_reorder <- function(x, newstart=x[[1]]) {
-    
+
     pivot <- match(newstart[1], x, nomatch=NA)
-    
+
     # If pivot is NA, then warn and return x as-is
     if (is.na(pivot)) {
         warning("`newstart` argument not found from `x`. 
@@ -208,7 +207,7 @@ chunk_reorder <- function(x, newstart=x[[1]]) {
             length(x) - pivot + 1
         }), head(x, pivot - 1L))
     }
-    
+
     newx
-    
+
 }

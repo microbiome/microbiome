@@ -41,45 +41,45 @@
 #' @keywords utilities
 intermediate_stability <- function(x, reference.point=NULL,
     method="correlation", output="scores") {
-    
+
     x0 <- x
-    
+
     if (length(reference.point) > 1 && output == "scores") {
-        
+
         scores <- c()
         for (i in seq_len(length(reference.point))) {
             scores[[i]] <- intermediate_stability(x,
         reference.point=reference.point[[i]], 
                 method=method, output=output)
         }
-        
-        if (ntaxa(x) > 1) {
-            scores <- as.data.frame(scores, nrow=ntaxa(x))
+
+        if (.ntaxa(x) > 1) {
+            scores <- as.data.frame(scores, nrow=.ntaxa(x))
         } else {
             scores <- as.data.frame(t(as.matrix(scores,
             ncol=length(reference.point))))
         }
-        
+
         colnames(scores) <- as.character(reference.point)
         rownames(scores) <- taxa(x)
-        
+
         return(scores)
     }
-    
+
     # Logarithmize the data with CLR 
-    x <- abundances(transform(x0, "clr"))
-    meta <- sample_data(x0)
-    
+    x <- abundances(x0, transform="clr")
+    meta <- meta(x0)
+
     # Estimate stabilities for each OTU
     stability <- list()
     df <- meta
-    
+
     # Ensure time is numeric
     df$time <- as.numeric(as.character(df$time))
-    
+
     # Remove subjects with only one measurement
     df <- df[df$subject %in% names(which(table(df$subject) > 1)), ]
-    
+
     # Split data by subject
     spl <- split(df, as.character(df$subject))
     spl.list <- list()
@@ -88,19 +88,19 @@ intermediate_stability <- function(x, reference.point=NULL,
         spl.list[[i]] <- list(spl=spl[[i]][order(spl[[i]]$time), ],
         time.difs=diff(spl[[i]]$time))
     }
-    
+
     for (tax in rownames(x)) {
-        
+
         df$data <- x[tax, rownames(df)]
         # Remove NAs and Infinities keep <- which(!is.na(df$data))
         # df <- df[keep,]
-        
+
         stability[[tax]] <- estimate_stability(df,
         reference.point=reference.point, 
             method=method, spl.list)
-        
+
     }
-    
+
     if (output == "full") {
         return(stability)
     } else if (output == "scores") {
@@ -109,7 +109,7 @@ intermediate_stability <- function(x, reference.point=NULL,
         }, 1)
         return(intermediate.stability)
     }
-    
+
 }
 
 
@@ -154,88 +154,88 @@ intermediate_stability <- function(x, reference.point=NULL,
 #' @keywords internal
 estimate_stability <- function(df, reference.point=NULL, method="lm",
     spl.list) {
-    
+
     # Detect intermediate value in the overall data if reference point
     # not given
     if (is.null(reference.point)) {
         reference.point <- mean(range(df$data))
     }
-    
+
     if (nrow(df) < 2) {
         warning("No subjects with time series in estimate_stability. 
         Returninng NULL")
         return(NULL)
     }
-    
+
     dfis <- NULL
-    
+
     for (i in seq_len(length(spl.list))) {
-        
+
         spli <- spl.list[[i]]$spl
         spli$data <- unlist(df[rownames(spli), "data"], use.names=FALSE)
         time.difs <- spl.list[[i]]$time.difs
-        
+
         # Calculate differences between consecutive time points;
         # and the initial values;
         # and their distance from reference
         data.difs <- diff(spli$data)
-        
+
         start.points <- spli$data[-nrow(spli)]
         start.reference.distance <- start.points - reference.point
-        
+
         # Organize into data frame
         dfi <- data.frame(change=data.difs,
         time=time.difs, start=start.points, 
             start.reference.distance=start.reference.distance)
-        
+
         # Add to the collection
         dfis <- rbind(dfis, dfi)
-        
+
     }
-    
+
     dfis.left <- subset(dfis, start.reference.distance < 0)
     dfis.right <- subset(dfis, start.reference.distance > 0)
-    
+
     # Simplified stability calculation (do not consider time effect)
     stability <- NULL
     stability.left <- stability.right <- NA
-    
+
     if (method == "correlation") {
-        
+
         # For each subject, check distance from the stability point at
         # the baseline time point
-    
+
         baseline.distance <- abs(dfis$start.reference.distance)
-        
+
         # For each subject, calculate deviation between the first and
         # second time point
-    
+
         followup.distance <- abs(dfis$change)
         stability <- cor(baseline.distance, followup.distance)
-        
+
         if (nrow(dfis.left) > 10) {
             # Negative values for low stability
             baseline.distance <- abs(dfis.left$start.reference.distance)
             followup.distance <- dfis.left$change
             stability.left <- cor(baseline.distance, followup.distance)
         }
-        
+
         if (nrow(dfis.right) > 10) {
             baseline.distance <- abs(dfis.right$start.reference.distance)
             followup.distance <- dfis.right$change
             stability.right <- -cor(baseline.distance, followup.distance)
         }
-        
-        
+
+
     } else if (method == "lm") {
-    
+
         # Advanced calculation, take time into account with linear
         # model (also possible to check p-values later if needed)
-    
+
         stability <- coef(summary(lm(abs(change) ~ time +
         abs(start.reference.distance), 
             data=dfis)))["abs(start.reference.distance)", "Estimate"]
-        
+
         if (nrow(dfis.left) > 10) {
             # Negative values for low stability
             stability.left <- coef(summary(lm(change ~ time +
@@ -247,12 +247,12 @@ estimate_stability <- function(df, reference.point=NULL, method="lm",
             stability.right <- -coef(summary(lm(change ~ time +
             abs(start.reference.distance), 
             data=dfis.right)))["abs(start.reference.distance)", "Estimate"]
-            
+
         }
     }
-    
+
     list(stability=stability,
         stability.right=stability.right, stability.left=stability.left, 
         data=dfis)
-    
+
 }

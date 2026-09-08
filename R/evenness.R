@@ -68,7 +68,7 @@
 #' @seealso coverage, core_abundance, rarity, alpha
 #' @keywords utilities
 evenness <- function(x, index="all", zeroes=TRUE, detection = 0) {
-    
+
     # Only include accepted indices
     index <- tolower(index)    
     accepted <- c("camargo", "pielou", "simpson", "evar", "bulla")    
@@ -78,11 +78,11 @@ evenness <- function(x, index="all", zeroes=TRUE, detection = 0) {
     if (length(index) == 1 && index == "all") {
         index <- accepted
     }
-    
+
     if (!is.null(index)) {
         index <- intersect(index, accepted)
     }
-    
+
     if (!is.null(index) && length(index) == 0) {
         return(NULL)
     }
@@ -99,14 +99,14 @@ evenness <- function(x, index="all", zeroes=TRUE, detection = 0) {
     }
 
     as.data.frame(tab)
-    
+
 }
 
 
 
 
 evenness_help <- function(x, index="all", zeroes=TRUE) {
-    
+
     # Only include accepted indices
     accepted <- c("camargo", "pielou", "simpson", "evar", "bulla")
 
@@ -114,12 +114,12 @@ evenness_help <- function(x, index="all", zeroes=TRUE) {
     if ("all" %in% index) {
         index <- accepted
     }
-    
+
     index <- intersect(index, accepted)
     if (length(index) == 0) {
         return(NULL)
     }
-    
+
     if (length(index) > 1) {
         ev <- NULL
         for (idx in index) {
@@ -129,10 +129,10 @@ evenness_help <- function(x, index="all", zeroes=TRUE) {
         colnames(ev) <- index
         return(as.data.frame(ev))
     }
-    
+
     # Pick data
     otu <- abundances(x)
-    
+
     if (index == "camargo") {
         ev <- apply(otu, 2, function(x) {
             camargo(x, zeroes=zeroes)
@@ -154,33 +154,33 @@ evenness_help <- function(x, index="all", zeroes=TRUE) {
             bulla(x, zeroes=zeroes)
         })
     }
-    
+
     names(ev) <- colnames(otu)
-    
+
     ev
-    
+
 }
 
 
 
 bulla <- function(x, zeroes=TRUE) {
-    
+
     if (!zeroes) {
         x[x > 0]
     }
-    
+
     # Species richness (number of species)
     S <- sum(x>0, na.rm = TRUE)
-    
+
     # Relative abundances
     p <- x/sum(x)
-    
+
     O <- sum(pmin(p, 1/S))
-    
+
     # Bulla's Evenness
     (O - 1/S)/(1 - 1/S)
-    
-    
+
+
 }
 
 
@@ -189,28 +189,28 @@ bulla <- function(x, zeroes=TRUE) {
 # researchgate.net/post/How_can_we_calculate_the_Camargo_evenness_index_in_R
 # but rewritten here
 camargo <- function(x, zeroes=TRUE) {
-    
+
     if (!zeroes) {
         x[x > 0]
     }
-    
+
     N <- sum(x > 0, na.rm = TRUE)
-    
+
     xx <- 0
     for (i in seq_len(N - 1)) {
         xx <- xx + sum(abs(x[(i + 1):N] - x[i]))
     }
-    
+
     # Return
     1 - xx/(sum(x) * N)
-    
+
 }
 
 
 
 # x: Species count vector
 simpson_evenness <- function(x) {
-    
+
     # Species richness (number of species)
     S <- sum(x > 0, na.rm = TRUE)
 
@@ -219,7 +219,7 @@ simpson_evenness <- function(x) {
 
     # Simpson evenness (Simpson diversity per richness)
     (1/lambda)/S
-    
+
 }
 
 
@@ -231,43 +231,43 @@ pielou <- function(x) {
 
     # Remove zeroes
     x <- x[x > 0]
-    
+
     # Species richness (number of detected species)
     S <- sum(x > 0, na.rm = TRUE)
-    
+
     # Relative abundances
     p <- x/sum(x)
-    
+
     # Shannon index
     H <- (-sum(p * log(p)))
-    
+
     # Simpson evenness
     H/log(S)
-    
+
 }
 
 # Smith and Wilson’s Evar index
 evar <- function(x, zeroes=TRUE) {
-    
+
     if (!zeroes) {
         x[x > 0]
     }
-    
+
     n <- sum(x, na.rm = TRUE)
     d <- rep(NA, n)
-    
+
     # Log abundance
     a <- ifelse(x != 0, log(x), 0)
-    
+
     # Richness
     S <- sum(x > 0)
-    
+
     b <- a/S
     c <- sum(b)
     d <- ifelse(x != 0, (a - c)^2/S, 0)
     f <- sum(d)
-    
+
     (1 - 2/pi * atan(f))
-    
+
 }
 

@@ -16,7 +16,7 @@ quiet <- function(expr, all=TRUE) {
     } else {
         file <- "/dev/null"
     }
-    
+
     if (all) {
         suppressWarnings(suppressMessages(
         suppressPackageStartupMessages(capture.output(expr, 

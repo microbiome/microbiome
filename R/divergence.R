@@ -40,7 +40,7 @@
 divergence <- function(x, y, method="bray") {
 
     # Abundance matrix (taxa x samples)
-    if (is.phyloseq(x)) {
+    if (.is_data_object(x)) {
         x <- abundances(x)
     }
 
@@ -59,14 +59,14 @@ divergence <- function(x, y, method="bray") {
 
         b[[i]] <- as.matrix(xxx)[1, 2]
     }
-    
+
     # Add sample names
     names(b) <- colnames(x)
 
     unlist(b)
-    
+
 }
 
 
-    
+
 

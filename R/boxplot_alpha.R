@@ -30,27 +30,27 @@
 #' 
 #' @keywords utilities
 boxplot_alpha <- function(x,
-                          x_var = NULL,
-                          index=NULL, 
-                          violin=FALSE, 
-                          na.rm=FALSE, 
-                          show.points=TRUE,
-                          zeroes=TRUE,
-                          element.alpha=0.5,
-                          element.width=0.2,
-                          fill.colors= NA,
-                          outlier.fill="grey50"){
-    
+                        x_var = NULL,
+                        index=NULL, 
+                        violin=FALSE, 
+                        na.rm=FALSE, 
+                        show.points=TRUE,
+                        zeroes=TRUE,
+                        element.alpha=0.5,
+                        element.width=0.2,
+                        fill.colors= NA,
+                        outlier.fill="grey50"){
+
     if(length(index) >1){
         stop("Please provide a single alpha index, e.g. index='shannon'")
     }
-    
+
     d <- suppressMessages(alpha(x, index=index,zeroes=zeroes) )
     meta.df <-  cbind(meta(x),d) %>% 
         tibble::rownames_to_column(".sampleid")
-    
+
     index.name <- colnames(meta.df)[ncol(meta.df)]
-    
+
     if(is.null(x_var)){
         # Visualize example data with a boxplot
         p <- ggplot(meta.df, aes_string(".sampleid", index.name)) +
@@ -59,17 +59,17 @@ boxplot_alpha <- function(x,
             theme_bw()
         return(p)
     }
-    
-    if(!any(phyloseq::sample_variables(x) %in% x_var)){
-      stop("'x_var' not available in `sample_data`")  
+
+    if(!any(colnames(meta(x)) %in% x_var)){
+        stop("'x_var' not available in the sample metadata")  
     }
-    
+
     if(!is.na(fill.colors)[1]){
         .check.colors(meta.df, x_var, fill.colors)
     }
-    
+
     p <- ggplot(meta.df, aes_string(x_var, index.name, fill=x_var)) 
-    
+
 
     if (show.points) {
         p <- p + geom_point(size=2,
@@ -77,34 +77,34 @@ boxplot_alpha <- function(x,
                             alpha=element.alpha,
                             shape=21)
     }
-    
+
     # Box or Violin plot ?
     if (show.points & !violin) {
         p <- p + geom_boxplot(width=element.width,
-                              alpha=element.alpha,
-                              outlier.colour = outlier.fill,
-                              outlier.fill = outlier.fill,
-                              na.rm = na.rm)
+                                alpha=element.alpha,
+                                outlier.colour = outlier.fill,
+                                outlier.fill = outlier.fill,
+                                na.rm = na.rm)
     } else {
         p <- p + geom_violin(width=element.width,
-                             alpha=element.alpha,
-                             na.rm = na.rm)
+                            alpha=element.alpha,
+                            na.rm = na.rm)
     }  
-    
+
     if(!is.na(fill.colors)[1]){
         p <- p + ggplot2::scale_fill_manual(values = fill.colors) +
             theme_bw()
     }
     p <- p + theme_bw()
-    
+
     return(p)
 }
-    
+
 
 .check.colors <- function(df, x_var=NULL, fill.colors=NULL){
-    
-    pl.vars = unique(df[,x_var])
-    
+
+    pl.vars <- unique(df[,x_var])
+
     if(length(pl.vars) != length(fill.colors))
         stop("No. of fill.colors not equal to number of unique 'x_var'")
 }

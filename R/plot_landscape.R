@@ -43,19 +43,19 @@
 #'
 #' @keywords utilities
 plot_landscape <- function(x, method="PCoA",
-                           distance="bray",
-                           transformation = "identity",
-                           col=NULL,
-                           main=NULL,
-                           x.ticks=10,
-                           rounding=0,
-                           add.points=TRUE,
-                           adjust=1, size=1,
-                           legend=FALSE,
-                           shading=TRUE,
-                           shading.low="#ebf4f5",
-                           shading.high="#e9b7ce",
-                           point.opacity=0.75) {
+                            distance="bray",
+                            transformation = "identity",
+                            col=NULL,
+                            main=NULL,
+                            x.ticks=10,
+                            rounding=0,
+                            add.points=TRUE,
+                            adjust=1, size=1,
+                            legend=FALSE,
+                            shading=TRUE,
+                            shading.low="#ebf4f5",
+                            shading.high="#e9b7ce",
+                            point.opacity=0.75) {
 
     if (is.matrix(x) || is.data.frame(x)) {
 
@@ -198,7 +198,7 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
         warning("Zero bandwidths
                 (possibly due to small number of observations).
                 Using minimal bandwidth.")
-        bw[bw == 0]=bw[bw == 0] + min(bw[!bw == 0])
+        bw[bw == 0] <- bw[bw == 0] + min(bw[!bw == 0])
     }
 
     # Construct the figure
@@ -247,8 +247,8 @@ densityplot <- function(x, main=NULL, x.ticks=10, rounding=0,
     }
 
     p + theme(panel.grid = element_blank(),
-              panel.background = element_rect(fill = "white", color="grey70"),
-              legend.key=element_blank())
+                panel.background = element_rect(fill = "white", color="grey70"),
+                legend.key=element_blank())
 
 }
 

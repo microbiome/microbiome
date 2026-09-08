@@ -41,7 +41,12 @@ While we continue to maintain this R package, the development has been
 discontinued as we have shifted to supporting methods development
 based on the new TreeSummarizedExperiment data container, which
 provides added capabilities for multi-omics data analysis. Check the
-[miaverse project](https://microbiome.github.io/) for details. 
+[miaverse project](https://microbiome.github.io/) for details.
+
+To ease that transition, most functions in this package also accept a
+`TreeSummarizedExperiment` in place of a `phyloseq` object. See
+`vignette("treesummarizedexperiment", package="microbiome")` for a
+walkthrough of the standard operations on that container.
 
 In the microbiome R package, tools are provided for the manipulation,
 statistical analysis, and visualization of taxonomic profiling
@@ -100,5 +105,13 @@ Turku](http://www.utu.fi/en/Pages/home.aspx).
 This work relies heavily on the independent
 [phyloseq](https://github.com/joey711/phyloseq) package and data
 structures for R-based microbiome analysis developed by Paul McMurdie
-and Susan Holmes. 
+and Susan Holmes.
+
+
+# Session info
+
+```{r sessioninfo}
+sessionInfo()
+```
+
 

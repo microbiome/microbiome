@@ -9,11 +9,11 @@
 #' data(peerj32)
 #' pseq <- time_normalize(peerj32$phyloseq)
 time_normalize <- function(x) {
-    
+
     # Store the original input
     xo <- x
     meta <- meta(x)
-    
+
     # Shift the times such that the first time point is always 0
     for (subj in unique(meta$subject)) {
         inds <- which(meta$subject == subj & !is.na(meta$time))
@@ -21,11 +21,11 @@ time_normalize <- function(x) {
             meta[inds, "time"] <- meta[inds, "time"] - min(meta[inds, "time"])
         }
     }
-    
+
     # Fix this to sample metadata in the original input
-    sample_data(xo) <- meta
-    
+    xo <- .set_meta(xo, meta)
+
     # Return phyloseq with normalized time field
     xo
-    
+
 }

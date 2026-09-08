@@ -1,0 +1,354 @@
+---
+title: "Using microbiome with TreeSummarizedExperiment"
+author: "Leo Lahti, Sudarshan Shetty, et al."
+bibliography:
+- bibliography.bib
+date: "`r Sys.Date()`"
+output:
+  BiocStyle::html_document:
+    toc: true
+    fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{microbiome with TreeSummarizedExperiment}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(fig.width=7, fig.height=5, message=FALSE, warning=FALSE)
+
+# mia and TreeSummarizedExperiment are in Suggests, so show the code but
+# do not evaluate it when they are missing.
+tse.available <- requireNamespace("mia", quietly=TRUE) &&
+    requireNamespace("TreeSummarizedExperiment", quietly=TRUE) &&
+    requireNamespace("SummarizedExperiment", quietly=TRUE)
+knitr::opts_chunk$set(eval=tse.available)
+```
+
+# Introduction
+
+We recommend switching from phyloseq to the
+`TreeSummarizedExperiment` based methods described in the
+[Orchestrating Microbiome Analysis
+(OMA)](https://bioconductor.org/books/release/OMA/) online book, which
+is where method development now takes place. The
+[mia](https://bioconductor.org/packages/mia) package provides the
+analysis methods for that container.
+
+To ease the transition, most functions in this package accept a
+`TreeSummarizedExperiment` (or any other `SummarizedExperiment`-derived
+object) wherever they accept a `phyloseq` object. This vignette walks
+through the standard operations on a `TreeSummarizedExperiment`. The
+companion vignette, `vignette("vignette", package="microbiome")`, gives
+the general introduction to the package.
+
+Almost everything is unchanged: the same function called on a
+`TreeSummarizedExperiment` returns the same value it would return for
+the equivalent `phyloseq` object. There are two things to know before
+starting, both covered in their own sections below:
+
+* `transform()` stores its result as a **new named assay** rather than
+  overwriting the counts, so the result is read back with
+  `abundances(x, assay.type=)`.
+* The functions that manipulate the **taxonomy table** remain phyloseq
+  only.
+
+```{r loading}
+library(microbiome)
+```
+
+## A note on masking
+
+Attaching `mia` also attaches its dependencies, two of which export
+functions that share a name with a `microbiome` function. Since they
+are attached later, they take precedence:
+
+* `IRanges::transform()` masks `microbiome::transform()`
+* `Biostrings::coverage()` masks `microbiome::coverage()`
+
+Neither raises an error when called on a microbiome object, so the
+symptom is a silently wrong result rather than a failure. Call these
+two with their package prefix whenever `mia` is attached, as this
+vignette does throughout:
+
+```{r masking, eval=FALSE}
+microbiome::transform(tse, "compositional")
+microbiome::coverage(tse)
+```
+
+The rest of the package is unaffected.
+
+# Getting a TreeSummarizedExperiment
+
+`mia` converts an existing `phyloseq` object. Here we use the
+`dietswap` data set [@OKeefe15] that ships with this package.
+
+```{r convert}
+library(mia)
+
+data(dietswap)
+tse <- convertFromPhyloseq(dietswap)
+tse
+```
+
+`mia` also reads the common file formats directly, with
+`importBiom()`, `importMothur()`, `importQIIME2()` and others, so a
+conversion step is not needed for new analyses. See the [OMA
+book](https://bioconductor.org/books/release/OMA/) for those.
+
+# Accessors
+
+`abundances()`, `meta()` and `taxa()` are the three accessors the rest
+of the package is built on. They work the same way on both containers,
+returning the abundance matrix, the sample metadata and the feature
+names.
+
+```{r accessors}
+a <- abundances(tse)
+dim(a)
+a[seq_len(4), seq_len(3)]
+
+head(meta(tse), 3)
+
+head(taxa(tse), 5)
+```
+
+For a `TreeSummarizedExperiment` these read the assay, `colData` and
+`rownames` respectively. The number of features and samples comes from
+the object itself.
+
+```{r dims}
+c(features=nrow(tse), samples=ncol(tse))
+```
+
+## Choosing the assay
+
+A `SummarizedExperiment` can hold several assays at once. `abundances()`
+takes an `assay.type` argument to pick between them. It defaults to the
+`counts` assay when one is present, and otherwise to the first assay.
+
+```{r assaynames}
+assayNames(tse)
+```
+
+```{r assaytype}
+identical(abundances(tse), abundances(tse, assay.type="counts"))
+```
+
+Asking for an assay that does not exist is an error rather than a
+silent fallback:
+
+```{r assaytype-error, error=TRUE}
+abundances(tse, assay.type="nonexistent")
+```
+
+# Transformations
+
+This is the one place where the result differs from the phyloseq
+version, and it is deliberate. For a `phyloseq` object, `transform()`
+overwrites the abundance table. For a `SummarizedExperiment`,
+transforming is *additive*: the result is stored as a new assay named
+after the transformation, and the original counts are left untouched.
+This follows the `mia::transformAssay()` convention.
+
+```{r transform}
+tse <- microbiome::transform(tse, "compositional")
+assayNames(tse)
+```
+
+The transformed values are read back by naming the assay:
+
+```{r transform-read}
+abundances(tse, assay.type="compositional")[seq_len(4), seq_len(3)]
+```
+
+The counts are still there, unchanged:
+
+```{r transform-counts}
+abundances(tse)[seq_len(4), seq_len(3)]
+```
+
+Use the `name` argument to control the assay name, for instance to
+follow the `mia` naming convention:
+
+```{r transform-name}
+tse <- microbiome::transform(tse, "compositional", name="relabundance")
+assayNames(tse)
+```
+
+Transformations chain, since each one adds an assay:
+
+```{r transform-chain}
+tse <- microbiome::transform(tse, "clr")
+tse <- microbiome::transform(tse, "Z")
+assayNames(tse)
+```
+
+When you only need the transformed matrix and not a modified object,
+pass `transform` to `abundances()` directly. This never round-trips
+through the object and works identically for both containers:
+
+```{r transform-abundances}
+clr <- abundances(tse, transform="clr")
+clr[seq_len(4), seq_len(3)]
+```
+
+# Alpha diversity and related indices
+
+These take the object and return a per-sample data frame or vector, as
+they do for phyloseq.
+
+```{r alpha}
+head(alpha(tse, index=c("shannon", "gini_simpson")), 3)
+```
+
+```{r indices}
+head(richness(tse), 3)
+head(microbiome::diversity(tse, index="shannon"), 3)
+head(evenness(tse, index="pielou"), 3)
+head(dominance(tse, index="absolute"), 3)
+head(rarity(tse, index="log_modulo_skewness"), 3)
+```
+
+The most abundant taxon per sample, and the overall top taxa:
+
+```{r dominant}
+head(dominant(tse), 3)
+top_taxa(tse, n=5)
+```
+
+Divergence from a reference sample, here the median across samples:
+
+```{r divergence}
+ref <- apply(abundances(tse), 1, median)
+head(divergence(tse, ref, method="bray"), 3)
+```
+
+Sample-wise summaries:
+
+```{r summaries}
+head(readcount(tse), 3)
+head(microbiome::coverage(tse), 3)
+head(low_abundance(tse), 3)
+```
+
+# Core microbiota and prevalence
+
+```{r prevalence}
+head(prevalence(tse, detection=1, sort=TRUE), 5)
+```
+
+`core_members()` lists the taxa passing a detection and prevalence
+threshold, and `core()` returns the object filtered down to them.
+
+```{r core-members}
+core_members(tse, detection=1, prevalence=50/100)
+```
+
+```{r core}
+tse.core <- core(tse, detection=1, prevalence=50/100)
+c(features=nrow(tse.core), samples=ncol(tse.core))
+```
+
+Subsetting preserves the class, so the result is a
+`TreeSummarizedExperiment` that can be fed back into any of these
+functions:
+
+```{r core-class}
+class(tse.core)
+```
+
+`rare()` and `rare_members()` are the complements, and
+`core_abundance()` gives the fraction of the community the core
+accounts for:
+
+```{r rare}
+head(core_abundance(tse, detection=1, prevalence=50/100), 3)
+length(rare_members(tse, detection=1, prevalence=50/100))
+```
+
+# Subsetting
+
+`remove_taxa()` and `remove_samples()` drop features and samples by
+name, again returning the same class they were given.
+
+```{r remove}
+drop <- taxa(tse)[seq_len(5)]
+tse.sub <- remove_taxa(drop, tse)
+c(before=nrow(tse), after=nrow(tse.sub))
+```
+
+```{r remove-samples}
+drop.s <- colnames(tse)[seq_len(5)]
+tse.sub <- remove_samples(drop.s, tse)
+c(before=ncol(tse), after=ncol(tse.sub))
+```
+
+# Visualization
+
+The plotting functions that go through the accessors take a
+`TreeSummarizedExperiment` and return a `ggplot` object as usual.
+
+```{r plot-core, fig.cap="Core microbiota heatmap."}
+plot_core(tse, prevalences=seq(.1, 1, .2), detections=3)
+```
+
+```{r plot-boxplot, fig.cap="Abundance of a single taxon across groups."}
+boxplot_abundance(tse, x="nationality", y=taxa(tse)[[1]])
+```
+
+```{r plot-alpha, fig.cap="Alpha diversity across groups."}
+boxplot_alpha(tse, x_var="nationality", index="shannon")
+```
+
+```{r plot-density, fig.cap="Abundance density for a single taxon."}
+plot_density(tse, variable=taxa(tse)[[1]])
+```
+
+`plot_atlas()` and `plot_tipping()` accept a
+`TreeSummarizedExperiment` in the same way.
+
+# Time series
+
+Given a `time` field in the sample metadata, the time series helpers
+work as they do for phyloseq. `time_normalize()` writes back into the
+object and so returns a `TreeSummarizedExperiment`.
+
+```{r time}
+tse.t <- tse
+tse.t$time <- tse.t$timepoint
+
+length(timesplit(tse.t))
+head(time_sort(tse.t)$time, 3)
+class(time_normalize(tse.t))
+```
+
+`baseline()` and `collapse_replicates()` likewise accept and return the
+same container.
+
+# What is not supported
+
+The functions that build or manipulate the **taxonomy table** are
+phyloseq only, and error on a `TreeSummarizedExperiment`:
+
+* `aggregate_taxa()`, `aggregate_rare()`
+* `plot_composition()`
+* `map_levels()`
+* `psmelt2()`, `otu_tibble()`, `tax_tibble()`, `sample_tibble()`
+* `add_besthit()`, `add_refseq()`
+* the `read_*()` family
+
+`mia` covers this ground for `TreeSummarizedExperiment` objects, and
+does it better: use `mia::agglomerateByRank()` in place of
+`aggregate_taxa()`, `mia::meltSE()` in place of `psmelt2()`, and the
+[miaViz](https://bioconductor.org/packages/miaViz) package for
+composition plots. The [OMA
+book](https://bioconductor.org/books/release/OMA/) documents these.
+
+# Session info
+
+```{r sessioninfo, eval=TRUE}
+sessionInfo()
+```
+
+# References

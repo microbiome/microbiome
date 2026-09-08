@@ -35,7 +35,7 @@ read_csv2phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,
 
     s.meta <- read.csv(metadata.file, row.names=1, check.names=FALSE, sep = sep)
     s.sampledata <- sample_data(s.meta)
-    
+
     s.otu <- read.csv(otu.file, row.names=1, check.names=FALSE, sep = sep)
 
     # Ensure that the OTU table is OTU x samples

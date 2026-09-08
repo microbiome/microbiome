@@ -31,16 +31,16 @@
 #' # strictly greater than 100
 #' pseq <- core(dietswap, 0, 100/100, include.lowest = TRUE)
 core <- function(x, detection, prevalence, include.lowest=FALSE, ...) {
-    
+
     xorig <- x
-    
+
     # TODO: add optional renormalization such that the core member
     # abundances would
     # sum up to 1 ?
     taxa <- core_members(x, detection, prevalence,
         include.lowest=include.lowest)
 
-    prune_taxa(taxa, xorig)
+    .subset_taxa_obj(xorig, taxa)
 
 }
 

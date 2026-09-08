@@ -21,10 +21,10 @@
 #' @keywords utilities
 read_phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,
     metadata.file=NULL, type=c("simple", "mothur", "biom"), sep = ",") {
-    
+
     message("Time to complete depends on OTU file size")
     # TODO add automated recognition of the type?
-    
+
     if (type == "mothur") {
         pseq <- read_mothur2phyloseq(otu.file, 
                                     taxonomy.file, 
@@ -40,9 +40,9 @@ read_phyloseq <- function(otu.file=NULL, taxonomy.file=NULL,
     } else {
         stop("Unrecognized type in read_phyloseq input. Exiting.")
     }
-    
+
     pseq
-    
+
 }
 
 

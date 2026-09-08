@@ -40,17 +40,33 @@ development based on the new TreeSummarizedExperiment data container,
 which provides added capabilities for multi-omics data analysis. Check
 the [miaverse project](https://microbiome.github.io/) for details.
 
+**We recommend switching from phyloseq to the TreeSummarizedExperiment
+based methods** described in the [Orchestrating Microbiome Analysis
+(OMA)](https://bioconductor.org/books/release/OMA/) online book, which
+is where method development now takes place.
+
+To ease that transition, most functions in this package now accept
+`TreeSummarizedExperiment` (and other `SummarizedExperiment`-derived)
+objects in addition to `phyloseq` objects. Two things are worth noting.
+Functions that manipulate the taxonomy table (`aggregate_taxa`,
+`plot_composition`, `map_levels`, `psmelt2`, the tibble utilities and
+the `read_*` family) remain phyloseq only. And for a
+`TreeSummarizedExperiment`, `transform()` follows the `mia` convention
+of storing its result as a new named assay rather than overwriting the
+counts, so the result is read back with
+`abundances(x, assay.type = "clr")` rather than `abundances(x)`.
+
 
 Tools for the exploration and analysis of microbiome profiling data
 sets.
 
-This R package extends the phyloseq data container. The package is actively maintened but we have discontinued the development and shifted to support methods development based on the (Tree)SummarizedExperiment data containers, see [microbiome.github.io](https://microbiome.github.io/) for more details.
+This R package extends the phyloseq data container, and also supports the (Tree)SummarizedExperiment containers. The package is actively maintened but we have discontinued the development and shifted to support methods development based on the (Tree)SummarizedExperiment data containers, see [microbiome.github.io](https://microbiome.github.io/) for more details.
 
 ### Installation and use
 
 See the package [tutorial](http://microbiome.github.io/tutorials/).
 
-**Kindly cite** as follows: "Leo Lahti, Sudarshan Shetty [et al.](https://github.com/microbiome/microbiome/graphs/contributors) ([Bioconductor, 2017](https://bioconductor.org/packages/devel/bioc/html/microbiome.html)). Tools for microbiome analysis in R. Microbiome package version 1.31.2. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). See also the relevant references listed in the manual page of each function. 
+**Kindly cite** as follows: "Leo Lahti, Sudarshan Shetty [et al.](https://github.com/microbiome/microbiome/graphs/contributors) ([Bioconductor, 2017](https://bioconductor.org/packages/devel/bioc/html/microbiome.html)). Tools for microbiome analysis in R. Microbiome package version 1.35.1. URL: [http://microbiome.github.com/microbiome](http://microbiome.github.com/microbiome). See also the relevant references listed in the manual page of each function. 
 
 ### Contribute
 

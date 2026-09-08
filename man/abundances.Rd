@@ -6,7 +6,7 @@
 \alias{otu}
 \title{Abundance Matrix from Phyloseq}
 \usage{
-abundances(x, transform = "identity")
+abundances(x, transform = "identity", assay.type = NULL)
 }
 \arguments{
 \item{x}{\code{\link{phyloseq-class}} object}
@@ -15,13 +15,19 @@ abundances(x, transform = "identity")
 'compositional' (ie relative abundance), 'Z', 'log10', 'log10p',
 'hellinger', 'identity', 'clr', 'alr', 'rclr' or any method from the
 vegan::decostand function.}
+
+\item{assay.type}{Name of the assay to pick when \code{x} is a
+SummarizedExperiment-derived object. Defaults to \code{NULL}, which
+selects the \code{counts} assay when present and otherwise the first
+assay. Ignored for phyloseq objects.}
 }
 \value{
 Abundance matrix (OTU x samples).
 }
 \description{
-Retrieves the taxon abundance table from
-phyloseq-class object and ensures it is systematically returned as
+Retrieves the taxon abundance table from a
+phyloseq-class or SummarizedExperiment-derived object (including
+TreeSummarizedExperiment) and ensures it is systematically returned as
 taxa x samples matrix.
 }
 \examples{

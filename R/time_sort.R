@@ -13,11 +13,11 @@
 #' ts <- time_sort(meta(pseq))
 #' @keywords utilities
 time_sort <- function(x) {
-    
-    if (is.phyloseq(x)) {
+
+    if (.is_data_object(x)) {
         x <- meta(x)
     }
-    
+
     # Keep only samples with time point info
     x <- subset(x, !is.na(time))
 
@@ -28,7 +28,7 @@ time_sort <- function(x) {
     if (is.null(x$signal)) {
         x$signal <- rep(NA, nrow(x))
     }
-    
+
     # Pick data for each subject separately
     spl <- split(x, as.character(x$subject))
 
@@ -36,32 +36,32 @@ time_sort <- function(x) {
     spl <- spl[names(which(vapply(spl, function(s) {
         length(unique(na.omit(s$time)))
     }, 1) > 1))]
-    
+
     # Ignore NA times
     spl <- lapply(spl, function(s) {
         s[!is.na(s$time), ]
     })
-    
+
     tabs <- list()
     cnt <- 0
     for (subj in names(spl)) {
-        
+
         times <- as.numeric(spl[[subj]]$time)
         signal <- as.numeric(spl[[subj]]$signal)
         mintime <- which.min(times)
-        
+
         # Shift in time from first time point
         spl[[subj]]$time <- (times - times[[mintime]])
-        
+
         # Shift in signal from first time point
         spl[[subj]]$shift <- (signal - signal[[mintime]])
-        
+
         # Store
         tabs[[subj]] <- spl[[subj]]
     }
-    
+
     tabs
-    
+
 }
 
 

@@ -8,8 +8,8 @@
 #' @examples
 #' data(dietswap)
 #' topx <- top_taxa(dietswap, n=10)
-top_taxa <- function(x, n=ntaxa(x)) {
-    
+top_taxa <- function(x, n=.ntaxa(x)) {
+
     names(sort(rowSums(abundances(x)), decreasing=TRUE)[seq_len(n)])
-    
+
 }

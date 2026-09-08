@@ -42,47 +42,47 @@ richness <- function(x, index = c("observed", "chao1"), detection=0) {
 
     as.data.frame(tab)
 
-    
+
 }
 
 
 richness_help <- function(x, detection=NULL) {
-    
+
     # Pick data
     otu <- x
-    
+
     # Check with varying detection thresholds
     if (is.null(detection) || length(detection) > 0) {
-        
+
         if (is.null(detection)) {
-            
+
             ths <- quantile(as.vector(otu), c(0, 0.2, 0.5, 0.8))
-            
+
         } else {
-            
+
             ths <- detection
             names(ths) <- as.character(ths)
-            
+
         }
-        
+
         tab <- NULL
         for (th in ths) {
             r <- colSums(otu > th)
             tab <- cbind(tab, r)
         }
-        
+
         colnames(tab) <- gsub("%", "", names(ths))
         r <- tab
-        
+
     } else {
-        
+
         r <- colSums(otu > detection)
         names(r) <- colnames(otu)
-        
+
     }
-    
+
     r
-    
+
 }
 
 
@@ -94,7 +94,7 @@ chao1 <- function (x) {
     # This can be done to calculate Chao1 for the total sample
     #x <- rowSums(x)
     apply(x, 2, function (xi) {chao1_per_sample(xi)})
-    
+
 }
 
 

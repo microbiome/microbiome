@@ -19,17 +19,18 @@
 #' @keywords utilities
 #' @export
 inequality <- function(x) {
-    
+
     otu <- abundances(x)
-    
+
     # Gini index for each sample
     do <- apply(otu, 2, function(x) {
         inequality_help(x)
     })
-    names(do) <- sample_names(x)
-    
+    # Backend-agnostic: the abundance matrix already carries sample names
+    names(do) <- colnames(otu)
+
     do
-    
+
 }
 
 

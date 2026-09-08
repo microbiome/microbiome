@@ -22,29 +22,30 @@
 #' @keywords utilities
 hotplot <- function(x, taxon, tipping.point=NULL, lims=NULL,
     shift=0.001, log10=TRUE) {
-    
+
+    trans <- "identity"
     if (log10) {
-        x <- transform(x, "log10")
+        trans <- "log10"
         tipping.point <- log10(tipping.point)
     }
-    
+
     Abundance <- ..density.. <- ..x.. <- NULL
-    
-    otu <- abundances(x)
-    
+
+    otu <- abundances(x, transform=trans)
+
     # Add small shift to avoid problems with 0 Use log10 to enable useful
     # visualization
     do <- shift + otu[taxon, ]
-    
+
     d <- do
-    
+
     if (is.null(tipping.point)) {
         tipping.point <- median(10^d) - shift
     } else {
         tipping.point <- tipping.point - shift
     }
     # tipping.point <- log10(tipping.point)
-    
+
     if (is.null(lims)) {
         lims <- range(na.omit(d))
     } else {
@@ -54,12 +55,12 @@ hotplot <- function(x, taxon, tipping.point=NULL, lims=NULL,
     lims[[2]] <- ceiling(10000 * lims[[2]])/10000
     lims <- lims + shift
     lim <- max(abs(lims))
-    
+
     breaks <- c(seq(floor(min(lims)), ceiling(max(lims)), by=1))
     names(breaks) <- as.character(10^breaks)
-    
+
     lims2 <- c(tipping.point - lim - 0.2/100, tipping.point + lim + 0.2/100)
-    
+
     # Data bquote(paste('Signal (', Log[10], ')', sep=''))
     df <- data.frame(Abundance=d)
     p <- ggplot(df, aes(x=Abundance, y=..density.., fill=..x..)) +
@@ -78,8 +79,8 @@ hotplot <- function(x, taxon, tipping.point=NULL, lims=NULL,
             limits=lims) + 
         # scale_x_log10() +
     ggtitle(taxon)
-    
+
     p
-    
+
 }
 

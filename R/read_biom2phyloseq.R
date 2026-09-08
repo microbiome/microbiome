@@ -55,13 +55,13 @@ read_biom2phyloseq <- function(biom.file = NULL,
 
     if (ncol(tax_table(phyobj)) == 6) {
         colnames(tax_table(phyobj)) <- levels
-    
+
         return(phyobj)
     } else if (ncol(taxtab) == 7) {
         colnames(tax_table(phyobj)) <- c(levels, 
                                     "Species")
     }
-    
+
     return(phyobj)
 
 }

@@ -19,25 +19,25 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 baseline <- function(x, na.omit=TRUE) {
-    
+
     # Arrange samples by time, and pick the first sample for each subject
     m <- meta(x)
-    
+
     if (!all(c("time", "sample", "subject") %in% names(m))) {
-        stop("The phyloseq sample_data(x) should contain the following fields: 
+        stop("The sample metadata should contain the following fields: 
         time, sample, subject.")
     }
-    
+
     if (na.omit) {
         m <- subset(m, !is.na(time))
     }
-    
+
     suppressWarnings(m <- m %>% arrange(time))
     ss <- m$subject
     s <- m$sample[match(unique(ss), ss)]
-    
-    xx <- prune_samples(s, x)
-    
+
+    xx <- .subset_samples_obj(x, s)
+
     xx
 }
 

@@ -75,16 +75,16 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
     if (any(c("XXXX", "YYYY", "ffff") %in% names(df))) {
         stop("XXXX, YYYY, ffff are not allowed in df")
     }
-    
+
     df[[Xvar]] <- factor(df[[Xvar]])
     df[[Yvar]] <- factor(df[[Yvar]])
 
     # TODO neatmap with options
     # xo <- neat(mat, method = "NMDS", distance = "euclidean",
     # first.row = "VDP.03231", first.col = "Paraprevotella") 
-    
+
     if (is.logical(order.rows) || is.logical(order.cols)) {
-        
+
         rnams <- unique(as.character(df[[Xvar]]))
         cnams <- unique(as.character(df[[Yvar]]))    
 
@@ -98,17 +98,17 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
             mat[as.character(df[i, Xvar]),
                 as.character(df[i, Yvar])] <- df[i, fill]
         }
-        
+
         mat <- t(mat)
         cind <- seq_len(ncol(mat))
         rind <- seq_len(nrow(mat))
-    
+
     } 
 
     if (is.logical(order.rows)) {
-    
+
         if (order.rows) {
-        
+
             if (nrow(mat) > 1 && ncol(mat) > 1) {
                 rind <- hclust(as.dist(1 - cor(t(mat),
                     use="pairwise.complete.obs")))$order
@@ -123,9 +123,9 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
         } else {
 
             order.rows <- rownames(mat)[rind]
-    
+
         }
-    
+
     }
 
     if (is.logical(order.cols)) {
@@ -133,64 +133,64 @@ heat <- function(df, Xvar = names(df)[[1]], Yvar = names(df)[[2]],
         if (order.cols) {
 
             if (ncol(mat) > 1 && nrow(mat) > 1) {
-    
+
                 cind <- hclust(as.dist(1 - cor(mat,
                     use="pairwise.complete.obs")))$order
-        
+
             } else {
-    
+
                 cind <- order(mat[1, ])
-        
+
             }
 
             order.cols <- colnames(mat)[cind]
-    
+
         } else {
 
             order.cols <- colnames(mat)[cind]
 
         }
-        
+
     }
 
     df[[Yvar]] <- factor(df[[Yvar]], levels=order.rows)
     df[[Xvar]] <- factor(df[[Xvar]], levels=order.cols)
-    
+
     XXXX <- YYYY <- ffff <- NULL
     df[["XXXX"]] <- df[[Xvar]]
     df[["YYYY"]] <- df[[Yvar]]
     df[["ffff"]] <- df[[fill]]
-    
+
     p <- ggplot(df, aes(x=XXXX, y=YYYY, fill=ffff)) +
             geom_tile()
-    
+
     p <- p + scale_fill_gradientn(legend.text,
             breaks=seq(from=min(limits), to=max(limits), 
             by=step), colours=colours, limits=limits) +
             labs(x = "", y = "") +
             theme(axis.text.x=element_text(angle=90))
-    
+
     # Mark significant cells with stars
     if (!is.null(star)) {
         inds <- which((df[[star]] < p.adj.threshold) &
             (abs(df[[fill]]) > association.threshold))
         if (!is.null(star) & length(inds) > 0) {
             df.sub <- df[inds, ]
-        
+
         if (is.null(star.size)) {
             star.size <- 1 # max(1, floor(text.size/2))
         }
-        
+
         p <- p + geom_text(data=df.sub, aes(x=XXXX, y=YYYY, label="+"),
-                           col="white", size=star.size)
+                            col="white", size=star.size)
         }
     }
     if (plot.values) {
         p <- p + geom_text(aes(label=round(ffff, 2)), size=3)
     }
-    
+
     p
-    
+
 }
 
 

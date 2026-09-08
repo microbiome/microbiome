@@ -30,7 +30,7 @@
 plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
     plot.type="lineplot", colours=NULL, # gray(seq(0, 1, length=5)),
     min.prevalence=NULL, taxa.order=NULL, horizontal=FALSE) {
-    
+
     if (length(detections) == 1) {
         detections <- 10^seq(log10(0.001), log10(max(abundances(x),
         na.rm=TRUE)), length=detections)
@@ -61,13 +61,13 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
     }
 
     p <- res$plot
-    
+
     if (horizontal) {
         p <- p + coord_flip() + theme(axis.text.x=element_text(angle=90))
     }
-    
+
     p
-    
+
 }
 
 
@@ -89,22 +89,22 @@ plot_core <- function(x, prevalences=seq(.1, 1, 0.1), detections=20,
 #' @author Contact: Jarkko Salojarvi \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 core_matrix <- function(x, prevalences=seq(0.1, 1, , 1), detections=NULL) {
-    
+
     # Pick abundances
     data <- abundances(x)
-    
+
     # Convert prevalences from percentages to sample counts
     p.seq <- 0.01 * prevalences * ncol(data)
-    
+
     ## Intensity vector
     if (is.null(detections)) {
         detections <- seq(min(data), max(data), length=10)
     }
     i.seq <- detections
-    
+
     coreMat <- matrix(NA, nrow=length(i.seq), ncol=length(p.seq),
         dimnames=list(i.seq, p.seq))
-    
+
     n <- length(i.seq) * length(p.seq)
     cnt <- 0
     for (i in i.seq) {
@@ -114,13 +114,13 @@ core_matrix <- function(x, prevalences=seq(0.1, 1, , 1), detections=NULL) {
             sum(rowSums(data > i) >= p)                
         }
     }
-    
+
     # # Convert Prevalences to percentages
     colnames(coreMat) <- as.numeric(colnames(coreMat))/ncol(data)
     rownames(coreMat) <- as.character(as.numeric(rownames(coreMat)))
-    
+
     coreMat
-    
+
 }
 
 
@@ -148,7 +148,7 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
 
     data <- x
     DetectionThreshold <- Taxa <- Prevalence <- NULL
-    
+
     # Prevalences with varying dets
     prev <- lapply(dets, function(th) {
         prevalence(data, detection=th)
@@ -165,7 +165,7 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
 
     df <- as.data.frame(prev)
     if (nrow(df) == 0) {stop("Too few taxa fulfil the criteria on detection and prevalence. Apply less conservative limits.")}
-    
+
     df$ID <- rownames(prev)
 
     df <- melt(df, "ID")
@@ -188,8 +188,8 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
     if (is_compositional(x)) {
 
         lab <- paste0(100 *
-             as.numeric(as.character(unique(df$DetectionThreshold))), "%")
-	
+            as.numeric(as.character(unique(df$DetectionThreshold))), "%")
+
         p <- p + scale_x_discrete(labels=lab)
 
         if (!is.null(cols)) {
@@ -212,9 +212,9 @@ core_heatmap <- function(x, dets, cols, min.prev, taxa.order)
 
     }
     p <- p + labs(x = "Detection Threshold")
-        
+
     return(list(plot=p, data=df))
-    
+
 }
 
 
@@ -227,20 +227,20 @@ core_lineplot <- function(x,
     df$ID <- rownames(x)
     df <- melt(df, "ID")    
     names(df) <- c("Abundance", "Prevalence", "Count")
-    
+
     df$Abundance <- as.numeric(as.character(df$Abundance))
     df$Prevalence <- as.numeric(as.character(df$Prevalence))
     df$Count <- as.numeric(as.character(df$Count))
-    
+
     p <- ggplot(df, aes(x=Abundance, y=Count,
         color=Prevalence, group=Prevalence))
-    
+
     p <- p + geom_line()
     p <- p + geom_point()
     p <- p + scale_x_log10()
     p <- p + xlab(xlabel)
     p <- p + ylab(ylabel)
-    
+
     list(plot=p, data=x)
 }
 

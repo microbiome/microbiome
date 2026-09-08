@@ -119,7 +119,7 @@ alpha <- function(x, index="all", zeroes=TRUE) {
     message("Rarity")
     a <- rarity(x, index=gsub("rarity_", "", index))
     if (!is.null(a)) {
-    
+
         if (is.vector(a)) {
             a <- as.matrix(a, ncol=1)
         }
@@ -150,7 +150,7 @@ alpha <- function(x, index="all", zeroes=TRUE) {
 #' @details
 #' By default, returns all diversity indices.
 #' The available diversity indices include the following:
-#' \itemize{
+#' \describe{
 #' \item{inverse_simpson }{Inverse  Simpson diversity:
 #' $1/lambda$ where $lambda=sum(p^2)$ and $p$ are relative abundances.}
 #' \item{gini_simpson }{Gini-Simpson diversity $1 - lambda$.
@@ -192,11 +192,11 @@ diversity <- function(x, index="all", zeroes=TRUE) {
     if (length(index) == 1 && index == "all") {
         index <- accepted
     }
-    
+
     if (!is.null(index)) {
         index <- intersect(index, accepted)
     }
-    
+
     if (!is.null(index) && length(index) == 0) {
         return(NULL)
     }
@@ -219,7 +219,7 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
     if (length(index)==1 && index=="all") {
         index <- .accepted_diversities()
     }
-    
+
     if (length(index) > 1) {
         tab <- NULL
         nams <- c()
@@ -234,7 +234,7 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
         colnames(tab) <- nams
         return(as.data.frame(tab))
     }
-    
+
     # Pick data
     otu <- abundances(x)
 
@@ -253,7 +253,7 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
         })
 
     } else if (index == "fisher") {
-    
+
         if (length(setdiff(unique(as.vector(otu)%%1), 0)) == 0) {
 
         estimate <- colSums(otu > 0) > 1
@@ -266,11 +266,11 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
         }
 
         } else {
-    
+
             warning("Fisher diversity defined only for integers; 
             the OTU table contains non-integers. Fisher not estimated.")
             ev <- NULL
-        
+
         }
     } else if (index == "coverage") {
         ev <- unname(coverage(otu))
@@ -279,49 +279,49 @@ diversities_help <- function(x, index="all", zeroes=TRUE) {
     if (!is.null(ev)) {
         names(ev) <- colnames(otu)
     }
-    
+
     ev
-    
+
 }
 
 
 .accepted_diversities <- function () { 
-  c("inverse_simpson", "gini_simpson", "shannon",
+    c("inverse_simpson", "gini_simpson", "shannon",
                     "fisher", "coverage")
 }
 
 # x: Species count vector
 inverse_simpson <- function(x) {
-    
+
     # Simpson index
     lambda <- simpson_index(x)
-    
+
     # Inverse Simpson diversity
     (1/lambda)
-    
+
 }
 
 # x: Species count vector
 gini_simpson <- function(x) {
-    
+
     # Simpson index
     lambda <- simpson_index(x)
-    
+
     # Gini-Simpson diversity
     1 - lambda
-    
+
 }
 
 simpson_index <- function(x) {
-    
+
     # Relative abundances
     p <- x/sum(x)
-    
+
     # Simpson index
     lambda <- sum(p^2)
-    
+
     lambda
-    
+
 }
 
 
@@ -331,16 +331,16 @@ shannon <- function(x) {
 
     # Ignore zeroes
     x <- x[x > 0]
-    
+
     # Species richness (number of species)
     S <- length(x)
-    
+
     # Relative abundances
     p <- x/sum(x)
-    
+
     # Shannon index
     (-sum(p * log(p)))
-    
+
 }
 
 

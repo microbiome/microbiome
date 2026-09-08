@@ -17,7 +17,7 @@
 #' low abundance.
 #'
 #' The following rarity indices are provided:
-#' \itemize{
+#' \describe{
 #' \item{log_modulo_skewness }{Quantifies the concentration of the least
 #' abundant species by the log-modulo skewness of the arithmetic
 #' abundance classes (see Magurran & McGill 2011). These are typically
@@ -56,11 +56,11 @@ rarity <- function(x, index = "all", detection = 0.2/100, prevalence = 20/100) {
     if (length(index) == 1 && index == "all") {
         index <- accepted
     }
-    
+
     if (!is.null(index)) {
         index <- intersect(index, accepted)
     }
-    
+
     if (!is.null(index) && length(index) == 0) {
         return(NULL)
     }
@@ -71,7 +71,7 @@ rarity <- function(x, index = "all", detection = 0.2/100, prevalence = 20/100) {
         tab <- as.matrix(tab, ncol=1)
         colnames(tab) <- index        
     }
-    
+
     as.data.frame(tab) 
 
 }
@@ -80,9 +80,9 @@ rarity <- function(x, index = "all", detection = 0.2/100, prevalence = 20/100) {
 rarity_help <- function(x, index="all", detection, prevalence) {
 
     if ( length(index) > 1 ) {
-    
+
         tab <- NULL
-    
+
         for (idx in index) {
             tab <- cbind(tab,
         rarity_help(x, index = idx, detection, prevalence))
@@ -90,34 +90,33 @@ rarity_help <- function(x, index="all", detection, prevalence) {
 
         colnames(tab) <- index
         return(as.data.frame(tab))
-    
+
     }
 
     # Pick data
     otu  <- abundances(x)
-    otuc <- transform(x, "compositional")
-    otu.relative <- abundances(otuc)
+    otu.relative <- abundances(x, transform="compositional")
 
     if (index == "log_modulo_skewness") {
-    
+
         r <- log_modulo_skewness(otu, q=0.5, n=50)
-    
+
     } else if (index == "low_abundance") {
 
         r <- apply(otu.relative, 2,
                 function(x) low_abundance(x, detection=detection))
-        
+
     } else if (index == "rare_abundance") {
-    
+
         r <- rare_abundance(x, detection=detection,
                             prevalence=prevalence)
-            
+
     }
-    
+
     names(r) <- colnames(otu)
-    
+
     r
-    
+
 }
 
 

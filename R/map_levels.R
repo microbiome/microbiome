@@ -18,16 +18,17 @@
 #' @author Contact: Leo Lahti \email{microbiome-admin@@googlegroups.com}
 #' @keywords utilities
 map_levels <- function(taxa=NULL, from, to, data) {
-    
+
     if (is.phyloseq(data)) {
+        .deprecate_phyloseq(data)
         data <- tax_table(data)
     }
-    
+
     # If taxonomy table is from phyloseq, pick the data matrix separately
-    if (length(is(data)) == 1 && is(data) == "taxonomyTable") {
+    if (is(data, "taxonomyTable")) {
         data <- tax_table(data)
     }
-    
+
     df <- data
 
     if (from == to) {
@@ -36,33 +37,33 @@ map_levels <- function(taxa=NULL, from, to, data) {
         df <- as.data.frame(df)
         return(df)
     }
-    
+
     if (is.null(taxa)) {
         taxa <- na.omit(as.character(unique(df[, from])))
     }
-    
+
     # From higher to lower level
     if (length(unique(df[, from])) <= length(unique(df[, to]))) {
 
         sl <- list()
         for (pt in taxa) {
-            
+
             inds <- which(as.vector(as.character(df[, from])) == pt)
             pi <- df[inds, to]
             sl[[pt]] <- as.character(unique(na.omit(pi)))
-            
+
         }
-        
+
     } else {
-        
+
         # From lower to higher level
         inds <- match(as.character(taxa), df[, from])
         omap <- df[inds, ]
         sl <- omap[, to]
-        
+
     }
-    
+
     as.vector(sl@.Data)
-    
+
 }
 

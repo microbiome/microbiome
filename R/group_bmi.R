@@ -51,7 +51,7 @@ group_bmi <- function(x, breaks = "standard", n = 10, labels = NULL,
                 See the function help for the available options.")
         }
     }
-    
+
     cut(x, breaks, labels, include.lowest, right, dig.lab, ordered_result)
-    
+
 }

@@ -38,7 +38,7 @@ core_members <- function(x, detection=1/100, prevalence=50/100,
 
     # Pick taxa x samples matrix
     x <- abundances(x)
-    
+
     if (include.lowest) {
         taxa <- names(which(prevalence(x, detection,
             include.lowest=include.lowest) >= prevalence))
@@ -46,9 +46,9 @@ core_members <- function(x, detection=1/100, prevalence=50/100,
         taxa <- names(which(prevalence(x, detection,
         include.lowest=include.lowest) > prevalence))
     }
-    
+
     taxa
-    
+
 }
 
 

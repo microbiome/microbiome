@@ -37,18 +37,18 @@
 #' @keywords utilities
 neat <- function(x, arrange="both", method="NMDS", distance="bray",
     first.feature=NULL, first.sample=NULL, ...) {
-    
+
     # Ensure data is in matrix form
     x <- abundances(x)
-    
+
     if (is.null(rownames(x))) {
         rownames(x) <- as.character(seq_len(nrow(x)))
     }
-    
+
     if (is.null(colnames(x))) {
         colnames(x) <- as.character(seq_len(ncol(x)))
     }
-    
+
     if (arrange %in% c("features", "both")) {
         if (nrow(x) > 2) {
             sr <- neatsort(x, "features", method=method,
@@ -56,7 +56,7 @@ neat <- function(x, arrange="both", method="NMDS", distance="bray",
                 ...)
             x <- x[sr, ]
         }
-        
+
     }
     if (arrange %in% c("samples", "both")) {
         if (ncol(x) > 2) {
@@ -66,6 +66,6 @@ neat <- function(x, arrange="both", method="NMDS", distance="bray",
             x <- x[, sc]
         }
     }
-    
+
     x
 }

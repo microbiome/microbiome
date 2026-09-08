@@ -16,7 +16,7 @@
 #' @seealso dominance, alpha
 #' @keywords utilities
 coverage <- function(x, threshold=0.5) {
-    
+
     if (length(threshold) > 1) {
         tab <- vapply(threshold, function(th) {
             coverage(x, threshold=th)
@@ -25,15 +25,15 @@ coverage <- function(x, threshold=0.5) {
         rownames(tab) <- colnames(abundances(x))
         return(tab)
     }
-    
+
     otu <- abundances(x, transform="compositional")
-    
+
     # Number of groups needed to have 50% of the ecosystem occupied
     do <- apply(otu, 2, function(x) {
         min(which(cumsum(rev(sort(x/sum(x)))) >= threshold))
     })
     names(do) <- colnames(otu)
-    
+
     do
-    
+
 }

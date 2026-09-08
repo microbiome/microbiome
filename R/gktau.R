@@ -48,24 +48,24 @@ gktau <- function(x, y) {
     if (!is.factor(y)) {
         stop("No factors in y: only factors can be associated with the given method")
     }
-    
+
     # First, compute the IxJ contingency table between x and y
     Nij <- table(x, y, useNA="ifany")
-    
+
     # Next, convert this table into a joint probability estimate
     PIij <- Nij/sum(Nij)
-    
+
     # Compute the marginal probability estimates
     PIiPlus <- apply(PIij, MARGIN=1, sum)
     PIPlusj <- apply(PIij, MARGIN=2, sum)
-    
+
     # Compute the marginal variation of y
     Vy <- 1 - sum(PIPlusj^2)
-    
+
     # Compute the expected conditional variation of y given x
     InnerSum <- apply(PIij^2, MARGIN=1, sum)
     VyBarx <- 1 - sum(InnerSum/PIiPlus)
-    
+
     # Compute and return Goodman and Kruskal's tau measure
     tau <- (Vy - VyBarx)/Vy
     tau

@@ -14,10 +14,10 @@
 #' @keywords utilities
 core_abundance <- function(x, detection = 0.1/100, prevalence = 50/100,
     include.lowest = FALSE) {
-    
+
     # Pick taxa x samples compositional matrix
-    xcomp <- abundances(transform(x, "compositional"))
-    
+    xcomp <- abundances(x, transform="compositional")
+
     # Core members
     cm <- core_members(xcomp, detection, prevalence, include.lowest)
 

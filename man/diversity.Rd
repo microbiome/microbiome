@@ -24,7 +24,7 @@ Various community diversity indices.
 \details{
 By default, returns all diversity indices.
 The available diversity indices include the following:
-\itemize{
+\describe{
 \item{inverse_simpson }{Inverse  Simpson diversity:
 $1/lambda$ where $lambda=sum(p^2)$ and $p$ are relative abundances.}
 \item{gini_simpson }{Gini-Simpson diversity $1 - lambda$.

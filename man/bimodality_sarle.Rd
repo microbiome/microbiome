@@ -42,10 +42,10 @@ excess kurtosis).
 }
 \references{
 \itemize{
-  \item{}{Shade et al. mBio 5(4):e01371-14, 2014.}
-  \item{}{Ellison AM (1987) Am J Botany 74(8):1280-1288.}
-  \item{}{SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.}
-  \item{}{To cite the microbiome R package, see citation('microbiome')}
+  \item Shade et al. mBio 5(4):e01371-14, 2014.
+  \item Ellison AM (1987) Am J Botany 74(8):1280-1288.
+  \item SAS Institute Inc. (2012). SAS/STAT 12.1 user's guide. Cary, NC.
+  \item To cite the microbiome R package, see citation('microbiome')
 }
 }
 \seealso{

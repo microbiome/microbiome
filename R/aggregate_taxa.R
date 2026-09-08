@@ -41,7 +41,7 @@ aggregate_taxa <- function(x, level, verbose = FALSE) {
 
     fill_na_taxa <- "Unknown"
 
-    if (verbose) {print("Remove taxonomic information below the target level")}
+    if (verbose) {message("Remove taxonomic information below the target level")}
     M <- as.matrix(tax_table(x))
     inds2 <- match(level, colnames(M))    
     M <- M[, seq_len(inds2)]
@@ -58,56 +58,56 @@ aggregate_taxa <- function(x, level, verbose = FALSE) {
         stop("Taxonomic table and OTU table dimensions do not match.")
     }
 
-    if (verbose) {print("Mark the potentially ambiguous taxa")}
+    if (verbose) {message("Mark the potentially ambiguous taxa")}
     # Some genera for instance belong to multiple Phyla and perhaps these
     # are different
     # genera. For instance there is genus Clostridium in Tenericutes
     # and Firmicutes.
     # (GlobalPatterns data set) and even more families.
-    
+
     tt <- tax_table(x)
-    if (verbose) {print("-- split")}
+    if (verbose) {message("-- split")}
     otus <- split(rownames(tt), as.character(tt[, "unique"]))
 
     ab <- matrix(NA, nrow=length(otus), ncol=nsamples(x))
     rownames(ab) <- names(otus)
     colnames(ab) <- sample_names(x)
 
-    if (verbose) {print("-- sum")}
+    if (verbose) {message("-- sum")}
     d <- abundances(x)
 
     ab <- t(vapply(otus, function (taxa) {
         as.numeric(colSums(matrix(d[taxa, ], ncol=nsamples(x)), na.rm = TRUE))
     }, FUN.VALUE = unname(as.numeric(d[1,]))))
-    
+
     colnames(ab) <- colnames(d)
     rownames(ab) <- names(otus)
 
-    if (verbose) {print("Create phyloseq object")}
+    if (verbose) {message("Create phyloseq object")}
     OTU <- otu_table(ab, taxa_are_rows=TRUE)
     x2 <- phyloseq(OTU)
 
-    if (verbose) {print("Remove ambiguous levels")}
+    if (verbose) {message("Remove ambiguous levels")}
     ## First remove NA entries from the target level
     inds3 <- match(level, colnames(tt@.Data))
     inds4 <- match("unique", colnames(tt@.Data))    
     taxtab <- tt@.Data[which(!is.na(tt@.Data[, level])),
         c(seq_len(inds3), inds4)]
 
-    if (verbose) {print("-- unique")}
+    if (verbose) {message("-- unique")}
     tax <- unique(taxtab)
-    if (verbose) {print("-- Rename the lowest level")}
+    if (verbose) {message("-- Rename the lowest level")}
     tax <- as.data.frame(tax)
-    if (verbose) {print("-- rownames")}
+    if (verbose) {message("-- rownames")}
     rownames(tax) <- tax[, "unique"]
 
-    if (verbose) {print("-- taxa")}
+    if (verbose) {message("-- taxa")}
     tax <- as.matrix(tax)
 
-    if (verbose) {print("Convert to taxonomy table")}
+    if (verbose) {message("Convert to taxonomy table")}
     TAX <- tax_table(tax)
 
-    if (verbose) {print("Combine OTU and Taxon matrix into Phyloseq object")}
+    if (verbose) {message("Combine OTU and Taxon matrix into Phyloseq object")}
     x2 <- merge_phyloseq(x2, TAX)
 
     # Then keep short names for those taxa where short names are unique
@@ -126,7 +126,7 @@ aggregate_taxa <- function(x, level, verbose = FALSE) {
     x2 <- phyloseq(otu_table(ab, taxa_are_rows=TRUE),
             tax_table(tt)) 
 
-    if (verbose) {print("Add the metadata as is")}
+    if (verbose) {message("Add the metadata as is")}
     if (!is.null(x@sam_data)) {
         x2 <- phyloseq(otu_table(ab, taxa_are_rows=TRUE),
                     tax_table(tt),
@@ -134,7 +134,7 @@ aggregate_taxa <- function(x, level, verbose = FALSE) {
     }
 
     x2
-    
+
 }
 
 

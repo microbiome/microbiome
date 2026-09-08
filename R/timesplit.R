@@ -11,16 +11,16 @@
 #'   DNA_extraction_method == 'r' & sex == "male"))
 #' @keywords utilities
 timesplit <- function(x) {
-    
+
     x0 <- x
-    df <- sample_data(x0)
+    df <- meta(x0)
 
     # Ensure time is numeric
     df$time <- as.numeric(as.character(df$time))
-    
+
     # Remove subjects with only one measurement
     df <- df[df$subject %in% names(which(table(df$subject) > 1)), ]
-    
+
     # Split data by subject
     spl <- split(df, as.character(df$subject))
     spl.list <- list()
@@ -29,7 +29,7 @@ timesplit <- function(x) {
         # Ensure the measurements are ordered in time
         spl.list[[i]] <- list(spl=spl[[i]][order(spl[[i]]$time), ],
         time.difs=diff(spl[[i]]$time))
-        
+
         spli <- spl.list[[i]]$spl
         time.difs <- spl.list[[i]]$time.difs
     n <- nrow(spl.list[[i]]$spl)
@@ -43,12 +43,12 @@ timesplit <- function(x) {
         sample1 = sample1,
         sample2 = sample2,
         time=time.difs)
-        
+
         # Add to the collection
         dfis <- rbind(dfis, dfi)
-        
+
     }
-    
+
     dfis
-    
+
 }

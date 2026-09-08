@@ -12,6 +12,7 @@ transform(
   scale = 1,
   log10 = TRUE,
   reference = 1,
+  name = NULL,
   ...
 )
 }
@@ -35,6 +36,13 @@ transform = "scale".}
 \item{log10}{Used only for Z transformation. Apply log10 before Z.}
 
 \item{reference}{Reference feature for the alr transformation.}
+
+\item{name}{Name of the assay that the transformed matrix is stored
+under when \code{x} is a SummarizedExperiment-derived object. Defaults
+to the name of the transformation. The original assays are left
+untouched, so the result is read back with
+\code{abundances(x, assay.type = name)}. Ignored for phyloseq objects,
+where the otu_table is replaced in place.}
 
 \item{...}{arguments to be passed}
 }

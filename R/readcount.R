@@ -12,7 +12,7 @@
 readcount <- function(x) {
 
     colSums(abundances(x))
-    
+
 }
 
 

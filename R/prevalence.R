@@ -28,49 +28,49 @@
 #' pr <- prevalence(peerj32$phyloseq, detection=0, sort=TRUE, count=TRUE)
 prevalence <- function(x, detection=0, sort=FALSE, count=FALSE,
     include.lowest=FALSE) {
-    
+
     if (is.null(detection)) {
         detection <- (-Inf)
     }
-    
+
     if (is.null(x)) {
         warning("x is NULL - returning NULL")
         return(NULL)
     }
-    
-    # Convert phyloseq to matrix
-    if (is.phyloseq(x)) {
+
+    # Convert phyloseq / SummarizedExperiment to matrix
+    if (.is_data_object(x)) {
         x <- abundances(x)
     }
-    
+
     if (is.vector(x)) {
-        
+
         if (include.lowest) {
             prev <- sum(x >= detection)
         } else {
             prev <- sum(x > detection)
         }
-        
+
     } else if (is.matrix(x) || is.data.frame(x)) {
-        
+
         if (include.lowest) {
             prev <- rowSums(x >= detection)
         } else {
             prev <- rowSums(x > detection)
         }
     }
-    
+
     if (!count) {
         prev <- prev/prevalence_nsamples(x)
     }
-    
+
     if (sort) {
         prev <- rev(sort(prev))
     }
-    
+
     # Return
     prev
-    
+
 }
 
 
@@ -78,13 +78,13 @@ prevalence <- function(x, detection=0, sort=FALSE, count=FALSE,
 
 # Internal auxiliary function
 prevalence_nsamples <- function(x) {
-    
+
     if (is.vector(x)) {
         n <- length(x)
     } else if (is.matrix(x) || is.data.frame(x)) {
         n <- ncol(x)
     }
-    
+
     n
-    
+
 }

@@ -1,3 +1,29 @@
+Changes in version 1.35.1 (2026-08-10)
++ Added support for TreeSummarizedExperiment and other
+  SummarizedExperiment-derived objects
+  * abundances(), meta() and taxa() now accept these objects alongside
+    phyloseq objects, which extends support to most of the package
+  * abundances() gains an assay.type argument, defaulting to the counts
+    assay when present and otherwise the first assay
+  * transform() stores its result as a new named assay and leaves the
+    original assays untouched, following the mia transformAssay
+    convention. It gains a name argument to control that assay name, and
+    the result is read back with abundances(x, assay.type = name) rather
+    than abundances(x)
+  * Functions that manipulate the taxonomy table (aggregate_taxa,
+    plot_composition, map_levels, psmelt2, the tibble utilities and the
+    read_* family) remain phyloseq only
++ We recommend switching from phyloseq to the TreeSummarizedExperiment
+  based methods described in the Orchestrating Microbiome Analysis (OMA)
+  online book, https://bioconductor.org/books/release/OMA/, which is
+  where method development now takes place
++ Passing a phyloseq object now emits a one-time deprecation notice per
+  session, recommending the (Tree)SummarizedExperiment framework and the
+  mia package. Silence it with
+  options(microbiome.phyloseq_deprecation = FALSE)
++ Fixed low_abundance returning an unnamed vector for phyloseq input
++ Fixed collapse_replicates failing when given a single replicate field
+
 Changes in version 1.32.2 (2025-07-17)
 + Fixed NEWS file
 
@@ -87,24 +113,3 @@ Changes in version 0.5.4 (2018-11-20)
 + Color order in plot_landscape legend now follows the factor levels
   of the col argument
 + Fixed example in remove_samples
-
-CHANGES IN VERSION 0.1.2 
-
-# New features
-+ Added plot_abundances function
-+ Added Chao1 index in richness function
-+ In atlas1006 data set, pseudocount of +1 in otu table has been
-  removed to facilitate comparison with sequencing data sets and to
-  avoid confusion
-+ In atlas1006 data set, only a single replicate per subject-time
-  combination is chosen (at random)
-+ New function collapse_replicates has been added
-
-# Major changes
-+ Abundance matrices (otu tables) for all example data sets now starting from 0 without pseudocount
-
-# Minor changes
-+ Changed the default for the detection argument in the richness function to detection=0
-+ Color order in plot_landscape legend now follows the factor levels of the col argument
-+ Various minor fixes; see github commits for many more details
-

@@ -29,10 +29,10 @@ plot_taxa_prevalence <- function(x, level, detection = 0) {
 
     if (level == "Phylum") {
         tax.abun <- apply(abundances(x), 1, mean)
-    
+
         #tax.prev <- rowSums(abundances(x) != 0)/nsamples(x)
         tax.prev <- prevalence(x, detection = detection)
-    
+
         Phylum <- as.vector(data.frame(tax_table(x))$Phylum)
         Phylum <- as.vector(Phylum)
         Phylum <- as.factor(Phylum)
@@ -55,7 +55,7 @@ plot_taxa_prevalence <- function(x, level, detection = 0) {
         facet_wrap(~Phylum) +
         theme(strip.background=element_rect(fill="white"))
         return(plot.phylum)
-        
+
     } else if (level == "Family") {
         tax.abun <- apply(abundances(x), 1, mean)
         tax.prev <- rowSums(abundances(x) != 0)/nsamples(x)
@@ -134,6 +134,6 @@ plot_taxa_prevalence <- function(x, level, detection = 0) {
         theme(strip.background=element_rect(fill="white"))
         return(plot.class)
     }
-    
+
 }
 
