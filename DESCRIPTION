@@ -13,7 +13,9 @@ Authors@R: c(
              role = c("aut", "cre"),
 	     comment = c(ORCID = "0000-0001-5537-637X")),
     person("Sudarshan", "Shetty", role = "aut",
-         comment = c(ORCID = "0000-0001-7280-9915")))
+         comment = c(ORCID = "0000-0001-7280-9915")),
+    person("Rasmus", "Hindström", role = "ctb",
+         comment = c(ORCID = "0009-0004-5731-178X")))
 biocViews: Metagenomics,Microbiome,Sequencing,SystemsBiology
 License: BSD_2_clause + file LICENSE
 Depends:

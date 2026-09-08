@@ -13,7 +13,7 @@ abundances(x, transform = "identity", assay.type = NULL)
 
 \item{transform}{Transformation to apply. The options include:
 'compositional' (ie relative abundance), 'Z', 'log10', 'log10p',
-'hellinger', 'identity', 'clr', 'alr', or any method from the
+'hellinger', 'identity', 'clr', 'alr', 'rclr' or any method from the
 vegan::decostand function.}
 
 \item{assay.type}{Name of the assay to pick when \code{x} is a

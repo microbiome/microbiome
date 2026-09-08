@@ -3,7 +3,7 @@
 #' @param x \code{\link{phyloseq-class}} object
 #' @param transform Transformation to apply. The options include:
 #' 'compositional' (ie relative abundance), 'Z', 'log10', 'log10p',
-#' 'hellinger', 'identity', 'clr', 'alr', or any method from the
+#' 'hellinger', 'identity', 'clr', 'alr', 'rclr' or any method from the
 #' vegan::decostand function.
 #' @param target Apply the transform for 'sample' or 'OTU'.
 #' Does not affect the log transform.
@@ -187,9 +187,14 @@ transform <- function(x, transform = "identity", target = "OTU",
         xt <- x + shift
 
     } else if (transform == "scale") {
+        
+        xt <- scale * x
 
-        xt <- scale * x 
-
+    } else if (transform == "rclr") {
+        
+        xt <- decostand(x, method = "rclr", MARGIN = 2)
+        dimnames(xt) <- dimnames(x)
+        
     } else {
 
         a <- try(xt <- decostand(x, method=transform, MARGIN=2))
