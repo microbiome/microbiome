@@ -1,18 +1,55 @@
-citHeader("Please cite the package as follows:")
+citHeader("Please cite the microbiome package and related work as follows:")
 
-citEntry(entry="misc",
-         title = "microbiome R package",
-         author = personList(
-	 	person(given ="Leo", family="Lahti", email = "leo.lahti@iki.fi"),
-	 	person(given ="Sudarshan", family="Shetty")
-	 	  ),
-	 journal = "",
-	 year = "2012-2019",
-         textVersion =
-         paste("Leo Lahti et al. 
-	        microbiome R package. 
-	        URL: http://microbiome.github.io",
-                sep=" ")
-         )
+bibentry(
+    bibtype = "Article",
+    title = "Microbiome data science",
+    author = c(
+        person(
+            given = c("Sudarshan", "A."),
+            family = "Shetty"
+        ),
+        person(
+            given = "Leo",
+            family = "Lahti"
+        )
+    ),
+    journal = "Journal of Biosciences",
+    year = "2019",
+    volume = "44",
+    number = "5",
+    pages = "115",
+    doi = "10.1007/s12038-019-9930-2"
+)
 
-
+bibentry(
+    bibtype = "Article",
+    title = "Orchestrating Microbiome Analysis with Bioconductor",
+    author = c(
+        person("Tuomas", "Borman"),
+        person("Giulio", "Benedetti"),
+        person("Geraldson", "Muluh"),
+        person("Aura", "Raulo"),
+        person("Benjamin", "Valderrama"),
+        person("Artur", "Sannikov"),
+        person("Stefanie", "Peschel"),
+        person("Yihan", "Liu"),
+        person("Rasmus", "Hindstr\u00f6m"),
+        person(family = "OMA consortium"),
+        person("Katariina", "P\u00e4rn\u00e4nen"),
+        person(c("Christian", "L."), "M\u00fcller"),
+        person(c("Aki", "S."), "Havulinna"),
+        person("Sudarshan", "Shetty"),
+        person("Marcel", "Ramos"),
+        person(c("Domenick", "J."), "Braccia"),
+        person("H\u00e9ctor Corrada", "Bravo"),
+        person(c("Felix", "M."), "Ernst"),
+        person("Levi", "Waldron"),
+        person(c("Thomaz", "F.", "S."), "Bastiaanssen"),
+        person("Himel", "Mallick"),
+        person("Leo", "Lahti")
+    ),
+    journal = "bioRxiv",
+    year = "2025",
+    doi = "10.1101/2025.10.29.685036",
+    note = "Preprint"
+)

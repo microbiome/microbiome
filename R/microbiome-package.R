@@ -20,6 +20,7 @@
 #' @references
 #' See citation('microbiome')
 #' \url{http://microbiome.github.io}
+#' @return This package-level documentation page does not return a value.
 #' @examples citation('microbiome')
 #' @keywords package
 NULL

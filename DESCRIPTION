@@ -1,7 +1,10 @@
 Package: microbiome
 Type: Package
 Title: Microbiome Analytics
-Description: Utilities for microbiome analysis.
+Description: Provides methods for microbiome data analysis and visualization,
+    including compositional transformations, community profiling, diversity
+    analysis, and exploration of taxonomic abundance data represented as
+    phyloseq objects.
 Encoding: UTF-8
 Version: 1.35.1
 Date: 2026-08-10
