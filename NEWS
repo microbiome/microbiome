@@ -1,3 +1,10 @@
+Changes in version 1.35.2 (2026-10-25)
++ Fixed Camargo evenness (#231). Zeroes were not removed, so the index
+  was computed on the wrong entries and depended on the order of taxa.
+  All Camargo values change; samples with no observed taxa now return
+  NA instead of an error
++ Documented that the zeroes argument of evenness() has no effect
+
 Changes in version 1.35.1 (2026-08-10)
 + Added support for TreeSummarizedExperiment and other
   SummarizedExperiment-derived objects
