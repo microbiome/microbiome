@@ -6,8 +6,8 @@ Description: Provides methods for microbiome data analysis and visualization,
     analysis, and exploration of taxonomic abundance data represented as
     phyloseq objects.
 Encoding: UTF-8
-Version: 1.35.1
-Date: 2026-08-10
+Version: 1.35.2
+Date: 2026-10-25
 Authors@R: c(
     person("Leo", "Lahti", email = "leo.lahti@iki.fi",
              role = c("aut", "cre"),

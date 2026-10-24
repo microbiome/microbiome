@@ -1,7 +1,9 @@
 #' @title Evenness Index
 #' @description Various community evenness indices.
 #' @param index Evenness index. See details for options.
-#' @param zeroes Include zero counts in the evenness estimation.
+#' @param zeroes Include zero counts in the evenness estimation. Currently
+#' this has no effect: camargo, bulla and evar are computed over the
+#' observed (nonzero) taxa, and pielou and simpson always ignore zeroes.
 #' @param detection Detection threshold
 #' @inheritParams alpha
 #' @return A vector of evenness indices
@@ -19,7 +21,8 @@
 #' By default, Pielou's evenness is returned.
 #'
 #' The available evenness indices include the following:
-#' 1) 'camargo': Camargo's evenness (Camargo 1992)
+#' 1) 'camargo': Camargo's evenness (Camargo 1992), computed over the
+#' observed (nonzero) taxa; NA for samples with no observed taxa
 #' 2) 'simpson': Simpson’s evenness (inverse Simpson diversity / S)
 #' 3) 'pielou': Pielou's evenness (Pielou, 1966), also known as Shannon or
 #' Shannon-Weaver/Wiener/Weiner evenness; H/ln(S). The Shannon-Weaver
@@ -188,18 +191,24 @@ bulla <- function(x, zeroes=TRUE) {
 # by code from Pepijn de Vries and Zhou Xiang at
 # researchgate.net/post/How_can_we_calculate_the_Camargo_evenness_index_in_R
 # but rewritten here
+#
+# Camargo's index is defined over the S observed species, so zeroes are
+# always removed and the zeroes argument has no effect here (#231).
 camargo <- function(x, zeroes=TRUE) {
 
-    if (!zeroes) {
-        x[x > 0]
+    # Observed species only
+    x <- x[!is.na(x) & x > 0]
+
+    N <- length(x)
+
+    if (N == 0) {
+        return(NA_real_)
     }
 
-    N <- sum(x > 0, na.rm = TRUE)
-
-    xx <- 0
-    for (i in seq_len(N - 1)) {
-        xx <- xx + sum(abs(x[(i + 1):N] - x[i]))
-    }
+    # Sum of pairwise absolute differences, sum_{i<j} |x_i - x_j|,
+    # computed from the sorted abundances
+    xs <- sort(x)
+    xx <- sum(xs * (2 * seq_len(N) - N - 1))
 
     # Return
     1 - xx/(sum(x) * N)

@@ -13,7 +13,9 @@ with the absolute count data (no relative abundances), or
 
 \item{index}{Evenness index. See details for options.}
 
-\item{zeroes}{Include zero counts in the evenness estimation.}
+\item{zeroes}{Include zero counts in the evenness estimation. Currently
+this has no effect: camargo, bulla and evar are computed over the
+observed (nonzero) taxa, and pielou and simpson always ignore zeroes.}
 
 \item{detection}{Detection threshold}
 }
@@ -27,7 +29,8 @@ Various community evenness indices.
 By default, Pielou's evenness is returned.
 
 The available evenness indices include the following:
-1) 'camargo': Camargo's evenness (Camargo 1992)
+1) 'camargo': Camargo's evenness (Camargo 1992), computed over the
+observed (nonzero) taxa; NA for samples with no observed taxa
 2) 'simpson': Simpson’s evenness (inverse Simpson diversity / S)
 3) 'pielou': Pielou's evenness (Pielou, 1966), also known as Shannon or
 Shannon-Weaver/Wiener/Weiner evenness; H/ln(S). The Shannon-Weaver
