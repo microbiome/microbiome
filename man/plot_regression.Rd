@@ -35,13 +35,14 @@ plot_regression(
 
 \item{shade}{plot the shaded confidence region?}
 
-\item{shade.alpha}{shade.alpha: should the CI shading fade out at 
-the edges? (by reducing alpha; 0=no alpha decrease, 
-0.1=medium alpha decrease, 0.5=strong alpha decrease)}
+\item{shade.alpha}{Exponent applied to the scaled density to set the
+transparency of the shading: 0 = no fading, 0.1 = medium fading,
+0.5 = strong fading towards the edges.}
 
 \item{spag}{plot spaghetti lines?}
 
-\item{mweight}{visually weight the median smoother}
+\item{mweight}{Fade the median smoother where the 95\% bootstrap interval
+is wide.}
 
 \item{show.lm}{plot the linear regression line}
 
@@ -83,14 +84,23 @@ The R is modified from Felix Schonbrodt's original code
 http://www.nicebread.de/
 visually-weighted-watercolor-plots-new-variants-please-vote
 }
+\details{
+The smoother is fitted on \code{B} bootstrap resamples of the data and
+predicted at \code{slices} points along x. At each x, the shading is the
+density of the bootstrapped fits, so it shows the uncertainty of the
+regression curve, not where the observations lie. In the legend,
+\code{dens.scaled} is this density rescaled to 0-1 over the whole plot,
+and \code{alpha.factor} is \code{dens.scaled^shade.alpha}, the transparency
+of the same shading. The median line is the median of the bootstrapped
+fits.
+}
 \examples{
 data(atlas1006)
 pseq <- subset_samples(atlas1006,
    DNA_extraction_method == 'r' &
    sex == "female" &
-   nationality == "UKIE",
-   B=10, slices=10 # non-default used here to speed up examples
-   )
+   nationality == "UKIE")
+# Non-default B and slices to speed up the example
 p <- plot_regression(diversity ~ age, meta(pseq)[1:20,], slices=10, B=10)
 }
 \references{
