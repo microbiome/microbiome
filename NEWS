@@ -1,3 +1,8 @@
+Changes in version 1.35.3 (2026-11-15)
++ Fixed bimodality_sarle() (#235): the coefficient now uses excess
+  kurtosis, so two equally frequent values give 1 and a uniform
+  distribution 5/9. All Sarle bimodality values change
+
 Changes in version 1.35.2 (2026-10-25)
 + Fixed Camargo evenness (#231). Zeroes were not removed, so the index
   was computed on the wrong entries and depended on the order of taxa.

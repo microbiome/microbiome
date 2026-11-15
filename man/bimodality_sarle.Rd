@@ -23,7 +23,7 @@ Sarle's bimodality coefficient.
 The coefficient lies in (0, 1).
 
 The 'Sarle.asymptotic' version is defined as
-\deqn{b=(g^2 + 1) / k}.
+\deqn{b=(g^2 + 1) / (k + 3)}.
 This is coefficient of bimodality from Ellison AM Am. J. Bot. 1987, 
 for microbiome analysis it has been used for instance in
 Shade et al. 2014.
@@ -33,9 +33,9 @@ The formula for 'Sarle.finite.sample' (SAS 2012):
 \deqn{b=\frac{g^2 + 1}{k + (3(n-1)^2)/((n-2)(n-3))}}
 where n is sample size and 
 
-In both formulas, \eqn{g} is sample skewness and \eqn{k} is the kth
-standardized moment (also called the sample kurtosis, or
-excess kurtosis).
+In both formulas, \eqn{g} is sample skewness and \eqn{k} is the excess
+kurtosis (the fourth standardized moment minus 3). Two equally frequent
+values give 1 and a uniform distribution gives 5/9 (asymptotically).
 }
 \examples{
 # b <- bimodality_sarle(rnorm(50), type='Sarle.finite.sample')
